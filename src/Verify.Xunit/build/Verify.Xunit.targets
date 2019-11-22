@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <ItemGroup>
-    <None Update="**\*.verified.*"
+    <None Update="**\*.received.*;**\*.verified.*"
           DependentUpon="$(
   [System.String]::Copy('%(FileName)')
     .SubString(

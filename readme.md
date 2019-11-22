@@ -12,12 +12,32 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
+<!-- toc -->
+## Contents
+
+  * [Diff Tool](#diff-tool)
+    * [Visual Studio](#visual-studio)
+<!-- endtoc -->
 
 
 
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).
+
+
+## Diff Tool
+
+ * `VerifyDiffProcess`: The process name. Short name if the tool exists in the current path, otherwise the full path.
+ * `VerifyDiffArguments`: The argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.
+
+
+### Visual Studio
+
+```
+setx VerifyDiffProcess "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
+setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
+```
 
 
 ## Icon

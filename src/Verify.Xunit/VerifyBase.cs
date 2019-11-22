@@ -21,6 +21,12 @@ namespace VerifyXunit
             {
                 await FileHelpers.WriteText(receivedPath, target);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
+                if (DiffRunner.FoundDiff)
+                {
+                    await FileHelpers.WriteText(verifiedPath, "");
+                    DiffRunner.Launch(receivedPath, verifiedPath);
+                }
+
                 throw new Exception($"First verification. {Context.UniqueTestName}.verified{extension} not found. Verification command has been copied to the clipboard.");
             }
 
@@ -35,6 +41,7 @@ namespace VerifyXunit
                 await FileHelpers.WriteText(receivedPath, target);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
                 exception.PrefixWithCopyCommand();
+                DiffRunner.Launch(receivedPath, verifiedPath);
 
                 throw;
             }

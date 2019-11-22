@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <NoWarn>CS1591;CS0649</NoWarn>
+    <Version>11.2.1</Version>
+    <PackageTags>Json, ApprovalTests</PackageTags>
+    <Description>Extends ApprovalTests to allow simple approval of complex models.</Description>
+  </PropertyGroup>
+</Project>

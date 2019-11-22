@@ -1,0 +1,5 @@
+Assert.Equal() Failure
+          ↓ (pos 0)
+Expected: A
+Actual:   b
+          ↑ (pos 0)

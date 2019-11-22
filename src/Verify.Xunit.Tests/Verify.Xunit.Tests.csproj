@@ -12,6 +12,7 @@
     <PackageReference Include="Xunit.ApprovalTests" Version="4.6.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="ProjectDefaults" Version="1.0.32" PrivateAssets="All" />
-    <ProjectReference Include="..\Verify.Xunit\VerifyXunit.csproj" />
+    <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)Verify.Xunit\build\Verify.Xunit.targets" />
 </Project>

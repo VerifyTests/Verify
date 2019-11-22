@@ -1,11 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using TextCopy;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -15,14 +11,17 @@ namespace VerifyXunit
     public class VerifyBase :
         XunitContextBase
     {
-        public async Task Verify(string target)
+        public async Task Verify(
+            string target,
+            string extension = ".txt")
         {
-            var (receivedPath, verifiedPath) = GetFileNames();
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
+            var (receivedPath, verifiedPath) = GetFileNames(extension);
             if (!File.Exists(verifiedPath))
             {
                 await FileHelpers.WriteText(receivedPath, target);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
-                throw new Exception($"First verification. {Context.UniqueTestName}.verified.txt not found. Verification command has been copied to the clipboard.");
+                throw new Exception($"First verification. {Context.UniqueTestName}.verified{extension} not found. Verification command has been copied to the clipboard.");
             }
 
             var verifiedText = await FileHelpers.ReadText(verifiedPath);
@@ -35,18 +34,17 @@ namespace VerifyXunit
             {
                 await FileHelpers.WriteText(receivedPath, target);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
-                var fieldInfo = exception.GetType().GetField("message",BindingFlags.Instance|BindingFlags.NonPublic);
-                fieldInfo.SetValue(exception,exception.Message);
+                exception.PrefixWithCopyCommand();
 
-                throw ;
+                throw;
             }
         }
 
-        (string receivedPath, string verifiedPath) GetFileNames()
+        (string receivedPath, string verifiedPath) GetFileNames(string extension)
         {
             var filePrefix = Path.Combine(SourceDirectory, Context.UniqueTestName);
-            var receivedPath = $"{filePrefix}.received.txt";
-            var verifiedPath = $"{filePrefix}.verified.txt";
+            var receivedPath = $"{filePrefix}.received{extension}";
+            var verifiedPath = $"{filePrefix}.verified{extension}";
             return (receivedPath, verifiedPath);
         }
 
@@ -55,20 +53,6 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "") :
             base(output, sourceFile)
         {
-        }
-    }
-}
-
-static class ClipboardCapture
-{
-    static StringBuilder builder = new StringBuilder();
-    public static void Append(string received, string verified)
-    {
-        var temp = $"cmd /c move /Y \"{received}\" \"{verified}\"";
-        lock (builder)
-        {
-            builder.AppendLine(temp);
-            Clipboard.SetText(builder.ToString());
         }
     }
 }

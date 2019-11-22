@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 16.0.29201.188
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VerifyXunit", "Verify.Xunit\VerifyXunit.csproj", "{C35E31DE-40A9-45C0-817B-41BE5B7D076E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Xunit", "Verify.Xunit\Verify.Xunit.csproj", "{C35E31DE-40A9-45C0-817B-41BE5B7D076E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VerifyXunit.Tests", "Verify.Xunit.Tests\VerifyXunit.Tests.csproj", "{76FE87D9-EF6B-4D31-99F2-7099C719AE99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Xunit.Tests", "Verify.Xunit.Tests\Verify.Xunit.Tests.csproj", "{76FE87D9-EF6B-4D31-99F2-7099C719AE99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A6C4741-C83D-4E05-A62F-8049F65B9B6C}"
 	ProjectSection(SolutionItems) = preProject

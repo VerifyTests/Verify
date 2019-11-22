@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ItemGroup>
+    <None Update="**\*.verified.*"
+          DependentUpon="$(
+  [System.String]::Copy('%(FileName)')
+    .SubString(
+      0,
+      $([System.String]::Copy('%(FileName)').IndexOf('.'))
+    )
+)$(ProjectExt.Replace('proj', ''))" />
+  </ItemGroup>
+</Project>

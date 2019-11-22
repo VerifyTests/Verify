@@ -8,14 +8,17 @@ using Xunit.Sdk;
 
 namespace VerifyXunit
 {
-    public class VerifyBase :
+    public partial class VerifyBase :
         XunitContextBase
     {
         public async Task Verify(
-            string target,
+            string? target,
+            Func<string?, string>? scrubber = null,
             string extension = ".txt")
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
+
+            target = ApplyScrubbers(scrubber, target);
             var (receivedPath, verifiedPath) = GetFileNames(extension);
             if (!File.Exists(verifiedPath))
             {
@@ -57,9 +60,11 @@ namespace VerifyXunit
 
         public VerifyBase(
             ITestOutputHelper output,
+            Func<string?, string>? scrubber = null,
             [CallerFilePath] string sourceFile = "") :
             base(output, sourceFile)
         {
+            instanceScrubber = scrubber;
         }
     }
 }

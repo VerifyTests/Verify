@@ -5,8 +5,14 @@ using System.Text;
 
 static class FileHelpers
 {
-    public static async Task WriteText(string filePath, string text)
+    public static async Task WriteText(string filePath, string? text)
     {
+        if (text == null)
+        {
+            File.WriteAllText(filePath, "");
+            return;
+        }
+
         var encodedText = Encoding.UTF8.GetBytes(text);
 
         using (var sourceStream = new FileStream(

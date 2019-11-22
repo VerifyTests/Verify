@@ -3,7 +3,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class Sample :
+public class Tests :
     VerifyBase
 {
     [Fact]
@@ -11,8 +11,13 @@ public class Sample :
     {
         await Verify("Foo");
     }
+    [Fact]
+    public async Task Null()
+    {
+        await Verify(null);
+    }
 
-    public Sample(ITestOutputHelper output) :
+    public Tests(ITestOutputHelper output) :
         base(output)
     {
     }

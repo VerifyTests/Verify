@@ -14,5 +14,10 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.32" PrivateAssets="All" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Tests.Simple.verified.txt">
+      <DependentUpon>Tests.cs</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(SolutionDir)Verify.Xunit\build\Verify.Xunit.targets" />
 </Project>

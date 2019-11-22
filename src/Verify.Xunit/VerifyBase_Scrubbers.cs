@@ -3,8 +3,7 @@ using Xunit;
 
 namespace VerifyXunit
 {
-    public partial class VerifyBase :
-        XunitContextBase
+    public partial class VerifyBase
     {
         Func<string?, string>? instanceScrubber;
         static Func<string?, string>? globalScrubber;

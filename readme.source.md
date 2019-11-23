@@ -1,7 +1,7 @@
 # <img src="/src/icon.png" height="30px"> Verify
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
-[![NuGet Status](https://img.shields.io/nuget/v/Verify.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify.Xunit/)
 
 Verification tool to enable simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
@@ -9,7 +9,7 @@ toc
 
 ## NuGet package
 
-https://nuget.org/packages/ObjectApproval/
+https://nuget.org/packages/Verify.Xunit/
 
 
 ## Usage

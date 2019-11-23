@@ -31,7 +31,7 @@ namespace VerifyXunit
 
             try
             {
-                Assert.Equal(verifiedText, target);
+                Assert.Equal(verifiedText, target, StringComparer.OrdinalIgnoreCase);
             }
             catch (EqualException exception)
             {

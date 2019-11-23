@@ -16,6 +16,12 @@ namespace VerifyXunit
             GlobalScrubbers.Insert(0, scrubber);
         }
 
+        public static void ScrubMachineName()
+        {
+            AddScrubber(Scrubbers.ScrubMachineName);
+        }
+
+
         internal static SerializationSettings serialization = new SerializationSettings();
 
         public static void IgnoreMember<T>(Expression<Func<T, object>> expression)

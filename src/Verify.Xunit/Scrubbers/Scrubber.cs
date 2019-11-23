@@ -4,7 +4,9 @@ using Newtonsoft.Json;
 
 namespace VerifyXunit
 {
-    public class Scrubber<T> : JsonConverter where T : struct
+    public class Scrubber<T> :
+        JsonConverter
+        where T : struct
     {
         static string name = typeof(T).Name;
         int count;

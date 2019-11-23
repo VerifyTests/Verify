@@ -5,7 +5,8 @@ using Newtonsoft.Json;
 
 namespace VerifyXunit
 {
-    public class StringScrubber : JsonConverter
+    public class StringScrubber :
+        JsonConverter
     {
         static List<string> datetimeFormats = new List<string>();
         static List<string> datetimeOffsetFormats = new List<string>();

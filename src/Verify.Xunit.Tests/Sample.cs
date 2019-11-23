@@ -9,7 +9,7 @@ public class Sample :
     [Fact]
     public async Task Simple()
     {
-        await Verify("Foo");
+        await VerifyText("Foo");
     }
 
     public Sample(ITestOutputHelper output) :

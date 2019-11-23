@@ -2,12 +2,12 @@
 {
     public partial class VerifyBase
     {
-        string extension = ".txt";
+        string textExtension = ".txt";
 
-        public void UseExtension(string extension)
+        public void UseExtensionForText(string extension)
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
-            this.extension = extension;
+            textExtension = extension;
         }
     }
 }

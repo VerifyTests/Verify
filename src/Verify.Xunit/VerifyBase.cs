@@ -8,7 +8,7 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        (string receivedPath, string verifiedPath) GetFileNames()
+        (string receivedPath, string verifiedPath) GetFileNames(string extension)
         {
             var filePrefix = Path.Combine(SourceDirectory, Context.UniqueTestName);
             var receivedPath = $"{filePrefix}.received{extension}";

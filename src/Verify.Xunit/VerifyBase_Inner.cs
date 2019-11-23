@@ -9,11 +9,11 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public async Task Verify(string target)
+        public async Task Verify(string target, string extension)
         {
             Guard.AgainstNull(target, nameof(target));
             target = ApplyScrubbers(target);
-            var (receivedPath, verifiedPath) = GetFileNames();
+            var (receivedPath, verifiedPath) = GetFileNames(extension);
             if (!File.Exists(verifiedPath))
             {
                 await FileHelpers.WriteText(receivedPath, target);

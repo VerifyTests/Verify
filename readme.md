@@ -55,7 +55,7 @@ public class ScrubbersSample :
     public async Task Simple()
     {
         AddScrubber(s => s.Replace("Two", "B"));
-        await Verify("One Two Three");
+        await VerifyText("One Two Three");
     }
 
     public ScrubbersSample(ITestOutputHelper output) :
@@ -109,8 +109,8 @@ public class ExtensionSample :
     [Fact]
     public async Task AtMethod()
     {
-        UseExtension(".xml");
-        await Verify(@"<note>
+        UseExtensionForText(".xml");
+        await VerifyText(@"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
@@ -120,7 +120,7 @@ public class ExtensionSample :
     [Fact]
     public async Task InheritedFromClass()
     {
-        await Verify(@"{
+        await VerifyText(@"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
     ""color"": ""Red""
@@ -130,7 +130,7 @@ public class ExtensionSample :
     public ExtensionSample(ITestOutputHelper output) :
         base(output)
     {
-        UseExtension(".json");
+        UseExtensionForText(".json");
     }
 }
 ```

@@ -10,7 +10,7 @@ public class ScrubbersSample :
     public async Task Simple()
     {
         AddScrubber(s => s.Replace("Two", "B"));
-        await Verify("One Two Three");
+        await VerifyText("One Two Three");
     }
 
     public ScrubbersSample(ITestOutputHelper output) :

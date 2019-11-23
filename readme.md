@@ -261,7 +261,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L441-L457) / [anchor](#snippet-date)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L453-L469) / [anchor](#snippet-date)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -562,7 +562,7 @@ IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L277-L285) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L289-L297) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
 <!-- endsnippet -->
 
 Result:

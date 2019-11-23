@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649</NoWarn>
-    <Version>1.0.0-beta.5</Version>
+    <Version>1.0.0-beta.6</Version>
     <PackageTags>Json, ApprovalTests</PackageTags>
     <Description>Extends ApprovalTests to allow simple approval of complex models.</Description>
   </PropertyGroup>

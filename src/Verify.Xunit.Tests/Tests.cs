@@ -240,7 +240,19 @@ public class Tests :
     }
 
     [Fact]
-    public async Task ExceptionProps()
+    public Task NewlinesText()
+    {
+        return VerifyText("a\r\nb\nc");
+    }
+
+    [Fact]
+    public Task Newlines()
+    {
+        return Verify("a\r\nb\nc");
+    }
+
+    [Fact]
+    public Task ExceptionProps()
     {
         try
         {
@@ -248,7 +260,7 @@ public class Tests :
         }
         catch (Exception exception)
         {
-            await Verify(exception);
+            return Verify(exception);
         }
     }
 

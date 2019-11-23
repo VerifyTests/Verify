@@ -17,14 +17,14 @@ namespace VerifyXunit
             IgnoreMember<Exception>(x => x.StackTrace);
         }
 
-        Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
+        Dictionary<Type, List<string>> ignoredMembers = new Dictionary<Type, List<string>>();
         Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new Dictionary<Type, List<Func<object, bool>>>();
 
         public SerializationSettings Clone()
         {
             return new SerializationSettings
             {
-                ignoreMembersByName = ignoreMembersByName.Clone(),
+                ignoredMembers = ignoredMembers.Clone(),
                 ignoreEmptyCollections = ignoreEmptyCollections,
                 ExtraSettings = ExtraSettings,
                 ignoreFalse = ignoreFalse,
@@ -47,9 +47,9 @@ namespace VerifyXunit
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            if (!ignoreMembersByName.TryGetValue(declaringType, out var list))
+            if (!ignoredMembers.TryGetValue(declaringType, out var list))
             {
-                ignoreMembersByName[declaringType] = list = new List<string>();
+                ignoredMembers[declaringType] = list = new List<string>();
             }
 
             list.Add(name);
@@ -161,7 +161,7 @@ namespace VerifyXunit
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,
-                ignoreMembersByName,
+                ignoredMembers,
                 ignoreMembersWithType,
                 ignoreMembersThatThrow,
                 ignoredInstances);

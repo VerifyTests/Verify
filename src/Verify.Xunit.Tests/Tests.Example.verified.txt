@@ -1,0 +1,15 @@
+{
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Spouse: 'Jill',
+  Address: {
+    Street: '1 Puddle Lane',
+    Country: 'USA'
+  },
+  Children: [
+    'Sam',
+    'Mary'
+  ],
+  Dob: DateTime_1,
+  Id: Guid_1
+}

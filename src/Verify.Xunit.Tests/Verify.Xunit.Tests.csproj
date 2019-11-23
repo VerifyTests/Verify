@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFrameworks>netcoreapp3.0;net48</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.0.5" PrivateAssets="all" />

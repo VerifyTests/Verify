@@ -1,0 +1,7 @@
+{
+  DelegateProperty: {
+    Type: 'Action',
+    Target: 'Tests.WithDelegate.<>c',
+    Method: 'Void get_DelegateProperty()'
+  }
+}

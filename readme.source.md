@@ -40,6 +40,25 @@ Results in the following:
 snippet: VerifyObjectSamples.Anon.verified.txt
 
 
+## Named Tuples
+
+Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `ObjectApprover.VerifyTuple`.
+
+Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.ituple), this approach is only available an net472+ and netcoreapp2.2+.
+
+Given a method that returns a named tuple:
+
+snippet: MethodWithNamedTuple
+
+Can be verified:
+
+snippet: VerifyTuple
+
+Resulting in:
+
+xsnippet: ObjectApproverTests.NamedTuple.received.txt
+
+
 ## Scrubbers
 
 Scrubbers run on the final string prior to doing the verification action.

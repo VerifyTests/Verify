@@ -18,6 +18,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [NuGet package](#nuget-package)
   * [Usage](#usage)
     * [Validating multiple instances](#validating-multiple-instances)
+  * [Named Tuples](#named-tuples)
   * [Scrubbers](#scrubbers)
   * [File extension](#file-extension)
   * [Diff Tool](#diff-tool)
@@ -130,6 +131,40 @@ Results in the following:
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10) / [anchor](#snippet-VerifyObjectSamples.Anon.verified.txt)</sup>
 <!-- endsnippet -->
+
+
+## Named Tuples
+
+Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `ObjectApprover.VerifyTuple`.
+
+Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.ituple), this approach is only available an net472+ and netcoreapp2.2+.
+
+Given a method that returns a named tuple:
+
+<!-- snippet: MethodWithNamedTuple -->
+<a id='snippet-methodwithnamedtuple'/></a>
+```cs
+static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
+{
+    return (true, "A", "B");
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L67-L72) / [anchor](#snippet-methodwithnamedtuple)</sup>
+<!-- endsnippet -->
+
+Can be verified:
+
+<!-- snippet: VerifyTuple -->
+<a id='snippet-verifytuple'/></a>
+```cs
+await VerifyTuple(() => MethodWithNamedTuple());
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L60-L64) / [anchor](#snippet-verifytuple)</sup>
+<!-- endsnippet -->
+
+Resulting in:
+
+xsnippet: ObjectApproverTests.NamedTuple.received.txt
 
 
 ## Scrubbers

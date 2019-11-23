@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
@@ -18,8 +17,8 @@ namespace VerifyXunit
             IgnoreMember<Exception>(x => x.StackTrace);
         }
 
-        Dictionary<Type, ConcurrentBag<string>> ignoreMembersByName = new Dictionary<Type, ConcurrentBag<string>>();
-        Dictionary<Type, ConcurrentBag<Func<object, bool>>> ignoredInstances = new Dictionary<Type, ConcurrentBag<Func<object, bool>>>();
+        Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
+        Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new Dictionary<Type, List<Func<object, bool>>>();
 
 
         public SerializationSettings Clone()
@@ -67,7 +66,11 @@ namespace VerifyXunit
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            var list = ignoreMembersByName[declaringType] = new ConcurrentBag<string>();
+            if (!ignoreMembersByName.TryGetValue(declaringType, out var list))
+            {
+                ignoreMembersByName[declaringType] = list = new List<string>();
+            }
+
             list.Add(name);
         }
 
@@ -86,8 +89,14 @@ namespace VerifyXunit
 
         public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
         {
+            Guard.AgainstNull(type, nameof(type));
             Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
-            var list = ignoredInstances[type] = new ConcurrentBag<Func<object, bool>>();
+
+            if (!ignoredInstances.TryGetValue(type, out var list))
+            {
+                ignoredInstances[type] = list = new List<Func<object, bool>>();
+            }
+
             list.Add(shouldIgnore);
         }
 
@@ -126,28 +135,28 @@ namespace VerifyXunit
             });
         }
 
-        bool ignoreEmptyCollections;
+        bool ignoreEmptyCollections = true;
 
         public void DontIgnoreEmptyCollections()
         {
             ignoreEmptyCollections = false;
         }
 
-        bool ignoreFalse;
+        bool ignoreFalse= true;
 
         public void DontIgnoreFalse()
         {
             ignoreFalse = false;
         }
 
-        bool scrubGuids;
+        bool scrubGuids= true;
 
         public void DontScrubGuids()
         {
             scrubGuids = false;
         }
 
-        bool scrubDateTimes;
+        bool scrubDateTimes= true;
 
         public void DontScrubDateTimes()
         {

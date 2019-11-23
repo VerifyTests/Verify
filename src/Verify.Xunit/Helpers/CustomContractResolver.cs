@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,18 +12,18 @@ namespace VerifyXunit
     {
         bool ignoreEmptyCollections;
         bool ignoreFalse;
-        IReadOnlyDictionary<Type, ConcurrentBag<string>> ignored;
+        IReadOnlyDictionary<Type, List<string>> ignored;
         IReadOnlyList<Type> ignoredTypes;
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-        IReadOnlyDictionary<Type, ConcurrentBag<Func<object, bool>>> ignoredInstances;
+        IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
 
         public CustomContractResolver(
             bool ignoreEmptyCollections,
             bool ignoreFalse,
-            IReadOnlyDictionary<Type, ConcurrentBag<string>> ignored,
+            IReadOnlyDictionary<Type, List<string>> ignored,
             IReadOnlyList<Type> ignoredTypes,
             IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-            IReadOnlyDictionary<Type, ConcurrentBag<Func<object,bool>>> ignoredInstances)
+            IReadOnlyDictionary<Type, List<Func<object,bool>>> ignoredInstances)
         {
             Guard.AgainstNull(ignored, nameof(ignored));
             Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
@@ -68,7 +67,7 @@ namespace VerifyXunit
 
             foreach (var keyValuePair in ignored)
             {
-                if (keyValuePair.Value.Contains(property.PropertyName))
+                if (keyValuePair.Value.Contains(property.PropertyName!))
                 {
                     if (keyValuePair.Key.IsAssignableFrom(property.DeclaringType))
                     {

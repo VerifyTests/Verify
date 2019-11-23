@@ -1,0 +1,4 @@
+{
+  Type: 'Tests',
+  Dynamic: 'dynamic'
+}

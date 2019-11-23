@@ -17,7 +17,7 @@ static class FileHelpers
 
         using (var sourceStream = new FileStream(
             filePath,
-            FileMode.Append,
+            FileMode.Create,
             FileAccess.Write,
             FileShare.None,
             bufferSize: 4096,

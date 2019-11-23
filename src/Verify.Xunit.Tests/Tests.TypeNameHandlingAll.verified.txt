@@ -1,0 +1,20 @@
+{
+  $type: 'Tests.Person',
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Spouse: 'Jill',
+  Address: {
+    $type: 'Tests.Address',
+    Street: '1 Puddle Lane',
+    Country: 'USA'
+  },
+  Children: {
+    $type: 'List<string>',
+    $values: [
+      'Sam',
+      'Mary'
+    ]
+  },
+  Dob: DateTime_1,
+  Id: Guid_1
+}

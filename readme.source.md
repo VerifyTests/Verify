@@ -25,16 +25,36 @@ Global scrubbers should be defined only once at appdomain startup.
 
 Usage:
 
-snippet: scrubbers.cs
+snippet: scrubberssample.cs
 
 Result:
 
-snippet: Scrubbers.Simple.verified.txt
+snippet: ScrubbersSample.Simple.verified.txt
+
+
+## File extension
+
+The default file extension is `.txt`. So the resulting verified file will be `TestClass.TestMethod.verified.txt`.
+
+It can be overridden at two levels:
+
+ * Method: Change the extension for the current test method.
+ * Class: Change the extension all verifications in all test methods for a test class.
+
+Usage:
+
+snippet: ExtensionSample.cs
+
+Result in two files:
+
+snippet: ExtensionSample.InheritedFromClass.verified.json
+
+snippet: ExtensionSample.AtMethod.verified.xml
 
 
 ## Diff Tool
 
-Controlled via environment variables. 
+Controlled via environment variables.
 
  * `VerifyDiffProcess`: The process name. Short name if the tool exists in the current path, otherwise the full path.
  * `VerifyDiffArguments`: The argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.

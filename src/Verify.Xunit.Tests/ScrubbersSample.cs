@@ -3,7 +3,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class Scrubbers :
+public class ScrubbersSample :
     VerifyBase
 {
     [Fact]
@@ -13,13 +13,13 @@ public class Scrubbers :
         await Verify("One Two Three");
     }
 
-    public Scrubbers(ITestOutputHelper output) :
+    public ScrubbersSample(ITestOutputHelper output) :
         base(output)
     {
         AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    static Scrubbers()
+    static ScrubbersSample()
     {
         Global.AddScrubber(s => s.Replace("One", "A"));
     }

@@ -16,6 +16,7 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 ## Contents
 
   * [Scrubbers](#scrubbers)
+  * [File extension](#file-extension)
   * [Diff Tool](#diff-tool)
     * [Visual Studio](#visual-studio)
 <!-- endtoc -->
@@ -39,15 +40,15 @@ Global scrubbers should be defined only once at appdomain startup.
 
 Usage:
 
-<!-- snippet: scrubbers.cs -->
-<a id='snippet-scrubbers.cs'/></a>
+<!-- snippet: scrubberssample.cs -->
+<a id='snippet-scrubberssample.cs'/></a>
 ```cs
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class Scrubbers :
+public class ScrubbersSample :
     VerifyBase
 {
     [Fact]
@@ -57,35 +58,115 @@ public class Scrubbers :
         await Verify("One Two Three");
     }
 
-    public Scrubbers(ITestOutputHelper output) :
+    public ScrubbersSample(ITestOutputHelper output) :
         base(output)
     {
         AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    static Scrubbers()
+    static ScrubbersSample()
     {
         Global.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers.cs#L1-L26) / [anchor](#snippet-scrubbers.cs)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/ScrubbersSample.cs#L1-L26) / [anchor](#snippet-scrubberssample.cs)</sup>
 <!-- endsnippet -->
 
 Result:
 
-<!-- snippet: Scrubbers.Simple.verified.txt -->
-<a id='snippet-Scrubbers.Simple.verified.txt'/></a>
+<!-- snippet: ScrubbersSample.Simple.verified.txt -->
+<a id='snippet-ScrubbersSample.Simple.verified.txt'/></a>
 ```txt
 A B C
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers.Simple.verified.txt#L1-L1) / [anchor](#snippet-Scrubbers.Simple.verified.txt)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/ScrubbersSample.Simple.verified.txt#L1-L1) / [anchor](#snippet-ScrubbersSample.Simple.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+## File extension
+
+The default file extension is `.txt`. So the resulting verified file will be `TestClass.TestMethod.verified.txt`.
+
+It can be overridden at two levels:
+
+ * Method: Change the extension for the current test method.
+ * Class: Change the extension all verifications in all test methods for a test class.
+
+Usage:
+
+<!-- snippet: ExtensionSample.cs -->
+<a id='snippet-ExtensionSample.cs'/></a>
+```cs
+using System.Threading.Tasks;
+using VerifyXunit;
+using Xunit;
+using Xunit.Abstractions;
+
+public class ExtensionSample :
+    VerifyBase
+{
+    [Fact]
+    public async Task AtMethod()
+    {
+        UseExtension(".xml");
+        await Verify(@"<note>
+<to>Joe</to>
+<from>Kim</from>
+<heading>Reminder</heading>
+</note>");
+    }
+
+    [Fact]
+    public async Task InheritedFromClass()
+    {
+        await Verify(@"{
+    ""fruit"": ""Apple"",
+    ""size"": ""Large"",
+    ""color"": ""Red""
+}");
+    }
+
+    public ExtensionSample(ITestOutputHelper output) :
+        base(output)
+    {
+        UseExtension(".json");
+    }
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/ExtensionSample.cs#L1-L35) / [anchor](#snippet-ExtensionSample.cs)</sup>
+<!-- endsnippet -->
+
+Result in two files:
+
+<!-- snippet: ExtensionSample.InheritedFromClass.verified.json -->
+<a id='snippet-ExtensionSample.InheritedFromClass.verified.json'/></a>
+```json
+{
+    "fruit": "Apple",
+    "size": "Large",
+    "color": "Red"
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/ExtensionSample.InheritedFromClass.verified.json#L1-L5) / [anchor](#snippet-ExtensionSample.InheritedFromClass.verified.json)</sup>
+<!-- endsnippet -->
+
+<!-- snippet: ExtensionSample.AtMethod.verified.xml -->
+<a id='snippet-ExtensionSample.AtMethod.verified.xml'/></a>
+```xml
+<note>
+<to>Joe</to>
+<from>Kim</from>
+<heading>Reminder</heading>
+</note>
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/ExtensionSample.AtMethod.verified.xml#L1-L5) / [anchor](#snippet-ExtensionSample.AtMethod.verified.xml)</sup>
 <!-- endsnippet -->
 
 
 ## Diff Tool
 
-Controlled via environment variables. 
+Controlled via environment variables.
 
  * `VerifyDiffProcess`: The process name. Short name if the tool exists in the current path, otherwise the full path.
  * `VerifyDiffArguments`: The argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.

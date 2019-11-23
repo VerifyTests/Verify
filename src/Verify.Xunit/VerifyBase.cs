@@ -11,14 +11,10 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public async Task Verify(
-            string? target,
-            string extension = ".txt")
+        public async Task Verify(string? target)
         {
-            Guard.AgainstNullOrEmpty(extension, nameof(extension));
-
             target = ApplyScrubbers(target);
-            var (receivedPath, verifiedPath) = GetFileNames(extension);
+            var (receivedPath, verifiedPath) = GetFileNames();
             if (!File.Exists(verifiedPath))
             {
                 await FileHelpers.WriteText(receivedPath, target);
@@ -49,7 +45,7 @@ namespace VerifyXunit
             }
         }
 
-        (string receivedPath, string verifiedPath) GetFileNames(string extension)
+        (string receivedPath, string verifiedPath) GetFileNames()
         {
             var filePrefix = Path.Combine(SourceDirectory, Context.UniqueTestName);
             var receivedPath = $"{filePrefix}.received{extension}";

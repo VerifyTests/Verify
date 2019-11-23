@@ -5,15 +5,16 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        public void VerifyTuple(Expression<Func<ITuple>> expression)
+        public Task VerifyTuple(Expression<Func<ITuple>> expression)
         {
             var dictionary = ExpressionToDictionary(expression);
-            Verify(dictionary);
+            return Verify(dictionary);
         }
 
         static Dictionary<string, object> ExpressionToDictionary(Expression<Func<ITuple>> expression)

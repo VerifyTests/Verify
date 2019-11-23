@@ -56,7 +56,7 @@ snippet: VerifyTuple
 
 Resulting in:
 
-xsnippet: ObjectApproverTests.NamedTuple.received.txt
+snippet: Tests.NamedTuple.verified.txt
 
 
 ## Scrubbers

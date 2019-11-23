@@ -164,7 +164,17 @@ await VerifyTuple(() => MethodWithNamedTuple());
 
 Resulting in:
 
-xsnippet: ObjectApproverTests.NamedTuple.received.txt
+<!-- snippet: Tests.NamedTuple.verified.txt -->
+<a id='snippet-Tests.NamedTuple.verified.txt'/></a>
+```txt
+{
+  Member1: true,
+  Member2: 'A',
+  Member3: 'B'
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.NamedTuple.verified.txt#L1-L5) / [anchor](#snippet-Tests.NamedTuple.verified.txt)</sup>
+<!-- endsnippet -->
 
 
 ## Scrubbers

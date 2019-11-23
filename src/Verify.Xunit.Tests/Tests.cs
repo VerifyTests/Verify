@@ -11,11 +11,6 @@ public class Tests :
     {
         await Verify("Foo");
     }
-    [Fact]
-    public async Task Null()
-    {
-        await Verify(null);
-    }
 
     public Tests(ITestOutputHelper output) :
         base(output)

@@ -14,13 +14,8 @@ namespace VerifyXunit
             instanceScrubbers.Insert(0, scrubber);
         }
 
-        string? ApplyScrubbers(string? target)
+        string ApplyScrubbers(string target)
         {
-            if (target == null)
-            {
-                return null;
-            }
-
             foreach (var scrubber in instanceScrubbers)
             {
                 target = scrubber(target);

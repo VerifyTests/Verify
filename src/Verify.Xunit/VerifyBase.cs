@@ -11,8 +11,9 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public async Task Verify(string? target)
+        public async Task Verify(string target)
         {
+            Guard.AgainstNull(target, nameof(target));
             target = ApplyScrubbers(target);
             var (receivedPath, verifiedPath) = GetFileNames();
             if (!File.Exists(verifiedPath))

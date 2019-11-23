@@ -3,10 +3,12 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.CodeDom" Version="4.6.0" />
     <PackageReference Include="System.Text.Json" Version="4.6.0" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="XunitContext" Version="1.0.0" />
     <PackageReference Include="TextCopy" Version="1.7.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.32" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01" PrivateAssets="All" />
     <Content Include="buildMultiTargeting\Verify.Xunit.targets" PackagePath="buildMultiTargeting\ApprovalTests.targets" />

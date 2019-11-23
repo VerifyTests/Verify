@@ -12,79 +12,79 @@ public class TypeNameConverterTests :
     [Fact]
     public Task Simple()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(string)));
+        return Verify(TypeNameConverter.GetName(typeof(string)));
     }
 
     [Fact]
     public Task Nested()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(TargetWithNested)));
+        return Verify(TypeNameConverter.GetName(typeof(TargetWithNested)));
     }
 
     [Fact]
     public Task Nullable()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(int?)));
+        return Verify(TypeNameConverter.GetName(typeof(int?)));
     }
 
     [Fact]
     public Task Array()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(int[])));
+        return Verify(TypeNameConverter.GetName(typeof(int[])));
     }
 
     [Fact]
     public Task List()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>)));
+        return Verify(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>)));
     }
 
     [Fact]
     public Task Enumerable()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(IEnumerable<TargetWithNamespace>)));
+        return Verify(TypeNameConverter.GetName(typeof(IEnumerable<TargetWithNamespace>)));
     }
 
     [Fact]
     public Task Dynamic()
     {
-        return VerifyText(TypeNameConverter.GetName(new{Name="foo"}.GetType()));
+        return Verify(TypeNameConverter.GetName(new{Name="foo"}.GetType()));
     }
 
     [Fact]
     public Task RuntimeEnumerable()
     {
-        return VerifyText(TypeNameConverter.GetName(MethodWithYield().GetType()));
+        return Verify(TypeNameConverter.GetName(MethodWithYield().GetType()));
     }
 
     [Fact]
     public Task RuntimeEnumerableDynamic()
     {
-        return VerifyText(TypeNameConverter.GetName(MethodWithYieldDynamic().GetType()));
+        return Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().GetType()));
     }
 
     [Fact]
     public Task RuntimeEnumerableWithSelect()
     {
-        return VerifyText(TypeNameConverter.GetName(MethodWithYield().Select(x => x!=null).GetType()));
+        return Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => x!=null).GetType()));
     }
 
     [Fact]
     public Task RuntimeEnumerableDynamicWithSelect()
     {
-        return VerifyText(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x => x!=null).GetType()));
+        return Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x => x!=null).GetType()));
     }
 
     [Fact]
     public Task RuntimeEnumerableDynamicWithInnerSelect()
     {
-        return VerifyText(TypeNameConverter.GetName(MethodWithYield().Select(x => new {X=x.ToString()}).GetType()));
+        return Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => new {X=x.ToString()}).GetType()));
     }
 
     [Fact]
     public Task EnumerableOfArray()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(IEnumerable<TargetWithNamespace[]>)));
+        return Verify(TypeNameConverter.GetName(typeof(IEnumerable<TargetWithNamespace[]>)));
     }
 
     static IEnumerable<TargetWithNamespace> MethodWithYield()
@@ -100,13 +100,13 @@ public class TypeNameConverterTests :
     [Fact]
     public Task ListOfArray()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(List<TargetWithNamespace[]>)));
+        return Verify(TypeNameConverter.GetName(typeof(List<TargetWithNamespace[]>)));
     }
 
     [Fact]
     public Task ArrayOfList()
     {
-        return VerifyText(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>[])));
+        return Verify(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>[])));
     }
 
     public class TargetWithNested{}

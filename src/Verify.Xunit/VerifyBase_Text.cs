@@ -6,10 +6,10 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public Task VerifyText(string target)
+        public Task Verify(string target)
         {
             Guard.AgainstNull(target, nameof(target));
-            return VerifyText(target, textExtension);
+            return Verify(target, textExtension);
         }
     }
 }

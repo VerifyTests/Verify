@@ -10,7 +10,7 @@ public class ScrubbersSample :
     public Task Simple()
     {
         AddScrubber(s => s.Replace("Two", "B"));
-        return VerifyText("One Two Three");
+        return Verify("One Two Three");
     }
 
     [Fact]

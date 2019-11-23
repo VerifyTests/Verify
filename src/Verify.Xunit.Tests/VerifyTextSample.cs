@@ -7,9 +7,9 @@ public class VerifyTextSample :
     VerifyBase
 {
     [Fact]
-    public async Task Simple()
+    public Task Simple()
     {
-        await VerifyText("Foo");
+        return Verify("Foo");
     }
 
     public VerifyTextSample(ITestOutputHelper output) :

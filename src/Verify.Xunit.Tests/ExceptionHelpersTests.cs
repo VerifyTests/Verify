@@ -11,7 +11,7 @@ public class ExceptionHelpersTests :
     public async Task Message()
     {
         var exception = Assert.Throws<EqualException>(() => Assert.Equal("A", "b"));
-        await VerifyText(exception.Message);
+        await Verify(exception.Message);
     }
 
     public ExceptionHelpersTests(ITestOutputHelper output) :

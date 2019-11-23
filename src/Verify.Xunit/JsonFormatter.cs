@@ -15,7 +15,7 @@ static class JsonFormatter
             QuoteName = false
         };
         serializer.Serialize(writer, target);
-        //builder.Replace(@"\\", @"\");
+        builder.Replace(@"\\", @"\");
         return builder.ToString();
     }
 }

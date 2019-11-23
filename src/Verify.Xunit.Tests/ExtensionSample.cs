@@ -10,7 +10,7 @@ public class ExtensionSample :
     public async Task AtMethod()
     {
         UseExtensionForText(".xml");
-        await VerifyText(@"<note>
+        await Verify(@"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
@@ -20,7 +20,7 @@ public class ExtensionSample :
     [Fact]
     public async Task InheritedFromClass()
     {
-        await VerifyText(@"{
+        await Verify(@"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
     ""color"": ""Red""

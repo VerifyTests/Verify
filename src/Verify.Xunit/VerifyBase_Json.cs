@@ -19,7 +19,7 @@ namespace VerifyXunit
             Guard.AgainstNull(target, nameof(target));
             Guard.AgainstNull(jsonSerializerSettings, nameof(jsonSerializerSettings));
             var formatJson = JsonFormatter.AsJson(target, jsonSerializerSettings);
-            return VerifyText(formatJson);
+            return Verify(formatJson);
         }
 
         public JsonSerializerSettings BuildJsonSerializerSettings()

@@ -23,6 +23,7 @@ namespace VerifyXunit
         {
             target = target.Replace(AppDomain.CurrentDomain.BaseDirectory, "BaseDirectory");
             target = target.Replace(Environment.CurrentDirectory, "CurrentDirectory");
+            target = target.Replace(CodeBaseLocation.CurrentDirectory, "CodeBaseLocation");
 
             foreach (var scrubber in instanceScrubbers)
             {
@@ -36,5 +37,6 @@ namespace VerifyXunit
 
             return target;
         }
+
     }
 }

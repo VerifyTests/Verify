@@ -85,7 +85,7 @@ public class Tests :
 
 #endif
     [Fact]
-    public async Task IgnoreInstance()
+    public async Task AddIgnoreInstance()
     {
         #region AddIgnoreInstance
 

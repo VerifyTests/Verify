@@ -164,7 +164,7 @@ snippet: AddIgnoreInstance
 
 Result:
 
-snippet: Tests.IgnoreInstance.verified.txt
+snippet: Tests.AddIgnoreInstance.verified.txt
 
 
 ### Ignore member by expressions

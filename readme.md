@@ -434,8 +434,8 @@ await Verify(target);
 
 Result:
 
-<!-- snippet: Tests.IgnoreInstance.verified.txt -->
-<a id='snippet-Tests.IgnoreInstance.verified.txt'/></a>
+<!-- snippet: Tests.AddIgnoreInstance.verified.txt -->
+<a id='snippet-Tests.AddIgnoreInstance.verified.txt'/></a>
 ```txt
 {
   ToInclude: {
@@ -443,7 +443,7 @@ Result:
   }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.IgnoreInstance.verified.txt#L1-L5) / [anchor](#snippet-Tests.IgnoreInstance.verified.txt)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.AddIgnoreInstance.verified.txt#L1-L5) / [anchor](#snippet-Tests.AddIgnoreInstance.verified.txt)</sup>
 <!-- endsnippet -->
 
 

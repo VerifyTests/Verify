@@ -15,18 +15,77 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 <!-- toc -->
 ## Contents
 
+  * [Scrubbers](#scrubbers)
   * [Diff Tool](#diff-tool)
     * [Visual Studio](#visual-studio)
 <!-- endtoc -->
 
 
+## Scrubbers
 
-## Release Notes
+Scrubbers run on the final string prior to doing the verification action.
 
-See [closed milestones](../../milestones?state=closed).
+They can be defined at three levels:
+
+ * Method: Will run the verification in the current test method.
+ * Class: Will run for all verifications in all test methods for a test class.
+ * Global: Will run for test methods on all tests.
+
+Multiple scrubbers can bee defined at each level.
+
+Scrubber are excited in reveres order. So the most recent added method scrubber through to earlies added global scrubber.
+
+Global scrubbers should be defined only once at appdomain startup.
+
+Usage:
+
+<!-- snippet: scrubbers.cs -->
+<a id='snippet-scrubbers.cs'/></a>
+```cs
+using System.Threading.Tasks;
+using VerifyXunit;
+using Xunit;
+using Xunit.Abstractions;
+
+public class Scrubbers :
+    VerifyBase
+{
+    [Fact]
+    public async Task Simple()
+    {
+        AddScrubber(s => s.Replace("Two", "B"));
+        await Verify("One Two Three");
+    }
+
+    public Scrubbers(ITestOutputHelper output) :
+        base(output)
+    {
+        AddScrubber(s => s.Replace("Three", "C"));
+    }
+
+    static Scrubbers()
+    {
+        Global.AddScrubber(s => s.Replace("One", "A"));
+    }
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers.cs#L1-L26) / [anchor](#snippet-scrubbers.cs)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Scrubbers.Simple.verified.txt -->
+<a id='snippet-Scrubbers.Simple.verified.txt'/></a>
+```txt
+A B C
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers.Simple.verified.txt#L1-L1) / [anchor](#snippet-Scrubbers.Simple.verified.txt)</sup>
+<!-- endsnippet -->
 
 
 ## Diff Tool
+
+Controlled via environment variables. 
 
  * `VerifyDiffProcess`: The process name. Short name if the tool exists in the current path, otherwise the full path.
  * `VerifyDiffArguments`: The argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.
@@ -38,6 +97,12 @@ See [closed milestones](../../milestones?state=closed).
 setx VerifyDiffProcess "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
 setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
 ```
+
+
+## Release Notes
+
+See [closed milestones](../../milestones?state=closed).
+
 
 
 ## Icon

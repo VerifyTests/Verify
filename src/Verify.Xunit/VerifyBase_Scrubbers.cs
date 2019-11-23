@@ -1,43 +1,33 @@
 ﻿using System;
-using Xunit;
+using System.Collections.Generic;
 
 namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        Func<string?, string>? instanceScrubber;
-        static Func<string?, string>? globalScrubber;
-
-        public static void SetGlobalScrubber(Func<string?, string>? scrubber)
+        List<Func<string, string>> instanceScrubbers = new List<Func<string, string>>();
+        public void AddScrubber(Func<string, string> scrubber)
         {
-            if (globalScrubber != null)
-            {
-                throw new Exception("Global scrubber can only be set once.");
-            }
+            Guard.AgainstNull(scrubber, nameof(scrubber));
 
-            globalScrubber = scrubber;
+            instanceScrubbers.Insert(0, scrubber);
         }
 
-        string? ApplyScrubbers(Func<string?, string>? scrubber, string? target)
+        string? ApplyScrubbers(string? target)
         {
             if (target == null)
             {
                 return null;
             }
 
-            if (scrubber != null)
+            foreach (var scrubber in instanceScrubbers)
             {
                 target = scrubber(target);
             }
 
-            if (instanceScrubber != null)
+            foreach (var scrubber in Global.GlobalScrubbers)
             {
-                target = instanceScrubber(target);
-            }
-
-            if (globalScrubber != null)
-            {
-                target = globalScrubber(target);
+                target = scrubber(target);
             }
 
             return target;

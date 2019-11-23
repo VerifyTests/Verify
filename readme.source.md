@@ -7,13 +7,34 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 
 toc
 
+## Scrubbers
 
-## Release Notes
+Scrubbers run on the final string prior to doing the verification action.
 
-See [closed milestones](../../milestones?state=closed).
+They can be defined at three levels:
+
+ * Method: Will run the verification in the current test method.
+ * Class: Will run for all verifications in all test methods for a test class.
+ * Global: Will run for test methods on all tests.
+
+Multiple scrubbers can bee defined at each level.
+
+Scrubber are excited in reveres order. So the most recent added method scrubber through to earlies added global scrubber.
+
+Global scrubbers should be defined only once at appdomain startup.
+
+Usage:
+
+snippet: scrubbers.cs
+
+Result:
+
+snippet: Scrubbers.Simple.verified.txt
 
 
 ## Diff Tool
+
+Controlled via environment variables. 
 
  * `VerifyDiffProcess`: The process name. Short name if the tool exists in the current path, otherwise the full path.
  * `VerifyDiffArguments`: The argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.
@@ -25,6 +46,12 @@ See [closed milestones](../../milestones?state=closed).
 setx VerifyDiffProcess "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
 setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
 ```
+
+
+## Release Notes
+
+See [closed milestones](../../milestones?state=closed).
+
 
 
 ## Icon

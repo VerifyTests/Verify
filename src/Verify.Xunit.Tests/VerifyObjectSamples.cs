@@ -33,12 +33,12 @@ public class VerifyObjectSamples:
         {
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = new DateTime(2000, 10, 1),
+            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
         DontScrubDateTimes();
         var serializerSettings = BuildJsonSerializerSettings();
         serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-        await Verify(person, jsonSerializerSettings: serializerSettings);
+        await Verify(person, serializerSettings);
 
         #endregion
     }
@@ -131,7 +131,7 @@ public class VerifyObjectSamples:
         public string FamilyName;
         public string Spouse;
         public Address Address;
-        public DateTime Dob;
+        public DateTimeOffset Dob;
     }
 
     class Address

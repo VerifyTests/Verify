@@ -342,12 +342,12 @@ var person = new Person
 {
     GivenNames = "John",
     FamilyName = "Smith",
-    Dob = new DateTime(2000, 10, 1),
+    Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
 };
 DontScrubDateTimes();
 var serializerSettings = BuildJsonSerializerSettings();
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-await Verify(person, jsonSerializerSettings: serializerSettings);
+await Verify(person, serializerSettings);
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L30-L43) / [anchor](#snippet-scopedserializer)</sup>
 <!-- endsnippet -->
@@ -360,7 +360,7 @@ Result:
 {
   GivenNames: 'John',
   FamilyName: 'Smith',
-  Dob: '\/Date(970322400000+1000)\/'
+  Dob: '\/Date(970358400000+0000)\/'
 }
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5) / [anchor](#snippet-VerifyObjectSamples.ScopedSerializer.verified.txt)</sup>

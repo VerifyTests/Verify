@@ -189,7 +189,13 @@ namespace VerifyXunit
             return settings;
         }
 
-        public Action<JsonSerializerSettings> ExtraSettings = settings => { };
+        public void ApplyExtraSettings(Action<JsonSerializerSettings> action)
+        {
+            Guard.AgainstNull(action, nameof(action));
+            ExtraSettings = action;
+        }
+
+        public Action<JsonSerializerSettings> ExtraSettings = settings => {};
 
         void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {

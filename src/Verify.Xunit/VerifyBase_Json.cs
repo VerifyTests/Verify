@@ -24,7 +24,7 @@ namespace VerifyXunit
 
         public JsonSerializerSettings BuildJsonSerializerSettings()
         {
-            return serializationSettings.BuildSettings();
+            return serialization.BuildSettings();
         }
     }
 }

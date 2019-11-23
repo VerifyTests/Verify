@@ -6,73 +6,73 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        SerializationSettings serializationSettings = Global.serializationSettings.Clone();
+        SerializationSettings serialization = Global.serialization.Clone();
 
         public void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
-            serializationSettings.IgnoreMember(expression);
+            serialization.IgnoreMember(expression);
         }
 
         public void IgnoreMember(Type declaringType, string name)
         {
-            serializationSettings.IgnoreMember(declaringType, name);
+            serialization.IgnoreMember(declaringType, name);
         }
 
         public void IgnoreInstance<T>(Func<T,bool> shouldIgnore)
         {
-            serializationSettings.IgnoreInstance(shouldIgnore);
+            serialization.IgnoreInstance(shouldIgnore);
         }
 
         public void IgnoreInstance(Type type, Func<object,bool> shouldIgnore)
         {
-            serializationSettings.IgnoreInstance(type, shouldIgnore);
+            serialization.IgnoreInstance(type, shouldIgnore);
         }
 
         public void IgnoreMembersWithType<T>()
         {
-            serializationSettings.IgnoreMembersWithType<T>();
+            serialization.IgnoreMembersWithType<T>();
         }
 
         public void IgnoreMembersThatThrow<T>()
             where T : Exception
         {
-            serializationSettings.IgnoreMembersThatThrow<T>();
+            serialization.IgnoreMembersThatThrow<T>();
         }
 
         public void IgnoreMembersThatThrow(Func<Exception, bool> item)
         {
-            serializationSettings.IgnoreMembersThatThrow(item);
+            serialization.IgnoreMembersThatThrow(item);
         }
 
         public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
             where T : Exception
         {
-            serializationSettings.IgnoreMembersThatThrow(item);
+            serialization.IgnoreMembersThatThrow(item);
         }
 
         public void DontIgnoreEmptyCollections()
         {
-            serializationSettings.DontIgnoreEmptyCollections();
+            serialization.DontIgnoreEmptyCollections();
         }
 
         public void DontIgnoreFalse()
         {
-            serializationSettings.DontIgnoreFalse();
+            serialization.DontIgnoreFalse();
         }
 
         public void DontScrubGuids()
         {
-            serializationSettings.DontScrubGuids();
+            serialization.DontScrubGuids();
         }
 
         public void DontScrubDateTimes()
         {
-            serializationSettings.DontScrubDateTimes();
+            serialization.DontScrubDateTimes();
         }
 
         public void ApplyExtraSettings(Action<JsonSerializerSettings> action)
         {
-            serializationSettings.ExtraSettings = action;
+            serialization.ApplyExtraSettings(action);
         }
     }
 }

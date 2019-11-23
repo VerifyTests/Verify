@@ -21,6 +21,9 @@ namespace VerifyXunit
 
         string ApplyScrubbers(string target)
         {
+            target = target.Replace(AppDomain.CurrentDomain.BaseDirectory, "BaseDirectory");
+            target = target.Replace(Environment.CurrentDirectory, "CurrentDirectory");
+
             foreach (var scrubber in instanceScrubbers)
             {
                 target = scrubber(target);

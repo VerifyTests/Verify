@@ -12,27 +12,10 @@ namespace VerifyXunit
     {
         static SerializerBuilder()
         {
-            Reset();
-        }
-
-        public static void Reset()
-        {
-            ignoreMembersByName.Clear();
-            ignoredInstances.Clear();
-            ignoreMembersWithType.Clear();
-            ignoreMembersThatThrow.Clear();
-
-            IgnoreEmptyCollections = true;
-            IgnoreFalse = true;
-            ScrubGuids = true;
-            ScrubDateTimes = true;
-
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
             IgnoreMember<Exception>(x => x.HResult);
             IgnoreMember<Exception>(x => x.StackTrace);
-
-            ExtraSettings = settings => { };
         }
 
         static ConcurrentDictionary<Type, ConcurrentBag<string>> ignoreMembersByName = new ConcurrentDictionary<Type, ConcurrentBag<string>>();
@@ -126,10 +109,10 @@ namespace VerifyXunit
             });
         }
 
-        public static bool IgnoreEmptyCollections { get; set; }
-        public static bool IgnoreFalse { get; set; }
-        public static bool ScrubGuids { get; set; }
-        public static bool ScrubDateTimes { get; set; }
+        public static bool IgnoreEmptyCollections { get; set; } = true;
+        public static bool IgnoreFalse { get; set; } = true;
+        public static bool ScrubGuids { get; set; } = true;
+        public static bool ScrubDateTimes { get; set; } = true;
 
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = null,
@@ -166,7 +149,7 @@ namespace VerifyXunit
             return settings;
         }
 
-        public static Action<JsonSerializerSettings> ExtraSettings = null!;
+        public static Action<JsonSerializerSettings> ExtraSettings = settings => { };
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {

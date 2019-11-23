@@ -5,8 +5,8 @@ using Newtonsoft.Json;
 
 namespace VerifyXunit
 {
-    public static class Global{
-
+    public static class Global
+    {
         internal static List<Func<string, string>> GlobalScrubbers = new List<Func<string, string>>();
 
         public static void AddScrubber(Func<string, string> scrubber)
@@ -28,12 +28,12 @@ namespace VerifyXunit
             serializationSettings.IgnoreMember(declaringType, name);
         }
 
-        public static void IgnoreInstance<T>(Func<T,bool> shouldIgnore)
+        public static void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         {
             serializationSettings.IgnoreInstance(shouldIgnore);
         }
 
-        public static void IgnoreInstance(Type type, Func<object,bool> shouldIgnore)
+        public static void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
         {
             serializationSettings.IgnoreInstance(type, shouldIgnore);
         }

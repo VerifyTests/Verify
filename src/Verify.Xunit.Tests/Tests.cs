@@ -53,7 +53,7 @@ public class Tests :
 
         #endregion
     }
-    #if(NETFRAMEWORK)
+#if(NETFRAMEWORK)
     [Fact]
     public async Task NamedTuple()
     {
@@ -83,7 +83,7 @@ public class Tests :
         return (true, "A", "B");
     }
 
-    #endif
+#endif
     [Fact]
     public async Task IgnoreInstance()
     {
@@ -399,7 +399,7 @@ public class Tests :
             ReadOnlyList = new List<string>(),
             ListProperty = new List<string>(),
             ReadOnlyCollection = new List<string>(),
-            Array = new string[]{}
+            Array = new string[] { }
         };
         await Verify(target);
     }

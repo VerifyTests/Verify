@@ -18,6 +18,22 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [NuGet package](#nuget-package)
   * [Usage](#usage)
     * [Validating multiple instances](#validating-multiple-instances)
+  * [Serializer settings](#serializer-settings)
+    * [Default settings](#default-settings)
+    * [Single quotes used](#single-quotes-used)
+    * [QuoteName is false](#quotename-is-false)
+    * [Empty collections are ignored](#empty-collections-are-ignored)
+    * [Guids are scrubbed](#guids-are-scrubbed)
+    * [Dates are scrubbed](#dates-are-scrubbed)
+    * [Default Booleans are ignored](#default-booleans-are-ignored)
+    * [Change defaults at the verification level](#change-defaults-at-the-verification-level)
+    * [Changing settings globally](#changing-settings-globally)
+    * [Scoped settings](#scoped-settings)
+    * [Ignoring a type](#ignoring-a-type)
+    * [Ignoring a instance](#ignoring-a-instance)
+    * [Ignore member by expressions](#ignore-member-by-expressions)
+    * [Ignore member by name](#ignore-member-by-name)
+    * [Members that throw](#members-that-throw)
   * [Named Tuples](#named-tuples)
   * [Scrubbers](#scrubbers)
   * [File extension](#file-extension)
@@ -52,7 +68,7 @@ var person = new Person
 
 await Verify(person);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L47-L63) / [anchor](#snippet-before)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L48-L64) / [anchor](#snippet-before)</sup>
 <!-- endsnippet -->
 
 Then attempt to verify this:
@@ -75,7 +91,7 @@ var person = new Person
 
 await Verify(person);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L107-L124) / [anchor](#snippet-after)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L108-L125) / [anchor](#snippet-after)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -110,7 +126,7 @@ await Verify(
         person2
     });
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L69-L89) / [anchor](#snippet-anon)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L70-L90) / [anchor](#snippet-anon)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -133,9 +149,437 @@ Results in the following:
 <!-- endsnippet -->
 
 
+## Serializer settings
+
+Serialization settings can be customized at three levels:
+
+ * Method: Will run the verification in the current test method.
+ * Class: Will run for all verifications in all test methods for a test class.
+ * Global: Will run for test methods on all tests.
+
+
+### Default settings
+
+The default serialization settings are:
+
+<!-- snippet: defaultSerialization -->
+<a id='snippet-defaultserialization'/></a>
+```cs
+var settings = new JsonSerializerSettings
+{
+    Formatting = Formatting.Indented,
+    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+    DefaultValueHandling = DefaultValueHandling.Ignore
+};
+```
+<sup>[snippet source](/src/Verify.Xunit/Helpers/SerializationSettings.cs#L168-L177) / [anchor](#snippet-defaultserialization)</sup>
+<!-- endsnippet -->
+
+
+### Single quotes used
+
+[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+
+
+### QuoteName is false
+
+[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+
+
+### Empty collections are ignored
+
+By default empty collections are ignored during verification.
+
+To disable this behavior globally use:
+
+```cs
+Global.DontIgnoreEmptyCollections();
+```
+
+
+### Guids are scrubbed
+
+By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
+
+<!-- snippet: guid -->
+<a id='snippet-guid'/></a>
+```cs
+var guid = Guid.NewGuid();
+var target = new GuidTarget
+{
+    Guid = guid,
+    GuidNullable = guid,
+    GuidString = guid.ToString(),
+    OtherGuid = Guid.NewGuid(),
+};
+
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L24-L37) / [anchor](#snippet-guid)</sup>
+<!-- endsnippet -->
+
+Results in the following:
+
+<!-- snippet: Tests.ShouldReUseGuid.verified.txt -->
+<a id='snippet-Tests.ShouldReUseGuid.verified.txt'/></a>
+```txt
+{
+  Guid: Guid_1,
+  GuidNullable: Guid_1,
+  GuidString: Guid_1,
+  OtherGuid: Guid_2
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.ShouldReUseGuid.verified.txt#L1-L6) / [anchor](#snippet-Tests.ShouldReUseGuid.verified.txt)</sup>
+<!-- endsnippet -->
+
+To disable this behavior globally use:
+
+```cs
+Global.SontScrubGuids();
+```
+
+
+### Dates are scrubbed
+
+By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
+
+<!-- snippet: Date -->
+<a id='snippet-date'/></a>
+```cs
+var dateTime = DateTime.Now;
+var dateTimeOffset = DateTimeOffset.Now;
+var target = new DateTimeTarget
+{
+    DateTime = dateTime,
+    DateTimeNullable = dateTime,
+    DateTimeString = dateTime.ToString("F"),
+    DateTimeOffset = dateTimeOffset,
+    DateTimeOffsetNullable = dateTimeOffset,
+    DateTimeOffsetString = dateTimeOffset.ToString("F"),
+};
+
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L441-L457) / [anchor](#snippet-date)</sup>
+<!-- endsnippet -->
+
+Results in the following:
+
+<!-- snippet: Tests.ShouldReUseDatetime.verified.txt -->
+<a id='snippet-Tests.ShouldReUseDatetime.verified.txt'/></a>
+```txt
+{
+  DateTime: DateTime_1,
+  DateTimeNullable: DateTime_1,
+  DateTimeOffset: DateTimeOffset_1,
+  DateTimeOffsetNullable: DateTimeOffset_1,
+  DateTimeString: DateTimeOffset_2,
+  DateTimeOffsetString: DateTimeOffset_2
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.ShouldReUseDatetime.verified.txt#L1-L8) / [anchor](#snippet-Tests.ShouldReUseDatetime.verified.txt)</sup>
+<!-- endsnippet -->
+
+To disable this behavior globally use:
+
+```cs
+Global.DontScrubDateTimes();
+```
+
+
+### Default Booleans are ignored
+
+By default values of `bool` and `bool?` are ignored during verification. So properties that equate to 'false' will not be written,
+
+To disable this behavior globally use:
+
+```cs
+Global.DontIgnoreFalse();
+```
+
+
+### Change defaults at the verification level
+
+`DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
+
+<!-- snippet: ChangeDefaultsPerVerification -->
+<a id='snippet-changedefaultsperverification'/></a>
+```cs
+DontIgnoreEmptyCollections();
+DontScrubGuids();
+DontScrubDateTimes();
+DontIgnoreFalse();
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L16-L24) / [anchor](#snippet-changedefaultsperverification)</sup>
+<!-- endsnippet -->
+
+
+### Changing settings globally
+
+To change the serialization settings for all verifications use `Global.ApplyExtraSettings()`:
+
+<!-- snippet: ExtraSettings -->
+<a id='snippet-extrasettings'/></a>
+```cs
+base.ApplyExtraSettings(jsonSerializerSettings =>
+{
+    jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+    jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+});
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L95-L103) / [anchor](#snippet-extrasettings)</sup>
+<!-- endsnippet -->
+
+
+### Scoped settings
+
+<!-- snippet: ScopedSerializer -->
+<a id='snippet-scopedserializer'/></a>
+```cs
+var person = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith",
+    Dob = new DateTime(2000, 10, 1),
+};
+DontScrubDateTimes();
+var serializerSettings = BuildJsonSerializerSettings();
+serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+await Verify(person, jsonSerializerSettings: serializerSettings);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L30-L43) / [anchor](#snippet-scopedserializer)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: VerifyObjectSamples.ScopedSerializer.verified.txt -->
+<a id='snippet-VerifyObjectSamples.ScopedSerializer.verified.txt'/></a>
+```txt
+{
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Dob: '\/Date(970322400000+1000)\/'
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5) / [anchor](#snippet-VerifyObjectSamples.ScopedSerializer.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+### Ignoring a type
+
+To ignore all members that match a certain type:
+
+<!-- snippet: AddIgnoreType -->
+<a id='snippet-addignoretype'/></a>
+```cs
+IgnoreMembersWithType<ToIgnore>();
+
+var target = new IgnoreTypeTarget
+{
+    ToIgnore = new ToIgnore
+    {
+        Property = "Value"
+    },
+    ToInclude = new ToInclude
+    {
+        Property = "Value"
+    }
+};
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L124-L141) / [anchor](#snippet-addignoretype)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.IgnoreType.verified.txt -->
+<a id='snippet-Tests.IgnoreType.verified.txt'/></a>
+```txt
+{
+  ToInclude: {
+    Property: 'Value'
+  }
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.IgnoreType.verified.txt#L1-L5) / [anchor](#snippet-Tests.IgnoreType.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+### Ignoring a instance
+
+To ignore instances of a type based on delegate:
+
+<!-- snippet: AddIgnoreInstance -->
+<a id='snippet-addignoreinstance'/></a>
+```cs
+IgnoreInstance<Instance>(x => x.Property == "Ignore");
+
+var target = new IgnoreInstanceTarget
+{
+    ToIgnore = new Instance
+    {
+        Property = "Ignore"
+    },
+    ToInclude = new Instance
+    {
+        Property = "Include"
+    },
+};
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L90-L107) / [anchor](#snippet-addignoreinstance)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.IgnoreInstance.verified.txt -->
+<a id='snippet-Tests.IgnoreInstance.verified.txt'/></a>
+```txt
+{
+  ToInclude: {
+    Property: 'Include'
+  }
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.IgnoreInstance.verified.txt#L1-L5) / [anchor](#snippet-Tests.IgnoreInstance.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+### Ignore member by expressions
+
+To ignore members of a certain type using an expression:
+
+<!-- snippet: IgnoreMemberByExpression -->
+<a id='snippet-ignorememberbyexpression'/></a>
+```cs
+IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+
+var target = new IgnoreExplicitTarget
+{
+    Include = "Value",
+    Field = "Value",
+    Property = "Value"
+};
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L163-L178) / [anchor](#snippet-ignorememberbyexpression)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.IgnoreMemberByExpression.verified.txt -->
+<a id='snippet-Tests.IgnoreMemberByExpression.verified.txt'/></a>
+```txt
+{
+  Include: 'Value'
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.IgnoreMemberByExpression.verified.txt#L1-L3) / [anchor](#snippet-Tests.IgnoreMemberByExpression.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+### Ignore member by name
+
+To ignore members of a certain type using type and name:
+
+<!-- snippet: IgnoreMemberByName -->
+<a id='snippet-ignorememberbyname'/></a>
+```cs
+var type = typeof(IgnoreExplicitTarget);
+IgnoreMember(type, "Property");
+IgnoreMember(type, "Field");
+IgnoreMember(type, "GetOnlyProperty");
+IgnoreMember(type, "PropertyThatThrows");
+
+var target = new IgnoreExplicitTarget
+{
+    Include = "Value",
+    Field = "Value",
+    Property = "Value"
+};
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L184-L200) / [anchor](#snippet-ignorememberbyname)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.IgnoreMemberByName.verified.txt -->
+<a id='snippet-Tests.IgnoreMemberByName.verified.txt'/></a>
+```txt
+{
+  Include: 'Value'
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.IgnoreMemberByName.verified.txt#L1-L3) / [anchor](#snippet-Tests.IgnoreMemberByName.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+### Members that throw
+
+Members that throw exceptions can be excluded from serialization based on the exception type or properties.
+
+By default members that throw `NotImplementedException` or `NotSupportedException` are ignored.
+
+Note that this is global for all members on all types.
+
+Ignore by exception type:
+
+<!-- snippet: IgnoreMembersThatThrow -->
+<a id='snippet-ignoremembersthatthrow'/></a>
+```cs
+IgnoreMembersThatThrow<CustomException>();
+
+var target = new WithCustomException();
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L227-L234) / [anchor](#snippet-ignoremembersthatthrow)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.CustomExceptionProp.verified.txt -->
+<a id='snippet-Tests.CustomExceptionProp.verified.txt'/></a>
+```txt
+{}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.CustomExceptionProp.verified.txt#L1-L1) / [anchor](#snippet-Tests.CustomExceptionProp.verified.txt)</sup>
+<!-- endsnippet -->
+
+Ignore by exception type and expression:
+
+<!-- snippet: IgnoreMembersThatThrowExpression -->
+<a id='snippet-ignoremembersthatthrowexpression'/></a>
+```cs
+IgnoreMembersThatThrow<Exception>(
+    x => x.Message == "Ignore");
+
+var target = new WithExceptionIgnoreMessage();
+await Verify(target);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L277-L285) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.ExceptionMessageProp.verified.txt -->
+<a id='snippet-Tests.ExceptionMessageProp.verified.txt'/></a>
+```txt
+{}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.ExceptionMessageProp.verified.txt#L1-L1) / [anchor](#snippet-Tests.ExceptionMessageProp.verified.txt)</sup>
+<!-- endsnippet -->
+
+
+
 ## Named Tuples
 
-Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `ObjectApprover.VerifyTuple`.
+Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `VerifyTuple`.
 
 Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.ituple), this approach is only available an net472+ and netcoreapp2.2+.
 
@@ -363,7 +807,6 @@ setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).
-
 
 
 ## Icon

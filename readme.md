@@ -172,7 +172,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/Verify.Xunit/Helpers/SerializationSettings.cs#L168-L177) / [anchor](#snippet-defaultserialization)</sup>
+<sup>[snippet source](/src/Verify.Xunit/Helpers/SerializationSettings.cs#L149-L158) / [anchor](#snippet-defaultserialization)</sup>
 <!-- endsnippet -->
 
 

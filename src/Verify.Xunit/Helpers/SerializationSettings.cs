@@ -20,7 +20,6 @@ namespace VerifyXunit
         Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
         Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new Dictionary<Type, List<Func<object, bool>>>();
 
-
         public SerializationSettings Clone()
         {
             return new SerializationSettings
@@ -40,26 +39,8 @@ namespace VerifyXunit
         public void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
             Guard.AgainstNull(expression, nameof(expression));
-            if (expression.Body is UnaryExpression unary)
-            {
-                if (unary.Operand is MemberExpression unaryMember)
-                {
-                    var declaringType = unaryMember.Member.DeclaringType;
-                    var memberName = unaryMember.Member.Name;
-                    IgnoreMember(declaringType, memberName);
-                    return;
-                }
-            }
-
-            if (expression.Body is MemberExpression member)
-            {
-                var declaringType = member.Member.DeclaringType;
-                var memberName = member.Member.Name;
-                IgnoreMember(declaringType, memberName);
-                return;
-            }
-
-            throw new ArgumentException("expression");
+            var member = expression.FindMember();
+            IgnoreMember(member.DeclaringType, member.Name);
         }
 
         public void IgnoreMember(Type declaringType, string name)

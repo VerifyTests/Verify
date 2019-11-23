@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MyNamespace;
-using ObjectApproval;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;

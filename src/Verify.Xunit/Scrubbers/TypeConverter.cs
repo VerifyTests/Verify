@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
     public class TypeConverter :
         JsonConverter

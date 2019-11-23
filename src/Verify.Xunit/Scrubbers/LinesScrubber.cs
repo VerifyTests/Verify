@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
     public static class LinesScrubber
     {

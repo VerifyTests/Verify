@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
     public class Scrubber<T> : JsonConverter where T : struct
     {

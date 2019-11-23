@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
     public class StringScrubber : JsonConverter
     {

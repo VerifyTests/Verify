@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 // ReSharper disable UseObjectOrCollectionInitializer
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
     public static class SerializerBuilder
     {

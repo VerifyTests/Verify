@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CSharp;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
     public static class TypeNameConverter
     {

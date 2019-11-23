@@ -2,9 +2,10 @@
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
-    public class DelegateConverter : JsonConverter
+    public class DelegateConverter :
+        JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {

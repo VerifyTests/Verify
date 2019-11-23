@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
 
-namespace ObjectApproval
+namespace VerifyXunit
 {
-    public class CustomValueProvider : IValueProvider
+    public class CustomValueProvider :
+        IValueProvider
     {
         IValueProvider inner;
         Type propertyType;

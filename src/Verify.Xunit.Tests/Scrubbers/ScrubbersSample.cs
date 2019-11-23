@@ -14,7 +14,7 @@ public class ScrubbersSample :
     }
 
     [Fact]
-    public Task Scrubber()
+    public Task AfterJson()
     {
         var target = new ToBeScrubbed
         {

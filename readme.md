@@ -59,7 +59,7 @@ public class ScrubbersSample :
     }
 
     [Fact]
-    public Task Scrubber()
+    public Task AfterJson()
     {
         var target = new ToBeScrubbed
         {
@@ -88,7 +88,7 @@ public class ScrubbersSample :
 <sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L41) / [anchor](#snippet-scrubberssample.cs)</sup>
 <!-- endsnippet -->
 
-Result:
+Results:
 
 <!-- snippet: ScrubbersSample.Simple.verified.txt -->
 <a id='snippet-ScrubbersSample.Simple.verified.txt'/></a>
@@ -96,6 +96,16 @@ Result:
 A B C
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1) / [anchor](#snippet-ScrubbersSample.Simple.verified.txt)</sup>
+<!-- endsnippet -->
+
+<!-- snippet: ScrubbersSample.AfterJson.verified.txt -->
+<a id='snippet-ScrubbersSample.AfterJson.verified.txt'/></a>
+```txt
+{
+  RowVersion: 'TheRowVersion'
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3) / [anchor](#snippet-ScrubbersSample.AfterJson.verified.txt)</sup>
 <!-- endsnippet -->
 
 

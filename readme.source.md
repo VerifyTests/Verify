@@ -27,9 +27,11 @@ Usage:
 
 snippet: scrubberssample.cs
 
-Result:
+Results:
 
 snippet: ScrubbersSample.Simple.verified.txt
+
+snippet: ScrubbersSample.AfterJson.verified.txt
 
 
 ## File extension

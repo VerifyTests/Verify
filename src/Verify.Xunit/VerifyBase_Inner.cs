@@ -13,6 +13,7 @@ namespace VerifyXunit
         {
             Guard.AgainstNull(target, nameof(target));
             target = ApplyScrubbers(target);
+            target = target.Replace("\r\n", "\n");
             var (receivedPath, verifiedPath) = GetFileNames(extension);
             if (!File.Exists(verifiedPath))
             {
@@ -28,10 +29,10 @@ namespace VerifyXunit
             }
 
             var verifiedText = await FileHelpers.ReadText(verifiedPath);
-
+            verifiedText = verifiedText.Replace("\r\n", "\n");
             try
             {
-                Assert.Equal(verifiedText, target, StringComparer.OrdinalIgnoreCase);
+                Assert.Equal(verifiedText, target);
             }
             catch (EqualException exception)
             {

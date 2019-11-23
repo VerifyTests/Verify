@@ -10,7 +10,7 @@ namespace VerifyXunit
         {
             Guard.AgainstNull(target, nameof(target));
             var formatJson = JsonFormatter.AsJson(target);
-            return VerifyText(formatJson, ".json");
+            return VerifyText(formatJson);
         }
     }
 }

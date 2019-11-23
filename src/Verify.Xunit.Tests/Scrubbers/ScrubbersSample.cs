@@ -31,8 +31,11 @@ public class ScrubbersSample :
         AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    static ScrubbersSample()
+    public static class ModuleInitializer
     {
-        Global.AddScrubber(s => s.Replace("One", "A"));
+        public static void Initialize()
+        {
+            Global.AddScrubber(s => s.Replace("One", "A"));
+        }
     }
 }

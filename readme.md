@@ -76,13 +76,16 @@ public class ScrubbersSample :
         AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    static ScrubbersSample()
+    public static class ModuleInitializer
     {
-        Global.AddScrubber(s => s.Replace("One", "A"));
+        public static void Initialize()
+        {
+            Global.AddScrubber(s => s.Replace("One", "A"));
+        }
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L38) / [anchor](#snippet-scrubberssample.cs)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L41) / [anchor](#snippet-scrubberssample.cs)</sup>
 <!-- endsnippet -->
 
 Result:

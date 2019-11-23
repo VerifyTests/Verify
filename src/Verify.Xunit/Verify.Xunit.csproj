@@ -10,6 +10,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.32" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01" PrivateAssets="All" />
-    <Content Include="buildMultiTargeting\Verify.Xunit.targets" PackagePath="buildMultiTargeting\ApprovalTests.targets" />
+    <Content Include="buildMultiTargeting\Verify.Xunit.targets" PackagePath="buildMultiTargeting\Verify.Xunit.targets" />
+    <Content Include="build\Verify.Xunit.targets" PackagePath="build\Verify.Xunit.targets" />
   </ItemGroup>
 </Project>

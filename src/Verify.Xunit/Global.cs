@@ -21,7 +21,6 @@ namespace VerifyXunit
             AddScrubber(Scrubbers.ScrubMachineName);
         }
 
-
         internal static SerializationSettings serialization = new SerializationSettings();
 
         public static void IgnoreMember<T>(Expression<Func<T, object>> expression)

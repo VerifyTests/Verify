@@ -192,7 +192,7 @@ class SerializationSettings
             converters.Add(dateTimeScrubber);
             var dateTimeOffsetScrubber = new Scrubber<DateTimeOffset>();
             converters.Add(dateTimeOffsetScrubber);
-            converters.Add(new StringScrubber(guidScrubbingConverter, dateTimeScrubber, dateTimeOffsetScrubber));
+            converters.Add(new StringScrubbingConverter(guidScrubbingConverter, dateTimeScrubber, dateTimeOffsetScrubber));
             return;
         }
 
@@ -200,7 +200,7 @@ class SerializationSettings
         {
             var guidScrubbingConverter = new Scrubber<Guid>();
             converters.Add(guidScrubbingConverter);
-            converters.Add(new StringScrubber(guidScrubbingConverter, null, null));
+            converters.Add(new StringScrubbingConverter(guidScrubbingConverter, null, null));
         }
 
         if (scrubDateTimes)
@@ -209,7 +209,7 @@ class SerializationSettings
             converters.Add(dateTimeScrubber);
             var dateTimeOffsetScrubber = new Scrubber<DateTimeOffset>();
             converters.Add(dateTimeOffsetScrubber);
-            converters.Add(new StringScrubber(null, dateTimeScrubber, dateTimeOffsetScrubber));
+            converters.Add(new StringScrubbingConverter(null, dateTimeScrubber, dateTimeOffsetScrubber));
         }
     }
 }

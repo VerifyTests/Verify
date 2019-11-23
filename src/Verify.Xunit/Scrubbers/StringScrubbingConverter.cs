@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace VerifyXunit
 {
-    public class StringScrubber :
+    public class StringScrubbingConverter :
         JsonConverter
     {
         static List<string> datetimeFormats = new List<string>();
@@ -25,7 +25,7 @@ namespace VerifyXunit
         Scrubber<DateTime>? dateTimeScrubber;
         Scrubber<DateTimeOffset>? dateTimeOffsetScrubber;
 
-        public StringScrubber(Scrubber<Guid>? guidScrubber, Scrubber<DateTime>? dateTimeScrubber, Scrubber<DateTimeOffset>? dateTimeOffsetScrubber)
+        public StringScrubbingConverter(Scrubber<Guid>? guidScrubber, Scrubber<DateTime>? dateTimeScrubber, Scrubber<DateTimeOffset>? dateTimeOffsetScrubber)
         {
             this.guidScrubber = guidScrubber;
             this.dateTimeScrubber = dateTimeScrubber;

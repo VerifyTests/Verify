@@ -14,8 +14,8 @@ public class Tests :
 {
     static Tests()
     {
-        StringScrubber.AddExtraDatetimeFormat("F");
-        StringScrubber.AddExtraDatetimeOffsetFormat("F");
+        StringScrubbingConverter.AddExtraDatetimeFormat("F");
+        StringScrubbingConverter.AddExtraDatetimeOffsetFormat("F");
     }
 
     [Fact]

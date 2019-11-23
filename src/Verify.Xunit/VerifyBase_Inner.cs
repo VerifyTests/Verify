@@ -9,7 +9,7 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public async Task Verify(string target, string extension)
+        public async Task VerifyText(string target, string extension)
         {
             Guard.AgainstNull(target, nameof(target));
             target = ApplyScrubbers(target);

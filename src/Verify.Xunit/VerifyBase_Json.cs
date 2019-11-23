@@ -6,10 +6,11 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public Task VerifyText(string target)
+        public Task Verify(object target)
         {
             Guard.AgainstNull(target, nameof(target));
-            return VerifyText(target, textExtension);
+            var formatJson = JsonFormatter.AsJson(target);
+            return VerifyText(formatJson, ".json");
         }
     }
 }

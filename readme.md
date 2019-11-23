@@ -52,10 +52,22 @@ public class ScrubbersSample :
     VerifyBase
 {
     [Fact]
-    public async Task Simple()
+    public Task Simple()
     {
         AddScrubber(s => s.Replace("Two", "B"));
-        await VerifyText("One Two Three");
+        return VerifyText("One Two Three");
+    }
+
+    [Fact]
+    public Task Scrubber()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "0x00000000000007D3"
+        };
+
+        AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        return Verify(target);
     }
 
     public ScrubbersSample(ITestOutputHelper output) :
@@ -70,7 +82,7 @@ public class ScrubbersSample :
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/ScrubbersSample.cs#L1-L26) / [anchor](#snippet-scrubberssample.cs)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L38) / [anchor](#snippet-scrubberssample.cs)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -80,7 +92,7 @@ Result:
 ```txt
 A B C
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/ScrubbersSample.Simple.verified.txt#L1-L1) / [anchor](#snippet-ScrubbersSample.Simple.verified.txt)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1) / [anchor](#snippet-ScrubbersSample.Simple.verified.txt)</sup>
 <!-- endsnippet -->
 
 

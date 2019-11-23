@@ -7,10 +7,22 @@ public class ScrubbersSample :
     VerifyBase
 {
     [Fact]
-    public async Task Simple()
+    public Task Simple()
     {
         AddScrubber(s => s.Replace("Two", "B"));
-        await VerifyText("One Two Three");
+        return VerifyText("One Two Three");
+    }
+
+    [Fact]
+    public Task Scrubber()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "0x00000000000007D3"
+        };
+
+        AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        return Verify(target);
     }
 
     public ScrubbersSample(ITestOutputHelper output) :

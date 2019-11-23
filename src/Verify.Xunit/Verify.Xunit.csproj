@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.CodeDom" Version="4.6.0" />
-    <PackageReference Include="System.Text.Json" Version="4.6.0" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="XunitContext" Version="1.0.0" />
     <PackageReference Include="TextCopy" Version="1.7.1" />

@@ -8,9 +8,9 @@ using Newtonsoft.Json.Converters;
 
 namespace VerifyXunit
 {
-    public static class SerializerBuilder
+    class SerializationSettings
     {
-        static SerializerBuilder()
+        public SerializationSettings()
         {
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
@@ -18,10 +18,27 @@ namespace VerifyXunit
             IgnoreMember<Exception>(x => x.StackTrace);
         }
 
-        static ConcurrentDictionary<Type, ConcurrentBag<string>> ignoreMembersByName = new ConcurrentDictionary<Type, ConcurrentBag<string>>();
-        static ConcurrentDictionary<Type, ConcurrentBag<Func<object,bool>>> ignoredInstances = new ConcurrentDictionary<Type, ConcurrentBag<Func<object,bool>>>();
+        Dictionary<Type, ConcurrentBag<string>> ignoreMembersByName = new Dictionary<Type, ConcurrentBag<string>>();
+        Dictionary<Type, ConcurrentBag<Func<object, bool>>> ignoredInstances = new Dictionary<Type, ConcurrentBag<Func<object, bool>>>();
 
-        public static void IgnoreMember<T>(Expression<Func<T, object>> expression)
+
+        public SerializationSettings Clone()
+        {
+            return new SerializationSettings
+            {
+                ignoreMembersByName = ignoreMembersByName.Clone(),
+                ignoreEmptyCollections = ignoreEmptyCollections,
+                ExtraSettings = ExtraSettings,
+                ignoreFalse = ignoreFalse,
+                ignoreMembersThatThrow = ignoreMembersThatThrow.Clone(),
+                ignoreMembersWithType = ignoreMembersWithType.Clone(),
+                ignoredInstances = ignoredInstances.Clone(),
+                scrubDateTimes = scrubDateTimes,
+                scrubGuids = scrubGuids
+            };
+        }
+
+        public void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
             Guard.AgainstNull(expression, nameof(expression));
             if (expression.Body is UnaryExpression unary)
@@ -46,15 +63,15 @@ namespace VerifyXunit
             throw new ArgumentException("expression");
         }
 
-        public static void IgnoreMember(Type declaringType, string name)
+        public void IgnoreMember(Type declaringType, string name)
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            var list = ignoreMembersByName.GetOrAdd(declaringType, _ => new ConcurrentBag<string>());
+            var list = ignoreMembersByName[declaringType] = new ConcurrentBag<string>();
             list.Add(name);
         }
 
-        public static void IgnoreInstance<T>(Func<T,bool> shouldIgnore)
+        public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         {
             Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
             var type = typeof(T);
@@ -62,39 +79,39 @@ namespace VerifyXunit
                 type,
                 target =>
                 {
-                    var arg = (T)target;
+                    var arg = (T) target;
                     return shouldIgnore(arg);
                 });
         }
 
-        public static void IgnoreInstance(Type type, Func<object,bool> shouldIgnore)
+        public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
         {
             Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
-            var list = ignoredInstances.GetOrAdd(type, _ => new ConcurrentBag<Func<object,bool>>());
+            var list = ignoredInstances[type] = new ConcurrentBag<Func<object, bool>>();
             list.Add(shouldIgnore);
         }
 
-        static List<Type> ignoreMembersWithType = new List<Type>();
+        List<Type> ignoreMembersWithType = new List<Type>();
 
-        public static void IgnoreMembersWithType<T>()
+        public void IgnoreMembersWithType<T>()
         {
             ignoreMembersWithType.Add(typeof(T));
         }
 
-        static List<Func<Exception, bool>> ignoreMembersThatThrow = new List<Func<Exception, bool>>();
+        List<Func<Exception, bool>> ignoreMembersThatThrow = new List<Func<Exception, bool>>();
 
-        public static void IgnoreMembersThatThrow<T>()
+        public void IgnoreMembersThatThrow<T>()
             where T : Exception
         {
             ignoreMembersThatThrow.Add(x => x is T);
         }
 
-        public static void IgnoreMembersThatThrow(Func<Exception, bool> item)
+        public void IgnoreMembersThatThrow(Func<Exception, bool> item)
         {
             IgnoreMembersThatThrow<Exception>(item);
         }
 
-        public static void IgnoreMembersThatThrow<T>(Func<T, bool> item)
+        public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
             where T : Exception
         {
             Guard.AgainstNull(item, nameof(item));
@@ -109,22 +126,36 @@ namespace VerifyXunit
             });
         }
 
-        public static bool IgnoreEmptyCollections { get; set; } = true;
-        public static bool IgnoreFalse { get; set; } = true;
-        public static bool ScrubGuids { get; set; } = true;
-        public static bool ScrubDateTimes { get; set; } = true;
+        bool ignoreEmptyCollections;
 
-        public static JsonSerializerSettings BuildSettings(
-            bool? ignoreEmptyCollections = null,
-            bool? scrubGuids = null,
-            bool? scrubDateTimes = null,
-            bool? ignoreFalse = null)
+        public void DontIgnoreEmptyCollections()
         {
-            var ignoreEmptyCollectionsVal = ignoreEmptyCollections.GetValueOrDefault(IgnoreEmptyCollections);
-            var ignoreFalseVal = ignoreFalse.GetValueOrDefault(IgnoreFalse);
-            var scrubGuidsVal = scrubGuids.GetValueOrDefault(ScrubGuids);
-            var scrubDateTimesVal = scrubDateTimes.GetValueOrDefault(ScrubDateTimes);
+            ignoreEmptyCollections = false;
+        }
 
+        bool ignoreFalse;
+
+        public void DontIgnoreFalse()
+        {
+            ignoreFalse = false;
+        }
+
+        bool scrubGuids;
+
+        public void DontScrubGuids()
+        {
+            scrubGuids = false;
+        }
+
+        bool scrubDateTimes;
+
+        public void DontScrubDateTimes()
+        {
+            scrubDateTimes = false;
+        }
+
+        public JsonSerializerSettings BuildSettings()
+        {
             #region defaultSerialization
 
             var settings = new JsonSerializerSettings
@@ -138,20 +169,20 @@ namespace VerifyXunit
 
             settings.SerializationBinder = new ShortNameBinder();
             settings.ContractResolver = new CustomContractResolver(
-                ignoreEmptyCollectionsVal,
-                ignoreFalseVal,
+                ignoreEmptyCollections,
+                ignoreFalse,
                 ignoreMembersByName,
                 ignoreMembersWithType,
                 ignoreMembersThatThrow,
                 ignoredInstances);
-            AddConverters(scrubGuidsVal, scrubDateTimesVal, settings);
+            AddConverters(scrubGuids, scrubDateTimes, settings);
             ExtraSettings(settings);
             return settings;
         }
 
-        public static Action<JsonSerializerSettings> ExtraSettings = settings => { };
+        public Action<JsonSerializerSettings> ExtraSettings = settings => { };
 
-        static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
+        void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {
             var converters = settings.Converters;
             converters.Add(new StringEnumConverter());

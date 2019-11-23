@@ -4,9 +4,6 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Samples.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Fody" Version="6.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />

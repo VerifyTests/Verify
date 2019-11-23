@@ -5,21 +5,131 @@ Source File: /readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="/src/icon.png" height="30px"> ObjectApproval
+# <img src="/src/icon.png" height="30px"> Verify
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qt5bqw30vp7ywgh3/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/ObjectApproval)
-[![NuGet Status](https://img.shields.io/nuget/v/ObjectApproval.svg?cacheSeconds=86400)](https://www.nuget.org/packages/ObjectApproval/)
+[![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify/)
 
-Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
+Verification tool to enable simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
 <!-- toc -->
 ## Contents
 
+  * [NuGet package](#nuget-package)
+  * [Usage](#usage)
+    * [Validating multiple instances](#validating-multiple-instances)
   * [Scrubbers](#scrubbers)
   * [File extension](#file-extension)
   * [Diff Tool](#diff-tool)
     * [Visual Studio](#visual-studio)
 <!-- endtoc -->
+
+
+## NuGet package
+
+https://nuget.org/packages/ObjectApproval/
+
+
+## Usage
+
+Assuming this was verified:
+
+<!-- snippet: before -->
+<a id='snippet-before'/></a>
+```cs
+var person = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith",
+    Spouse = "Jill",
+    Address = new Address
+    {
+        Street = "1 Puddle Lane",
+        Country = "USA"
+    }
+};
+
+await Verify(person);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L47-L63) / [anchor](#snippet-before)</sup>
+<!-- endsnippet -->
+
+Then attempt to verify this:
+
+<!-- snippet: after -->
+<a id='snippet-after'/></a>
+```cs
+var person = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith",
+    Spouse = "Jill",
+    Address = new Address
+    {
+        Street = "1 Puddle Lane",
+        Suburb = "Gotham",
+        Country = "USA"
+    }
+};
+
+await Verify(person);
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L107-L124) / [anchor](#snippet-after)</sup>
+<!-- endsnippet -->
+
+The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
+
+![SampleDiff](/src/SampleDiff.png)
+
+Note that the output is technically not valid json. [Single quotes are used](#single-quotes-used) and [names are not quoted](#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+
+
+### Validating multiple instances
+
+When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
+
+<!-- snippet: anon -->
+<a id='snippet-anon'/></a>
+```cs
+var person1 = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith"
+};
+var person2 = new Person
+{
+    GivenNames = "Marianne",
+    FamilyName = "Aguirre"
+};
+
+await Verify(
+    new
+    {
+        person1,
+        person2
+    });
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L69-L89) / [anchor](#snippet-anon)</sup>
+<!-- endsnippet -->
+
+Results in the following:
+
+<!-- snippet: VerifyObjectSamples.Anon.verified.txt -->
+<a id='snippet-VerifyObjectSamples.Anon.verified.txt'/></a>
+```txt
+{
+  person1: {
+    GivenNames: 'John',
+    FamilyName: 'Smith'
+  },
+  person2: {
+    GivenNames: 'Marianne',
+    FamilyName: 'Aguirre'
+  }
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10) / [anchor](#snippet-VerifyObjectSamples.Anon.verified.txt)</sup>
+<!-- endsnippet -->
 
 
 ## Scrubbers

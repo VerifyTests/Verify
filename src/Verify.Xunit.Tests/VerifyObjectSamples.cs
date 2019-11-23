@@ -8,18 +8,18 @@ using Xunit.Abstractions;
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
 
-public class Samples:
+public class VerifyObjectSamples:
     VerifyBase
 {
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
 
-        await Verify(target,
-            ignoreEmptyCollections: false,
-            scrubGuids: false,
-            scrubDateTimes: false,
-            ignoreFalse: false);
+        DontIgnoreEmptyCollections();
+        DontScrubGuids();
+        DontScrubDateTimes();
+        DontIgnoreFalse();
+        await Verify(target);
 
         #endregion
     }
@@ -34,7 +34,8 @@ public class Samples:
             FamilyName = "Smith",
             Dob = new DateTime(2000, 10, 1),
         };
-        var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
+        DontScrubDateTimes();
+        var serializerSettings = BuildJsonSerializerSettings();
         serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
         await Verify(person, jsonSerializerSettings: serializerSettings);
 
@@ -88,16 +89,15 @@ public class Samples:
         #endregion
     }
 
-    void ExtraSettings()
+    void ApplyExtraSettings()
     {
         #region ExtraSettings
 
-        SerializerBuilder.ExtraSettings =
-            jsonSerializerSettings =>
-            {
-                jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-                jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
-            };
+        base.ApplyExtraSettings(jsonSerializerSettings =>
+        {
+            jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+        });
 
         #endregion
     }
@@ -140,7 +140,7 @@ public class Samples:
         public string Suburb;
     }
 
-    public Samples(ITestOutputHelper output) :
+    public VerifyObjectSamples(ITestOutputHelper output) :
         base(output)
     {
     }

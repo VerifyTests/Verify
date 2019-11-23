@@ -1,11 +1,44 @@
-# <img src="/src/icon.png" height="30px"> ObjectApproval
+# <img src="/src/icon.png" height="30px"> Verify
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qt5bqw30vp7ywgh3/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/ObjectApproval)
-[![NuGet Status](https://img.shields.io/nuget/v/ObjectApproval.svg?cacheSeconds=86400)](https://www.nuget.org/packages/ObjectApproval/)
+[![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify/)
 
-Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
+Verification tool to enable simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
 toc
+
+## NuGet package
+
+https://nuget.org/packages/ObjectApproval/
+
+
+## Usage
+
+Assuming this was verified:
+
+snippet: before
+
+Then attempt to verify this:
+
+snippet: after
+
+The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
+
+![SampleDiff](/src/SampleDiff.png)
+
+Note that the output is technically not valid json. [Single quotes are used](#single-quotes-used) and [names are not quoted](#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+
+
+### Validating multiple instances
+
+When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
+
+snippet: anon
+
+Results in the following:
+
+snippet: VerifyObjectSamples.Anon.verified.txt
+
 
 ## Scrubbers
 

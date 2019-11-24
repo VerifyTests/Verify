@@ -1,4 +1,4 @@
-﻿#if NET472
+﻿#if !NETSTANDARD2_0
 using System.Reflection;
 using System;
 using System.Linq.Expressions;
@@ -11,7 +11,7 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        public Task VerifyTuple(Expression<Func<ITuple>> expression)
+        public Task Verify(Expression<Func<ITuple>> expression)
         {
             var dictionary = ExpressionToDictionary(expression);
             return Verify(dictionary);
@@ -37,12 +37,11 @@ namespace VerifyXunit
         static TupleElementNamesAttribute ReadTupleElementNamesAttribute(MethodInfo method)
         {
             var attribute = (TupleElementNamesAttribute) method.ReturnTypeCustomAttributes.GetCustomAttributes(typeof(TupleElementNamesAttribute), false).SingleOrDefault();
-            if (attribute == null)
+            if (attribute != null)
             {
-                throw new Exception(nameof(VerifyTuple) + " is only to be used on methods that return a tuple.");
+                return attribute;
             }
-
-            return attribute;
+            throw new Exception($"{nameof(Verify)} is only to be used on methods that return a tuple.");
         }
     }
 }

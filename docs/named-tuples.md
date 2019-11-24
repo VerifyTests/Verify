@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Named Tuples
 
-Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `VerifyTuple`.
+Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified.
 
 Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.ituple), this approach is only available an net472+ and netcoreapp2.2+.
 
@@ -29,7 +29,7 @@ Can be verified:
 <!-- snippet: VerifyTuple -->
 <a id='snippet-verifytuple'/></a>
 ```cs
-await VerifyTuple(() => MethodWithNamedTuple());
+await Verify(() => MethodWithNamedTuple());
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L60-L64) / [anchor](#snippet-verifytuple)</sup>
 <!-- endsnippet -->

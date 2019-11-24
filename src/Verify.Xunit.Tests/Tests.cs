@@ -53,13 +53,13 @@ public class Tests :
 
         #endregion
     }
-#if(NETFRAMEWORK)
+#if(!NETSTANDARD2_0)
     [Fact]
     public async Task NamedTuple()
     {
         #region VerifyTuple
 
-        await VerifyTuple(() => MethodWithNamedTuple());
+        await Verify(() => MethodWithNamedTuple());
 
         #endregion
     }
@@ -74,7 +74,7 @@ public class Tests :
     [Fact]
     public async Task Tuple()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await VerifyTuple(() => MethodWithTuple()));
+        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify(() => MethodWithTuple()));
         await Verify(exception.Message);
     }
 

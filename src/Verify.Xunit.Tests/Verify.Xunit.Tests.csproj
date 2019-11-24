@@ -16,6 +16,12 @@
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Snippets\ClassBeingTestedChanged.Simple.verified.txt">
+      <DependentUpon>ClassBeingTestedChanged.cs</DependentUpon>
+    </None>
+    <None Update="Snippets\ClassBeingTestedChanged.AfterJson.verified.txt">
+      <DependentUpon>ClassBeingTestedChanged.cs</DependentUpon>
+    </None>
     <None Update="Snippets\ClassBeingTested.AfterJson.verified.txt">
       <DependentUpon>ClassBeingTested.cs</DependentUpon>
     </None>

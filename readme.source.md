@@ -22,9 +22,15 @@ It can be tested as follows:
 
 snippet: SampleTest
 
-When run the test will fail with:
 
-> First verification. SampleTest.Simple.verified.txt not found. Verification command has been copied to the clipboard.
+### Initial Verification
+
+When the test is initially run will fail with:
+
+```
+First verification. SampleTest.Simple.verified.txt not found.
+Verification command has been copied to the clipboard.
+```
 
 The clipboard will contain the following:
 
@@ -44,11 +50,34 @@ This will result in the following file being created:
 
 snippet: SampleTest.Simple.verified.txt
 
+All `*.verified.txt` files should be committed to source control.
 
 
+### Subsequent Verification
 
-The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
+If the implementation of `ClassBeingTested` changes:
 
+snippet: ClassBeingTestedChanged
+
+And the test is re run it will fail with
+
+```
+Verification command has been copied to the clipboard.
+Assert.Equal() Failure
+                                  ↓ (pos 21)
+Expected: ···\n  GivenNames: 'John',\n  FamilyName: 'Smith',\n  Spouse: 'Jill···
+Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:···
+                                  ↑ (pos 21)
+```
+The clipboard will again contain the following:
+
+> cmd /c move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+
+And the [Diff Tool](docs/diff-tool.md) is will display the diff:
+
+![SampleDiff](/src/SecondDiff.png)
+
+The same approach can be used to verify the results and the `.verified.txt` file is committed to source control along with the change to `ClassBeingTested`.
 
 
 ## Not valid json

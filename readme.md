@@ -17,6 +17,8 @@ Verification tool to enable simple approval of complex models using [Json.net](h
 
   * [NuGet package](#nuget-package)
   * [Usage](#usage)
+    * [Initial Verification](#initial-verification)
+    * [Subsequent Verification](#subsequent-verification)
   * [Not valid json](#not-valid-json)
   * [Validating multiple instances](#validating-multiple-instances)
   * [Documentation](#documentation)
@@ -43,20 +45,24 @@ public static class ClassBeingTested
         {
             Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
-            GivenNames = "John",
+            GivenNames = "John James",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new List<string> {"Sam", "Mary"},
+            Children = new List<string>
+            {
+                "Sam",
+                "Mary"
+            },
             Address = new Address
             {
-                Street = "1 Puddle Lane",
+                Street = "64 Barnett Street",
                 Country = "USA"
             }
         };
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTested.cs#L4-L25) / [anchor](#snippet-classbeingtested)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTested.cs#L4-L29) / [anchor](#snippet-classbeingtested)</sup>
 <!-- endsnippet -->
 
 It can be tested as follows:
@@ -83,57 +89,110 @@ public class SampleTest :
 <sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22) / [anchor](#snippet-sampletest)</sup>
 <!-- endsnippet -->
 
-When run the test will fail with:
 
+### Initial Verification
 
-Assuming this was verified:
+When the test is initially run will fail with:
 
-<!-- snippet: before -->
-<a id='snippet-before'/></a>
-```cs
-var person = new Person
-{
-    GivenNames = "John",
-    FamilyName = "Smith",
-    Spouse = "Jill",
-    Address = new Address
-    {
-        Street = "1 Puddle Lane",
-        Country = "USA"
-    }
-};
-
-await Verify(person);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L48-L64) / [anchor](#snippet-before)</sup>
+First verification. SampleTest.Simple.verified.txt not found.
+Verification command has been copied to the clipboard.
+```
+
+The clipboard will contain the following:
+
+> cmd /c move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+
+If a [Diff Tool](docs/diff-tool.md) is enable it will display the diff:
+
+![SampleDiff](/src/InitialDiff.png)
+
+To verify the result:
+
+ * Execute the command from the clipboard, or
+ * Use the diff tool to accept the changes , or
+ * Manually copy the text to the new file
+
+This will result in the following file being created:
+
+<!-- snippet: SampleTest.Simple.verified.txt -->
+<a id='snippet-SampleTest.Simple.verified.txt'/></a>
+```txt
+{
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Spouse: 'Jill',
+  Address: {
+    Street: '1 Puddle Lane',
+    Country: 'USA'
+  },
+  Children: [
+    'Sam',
+    'Mary'
+  ],
+  Id: Guid_1
+}
+```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14) / [anchor](#snippet-SampleTest.Simple.verified.txt)</sup>
 <!-- endsnippet -->
 
-Then attempt to verify this:
+All `*.verified.txt` files should be committed to source control.
 
-<!-- snippet: after -->
-<a id='snippet-after'/></a>
+
+### Subsequent Verification
+
+If the implementation of `ClassBeingTested` changes:
+
+<!-- snippet: ClassBeingTestedChanged -->
+<a id='snippet-classbeingtestedchanged'/></a>
 ```cs
-var person = new Person
+public static class ClassBeingTested
 {
-    GivenNames = "John",
-    FamilyName = "Smith",
-    Spouse = "Jill",
-    Address = new Address
+    public static Person FindPerson()
     {
-        Street = "1 Puddle Lane",
-        Suburb = "Gotham",
-        Country = "USA"
+        return new Person
+        {
+            Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
+            Title = Title.Mr,
+            GivenNames = "John James",
+            FamilyName = "Smith",
+            Spouse = "Jill",
+            Children = new List<string>
+            {
+                "Sam",
+                "Mary"
+            },
+            Address = new Address
+            {
+                Street = "64 Barnett Street",
+                Country = "USA"
+            }
+        };
     }
-};
-
-await Verify(person);
+}
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L108-L125) / [anchor](#snippet-after)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTestedChanged.cs#L6-L31) / [anchor](#snippet-classbeingtestedchanged)</sup>
 <!-- endsnippet -->
 
-The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
+And the test is re run it will fail with
 
-![SampleDiff](/src/SampleDiff.png)
+```
+Verification command has been copied to the clipboard.
+Assert.Equal() Failure
+                                  ↓ (pos 21)
+Expected: ···\n  GivenNames: 'John',\n  FamilyName: 'Smith',\n  Spouse: 'Jill···
+Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:···
+                                  ↑ (pos 21)
+```
+The clipboard will again contain the following:
+
+> cmd /c move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+
+And the [Diff Tool](docs/diff-tool.md) is will display the diff:
+
+![SampleDiff](/src/SecondDiff.png)
+
+The same approach can be used to verify the results and the `.verified.txt` file is committed to source control along with the change to `ClassBeingTested`.
 
 
 ## Not valid json

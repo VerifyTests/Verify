@@ -10,7 +10,7 @@ public static class ClassBeingTested
         {
             Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
-            GivenNames = "John",
+            GivenNames = "John James",
             FamilyName = "Smith",
             Spouse = "Jill",
             Children = new List<string>
@@ -20,7 +20,7 @@ public static class ClassBeingTested
             },
             Address = new Address
             {
-                Street = "1 Puddle Lane",
+                Street = "64 Barnett Street",
                 Country = "USA"
             }
         };

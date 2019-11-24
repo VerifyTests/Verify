@@ -46,11 +46,9 @@ To verify the result:
  * Use the diff tool to accept the changes , or
  * Manually copy the text to the new file
 
-This will result in the following file being created:
+This will result in the `SampleTest.Simple.verified.txt` being created:
 
 snippet: SampleTest.Simple.verified.txt
-
-All `*.verified.txt` files should be committed to source control.
 
 
 ### Subsequent Verification
@@ -77,7 +75,13 @@ And the [Diff Tool](docs/diff-tool.md) is will display the diff:
 
 ![SampleDiff](/src/SecondDiff.png)
 
-The same approach can be used to verify the results and the `.verified.txt` file is committed to source control along with the change to `ClassBeingTested`.
+The same approach can be used to verify the results and the change to `SampleTest.Simple.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
+
+
+## Received and Verified
+
+ * **All `*.verified.txt` files should be committed to source control.**
+ * **All `*.received.txt` files should be excluded from source control.**
 
 
 ## Not valid json

@@ -19,6 +19,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [Usage](#usage)
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
+  * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
   * [Validating multiple instances](#validating-multiple-instances)
   * [Documentation](#documentation)
@@ -45,7 +46,7 @@ public static class ClassBeingTested
         {
             Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
-            GivenNames = "John James",
+            GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
             Children = new List<string>
@@ -55,7 +56,7 @@ public static class ClassBeingTested
             },
             Address = new Address
             {
-                Street = "64 Barnett Street",
+                Street = "4 Puddle Lane",
                 Country = "USA"
             }
         };
@@ -113,7 +114,7 @@ To verify the result:
  * Use the diff tool to accept the changes , or
  * Manually copy the text to the new file
 
-This will result in the following file being created:
+This will result in the `SampleTest.Simple.verified.txt` being created:
 
 <!-- snippet: SampleTest.Simple.verified.txt -->
 <a id='snippet-SampleTest.Simple.verified.txt'/></a>
@@ -135,8 +136,6 @@ This will result in the following file being created:
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14) / [anchor](#snippet-SampleTest.Simple.verified.txt)</sup>
 <!-- endsnippet -->
-
-All `*.verified.txt` files should be committed to source control.
 
 
 ### Subsequent Verification
@@ -192,7 +191,13 @@ And the [Diff Tool](docs/diff-tool.md) is will display the diff:
 
 ![SampleDiff](/src/SecondDiff.png)
 
-The same approach can be used to verify the results and the `.verified.txt` file is committed to source control along with the change to `ClassBeingTested`.
+The same approach can be used to verify the results and the change to `SampleTest.Simple.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
+
+
+## Received and Verified
+
+ * **All `*.verified.txt` files should be committed to source control.**
+ * **All `*.received.txt` files should be excluded from source control.**
 
 
 ## Not valid json

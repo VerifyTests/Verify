@@ -13,7 +13,11 @@ public static class ClassBeingTested
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new List<string> {"Sam", "Mary"},
+            Children = new List<string>
+            {
+                "Sam",
+                "Mary"
+            },
             Address = new Address
             {
                 Street = "1 Puddle Lane",

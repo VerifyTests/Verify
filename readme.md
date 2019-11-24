@@ -119,11 +119,11 @@ This will result in the following file being created:
 <a id='snippet-SampleTest.Simple.verified.txt'/></a>
 ```txt
 {
-  GivenNames: 'John',
+  GivenNames: 'John James',
   FamilyName: 'Smith',
   Spouse: 'Jill',
   Address: {
-    Street: '1 Puddle Lane',
+    Street: '64 Barnett Street',
     Country: 'USA'
   },
   Children: [

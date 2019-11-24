@@ -1,9 +1,9 @@
 {
-  GivenNames: 'John James',
+  GivenNames: 'John',
   FamilyName: 'Smith',
   Spouse: 'Jill',
   Address: {
-    Street: '64 Barnett Street',
+    Street: '4 Puddle Lane',
     Country: 'USA'
   },
   Children: [

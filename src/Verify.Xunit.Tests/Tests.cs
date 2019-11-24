@@ -514,11 +514,8 @@ public class Tests :
             Title = Title.Mr,
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = DateTime.MaxValue,
             Spouse = "Jill",
             Children = new List<string> {"Sam", "Mary"},
-            Dead = false,
-            UnDead = null,
             Address = new Address
             {
                 Street = "1 Puddle Lane",
@@ -543,7 +540,6 @@ public class Tests :
             Title = Title.Mr,
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = DateTime.Now,
             Spouse = "Jill",
             Children = new List<string> {"Sam", "Mary"},
             Address = new Address
@@ -558,66 +554,18 @@ public class Tests :
         await Verify(person, jsonSerializerSettings);
     }
 
-    [Fact]
-    public async Task Example()
-    {
-        var person = new Person
-        {
-            Id = Guid.NewGuid(),
-            Title = Title.Mr,
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Dob = DateTime.Now,
-            Spouse = "Jill",
-            Children = new List<string> {"Sam", "Mary"},
-            Address = new Address
-            {
-                Street = "1 Puddle Lane",
-                Country = "USA"
-            }
-        };
+    //[Fact(Skip = "explicit")]
+    //public async Task ShouldUseExtraSettings()
+    //{
+    //    ApplyExtraSettings(settings => { settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 
-        await Verify(person);
-    }
-
-    class Person
-    {
-        public string GivenNames;
-        public string FamilyName;
-        public string Spouse;
-        public Address Address;
-        public List<string> Children;
-        public Title Title;
-        public DateTime Dob;
-        public Guid Id;
-        public bool Dead;
-        public bool? UnDead;
-    }
-
-    class Address
-    {
-        public string Street;
-        public string Suburb;
-        public string Country;
-    }
-
-    enum Title
-    {
-        Mr
-    }
-
-    [Fact(Skip = "explicit")]
-    public async Task ShouldUseExtraSettings()
-    {
-        ApplyExtraSettings(settings => { settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
-
-        var person = new Person
-        {
-            Dob = new DateTime(1980, 5, 5, 1, 1, 1)
-        };
-        DontScrubDateTimes();
-        await Verify(person);
-    }
+    //    var person = new Person
+    //    {
+    //        Dob = new DateTime(1980, 5, 5, 1, 1, 1)
+    //    };
+    //    DontScrubDateTimes();
+    //    await Verify(person);
+    //}
 
     public Tests(ITestOutputHelper output) :
         base(output)

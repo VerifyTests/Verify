@@ -1,10 +1,10 @@
 {
-  $type: 'Tests.Person',
+  $type: 'Person',
   GivenNames: 'John',
   FamilyName: 'Smith',
   Spouse: 'Jill',
   Address: {
-    $type: 'Tests.Address',
+    $type: 'Address',
     Street: '1 Puddle Lane',
     Country: 'USA'
   },
@@ -15,6 +15,5 @@
       'Mary'
     ]
   },
-  Dob: DateTime_1,
   Id: Guid_1
 }

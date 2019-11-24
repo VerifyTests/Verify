@@ -15,5 +15,19 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.32" PrivateAssets="All" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Snippets\ClassBeingTested.AfterJson.verified.txt">
+      <DependentUpon>ClassBeingTested.cs</DependentUpon>
+    </None>
+    <None Update="Snippets\ClassBeingTested.Simple.verified.txt">
+      <DependentUpon>ClassBeingTested.cs</DependentUpon>
+    </None>
+    <None Update="Snippets\SampleModels.AfterJson.verified.txt">
+      <DependentUpon>SampleModels.cs</DependentUpon>
+    </None>
+    <None Update="Snippets\SampleModels.Simple.verified.txt">
+      <DependentUpon>SampleModels.cs</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(SolutionDir)Verify.Xunit\build\Verify.Xunit.targets" />
 </Project>

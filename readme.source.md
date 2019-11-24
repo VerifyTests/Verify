@@ -38,7 +38,7 @@ The clipboard will contain the following:
 
 If a [Diff Tool](docs/diff-tool.md) is enable it will display the diff:
 
-![SampleDiff](/src/InitialDiff.png)
+![InitialDiff](/docs/InitialDiff.png)
 
 To verify the result:
 
@@ -73,7 +73,7 @@ The clipboard will again contain the following:
 
 And the [Diff Tool](docs/diff-tool.md) is will display the diff:
 
-![SampleDiff](/src/SecondDiff.png)
+![SampleDiff](/docs/SecondDiff.png)
 
 The same approach can be used to verify the results and the change to `SampleTest.Simple.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 

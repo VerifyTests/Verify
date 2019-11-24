@@ -7,9 +7,9 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Documentation
 
- * [Serializer Settings](docs/serializer-settings.md)
- * [File Extension](docs/file-extension.md)
- * [Named Tuples](docs/named-tuples.md)
- * [Scrubbers](docs/scrubbers.md)
- * [Diff Tool](docs/diff-tool.md)
- * [Using anonymous types](docs/anonymous-types.md)
+ * [Serializer Settings](serializer-settings.md)
+ * [File Extension](file-extension.md)
+ * [Named Tuples](named-tuples.md)
+ * [Scrubbers](scrubbers.md)
+ * [Diff Tool](diff-tool.md)
+ * [Using anonymous types](anonymous-types.md)

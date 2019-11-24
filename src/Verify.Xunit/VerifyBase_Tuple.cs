@@ -1,4 +1,4 @@
-﻿#if NETFRAMEWORK
+﻿#if NET472
 using System.Reflection;
 using System;
 using System.Linq.Expressions;

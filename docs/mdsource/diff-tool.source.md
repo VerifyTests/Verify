@@ -8,7 +8,20 @@ Controlled via environment variables.
 
 ## Visual Studio
 
+[devenv.exe /Diff option](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff?view=vs-2019)
+
 ```
-setx VerifyDiffProcess "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
+setx VerifyDiffProcess "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
 setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
 ```
+
+
+## Beyond Compare
+
+[Command Line Reference](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
+
+```
+setx VerifyDiffProcess "%ProgramFiles(x86)%\Beyond Compare 4\BCompare.exe"
+setx VerifyDiffArguments "{receivedPath} {verifiedPath}"
+```
+

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace VerifyXunit
 {
@@ -9,8 +9,6 @@ namespace VerifyXunit
         where T : struct
     {
         static string name = typeof(T).Name;
-        int count;
-        Dictionary<T, int> cache = new Dictionary<T, int>();
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
@@ -23,14 +21,8 @@ namespace VerifyXunit
 
         public void WriteValue(JsonWriter writer, T value)
         {
-            if (cache.TryGetValue(value, out var cachedCount))
-            {
-                writer.WriteRawValue($"{name}_{cachedCount}");
-                return;
-            }
-            count++;
-            cache[value] = count;
-            writer.WriteRawValue($"{name}_{count}");
+            var next = XunitContext.Context.IntOrNext(value);
+            writer.WriteRawValue($"{name}_{next}");
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)

@@ -15,10 +15,13 @@ public class VerifyObjectSamples:
     {
         #region ChangeDefaultsPerVerification
 
-        DontIgnoreEmptyCollections();
-        DontScrubGuids();
-        DontScrubDateTimes();
-        DontIgnoreFalse();
+        ModifySerialization(settings =>
+        {
+            settings.DontIgnoreEmptyCollections();
+            settings.DontScrubGuids();
+            settings.DontScrubDateTimes();
+            settings.DontIgnoreFalse();
+        });
         await Verify(target);
 
         #endregion
@@ -35,7 +38,7 @@ public class VerifyObjectSamples:
             FamilyName = "Smith",
             Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
-        DontScrubDateTimes();
+        ModifySerialization(_ => _.DontScrubDateTimes());
         var serializerSettings = BuildJsonSerializerSettings();
         serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
         await Verify(person, serializerSettings);

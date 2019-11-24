@@ -30,7 +30,7 @@ await Verify(
         person2
     });
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L70-L90) / [anchor](#snippet-anon)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L73-L93) / [anchor](#snippet-anon)</sup>
 <!-- endsnippet -->
 
 Results in the following:

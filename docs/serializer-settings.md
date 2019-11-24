@@ -49,7 +49,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/Verify.Xunit/Helpers/SerializationSettings.cs#L149-L158) / [anchor](#snippet-defaultserialization)</sup>
+<sup>[snippet source](/src/Verify.Xunit/Helpers/SerializationSettings.cs#L152-L161) / [anchor](#snippet-defaultserialization)</sup>
 <!-- endsnippet -->
 
 
@@ -138,7 +138,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L453-L469) / [anchor](#snippet-date)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L458-L474) / [anchor](#snippet-date)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -183,13 +183,16 @@ Global.DontIgnoreFalse();
 <!-- snippet: ChangeDefaultsPerVerification -->
 <a id='snippet-changedefaultsperverification'/></a>
 ```cs
-DontIgnoreEmptyCollections();
-DontScrubGuids();
-DontScrubDateTimes();
-DontIgnoreFalse();
+ModifySerialization(settings =>
+{
+    settings.DontIgnoreEmptyCollections();
+    settings.DontScrubGuids();
+    settings.DontScrubDateTimes();
+    settings.DontIgnoreFalse();
+});
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L16-L24) / [anchor](#snippet-changedefaultsperverification)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L16-L27) / [anchor](#snippet-changedefaultsperverification)</sup>
 <!-- endsnippet -->
 
 
@@ -206,7 +209,7 @@ base.ApplyExtraSettings(jsonSerializerSettings =>
     jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L95-L103) / [anchor](#snippet-extrasettings)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L98-L106) / [anchor](#snippet-extrasettings)</sup>
 <!-- endsnippet -->
 
 
@@ -221,12 +224,12 @@ var person = new Person
     FamilyName = "Smith",
     Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
 };
-DontScrubDateTimes();
+ModifySerialization(_ => _.DontScrubDateTimes());
 var serializerSettings = BuildJsonSerializerSettings();
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
 await Verify(person, serializerSettings);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L30-L43) / [anchor](#snippet-scopedserializer)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L33-L46) / [anchor](#snippet-scopedserializer)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -251,7 +254,7 @@ To ignore all members that match a certain type:
 <!-- snippet: AddIgnoreType -->
 <a id='snippet-addignoretype'/></a>
 ```cs
-IgnoreMembersWithType<ToIgnore>();
+ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
 
 var target = new IgnoreTypeTarget
 {
@@ -291,7 +294,7 @@ To ignore instances of a type based on delegate:
 <!-- snippet: AddIgnoreInstance -->
 <a id='snippet-addignoreinstance'/></a>
 ```cs
-IgnoreInstance<Instance>(x => x.Property == "Ignore");
+ModifySerialization(_ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
 
 var target = new IgnoreInstanceTarget
 {
@@ -331,10 +334,13 @@ To ignore members of a certain type using an expression:
 <!-- snippet: IgnoreMemberByExpression -->
 <a id='snippet-ignorememberbyexpression'/></a>
 ```cs
-IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+ModifySerialization(settings =>
+{
+    settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+    settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+    settings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+    settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+});
 
 var target = new IgnoreExplicitTarget
 {
@@ -344,7 +350,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L163-L178) / [anchor](#snippet-ignorememberbyexpression)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L163-L181) / [anchor](#snippet-ignorememberbyexpression)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -367,11 +373,14 @@ To ignore members of a certain type using type and name:
 <!-- snippet: IgnoreMemberByName -->
 <a id='snippet-ignorememberbyname'/></a>
 ```cs
-var type = typeof(IgnoreExplicitTarget);
-IgnoreMember(type, "Property");
-IgnoreMember(type, "Field");
-IgnoreMember(type, "GetOnlyProperty");
-IgnoreMember(type, "PropertyThatThrows");
+ModifySerialization(settings =>
+{
+    var type = typeof(IgnoreExplicitTarget);
+    settings.IgnoreMember(type, "Property");
+    settings.IgnoreMember(type, "Field");
+    settings.IgnoreMember(type, "GetOnlyProperty");
+    settings.IgnoreMember(type, "PropertyThatThrows");
+});
 
 var target = new IgnoreExplicitTarget
 {
@@ -381,7 +390,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L184-L200) / [anchor](#snippet-ignorememberbyname)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L187-L206) / [anchor](#snippet-ignorememberbyname)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -410,12 +419,12 @@ Ignore by exception type:
 <!-- snippet: IgnoreMembersThatThrow -->
 <a id='snippet-ignoremembersthatthrow'/></a>
 ```cs
-IgnoreMembersThatThrow<CustomException>();
+ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
 var target = new WithCustomException();
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L227-L234) / [anchor](#snippet-ignoremembersthatthrow)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L233-L240) / [anchor](#snippet-ignoremembersthatthrow)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -433,13 +442,12 @@ Ignore by exception type and expression:
 <!-- snippet: IgnoreMembersThatThrowExpression -->
 <a id='snippet-ignoremembersthatthrowexpression'/></a>
 ```cs
-IgnoreMembersThatThrow<Exception>(
-    x => x.Message == "Ignore");
+ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 
 var target = new WithExceptionIgnoreMessage();
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L289-L297) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L295-L302) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
 <!-- endsnippet -->
 
 Result:

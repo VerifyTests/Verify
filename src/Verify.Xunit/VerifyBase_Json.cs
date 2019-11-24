@@ -10,8 +10,7 @@ namespace VerifyXunit
         public Task Verify(object target)
         {
             Guard.AgainstNull(target, nameof(target));
-            var jsonSerializerSettings = BuildJsonSerializerSettings();
-            return Verify(target, jsonSerializerSettings);
+            return Verify(target, serialization.currentSettings);
         }
 
         public Task Verify(object target, JsonSerializerSettings jsonSerializerSettings)

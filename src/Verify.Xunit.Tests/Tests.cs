@@ -89,7 +89,7 @@ public class Tests :
     {
         #region AddIgnoreInstance
 
-        IgnoreInstance<Instance>(x => x.Property == "Ignore");
+        ModifySerialization(_ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
 
         var target = new IgnoreInstanceTarget
         {
@@ -123,7 +123,7 @@ public class Tests :
     {
         #region AddIgnoreType
 
-        IgnoreMembersWithType<ToIgnore>();
+        ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
 
         var target = new IgnoreTypeTarget
         {
@@ -162,10 +162,13 @@ public class Tests :
     {
         #region IgnoreMemberByExpression
 
-        IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-        IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-        IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-        IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        ModifySerialization(settings =>
+        {
+            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        });
 
         var target = new IgnoreExplicitTarget
         {
@@ -183,11 +186,14 @@ public class Tests :
     {
         #region IgnoreMemberByName
 
-        var type = typeof(IgnoreExplicitTarget);
-        IgnoreMember(type, "Property");
-        IgnoreMember(type, "Field");
-        IgnoreMember(type, "GetOnlyProperty");
-        IgnoreMember(type, "PropertyThatThrows");
+        ModifySerialization(settings =>
+        {
+            var type = typeof(IgnoreExplicitTarget);
+            settings.IgnoreMember(type, "Property");
+            settings.IgnoreMember(type, "Field");
+            settings.IgnoreMember(type, "GetOnlyProperty");
+            settings.IgnoreMember(type, "PropertyThatThrows");
+        });
 
         var target = new IgnoreExplicitTarget
         {
@@ -226,7 +232,7 @@ public class Tests :
     {
         #region IgnoreMembersThatThrow
 
-        IgnoreMembersThatThrow<CustomException>();
+        ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         var target = new WithCustomException();
         await Verify(target);
@@ -267,7 +273,7 @@ public class Tests :
     [Fact]
     public void ExceptionProp()
     {
-        IgnoreMembersThatThrow<CustomException>();
+        ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         var target = new WithException();
 
@@ -288,8 +294,7 @@ public class Tests :
     {
         #region IgnoreMembersThatThrowExpression
 
-        IgnoreMembersThatThrow<Exception>(
-            x => x.Message == "Ignore");
+        ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 
         var target = new WithExceptionIgnoreMessage();
         await Verify(target);
@@ -305,7 +310,7 @@ public class Tests :
     [Fact]
     public void ExceptionNotIgnoreMessageProp()
     {
-        IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         var target = new WithExceptionNotIgnoreMessage();
 
         Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target));
@@ -523,10 +528,13 @@ public class Tests :
             }
         };
 
-        DontScrubDateTimes();
-        DontIgnoreFalse();
-        DontScrubGuids();
-        DontIgnoreEmptyCollections();
+        ModifySerialization(settings =>
+        {
+            settings.DontScrubDateTimes();
+            settings.DontIgnoreFalse();
+            settings.DontScrubGuids();
+            settings.DontIgnoreEmptyCollections();
+        });
         AddScrubber(s => s.Replace("Lane", "Street"));
         await Verify(person);
     }

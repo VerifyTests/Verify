@@ -12,3 +12,4 @@ To change this file edit the source file and then run MarkdownSnippets.
  * [Named Tuples](docs/named-tuples.md)
  * [Scrubbers](docs/scrubbers.md)
  * [Diff Tool](docs/diff-tool.md)
+ * [Using anonymous types](docs/anonymous-types.md)

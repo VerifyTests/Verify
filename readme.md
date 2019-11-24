@@ -17,11 +17,12 @@ Verification tool to enable simple approval of complex models using [Json.net](h
 
   * [NuGet package](#nuget-package)
   * [Usage](#usage)
+    * [Class being tested](#class-being-tested)
+    * [Test](#test)
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
-  * [Validating multiple instances](#validating-multiple-instances)
   * [Documentation](#documentation)
 <!-- endtoc -->
 
@@ -32,6 +33,9 @@ https://nuget.org/packages/Verify.Xunit/
 
 
 ## Usage
+
+
+### Class being tested
 
 Given a class to be tested:
 
@@ -65,6 +69,9 @@ public static class ClassBeingTested
 ```
 <sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTested.cs#L4-L29) / [anchor](#snippet-classbeingtested)</sup>
 <!-- endsnippet -->
+
+
+### Test
 
 It can be tested as follows:
 
@@ -205,54 +212,6 @@ The same approach can be used to verify the results and the change to `SampleTes
 Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
 
-## Validating multiple instances
-
-When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
-
-<!-- snippet: anon -->
-<a id='snippet-anon'/></a>
-```cs
-var person1 = new Person
-{
-    GivenNames = "John",
-    FamilyName = "Smith"
-};
-var person2 = new Person
-{
-    GivenNames = "Marianne",
-    FamilyName = "Aguirre"
-};
-
-await Verify(
-    new
-    {
-        person1,
-        person2
-    });
-```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L70-L90) / [anchor](#snippet-anon)</sup>
-<!-- endsnippet -->
-
-Results in the following:
-
-<!-- snippet: VerifyObjectSamples.Anon.verified.txt -->
-<a id='snippet-VerifyObjectSamples.Anon.verified.txt'/></a>
-```txt
-{
-  person1: {
-    GivenNames: 'John',
-    FamilyName: 'Smith'
-  },
-  person2: {
-    GivenNames: 'Marianne',
-    FamilyName: 'Aguirre'
-  }
-}
-```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10) / [anchor](#snippet-VerifyObjectSamples.Anon.verified.txt)</sup>
-<!-- endsnippet -->
-
-
 ## Documentation
 
  * [Serializer Settings](docs/serializer-settings.md)
@@ -260,6 +219,7 @@ Results in the following:
  * [Named Tuples](docs/named-tuples.md)
  * [Scrubbers](docs/scrubbers.md)
  * [Diff Tool](docs/diff-tool.md)
+ * [Using anonymous types](docs/anonymous-types.md)
 
 
 ## Release Notes

@@ -14,9 +14,15 @@ https://nuget.org/packages/Verify.Xunit/
 
 ## Usage
 
+
+### Class being tested
+
 Given a class to be tested:
 
 snippet: ClassBeingTested
+
+
+### Test
 
 It can be tested as follows:
 
@@ -89,17 +95,6 @@ The same approach can be used to verify the results and the change to `SampleTes
 Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
 
-## Validating multiple instances
-
-When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
-
-snippet: anon
-
-Results in the following:
-
-snippet: VerifyObjectSamples.Anon.verified.txt
-
-
 ## Documentation
 
  * [Serializer Settings](docs/serializer-settings.md)
@@ -107,6 +102,7 @@ snippet: VerifyObjectSamples.Anon.verified.txt
  * [Named Tuples](docs/named-tuples.md)
  * [Scrubbers](docs/scrubbers.md)
  * [Diff Tool](docs/diff-tool.md)
+ * [Using anonymous types](docs/anonymous-types.md)
 
 
 ## Release Notes

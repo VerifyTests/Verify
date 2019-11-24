@@ -5,3 +5,4 @@
  * [Named Tuples](docs/named-tuples.md)
  * [Scrubbers](docs/scrubbers.md)
  * [Diff Tool](docs/diff-tool.md)
+ * [Using anonymous types](docs/anonymous-types.md)

@@ -49,7 +49,7 @@ If a [Diff Tool](docs/diff-tool.md) is enable it will display the diff:
 To verify the result:
 
  * Execute the command from the clipboard, or
- * Use the diff tool to accept the changes , or
+ * Use the diff tool to accept the changes, or
  * Manually copy the text to the new file
 
 This will result in the `SampleTest.Simple.verified.txt` being created:

@@ -118,7 +118,7 @@ If a [Diff Tool](docs/diff-tool.md) is enable it will display the diff:
 To verify the result:
 
  * Execute the command from the clipboard, or
- * Use the diff tool to accept the changes , or
+ * Use the diff tool to accept the changes, or
  * Manually copy the text to the new file
 
 This will result in the `SampleTest.Simple.verified.txt` being created:
@@ -127,11 +127,11 @@ This will result in the `SampleTest.Simple.verified.txt` being created:
 <a id='snippet-SampleTest.Simple.verified.txt'/></a>
 ```txt
 {
-  GivenNames: 'John James',
+  GivenNames: 'John',
   FamilyName: 'Smith',
   Spouse: 'Jill',
   Address: {
-    Street: '64 Barnett Street',
+    Street: '4 Puddle Lane',
     Country: 'USA'
   },
   Children: [
@@ -160,6 +160,7 @@ public static class ClassBeingTested
         {
             Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
+            // Middle name added
             GivenNames = "John James",
             FamilyName = "Smith",
             Spouse = "Jill",
@@ -170,6 +171,7 @@ public static class ClassBeingTested
             },
             Address = new Address
             {
+                // Address changed
                 Street = "64 Barnett Street",
                 Country = "USA"
             }
@@ -177,7 +179,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTestedChanged.cs#L6-L31) / [anchor](#snippet-classbeingtestedchanged)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTestedChanged.cs#L6-L33) / [anchor](#snippet-classbeingtestedchanged)</sup>
 <!-- endsnippet -->
 
 And the test is re run it will fail with

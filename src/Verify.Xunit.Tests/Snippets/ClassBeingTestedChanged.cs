@@ -12,6 +12,7 @@ namespace Changed
             {
                 Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
                 Title = Title.Mr,
+                // Middle name added
                 GivenNames = "John James",
                 FamilyName = "Smith",
                 Spouse = "Jill",
@@ -22,6 +23,7 @@ namespace Changed
                 },
                 Address = new Address
                 {
+                    // Address changed
                     Street = "64 Barnett Street",
                     Country = "USA"
                 }

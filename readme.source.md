@@ -98,7 +98,7 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 ## Documentation
 
  * [Serializer Settings](docs/serializer-settings.md)
- * [File Extension](docs/file-extension.md)
+ * [File naming](docs/naming.md)
  * [Named Tuples](docs/named-tuples.md)
  * [Scrubbers](docs/scrubbers.md)
  * [Diff Tool](docs/diff-tool.md)

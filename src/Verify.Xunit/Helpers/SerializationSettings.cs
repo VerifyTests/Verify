@@ -169,17 +169,20 @@ namespace VerifyXunit
                 ignoreMembersThatThrow,
                 ignoredInstances);
             AddConverters(scrubGuids, scrubDateTimes, settings);
-            ExtraSettings(settings);
+            foreach (var extraSetting in ExtraSettings)
+            {
+                extraSetting(settings);
+            }
             return settings;
         }
 
-        public void ApplyExtraSettings(Action<JsonSerializerSettings> action)
+        public void AddExtraSettings(Action<JsonSerializerSettings> action)
         {
             Guard.AgainstNull(action, nameof(action));
-            ExtraSettings = action;
+            ExtraSettings.Add(action);
         }
 
-        public Action<JsonSerializerSettings> ExtraSettings = settings => { };
+        public List<Action<JsonSerializerSettings>> ExtraSettings = new List<Action<JsonSerializerSettings>>();
         internal JsonSerializerSettings currentSettings;
 
         void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)

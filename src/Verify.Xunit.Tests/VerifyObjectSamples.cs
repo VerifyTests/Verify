@@ -93,11 +93,11 @@ public class VerifyObjectSamples:
         #endregion
     }
 
-    void ApplyExtraSettings()
+    void ApplyExtraSettingsSample()
     {
         #region ExtraSettings
 
-        base.ApplyExtraSettings(jsonSerializerSettings =>
+        AddExtraSettings(jsonSerializerSettings =>
         {
             jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
             jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;

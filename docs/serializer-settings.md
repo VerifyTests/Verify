@@ -203,7 +203,7 @@ To change the serialization settings for all verifications use `Global.ApplyExtr
 <!-- snippet: ExtraSettings -->
 <a id='snippet-extrasettings'/></a>
 ```cs
-base.ApplyExtraSettings(jsonSerializerSettings =>
+AddExtraSettings(jsonSerializerSettings =>
 {
     jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
     jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;

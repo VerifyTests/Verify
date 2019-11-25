@@ -18,13 +18,13 @@ namespace VerifyXunit
             serialization.RegenSettings();
         }
 
-        public void ApplyExtraSettings(Action<JsonSerializerSettings> action)
+        public void AddExtraSettings(Action<JsonSerializerSettings> action)
         {
             if (!isCloned)
             {
                 serialization = Global.serialization.Clone();
             }
-            serialization.ApplyExtraSettings(action);
+            serialization.AddExtraSettings(action);
         }
     }
 }

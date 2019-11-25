@@ -3,36 +3,24 @@ using System.Diagnostics;
 
 static class DiffRunner
 {
-    static string verifyDiffProcess = null!;
-    static string verifyDiffArgument = null!;
+    static string verifyDiffCommand = null!;
     public readonly static bool FoundDiff;
 
     static DiffRunner()
     {
-        verifyDiffProcess = Environment.GetEnvironmentVariable("VerifyDiffProcess");
-        verifyDiffArgument = Environment.GetEnvironmentVariable("VerifyDiffArguments");
-        if (verifyDiffProcess == null && verifyDiffArgument == null)
+        verifyDiffCommand = Environment.GetEnvironmentVariable("VerifyDiffCommand");
+        if (verifyDiffCommand == null)
         {
             return;
         }
 
-        if (verifyDiffArgument == null)
-        {
-            throw new Exception("VerifyDiffProcess env variable found but no VerifyDiffArguments env variable found.");
-        }
-
-        if (verifyDiffProcess == null)
-        {
-            throw new Exception("VerifyDiffArguments env variable found but no VerifyDiffProcess env variable found.");
-        }
-
         FoundDiff = true;
-        if (!verifyDiffArgument.Contains("{receivedPath}"))
+        if (!verifyDiffCommand.Contains("{receivedPath}"))
         {
             throw new Exception("Expected VerifyDiff env variable to contain '{receivedPath}'. Example: devenv /diff {receivedPath} {verifiedPath}");
         }
 
-        if (!verifyDiffArgument.Contains("{verifiedPath}"))
+        if (!verifyDiffCommand.Contains("{verifiedPath}"))
         {
             throw new Exception("Expected VerifyDiff env variable to contain '{receivedPath}'. Example: devenv /diff {receivedPath} {verifiedPath}");
         }
@@ -45,15 +33,16 @@ static class DiffRunner
             return;
         }
 
-        var replacedArguments = verifyDiffArgument
-            .Replace("{receivedPath}", $"\"{receivedPath}\"")
-            .Replace("{verifiedPath}", $"\"{verifiedPath}\"");
+        var replaced = verifyDiffCommand
+            .Replace("{receivedPath}", $"{receivedPath}")
+            .Replace("{verifiedPath}", $"{verifiedPath}");
+        var arguments = $"/K \"{replaced}\"";
         using var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = verifyDiffProcess,
-                Arguments = replacedArguments,
+                FileName = "cmd",
+                Arguments = arguments,
                 UseShellExecute = false,
                 CreateNoWindow = false,
             }
@@ -65,7 +54,7 @@ static class DiffRunner
         catch (Exception exception)
         {
             var message = $@"Failed to launch diff tool.
-{verifyDiffProcess} {replacedArguments}";
+cmd {arguments}";
             throw new Exception(message, exception);
         }
     }

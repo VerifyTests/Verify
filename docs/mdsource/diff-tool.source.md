@@ -2,8 +2,7 @@
 
 Controlled via environment variables.
 
- * `VerifyDiffProcess`: The process name. Short name if the tool exists in the current path, otherwise the full path.
- * `VerifyDiffArguments`: The argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.
+ * `VerifyDiffCommand`: The process and argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.
 
 
 ## Visual Studio
@@ -11,8 +10,7 @@ Controlled via environment variables.
 [devenv.exe /Diff option](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff?view=vs-2019)
 
 ```
-setx VerifyDiffProcess "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
-setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe\" /diff \"{receivedPath}\" \"{verifiedPath}\""
 ```
 
 
@@ -21,7 +19,6 @@ setx VerifyDiffArguments "/diff {receivedPath} {verifiedPath}"
 [Command Line Reference](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
 ```
-setx VerifyDiffProcess "%ProgramFiles(x86)%\Beyond Compare 4\BCompare.exe"
-setx VerifyDiffArguments "{receivedPath} {verifiedPath}"
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Beyond Compare 4\BCompare.exe \"{receivedPath}\" \"{verifiedPath}\""
 ```
 

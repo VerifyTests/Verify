@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project>
+<Project Condition="$(DesignTimeBuild) != true">
   <ItemGroup>
     <None Update="**\*.received.*;**\*.verified.*"
           DependentUpon="$(

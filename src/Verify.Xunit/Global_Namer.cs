@@ -9,6 +9,11 @@
             Namer.UniqueForRuntime = true;
         }
 
+        public static void UniqueForAssemblyConfiguration()
+        {
+            Namer.UniqueForAssemblyConfiguration = true;
+        }
+
         public static void UniqueForRuntimeAndVersion()
         {
             Namer.UniqueForRuntimeAndVersion = true;

@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 class Namer
 {
     public bool UniqueForRuntime = false;
+    public bool UniqueForAssemblyConfiguration = false;
     public bool UniqueForRuntimeAndVersion = false;
 
     static Namer()

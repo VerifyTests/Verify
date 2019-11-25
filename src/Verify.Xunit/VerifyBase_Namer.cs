@@ -1,10 +1,18 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace VerifyXunit
 {
     public partial class VerifyBase
     {
         internal Namer Namer = new Namer();
+
+        public void UniqueForAssemblyConfiguration()
+        {
+            Namer.UniqueForAssemblyConfiguration = true;
+        }
 
         public void UniqueForRuntime()
         {
@@ -26,16 +34,37 @@ namespace VerifyXunit
 
         string GetFilePrefix()
         {
-            var filePrefix = Path.Combine(SourceDirectory, Context.UniqueTestName);
+            var builder = new StringBuilder(Path.Combine(SourceDirectory, Context.UniqueTestName));
+
             if (Namer.UniqueForRuntimeAndVersion || Global.Namer.UniqueForRuntimeAndVersion)
             {
-                return $"{filePrefix}.{Namer.runtimeAndVersion}";
+                builder.Append($".{Namer.runtimeAndVersion}");
             }
-            if (Namer.UniqueForRuntime || Global.Namer.UniqueForRuntime)
+            else if (Namer.UniqueForRuntime || Global.Namer.UniqueForRuntime)
             {
-                return $"{filePrefix}.{Namer.runtime}";
+                builder.Append($".{Namer.runtime}");
             }
-            return filePrefix;
+
+            if (Namer.UniqueForAssemblyConfiguration || Global.Namer.UniqueForAssemblyConfiguration)
+            {
+                var assemblyConfiguration = GetAssemblyConfiguration();
+                builder.Append($".{assemblyConfiguration}");
+            }
+
+            return builder.ToString();
+        }
+
+        string GetAssemblyConfiguration()
+        {
+            var declaringTypeAssembly = Context.MethodInfo.DeclaringType.Assembly;
+            var customAttributes = declaringTypeAssembly.GetCustomAttributes();
+            var attribute = declaringTypeAssembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
+            if (attribute != null)
+            {
+                return attribute.Configuration;
+            }
+
+            throw new Exception("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
         }
     }
 }

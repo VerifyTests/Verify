@@ -20,6 +20,13 @@ public class NamerTests :
         return Verify(Namer.runtimeAndVersion);
     }
 
+    [Fact]
+    public Task AssemblyConfiguration()
+    {
+        UniqueForAssemblyConfiguration();
+        return Verify("Foo");
+    }
+
     public NamerTests(ITestOutputHelper output) :
         base(output)
     {

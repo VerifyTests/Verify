@@ -9,15 +9,15 @@ namespace VerifyXunit
     public partial class VerifyBase :
         XunitContextBase
     {
-        public async Task Verify(string target, string extension)
+        public async Task Verify(string input, string extension)
         {
-            Guard.AgainstNull(target, nameof(target));
-            target = ApplyScrubbers(target);
-            target = target.Replace("\r\n", "\n");
+            Guard.AgainstNull(input, nameof(input));
+            input = ApplyScrubbers(input);
+            input = input.Replace("\r\n", "\n");
             var (receivedPath, verifiedPath) = GetFileNames(extension);
             if (!File.Exists(verifiedPath))
             {
-                await FileHelpers.WriteText(receivedPath, target);
+                await FileHelpers.WriteText(receivedPath, input);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffRunner.FoundDiff)
                 {
@@ -32,11 +32,11 @@ namespace VerifyXunit
             verifiedText = verifiedText.Replace("\r\n", "\n");
             try
             {
-                Assert.Equal(verifiedText, target);
+                Assert.Equal(verifiedText, input);
             }
             catch (EqualException exception)
             {
-                await FileHelpers.WriteText(receivedPath, target);
+                await FileHelpers.WriteText(receivedPath, input);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
                 exception.PrefixWithCopyCommand();
                 DiffRunner.Launch(receivedPath, verifiedPath);

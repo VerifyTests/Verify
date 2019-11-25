@@ -15,6 +15,7 @@ namespace VerifyXunit
             input = ApplyScrubbers(input);
             input = input.Replace("\r\n", "\n");
             var (receivedPath, verifiedPath) = GetFileNames(extension);
+            FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
                 await FileHelpers.WriteText(receivedPath, input);

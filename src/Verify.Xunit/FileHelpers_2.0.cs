@@ -9,6 +9,16 @@ static partial class FileHelpers
     {
         var encodedText = Encoding.UTF8.GetBytes(text);
 
+        using (var fileStream = new FileStream(
+            filePath,
+            FileMode.Create,
+            FileAccess.Write,
+            FileShare.None,
+            bufferSize: 4096,
+            useAsync: true))
+        {
+            await fileStream.WriteAsync(encodedText, 0, encodedText.Length);
+        };
         using (var sourceStream = new FileStream(
             filePath,
             FileMode.Create,

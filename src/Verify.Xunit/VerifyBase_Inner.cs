@@ -18,11 +18,11 @@ namespace VerifyXunit
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
-                FileHelpers.WriteEmpty(verifiedPath);
+                await FileHelpers.WriteText(receivedPath, input);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffRunner.FoundDiff)
                 {
-                    await FileHelpers.WriteText(verifiedPath, "");
+                    FileHelpers.WriteEmpty(verifiedPath);
                     DiffRunner.Launch(receivedPath, verifiedPath);
                 }
 

@@ -26,6 +26,5 @@ setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Commu
 [Command Line Reference](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Beyond Compare 4\BCompare.exe \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe \"{receivedPath}\" \"{verifiedPath}\""
 ```
-

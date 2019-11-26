@@ -49,6 +49,7 @@ static class DiffRunner
         };
         try
         {
+            //TODO: handle exe not found
             process.Start();
         }
         catch (Exception exception)

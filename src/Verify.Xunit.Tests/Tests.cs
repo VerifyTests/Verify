@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using VerifyXunit;
@@ -16,6 +17,12 @@ public class Tests :
     {
         StringScrubbingConverter.AddExtraDatetimeFormat("F");
         StringScrubbingConverter.AddExtraDatetimeOffsetFormat("F");
+    }
+
+    [Fact]
+    public async Task Stream()
+    {
+        await Verify(new MemoryStream(new byte[]{1}));
     }
 
     [Fact]

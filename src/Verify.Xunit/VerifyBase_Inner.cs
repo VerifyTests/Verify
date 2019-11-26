@@ -18,7 +18,7 @@ namespace VerifyXunit
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
-                await FileHelpers.WriteText(receivedPath, input);
+                FileHelpers.WriteEmpty(verifiedPath);
                 ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffRunner.FoundDiff)
                 {

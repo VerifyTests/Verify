@@ -1,13 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Sdk;
 
 namespace VerifyXunit
 {
-    public partial class VerifyBase :
-        XunitContextBase
+    public partial class VerifyBase
     {
         public async Task Verify(string input, string extension)
         {
@@ -26,7 +24,7 @@ namespace VerifyXunit
                     DiffRunner.Launch(receivedPath, verifiedPath);
                 }
 
-                throw new Exception($"First verification. {Context.UniqueTestName}.verified{extension} not found. Verification command has been copied to the clipboard.");
+                throw VerificationNotFoundException(extension);
             }
 
             var verifiedText = await FileHelpers.ReadText(verifiedPath);

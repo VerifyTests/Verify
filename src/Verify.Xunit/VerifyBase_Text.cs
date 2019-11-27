@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Xunit;
 
 namespace VerifyXunit
 {
-    public partial class VerifyBase :
-        XunitContextBase
+    public partial class VerifyBase
     {
         public Task Verify(string target)
         {

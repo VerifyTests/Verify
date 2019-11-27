@@ -49,7 +49,7 @@ public class Tests :
     {
         void DeleteTempFiles()
         {
-            foreach (var binFile in Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultipleNegative.verified*.bin"))
+            foreach (var binFile in Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultipleNegative*.verified.bin"))
             {
                 File.Delete(binFile);
             }

@@ -23,7 +23,7 @@ public class Tests :
     [Fact]
     public Task Stream()
     {
-        return Verify(new MemoryStream(new byte[]{1}));
+        return Verify(new MemoryStream(new byte[] {1}));
     }
 
     [Fact]
@@ -32,9 +32,39 @@ public class Tests :
         var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
         File.Delete(binFile);
         DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify(new MemoryStream(new byte[]{1})));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify(new MemoryStream(new byte[] {1})));
         DiffRunner.Enabled = true;
         File.Delete(binFile);
+        await Verify(exception.Message);
+    }
+
+    [Fact]
+    public Task StreamMultiple()
+    {
+        return Verify(new MemoryStream(new byte[] {1}));
+    }
+
+    [Fact]
+    public async Task StreamMultipleNegative()
+    {
+        void DeleteTempFiles()
+        {
+            foreach (var binFile in Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultipleNegative.verified*.bin"))
+            {
+                File.Delete(binFile);
+            }
+        }
+
+        DeleteTempFiles();
+        DiffRunner.Enabled = false;
+        var exception = await Assert.ThrowsAsync<XunitException>(() =>
+        {
+            var stream1 = new MemoryStream(new byte[] {1});
+            var stream2 = new MemoryStream(new byte[] {1});
+            return Verify(new Stream[] {stream1, stream2});
+        });
+        DiffRunner.Enabled = true;
+        DeleteTempFiles();
         await Verify(exception.Message);
     }
 
@@ -50,7 +80,7 @@ public class Tests :
         var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
         File.Delete(txtFile);
         DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("someText",".tmp"));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("someText", ".tmp"));
         DiffRunner.Enabled = true;
         File.Delete(txtFile);
         await Verify(exception.Message);
@@ -103,10 +133,12 @@ public class Tests :
     }
 
     #region MethodWithNamedTuple
+
     static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     {
         return (true, "A", "B");
     }
+
     #endregion
 
     [Fact]

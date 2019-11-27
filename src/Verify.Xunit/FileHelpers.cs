@@ -31,11 +31,17 @@ static partial class FileHelpers
         {
             return false;
         }
+
         return File.ReadAllBytes(path1).SequenceEqual(File.ReadAllBytes(path2));
     }
 
     public static void WriteEmpty(string path)
     {
         File.Create(path).Dispose();
+    }
+
+    public static void WriteEmptyText(string path)
+    {
+        File.CreateText(path).Dispose();
     }
 }

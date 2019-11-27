@@ -22,7 +22,7 @@ namespace VerifyXunit
                 ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffRunner.FoundDiff)
                 {
-                    FileHelpers.WriteEmpty(verifiedPath);
+                    FileHelpers.WriteEmptyText(verifiedPath);
                     DiffRunner.Launch(receivedPath, verifiedPath);
                 }
 

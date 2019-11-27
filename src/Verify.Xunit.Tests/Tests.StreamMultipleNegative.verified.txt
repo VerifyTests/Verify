@@ -1,2 +1,2 @@
-Streams not equal. Verification command has been copied to the clipboard.
-Items at the following indexes have no verified file: 0, 1
+Streams do not match. Verification command has been copied to the clipboard.
+Streams not verified: 0, 1

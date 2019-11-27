@@ -55,14 +55,13 @@ namespace VerifyXunit
                     if (!File.Exists(verifiedPath))
                     {
                         ClipboardCapture.Append(receivedPath, verifiedPath);
+                        missingVerified.Add(index);
                         if (DiffRunner.FoundDiff)
                         {
                             FileHelpers.WriteEmpty(verifiedPath);
                             DiffRunner.Launch(receivedPath, verifiedPath);
                         }
 
-                        missingVerified.Add(index);
-                        ClipboardCapture.Append(receivedPath, verifiedPath);
                         continue;
                     }
 
@@ -84,19 +83,19 @@ namespace VerifyXunit
                 return;
             }
 
-            var stringBuilder = new StringBuilder($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
-            stringBuilder.AppendLine();
+            var builder = new StringBuilder($"Streams do not match. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
+            builder.AppendLine();
             if (missingVerified.Any())
             {
-                stringBuilder.AppendLine($"Items at the following indexes have no verified file: {string.Join(", ", missingVerified)}");
+                builder.AppendLine($"Streams not verified: {string.Join(", ", missingVerified)}");
             }
 
             if (notEquals.Any())
             {
-                stringBuilder.AppendLine($"Items at the following indexes are different: {string.Join(", ", notEquals)}");
+                builder.AppendLine($"Streams with differences: {string.Join(", ", notEquals)}");
             }
 
-            throw new XunitException(stringBuilder.ToString());
+            throw new XunitException(builder.ToString());
         }
 
         async Task InnerVerifyStream(Stream input, string extension)

@@ -72,7 +72,9 @@ namespace VerifyXunit
                     {
                         notEquals.Add(index);
                         ClipboardCapture.Append(receivedPath, verifiedPath);
+                        continue;
                     }
+                    File.Delete(receivedPath);
                 }
                 finally
                 {
@@ -125,6 +127,7 @@ namespace VerifyXunit
 
             if (FileHelpers.FilesEqual(receivedPath, verifiedPath))
             {
+                File.Delete(receivedPath);
                 return;
             }
 

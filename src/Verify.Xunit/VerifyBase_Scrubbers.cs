@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace VerifyXunit
 {
@@ -21,9 +22,9 @@ namespace VerifyXunit
 
         string ApplyScrubbers(string target)
         {
-            target = target.Replace(AppDomain.CurrentDomain.BaseDirectory, "BaseDirectory");
-            target = target.Replace(Environment.CurrentDirectory, "CurrentDirectory");
-            target = target.Replace(CodeBaseLocation.CurrentDirectory, "CodeBaseLocation");
+            target = target.Replace(CleanPath(AppDomain.CurrentDomain.BaseDirectory), "BaseDirectory");
+            target = target.Replace(CleanPath(Environment.CurrentDirectory), "CurrentDirectory");
+            target = target.Replace(CleanPath(CodeBaseLocation.CurrentDirectory), "CodeBaseLocation");
 
             foreach (var scrubber in instanceScrubbers)
             {
@@ -38,5 +39,9 @@ namespace VerifyXunit
             return target;
         }
 
+        string CleanPath(string directory)
+        {
+            return directory.TrimEnd(Path.PathSeparator, Path.AltDirectorySeparatorChar);
+        }
     }
 }

@@ -21,9 +21,28 @@ public class Tests :
     }
 
     [Fact]
-    public Task Stream()
+    public Task ScrubCurrentDirectory()
     {
-        return Verify(new MemoryStream(new byte[] {1}));
+        return Verify(Environment.CurrentDirectory);
+    }
+
+    [Fact]
+    public Task ScrubCodeBaseLocation()
+    {
+        return Verify(CodeBaseLocation.CurrentDirectory);
+    }
+
+    [Fact]
+    public Task ScrubBaseDirectory()
+    {
+        return Verify(AppDomain.CurrentDomain.BaseDirectory!);
+    }
+
+    [Fact]
+    public async Task Stream()
+    {
+        await Verify(new MemoryStream(new byte[] {1}));
+        Assert.False(File.Exists(Path.Combine(SourceDirectory, "Tests.Stream.received.bin")));
     }
 
     [Fact]
@@ -39,9 +58,13 @@ public class Tests :
     }
 
     [Fact]
-    public Task StreamMultiple()
+    public async Task StreamMultiple()
     {
-        return Verify(new MemoryStream(new byte[] {1}));
+        var stream1 = new MemoryStream(new byte[] {1});
+        var stream2 = new MemoryStream(new byte[] {1});
+        await Verify(new Stream[] {stream1, stream2});
+
+        Assert.Empty(Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultiple.*.received.bin"));
     }
 
     [Fact]

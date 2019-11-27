@@ -18,7 +18,7 @@ namespace VerifyXunit
             return cacheDictionary.GetOrAdd(type, Inner);
         }
 
-        private static string Inner(Type type)
+        static string Inner(Type type)
         {
             if (IsAnonType(type))
             {

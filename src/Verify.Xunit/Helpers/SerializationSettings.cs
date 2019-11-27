@@ -185,7 +185,7 @@ namespace VerifyXunit
         public List<Action<JsonSerializerSettings>> ExtraSettings = new List<Action<JsonSerializerSettings>>();
         internal JsonSerializerSettings currentSettings;
 
-        void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
+        static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {
             var converters = settings.Converters;
             converters.Add(new StringEnumConverter());

@@ -23,19 +23,19 @@ public class Tests :
     [Fact]
     public Task ScrubCurrentDirectory()
     {
-        return Verify(Environment.CurrentDirectory);
+        return Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
     }
 
     [Fact]
     public Task ScrubCodeBaseLocation()
     {
-        return Verify(CodeBaseLocation.CurrentDirectory);
+        return Verify(CodeBaseLocation.CurrentDirectory.TrimEnd('/', '\\'));
     }
 
     [Fact]
     public Task ScrubBaseDirectory()
     {
-        return Verify(AppDomain.CurrentDomain.BaseDirectory!);
+        return Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
     }
 
     [Fact]

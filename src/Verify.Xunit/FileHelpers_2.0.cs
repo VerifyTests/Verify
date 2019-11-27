@@ -19,6 +19,18 @@ static partial class FileHelpers
         await fileStream.WriteAsync(encodedText, 0, encodedText.Length);
     }
 
+    public static async Task WriteStream(string filePath, Stream stream)
+    {
+        using var fileStream = new FileStream(
+            filePath,
+            FileMode.Create,
+            FileAccess.Write,
+            FileShare.None,
+            bufferSize: 4096,
+            useAsync: true);
+        await stream.CopyToAsync(fileStream);
+    }
+
     public static async Task<string> ReadText(string filePath)
     {
         using var sourceStream = new FileStream(

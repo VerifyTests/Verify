@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using System.IO;
 
 static partial class FileHelpers
 {
@@ -13,26 +12,40 @@ static partial class FileHelpers
         }
     }
 
-    public static async Task WriteStream(string filePath, Stream stream)
-    {
-        using var fileStream = new FileStream(
-            filePath,
-            FileMode.Create,
-            FileAccess.Write,
-            FileShare.None,
-            bufferSize: 4096,
-            useAsync: true);
-        await stream.CopyToAsync(fileStream);
-    }
-
     public static bool FilesEqual(string path1, string path2)
     {
-        if (new FileInfo(path1).Length != new FileInfo(path2).Length)
-        {
+        return FilesAreEqual(new FileInfo(path1), new FileInfo(path2));
+    }
+
+    const int BYTES_TO_READ = sizeof(long);
+
+    static bool FilesAreEqual(FileInfo first, FileInfo second)
+    {
+        if (first.Length != second.Length)
             return false;
+
+        if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        var iterations = (int) Math.Ceiling((double) first.Length / BYTES_TO_READ);
+
+        using var fs1 = first.OpenRead();
+        using var fs2 = second.OpenRead();
+        var one = new byte[BYTES_TO_READ];
+        var two = new byte[BYTES_TO_READ];
+
+        for (var i = 0; i < iterations; i++)
+        {
+            fs1.Read(one, 0, BYTES_TO_READ);
+            fs2.Read(two, 0, BYTES_TO_READ);
+
+            if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
+            {
+                return false;
+            }
         }
 
-        return File.ReadAllBytes(path1).SequenceEqual(File.ReadAllBytes(path2));
+        return true;
     }
 
     public static void WriteEmpty(string path)

@@ -20,9 +20,9 @@ public class Tests :
     }
 
     [Fact]
-    public async Task Stream()
+    public Task Stream()
     {
-        await Verify(new MemoryStream(new byte[]{1}));
+        return Verify(new MemoryStream(new byte[]{1}));
     }
 
     [Fact]

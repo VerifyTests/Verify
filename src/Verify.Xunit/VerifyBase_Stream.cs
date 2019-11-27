@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace VerifyXunit
 {
@@ -34,6 +35,7 @@ namespace VerifyXunit
             var (receivedPath, verifiedPath) = GetFileNames(extension);
             FileHelpers.DeleteIfEmpty(verifiedPath);
             await FileHelpers.WriteStream(receivedPath, input);
+            FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
                 ClipboardCapture.Append(receivedPath, verifiedPath);
@@ -52,7 +54,7 @@ namespace VerifyXunit
             }
 
             ClipboardCapture.Append(receivedPath, verifiedPath);
-            throw new Exception("Streams not equal.");
+            throw new XunitException($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
         }
 
         private Exception VerificationNotFoundException(string extension)

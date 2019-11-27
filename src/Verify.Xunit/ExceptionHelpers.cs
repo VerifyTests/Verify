@@ -16,9 +16,10 @@ static class ExceptionHelpers
         }
     }
 
+    public const string CommandHasBeenCopiedToTheClipboard = "Verification command has been copied to the clipboard.";
     public static void PrefixWithCopyCommand(this EqualException exception)
     {
-        fieldInfo.SetValue(exception, $@"Verification command has been copied to the clipboard.
+        fieldInfo.SetValue(exception, $@"{CommandHasBeenCopiedToTheClipboard}
 {exception.Message}");
     }
 }

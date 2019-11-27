@@ -44,7 +44,7 @@ namespace VerifyXunit
 
         string CleanPath(string directory)
         {
-            return directory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            return directory.TrimEnd('/', '\\');
         }
     }
 }

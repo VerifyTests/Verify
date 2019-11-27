@@ -24,12 +24,21 @@ namespace VerifyXunit
             Namer.UniqueForRuntimeAndVersion = true;
         }
 
-        (string receivedPath, string verifiedPath) GetFileNames(string extension)
+        (string receivedPath, string verifiedPath) GetFileNames(string extension, string? suffix = null)
         {
             var filePrefix = GetFilePrefix();
-            var receivedPath = $"{filePrefix}.received{extension}";
-            var verifiedPath = $"{filePrefix}.verified{extension}";
-            return (receivedPath, verifiedPath);
+            if (suffix == null)
+            {
+                var receivedPath = $"{filePrefix}.received{extension}";
+                var verifiedPath = $"{filePrefix}.verified{extension}";
+                return (receivedPath, verifiedPath);
+            }
+            else
+            {
+                var receivedPath = $"{filePrefix}.{suffix}.received{extension}";
+                var verifiedPath = $"{filePrefix}.{suffix}.verified{extension}";
+                return (receivedPath, verifiedPath);
+            }
         }
 
         string GetFilePrefix()

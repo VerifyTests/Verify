@@ -52,7 +52,7 @@ namespace VerifyXunit
                 }
                 try
                 {
-                    var (receivedPath, verifiedPath) = GetFileNames($".{index:D2}{extension}");
+                    var (receivedPath, verifiedPath) = GetFileNames($".{extension}", $"{index:D2}");
                     FileHelpers.DeleteIfEmpty(verifiedPath);
                     await FileHelpers.WriteStream(receivedPath, stream);
                     if (!File.Exists(verifiedPath))

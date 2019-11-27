@@ -46,12 +46,15 @@ namespace VerifyXunit
             var index = 0;
             foreach (var stream in streams)
             {
+                if (stream.CanSeek)
+                {
+                    stream.Position = 0;
+                }
                 try
                 {
                     var (receivedPath, verifiedPath) = GetFileNames($".{index:D2}{extension}");
                     FileHelpers.DeleteIfEmpty(verifiedPath);
                     await FileHelpers.WriteStream(receivedPath, stream);
-                    FileHelpers.DeleteIfEmpty(verifiedPath);
                     if (!File.Exists(verifiedPath))
                     {
                         ClipboardCapture.Append(receivedPath, verifiedPath);
@@ -98,11 +101,15 @@ namespace VerifyXunit
             throw new XunitException(builder.ToString());
         }
 
-        async Task InnerVerifyStream(Stream input, string extension)
+        async Task InnerVerifyStream(Stream stream, string extension)
         {
+            if (stream.CanSeek)
+            {
+                stream.Position = 0;
+            }
             var (receivedPath, verifiedPath) = GetFileNames(extension);
             FileHelpers.DeleteIfEmpty(verifiedPath);
-            await FileHelpers.WriteStream(receivedPath, input);
+            await FileHelpers.WriteStream(receivedPath, stream);
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {

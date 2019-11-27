@@ -22,9 +22,12 @@ namespace VerifyXunit
 
         string ApplyScrubbers(string target)
         {
-            target = target.Replace(CleanPath(AppDomain.CurrentDomain.BaseDirectory), "CurrentDirectory");
-            target = target.Replace(CleanPath(Environment.CurrentDirectory), "CurrentDirectory");
-            target = target.Replace(CleanPath(CodeBaseLocation.CurrentDirectory), "CurrentDirectory");
+            var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory);
+            target = target.Replace(baseDirectory, "CurrentDirectory");
+            var currentDirectory = CleanPath(Environment.CurrentDirectory);
+            target = target.Replace(currentDirectory, "CurrentDirectory");
+            var codeBase = CleanPath(CodeBaseLocation.CurrentDirectory);
+            target = target.Replace(codeBase, "CurrentDirectory");
 
             foreach (var scrubber in instanceScrubbers)
             {
@@ -41,7 +44,7 @@ namespace VerifyXunit
 
         string CleanPath(string directory)
         {
-            return directory.TrimEnd(Path.PathSeparator, Path.AltDirectorySeparatorChar);
+            return directory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
     }
 }

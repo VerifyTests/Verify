@@ -22,9 +22,9 @@ namespace VerifyXunit
 
         string ApplyScrubbers(string target)
         {
-            target = target.Replace(CleanPath(AppDomain.CurrentDomain.BaseDirectory), "BaseDirectory");
+            target = target.Replace(CleanPath(AppDomain.CurrentDomain.BaseDirectory), "CurrentDirectory");
             target = target.Replace(CleanPath(Environment.CurrentDirectory), "CurrentDirectory");
-            target = target.Replace(CleanPath(CodeBaseLocation.CurrentDirectory), "CodeBaseLocation");
+            target = target.Replace(CleanPath(CodeBaseLocation.CurrentDirectory), "CurrentDirectory");
 
             foreach (var scrubber in instanceScrubbers)
             {

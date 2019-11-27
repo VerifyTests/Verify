@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
@@ -23,6 +24,36 @@ public class Tests :
     public Task Stream()
     {
         return Verify(new MemoryStream(new byte[]{1}));
+    }
+
+    [Fact]
+    public async Task StreamNegative()
+    {
+        var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
+        File.Delete(binFile);
+        DiffRunner.Enabled = false;
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify(new MemoryStream(new byte[]{1})));
+        DiffRunner.Enabled = true;
+        File.Delete(binFile);
+        await Verify(exception.Message);
+    }
+
+    [Fact]
+    public Task Text()
+    {
+        return Verify("someText");
+    }
+
+    [Fact]
+    public async Task TextNegative()
+    {
+        var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
+        File.Delete(txtFile);
+        DiffRunner.Enabled = false;
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("someText",".tmp"));
+        DiffRunner.Enabled = true;
+        File.Delete(txtFile);
+        await Verify(exception.Message);
     }
 
     [Fact]

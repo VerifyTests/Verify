@@ -26,9 +26,16 @@ static class DiffRunner
         }
     }
 
+    internal static bool Enabled;
+
     public static void Launch(string receivedPath, string verifiedPath)
     {
         if (!FoundDiff)
+        {
+            return;
+        }
+
+        if (!Enabled)
         {
             return;
         }

@@ -26,7 +26,7 @@ static class DiffRunner
         }
     }
 
-    internal static bool Enabled;
+    internal static bool Enabled = true;
 
     public static void Launch(string receivedPath, string verifiedPath)
     {

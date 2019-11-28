@@ -21,3 +21,12 @@ setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Commu
 ```
 setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" \"{receivedPath}\" \"{verifiedPath}\""
 ```
+
+
+## Sublime Merge
+
+[Command Line Reference](https://www.sublimemerge.com/docs/command_line)
+
+```
+setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge\" mergetool \"{receivedPath}\" \"{verifiedPath}\""
+```

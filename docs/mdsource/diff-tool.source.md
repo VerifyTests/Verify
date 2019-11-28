@@ -31,6 +31,7 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" \"{rece
 setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge.exe\" mergetool \"{receivedPath}\" \"{verifiedPath}\""
 ```
 
+
 ## Meld
 
 https://meldmerge.org/
@@ -39,10 +40,20 @@ https://meldmerge.org/
 setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld.exe\" \"{receivedPath}\" \"{verifiedPath}\""
 ```
 
+
 ## Code Compare
 
 [Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
 
 ```
 setx VerifyDiffCommand "\"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe\" \"{receivedPath}\" \"{verifiedPath}\""
+```
+
+
+## Araxis Merge
+
+[Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
+
+```
+setx VerifyDiffCommand "\"%ProgramFiles%\Araxis\Araxis Merge\Merge.exe\" \"{receivedPath}\" \"{verifiedPath}\""
 ```

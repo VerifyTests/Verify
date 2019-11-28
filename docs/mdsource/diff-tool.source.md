@@ -28,7 +28,7 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" \"{rece
 [Command Line Reference](https://www.sublimemerge.com/docs/command_line)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge\" mergetool \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge.exe\" mergetool \"{receivedPath}\" \"{verifiedPath}\""
 ```
 
 ## Meld
@@ -36,5 +36,13 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge\" mergetool \"{rec
 https://meldmerge.org/
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld\" \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld.exe\" \"{receivedPath}\" \"{verifiedPath}\""
+```
+
+## Code Compare
+
+[Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
+
+```
+setx VerifyDiffCommand "\"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe\" \"{receivedPath}\" \"{verifiedPath}\""
 ```

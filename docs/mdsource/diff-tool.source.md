@@ -10,7 +10,11 @@ Controlled via environment variables.
 [devenv.exe /Diff option](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff?view=vs-2019)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe\" /diff \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe\" /diff {receivedPath} {verifiedPath}"
+```
+
+```
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe\" /diff {receivedPath} {verifiedPath}"
 ```
 
 
@@ -19,7 +23,7 @@ setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Commu
 [Command Line Reference](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" {receivedPath} {verifiedPath}"
 ```
 
 
@@ -28,7 +32,7 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" \"{rece
 [Command Line Reference](https://www.sublimemerge.com/docs/command_line)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge.exe\" mergetool \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge.exe\" mergetool {receivedPath} {verifiedPath}"
 ```
 
 
@@ -37,7 +41,16 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge.exe\" mergetool \"
 https://meldmerge.org/
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld.exe\" \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld.exe\" {receivedPath} {verifiedPath}"
+```
+
+
+## P4Merge
+
+https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
+
+```
+setx VerifyDiffCommand "\"%ProgramFiles%\Perforce\p4merge.exe\" {receivedPath} {verifiedPath}"
 ```
 
 
@@ -46,7 +59,7 @@ setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld.exe\" \"{receivedPath}\"
 [Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe\" \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe\" {receivedPath} {verifiedPath}"
 ```
 
 
@@ -55,5 +68,5 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe\" \
 [Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
 
 ```
-setx VerifyDiffCommand "\"%ProgramFiles%\Araxis\Araxis Merge\Merge.exe\" \"{receivedPath}\" \"{verifiedPath}\""
+setx VerifyDiffCommand "\"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe\" /nowait {receivedPath} {verifiedPath}"
 ```

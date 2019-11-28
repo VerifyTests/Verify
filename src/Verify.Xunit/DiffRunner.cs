@@ -41,8 +41,8 @@ static class DiffRunner
         }
 
         var replaced = verifyDiffCommand
-            .Replace("{receivedPath}", $"{receivedPath}")
-            .Replace("{verifiedPath}", $"{verifiedPath}");
+            .Replace("{receivedPath}", $"\"{receivedPath}\"")
+            .Replace("{verifiedPath}", $"\"{verifiedPath}\"");
         var arguments = $"/K \"{replaced}\"";
         using var process = new Process
         {

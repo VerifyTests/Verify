@@ -30,3 +30,11 @@ setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" \"{rece
 ```
 setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge\" mergetool \"{receivedPath}\" \"{verifiedPath}\""
 ```
+
+## Meld
+
+https://meldmerge.org/
+
+```
+setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld\" \"{receivedPath}\" \"{verifiedPath}\""
+```

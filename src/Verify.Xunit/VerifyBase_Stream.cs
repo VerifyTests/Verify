@@ -135,7 +135,7 @@ namespace VerifyXunit
             throw new XunitException($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
         }
 
-        private Exception VerificationNotFoundException(string extension)
+        Exception VerificationNotFoundException(string extension)
         {
             return new XunitException($"First verification. {Context.UniqueTestName}.verified{extension} not found. Verification command has been copied to the clipboard.");
         }

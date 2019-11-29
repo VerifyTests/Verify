@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace VerifyXunit
 {
@@ -42,7 +41,7 @@ namespace VerifyXunit
             return target;
         }
 
-        string CleanPath(string directory)
+        static string CleanPath(string directory)
         {
             return directory.TrimEnd('/', '\\');
         }

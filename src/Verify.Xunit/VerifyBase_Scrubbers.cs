@@ -41,7 +41,7 @@ namespace VerifyXunit
             return target;
         }
 
-        string CleanPath(string directory)
+        static string CleanPath(string directory)
         {
             return directory.TrimEnd('/', '\\');
         }

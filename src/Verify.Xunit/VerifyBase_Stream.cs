@@ -57,7 +57,7 @@ namespace VerifyXunit
                     await FileHelpers.WriteStream(receivedPath, stream);
                     if (!File.Exists(verifiedPath))
                     {
-                        ClipboardCapture.Append(receivedPath, verifiedPath);
+                        await ClipboardCapture.Append(receivedPath, verifiedPath);
                         missingVerified.Add(index);
                         if (DiffRunner.FoundDiff)
                         {
@@ -71,7 +71,7 @@ namespace VerifyXunit
                     if (!FileHelpers.FilesEqual(receivedPath, verifiedPath))
                     {
                         notEquals.Add(index);
-                        ClipboardCapture.Append(receivedPath, verifiedPath);
+                        await ClipboardCapture.Append(receivedPath, verifiedPath);
                         continue;
                     }
                     File.Delete(receivedPath);
@@ -115,7 +115,7 @@ namespace VerifyXunit
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
-                ClipboardCapture.Append(receivedPath, verifiedPath);
+                await ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffRunner.FoundDiff)
                 {
                     FileHelpers.WriteEmpty(verifiedPath);
@@ -131,7 +131,7 @@ namespace VerifyXunit
                 return;
             }
 
-            ClipboardCapture.Append(receivedPath, verifiedPath);
+            await ClipboardCapture.Append(receivedPath, verifiedPath);
             throw new XunitException($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
         }
 

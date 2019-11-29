@@ -17,7 +17,7 @@ namespace VerifyXunit
             if (!File.Exists(verifiedPath))
             {
                 await FileHelpers.WriteText(receivedPath, input);
-                ClipboardCapture.Append(receivedPath, verifiedPath);
+                await ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffRunner.FoundDiff)
                 {
                     FileHelpers.WriteEmptyText(verifiedPath);
@@ -36,7 +36,7 @@ namespace VerifyXunit
             catch (EqualException exception)
             {
                 await FileHelpers.WriteText(receivedPath, input);
-                ClipboardCapture.Append(receivedPath, verifiedPath);
+                await ClipboardCapture.Append(receivedPath, verifiedPath);
                 exception.PrefixWithCopyCommand();
                 DiffRunner.Launch(receivedPath, verifiedPath);
 

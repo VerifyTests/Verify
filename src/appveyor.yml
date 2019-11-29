@@ -5,7 +5,7 @@ build_script:
 - ps: >-
     dotnet build src --configuration Release
 
-    dotnet test src --configuration Release --no-build --no-restore
+    dotnet test src --configuration Release --no-build --no-restore --filter Category!=Integration
 test: off
 artifacts:
 - path: nugets\*.nupkg

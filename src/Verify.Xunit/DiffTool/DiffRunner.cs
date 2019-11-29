@@ -1,8 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
-static class DiffRunner
+namespace VerifyXunit
 {
+    public class DiffTool
+    {
+        public DiffTool(string name, IEnumerable<string> binaryExtensions)
+        {
+
+        }
+    }
+}
+
+static class DiffRunner
+    {
     static string verifyDiffCommand = null!;
     public readonly static bool FoundDiff;
 

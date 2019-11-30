@@ -16,5 +16,13 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.33" PrivateAssets="All" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="DiffTool\DiffToolTest.AfterJson.verified.txt">
+      <DependentUpon>DiffToolTest.cs</DependentUpon>
+    </None>
+    <None Update="DiffTool\DiffToolTest.Simple.verified.txt">
+      <DependentUpon>DiffToolTest.cs</DependentUpon>
+    </None>
+  </ItemGroup>
   <Import Project="$(SolutionDir)Verify.Xunit\build\Verify.Xunit.targets" />
 </Project>

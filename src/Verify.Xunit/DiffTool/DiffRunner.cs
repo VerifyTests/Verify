@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-
-namespace VerifyXunit
-{
-    public class DiffTool
-    {
-        public DiffTool(string name, IEnumerable<string> binaryExtensions)
-        {
-
-        }
-    }
-}
 
 static class DiffRunner
     {
@@ -75,6 +63,32 @@ static class DiffRunner
         {
             var message = $@"Failed to launch diff tool.
 cmd {arguments}";
+            throw new Exception(message, exception);
+        }
+    }
+
+    public static void Launch(string exe, string receivedPath, string verifiedPath)
+    {
+        var arguments = $"\"{receivedPath}\" \"{verifiedPath}\"";
+        using var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = exe,
+                Arguments = arguments,
+                UseShellExecute = false,
+                CreateNoWindow = false,
+            }
+        };
+        try
+        {
+            //TODO: handle exe not found
+            process.Start();
+        }
+        catch (Exception exception)
+        {
+            var message = $@"Failed to launch diff tool.
+{exe} {arguments}";
             throw new Exception(message, exception);
         }
     }

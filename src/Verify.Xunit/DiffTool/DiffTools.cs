@@ -12,6 +12,7 @@ static partial class DiffTools
         VisualStudio(),
         SublimeMerge(),
         Meld(),
+        AraxisMerge(),
         P4Merge(),
         BeyondCompare(),
     };

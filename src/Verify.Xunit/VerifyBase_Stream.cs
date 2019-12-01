@@ -113,6 +113,7 @@ namespace VerifyXunit
 
         public async Task Verify(IEnumerable<Stream> streams, string extension)
         {
+            Guard.AgainstBadExtension(extension, nameof(extension));
             var missingVerified = new List<int>();
             var notEquals = new List<int>();
             var index = 0;

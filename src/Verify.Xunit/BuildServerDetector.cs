@@ -18,7 +18,9 @@ static class BuildServerDetector
             return;
         }
         // AzureDevops: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#agent-variables
-        if (Environment.GetEnvironmentVariable("Agent.Id") != null)
+        // Variable name is 'Agent.Id' but must be referenced with an underscore
+        // https://docs.microsoft.com/en-us/azure/devops/pipelines/release/variables?view=azure-devops&tabs=powershell#using-default-variables
+        if (Environment.GetEnvironmentVariable("Agent_Id") != null)
         {
             Detected = true;
             return;

@@ -9,5 +9,9 @@
       $([System.String]::Copy('%(FileName)').IndexOf('.'))
     )
 )$(ProjectExt.Replace('proj', ''))" />
+    <None Include="$(MSBuildThisFileDirectory)..\EmptyFiles\*.*"
+          Visible = "false"
+          CopyToOutputDirectory ="PreserveNewest"
+          Link="Verify.EmptyFiles\%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

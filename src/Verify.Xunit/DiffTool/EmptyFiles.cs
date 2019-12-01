@@ -1,11 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Verify.Xunit.EmptyFiles
+﻿class EmptyFiles
 {
-    //https://image.onlineconvert.com/
-    class Class1
-    {
-    }
 }

@@ -10,7 +10,7 @@
         },
         binaryExtensions: new[]
         {
-            "mp3",
+            "mp3",//?
             "xls",
             "xlsm",
             "xlsx",

@@ -29,7 +29,14 @@ namespace VerifyXunit
 
             if (verifyResult == VerifyResult.NotEqual)
             {
-                throw new XunitException($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
+                var builder = new StringBuilder("Streams do not match.");
+                builder.AppendLine();
+                if (!BuildServerDetector.Detected)
+                {
+                    builder.AppendLine(ExceptionHelpers.CommandHasBeenCopiedToTheClipboard);
+                }
+
+                throw new XunitException(builder.ToString());
             }
         }
 
@@ -79,15 +86,19 @@ namespace VerifyXunit
                     return verifyResult;
                 }
 
-                if (DiffTools.TryFindForExtension(extension, out var diffTool))
+                if (!BuildServerDetector.Detected)
                 {
-                    if (EmptyFiles.TryWriteEmptyFile(extension, verifiedPath))
+                    if (DiffTools.TryFindForExtension(extension, out var diffTool))
                     {
-                        DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                        if (EmptyFiles.TryWriteEmptyFile(extension, verifiedPath))
+                        {
+                            DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                        }
                     }
+
+                    await ClipboardCapture.Append(receivedPath, verifiedPath);
                 }
 
-                await ClipboardCapture.Append(receivedPath, verifiedPath);
                 return verifyResult;
             }
             finally
@@ -98,13 +109,6 @@ namespace VerifyXunit
                 stream.Dispose();
 #endif
             }
-        }
-
-        public enum VerifyResult
-        {
-            Equal,
-            NotEqual,
-            MissingVerified
         }
 
         public async Task Verify(IEnumerable<Stream> streams, string extension)
@@ -134,8 +138,13 @@ namespace VerifyXunit
                 return;
             }
 
-            var builder = new StringBuilder($"Streams do not match. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
+            var builder = new StringBuilder("Streams do not match.");
             builder.AppendLine();
+            if (!BuildServerDetector.Detected)
+            {
+                builder.AppendLine(ExceptionHelpers.CommandHasBeenCopiedToTheClipboard);
+            }
+
             if (missingVerified.Any())
             {
                 builder.AppendLine($"Streams not verified: {string.Join(", ", missingVerified)}");

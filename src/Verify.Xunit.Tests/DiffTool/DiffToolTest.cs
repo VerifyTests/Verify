@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,11 +10,37 @@ public class DiffToolsTest :
     VerifyBase
 {
     [Fact]
-    public void WriteFoundTools()
+    public async Task WriteFoundTools()
     {
+        var md = Path.Combine(SourceDirectory, "diffTools.include.md");
+        File.Delete(md);
+        using var writer = File.CreateText(md);
         foreach (var tool in DiffTools.Tools().Where(x => x.Exists))
         {
-            Debug.WriteLine(tool.Name);
+            await writer.WriteLineAsync($@"
+## {tool.Name}
+
+ * Url: {tool.Url}
+
+");
+            await writer.WriteLineAsync(@"
+### Scanned directories:
+");
+            foreach (var path in tool.ExePaths)
+            {
+                await writer.WriteLineAsync($@" * {path}");
+            }
+
+            if (tool.BinaryExtensions.Any())
+            {
+                await writer.WriteLineAsync(@"
+### Supported Binary extensions:
+");
+                foreach (var extension in tool.BinaryExtensions)
+                {
+                    await writer.WriteLineAsync($@" * {extension}");
+                }
+            }
         }
     }
 

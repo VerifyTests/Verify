@@ -9,6 +9,7 @@ class DiffTool
     public string[] BinaryExtensions { get; }
     public string? ExePath { get; }
     public bool Exists { get; }
+    public string[] ExePaths { get; }
 
     public DiffTool(string name, string url, string argumentPrefix, string[] exePaths, string[] binaryExtensions)
     {
@@ -16,6 +17,7 @@ class DiffTool
         Url = url;
         ArgumentPrefix = argumentPrefix;
         BinaryExtensions = binaryExtensions;
+        ExePaths = exePaths;
 
         foreach (var exePath in exePaths)
         {
@@ -27,4 +29,5 @@ class DiffTool
             }
         }
     }
+
 }

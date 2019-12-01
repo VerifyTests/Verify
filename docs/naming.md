@@ -94,7 +94,7 @@ public class ExtensionSample :
     [Fact]
     public async Task AtMethod()
     {
-        UseExtensionForText(".xml");
+        UseExtensionForText("xml");
         await Verify(@"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -115,7 +115,7 @@ public class ExtensionSample :
     public ExtensionSample(ITestOutputHelper output) :
         base(output)
     {
-        UseExtensionForText(".json");
+        UseExtensionForText("json");
     }
 }
 ```

@@ -9,6 +9,7 @@ namespace VerifyXunit
     {
         public async Task Verify(string input, string extension)
         {
+            Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
             input = ApplyScrubbers(input);
             input = input.Replace("\r\n", "\n");

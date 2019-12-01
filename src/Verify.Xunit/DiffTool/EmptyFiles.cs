@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 static class EmptyFiles
@@ -16,16 +15,24 @@ static class EmptyFiles
         }
     }
 
-}
-
-class EmptyFile
-{
-    public string Path { get; }
-    public DateTime LastWriteTime { get; }
-
-    public EmptyFile(string path, in DateTime lastWriteTime)
+    public static bool IsEmptyFile(string extension, string path)
     {
-        Path = path;
-        LastWriteTime = lastWriteTime;
+        if (!dictionary.TryGetValue(extension, out var emptyFile))
+        {
+            return false;
+        }
+
+        return File.GetLastWriteTime(path) == emptyFile.LastWriteTime;
+    }
+
+    public static bool TryWriteEmptyFile(string extension, string verifiedPath)
+    {
+        if (!dictionary.TryGetValue(extension, out var emptyFile))
+        {
+            return false;
+        }
+
+        File.Copy(emptyFile.Path, verifiedPath, true);
+        return true;
     }
 }

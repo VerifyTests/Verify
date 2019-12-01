@@ -72,34 +72,19 @@ static class DiffRunner
         };
         process.StartWithCatch();
     }
-    public static void Launch(string exe, string argumentPrefix, string receivedPath)
+    public static void Launch(ResolvedDiffTool diffTool, string receivedPath, string verifiedPath)
     {
-        var arguments = $"{argumentPrefix} \"{receivedPath}\"";
+        var arguments = $"{diffTool.ArgumentPrefix} \"{receivedPath}\" \"{verifiedPath}\"";
         using var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = exe,
+                FileName = diffTool.ExePath,
                 Arguments = arguments,
                 UseShellExecute = false,
                 CreateNoWindow = false,
             }
         };
         process.StartWithCatch();
-    }
-
-    public static void StartWithCatch(this Process process)
-    {
-        try
-        {
-            //TODO: handle exe not found
-            process.Start();
-        }
-        catch (Exception exception)
-        {
-            var message = $@"Failed to launch diff tool.
-{process.StartInfo.FileName} {process.StartInfo.Arguments}";
-            throw new Exception(message, exception);
-        }
     }
 }

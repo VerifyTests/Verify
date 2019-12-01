@@ -68,4 +68,9 @@ static partial class DiffTools
             }
         }
     }
+
+    public static bool TryFindForExtension(string extension, out ResolvedDiffTool diffTool)
+    {
+        return ExtensionLookup.TryGetValue(extension, out diffTool);
+    }
 }

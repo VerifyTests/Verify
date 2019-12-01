@@ -23,22 +23,9 @@ public class DiffToolsTest :
         foreach (var tool in DiffTools.ResolvedDiffTools)
         {
             DiffRunner.Launch(
-                tool.ExePath,
-                tool.ArgumentPrefix,
+                tool,
                 receivedPath: Path.Combine(SourceDirectory, "input_received.txt"),
                 verifiedPath: Path.Combine(SourceDirectory, "input_verified.txt"));
-        }
-    }
-    [Fact]
-    [Trait("Category", "Integration")]
-    public void LaunchTextDiffSingle()
-    {
-        foreach (var tool in DiffTools.ResolvedDiffTools)
-        {
-            DiffRunner.Launch(
-                tool.ExePath,
-                tool.ArgumentPrefix,
-                receivedPath: Path.Combine(SourceDirectory, "input_received.txt"));
         }
     }
 

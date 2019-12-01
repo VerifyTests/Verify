@@ -103,7 +103,7 @@ public class Tests :
         var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
         File.Delete(txtFile);
         DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("someText", ".tmp"));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("someText", "tmp"));
         DiffRunner.Enabled = true;
         File.Delete(txtFile);
         await Verify(exception.Message);

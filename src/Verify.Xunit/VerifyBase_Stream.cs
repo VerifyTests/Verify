@@ -12,14 +12,15 @@ namespace VerifyXunit
     {
         public Task Verify(Stream input)
         {
-            return Verify(input, ".bin");
+            return Verify(input, "bin");
         }
 
         public async Task Verify(Stream input, string extension)
         {
+            Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
 
-            var verifyResult = await Verify2(input, extension);
+            var verifyResult = await InnerVerify(input, extension);
 
             if (verifyResult == VerifyResult.MissingVerified)
             {
@@ -34,10 +35,31 @@ namespace VerifyXunit
 
         public Task Verify(IEnumerable<Stream> streams)
         {
-            return Verify(streams, ".bin");
+            return Verify(streams, "bin");
         }
 
-        async Task<VerifyResult> Verify2(Stream stream, string extension, string? suffix = null)
+        VerifyResult DoCompare(string receivedPath, string verifiedPath, string extension)
+        {
+            if (!File.Exists(verifiedPath))
+            {
+                return VerifyResult.MissingVerified;
+            }
+
+            if (EmptyFiles.IsEmptyFile(extension, verifiedPath))
+            {
+                return VerifyResult.NotEqual;
+            }
+
+            if (!FileHelpers.FilesEqual(receivedPath, verifiedPath))
+            {
+                return VerifyResult.NotEqual;
+            }
+
+            return VerifyResult.Equal;
+
+        }
+
+        async Task<VerifyResult> InnerVerify(Stream stream, string extension, string? suffix = null)
         {
             if (stream.CanSeek)
             {
@@ -47,28 +69,26 @@ namespace VerifyXunit
             try
             {
                 var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
-                FileHelpers.DeleteIfEmpty(verifiedPath);
                 await FileHelpers.WriteStream(receivedPath, stream);
-                if (!File.Exists(verifiedPath))
+
+                var verifyResult = DoCompare(receivedPath, verifiedPath, extension);
+
+                if (verifyResult == VerifyResult.Equal)
                 {
-                    await ClipboardCapture.Append(receivedPath, verifiedPath);
-                    if (DiffRunner.FoundDiff)
+                    File.Delete(receivedPath);
+                    return verifyResult;
+                }
+
+                if (DiffTools.TryFindForExtension(extension, out var diffTool))
+                {
+                    if (EmptyFiles.TryWriteEmptyFile(extension, verifiedPath))
                     {
-                        FileHelpers.WriteEmpty(verifiedPath);
-                        DiffRunner.Launch(receivedPath, verifiedPath);
+                        DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
                     }
-
-                    return VerifyResult.MissingVerified;
                 }
 
-                if (!FileHelpers.FilesEqual(receivedPath, verifiedPath))
-                {
-                    await ClipboardCapture.Append(receivedPath, verifiedPath);
-                    return VerifyResult.NotEqual;
-                }
-
-                File.Delete(receivedPath);
-                return VerifyResult.Equal;
+                await ClipboardCapture.Append(receivedPath, verifiedPath);
+                return verifyResult;
             }
             finally
             {
@@ -94,7 +114,7 @@ namespace VerifyXunit
             var index = 0;
             foreach (var stream in streams)
             {
-                var verifyResult = await Verify2(stream, extension, $"{index:D2}");
+                var verifyResult = await InnerVerify(stream, extension, $"{index:D2}");
 
                 if (verifyResult == VerifyResult.MissingVerified)
                 {
@@ -131,7 +151,7 @@ namespace VerifyXunit
 
         Exception VerificationNotFoundException(string extension)
         {
-            return new XunitException($"First verification. {Context.UniqueTestName}.verified{extension} not found. Verification command has been copied to the clipboard.");
+            return new XunitException($"First verification. {Context.UniqueTestName}.verified.{extension} not found. Verification command has been copied to the clipboard.");
         }
     }
 }

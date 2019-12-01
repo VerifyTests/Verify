@@ -18,6 +18,7 @@ static partial class DiffTools
         return new List<DiffTool>
         {
             VisualStudio(),
+            VsCode(),
             WinMerge(),
             CodeCompare(),
             SublimeMerge(),

@@ -6,6 +6,12 @@
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
+## [Visual Studio Code](https://code.visualstudio.com/docs/editor/command-line)
+
+### Scanned directories:
+
+ * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
 ### Scanned directories:

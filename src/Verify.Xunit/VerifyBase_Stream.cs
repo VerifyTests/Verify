@@ -160,6 +160,11 @@ namespace VerifyXunit
 
         Exception VerificationNotFoundException(string extension)
         {
+            if (BuildServerDetector.Detected)
+            {
+                return new XunitException($"First verification. {Context.UniqueTestName}.verified.{extension} not found.");
+            }
+
             return new XunitException($"First verification. {Context.UniqueTestName}.verified.{extension} not found. Verification command has been copied to the clipboard.");
         }
     }

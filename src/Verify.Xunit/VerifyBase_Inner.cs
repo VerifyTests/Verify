@@ -17,12 +17,15 @@ namespace VerifyXunit
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
-                await FileHelpers.WriteText(receivedPath, input);
-                await ClipboardCapture.Append(receivedPath, verifiedPath);
-                if (DiffTools.TryGetTextDiff(extension, out var diffTool))
+                if (BuildServerDetector.Detected)
                 {
-                    FileHelpers.WriteEmptyText(verifiedPath);
-                    DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                    await FileHelpers.WriteText(receivedPath, input);
+                    await ClipboardCapture.Append(receivedPath, verifiedPath);
+                    if (DiffTools.TryGetTextDiff(extension, out var diffTool))
+                    {
+                        FileHelpers.WriteEmptyText(verifiedPath);
+                        DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                    }
                 }
 
                 throw VerificationNotFoundException(extension);
@@ -36,9 +39,9 @@ namespace VerifyXunit
             }
             catch (EqualException exception) when (!BuildServerDetector.Detected)
             {
+                exception.PrefixWithCopyCommand();
                 await FileHelpers.WriteText(receivedPath, input);
                 await ClipboardCapture.Append(receivedPath, verifiedPath);
-                exception.PrefixWithCopyCommand();
                 if (DiffTools.TryGetTextDiff(extension, out var diffTool))
                 {
                     DiffRunner.Launch(diffTool, receivedPath, verifiedPath);

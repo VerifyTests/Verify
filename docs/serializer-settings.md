@@ -92,7 +92,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L115-L128) / [anchor](#snippet-guid)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L127-L140) / [anchor](#snippet-guid)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -138,7 +138,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L551-L567) / [anchor](#snippet-date)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L563-L579) / [anchor](#snippet-date)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -269,7 +269,7 @@ var target = new IgnoreTypeTarget
 };
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L217-L234) / [anchor](#snippet-addignoretype)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L229-L246) / [anchor](#snippet-addignoretype)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -309,7 +309,7 @@ var target = new IgnoreInstanceTarget
 };
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L183-L200) / [anchor](#snippet-addignoreinstance)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L195-L212) / [anchor](#snippet-addignoreinstance)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -350,7 +350,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L256-L274) / [anchor](#snippet-ignorememberbyexpression)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L268-L286) / [anchor](#snippet-ignorememberbyexpression)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -390,7 +390,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L280-L299) / [anchor](#snippet-ignorememberbyname)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L292-L311) / [anchor](#snippet-ignorememberbyname)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -424,7 +424,7 @@ ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 var target = new WithCustomException();
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L326-L333) / [anchor](#snippet-ignoremembersthatthrow)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L338-L345) / [anchor](#snippet-ignoremembersthatthrow)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -447,7 +447,7 @@ ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "
 var target = new WithExceptionIgnoreMessage();
 await Verify(target);
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L388-L395) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L400-L407) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
 <!-- endsnippet -->
 
 Result:

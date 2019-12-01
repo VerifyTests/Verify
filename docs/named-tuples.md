@@ -21,7 +21,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     return (true, "A", "B");
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L158-L165) / [anchor](#snippet-methodwithnamedtuple)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L170-L177) / [anchor](#snippet-methodwithnamedtuple)</sup>
 <!-- endsnippet -->
 
 Can be verified:
@@ -31,7 +31,7 @@ Can be verified:
 ```cs
 await Verify(() => MethodWithNamedTuple());
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L151-L155) / [anchor](#snippet-verifytuple)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Tests.cs#L163-L167) / [anchor](#snippet-verifytuple)</sup>
 <!-- endsnippet -->
 
 Resulting in:

@@ -48,6 +48,10 @@ public class Tests :
     [Fact]
     public async Task StreamNegative()
     {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
         var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
         File.Delete(binFile);
         DiffRunner.Enabled = false;
@@ -70,6 +74,10 @@ public class Tests :
     [Fact]
     public async Task StreamMultipleNegative()
     {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
         void DeleteTempFiles()
         {
             foreach (var binFile in Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultipleNegative*.verified.bin"))
@@ -100,6 +108,10 @@ public class Tests :
     [Fact]
     public async Task TextNegative()
     {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
         var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
         File.Delete(txtFile);
         DiffRunner.Enabled = false;

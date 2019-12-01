@@ -28,7 +28,7 @@ public class DiffToolsTest :
 ");
             foreach (var path in tool.ExePaths)
             {
-                await writer.WriteLineAsync($@" * {path}");
+                await writer.WriteLineAsync($@" * `{path}`");
             }
 
             if (tool.BinaryExtensions.Any())

@@ -21,7 +21,8 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ### Scanned directories:
 
- * %ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe
+ * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
+ * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
 ## Sublime Merge
 
@@ -31,7 +32,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ### Scanned directories:
 
- * %ProgramFiles%\Sublime Merge\smerge.exe
+ * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
 ## Meld
 
@@ -41,7 +42,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ### Scanned directories:
 
- * %ProgramFiles(x86)%\Meld\meld.exe
+ * `%ProgramFiles(x86)%\Meld\meld.exe`
 
 ## AraxisMerge
 
@@ -51,7 +52,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ### Scanned directories:
 
- * %ProgramFiles%\Araxis\Araxis Merge\Compare.exe
+ * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
 ### Supported Binary extensions:
 
@@ -86,7 +87,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ### Scanned directories:
 
- * %ProgramFiles%\Perforce\p4merge.exe
+ * `%ProgramFiles%\Perforce\p4merge.exe`
 
 ### Supported Binary extensions:
 
@@ -110,7 +111,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ### Scanned directories:
 
- * %ProgramFiles%\Beyond Compare 4\BCompare.exe
+ * `%ProgramFiles%\Beyond Compare 4\BCompare.exe`
 
 ### Supported Binary extensions:
 

@@ -8,7 +8,8 @@ static partial class DiffTools
         argumentPrefix: "/diff ",
         exePaths: new[]
         {
-            @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
+            @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe",
+            @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe",
         },
         binaryExtensions: Array.Empty<string>());
 }

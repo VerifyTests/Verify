@@ -11,27 +11,27 @@
         binaryExtensions: new[]
         {
             //https://www.araxis.com/merge/documentation-windows/comparing-image-files.en
+            "bmp",
+            "dib",
+            "emf",
             "gif",
             "jif",
-            "jpeg",
-            "jpg",
             "j2c",
             "j2k",
             "jp2",
             "jpc",
+            "jpeg",
+            "jpg",
             "jpx",
-            "pbm",
+            "pbm", //?
+            "pcx",
             "pgm",
             "png",
-            "ppm",
-            "ras",
+            "ppm",//?
+            "ras",//?
             "tif",
             "tiff",
             "tga",
-            "emf",
-            "wmf",
-            "bmp",
-            "dib",
-            "pcx",
+            "wmf", //?
         });
 }

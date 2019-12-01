@@ -14,7 +14,4 @@
     <Content Include="buildMultiTargeting\Verify.Xunit.targets" PackagePath="buildMultiTargeting\Verify.Xunit.targets" />
     <Content Include="build\Verify.Xunit.targets" PackagePath="build\Verify.Xunit.targets" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EmptyFiles\" />
-  </ItemGroup>
 </Project>

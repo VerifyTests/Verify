@@ -1,16 +1,24 @@
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
-
-
 ### Scanned directories:
 
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
+## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
+
+### Scanned directories:
+
+ * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
+
+## [CodeCompare](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
+
+### Scanned directories:
+
+ * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
+
 ## [Sublime Merge](https://www.sublimemerge.com/)
-
-
 
 ### Scanned directories:
 
@@ -18,15 +26,11 @@
 
 ## [Meld](https://meldmerge.org/)
 
-
-
 ### Scanned directories:
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
 ## [AraxisMerge](https://www.araxis.com/merge)
-
-
 
 ### Scanned directories:
 
@@ -59,8 +63,6 @@
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
-
-
 ### Scanned directories:
 
  * `%ProgramFiles%\Perforce\p4merge.exe`
@@ -80,8 +82,6 @@
  * xpm
 
 ## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
-
-
 
 ### Scanned directories:
 

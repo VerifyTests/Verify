@@ -18,4 +18,14 @@ static class Guard
             throw new ArgumentNullException(argumentName);
         }
     }
+
+    public static void AgainstBadExtension(string value, string argumentName)
+    {
+        AgainstNullOrEmpty(value, argumentName);
+
+        if (value.StartsWith("."))
+        {
+            throw new ArgumentException("Must not start with a period ('.').", argumentName);
+        }
+    }
 }

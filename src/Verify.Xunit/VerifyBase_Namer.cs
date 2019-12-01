@@ -29,14 +29,14 @@ namespace VerifyXunit
             var filePrefix = GetFilePrefix();
             if (suffix == null)
             {
-                var receivedPath = $"{filePrefix}.received{extension}";
-                var verifiedPath = $"{filePrefix}.verified{extension}";
+                var receivedPath = $"{filePrefix}.received.{extension}";
+                var verifiedPath = $"{filePrefix}.verified.{extension}";
                 return (receivedPath, verifiedPath);
             }
             else
             {
-                var receivedPath = $"{filePrefix}.{suffix}.received{extension}";
-                var verifiedPath = $"{filePrefix}.{suffix}.verified{extension}";
+                var receivedPath = $"{filePrefix}.{suffix}.received.{extension}";
+                var verifiedPath = $"{filePrefix}.{suffix}.verified.{extension}";
                 return (receivedPath, verifiedPath);
             }
         }

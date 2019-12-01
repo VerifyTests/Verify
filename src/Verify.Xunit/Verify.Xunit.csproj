@@ -9,8 +9,13 @@
     <PackageReference Include="TextCopy" Version="2.0.0-beta.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.33" PrivateAssets="All" />
+    <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01" PrivateAssets="All" />
     <Content Include="buildMultiTargeting\Verify.Xunit.targets" PackagePath="buildMultiTargeting\Verify.Xunit.targets" />
     <Content Include="build\Verify.Xunit.targets" PackagePath="build\Verify.Xunit.targets" />
+    <None Include="EmptyFiles\empty.*">
+      <Pack>true</Pack>
+      <PackagePath>EmptyFiles</PackagePath>
+    </None>
   </ItemGroup>
 </Project>

@@ -7,73 +7,128 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Diff Tool
 
-Controlled via environment variables.
 
- * `VerifyDiffCommand`: The process and argument syntax to pass to the process. Must contain the strings `{receivedPath}` and `{verifiedPath}`.
+<!--
+include: diffTools
+path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
+-->
 
+## VisualStudio
 
-## Visual Studio
-
-[devenv.exe /Diff option](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff?view=vs-2019)
-
-```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe\" /diff {receivedPath} {verifiedPath}"
-```
-
-```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe\" /diff {receivedPath} {verifiedPath}"
-```
+ * Url: https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff
 
 
-## Beyond Compare
 
-[Command Line Reference](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
+### Scanned directories:
 
-```
-setx VerifyDiffCommand "\"%ProgramFiles%\Beyond Compare 4\BCompare.exe\" {receivedPath} {verifiedPath}"
-```
-
+ * %ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe
 
 ## Sublime Merge
 
-[Command Line Reference](https://www.sublimemerge.com/docs/command_line)
+ * Url: https://www.sublimemerge.com/
 
-```
-setx VerifyDiffCommand "\"%ProgramFiles%\Sublime Merge\smerge.exe\" mergetool {receivedPath} {verifiedPath}"
-```
 
+
+### Scanned directories:
+
+ * %ProgramFiles%\Sublime Merge\smerge.exe
 
 ## Meld
 
-https://meldmerge.org/
+ * Url: https://meldmerge.org/
 
-```
-setx VerifyDiffCommand "\"%ProgramFiles(x86)%\Meld\meld.exe\" {receivedPath} {verifiedPath}"
-```
 
+
+### Scanned directories:
+
+ * %ProgramFiles(x86)%\Meld\meld.exe
+
+## AraxisMerge
+
+ * Url: https://www.araxis.com/merge
+
+
+
+### Scanned directories:
+
+ * %ProgramFiles%\Araxis\Araxis Merge\Compare.exe
+
+### Supported Binary extensions:
+
+ * bmp
+ * dib
+ * emf
+ * gif
+ * jif
+ * j2c
+ * j2k
+ * jp2
+ * jpc
+ * jpeg
+ * jpg
+ * jpx
+ * pbm
+ * pcx
+ * pgm
+ * png
+ * ppm
+ * ras
+ * tif
+ * tiff
+ * tga
+ * wmf
 
 ## P4Merge
 
-https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
-
-```
-setx VerifyDiffCommand "\"%ProgramFiles%\Perforce\p4merge.exe\" {receivedPath} {verifiedPath}"
-```
+ * Url: https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
 
 
-## Code Compare
 
-[Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
+### Scanned directories:
 
-```
-setx VerifyDiffCommand "\"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe\" {receivedPath} {verifiedPath}"
-```
+ * %ProgramFiles%\Perforce\p4merge.exe
+
+### Supported Binary extensions:
+
+ * bmp
+ * gif
+ * jpg
+ * jpeg
+ * png
+ * pbm
+ * pgm
+ * ppm
+ * tiff
+ * xbm
+ * xpm
+
+## BeyondCompare
+
+ * Url: https://www.scootersoftware.com/v4help/index.html?command_line_reference.html
 
 
-## Araxis Merge
 
-[Command Line Reference](https://docs.devart.com/code-compare/using-command-line/comparing-via-command-line.html)
+### Scanned directories:
 
-```
-setx VerifyDiffCommand "\"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe\" /nowait {receivedPath} {verifiedPath}"
-```
+ * %ProgramFiles%\Beyond Compare 4\BCompare.exe
+
+### Supported Binary extensions:
+
+ * mp3
+ * xls
+ * xlsm
+ * xlsx
+ * doc
+ * docm
+ * docx
+ * dot
+ * dotm
+ * dotx
+ * pdf
+ * bmp
+ * gif
+ * ico
+ * jpg
+ * png
+ * tif
+ * rtf

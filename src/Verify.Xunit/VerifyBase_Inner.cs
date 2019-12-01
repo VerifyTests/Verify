@@ -9,6 +9,7 @@ namespace VerifyXunit
     {
         public async Task Verify(string input, string extension)
         {
+            Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
             input = ApplyScrubbers(input);
             input = input.Replace("\r\n", "\n");
@@ -18,10 +19,10 @@ namespace VerifyXunit
             {
                 await FileHelpers.WriteText(receivedPath, input);
                 await ClipboardCapture.Append(receivedPath, verifiedPath);
-                if (DiffRunner.FoundDiff)
+                if (DiffTools.TryGetTextDiff(extension, out var diffTool))
                 {
                     FileHelpers.WriteEmptyText(verifiedPath);
-                    DiffRunner.Launch(receivedPath, verifiedPath);
+                    DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
                 }
 
                 throw VerificationNotFoundException(extension);
@@ -38,7 +39,10 @@ namespace VerifyXunit
                 await FileHelpers.WriteText(receivedPath, input);
                 await ClipboardCapture.Append(receivedPath, verifiedPath);
                 exception.PrefixWithCopyCommand();
-                DiffRunner.Launch(receivedPath, verifiedPath);
+                if (DiffTools.TryGetTextDiff(extension, out var diffTool))
+                {
+                    DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                }
 
                 throw;
             }

@@ -10,33 +10,101 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-
         public Task Verify(Stream input)
         {
-            return Verify(input, ".bin");
+            return Verify(input, "bin");
         }
 
         public async Task Verify(Stream input, string extension)
         {
+            Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
 
-            try
+            var verifyResult = await InnerVerify(input, extension);
+
+            if (verifyResult == VerifyResult.MissingVerified)
             {
-                await InnerVerifyStream(input, extension);
+                throw VerificationNotFoundException(extension);
             }
-            finally
+
+            if (verifyResult == VerifyResult.NotEqual)
             {
-                #if NETSTANDARD2_1
-                await input.DisposeAsync();
-                #else
-                input.Dispose();
-                #endif
+                throw new XunitException($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
             }
         }
 
         public Task Verify(IEnumerable<Stream> streams)
         {
-            return Verify(streams, ".bin");
+            return Verify(streams, "bin");
+        }
+
+        VerifyResult DoCompare(string receivedPath, string verifiedPath, string extension)
+        {
+            if (!File.Exists(verifiedPath))
+            {
+                return VerifyResult.MissingVerified;
+            }
+
+            if (EmptyFiles.IsEmptyFile(extension, verifiedPath))
+            {
+                return VerifyResult.NotEqual;
+            }
+
+            if (!FileHelpers.FilesEqual(receivedPath, verifiedPath))
+            {
+                return VerifyResult.NotEqual;
+            }
+
+            return VerifyResult.Equal;
+
+        }
+
+        async Task<VerifyResult> InnerVerify(Stream stream, string extension, string? suffix = null)
+        {
+            if (stream.CanSeek)
+            {
+                stream.Position = 0;
+            }
+
+            try
+            {
+                var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
+                await FileHelpers.WriteStream(receivedPath, stream);
+
+                var verifyResult = DoCompare(receivedPath, verifiedPath, extension);
+
+                if (verifyResult == VerifyResult.Equal)
+                {
+                    File.Delete(receivedPath);
+                    return verifyResult;
+                }
+
+                if (DiffTools.TryFindForExtension(extension, out var diffTool))
+                {
+                    if (EmptyFiles.TryWriteEmptyFile(extension, verifiedPath))
+                    {
+                        DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                    }
+                }
+
+                await ClipboardCapture.Append(receivedPath, verifiedPath);
+                return verifyResult;
+            }
+            finally
+            {
+#if NETSTANDARD2_1
+                await stream.DisposeAsync();
+#else
+                stream.Dispose();
+#endif
+            }
+        }
+
+        public enum VerifyResult
+        {
+            Equal,
+            NotEqual,
+            MissingVerified
         }
 
         public async Task Verify(IEnumerable<Stream> streams, string extension)
@@ -46,41 +114,19 @@ namespace VerifyXunit
             var index = 0;
             foreach (var stream in streams)
             {
-                if (stream.CanSeek)
-                {
-                    stream.Position = 0;
-                }
-                try
-                {
-                    var (receivedPath, verifiedPath) = GetFileNames(extension, $"{index:D2}");
-                    FileHelpers.DeleteIfEmpty(verifiedPath);
-                    await FileHelpers.WriteStream(receivedPath, stream);
-                    if (!File.Exists(verifiedPath))
-                    {
-                        await ClipboardCapture.Append(receivedPath, verifiedPath);
-                        missingVerified.Add(index);
-                        if (DiffRunner.FoundDiff)
-                        {
-                            FileHelpers.WriteEmpty(verifiedPath);
-                            DiffRunner.Launch(receivedPath, verifiedPath);
-                        }
+                var verifyResult = await InnerVerify(stream, extension, $"{index:D2}");
 
-                        continue;
-                    }
-
-                    if (!FileHelpers.FilesEqual(receivedPath, verifiedPath))
-                    {
-                        notEquals.Add(index);
-                        await ClipboardCapture.Append(receivedPath, verifiedPath);
-                        continue;
-                    }
-                    File.Delete(receivedPath);
-                }
-                finally
+                if (verifyResult == VerifyResult.MissingVerified)
                 {
-                    index++;
-                    stream.Dispose();
+                    missingVerified.Add(index);
                 }
+
+                if (verifyResult == VerifyResult.NotEqual)
+                {
+                    notEquals.Add(index);
+                }
+
+                index++;
             }
 
             if (missingVerified.Count == 0 && notEquals.Count == 0)
@@ -103,41 +149,9 @@ namespace VerifyXunit
             throw new XunitException(builder.ToString());
         }
 
-        async Task InnerVerifyStream(Stream stream, string extension)
-        {
-            if (stream.CanSeek)
-            {
-                stream.Position = 0;
-            }
-            var (receivedPath, verifiedPath) = GetFileNames(extension);
-            FileHelpers.DeleteIfEmpty(verifiedPath);
-            await FileHelpers.WriteStream(receivedPath, stream);
-            FileHelpers.DeleteIfEmpty(verifiedPath);
-            if (!File.Exists(verifiedPath))
-            {
-                await ClipboardCapture.Append(receivedPath, verifiedPath);
-                if (DiffRunner.FoundDiff)
-                {
-                    FileHelpers.WriteEmpty(verifiedPath);
-                    DiffRunner.Launch(receivedPath, verifiedPath);
-                }
-
-                throw VerificationNotFoundException(extension);
-            }
-
-            if (FileHelpers.FilesEqual(receivedPath, verifiedPath))
-            {
-                File.Delete(receivedPath);
-                return;
-            }
-
-            await ClipboardCapture.Append(receivedPath, verifiedPath);
-            throw new XunitException($"Streams not equal. {ExceptionHelpers.CommandHasBeenCopiedToTheClipboard}");
-        }
-
         Exception VerificationNotFoundException(string extension)
         {
-            return new XunitException($"First verification. {Context.UniqueTestName}.verified{extension} not found. Verification command has been copied to the clipboard.");
+            return new XunitException($"First verification. {Context.UniqueTestName}.verified.{extension} not found. Verification command has been copied to the clipboard.");
         }
     }
 }

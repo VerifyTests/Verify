@@ -31,6 +31,10 @@ static partial class DiffTools
 
     static DiffTools()
     {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
         foreach (var tool in Tools().Where(x=>x.Exists))
         {
             var diffTool = new ResolvedDiffTool(tool.Name, tool.ExePath!, tool.ArgumentPrefix);

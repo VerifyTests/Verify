@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 
 static partial class DiffTools
 {
     internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
     internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
+
+    // ReSharper disable once UnusedParameter.Global
+    public static bool TryGetTextDiff(string extension, out ResolvedDiffTool diffTool)
+    {
+        diffTool = ResolvedDiffTools.LastOrDefault();
+        return diffTool != null;
+    }
 
     static List<DiffTool> Tools = new List<DiffTool>
     {

@@ -1,7 +1,5 @@
 
-## VisualStudio
-
- * Url: https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff
+## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
 
 
@@ -10,9 +8,7 @@
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
-## Sublime Merge
-
- * Url: https://www.sublimemerge.com/
+## [Sublime Merge](https://www.sublimemerge.com/)
 
 
 
@@ -20,9 +16,7 @@
 
  * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
-## Meld
-
- * Url: https://meldmerge.org/
+## [Meld](https://meldmerge.org/)
 
 
 
@@ -30,9 +24,7 @@
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
-## AraxisMerge
-
- * Url: https://www.araxis.com/merge
+## [AraxisMerge](https://www.araxis.com/merge)
 
 
 
@@ -65,9 +57,7 @@
  * tga
  * wmf
 
-## P4Merge
-
- * Url: https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
+## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
 
 
@@ -89,9 +79,7 @@
  * xbm
  * xpm
 
-## BeyondCompare
-
- * Url: https://www.scootersoftware.com/v4help/index.html?command_line_reference.html
+## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
 
 

@@ -13,9 +13,7 @@ include: diffTools
 path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 -->
 
-## VisualStudio
-
- * Url: https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff
+## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
 
 
@@ -24,9 +22,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
-## Sublime Merge
-
- * Url: https://www.sublimemerge.com/
+## [Sublime Merge](https://www.sublimemerge.com/)
 
 
 
@@ -34,9 +30,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
  * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
-## Meld
-
- * Url: https://meldmerge.org/
+## [Meld](https://meldmerge.org/)
 
 
 
@@ -44,9 +38,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
-## AraxisMerge
-
- * Url: https://www.araxis.com/merge
+## [AraxisMerge](https://www.araxis.com/merge)
 
 
 
@@ -79,9 +71,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
  * tga
  * wmf
 
-## P4Merge
-
- * Url: https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
+## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
 
 
@@ -103,9 +93,7 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
  * xbm
  * xpm
 
-## BeyondCompare
-
- * Url: https://www.scootersoftware.com/v4help/index.html?command_line_reference.html
+## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
 
 

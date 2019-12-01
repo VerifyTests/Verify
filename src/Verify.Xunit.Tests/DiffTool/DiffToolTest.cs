@@ -18,9 +18,7 @@ public class DiffToolsTest :
         foreach (var tool in DiffTools.Tools())
         {
             await writer.WriteLineAsync($@"
-## {tool.Name}
-
- * Url: {tool.Url}
+## [{tool.Name}]({tool.Url})
 
 ");
             await writer.WriteLineAsync(@"

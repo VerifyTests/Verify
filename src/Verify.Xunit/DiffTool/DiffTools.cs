@@ -6,6 +6,7 @@ using System.IO;
 static partial class DiffTools
 {
     internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
+    internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
 
     static List<DiffTool> Tools = new List<DiffTool>
     {
@@ -26,7 +27,8 @@ static partial class DiffTools
                 continue;
             }
 
-            var diffTool = new ResolvedDiffTool(tool.Name, exePath, tool.ArgumentFormat);
+            var diffTool = new ResolvedDiffTool(tool.Name, exePath, tool.ArgumentPrefix);
+            ResolvedDiffTools.Add(diffTool);
             foreach (var ext in tool.BinaryExtensions)
             {
                 ExtensionLookup[ext] = diffTool;

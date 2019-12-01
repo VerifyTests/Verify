@@ -54,22 +54,12 @@ static class DiffRunner
                 CreateNoWindow = false,
             }
         };
-        try
-        {
-            //TODO: handle exe not found
-            process.Start();
-        }
-        catch (Exception exception)
-        {
-            var message = $@"Failed to launch diff tool.
-cmd {arguments}";
-            throw new Exception(message, exception);
-        }
+        process.StartWithCatch();
     }
 
-    public static void Launch(string exe, string receivedPath, string verifiedPath)
+    public static void Launch(string exe, string argumentPrefix, string receivedPath, string verifiedPath)
     {
-        var arguments = $"\"{receivedPath}\" \"{verifiedPath}\"";
+        var arguments = $"{argumentPrefix} \"{receivedPath}\" \"{verifiedPath}\"";
         using var process = new Process
         {
             StartInfo = new ProcessStartInfo
@@ -80,6 +70,26 @@ cmd {arguments}";
                 CreateNoWindow = false,
             }
         };
+        process.StartWithCatch();
+    }
+    public static void Launch(string exe, string argumentPrefix, string receivedPath)
+    {
+        var arguments = $"{argumentPrefix} \"{receivedPath}\"";
+        using var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = exe,
+                Arguments = arguments,
+                UseShellExecute = false,
+                CreateNoWindow = false,
+            }
+        };
+        process.StartWithCatch();
+    }
+
+    public static void StartWithCatch(this Process process)
+    {
         try
         {
             //TODO: handle exe not found
@@ -88,7 +98,7 @@ cmd {arguments}";
         catch (Exception exception)
         {
             var message = $@"Failed to launch diff tool.
-{exe} {arguments}";
+{process.StartInfo.FileName} {process.StartInfo.Arguments}";
             throw new Exception(message, exception);
         }
     }

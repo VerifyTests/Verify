@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -12,6 +13,32 @@ public class DiffToolsTest :
         foreach (var tool in DiffTools.FoundTools())
         {
             Debug.WriteLine(tool.Name);
+        }
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void LaunchTextDiff()
+    {
+        foreach (var tool in DiffTools.ResolvedDiffTools)
+        {
+            DiffRunner.Launch(
+                tool.ExePath,
+                tool.ArgumentPrefix,
+                receivedPath: Path.Combine(SourceDirectory, "input_received.txt"),
+                verifiedPath: Path.Combine(SourceDirectory, "input_verified.txt"));
+        }
+    }
+    [Fact]
+    [Trait("Category", "Integration")]
+    public void LaunchTextDiffSingle()
+    {
+        foreach (var tool in DiffTools.ResolvedDiffTools)
+        {
+            DiffRunner.Launch(
+                tool.ExePath,
+                tool.ArgumentPrefix,
+                receivedPath: Path.Combine(SourceDirectory, "input_received.txt"));
         }
     }
 

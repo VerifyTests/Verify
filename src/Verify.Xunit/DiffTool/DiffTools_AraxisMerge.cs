@@ -3,7 +3,7 @@
     public static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
-        argumentFormat: "/nowait {receivedPath} {verifiedPath}",
+        argumentPrefix: "/nowait ",
         exePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"

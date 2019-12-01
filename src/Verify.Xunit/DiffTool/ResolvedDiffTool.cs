@@ -2,12 +2,12 @@
 {
     public string Name { get; }
     public string ExePath { get; }
-    public string ArgumentFormat { get; }
+    public string ArgumentPrefix { get; }
 
-    public ResolvedDiffTool(string name, string exePath, string argumentFormat)
+    public ResolvedDiffTool(string name, string exePath, string argumentPrefix)
     {
         Name = name;
         ExePath = exePath;
-        ArgumentFormat = argumentFormat;
+        ArgumentPrefix = argumentPrefix;
     }
 }

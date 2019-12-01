@@ -5,7 +5,7 @@ static partial class DiffTools
     public static DiffTool SublimeMerge() => new DiffTool(
         name: "Sublime Merge",
         url: "https://www.sublimemerge.com/",
-        argumentFormat: "mergetool {receivedPath} {verifiedPath}",
+        argumentPrefix: "mergetool ",
         exePaths: new[]
         {
             @"%ProgramFiles%\Sublime Merge\smerge.exe"

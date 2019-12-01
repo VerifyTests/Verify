@@ -1,4 +1,6 @@
-﻿static partial class DiffTools
+﻿using System;
+
+static partial class DiffTools
 {
     public static DiffTool VisualStudio() => new DiffTool(
         name: "VisualStudio",
@@ -8,8 +10,5 @@
         {
             @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
         },
-        binaryExtensions: new[]
-        {
-            "png"
-        });
+        binaryExtensions: Array.Empty<string>());
 }

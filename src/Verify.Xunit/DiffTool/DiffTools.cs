@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 static partial class DiffTools
@@ -16,63 +13,28 @@ static partial class DiffTools
         return diffTool != null;
     }
 
-    static List<DiffTool> Tools = new List<DiffTool>
+    internal static List<DiffTool> Tools()
     {
-        VisualStudio(),
-        SublimeMerge(),
-        Meld(),
-        AraxisMerge(),
-        P4Merge(),
-        BeyondCompare(),
-    };
+        return new List<DiffTool>
+        {
+            VisualStudio(),
+            SublimeMerge(),
+            Meld(),
+            AraxisMerge(),
+            P4Merge(),
+            BeyondCompare(),
+        };
+    }
 
     static DiffTools()
     {
-        foreach (var tool in Tools)
+        foreach (var tool in Tools().Where(x=>x.Exists))
         {
-            if (!TryFindTool(tool, out var exePath))
-            {
-                continue;
-            }
-
-            var diffTool = new ResolvedDiffTool(tool.Name, exePath, tool.ArgumentPrefix);
+            var diffTool = new ResolvedDiffTool(tool.Name, tool.ExePath!, tool.ArgumentPrefix);
             ResolvedDiffTools.Add(diffTool);
             foreach (var ext in tool.BinaryExtensions)
             {
                 ExtensionLookup[ext] = diffTool;
-            }
-        }
-    }
-
-    static bool TryFindTool(DiffTool tool, [NotNullWhen(true)] out string? path)
-    {
-        foreach (var exePath in tool.ExePaths)
-        {
-            var expanded = Environment.ExpandEnvironmentVariables(exePath);
-            if (!File.Exists(expanded))
-            {
-                continue;
-            }
-
-            path = expanded;
-            return true;
-        }
-
-        path = null;
-        return false;
-    }
-
-    public static IEnumerable<DiffTool> FoundTools()
-    {
-        foreach (var tool in Tools)
-        {
-            foreach (var exePath in tool.ExePaths)
-            {
-                var expanded = Environment.ExpandEnvironmentVariables(exePath);
-                if (File.Exists(expanded))
-                {
-                    yield return tool;
-                }
             }
         }
     }

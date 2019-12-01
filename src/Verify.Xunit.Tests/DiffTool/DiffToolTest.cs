@@ -15,7 +15,7 @@ public class DiffToolsTest :
         var md = Path.Combine(SourceDirectory, "diffTools.include.md");
         File.Delete(md);
         using var writer = File.CreateText(md);
-        foreach (var tool in DiffTools.Tools().Where(x => x.Exists))
+        foreach (var tool in DiffTools.Tools())
         {
             await writer.WriteLineAsync($@"
 ## {tool.Name}

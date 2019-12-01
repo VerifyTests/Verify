@@ -43,6 +43,41 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
  * %ProgramFiles(x86)%\Meld\meld.exe
 
+## AraxisMerge
+
+ * Url: https://www.araxis.com/merge
+
+
+
+### Scanned directories:
+
+ * %ProgramFiles%\Araxis\Araxis Merge\Compare.exe
+
+### Supported Binary extensions:
+
+ * bmp
+ * dib
+ * emf
+ * gif
+ * jif
+ * j2c
+ * j2k
+ * jp2
+ * jpc
+ * jpeg
+ * jpg
+ * jpx
+ * pbm
+ * pcx
+ * pgm
+ * png
+ * ppm
+ * ras
+ * tif
+ * tiff
+ * tga
+ * wmf
+
 ## P4Merge
 
  * Url: https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge

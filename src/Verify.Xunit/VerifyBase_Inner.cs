@@ -37,7 +37,8 @@ namespace VerifyXunit
             {
                 Assert.Equal(verifiedText, input);
             }
-            catch (EqualException exception) when (!BuildServerDetector.Detected)
+            catch (EqualException exception)
+                when (!BuildServerDetector.Detected)
             {
                 exception.PrefixWithCopyCommand();
                 await FileHelpers.WriteText(receivedPath, input);

@@ -6,7 +6,7 @@ static class BuildServerDetector
     {
         // Appveyor: https://www.appveyor.com/docs/environment-variables/
         // Travis: https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
-        if (Environment.GetEnvironmentVariable("CI") == "true")
+        if (string.Equals(Environment.GetEnvironmentVariable("CI"), "true", StringComparison.OrdinalIgnoreCase))
         {
             Detected = true;
             return;

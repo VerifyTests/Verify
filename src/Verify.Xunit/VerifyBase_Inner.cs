@@ -17,7 +17,7 @@ namespace VerifyXunit
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
-                if (BuildServerDetector.Detected)
+                if (!BuildServerDetector.Detected)
                 {
                     await FileHelpers.WriteText(receivedPath, input);
                     await ClipboardCapture.Append(receivedPath, verifiedPath);

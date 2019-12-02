@@ -10,9 +10,9 @@ They can be defined at three levels:
 
 Multiple scrubbers can bee defined at each level.
 
-Scrubber are excited in reveres order. So the most recent added method scrubber through to earlies added global scrubber.
+Scrubber are excited in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 
-Global scrubbers should be defined only once at appdomain startup.
+Global scrubbers should be defined only once at appdomain startup. In this example the scrubber is configured using the [Global Setup](https://github.com/SimonCropp/XunitContext#global-setup) of [XunitContext](https://github.com/SimonCropp/XunitContext). It could also be configured using a [Module Initializer](https://github.com/Fody/ModuleInit).
 
 Usage:
 

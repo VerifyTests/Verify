@@ -32,4 +32,4 @@ When a test fails verification:
  * The command to accept the new verified is copied to the clipboard.
  * The difference between the received and verified files is displayed in a diff tool.
 
-In ApprovalTests both these features are opt-in through a attributes.
+In ApprovalTests both these features are opt-in through attributes.

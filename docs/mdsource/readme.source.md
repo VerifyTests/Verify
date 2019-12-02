@@ -6,4 +6,4 @@
  * [Scrubbers](scrubbers.md)
  * [Diff Tool](diff-tool.md)
  * [Using anonymous types](anonymous-types.md)
- * [Compared To ApprovalTests](compared-to-approvaltests.md)
+ * [Compared oo ApprovalTests](compared-to-approvaltests.md)

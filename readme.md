@@ -29,7 +29,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [Scrubbers](docs/scrubbers.md)
   * [Diff Tool](docs/diff-tool.md)
   * [Using anonymous types](docs/anonymous-types.md)
-  * [Compared To ApprovalTests](docs/compared-to-approvaltests.md)
+  * [Compared to ApprovalTests](docs/compared-to-approvaltests.md)
 
 
 ## NuGet package

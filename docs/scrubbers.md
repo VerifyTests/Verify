@@ -17,9 +17,9 @@ They can be defined at three levels:
 
 Multiple scrubbers can bee defined at each level.
 
-Scrubber are excited in reveres order. So the most recent added method scrubber through to earlies added global scrubber.
+Scrubber are excited in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 
-Global scrubbers should be defined only once at appdomain startup.
+Global scrubbers should be defined only once at appdomain startup. In this example the scrubber is configured using the [Global Setup](https://github.com/SimonCropp/XunitContext#global-setup) of [XunitContext](https://github.com/SimonCropp/XunitContext). It could also be configured using a [Module Initializer](https://github.com/Fody/ModuleInit).
 
 Usage:
 
@@ -59,16 +59,17 @@ public class ScrubbersSample :
         AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    public static class ModuleInitializer
+    [GlobalSetUp]
+    public static class GlobalSetup
     {
-        public static void Initialize()
+        public static void Setup()
         {
             Global.AddScrubber(s => s.Replace("One", "A"));
         }
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L41) / [anchor](#snippet-scrubberssample.cs)</sup>
+<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L42) / [anchor](#snippet-scrubberssample.cs)</sup>
 <!-- endsnippet -->
 
 Results:

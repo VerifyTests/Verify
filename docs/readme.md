@@ -13,4 +13,4 @@ To change this file edit the source file and then run MarkdownSnippets.
  * [Scrubbers](scrubbers.md)
  * [Diff Tool](diff-tool.md)
  * [Using anonymous types](anonymous-types.md)
- * [Compared oo ApprovalTests](compared-to-approvaltests.md)
+ * [Compared to ApprovalTests](compared-to-approvaltests.md)

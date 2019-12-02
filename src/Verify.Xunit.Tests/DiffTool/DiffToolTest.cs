@@ -27,15 +27,17 @@ public class DiffToolsTest :
                 await writer.WriteLineAsync($@" * `{path}`");
             }
 
-            if (tool.BinaryExtensions.Any())
+            if (!tool.BinaryExtensions.Any())
             {
-                await writer.WriteLineAsync(@"
+                continue;
+            }
+
+            await writer.WriteLineAsync(@"
 ### Supported Binary extensions:
 ");
-                foreach (var extension in tool.BinaryExtensions)
-                {
-                    await writer.WriteLineAsync($@" * {extension}");
-                }
+            foreach (var extension in tool.BinaryExtensions)
+            {
+                await writer.WriteLineAsync($@" * {extension}");
             }
         }
     }

@@ -7,6 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Diff Tool
 
+The following diff tools are supported:
 
 <!--
 include: diffTools

@@ -23,8 +23,15 @@ Verification tool to enable simple approval of complex models using [Json.net](h
     * [Subsequent Verification](#subsequent-verification)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
-  * [Documentation](#documentation)
 <!-- endtoc -->
+
+  * [Serializer Settings](docs/serializer-settings.md)
+  * [File naming](docs/naming.md)
+  * [Named Tuples](docs/named-tuples.md)
+  * [Scrubbers](docs/scrubbers.md)
+  * [Diff Tool](docs/diff-tool.md)
+  * [Using anonymous types](docs/anonymous-types.md)
+  * [Compared To ApprovalTests](docs/compared-to-approvaltests.md)
 
 
 ## NuGet package
@@ -111,7 +118,7 @@ The clipboard will contain the following:
 
 > cmd /c move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
 
-If a [Diff Tool](docs/diff-tool.md) is enable it will display the diff:
+If a [Diff Tool](docs/diff-tool.md) is detected it will display the diff:
 
 ![InitialDiff](/docs/InitialDiff.png)
 
@@ -214,14 +221,6 @@ The same approach can be used to verify the results and the change to `SampleTes
 Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
 
-## Documentation
-
- * [Serializer Settings](docs/serializer-settings.md)
- * [File naming](docs/naming.md)
- * [Named Tuples](docs/named-tuples.md)
- * [Scrubbers](docs/scrubbers.md)
- * [Diff Tool](docs/diff-tool.md)
- * [Using anonymous types](docs/anonymous-types.md)
 
 
 ## Release Notes

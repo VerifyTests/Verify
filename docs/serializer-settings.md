@@ -30,9 +30,7 @@ Serialization settings can be customized at three levels:
   * [Ignoring a instance](#ignoring-a-instance)
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
-  * [Members that throw](#members-that-throw)
-<!-- endtoc -->
-
+  * [Members that throw](#members-that-throw)<!-- endtoc -->
 
 
 ## Default settings

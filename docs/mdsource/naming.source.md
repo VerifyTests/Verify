@@ -15,7 +15,7 @@ The file prefix uses [XunitContext UniqueTestName](https://github.com/SimonCropp
 
 ## UniqueFor
 
-UniqueFor allows for one ore more delimiters to be added to the file name.
+UniqueFor allows for one or more delimiters to be added to the file name.
 
 snippet: UniqueForSample
 

@@ -219,8 +219,6 @@ The same approach can be used to verify the results and the change to `SampleTes
 Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
 
-
-
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).

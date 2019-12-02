@@ -32,8 +32,11 @@ ApprovalTests is, in the majority, configured via attributes.
 Verify is configured using explicit code APIs and conventions.
 
 
-### Clipboard on by default
+### Clipboard and Diff tool on by default
 
-When a test fails verification, the command to accept the new verified is copied to the clipboard.
+When a test fails verification:
 
-In ApprovalTests this is an opt-in through an attribute.
+ * The command to accept the new verified is copied to the clipboard.
+ * The difference between the received and verified files is displayed in a diff tool.
+
+In ApprovalTests both these features are opt-in through a attributes.

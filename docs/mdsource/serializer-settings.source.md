@@ -18,12 +18,12 @@ snippet: defaultSerialization
 
 ## Single quotes used
 
-[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
 ## QuoteName is false
 
-[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
 ## Empty collections are ignored
@@ -32,9 +32,7 @@ By default empty collections are ignored during verification.
 
 To disable this behavior globally use:
 
-```cs
-Global.DontIgnoreEmptyCollections();
-```
+snippet: DontIgnoreEmptyCollections
 
 
 ## Guids are scrubbed
@@ -49,9 +47,7 @@ snippet: Tests.ShouldReUseGuid.verified.txt
 
 To disable this behavior globally use:
 
-```cs
-Global.SontScrubGuids();
-```
+snippet: DontScrubGuids
 
 
 ## Dates are scrubbed
@@ -66,9 +62,7 @@ snippet: Tests.ShouldReUseDatetime.verified.txt
 
 To disable this behavior globally use:
 
-```cs
-Global.DontScrubDateTimes();
-```
+snippet: DontScrubDateTimes
 
 
 ## Default Booleans are ignored
@@ -77,9 +71,7 @@ By default values of `bool` and `bool?` are ignored during verification. So prop
 
 To disable this behavior globally use:
 
-```cs
-Global.DontIgnoreFalse();
-```
+snippet: DontIgnoreFalse
 
 
 ## Change defaults at the verification level

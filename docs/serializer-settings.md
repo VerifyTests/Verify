@@ -53,12 +53,12 @@ var settings = new JsonSerializerSettings
 
 ## Single quotes used
 
-[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
 ## QuoteName is false
 
-[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
 ## Empty collections are ignored
@@ -67,9 +67,13 @@ By default empty collections are ignored during verification.
 
 To disable this behavior globally use:
 
+<!-- snippet: DontIgnoreEmptyCollections -->
+<a id='snippet-dontignoreemptycollections'/></a>
 ```cs
-Global.DontIgnoreEmptyCollections();
+Global.ModifySerialization(settings => settings.DontIgnoreEmptyCollections());
 ```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L9-L11) / [anchor](#snippet-dontignoreemptycollections)</sup>
+<!-- endsnippet -->
 
 
 ## Guids are scrubbed
@@ -110,9 +114,13 @@ Results in the following:
 
 To disable this behavior globally use:
 
+<!-- snippet: DontScrubGuids -->
+<a id='snippet-dontscrubguids'/></a>
 ```cs
-Global.SontScrubGuids();
+Global.ModifySerialization(settings => settings.DontScrubGuids());
 ```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L16-L18) / [anchor](#snippet-dontscrubguids)</sup>
+<!-- endsnippet -->
 
 
 ## Dates are scrubbed
@@ -158,9 +166,13 @@ Results in the following:
 
 To disable this behavior globally use:
 
+<!-- snippet: DontScrubDateTimes -->
+<a id='snippet-dontscrubdatetimes'/></a>
 ```cs
-Global.DontScrubDateTimes();
+Global.ModifySerialization(settings => settings.DontScrubDateTimes());
 ```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L23-L25) / [anchor](#snippet-dontscrubdatetimes)</sup>
+<!-- endsnippet -->
 
 
 ## Default Booleans are ignored
@@ -169,9 +181,13 @@ By default values of `bool` and `bool?` are ignored during verification. So prop
 
 To disable this behavior globally use:
 
+<!-- snippet: DontIgnoreFalse -->
+<a id='snippet-dontignorefalse'/></a>
 ```cs
-Global.DontIgnoreFalse();
+Global.ModifySerialization(settings => settings.DontIgnoreFalse());
 ```
+<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L30-L32) / [anchor](#snippet-dontignorefalse)</sup>
+<!-- endsnippet -->
 
 
 ## Change defaults at the verification level

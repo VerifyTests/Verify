@@ -14,13 +14,5 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.33" PrivateAssets="All" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Snippets\SerializationSettingsSnippets.AtMethod.verified.xml">
-      <DependentUpon>SerializationSettingsSnippets.cs</DependentUpon>
-    </None>
-    <None Update="Snippets\SerializationSettingsSnippets.InheritedFromClass.verified.json">
-      <DependentUpon>SerializationSettingsSnippets.cs</DependentUpon>
-    </None>
-  </ItemGroup>
-  <Import Project="$(SolutionDir)Verify.Xunit\build\Verify.Xunit.targets" />
+  <Import Project="$(ProjectDir)..\Verify.Xunit\build\Verify.Xunit.targets" />
 </Project>

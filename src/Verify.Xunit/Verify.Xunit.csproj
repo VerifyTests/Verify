@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.CodeDom" Version="4.6.0" />
+    <PackageReference Include="System.CodeDom" Version="4.7.0" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="XunitContext" Version="1.5.1" />
     <PackageReference Include="TextCopy" Version="2.0.0-beta.3" />

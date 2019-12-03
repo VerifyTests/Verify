@@ -17,5 +17,6 @@
 *.exe binary
 *.snk binary
 *.pdb binary
+*.png binary
 
 src/Verify.Xunit/EmptyFiles/* binary

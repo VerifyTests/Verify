@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Condition="$(DesignTimeBuild) != true">
   <ItemGroup>
-    <None Update="**\*.received.*;**\*.verified.*"
-          DependentUpon="$(
-  [System.String]::Copy('%(FileName)')
-    .SubString(
-      0,
-      $([System.String]::Copy('%(FileName)').IndexOf('.'))
-    )
-)$(ProjectExt.Replace('proj', ''))" />
+    <None Update="**\*.received.*;**\*.verified.*">
+      <DependentUpon>$(
+        [System.String]::Copy('%(FileName)')
+        .SubString(
+        0,
+        $([System.String]::Copy('%(FileName)').IndexOf('.'))
+        )
+        )$(ProjectExt.Replace('proj', ''))</DependentUpon>
+    </None>
     <ContentWithTargetPath
        Include="$(MSBuildThisFileDirectory)..\EmptyFiles\*.*"
        CopyToOutputDirectory="PreserveNewest"

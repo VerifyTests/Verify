@@ -41,7 +41,7 @@ public class Tests :
     [Fact]
     public async Task Stream()
     {
-        await Verify(new MemoryStream(new byte[] {1}));
+        await VerifyBinary(new MemoryStream(new byte[] {1}));
         Assert.False(File.Exists(Path.Combine(SourceDirectory, "Tests.Stream.received.bin")));
     }
 
@@ -55,7 +55,7 @@ public class Tests :
         var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
         File.Delete(binFile);
         DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify(new MemoryStream(new byte[] {1})));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => VerifyBinary(new MemoryStream(new byte[] {1})));
         DiffRunner.Enabled = true;
         File.Delete(binFile);
         await Verify(exception.Message);
@@ -66,7 +66,7 @@ public class Tests :
     {
         var stream1 = new MemoryStream(new byte[] {1});
         var stream2 = new MemoryStream(new byte[] {1});
-        await Verify(new Stream[] {stream1, stream2});
+        await VerifyBinary(new Stream[] {stream1, stream2});
 
         Assert.Empty(Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultiple.*.received.bin"));
     }
@@ -92,7 +92,7 @@ public class Tests :
         {
             var stream1 = new MemoryStream(new byte[] {1});
             var stream2 = new MemoryStream(new byte[] {1});
-            return Verify(new Stream[] {stream1, stream2});
+            return VerifyBinary(new Stream[] {stream1, stream2});
         });
         DiffRunner.Enabled = true;
         DeleteTempFiles();

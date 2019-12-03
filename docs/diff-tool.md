@@ -18,48 +18,48 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
 ## [Visual Studio Code](https://code.visualstudio.com/docs/editor/command-line)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
 
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
 
 ## [CodeCompare](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
 ## [Sublime Merge](https://www.sublimemerge.com/)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
 ## [Meld](https://meldmerge.org/)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
 ## [AraxisMerge](https://www.araxis.com/merge)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
-### Supported Binary extensions:
+### Supported binary extensions:
 
  * bmp
  * dib
@@ -86,11 +86,11 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles%\Perforce\p4merge.exe`
 
-### Supported Binary extensions:
+### Supported binary extensions:
 
  * bmp
  * gif
@@ -106,11 +106,11 @@ path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
 
 ## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
-### Scanned directories:
+### Scanned paths:
 
  * `%ProgramFiles%\Beyond Compare 4\BCompare.exe`
 
-### Supported Binary extensions:
+### Supported binary extensions:
 
  * mp3
  * xls

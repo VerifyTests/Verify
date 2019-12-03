@@ -10,12 +10,9 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        public Task Verify(Stream input)
-        {
-            return Verify(input, "bin");
-        }
-
-        public async Task Verify(Stream input, string extension)
+        #region VerifyBinary
+        public async Task VerifyBinary(Stream input, string extension = "bin")
+        #endregion
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
@@ -40,12 +37,7 @@ namespace VerifyXunit
             }
         }
 
-        public Task Verify(IEnumerable<Stream> streams)
-        {
-            return Verify(streams, "bin");
-        }
-
-        VerifyResult DoCompare(string receivedPath, string verifiedPath, string extension)
+        static VerifyResult DoCompare(string receivedPath, string verifiedPath, string extension)
         {
             if (!File.Exists(verifiedPath))
             {
@@ -111,7 +103,7 @@ namespace VerifyXunit
             }
         }
 
-        public async Task Verify(IEnumerable<Stream> streams, string extension)
+        public async Task VerifyBinary(IEnumerable<Stream> streams, string extension = "bin")
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             var missingVerified = new List<int>();

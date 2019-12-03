@@ -20,7 +20,7 @@ public class DiffToolsTest :
             await writer.WriteLineAsync($@"
 ## [{tool.Name}]({tool.Url})");
             await writer.WriteLineAsync(@"
-### Scanned directories:
+### Scanned paths:
 ");
             foreach (var path in tool.ExePaths)
             {
@@ -33,7 +33,7 @@ public class DiffToolsTest :
             }
 
             await writer.WriteLineAsync(@"
-### Supported Binary extensions:
+### Supported binary extensions:
 ");
             foreach (var extension in tool.BinaryExtensions)
             {

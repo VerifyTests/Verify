@@ -29,6 +29,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [Scrubbers](docs/scrubbers.md)
   * [Diff Tool](docs/diff-tool.md)
   * [Using anonymous types](docs/anonymous-types.md)
+  * [Verifying binary data](docs/binary.md)
   * [Compared to ApprovalTests](docs/compared-to-approvaltests.md)
 
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.IO;
 using System.Text;
 
 namespace VerifyXunit
@@ -56,23 +54,10 @@ namespace VerifyXunit
 
             if (Namer.UniqueForAssemblyConfiguration || Global.Namer.UniqueForAssemblyConfiguration)
             {
-                var assemblyConfiguration = GetAssemblyConfiguration();
-                builder.Append($".{assemblyConfiguration}");
+                builder.Append($".{Context.TestType.Assembly.GetAttributeConfiguration()}");
             }
 
             return builder.ToString();
-        }
-
-        string GetAssemblyConfiguration()
-        {
-            var declaringTypeAssembly = Context.MethodInfo.DeclaringType.Assembly;
-            var attribute = declaringTypeAssembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
-            if (attribute != null)
-            {
-                return attribute.Configuration;
-            }
-
-            throw new Exception("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
         }
     }
 }

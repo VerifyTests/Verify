@@ -11,7 +11,7 @@ namespace VerifyXunit
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
-            input = ApplyScrubbers(input);
+            input = ApplyScrubbers.Apply(input, instanceScrubbers);
             input = input.Replace("\r\n", "\n");
             var (receivedPath, verifiedPath) = GetFileNames(extension);
             FileHelpers.DeleteIfEmpty(verifiedPath);

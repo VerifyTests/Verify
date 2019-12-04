@@ -37,70 +37,10 @@ namespace VerifyXunit
             }
         }
 
-        static VerifyResult DoCompare(string receivedPath, string verifiedPath, string extension)
+        Task<VerifyResult> InnerVerify(Stream stream, string extension, string? suffix = null)
         {
-            if (!File.Exists(verifiedPath))
-            {
-                return VerifyResult.MissingVerified;
-            }
-
-            if (EmptyFiles.IsEmptyFile(extension, verifiedPath))
-            {
-                return VerifyResult.NotEqual;
-            }
-
-            if (!FileHelpers.FilesEqual(receivedPath, verifiedPath))
-            {
-                return VerifyResult.NotEqual;
-            }
-
-            return VerifyResult.Equal;
-
-        }
-
-        async Task<VerifyResult> InnerVerify(Stream stream, string extension, string? suffix = null)
-        {
-            if (stream.CanSeek)
-            {
-                stream.Position = 0;
-            }
-
-            try
-            {
-                var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
-                await FileHelpers.WriteStream(receivedPath, stream);
-
-                var verifyResult = DoCompare(receivedPath, verifiedPath, extension);
-
-                if (verifyResult == VerifyResult.Equal)
-                {
-                    File.Delete(receivedPath);
-                    return verifyResult;
-                }
-
-                if (!BuildServerDetector.Detected)
-                {
-                    if (DiffTools.TryFindForExtension(extension, out var diffTool))
-                    {
-                        if (EmptyFiles.TryWriteEmptyFile(extension, verifiedPath))
-                        {
-                            DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
-                        }
-                    }
-
-                    await ClipboardCapture.Append(receivedPath, verifiedPath);
-                }
-
-                return verifyResult;
-            }
-            finally
-            {
-#if NETSTANDARD2_1
-                await stream.DisposeAsync();
-#else
-                stream.Dispose();
-#endif
-            }
+            var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
+            return StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
         }
 
         public async Task VerifyBinary(IEnumerable<Stream> streams, string extension = "bin")

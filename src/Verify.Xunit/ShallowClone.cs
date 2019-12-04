@@ -9,8 +9,10 @@ static class ShallowClone
         {
             ret.Add(entry.Key, entry.Value);
         }
+
         return ret;
     }
+
     public static List<T> Clone<T>(this List<T> original)
     {
         return new List<T>(original);

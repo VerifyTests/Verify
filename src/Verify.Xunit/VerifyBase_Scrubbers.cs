@@ -18,32 +18,5 @@ namespace VerifyXunit
 
             instanceScrubbers.Insert(0, scrubber);
         }
-
-        string ApplyScrubbers(string target)
-        {
-            var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory);
-            target = target.Replace(baseDirectory, "CurrentDirectory");
-            var currentDirectory = CleanPath(Environment.CurrentDirectory);
-            target = target.Replace(currentDirectory, "CurrentDirectory");
-            var codeBase = CleanPath(CodeBaseLocation.CurrentDirectory);
-            target = target.Replace(codeBase, "CurrentDirectory");
-
-            foreach (var scrubber in instanceScrubbers)
-            {
-                target = scrubber(target);
-            }
-
-            foreach (var scrubber in Global.GlobalScrubbers)
-            {
-                target = scrubber(target);
-            }
-
-            return target;
-        }
-
-        static string CleanPath(string directory)
-        {
-            return directory.TrimEnd('/', '\\');
-        }
     }
 }

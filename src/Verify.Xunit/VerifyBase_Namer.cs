@@ -66,7 +66,6 @@ namespace VerifyXunit
         string GetAssemblyConfiguration()
         {
             var declaringTypeAssembly = Context.MethodInfo.DeclaringType.Assembly;
-            var customAttributes = declaringTypeAssembly.GetCustomAttributes();
             var attribute = declaringTypeAssembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
             if (attribute != null)
             {

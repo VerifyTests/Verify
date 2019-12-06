@@ -11,7 +11,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.33" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.34" PrivateAssets="All" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify.Xunit\build\Verify.Xunit.targets" />

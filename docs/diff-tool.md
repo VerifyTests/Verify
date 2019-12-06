@@ -13,7 +13,7 @@ The following diff tools are supported:
 
 <!--
 include: diffTools
-path: C:\Code\Verify\src\Verify.Xunit.Tests\DiffTool\diffTools.include.md
+path: /src/Verify.Xunit.Tests/DiffTool/diffTools.include.md
 -->
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)

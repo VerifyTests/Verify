@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace VerifyXunit
 {
     public class StringScrubbingConverter :
-        JsonConverter
+        WriteOnlyJsonConverter
     {
         static List<string> datetimeFormats = new List<string>();
         static List<string> datetimeOffsetFormats = new List<string>();
@@ -76,11 +76,6 @@ namespace VerifyXunit
             }
 
             writer.WriteValue(valueAsString);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-        {
-            throw new Exception();
         }
 
         public override bool CanRead => false;

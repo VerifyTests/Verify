@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace VerifyXunit
 {
     public class DelegateConverter :
-        JsonConverter
+        WriteOnlyJsonConverter
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
@@ -38,11 +38,6 @@ namespace VerifyXunit
             }
 
             return name;
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
         }
 
         public override bool CanConvert(Type objectType)

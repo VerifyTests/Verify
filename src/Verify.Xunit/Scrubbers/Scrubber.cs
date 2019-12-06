@@ -5,7 +5,7 @@ using Xunit;
 namespace VerifyXunit
 {
     public class Scrubber<T> :
-        JsonConverter
+        WriteOnlyJsonConverter
         where T : struct
     {
         static string name = typeof(T).Name;
@@ -23,11 +23,6 @@ namespace VerifyXunit
         {
             var next = XunitContext.Context.IntOrNext(value);
             writer.WriteRawValue($"{name}_{next}");
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
-        {
-            throw new Exception();
         }
 
         public override bool CanRead => false;

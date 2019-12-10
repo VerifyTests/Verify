@@ -3,6 +3,10 @@ using Newtonsoft.Json;
 
 namespace VerifyXunit
 {
+    public interface IVerify
+    {
+
+    }
     public partial class VerifyBase
     {
         public Task Verify(object target)

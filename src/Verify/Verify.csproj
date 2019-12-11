@@ -4,9 +4,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.CodeDom" Version="4.7.0" />
-    <PackageReference Include="TextCopy" Version="2.0.0-beta.3" />
+    <PackageReference Include="TextCopy" Version="2.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.34" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />
     <None Include="EmptyFiles\empty.*">

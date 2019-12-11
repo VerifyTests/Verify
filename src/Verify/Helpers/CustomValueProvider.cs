@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
 
-namespace VerifyXunit
+namespace Verify
 {
     public class CustomValueProvider :
         IValueProvider

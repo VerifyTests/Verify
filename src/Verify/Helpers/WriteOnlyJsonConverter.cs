@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace VerifyXunit
+namespace Verify
 {
     public abstract class WriteOnlyJsonConverter :
         JsonConverter

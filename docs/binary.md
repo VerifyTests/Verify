@@ -14,7 +14,7 @@ Binary data can be verified by passing a stream to `VerifyBinary`.
 ```cs
 public async Task VerifyBinary(Stream input, string extension = "bin")
 ```
-<sup>[snippet source](/src/Verify.Xunit/VerifyBase_Stream.cs#L13-L15) / [anchor](#snippet-verifybinary)</sup>
+<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L13-L15' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
 <!-- endsnippet -->
 
 A [Diff Tool](diff-tool.md) will only be displayed if one can be found that supports the defined extension.

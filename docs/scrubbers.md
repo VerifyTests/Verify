@@ -69,7 +69,7 @@ public class ScrubbersSample :
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L42) / [anchor](#snippet-scrubberssample.cs)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L42' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results:
@@ -79,7 +79,7 @@ Results:
 ```txt
 A B C
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1) / [anchor](#snippet-ScrubbersSample.Simple.verified.txt)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1' title='File snippet `ScrubbersSample.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.Simple.verified.txt' title='Navigate to start of snippet `ScrubbersSample.Simple.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: ScrubbersSample.AfterJson.verified.txt -->
@@ -89,6 +89,6 @@ A B C
   RowVersion: 'TheRowVersion'
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3) / [anchor](#snippet-ScrubbersSample.AfterJson.verified.txt)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3' title='File snippet `ScrubbersSample.AfterJson.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.AfterJson.verified.txt' title='Navigate to start of snippet `ScrubbersSample.AfterJson.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 

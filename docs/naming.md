@@ -50,7 +50,7 @@ public class UniqueForSample :
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L29) / [anchor](#snippet-uniqueforsample)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L29' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
 <!-- endsnippet -->
 
 For a project that targets
@@ -119,7 +119,7 @@ public class ExtensionSample :
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L35) / [anchor](#snippet-ExtensionSample.cs)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L35' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:
@@ -133,7 +133,7 @@ Result in two files:
     "color": "Red"
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ExtensionSample.InheritedFromClass.verified.json#L1-L5) / [anchor](#snippet-ExtensionSample.InheritedFromClass.verified.json)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.InheritedFromClass.verified.json#L1-L5' title='File snippet `ExtensionSample.InheritedFromClass.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.InheritedFromClass.verified.json' title='Navigate to start of snippet `ExtensionSample.InheritedFromClass.verified.json`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: ExtensionSample.AtMethod.verified.xml -->
@@ -145,5 +145,5 @@ Result in two files:
 <heading>Reminder</heading>
 </note>
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5) / [anchor](#snippet-ExtensionSample.AtMethod.verified.xml)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
 <!-- endsnippet -->

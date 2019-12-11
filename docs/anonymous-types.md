@@ -30,7 +30,7 @@ await Verify(
         person2
     });
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L73-L93) / [anchor](#snippet-anon)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L73-L93' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -49,5 +49,5 @@ Results in the following:
   }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10) / [anchor](#snippet-VerifyObjectSamples.Anon.verified.txt)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Anon.verified.txt' title='Navigate to start of snippet `VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -73,7 +73,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTested.cs#L4-L29) / [anchor](#snippet-classbeingtested)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -100,7 +100,7 @@ public class SampleTest :
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22) / [anchor](#snippet-sampletest)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -147,7 +147,7 @@ This will result in the `SampleTest.Simple.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14) / [anchor](#snippet-SampleTest.Simple.verified.txt)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14' title='File snippet `SampleTest.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SampleTest.Simple.verified.txt' title='Navigate to start of snippet `SampleTest.Simple.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -185,7 +185,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup>[snippet source](/src/Verify.Xunit.Tests/Snippets/ClassBeingTestedChanged.cs#L6-L33) / [anchor](#snippet-classbeingtestedchanged)</sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ClassBeingTestedChanged.cs#L6-L33' title='File snippet `classbeingtestedchanged` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Navigate to start of snippet `classbeingtestedchanged`'>anchor</a></sup>
 <!-- endsnippet -->
 
 And the test is re run it will fail with

@@ -11,6 +11,7 @@ namespace VerifyXunit
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             var (receivedPath, verifiedPath) = GetFileNames(extension);
+
             Guard.AgainstNull(input, nameof(input));
             input = ApplyScrubbers.Apply(input, instanceScrubbers);
             input = input.Replace("\r\n", "\n");
@@ -28,7 +29,7 @@ namespace VerifyXunit
                     }
                 }
 
-                throw VerificationNotFoundException(verifiedPath);
+                throw VerificationNotFoundException(verifiedPath,exceptionBuilder);
             }
 
             var verifiedText = await FileHelpers.ReadText(verifiedPath);
@@ -47,7 +48,7 @@ namespace VerifyXunit
                     DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
                 }
 
-                throw new XunitException($@"Verification command has been copied to the clipboard.
+                throw exceptionBuilder($@"Verification command has been copied to the clipboard.
 {exception.Message}");
             }
         }

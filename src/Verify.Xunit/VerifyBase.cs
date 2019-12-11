@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Verify;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace VerifyXunit
 {
@@ -15,6 +16,8 @@ namespace VerifyXunit
             Scrubber<DateTime>.SetIntOrNext(input => XunitContext.Context.IntOrNext(input));
             Scrubber<DateTimeOffset>.SetIntOrNext(input => XunitContext.Context.IntOrNext(input));
         }
+
+        static Func<string, Exception> exceptionBuilder = s => new XunitException(s);
 
         public VerifyBase(
             ITestOutputHelper output,

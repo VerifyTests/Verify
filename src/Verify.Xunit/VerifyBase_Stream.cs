@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit.Sdk;
 
 namespace VerifyXunit
 {
@@ -12,7 +11,7 @@ namespace VerifyXunit
     {
         #region VerifyBinary
         public async Task VerifyBinary(Stream input, string extension = "bin")
-        #endregion
+            #endregion
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
@@ -22,7 +21,7 @@ namespace VerifyXunit
 
             if (verifyResult == VerifyResult.MissingVerified)
             {
-                throw VerificationNotFoundException(verifiedPath);
+                throw VerificationNotFoundException(verifiedPath, exceptionBuilder);
             }
 
             if (verifyResult == VerifyResult.NotEqual)
@@ -34,7 +33,7 @@ namespace VerifyXunit
                     builder.AppendLine("Verification command has been copied to the clipboard.");
                 }
 
-                throw new XunitException(builder.ToString());
+                throw exceptionBuilder(builder.ToString());
             }
         }
 
@@ -85,18 +84,18 @@ namespace VerifyXunit
                 builder.AppendLine($"Streams with differences: {string.Join(", ", notEquals)}");
             }
 
-            throw new XunitException(builder.ToString());
+            throw exceptionBuilder(builder.ToString());
         }
 
-        Exception VerificationNotFoundException(string verifiedPath)
+        Exception VerificationNotFoundException(string verifiedPath, Func<string, Exception> exceptionBuilder)
         {
             var verifiedFile = Path.GetFileName(verifiedPath);
             if (BuildServerDetector.Detected)
             {
-                return new XunitException($"First verification. {verifiedFile} not found.");
+                return exceptionBuilder($"First verification. {verifiedFile} not found.");
             }
 
-            return new XunitException($"First verification. {verifiedFile} not found. Verification command has been copied to the clipboard.");
+            return exceptionBuilder($"First verification. {verifiedFile} not found. Verification command has been copied to the clipboard.");
         }
     }
 }

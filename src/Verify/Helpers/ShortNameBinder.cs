@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Serialization;
 
-namespace VerifyXunit
+namespace Verify
 {
     public class ShortNameBinder :
         ISerializationBinder

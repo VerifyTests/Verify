@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MyNamespace;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;

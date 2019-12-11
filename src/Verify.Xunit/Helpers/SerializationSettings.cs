@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Verify;
 
 // ReSharper disable UseObjectOrCollectionInitializer
 

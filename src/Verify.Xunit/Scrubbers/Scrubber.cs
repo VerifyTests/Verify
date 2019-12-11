@@ -1,9 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Verify;
 using Xunit;
 
-namespace VerifyXunit
+namespace Verify
 {
     public class Scrubber<T> :
         WriteOnlyJsonConverter

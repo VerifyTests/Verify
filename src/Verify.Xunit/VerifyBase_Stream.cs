@@ -17,12 +17,12 @@ namespace VerifyXunit
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
 
-            var (receivedPath, verifiedPath) = GetFileNames(extension, null);
+            var (receivedPath, verifiedPath) = GetFileNames(extension);
             var verifyResult = await StreamVerifier.VerifyStreams(input, extension, receivedPath, verifiedPath);
 
             if (verifyResult == VerifyResult.MissingVerified)
             {
-                throw VerificationNotFoundException(extension);
+                throw VerificationNotFoundException(verifiedPath);
             }
 
             if (verifyResult == VerifyResult.NotEqual)
@@ -88,14 +88,15 @@ namespace VerifyXunit
             throw new XunitException(builder.ToString());
         }
 
-        Exception VerificationNotFoundException(string extension)
+        Exception VerificationNotFoundException(string verifiedPath)
         {
+            var verifiedFile = Path.GetFileName(verifiedPath);
             if (BuildServerDetector.Detected)
             {
-                return new XunitException($"First verification. {Context.UniqueTestName}.verified.{extension} not found.");
+                return new XunitException($"First verification. {verifiedFile} not found.");
             }
 
-            return new XunitException($"First verification. {Context.UniqueTestName}.verified.{extension} not found. Verification command has been copied to the clipboard.");
+            return new XunitException($"First verification. {verifiedFile} not found. Verification command has been copied to the clipboard.");
         }
     }
 }

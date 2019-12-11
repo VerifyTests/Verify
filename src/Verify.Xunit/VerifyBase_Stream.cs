@@ -75,7 +75,7 @@ namespace VerifyXunit
             builder.AppendLine();
             if (!BuildServerDetector.Detected)
             {
-                builder.AppendLine(ExceptionHelpers.CommandHasBeenCopiedToTheClipboard);
+                builder.AppendLine("Verification command has been copied to the clipboard.");
             }
 
             if (missingVerified.Any())

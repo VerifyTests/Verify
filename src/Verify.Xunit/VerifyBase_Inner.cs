@@ -10,10 +10,10 @@ namespace VerifyXunit
         public async Task Verify(string input, string extension)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
+            var (receivedPath, verifiedPath) = GetFileNames(extension);
             Guard.AgainstNull(input, nameof(input));
             input = ApplyScrubbers.Apply(input, instanceScrubbers);
             input = input.Replace("\r\n", "\n");
-            var (receivedPath, verifiedPath) = GetFileNames(extension);
             FileHelpers.DeleteIfEmpty(verifiedPath);
             if (!File.Exists(verifiedPath))
             {
@@ -40,7 +40,6 @@ namespace VerifyXunit
             catch (EqualException exception)
                 when (!BuildServerDetector.Detected)
             {
-                exception.PrefixWithCopyCommand();
                 await FileHelpers.WriteText(receivedPath, input);
                 await ClipboardCapture.Append(receivedPath, verifiedPath);
                 if (DiffTools.TryGetTextDiff(extension, out var diffTool))
@@ -48,7 +47,8 @@ namespace VerifyXunit
                     DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
                 }
 
-                throw;
+                throw new XunitException($@"Verification command has been copied to the clipboard.
+{exception.Message}");
             }
         }
     }

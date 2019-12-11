@@ -17,7 +17,8 @@ namespace VerifyXunit
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(input, nameof(input));
 
-            var verifyResult = await InnerVerify(input, extension);
+            var (receivedPath, verifiedPath) = GetFileNames(extension, null);
+            var verifyResult = await StreamVerifier.VerifyStreams(input, extension, receivedPath, verifiedPath);
 
             if (verifyResult == VerifyResult.MissingVerified)
             {
@@ -37,12 +38,6 @@ namespace VerifyXunit
             }
         }
 
-        Task<VerifyResult> InnerVerify(Stream stream, string extension, string? suffix = null)
-        {
-            var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
-            return StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
-        }
-
         public async Task VerifyBinary(IEnumerable<Stream> streams, string extension = "bin")
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
@@ -51,7 +46,9 @@ namespace VerifyXunit
             var index = 0;
             foreach (var stream in streams)
             {
-                var verifyResult = await InnerVerify(stream, extension, $"{index:D2}");
+                var suffix = $"{index:D2}";
+                var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
+                var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
 
                 if (verifyResult == VerifyResult.MissingVerified)
                 {

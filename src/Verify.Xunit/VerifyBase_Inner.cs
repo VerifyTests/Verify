@@ -29,7 +29,7 @@ namespace VerifyXunit
                     }
                 }
 
-                throw VerificationNotFoundException(verifiedPath,exceptionBuilder);
+                throw VerificationNotFoundException(verifiedPath, exceptionBuilder);
             }
 
             var verifiedText = await FileHelpers.ReadText(verifiedPath);

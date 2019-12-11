@@ -87,7 +87,7 @@ namespace VerifyXunit
             throw exceptionBuilder(builder.ToString());
         }
 
-        Exception VerificationNotFoundException(string verifiedPath, Func<string, Exception> exceptionBuilder)
+        static Exception VerificationNotFoundException(string verifiedPath, Func<string, Exception> exceptionBuilder)
         {
             var verifiedFile = Path.GetFileName(verifiedPath);
             if (BuildServerDetector.Detected)

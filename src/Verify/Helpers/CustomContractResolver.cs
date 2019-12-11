@@ -4,9 +4,8 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Verify;
 
-namespace VerifyXunit
+namespace Verify
 {
     public class CustomContractResolver :
         DefaultContractResolver

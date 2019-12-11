@@ -53,6 +53,7 @@ public class Tests :
         {
             return;
         }
+
         var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
         File.Delete(binFile);
         DiffRunner.Enabled = false;
@@ -79,6 +80,7 @@ public class Tests :
         {
             return;
         }
+
         void DeleteTempFiles()
         {
             foreach (var binFile in Directory.EnumerateFiles(SourceDirectory, "Tests.StreamMultipleNegative*.verified.bin"))
@@ -113,6 +115,7 @@ public class Tests :
         {
             return;
         }
+
         var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
         File.Delete(txtFile);
         DiffRunner.Enabled = false;
@@ -535,6 +538,71 @@ public class Tests :
         public IReadOnlyList<string> ReadOnlyList;
         public IReadOnlyCollection<string> ReadOnlyCollection;
         public IReadOnlyDictionary<int, string> IReadOnlyDictionary;
+    }
+
+    [Fact]
+    public async Task TaskResult()
+    {
+        var target = Task.FromResult("value");
+        await Verify(target);
+    }
+
+#if NETCOREAPP3_1
+    [Fact]
+    public async Task TaskResultAsyncDisposable()
+    {
+        var disposableTarget = new AsyncDisposableTarget();
+        var target = Task.FromResult(disposableTarget);
+        await Verify(target);
+        Assert.False(disposableTarget.Disposed);
+        Assert.True(disposableTarget.AsyncDisposed);
+    }
+
+    class AsyncDisposableTarget :
+        IAsyncDisposable,
+        IDisposable
+    {
+#pragma warning disable 414
+        public string Property = "Value";
+#pragma warning restore 414
+        public bool AsyncDisposed;
+
+        public ValueTask DisposeAsync()
+        {
+            AsyncDisposed = true;
+            return new ValueTask();
+        }
+
+        public bool Disposed;
+
+        public void Dispose()
+        {
+            Disposed = true;
+        }
+    }
+#endif
+
+    [Fact]
+    public async Task TaskResultDisposable()
+    {
+        var disposableTarget = new DisposableTarget();
+        var target = Task.FromResult(disposableTarget);
+        await Verify(target);
+        Assert.True(disposableTarget.Disposed);
+    }
+
+    class DisposableTarget :
+        IDisposable
+    {
+#pragma warning disable 414
+        public string Property = "Value";
+#pragma warning restore 414
+        public bool Disposed;
+
+        public void Dispose()
+        {
+            Disposed = true;
+        }
     }
 
     [Fact]

@@ -1,4 +1,5 @@
-﻿using VerifyXunit;
+﻿using Verify;
+using VerifyXunit;
 using Xunit.Abstractions;
 
 public class SerializationSettingsSnippets :

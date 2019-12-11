@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VerifyXunit
+namespace Verify
 {
     public static class Scrubbers
     {

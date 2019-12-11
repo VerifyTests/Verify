@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VerifyXunit
+namespace Verify
 {
     public static partial class Global
     {

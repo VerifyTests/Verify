@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;

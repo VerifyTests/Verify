@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using VerifyXunit;
+using Verify;
 
 static class ApplyScrubbers
 {

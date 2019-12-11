@@ -27,6 +27,7 @@ Usage:
 <a id='snippet-scrubberssample.cs'/></a>
 ```cs
 using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -69,7 +70,7 @@ public class ScrubbersSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L42' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L43' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results:

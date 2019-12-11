@@ -14,4 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
 </Project>

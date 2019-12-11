@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
-using Verify;
 
-namespace VerifyXunit
+namespace Verify
 {
     public class DelegateConverter :
         WriteOnlyJsonConverter

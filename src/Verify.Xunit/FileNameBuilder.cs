@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using VerifyXunit;
+using Verify;
 
 static class FileNameBuilder
 {

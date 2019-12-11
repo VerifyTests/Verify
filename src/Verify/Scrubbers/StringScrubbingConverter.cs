@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
-using Verify;
 
-namespace VerifyXunit
+namespace Verify
 {
     public class StringScrubbingConverter :
         WriteOnlyJsonConverter

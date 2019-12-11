@@ -47,7 +47,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify.Xunit/Helpers/SerializationSettings.cs#L153-L162' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
+<sup><a href='/src/Verify/SerializationSettings.cs#L152-L161' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -72,7 +72,7 @@ To disable this behavior globally use:
 ```cs
 Global.ModifySerialization(settings => settings.DontIgnoreEmptyCollections());
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L9-L11' title='File snippet `dontignoreemptycollections` was extracted from'>snippet source</a> | <a href='#snippet-dontignoreemptycollections' title='Navigate to start of snippet `dontignoreemptycollections`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L10-L12' title='File snippet `dontignoreemptycollections` was extracted from'>snippet source</a> | <a href='#snippet-dontignoreemptycollections' title='Navigate to start of snippet `dontignoreemptycollections`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -94,7 +94,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L127-L140' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L128-L141' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -119,7 +119,7 @@ To disable this behavior globally use:
 ```cs
 Global.ModifySerialization(settings => settings.DontScrubGuids());
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L16-L18' title='File snippet `dontscrubguids` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Navigate to start of snippet `dontscrubguids`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L17-L19' title='File snippet `dontscrubguids` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Navigate to start of snippet `dontscrubguids`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -144,7 +144,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L563-L579' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L564-L580' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -171,7 +171,7 @@ To disable this behavior globally use:
 ```cs
 Global.ModifySerialization(settings => settings.DontScrubDateTimes());
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L23-L25' title='File snippet `dontscrubdatetimes` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Navigate to start of snippet `dontscrubdatetimes`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L24-L26' title='File snippet `dontscrubdatetimes` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Navigate to start of snippet `dontscrubdatetimes`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -186,7 +186,7 @@ To disable this behavior globally use:
 ```cs
 Global.ModifySerialization(settings => settings.DontIgnoreFalse());
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L30-L32' title='File snippet `dontignorefalse` was extracted from'>snippet source</a> | <a href='#snippet-dontignorefalse' title='Navigate to start of snippet `dontignorefalse`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SerializationSettingsSnippets.cs#L31-L33' title='File snippet `dontignorefalse` was extracted from'>snippet source</a> | <a href='#snippet-dontignorefalse' title='Navigate to start of snippet `dontignorefalse`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -283,7 +283,7 @@ var target = new IgnoreTypeTarget
 };
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L229-L246' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L230-L247' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -323,7 +323,7 @@ var target = new IgnoreInstanceTarget
 };
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L195-L212' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L196-L213' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -364,7 +364,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L268-L286' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L269-L287' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -404,7 +404,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L292-L311' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L293-L312' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -438,7 +438,7 @@ ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 var target = new WithCustomException();
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L338-L345' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L339-L346' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -461,7 +461,7 @@ ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "
 var target = new WithExceptionIgnoreMessage();
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L400-L407' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L401-L408' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:

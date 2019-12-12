@@ -549,13 +549,13 @@ public class Tests :
 
 #if NETCOREAPP3_1
     [Fact]
-    public Task TaskResultAsyncDisposable()
+    public async Task TaskResultAsyncDisposable()
     {
         var disposableTarget = new AsyncDisposableTarget();
         var target = Task.FromResult(disposableTarget);
+        await Verify(target);
         Assert.False(disposableTarget.Disposed);
         Assert.True(disposableTarget.AsyncDisposed);
-        return Verify(target);
     }
 
     class AsyncDisposableTarget :

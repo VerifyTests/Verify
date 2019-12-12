@@ -6,26 +6,14 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        SerializationSettings serialization = Global.serialization;
-        bool isCloned;
-
         public void ModifySerialization(Action<SerializationSettings> action)
         {
-            if (!isCloned)
-            {
-                serialization = Global.serialization.Clone();
-            }
-            action(serialization);
-            serialization.RegenSettings();
+            verifier.ModifySerialization(action);
         }
 
         public void AddExtraSettings(Action<JsonSerializerSettings> action)
         {
-            if (!isCloned)
-            {
-                serialization = Global.serialization.Clone();
-            }
-            serialization.AddExtraSettings(action);
+            verifier.AddExtraSettings(action);
         }
     }
 }

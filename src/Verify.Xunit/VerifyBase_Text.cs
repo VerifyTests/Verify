@@ -6,8 +6,7 @@ namespace VerifyXunit
     {
         public Task Verify(string target)
         {
-            Guard.AgainstNull(target, nameof(target));
-            return Verify(target, textExtension);
+            return verifier.Verify(target);
         }
     }
 }

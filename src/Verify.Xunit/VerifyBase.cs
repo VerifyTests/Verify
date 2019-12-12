@@ -24,10 +24,8 @@ namespace VerifyXunit
                 Assert.Equal);
         }
 
-
-        static Func<string, Exception> exceptionBuilder = s => new XunitException(s);
-        
         Verifier verifier;
+
         public VerifyBase(
             ITestOutputHelper output,
             [CallerFilePath] string sourceFile = "") :

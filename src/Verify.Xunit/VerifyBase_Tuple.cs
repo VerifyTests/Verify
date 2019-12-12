@@ -10,8 +10,7 @@ namespace VerifyXunit
     {
         public Task Verify(Expression<Func<ITuple>> expression)
         {
-            var dictionary = TupleConverter.ExpressionToDictionary(expression);
-            return Verify(dictionary);
+            return verifier.Verify(expression);
         }
     }
 }

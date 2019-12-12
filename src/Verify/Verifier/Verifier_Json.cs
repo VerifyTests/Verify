@@ -6,6 +6,7 @@ partial class Verifier
 {
     public async Task Verify<T>(Task<T> task)
     {
+        Guard.AgainstNull(task, nameof(task));
         var target = await task;
         if (target == null)
         {

@@ -19,7 +19,6 @@
 
     (string receivedPath, string verifiedPath) GetFileNames(string extension, string? suffix = null)
     {
-        var testContext = getTestContext();
-        return FileNameBuilder.GetFileNames(extension, suffix, Namer, testContext.TestType, testContext.Directory, testContext.TestName);
+        return FileNameBuilder.GetFileNames(extension, suffix, Namer, testType, directory, testName);
     }
 }

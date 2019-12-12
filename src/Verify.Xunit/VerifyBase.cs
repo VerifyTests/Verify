@@ -21,20 +21,20 @@ namespace VerifyXunit
                 input => XunitContext.Context.IntOrNext(input),
                 input => XunitContext.Context.IntOrNext(input),
                 input => XunitContext.Context.IntOrNext(input),
-                Assert.Equal, () =>
-                {
-                    var context = XunitContext.Context;
-                    return new TestContext(context.TestType, context.SourceDirectory, context.UniqueTestName);
-                });
+                Assert.Equal);
         }
 
-        static Func<string, Exception> exceptionBuilder = s => new XunitException(s);
 
+        static Func<string, Exception> exceptionBuilder = s => new XunitException(s);
+        
+        Verifier verifier;
         public VerifyBase(
             ITestOutputHelper output,
             [CallerFilePath] string sourceFile = "") :
             base(output, sourceFile)
         {
+            var context = Context;
+            verifier = new Verifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
         }
     }
 }

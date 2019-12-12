@@ -29,17 +29,3 @@ partial class Verifier
         this.testName = testName;
     }
 }
-
-class TestContext
-{
-    public Type TestType { get; }
-    public string Directory { get; }
-    public string TestName { get; }
-
-    public TestContext(Type testType, string directory, string testName)
-    {
-        TestType = testType;
-        Directory = directory;
-        TestName = testName;
-    }
-}

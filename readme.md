@@ -129,8 +129,8 @@ To verify the result:
 
 This will result in the `SampleTest.Simple.verified.txt` being created:
 
-<!-- snippet: SampleTest.Simple.verified.txt -->
-<a id='snippet-SampleTest.Simple.verified.txt'/></a>
+<!-- snippet: Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt -->
+<a id='snippet-Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt'/></a>
 ```txt
 {
   GivenNames: 'John',
@@ -147,7 +147,7 @@ This will result in the `SampleTest.Simple.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14' title='File snippet `SampleTest.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SampleTest.Simple.verified.txt' title='Navigate to start of snippet `SampleTest.Simple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14' title='File snippet `Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

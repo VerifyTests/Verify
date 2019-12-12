@@ -63,7 +63,7 @@ To verify the result:
 
 This will result in the `SampleTest.Simple.verified.txt` being created:
 
-snippet: SampleTest.Simple.verified.txt
+snippet: Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt
 
 
 ### Subsequent Verification

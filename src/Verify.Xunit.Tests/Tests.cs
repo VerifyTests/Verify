@@ -325,10 +325,10 @@ public class Tests :
     }
 
     [Fact]
-    public async Task NotImplementedExceptionProp()
+    public Task NotImplementedExceptionProp()
     {
         var target = new WithNotImplementedException();
-        await Verify(target);
+        return Verify(target);
     }
 
     class WithNotImplementedException
@@ -431,10 +431,10 @@ public class Tests :
     }
 
     [Fact]
-    public async Task DelegateProp()
+    public Task DelegateProp()
     {
         var target = new WithDelegate();
-        await Verify(target);
+        return Verify(target);
     }
 
     class WithDelegate
@@ -443,10 +443,10 @@ public class Tests :
     }
 
     [Fact]
-    public async Task NotSupportedExceptionProp()
+    public Task NotSupportedExceptionProp()
     {
         var target = new WithNotSupportedException();
-        await Verify(target);
+        return Verify(target);
     }
 
     class WithNotSupportedException
@@ -455,10 +455,10 @@ public class Tests :
     }
 
     [Fact]
-    public async Task WithObsoleteProp()
+    public Task WithObsoleteProp()
     {
         var target = new WithObsolete();
-        await Verify(target);
+        return Verify(target);
     }
 
     class WithObsolete
@@ -474,13 +474,13 @@ public class Tests :
     }
 
     [Fact]
-    public async Task Escaping()
+    public Task Escaping()
     {
         var target = new EscapeTarget
         {
             Property = @"\"
         };
-        await Verify(target);
+        return Verify(target);
     }
 
     public class EscapeTarget
@@ -489,13 +489,13 @@ public class Tests :
     }
 
     [Fact]
-    public async Task OnlySpecificDates()
+    public Task OnlySpecificDates()
     {
         var target = new NotDatesTarget
         {
             NotDate = "1.2.3"
         };
-        await Verify(target);
+        return Verify(target);
     }
 
     public class NotDatesTarget
@@ -504,7 +504,7 @@ public class Tests :
     }
 
     [Fact]
-    public async Task ShouldScrubGuid()
+    public Task ShouldScrubGuid()
     {
         var target = new GuidTarget
         {
@@ -512,11 +512,11 @@ public class Tests :
             GuidNullable = Guid.NewGuid(),
             GuidString = Guid.NewGuid().ToString(),
         };
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
-    public async Task ShouldIgnoreEmptyList()
+    public Task ShouldIgnoreEmptyList()
     {
         var target = new CollectionTarget
         {
@@ -527,7 +527,7 @@ public class Tests :
             ReadOnlyCollection = new List<string>(),
             Array = new string[] { }
         };
-        await Verify(target);
+        return Verify(target);
     }
 
     public class CollectionTarget
@@ -541,21 +541,21 @@ public class Tests :
     }
 
     [Fact]
-    public async Task TaskResult()
+    public Task TaskResult()
     {
         var target = Task.FromResult("value");
-        await Verify(target);
+        return Verify(target);
     }
 
 #if NETCOREAPP3_1
     [Fact]
-    public async Task TaskResultAsyncDisposable()
+    public Task TaskResultAsyncDisposable()
     {
         var disposableTarget = new AsyncDisposableTarget();
         var target = Task.FromResult(disposableTarget);
-        await Verify(target);
         Assert.False(disposableTarget.Disposed);
         Assert.True(disposableTarget.AsyncDisposed);
+        return Verify(target);
     }
 
     class AsyncDisposableTarget :
@@ -606,10 +606,10 @@ public class Tests :
     }
 
     [Fact]
-    public async Task ShouldIgnoreGuidDefaults()
+    public Task ShouldIgnoreGuidDefaults()
     {
         var target = new GuidTarget();
-        await Verify(target);
+        return Verify(target);
     }
 
     public class GuidTarget
@@ -649,7 +649,7 @@ public class Tests :
     }
 
     [Fact]
-    public async Task ShouldScrubDatetime()
+    public Task ShouldScrubDatetime()
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
@@ -663,15 +663,15 @@ public class Tests :
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
-    public async Task ShouldIgnoreDatetimeDefaults()
+    public Task ShouldIgnoreDatetimeDefaults()
     {
         var target = new DateTimeTarget();
 
-        await Verify(target);
+        return Verify(target);
     }
 
     public class DateTimeTarget
@@ -685,7 +685,7 @@ public class Tests :
     }
 
     [Fact]
-    public async Task ExampleNonDefaults()
+    public Task ExampleNonDefaults()
     {
         var person = new Person
         {
@@ -710,11 +710,11 @@ public class Tests :
             settings.DontIgnoreEmptyCollections();
         });
         AddScrubber(s => s.Replace("Lane", "Street"));
-        await Verify(person);
+        return Verify(person);
     }
 
     [Fact]
-    public async Task TypeNameHandlingAll()
+    public Task TypeNameHandlingAll()
     {
         var person = new Person
         {
@@ -733,7 +733,7 @@ public class Tests :
 
         var jsonSerializerSettings = BuildJsonSerializerSettings();
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
-        await Verify(person, jsonSerializerSettings);
+        return Verify(person, jsonSerializerSettings);
     }
 
     //[Fact(Skip = "explicit")]

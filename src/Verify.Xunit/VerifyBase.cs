@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Verify;
+﻿using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -12,10 +10,6 @@ namespace VerifyXunit
     {
         static VerifyBase()
         {
-            Scrubber<Guid>.SetIntOrNext(input => XunitContext.Context.IntOrNext(input));
-            Scrubber<DateTime>.SetIntOrNext(input => XunitContext.Context.IntOrNext(input));
-            Scrubber<DateTimeOffset>.SetIntOrNext(input => XunitContext.Context.IntOrNext(input));
-            //TODO merge contexts
             Verifier.Init(
                 message => new XunitException(message),
                 input => XunitContext.Context.IntOrNext(input),

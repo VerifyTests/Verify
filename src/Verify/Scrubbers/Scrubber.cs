@@ -1,41 +1,40 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Verify;
 
-namespace Verify
+class Scrubber<T> :
+    WriteOnlyJsonConverter
+    where T : struct
 {
-    public class Scrubber<T> :
-        WriteOnlyJsonConverter
-        where T : struct
+    static string name = typeof(T).Name;
+    static Func<T, int> intOrNext = null!;
+
+    public static void SetIntOrNext(Func<T, int> func)
     {
-        static string name = typeof(T).Name;
-        static Func<T, int> intOrNext = null!;
+        intOrNext = func;
+    }
 
-        public static void SetIntOrNext(Func<T, int> func)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+    {
+        if (value == null)
         {
-            intOrNext = func;
+            return;
         }
 
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-        {
-            if (value == null)
-            {
-                return;
-            }
-            WriteValue(writer, (T)value);
-        }
+        WriteValue(writer, (T) value);
+    }
 
-        public void WriteValue(JsonWriter writer, T value)
-        {
-            var next = intOrNext(value);
-            writer.WriteRawValue($"{name}_{next}");
-        }
+    public void WriteValue(JsonWriter writer, T value)
+    {
+        var next = intOrNext(value);
+        writer.WriteRawValue($"{name}_{next}");
+    }
 
-        public override bool CanRead => false;
+    public override bool CanRead => false;
 
-        public override bool CanConvert(Type type)
-        {
-            return type == typeof(T) ||
-                   type == typeof(T?);
-        }
+    public override bool CanConvert(Type type)
+    {
+        return type == typeof(T) ||
+               type == typeof(T?);
     }
 }

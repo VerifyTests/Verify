@@ -1,5 +1,4 @@
 ﻿using System;
-using Verify;
 
 partial class Verifier
 {

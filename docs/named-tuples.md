@@ -21,7 +21,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     return (true, "A", "B");
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L174-L181' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L174-L181' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Can be verified:
@@ -31,7 +31,7 @@ Can be verified:
 ```cs
 await Verify(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L167-L171' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L167-L171' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Resulting in:
@@ -45,5 +45,5 @@ Resulting in:
   Member3: 'B'
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.NamedTuple.verified.txt#L1-L5' title='File snippet `Tests.NamedTuple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.NamedTuple.verified.txt' title='Navigate to start of snippet `Tests.NamedTuple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.NamedTuple.verified.txt#L1-L5' title='File snippet `Tests.NamedTuple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.NamedTuple.verified.txt' title='Navigate to start of snippet `Tests.NamedTuple.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->

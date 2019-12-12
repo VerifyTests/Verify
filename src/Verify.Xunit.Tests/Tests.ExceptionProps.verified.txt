@@ -1,5 +1,0 @@
-{
-  Message: 'Exception of type \'System.Exception\' was thrown.',
-  Data: {},
-  Source: 'Verify.Xunit.Tests'
-}

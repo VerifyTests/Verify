@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify", "Verify\Verify.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Tests", "Verify.Tests\Verify.Tests.csproj", "{C4875357-5EF0-40DC-9E53-0F5B0236534F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargetLibrary", "TargetLibrary\TargetLibrary.csproj", "{5E9C9DF9-6E0B-4C6A-808F-0FDB51B21B41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{C4875357-5EF0-40DC-9E53-0F5B0236534F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4875357-5EF0-40DC-9E53-0F5B0236534F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4875357-5EF0-40DC-9E53-0F5B0236534F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9C9DF9-6E0B-4C6A-808F-0FDB51B21B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9C9DF9-6E0B-4C6A-808F-0FDB51B21B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9C9DF9-6E0B-4C6A-808F-0FDB51B21B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9C9DF9-6E0B-4C6A-808F-0FDB51B21B41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

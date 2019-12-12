@@ -73,7 +73,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -185,7 +185,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ClassBeingTestedChanged.cs#L6-L33' title='File snippet `classbeingtestedchanged` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Navigate to start of snippet `classbeingtestedchanged`'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L6-L33' title='File snippet `classbeingtestedchanged` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Navigate to start of snippet `classbeingtestedchanged`'>anchor</a></sup>
 <!-- endsnippet -->
 
 And the test is re run it will fail with

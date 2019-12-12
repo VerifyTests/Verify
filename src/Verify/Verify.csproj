@@ -9,6 +9,8 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />
+    <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
+    <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
     <None Include="EmptyFiles\empty.*">
       <Pack>true</Pack>
       <PackagePath>EmptyFiles</PackagePath>

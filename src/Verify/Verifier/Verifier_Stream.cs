@@ -4,20 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Verify;
 
 partial class Verifier
 {
     #region VerifyBinary
 
-    public async Task VerifyBinary(Stream input, string extension = "bin")
+    public async Task VerifyBinary(Stream input, VerifySettings? settings = null)
 
         #endregion
 
     {
-        Guard.AgainstBadExtension(extension, nameof(extension));
-        Guard.AgainstNull(input, nameof(input));
 
-        var (receivedPath, verifiedPath) = GetFileNames(extension);
+        Guard.AgainstNull(input, nameof(input));
+        settings = settings.OrDefault();
+        var extension = settings.ExtensionOrBin();
+        var (receivedPath, verifiedPath) = GetFileNames(extension,settings.Namer);
         var verifyResult = await StreamVerifier.VerifyStreams(input, extension, receivedPath, verifiedPath);
 
         if (verifyResult == VerifyResult.MissingVerified)
@@ -38,16 +40,17 @@ partial class Verifier
         }
     }
 
-    public async Task VerifyBinary(IEnumerable<Stream> streams, string extension = "bin")
+    public async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings? settings = null)
     {
-        Guard.AgainstBadExtension(extension, nameof(extension));
+        settings = settings.OrDefault();
+        var extension = settings.ExtensionOrBin();
         var missingVerified = new List<int>();
         var notEquals = new List<int>();
         var index = 0;
         foreach (var stream in streams)
         {
             var suffix = $"{index:D2}";
-            var (receivedPath, verifiedPath) = GetFileNames(extension, suffix);
+            var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer, suffix);
             var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
 
             if (verifyResult == VerifyResult.MissingVerified)

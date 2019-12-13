@@ -7,11 +7,14 @@ using Xunit.Abstractions;
 public class ScrubbersSample :
     VerifyBase
 {
+    private VerifySettings classLevelSettings;
+
     [Fact]
     public Task Simple()
     {
-        AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three");
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("Two", "B"));
+        return Verify("One Two Three", settings);
     }
 
     [Fact]
@@ -22,14 +25,16 @@ public class ScrubbersSample :
             RowVersion = "0x00000000000007D3"
         };
 
-        AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target);
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        return Verify(target, settings);
     }
 
     public ScrubbersSample(ITestOutputHelper output) :
         base(output)
     {
-        AddScrubber(s => s.Replace("Three", "C"));
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 
     [GlobalSetUp]

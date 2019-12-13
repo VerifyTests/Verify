@@ -119,7 +119,12 @@ public class Tests :
         var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
         File.Delete(txtFile);
         DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("someText", "tmp"));
+        var exception = await Assert.ThrowsAsync<XunitException>(() =>
+        {
+            var settings = new VerifySettings();
+            settings.UseExtension("tmp");
+            return Verify("someText", settings);
+        });
         DiffRunner.Enabled = true;
         File.Delete(txtFile);
         await Verify(exception.Message);
@@ -702,15 +707,16 @@ public class Tests :
             }
         };
 
-        ModifySerialization(settings =>
+        ModifySerialization(_ =>
         {
-            settings.DontScrubDateTimes();
-            settings.DontIgnoreFalse();
-            settings.DontScrubGuids();
-            settings.DontIgnoreEmptyCollections();
+            _.DontScrubDateTimes();
+            _.DontIgnoreFalse();
+            _.DontScrubGuids();
+            _.DontIgnoreEmptyCollections();
         });
-        AddScrubber(s => s.Replace("Lane", "Street"));
-        return Verify(person);
+        var settings = new VerifySettings();
+        settings.AddScrubber(s => s.Replace("Lane", "Street"));
+        return Verify(person,settings);
     }
 
     [Fact]

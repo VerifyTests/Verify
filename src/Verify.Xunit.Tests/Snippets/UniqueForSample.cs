@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -10,15 +11,17 @@ public class UniqueForSample :
     [Fact]
     public Task Runtime()
     {
-        UniqueForRuntime();
-        return Verify("value");
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
     }
 
     [Fact]
     public Task RuntimeAndVersion()
     {
-        UniqueForRuntimeAndVersion();
-        return Verify("value");
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
     }
 
     public UniqueForSample(ITestOutputHelper output) :

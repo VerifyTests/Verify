@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -6,30 +7,38 @@ using Xunit.Abstractions;
 public class ExtensionSample :
     VerifyBase
 {
+    VerifySettings classLevelSettings;
+
     [Fact]
     public async Task AtMethod()
     {
-        UseExtensionForText("xml");
-        await Verify(@"<note>
+        var settings = new VerifySettings();
+        settings.UseExtension("xml");
+        await Verify(
+            target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
-</note>");
+</note>",
+            settings: settings);
     }
 
     [Fact]
     public async Task InheritedFromClass()
     {
-        await Verify(@"{
+        await Verify(
+            target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
     ""color"": ""Red""
-}");
+}",
+            settings: classLevelSettings);
     }
 
     public ExtensionSample(ITestOutputHelper output) :
         base(output)
     {
-        UseExtensionForText("json");
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.UseExtension("json");
     }
 }

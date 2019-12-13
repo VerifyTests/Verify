@@ -28,4 +28,8 @@ partial class Verifier
         this.directory = directory;
         this.testName = testName;
     }
+    (string receivedPath, string verifiedPath) GetFileNames(string extension, Namer namer, string? suffix = null)
+    {
+        return FileNameBuilder.GetFileNames(extension, suffix, namer, testType, directory, testName);
+    }
 }

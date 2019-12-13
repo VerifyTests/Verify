@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Verify;
 
 partial class Verifier
 {
@@ -37,18 +38,18 @@ partial class Verifier
         }
     }
 
-    public Task Verify(object target)
+    public Task Verify(object target, VerifySettings? settings = null)
     {
         Guard.AgainstNull(target, nameof(target));
-        return Verify(target, serialization.currentSettings);
+        return Verify(target, serialization.currentSettings,settings);
     }
 
-    public Task Verify(object target, JsonSerializerSettings jsonSerializerSettings)
+    public Task Verify(object target, JsonSerializerSettings jsonSerializerSettings, VerifySettings? settings = null)
     {
         Guard.AgainstNull(target, nameof(target));
         Guard.AgainstNull(jsonSerializerSettings, nameof(jsonSerializerSettings));
         var formatJson = JsonFormatter.AsJson(target, jsonSerializerSettings);
-        return Verify(formatJson);
+        return Verify(formatJson, settings);
     }
 
     public JsonSerializerSettings BuildJsonSerializerSettings()

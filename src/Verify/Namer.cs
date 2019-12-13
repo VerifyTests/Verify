@@ -18,6 +18,16 @@ class Namer
 
     public static string runtimeAndVersion;
 
+    public Namer()
+    {
+    }
+    public Namer(Namer namer)
+    {
+    UniqueForRuntime = namer.UniqueForRuntime;
+    UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
+    UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
+    }
+
     public static (string runtime, Version Version) GetRuntimeAndVersion()
     {
         var description = RuntimeInformation.FrameworkDescription;

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -8,23 +9,26 @@ public class NamerTests :
 {
     [Fact]
     public Task Runtime()
-    {//s
-        UniqueForRuntime();
-        return Verify(Namer.runtime);
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify(Namer.runtime, settings);
     }
 
     [Fact]
     public Task RuntimeAndVersion()
     {
-        UniqueForRuntimeAndVersion();
-        return Verify(Namer.runtimeAndVersion);
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify(Namer.runtimeAndVersion, settings);
     }
 
     [Fact]
     public Task AssemblyConfiguration()
     {
-        UniqueForAssemblyConfiguration();
-        return Verify("Foo");
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("Foo", settings);
     }
 
     public NamerTests(ITestOutputHelper output) :

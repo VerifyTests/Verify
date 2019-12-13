@@ -33,15 +33,17 @@ public class UniqueForSample :
     [Fact]
     public Task Runtime()
     {
-        UniqueForRuntime();
-        return Verify("value");
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
     }
 
     [Fact]
     public Task RuntimeAndVersion()
     {
-        UniqueForRuntimeAndVersion();
-        return Verify("value");
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
     }
 
     public UniqueForSample(ITestOutputHelper output) :
@@ -50,7 +52,7 @@ public class UniqueForSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L29' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L32' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
 <!-- endsnippet -->
 
 For a project that targets
@@ -84,6 +86,7 @@ Usage:
 <a id='snippet-ExtensionSample.cs'/></a>
 ```cs
 using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -91,35 +94,43 @@ using Xunit.Abstractions;
 public class ExtensionSample :
     VerifyBase
 {
+    VerifySettings classLevelSettings;
+
     [Fact]
     public async Task AtMethod()
     {
-        UseExtensionForText("xml");
-        await Verify(@"<note>
+        var settings = new VerifySettings();
+        settings.UseExtension("xml");
+        await Verify(
+            target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
-</note>");
+</note>",
+            settings: settings);
     }
 
     [Fact]
     public async Task InheritedFromClass()
     {
-        await Verify(@"{
+        await Verify(
+            target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
     ""color"": ""Red""
-}");
+}",
+            settings: classLevelSettings);
     }
 
     public ExtensionSample(ITestOutputHelper output) :
         base(output)
     {
-        UseExtensionForText("json");
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.UseExtension("json");
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L35' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L44' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:

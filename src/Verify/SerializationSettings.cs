@@ -29,7 +29,7 @@ namespace Verify
             {
                 ignoredMembers = ignoredMembers.Clone(),
                 ignoreEmptyCollections = ignoreEmptyCollections,
-                ExtraSettings = ExtraSettings,
+                ExtraSettings = ExtraSettings.Clone(),
                 ignoreFalse = ignoreFalse,
                 ignoreMembersThatThrow = ignoreMembersThatThrow.Clone(),
                 ignoreMembersWithType = ignoreMembersWithType.Clone(),

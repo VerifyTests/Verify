@@ -18,6 +18,7 @@ namespace Verify
         {
             AddScrubber(Scrubbers.ScrubMachineName);
         }
+
         public static void AddExtraDatetimeFormat(string format)
         {
             StringScrubbingConverter.datetimeFormats.Add(format);

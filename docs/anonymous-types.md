@@ -30,7 +30,7 @@ await Verify(
         person2
     });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L73-L93' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L74-L94' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:

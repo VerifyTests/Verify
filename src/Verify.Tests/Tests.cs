@@ -202,8 +202,8 @@ public class Tests :
     public async Task AddIgnoreInstance()
     {
         #region AddIgnoreInstance
-
-        ModifySerialization(_ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
 
         var target = new IgnoreInstanceTarget
         {
@@ -216,7 +216,7 @@ public class Tests :
                 Property = "Include"
             },
         };
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -236,8 +236,8 @@ public class Tests :
     public async Task IgnoreType()
     {
         #region AddIgnoreType
-
-        ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
 
         var target = new IgnoreTypeTarget
         {
@@ -250,7 +250,7 @@ public class Tests :
                 Property = "Value"
             }
         };
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -275,13 +275,13 @@ public class Tests :
     public async Task IgnoreMemberByExpression()
     {
         #region IgnoreMemberByExpression
-
-        ModifySerialization(settings =>
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ =>
         {
-            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-            settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
         });
 
         var target = new IgnoreExplicitTarget
@@ -290,7 +290,7 @@ public class Tests :
             Field = "Value",
             Property = "Value"
         };
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -299,14 +299,14 @@ public class Tests :
     public async Task IgnoreMemberByName()
     {
         #region IgnoreMemberByName
-
-        ModifySerialization(settings =>
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ =>
         {
             var type = typeof(IgnoreExplicitTarget);
-            settings.IgnoreMember(type, "Property");
-            settings.IgnoreMember(type, "Field");
-            settings.IgnoreMember(type, "GetOnlyProperty");
-            settings.IgnoreMember(type, "PropertyThatThrows");
+            _.IgnoreMember(type, "Property");
+            _.IgnoreMember(type, "Field");
+            _.IgnoreMember(type, "GetOnlyProperty");
+            _.IgnoreMember(type, "PropertyThatThrows");
         });
 
         var target = new IgnoreExplicitTarget
@@ -315,7 +315,7 @@ public class Tests :
             Field = "Value",
             Property = "Value"
         };
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -345,11 +345,11 @@ public class Tests :
     public async Task CustomExceptionProp()
     {
         #region IgnoreMembersThatThrow
-
-        ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         var target = new WithCustomException();
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -387,11 +387,12 @@ public class Tests :
     [Fact]
     public void ExceptionProp()
     {
-        ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         var target = new WithException();
 
-        Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target));
+        Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target, settings));
     }
 
     class WithException
@@ -407,11 +408,11 @@ public class Tests :
     public async Task ExceptionMessageProp()
     {
         #region IgnoreMembersThatThrowExpression
-
-        ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 
         var target = new WithExceptionIgnoreMessage();
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -424,10 +425,11 @@ public class Tests :
     [Fact]
     public void ExceptionNotIgnoreMessageProp()
     {
-        ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         var target = new WithExceptionNotIgnoreMessage();
 
-        Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target));
+        Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target, settings));
     }
 
     class WithExceptionNotIgnoreMessage
@@ -707,16 +709,16 @@ public class Tests :
             }
         };
 
-        ModifySerialization(_ =>
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ =>
         {
             _.DontScrubDateTimes();
             _.DontIgnoreFalse();
             _.DontScrubGuids();
             _.DontIgnoreEmptyCollections();
         });
-        var settings = new VerifySettings();
         settings.AddScrubber(s => s.Replace("Lane", "Street"));
-        return Verify(person,settings);
+        return Verify(person, settings);
     }
 
     [Fact]
@@ -737,9 +739,9 @@ public class Tests :
             }
         };
 
-        var jsonSerializerSettings = BuildJsonSerializerSettings();
-        jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
-        return Verify(person, jsonSerializerSettings);
+        var settings = new VerifySettings();
+        settings.AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
+        return Verify(person, settings);
     }
 
     //[Fact(Skip = "explicit")]

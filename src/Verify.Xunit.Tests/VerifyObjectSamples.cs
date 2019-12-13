@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -8,21 +9,21 @@ using Xunit.Abstractions;
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
 
-public class VerifyObjectSamples:
+public class VerifyObjectSamples :
     VerifyBase
 {
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
-
-        ModifySerialization(settings =>
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ =>
         {
-            settings.DontIgnoreEmptyCollections();
-            settings.DontScrubGuids();
-            settings.DontScrubDateTimes();
-            settings.DontIgnoreFalse();
+            _.DontIgnoreEmptyCollections();
+            _.DontScrubGuids();
+            _.DontScrubDateTimes();
+            _.DontIgnoreFalse();
         });
-        await Verify(target);
+        await Verify(target, settings);
 
         #endregion
     }
@@ -38,10 +39,10 @@ public class VerifyObjectSamples:
             FamilyName = "Smith",
             Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
-        ModifySerialization(_ => _.DontScrubDateTimes());
-        var serializerSettings = BuildJsonSerializerSettings();
-        serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-        await Verify(person, serializerSettings);
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.DontScrubDateTimes());
+        settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
+        await Verify(person, settings);
 
         #endregion
     }
@@ -96,11 +97,11 @@ public class VerifyObjectSamples:
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettings
-
-        AddExtraSettings(jsonSerializerSettings =>
+        var settings = new VerifySettings();
+        settings.AddExtraSettings(_ =>
         {
-            jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            _.TypeNameHandling = TypeNameHandling.All;
         });
 
         #endregion

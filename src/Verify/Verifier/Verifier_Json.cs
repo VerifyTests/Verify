@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Verify;
 
 partial class Verifier
 {
-    public async Task Verify<T>(Task<T> task)
+    public async Task Verify<T>(Task<T> task, VerifySettings? settings = null)
     {
         Guard.AgainstNull(task, nameof(task));
+        settings = settings.OrDefault();
         var target = await task;
         if (target == null)
         {
@@ -16,19 +16,19 @@ partial class Verifier
 
         try
         {
-            await Verify(target);
+            await Verify(target, settings);
         }
         finally
         {
 #if NETSTANDARD2_1
-                if (target is IAsyncDisposable asyncDisposable)
-                {
-                    await asyncDisposable.DisposeAsync();
-                }
-                else if (target is IDisposable disposable)
-                {
-                    disposable.Dispose();
-                }
+            if (target is IAsyncDisposable asyncDisposable)
+            {
+                await asyncDisposable.DisposeAsync();
+            }
+            else if (target is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
 #else
             if (target is IDisposable disposable)
             {
@@ -41,19 +41,8 @@ partial class Verifier
     public Task Verify(object target, VerifySettings? settings = null)
     {
         Guard.AgainstNull(target, nameof(target));
-        return Verify(target, serialization.currentSettings,settings);
-    }
-
-    public Task Verify(object target, JsonSerializerSettings jsonSerializerSettings, VerifySettings? settings = null)
-    {
-        Guard.AgainstNull(target, nameof(target));
-        Guard.AgainstNull(jsonSerializerSettings, nameof(jsonSerializerSettings));
-        var formatJson = JsonFormatter.AsJson(target, jsonSerializerSettings);
+        settings = settings.OrDefault();
+        var formatJson = JsonFormatter.AsJson(target, settings.serialization.currentSettings);
         return Verify(formatJson, settings);
-    }
-
-    public JsonSerializerSettings BuildJsonSerializerSettings()
-    {
-        return serialization.BuildSettings();
     }
 }

@@ -182,7 +182,7 @@ namespace Verify
             ExtraSettings.Add(action);
         }
 
-        public List<Action<JsonSerializerSettings>> ExtraSettings = new List<Action<JsonSerializerSettings>>();
+        List<Action<JsonSerializerSettings>> ExtraSettings = new List<Action<JsonSerializerSettings>>();
         internal JsonSerializerSettings currentSettings;
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)

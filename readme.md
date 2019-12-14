@@ -84,6 +84,21 @@ It can be tested as follows:
 <!-- snippet: SampleTest -->
 <a id='snippet-sampletest'/></a>
 ```cs
+[TestClass]
+public class SampleTest :
+    VerifyBase
+{
+    [TestMethod]
+    public Task Simple()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/SampleTest.cs#L5-L17' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
+<a id='snippet-sampletest-1'/></a>
+```cs
 [TestFixture]
 public class SampleTest
 {
@@ -95,8 +110,8 @@ public class SampleTest
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/SampleTest.cs#L5-L16' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
-<a id='snippet-sampletest-1'/></a>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/SampleTest.cs#L5-L16' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest-1' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
+<a id='snippet-sampletest-2'/></a>
 ```cs
 public class SampleTest :
     VerifyBase
@@ -114,7 +129,7 @@ public class SampleTest :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest-1' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest-2' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -17,17 +17,25 @@ public async Task VerifyBinary(Stream input, VerifySettings? settings = null)
 <sup><a href='/src/Verify/Verifier/Verifier_Stream.cs#L11-L13' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
 <a id='snippet-verifybinary-1'/></a>
 ```cs
+public async Task VerifyBinary(
+        Stream input,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+```
+<sup><a href='/src/Verify.MSTest/VerifyBase_Stream.cs#L11-L16' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-1' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
+<a id='snippet-verifybinary-2'/></a>
+```cs
 public static async Task VerifyBinary(
         Stream input,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
 ```
-<sup><a href='/src/Verify.NUnit/Verifier_Stream.cs#L11-L16' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-1' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
-<a id='snippet-verifybinary-2'/></a>
+<sup><a href='/src/Verify.NUnit/Verifier_Stream.cs#L11-L16' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-2' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
+<a id='snippet-verifybinary-3'/></a>
 ```cs
 public Task VerifyBinary(Stream input, VerifySettings? settings = null)
 ```
-<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L10-L12' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-2' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L10-L12' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-3' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
 <!-- endsnippet -->
 
 A [Diff Tool](diff-tool.md) will only be displayed if one can be found that supports the defined extension.

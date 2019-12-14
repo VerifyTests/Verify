@@ -23,6 +23,27 @@ var person2 = new Person
     FamilyName = "Aguirre"
 };
 
+await Verify(
+    new
+    {
+        person1,
+        person2
+    });
+```
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L74-L94' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
+<a id='snippet-anon-1'/></a>
+```cs
+var person1 = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith"
+};
+var person2 = new Person
+{
+    GivenNames = "Marianne",
+    FamilyName = "Aguirre"
+};
+
 await Verifier.Verify(
     new
     {
@@ -30,8 +51,8 @@ await Verifier.Verify(
         person2
     });
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L75-L95' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
-<a id='snippet-anon-1'/></a>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L75-L95' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon-1' title='Navigate to start of snippet `anon`'>anchor</a></sup>
+<a id='snippet-anon-2'/></a>
 ```cs
 var person1 = new Person
 {
@@ -51,7 +72,7 @@ await Verify(
         person2
     });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L74-L94' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon-1' title='Navigate to start of snippet `anon`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L74-L94' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon-2' title='Navigate to start of snippet `anon`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -70,7 +91,7 @@ Results in the following:
   }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Anon.verified.txt' title='Navigate to start of snippet `VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Anon.verified.txt' title='Navigate to start of snippet `VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
 <a id='snippet-VerifyObjectSamples.Anon.verified.txt-1'/></a>
 ```txt
 {
@@ -84,5 +105,19 @@ Results in the following:
   }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Anon.verified.txt-1' title='Navigate to start of snippet `VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Anon.verified.txt-1' title='Navigate to start of snippet `VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
+<a id='snippet-VerifyObjectSamples.Anon.verified.txt-2'/></a>
+```txt
+{
+  person1: {
+    GivenNames: 'John',
+    FamilyName: 'Smith'
+  },
+  person2: {
+    GivenNames: 'Marianne',
+    FamilyName: 'Aguirre'
+  }
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Anon.verified.txt-2' title='Navigate to start of snippet `VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->

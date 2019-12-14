@@ -27,6 +27,38 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 <!-- snippet: UniqueForSample -->
 <a id='snippet-uniqueforsample'/></a>
 ```cs
+[TestClass]
+public class UniqueForSample :
+    VerifyBase
+{
+    [TestMethod]
+    public Task Runtime()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task RuntimeAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<a id='snippet-uniqueforsample-1'/></a>
+```cs
 [TestFixture]
 public class UniqueForSample
 {
@@ -55,8 +87,8 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
-<a id='snippet-uniqueforsample-1'/></a>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-1' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<a id='snippet-uniqueforsample-2'/></a>
 ```cs
 public class UniqueForSample :
     VerifyBase
@@ -91,7 +123,7 @@ public class UniqueForSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L40' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-1' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L40' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-2' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
 <!-- endsnippet -->
 
 For a project that targets
@@ -123,6 +155,53 @@ Usage:
 
 <!-- snippet: ExtensionSample.cs -->
 <a id='snippet-ExtensionSample.cs'/></a>
+```cs
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Verify;
+using VerifyMSTest;
+
+[TestClass]
+public class ExtensionSample :
+    VerifyBase
+{
+    VerifySettings classLevelSettings;
+
+    public ExtensionSample()
+    {
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.UseExtension("json");
+    }
+
+    [TestMethod]
+    public Task AtMethod()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.UseExtension("xml");
+        return Verify(
+            target: @"<note>
+<to>Joe</to>
+<from>Kim</from>
+<heading>Reminder</heading>
+</note>",
+            settings: settings);
+    }
+
+    [TestMethod]
+    public Task SharedClassLevelSettings()
+    {
+        return Verify(
+            target: @"{
+    ""fruit"": ""Apple"",
+    ""size"": ""Large"",
+    ""color"": ""Red""
+}",
+            settings: classLevelSettings);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<a id='snippet-ExtensionSample.cs-1'/></a>
 ```cs
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -167,8 +246,8 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.cs-1'/></a>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-1' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<a id='snippet-ExtensionSample.cs-2'/></a>
 ```cs
 using System.Threading.Tasks;
 using Verify;
@@ -215,7 +294,7 @@ public class ExtensionSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L44' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-1' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L44' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:
@@ -229,7 +308,7 @@ Result in two files:
     "color": "Red"
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
 <a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json-1'/></a>
 ```json
 {
@@ -238,7 +317,16 @@ Result in two files:
     "color": "Red"
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json-1' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json-1' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
+<a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json-2'/></a>
+```json
+{
+    "fruit": "Apple",
+    "size": "Large",
+    "color": "Red"
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json-2' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: ExtensionSample.AtMethod.verified.xml -->
@@ -250,7 +338,7 @@ Result in two files:
 <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
 <a id='snippet-ExtensionSample.AtMethod.verified.xml-1'/></a>
 ```xml
 <note>
@@ -259,5 +347,14 @@ Result in two files:
 <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml-1' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml-1' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
+<a id='snippet-ExtensionSample.AtMethod.verified.xml-2'/></a>
+```xml
+<note>
+<to>Joe</to>
+<from>Kim</from>
+<heading>Reminder</heading>
+</note>
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml-2' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
 <!-- endsnippet -->

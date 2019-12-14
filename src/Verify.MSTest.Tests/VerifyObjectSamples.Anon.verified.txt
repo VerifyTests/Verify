@@ -1,0 +1,10 @@
+{
+  person1: {
+    GivenNames: 'John',
+    FamilyName: 'Smith'
+  },
+  person2: {
+    GivenNames: 'Marianne',
+    FamilyName: 'Aguirre'
+  }
+}

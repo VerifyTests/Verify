@@ -6,7 +6,7 @@ using System.Text;
 
 static class TestNameBuilder
 {
-    static string ClassName(this Type type)
+    public static string ClassName(this Type type)
     {
         var name = type.Name;
         var indexOf = name.IndexOf('.');

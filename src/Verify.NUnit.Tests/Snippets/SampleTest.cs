@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using VerifyNUnit;
 
-#region SampleTest
+#region SampleTestNUnit
 [TestFixture]
 public class SampleTest
 {

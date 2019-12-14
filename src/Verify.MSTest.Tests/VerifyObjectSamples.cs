@@ -31,8 +31,6 @@ public class VerifyObjectSamples :
     [TestMethod]
     public async Task ScopedSerializer()
     {
-        #region ScopedSerializer
-
         var person = new Person
         {
             GivenNames = "John",
@@ -43,8 +41,6 @@ public class VerifyObjectSamples :
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
         await Verify(person, settings);
-
-        #endregion
     }
 
     async Task Before()
@@ -68,10 +64,10 @@ public class VerifyObjectSamples :
         #endregion
     }
 
+    #region AnonMSTest
     [TestMethod]
     public async Task Anon()
     {
-        #region Anon
 
         var person1 = new Person
         {
@@ -91,21 +87,8 @@ public class VerifyObjectSamples :
                 person2
             });
 
-        #endregion
     }
-
-    void ApplyExtraSettingsSample()
-    {
-        #region ExtraSettings
-        var settings = new VerifySettings();
-        settings.AddExtraSettings(_ =>
-        {
-            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
-
-        #endregion
-    }
+    #endregion
 
     async Task After()
     {

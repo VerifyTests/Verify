@@ -94,7 +94,7 @@ snippet: ScopedSerializer
 
 Result:
 
-snippet: VerifyObjectSamples.ScopedSerializer.verified.txt
+snippet: Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt
 
 
 ## Ignoring a type

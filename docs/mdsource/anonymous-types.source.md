@@ -6,4 +6,4 @@ snippet: anon
 
 Results in the following:
 
-snippet: VerifyObjectSamples.Anon.verified.txt
+snippet: Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt

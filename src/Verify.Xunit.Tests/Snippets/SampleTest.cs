@@ -3,7 +3,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-#region SampleTest
+#region SampleTestXunit
 public class SampleTest :
     VerifyBase
 {

@@ -12,6 +12,7 @@ public class Person
     public List<string> Children;
     public Title Title;
     public Guid Id;
+    public DateTimeOffset Dob;
 }
 
 public class Address

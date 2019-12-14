@@ -9,13 +9,15 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify.Xunit/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify.NUnit/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?cacheSeconds=86400)](https://www.nuget.org/packages/Verify.MSTest/)
 
 Verification tool to enable simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
 <!-- toc -->
 ## Contents
 
-  * [NuGet package](#nuget-package)
+  * [NuGet packages](#nuget-packages)
   * [Usage](#usage)
     * [Class being tested](#class-being-tested)
     * [Test](#test)
@@ -33,9 +35,11 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [Compared to ApprovalTests](docs/compared-to-approvaltests.md)
 
 
-## NuGet package
+## NuGet packages
 
-https://nuget.org/packages/Verify.Xunit/
+ * https://nuget.org/packages/Verify.Xunit/
+ * https://nuget.org/packages/Verify.NUnit/
+ * https://nuget.org/packages/Verify.MSTest/
 
 
 ## Usage
@@ -81,37 +85,11 @@ public static class ClassBeingTested
 
 It can be tested as follows:
 
-<!-- snippet: SampleTest -->
-<a id='snippet-sampletest'/></a>
-```cs
-[TestClass]
-public class SampleTest :
-    VerifyBase
-{
-    [TestMethod]
-    public Task Simple()
-    {
-        var person = ClassBeingTested.FindPerson();
-        return Verify(person);
-    }
-}
-```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/SampleTest.cs#L5-L17' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
-<a id='snippet-sampletest-1'/></a>
-```cs
-[TestFixture]
-public class SampleTest
-{
-    [Test]
-    public Task Simple()
-    {
-        var person = ClassBeingTested.FindPerson();
-        return Verifier.Verify(person);
-    }
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/SampleTest.cs#L5-L16' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest-1' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
-<a id='snippet-sampletest-2'/></a>
+
+#### Xunit
+
+<!-- snippet: SampleTestXunit -->
+<a id='snippet-sampletestxunit'/></a>
 ```cs
 public class SampleTest :
     VerifyBase
@@ -129,7 +107,48 @@ public class SampleTest :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletest` was extracted from'>snippet source</a> | <a href='#snippet-sampletest-2' title='Navigate to start of snippet `sampletest`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+#### NUnit
+
+<!-- snippet: SampleTestNUnit -->
+<a id='snippet-sampletestnunit'/></a>
+```cs
+[TestFixture]
+public class SampleTest
+{
+    [Test]
+    public Task Simple()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verifier.Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/SampleTest.cs#L5-L16' title='File snippet `sampletestnunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Navigate to start of snippet `sampletestnunit`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+#### MSTest
+
+<!-- snippet: SampleTestMSTest -->
+<a id='snippet-sampletestmstest'/></a>
+```cs
+[TestClass]
+public class SampleTest :
+    VerifyBase
+{
+    [TestMethod]
+    public Task Simple()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/SampleTest.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

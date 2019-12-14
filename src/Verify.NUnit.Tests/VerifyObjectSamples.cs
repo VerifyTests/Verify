@@ -31,8 +31,6 @@ public class VerifyObjectSamples
     [Test]
     public async Task ScopedSerializer()
     {
-        #region ScopedSerializer
-
         var person = new Person
         {
             GivenNames = "John",
@@ -44,8 +42,6 @@ public class VerifyObjectSamples
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
         await Verifier.Verify(person, settings);
-
-        #endregion
     }
 
     async Task Before()
@@ -91,19 +87,6 @@ public class VerifyObjectSamples
                 person1,
                 person2
             });
-
-        #endregion
-    }
-
-    void ApplyExtraSettingsSample()
-    {
-        #region ExtraSettings
-        var settings = new VerifySettings();
-        settings.AddExtraSettings(_ =>
-        {
-            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
 
         #endregion
     }

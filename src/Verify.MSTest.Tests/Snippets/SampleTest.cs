@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 
-#region SampleTest
+#region SampleTestMSTest
 [TestClass]
 public class SampleTest :
     VerifyBase

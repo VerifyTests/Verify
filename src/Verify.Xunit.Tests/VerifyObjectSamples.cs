@@ -12,9 +12,9 @@ using Xunit.Abstractions;
 public class VerifyObjectSamples :
     VerifyBase
 {
+        #region ChangeDefaultsPerVerificationXunit
     async Task ChangeDefaultsPerVerification(object target)
     {
-        #region ChangeDefaultsPerVerification
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
@@ -25,13 +25,12 @@ public class VerifyObjectSamples :
         });
         await Verify(target, settings);
 
-        #endregion
     }
+        #endregion
 
     [Fact]
     public async Task ScopedSerializer()
     {
-        #region ScopedSerializer
 
         var person = new Person
         {
@@ -43,8 +42,6 @@ public class VerifyObjectSamples :
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
         await Verify(person, settings);
-
-        #endregion
     }
 
     async Task Before()
@@ -90,19 +87,6 @@ public class VerifyObjectSamples :
                 person1,
                 person2
             });
-
-        #endregion
-    }
-
-    void ApplyExtraSettingsSample()
-    {
-        #region ExtraSettings
-        var settings = new VerifySettings();
-        settings.AddExtraSettings(_ =>
-        {
-            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
 
         #endregion
     }

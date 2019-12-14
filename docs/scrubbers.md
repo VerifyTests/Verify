@@ -63,17 +63,14 @@ public class ScrubbersSample
         return Verifier.Verify(target, settings);
     }
 
-    public static class GlobalSetup
+    [OneTimeSetUp]
+    public static void Setup()
     {
-        [OneTimeSetUp]
-        public static void Setup()
-        {
-            Global.AddScrubber(s => s.Replace("One", "A"));
-        }
+        Global.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L46' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L43' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
 <a id='snippet-scrubberssample.cs-1'/></a>
 ```cs
 using System.Threading.Tasks;

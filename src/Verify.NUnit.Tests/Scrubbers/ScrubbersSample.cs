@@ -35,12 +35,9 @@ public class ScrubbersSample
         return Verifier.Verify(target, settings);
     }
 
-    public static class GlobalSetup
+    [OneTimeSetUp]
+    public static void Setup()
     {
-        [OneTimeSetUp]
-        public static void Setup()
-        {
-            Global.AddScrubber(s => s.Replace("One", "A"));
-        }
+        Global.AddScrubber(s => s.Replace("One", "A"));
     }
 }

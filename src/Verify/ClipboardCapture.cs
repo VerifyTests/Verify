@@ -22,6 +22,6 @@ static class ClipboardCapture
             semaphoreSlim.Release();
         }
 
-        await Clipboard.SetText(builder.ToString());
+        await Clipboard.SetTextAsync(builder.ToString());
     }
 }

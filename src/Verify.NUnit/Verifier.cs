@@ -22,7 +22,7 @@ namespace VerifyNUnit
             var context = TestContext.CurrentContext;
             var test = context.Test;
             var type = Type.GetType(test.ClassName);
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), test.Name);
+            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), test.FullName);
         }
     }
 }

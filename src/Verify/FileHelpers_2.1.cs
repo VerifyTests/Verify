@@ -13,6 +13,7 @@ static partial class FileHelpers
     {
         return File.ReadAllTextAsync(filePath);
     }
+
     public static async Task WriteStream(string filePath, Stream stream)
     {
         await using var fileStream = new FileStream(

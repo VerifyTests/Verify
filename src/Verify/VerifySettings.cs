@@ -31,14 +31,17 @@ namespace Verify
             {
                 return "txt";
             }
+
             return extension;
         }
+
         internal string ExtensionOrBin()
         {
             if (extension == null)
             {
                 return "bin";
             }
+
             return extension;
         }
     }

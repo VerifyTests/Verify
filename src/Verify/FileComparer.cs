@@ -22,6 +22,7 @@ static class FileComparer
 
         return VerifyResult.Equal;
     }
+
     public static bool FilesEqual(string path1, string path2)
     {
         return FilesAreEqual(new FileInfo(path1), new FileInfo(path2));
@@ -32,10 +33,14 @@ static class FileComparer
     static bool FilesAreEqual(FileInfo first, FileInfo second)
     {
         if (first.Length != second.Length)
+        {
             return false;
+        }
 
         if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
+        {
             return true;
+        }
 
         var iterations = (int) Math.Ceiling((double) first.Length / BYTES_TO_READ);
 
@@ -57,5 +62,4 @@ static class FileComparer
 
         return true;
     }
-
 }

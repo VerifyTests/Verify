@@ -5,8 +5,8 @@ partial class Verifier
     Type testType;
     string directory;
     string testName;
-    static Func<string, Exception> exceptionBuilder= null!;
-    static Action<string, string> assert= null!;
+    static Func<string, Exception> exceptionBuilder = null!;
+    static Action<string, string> assert = null!;
 
     public static void Init(
         Func<string, Exception> exceptionBuilder,
@@ -28,6 +28,7 @@ partial class Verifier
         this.directory = directory;
         this.testName = testName;
     }
+
     (string receivedPath, string verifiedPath) GetFileNames(string extension, Namer namer, string? suffix = null)
     {
         return FileNameBuilder.GetFileNames(extension, suffix, namer, testType, directory, testName);

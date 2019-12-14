@@ -39,6 +39,14 @@ public class UniqueForSample
     }
 
     [Test]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
     public Task RuntimeAndVersion()
     {
         var settings = new VerifySettings();
@@ -47,7 +55,7 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L26' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
 <a id='snippet-uniqueforsample-1'/></a>
 ```cs
 public class UniqueForSample :
@@ -69,13 +77,21 @@ public class UniqueForSample :
         return Verify("value", settings);
     }
 
+    [Fact]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+
     public UniqueForSample(ITestOutputHelper output) :
         base(output)
     {
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L32' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-1' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L40' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-1' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
 <!-- endsnippet -->
 
 For a project that targets

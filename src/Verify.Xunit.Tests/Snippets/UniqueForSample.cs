@@ -24,6 +24,14 @@ public class UniqueForSample :
         return Verify("value", settings);
     }
 
+    [Fact]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+
     public UniqueForSample(ITestOutputHelper output) :
         base(output)
     {

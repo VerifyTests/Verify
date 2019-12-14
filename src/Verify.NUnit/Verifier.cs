@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -17,12 +18,13 @@ namespace VerifyNUnit
                 Assert.AreEqual);
         }
 
+        static FieldInfo field = typeof(TestContext.TestAdapter).GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
         static DisposableVerifier BuildVerifier(string sourceFile)
         {
             var context = TestContext.CurrentContext;
-            var test = context.Test;
-            var type = Type.GetType(test.ClassName);
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), test.FullName);
+            var testAdapter = context.Test;
+            var test = (Test)field.GetValue(testAdapter);
+            return new DisposableVerifier(test.Method.MethodInfo.DeclaringType, Path.GetDirectoryName(sourceFile), testAdapter.FullName);
         }
     }
 }

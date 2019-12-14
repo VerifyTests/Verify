@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -19,12 +18,16 @@ namespace VerifyNUnit
         }
 
         static FieldInfo field = typeof(TestContext.TestAdapter).GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
+
         static DisposableVerifier BuildVerifier(string sourceFile)
         {
             var context = TestContext.CurrentContext;
             var testAdapter = context.Test;
-            var test = (Test)field.GetValue(testAdapter);
-            return new DisposableVerifier(test.Method.MethodInfo.DeclaringType, Path.GetDirectoryName(sourceFile), testAdapter.FullName);
+            var test = (Test) field.GetValue(testAdapter);
+
+            var testType = test.TypeInfo.Type;
+            var uniqueTestName = TestNameBuilder.GetUniqueTestName(testType, test.Method.MethodInfo, testAdapter.Arguments);
+            return new DisposableVerifier(testType, Path.GetDirectoryName(sourceFile), uniqueTestName);
         }
     }
 }

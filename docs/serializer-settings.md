@@ -205,9 +205,22 @@ settings.ModifySerialization(_ =>
     _.DontScrubDateTimes();
     _.DontIgnoreFalse();
 });
+await Verifier.Verify(target, settings);
+```
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L16-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
+<a id='snippet-changedefaultsperverification-1'/></a>
+```cs
+var settings = new VerifySettings();
+settings.ModifySerialization(_ =>
+{
+    _.DontIgnoreEmptyCollections();
+    _.DontScrubGuids();
+    _.DontScrubDateTimes();
+    _.DontIgnoreFalse();
+});
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L17-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L17-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification-1' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -225,7 +238,17 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L99-L107' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L100-L108' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
+<a id='snippet-extrasettings-1'/></a>
+```cs
+var settings = new VerifySettings();
+settings.AddExtraSettings(_ =>
+{
+    _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+    _.TypeNameHandling = TypeNameHandling.All;
+});
+```
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L99-L107' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings-1' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -240,12 +263,27 @@ var person = new Person
     FamilyName = "Smith",
     Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
 };
+
+var settings = new VerifySettings();
+settings.ModifySerialization(_ => _.DontScrubDateTimes());
+settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
+await Verifier.Verify(person, settings);
+```
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L34-L48' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
+<a id='snippet-scopedserializer-1'/></a>
+```cs
+var person = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith",
+    Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+};
 var settings = new VerifySettings();
 settings.ModifySerialization(_ => _.DontScrubDateTimes());
 settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
 await Verify(person, settings);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L34-L47' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L34-L47' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer-1' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -259,7 +297,16 @@ Result:
   Dob: '\/Date(970358400000+0000)\/'
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='File snippet `VerifyObjectSamples.ScopedSerializer.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.ScopedSerializer.verified.txt' title='Navigate to start of snippet `VerifyObjectSamples.ScopedSerializer.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='File snippet `VerifyObjectSamples.ScopedSerializer.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.ScopedSerializer.verified.txt' title='Navigate to start of snippet `VerifyObjectSamples.ScopedSerializer.verified.txt`'>anchor</a></sup>
+<a id='snippet-VerifyObjectSamples.ScopedSerializer.verified.txt-1'/></a>
+```txt
+{
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Dob: '\/Date(970358400000+0000)\/'
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='File snippet `VerifyObjectSamples.ScopedSerializer.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.ScopedSerializer.verified.txt-1' title='Navigate to start of snippet `VerifyObjectSamples.ScopedSerializer.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -1,27 +1,25 @@
 ﻿using System.Threading.Tasks;
+using NUnit.Framework;
 using Verify;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
+using VerifyNUnit;
 
-public class ExtensionSample :
-    VerifyBase
+[TestFixture]
+public class ExtensionSample
 {
     VerifySettings classLevelSettings;
 
-    public ExtensionSample(ITestOutputHelper output) :
-        base(output)
+    public ExtensionSample()
     {
         classLevelSettings = new VerifySettings();
         classLevelSettings.UseExtension("json");
     }
 
-    [Fact]
-    public Task AtMethod()
+    [Test]
+    public async Task AtMethod()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verify(
+        await Verifier.Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -30,10 +28,10 @@ public class ExtensionSample :
             settings: settings);
     }
 
-    [Fact]
-    public Task SharedClassLevelSettings()
+    [Test]
+    public async Task SharedClassLevelSettings()
     {
-        return Verify(
+        await Verifier.Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",

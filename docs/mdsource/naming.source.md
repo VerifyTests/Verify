@@ -50,6 +50,6 @@ snippet: ExtensionSample.cs
 
 Result in two files:
 
-snippet: ExtensionSample.InheritedFromClass.verified.json
+snippet: ExtensionSample.SharedClassLevelSettings.verified.json
 
 snippet: ExtensionSample.AtMethod.verified.xml

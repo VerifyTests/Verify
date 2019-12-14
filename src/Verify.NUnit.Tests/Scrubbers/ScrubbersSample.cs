@@ -1,30 +1,28 @@
 ﻿using System.Threading.Tasks;
+using NUnit.Framework;
 using Verify;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
+using VerifyNUnit;
 
-public class ScrubbersSample :
-    VerifyBase
+[TestFixture]
+public class ScrubbersSample
 {
     VerifySettings classLevelSettings;
 
-    public ScrubbersSample(ITestOutputHelper output) :
-        base(output)
+    public ScrubbersSample()
     {
         classLevelSettings = new VerifySettings();
         classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    [Fact]
+    [Test]
     public Task Simple()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
-    [Fact]
+    [Test]
     public Task AfterJson()
     {
         var target = new ToBeScrubbed
@@ -34,12 +32,12 @@ public class ScrubbersSample :
 
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
-    [GlobalSetUp]
     public static class GlobalSetup
     {
+        [OneTimeSetUp]
         public static void Setup()
         {
             Global.AddScrubber(s => s.Replace("One", "A"));

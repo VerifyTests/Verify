@@ -15,7 +15,7 @@ partial class Verifier
         Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
         var extension = settings.ExtensionOrBin();
-        var (receivedPath, verifiedPath) = GetFileNames(extension,settings.Namer);
+        var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer);
         var verifyResult = await StreamVerifier.VerifyStreams(input, extension, receivedPath, verifiedPath);
 
         if (verifyResult == VerifyResult.MissingVerified)

@@ -9,29 +9,11 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
 
-<!-- snippet: anon -->
-<a id='snippet-anon'/></a>
-```cs
-var person1 = new Person
-{
-    GivenNames = "John",
-    FamilyName = "Smith"
-};
-var person2 = new Person
-{
-    GivenNames = "Marianne",
-    FamilyName = "Aguirre"
-};
 
-await Verifier.Verify(
-    new
-    {
-        person1,
-        person2
-    });
-```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L71-L91' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
-<a id='snippet-anon-1'/></a>
+## Xunit
+
+<!-- snippet: anonXunit -->
+<a id='snippet-anonxunit'/></a>
 ```cs
 var person1 = new Person
 {
@@ -51,8 +33,71 @@ await Verify(
         person2
     });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L71-L91' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon-1' title='Navigate to start of snippet `anon`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L71-L91' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## NUnit
+
+<!-- snippet: anonNUnit -->
+<a id='snippet-anonnunit'/></a>
+```cs
+var person1 = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith"
+};
+var person2 = new Person
+{
+    GivenNames = "Marianne",
+    FamilyName = "Aguirre"
+};
+
+await Verifier.Verify(
+    new
+    {
+        person1,
+        person2
+    });
+```
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L71-L91' title='File snippet `anonnunit` was extracted from'>snippet source</a> | <a href='#snippet-anonnunit' title='Navigate to start of snippet `anonnunit`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## MSTest
+
+<!-- snippet: anonMSTest -->
+<a id='snippet-anonmstest'/></a>
+```cs
+[TestMethod]
+public async Task Anon()
+{
+
+    var person1 = new Person
+    {
+        GivenNames = "John",
+        FamilyName = "Smith"
+    };
+    var person2 = new Person
+    {
+        GivenNames = "Marianne",
+        FamilyName = "Aguirre"
+    };
+
+    await Verify(
+        new
+        {
+            person1,
+            person2
+        });
+
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L91' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## Results
 
 Results in the following:
 

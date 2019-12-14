@@ -68,7 +68,7 @@ public class VerifyObjectSamples :
     [Fact]
     public async Task Anon()
     {
-        #region Anon
+        #region AnonXunit
 
         var person1 = new Person
         {

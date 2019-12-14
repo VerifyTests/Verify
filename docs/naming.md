@@ -207,9 +207,13 @@ Result in two files:
 <!-- snippet: ExtensionSample.SharedClassLevelSettings.verified.json -->
 <a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json'/></a>
 ```json
-
+{
+    "fruit": "Apple",
+    "size": "Large",
+    "color": "Red"
+}
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L1' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
 <a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json-1'/></a>
 ```json
 {

@@ -4,7 +4,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-#region UniqueForSample
+#region UniqueForSampleXunit
 public class UniqueForSample :
     VerifyBase
 {

@@ -17,7 +17,22 @@ The file prefix uses [XunitContext UniqueTestName](https://github.com/SimonCropp
 
 UniqueFor allows for one or more delimiters to be added to the file name.
 
-snippet: UniqueForSample
+### XUnit
+
+snippet: UniqueForSampleXunit
+
+
+### NUnit
+
+snippet: UniqueForSampleNUnit
+
+
+### MSTest
+
+snippet: UniqueForSampleMSTest
+
+
+### Result
 
 For a project that targets
 

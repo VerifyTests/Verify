@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Verify;
 using VerifyNUnit;
 
-#region UniqueForSample
+#region UniqueForSampleNUnit
 [TestFixture]
 public class UniqueForSample
 {

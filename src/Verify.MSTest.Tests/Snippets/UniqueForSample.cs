@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Verify;
 using VerifyMSTest;
 
-#region UniqueForSample
+#region UniqueForSampleMSTest
 [TestClass]
 public class UniqueForSample :
     VerifyBase

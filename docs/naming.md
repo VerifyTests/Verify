@@ -24,71 +24,10 @@ The file prefix uses [XunitContext UniqueTestName](https://github.com/SimonCropp
 
 UniqueFor allows for one or more delimiters to be added to the file name.
 
-<!-- snippet: UniqueForSample -->
-<a id='snippet-uniqueforsample'/></a>
-```cs
-[TestClass]
-public class UniqueForSample :
-    VerifyBase
-{
-    [TestMethod]
-    public Task Runtime()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
-    }
+### XUnit
 
-    [TestMethod]
-    public Task RuntimeAndVersion()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
-    }
-
-    [TestMethod]
-    public Task AssemblyConfiguration()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
-    }
-}
-```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
-<a id='snippet-uniqueforsample-1'/></a>
-```cs
-[TestFixture]
-public class UniqueForSample
-{
-    [Test]
-    public Task Runtime()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
-    }
-
-    [Test]
-    public Task AssemblyConfiguration()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
-    }
-
-    [Test]
-    public Task RuntimeAndVersion()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
-    }
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-1' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
-<a id='snippet-uniqueforsample-2'/></a>
+<!-- snippet: UniqueForSampleXunit -->
+<a id='snippet-uniqueforsamplexunit'/></a>
 ```cs
 public class UniqueForSample :
     VerifyBase
@@ -123,8 +62,86 @@ public class UniqueForSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L40' title='File snippet `uniqueforsample` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsample-2' title='Navigate to start of snippet `uniqueforsample`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L40' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+### NUnit
+
+<!-- snippet: UniqueForSampleNUnit -->
+<a id='snippet-uniqueforsamplenunit'/></a>
+```cs
+[TestFixture]
+public class UniqueForSample
+{
+    [Test]
+    public Task Runtime()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task RuntimeAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verifier.Verify("value", settings);
+    }
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Navigate to start of snippet `uniqueforsamplenunit`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### MSTest
+
+<!-- snippet: UniqueForSampleMSTest -->
+<a id='snippet-uniqueforsamplemstest'/></a>
+```cs
+[TestClass]
+public class UniqueForSample :
+    VerifyBase
+{
+    [TestMethod]
+    public Task Runtime()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task RuntimeAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='File snippet `uniqueforsamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Navigate to start of snippet `uniqueforsamplemstest`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### Result
 
 For a project that targets
 

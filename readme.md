@@ -259,8 +259,8 @@ The same approach can be used to verify the results and the change to `SampleTes
 
 ## Received and Verified
 
- * **All `*.verified.txt` files should be committed to source control.**
- * **All `*.received.txt` files should be excluded from source control.**
+ * **All `*.verified.*` files should be committed to source control.**
+ * **All `*.received.*` files should be excluded from source control.**
 
 
 ## Not valid json

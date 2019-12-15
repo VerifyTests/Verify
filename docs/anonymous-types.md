@@ -15,25 +15,29 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 <!-- snippet: anonXunit -->
 <a id='snippet-anonxunit'/></a>
 ```cs
-var person1 = new Person
+[Fact]
+public async Task Anon()
 {
-    GivenNames = "John",
-    FamilyName = "Smith"
-};
-var person2 = new Person
-{
-    GivenNames = "Marianne",
-    FamilyName = "Aguirre"
-};
-
-await Verify(
-    new
+    var person1 = new Person
     {
-        person1,
-        person2
-    });
+        GivenNames = "John",
+        FamilyName = "Smith"
+    };
+    var person2 = new Person
+    {
+        GivenNames = "Marianne",
+        FamilyName = "Aguirre"
+    };
+
+    await Verify(
+        new
+        {
+            person1,
+            person2
+        });
+}
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L71-L91' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L68-L90' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -42,25 +46,29 @@ await Verify(
 <!-- snippet: anonNUnit -->
 <a id='snippet-anonnunit'/></a>
 ```cs
-var person1 = new Person
+[Test]
+public async Task Anon()
 {
-    GivenNames = "John",
-    FamilyName = "Smith"
-};
-var person2 = new Person
-{
-    GivenNames = "Marianne",
-    FamilyName = "Aguirre"
-};
-
-await Verifier.Verify(
-    new
+    var person1 = new Person
     {
-        person1,
-        person2
-    });
+        GivenNames = "John",
+        FamilyName = "Smith"
+    };
+    var person2 = new Person
+    {
+        GivenNames = "Marianne",
+        FamilyName = "Aguirre"
+    };
+
+    await Verifier.Verify(
+        new
+        {
+            person1,
+            person2
+        });
+}
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L71-L91' title='File snippet `anonnunit` was extracted from'>snippet source</a> | <a href='#snippet-anonnunit' title='Navigate to start of snippet `anonnunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='File snippet `anonnunit` was extracted from'>snippet source</a> | <a href='#snippet-anonnunit' title='Navigate to start of snippet `anonnunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

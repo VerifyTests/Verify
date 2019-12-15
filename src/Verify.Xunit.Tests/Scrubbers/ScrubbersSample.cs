@@ -4,6 +4,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
+#region ScrubbersSampleXunit
 public class ScrubbersSample :
     VerifyBase
 {
@@ -46,3 +47,4 @@ public class ScrubbersSample :
         }
     }
 }
+#endregion

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Verify;
 using VerifyMSTest;
 
+#region ScrubbersSampleMSTest
 [TestClass]
 public class ScrubbersSample :
     VerifyBase
@@ -42,3 +43,4 @@ public class ScrubbersSample :
         Global.AddScrubber(s => s.Replace("One", "A"));
     }
 }
+#endregion

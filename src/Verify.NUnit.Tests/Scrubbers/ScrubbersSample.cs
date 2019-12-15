@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Verify;
 using VerifyNUnit;
 
+#region ScrubbersSampleNUnit
 [TestFixture]
 public class ScrubbersSample
 {
@@ -41,3 +42,4 @@ public class ScrubbersSample
         Global.AddScrubber(s => s.Replace("One", "A"));
     }
 }
+#endregion

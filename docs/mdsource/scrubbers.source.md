@@ -14,11 +14,23 @@ Scrubber are excited in reveres order. So the most recent added method scrubber 
 
 Global scrubbers should be defined only once at appdomain startup. In this example the scrubber is configured using the [Global Setup](https://github.com/SimonCropp/XunitContext#global-setup) of [XunitContext](https://github.com/SimonCropp/XunitContext). It could also be configured using a [Module Initializer](https://github.com/Fody/ModuleInit).
 
-Usage:
 
-snippet: scrubberssample.cs
+## XUnit
 
-Results:
+snippet: ScrubbersSampleXunit
+
+
+## NUnit
+
+snippet: ScrubbersSampleNUnit
+
+
+## MSTest
+
+snippet: ScrubbersSampleMSTest
+
+
+## Results
 
 snippet: ScrubbersSample.Simple.verified.txt
 

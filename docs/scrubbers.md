@@ -21,112 +21,12 @@ Scrubber are excited in reveres order. So the most recent added method scrubber 
 
 Global scrubbers should be defined only once at appdomain startup. In this example the scrubber is configured using the [Global Setup](https://github.com/SimonCropp/XunitContext#global-setup) of [XunitContext](https://github.com/SimonCropp/XunitContext). It could also be configured using a [Module Initializer](https://github.com/Fody/ModuleInit).
 
-Usage:
 
-<!-- snippet: scrubberssample.cs -->
-<a id='snippet-scrubberssample.cs'/></a>
+## XUnit
+
+<!-- snippet: ScrubbersSampleXunit -->
+<a id='snippet-scrubberssamplexunit'/></a>
 ```cs
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Verify;
-using VerifyMSTest;
-
-[TestClass]
-public class ScrubbersSample :
-    VerifyBase
-{
-    VerifySettings classLevelSettings;
-
-    public ScrubbersSample()
-    {
-        classLevelSettings = new VerifySettings();
-        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
-    }
-
-    [TestMethod]
-    public Task Simple()
-    {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
-    }
-
-    [TestMethod]
-    public Task AfterJson()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "0x00000000000007D3"
-        };
-
-        var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [AssemblyInitialize]
-    public static void Setup(TestContext testContext)
-    {
-        Global.AddScrubber(s => s.Replace("One", "A"));
-    }
-}
-```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L44' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
-<a id='snippet-scrubberssample.cs-1'/></a>
-```cs
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Verify;
-using VerifyNUnit;
-
-[TestFixture]
-public class ScrubbersSample
-{
-    VerifySettings classLevelSettings;
-
-    public ScrubbersSample()
-    {
-        classLevelSettings = new VerifySettings();
-        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
-    }
-
-    [Test]
-    public Task Simple()
-    {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verifier.Verify("One Two Three", settings);
-    }
-
-    [Test]
-    public Task AfterJson()
-    {
-        var target = new ToBeScrubbed
-        {
-            RowVersion = "0x00000000000007D3"
-        };
-
-        var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verifier.Verify(target, settings);
-    }
-
-    [OneTimeSetUp]
-    public static void Setup()
-    {
-        Global.AddScrubber(s => s.Replace("One", "A"));
-    }
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L43' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs-1' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
-<a id='snippet-scrubberssample.cs-2'/></a>
-```cs
-using System.Threading.Tasks;
-using Verify;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
-
 public class ScrubbersSample :
     VerifyBase
 {
@@ -170,10 +70,108 @@ public class ScrubbersSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L48' title='File snippet `scrubberssample.cs` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssample.cs-2' title='Navigate to start of snippet `scrubberssample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L50' title='File snippet `scrubberssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Navigate to start of snippet `scrubberssamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
-Results:
+
+## NUnit
+
+<!-- snippet: ScrubbersSampleNUnit -->
+<a id='snippet-scrubberssamplenunit'/></a>
+```cs
+[TestFixture]
+public class ScrubbersSample
+{
+    VerifySettings classLevelSettings;
+
+    public ScrubbersSample()
+    {
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
+    }
+
+    [Test]
+    public Task Simple()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("Two", "B"));
+        return Verifier.Verify("One Two Three", settings);
+    }
+
+    [Test]
+    public Task AfterJson()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "0x00000000000007D3"
+        };
+
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        return Verifier.Verify(target, settings);
+    }
+
+    [OneTimeSetUp]
+    public static void Setup()
+    {
+        Global.AddScrubber(s => s.Replace("One", "A"));
+    }
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L6-L45' title='File snippet `scrubberssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Navigate to start of snippet `scrubberssamplenunit`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## MSTest
+
+<!-- snippet: ScrubbersSampleMSTest -->
+<a id='snippet-scrubberssamplemstest'/></a>
+```cs
+[TestClass]
+public class ScrubbersSample :
+    VerifyBase
+{
+    VerifySettings classLevelSettings;
+
+    public ScrubbersSample()
+    {
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
+    }
+
+    [TestMethod]
+    public Task Simple()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("Two", "B"));
+        return Verify("One Two Three", settings);
+    }
+
+    [TestMethod]
+    public Task AfterJson()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "0x00000000000007D3"
+        };
+
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        return Verify(target, settings);
+    }
+
+    [AssemblyInitialize]
+    public static void Setup(TestContext testContext)
+    {
+        Global.AddScrubber(s => s.Replace("One", "A"));
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L6-L46' title='File snippet `scrubberssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Navigate to start of snippet `scrubberssamplemstest`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## Results
 
 <!-- snippet: ScrubbersSample.Simple.verified.txt -->
 <a id='snippet-ScrubbersSample.Simple.verified.txt'/></a>

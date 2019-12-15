@@ -1,48 +1,46 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Verify;
 
 partial class Verifier
 {
-    public async Task Verify<T>(Task<T> task, VerifySettings? settings = null)
+    public Task Verify<T>(T input, VerifySettings? settings = null)
     {
-        Guard.AgainstNull(task, nameof(task));
+        Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
-        var target = await task;
-        if (target == null)
+
+        if (SharedVerifySettings.TryGetConverter<T>(out var typeConverter))
         {
-            throw new Exception("Task returned null.");
+            var converterSettings = new VerifySettings(settings);
+            converterSettings.UseExtension(typeConverter.ToExtension);
+            var converterFunc = typeConverter.Func(input!);
+            return VerifyMultipleBinary(converterFunc, converterSettings);
         }
 
-        try
+        if (input is Stream stream)
         {
-            await Verify(target, settings);
+            if (settings.HasExtension())
+            {
+                if (SharedVerifySettings.TryGetConverter(settings.extension!, out var converter))
+                {
+                    var converterSettings = new VerifySettings(settings);
+                    converterSettings.UseExtension(converter.ToExtension);
+                    var streams = converter.Func(stream);
+                    return VerifyMultipleBinary(streams, converterSettings);
+                }
+            }
+            return VerifyBinary(stream, settings);
         }
-        finally
-        {
-#if NETSTANDARD2_1
-            if (target is IAsyncDisposable asyncDisposable)
-            {
-                await asyncDisposable.DisposeAsync();
-            }
-            else if (target is IDisposable disposable)
-            {
-                disposable.Dispose();
-            }
-#else
-            if (target is IDisposable disposable)
-            {
-                disposable.Dispose();
-            }
-#endif
-        }
-    }
 
-    public Task Verify(object target, VerifySettings? settings = null)
-    {
-        Guard.AgainstNull(target, nameof(target));
-        settings = settings.OrDefault();
-        var formatJson = JsonFormatter.AsJson(target, settings.serialization.currentSettings);
+        if (typeof(T).IsStreamEnumerable())
+        {
+            var enumerable = (IEnumerable)input!;
+            return VerifyMultipleBinary(enumerable.Cast<Stream>(), settings);
+        }
+        var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
         return Verify(formatJson, settings);
     }
 }

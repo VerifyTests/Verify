@@ -17,7 +17,7 @@ public class FileConverterTests :
         SharedVerifySettings.RegisterFileConverter("bmp", "png", ConvertBmpTpPng);
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        return VerifyBinary(File.OpenRead("sample.bmp"), settings);
+        return Verify(File.OpenRead("sample.bmp"), settings);
     }
 
     IEnumerable<Stream> ConvertBmpTpPng(Stream input)
@@ -35,7 +35,7 @@ public class FileConverterTests :
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
         var bitmap = new Bitmap(File.OpenRead("sample.bmp"));
-        return VerifyBinary(bitmap, settings);
+        return Verify(bitmap, settings);
     }
 
     IEnumerable<Stream> ConvertBmpTpPng(Bitmap bitmap)

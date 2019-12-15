@@ -8,42 +8,23 @@ using Verify;
 
 partial class Verifier
 {
-    public async Task VerifyBinary<T>(T input, VerifySettings? settings = null)
+    async Task VerifyBinary(Stream input, VerifySettings settings)
     {
         Guard.AgainstNull(input, nameof(input));
-        if (settings != null && settings.HasExtension())
+        try
         {
-            if (SharedVerifySettings.TryGetConverter<T>(out var converter))
-            {
-                var converterSettings = new VerifySettings(settings);
-                converterSettings.UseExtension(converter.ToExtension);
-                var converterFunc = converter.Func(input!);
-                await VerifyBinary(converterFunc, converterSettings);
-                return;
-            }
+            await VerifyBinaryInner(input, settings);
         }
-        throw new Exception($"No converter found for {typeof(T).FullName}");
+        finally
+        {
+            input.Dispose();
+        }
     }
 
-    public async Task VerifyBinary(Stream input, VerifySettings? settings = null)
+    async Task VerifyBinaryInner(Stream input, VerifySettings settings)
     {
-        Guard.AgainstNull(input, nameof(input));
-        if (input.CanSeek)
-        {
-            input.Position = 0;
-        }
-        if (settings != null && settings.HasExtension())
-        {
-            if (SharedVerifySettings.TryGetConverter(settings.extension!, out var converter))
-            {
-                var converterSettings = new VerifySettings(settings);
-                converterSettings.UseExtension(converter.ToExtension);
-                await VerifyBinary(converter.Func(input), converterSettings);
-                return;
-            }
-        }
+        input.MoveToStart();
 
-        settings = settings.OrDefault();
         var extension = settings.ExtensionOrBin();
         var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer);
         var verifyResult = await StreamVerifier.VerifyStreams(input, extension, receivedPath, verifiedPath);
@@ -66,30 +47,37 @@ partial class Verifier
         }
     }
 
-    public async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings? settings = null)
+    async Task VerifyMultipleBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
-        settings = settings.OrDefault();
         var extension = settings.ExtensionOrBin();
         var missingVerified = new List<int>();
         var notEquals = new List<int>();
         var index = 0;
         foreach (var stream in streams)
         {
-            var suffix = $"{index:D2}";
-            var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer, suffix);
-            var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
-
-            if (verifyResult == VerifyResult.MissingVerified)
+            try
             {
-                missingVerified.Add(index);
-            }
+                stream.MoveToStart();
+                var suffix = $"{index:D2}";
+                var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer, suffix);
+                var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
 
-            if (verifyResult == VerifyResult.NotEqual)
+                if (verifyResult == VerifyResult.MissingVerified)
+                {
+                    missingVerified.Add(index);
+                }
+
+                if (verifyResult == VerifyResult.NotEqual)
+                {
+                    notEquals.Add(index);
+                }
+
+                index++;
+            }
+            finally
             {
-                notEquals.Add(index);
+                stream.Dispose();
             }
-
-            index++;
         }
 
         if (missingVerified.Count == 0 && notEquals.Count == 0)

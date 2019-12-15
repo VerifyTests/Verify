@@ -15,8 +15,8 @@ namespace VerifyMSTest
             await verifier.Verify(task, settings);
         }
 
-        public async Task Verify(
-            object target,
+        public async Task Verify<T>(
+            T target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {

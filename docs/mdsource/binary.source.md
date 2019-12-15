@@ -1,20 +1,6 @@
 # Verification of binary data
 
-Binary data can be verified by passing a stream to `VerifyBinary`.
-
-## XUnit
-
-snippet: VerifyBinaryXunit
-
-
-## NUnit
-
-snippet: VerifyBinaryNUnit
-
-
-## MSTest
-
-snippet: VerifyBinaryMSTest
+Binary data can be verified by passing a stream.
 
 
 ## DiffTool

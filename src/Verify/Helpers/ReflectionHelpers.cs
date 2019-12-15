@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -15,7 +17,24 @@ static class ReflectionHelpers
         return type.GetInterfaces().Any(IsGenericList);
     }
 
-    private static bool IsGenericList(this Type x)
+    public static bool IsStreamEnumerable(this Type type)
+    {
+        foreach (var interfaceType in type.GetInterfaces())
+        {
+            if (interfaceType.IsGenericType
+                && interfaceType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+            {
+                if (interfaceType.GetGenericArguments()[0] == typeof(Stream))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    static bool IsGenericList(this Type x)
     {
         if (!x.IsGenericType)
         {

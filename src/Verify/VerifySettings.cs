@@ -8,8 +8,12 @@ namespace Verify
         internal static VerifySettings Default = new VerifySettings();
         internal string? extension;
 
-        public VerifySettings(VerifySettings settingsToClone)
+        public VerifySettings(VerifySettings? settingsToClone)
         {
+            if (settingsToClone == null)
+            {
+                return;
+            }
             instanceScrubbers = new List<Func<string, string>>(settingsToClone.instanceScrubbers);
             extension = settingsToClone.extension;
             Namer = new Namer(settingsToClone.Namer);

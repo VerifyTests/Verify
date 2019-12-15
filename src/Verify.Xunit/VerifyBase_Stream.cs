@@ -22,7 +22,6 @@ namespace VerifyXunit
             if (input is Stream stream)
             {
                 return verifier.VerifyBinary(stream, settings);
-
             }
             return verifier.VerifyBinary(input, settings);
         }

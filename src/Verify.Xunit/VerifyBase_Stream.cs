@@ -15,6 +15,18 @@ namespace VerifyXunit
             return verifier.VerifyBinary(input, settings);
         }
 
+        public Task VerifyBinary<T>(
+            T input,
+            VerifySettings? settings = null)
+        {
+            if (input is Stream stream)
+            {
+                return verifier.VerifyBinary(stream, settings);
+
+            }
+            return verifier.VerifyBinary(input, settings);
+        }
+
         public Task VerifyBinary(
             IEnumerable<Stream> streams,
             VerifySettings? settings = null)

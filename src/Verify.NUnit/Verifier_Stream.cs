@@ -18,6 +18,15 @@ namespace VerifyNUnit
             await verifier.VerifyBinary(input, settings);
         }
 
+        public static async Task VerifyBinary<T>(
+            T input,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            using var verifier = BuildVerifier(sourceFile);
+            await verifier.VerifyBinary(input, settings);
+        }
+
         public static async Task VerifyBinary(
             IEnumerable<Stream> streams,
             VerifySettings? settings = null,

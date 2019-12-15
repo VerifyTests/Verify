@@ -23,6 +23,18 @@ public partial class VerifyBase
         return verifier.VerifyBinary(input, settings);
     }
 
+    public Task VerifyBinary<T>(
+        T input,
+        VerifySettings? settings = null)
+    {
+        if (input is Stream stream)
+        {
+            return verifier.VerifyBinary(stream, settings);
+
+        }
+        return verifier.VerifyBinary(input, settings);
+    }
+
     public Task VerifyBinary(
         IEnumerable<Stream> streams,
         VerifySettings? settings = null)
@@ -31,7 +43,7 @@ public partial class VerifyBase
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L8-L25' title='File snippet `verifybinaryxunit` was extracted from'>snippet source</a> | <a href='#snippet-verifybinaryxunit' title='Navigate to start of snippet `verifybinaryxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L8-L37' title='File snippet `verifybinaryxunit` was extracted from'>snippet source</a> | <a href='#snippet-verifybinaryxunit' title='Navigate to start of snippet `verifybinaryxunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -51,6 +63,15 @@ public static partial class Verifier
         await verifier.VerifyBinary(input, settings);
     }
 
+    public static async Task VerifyBinary<T>(
+        T input,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        using var verifier = BuildVerifier(sourceFile);
+        await verifier.VerifyBinary(input, settings);
+    }
+
     public static async Task VerifyBinary(
         IEnumerable<Stream> streams,
         VerifySettings? settings = null,
@@ -61,7 +82,7 @@ public static partial class Verifier
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit/Verifier_Stream.cs#L9-L30' title='File snippet `verifybinarynunit` was extracted from'>snippet source</a> | <a href='#snippet-verifybinarynunit' title='Navigate to start of snippet `verifybinarynunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit/Verifier_Stream.cs#L9-L39' title='File snippet `verifybinarynunit` was extracted from'>snippet source</a> | <a href='#snippet-verifybinarynunit' title='Navigate to start of snippet `verifybinarynunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -81,6 +102,15 @@ public partial class VerifyBase
         await verifier.VerifyBinary(input, settings);
     }
 
+    public async Task VerifyBinary<T>(
+        T input,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        using var verifier = BuildVerifier(sourceFile, settings);
+        await verifier.VerifyBinary(input, settings);
+    }
+
     public async Task VerifyBinary(
         IEnumerable<Stream> streams,
         VerifySettings? settings = null,
@@ -91,7 +121,7 @@ public partial class VerifyBase
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest/VerifyBase_Stream.cs#L9-L30' title='File snippet `verifybinarymstest` was extracted from'>snippet source</a> | <a href='#snippet-verifybinarymstest' title='Navigate to start of snippet `verifybinarymstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest/VerifyBase_Stream.cs#L9-L39' title='File snippet `verifybinarymstest` was extracted from'>snippet source</a> | <a href='#snippet-verifybinarymstest' title='Navigate to start of snippet `verifybinarymstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

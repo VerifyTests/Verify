@@ -8,9 +8,41 @@ using Verify;
 
 partial class Verifier
 {
+    public async Task VerifyBinary<T>(T input, VerifySettings? settings = null)
+    {
+        Guard.AgainstNull(input, nameof(input));
+        if (settings != null && settings.HasExtension())
+        {
+            if (SharedVerifySettings.TryGetConverter<T>(out var converter))
+            {
+                var converterSettings = new VerifySettings(settings);
+                converterSettings.UseExtension(converter.ToExtension);
+                var converterFunc = converter.Func(input!);
+                await VerifyBinary(converterFunc, converterSettings);
+                return;
+            }
+        }
+        throw new Exception($"No converter found for {typeof(T).FullName}");
+    }
+
     public async Task VerifyBinary(Stream input, VerifySettings? settings = null)
     {
         Guard.AgainstNull(input, nameof(input));
+        if (input.CanSeek)
+        {
+            input.Position = 0;
+        }
+        if (settings != null && settings.HasExtension())
+        {
+            if (SharedVerifySettings.TryGetConverter(settings.extension!, out var converter))
+            {
+                var converterSettings = new VerifySettings(settings);
+                converterSettings.UseExtension(converter.ToExtension);
+                await VerifyBinary(converter.Func(input), converterSettings);
+                return;
+            }
+        }
+
         settings = settings.OrDefault();
         var extension = settings.ExtensionOrBin();
         var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer);

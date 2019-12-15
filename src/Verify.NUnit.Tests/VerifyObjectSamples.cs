@@ -65,11 +65,10 @@ public class VerifyObjectSamples
         #endregion
     }
 
+    #region AnonNUnit
     [Test]
     public async Task Anon()
     {
-        #region AnonNUnit
-
         var person1 = new Person
         {
             GivenNames = "John",
@@ -87,9 +86,8 @@ public class VerifyObjectSamples
                 person1,
                 person2
             });
-
-        #endregion
     }
+    #endregion
 
     async Task After()
     {

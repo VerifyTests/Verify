@@ -12,7 +12,7 @@ using Xunit.Abstractions;
 public class VerifyObjectSamples :
     VerifyBase
 {
-        #region ChangeDefaultsPerVerificationXunit
+    #region ChangeDefaultsPerVerificationXunit
     async Task ChangeDefaultsPerVerification(object target)
     {
         var settings = new VerifySettings();
@@ -26,7 +26,7 @@ public class VerifyObjectSamples :
         await Verify(target, settings);
 
     }
-        #endregion
+    #endregion
 
     [Fact]
     public async Task ScopedSerializer()
@@ -65,11 +65,10 @@ public class VerifyObjectSamples :
         #endregion
     }
 
+    #region AnonXunit
     [Fact]
     public async Task Anon()
     {
-        #region AnonXunit
-
         var person1 = new Person
         {
             GivenNames = "John",
@@ -87,9 +86,8 @@ public class VerifyObjectSamples :
                 person1,
                 person2
             });
-
-        #endregion
     }
+    #endregion
 
     async Task After()
     {

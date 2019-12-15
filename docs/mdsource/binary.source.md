@@ -2,7 +2,22 @@
 
 Binary data can be verified by passing a stream to `VerifyBinary`.
 
-snippet: VerifyBinary
+## XUnit
+
+snippet: VerifyBinaryXunit
+
+
+## NUnit
+
+snippet: VerifyBinaryNUnit
+
+
+## MSTest
+
+snippet: VerifyBinaryMSTest
+
+
+## DiffTool
 
 A [Diff Tool](diff-tool.md) will only be displayed if one can be found that supports the defined extension.
 

@@ -6,14 +6,13 @@ using Verify;
 
 namespace VerifyMSTest
 {
+    #region VerifyBinaryMSTest
     public partial class VerifyBase
     {
-        #region VerifyBinary
         public async Task VerifyBinary(
-                Stream input,
-                VerifySettings? settings = null,
-                [CallerFilePath] string sourceFile = "")
-            #endregion
+            Stream input,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
         {
             using var verifier = BuildVerifier(sourceFile, settings);
             await verifier.VerifyBinary(input, settings);
@@ -28,4 +27,5 @@ namespace VerifyMSTest
             await verifier.VerifyBinary(streams, settings);
         }
     }
+    #endregion
 }

@@ -80,7 +80,6 @@ public async Task Anon()
 [TestMethod]
 public async Task Anon()
 {
-
     var person1 = new Person
     {
         GivenNames = "John",
@@ -98,10 +97,9 @@ public async Task Anon()
             person1,
             person2
         });
-
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L91' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

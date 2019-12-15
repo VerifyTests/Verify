@@ -27,6 +27,7 @@ namespace VerifyMSTest
 
         DisposableVerifier BuildVerifier(string sourceFile, VerifySettings? settings)
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var type = GetType();
 
             var methodInfo = type.GetMethod(testContext.TestName, BindingFlags.Instance | BindingFlags.Public);

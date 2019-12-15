@@ -8,9 +8,7 @@ using Verify;
 
 partial class Verifier
 {
-    #region VerifyBinary
     public async Task VerifyBinary(Stream input, VerifySettings? settings = null)
-        #endregion
     {
         Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();

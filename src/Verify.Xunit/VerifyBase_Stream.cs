@@ -5,18 +5,22 @@ using Verify;
 
 namespace VerifyXunit
 {
+    #region VerifyBinaryXunit
     public partial class VerifyBase
     {
-        #region VerifyBinary
-        public Task VerifyBinary(Stream input, VerifySettings? settings = null)
-            #endregion
+        public Task VerifyBinary(
+            Stream input,
+            VerifySettings? settings = null)
         {
             return verifier.VerifyBinary(input, settings);
         }
 
-        public Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings? settings = null)
+        public Task VerifyBinary(
+            IEnumerable<Stream> streams,
+            VerifySettings? settings = null)
         {
             return verifier.VerifyBinary(streams, settings);
         }
     }
+    #endregion
 }

@@ -68,7 +68,6 @@ public class VerifyObjectSamples :
     [TestMethod]
     public async Task Anon()
     {
-
         var person1 = new Person
         {
             GivenNames = "John",
@@ -86,7 +85,6 @@ public class VerifyObjectSamples :
                 person1,
                 person2
             });
-
     }
     #endregion
 

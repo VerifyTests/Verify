@@ -21,6 +21,7 @@ namespace VerifyNUnit
 
         static DisposableVerifier BuildVerifier(string sourceFile)
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var context = TestContext.CurrentContext;
             var testAdapter = context.Test;
             var test = (Test) field.GetValue(testAdapter);

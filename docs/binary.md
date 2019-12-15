@@ -9,34 +9,93 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Binary data can be verified by passing a stream to `VerifyBinary`.
 
-<!-- snippet: VerifyBinary -->
-<a id='snippet-verifybinary'/></a>
+## XUnit
+
+<!-- snippet: VerifyBinaryXunit -->
+<a id='snippet-verifybinaryxunit'/></a>
 ```cs
-public async Task VerifyBinary(Stream input, VerifySettings? settings = null)
-```
-<sup><a href='/src/Verify/Verifier/Verifier_Stream.cs#L11-L13' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
-<a id='snippet-verifybinary-1'/></a>
-```cs
-public async Task VerifyBinary(
+public partial class VerifyBase
+{
+    public Task VerifyBinary(
         Stream input,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
+        VerifySettings? settings = null)
+    {
+        return verifier.VerifyBinary(input, settings);
+    }
+
+    public Task VerifyBinary(
+        IEnumerable<Stream> streams,
+        VerifySettings? settings = null)
+    {
+        return verifier.VerifyBinary(streams, settings);
+    }
+}
 ```
-<sup><a href='/src/Verify.MSTest/VerifyBase_Stream.cs#L11-L16' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-1' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
-<a id='snippet-verifybinary-2'/></a>
-```cs
-public static async Task VerifyBinary(
-        Stream input,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-```
-<sup><a href='/src/Verify.NUnit/Verifier_Stream.cs#L11-L16' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-2' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
-<a id='snippet-verifybinary-3'/></a>
-```cs
-public Task VerifyBinary(Stream input, VerifySettings? settings = null)
-```
-<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L10-L12' title='File snippet `verifybinary` was extracted from'>snippet source</a> | <a href='#snippet-verifybinary-3' title='Navigate to start of snippet `verifybinary`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit/VerifyBase_Stream.cs#L8-L25' title='File snippet `verifybinaryxunit` was extracted from'>snippet source</a> | <a href='#snippet-verifybinaryxunit' title='Navigate to start of snippet `verifybinaryxunit`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## NUnit
+
+<!-- snippet: VerifyBinaryNUnit -->
+<a id='snippet-verifybinarynunit'/></a>
+```cs
+public static partial class Verifier
+{
+    public static async Task VerifyBinary(
+        Stream input,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        using var verifier = BuildVerifier(sourceFile);
+        await verifier.VerifyBinary(input, settings);
+    }
+
+    public static async Task VerifyBinary(
+        IEnumerable<Stream> streams,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        using var verifier = BuildVerifier(sourceFile);
+        await verifier.VerifyBinary(streams, settings);
+    }
+}
+```
+<sup><a href='/src/Verify.NUnit/Verifier_Stream.cs#L9-L30' title='File snippet `verifybinarynunit` was extracted from'>snippet source</a> | <a href='#snippet-verifybinarynunit' title='Navigate to start of snippet `verifybinarynunit`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## MSTest
+
+<!-- snippet: VerifyBinaryMSTest -->
+<a id='snippet-verifybinarymstest'/></a>
+```cs
+public partial class VerifyBase
+{
+    public async Task VerifyBinary(
+        Stream input,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        using var verifier = BuildVerifier(sourceFile, settings);
+        await verifier.VerifyBinary(input, settings);
+    }
+
+    public async Task VerifyBinary(
+        IEnumerable<Stream> streams,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        using var verifier = BuildVerifier(sourceFile, settings);
+        await verifier.VerifyBinary(streams, settings);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest/VerifyBase_Stream.cs#L9-L30' title='File snippet `verifybinarymstest` was extracted from'>snippet source</a> | <a href='#snippet-verifybinarymstest' title='Navigate to start of snippet `verifybinarymstest`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## DiffTool
 
 A [Diff Tool](diff-tool.md) will only be displayed if one can be found that supports the defined extension.
 

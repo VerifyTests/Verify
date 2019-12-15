@@ -17,6 +17,7 @@ public class FileConverterTests :
         SharedVerifySettings.RegisterFileConverter("bmp", "png", ConvertBmpTpPng);
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
+        settings.UniqueForRuntime();
         return Verify(File.OpenRead("sample.bmp"), settings);
     }
 
@@ -34,6 +35,7 @@ public class FileConverterTests :
         SharedVerifySettings.RegisterFileConverter<Bitmap>("png", ConvertBmpTpPng);
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
+        settings.UniqueForRuntime();
         var bitmap = new Bitmap(File.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }

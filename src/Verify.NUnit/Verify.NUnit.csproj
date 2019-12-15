@@ -5,7 +5,6 @@
   <ItemGroup>
     <Compile Include="..\Shared\*.cs" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="System.CodeDom" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />

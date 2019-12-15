@@ -70,7 +70,7 @@ To disable this behavior globally use:
 <!-- snippet: DontIgnoreEmptyCollections -->
 <a id='snippet-dontignoreemptycollections'/></a>
 ```cs
-Global.ModifySerialization(settings => settings.DontIgnoreEmptyCollections());
+SharedVerifySettings.ModifySerialization(settings => settings.DontIgnoreEmptyCollections());
 ```
 <sup><a href='/src/Verify.Tests/Snippets/SerializationSettingsSnippets.cs#L10-L12' title='File snippet `dontignoreemptycollections` was extracted from'>snippet source</a> | <a href='#snippet-dontignoreemptycollections' title='Navigate to start of snippet `dontignoreemptycollections`'>anchor</a></sup>
 <!-- endsnippet -->
@@ -117,7 +117,7 @@ To disable this behavior globally use:
 <!-- snippet: DontScrubGuids -->
 <a id='snippet-dontscrubguids'/></a>
 ```cs
-Global.ModifySerialization(settings => settings.DontScrubGuids());
+SharedVerifySettings.ModifySerialization(settings => settings.DontScrubGuids());
 ```
 <sup><a href='/src/Verify.Tests/Snippets/SerializationSettingsSnippets.cs#L17-L19' title='File snippet `dontscrubguids` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Navigate to start of snippet `dontscrubguids`'>anchor</a></sup>
 <!-- endsnippet -->
@@ -169,7 +169,7 @@ To disable this behavior globally use:
 <!-- snippet: DontScrubDateTimes -->
 <a id='snippet-dontscrubdatetimes'/></a>
 ```cs
-Global.ModifySerialization(settings => settings.DontScrubDateTimes());
+SharedVerifySettings.ModifySerialization(settings => settings.DontScrubDateTimes());
 ```
 <sup><a href='/src/Verify.Tests/Snippets/SerializationSettingsSnippets.cs#L24-L26' title='File snippet `dontscrubdatetimes` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Navigate to start of snippet `dontscrubdatetimes`'>anchor</a></sup>
 <!-- endsnippet -->
@@ -184,7 +184,7 @@ To disable this behavior globally use:
 <!-- snippet: DontIgnoreFalse -->
 <a id='snippet-dontignorefalse'/></a>
 ```cs
-Global.ModifySerialization(settings => settings.DontIgnoreFalse());
+SharedVerifySettings.ModifySerialization(settings => settings.DontIgnoreFalse());
 ```
 <sup><a href='/src/Verify.Tests/Snippets/SerializationSettingsSnippets.cs#L31-L33' title='File snippet `dontignorefalse` was extracted from'>snippet source</a> | <a href='#snippet-dontignorefalse' title='Navigate to start of snippet `dontignorefalse`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -39,7 +39,7 @@ public class ScrubbersSample
     [OneTimeSetUp]
     public static void Setup()
     {
-        Global.AddScrubber(s => s.Replace("One", "A"));
+        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 #endregion

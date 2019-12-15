@@ -17,8 +17,8 @@ public class Tests :
 {
     static Tests()
     {
-        Global.AddExtraDatetimeFormat("F");
-        Global.AddExtraDatetimeOffsetFormat("F");
+        SharedVerifySettings.AddExtraDatetimeFormat("F");
+        SharedVerifySettings.AddExtraDatetimeOffsetFormat("F");
     }
 
     [Fact]

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Verify
 {
-    public static partial class Global
+    public static partial class SharedVerifySettings
     {
         internal static SerializationSettings serialization = new SerializationSettings();
 

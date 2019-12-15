@@ -40,7 +40,7 @@ public class ScrubbersSample :
     [AssemblyInitialize]
     public static void Setup(TestContext testContext)
     {
-        Global.AddScrubber(s => s.Replace("One", "A"));
+        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 #endregion

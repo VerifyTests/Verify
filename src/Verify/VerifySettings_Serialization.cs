@@ -5,7 +5,7 @@ namespace Verify
 {
     public partial class VerifySettings
     {
-        internal SerializationSettings serialization = Global.serialization;
+        internal SerializationSettings serialization = SharedVerifySettings.serialization;
         bool isCloned;
 
         public void ModifySerialization(Action<SerializationSettings> action)

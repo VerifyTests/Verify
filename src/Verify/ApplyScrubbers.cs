@@ -18,7 +18,7 @@ static class ApplyScrubbers
             target = scrubber(target);
         }
 
-        foreach (var scrubber in Global.GlobalScrubbers)
+        foreach (var scrubber in SharedVerifySettings.GlobalScrubbers)
         {
             target = scrubber(target);
         }

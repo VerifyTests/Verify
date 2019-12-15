@@ -26,16 +26,16 @@ static class FileNameBuilder
     {
         var builder = new StringBuilder(Path.Combine(directory, testName));
 
-        if (namer.UniqueForRuntimeAndVersion || Global.Namer.UniqueForRuntimeAndVersion)
+        if (namer.UniqueForRuntimeAndVersion || SharedVerifySettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
             builder.Append($".{Namer.runtimeAndVersion}");
         }
-        else if (namer.UniqueForRuntime || Global.Namer.UniqueForRuntime)
+        else if (namer.UniqueForRuntime || SharedVerifySettings.SharedNamer.UniqueForRuntime)
         {
             builder.Append($".{Namer.runtime}");
         }
 
-        if (namer.UniqueForAssemblyConfiguration || Global.Namer.UniqueForAssemblyConfiguration)
+        if (namer.UniqueForAssemblyConfiguration || SharedVerifySettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
             builder.Append($".{testType.Assembly.GetAttributeConfiguration()}");
         }

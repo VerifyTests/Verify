@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Verify
 {
-    public static partial class Global
+    public static partial class SharedVerifySettings
     {
         internal static List<Func<string, string>> GlobalScrubbers = new List<Func<string, string>>();
 

@@ -65,7 +65,7 @@ public class ScrubbersSample :
     {
         public static void Setup()
         {
-            Global.AddScrubber(s => s.Replace("One", "A"));
+            SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
         }
     }
 }
@@ -114,7 +114,7 @@ public class ScrubbersSample
     [OneTimeSetUp]
     public static void Setup()
     {
-        Global.AddScrubber(s => s.Replace("One", "A"));
+        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
@@ -163,7 +163,7 @@ public class ScrubbersSample :
     [AssemblyInitialize]
     public static void Setup(TestContext testContext)
     {
-        Global.AddScrubber(s => s.Replace("One", "A"));
+        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```

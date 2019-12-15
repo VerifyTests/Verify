@@ -32,7 +32,7 @@ snippet: ScrubbersSampleMSTest
 
 ## Results
 
-snippet: ScrubbersSample.Simple.verified.txt
+snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt
 
-snippet: ScrubbersSample.AfterJson.verified.txt
+snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt
 

@@ -173,45 +173,21 @@ public class ScrubbersSample :
 
 ## Results
 
-<!-- snippet: ScrubbersSample.Simple.verified.txt -->
-<a id='snippet-ScrubbersSample.Simple.verified.txt'/></a>
+<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt -->
+<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt'/></a>
 ```txt
 A B C
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1' title='File snippet `ScrubbersSample.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.Simple.verified.txt' title='Navigate to start of snippet `ScrubbersSample.Simple.verified.txt`'>anchor</a></sup>
-<a id='snippet-ScrubbersSample.Simple.verified.txt-1'/></a>
-```txt
-A B C
-```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1' title='File snippet `ScrubbersSample.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.Simple.verified.txt-1' title='Navigate to start of snippet `ScrubbersSample.Simple.verified.txt`'>anchor</a></sup>
-<a id='snippet-ScrubbersSample.Simple.verified.txt-2'/></a>
-```txt
-A B C
-```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1' title='File snippet `ScrubbersSample.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.Simple.verified.txt-2' title='Navigate to start of snippet `ScrubbersSample.Simple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt#L1-L1' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Simple.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
-<!-- snippet: ScrubbersSample.AfterJson.verified.txt -->
-<a id='snippet-ScrubbersSample.AfterJson.verified.txt'/></a>
+<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt -->
+<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt'/></a>
 ```txt
 {
   RowVersion: 'TheRowVersion'
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3' title='File snippet `ScrubbersSample.AfterJson.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.AfterJson.verified.txt' title='Navigate to start of snippet `ScrubbersSample.AfterJson.verified.txt`'>anchor</a></sup>
-<a id='snippet-ScrubbersSample.AfterJson.verified.txt-1'/></a>
-```txt
-{
-  RowVersion: 'TheRowVersion'
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3' title='File snippet `ScrubbersSample.AfterJson.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.AfterJson.verified.txt-1' title='Navigate to start of snippet `ScrubbersSample.AfterJson.verified.txt`'>anchor</a></sup>
-<a id='snippet-ScrubbersSample.AfterJson.verified.txt-2'/></a>
-```txt
-{
-  RowVersion: 'TheRowVersion'
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3' title='File snippet `ScrubbersSample.AfterJson.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ScrubbersSample.AfterJson.verified.txt-2' title='Navigate to start of snippet `ScrubbersSample.AfterJson.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt#L1-L3' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterJson.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 

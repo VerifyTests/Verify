@@ -1,6 +1,6 @@
 # Compared to ApprovalTests
 
-Verify is heavily influenced by [ApprovalTests](https://github.com/approvals/ApprovalTests.Net). It is deigned to be an alternative to ApprovalTests.
+Verify is heavily influenced by [ApprovalTests](https://github.com/approvals/ApprovalTests.Net). It is designed to be an alternative to ApprovalTests.
 
 
 ## Differences to ApprovalTests

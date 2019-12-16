@@ -6,7 +6,7 @@ using Verify;
 
 partial class Verifier
 {
-    public Task Verify<T>(T input, VerifySettings? settings = null)
+    public async Task Verify<T>(T input, VerifySettings? settings = null)
     {
         Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
@@ -16,30 +16,39 @@ partial class Verifier
             var converterSettings = new VerifySettings(settings);
             converterSettings.UseExtension(typeConverter.ToExtension);
             var converterFunc = typeConverter.Func(input!);
-            return VerifyMultipleBinary(converterFunc, converterSettings);
+             await VerifyMultipleBinary(converterFunc, converterSettings);
+             return;
         }
 
         if (input is Stream stream)
         {
-            if (settings.HasExtension())
+            using (stream)
             {
-                if (SharedVerifySettings.TryGetConverter(settings.extension!, out var converter))
+                if (settings.HasExtension())
                 {
-                    var converterSettings = new VerifySettings(settings);
-                    converterSettings.UseExtension(converter.ToExtension);
-                    var streams = converter.Func(stream);
-                    return VerifyMultipleBinary(streams, converterSettings);
+                    if (SharedVerifySettings.TryGetConverter(settings.extension!, out var converter))
+                    {
+                        var converterSettings = new VerifySettings(settings);
+                        converterSettings.UseExtension(converter.ToExtension);
+                        var streams = converter.Func(stream);
+                        await VerifyMultipleBinary(streams, converterSettings);
+                        return;
+                    }
                 }
+
+                await VerifyBinary(stream, settings);
+                return;
             }
-            return VerifyBinary(stream, settings);
         }
 
         if (typeof(T).IsStreamEnumerable())
         {
             var enumerable = (IEnumerable)input!;
-            return VerifyMultipleBinary(enumerable.Cast<Stream>(), settings);
+            await VerifyMultipleBinary(enumerable.Cast<Stream>(), settings);
+            return;
         }
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
-        return Verify(formatJson, settings);
+        await Verify(formatJson, settings);
+        return;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Verify;
@@ -682,9 +683,27 @@ public class Tests :
     }
 
     [Fact]
-    public Task VerifyFilePath()
+    public async Task VerifyFilePath()
     {
-        return VerifyFile("sample.txt");
+        await VerifyFile("sample.txt");
+        Assert.False(FileEx.IsFileLocked("sample.txt"));
+    }
+
+    [Fact]
+    public async Task VerifyFilePathSplit()
+    {
+        SharedVerifySettings.RegisterFileConverter("split","txt",DoSplit);
+        await VerifyFile("sample.split");
+        Assert.False(FileEx.IsFileLocked("sample.split"));
+    }
+
+    static IEnumerable<Stream> DoSplit(Stream stream)
+    {
+        var reader = new StreamReader(stream);
+        var line1 = reader.ReadLine()!;
+        yield return new MemoryStream(Encoding.UTF8.GetBytes(line1));
+        var line2 = reader.ReadLine()!;
+        yield return new MemoryStream(Encoding.UTF8.GetBytes(line2));
     }
 
     public class DateTimeTarget

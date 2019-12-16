@@ -19,6 +19,9 @@
     <None Update="sample.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="sample.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

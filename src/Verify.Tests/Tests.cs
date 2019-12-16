@@ -684,7 +684,7 @@ public class Tests :
     [Fact]
     public Task VerifyFilePath()
     {
-        return VerifyFile("sample.bmp");
+        return VerifyFile("sample.txt");
     }
 
     public class DateTimeTarget

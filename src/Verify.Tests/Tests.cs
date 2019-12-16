@@ -681,6 +681,12 @@ public class Tests :
         return Verify(target);
     }
 
+    [Fact]
+    public Task VerifyFilePath()
+    {
+        return VerifyFile("sample.txt");
+    }
+
     public class DateTimeTarget
     {
         public DateTime DateTime;

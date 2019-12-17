@@ -6,8 +6,6 @@ Multiple scrubbers can bee defined level.
 
 Scrubber are executed in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 
-toc
-
 
 ## XUnit
 

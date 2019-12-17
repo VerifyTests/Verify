@@ -13,19 +13,6 @@ Multiple scrubbers can bee defined level.
 
 Scrubber are executed in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 
-<!-- toc -->
-## Contents
-
-  * [XUnit](#xunit)
-  * [NUnit](#nunit)
-  * [MSTest](#mstest)
-  * [Results](#results)
-  * [Scrubber levels](#scrubber-levels)
-    * [XUnit](#xunit-1)
-    * [NUnit](#nunit-1)
-    * [MSTest](#mstest-1)
-    * [Result](#result)<!-- endtoc -->
-
 
 ## XUnit
 

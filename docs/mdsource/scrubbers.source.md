@@ -2,7 +2,7 @@
 
 Scrubbers run on the final string prior to doing the verification action.
 
-Multiple scrubbers can bee defined level.
+Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
 Scrubber are executed in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 

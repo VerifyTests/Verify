@@ -1,41 +1,56 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Text;
 
-namespace Verify
+static class LinesScrubber
 {
-    public static class LinesScrubber
+    public static string RemoveLinesContaining(this string input, StringComparison  comparison, params string[] stringToMatch)
     {
-        public static string RemoveLinesContaining(this string input, params string[] stringToMatch)
+        Guard.AgainstNullOrEmpty(input, nameof(input));
+        Guard.AgainstNullOrEmpty(stringToMatch, nameof(stringToMatch));
+        return FilterLines(input, s => s.LineContains(stringToMatch, comparison));
+    }
+    
+    public static string ReplaceLines(this string input, Func<string, string> replaceLine)
+    {
+        Guard.AgainstNullOrEmpty(input, nameof(input));
+        Guard.AgainstNull(replaceLine, nameof(replaceLine));
+
+        using var reader = new StringReader(input);
+        var builder = new StringBuilder();
+
+        string line;
+        while ((line = reader.ReadLine()) != null)
         {
-            using var reader = new StringReader(input);
-            var builder = new StringBuilder();
-
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                var lineContains = line.LineContains(stringToMatch);
-
-                if (!lineContains)
-                {
-                    builder.AppendLine(line);
-                }
-            }
-
-            return builder.ToString();
+            builder.AppendLine(replaceLine(line));
         }
 
-        static bool LineContains(this string line, string[] stringToMatch)
-        {
-            var lineContains = false;
-            foreach (var toMatch in stringToMatch)
-            {
-                if (line.Contains(toMatch))
-                {
-                    lineContains = true;
-                }
-            }
+        return builder.ToString();
+    }
+    public static string FilterLines(this string input, Func<string, bool> removeLine)
+    {
+        Guard.AgainstNullOrEmpty(input, nameof(input));
+        Guard.AgainstNull(removeLine, nameof(removeLine));
 
-            return lineContains;
+        using var reader = new StringReader(input);
+        var builder = new StringBuilder();
+
+        string line;
+        while ((line = reader.ReadLine()) != null)
+        {
+            if (removeLine(line))
+            {
+                continue;
+            }
+            builder.AppendLine(line);
         }
+
+        return builder.ToString();
+    }
+
+    static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison)
+    {
+        return stringToMatch.Any(toMatch => line.IndexOf(toMatch, comparison) != -1);
     }
 }

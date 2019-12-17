@@ -16,6 +16,24 @@
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
+    <None Update="LinesScrubberTests.AssemblyConfiguration.Debug.verified.txt">
+      <DependentUpon>LinesScrubberTests.cs</DependentUpon>
+    </None>
+    <None Update="LinesScrubberTests.AssemblyConfiguration.Release.verified.txt">
+      <DependentUpon>LinesScrubberTests.cs</DependentUpon>
+    </None>
+    <None Update="LinesScrubberTests.Runtime.Core.verified.txt">
+      <DependentUpon>LinesScrubberTests.cs</DependentUpon>
+    </None>
+    <None Update="LinesScrubberTests.Runtime.Net.verified.txt">
+      <DependentUpon>LinesScrubberTests.cs</DependentUpon>
+    </None>
+    <None Update="LinesScrubberTests.RuntimeAndVersion.Core3_1.verified.txt">
+      <DependentUpon>LinesScrubberTests.cs</DependentUpon>
+    </None>
+    <None Update="LinesScrubberTests.RuntimeAndVersion.Net4_8.verified.txt">
+      <DependentUpon>LinesScrubberTests.cs</DependentUpon>
+    </None>
     <None Update="sample.split">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

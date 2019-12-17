@@ -7,22 +7,75 @@ Multiple scrubbers can bee defined level.
 Scrubber are executed in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 
 
-## XUnit
+## Available Scrubbers
+
+Scrubbers can be added to an instance of `VerifySettings` or globally on `SharedVerifySettings`.
+
+
+### ScrubLines
+
+Allows lines to be selectively removed using a `Func`.
+
+For example remove lines containing `text`:
+
+snippet: ScrubLines
+
+
+### ScrubLinesContaining
+
+Remove all lines containing any of the defined strings.
+
+For example remove lines containing `text1` or `text2`
+
+snippet: ScrubLinesContaining
+
+Case insensitive by default (StringComparison.OrdinalIgnoreCase).
+
+`StringComparison` can be overridden:
+
+snippet: ScrubLinesContainingOrdinal
+
+
+### ScrubLinesWithReplace
+
+Allows lines to be selectively replaced using a `Func`.
+
+For example converts lines to upper case:
+
+snippet: ScrubLinesWithReplace
+
+
+### ScrubMachineName
+
+Replaces `Environment.MachineName` with `TheMachineName`.
+
+snippet: ScrubMachineName
+
+
+### AddScrubber
+
+Adds a scrubber with full control over the text via a `Func`
+
+
+## More complete example
+
+
+### XUnit
 
 snippet: ScrubbersSampleXunit
 
 
-## NUnit
+### NUnit
 
 snippet: ScrubbersSampleNUnit
 
 
-## MSTest
+### MSTest
 
 snippet: ScrubbersSampleMSTest
 
 
-## Results
+### Results
 
 snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt
 

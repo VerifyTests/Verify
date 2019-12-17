@@ -14,7 +14,90 @@ Multiple scrubbers can bee defined level.
 Scrubber are executed in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
 
 
-## XUnit
+## Available Scrubbers
+
+Scrubbers can be added to an instance of `VerifySettings` or globally on `SharedVerifySettings`.
+
+
+### ScrubLines
+
+Allows lines to be selectively removed using a `Func`.
+
+For example remove lines containing `text`:
+
+<!-- snippet: ScrubLines -->
+<a id='snippet-scrublines'/></a>
+```cs
+verifySettings.ScrubLines(line => line.Contains("text"));
+```
+<sup><a href='/src/Verify.Tests/Snippets/ScrubbersSnippets.cs#L10-L14' title='File snippet `scrublines` was extracted from'>snippet source</a> | <a href='#snippet-scrublines' title='Navigate to start of snippet `scrublines`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### ScrubLinesContaining
+
+Remove all lines containing any of the defined strings.
+
+For example remove lines containing `text1` or `text2`
+
+<!-- snippet: ScrubLinesContaining -->
+<a id='snippet-scrublinescontaining'/></a>
+```cs
+verifySettings.ScrubLinesContaining("text1", "text2");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ScrubbersSnippets.cs#L16-L20' title='File snippet `scrublinescontaining` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Navigate to start of snippet `scrublinescontaining`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Case insensitive by default (StringComparison.OrdinalIgnoreCase).
+
+`StringComparison` can be overridden:
+
+<!-- snippet: ScrubLinesContainingOrdinal -->
+<a id='snippet-scrublinescontainingordinal'/></a>
+```cs
+verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
+```
+<sup><a href='/src/Verify.Tests/Snippets/ScrubbersSnippets.cs#L22-L26' title='File snippet `scrublinescontainingordinal` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Navigate to start of snippet `scrublinescontainingordinal`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### ScrubLinesWithReplace
+
+Allows lines to be selectively replaced using a `Func`.
+
+For example converts lines to upper case:
+
+<!-- snippet: ScrubLinesWithReplace -->
+<a id='snippet-scrublineswithreplace'/></a>
+```cs
+verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
+```
+<sup><a href='/src/Verify.Tests/Snippets/ScrubbersSnippets.cs#L28-L32' title='File snippet `scrublineswithreplace` was extracted from'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Navigate to start of snippet `scrublineswithreplace`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### ScrubMachineName
+
+Replaces `Environment.MachineName` with `TheMachineName`.
+
+<!-- snippet: ScrubMachineName -->
+<a id='snippet-scrubmachinename'/></a>
+```cs
+verifySettings.ScrubMachineName();
+```
+<sup><a href='/src/Verify.Tests/Snippets/ScrubbersSnippets.cs#L34-L38' title='File snippet `scrubmachinename` was extracted from'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Navigate to start of snippet `scrubmachinename`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### AddScrubber
+
+Adds a scrubber with full control over the text via a `Func`
+
+
+## More complete example
+
+
+### XUnit
 
 <!-- snippet: ScrubbersSampleXunit -->
 <a id='snippet-scrubberssamplexunit'/></a>
@@ -74,7 +157,7 @@ LineJ
 <!-- endsnippet -->
 
 
-## NUnit
+### NUnit
 
 <!-- snippet: ScrubbersSampleNUnit -->
 <a id='snippet-scrubberssamplenunit'/></a>
@@ -130,7 +213,7 @@ LineJ
 <!-- endsnippet -->
 
 
-## MSTest
+### MSTest
 
 <!-- snippet: ScrubbersSampleMSTest -->
 <a id='snippet-scrubberssamplemstest'/></a>
@@ -187,7 +270,7 @@ LineJ
 <!-- endsnippet -->
 
 
-## Results
+### Results
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt -->
 <a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'/></a>

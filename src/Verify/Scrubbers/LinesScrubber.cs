@@ -5,13 +5,13 @@ using System.Text;
 
 static class LinesScrubber
 {
-    public static string RemoveLinesContaining(this string input, StringComparison  comparison, params string[] stringToMatch)
+    public static string RemoveLinesContaining(this string input, StringComparison comparison, params string[] stringToMatch)
     {
         Guard.AgainstNullOrEmpty(input, nameof(input));
         Guard.AgainstNullOrEmpty(stringToMatch, nameof(stringToMatch));
         return FilterLines(input, s => s.LineContains(stringToMatch, comparison));
     }
-    
+
     public static string ReplaceLines(this string input, Func<string, string> replaceLine)
     {
         Guard.AgainstNullOrEmpty(input, nameof(input));

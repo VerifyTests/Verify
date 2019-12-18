@@ -10,14 +10,14 @@ namespace VerifyXunit
             string path,
             VerifySettings? settings = null)
         {
-            return verifier.VerifyFile(path, settings);
+            return GetVerifier().VerifyFile(path, settings);
         }
 
         public Task VerifyFile(
             FileInfo file,
             VerifySettings? settings = null)
         {
-            return verifier.VerifyFile(file, settings);
+            return GetVerifier().VerifyFile(file, settings);
         }
     }
 }

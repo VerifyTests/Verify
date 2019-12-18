@@ -7,7 +7,7 @@ namespace VerifyXunit
     {
         public Task Verify(string target, VerifySettings? settings = null)
         {
-            return verifier.Verify(target, settings);
+            return GetVerifier().Verify(target, settings);
         }
     }
 }

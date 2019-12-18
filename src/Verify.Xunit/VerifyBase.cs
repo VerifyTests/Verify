@@ -18,15 +18,17 @@ namespace VerifyXunit
                 Assert.Equal);
         }
 
-        Verifier verifier;
-
         public VerifyBase(
             ITestOutputHelper output,
             [CallerFilePath] string sourceFile = "") :
             base(output, sourceFile)
         {
+        }
+
+        Verifier GetVerifier()
+        {
             var context = Context;
-            verifier = new Verifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
+            return new Verifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
         }
     }
 }

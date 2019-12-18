@@ -13,7 +13,7 @@ namespace VerifyXunit
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null)
         {
-            return verifier.Verify(expression, settings);
+            return GetVerifier().Verify(expression, settings);
         }
     }
 }

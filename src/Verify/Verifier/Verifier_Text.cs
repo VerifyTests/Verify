@@ -5,7 +5,7 @@ using Verify;
 
 partial class Verifier
 {
-    public async Task Verify(string input, VerifySettings? settings = null)
+    public Task Verify(string input, VerifySettings? settings = null)
     {
         settings = settings.OrDefault();
 
@@ -16,22 +16,15 @@ partial class Verifier
         input = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
         input = input.Replace("\r\n", "\n");
         FileHelpers.DeleteIfEmpty(verifiedPath);
-        if (!File.Exists(verifiedPath))
+        if (File.Exists(verifiedPath))
         {
-            if (!BuildServerDetector.Detected)
-            {
-                await FileHelpers.WriteText(receivedPath, input);
-                await ClipboardCapture.Append(receivedPath, verifiedPath);
-                if (DiffTools.TryGetTextDiff(extension, out var diffTool))
-                {
-                    FileHelpers.WriteEmptyText(verifiedPath);
-                    DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
-                }
-            }
-
-            throw VerificationNotFoundException(verifiedPath, exceptionBuilder);
+            return VerifyExisting(input, verifiedPath, receivedPath, extension);
         }
+        return VerifyFirstTime(input, receivedPath, verifiedPath, extension);
+    }
 
+    static async Task VerifyExisting(string input, string verifiedPath, string receivedPath, string extension)
+    {
         var verifiedText = await FileHelpers.ReadText(verifiedPath);
         verifiedText = verifiedText.Replace("\r\n", "\n");
         try
@@ -51,5 +44,21 @@ partial class Verifier
             throw exceptionBuilder($@"Verification command has been copied to the clipboard.
 {exception.Message}");
         }
+    }
+
+    static async Task VerifyFirstTime(string input, string receivedPath, string verifiedPath, string extension)
+    {
+        if (!BuildServerDetector.Detected)
+        {
+            await FileHelpers.WriteText(receivedPath, input);
+            await ClipboardCapture.Append(receivedPath, verifiedPath);
+            if (DiffTools.TryGetTextDiff(extension, out var diffTool))
+            {
+                FileHelpers.WriteEmptyText(verifiedPath);
+                DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+            }
+        }
+
+        throw VerificationNotFoundException(verifiedPath, exceptionBuilder);
     }
 }

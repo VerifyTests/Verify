@@ -13,7 +13,7 @@ partial class Verifier
         if (!settings.HasExtension())
         {
             settings = new VerifySettings(settings);
-            settings.UseExtension(Path.GetExtension(path).Substring(1));
+            settings.UseExtension(FileHelpers.Extension(path));
         }
 
         return Verify(File.OpenRead(path), settings);

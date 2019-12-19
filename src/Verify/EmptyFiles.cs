@@ -11,7 +11,7 @@ static class EmptyFiles
         foreach (var path in Directory.EnumerateFiles(emptyFiles, "*.*"))
         {
             var lastWriteTime = File.GetLastWriteTime(path);
-            dictionary[Path.GetExtension(path).Substring(1)] = new EmptyFile(path, lastWriteTime);
+            dictionary[FileHelpers.Extension(path)] = new EmptyFile(path, lastWriteTime);
         }
     }
 

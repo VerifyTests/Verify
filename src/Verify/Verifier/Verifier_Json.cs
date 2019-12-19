@@ -16,8 +16,8 @@ partial class Verifier
             var converterSettings = new VerifySettings(settings);
             converterSettings.UseExtension(typeConverter.ToExtension);
             var converterFunc = typeConverter.Func(input!);
-             await VerifyMultipleBinary(converterFunc, converterSettings);
-             return;
+            await VerifyMultipleBinary(converterFunc, converterSettings);
+            return;
         }
 
         if (input is Stream stream)
@@ -43,10 +43,11 @@ partial class Verifier
 
         if (typeof(T).IsStreamEnumerable())
         {
-            var enumerable = (IEnumerable)input!;
+            var enumerable = (IEnumerable) input!;
             await VerifyMultipleBinary(enumerable.Cast<Stream>(), settings);
             return;
         }
+
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
         await Verify(formatJson, settings);
         return;

@@ -92,15 +92,18 @@ public class Tests :
 
         DeleteTempFiles();
         DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() =>
-        {
-            var stream1 = new MemoryStream(new byte[] {1});
-            var stream2 = new MemoryStream(new byte[] {1});
-            return Verify(new Stream[] {stream1, stream2});
-        });
+        var exception = await Assert.ThrowsAsync<XunitException>(
+            () =>
+            {
+                var stream1 = new MemoryStream(new byte[] {1});
+                var stream2 = new MemoryStream(new byte[] {1});
+                return Verify(new Stream[] {stream1, stream2});
+            });
         DiffRunner.Enabled = true;
         DeleteTempFiles();
-        await Verify(exception.Message);
+        var settings = new VerifySettings();
+        settings .ScrubMachineName();
+        await Verify(exception.Message, settings);
     }
 
     [Fact]

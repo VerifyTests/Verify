@@ -4,6 +4,11 @@ using Verify;
 
 static class ApplyScrubbers
 {
+    static HashList<string>
+    static ApplyScrubbers()
+    {
+
+    }
     public static string Apply(string target, List<Func<string, string>> scrubbers)
     {
         var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory);

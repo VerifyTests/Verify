@@ -1,1 +1,4 @@
-First verification. Tests.TextNegative.verified.tmp not found. Verification command has been copied to the clipboard.
+Results do not match.
+Verify command placed in clipboard.
+Pending:
+  Tests.TextNegative.verified.tmp

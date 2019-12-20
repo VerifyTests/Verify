@@ -41,8 +41,7 @@ partial class Verifier
                 DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
             }
 
-            throw exceptionBuilder($@"Verification command has been copied to the clipboard.
-{exception.Message}");
+            throw VerificationException(notEqual: receivedPath, message: exception.Message);
         }
     }
 
@@ -59,6 +58,6 @@ partial class Verifier
             }
         }
 
-        throw VerificationNotFoundException(verifiedPath, exceptionBuilder);
+        throw VerificationException(verifiedPath);
     }
 }

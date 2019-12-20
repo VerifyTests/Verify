@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Verify;
 
@@ -31,27 +28,20 @@ partial class Verifier
 
         if (verifyResult == VerifyResult.MissingVerified)
         {
-            throw VerificationNotFoundException(verifiedPath, exceptionBuilder);
+            throw VerificationException(verifiedPath);
         }
 
         if (verifyResult == VerifyResult.NotEqual)
         {
-            var builder = new StringBuilder("Streams do not match.");
-            builder.AppendLine();
-            if (!BuildServerDetector.Detected)
-            {
-                builder.AppendLine("Verification command has been copied to the clipboard.");
-            }
-
-            throw exceptionBuilder(builder.ToString());
+            throw VerificationException(notEqual:receivedPath);
         }
     }
 
     async Task VerifyMultipleBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
-        var missingVerified = new List<int>();
-        var notEquals = new List<int>();
+        var missingVerified = new List<string>();
+        var notEquals = new List<string>();
         var index = 0;
         foreach (var stream in streams)
         {
@@ -64,12 +54,12 @@ partial class Verifier
 
                 if (verifyResult == VerifyResult.MissingVerified)
                 {
-                    missingVerified.Add(index);
+                    missingVerified.Add(verifiedPath);
                 }
 
                 if (verifyResult == VerifyResult.NotEqual)
                 {
-                    notEquals.Add(index);
+                    notEquals.Add(receivedPath);
                 }
 
                 index++;
@@ -85,34 +75,6 @@ partial class Verifier
             return;
         }
 
-        var builder = new StringBuilder("Streams do not match.");
-        builder.AppendLine();
-        if (!BuildServerDetector.Detected)
-        {
-            builder.AppendLine("Verification command has been copied to the clipboard.");
-        }
-
-        if (missingVerified.Any())
-        {
-            builder.AppendLine($"Streams not verified: {string.Join(", ", missingVerified)}");
-        }
-
-        if (notEquals.Any())
-        {
-            builder.AppendLine($"Streams with differences: {string.Join(", ", notEquals)}");
-        }
-
-        throw exceptionBuilder(builder.ToString());
-    }
-
-    static Exception VerificationNotFoundException(string verifiedPath, Func<string, Exception> exceptionBuilder)
-    {
-        var verifiedFile = Path.GetFileName(verifiedPath);
-        if (BuildServerDetector.Detected)
-        {
-            return exceptionBuilder($"First verification. {verifiedFile} not found.");
-        }
-
-        return exceptionBuilder($"First verification. {verifiedFile} not found. Verification command has been copied to the clipboard.");
+        throw VerificationException(missingVerified, notEquals);
     }
 }

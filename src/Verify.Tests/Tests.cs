@@ -75,6 +75,23 @@ public class Tests :
     }
 
     [Fact]
+    public async Task StreamMultipleDangling()
+    {
+        var stream1 = new MemoryStream(new byte[] {1});
+
+        var path0 = Path.Combine(SourceDirectory, "Tests.StreamMultipleDangling.00.verified.bin");
+        File.WriteAllBytes(path0, new byte[] {1});
+
+        var path1 = Path.Combine(SourceDirectory, "Tests.StreamMultipleDangling.01.verified.bin");
+        File.WriteAllBytes(path1, new byte[] {1});
+
+        var exception = await Assert.ThrowsAsync<XunitException>(
+            () => { return Verify(new Stream[] {stream1}); });
+
+        await Verify(exception.Message);
+    }
+
+    [Fact]
     public async Task StreamMultipleNegative()
     {
         if (BuildServerDetector.Detected)
@@ -102,7 +119,7 @@ public class Tests :
         DiffRunner.Enabled = true;
         DeleteTempFiles();
         var settings = new VerifySettings();
-        settings .ScrubMachineName();
+        settings.ScrubMachineName();
         await Verify(exception.Message, settings);
     }
 

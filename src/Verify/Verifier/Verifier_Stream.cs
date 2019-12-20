@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Verify;
 
@@ -33,7 +34,7 @@ partial class Verifier
 
         if (verifyResult == VerifyResult.NotEqual)
         {
-            throw VerificationException(notEqual:receivedPath);
+            throw VerificationException(notEqual: receivedPath);
         }
     }
 
@@ -43,6 +44,8 @@ partial class Verifier
         var missingVerified = new List<string>();
         var notEquals = new List<string>();
         var index = 0;
+        var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
+        var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
         foreach (var stream in streams)
         {
             try
@@ -52,6 +55,7 @@ partial class Verifier
                 var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer, suffix);
                 var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
 
+                verifiedFiles.Remove(verifiedPath);
                 if (verifyResult == VerifyResult.MissingVerified)
                 {
                     missingVerified.Add(verifiedPath);
@@ -70,11 +74,18 @@ partial class Verifier
             }
         }
 
-        if (missingVerified.Count == 0 && notEquals.Count == 0)
+        foreach (var verifiedFile in verifiedFiles)
+        {
+            await ClipboardCapture.AppendDelete(verifiedFile);
+        }
+
+        if (missingVerified.Count == 0 &&
+            notEquals.Count == 0 &&
+            verifiedFiles.Count == 0)
         {
             return;
         }
 
-        throw VerificationException(missingVerified, notEquals);
+        throw VerificationException(missingVerified, notEquals, verifiedFiles);
     }
 }

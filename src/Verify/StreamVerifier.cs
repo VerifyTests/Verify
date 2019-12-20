@@ -32,7 +32,7 @@ static class StreamVerifier
                     }
                 }
 
-                await ClipboardCapture.Append(receivedPath, verifiedPath);
+                await ClipboardCapture.AppendMove(receivedPath, verifiedPath);
             }
 
             return verifyResult;

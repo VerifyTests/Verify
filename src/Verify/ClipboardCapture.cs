@@ -6,22 +6,32 @@ using TextCopy;
 static class ClipboardCapture
 {
     static StringBuilder builder = new StringBuilder();
-    static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1,1);
+    static SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
-    public static async Task Append(string received, string verified)
+    public static Task AppendMove(string received, string verified)
     {
-        var command = $"cmd /c move /Y \"{received}\" \"{verified}\"";
-        await semaphoreSlim.WaitAsync();
+        var command = $"move /Y \"{received}\" \"{verified}\"";
+        return Append(command);
+    }
+
+    public static Task AppendDelete(string verified)
+    {
+        var command = $"del \"{verified}\"";
+        return Append(command);
+    }
+
+    static async Task Append(string command)
+    {
+        await semaphore.WaitAsync();
 
         try
         {
             builder.AppendLine(command);
+            await Clipboard.SetTextAsync(builder.ToString());
         }
         finally
         {
-            semaphoreSlim.Release();
+            semaphore.Release();
         }
-
-        await Clipboard.SetTextAsync(builder.ToString());
     }
 }

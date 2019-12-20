@@ -35,7 +35,7 @@ partial class Verifier
             when (!BuildServerDetector.Detected)
         {
             await FileHelpers.WriteText(receivedPath, input);
-            await ClipboardCapture.Append(receivedPath, verifiedPath);
+            await ClipboardCapture.AppendMove(receivedPath, verifiedPath);
             if (DiffTools.TryGetTextDiff(extension, out var diffTool))
             {
                 DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
@@ -50,7 +50,7 @@ partial class Verifier
         if (!BuildServerDetector.Detected)
         {
             await FileHelpers.WriteText(receivedPath, input);
-            await ClipboardCapture.Append(receivedPath, verifiedPath);
+            await ClipboardCapture.AppendMove(receivedPath, verifiedPath);
             if (DiffTools.TryGetTextDiff(extension, out var diffTool))
             {
                 FileHelpers.WriteEmptyText(verifiedPath);

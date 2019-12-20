@@ -20,10 +20,10 @@ partial class Verifier
             missings.Add(missing);
         }
 
-        return VerificationException(missings, notEquals, message);
+        return VerificationException(missings, notEquals, new List<string>(), message);
     }
 
-    static Exception VerificationException(List<string> missings, List<string> notEquals, string? message = null)
+    static Exception VerificationException(List<string> missings, List<string> notEquals, List<string> danglingVerified, string? message = null)
     {
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
@@ -50,6 +50,15 @@ partial class Verifier
         {
             builder.AppendLine("Differences:");
             foreach (var item in notEquals)
+            {
+                builder.AppendLine($"  {Path.GetFileName(item)}");
+            }
+        }
+
+        if (danglingVerified.Any())
+        {
+            builder.AppendLine("Deletions:");
+            foreach (var item in danglingVerified)
             {
                 builder.AppendLine($"  {Path.GetFileName(item)}");
             }

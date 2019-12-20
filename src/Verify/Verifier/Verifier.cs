@@ -33,4 +33,9 @@ partial class Verifier
     {
         return FileNameBuilder.GetFileNames(extension, suffix, namer, testType, directory, testName);
     }
+
+    string GetVerifiedPattern(string extension, Namer namer)
+    {
+        return FileNameBuilder.GetVerifiedPattern(extension, namer, testType, testName);
+    }
 }

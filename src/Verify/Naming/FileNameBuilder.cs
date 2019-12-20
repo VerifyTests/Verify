@@ -7,7 +7,8 @@ static class FileNameBuilder
 {
     public static (string received, string verified) GetFileNames(string extension, string? suffix, Namer namer, Type testType, string directory, string testName)
     {
-        var filePrefix = GetFilePrefix(namer, testType, directory, testName);
+        var builder = new StringBuilder(Path.Combine(directory, testName));
+        var filePrefix = AppendFileParts(namer, testType, builder);
         if (suffix == null)
         {
             var received = $"{filePrefix}.received.{extension}";
@@ -22,10 +23,15 @@ static class FileNameBuilder
         }
     }
 
-    static string GetFilePrefix(Namer namer, Type testType, string directory, string testName)
+    public static string GetVerifiedPattern(string extension, Namer namer, Type testType, string testName)
     {
-        var builder = new StringBuilder(Path.Combine(directory, testName));
+        var builder = new StringBuilder(testName);
+        var filePrefix = AppendFileParts(namer, testType, builder);
+        return $"{filePrefix}.*.verified.{extension}";
+    }
 
+    static string AppendFileParts(Namer namer, Type testType, StringBuilder builder)
+    {
         if (namer.UniqueForRuntimeAndVersion || SharedVerifySettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
             builder.Append($".{Namer.runtimeAndVersion}");

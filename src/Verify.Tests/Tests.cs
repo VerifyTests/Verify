@@ -88,7 +88,11 @@ public class Tests :
         var exception = await Assert.ThrowsAsync<XunitException>(
             () => { return Verify(new Stream[] {stream1}); });
 
-        await Verify(exception.Message);
+        var settings = new VerifySettings();
+        settings.ScrubLinesContaining("clipboard");
+        await Verify(exception.Message, settings);
+        File.Delete(path0);
+        File.Delete(path1);
     }
 
     [Fact]

@@ -1,4 +1,3 @@
 Results do not match.
-Verify command placed in clipboard.
 Deletions:
   Tests.StreamMultipleDangling.01.verified.bin

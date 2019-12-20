@@ -4,19 +4,21 @@ using Verify;
 
 static class ApplyScrubbers
 {
-    static HashList<string>
+    static HashSet<string> currentDirectoryReplacements = new HashSet<string>();
+
     static ApplyScrubbers()
     {
-
+        currentDirectoryReplacements.Add(CleanPath(AppDomain.CurrentDomain.BaseDirectory));
+        currentDirectoryReplacements.Add(CleanPath(Environment.CurrentDirectory));
+        currentDirectoryReplacements.Add(CleanPath(CodeBaseLocation.CurrentDirectory));
     }
+
     public static string Apply(string target, List<Func<string, string>> scrubbers)
     {
-        var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory);
-        target = target.Replace(baseDirectory, "CurrentDirectory");
-        var currentDirectory = CleanPath(Environment.CurrentDirectory);
-        target = target.Replace(currentDirectory, "CurrentDirectory");
-        var codeBase = CleanPath(CodeBaseLocation.CurrentDirectory);
-        target = target.Replace(codeBase, "CurrentDirectory");
+        foreach (var replace in currentDirectoryReplacements)
+        {
+            target = target.Replace(replace, "CurrentDirectory");
+        }
 
         foreach (var scrubber in scrubbers)
         {

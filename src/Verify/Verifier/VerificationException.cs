@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -33,15 +34,15 @@ partial class Verifier
 
         if (!BuildServerDetector.Detected)
         {
-            builder.AppendLine("Verification command copied to the clipboard.");
+            builder.AppendLine("Verify command placed in clipboard.");
         }
 
         if (missings.Any())
         {
-            builder.AppendLine("Not verified:");
+            builder.AppendLine("Pending:");
             foreach (var item in missings)
             {
-                builder.AppendLine($"  {item}");
+                builder.AppendLine($"  {Path.GetFileName(item)}");
             }
         }
 
@@ -50,7 +51,7 @@ partial class Verifier
             builder.AppendLine("Differences:");
             foreach (var item in notEquals)
             {
-                builder.AppendLine($"  {item}");
+                builder.AppendLine($"  {Path.GetFileName(item)}");
             }
         }
 

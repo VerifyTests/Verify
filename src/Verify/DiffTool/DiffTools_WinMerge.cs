@@ -10,5 +10,7 @@ static partial class DiffTools
         {
             @"%ProgramFiles(x86)%\WinMerge\WinMergeU.exe"
         },
+        osxExePaths: Array.Empty<string>(),
+        linuxExePaths: Array.Empty<string>(),
         binaryExtensions: Array.Empty<string>());
 }

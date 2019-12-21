@@ -10,5 +10,13 @@ static partial class DiffTools
         {
             @"%ProgramFiles%\Sublime Merge\smerge.exe"
         },
+        osxExePaths: new[]
+        {
+            @"/Applications/smerge.app/Contents/MacOS/smerge"
+        },
+        linuxExePaths: new[]
+        {
+            @"/usr/bin/smerge"
+        },
         binaryExtensions: Array.Empty<string>());
 }

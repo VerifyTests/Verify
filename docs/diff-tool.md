@@ -29,6 +29,14 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
  * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
 
+### OSX scanned paths:
+
+ * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+
+### Linux scanned paths:
+
+ * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
 ### Windows scanned paths:
@@ -47,15 +55,35 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
  * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
+### OSX scanned paths:
+
+ * `/Applications/smerge.app/Contents/MacOS/smerge`
+
+### Linux scanned paths:
+
+ * `/usr/bin/smerge`
+
 ## [Meld](https://meldmerge.org/)
 
 ### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
+### OSX scanned paths:
+
+ * `/Applications/meld.app/Contents/MacOS/meld`
+
+### Linux scanned paths:
+
+ * `/usr/bin/meld`
+
 ## [AraxisMerge](https://www.araxis.com/merge)
 
 ### Windows scanned paths:
+
+ * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
+
+### OSX scanned paths:
 
  * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
@@ -90,6 +118,14 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
  * `%ProgramFiles%\Perforce\p4merge.exe`
 
+### OSX scanned paths:
+
+ * `/Applications/p4merge.app/Contents/MacOS/p4merge`
+
+### Linux scanned paths:
+
+ * `/usr/bin/p4merge`
+
 ### Supported binary extensions:
 
  * bmp
@@ -109,6 +145,14 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 ### Windows scanned paths:
 
  * `%ProgramFiles%\Beyond Compare 4\BCompare.exe`
+
+### OSX scanned paths:
+
+ * `/Applications/Beyond Compare.app/Contents/MacOS/bcomp`
+
+### Linux scanned paths:
+
+ * `/usr/lib/beyondcompare/bcomp`
 
 ### Supported binary extensions:
 

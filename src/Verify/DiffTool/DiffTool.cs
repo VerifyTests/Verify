@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 class DiffTool
 {
@@ -10,21 +11,50 @@ class DiffTool
     public string? ExePath { get; private set; }
     public bool Exists { get; private set; }
     public string[] WindowsExePaths { get; }
+    public string[] LinuxExePaths { get; }
+    public string[] OsxExePaths { get; }
 
     public DiffTool(
         string name,
         string url,
         string argumentPrefix,
         string[] windowsExePaths,
-        string[] binaryExtensions)
+        string[] binaryExtensions,
+        string[] linuxExePaths,
+        string[] osxExePaths)
     {
         Name = name;
         Url = url;
         ArgumentPrefix = argumentPrefix;
         BinaryExtensions = binaryExtensions;
         WindowsExePaths = windowsExePaths;
+        LinuxExePaths = linuxExePaths;
+        OsxExePaths = osxExePaths;
 
-        FindExe(WindowsExePaths);
+        FindExe();
+    }
+
+    void FindExe()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            FindExe(WindowsExePaths);
+            return;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            FindExe(LinuxExePaths);
+            return;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            FindExe(OsxExePaths);
+            return;
+        }
+
+        throw new Exception($"OS not supported: {RuntimeInformation.OSDescription}");
     }
 
     void FindExe(string[] exePaths)

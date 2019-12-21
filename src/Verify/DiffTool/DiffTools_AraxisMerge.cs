@@ -1,4 +1,6 @@
-﻿static partial class DiffTools
+﻿using System;
+
+static partial class DiffTools
 {
     public static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
@@ -8,6 +10,12 @@
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
         },
+        osxExePaths: new[]
+        {
+            //TODO:
+            @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
+        },
+        linuxExePaths: Array.Empty<string>(),
         binaryExtensions: new[]
         {
             //https://www.araxis.com/merge/documentation-windows/comparing-image-files.en

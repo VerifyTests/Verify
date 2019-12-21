@@ -19,14 +19,38 @@ public class DiffToolsTest :
         {
             await writer.WriteLineAsync($@"
 ## [{tool.Name}]({tool.Url})");
-            await writer.WriteLineAsync(@"
+            if (tool.WindowsExePaths.Any())
+            {
+                await writer.WriteLineAsync(@"
 ### Windows scanned paths:
 ");
-            foreach (var path in tool.WindowsExePaths)
-            {
-                await writer.WriteLineAsync($@" * `{path}`");
+                foreach (var path in tool.WindowsExePaths)
+                {
+                    await writer.WriteLineAsync($@" * `{path}`");
+                }
             }
 
+            if (tool.OsxExePaths.Any())
+            {
+                await writer.WriteLineAsync(@"
+### OSX scanned paths:
+");
+                foreach (var path in tool.OsxExePaths)
+                {
+                    await writer.WriteLineAsync($@" * `{path}`");
+                }
+            }
+
+            if (tool.LinuxExePaths.Any())
+            {
+                await writer.WriteLineAsync(@"
+### Linux scanned paths:
+");
+                foreach (var path in tool.LinuxExePaths)
+                {
+                    await writer.WriteLineAsync($@" * `{path}`");
+                }
+            }
             if (!tool.BinaryExtensions.Any())
             {
                 continue;

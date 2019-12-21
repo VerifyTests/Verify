@@ -10,5 +10,15 @@ static partial class DiffTools
         {
             @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"
         },
+        linuxExePaths: new[]
+        {
+            //TODO:
+            @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"
+        },
+        osxExePaths: new[]
+        {
+            //TODO:
+            @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"
+        },
         binaryExtensions: Array.Empty<string>());
 }

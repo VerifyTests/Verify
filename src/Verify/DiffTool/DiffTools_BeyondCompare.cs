@@ -8,6 +8,15 @@
         {
             @"%ProgramFiles%\Beyond Compare 4\BCompare.exe"
         },
+        linuxExePaths: new[]
+        {
+            //TODO:
+            "/usr/lib/beyondcompare/bcomp"
+        },
+        osxExePaths: new[]
+        {
+            "/Applications/Beyond Compare.app/Contents/MacOS/bcomp"
+        },
         binaryExtensions: new[]
         {
             "mp3",//?

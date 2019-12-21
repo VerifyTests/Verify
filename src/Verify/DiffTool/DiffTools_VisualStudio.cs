@@ -11,5 +11,7 @@ static partial class DiffTools
             @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe",
             @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe",
         },
+        osxExePaths: Array.Empty<string>(),
+        linuxExePaths: Array.Empty<string>(),
         binaryExtensions: Array.Empty<string>());
 }

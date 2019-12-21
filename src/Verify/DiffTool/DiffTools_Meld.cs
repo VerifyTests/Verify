@@ -6,7 +6,7 @@ static partial class DiffTools
         name: "Meld",
         url: "https://meldmerge.org/",
         argumentPrefix: string.Empty,
-        exePaths: new[]
+        windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\Meld\meld.exe"
         },

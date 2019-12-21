@@ -6,7 +6,7 @@ static partial class DiffTools
         name: "Sublime Merge",
         url: "https://www.sublimemerge.com/",
         argumentPrefix: "mergetool ",
-        exePaths: new[]
+        windowsExePaths: new[]
         {
             @"%ProgramFiles%\Sublime Merge\smerge.exe"
         },

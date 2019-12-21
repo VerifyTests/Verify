@@ -4,7 +4,7 @@
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
         argumentPrefix: "/nowait ",
-        exePaths: new[]
+        windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
         },

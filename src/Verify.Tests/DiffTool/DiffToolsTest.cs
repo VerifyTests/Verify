@@ -20,9 +20,9 @@ public class DiffToolsTest :
             await writer.WriteLineAsync($@"
 ## [{tool.Name}]({tool.Url})");
             await writer.WriteLineAsync(@"
-### Scanned paths:
+### Windows scanned paths:
 ");
-            foreach (var path in tool.ExePaths)
+            foreach (var path in tool.WindowsExePaths)
             {
                 await writer.WriteLineAsync($@" * `{path}`");
             }

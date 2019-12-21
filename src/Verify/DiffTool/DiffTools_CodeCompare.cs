@@ -6,7 +6,7 @@ static partial class DiffTools
         name: "CodeCompare",
         url: "https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm",
         argumentPrefix: string.Empty,
-        exePaths: new[]
+        windowsExePaths: new[]
         {
             @"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe"
         },

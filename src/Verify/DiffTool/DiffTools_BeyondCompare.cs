@@ -4,7 +4,7 @@
         name: "BeyondCompare",
         url: "https://www.scootersoftware.com/v4help/index.html?command_line_reference.html",
         argumentPrefix: string.Empty,
-        exePaths: new[]
+        windowsExePaths: new[]
         {
             @"%ProgramFiles%\Beyond Compare 4\BCompare.exe"
         },

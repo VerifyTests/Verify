@@ -9,17 +9,17 @@ class DiffTool
     public string[] BinaryExtensions { get; }
     public string? ExePath { get; }
     public bool Exists { get; }
-    public string[] ExePaths { get; }
+    public string[] WindowsExePaths { get; }
 
-    public DiffTool(string name, string url, string argumentPrefix, string[] exePaths, string[] binaryExtensions)
+    public DiffTool(string name, string url, string argumentPrefix, string[] windowsExePaths, string[] binaryExtensions)
     {
         Name = name;
         Url = url;
         ArgumentPrefix = argumentPrefix;
         BinaryExtensions = binaryExtensions;
-        ExePaths = exePaths;
+        WindowsExePaths = windowsExePaths;
 
-        foreach (var exePath in exePaths)
+        foreach (var exePath in windowsExePaths)
         {
             var expanded = Environment.ExpandEnvironmentVariables(exePath);
             if (File.Exists(expanded))

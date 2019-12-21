@@ -6,7 +6,7 @@ static partial class DiffTools
         name: "WinMerge",
         url: "https://manual.winmerge.org/en/Command_line.html",
         argumentPrefix: string.Empty,
-        exePaths: new[]
+        windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\WinMerge\WinMergeU.exe"
         },

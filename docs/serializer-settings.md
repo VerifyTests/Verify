@@ -375,7 +375,7 @@ settings.ModifySerialization(_ =>
 
 var target = new IgnoreExplicitTarget
 {
-    Include = "Vaslue",
+    Include = "Value",
     Field = "Value",
     Property = "Value"
 };

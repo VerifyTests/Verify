@@ -12,8 +12,7 @@ static partial class DiffTools
         },
         linuxExePaths: new[]
         {
-            //TODO:
-            @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"
+            @"/usr/local/bin/code"
         },
         osxExePaths: new[]
         {

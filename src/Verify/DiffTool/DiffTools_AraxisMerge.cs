@@ -12,8 +12,7 @@ static partial class DiffTools
         },
         osxExePaths: new[]
         {
-            //TODO:
-            @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
+            "/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge"
         },
         linuxExePaths: Array.Empty<string>(),
         binaryExtensions: new[]

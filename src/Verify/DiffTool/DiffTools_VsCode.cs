@@ -17,8 +17,7 @@ static partial class DiffTools
         },
         osxExePaths: new[]
         {
-            //TODO:
-            @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"
+            "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
         },
         binaryExtensions: Array.Empty<string>());
 }

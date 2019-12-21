@@ -18,44 +18,44 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
 
 ## [Visual Studio Code](https://code.visualstudio.com/docs/editor/command-line)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
 
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
 
 ## [CodeCompare](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
 ## [Sublime Merge](https://www.sublimemerge.com/)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
 ## [Meld](https://meldmerge.org/)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
 ## [AraxisMerge](https://www.araxis.com/merge)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
@@ -86,7 +86,7 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles%\Perforce\p4merge.exe`
 
@@ -106,7 +106,7 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
 ## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
-### Scanned paths:
+### Windows scanned paths:
 
  * `%ProgramFiles%\Beyond Compare 4\BCompare.exe`
 

@@ -31,11 +31,11 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
 ### OSX scanned paths:
 
- * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+ * `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
 
 ### Linux scanned paths:
 
- * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+ * `/usr/local/bin/code`
 
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
@@ -85,7 +85,7 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
 
 ### OSX scanned paths:
 
- * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
+ * `/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge`
 
 ### Supported binary extensions:
 

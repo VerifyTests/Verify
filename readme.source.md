@@ -66,7 +66,7 @@ Verification command has been copied to the clipboard.
 
 The clipboard will contain the following:
 
-> cmd /c move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+> move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
 
 If a [Diff Tool](docs/diff-tool.md) is detected it will display the diff:
 
@@ -101,7 +101,7 @@ Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:
 ```
 The clipboard will again contain the following:
 
-> cmd /c move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+> move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
 
 And the [Diff Tool](docs/diff-tool.md) is will display the diff:
 

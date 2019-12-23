@@ -6,7 +6,7 @@ using System.Text;
 
 partial class Verifier
 {
-    static Exception VerificationException(string? missing = null, string? notEqual = null, string? message = null)
+    static Exception VerificationException(FilePair? missing = null, string? notEqual = null, string? message = null)
     {
         var notEquals = new List<string>();
         if (notEqual != null)
@@ -14,7 +14,7 @@ partial class Verifier
             notEquals.Add(notEqual);
         }
 
-        var missings = new List<string>();
+        var missings = new List<FilePair>();
         if (missing != null)
         {
             missings.Add(missing);
@@ -23,7 +23,7 @@ partial class Verifier
         return VerificationException(missings, notEquals, new List<string>(), message);
     }
 
-    static Exception VerificationException(List<string> missings, List<string> notEquals, List<string> danglingVerified, string? message = null)
+    static Exception VerificationException(List<FilePair> missings, List<string> notEquals, List<string> danglingVerified, string? message = null)
     {
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
@@ -42,7 +42,7 @@ partial class Verifier
             builder.AppendLine("Pending:");
             foreach (var item in missings)
             {
-                builder.AppendLine($"  {Path.GetFileName(item)}");
+                builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
             }
         }
 

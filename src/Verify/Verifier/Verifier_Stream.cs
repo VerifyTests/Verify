@@ -29,7 +29,7 @@ partial class Verifier
 
         if (verifyResult == VerifyResult.MissingVerified)
         {
-            throw VerificationException(file.Verified);
+            throw VerificationException(file);
         }
 
         if (verifyResult == VerifyResult.NotEqual)
@@ -41,7 +41,7 @@ partial class Verifier
     async Task VerifyMultipleBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
-        var missingVerified = new List<string>();
+        var missingVerified = new List<FilePair>();
         var notEquals = new List<string>();
         var index = 0;
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
@@ -58,7 +58,7 @@ partial class Verifier
                 verifiedFiles.Remove(file.Verified);
                 if (verifyResult == VerifyResult.MissingVerified)
                 {
-                    missingVerified.Add(file.Verified);
+                    missingVerified.Add(file);
                 }
 
                 if (verifyResult == VerifyResult.NotEqual)

@@ -58,6 +58,6 @@ partial class Verifier
             }
         }
 
-        throw VerificationException(file.Verified);
+        throw VerificationException(file);
     }
 }

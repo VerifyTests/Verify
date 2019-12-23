@@ -12,12 +12,12 @@ static class ClipboardCapture
 
     static string moveCommand;
     static string deleteCommand;
-    
+
     static ClipboardCapture()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            moveCommand = "move /Y \"{0}\" \"{1}\""; 
+            moveCommand = "move /Y \"{0}\" \"{1}\"";
             deleteCommand = "del \"{0}\"";
             return;
         }
@@ -38,7 +38,7 @@ static class ClipboardCapture
 
         throw new Exception($"OS not supported: {RuntimeInformation.OSDescription}");
     }
-    
+
     public static Task AppendMove(string received, string verified)
     {
         return Append(string.Format(moveCommand, received, verified));

@@ -18,14 +18,14 @@ partial class Verifier
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (File.Exists(file.Verified))
         {
-            return VerifyExisting(input, file.Verified, file.Received, extension);
+            return VerifyExisting(input, file);
         }
-        return VerifyFirstTime(input, file.Received, file.Verified, extension);
+        return VerifyFirstTime(input, file);
     }
 
-    static async Task VerifyExisting(string input, string verifiedPath, string receivedPath, string extension)
+    static async Task VerifyExisting(string input, FilePair file)
     {
-        var verifiedText = await FileHelpers.ReadText(verifiedPath);
+        var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = verifiedText.Replace("\r\n", "\n");
         try
         {
@@ -34,30 +34,30 @@ partial class Verifier
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
-            await FileHelpers.WriteText(receivedPath, input);
-            await ClipboardCapture.AppendMove(receivedPath, verifiedPath);
-            if (DiffTools.TryGetTextDiff(extension, out var diffTool))
+            await FileHelpers.WriteText(file.Received, input);
+            await ClipboardCapture.AppendMove(file.Received, file.Verified);
+            if (DiffTools.TryGetTextDiff(file.Extension, out var diffTool))
             {
-                DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                DiffRunner.Launch(diffTool, file.Received, file.Verified);
             }
 
-            throw VerificationException(notEqual: receivedPath, message: exception.Message);
+            throw VerificationException(notEqual: file.Received, message: exception.Message);
         }
     }
 
-    static async Task VerifyFirstTime(string input, string receivedPath, string verifiedPath, string extension)
+    static async Task VerifyFirstTime(string input, FilePair file)
     {
         if (!BuildServerDetector.Detected)
         {
-            await FileHelpers.WriteText(receivedPath, input);
-            await ClipboardCapture.AppendMove(receivedPath, verifiedPath);
-            if (DiffTools.TryGetTextDiff(extension, out var diffTool))
+            await FileHelpers.WriteText(file.Received, input);
+            await ClipboardCapture.AppendMove(file.Received, file.Verified);
+            if (DiffTools.TryGetTextDiff(file.Extension, out var diffTool))
             {
-                FileHelpers.WriteEmptyText(verifiedPath);
-                DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                FileHelpers.WriteEmptyText(file.Verified);
+                DiffRunner.Launch(diffTool, file.Received, file.Verified);
             }
         }
 
-        throw VerificationException(verifiedPath);
+        throw VerificationException(file.Verified);
     }
 }

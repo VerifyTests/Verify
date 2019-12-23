@@ -6,9 +6,9 @@ using System.Text;
 
 partial class Verifier
 {
-    static Exception VerificationException(FilePair? missing = null, string? notEqual = null, string? message = null)
+    static Exception VerificationException(FilePair? missing = null, FilePair? notEqual = null, string? message = null)
     {
-        var notEquals = new List<string>();
+        var notEquals = new List<FilePair>();
         if (notEqual != null)
         {
             notEquals.Add(notEqual);
@@ -23,7 +23,7 @@ partial class Verifier
         return VerificationException(missings, notEquals, new List<string>(), message);
     }
 
-    static Exception VerificationException(List<FilePair> missings, List<string> notEquals, List<string> danglingVerified, string? message = null)
+    static Exception VerificationException(List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
     {
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
@@ -51,7 +51,7 @@ partial class Verifier
             builder.AppendLine("Differences:");
             foreach (var item in notEquals)
             {
-                builder.AppendLine($"  {Path.GetFileName(item)}");
+                builder.AppendLine($"  {Path.GetFileName(item.Received)}");
             }
         }
 

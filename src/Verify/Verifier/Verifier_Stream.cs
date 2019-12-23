@@ -34,7 +34,7 @@ partial class Verifier
 
         if (verifyResult == VerifyResult.NotEqual)
         {
-            throw VerificationException(notEqual: file.Received);
+            throw VerificationException(notEqual: file);
         }
     }
 
@@ -42,7 +42,7 @@ partial class Verifier
     {
         var extension = settings.ExtensionOrBin();
         var missingVerified = new List<FilePair>();
-        var notEquals = new List<string>();
+        var notEquals = new List<FilePair>();
         var index = 0;
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
         var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
@@ -63,7 +63,7 @@ partial class Verifier
 
                 if (verifyResult == VerifyResult.NotEqual)
                 {
-                    notEquals.Add(file.Received);
+                    notEquals.Add(file);
                 }
 
                 index++;

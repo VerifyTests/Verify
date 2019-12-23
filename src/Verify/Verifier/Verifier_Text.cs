@@ -41,7 +41,7 @@ partial class Verifier
                 DiffRunner.Launch(diffTool, file.Received, file.Verified);
             }
 
-            throw VerificationException(notEqual: file.Received, message: exception.Message);
+            throw VerificationException(notEqual: file, message: exception.Message);
         }
     }
 

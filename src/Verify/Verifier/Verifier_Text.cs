@@ -46,16 +46,12 @@ partial class Verifier
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
-            await ClipboardCapture.AppendMove(file.Received, file.Verified);
-
             throw await VerificationException(diff, notEqual: file, message: exception.Message);
         }
     }
 
     static async Task VerifyFirstTime(FilePair file, Func<FilePair, Task> diff)
     {
-        throw await VerificationException(
-            diff,
-            file);
+        throw await VerificationException(diff, file);
     }
 }

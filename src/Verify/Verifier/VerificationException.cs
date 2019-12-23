@@ -42,6 +42,7 @@ partial class Verifier
         {
             await ClipboardCapture.AppendDelete(item);
         }
+
         if (missings.Any())
         {
             builder.AppendLine("Pending:");

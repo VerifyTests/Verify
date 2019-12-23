@@ -25,7 +25,7 @@ partial class Verifier
 
         var extension = settings.ExtensionOrBin();
         var file = GetFileNames(extension, settings.Namer);
-        var verifyResult = await StreamVerifier.VerifyStreams(input, extension, file);
+        var verifyResult = await StreamVerifier.VerifyStreams(input, file);
 
         if (verifyResult == VerifyResult.MissingVerified)
         {
@@ -53,7 +53,7 @@ partial class Verifier
                 stream.MoveToStart();
                 var suffix = $"{index:D2}";
                 var file = GetFileNames(extension, settings.Namer, suffix);
-                var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, file);
+                var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
 
                 verifiedFiles.Remove(file.Verified);
                 if (verifyResult == VerifyResult.MissingVerified)

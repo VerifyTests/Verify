@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 static class StreamVerifier
 {
-    public static async Task<VerifyResult> VerifyStreams(Stream stream, string extension, FilePair file)
+    public static async Task<VerifyResult> VerifyStreams(Stream stream, FilePair file)
     {
         if (stream.CanSeek)
         {
@@ -25,9 +25,9 @@ static class StreamVerifier
 
             if (!BuildServerDetector.Detected)
             {
-                if (DiffTools.TryFindForExtension(extension, out var diffTool))
+                if (DiffTools.TryFindForExtension(file.Extension, out var diffTool))
                 {
-                    if (EmptyFiles.TryWriteEmptyFile(extension, file.Verified))
+                    if (EmptyFiles.TryWriteEmptyFile(file.Extension, file.Verified))
                     {
                         DiffRunner.Launch(diffTool, file.Received, file.Verified);
                     }

@@ -10,17 +10,17 @@ partial class Verifier
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
-        var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer);
+        var file = GetFileNames(extension, settings.Namer);
 
         Guard.AgainstNull(input, nameof(input));
         input = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
         input = input.Replace("\r\n", "\n");
-        FileHelpers.DeleteIfEmpty(verifiedPath);
-        if (File.Exists(verifiedPath))
+        FileHelpers.DeleteIfEmpty(file.Verified);
+        if (File.Exists(file.Verified))
         {
-            return VerifyExisting(input, verifiedPath, receivedPath, extension);
+            return VerifyExisting(input, file.Verified, file.Received, extension);
         }
-        return VerifyFirstTime(input, receivedPath, verifiedPath, extension);
+        return VerifyFirstTime(input, file.Received, file.Verified, extension);
     }
 
     static async Task VerifyExisting(string input, string verifiedPath, string receivedPath, string extension)

@@ -5,7 +5,7 @@ using Verify;
 
 static class FileNameBuilder
 {
-    public static (string received, string verified) GetFileNames(string extension, string? suffix, Namer namer, Type testType, string directory, string testName)
+    public static FilePair GetFileNames(string extension, string? suffix, Namer namer, Type testType, string directory, string testName)
     {
         var builder = new StringBuilder(Path.Combine(directory, testName));
         var filePrefix = AppendFileParts(namer, testType, builder);
@@ -13,13 +13,13 @@ static class FileNameBuilder
         {
             var received = $"{filePrefix}.received.{extension}";
             var verified = $"{filePrefix}.verified.{extension}";
-            return (received, verified);
+            return new FilePair(extension, received, verified);
         }
         else
         {
             var received = $"{filePrefix}.{suffix}.received.{extension}";
             var verified = $"{filePrefix}.{suffix}.verified.{extension}";
-            return (received, verified);
+            return new FilePair(extension, received, verified);
         }
     }
 

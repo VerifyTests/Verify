@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
+
 static class StreamVerifier
 {
-    public static async Task<VerifyResult> VerifyStreams(Stream stream, string extension, string receivedPath, string verifiedPath)
+    public static async Task<VerifyResult> VerifyStreams(Stream stream, string extension, FilePair file)
     {
         if (stream.CanSeek)
         {
@@ -12,13 +13,13 @@ static class StreamVerifier
 
         try
         {
-            await FileHelpers.WriteStream(receivedPath, stream);
+            await FileHelpers.WriteStream(file.Received, stream);
 
-            var verifyResult = FileComparer.DoCompare(receivedPath, verifiedPath, extension);
+            var verifyResult = FileComparer.DoCompare(file.Received, file.Verified, file.Extension);
 
             if (verifyResult == VerifyResult.Equal)
             {
-                File.Delete(receivedPath);
+                File.Delete(file.Received);
                 return verifyResult;
             }
 
@@ -26,13 +27,13 @@ static class StreamVerifier
             {
                 if (DiffTools.TryFindForExtension(extension, out var diffTool))
                 {
-                    if (EmptyFiles.TryWriteEmptyFile(extension, verifiedPath))
+                    if (EmptyFiles.TryWriteEmptyFile(extension, file.Verified))
                     {
-                        DiffRunner.Launch(diffTool, receivedPath, verifiedPath);
+                        DiffRunner.Launch(diffTool, file.Received, file.Verified);
                     }
                 }
 
-                await ClipboardCapture.AppendMove(receivedPath, verifiedPath);
+                await ClipboardCapture.AppendMove(file.Received, file.Verified);
             }
 
             return verifyResult;

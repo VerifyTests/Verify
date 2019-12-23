@@ -24,17 +24,17 @@ partial class Verifier
         input.MoveToStart();
 
         var extension = settings.ExtensionOrBin();
-        var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer);
-        var verifyResult = await StreamVerifier.VerifyStreams(input, extension, receivedPath, verifiedPath);
+        var file = GetFileNames(extension, settings.Namer);
+        var verifyResult = await StreamVerifier.VerifyStreams(input, extension, file);
 
         if (verifyResult == VerifyResult.MissingVerified)
         {
-            throw VerificationException(verifiedPath);
+            throw VerificationException(file.Verified);
         }
 
         if (verifyResult == VerifyResult.NotEqual)
         {
-            throw VerificationException(notEqual: receivedPath);
+            throw VerificationException(notEqual: file.Received);
         }
     }
 
@@ -52,18 +52,18 @@ partial class Verifier
             {
                 stream.MoveToStart();
                 var suffix = $"{index:D2}";
-                var (receivedPath, verifiedPath) = GetFileNames(extension, settings.Namer, suffix);
-                var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, receivedPath, verifiedPath);
+                var file = GetFileNames(extension, settings.Namer, suffix);
+                var verifyResult = await StreamVerifier.VerifyStreams(stream, extension, file);
 
-                verifiedFiles.Remove(verifiedPath);
+                verifiedFiles.Remove(file.Verified);
                 if (verifyResult == VerifyResult.MissingVerified)
                 {
-                    missingVerified.Add(verifiedPath);
+                    missingVerified.Add(file.Verified);
                 }
 
                 if (verifyResult == VerifyResult.NotEqual)
                 {
-                    notEquals.Add(receivedPath);
+                    notEquals.Add(file.Received);
                 }
 
                 index++;

@@ -36,11 +36,11 @@ partial class Verifier
         if (!BuildServerDetector.Detected)
         {
             builder.AppendLine("Verify command placed in clipboard.");
-        }
 
-        foreach (var item in danglingVerified)
-        {
-            await ClipboardCapture.AppendDelete(item);
+            foreach (var item in danglingVerified)
+            {
+                await ClipboardCapture.AppendDelete(item);
+            }
         }
 
         if (missings.Any())

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 partial class Verifier
 {
-    static Exception VerificationException(FilePair? missing = null, FilePair? notEqual = null, string? message = null)
+    static Task<Exception> VerificationException(Func<FilePair, Task> diff, FilePair? missing = null, FilePair? notEqual = null, string? message = null)
     {
         var notEquals = new List<FilePair>();
         if (notEqual != null)
@@ -20,10 +21,10 @@ partial class Verifier
             missings.Add(missing);
         }
 
-        return VerificationException(missings, notEquals, new List<string>(), message);
+        return VerificationException(diff, missings, notEquals, new List<string>(), message);
     }
 
-    static Exception VerificationException(List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
+    static async Task<Exception> VerificationException(Func<FilePair, Task> diff, List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
     {
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
@@ -37,11 +38,21 @@ partial class Verifier
             builder.AppendLine("Verify command placed in clipboard.");
         }
 
+        foreach (var item in danglingVerified)
+        {
+            await ClipboardCapture.AppendDelete(item);
+        }
         if (missings.Any())
         {
             builder.AppendLine("Pending:");
             foreach (var item in missings)
             {
+                if (!BuildServerDetector.Detected)
+                {
+                    await ClipboardCapture.AppendMove(item.Received, item.Verified);
+                    await diff(item);
+                }
+
                 builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
             }
         }
@@ -51,6 +62,12 @@ partial class Verifier
             builder.AppendLine("Differences:");
             foreach (var item in notEquals)
             {
+                if (!BuildServerDetector.Detected)
+                {
+                    await ClipboardCapture.AppendMove(item.Received, item.Verified);
+                    await diff(item);
+                }
+
                 builder.AppendLine($"  {Path.GetFileName(item.Received)}");
             }
         }

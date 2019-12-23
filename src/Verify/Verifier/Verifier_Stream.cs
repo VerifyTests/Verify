@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,14 +28,27 @@ partial class Verifier
         var file = GetFileNames(extension, settings.Namer);
         var verifyResult = await StreamVerifier.VerifyStreams(input, file);
 
+        Func<FilePair, Task> diff = pair =>
+        {
+            if (DiffTools.TryFindForExtension(file.Extension, out var diffTool))
+            {
+                if (EmptyFiles.TryWriteEmptyFile(file.Extension, file.Verified))
+                {
+                    DiffRunner.Launch(diffTool, file.Received, file.Verified);
+                }
+            }
+
+            return Task.CompletedTask;
+        };
+
         if (verifyResult == VerifyResult.MissingVerified)
         {
-            throw VerificationException(file);
+            throw await VerificationException(diff,file);
         }
 
         if (verifyResult == VerifyResult.NotEqual)
         {
-            throw VerificationException(notEqual: file);
+            throw await VerificationException(diff, notEqual: file);
         }
     }
 
@@ -46,6 +60,9 @@ partial class Verifier
         var index = 0;
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
         var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
+
+        var action = GetDiffAction(extension);
+
         foreach (var stream in streams)
         {
             try
@@ -74,11 +91,6 @@ partial class Verifier
             }
         }
 
-        foreach (var verifiedFile in verifiedFiles)
-        {
-            await ClipboardCapture.AppendDelete(verifiedFile);
-        }
-
         if (missingVerified.Count == 0 &&
             notEquals.Count == 0 &&
             verifiedFiles.Count == 0)
@@ -86,6 +98,24 @@ partial class Verifier
             return;
         }
 
-        throw VerificationException(missingVerified, notEquals, verifiedFiles);
+        throw await VerificationException(action,missingVerified, notEquals, verifiedFiles);
+    }
+
+    static Func<FilePair, Task> GetDiffAction(string extension)
+    {
+        if (!DiffTools.TryFindForExtension(extension, out var diffTool))
+        {
+            return pair => Task.CompletedTask;
+        }
+
+        return pair =>
+        {
+            if (EmptyFiles.TryWriteEmptyFile(extension, pair.Verified))
+            {
+                DiffRunner.Launch(diffTool, pair.Received, pair.Verified);
+            }
+
+            return Task.CompletedTask;
+        };
     }
 }

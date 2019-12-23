@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-
 static class StreamVerifier
 {
     public static async Task<VerifyResult> VerifyStreams(Stream stream, FilePair file)
@@ -23,25 +22,12 @@ static class StreamVerifier
                 return verifyResult;
             }
 
-            if (!BuildServerDetector.Detected)
-            {
-                if (DiffTools.TryFindForExtension(file.Extension, out var diffTool))
-                {
-                    if (EmptyFiles.TryWriteEmptyFile(file.Extension, file.Verified))
-                    {
-                        DiffRunner.Launch(diffTool, file.Received, file.Verified);
-                    }
-                }
-
-                await ClipboardCapture.AppendMove(file.Received, file.Verified);
-            }
-
             return verifyResult;
         }
         finally
         {
 #if NETSTANDARD2_1
-                await stream.DisposeAsync();
+            await stream.DisposeAsync();
 #else
             stream.Dispose();
 #endif

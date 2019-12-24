@@ -10,14 +10,7 @@ partial class Verifier
     async Task VerifyBinary(Stream input, VerifySettings settings)
     {
         Guard.AgainstNull(input, nameof(input));
-        try
-        {
-            await VerifyBinaryInner(input, settings);
-        }
-        finally
-        {
-            input.Dispose();
-        }
+        await VerifyBinaryInner(input, settings);
     }
 
     async Task VerifyBinaryInner(Stream input, VerifySettings settings)
@@ -53,30 +46,22 @@ partial class Verifier
 
         foreach (var stream in streams)
         {
-            try
+            var suffix = $"{index:D2}";
+            var file = GetFileNames(extension, settings.Namer, suffix);
+            var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
+
+            verifiedFiles.Remove(file.Verified);
+            if (verifyResult == VerifyResult.MissingVerified)
             {
-                stream.MoveToStart();
-                var suffix = $"{index:D2}";
-                var file = GetFileNames(extension, settings.Namer, suffix);
-                var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
-
-                verifiedFiles.Remove(file.Verified);
-                if (verifyResult == VerifyResult.MissingVerified)
-                {
-                    missingVerified.Add(file);
-                }
-
-                if (verifyResult == VerifyResult.NotEqual)
-                {
-                    notEquals.Add(file);
-                }
-
-                index++;
+                missingVerified.Add(file);
             }
-            finally
+
+            if (verifyResult == VerifyResult.NotEqual)
             {
-                stream.Dispose();
+                notEquals.Add(file);
             }
+
+            index++;
         }
 
         if (missingVerified.Count == 0 &&

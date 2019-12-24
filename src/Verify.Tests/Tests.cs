@@ -716,7 +716,7 @@ public class Tests :
     [Fact]
     public async Task VerifyFilePathSplit()
     {
-        SharedVerifySettings.RegisterFileConverter("split","txt",DoSplit);
+        SharedVerifySettings.RegisterFileConverter("split", "txt", DoSplit);
         await VerifyFile("sample.split");
         Assert.False(FileEx.IsFileLocked("sample.split"));
     }

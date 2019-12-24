@@ -5,10 +5,7 @@ static class StreamVerifier
 {
     public static async Task<VerifyResult> VerifyStreams(Stream stream, FilePair file)
     {
-        if (stream.CanSeek)
-        {
-            stream.Position = 0;
-        }
+        stream.MoveToStart();
 
         try
         {

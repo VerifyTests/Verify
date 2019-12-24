@@ -66,6 +66,6 @@ snippet: ExtensionSample.cs
 
 Result in two files:
 
-snippet: ExtensionSample.SharedClassLevelSettings.verified.json
+snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json
 
-snippet: ExtensionSample.AtMethod.verified.xml
+snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml

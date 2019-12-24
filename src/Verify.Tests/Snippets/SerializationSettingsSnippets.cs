@@ -8,28 +8,28 @@ public class SerializationSettingsSnippets :
     void DontIgnoreEmptyCollections()
     {
         #region DontIgnoreEmptyCollections
-        SharedVerifySettings.ModifySerialization(settings => settings.DontIgnoreEmptyCollections());
+        SharedVerifySettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
         #endregion
     }
 
     void DontScrubGuids()
     {
         #region DontScrubGuids
-        SharedVerifySettings.ModifySerialization(settings => settings.DontScrubGuids());
+        SharedVerifySettings.ModifySerialization(_ => _.DontScrubGuids());
         #endregion
     }
 
     void DontScrubDateTimes()
     {
         #region DontScrubDateTimes
-        SharedVerifySettings.ModifySerialization(settings => settings.DontScrubDateTimes());
+        SharedVerifySettings.ModifySerialization(_ => _.DontScrubDateTimes());
         #endregion
     }
 
     void DontIgnoreFalse()
     {
         #region DontIgnoreFalse
-        SharedVerifySettings.ModifySerialization(settings => settings.DontIgnoreFalse());
+        SharedVerifySettings.ModifySerialization(_ => _.DontIgnoreFalse());
         #endregion
     }
 

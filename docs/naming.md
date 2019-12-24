@@ -317,8 +317,8 @@ public class ExtensionSample :
 
 Result in two files:
 
-<!-- snippet: ExtensionSample.SharedClassLevelSettings.verified.json -->
-<a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json'/></a>
+<!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json -->
+<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'/></a>
 ```json
 {
     "fruit": "Apple",
@@ -326,29 +326,11 @@ Result in two files:
     "color": "Red"
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json-1'/></a>
-```json
-{
-    "fruit": "Apple",
-    "size": "Large",
-    "color": "Red"
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json-1' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.SharedClassLevelSettings.verified.json-2'/></a>
-```json
-{
-    "fruit": "Apple",
-    "size": "Large",
-    "color": "Red"
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.SharedClassLevelSettings.verified.json-2' title='Navigate to start of snippet `ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
 <!-- endsnippet -->
 
-<!-- snippet: ExtensionSample.AtMethod.verified.xml -->
-<a id='snippet-ExtensionSample.AtMethod.verified.xml'/></a>
+<!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
+<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'/></a>
 ```xml
 <note>
 <to>Joe</to>
@@ -356,23 +338,5 @@ Result in two files:
 <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.AtMethod.verified.xml-1'/></a>
-```xml
-<note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
-</note>
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml-1' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.AtMethod.verified.xml-2'/></a>
-```xml
-<note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
-</note>
-```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.AtMethod.verified.xml-2' title='Navigate to start of snippet `ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 partial class Verifier
 {
-    static Task<Exception> VerificationException(Func<FilePair, Task> launchDiff, FilePair? missing = null, FilePair? notEqual = null, string? message = null)
+    static Task<Exception> VerificationException(FilePair? missing = null, FilePair? notEqual = null, string? message = null)
     {
         var notEquals = new List<FilePair>();
         if (notEqual != null)
@@ -21,10 +21,10 @@ partial class Verifier
             missings.Add(missing);
         }
 
-        return VerificationException(launchDiff, missings, notEquals, new List<string>(), message);
+        return VerificationException(missings, notEquals, new List<string>(), message);
     }
 
-    static async Task<Exception> VerificationException(Func<FilePair, Task> launchDiff, List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
+    static async Task<Exception> VerificationException(List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
     {
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
@@ -43,46 +43,76 @@ partial class Verifier
             }
         }
 
-        if (missings.Any())
-        {
-            builder.AppendLine("Pending:");
-            foreach (var item in missings)
-            {
-                if (!BuildServerDetector.Detected)
-                {
-                    await ClipboardCapture.AppendMove(item.Received, item.Verified);
+        await ProcessMissing(missings, builder);
 
-                    await launchDiff(item);
-                }
+        await ProcessNotEquals(notEquals, builder);
 
-                builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
-            }
-        }
-
-        if (notEquals.Any())
-        {
-            builder.AppendLine("Differences:");
-            foreach (var item in notEquals)
-            {
-                if (!BuildServerDetector.Detected)
-                {
-                    await ClipboardCapture.AppendMove(item.Received, item.Verified);
-                    await launchDiff(item);
-                }
-
-                builder.AppendLine($"  {Path.GetFileName(item.Received)}");
-            }
-        }
-
-        if (danglingVerified.Any())
-        {
-            builder.AppendLine("Deletions:");
-            foreach (var item in danglingVerified)
-            {
-                builder.AppendLine($"  {Path.GetFileName(item)}");
-            }
-        }
+        ProcessDangling(danglingVerified, builder);
 
         return exceptionBuilder(builder.ToString());
+    }
+
+    static void ProcessDangling(List<string> danglingVerified, StringBuilder builder)
+    {
+        if (!danglingVerified.Any())
+        {
+            return;
+        }
+        builder.AppendLine("Deletions:");
+        foreach (var item in danglingVerified)
+        {
+            builder.AppendLine($"  {Path.GetFileName(item)}");
+        }
+    }
+
+    static async Task ProcessNotEquals(List<FilePair> notEquals, StringBuilder builder)
+    {
+        if (!notEquals.Any())
+        {
+            return;
+        }
+
+        builder.AppendLine("Differences:");
+        foreach (var item in notEquals)
+        {
+            if (!BuildServerDetector.Detected)
+            {
+                await ClipboardCapture.AppendMove(item.Received, item.Verified);
+
+                if (DiffTools.TryFindForExtension(item.Extension, out var diffTool))
+                {
+                    DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                }
+            }
+
+            builder.AppendLine($"  {Path.GetFileName(item.Received)}");
+        }
+    }
+
+    static async Task ProcessMissing(List<FilePair> missings, StringBuilder builder)
+    {
+        if (!missings.Any())
+        {
+            return;
+        }
+
+        builder.AppendLine("Pending:");
+        foreach (var item in missings)
+        {
+            if (!BuildServerDetector.Detected)
+            {
+                await ClipboardCapture.AppendMove(item.Received, item.Verified);
+                
+                if (DiffTools.TryFindForExtension(item.Extension, out var diffTool))
+                {
+                    if (EmptyFiles.TryWriteEmptyFile(item.Extension, item.Verified))
+                    {
+                        DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                    }
+                }
+            }
+
+            builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
+        }
     }
 }

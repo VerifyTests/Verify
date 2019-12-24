@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,8 +13,6 @@ partial class Verifier
         var notEquals = new List<FilePair>();
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
         var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
-
-        var action = GetDiffAction(extension);
 
         var list = streams.ToList();
         for (var index = 0; index < list.Count; index++)
@@ -45,7 +42,7 @@ partial class Verifier
             return;
         }
 
-        throw await VerificationException(action,missingVerified, notEquals, verifiedFiles);
+        throw await VerificationException(missingVerified, notEquals, verifiedFiles);
     }
 
     static string? GetSuffix(List<Stream> list, int index)
@@ -56,23 +53,5 @@ partial class Verifier
         }
 
         return null;
-    }
-
-    static Func<FilePair, Task> GetDiffAction(string extension)
-    {
-        if (!DiffTools.TryFindForExtension(extension, out var diffTool))
-        {
-            return pair => Task.CompletedTask;
-        }
-
-        return pair =>
-        {
-            if (EmptyFiles.TryWriteEmptyFile(extension, pair.Verified))
-            {
-                DiffRunner.Launch(diffTool, pair.Received, pair.Verified);
-            }
-
-            return Task.CompletedTask;
-        };
     }
 }

@@ -12,29 +12,19 @@ partial class Verifier
 
         var extension = settings.ExtensionOrTxt();
 
-        async Task LaunchDiff(FilePair pair)
-        {
-            await FileHelpers.WriteText(pair.Received, input);
-            if (DiffTools.TryGetTextDiff(extension, out var diffTool))
-            {
-                FileHelpers.WriteEmptyText(pair.Verified);
-                DiffRunner.Launch(diffTool, pair.Received, pair.Verified);
-            }
-        }
-
         var file = GetFileNames(extension, settings.Namer);
 
         var scrubbedInput = ScrubInput(input, settings);
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (File.Exists(file.Verified))
         {
-            return VerifyExisting(scrubbedInput, file, LaunchDiff);
+            return VerifyExisting(scrubbedInput, file);
         }
 
-        return VerifyFirstTime(file, LaunchDiff);
+        return VerifyFirstTime(file);
     }
 
-    static async Task VerifyExisting(string input, FilePair file, Func<FilePair, Task> launchDiff)
+    static async Task VerifyExisting(string input, FilePair file)
     {
         var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = verifiedText.Replace("\r\n", "\n");
@@ -45,13 +35,13 @@ partial class Verifier
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
-            throw await VerificationException(launchDiff, notEqual: file, message: exception.Message);
+            throw await VerificationException(notEqual: file, message: exception.Message);
         }
     }
 
-    static async Task VerifyFirstTime(FilePair file, Func<FilePair, Task> launchDiff)
+    static async Task VerifyFirstTime(FilePair file)
     {
-        throw await VerificationException(launchDiff, file);
+        throw await VerificationException(file);
     }
 
     static string ScrubInput(string input, VerifySettings settings)
@@ -59,5 +49,4 @@ partial class Verifier
         return ApplyScrubbers.Apply(input, settings.instanceScrubbers)
             .Replace("\r\n", "\n");
     }
-
 }

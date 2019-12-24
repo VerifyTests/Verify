@@ -7,6 +7,7 @@ partial class Verifier
 {
     public Task Verify(string input, VerifySettings? settings = null)
     {
+        Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
@@ -23,16 +24,20 @@ partial class Verifier
 
         var file = GetFileNames(extension, settings.Namer);
 
-        Guard.AgainstNull(input, nameof(input));
-        input = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
-        input = input.Replace("\r\n", "\n");
+        var scrubbedInput = ScrubInput(input, settings);
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (File.Exists(file.Verified))
         {
-            return VerifyExisting(input, file, Diff);
+            return VerifyExisting(scrubbedInput, file, Diff);
         }
 
         return VerifyFirstTime(file, Diff);
+    }
+
+    static string ScrubInput(string input, VerifySettings settings)
+    {
+        return ApplyScrubbers.Apply(input, settings.instanceScrubbers)
+            .Replace("\r\n", "\n");
     }
 
     static async Task VerifyExisting(string input, FilePair file, Func<FilePair, Task> diff)

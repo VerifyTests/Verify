@@ -1,31 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-partial class Verifier
+class InnerVerifier
 {
-    static Task<Exception> VerificationException(FilePair? missing = null, FilePair? notEqual = null, string? message = null)
+    ResolvedDiffTool? diffTool;
+    List<FilePair> missings = new List<FilePair>();
+    List<FilePair> notEquals = new List<FilePair>();
+    List<string> danglingVerified;
+
+    public InnerVerifier(string extension, IEnumerable<string> existingVerified)
     {
-        var notEquals = new List<FilePair>();
-        if (notEqual != null)
-        {
-            notEquals.Add(notEqual);
-        }
-
-        var missings = new List<FilePair>();
-        if (missing != null)
-        {
-            missings.Add(missing);
-        }
-
-        return VerificationException(missings, notEquals, new List<string>(), message);
+        danglingVerified = existingVerified.ToList();
+        DiffTools.TryFindForExtension(extension, out diffTool);
     }
 
-    static async Task<Exception> VerificationException(List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
+    public InnerVerifier(string extension)
     {
+        danglingVerified = new List<string>();
+        DiffTools.TryFindForExtension(extension, out diffTool);
+    }
+
+    public void AddMissing(FilePair item)
+    {
+        missings.Add(item);
+        danglingVerified.Remove(item.Verified);
+    }
+
+    public void AddNotEquals(FilePair item)
+    {
+        notEquals.Add(item);
+        danglingVerified.Remove(item.Verified);
+    }
+
+    public void AddEquals(FilePair item)
+    {
+        danglingVerified.Remove(item.Verified);
+    }
+
+    public async Task ThrowIfRequired(string? message = null)
+    {
+        if (missings.Count == 0 &&
+            notEquals.Count == 0 &&
+            danglingVerified.Count == 0)
+        {
+            return;
+        }
+
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
         if (message != null)
@@ -36,36 +59,33 @@ partial class Verifier
         if (!BuildServerDetector.Detected)
         {
             builder.AppendLine("Verify command placed in clipboard.");
-
-            foreach (var item in danglingVerified)
-            {
-                await ClipboardCapture.AppendDelete(item);
-            }
         }
 
-        await ProcessMissing(missings, builder);
+        await ProcessDangling(builder);
 
-        await ProcessNotEquals(notEquals, builder);
+        await ProcessMissing(builder);
 
-        ProcessDangling(danglingVerified, builder);
+        await ProcessNotEquals(builder);
 
-        return exceptionBuilder(builder.ToString());
+        throw Verifier.exceptionBuilder(builder.ToString());
     }
 
-    static void ProcessDangling(List<string> danglingVerified, StringBuilder builder)
+    async Task ProcessDangling(StringBuilder builder)
     {
         if (!danglingVerified.Any())
         {
             return;
         }
+
         builder.AppendLine("Deletions:");
         foreach (var item in danglingVerified)
         {
+            await ClipboardCapture.AppendDelete(item);
             builder.AppendLine($"  {Path.GetFileName(item)}");
         }
     }
 
-    static async Task ProcessNotEquals(List<FilePair> notEquals, StringBuilder builder)
+    async Task ProcessNotEquals(StringBuilder builder)
     {
         if (!notEquals.Any())
         {
@@ -79,7 +99,7 @@ partial class Verifier
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
 
-                if (DiffTools.TryFindForExtension(item.Extension, out var diffTool))
+                if (diffTool != null)
                 {
                     DiffRunner.Launch(diffTool, item.Received, item.Verified);
                 }
@@ -89,7 +109,7 @@ partial class Verifier
         }
     }
 
-    static async Task ProcessMissing(List<FilePair> missings, StringBuilder builder)
+    async Task ProcessMissing(StringBuilder builder)
     {
         if (!missings.Any())
         {
@@ -102,8 +122,8 @@ partial class Verifier
             if (!BuildServerDetector.Detected)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
-                
-                if (DiffTools.TryFindForExtension(item.Extension, out var diffTool))
+
+                if (diffTool != null)
                 {
                     if (EmptyFiles.TryWriteEmptyFile(item.Extension, item.Verified))
                     {

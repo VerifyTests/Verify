@@ -12,8 +12,7 @@ partial class Verifier
         var missingVerified = new List<FilePair>();
         var notEquals = new List<FilePair>();
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
-        var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
-
+        var innerVerifier = new InnerVerifier(extension,Directory.EnumerateFiles(directory, verifiedPattern));
         var list = streams.ToList();
         for (var index = 0; index < list.Count; index++)
         {
@@ -23,10 +22,9 @@ partial class Verifier
             var file = GetFileNames(extension, settings.Namer, suffix);
             var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
 
-            verifiedFiles.Remove(file.Verified);
             if (verifyResult == VerifyResult.MissingVerified)
             {
-                missingVerified.Add(file);
+                innerVerifier.AddMissing(file);
             }
 
             if (verifyResult == VerifyResult.NotEqual)
@@ -35,14 +33,7 @@ partial class Verifier
             }
         }
 
-        if (missingVerified.Count == 0 &&
-            notEquals.Count == 0 &&
-            verifiedFiles.Count == 0)
-        {
-            return;
-        }
-
-        throw await VerificationException(missingVerified, notEquals, verifiedFiles);
+        await innerVerifier.ThrowIfRequired();
     }
 
     static string? GetSuffix(List<Stream> list, int index)

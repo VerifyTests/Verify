@@ -51,6 +51,7 @@ partial class Verifier
                 if (!BuildServerDetector.Detected)
                 {
                     await ClipboardCapture.AppendMove(item.Received, item.Verified);
+
                     await launchDiff(item);
                 }
 

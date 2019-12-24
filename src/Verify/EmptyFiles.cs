@@ -17,6 +17,11 @@ static class EmptyFiles
 
     public static bool IsEmptyFile(string extension, string path)
     {
+        if (Extensions.IsText(extension))
+        {
+            return new FileInfo(path).Length == 0;
+        }
+
         if (!dictionary.TryGetValue(extension, out var emptyFile))
         {
             return false;
@@ -25,14 +30,20 @@ static class EmptyFiles
         return File.GetLastWriteTime(path) == emptyFile.LastWriteTime;
     }
 
-    public static bool TryWriteEmptyFile(string extension, string verifiedPath)
+    public static bool TryWriteEmptyFile(string extension, string path)
     {
+        if (Extensions.IsText(extension))
+        {
+            File.CreateText(path).Dispose();
+            return true;
+        }
+
         if (!dictionary.TryGetValue(extension, out var emptyFile))
         {
             return false;
         }
 
-        File.Copy(emptyFile.Path, verifiedPath, true);
+        File.Copy(emptyFile.Path, path, true);
         return true;
     }
 }

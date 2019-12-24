@@ -34,12 +34,6 @@ partial class Verifier
         return VerifyFirstTime(file, LaunchDiff);
     }
 
-    static string ScrubInput(string input, VerifySettings settings)
-    {
-        return ApplyScrubbers.Apply(input, settings.instanceScrubbers)
-            .Replace("\r\n", "\n");
-    }
-
     static async Task VerifyExisting(string input, FilePair file, Func<FilePair, Task> launchDiff)
     {
         var verifiedText = await FileHelpers.ReadText(file.Verified);
@@ -59,4 +53,11 @@ partial class Verifier
     {
         throw await VerificationException(launchDiff, file);
     }
+
+    static string ScrubInput(string input, VerifySettings settings)
+    {
+        return ApplyScrubbers.Apply(input, settings.instanceScrubbers)
+            .Replace("\r\n", "\n");
+    }
+
 }

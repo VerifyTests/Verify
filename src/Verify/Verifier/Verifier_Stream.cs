@@ -9,8 +9,6 @@ partial class Verifier
     async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
-        var missingVerified = new List<FilePair>();
-        var notEquals = new List<FilePair>();
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
         var innerVerifier = new InnerVerifier(extension,Directory.EnumerateFiles(directory, verifiedPattern));
         var list = streams.ToList();
@@ -22,14 +20,17 @@ partial class Verifier
             var file = GetFileNames(extension, settings.Namer, suffix);
             var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
 
-            if (verifyResult == VerifyResult.MissingVerified)
+            switch (verifyResult)
             {
-                innerVerifier.AddMissing(file);
-            }
-
-            if (verifyResult == VerifyResult.NotEqual)
-            {
-                notEquals.Add(file);
+                case VerifyResult.MissingVerified:
+                    innerVerifier.AddMissing(file);
+                    break;
+                case VerifyResult.NotEqual:
+                    innerVerifier.AddNotEquals(file);
+                    break;
+                case VerifyResult.Equal:
+                    innerVerifier.AddEquals(file);
+                    break;
             }
         }
 

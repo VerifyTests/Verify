@@ -28,27 +28,15 @@ partial class Verifier
         var file = GetFileNames(extension, settings.Namer);
         var verifyResult = await StreamVerifier.VerifyStreams(input, file);
 
-        Func<FilePair, Task> diff = pair =>
-        {
-            if (DiffTools.TryFindForExtension(file.Extension, out var diffTool))
-            {
-                if (EmptyFiles.TryWriteEmptyFile(file.Extension, file.Verified))
-                {
-                    DiffRunner.Launch(diffTool, file.Received, file.Verified);
-                }
-            }
-
-            return Task.CompletedTask;
-        };
-
+        var action = GetDiffAction(extension);
         if (verifyResult == VerifyResult.MissingVerified)
         {
-            throw await VerificationException(diff,file);
+            throw await VerificationException(action, file);
         }
 
         if (verifyResult == VerifyResult.NotEqual)
         {
-            throw await VerificationException(diff, notEqual: file);
+            throw await VerificationException(action, notEqual: file);
         }
     }
 

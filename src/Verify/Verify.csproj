@@ -11,7 +11,7 @@
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
     <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
-    <None Include="EmptyFiles\empty.*">
+    <None Include="EmptyFiles\empty.*" Exclude="*.cs">
       <Pack>true</Pack>
       <PackagePath>EmptyFiles</PackagePath>
     </None>

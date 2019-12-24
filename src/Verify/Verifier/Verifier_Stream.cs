@@ -38,15 +38,17 @@ partial class Verifier
         var extension = settings.ExtensionOrBin();
         var missingVerified = new List<FilePair>();
         var notEquals = new List<FilePair>();
-        var index = 0;
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
         var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
 
         var action = GetDiffAction(extension);
 
-        foreach (var stream in streams)
+        var list = streams.ToList();
+        for (var index = 0; index < list.Count; index++)
         {
-            var suffix = $"{index:D2}";
+            var suffix = GetSuffix(list, index);
+
+            var stream = list[index];
             var file = GetFileNames(extension, settings.Namer, suffix);
             var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
 
@@ -60,8 +62,6 @@ partial class Verifier
             {
                 notEquals.Add(file);
             }
-
-            index++;
         }
 
         if (missingVerified.Count == 0 &&
@@ -72,6 +72,16 @@ partial class Verifier
         }
 
         throw await VerificationException(action,missingVerified, notEquals, verifiedFiles);
+    }
+
+    static string? GetSuffix(List<Stream> list, int index)
+    {
+        if (list.Count > 1)
+        {
+            return $"{index:D2}";
+        }
+
+        return null;
     }
 
     static Func<FilePair, Task> GetDiffAction(string extension)

@@ -1,3 +1,0 @@
-Results do not match.
-Deletions:
-  Tests.StreamMultipleDangling.01.verified.bin

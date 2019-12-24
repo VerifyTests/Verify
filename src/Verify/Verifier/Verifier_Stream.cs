@@ -6,86 +6,44 @@ using Verify;
 
 partial class Verifier
 {
-    async Task VerifyBinary(Stream input, VerifySettings settings)
-    {
-        Guard.AgainstNull(input, nameof(input));
-        try
-        {
-            await VerifyBinaryInner(input, settings);
-        }
-        finally
-        {
-            input.Dispose();
-        }
-    }
-
-    async Task VerifyBinaryInner(Stream input, VerifySettings settings)
-    {
-        input.MoveToStart();
-
-        var extension = settings.ExtensionOrBin();
-        var file = GetFileNames(extension, settings.Namer);
-        var verifyResult = await StreamVerifier.VerifyStreams(input, file);
-
-        if (verifyResult == VerifyResult.MissingVerified)
-        {
-            throw VerificationException(file);
-        }
-
-        if (verifyResult == VerifyResult.NotEqual)
-        {
-            throw VerificationException(notEqual: file);
-        }
-    }
-
-    async Task VerifyMultipleBinary(IEnumerable<Stream> streams, VerifySettings settings)
+    async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
-        var missingVerified = new List<FilePair>();
-        var notEquals = new List<FilePair>();
-        var index = 0;
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
-        var verifiedFiles = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
-        foreach (var stream in streams)
+        var innerVerifier = new InnerVerifier(extension,Directory.EnumerateFiles(directory, verifiedPattern));
+        var list = streams.ToList();
+        for (var index = 0; index < list.Count; index++)
         {
-            try
+            var suffix = GetSuffix(list, index);
+
+            var stream = list[index];
+            var file = GetFileNames(extension, settings.Namer, suffix);
+            var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
+
+            switch (verifyResult)
             {
-                stream.MoveToStart();
-                var suffix = $"{index:D2}";
-                var file = GetFileNames(extension, settings.Namer, suffix);
-                var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
-
-                verifiedFiles.Remove(file.Verified);
-                if (verifyResult == VerifyResult.MissingVerified)
-                {
-                    missingVerified.Add(file);
-                }
-
-                if (verifyResult == VerifyResult.NotEqual)
-                {
-                    notEquals.Add(file);
-                }
-
-                index++;
-            }
-            finally
-            {
-                stream.Dispose();
+                case VerifyResult.MissingVerified:
+                    innerVerifier.AddMissing(file);
+                    break;
+                case VerifyResult.NotEqual:
+                    innerVerifier.AddNotEquals(file);
+                    break;
+                case VerifyResult.Equal:
+                    innerVerifier.AddEquals(file);
+                    break;
             }
         }
 
-        foreach (var verifiedFile in verifiedFiles)
+        await innerVerifier.ThrowIfRequired();
+    }
+
+    static string? GetSuffix(List<Stream> list, int index)
+    {
+        if (list.Count > 1)
         {
-            await ClipboardCapture.AppendDelete(verifiedFile);
+            return $"{index:D2}";
         }
 
-        if (missingVerified.Count == 0 &&
-            notEquals.Count == 0 &&
-            verifiedFiles.Count == 0)
-        {
-            return;
-        }
-
-        throw VerificationException(missingVerified, notEquals, verifiedFiles);
+        return null;
     }
 }

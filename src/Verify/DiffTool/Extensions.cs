@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
 
-static partial class DiffTools
+static class Extensions
 {
+    public static bool IsText(string extension)
+    {
+        return TextExtensions.Contains(extension);
+    }
+
     //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-    static HashSet<string> TextFileExtensions { get; set; } = new HashSet<string>
+    static HashSet<string> TextExtensions { get; set; } = new HashSet<string>
     {
         "ada",
         "adb",

@@ -5,59 +5,41 @@ using Verify;
 
 partial class Verifier
 {
-    public Task Verify(string input, VerifySettings? settings = null)
+    public async Task Verify(string input, VerifySettings? settings = null)
     {
+        Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
+        var innerVerifier = new InnerVerifier(extension);
+
         var file = GetFileNames(extension, settings.Namer);
 
-        Guard.AgainstNull(input, nameof(input));
-        input = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
-        input = input.Replace("\r\n", "\n");
+        var scrubbedInput = ScrubInput(input, settings);
         FileHelpers.DeleteIfEmpty(file.Verified);
-        if (File.Exists(file.Verified))
+        if (!File.Exists(file.Verified))
         {
-            return VerifyExisting(input, file);
+            await innerVerifier.ThrowIfRequired();
+            return;
         }
-        return VerifyFirstTime(input, file);
-    }
 
-    static async Task VerifyExisting(string input, FilePair file)
-    {
         var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = verifiedText.Replace("\r\n", "\n");
         try
         {
-            assert(verifiedText, input);
+            assert(verifiedText, scrubbedInput);
         }
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
-            await FileHelpers.WriteText(file.Received, input);
-            await ClipboardCapture.AppendMove(file.Received, file.Verified);
-            if (DiffTools.TryGetTextDiff(file.Extension, out var diffTool))
-            {
-                DiffRunner.Launch(diffTool, file.Received, file.Verified);
-            }
-
-            throw VerificationException(notEqual: file, message: exception.Message);
+            innerVerifier.AddNotEquals(file);
+            await innerVerifier.ThrowIfRequired(exception.Message);
         }
     }
 
-    static async Task VerifyFirstTime(string input, FilePair file)
+    static string ScrubInput(string input, VerifySettings settings)
     {
-        if (!BuildServerDetector.Detected)
-        {
-            await FileHelpers.WriteText(file.Received, input);
-            await ClipboardCapture.AppendMove(file.Received, file.Verified);
-            if (DiffTools.TryGetTextDiff(file.Extension, out var diffTool))
-            {
-                FileHelpers.WriteEmptyText(file.Verified);
-                DiffRunner.Launch(diffTool, file.Received, file.Verified);
-            }
-        }
-
-        throw VerificationException(file);
+        return ApplyScrubbers.Apply(input, settings.instanceScrubbers)
+            .Replace("\r\n", "\n");
     }
 }

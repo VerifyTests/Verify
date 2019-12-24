@@ -5,7 +5,7 @@ partial class Verifier
     Type testType;
     string directory;
     string testName;
-    static Func<string, Exception> exceptionBuilder = null!;
+    internal static Func<string, Exception> exceptionBuilder = null!;
     static Action<string, string> assert = null!;
 
     public static void Init(

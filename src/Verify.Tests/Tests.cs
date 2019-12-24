@@ -75,24 +75,62 @@ public class Tests :
     }
 
     [Fact]
-    public async Task StreamMultipleDangling()
+    public async Task StreamDanglingMultipleToSingle()
     {
-        var stream1 = new MemoryStream(new byte[] {1});
+        var path0 = Path.Combine(SourceDirectory, "Tests.StreamDanglingMultipleToSingle.00.verified.bin");
+        var path1 = Path.Combine(SourceDirectory, "Tests.StreamDanglingMultipleToSingle.01.verified.bin");
+        try
+        {
+            var stream1 = new MemoryStream(new byte[] {1});
 
-        var path0 = Path.Combine(SourceDirectory, "Tests.StreamMultipleDangling.00.verified.bin");
-        File.WriteAllBytes(path0, new byte[] {1});
+            File.WriteAllBytes(path0, new byte[] {1});
 
-        var path1 = Path.Combine(SourceDirectory, "Tests.StreamMultipleDangling.01.verified.bin");
-        File.WriteAllBytes(path1, new byte[] {1});
+            File.WriteAllBytes(path1, new byte[] {1});
 
-        var exception = await Assert.ThrowsAsync<XunitException>(
-            () => { return Verify(new Stream[] {stream1}); });
+            var exception = await Assert.ThrowsAsync<XunitException>(
+                () => { return Verify(new Stream[] {stream1}); });
 
-        var settings = new VerifySettings();
-        settings.ScrubLinesContaining("clipboard");
-        await Verify(exception.Message, settings);
-        File.Delete(path0);
-        File.Delete(path1);
+            var settings = new VerifySettings();
+            settings.ScrubLinesContaining("clipboard");
+            await Verify(exception.Message, settings);
+        }
+        finally
+        {
+            File.Delete(path0);
+            File.Delete(path1);
+        }
+    }
+
+    [Fact]
+    public async Task StreamDanglingMultipleToMultiple()
+    {
+        var path0 = Path.Combine(SourceDirectory, "Tests.StreamDanglingMultipleToMultiple.00.verified.bin");
+        var path1 = Path.Combine(SourceDirectory, "Tests.StreamDanglingMultipleToMultiple.01.verified.bin");
+        var path2 = Path.Combine(SourceDirectory, "Tests.StreamDanglingMultipleToMultiple.02.verified.bin");
+        try
+        {
+            var stream1 = new MemoryStream(new byte[] {1});
+            var stream2 = new MemoryStream(new byte[] {1});
+
+            File.WriteAllBytes(path0, new byte[] {1});
+
+            File.WriteAllBytes(path1, new byte[] {1});
+
+            File.WriteAllBytes(path2, new byte[] {1});
+
+            var exception = await Assert.ThrowsAsync<XunitException>(
+                () => { return Verify(new Stream[] {stream1, stream2}); });
+
+            var settings = new VerifySettings();
+            settings.ScrubLinesContaining("clipboard");
+            await Verify(exception.Message, settings);
+        }
+        finally
+        {
+            File.Delete(path0);
+            File.Delete(path1);
+            File.Delete(path2);
+        }
     }
 
     [Fact]
@@ -716,7 +754,7 @@ public class Tests :
     [Fact]
     public async Task VerifyFilePathSplit()
     {
-        SharedVerifySettings.RegisterFileConverter("split","txt",DoSplit);
+        SharedVerifySettings.RegisterFileConverter("split", "txt", DoSplit);
         await VerifyFile("sample.split");
         Assert.False(FileEx.IsFileLocked("sample.split"));
     }

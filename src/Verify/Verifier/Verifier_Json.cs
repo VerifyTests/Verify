@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ partial class Verifier
             var converterSettings = new VerifySettings(settings);
             converterSettings.UseExtension(typeConverter.ToExtension);
             var converterFunc = typeConverter.Func(input!);
-            await VerifyMultipleBinary(converterFunc, converterSettings);
+            await VerifyBinary(converterFunc, converterSettings);
             return;
         }
 
@@ -31,12 +32,12 @@ partial class Verifier
                         var converterSettings = new VerifySettings(settings);
                         converterSettings.UseExtension(converter.ToExtension);
                         var streams = converter.Func(stream);
-                        await VerifyMultipleBinary(streams, converterSettings);
+                        await VerifyBinary(streams, converterSettings);
                         return;
                     }
                 }
 
-                await VerifyBinary(stream, settings);
+                await VerifyBinary(new List<Stream>{stream}, settings);
                 return;
             }
         }
@@ -44,7 +45,7 @@ partial class Verifier
         if (typeof(T).IsStreamEnumerable())
         {
             var enumerable = (IEnumerable) input!;
-            await VerifyMultipleBinary(enumerable.Cast<Stream>(), settings);
+            await VerifyBinary(enumerable.Cast<Stream>(), settings);
             return;
         }
 

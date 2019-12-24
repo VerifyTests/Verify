@@ -7,33 +7,7 @@ using Verify;
 
 partial class Verifier
 {
-    async Task VerifyBinary(Stream input, VerifySettings settings)
-    {
-        Guard.AgainstNull(input, nameof(input));
-        await VerifyBinaryInner(input, settings);
-    }
-
-    async Task VerifyBinaryInner(Stream input, VerifySettings settings)
-    {
-        input.MoveToStart();
-
-        var extension = settings.ExtensionOrBin();
-        var file = GetFileNames(extension, settings.Namer);
-        var verifyResult = await StreamVerifier.VerifyStreams(input, file);
-
-        var action = GetDiffAction(extension);
-        if (verifyResult == VerifyResult.MissingVerified)
-        {
-            throw await VerificationException(action, file);
-        }
-
-        if (verifyResult == VerifyResult.NotEqual)
-        {
-            throw await VerificationException(action, notEqual: file);
-        }
-    }
-
-    async Task VerifyMultipleBinary(IEnumerable<Stream> streams, VerifySettings settings)
+    async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
         var missingVerified = new List<FilePair>();

@@ -12,7 +12,7 @@ partial class Verifier
 
         var extension = settings.ExtensionOrTxt();
 
-        async Task Diff(FilePair pair)
+        async Task LaunchDiff(FilePair pair)
         {
             await FileHelpers.WriteText(pair.Received, input);
             if (DiffTools.TryGetTextDiff(extension, out var diffTool))
@@ -28,10 +28,10 @@ partial class Verifier
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (File.Exists(file.Verified))
         {
-            return VerifyExisting(scrubbedInput, file, Diff);
+            return VerifyExisting(scrubbedInput, file, LaunchDiff);
         }
 
-        return VerifyFirstTime(file, Diff);
+        return VerifyFirstTime(file, LaunchDiff);
     }
 
     static string ScrubInput(string input, VerifySettings settings)
@@ -55,8 +55,8 @@ partial class Verifier
         }
     }
 
-    static async Task VerifyFirstTime(FilePair file, Func<FilePair, Task> diff)
+    static async Task VerifyFirstTime(FilePair file, Func<FilePair, Task> launchDiff)
     {
-        throw await VerificationException(diff, file);
+        throw await VerificationException(launchDiff, file);
     }
 }

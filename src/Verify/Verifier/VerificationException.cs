@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 partial class Verifier
 {
-    static Task<Exception> VerificationException(Func<FilePair, Task> diff, FilePair? missing = null, FilePair? notEqual = null, string? message = null)
+    static Task<Exception> VerificationException(Func<FilePair, Task> launchDiff, FilePair? missing = null, FilePair? notEqual = null, string? message = null)
     {
         var notEquals = new List<FilePair>();
         if (notEqual != null)
@@ -21,10 +21,10 @@ partial class Verifier
             missings.Add(missing);
         }
 
-        return VerificationException(diff, missings, notEquals, new List<string>(), message);
+        return VerificationException(launchDiff, missings, notEquals, new List<string>(), message);
     }
 
-    static async Task<Exception> VerificationException(Func<FilePair, Task> diff, List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
+    static async Task<Exception> VerificationException(Func<FilePair, Task> launchDiff, List<FilePair> missings, List<FilePair> notEquals, List<string> danglingVerified, string? message = null)
     {
         var builder = new StringBuilder("Results do not match.");
         builder.AppendLine();
@@ -51,7 +51,7 @@ partial class Verifier
                 if (!BuildServerDetector.Detected)
                 {
                     await ClipboardCapture.AppendMove(item.Received, item.Verified);
-                    await diff(item);
+                    await launchDiff(item);
                 }
 
                 builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
@@ -66,7 +66,7 @@ partial class Verifier
                 if (!BuildServerDetector.Detected)
                 {
                     await ClipboardCapture.AppendMove(item.Received, item.Verified);
-                    await diff(item);
+                    await launchDiff(item);
                 }
 
                 builder.AppendLine($"  {Path.GetFileName(item.Received)}");

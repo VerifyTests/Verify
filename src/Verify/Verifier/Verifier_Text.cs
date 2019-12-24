@@ -40,7 +40,7 @@ partial class Verifier
             .Replace("\r\n", "\n");
     }
 
-    static async Task VerifyExisting(string input, FilePair file, Func<FilePair, Task> diff)
+    static async Task VerifyExisting(string input, FilePair file, Func<FilePair, Task> launchDiff)
     {
         var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = verifiedText.Replace("\r\n", "\n");
@@ -51,7 +51,7 @@ partial class Verifier
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
-            throw await VerificationException(diff, notEqual: file, message: exception.Message);
+            throw await VerificationException(launchDiff, notEqual: file, message: exception.Message);
         }
     }
 

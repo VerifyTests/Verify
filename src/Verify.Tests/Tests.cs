@@ -456,7 +456,7 @@ public class Tests :
 
         var target = new WithException();
 
-        Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target, settings));
+        Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
     }
 
     class WithException
@@ -494,7 +494,7 @@ public class Tests :
         settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         var target = new WithExceptionNotIgnoreMessage();
 
-        Assert.ThrowsAsync<JsonSerializationException>(async () => await Verify(target, settings));
+        Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
     }
 
     class WithExceptionNotIgnoreMessage

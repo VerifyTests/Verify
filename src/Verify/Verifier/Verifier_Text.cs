@@ -11,7 +11,7 @@ partial class Verifier
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
-        var innerVerifier = new InnerVerifier(extension);
+        var innerVerifier = new InnerVerifier(extension, settings.clipboardEnabled);
 
         var file = GetFileNames(extension, settings.Namer);
 
@@ -19,6 +19,7 @@ partial class Verifier
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
+            innerVerifier.AddMissing(file);
             await innerVerifier.ThrowIfRequired();
             return;
         }
@@ -32,6 +33,7 @@ partial class Verifier
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
+            await FileHelpers.WriteText(file.Received, input);
             innerVerifier.AddNotEquals(file);
             await innerVerifier.ThrowIfRequired(exception.Message);
         }

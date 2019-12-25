@@ -185,6 +185,7 @@ public class Tests :
         var exception = await Assert.ThrowsAsync<XunitException>(() =>
         {
             var settings = new VerifySettings();
+            settings.DisableClipboard();
             settings.UseExtension("tmp");
             return Verify("someText", settings);
         });

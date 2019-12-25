@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 
 class InnerVerifier
 {
+    bool clipboardEnabled;
     ResolvedDiffTool? diffTool;
     List<FilePair> missings = new List<FilePair>();
     List<FilePair> notEquals = new List<FilePair>();
     List<string> danglingVerified;
 
-    public InnerVerifier(string extension, IEnumerable<string> existingVerified)
+    public InnerVerifier(
+        string extension,
+        bool clipboardEnabled,
+        IEnumerable<string> existingVerified)
     {
+        this.clipboardEnabled = clipboardEnabled;
         danglingVerified = existingVerified.ToList();
         DiffTools.TryFindForExtension(extension, out diffTool);
     }
 
-    public InnerVerifier(string extension)
+    public InnerVerifier(string extension, bool clipboardEnabled)
     {
+        this.clipboardEnabled = clipboardEnabled;
         danglingVerified = new List<string>();
         DiffTools.TryFindForExtension(extension, out diffTool);
     }
@@ -56,7 +62,7 @@ class InnerVerifier
             builder.AppendLine(message);
         }
 
-        if (!BuildServerDetector.Detected)
+        if (!BuildServerDetector.Detected && clipboardEnabled)
         {
             builder.AppendLine("Verify command placed in clipboard.");
         }
@@ -80,8 +86,12 @@ class InnerVerifier
         builder.AppendLine("Deletions:");
         foreach (var item in danglingVerified)
         {
-            await ClipboardCapture.AppendDelete(item);
             builder.AppendLine($"  {Path.GetFileName(item)}");
+            if (!clipboardEnabled)
+            {
+                continue;
+            }
+            await ClipboardCapture.AppendDelete(item);
         }
     }
 
@@ -95,17 +105,20 @@ class InnerVerifier
         builder.AppendLine("Differences:");
         foreach (var item in notEquals)
         {
-            if (!BuildServerDetector.Detected)
+            builder.AppendLine($"  {Path.GetFileName(item.Received)}");
+            if (BuildServerDetector.Detected)
+            {
+                continue;
+            }
+            if (clipboardEnabled)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
-
-                if (diffTool != null)
-                {
-                    DiffRunner.Launch(diffTool, item.Received, item.Verified);
-                }
             }
 
-            builder.AppendLine($"  {Path.GetFileName(item.Received)}");
+            if (diffTool != null)
+            {
+                DiffRunner.Launch(diffTool, item.Received, item.Verified);
+            }
         }
     }
 
@@ -119,20 +132,23 @@ class InnerVerifier
         builder.AppendLine("Pending:");
         foreach (var item in missings)
         {
-            if (!BuildServerDetector.Detected)
+            builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
+            if (BuildServerDetector.Detected)
+            {
+                continue;
+            }
+            if (clipboardEnabled)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
-
-                if (diffTool != null)
-                {
-                    if (EmptyFiles.TryWriteEmptyFile(item.Extension, item.Verified))
-                    {
-                        DiffRunner.Launch(diffTool, item.Received, item.Verified);
-                    }
-                }
             }
 
-            builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
+            if (diffTool != null)
+            {
+                if (EmptyFiles.TryWriteEmptyFile(item.Extension, item.Verified))
+                {
+                    DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                }
+            }
         }
     }
 }

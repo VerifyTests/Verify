@@ -10,7 +10,10 @@ partial class Verifier
     {
         var extension = settings.ExtensionOrBin();
         var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
-        var innerVerifier = new InnerVerifier(extension,Directory.EnumerateFiles(directory, verifiedPattern));
+        var innerVerifier = new InnerVerifier(
+            extension,
+            settings.clipboardEnabled,
+            Directory.EnumerateFiles(directory, verifiedPattern));
         var list = streams.ToList();
         for (var index = 0; index < list.Count; index++)
         {

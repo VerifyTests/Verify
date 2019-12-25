@@ -252,7 +252,7 @@ public class Tests :
     [Fact]
     public async Task Tuple()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify(() => MethodWithTuple()));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(() => MethodWithTuple()));
         await Verify(exception.Message);
     }
 

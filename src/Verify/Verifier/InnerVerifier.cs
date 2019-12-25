@@ -19,14 +19,14 @@ class InnerVerifier
     {
         this.clipboardEnabled = clipboardEnabled;
         danglingVerified = existingVerified.ToList();
-        DiffTools.TryFindForExtension(extension, out diffTool);
+        diffTool = DiffTools.Find(extension);
     }
 
     public InnerVerifier(string extension, bool clipboardEnabled)
     {
         this.clipboardEnabled = clipboardEnabled;
         danglingVerified = new List<string>();
-        DiffTools.TryFindForExtension(extension, out diffTool);
+        diffTool = DiffTools.Find(extension);
     }
 
     public void AddMissing(FilePair item)

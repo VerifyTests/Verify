@@ -46,13 +46,18 @@ static partial class DiffTools
         }
     }
 
-    public static bool TryFindForExtension(string extension, out ResolvedDiffTool diffTool)
+    public static ResolvedDiffTool? Find(string extension)
     {
         if (Extensions.IsText(extension))
         {
-            diffTool = ResolvedDiffTools.LastOrDefault();
-            return true;
+            return ResolvedDiffTools.LastOrDefault();
         }
-        return ExtensionLookup.TryGetValue(extension, out diffTool);
+
+        if (ExtensionLookup.TryGetValue(extension, out var diffTool))
+        {
+            return diffTool;
+        }
+
+        return null;
     }
 }

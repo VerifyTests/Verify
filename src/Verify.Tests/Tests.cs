@@ -464,7 +464,8 @@ public class Tests :
         public Guid ExceptionProperty => throw new Exception();
     }
 
-    internal class CustomException : Exception
+    class CustomException :
+        Exception
     {
     }
 

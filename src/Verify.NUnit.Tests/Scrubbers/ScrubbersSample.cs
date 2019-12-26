@@ -19,6 +19,7 @@ public class ScrubbersSample
                 {
                     return "NoMoreLineE";
                 }
+
                 return line;
             });
         settings.ScrubLines(removeLine: line => line.Contains("J"));
@@ -47,7 +48,8 @@ LineJ
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        settings.AddScrubber(
+            s => s.Replace("0x00000000000007D3", "TheRowVersion"));
         return Verifier.Verify(target, settings);
     }
 }

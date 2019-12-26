@@ -1,3 +1,4 @@
 ﻿{
-  "TocExcludes": [ "Release Notes", "Icon" ]
+  "TocExcludes": [ "Release Notes", "Icon" ],
+  "MaxWidth": 80
 }

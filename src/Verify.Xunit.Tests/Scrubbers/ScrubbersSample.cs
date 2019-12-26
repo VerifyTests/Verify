@@ -52,7 +52,8 @@ LineJ
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        settings.AddScrubber(
+            input => input.Replace("0x00000000000007D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 }

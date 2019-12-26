@@ -148,12 +148,13 @@ LineJ
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        settings.AddScrubber(
+            input => input.Replace("0x00000000000007D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L8-L59' title='File snippet `scrubberssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Navigate to start of snippet `scrubberssamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L8-L60' title='File snippet `scrubberssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Navigate to start of snippet `scrubberssamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -176,6 +177,7 @@ public class ScrubbersSample
                 {
                     return "NoMoreLineE";
                 }
+
                 return line;
             });
         settings.ScrubLines(removeLine: line => line.Contains("J"));
@@ -204,12 +206,13 @@ LineJ
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        settings.AddScrubber(
+            s => s.Replace("0x00000000000007D3", "TheRowVersion"));
         return Verifier.Verify(target, settings);
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L54' title='File snippet `scrubberssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Navigate to start of snippet `scrubberssamplenunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='File snippet `scrubberssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Navigate to start of snippet `scrubberssamplenunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -251,7 +254,7 @@ LineI
 LineJ
 ");
     }
-    
+
     [TestMethod]
     public Task ScrubberAppliedAfterJsonSerialization()
     {
@@ -261,12 +264,13 @@ LineJ
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+        settings.AddScrubber(
+            input => input.Replace("0x00000000000007D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L55' title='File snippet `scrubberssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Navigate to start of snippet `scrubberssamplemstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='File snippet `scrubberssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Navigate to start of snippet `scrubberssamplemstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

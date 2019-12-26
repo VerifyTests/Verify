@@ -267,7 +267,8 @@ public class Tests :
     {
         #region AddIgnoreInstance
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
+        settings.ModifySerialization(
+            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
 
         var target = new IgnoreInstanceTarget
         {
@@ -278,7 +279,7 @@ public class Tests :
             ToInclude = new Instance
             {
                 Property = "Include"
-            },
+            }
         };
         await Verify(target, settings);
 
@@ -474,7 +475,8 @@ public class Tests :
     {
         #region IgnoreMembersThatThrowExpression
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        settings.ModifySerialization(
+            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 
         var target = new WithExceptionIgnoreMessage();
         await Verify(target, settings);
@@ -491,7 +493,8 @@ public class Tests :
     public void ExceptionNotIgnoreMessageProp()
     {
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        settings.ModifySerialization(
+            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         var target = new WithExceptionNotIgnoreMessage();
 
         Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));

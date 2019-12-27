@@ -11,7 +11,12 @@ partial class Verifier
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
-        var innerVerifier = new InnerVerifier(extension, settings.clipboardEnabled);
+        var innerVerifier = new InnerVerifier(
+            extension,
+            settings,
+            testType,
+            directory,
+            testName);
 
         var file = GetFileNames(extension, settings.Namer);
 

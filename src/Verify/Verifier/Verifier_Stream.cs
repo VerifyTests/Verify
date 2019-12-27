@@ -9,11 +9,12 @@ partial class Verifier
     async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
-        var verifiedPattern = GetVerifiedPattern(extension, settings.Namer);
         var innerVerifier = new InnerVerifier(
             extension,
-            settings.clipboardEnabled,
-            Directory.EnumerateFiles(directory, verifiedPattern));
+            settings,
+            testType,
+            directory,
+            testName);
         var list = streams.ToList();
         for (var index = 0; index < list.Count; index++)
         {

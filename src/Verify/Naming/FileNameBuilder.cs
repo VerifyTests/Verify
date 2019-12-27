@@ -30,6 +30,13 @@ static class FileNameBuilder
         return $"{filePrefix}.*.verified.{extension}";
     }
 
+    public static string GetReceivedPattern(string extension, Namer namer, Type testType, string testName)
+    {
+        var builder = new StringBuilder(testName);
+        var filePrefix = AppendFileParts(namer, testType, builder);
+        return $"{filePrefix}.*.received.{extension}";
+    }
+
     static string AppendFileParts(Namer namer, Type testType, StringBuilder builder)
     {
         if (namer.UniqueForRuntimeAndVersion || SharedVerifySettings.SharedNamer.UniqueForRuntimeAndVersion)

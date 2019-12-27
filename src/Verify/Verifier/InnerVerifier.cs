@@ -1,12 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Verify;
 
 class InnerVerifier
 {
-    bool clipboardEnabled;
+    Type testType;
+    string directory;
+    string testName;
+    VerifySettings settings;
     ResolvedDiffTool? diffTool;
     List<FilePair> missings = new List<FilePair>();
     List<FilePair> notEquals = new List<FilePair>();
@@ -14,18 +19,18 @@ class InnerVerifier
 
     public InnerVerifier(
         string extension,
-        bool clipboardEnabled,
-        IEnumerable<string> existingVerified)
+        VerifySettings settings,
+        Type testType,
+        string directory,
+        string testName)
     {
-        this.clipboardEnabled = clipboardEnabled;
-        danglingVerified = existingVerified.ToList();
+        this.settings = settings;
+        this.testType = testType;
+        this.directory = directory;
+        this.testName = testName;
         diffTool = DiffTools.Find(extension);
-    }
-
-    public InnerVerifier(string extension, bool clipboardEnabled)
-    {
-        this.clipboardEnabled = clipboardEnabled;
-        danglingVerified = new List<string>();
+        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, this.testType, this.testName);
+        danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
         diffTool = DiffTools.Find(extension);
     }
 
@@ -62,7 +67,7 @@ class InnerVerifier
             builder.AppendLine(message);
         }
 
-        if (!BuildServerDetector.Detected && clipboardEnabled)
+        if (!BuildServerDetector.Detected && settings.clipboardEnabled)
         {
             builder.AppendLine("Verify command placed in clipboard.");
         }
@@ -87,7 +92,7 @@ class InnerVerifier
         foreach (var item in danglingVerified)
         {
             builder.AppendLine($"  {Path.GetFileName(item)}");
-            if (!clipboardEnabled)
+            if (!settings.clipboardEnabled)
             {
                 continue;
             }
@@ -110,7 +115,7 @@ class InnerVerifier
             {
                 continue;
             }
-            if (clipboardEnabled)
+            if (settings.clipboardEnabled)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
             }
@@ -137,7 +142,7 @@ class InnerVerifier
             {
                 continue;
             }
-            if (clipboardEnabled)
+            if (settings.clipboardEnabled)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
             }

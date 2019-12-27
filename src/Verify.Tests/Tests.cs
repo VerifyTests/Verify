@@ -29,6 +29,12 @@ public class Tests :
     }
 
     [Fact]
+    public Task ScrubTempPath()
+    {
+        return Verify(Path.GetTempPath().TrimEnd('/', '\\'));
+    }
+
+    [Fact]
     public Task ScrubCodeBaseLocation()
     {
         return Verify(CodeBaseLocation.CurrentDirectory.TrimEnd('/', '\\'));
@@ -192,6 +198,19 @@ public class Tests :
         DiffRunner.Enabled = true;
         File.Delete(txtFile);
         await Verify(exception.Message);
+    }
+
+    [Fact]
+    public async Task WithExistingReceived()
+    {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
+        var received = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.received.txt");
+        File.WriteAllText(received, "incorrectContent");
+        await Verify("content");
     }
 
     [Fact]

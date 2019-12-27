@@ -24,6 +24,7 @@ partial class Verifier
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
+            await FileHelpers.WriteText(file.Received, input);
             innerVerifier.AddMissing(file);
             await innerVerifier.ThrowIfRequired();
             return;
@@ -38,7 +39,7 @@ partial class Verifier
         catch (Exception exception)
             when (!BuildServerDetector.Detected)
         {
-            await FileHelpers.WriteText(file.Received, input);
+            await FileHelpers.WriteText(file.Received, scrubbedInput);
             innerVerifier.AddNotEquals(file);
             await innerVerifier.ThrowIfRequired(exception.Message);
         }

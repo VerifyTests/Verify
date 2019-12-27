@@ -31,6 +31,11 @@ class InnerVerifier
         diffTool = DiffTools.Find(extension);
         var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, this.testType, this.testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
+        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, this.testType, this.testName);
+        foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
+        {
+            File.Delete(file);
+        }
         diffTool = DiffTools.Find(extension);
     }
 

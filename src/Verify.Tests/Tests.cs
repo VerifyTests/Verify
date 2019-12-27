@@ -203,14 +203,22 @@ public class Tests :
     [Fact]
     public async Task WithExistingReceived()
     {
-        if (BuildServerDetector.Detected)
-        {
-            return;
-        }
-
         var received = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.received.txt");
+        var verified = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.verified.txt");
+        File.Delete(verified);
         File.WriteAllText(received, "incorrectContent");
-        await Verify("content");
+        DiffRunner.Enabled = false;
+        var settings = new VerifySettings();
+        settings.DisableClipboard();
+        try
+        {
+            await Verify("content", settings);
+        }
+        catch
+        {
+        }
+        Assert.DoesNotContain(File.ReadAllText(received), "incorrectContent");
+        DiffRunner.Enabled = true;
     }
 
     [Fact]

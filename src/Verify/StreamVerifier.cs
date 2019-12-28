@@ -11,7 +11,7 @@ static class StreamVerifier
         {
             await FileHelpers.WriteStream(file.Received, stream);
 
-            var verifyResult = FileComparer.DoCompare(file.Received, file.Verified, file.Extension);
+            var verifyResult = FileComparer.DoCompare(file.Received, file.Verified);
 
             if (verifyResult == VerifyResult.Equal)
             {

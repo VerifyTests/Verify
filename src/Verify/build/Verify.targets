@@ -10,9 +10,5 @@
         )
         )$(ProjectExt.Replace('proj', ''))</DependentUpon>
     </None>
-    <ContentWithTargetPath
-       Include="$(MSBuildThisFileDirectory)..\EmptyFiles\*.*"
-       CopyToOutputDirectory="PreserveNewest"
-       TargetPath="Verify.EmptyFiles\%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

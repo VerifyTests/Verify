@@ -154,7 +154,7 @@ class InnerVerifier
 
             if (diffTool != null)
             {
-                if (EmptyFiles.TryWriteEmptyFile(item.Extension, item.Verified))
+                if (EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
                 {
                     DiffRunner.Launch(diffTool, item.Received, item.Verified);
                 }

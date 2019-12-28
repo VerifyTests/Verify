@@ -3,14 +3,14 @@ using System.IO;
 
 static class FileComparer
 {
-    public static VerifyResult DoCompare(string receivedPath, string verifiedPath, string extension)
+    public static VerifyResult DoCompare(string receivedPath, string verifiedPath)
     {
         if (!File.Exists(verifiedPath))
         {
             return VerifyResult.MissingVerified;
         }
 
-        if (EmptyFiles.IsEmptyFile(extension, verifiedPath))
+        if (EmptyFiles.IsEmptyFile(verifiedPath))
         {
             return VerifyResult.NotEqual;
         }

@@ -23,8 +23,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
   * [Received and Verified](#received-and-verified)
-  * [Not valid json](#not-valid-json)<!-- endtoc -->
-<!--
+  * [Not valid json](#not-valid-json)<!-- endtoc --><!--
 include: doc-index
 path: /docs/mdsource/doc-index.include.md
 -->

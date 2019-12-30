@@ -9,6 +9,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
 
 toc
   * [Serializer Settings](docs/serializer-settings.md)
+  * [File Extension](file-extension.md)
   * [File naming](docs/naming.md)
   * [Named Tuples](docs/named-tuples.md)
   * [Scrubbers](docs/scrubbers.md)

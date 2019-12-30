@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
  * [Serializer Settings](serializer-settings.md)
  * [File Extension](file-extension.md)
- * [Naming](naming.md)
+ * [File naming](naming.md)
  * [Named Tuples](named-tuples.md)
  * [Scrubbers](scrubbers.md)
  * [Diff Tool](diff-tool.md)

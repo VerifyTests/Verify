@@ -24,10 +24,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
     * [Subsequent Verification](#subsequent-verification)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)<!-- endtoc -->
-  <!--
-include: doc-index
-path: /docs/mdsource/doc-index.include.md
--->* [Serializer Settings](/docs/serializer-settings.md)
+<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md-->  * [Serializer Settings](/docs/serializer-settings.md)
   * [File Extension](/docs/file-extension.md)
   * [File naming](/docs/naming.md)
   * [Named Tuples](/docs/named-tuples.md)

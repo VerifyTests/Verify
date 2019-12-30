@@ -8,15 +8,7 @@
 Verification tool to enable simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
 toc
-  * [Serializer Settings](docs/serializer-settings.md)
-  * [File Extension](file-extension.md)
-  * [File naming](docs/naming.md)
-  * [Named Tuples](docs/named-tuples.md)
-  * [Scrubbers](docs/scrubbers.md)
-  * [Diff Tool](docs/diff-tool.md)
-  * [Using anonymous types](docs/anonymous-types.md)
-  * [Verifying binary data](docs/binary.md)
-  * [Compared to ApprovalTests](docs/compared-to-approvaltests.md)
+include: doc-index
 
 
 ## NuGet Packages

@@ -7,12 +7,16 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Documentation
 
- * [Serializer Settings](serializer-settings.md)
- * [File Extension](file-extension.md)
- * [File naming](naming.md)
- * [Named Tuples](named-tuples.md)
- * [Scrubbers](scrubbers.md)
- * [Diff Tool](diff-tool.md)
- * [Using anonymous types](anonymous-types.md)
- * [Verifying binary data](binary.md)
- * [Compared to ApprovalTests](compared-to-approvaltests.md)
+<!--
+include: doc-index
+path: /docs/mdsource/doc-index.include.md
+-->
+ * [Serializer Settings](/docs/serializer-settings.md)
+ * [File Extension](/docs/file-extension.md)
+ * [File naming](/docs/naming.md)
+ * [Named Tuples](/docs/named-tuples.md)
+ * [Scrubbers](/docs/scrubbers.md)
+ * [Diff Tool](/docs/diff-tool.md)
+ * [Using anonymous types](/docs/anonymous-types.md)
+ * [Verifying binary data](/docs/binary.md)
+ * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)

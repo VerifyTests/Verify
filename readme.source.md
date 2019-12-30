@@ -19,7 +19,7 @@ toc
   * [Compared to ApprovalTests](docs/compared-to-approvaltests.md)
 
 
-## NuGet packages
+## NuGet Packages
 
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/

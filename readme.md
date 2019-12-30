@@ -17,7 +17,6 @@ Verification tool to enable simple approval of complex models using [Json.net](h
 <!-- toc -->
 ## Contents
 
-  * [NuGet packages](#nuget-packages)
   * [Usage](#usage)
     * [Class being tested](#class-being-tested)
     * [Test](#test)
@@ -36,7 +35,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [Compared to ApprovalTests](docs/compared-to-approvaltests.md)
 
 
-## NuGet packages
+## NuGet Packages
 
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/

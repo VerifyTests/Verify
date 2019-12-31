@@ -11,11 +11,7 @@ When a test fails verification the difference between the received and verified 
 
 The following diff tools are supported:
 
-<!--
-include: diffTools
-path: /src/Verify.Tests/DiffTool/diffTools.include.md
--->
-
+ <!-- include: diffTools. path: /src/Verify.Tests/DiffTool/diffTools.include.md -->
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
 ### Windows scanned paths:
@@ -173,4 +169,4 @@ path: /src/Verify.Tests/DiffTool/diffTools.include.md
  * jpg
  * png
  * tif
- * rtf
+ * rtf <!-- end include: diffTools. path: /src/Verify.Tests/DiffTool/diffTools.include.md -->

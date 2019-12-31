@@ -7,11 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Documentation
 
-<!--
-include: doc-index
-path: /docs/mdsource/doc-index.include.md
--->
-  * [Serializer Settings](/docs/serializer-settings.md)
+  * [Serializer Settings](/docs/serializer-settings.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [File Extension](/docs/file-extension.md)
   * [File naming](/docs/naming.md)
   * [Named Tuples](/docs/named-tuples.md)
@@ -19,4 +15,4 @@ path: /docs/mdsource/doc-index.include.md
   * [Diff Tool](/docs/diff-tool.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->

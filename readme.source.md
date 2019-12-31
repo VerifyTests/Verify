@@ -33,7 +33,7 @@ snippet: ClassBeingTested
 It can be tested as follows:
 
 
-#### Xunit
+#### xUnit
 
 snippet: SampleTestXunit
 

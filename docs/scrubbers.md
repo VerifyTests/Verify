@@ -97,7 +97,7 @@ Adds a scrubber with full control over the text via a `Func`
 ## More complete example
 
 
-### XUnit
+### xUnit
 
 <!-- snippet: ScrubbersSampleXunit -->
 <a id='snippet-scrubberssamplexunit'/></a>
@@ -310,7 +310,7 @@ Scrubbers can be defined at three levels:
 Global scrubbers should be defined only once at appdomain startup. In this example the scrubber is configured using the [Global Setup](https://github.com/SimonCropp/XunitContext#global-setup) of [XunitContext](https://github.com/SimonCropp/XunitContext). It could also be configured using a [Module Initializer](https://github.com/Fody/ModuleInit).
 
 
-### XUnit
+### xUnit
 
 <!-- snippet: ScrubberLevelsSampleXunit -->
 <a id='snippet-scrubberlevelssamplexunit'/></a>

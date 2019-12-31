@@ -10,7 +10,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
 
 
-## Xunit
+## xUnit
 
 <!-- snippet: anonXunit -->
 <a id='snippet-anonxunit'/></a>

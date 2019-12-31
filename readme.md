@@ -86,7 +86,7 @@ public static class ClassBeingTested
 It can be tested as follows:
 
 
-#### Xunit
+#### xUnit
 
 <!-- snippet: SampleTestXunit -->
 <a id='snippet-sampletestxunit'/></a>

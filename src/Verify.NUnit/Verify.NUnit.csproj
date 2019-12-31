@@ -6,7 +6,7 @@
     <Compile Include="..\Shared\*.cs" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.39" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />

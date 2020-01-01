@@ -11,7 +11,7 @@ toc
 include: doc-index
 
 
-## NuGet Packages
+## NuGet packages
 
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/

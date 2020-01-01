@@ -35,7 +35,7 @@ Verification tool to enable simple approval of complex models using [Json.net](h
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
 
 
-## NuGet Packages
+## NuGet packages
 
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/

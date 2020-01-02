@@ -12,6 +12,7 @@ public class Snippets
 
         #endregion
     }
+
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettings

@@ -12,9 +12,9 @@ using Xunit.Abstractions;
 public class VerifyObjectSamples :
     VerifyBase
 {
-    #region ChangeDefaultsPerVerificationXunit
     async Task ChangeDefaultsPerVerification(object target)
     {
+        #region ChangeDefaultsPerVerificationXunit
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
@@ -24,14 +24,12 @@ public class VerifyObjectSamples :
             _.DontIgnoreFalse();
         });
         await Verify(target, settings);
-
+        #endregion
     }
-    #endregion
 
     [Fact]
     public async Task ScopedSerializer()
     {
-
         var person = new Person
         {
             GivenNames = "John",

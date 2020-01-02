@@ -37,7 +37,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L68-L90' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L66-L88' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

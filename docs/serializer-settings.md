@@ -238,7 +238,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/VerifyObjectSamples.cs#L9-L17' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L17-L25' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -259,7 +259,7 @@ settings.ModifySerialization(
 settings.AddExtraSettings(
     _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/VerifyObjectSamples.cs#L22-L34' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L30-L42' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:

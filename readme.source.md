@@ -103,6 +103,13 @@ And the [Diff Tool](docs/diff-tool.md) is will display the diff:
 The same approach can be used to verify the results and the change to `SampleTest.Simple.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
+### Disable Clipboard
+
+The clipboard behavior can be disable using the following:
+
+snippet: DisableClipboard
+
+
 ## Received and Verified
 
  * **All `*.verified.*` files should be committed to source control.**
@@ -112,6 +119,12 @@ The same approach can be used to verify the results and the change to `SampleTes
 ## Not valid json
 
 Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+
+
+## Extensions
+
+ * [Extends Verify to allow verification of documents (pdf, docx, xslx, and pptx) via Aspose](https://github.com/SimonCropp/Verify.Aspose)
+ * [Adds Verify support to verify NServiceBus Test Contexts](https://github.com/SimonCropp/Verify.NServiceBus)
 
 
 ## Release Notes

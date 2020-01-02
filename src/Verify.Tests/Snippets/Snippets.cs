@@ -4,6 +4,14 @@ using Verify;
 
 public class Snippets
 {
+    void DisableClipboard()
+    {
+        #region DisableClipboard
+        var settings = new VerifySettings();
+        settings.DisableClipboard();
+
+        #endregion
+    }
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettings

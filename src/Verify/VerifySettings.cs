@@ -17,6 +17,7 @@ namespace Verify
             instanceScrubbers = new List<Func<string, string>>(settingsToClone.instanceScrubbers);
             extension = settingsToClone.extension;
             clipboardEnabled = settingsToClone.clipboardEnabled;
+            diffEnabled = settingsToClone.diffEnabled;
             Namer = new Namer(settingsToClone.Namer);
         }
 

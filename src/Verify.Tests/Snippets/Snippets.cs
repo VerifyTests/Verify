@@ -7,8 +7,19 @@ public class Snippets
     void DisableClipboard()
     {
         #region DisableClipboard
+
         var settings = new VerifySettings();
         settings.DisableClipboard();
+
+        #endregion
+    }
+
+    void DisableDiff()
+    {
+        #region DisableDiff
+
+        var settings = new VerifySettings();
+        settings.DisableDiff();
 
         #endregion
     }
@@ -16,6 +27,7 @@ public class Snippets
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettings
+
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ =>
         {
@@ -29,6 +41,7 @@ public class Snippets
     public void ScopedSerializer()
     {
         #region ScopedSerializer
+
         var person = new Person
         {
             GivenNames = "John",
@@ -40,6 +53,7 @@ public class Snippets
             _ => _.DontScrubDateTimes());
         settings.AddExtraSettings(
             _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
+
         #endregion
     }
 }

@@ -63,9 +63,14 @@ public class Tests :
 
         var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
         File.Delete(binFile);
-        DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify(new MemoryStream(new byte[] {1})));
-        DiffRunner.Enabled = true;
+        var exception = await Assert.ThrowsAsync<XunitException>(
+            () =>
+            {
+                var stream = new MemoryStream(new byte[] {1});
+                var settings = new VerifySettings();
+                settings.DisableDiff();
+                return Verify(stream,settings);
+            });
         File.Delete(binFile);
         await Verify(exception.Message);
     }
@@ -156,15 +161,15 @@ public class Tests :
         }
 
         DeleteTempFiles();
-        DiffRunner.Enabled = false;
         var exception = await Assert.ThrowsAsync<XunitException>(
             () =>
             {
                 var stream1 = new MemoryStream(new byte[] {1});
                 var stream2 = new MemoryStream(new byte[] {1});
-                return Verify(new Stream[] {stream1, stream2});
+                var settings = new VerifySettings();
+                settings.DisableDiff();
+                return Verify(new Stream[] {stream1, stream2}, settings);
             });
-        DiffRunner.Enabled = true;
         DeleteTempFiles();
         var settings = new VerifySettings();
         settings.ScrubMachineName();
@@ -187,15 +192,15 @@ public class Tests :
 
         var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.tmp");
         File.Delete(txtFile);
-        DiffRunner.Enabled = false;
-        var exception = await Assert.ThrowsAsync<XunitException>(() =>
-        {
-            var settings = new VerifySettings();
-            settings.DisableClipboard();
-            settings.UseExtension("tmp");
-            return Verify("someText", settings);
-        });
-        DiffRunner.Enabled = true;
+        var exception = await Assert.ThrowsAsync<XunitException>(
+            () =>
+            {
+                var settings = new VerifySettings();
+                settings.DisableClipboard();
+                settings.UseExtension("tmp");
+                settings.DisableDiff();
+                return Verify("someText", settings);
+            });
         File.Delete(txtFile);
         await Verify(exception.Message);
     }
@@ -207,9 +212,9 @@ public class Tests :
         var verified = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.verified.txt");
         File.Delete(verified);
         File.WriteAllText(received, "incorrectContent");
-        DiffRunner.Enabled = false;
         var settings = new VerifySettings();
         settings.DisableClipboard();
+        settings.DisableDiff();
         try
         {
             await Verify("content", settings);
@@ -218,7 +223,6 @@ public class Tests :
         {
         }
         Assert.DoesNotContain(File.ReadAllText(received), "incorrectContent");
-        DiffRunner.Enabled = true;
     }
 
     [Fact]

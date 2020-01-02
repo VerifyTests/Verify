@@ -5,3 +5,8 @@ When a test fails verification the difference between the received and verified 
 The following diff tools are supported:
 
 include: diffTools
+
+
+## Disable Diff
+
+snippet: DisableDiff

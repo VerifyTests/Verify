@@ -269,7 +269,7 @@ The clipboard behavior can be disable using the following:
 var settings = new VerifySettings();
 settings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L9-L13' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L9-L14' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

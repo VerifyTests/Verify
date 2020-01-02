@@ -125,7 +125,8 @@ class InnerVerifier
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
             }
 
-            if (diffTool != null)
+            if (diffTool != null &&
+                settings.diffEnabled)
             {
                 DiffRunner.Launch(diffTool, item.Received, item.Verified);
             }
@@ -152,7 +153,8 @@ class InnerVerifier
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
             }
 
-            if (diffTool != null)
+            if (diffTool != null &&
+                settings.diffEnabled)
             {
                 if (EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
                 {

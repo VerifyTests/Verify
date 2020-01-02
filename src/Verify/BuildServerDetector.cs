@@ -39,6 +39,14 @@ static class BuildServerDetector
             Detected = true;
             return;
         }
+
+        // TeamCity
+        // https://www.jetbrains.com/help/teamcity/predefined-build-parameters.html#PredefinedBuildParameters-ServerBuildProperties
+        if (Environment.GetEnvironmentVariable("teamcity") != null)
+        {
+            Detected = true;
+            return;
+        }
     }
 
     public static bool Detected { get; }

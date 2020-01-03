@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Verify;
 
-class InnerVerifier
+class VerifyEngine
 {
     Type testType;
-    string directory;
     string testName;
     VerifySettings settings;
     ResolvedDiffTool? diffTool;
@@ -17,7 +16,7 @@ class InnerVerifier
     List<FilePair> notEquals = new List<FilePair>();
     List<string> danglingVerified;
 
-    public InnerVerifier(
+    public VerifyEngine(
         string extension,
         VerifySettings settings,
         Type testType,
@@ -26,7 +25,6 @@ class InnerVerifier
     {
         this.settings = settings;
         this.testType = testType;
-        this.directory = directory;
         this.testName = testName;
         diffTool = DiffTools.Find(extension);
         var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, this.testType, this.testName);

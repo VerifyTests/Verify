@@ -11,7 +11,7 @@ partial class Verifier
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
-        var innerVerifier = new InnerVerifier(
+        var innerVerifier = new VerifyEngine(
             extension,
             settings,
             testType,

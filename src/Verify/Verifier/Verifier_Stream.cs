@@ -9,7 +9,7 @@ partial class Verifier
     async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {
         var extension = settings.ExtensionOrBin();
-        var innerVerifier = new InnerVerifier(
+        var innerVerifier = new VerifyEngine(
             extension,
             settings,
             testType,

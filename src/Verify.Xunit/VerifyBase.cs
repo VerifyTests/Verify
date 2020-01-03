@@ -10,7 +10,7 @@ namespace VerifyXunit
     {
         static VerifyBase()
         {
-            Verifier.Init(
+            InnerVerifier.Init(
                 message => new XunitException(message),
                 input => XunitContext.Context.IntOrNext(input),
                 input => XunitContext.Context.IntOrNext(input),
@@ -25,10 +25,10 @@ namespace VerifyXunit
         {
         }
 
-        Verifier GetVerifier()
+        InnerVerifier GetVerifier()
         {
             var context = Context;
-            return new Verifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
+            return new InnerVerifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
         }
     }
 }

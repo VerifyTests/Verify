@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Verify;
 
-partial class Verifier
+partial class InnerVerifier
 {
     async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
     {

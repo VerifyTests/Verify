@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Verify;
 
-partial class Verifier
+partial class InnerVerifier
 {
     public Task VerifyFile(
         string path,

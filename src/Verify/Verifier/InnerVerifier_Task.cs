@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Verify;
 
-partial class Verifier
+partial class InnerVerifier
 {
     public async Task Verify<T>(Task<T> task, VerifySettings? settings = null)
     {

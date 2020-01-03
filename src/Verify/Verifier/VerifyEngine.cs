@@ -81,7 +81,7 @@ class VerifyEngine
 
         await ProcessNotEquals(builder);
 
-        throw Verifier.exceptionBuilder(builder.ToString());
+        throw InnerVerifier.exceptionBuilder(builder.ToString());
     }
 
     async Task ProcessDangling(StringBuilder builder)

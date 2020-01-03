@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Verify;
 
-partial class Verifier
+partial class InnerVerifier
 {
     public Task Verify(
         Expression<Func<ITuple>> expression,

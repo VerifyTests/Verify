@@ -1,7 +1,7 @@
 ﻿using System;
 
 class DisposableVerifier:
-    Verifier,
+    InnerVerifier,
     IDisposable
 {
     public DisposableVerifier(Type testType, string directory, string testName) :

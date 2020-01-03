@@ -9,7 +9,7 @@ namespace VerifyNUnit
     {
         static Verifier()
         {
-            global::Verifier.Init(
+            InnerVerifier.Init(
                 message => new NUnitException(message),
                 input => CounterContext.Current.IntOrNext(input),
                 input => CounterContext.Current.IntOrNext(input),

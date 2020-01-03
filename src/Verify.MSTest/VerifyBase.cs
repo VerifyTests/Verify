@@ -9,7 +9,7 @@ namespace VerifyMSTest
     {
         static VerifyBase()
         {
-            Verifier.Init(
+            InnerVerifier.Init(
                 message => new AssertFailedException(message),
                 input => CounterContext.Current.IntOrNext(input),
                 input => CounterContext.Current.IntOrNext(input),

@@ -1,6 +1,6 @@
 ﻿using System;
 
-partial class Verifier
+partial class InnerVerifier
 {
     Type testType;
     string directory;
@@ -15,14 +15,14 @@ partial class Verifier
         Func<DateTimeOffset, int> dateTimeOffsetIntOrNext,
         Action<string, string> assert)
     {
-        Verifier.assert = assert;
-        Verifier.exceptionBuilder = exceptionBuilder;
+        InnerVerifier.assert = assert;
+        InnerVerifier.exceptionBuilder = exceptionBuilder;
         Scrubber<Guid>.SetIntOrNext(guidIntOrNext);
         Scrubber<DateTime>.SetIntOrNext(dateTimeIntOrNext);
         Scrubber<DateTimeOffset>.SetIntOrNext(dateTimeOffsetIntOrNext);
     }
 
-    public Verifier(Type testType, string directory, string testName)
+    public InnerVerifier(Type testType, string directory, string testName)
     {
         this.testType = testType;
         this.directory = directory;

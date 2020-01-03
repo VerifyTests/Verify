@@ -1,6 +1,9 @@
 ﻿using System;
 
-partial class InnerVerifier
+/// <summary>
+/// Not for public use.
+/// </summary>
+public partial class InnerVerifier
 {
     Type testType;
     string directory;

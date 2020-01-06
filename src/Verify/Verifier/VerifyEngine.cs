@@ -116,6 +116,10 @@ class VerifyEngine
             builder.AppendLine($"  {Path.GetFileName(item.Received)}");
             if (BuildServerDetector.Detected)
             {
+                if (Extensions.IsTextExtension(item.Extension))
+                {
+                    builder.AppendLine($"{File.ReadAllText(item.Received)}");
+                }
                 continue;
             }
             if (settings.clipboardEnabled)

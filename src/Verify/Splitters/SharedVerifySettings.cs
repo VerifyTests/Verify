@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 
 namespace Verify
 {
     public static partial class SharedVerifySettings
     {
         static Dictionary<string, StreamConverter> extensionConverters = new Dictionary<string, StreamConverter>();
-        static Dictionary<Type, TypeConverter> typedConverters = new Dictionary<Type, TypeConverter>();
+        static List<TypeConverter> typedConverters = new List<TypeConverter>();
 
         internal static bool TryGetConverter(string extension, out StreamConverter converter)
         {
             return extensionConverters.TryGetValue(extension, out converter);
         }
 
-        internal static bool TryGetConverter<T>(out TypeConverter converter)
+        internal static bool TryGetConverter<T>([NotNullWhen(true)] out TypeConverter? converter)
         {
-            return typedConverters.TryGetValue(typeof(T), out converter);
+            foreach (var typedConverter in typedConverters
+                .Where(_ => _.CanConvert(typeof(T))))
+            {
+                converter = typedConverter;
+                return true;
+            }
+
+            converter = null;
+            return false;
         }
 
         public static void RegisterFileConverter(
@@ -36,18 +46,31 @@ namespace Verify
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            typedConverters[typeof(T)] = new TypeConverter(toExtension, o => func((T) o));
+            typedConverters.Add(new TypeConverter(toExtension, o => func((T) o), type => type == typeof(T)));
+        }
+
+        public static void RegisterFileConverter(
+            string toExtension,
+            Func<object, IEnumerable<Stream>> func,
+            Func<Type, bool> canConvert)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            Guard.AgainstNull(canConvert, nameof(canConvert));
+            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
+            typedConverters.Add(new TypeConverter(toExtension, func, canConvert));
         }
 
         internal class TypeConverter
         {
             public string ToExtension { get; }
             public Func<object, IEnumerable<Stream>> Func { get; }
+            public Func<Type, bool> CanConvert { get; }
 
-            public TypeConverter(string toExtension, Func<object, IEnumerable<Stream>> func)
+            public TypeConverter(string toExtension, Func<object, IEnumerable<Stream>> func, Func<Type, bool> canConvert)
             {
                 ToExtension = toExtension;
                 Func = func;
+                CanConvert = canConvert;
             }
         }
 

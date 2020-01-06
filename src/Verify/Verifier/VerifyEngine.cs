@@ -119,6 +119,11 @@ class VerifyEngine
                 if (Extensions.IsTextExtension(item.Extension))
                 {
                     builder.AppendLine($"{File.ReadAllText(item.Received)}");
+                    if (File.Exists(item.Verified))
+                    {
+                        builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
+                        builder.AppendLine($"{File.ReadAllText(item.Verified)}");
+                    }
                 }
                 continue;
             }

@@ -1,9 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 static class Extensions
 {
-    public static bool IsText(string extension)
+    public static bool IsTextExtension(string extension)
     {
+        return TextExtensions.Contains(extension);
+    }
+    public static bool IsTextFile(string file)
+    {
+        var extension = Path.GetExtension(file).Substring(1);
         return TextExtensions.Contains(extension);
     }
 

@@ -48,7 +48,7 @@ static partial class DiffTools
 
     public static ResolvedDiffTool? Find(string extension)
     {
-        if (Extensions.IsText(extension))
+        if (Extensions.IsTextExtension(extension))
         {
             return ResolvedDiffTools.LastOrDefault();
         }

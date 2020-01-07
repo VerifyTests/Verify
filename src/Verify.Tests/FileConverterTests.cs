@@ -1,4 +1,5 @@
 ﻿#if(NETCOREAPP3_1)
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -19,8 +20,7 @@ public class FileConverterTests :
         SharedVerifySettings.RegisterFileConverter<ClassToSplit>("txt", ClassToStream);
         var target = new ClassToSplit
         {
-            Value = @"line1
-line2"
+            Value = $@"line1{Environment.NewLine}line2"
         };
         return Verify(target);
     }

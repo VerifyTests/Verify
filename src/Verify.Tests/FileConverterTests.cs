@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
@@ -12,6 +13,28 @@ using Xunit.Abstractions;
 public class FileConverterTests :
     VerifyBase
 {
+    [Fact]
+    public Task ConvertWithNewline()
+    {
+        SharedVerifySettings.RegisterFileConverter<ClassToSplit>("txt", ClassToStream);
+        var target = new ClassToSplit
+        {
+            Value = @"line1
+line2"
+        };
+        return Verify(target);
+    }
+
+    static IEnumerable<Stream> ClassToStream(ClassToSplit split)
+    {
+        var bytes = Encoding.UTF8.GetBytes(split.Value);
+        yield return new MemoryStream(bytes);
+    }
+
+    public class ClassToSplit
+    {
+        public string Value { get; set; } = null!;
+    }
     //TODO: a multiple split
     [Fact]
     public Task ExtensionConversion()

@@ -286,9 +286,10 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 
 ## Extensions
 
- * [Extends Verify to allow verification of documents (pdf, docx, xslx, and pptx) via Aspose](https://github.com/SimonCropp/Verify.Aspose)
- * [Adds Verify support to verify NServiceBus Test Contexts](https://github.com/SimonCropp/Verify.NServiceBus)
- * [Extends Verify to allow verification of web bits.](https://github.com/SimonCropp/Verify.Web)
+ * [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose): Extends Verify to allow verification of documents (pdf, docx, xslx, and pptx) via Aspose.
+ * [Verify.NServiceBus](https://github.com/SimonCropp/Verify.NServiceBus): Adds Verify support to verify NServiceBus Test Contexts.
+ * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Extends Verify to allow verification of web bits.
+ * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Extends Verify to allow verification of EntityFramework bits.
 
 
 ## Release Notes

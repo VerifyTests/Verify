@@ -37,7 +37,13 @@ namespace Verify
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            extensionConverters[fromExtension] = new StreamConverter(toExtension, func);
+            var converter = new StreamConverter(
+                toExtension,
+                stream =>
+                {
+                    return func(stream);
+                });
+            extensionConverters[fromExtension] = converter;
         }
 
         public static void RegisterFileConverter<T>(
@@ -46,7 +52,13 @@ namespace Verify
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            typedConverters.Add(new TypeConverter(toExtension, o => func((T) o), type => type == typeof(T)));
+            var converter = new TypeConverter(
+                toExtension, o =>
+                {
+                    return func((T) o);
+                },
+                type => type == typeof(T));
+            typedConverters.Add(converter);
         }
 
         public static void RegisterFileConverter(
@@ -57,7 +69,14 @@ namespace Verify
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstNull(canConvert, nameof(canConvert));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            typedConverters.Add(new TypeConverter(toExtension, func, canConvert));
+            var converter = new TypeConverter(
+                toExtension,
+                o =>
+                {
+                    return func(o);
+                },
+                canConvert);
+            typedConverters.Add(converter);
         }
 
         internal class TypeConverter

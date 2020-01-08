@@ -12,7 +12,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
 
-Verification tool to enable simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
+Verification tool to enable simple approval of complex models and documents.
 
 <!-- toc -->
 ## Contents

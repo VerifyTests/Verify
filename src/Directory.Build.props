@@ -4,6 +4,6 @@
     <NoWarn>CS1591;CS0649</NoWarn>
     <Version>1.10.1</Version>
     <PackageTags>Json, Testing, Verify</PackageTags>
-    <Description>Enables simple verification of complex models.</Description>
+    <Description>Enables simple verification of complex models and documents.</Description>
   </PropertyGroup>
 </Project>

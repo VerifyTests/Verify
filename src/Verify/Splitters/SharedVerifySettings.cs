@@ -57,18 +57,18 @@ namespace Verify
             Func<T, IEnumerable<Stream>> func)
         {
             Guard.AgainstNull(func, nameof(func));
-            RegisterFileConverter<T>(toExtension, (target, settings) => func((T) target));
+            RegisterFileConverter<T>(toExtension, (target, settings) => func(target));
         }
 
         public static void RegisterFileConverter<T>(
             string toExtension,
-            Func<object, VerifySettings, IEnumerable<Stream>> func)
+            Func<T, VerifySettings, IEnumerable<Stream>> func)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new TypeConverter(
                 toExtension,
-                func,
+                (o, settings) => func((T)o, settings),
                 type => type == typeof(T));
             typedConverters.Add(converter);
         }

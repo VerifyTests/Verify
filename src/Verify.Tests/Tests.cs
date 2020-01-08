@@ -166,9 +166,9 @@ public class Tests :
             {
                 var stream1 = new MemoryStream(new byte[] {1});
                 var stream2 = new MemoryStream(new byte[] {1});
-                var settings = new VerifySettings();
-                settings.DisableDiff();
-                return Verify(new Stream[] {stream1, stream2}, settings);
+                var innetSettings = new VerifySettings();
+                innetSettings.DisableDiff();
+                return Verify(new Stream[] {stream1, stream2}, innetSettings);
             });
         DeleteTempFiles();
         var settings = new VerifySettings();

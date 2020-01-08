@@ -22,17 +22,25 @@ include: doc-index
 
 Given the following method:
 
+
+#### Class being tested
+
 snippet: ClassBeingTested
 
 Compare a traditional assertion based test to a verification test.
 
-Traditional assertion based:
+
+#### Traditional assertion test:
 
 snippet: TraditionalTest
 
-Verification test:
+
+#### Verification test
 
 snippet: VerificationTest
+
+
+#### Comparing Verification to Assertion
 
   * Less test code: verification test require less code to write.
   * Reduced risk of incorrect test code: Given the above assertion based test it would be difficult to ensure that no property is missing from the assertion. For example if a new property is added to the model. In the verification test that change would automatically be highlighted when the test is next run.

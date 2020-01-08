@@ -49,6 +49,9 @@ Verification tool to enable simple approval of complex models and documents.
 
 Given the following method:
 
+
+#### Class being tested
+
 <!-- snippet: ClassBeingTested -->
 <a id='snippet-classbeingtested'/></a>
 ```cs
@@ -82,7 +85,8 @@ public static class ClassBeingTested
 
 Compare a traditional assertion based test to a verification test.
 
-Traditional assertion based:
+
+#### Traditional assertion test:
 
 <!-- snippet: TraditionalTest -->
 <a id='snippet-traditionaltest'/></a>
@@ -106,7 +110,8 @@ public void TraditionalTest()
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L10-L26' title='File snippet `traditionaltest` was extracted from'>snippet source</a> | <a href='#snippet-traditionaltest' title='Navigate to start of snippet `traditionaltest`'>anchor</a></sup>
 <!-- endsnippet -->
 
-Verification test:
+
+#### Verification test
 
 <!-- snippet: VerificationTest -->
 <a id='snippet-verificationtest'/></a>
@@ -120,6 +125,9 @@ public Task Simple()
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L28-L35' title='File snippet `verificationtest` was extracted from'>snippet source</a> | <a href='#snippet-verificationtest' title='Navigate to start of snippet `verificationtest`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+#### Comparing Verification to Assertion
 
   * Less test code: verification test require less code to write.
   * Reduced risk of incorrect test code: Given the above assertion based test it would be difficult to ensure that no property is missing from the assertion. For example if a new property is added to the model. In the verification test that change would automatically be highlighted when the test is next run.

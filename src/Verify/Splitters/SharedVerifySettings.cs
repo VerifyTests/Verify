@@ -35,14 +35,20 @@ namespace Verify
             Func<Stream, IEnumerable<Stream>> func)
         {
             Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter(fromExtension, toExtension, (stream, settings) => func(stream));
+        }
+
+        public static void RegisterFileConverter(
+            string fromExtension,
+            string toExtension,
+            Func<Stream, VerifySettings, IEnumerable<Stream>> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new StreamConverter(
                 toExtension,
-                stream =>
-                {
-                    return func(stream);
-                });
+                func);
             extensionConverters[fromExtension] = converter;
         }
 
@@ -51,12 +57,18 @@ namespace Verify
             Func<T, IEnumerable<Stream>> func)
         {
             Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter<T>(toExtension, (target, settings) => func((T) target));
+        }
+
+        public static void RegisterFileConverter<T>(
+            string toExtension,
+            Func<object, VerifySettings, IEnumerable<Stream>> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new TypeConverter(
-                toExtension, o =>
-                {
-                    return func((T) o);
-                },
+                toExtension,
+                func,
                 type => type == typeof(T));
             typedConverters.Add(converter);
         }
@@ -67,14 +79,20 @@ namespace Verify
             Func<Type, bool> canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter(toExtension, (o,x) => func(o), canConvert);
+        }
+
+        public static void RegisterFileConverter(
+            string toExtension,
+            Func<object, VerifySettings, IEnumerable<Stream>> func,
+            Func<Type, bool> canConvert)
+        {
+            Guard.AgainstNull(func, nameof(func));
             Guard.AgainstNull(canConvert, nameof(canConvert));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new TypeConverter(
                 toExtension,
-                o =>
-                {
-                    return func(o);
-                },
+                func,
                 canConvert);
             typedConverters.Add(converter);
         }
@@ -82,10 +100,10 @@ namespace Verify
         internal class TypeConverter
         {
             public string ToExtension { get; }
-            public Func<object, IEnumerable<Stream>> Func { get; }
+            public Func<object, VerifySettings, IEnumerable<Stream>> Func { get; }
             public Func<Type, bool> CanConvert { get; }
 
-            public TypeConverter(string toExtension, Func<object, IEnumerable<Stream>> func, Func<Type, bool> canConvert)
+            public TypeConverter(string toExtension, Func<object, VerifySettings, IEnumerable<Stream>> func, Func<Type, bool> canConvert)
             {
                 ToExtension = toExtension;
                 Func = func;
@@ -96,9 +114,9 @@ namespace Verify
         internal class StreamConverter
         {
             public string ToExtension { get; }
-            public Func<Stream, IEnumerable<Stream>> Func { get; }
+            public Func<Stream, VerifySettings, IEnumerable<Stream>> Func { get; }
 
-            public StreamConverter(string toExtension, Func<Stream, IEnumerable<Stream>> func)
+            public StreamConverter(string toExtension, Func<Stream, VerifySettings, IEnumerable<Stream>> func)
             {
                 ToExtension = toExtension;
                 Func = func;

@@ -47,9 +47,7 @@ Verification tool to enable simple approval of complex models and documents.
 
 ## Verification versus Assertion
 
-Compare a traditional assertion based test to a verification test.
-
-Traditional assertion based:
+Given the following method:
 
 <!-- snippet: ClassBeingTested -->
 <a id='snippet-classbeingtested'/></a>
@@ -80,6 +78,32 @@ public static class ClassBeingTested
 }
 ```
 <sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Compare a traditional assertion based test to a verification test.
+
+Traditional assertion based:
+
+<!-- snippet: TraditionalTest -->
+<a id='snippet-traditionaltest'/></a>
+```cs
+[Fact]
+public void TraditionalTest()
+{
+    var person = ClassBeingTested.FindPerson();
+    Assert.Equal(new Guid("ebced679-45d3-4653-8791-3d969c4a986c"), person.Id);
+    Assert.Equal(Title.Mr, person.Title);
+    Assert.Equal("John", person.GivenNames);
+    Assert.Equal("Smith", person.FamilyName);
+    Assert.Equal("Jill", person.Spouse);
+    Assert.Equal(2, person.Children.Count);
+    Assert.Equal("Sam", person.Children[0]);
+    Assert.Equal("Mary", person.Children[1]);
+    Assert.Equal("4 Puddle Lane", person.Address.Street);
+    Assert.Equal("USA", person.Address.Country);
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L10-L26' title='File snippet `traditionaltest` was extracted from'>snippet source</a> | <a href='#snippet-traditionaltest' title='Navigate to start of snippet `traditionaltest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Verification test:

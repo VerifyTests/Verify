@@ -20,11 +20,15 @@ include: doc-index
 
 ## Verification versus Assertion
 
+Given the following method:
+
+snippet: ClassBeingTested
+
 Compare a traditional assertion based test to a verification test.
 
 Traditional assertion based:
 
-snippet: ClassBeingTested
+snippet: TraditionalTest
 
 Verification test:
 

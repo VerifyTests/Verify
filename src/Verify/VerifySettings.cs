@@ -21,7 +21,7 @@ namespace Verify
             Namer = new Namer(settingsToClone.Namer);
         }
 
-        internal Dictionary<string, object> Data = new Dictionary<string, object>();
+        public IDictionary<string, object> Data { get; } = new Dictionary<string, object>();
 
         public VerifySettings()
         {

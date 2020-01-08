@@ -14,11 +14,23 @@ namespace Verify
             {
                 return;
             }
+
             instanceScrubbers = new List<Func<string, string>>(settingsToClone.instanceScrubbers);
             extension = settingsToClone.extension;
             clipboardEnabled = settingsToClone.clipboardEnabled;
             diffEnabled = settingsToClone.diffEnabled;
             Namer = new Namer(settingsToClone.Namer);
+            foreach (var pair in settingsToClone.Data)
+            {
+                if (pair.Value is ICloneable cloneable)
+                {
+                    Data.Add(pair.Key, cloneable);
+                }
+                else
+                {
+                    Data.Add(pair.Key, pair.Value);
+                }
+            }
         }
 
         public IDictionary<string, object> Data { get; } = new Dictionary<string, object>();

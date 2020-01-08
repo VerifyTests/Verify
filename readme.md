@@ -129,7 +129,7 @@ public Task Simple()
   * Verification files committed to source control: All resulting verified files are committed to source control in the most appropriate format. This means these files can be viewed at any time using any tooling. The files can also be diff'd over the history of the code base. This works for any file type, for example:
     * Html content can be committed as `.html` files. 
     * Office documents can be committed as a rendered `.png` (see [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose)).
-    * Database schema can be commitred as `.sql` (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
+    * Database schema can be committed as `.sql` (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
 
 
 ## Usage

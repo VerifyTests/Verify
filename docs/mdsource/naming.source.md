@@ -69,3 +69,10 @@ Result in two files:
 snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json
 
 snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml
+
+
+## NamerRuntimeAndVersion
+
+To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
+
+snippet: AccessNamerRuntimeAndVersion

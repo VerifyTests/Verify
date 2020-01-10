@@ -1,47 +1,51 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-class Namer
+namespace Verify
 {
-    public bool UniqueForRuntime = false;
-    public bool UniqueForAssemblyConfiguration = false;
-    public bool UniqueForRuntimeAndVersion = false;
-
-    static Namer()
+    public class Namer
     {
-        var (runtime, version) = GetRuntimeAndVersion();
-        Namer.runtime = runtime;
-        runtimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
-    }
+        internal bool UniqueForRuntime = false;
+        internal bool UniqueForAssemblyConfiguration = false;
+        internal bool UniqueForRuntimeAndVersion = false;
 
-    public static string runtime;
-
-    public static string runtimeAndVersion;
-
-    public Namer()
-    {
-    }
-    public Namer(Namer namer)
-    {
-    UniqueForRuntime = namer.UniqueForRuntime;
-    UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
-    UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
-    }
-
-    public static (string runtime, Version Version) GetRuntimeAndVersion()
-    {
-        var description = RuntimeInformation.FrameworkDescription;
-        if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
+        static Namer()
         {
-            var version = Version.Parse(description.Replace(".NET Framework ", ""));
-            return ("Net", version);
+            var (runtime, version) = GetRuntimeAndVersion();
+            Runtime = runtime;
+            RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
         }
 
-        if (description.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase))
+        public static string Runtime { get; }
+
+        public static string RuntimeAndVersion { get; }
+
+        internal Namer()
         {
-            return ("Core", Environment.Version);
         }
 
-        throw new Exception($"Could not resolve runtime for '{description}'.");
+        internal Namer(Namer namer)
+        {
+            UniqueForRuntime = namer.UniqueForRuntime;
+            UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
+            UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
+        }
+
+        static (string runtime, Version Version) GetRuntimeAndVersion()
+        {
+            var description = RuntimeInformation.FrameworkDescription;
+            if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
+            {
+                var version = Version.Parse(description.Replace(".NET Framework ", ""));
+                return ("Net", version);
+            }
+
+            if (description.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase))
+            {
+                return ("Core", Environment.Version);
+            }
+
+            throw new Exception($"Could not resolve runtime for '{description}'.");
+        }
     }
 }

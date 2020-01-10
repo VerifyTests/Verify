@@ -340,3 +340,17 @@ Result in two files:
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## NamerRuntimeAndVersion
+
+To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
+
+<!-- snippet: AccessNamerRuntimeAndVersion -->
+<a id='snippet-accessnamerruntimeandversion'/></a>
+```cs
+Debug.WriteLine(Namer.Runtime);
+Debug.WriteLine(Namer.RuntimeAndVersion);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L30-L33' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
+<!-- endsnippet -->

@@ -41,11 +41,11 @@ static class FileNameBuilder
     {
         if (namer.UniqueForRuntimeAndVersion || SharedVerifySettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
-            builder.Append($".{Namer.runtimeAndVersion}");
+            builder.Append($".{Namer.RuntimeAndVersion}");
         }
         else if (namer.UniqueForRuntime || SharedVerifySettings.SharedNamer.UniqueForRuntime)
         {
-            builder.Append($".{Namer.runtime}");
+            builder.Append($".{Namer.Runtime}");
         }
 
         if (namer.UniqueForAssemblyConfiguration || SharedVerifySettings.SharedNamer.UniqueForAssemblyConfiguration)

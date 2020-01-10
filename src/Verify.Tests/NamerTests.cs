@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -12,7 +13,7 @@ public class NamerTests :
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify(Namer.runtime, settings);
+        return Verify(Namer.Runtime, settings);
     }
 
     [Fact]
@@ -20,7 +21,16 @@ public class NamerTests :
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify(Namer.runtimeAndVersion, settings);
+        return Verify(Namer.RuntimeAndVersion, settings);
+    }
+
+    [Fact]
+    public void AccessNamerRuntimeAndVersion()
+    {
+        #region AccessNamerRuntimeAndVersion
+        Debug.WriteLine(Namer.Runtime);
+        Debug.WriteLine(Namer.RuntimeAndVersion);
+        #endregion
     }
 
     [Fact]

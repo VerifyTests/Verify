@@ -70,7 +70,7 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        if (!BuildServerDetector.Detected && settings.clipboardEnabled)
+        if (!BuildServerDetector.Detected && settings.clipboardEnabled && !settings.autoVerify)
         {
             builder.AppendLine("Verify command placed in clipboard.");
         }
@@ -80,8 +80,10 @@ class VerifyEngine
         await ProcessMissing(builder);
 
         await ProcessNotEquals(builder);
-
-        throw InnerVerifier.exceptionBuilder(builder.ToString());
+        if (!settings.autoVerify)
+        {
+            throw InnerVerifier.exceptionBuilder(builder.ToString());
+        }
     }
 
     async Task ProcessDangling(StringBuilder builder)
@@ -95,6 +97,11 @@ class VerifyEngine
         foreach (var item in danglingVerified)
         {
             builder.AppendLine($"  {Path.GetFileName(item)}");
+            if (settings.autoVerify)
+            {
+                File.Delete(item);
+                continue;
+            }
             if (!settings.clipboardEnabled)
             {
                 continue;
@@ -127,6 +134,11 @@ class VerifyEngine
                 }
                 continue;
             }
+            if (settings.autoVerify)
+            {
+                AcceptChanges(item);
+                continue;
+            }
             if (settings.clipboardEnabled)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
@@ -155,6 +167,11 @@ class VerifyEngine
             {
                 continue;
             }
+            if (settings.autoVerify)
+            {
+                AcceptChanges(item);
+                continue;
+            }
             if (settings.clipboardEnabled)
             {
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
@@ -169,5 +186,11 @@ class VerifyEngine
                 }
             }
         }
+    }
+
+    static void AcceptChanges(FilePair item)
+    {
+        File.Delete(item.Verified);
+        File.Move(item.Received, item.Verified);
     }
 }

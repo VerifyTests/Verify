@@ -24,6 +24,7 @@ Verification tool to enable simple approval of complex models and documents.
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
     * [Disable Clipboard](#disable-clipboard)
+    * [AutoVerify](#autoverify)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
   * [Extensions](#extensions)<!-- endtoc -->
@@ -370,6 +371,26 @@ settings.DisableClipboard();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L9-L14' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+### AutoVerify
+
+In some scenarios it makes sense to auto-accept any changes as part of a given test run. For example:
+
+ * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
+
+This can be done using `AutoVerify()`:
+
+<!-- snippet: AutoVerify -->
+<a id='snippet-autoverify'/></a>
+```cs
+var settings = new VerifySettings();
+settings.AutoVerify();
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L19-L24' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
 
 
 ## Received and Verified

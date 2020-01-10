@@ -180,5 +180,5 @@ The following diff tools are supported:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L19-L24' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L29-L34' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
 <!-- endsnippet -->

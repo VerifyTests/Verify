@@ -14,6 +14,16 @@ public class Snippets
         #endregion
     }
 
+    void AutoVerify()
+    {
+        #region AutoVerify
+
+        var settings = new VerifySettings();
+        settings.AutoVerify();
+
+        #endregion
+    }
+
     void DisableDiff()
     {
         #region DisableDiff

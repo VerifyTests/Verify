@@ -6,7 +6,6 @@ namespace Verify
     public partial class VerifySettings
     {
         internal static VerifySettings Default = new VerifySettings();
-        internal string? extension;
 
         public VerifySettings(VerifySettings? settingsToClone)
         {
@@ -19,6 +18,7 @@ namespace Verify
             extension = settingsToClone.extension;
             clipboardEnabled = settingsToClone.clipboardEnabled;
             diffEnabled = settingsToClone.diffEnabled;
+            autoVerify = settingsToClone.autoVerify;
             Namer = new Namer(settingsToClone.Namer);
             foreach (var pair in settingsToClone.Data)
             {
@@ -38,6 +38,8 @@ namespace Verify
         public VerifySettings()
         {
         }
+
+        internal string? extension;
 
         public void UseExtension(string extension)
         {
@@ -68,6 +70,13 @@ namespace Verify
             }
 
             return extension;
+        }
+
+        internal bool autoVerify;
+
+        public void AutoVerify()
+        {
+            autoVerify = true;
         }
     }
 }

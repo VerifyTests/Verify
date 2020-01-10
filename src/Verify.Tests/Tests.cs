@@ -206,6 +206,34 @@ public class Tests :
     }
 
     [Fact]
+    public async Task AutoVerifyDifferent()
+    {
+        var received = Path.Combine(SourceDirectory, "Tests.AutoVerifyDifferent.received.txt");
+        File.WriteAllText(received, "someContent");
+        var verified = Path.Combine(SourceDirectory, "Tests.AutoVerifyDifferent.verified.txt");
+        File.Delete(verified);
+        var settings = new VerifySettings();
+        settings.AutoVerify();
+        await Verify("content", settings);
+        Assert.False(File.Exists(received), received);
+        Assert.True(File.Exists(verified), verified);
+    }
+
+    [Fact]
+    public async Task AutoVerifyMissing()
+    {
+        var received = Path.Combine(SourceDirectory, "Tests.AutoVerifyMissing.received.txt");
+        File.Delete(received);
+        var verified = Path.Combine(SourceDirectory, "Tests.AutoVerifyMissing.verified.txt");
+        File.Delete(verified);
+        var settings = new VerifySettings();
+        settings.AutoVerify();
+        await Verify("content", settings);
+        Assert.False(File.Exists(received), received);
+        Assert.True(File.Exists(verified), verified);
+    }
+
+    [Fact]
     public async Task WithExistingReceived()
     {
         var received = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.received.txt");

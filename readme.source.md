@@ -148,6 +148,19 @@ The clipboard behavior can be disable using the following:
 snippet: DisableClipboard
 
 
+### AutoVerify
+
+In some scenarios it makes sense to auto-accept any changes as part of a given test run. For example:
+
+ * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
+
+This can be done using `AutoVerify()`:
+
+snippet: AutoVerify
+
+Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
+
+
 ## Received and Verified
 
  * **All `*.verified.*` files should be committed to source control.**

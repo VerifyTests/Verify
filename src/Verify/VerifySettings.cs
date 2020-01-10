@@ -24,7 +24,7 @@ namespace Verify
             {
                 if (pair.Value is ICloneable cloneable)
                 {
-                    Data.Add(pair.Key, cloneable);
+                    Data.Add(pair.Key, cloneable.Clone());
                 }
                 else
                 {

@@ -216,7 +216,6 @@ public class Tests :
         settings.AutoVerify();
         settings.UniqueForRuntime();
         await Verify("content", settings);
-        Assert.False(File.Exists(received), received);
         Assert.True(File.Exists(verified), verified);
     }
 
@@ -231,7 +230,6 @@ public class Tests :
         settings.AutoVerify();
         settings.UniqueForRuntime();
         await Verify("content", settings);
-        Assert.False(File.Exists(received), received);
         Assert.True(File.Exists(verified), verified);
     }
 

@@ -190,7 +190,7 @@ namespace Verify
             var converters = settings.Converters;
             converters.Add(new StringEnumConverter());
             converters.Add(new DelegateConverter());
-            converters.Add(new TypeConverter());
+            converters.Add(new TypeJsonConverter());
             if (scrubGuids && scrubDateTimes)
             {
                 var guidScrubbingConverter = new Scrubber<Guid>();

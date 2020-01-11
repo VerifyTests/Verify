@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Verify;
 
-class TypeConverter :
+class TypeJsonConverter :
     WriteOnlyJsonConverter
 {
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

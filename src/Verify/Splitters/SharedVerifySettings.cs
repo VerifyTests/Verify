@@ -96,31 +96,5 @@ namespace Verify
                 canConvert);
             typedConverters.Add(converter);
         }
-
-        internal class TypeConverter
-        {
-            public string ToExtension { get; }
-            public Func<object, VerifySettings, IEnumerable<Stream>> Func { get; }
-            public Func<Type, bool> CanConvert { get; }
-
-            public TypeConverter(string toExtension, Func<object, VerifySettings, IEnumerable<Stream>> func, Func<Type, bool> canConvert)
-            {
-                ToExtension = toExtension;
-                Func = func;
-                CanConvert = canConvert;
-            }
-        }
-
-        internal class StreamConverter
-        {
-            public string ToExtension { get; }
-            public Func<Stream, VerifySettings, IEnumerable<Stream>> Func { get; }
-
-            public StreamConverter(string toExtension, Func<Stream, VerifySettings, IEnumerable<Stream>> func)
-            {
-                ToExtension = toExtension;
-                Func = func;
-            }
-        }
     }
 }

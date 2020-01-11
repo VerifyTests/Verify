@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -13,21 +12,22 @@ public class VerifySettingsTests :
     public void DataIsCloned()
     {
         var originalSettings = new VerifySettings();
-        originalSettings.Data.Add("clonable", new MyClonable());
+        originalSettings.Data.Add("cloneable", new MyCloneable());
         var newSettings = new VerifySettings(originalSettings);
         Assert.NotSame(originalSettings.Data.Single().Value, newSettings.Data.Single().Value);
+    }
+
+    class MyCloneable :
+        ICloneable
+    {
+        public object Clone()
+        {
+            return new MyCloneable();
+        }
     }
 
     public VerifySettingsTests(ITestOutputHelper output) :
         base(output)
     {
-    }
-
-    public class MyClonable : ICloneable
-    {
-        public object Clone()
-        {
-            return new MyClonable();
-        }
     }
 }

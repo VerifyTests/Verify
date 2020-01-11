@@ -70,7 +70,7 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        if (!BuildServerDetector.Detected && settings.clipboardEnabled && !settings.autoVerify)
+        if (settings.clipboardEnabled && !settings.autoVerify)
         {
             builder.AppendLine("Verify command placed in clipboard.");
         }

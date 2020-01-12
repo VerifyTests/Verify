@@ -30,6 +30,24 @@ namespace Verify
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
+            RegisterFileConverter(
+                fromExtension,
+                toExtension,
+                (stream, settings) =>
+                {
+                    var streams = func(stream, settings);
+                    return new ConversionResult(null, streams);
+                });
+        }
+
+        public static void RegisterFileConverter(
+            string fromExtension,
+            string toExtension,
+            Func<Stream, VerifySettings, ConversionResult> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
+            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new StreamConverter(
                 toExtension,
                 func);

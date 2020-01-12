@@ -6,7 +6,7 @@ using Verify;
 
 partial class InnerVerifier
 {
-    async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings)
+    async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings, object? info)
     {
         var extension = settings.ExtensionOrBin();
         var innerVerifier = new VerifyEngine(
@@ -16,6 +16,7 @@ partial class InnerVerifier
             directory,
             testName);
         var list = streams.ToList();
+        await VerifyInfo(innerVerifier, settings, info);
         for (var index = 0; index < list.Count; index++)
         {
             var suffix = GetSuffix(list, index);
@@ -28,6 +29,23 @@ partial class InnerVerifier
         }
 
         await innerVerifier.ThrowIfRequired();
+    }
+
+    async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
+    {
+        if (info == null)
+        {
+            return;
+        }
+
+        var file = GetFileNames("txt", settings.Namer, "info");
+
+        var formatJson = JsonFormatter.AsJson(info, settings.serialization.currentSettings);
+
+        var scrubbedInput = ScrubInput(formatJson, settings);
+
+        var result = await Comparer.Text(file, scrubbedInput);
+        engine.HandleCompareResult(result, file);
     }
 
     static string? GetSuffix(List<Stream> list, int index)

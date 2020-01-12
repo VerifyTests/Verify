@@ -15,6 +15,34 @@ public class TypeConverterTests :
     VerifyBase
 {
     [Fact]
+    public Task ConvertWithExtInSettings()
+    {
+        SharedVerifySettings.RegisterFileConverter<ClassToSplit2>(
+            (classToSplit, _) =>
+            {
+                var streams = ClassToStream(classToSplit);
+                return new ConversionResult(null, streams);
+            });
+        var target = new ClassToSplit2
+        {
+            Value = $@"line1"
+        };
+        var settings = new VerifySettings();
+        settings.UseExtension("txt");
+        return Verify(target, settings);
+    }
+
+    static IEnumerable<Stream> ClassToStream(ClassToSplit2 split)
+    {
+        var bytes = Encoding.UTF8.GetBytes(split.Value);
+        yield return new MemoryStream(bytes);
+    }
+
+    public class ClassToSplit2
+    {
+        public string Value { get; set; } = null!;
+    }
+    [Fact]
     public Task ConvertWithNewline()
     {
         SharedVerifySettings.RegisterFileConverter<ClassToSplit>(

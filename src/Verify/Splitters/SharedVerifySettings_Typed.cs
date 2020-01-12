@@ -23,6 +23,28 @@ namespace Verify
         }
 
         public static void RegisterFileConverter<T>(
+            Func<T, VerifySettings, ConversionResult> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            var converter = new TypeConverter(
+                (o, settings) => func((T) o, settings),
+                type => type == typeof(T));
+            typedConverters.Add(converter);
+        }
+
+        public static void RegisterFileConverter(
+            Func<object, VerifySettings, ConversionResult> func,
+            Func<Type, bool> canConvert)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            Guard.AgainstNull(canConvert, nameof(canConvert));
+            var converter = new TypeConverter(
+                func,
+                canConvert);
+            typedConverters.Add(converter);
+        }
+
+        public static void RegisterFileConverter<T>(
             string toExtension,
             Func<T, VerifySettings, ConversionResult> func)
         {
@@ -30,7 +52,7 @@ namespace Verify
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new TypeConverter(
                 toExtension,
-                (o, settings) => func((T)o, settings),
+                (o, settings) => func((T) o, settings),
                 type => type == typeof(T));
             typedConverters.Add(converter);
         }

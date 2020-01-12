@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,7 @@ partial class InnerVerifier
 
         if (SharedVerifySettings.TryGetConverter<T>(out var typeConverter))
         {
-            var converterSettings = new VerifySettings(settings);
-            converterSettings.UseExtension(typeConverter.ToExtension);
+            var converterSettings = GetConverterSettings<T>(settings, typeConverter);
             var result = typeConverter.Func(input!, converterSettings);
             return VerifyBinary(result.Streams, converterSettings, result.Info);
         }
@@ -33,6 +33,23 @@ partial class InnerVerifier
 
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
         return Verify(formatJson, settings);
+    }
+
+    static VerifySettings GetConverterSettings<T>(VerifySettings settings, TypeConverter converter)
+    {
+        if (converter.ToExtension != null)
+        {
+            var converterSettings = new VerifySettings(settings);
+            converterSettings.UseExtension(converter.ToExtension);
+            return converterSettings;
+        }
+
+        if (settings.HasExtension())
+        {
+            return settings;
+        }
+
+        throw new Exception("No extension defined.");
     }
 
     async Task VerifyStream(VerifySettings settings, Stream stream)

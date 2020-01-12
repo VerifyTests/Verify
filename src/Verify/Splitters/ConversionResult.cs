@@ -5,13 +5,13 @@ namespace Verify
 {
     public class ConversionResult
     {
-        public object? MetaData { get; }
+        public object? Info { get; }
         public IEnumerable<Stream> Streams { get; }
 
-        public ConversionResult(object? metaData, IEnumerable<Stream> streams)
+        public ConversionResult(object? info, IEnumerable<Stream> streams)
         {
             Guard.AgainstNull(streams, nameof(streams));
-            MetaData = metaData;
+            Info = info;
             Streams = streams;
         }
     }

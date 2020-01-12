@@ -16,33 +16,6 @@ namespace Verify
         public static void RegisterFileConverter(
             string fromExtension,
             string toExtension,
-            Func<Stream, IEnumerable<Stream>> func)
-        {
-            Guard.AgainstNull(func, nameof(func));
-            RegisterFileConverter(fromExtension, toExtension, (stream, settings) => func(stream));
-        }
-
-        public static void RegisterFileConverter(
-            string fromExtension,
-            string toExtension,
-            Func<Stream, VerifySettings, IEnumerable<Stream>> func)
-        {
-            Guard.AgainstNull(func, nameof(func));
-            Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
-            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            RegisterFileConverter(
-                fromExtension,
-                toExtension,
-                (stream, settings) =>
-                {
-                    var streams = func(stream, settings);
-                    return new ConversionResult(null, streams);
-                });
-        }
-
-        public static void RegisterFileConverter(
-            string fromExtension,
-            string toExtension,
             Func<Stream, VerifySettings, ConversionResult> func)
         {
             Guard.AgainstNull(func, nameof(func));

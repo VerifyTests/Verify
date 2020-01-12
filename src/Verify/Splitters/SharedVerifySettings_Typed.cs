@@ -9,8 +9,22 @@ namespace Verify
     {
         static List<TypeConverter> typedConverters = new List<TypeConverter>();
 
-        internal static bool TryGetConverter<T>([NotNullWhen(true)] out TypeConverter? converter)
+        internal static bool TryGetConverter<T>(
+            string? extension,
+            [NotNullWhen(true)] out TypeConverter? converter)
         {
+            if (extension != null)
+            {
+                foreach (var typedConverter in typedConverters
+                    .Where(_ => _.ToExtension != null &&
+                                _.ToExtension == extension &&
+                                _.CanConvert(typeof(T))))
+                {
+                    converter = typedConverter;
+                    return true;
+                }
+            }
+
             foreach (var typedConverter in typedConverters
                 .Where(_ => _.CanConvert(typeof(T))))
             {

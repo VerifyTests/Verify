@@ -15,27 +15,56 @@ public class TypeConverterTests :
     VerifyBase
 {
     [Fact]
-    public Task ConvertWithExtInSettings()
+    public Task DifferingExtensions()
     {
-        SharedVerifySettings.RegisterFileConverter<ClassToSplit2>(
-            (classToSplit, _) =>
+        SharedVerifySettings.RegisterFileConverter<ClassToSplit3>(
+            "notTxt",
+            (classToSplit, _) => throw new Exception());
+
+        SharedVerifySettings.RegisterFileConverter<ClassToSplit3>(
+            "txt",
+            (instance, _) =>
             {
-                var streams = ClassToStream(classToSplit);
+                var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams);
             });
-        var target = new ClassToSplit2
+
+        var target = new ClassToSplit3
         {
-            Value = $@"line1"
+            Value = "line1"
         };
         var settings = new VerifySettings();
         settings.UseExtension("txt");
         return Verify(target, settings);
     }
 
-    static IEnumerable<Stream> ClassToStream(ClassToSplit2 split)
+    static List<Stream> ToStream(string splitValue)
     {
-        var bytes = Encoding.UTF8.GetBytes(split.Value);
-        yield return new MemoryStream(bytes);
+        var bytes = Encoding.UTF8.GetBytes(splitValue);
+        return new List<Stream> {new MemoryStream(bytes)};
+    }
+
+    public class ClassToSplit3
+    {
+        public string Value { get; set; } = null!;
+    }
+
+    [Fact]
+    public Task ConvertWithExtInSettings()
+    {
+        SharedVerifySettings.RegisterFileConverter<ClassToSplit2>(
+            (instance, _) =>
+            {
+                var streams = ToStream(instance.Value);
+                return new ConversionResult(null, streams);
+            });
+        var target = new ClassToSplit2
+        {
+            Value = "line1"
+        };
+        var settings = new VerifySettings();
+        settings.UseExtension("txt");
+        return Verify(target, settings);
     }
 
     public class ClassToSplit2
@@ -47,9 +76,9 @@ public class TypeConverterTests :
     {
         SharedVerifySettings.RegisterFileConverter<ClassToSplit>(
             "txt",
-            (classToSplit, _) =>
+            (instance, _) =>
             {
-                var streams = ClassToStream(classToSplit);
+                var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams);
             });
         var target = new ClassToSplit
@@ -57,12 +86,6 @@ public class TypeConverterTests :
             Value = $@"line1{Environment.NewLine}line2"
         };
         return Verify(target);
-    }
-
-    static IEnumerable<Stream> ClassToStream(ClassToSplit split)
-    {
-        var bytes = Encoding.UTF8.GetBytes(split.Value);
-        yield return new MemoryStream(bytes);
     }
 
     public class ClassToSplit

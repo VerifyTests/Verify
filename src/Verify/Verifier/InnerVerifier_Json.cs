@@ -22,7 +22,7 @@ partial class InnerVerifier
 
         if (input is Stream stream)
         {
-            return VerifyStream<T>(settings, stream);
+            return VerifyStream(settings, stream);
         }
 
         if (typeof(T).ImplementsStreamEnumerable())
@@ -35,7 +35,7 @@ partial class InnerVerifier
         return Verify(formatJson, settings);
     }
 
-    async Task VerifyStream<T>(VerifySettings settings, Stream stream)
+    async Task VerifyStream(VerifySettings settings, Stream stream)
     {
         using (stream)
         {

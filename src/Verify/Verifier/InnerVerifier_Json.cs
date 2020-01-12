@@ -16,8 +16,8 @@ partial class InnerVerifier
         {
             var converterSettings = new VerifySettings(settings);
             converterSettings.UseExtension(typeConverter.ToExtension);
-            var converterFunc = typeConverter.Func(input!, converterSettings);
-            return VerifyBinary(converterFunc, converterSettings);
+            var result = typeConverter.Func(input!, converterSettings);
+            return VerifyBinary(result.Streams, converterSettings, result.Info);
         }
 
         if (input is Stream stream)
@@ -28,7 +28,7 @@ partial class InnerVerifier
         if (typeof(T).ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) input!;
-            return VerifyBinary(enumerable.Cast<Stream>(), settings);
+            return VerifyBinary(enumerable.Cast<Stream>(), settings, null);
         }
 
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
@@ -45,13 +45,13 @@ partial class InnerVerifier
                 {
                     var converterSettings = new VerifySettings(settings);
                     converterSettings.UseExtension(converter.ToExtension);
-                    var streams = converter.Func(stream, converterSettings);
-                    await VerifyBinary(streams, converterSettings);
+                    var result = converter.Func(stream, converterSettings);
+                    await VerifyBinary(result.Streams, converterSettings, result.Info);
                     return;
                 }
             }
 
-            await VerifyBinary(new List<Stream> {stream}, settings);
+            await VerifyBinary(new List<Stream> {stream}, settings, null);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 
 namespace Verify
@@ -25,15 +24,7 @@ namespace Verify
 
         public static void RegisterFileConverter<T>(
             string toExtension,
-            Func<T, IEnumerable<Stream>> func)
-        {
-            Guard.AgainstNull(func, nameof(func));
-            RegisterFileConverter<T>(toExtension, (target, settings) => func(target));
-        }
-
-        public static void RegisterFileConverter<T>(
-            string toExtension,
-            Func<T, VerifySettings, IEnumerable<Stream>> func)
+            Func<T, VerifySettings, ConversionResult> func)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
@@ -46,16 +37,7 @@ namespace Verify
 
         public static void RegisterFileConverter(
             string toExtension,
-            Func<object, IEnumerable<Stream>> func,
-            Func<Type, bool> canConvert)
-        {
-            Guard.AgainstNull(func, nameof(func));
-            RegisterFileConverter(toExtension, (o,x) => func(o), canConvert);
-        }
-
-        public static void RegisterFileConverter(
-            string toExtension,
-            Func<object, VerifySettings, IEnumerable<Stream>> func,
+            Func<object, VerifySettings, ConversionResult> func,
             Func<Type, bool> canConvert)
         {
             Guard.AgainstNull(func, nameof(func));

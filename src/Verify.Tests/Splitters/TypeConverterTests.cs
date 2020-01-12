@@ -11,13 +11,19 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-public class FileConverterTests :
+public class TypeConverterTests :
     VerifyBase
 {
     [Fact]
     public Task ConvertWithNewline()
     {
-        SharedVerifySettings.RegisterFileConverter<ClassToSplit>("txt", ClassToStream);
+        SharedVerifySettings.RegisterFileConverter<ClassToSplit>(
+            "txt",
+            (classToSplit, _) =>
+            {
+                var streams = ClassToStream(classToSplit);
+                return new ConversionResult(null, streams);
+            });
         var target = new ClassToSplit
         {
             Value = $@"line1{Environment.NewLine}line2"
@@ -35,42 +41,51 @@ public class FileConverterTests :
     {
         public string Value { get; set; } = null!;
     }
-    //TODO: a multiple split
-    [Fact]
-    public Task ExtensionConversion()
-    {
-        SharedVerifySettings.RegisterFileConverter("bmp", "png", ConvertBmpTpPng);
-        var settings = new VerifySettings();
-        settings.UseExtension("bmp");
-        return Verify(File.OpenRead("sample.bmp"), settings);
-    }
-
-    IEnumerable<Stream> ConvertBmpTpPng(Stream input)
-    {
-        var bitmap = new Bitmap(input);
-        var stream = new MemoryStream();
-        bitmap.Save(stream, ImageFormat.Png);
-        yield return stream;
-    }
 
     [Fact]
-    public Task TypeConversion()
+    public Task WithInfo()
     {
-        SharedVerifySettings.RegisterFileConverter<Bitmap>("png", ConvertBmpTpPng);
+        SharedVerifySettings.RegisterFileConverter<Bitmap>(
+            "png",
+            (bitmap1, _) =>
+            {
+                var streams = ConvertBmpTpPngStreams(bitmap1);
+                var info = new
+                {
+                    Property = "Value"
+                };
+                return new ConversionResult(info, streams);
+            });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
         var bitmap = new Bitmap(File.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 
-    IEnumerable<Stream> ConvertBmpTpPng(Bitmap bitmap)
+    [Fact]
+    public Task TypeConversion()
+    {
+        SharedVerifySettings.RegisterFileConverter<Bitmap>(
+            "png",
+            (bitmap1, _) =>
+            {
+                var streams = ConvertBmpTpPngStreams(bitmap1);
+                return new ConversionResult(null, streams);
+            });
+        var settings = new VerifySettings();
+        settings.UseExtension("bmp");
+        var bitmap = new Bitmap(File.OpenRead("sample.bmp"));
+        return Verify(bitmap, settings);
+    }
+
+    IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
     {
         var stream = new MemoryStream();
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }
 
-    public FileConverterTests(ITestOutputHelper output) :
+    public TypeConverterTests(ITestOutputHelper output) :
         base(output)
     {
     }

@@ -24,18 +24,7 @@ partial class InnerVerifier
             var file = GetFileNames(extension, settings.Namer, suffix);
             var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
 
-            switch (verifyResult)
-            {
-                case VerifyResult.MissingVerified:
-                    innerVerifier.AddMissing(file);
-                    break;
-                case VerifyResult.NotEqual:
-                    innerVerifier.AddNotEquals(file);
-                    break;
-                case VerifyResult.Equal:
-                    innerVerifier.AddEquals(file);
-                    break;
-            }
+            innerVerifier.HandleVerifyResult(verifyResult, file);
         }
 
         await innerVerifier.ThrowIfRequired();

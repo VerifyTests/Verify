@@ -1,4 +1,4 @@
-﻿enum VerifyResult
+﻿enum CompareResult
 {
     Equal,
     NotEqual,

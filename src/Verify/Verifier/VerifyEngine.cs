@@ -37,17 +37,17 @@ class VerifyEngine
         diffTool = DiffTools.Find(extension);
     }
 
-    public void HandleVerifyResult(VerifyResult verifyResult, FilePair file)
+    public void HandleCompareResult(CompareResult compareResult, FilePair file)
     {
-        switch (verifyResult)
+        switch (compareResult)
         {
-            case VerifyResult.MissingVerified:
+            case CompareResult.MissingVerified:
                 AddMissing(file);
                 break;
-            case VerifyResult.NotEqual:
+            case CompareResult.NotEqual:
                 AddNotEquals(file);
                 break;
-            case VerifyResult.Equal:
+            case CompareResult.Equal:
                 AddEquals(file);
                 break;
         }

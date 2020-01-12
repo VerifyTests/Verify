@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Verify;
 
 partial class InnerVerifier
@@ -21,23 +19,9 @@ partial class InnerVerifier
         var file = GetFileNames(extension, settings.Namer);
 
         var scrubbedInput = ScrubInput(input, settings);
-        FileHelpers.DeleteIfEmpty(file.Verified);
-        if (!File.Exists(file.Verified))
-        {
-            await FileHelpers.WriteText(file.Received, scrubbedInput);
-            innerVerifier.AddMissing(file);
-        }
-        else
-        {
-            var verifiedText = await FileHelpers.ReadText(file.Verified);
-            verifiedText = verifiedText.Replace("\r\n", "\n");
-            if (!string.Equals(verifiedText, scrubbedInput, StringComparison.OrdinalIgnoreCase))
-            {
-                await FileHelpers.WriteText(file.Received, scrubbedInput);
-                innerVerifier.AddNotEquals(file);
-            }
-        }
 
+        var result = await Comparer.Text(file, scrubbedInput);
+        innerVerifier.HandleCompareResult(result, file);
         await innerVerifier.ThrowIfRequired();
     }
 

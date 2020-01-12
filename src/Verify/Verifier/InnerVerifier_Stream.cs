@@ -22,9 +22,9 @@ partial class InnerVerifier
 
             var stream = list[index];
             var file = GetFileNames(extension, settings.Namer, suffix);
-            var verifyResult = await StreamVerifier.VerifyStreams(stream, file);
+            var result = await Comparer.Streams(stream, file);
 
-            innerVerifier.HandleVerifyResult(verifyResult, file);
+            innerVerifier.HandleCompareResult(result, file);
         }
 
         await innerVerifier.ThrowIfRequired();

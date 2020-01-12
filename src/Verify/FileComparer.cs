@@ -3,24 +3,24 @@ using System.IO;
 
 static class FileComparer
 {
-    public static VerifyResult DoCompare(string receivedPath, string verifiedPath)
+    public static CompareResult DoCompare(string receivedPath, string verifiedPath)
     {
         if (!File.Exists(verifiedPath))
         {
-            return VerifyResult.MissingVerified;
+            return CompareResult.MissingVerified;
         }
 
         if (EmptyFiles.IsEmptyFile(verifiedPath))
         {
-            return VerifyResult.NotEqual;
+            return CompareResult.NotEqual;
         }
 
         if (!FilesEqual(receivedPath, verifiedPath))
         {
-            return VerifyResult.NotEqual;
+            return CompareResult.NotEqual;
         }
 
-        return VerifyResult.Equal;
+        return CompareResult.Equal;
     }
 
     public static bool FilesEqual(string path1, string path2)

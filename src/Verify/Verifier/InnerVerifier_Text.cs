@@ -24,7 +24,7 @@ partial class InnerVerifier
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
-            await FileHelpers.WriteText(file.Received, input);
+            await FileHelpers.WriteText(file.Received, scrubbedInput);
             innerVerifier.AddMissing(file);
         }
         else

@@ -179,6 +179,7 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Extends Verify to allow verification of web bits.
  * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Allow verification of SqlServer bits.
  * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Extends Verify to allow verification of EntityFramework bits.
+ * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Extends Verify to allow verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
 
 
 ## Release Notes

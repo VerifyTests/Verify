@@ -14,8 +14,7 @@ namespace VerifyXunit
                 message => new XunitException(message),
                 input => XunitContext.Context.IntOrNext(input),
                 input => XunitContext.Context.IntOrNext(input),
-                input => XunitContext.Context.IntOrNext(input),
-                Assert.Equal);
+                input => XunitContext.Context.IntOrNext(input));
         }
 
         public VerifyBase(

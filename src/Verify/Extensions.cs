@@ -306,6 +306,7 @@ static class Extensions
         "ttml",
         "twig",
         "txt",
+        "text",
         "v",
         "vb",
         "vbproj",

@@ -1,4 +1,4 @@
 Results do not match.
 Verify command placed in clipboard.
-Pending:
-  Tests.StreamNegative.verified.bin
+Pending verification:
+Tests.StreamNegative.verified.bin

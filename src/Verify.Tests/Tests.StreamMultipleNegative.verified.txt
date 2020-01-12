@@ -1,5 +1,5 @@
 Results do not match.
 Verify command placed in clipboard.
-Pending:
-  Tests.StreamMultipleNegative.00.verified.bin
-  Tests.StreamMultipleNegative.01.verified.bin
+Pending verification:
+Tests.StreamMultipleNegative.00.verified.bin
+Tests.StreamMultipleNegative.01.verified.bin

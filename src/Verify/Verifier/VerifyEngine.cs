@@ -120,18 +120,18 @@ class VerifyEngine
         builder.AppendLine("Differences:");
         foreach (var item in notEquals)
         {
-            builder.AppendLine($"  {Path.GetFileName(item.Received)}");
+            builder.AppendLine($"{Path.GetFileName(item.Received)}");
+            if (Extensions.IsTextExtension(item.Extension))
+            {
+                builder.AppendLine($"{File.ReadAllText(item.Received)}");
+                if (File.Exists(item.Verified))
+                {
+                    builder.AppendLine($"{Path.GetFileName(item.Verified)}");
+                    builder.AppendLine($"{File.ReadAllText(item.Verified)}");
+                }
+            }
             if (BuildServerDetector.Detected)
             {
-                if (Extensions.IsTextExtension(item.Extension))
-                {
-                    builder.AppendLine($"{File.ReadAllText(item.Received)}");
-                    if (File.Exists(item.Verified))
-                    {
-                        builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
-                        builder.AppendLine($"{File.ReadAllText(item.Verified)}");
-                    }
-                }
                 continue;
             }
             if (settings.autoVerify)
@@ -159,10 +159,15 @@ class VerifyEngine
             return;
         }
 
-        builder.AppendLine("Pending:");
+        builder.AppendLine("Pending verification:");
         foreach (var item in missings)
         {
-            builder.AppendLine($"  {Path.GetFileName(item.Verified)}");
+            builder.AppendLine($"{Path.GetFileName(item.Verified)}");
+            if (Extensions.IsTextExtension(item.Extension))
+            {
+                builder.AppendLine($"{Path.GetFileName(item.Received)}");
+                builder.AppendLine($"{File.ReadAllText(item.Received)}");
+            }
             if (BuildServerDetector.Detected)
             {
                 continue;

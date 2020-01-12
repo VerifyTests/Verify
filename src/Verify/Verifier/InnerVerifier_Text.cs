@@ -26,23 +26,19 @@ partial class InnerVerifier
         {
             await FileHelpers.WriteText(file.Received, input);
             innerVerifier.AddMissing(file);
-            await innerVerifier.ThrowIfRequired();
-            return;
+        }
+        else
+        {
+            var verifiedText = await FileHelpers.ReadText(file.Verified);
+            verifiedText = verifiedText.Replace("\r\n", "\n");
+            if (!string.Equals(verifiedText, scrubbedInput, StringComparison.OrdinalIgnoreCase))
+            {
+                await FileHelpers.WriteText(file.Received, scrubbedInput);
+                innerVerifier.AddNotEquals(file);
+            }
         }
 
-        var verifiedText = await FileHelpers.ReadText(file.Verified);
-        verifiedText = verifiedText.Replace("\r\n", "\n");
-        try
-        {
-            assert(verifiedText, scrubbedInput);
-        }
-        catch (Exception exception)
-            when (!BuildServerDetector.Detected)
-        {
-            await FileHelpers.WriteText(file.Received, scrubbedInput);
-            innerVerifier.AddNotEquals(file);
-            await innerVerifier.ThrowIfRequired(exception.Message);
-        }
+        await innerVerifier.ThrowIfRequired();
     }
 
     static string ScrubInput(string input, VerifySettings settings)

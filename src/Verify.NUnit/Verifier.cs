@@ -13,8 +13,7 @@ namespace VerifyNUnit
                 message => new NUnitException(message),
                 input => CounterContext.Current.IntOrNext(input),
                 input => CounterContext.Current.IntOrNext(input),
-                input => CounterContext.Current.IntOrNext(input),
-                Assert.AreEqual);
+                input => CounterContext.Current.IntOrNext(input));
         }
 
         static FieldInfo field = typeof(TestContext.TestAdapter).GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);

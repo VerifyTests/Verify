@@ -13,8 +13,7 @@ namespace VerifyMSTest
                 message => new AssertFailedException(message),
                 input => CounterContext.Current.IntOrNext(input),
                 input => CounterContext.Current.IntOrNext(input),
-                input => CounterContext.Current.IntOrNext(input),
-                Assert.AreEqual);
+                input => CounterContext.Current.IntOrNext(input));
         }
 
         public TestContext TestContext

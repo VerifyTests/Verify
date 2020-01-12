@@ -10,16 +10,13 @@ public partial class InnerVerifier
     string directory;
     string testName;
     internal static Func<string, Exception> exceptionBuilder = null!;
-    static Action<string, string> assert = null!;
 
     public static void Init(
         Func<string, Exception> exceptionBuilder,
         Func<Guid, int> guidIntOrNext,
         Func<DateTime, int> dateTimeIntOrNext,
-        Func<DateTimeOffset, int> dateTimeOffsetIntOrNext,
-        Action<string, string> assert)
+        Func<DateTimeOffset, int> dateTimeOffsetIntOrNext)
     {
-        InnerVerifier.assert = assert;
         InnerVerifier.exceptionBuilder = exceptionBuilder;
         Scrubber<Guid>.SetIntOrNext(guidIntOrNext);
         Scrubber<DateTime>.SetIntOrNext(dateTimeIntOrNext);

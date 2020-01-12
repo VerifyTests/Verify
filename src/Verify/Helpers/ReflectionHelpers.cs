@@ -8,7 +8,6 @@ static class ReflectionHelpers
 {
     public static bool IsCollection(this Type type)
     {
-        Guard.AgainstNull(type, nameof(type));
         if (type.IsGenericList())
         {
             return true;
@@ -16,21 +15,24 @@ static class ReflectionHelpers
         return type.GetInterfaces().Any(IsGenericList);
     }
 
-    public static bool IsStreamEnumerable(this Type type)
+    public static bool ImplementsStreamEnumerable(this Type type)
     {
-        foreach (var interfaceType in type.GetInterfaces())
+        return type.GetInterfaces()
+            .Any(_ => _.IsStreamEnumerable());
+    }
+
+    static bool IsStreamEnumerable(this Type type)
+    {
+        if (!type.IsGenericType)
         {
-            if (interfaceType.IsGenericType
-                && interfaceType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-            {
-                if (interfaceType.GetGenericArguments()[0] == typeof(Stream))
-                {
-                    return true;
-                }
-            }
+            return false;
         }
 
-        return false;
+        if (type.GetGenericTypeDefinition() != typeof(IEnumerable<>))
+        {
+            return false;
+        }
+        return type.GetGenericArguments()[0] == typeof(Stream);
     }
 
     static bool IsGenericList(this Type x)

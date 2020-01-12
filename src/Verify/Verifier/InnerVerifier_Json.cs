@@ -42,7 +42,7 @@ partial class InnerVerifier
             }
         }
 
-        if (typeof(T).IsStreamEnumerable())
+        if (typeof(T).ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) input!;
             await VerifyBinary(enumerable.Cast<Stream>(), settings);

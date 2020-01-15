@@ -27,7 +27,8 @@ Verification tool to enable simple approval of complex models and documents.
     * [AutoVerify](#autoverify)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
-  * [Extensions](#extensions)<!-- endtoc -->
+  * [Extensions](#extensions)
+  * [Alternatives](#alternatives)<!-- endtoc -->
   * [Serializer Settings](/docs/serializer-settings.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [File Extension](/docs/file-extension.md)
   * [File naming](/docs/naming.md)
@@ -412,6 +413,15 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Allow verification of SqlServer bits.
  * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Extends Verify to allow verification of EntityFramework bits.
  * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Extends Verify to allow verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+
+
+## Alternatives
+
+Projects/tools that may be a better alternative to Verify
+
+ * [ApprovalTests](https://github.com/approvals/ApprovalTests.Net)
+ * [Snapshooter](https://github.com/SwissLife-OSS/Snapshooter)
+ * [Snapper](https://github.com/theramis/Snapper)
 
 
 ## Release Notes

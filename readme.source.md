@@ -182,6 +182,15 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Extends Verify to allow verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
 
 
+## Alternatives
+
+Projects/tools that may be a better alternative to Verify
+
+ * [ApprovalTests](https://github.com/approvals/ApprovalTests.Net)
+ * [Snapshooter](https://github.com/SwissLife-OSS/Snapshooter)
+ * [Snapper](https://github.com/theramis/Snapper)
+
+
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).

@@ -28,7 +28,8 @@ Verification tool to enable simple approval of complex models and documents.
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
   * [Extensions](#extensions)
-  * [Alternatives](#alternatives)<!-- endtoc -->
+  * [Alternatives](#alternatives)
+  * [Security contact information](#security-contact-information)<!-- endtoc -->
   * [Serializer Settings](/docs/serializer-settings.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [File Extension](/docs/file-extension.md)
   * [File naming](/docs/naming.md)
@@ -422,6 +423,11 @@ Projects/tools that may be a better alternative to Verify
  * [ApprovalTests](https://github.com/approvals/ApprovalTests.Net)
  * [Snapshooter](https://github.com/SwissLife-OSS/Snapshooter)
  * [Snapper](https://github.com/theramis/Snapper)
+
+
+## Security contact information
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Release Notes

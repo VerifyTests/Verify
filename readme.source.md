@@ -191,6 +191,11 @@ Projects/tools that may be a better alternative to Verify
  * [Snapper](https://github.com/theramis/Snapper)
 
 
+## Security contact information
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+
 ## Release Notes
 
 See [closed milestones](../../milestones?state=closed).

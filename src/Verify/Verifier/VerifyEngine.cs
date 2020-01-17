@@ -10,8 +10,8 @@ class VerifyEngine
 {
     Type testType;
     string testName;
+    string extension;
     VerifySettings settings;
-    ResolvedDiffTool? diffTool;
     List<FilePair> missings = new List<FilePair>();
     List<FilePair> notEquals = new List<FilePair>();
     List<string> danglingVerified;
@@ -23,10 +23,10 @@ class VerifyEngine
         string directory,
         string testName)
     {
+        this.extension = extension;
         this.settings = settings;
         this.testType = testType;
         this.testName = testName;
-        diffTool = DiffTools.Find(extension);
         var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, this.testType, this.testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
         var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, this.testType, this.testName);
@@ -34,7 +34,6 @@ class VerifyEngine
         {
             File.Delete(file);
         }
-        diffTool = DiffTools.Find(extension);
     }
 
     public void HandleCompareResult(CompareResult compareResult, FilePair file)
@@ -160,10 +159,13 @@ class VerifyEngine
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
             }
 
-            if (diffTool != null &&
-                settings.diffEnabled)
+            if (settings.diffEnabled)
             {
-                DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                var diffTool = DiffTools.Find(extension);
+                if (diffTool != null)
+                {
+                    DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                }
             }
         }
     }
@@ -198,12 +200,15 @@ class VerifyEngine
                 await ClipboardCapture.AppendMove(item.Received, item.Verified);
             }
 
-            if (diffTool != null &&
-                settings.diffEnabled)
+            if (settings.diffEnabled)
             {
-                if (EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
+                var diffTool = DiffTools.Find(extension);
+                if (diffTool != null)
                 {
-                    DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                    if (EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
+                    {
+                        DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                    }
                 }
             }
         }

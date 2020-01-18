@@ -41,6 +41,11 @@ static class ProcessCleanup
         }
     }
 
+    public static bool IsRunning(string command)
+    {
+        return processCommands.Any(x => x.Command == command);
+    }
+
     static void TerminalProcessIfExists(ProcessCommand processCommand)
     {
         var processId = (int) processCommand.Process;

@@ -32,7 +32,13 @@ static partial class DiffTools
 
         foreach (var tool in Tools().Where(x => x.Exists))
         {
-            var diffTool = new ResolvedDiffTool(tool.Name, tool.ExePath!, tool.ShouldTerminate, tool.BuildArguments);
+            var diffTool = new ResolvedDiffTool(
+                tool.Name,
+                tool.ExePath!,
+                tool.ShouldTerminate,
+                tool.BuildArguments,
+                tool.IsMdi,
+                tool.SupportsAutoRefresh);
             ResolvedDiffTools.Add(diffTool);
             foreach (var ext in tool.BinaryExtensions)
             {

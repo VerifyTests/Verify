@@ -7,6 +7,8 @@ class DiffTool
     public string Name { get; }
     public string Url { get; }
     public bool ShouldTerminate { get; }
+    public bool SupportsAutoRefresh { get; }
+    public bool IsMdi { get; }
     public Func<FilePair, string> BuildArguments { get; }
     public string[] BinaryExtensions { get; }
     public string? ExePath { get; private set; }
@@ -30,6 +32,8 @@ class DiffTool
         Name = name;
         Url = url;
         ShouldTerminate = shouldTerminate;
+        SupportsAutoRefresh = supportsAutoRefresh;
+        IsMdi = isMdi;
         BuildArguments = buildArguments;
         BinaryExtensions = binaryExtensions;
         WindowsExePaths = windowsExePaths;

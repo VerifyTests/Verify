@@ -2,7 +2,7 @@
 
 static partial class DiffTools
 {
-    public static DiffTool SublimeMerge() => new DiffTool(
+    static DiffTool SublimeMerge() => new DiffTool(
         name: "Sublime Merge",
         url: "https://www.sublimemerge.com/",
         shouldTerminate: true,

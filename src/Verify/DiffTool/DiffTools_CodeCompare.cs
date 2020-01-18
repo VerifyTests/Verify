@@ -2,7 +2,7 @@
 
 static partial class DiffTools
 {
-    public static DiffTool CodeCompare() => new DiffTool(
+    static DiffTool CodeCompare() => new DiffTool(
         name: "CodeCompare",
         url: "https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm",
         //TODO: verify

@@ -2,7 +2,7 @@
 
 static partial class DiffTools
 {
-    public static DiffTool Meld() => new DiffTool(
+    static DiffTool Meld() => new DiffTool(
         name: "Meld",
         url: "https://meldmerge.org/",
         shouldTerminate: true,

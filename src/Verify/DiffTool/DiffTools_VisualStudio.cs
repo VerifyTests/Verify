@@ -2,7 +2,7 @@
 
 static partial class DiffTools
 {
-    public static DiffTool VisualStudio() => new DiffTool(
+    static DiffTool VisualStudio() => new DiffTool(
         name: "VisualStudio",
         url: "https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff",
         shouldTerminate: false,

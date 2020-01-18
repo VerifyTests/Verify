@@ -2,10 +2,11 @@
 
 static partial class DiffTools
 {
-    public static DiffTool VsCode() => new DiffTool(
+    static DiffTool VsCode() => new DiffTool(
         name: "Visual Studio Code",
         url: "https://code.visualstudio.com/docs/editor/command-line",
         shouldTerminate: false,
+        // Verified before Received since VSCode will only detect and refresh the diff based on the first file
         buildArguments: pair => $"--diff \"{pair.Verified}\" \"{pair.Received}\"",
         windowsExePaths: new[]
         {

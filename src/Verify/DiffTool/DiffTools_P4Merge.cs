@@ -1,6 +1,6 @@
 ﻿static partial class DiffTools
 {
-    public static DiffTool P4Merge() => new DiffTool(
+    static DiffTool P4Merge() => new DiffTool(
         name: "P4Merge",
         url: "https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge",
         shouldTerminate: true,

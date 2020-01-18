@@ -2,7 +2,7 @@
 
 static partial class DiffTools
 {
-    public static DiffTool AraxisMerge() => new DiffTool(
+    static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
         //TODO: verify

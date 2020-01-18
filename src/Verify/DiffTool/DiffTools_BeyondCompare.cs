@@ -1,6 +1,6 @@
 ﻿static partial class DiffTools
 {
-    public static DiffTool BeyondCompare() => new DiffTool(
+    static DiffTool BeyondCompare() => new DiffTool(
         name: "BeyondCompare",
         url: "https://www.scootersoftware.com/v4help/index.html?command_line_reference.html",
         //TODO: verify

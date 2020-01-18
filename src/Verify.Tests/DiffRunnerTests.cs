@@ -9,15 +9,15 @@ public class DiffRunnerTests :
     [Fact(Skip = "Explicit")]
     public void Launch()
     {
-        var diffTool = DiffTools.Find("txt");
-        if (diffTool != null)
+        if (!DiffTools.TryFind("txt", out var diffTool))
         {
-            var pair = new FilePair(
-                "txt",
-                received: Path.Combine(SourceDirectory, "DiffRunnerFile1.txt"),
-                verified: Path.Combine(SourceDirectory, "DiffRunnerFile2.txt"));
-            DiffRunner.Launch(diffTool, pair);
+            return;
         }
+        var pair = new FilePair(
+            "txt",
+            received: Path.Combine(SourceDirectory, "DiffRunnerFile1.txt"),
+            verified: Path.Combine(SourceDirectory, "DiffRunnerFile2.txt"));
+        DiffRunner.Launch(diffTool, pair);
     }
 
     public DiffRunnerTests(ITestOutputHelper output) :

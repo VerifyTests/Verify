@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 static partial class DiffTools
@@ -40,18 +41,14 @@ static partial class DiffTools
         }
     }
 
-    public static ResolvedDiffTool? Find(string extension)
+    public static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool tool)
     {
         if (Extensions.IsTextExtension(extension))
         {
-            return ResolvedDiffTools.LastOrDefault();
+            tool = ResolvedDiffTools.LastOrDefault();
+            return true;
         }
 
-        if (ExtensionLookup.TryGetValue(extension, out var diffTool))
-        {
-            return diffTool;
-        }
-
-        return null;
+        return ExtensionLookup.TryGetValue(extension, out tool);
     }
 }

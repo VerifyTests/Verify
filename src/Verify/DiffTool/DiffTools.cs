@@ -28,7 +28,8 @@ static partial class DiffTools
         {
             return;
         }
-        foreach (var tool in Tools().Where(x=>x.Exists))
+
+        foreach (var tool in Tools().Where(x => x.Exists))
         {
             var diffTool = new ResolvedDiffTool(tool.Name, tool.ExePath!, tool.ArgumentPrefix);
             ResolvedDiffTools.Add(diffTool);

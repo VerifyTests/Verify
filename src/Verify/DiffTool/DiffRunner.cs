@@ -4,7 +4,8 @@ static class DiffRunner
 {
     public static void Launch(ResolvedDiffTool diffTool, string receivedPath, string verifiedPath)
     {
-        var arguments = $"{diffTool.ArgumentPrefix} \"{receivedPath}\" \"{verifiedPath}\"";
+        var arguments = Arguments(diffTool, receivedPath, verifiedPath);
+        ProcessCleanup.Kill($"\"{diffTool.ExePath}\" {arguments}");
         using var process = new Process
         {
             StartInfo = new ProcessStartInfo
@@ -16,5 +17,14 @@ static class DiffRunner
             }
         };
         process.StartWithCatch();
+    }
+
+    static string Arguments(ResolvedDiffTool diffTool, string receivedPath, string verifiedPath)
+    {
+        if (diffTool.ArgumentPrefix == null)
+        {
+            return $"\"{receivedPath}\" \"{verifiedPath}\"";
+        }
+        return $"{diffTool.ArgumentPrefix} \"{receivedPath}\" \"{verifiedPath}\"";
     }
 }

@@ -6,8 +6,8 @@ class DiffTool
 {
     public string Name { get; }
     public string Url { get; }
-    public string? ArgumentPrefix { get; }
     public bool ShouldTerminate { get; }
+    public Func<FilePair, string> BuildArguments { get; }
     public string[] BinaryExtensions { get; }
     public string? ExePath { get; private set; }
     public bool Exists { get; private set; }
@@ -18,8 +18,8 @@ class DiffTool
     public DiffTool(
         string name,
         string url,
-        string? argumentPrefix,
         bool shouldTerminate,
+        Func<FilePair,string> buildArguments,
         string[] windowsExePaths,
         string[] binaryExtensions,
         string[] linuxExePaths,
@@ -27,8 +27,8 @@ class DiffTool
     {
         Name = name;
         Url = url;
-        ArgumentPrefix = argumentPrefix;
         ShouldTerminate = shouldTerminate;
+        BuildArguments = buildArguments;
         BinaryExtensions = binaryExtensions;
         WindowsExePaths = windowsExePaths;
         LinuxExePaths = linuxExePaths;

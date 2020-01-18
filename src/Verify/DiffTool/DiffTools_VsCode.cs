@@ -5,8 +5,8 @@ static partial class DiffTools
     public static DiffTool VsCode() => new DiffTool(
         name: "Visual Studio Code",
         url: "https://code.visualstudio.com/docs/editor/command-line",
-        argumentPrefix: "--diff ",
         shouldTerminate: false,
+        buildArguments: pair => $"--diff \"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {
             @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"

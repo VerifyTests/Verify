@@ -5,9 +5,9 @@ static partial class DiffTools
     public static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
-        argumentPrefix: "/nowait ",
         //TODO: verify
         shouldTerminate: false,
+        buildArguments: pair => $"/nowait \"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"

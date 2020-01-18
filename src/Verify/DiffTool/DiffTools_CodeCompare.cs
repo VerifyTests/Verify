@@ -5,9 +5,9 @@ static partial class DiffTools
     public static DiffTool CodeCompare() => new DiffTool(
         name: "CodeCompare",
         url: "https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm",
-        argumentPrefix: null,
         //TODO: verify
         shouldTerminate: false,
+        buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe"

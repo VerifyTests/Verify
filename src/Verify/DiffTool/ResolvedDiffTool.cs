@@ -1,15 +1,17 @@
-﻿class ResolvedDiffTool
+﻿using System;
+
+class ResolvedDiffTool
 {
     public string Name { get; }
     public string ExePath { get; }
-    public string? ArgumentPrefix { get; }
     public bool ShouldTerminate { get; }
+    public Func<FilePair, string> BuildArguments { get; }
 
-    public ResolvedDiffTool(string name, string exePath, string? argumentPrefix, bool shouldTerminate)
+    public ResolvedDiffTool(string name, string exePath, bool shouldTerminate, Func<FilePair, string> buildArguments)
     {
         Name = name;
         ExePath = exePath;
-        ArgumentPrefix = argumentPrefix;
         ShouldTerminate = shouldTerminate;
+        BuildArguments = buildArguments;
     }
 }

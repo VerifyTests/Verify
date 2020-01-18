@@ -5,8 +5,8 @@ static partial class DiffTools
     public static DiffTool Meld() => new DiffTool(
         name: "Meld",
         url: "https://meldmerge.org/",
-        argumentPrefix: null,
         shouldTerminate: true,
+        buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\Meld\meld.exe"

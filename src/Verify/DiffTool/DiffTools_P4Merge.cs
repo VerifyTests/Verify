@@ -3,8 +3,8 @@
     public static DiffTool P4Merge() => new DiffTool(
         name: "P4Merge",
         url: "https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge",
-        argumentPrefix: null,
         shouldTerminate: true,
+        buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Perforce\p4merge.exe"

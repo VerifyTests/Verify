@@ -2,33 +2,24 @@
 
 static class DiffRunner
 {
-    public static void Launch(ResolvedDiffTool diffTool, FilePair filePair)
+    public static void Launch(ResolvedDiffTool tool, FilePair filePair)
     {
-        var arguments = Arguments(diffTool, filePair);
-        if (diffTool.ShouldTerminate)
+        var arguments = tool.BuildArguments(filePair);
+        if (tool.ShouldTerminate)
         {
-            ProcessCleanup.Kill($"\"{diffTool.ExePath}\" {arguments}");
+            ProcessCleanup.Kill($"\"{tool.ExePath}\" {arguments}");
         }
 
         using var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = diffTool.ExePath,
+                FileName = tool.ExePath,
                 Arguments = arguments,
                 UseShellExecute = false,
                 CreateNoWindow = false,
             }
         };
         process.StartWithCatch();
-    }
-
-    static string Arguments(ResolvedDiffTool diffTool, FilePair filePair)
-    {
-        if (diffTool.ArgumentPrefix == null)
-        {
-            return $"\"{filePair.Received}\" \"{filePair.Verified}\"";
-        }
-        return $"{diffTool.ArgumentPrefix} \"{filePair.Received}\" \"{filePair.Verified}\"";
     }
 }

@@ -4,6 +4,8 @@
         name: "BeyondCompare",
         url: "https://www.scootersoftware.com/v4help/index.html?command_line_reference.html",
         argumentPrefix: null,
+        //TODO: verify
+        shouldTerminate: false,
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Beyond Compare 4\BCompare.exe"
@@ -19,7 +21,7 @@
         },
         binaryExtensions: new[]
         {
-            "mp3",//?
+            "mp3", //?
             "xls",
             "xlsm",
             "xlsx",

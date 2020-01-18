@@ -4,6 +4,7 @@
         name: "P4Merge",
         url: "https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge",
         argumentPrefix: null,
+        shouldTerminate: true,
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Perforce\p4merge.exe"

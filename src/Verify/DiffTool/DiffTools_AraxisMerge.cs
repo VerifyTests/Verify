@@ -6,6 +6,8 @@ static partial class DiffTools
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
         argumentPrefix: "/nowait ",
+        //TODO: verify
+        shouldTerminate: false,
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
@@ -34,8 +36,8 @@ static partial class DiffTools
             "pcx",
             "pgm",
             "png",
-            "ppm",//?
-            "ras",//?
+            "ppm", //?
+            "ras", //?
             "tif",
             "tiff",
             "tga",

@@ -6,6 +6,7 @@ static partial class DiffTools
         name: "Visual Studio Code",
         url: "https://code.visualstudio.com/docs/editor/command-line",
         argumentPrefix: "--diff ",
+        shouldTerminate: false,
         windowsExePaths: new[]
         {
             @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"

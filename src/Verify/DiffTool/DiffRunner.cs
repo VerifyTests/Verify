@@ -5,7 +5,11 @@ static class DiffRunner
     public static void Launch(ResolvedDiffTool diffTool, string receivedPath, string verifiedPath)
     {
         var arguments = Arguments(diffTool, receivedPath, verifiedPath);
-        ProcessCleanup.Kill($"\"{diffTool.ExePath}\" {arguments}");
+        if (diffTool.ShouldTerminate)
+        {
+            ProcessCleanup.Kill($"\"{diffTool.ExePath}\" {arguments}");
+        }
+
         using var process = new Process
         {
             StartInfo = new ProcessStartInfo

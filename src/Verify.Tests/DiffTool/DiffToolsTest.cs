@@ -83,17 +83,18 @@ public class DiffToolsTest :
     //    }
     //}
 
-    //[Fact]
-    //public void LaunchTextDiff()
-    //{
-    //    foreach (var tool in DiffTools.ResolvedDiffTools)
-    //    {
-    //        DiffRunner.Launch(
-    //            tool,
-    //            receivedPath: Path.Combine(SourceDirectory, "input_received.txt"),
-    //            verifiedPath: Path.Combine(SourceDirectory, "input_verified.txt"));
-    //    }
-    //}
+    [Fact(Skip="reason")]
+    public void LaunchTextDiff()
+    {
+        foreach (var tool in DiffTools.ResolvedDiffTools)
+        {
+            var filePair = new FilePair(
+                "txt",
+                received: Path.Combine(SourceDirectory, "input_received.txt"),
+                verified: Path.Combine(SourceDirectory, "input_verified.txt"));
+            DiffRunner.Launch(tool,filePair);
+        }
+    }
 
     [Fact]
     public void ExtensionLookup()

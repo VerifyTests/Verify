@@ -19,6 +19,8 @@ class DiffTool
         string name,
         string url,
         bool shouldTerminate,
+        bool supportsAutoRefresh,
+        bool isMdi,
         Func<FilePair,string> buildArguments,
         string[] windowsExePaths,
         string[] binaryExtensions,

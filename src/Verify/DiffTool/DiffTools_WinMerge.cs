@@ -7,6 +7,8 @@ static partial class DiffTools
         url: "https://manual.winmerge.org/en/Command_line.html",
         buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
         shouldTerminate: false,
+        supportsAutoRefresh: true,
+        isMdi: false,
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\WinMerge\WinMergeU.exe"

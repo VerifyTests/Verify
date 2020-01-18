@@ -6,6 +6,8 @@ static partial class DiffTools
         name: "Meld",
         url: "https://meldmerge.org/",
         shouldTerminate: true,
+        supportsAutoRefresh: false,
+        isMdi: false,
         buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {

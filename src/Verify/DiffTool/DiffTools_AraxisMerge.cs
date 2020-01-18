@@ -5,8 +5,9 @@ static partial class DiffTools
     static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
-        //TODO: verify
         shouldTerminate: false,
+        supportsAutoRefresh: true,
+        isMdi: true,
         buildArguments: pair => $"/nowait \"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {

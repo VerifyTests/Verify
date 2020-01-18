@@ -7,7 +7,7 @@ static class DiffRunner
         var arguments = tool.BuildArguments(filePair);
         if (tool.ShouldTerminate)
         {
-            ProcessCleanup.Kill($"\"{tool.ExePath}\" {arguments}");
+         //   ProcessCleanup.Kill($"\"{tool.ExePath}\" {arguments}");
         }
 
         using var process = new Process

@@ -6,13 +6,6 @@ static partial class DiffTools
     internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
     internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
 
-    // ReSharper disable once UnusedParameter.Global
-    public static bool TryGetTextDiff(string extension, out ResolvedDiffTool diffTool)
-    {
-        diffTool = ResolvedDiffTools.LastOrDefault();
-        return diffTool != null;
-    }
-
     internal static List<DiffTool> Tools()
     {
         return new List<DiffTool>

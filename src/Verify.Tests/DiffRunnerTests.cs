@@ -9,7 +9,8 @@ public class DiffRunnerTests :
     [Fact(Skip = "Explicit")]
     public void Launch()
     {
-        if (DiffTools.TryGetTextDiff("txt", out var diffTool))
+        var diffTool = DiffTools.Find("txt");
+        if (diffTool != null)
         {
             DiffRunner.Launch(diffTool, Path.Combine(SourceDirectory, "DiffRunnerFile1.txt"), Path.Combine(SourceDirectory, "DiffRunnerFile2.txt"));
         }

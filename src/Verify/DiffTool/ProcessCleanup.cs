@@ -34,7 +34,8 @@ static class ProcessCleanup
 
     public static void Kill(string command)
     {
-        foreach (var processCommand in processCommands.Where(x => x.Command == command))
+        foreach (var processCommand in processCommands
+            .Where(x => x.Command == command))
         {
             TerminalProcessIfExists(processCommand);
         }

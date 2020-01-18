@@ -10,6 +10,7 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.40" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />
     <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
     <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
   </ItemGroup>

@@ -8,8 +8,6 @@ using Verify;
 
 class VerifyEngine
 {
-    Type testType;
-    string testName;
     string extension;
     VerifySettings settings;
     List<FilePair> missings = new List<FilePair>();
@@ -25,11 +23,9 @@ class VerifyEngine
     {
         this.extension = extension;
         this.settings = settings;
-        this.testType = testType;
-        this.testName = testName;
-        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, this.testType, this.testName);
+        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testType, testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
-        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, this.testType, this.testName);
+        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testType, testName);
         foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
         {
             File.Delete(file);
@@ -111,18 +107,25 @@ class VerifyEngine
         builder.AppendLine("Deletions:");
         foreach (var item in danglingVerified)
         {
-            builder.AppendLine($"  {Path.GetFileName(item)}");
-            if (settings.autoVerify)
-            {
-                File.Delete(item);
-                continue;
-            }
-            if (!settings.clipboardEnabled)
-            {
-                continue;
-            }
-            await ClipboardCapture.AppendDelete(item);
+            await ProcessDangling(builder, item);
         }
+    }
+
+    Task ProcessDangling(StringBuilder builder, string item)
+    {
+        builder.AppendLine($"  {Path.GetFileName(item)}");
+        if (settings.autoVerify)
+        {
+            File.Delete(item);
+            return Task.CompletedTask;
+        }
+
+        if (!settings.clipboardEnabled)
+        {
+            return Task.CompletedTask;
+        }
+
+        return ClipboardCapture.AppendDelete(item);
     }
 
     async Task ProcessNotEquals(StringBuilder builder)
@@ -135,38 +138,50 @@ class VerifyEngine
         builder.AppendLine("Differences:");
         foreach (var item in notEquals)
         {
-            builder.AppendLine($"{Path.GetFileName(item.Received)}");
-            if (Extensions.IsTextExtension(item.Extension))
-            {
-                builder.AppendLine($"{File.ReadAllText(item.Received)}");
-                if (File.Exists(item.Verified))
-                {
-                    builder.AppendLine($"{Path.GetFileName(item.Verified)}");
-                    builder.AppendLine($"{File.ReadAllText(item.Verified)}");
-                }
-            }
-            if (BuildServerDetector.Detected)
-            {
-                continue;
-            }
-            if (settings.autoVerify)
-            {
-                AcceptChanges(item);
-                continue;
-            }
-            if (settings.clipboardEnabled)
-            {
-                await ClipboardCapture.AppendMove(item.Received, item.Verified);
-            }
+            await ProcessNotEquals(builder, item);
+        }
+    }
 
-            if (settings.diffEnabled)
+    async Task ProcessNotEquals(StringBuilder builder, FilePair item)
+    {
+        builder.AppendLine($"{Path.GetFileName(item.Received)}");
+        if (Extensions.IsTextExtension(item.Extension))
+        {
+            builder.AppendLine($"{File.ReadAllText(item.Received)}");
+            if (File.Exists(item.Verified))
             {
-                if (DiffTools.TryFind(extension, out var diffTool))
-                {
-                    DiffRunner.Launch(diffTool, item);
-                }
+                builder.AppendLine($"{Path.GetFileName(item.Verified)}");
+                builder.AppendLine($"{File.ReadAllText(item.Verified)}");
             }
         }
+
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
+        if (settings.autoVerify)
+        {
+            AcceptChanges(item);
+            return;
+        }
+
+        if (settings.clipboardEnabled)
+        {
+            await ClipboardCapture.AppendMove(item.Received, item.Verified);
+        }
+
+        if (!settings.diffEnabled)
+        {
+            return;
+        }
+
+        if (!DiffTools.TryFind(extension, out var diffTool))
+        {
+            return;
+        }
+
+        DiffRunner.Launch(diffTool, item);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -179,37 +194,51 @@ class VerifyEngine
         builder.AppendLine("Pending verification:");
         foreach (var item in missings)
         {
-            builder.AppendLine($"{Path.GetFileName(item.Verified)}");
-            if (Extensions.IsTextExtension(item.Extension))
-            {
-                builder.AppendLine($"{Path.GetFileName(item.Received)}");
-                builder.AppendLine($"{File.ReadAllText(item.Received)}");
-            }
-            if (BuildServerDetector.Detected)
-            {
-                continue;
-            }
-            if (settings.autoVerify)
-            {
-                AcceptChanges(item);
-                continue;
-            }
-            if (settings.clipboardEnabled)
-            {
-                await ClipboardCapture.AppendMove(item.Received, item.Verified);
-            }
-
-            if (settings.diffEnabled)
-            {
-                if (DiffTools.TryFind(extension, out var diffTool))
-                {
-                    if (EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
-                    {
-                        DiffRunner.Launch(diffTool, item);
-                    }
-                }
-            }
+            await ProcessMissing(builder, item);
         }
+    }
+
+    async Task ProcessMissing(StringBuilder builder, FilePair item)
+    {
+        builder.AppendLine($"{Path.GetFileName(item.Verified)}");
+        if (Extensions.IsTextExtension(item.Extension))
+        {
+            builder.AppendLine($"{Path.GetFileName(item.Received)}");
+            builder.AppendLine($"{File.ReadAllText(item.Received)}");
+        }
+
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
+        if (settings.autoVerify)
+        {
+            AcceptChanges(item);
+            return;
+        }
+
+        if (settings.clipboardEnabled)
+        {
+            await ClipboardCapture.AppendMove(item.Received, item.Verified);
+        }
+
+        if (!settings.diffEnabled)
+        {
+            return;
+        }
+
+        if (!DiffTools.TryFind(extension, out var diffTool))
+        {
+            return;
+        }
+
+        if (!EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
+        {
+            return;
+        }
+
+        DiffRunner.Launch(diffTool, item);
     }
 
     static void AcceptChanges(FilePair item)

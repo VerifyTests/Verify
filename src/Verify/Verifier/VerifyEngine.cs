@@ -164,7 +164,7 @@ class VerifyEngine
                 var diffTool = DiffTools.Find(extension);
                 if (diffTool != null)
                 {
-                    DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                    DiffRunner.Launch(diffTool, item);
                 }
             }
         }
@@ -207,7 +207,7 @@ class VerifyEngine
                 {
                     if (EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
                     {
-                        DiffRunner.Launch(diffTool, item.Received, item.Verified);
+                        DiffRunner.Launch(diffTool, item);
                     }
                 }
             }

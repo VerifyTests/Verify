@@ -12,7 +12,11 @@ public class DiffRunnerTests :
         var diffTool = DiffTools.Find("txt");
         if (diffTool != null)
         {
-            DiffRunner.Launch(diffTool, Path.Combine(SourceDirectory, "DiffRunnerFile1.txt"), Path.Combine(SourceDirectory, "DiffRunnerFile2.txt"));
+            var pair = new FilePair(
+                "txt",
+                received: Path.Combine(SourceDirectory, "DiffRunnerFile1.txt"),
+                verified: Path.Combine(SourceDirectory, "DiffRunnerFile2.txt"));
+            DiffRunner.Launch(diffTool, pair);
         }
     }
 

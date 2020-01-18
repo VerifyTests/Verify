@@ -33,34 +33,6 @@
 
  * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
-## [Sublime Merge](https://www.sublimemerge.com/)
-
-### Windows scanned paths:
-
- * `%ProgramFiles%\Sublime Merge\smerge.exe`
-
-### OSX scanned paths:
-
- * `/Applications/smerge.app/Contents/MacOS/smerge`
-
-### Linux scanned paths:
-
- * `/usr/bin/smerge`
-
-## [Meld](https://meldmerge.org/)
-
-### Windows scanned paths:
-
- * `%ProgramFiles(x86)%\Meld\meld.exe`
-
-### OSX scanned paths:
-
- * `/Applications/meld.app/Contents/MacOS/meld`
-
-### Linux scanned paths:
-
- * `/usr/bin/meld`
-
 ## [AraxisMerge](https://www.araxis.com/merge)
 
 ### Windows scanned paths:
@@ -95,34 +67,6 @@
  * tiff
  * tga
  * wmf
-
-## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
-
-### Windows scanned paths:
-
- * `%ProgramFiles%\Perforce\p4merge.exe`
-
-### OSX scanned paths:
-
- * `/Applications/p4merge.app/Contents/MacOS/p4merge`
-
-### Linux scanned paths:
-
- * `/usr/bin/p4merge`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * jpg
- * jpeg
- * png
- * pbm
- * pgm
- * ppm
- * tiff
- * xbm
- * xpm
 
 ## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 

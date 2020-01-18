@@ -4,10 +4,19 @@ static class DiffRunner
 {
     public static void Launch(ResolvedDiffTool tool, FilePair filePair)
     {
-        var arguments = tool.BuildArguments(filePair);
-        if (tool.ShouldTerminate)
+        var command = tool.BuildCommand(filePair);
+        var isDiffToolRunning = ProcessCleanup.IsRunning(command);
+        if (isDiffToolRunning)
         {
-            ProcessCleanup.Kill($"\"{tool.ExePath}\" {arguments}");
+            if (tool.SupportsAutoRefresh)
+            {
+                return;
+            }
+            if (!tool.IsMdi)
+            {
+                ProcessCleanup.Kill(command);
+                return;
+            }
         }
 
         using var process = new Process
@@ -15,7 +24,7 @@ static class DiffRunner
             StartInfo = new ProcessStartInfo
             {
                 FileName = tool.ExePath,
-                Arguments = arguments,
+                Arguments = tool.BuildArguments(filePair),
                 UseShellExecute = false,
                 CreateNoWindow = false,
             }

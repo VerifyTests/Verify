@@ -9,6 +9,12 @@ class ResolvedDiffTool
     public bool IsMdi { get; }
     public bool SupportsAutoRefresh { get; }
 
+
+    public string BuildCommand(FilePair filePair)
+    {
+        return $"\"{ExePath}\" {BuildArguments(filePair)}";
+    }
+
     public ResolvedDiffTool(
         string name,
         string exePath,

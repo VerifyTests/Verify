@@ -41,7 +41,9 @@ If a diff tool is running for the comparison of the current verification (per te
 | false        | true  | Open new instance. Previous instance must be manually closed |
 | false        | false | Kill current and open new instance |
 
-** Could not find include 'diffToolCleanup.include.md' **
+This allows, in most cases, for no manual closing of the diff tool to be required. <!-- include: diffToolCleanup. path: /docs/mdsource/diffToolCleanup.include.md -->
+
+This behavior is currently supported on Windows. On Linux and OSX, a new instance is always started. <!-- end include: diffToolCleanup. path: /docs/mdsource/diffToolCleanup.include.md -->
 
 
 ## Successful verification behavior
@@ -53,7 +55,9 @@ If a diff tool is running for the comparison of the current verification (per te
 | true  | No action taken. Previous instance must be manually closed |
 | false | Kill current instance |
 
-** Could not find include 'diffToolCleanup.include.md' **
+This allows, in most cases, for no manual closing of the diff tool to be required. <!-- include: diffToolCleanup. path: /docs/mdsource/diffToolCleanup.include.md -->
+
+This behavior is currently supported on Windows. On Linux and OSX, a new instance is always started. <!-- end include: diffToolCleanup. path: /docs/mdsource/diffToolCleanup.include.md -->
 
 
 ## Supported Diff tools:

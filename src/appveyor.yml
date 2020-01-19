@@ -6,6 +6,7 @@ build_script:
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore --filter Category!=Integration
+
     dotnet test src --configuration Release --no-build --no-restore --filter Category==Integration
 test: off
 artifacts:

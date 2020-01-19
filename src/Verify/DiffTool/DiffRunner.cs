@@ -27,7 +27,6 @@ static class DiffRunner
             if (!tool.IsMdi)
             {
                 ProcessCleanup.Kill(command);
-                return;
             }
         }
 

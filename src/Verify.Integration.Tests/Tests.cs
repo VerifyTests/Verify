@@ -17,7 +17,7 @@ public class Tests :
     static Tests()
     {
         BuildServerDetector.Detected = false;
-        var diffToolPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory,"../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
+        var diffToolPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
         tool = new ResolvedDiffTool(
             name: "FakeDiffTool",
             exePath: diffToolPath,
@@ -44,26 +44,36 @@ public class Tests :
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData( true)]
-    public Task Text(bool hasExistingReceived)
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public Task Text(
+        bool hasExistingReceived,
+        bool autoVerify)
     {
         return RunTest(
             "txt",
             () => "someText",
             () => "someOtherText",
             hasMatchingDiffTool: true,
-            hasExistingReceived);
+            hasExistingReceived,
+            autoVerify);
     }
 
     [Theory]
-    [InlineData(true, false)]
-    [InlineData(false, true)]
-    [InlineData(false, false)]
-    [InlineData(true, true)]
+    [InlineData(true, false, false)]
+    [InlineData(false, true, false)]
+    [InlineData(false, false, false)]
+    [InlineData(true, true, false)]
+    [InlineData(true, false, true)]
+    [InlineData(false, true, true)]
+    [InlineData(false, false, true)]
+    [InlineData(true, true, true)]
     public Task Stream(
         bool hasMatchingDiffTool,
-        bool hasExistingReceived)
+        bool hasExistingReceived,
+        bool autoVerify)
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
@@ -72,7 +82,8 @@ public class Tests :
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}),
             hasMatchingDiffTool,
-            hasExistingReceived);
+            hasExistingReceived,
+            autoVerify);
     }
 
     async Task RunTest(
@@ -80,10 +91,15 @@ public class Tests :
         Func<object> initialTarget,
         Func<object> secondTarget,
         bool hasMatchingDiffTool,
-        bool hasExistingReceived)
+        bool hasExistingReceived,
+        bool autoVerify)
     {
         var settings = new VerifySettings();
         settings.UseExtension(extension);
+        if (autoVerify)
+        {
+            settings.AutoVerify();
+        }
 
         var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.{extension}");
         var verified = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.verified.{extension}");
@@ -91,18 +107,25 @@ public class Tests :
 
         var command = tool.BuildCommand(new FilePair(extension, received, verified));
 
-        SetInitialState(danglingFile, verified, received,hasExistingReceived);
+        SetInitialState(danglingFile, verified, received, hasExistingReceived);
 
         await InitialVerify(initialTarget, hasMatchingDiffTool, settings, command, verified, received);
 
-        RunClipboardCommand();
+        if (!autoVerify)
+        {
+            RunClipboardCommand();
+        }
+
         AssertNotExists(danglingFile);
 
         await ReVerify(initialTarget, settings, command, received, verified);
 
         await InitialVerify(secondTarget, hasMatchingDiffTool, settings, command, verified, received);
 
-        RunClipboardCommand();
+        if (!autoVerify)
+        {
+            RunClipboardCommand();
+        }
 
         await ReVerify(secondTarget, settings, command, received, verified);
     }
@@ -120,15 +143,23 @@ public class Tests :
 
     async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, string command, string verified, string received)
     {
-        var exception = await Throws(() => Verify(target(), settings));
-        ProcessCleanup.RefreshCommands();
-        AssertProcess(command, hasMatchingDiffTool);
-        if (hasMatchingDiffTool)
+        if (settings.autoVerify)
         {
+            await Verify(target(), settings);
             AssertExists(verified);
         }
+        else
+        {
+            var exception = await Throws(() => Verify(target(), settings));
+            ProcessCleanup.RefreshCommands();
+            AssertProcess(command, hasMatchingDiffTool);
+            if (hasMatchingDiffTool)
+            {
+                AssertExists(verified);
+            }
 
-        AssertExists(received);
+            AssertExists(received);
+        }
     }
 
     static void SetInitialState(

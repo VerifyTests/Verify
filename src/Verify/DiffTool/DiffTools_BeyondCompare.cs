@@ -3,7 +3,6 @@
     static DiffTool BeyondCompare() => new DiffTool(
         name: "BeyondCompare",
         url: "https://www.scootersoftware.com/v4help/index.html?command_line_reference.html",
-        shouldTerminate: true,
         supportsAutoRefresh: true,
         isMdi: false,
         buildArguments: pair => $"/solo \"{pair.Received}\" \"{pair.Verified}\"",

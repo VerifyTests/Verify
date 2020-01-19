@@ -5,7 +5,6 @@ static partial class DiffTools
     static DiffTool VsCode() => new DiffTool(
         name: "Visual Studio Code",
         url: "https://code.visualstudio.com/docs/editor/command-line",
-        shouldTerminate: false,
         supportsAutoRefresh: true,
         isMdi: true,
         // Verified before Received only detects and refresh the diff based on the first file

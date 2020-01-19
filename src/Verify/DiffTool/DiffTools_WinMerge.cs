@@ -6,7 +6,6 @@ static partial class DiffTools
         name: "WinMerge",
         url: "https://manual.winmerge.org/en/Command_line.html",
         buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
-        shouldTerminate: false,
         supportsAutoRefresh: true,
         isMdi: false,
         windowsExePaths: new[]

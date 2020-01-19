@@ -1,6 +1,9 @@
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
+  * IsMdi: True
+  * SupportsAutoRefresh: True
+
 ### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
@@ -8,6 +11,9 @@
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe`
 
 ## [Visual Studio Code](https://code.visualstudio.com/docs/editor/command-line)
+
+  * IsMdi: True
+  * SupportsAutoRefresh: True
 
 ### Windows scanned paths:
 
@@ -23,17 +29,26 @@
 
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
+  * IsMdi: False
+  * SupportsAutoRefresh: True
+
 ### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
 
 ## [CodeCompare](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
 
+  * IsMdi: True
+  * SupportsAutoRefresh: False
+
 ### Windows scanned paths:
 
  * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
 ## [Sublime Merge](https://www.sublimemerge.com/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
 
 ### Windows scanned paths:
 
@@ -49,6 +64,9 @@
 
 ## [Meld](https://meldmerge.org/)
 
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
 ### Windows scanned paths:
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
@@ -62,6 +80,9 @@
  * `/usr/bin/meld`
 
 ## [AraxisMerge](https://www.araxis.com/merge)
+
+  * IsMdi: True
+  * SupportsAutoRefresh: True
 
 ### Windows scanned paths:
 
@@ -98,6 +119,9 @@
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
 ### Windows scanned paths:
 
  * `%ProgramFiles%\Perforce\p4merge.exe`
@@ -125,6 +149,9 @@
  * xpm
 
 ## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: True
 
 ### Windows scanned paths:
 

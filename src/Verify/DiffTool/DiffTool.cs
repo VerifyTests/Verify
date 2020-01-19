@@ -6,7 +6,6 @@ class DiffTool
 {
     public string Name { get; }
     public string Url { get; }
-    public bool ShouldTerminate { get; }
     public bool SupportsAutoRefresh { get; }
     public bool IsMdi { get; }
     public Func<FilePair, string> BuildArguments { get; }
@@ -20,7 +19,6 @@ class DiffTool
     public DiffTool(
         string name,
         string url,
-        bool shouldTerminate,
         bool supportsAutoRefresh,
         bool isMdi,
         Func<FilePair,string> buildArguments,
@@ -31,7 +29,6 @@ class DiffTool
     {
         Name = name;
         Url = url;
-        ShouldTerminate = shouldTerminate;
         SupportsAutoRefresh = supportsAutoRefresh;
         IsMdi = isMdi;
         BuildArguments = buildArguments;

@@ -5,7 +5,6 @@ static partial class DiffTools
     static DiffTool VisualStudio() => new DiffTool(
         name: "VisualStudio",
         url: "https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff",
-        shouldTerminate: false,
         supportsAutoRefresh: true,
         isMdi: true,
         // Verified before Received since only detects and refresh the diff based on the first file

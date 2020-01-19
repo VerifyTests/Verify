@@ -5,7 +5,6 @@ static partial class DiffTools
     static DiffTool SublimeMerge() => new DiffTool(
         name: "Sublime Merge",
         url: "https://www.sublimemerge.com/",
-        shouldTerminate: true,
         supportsAutoRefresh: false,
         isMdi: false,
         buildArguments: pair => $"mergetool \"{pair.Received}\" \"{pair.Verified}\"",

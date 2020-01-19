@@ -35,7 +35,6 @@ static partial class DiffTools
             var diffTool = new ResolvedDiffTool(
                 tool.Name,
                 tool.ExePath!,
-                tool.ShouldTerminate,
                 tool.BuildArguments,
                 tool.IsMdi,
                 tool.SupportsAutoRefresh);

@@ -21,7 +21,6 @@ public class Tests :
         tool = new ResolvedDiffTool(
             name: "FakeDiffTool",
             exePath: diffToolPath,
-            shouldTerminate: false,
             buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
             isMdi: false,
             supportsAutoRefresh: true);

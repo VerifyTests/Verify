@@ -19,6 +19,11 @@ public class DiffToolsTest :
         {
             await writer.WriteLineAsync($@"
 ## [{tool.Name}]({tool.Url})");
+
+            await writer.WriteLineAsync($@"
+  * IsMdi: {tool.IsMdi}
+  * SupportsAutoRefresh: {tool.SupportsAutoRefresh}");
+
             if (tool.WindowsExePaths.Any())
             {
                 await writer.WriteLineAsync(@"

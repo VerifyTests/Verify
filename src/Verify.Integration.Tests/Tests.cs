@@ -41,7 +41,7 @@ public class Tests :
     [Fact]
     public Task Text()
     {
-        return RunTest(nameof(Text), "txt", () => Verify("someText"));
+        return RunTest(nameof(Text), "txt", () => "someText");
     }
 
     [Fact]
@@ -52,31 +52,26 @@ public class Tests :
         return RunTest(
             testName: nameof(Stream),
             extension: "jpg",
-            () =>
-            {
-                var stream = new MemoryStream(new byte[] {1});
-                return Verify(stream, settings);
-            });
+            () => new MemoryStream(new byte[] {1}));
     }
 
     [Fact]
     public Task StreamNoMatchingDiff()
     {
-        var settings = new VerifySettings();
-        settings.UseExtension("png");
         return RunTest(
             testName: nameof(StreamNoMatchingDiff),
             extension: "png",
-            () =>
-            {
-                var stream = new MemoryStream(new byte[] {1});
-                return Verify(stream,settings);
-            },
+            () => new MemoryStream(new byte[] {1}),
             hasMatchingDiffTool: false);
     }
 
-    async Task RunTest(string testName, string extension, Func<Task> func, bool hasMatchingDiffTool = true)
+    async Task RunTest(string testName, string extension, Func<object> target, bool hasMatchingDiffTool = true)
     {
+        var settings = new VerifySettings();
+        settings.UseExtension(extension);
+
+        Task Func() => Verify(target(), settings);
+
         var danglingFile = Path.Combine(SourceDirectory, $"Tests.{testName}.01.verified.{extension}");
         File.Delete(danglingFile);
         File.WriteAllText(danglingFile, "");
@@ -87,7 +82,7 @@ public class Tests :
         var received = Path.Combine(SourceDirectory, $"Tests.{testName}.received.{extension}");
         File.Delete(received);
 
-        var exception = await Throws(func);
+        var exception = await Throws(Func);
         var command = tool.BuildCommand(new FilePair(extension, received, verified));
         ProcessCleanup.RefreshCommands();
         AssertProcess(command, hasMatchingDiffTool);
@@ -101,7 +96,7 @@ public class Tests :
         AssertNotExists(danglingFile);
 
         ProcessCleanup.RefreshCommands();
-        await func();
+        await Func();
         ProcessCleanup.RefreshCommands();
         AssertProcessNotRunning(command);
 
@@ -118,6 +113,7 @@ public class Tests :
     {
         Assert.True(ProcessCleanup.IsRunning(command));
     }
+
     static void AssertProcess(string command, bool isRunning)
     {
         Assert.Equal(isRunning, ProcessCleanup.IsRunning(command));

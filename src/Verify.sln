@@ -32,6 +32,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.MSTest.Tests", "Veri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.MSTest", "Verify.MSTest\Verify.MSTest.csproj", "{B922F6CF-6C1A-4824-B416-10480DD8A9E9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeDiffTool", "FakeDiffTool\FakeDiffTool.csproj", "{2B054DB2-42A0-4F3E-87CC-30D6E926D0D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.IntegrationTests", "Verify.IntegrationTests\Verify.IntegrationTests.csproj", "{6433AAE6-82AB-4D76-AF6B-9256ED702761}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +82,14 @@ Global
 		{B922F6CF-6C1A-4824-B416-10480DD8A9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B922F6CF-6C1A-4824-B416-10480DD8A9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B922F6CF-6C1A-4824-B416-10480DD8A9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B054DB2-42A0-4F3E-87CC-30D6E926D0D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B054DB2-42A0-4F3E-87CC-30D6E926D0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B054DB2-42A0-4F3E-87CC-30D6E926D0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B054DB2-42A0-4F3E-87CC-30D6E926D0D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6433AAE6-82AB-4D76-AF6B-9256ED702761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6433AAE6-82AB-4D76-AF6B-9256ED702761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6433AAE6-82AB-4D76-AF6B-9256ED702761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6433AAE6-82AB-4D76-AF6B-9256ED702761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

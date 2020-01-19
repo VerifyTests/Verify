@@ -8,8 +8,7 @@ class ResolvedDiffTool
     public Func<FilePair, string> BuildArguments { get; }
     public bool IsMdi { get; }
     public bool SupportsAutoRefresh { get; }
-
-
+    
     public string BuildCommand(FilePair filePair)
     {
         return $"\"{ExePath}\" {BuildArguments(filePair)}";

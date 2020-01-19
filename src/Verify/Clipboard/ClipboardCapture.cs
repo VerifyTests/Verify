@@ -39,6 +39,16 @@ static class ClipboardCapture
         throw new Exception($"OS not supported: {RuntimeInformation.OSDescription}");
     }
 
+    public static void Clear()
+    {
+        builder = new StringBuilder();
+    }
+
+    public static string Read()
+    {
+        return builder.ToString();
+    }
+
     public static Task AppendMove(string received, string verified)
     {
         return Append(string.Format(moveCommand, received, verified));

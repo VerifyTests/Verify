@@ -8,7 +8,13 @@ static class ProcessCleanup
 {
     static List<ProcessCommand> processCommands;
 
+#pragma warning disable CS8618
     static ProcessCleanup()
+    {
+        RefreshCommands();
+    }
+
+    public static void RefreshCommands()
     {
         if (!BuildServerDetector.Detected &&
             RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

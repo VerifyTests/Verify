@@ -9,14 +9,16 @@ namespace VerifyXunit
             Task<T> task,
             VerifySettings? settings = null)
         {
-            return GetVerifier().Verify(task, settings);
+            var verifier = GetVerifier();
+            return verifier.Verify(task, settings);
         }
 
         public Task Verify<T>(
             T target,
             VerifySettings? settings = null)
         {
-            return GetVerifier().Verify(target, settings);
+            var verifier = GetVerifier();
+            return verifier.Verify(target, settings);
         }
     }
 }

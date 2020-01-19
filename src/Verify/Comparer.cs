@@ -15,13 +15,13 @@ static class Comparer
 
         var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = verifiedText.Replace("\r\n", "\n");
-        if (!string.Equals(verifiedText, scrubbedInput, StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(verifiedText, scrubbedInput, StringComparison.OrdinalIgnoreCase))
         {
-            await FileHelpers.WriteText(file.Received, scrubbedInput);
-            return CompareResult.NotEqual;
+            return CompareResult.Equal;
         }
+        await FileHelpers.WriteText(file.Received, scrubbedInput);
+        return CompareResult.NotEqual;
 
-        return CompareResult.Equal;
     }
 
     public static async Task<CompareResult> Streams(Stream stream, FilePair file)

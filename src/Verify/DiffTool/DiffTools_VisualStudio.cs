@@ -2,10 +2,14 @@
 
 static partial class DiffTools
 {
-    public static DiffTool VisualStudio() => new DiffTool(
+    static DiffTool VisualStudio() => new DiffTool(
         name: "VisualStudio",
         url: "https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff",
-        argumentPrefix: "/diff ",
+        shouldTerminate: false,
+        supportsAutoRefresh: true,
+        isMdi: true,
+        // Verified before Received since only detects and refresh the diff based on the first file
+        buildArguments: pair => $"/diff \"{pair.Verified}\" \"{pair.Received}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe",

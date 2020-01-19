@@ -49,5 +49,5 @@ static class BuildServerDetector
         }
     }
 
-    public static bool Detected { get; }
+    public static bool Detected { get; set; }
 }

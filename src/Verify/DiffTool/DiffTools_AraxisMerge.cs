@@ -2,10 +2,13 @@
 
 static partial class DiffTools
 {
-    public static DiffTool AraxisMerge() => new DiffTool(
+    static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
-        argumentPrefix: "/nowait ",
+        shouldTerminate: false,
+        supportsAutoRefresh: true,
+        isMdi: true,
+        buildArguments: pair => $"/nowait \"{pair.Received}\" \"{pair.Verified}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
@@ -34,8 +37,8 @@ static partial class DiffTools
             "pcx",
             "pgm",
             "png",
-            "ppm",//?
-            "ras",//?
+            "ppm", //?
+            "ras", //?
             "tif",
             "tiff",
             "tga",

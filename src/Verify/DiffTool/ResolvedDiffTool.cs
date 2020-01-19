@@ -1,13 +1,32 @@
-﻿class ResolvedDiffTool
+﻿using System;
+
+class ResolvedDiffTool
 {
     public string Name { get; }
     public string ExePath { get; }
-    public string ArgumentPrefix { get; }
+    public bool ShouldTerminate { get; }
+    public Func<FilePair, string> BuildArguments { get; }
+    public bool IsMdi { get; }
+    public bool SupportsAutoRefresh { get; }
+    
+    public string BuildCommand(FilePair filePair)
+    {
+        return $"\"{ExePath}\" {BuildArguments(filePair)}";
+    }
 
-    public ResolvedDiffTool(string name, string exePath, string argumentPrefix)
+    public ResolvedDiffTool(
+        string name,
+        string exePath,
+        bool shouldTerminate,
+        Func<FilePair, string> buildArguments,
+        bool isMdi,
+        bool supportsAutoRefresh)
     {
         Name = name;
         ExePath = exePath;
-        ArgumentPrefix = argumentPrefix;
+        ShouldTerminate = shouldTerminate;
+        BuildArguments = buildArguments;
+        IsMdi = isMdi;
+        SupportsAutoRefresh = supportsAutoRefresh;
     }
 }

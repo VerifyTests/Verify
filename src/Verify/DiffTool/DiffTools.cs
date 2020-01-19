@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 static partial class DiffTools
 {
-    internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
-    internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
+    public static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
+    public static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
 
-    internal static List<DiffTool> Tools()
+    public static List<DiffTool> Tools()
     {
         return new List<DiffTool>
         {
@@ -28,9 +29,16 @@ static partial class DiffTools
         {
             return;
         }
-        foreach (var tool in Tools().Where(x=>x.Exists))
+
+        foreach (var tool in Tools().Where(x => x.Exists))
         {
-            var diffTool = new ResolvedDiffTool(tool.Name, tool.ExePath!, tool.ArgumentPrefix);
+            var diffTool = new ResolvedDiffTool(
+                tool.Name,
+                tool.ExePath!,
+                tool.ShouldTerminate,
+                tool.BuildArguments,
+                tool.IsMdi,
+                tool.SupportsAutoRefresh);
             ResolvedDiffTools.Add(diffTool);
             foreach (var ext in tool.BinaryExtensions)
             {
@@ -39,18 +47,14 @@ static partial class DiffTools
         }
     }
 
-    public static ResolvedDiffTool? Find(string extension)
+    public static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool? tool)
     {
         if (Extensions.IsTextExtension(extension))
         {
-            return ResolvedDiffTools.LastOrDefault();
+            tool = ResolvedDiffTools.LastOrDefault();
+            return tool != null;
         }
 
-        if (ExtensionLookup.TryGetValue(extension, out var diffTool))
-        {
-            return diffTool;
-        }
-
-        return null;
+        return ExtensionLookup.TryGetValue(extension, out tool);
     }
 }

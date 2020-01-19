@@ -15,10 +15,10 @@ partial class InnerVerifier
 
         if (SharedVerifySettings.TryGetConverter<T>(
             settings.extension,
-            out var typeConverter))
+            out var converter))
         {
-            var converterSettings = GetConverterSettings<T>(settings, typeConverter);
-            var result = typeConverter.Func(input!, converterSettings);
+            var converterSettings = GetConverterSettings<T>(settings, converter);
+            var result = converter.Func(input!, converterSettings);
             return VerifyBinary(result.Streams, converterSettings, result.Info);
         }
 

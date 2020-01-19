@@ -9,7 +9,6 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-[Trait("Category", "Integration")]
 public class Tests :
     VerifyBase
 {

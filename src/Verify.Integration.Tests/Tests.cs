@@ -34,7 +34,12 @@ public class Tests :
         DiffTools.ExtensionLookup = new Dictionary<string, ResolvedDiffTool>
         {
             {"txt", tool},
-            {"jpg", tool},
+            {"knownBin", tool},
+        };
+        var binPath = EmptyFiles.Files["jpg"];
+        EmptyFiles.Files = new Dictionary<string, EmptyFile>
+        {
+            {"knownBin", binPath},
         };
     }
 
@@ -51,11 +56,9 @@ public class Tests :
     [Fact]
     public Task Stream()
     {
-        var settings = new VerifySettings();
-        settings.UseExtension("jpg");
         return RunTest(
             testName: nameof(Stream),
-            extension: "jpg",
+            extension: "knownBin",
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}));
     }
@@ -65,7 +68,7 @@ public class Tests :
     {
         return RunTest(
             testName: nameof(StreamNoMatchingDiff),
-            extension: "png",
+            extension: "unknownBin",
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}),
             hasMatchingDiffTool: false);

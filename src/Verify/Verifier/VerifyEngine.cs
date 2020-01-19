@@ -147,14 +147,14 @@ class VerifyEngine
 
     void ProcessEquals()
     {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
         foreach (var equal in equals)
         {
             if (DiffTools.TryFind(extension, out var diffTool))
             {
-                if (diffTool == null)
-                {
-                    throw new   Exception(extension);
-                }
                 DiffRunner.KillProcessIfSupported(diffTool, equal);
             }
         }

@@ -2,6 +2,18 @@
 
 static class DiffRunner
 {
+    public static void KillProcessIfSupported(ResolvedDiffTool tool, FilePair filePair)
+    {
+        var command = tool.BuildCommand(filePair);
+
+        if (tool.IsMdi)
+        {
+            return;
+        }
+
+        ProcessCleanup.Kill(command);
+    }
+
     public static void Launch(ResolvedDiffTool tool, FilePair filePair)
     {
         var command = tool.BuildCommand(filePair);

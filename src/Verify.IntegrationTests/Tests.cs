@@ -59,7 +59,10 @@ public class Tests :
         RunClipboardCommand();
         AssertNotExists(danglingFile);
 
+        ProcessCleanup.RefreshCommands();
         await Verify("someText");
+        ProcessCleanup.RefreshCommands();
+        Assert.False(ProcessCleanup.IsRunning(command));
 
         AssertNotExists(received);
         AssertExists(verified);
@@ -67,7 +70,9 @@ public class Tests :
 
     static void RunClipboardCommand()
     {
-        foreach (var line in ClipboardCapture.Read().Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
+        foreach (var line in ClipboardCapture
+            .Read()
+            .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
         {
             var command = $"/c {line}";
             Process.Start("cmd.exe", command).WaitForExit();

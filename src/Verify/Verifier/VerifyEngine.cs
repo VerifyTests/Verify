@@ -12,6 +12,7 @@ class VerifyEngine
     VerifySettings settings;
     List<FilePair> missings = new List<FilePair>();
     List<FilePair> notEquals = new List<FilePair>();
+    List<FilePair> equals = new List<FilePair>();
     List<string> danglingVerified;
 
     public VerifyEngine(
@@ -63,10 +64,12 @@ class VerifyEngine
     public void AddEquals(FilePair item)
     {
         danglingVerified.Remove(item.Verified);
+        equals.Add(item);
     }
 
     public async Task ThrowIfRequired(string? message = null)
     {
+        ProcessEquals();
         if (missings.Count == 0 &&
             notEquals.Count == 0 &&
             danglingVerified.Count == 0)
@@ -139,6 +142,17 @@ class VerifyEngine
         foreach (var item in notEquals)
         {
             await ProcessNotEquals(builder, item);
+        }
+    }
+
+    void ProcessEquals()
+    {
+        foreach (var equal in equals)
+        {
+            if (DiffTools.TryFind(extension, out var diffTool))
+            {
+                DiffRunner.KillProcessIfSupported(diffTool, equal);
+            }
         }
     }
 

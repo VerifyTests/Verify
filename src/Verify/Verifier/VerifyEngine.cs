@@ -151,7 +151,11 @@ class VerifyEngine
         {
             if (DiffTools.TryFind(extension, out var diffTool))
             {
-               // / DiffRunner.KillProcessIfSupported(diffTool, equal);
+                if (diffTool == null)
+                {
+                    throw new   Exception(extension);
+                }
+                DiffRunner.KillProcessIfSupported(diffTool, equal);
             }
         }
     }

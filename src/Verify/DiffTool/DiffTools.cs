@@ -4,10 +4,10 @@ using System.Linq;
 
 static partial class DiffTools
 {
-    internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
-    internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
+    public static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
+    public static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
 
-    internal static List<DiffTool> Tools()
+    public static List<DiffTool> Tools()
     {
         return new List<DiffTool>
         {
@@ -47,12 +47,12 @@ static partial class DiffTools
         }
     }
 
-    public static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool tool)
+    public static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool? tool)
     {
         if (Extensions.IsTextExtension(extension))
         {
             tool = ResolvedDiffTools.LastOrDefault();
-            return true;
+            return tool != null;
         }
 
         return ExtensionLookup.TryGetValue(extension, out tool);

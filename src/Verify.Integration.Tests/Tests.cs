@@ -47,41 +47,33 @@ public class Tests :
     public Task Text()
     {
         return RunTest(
-            nameof(Text),
             "txt",
             () => "someText",
             () => "someOtherText");
     }
 
-    [Fact]
-    public Task Stream()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public Task Stream(bool hasMatchingDiffTool)
     {
-        return RunTest(
-            testName: nameof(Stream),
-            extension: "knownBin",
-            () => new MemoryStream(new byte[] {1}),
-            () => new MemoryStream(new byte[] {2}));
-    }
+        var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
-    [Fact]
-    public Task StreamNoMatchingDiff()
-    {
         return RunTest(
-            testName: nameof(StreamNoMatchingDiff),
-            extension: "unknownBin",
+            extension: extension,
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}),
-            hasMatchingDiffTool: false);
+            hasMatchingDiffTool: hasMatchingDiffTool);
     }
 
-    async Task RunTest(string testName, string extension, Func<object> initialTarget, Func<object> secondTarget, bool hasMatchingDiffTool = true)
+    async Task RunTest(string extension, Func<object> initialTarget, Func<object> secondTarget, bool hasMatchingDiffTool = true)
     {
         var settings = new VerifySettings();
         settings.UseExtension(extension);
 
-        var danglingFile = Path.Combine(SourceDirectory, $"Tests.{testName}.01.verified.{extension}");
-        var verified = Path.Combine(SourceDirectory, $"Tests.{testName}.verified.{extension}");
-        var received = Path.Combine(SourceDirectory, $"Tests.{testName}.received.{extension}");
+        var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.{extension}");
+        var verified = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.verified.{extension}");
+        var received = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.received.{extension}");
 
         var command = tool.BuildCommand(new FilePair(extension, received, verified));
 

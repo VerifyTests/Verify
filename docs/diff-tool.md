@@ -10,7 +10,19 @@ To change this file edit the source file and then run MarkdownSnippets.
 When a test fails verification the difference between the received and verified files is displayed in a diff tool.
 
 
-## Start Behavior
+## Initial difference behavior
+
+Behavior when an input is verified for the first time.
+
+Behavior depends on if an [EmptyFiles](https://github.com/SimonCropp/EmptyFiles) can be found matching the current extension.
+
+ * If an EmptyFiles can be found matching the current extension, then the diff tool will be launch to compare the input to that empty file.
+ * If no EmptyFiles can be found no diff tool will be launched.
+
+
+## Detected difference behavior
+
+Behavior when a difference is detected between the input an existing current verified file.
 
 
 ### Not Running
@@ -20,18 +32,28 @@ If no diff tool is running for the comparison of the current verification (per t
 
 ### Is Running
 
-If a diff tool is running for the comparison of the current verification (per test), the following logic will be applied:
+If a diff tool is running for the comparison of the current verification (per test), and a new verification fails, the following logic will be applied:
 
-| Auto Refresh | Mdi   | Start Tool                               |
-|--------------|-------|------------------------------------------|
+| Auto Refresh | Mdi   | Behavior |
+|--------------|-------|----------|
 | true         | true  | No action. Current instance will refresh |
 | true         | false | No action. Current instance will refresh |
-| false        | true  | Open new instance                        |
-| false        | false | Kill current and open new instance       |
+| false        | true  | Open new instance. Previous instance must be manually closed |
+| false        | false | Kill current and open new instance |
 
-This allows, in most cases, for no manual closing of the diff tool to be required.
+** Could not find include 'diffToolCleanup.include.md' **
 
-Note that the above "Is Running" detection behavior is currently supported on Windows. On Linux and OSX, a new instance is always started.
+
+## Successful verification behavior
+
+If a diff tool is running for the comparison of the current verification (per test), and a new verification passes, the following logic will be applied:
+
+| Mdi   | Behavior |
+|-------|----------|
+| true  | No action taken. Previous instance must be manually closed |
+| false | Kill current instance |
+
+** Could not find include 'diffToolCleanup.include.md' **
 
 
 ## Supported Diff tools:

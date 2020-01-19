@@ -41,7 +41,11 @@ public class Tests :
     [Fact]
     public Task Text()
     {
-        return RunTest(nameof(Text), "txt", () => "someText");
+        return RunTest(
+            nameof(Text),
+            "txt",
+            () => "someText",
+            () => "someOtherText");
     }
 
     [Fact]
@@ -52,7 +56,8 @@ public class Tests :
         return RunTest(
             testName: nameof(Stream),
             extension: "jpg",
-            () => new MemoryStream(new byte[] {1}));
+            () => new MemoryStream(new byte[] {1}),
+            () => new MemoryStream(new byte[] {2}));
     }
 
     [Fact]
@@ -62,28 +67,51 @@ public class Tests :
             testName: nameof(StreamNoMatchingDiff),
             extension: "png",
             () => new MemoryStream(new byte[] {1}),
+            () => new MemoryStream(new byte[] {2}),
             hasMatchingDiffTool: false);
     }
 
-    async Task RunTest(string testName, string extension, Func<object> target, bool hasMatchingDiffTool = true)
+    async Task RunTest(string testName, string extension, Func<object> initialTarget, Func<object> secondTarget, bool hasMatchingDiffTool = true)
     {
         var settings = new VerifySettings();
         settings.UseExtension(extension);
 
-        Task Func() => Verify(target(), settings);
-
         var danglingFile = Path.Combine(SourceDirectory, $"Tests.{testName}.01.verified.{extension}");
-        File.Delete(danglingFile);
-        File.WriteAllText(danglingFile, "");
-
         var verified = Path.Combine(SourceDirectory, $"Tests.{testName}.verified.{extension}");
-        File.Delete(verified);
-
         var received = Path.Combine(SourceDirectory, $"Tests.{testName}.received.{extension}");
-        File.Delete(received);
 
-        var exception = await Throws(Func);
         var command = tool.BuildCommand(new FilePair(extension, received, verified));
+
+        SetInitialState(danglingFile, verified, received);
+
+        await InitialVerify(initialTarget, hasMatchingDiffTool, settings, command, verified, received);
+
+        RunClipboardCommand();
+        AssertNotExists(danglingFile);
+
+        await ReVerify(initialTarget, settings, command, received, verified);
+
+        await InitialVerify(secondTarget, hasMatchingDiffTool, settings, command, verified, received);
+
+        RunClipboardCommand();
+
+        await ReVerify(secondTarget, settings, command, received, verified);
+    }
+
+    async Task ReVerify(Func<object> target, VerifySettings settings, string command, string received, string verified)
+    {
+        ProcessCleanup.RefreshCommands();
+        await Verify(target(), settings);
+        ProcessCleanup.RefreshCommands();
+        AssertProcessNotRunning(command);
+
+        AssertNotExists(received);
+        AssertExists(verified);
+    }
+
+    async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, string command, string verified, string received)
+    {
+        var exception = await Throws(() => Verify(target(), settings));
         ProcessCleanup.RefreshCommands();
         AssertProcess(command, hasMatchingDiffTool);
         if (hasMatchingDiffTool)
@@ -92,16 +120,16 @@ public class Tests :
         }
 
         AssertExists(received);
-        RunClipboardCommand();
-        AssertNotExists(danglingFile);
+    }
 
-        ProcessCleanup.RefreshCommands();
-        await Func();
-        ProcessCleanup.RefreshCommands();
-        AssertProcessNotRunning(command);
+    static void SetInitialState(string danglingFile, string verified, string received)
+    {
+        File.Delete(danglingFile);
+        File.WriteAllText(danglingFile, "");
 
-        AssertNotExists(received);
-        AssertExists(verified);
+        File.Delete(verified);
+
+        File.Delete(received);
     }
 
     static void AssertProcessNotRunning(string command)

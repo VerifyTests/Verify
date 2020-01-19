@@ -1,6 +1,0 @@
-Results do not match.
-Differences:
-Tests.TextDifferent.received.text
-someText
-Tests.TextDifferent.verified.text
-notSomeText

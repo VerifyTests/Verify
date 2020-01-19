@@ -159,30 +159,6 @@ public class Tests :
         return Verify("someText");
     }
 
-    [Fact]
-    public async Task TextDifferent()
-    {
-        if (BuildServerDetector.Detected)
-        {
-            return;
-        }
-
-        var txtFile = Path.Combine(SourceDirectory, "Tests.TextDifferent.verified.text");
-        File.Delete(txtFile);
-        File.WriteAllText(txtFile, "notSomeText");
-        var exception = await Assert.ThrowsAsync<XunitException>(
-            () =>
-            {
-                var settings = new VerifySettings();
-                settings.DisableClipboard();
-                settings.UseExtension("text");
-                settings.DisableDiff();
-                return Verify("someText", settings);
-            });
-        File.Delete(txtFile);
-        await Verify(exception.Message);
-    }
-
     #if(DEBUG)
     [Fact]
     public async Task AutoVerifyDifferent()

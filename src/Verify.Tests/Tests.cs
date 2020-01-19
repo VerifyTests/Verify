@@ -46,13 +46,6 @@ public class Tests :
     }
 
     [Fact]
-    public async Task Stream()
-    {
-        await Verify(new MemoryStream(new byte[] {1}));
-        Assert.False(File.Exists(Path.Combine(SourceDirectory, "Tests.Stream.received.bin")));
-    }
-
-    [Fact]
     public async Task StreamMultiple()
     {
         var stream1 = new MemoryStream(new byte[] {1});
@@ -153,12 +146,6 @@ public class Tests :
         await Verify(exception.Message, settings);
     }
 
-    [Fact]
-    public Task Text()
-    {
-        return Verify("someText");
-    }
-
     #if(DEBUG)
     [Fact]
     public async Task AutoVerifyDifferent()
@@ -190,26 +177,6 @@ public class Tests :
         Assert.True(File.Exists(verified), verified);
     }
     #endif
-
-    [Fact]
-    public async Task WithExistingReceived()
-    {
-        var received = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.received.txt");
-        var verified = Path.Combine(SourceDirectory, "Tests.WithExistingReceived.verified.txt");
-        File.Delete(verified);
-        File.WriteAllText(received, "incorrectContent");
-        var settings = new VerifySettings();
-        settings.DisableClipboard();
-        settings.DisableDiff();
-        try
-        {
-            await Verify("content", settings);
-        }
-        catch
-        {
-        }
-        Assert.DoesNotContain(File.ReadAllText(received), "incorrectContent");
-    }
 
     [Fact]
     public async Task ShouldReUseGuid()

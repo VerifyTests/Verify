@@ -43,19 +43,27 @@ public class Tests :
         };
     }
 
-    [Fact]
-    public Task Text()
+    [Theory]
+    [InlineData(false)]
+    [InlineData( true)]
+    public Task Text(bool hasExistingReceived)
     {
         return RunTest(
             "txt",
             () => "someText",
-            () => "someOtherText");
+            () => "someOtherText",
+            hasMatchingDiffTool: true,
+            hasExistingReceived);
     }
 
     [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task Stream(bool hasMatchingDiffTool)
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    [InlineData(true, true)]
+    public Task Stream(
+        bool hasMatchingDiffTool,
+        bool hasExistingReceived)
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
@@ -63,10 +71,16 @@ public class Tests :
             extension: extension,
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}),
-            hasMatchingDiffTool: hasMatchingDiffTool);
+            hasMatchingDiffTool,
+            hasExistingReceived);
     }
 
-    async Task RunTest(string extension, Func<object> initialTarget, Func<object> secondTarget, bool hasMatchingDiffTool = true)
+    async Task RunTest(
+        string extension,
+        Func<object> initialTarget,
+        Func<object> secondTarget,
+        bool hasMatchingDiffTool,
+        bool hasExistingReceived)
     {
         var settings = new VerifySettings();
         settings.UseExtension(extension);
@@ -77,7 +91,7 @@ public class Tests :
 
         var command = tool.BuildCommand(new FilePair(extension, received, verified));
 
-        SetInitialState(danglingFile, verified, received);
+        SetInitialState(danglingFile, verified, received,hasExistingReceived);
 
         await InitialVerify(initialTarget, hasMatchingDiffTool, settings, command, verified, received);
 
@@ -117,14 +131,21 @@ public class Tests :
         AssertExists(received);
     }
 
-    static void SetInitialState(string danglingFile, string verified, string received)
+    static void SetInitialState(
+        string danglingFile,
+        string verified,
+        string received,
+        bool hasExistingReceived)
     {
         File.Delete(danglingFile);
         File.WriteAllText(danglingFile, "");
 
         File.Delete(verified);
-
         File.Delete(received);
+        if (hasExistingReceived)
+        {
+            File.WriteAllText(received, "");
+        }
     }
 
     static void AssertProcessNotRunning(string command)

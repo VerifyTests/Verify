@@ -59,9 +59,24 @@ public class Tests :
             });
     }
 
-    async Task RunTest(string testName, string extension, Func<Task> func)
+    [Fact]
+    public Task StreamNoMatchingDiff()
     {
-        ClipboardCapture.Clear();
+        var settings = new VerifySettings();
+        settings.UseExtension("png");
+        return RunTest(
+            testName: nameof(StreamNoMatchingDiff),
+            extension: "png",
+            () =>
+            {
+                var stream = new MemoryStream(new byte[] {1});
+                return Verify(stream,settings);
+            },
+            hasMatchingDiffTool: false);
+    }
+
+    async Task RunTest(string testName, string extension, Func<Task> func, bool hasMatchingDiffTool = true)
+    {
         var danglingFile = Path.Combine(SourceDirectory, $"Tests.{testName}.01.verified.{extension}");
         File.Delete(danglingFile);
         File.WriteAllText(danglingFile, "");
@@ -75,8 +90,12 @@ public class Tests :
         var exception = await Throws(func);
         var command = tool.BuildCommand(new FilePair(extension, received, verified));
         ProcessCleanup.RefreshCommands();
-        AssertProcessRunning(command);
-        AssertExists(verified);
+        AssertProcess(command, hasMatchingDiffTool);
+        if (hasMatchingDiffTool)
+        {
+            AssertExists(verified);
+        }
+
         AssertExists(received);
         RunClipboardCommand();
         AssertNotExists(danglingFile);
@@ -98,6 +117,10 @@ public class Tests :
     static void AssertProcessRunning(string command)
     {
         Assert.True(ProcessCleanup.IsRunning(command));
+    }
+    static void AssertProcess(string command, bool isRunning)
+    {
+        Assert.Equal(isRunning, ProcessCleanup.IsRunning(command));
     }
 
     static void RunClipboardCommand()
@@ -130,5 +153,6 @@ public class Tests :
     public Tests(ITestOutputHelper output) :
         base(output)
     {
+        ClipboardCapture.Clear();
     }
 }

@@ -183,29 +183,6 @@ public class Tests :
         await Verify(exception.Message);
     }
 
-    [Fact]
-    public async Task TextMissing()
-    {
-        if (BuildServerDetector.Detected)
-        {
-            return;
-        }
-
-        var txtFile = Path.Combine(SourceDirectory, "Tests.TextNegative.verified.text");
-        File.Delete(txtFile);
-        var exception = await Assert.ThrowsAsync<XunitException>(
-            () =>
-            {
-                var settings = new VerifySettings();
-                settings.DisableClipboard();
-                settings.UseExtension("text");
-                settings.DisableDiff();
-                return Verify("someText", settings);
-            });
-        File.Delete(txtFile);
-        await Verify(exception.Message);
-    }
-
     #if(DEBUG)
     [Fact]
     public async Task AutoVerifyDifferent()

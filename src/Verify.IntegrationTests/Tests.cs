@@ -70,7 +70,7 @@ public class Tests :
         foreach (var line in ClipboardCapture.Read().Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
         {
             var command = $"/c {line}";
-            Process.Start("cmd.exe", command).WaitForExit();
+            Process.Start("cmd.exe", command).Dispose();
         }
     }
 

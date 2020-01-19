@@ -53,28 +53,6 @@ public class Tests :
     }
 
     [Fact]
-    public async Task StreamNegative()
-    {
-        if (BuildServerDetector.Detected)
-        {
-            return;
-        }
-
-        var binFile = Path.Combine(SourceDirectory, "Tests.StreamNegative.verified.bin");
-        File.Delete(binFile);
-        var exception = await Assert.ThrowsAsync<XunitException>(
-            () =>
-            {
-                var stream = new MemoryStream(new byte[] {1});
-                var settings = new VerifySettings();
-                settings.DisableDiff();
-                return Verify(stream,settings);
-            });
-        File.Delete(binFile);
-        await Verify(exception.Message);
-    }
-
-    [Fact]
     public async Task StreamMultiple()
     {
         var stream1 = new MemoryStream(new byte[] {1});

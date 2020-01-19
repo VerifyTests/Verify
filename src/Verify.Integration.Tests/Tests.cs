@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -33,40 +34,71 @@ public class Tests :
 
         DiffTools.ExtensionLookup = new Dictionary<string, ResolvedDiffTool>
         {
-            {"txt", tool}
+            {"txt", tool},
+            {"jpg", tool},
         };
     }
 
     [Fact]
-    public async Task Text()
+    public Task Text()
+    {
+        return RunTest(nameof(Text), "txt", () => Verify("someText"));
+    }
+
+    [Fact]
+    public Task Stream()
+    {
+        var settings = new VerifySettings();
+        settings.UseExtension("jpg");
+        return RunTest(
+            testName: nameof(Stream),
+            extension: "jpg",
+            () =>
+            {
+                var stream = new MemoryStream(new byte[] {1});
+                return Verify(stream, settings);
+            });
+    }
+
+    async Task RunTest(string testName, string extension, Func<Task> func)
     {
         ClipboardCapture.Clear();
-        var danglingFile = Path.Combine(SourceDirectory, "Tests.Text.01.verified.txt");
+        var danglingFile = Path.Combine(SourceDirectory, $"Tests.{testName}.01.verified.{extension}");
         File.Delete(danglingFile);
         File.WriteAllText(danglingFile, "");
 
-        var verified = Path.Combine(SourceDirectory, "Tests.Text.verified.txt");
+        var verified = Path.Combine(SourceDirectory, $"Tests.{testName}.verified.{extension}");
         File.Delete(verified);
 
-        var received = Path.Combine(SourceDirectory, "Tests.Text.received.txt");
+        var received = Path.Combine(SourceDirectory, $"Tests.{testName}.received.{extension}");
         File.Delete(received);
 
-        var exception = await Throws(() => Verify("someText"));
-        var command = tool.BuildCommand(new FilePair("txt", received, verified));
+        var exception = await Throws(func);
+        var command = tool.BuildCommand(new FilePair(extension, received, verified));
         ProcessCleanup.RefreshCommands();
-        Assert.True(ProcessCleanup.IsRunning(command));
+        AssertProcessRunning(command);
         AssertExists(verified);
         AssertExists(received);
         RunClipboardCommand();
         AssertNotExists(danglingFile);
 
         ProcessCleanup.RefreshCommands();
-        await Verify("someText");
+        await func();
         ProcessCleanup.RefreshCommands();
-        Assert.False(ProcessCleanup.IsRunning(command));
+        AssertProcessNotRunning(command);
 
         AssertNotExists(received);
         AssertExists(verified);
+    }
+
+    static void AssertProcessNotRunning(string command)
+    {
+        Assert.False(ProcessCleanup.IsRunning(command));
+    }
+
+    static void AssertProcessRunning(string command)
+    {
+        Assert.True(ProcessCleanup.IsRunning(command));
     }
 
     static void RunClipboardCommand()
@@ -76,7 +108,8 @@ public class Tests :
             .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
         {
             var command = $"/c {line}";
-            Process.Start("cmd.exe", command).WaitForExit();
+            using var process = Process.Start("cmd.exe", command);
+            process.WaitForExit();
         }
     }
 

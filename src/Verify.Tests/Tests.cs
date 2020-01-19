@@ -146,38 +146,6 @@ public class Tests :
         await Verify(exception.Message, settings);
     }
 
-    #if(DEBUG)
-    [Fact]
-    public async Task AutoVerifyDifferent()
-    {
-        var received = Path.Combine(SourceDirectory, $"Tests.AutoVerifyDifferent.{Namer.Runtime}.received.txt");
-        var verified = Path.Combine(SourceDirectory, $"Tests.AutoVerifyDifferent.{Namer.Runtime}.verified.txt");
-        File.WriteAllText(received, "someContent");
-        File.Delete(verified);
-        var settings = new VerifySettings();
-        settings.AutoVerify();
-        settings.UniqueForRuntime();
-        await Verify("content", settings);
-        Assert.False(File.Exists(received), received);
-        Assert.True(File.Exists(verified), verified);
-    }
-
-    [Fact]
-    public async Task AutoVerifyMissing()
-    {
-        var received = Path.Combine(SourceDirectory, $"Tests.AutoVerifyMissing.{Namer.Runtime}.received.txt");
-        var verified = Path.Combine(SourceDirectory, $"Tests.AutoVerifyMissing.{Namer.Runtime}.verified.txt");
-        File.Delete(received);
-        File.Delete(verified);
-        var settings = new VerifySettings();
-        settings.AutoVerify();
-        settings.UniqueForRuntime();
-        await Verify("content", settings);
-        Assert.False(File.Exists(received), received);
-        Assert.True(File.Exists(verified), verified);
-    }
-    #endif
-
     [Fact]
     public async Task ShouldReUseGuid()
     {

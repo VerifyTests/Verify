@@ -13,10 +13,7 @@ public class DiffRunnerTests :
         {
             return;
         }
-        var pair = new FilePair(
-            "txt",
-            received: Path.Combine(SourceDirectory, "DiffRunnerFile1.txt"),
-            verified: Path.Combine(SourceDirectory, "DiffRunnerFile2.txt"));
+        var pair = new FilePair("txt", Path.Combine(SourceDirectory, "DiffRunner"));
         DiffRunner.Launch(tool, pair);
     }
 

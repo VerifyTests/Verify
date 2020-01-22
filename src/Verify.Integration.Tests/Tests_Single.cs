@@ -66,8 +66,9 @@ public partial class Tests :
             settings.AutoVerify();
         }
 
-        var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.{extension}");
-        var pair = new FilePair(extension, Context.UniqueTestName);
+        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}");
+        var danglingFile = Path.Combine(SourceDirectory, $"{prefix}.01.verified.{extension}");
+        var pair = new FilePair(extension, prefix);
 
         DeleteAll(danglingFile, pair.Verified, pair.Received);
         File.WriteAllText(danglingFile, "");

@@ -9,14 +9,14 @@ partial class InnerVerifier
     async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings, object? info)
     {
         var extension = settings.ExtensionOrBin();
-        var innerVerifier = new VerifyEngine(
+        var engine = new VerifyEngine(
             extension,
             settings,
             testType,
             directory,
             testName);
         var list = streams.ToList();
-        await VerifyInfo(innerVerifier, settings, info);
+        await VerifyInfo(engine, settings, info);
         for (var index = 0; index < list.Count; index++)
         {
             var suffix = GetSuffix(list, index);
@@ -25,10 +25,10 @@ partial class InnerVerifier
             var file = GetFileNames(extension, settings.Namer, suffix);
             var result = await Comparer.Streams(stream, file);
 
-            innerVerifier.HandleCompareResult(result, file);
+            engine.HandleCompareResult(result, file);
         }
 
-        await innerVerifier.ThrowIfRequired();
+        await engine.ThrowIfRequired();
     }
 
     async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)

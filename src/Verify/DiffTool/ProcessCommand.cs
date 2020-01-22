@@ -1,4 +1,8 @@
-﻿class ProcessCommand
+﻿
+using System.Diagnostics;
+
+[DebuggerDisplay("{Command} | Process = {Process}")]
+class ProcessCommand
 {
     public string Command { get; }
     public uint Process { get; }

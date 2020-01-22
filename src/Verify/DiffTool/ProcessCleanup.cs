@@ -6,7 +6,7 @@ using Microsoft.Win32.SafeHandles;
 
 static class ProcessCleanup
 {
-    static List<ProcessCommand> processCommands;
+    internal static List<ProcessCommand> processCommands;
 
 #pragma warning disable CS8618
     static ProcessCleanup()

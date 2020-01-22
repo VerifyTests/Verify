@@ -1,4 +1,0 @@
-Results do not match.
-Deletions:
-  Tests.StreamDanglingMultipleToSingle.00.verified.bin
-  Tests.StreamDanglingMultipleToSingle.01.verified.bin

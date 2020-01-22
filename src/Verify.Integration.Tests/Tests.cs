@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
@@ -9,7 +10,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-public class Tests :
+public partial class Tests :
     VerifyBase
 {
     static ResolvedDiffTool tool;
@@ -103,12 +104,17 @@ public class Tests :
         var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.{extension}");
         var verified = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.verified.{extension}");
         var received = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.received.{extension}");
+        var pair = new FilePair(extension, received, verified);
 
-        var command = tool.BuildCommand(new FilePair(extension, received, verified));
+        DeleteAll(danglingFile, verified, received);
+        File.WriteAllText(danglingFile, "");
 
-        SetInitialState(danglingFile, verified, received, hasExistingReceived);
+        if (hasExistingReceived)
+        {
+            File.WriteAllText(received, "");
+        }
 
-        await InitialVerify(initialTarget, hasMatchingDiffTool, settings, command, verified, received);
+        await InitialVerify(initialTarget, hasMatchingDiffTool, settings, pair);
 
         if (!autoVerify)
         {
@@ -117,35 +123,45 @@ public class Tests :
 
         AssertNotExists(danglingFile);
 
-        await ReVerify(initialTarget, settings, command, received, verified);
+        await ReVerify(initialTarget, settings, pair);
 
-        await InitialVerify(secondTarget, hasMatchingDiffTool, settings, command, verified, received);
+        await InitialVerify(secondTarget, hasMatchingDiffTool, settings, pair);
 
         if (!autoVerify)
         {
             RunClipboardCommand();
         }
 
-        await ReVerify(secondTarget, settings, command, received, verified);
+        await ReVerify(secondTarget, settings, pair);
     }
 
-    async Task ReVerify(Func<object> target, VerifySettings settings, string command, string received, string verified)
+    static void DeleteAll(params string[] files)
     {
+        foreach (var file in files)
+        {
+            File.Delete(file);
+        }
+    }
+
+    async Task ReVerify(Func<object> target, VerifySettings settings, FilePair pair)
+    {
+        var command = tool.BuildCommand(pair);
         ProcessCleanup.RefreshCommands();
         await Verify(target(), settings);
         ProcessCleanup.RefreshCommands();
         AssertProcessNotRunning(command);
 
-        AssertNotExists(received);
-        AssertExists(verified);
+        AssertNotExists(pair.Received);
+        AssertExists(pair.Verified);
     }
 
-    async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, string command, string verified, string received)
+    async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, FilePair pair)
     {
+        var command = tool.BuildCommand(pair);
         if (settings.autoVerify)
         {
             await Verify(target(), settings);
-            AssertExists(verified);
+            AssertExists(pair.Verified);
         }
         else
         {
@@ -154,10 +170,10 @@ public class Tests :
             AssertProcess(command, hasMatchingDiffTool);
             if (hasMatchingDiffTool)
             {
-                AssertExists(verified);
+                AssertExists(pair.Verified);
             }
 
-            AssertExists(received);
+            AssertExists(pair.Received);
         }
     }
 

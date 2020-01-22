@@ -93,8 +93,8 @@ public class DiffToolsTest :
     {
         foreach (var tool in DiffTools.ResolvedDiffTools)
         {
-            var filePair = new FilePair("txt", Path.Combine(SourceDirectory, "input"));
-            DiffRunner.Launch(tool,filePair);
+            var file = new FilePair("txt", Path.Combine(SourceDirectory, "input"));
+            DiffRunner.Launch(tool,file);
         }
     }
 

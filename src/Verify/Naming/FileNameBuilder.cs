@@ -9,14 +9,12 @@ static class FileNameBuilder
     {
         var builder = new StringBuilder(Path.Combine(directory, testName));
         var filePrefix = AppendFileParts(namer, testType, builder);
-        if (suffix == null)
+        if (suffix != null)
         {
-            return new FilePair(extension, filePrefix);
+            filePrefix = $"{filePrefix}.{suffix}";
         }
-        else
-        {
-            return new FilePair(extension, $"{filePrefix}.{suffix}");
-        }
+
+        return new FilePair(extension, filePrefix);
     }
 
     public static string GetVerifiedPattern(string extension, Namer namer, Type testType, string testName)

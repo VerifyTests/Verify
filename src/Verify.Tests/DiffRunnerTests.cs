@@ -13,8 +13,8 @@ public class DiffRunnerTests :
         {
             return;
         }
-        var pair = new FilePair("txt", Path.Combine(SourceDirectory, "DiffRunner"));
-        DiffRunner.Launch(tool, pair);
+        var file = new FilePair("txt", Path.Combine(SourceDirectory, "DiffRunner"));
+        DiffRunner.Launch(tool, file);
     }
 
     public DiffRunnerTests(ITestOutputHelper output) :

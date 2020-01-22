@@ -39,22 +39,22 @@ public partial class Tests :
 
         var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
-        var infoPair = new FilePair("txt", $"{prefix}info");
-        var filePair0 = new FilePair("txt", $"{prefix}00");
-        var filePair1 = new FilePair("txt", $"{prefix}01");
+        var info = new FilePair("txt", $"{prefix}info");
+        var file1 = new FilePair("txt", $"{prefix}00");
+        var file2 = new FilePair("txt", $"{prefix}01");
 
-        DeleteAll(danglingFile, infoPair.Received, infoPair.Verified, filePair0.Verified, filePair0.Received, filePair1.Verified, filePair1.Received);
+        DeleteAll(danglingFile, info.Received, info.Verified, file1.Verified, file1.Received, file2.Verified, file2.Received);
         File.WriteAllText(danglingFile, "");
 
         if (hasExistingReceived)
         {
-            File.WriteAllText(infoPair.Received, "");
-            File.WriteAllText(filePair0.Received, "");
-            File.WriteAllText(filePair1.Received, "");
+            File.WriteAllText(info.Received, "");
+            File.WriteAllText(file1.Received, "");
+            File.WriteAllText(file2.Received, "");
         }
 
 
-        await InitialVerifySplit(initialTarget, hasMatchingDiffTool, settings, infoPair, filePair0, filePair1);
+        await InitialVerifySplit(initialTarget, hasMatchingDiffTool, settings, info, file1, file2);
 
         if (!autoVerify)
         {
@@ -63,16 +63,16 @@ public partial class Tests :
 
         AssertNotExists(danglingFile);
 
-        await ReVerifySplit(initialTarget, settings, infoPair, filePair0, filePair1);
+        await ReVerifySplit(initialTarget, settings, info, file1, file2);
 
-        await InitialVerifySplit(secondTarget, hasMatchingDiffTool, settings, infoPair, filePair0, filePair1);
+        await InitialVerifySplit(secondTarget, hasMatchingDiffTool, settings, info, file1, file2);
 
         if (!autoVerify)
         {
             RunClipboardCommand();
         }
 
-        await ReVerifySplit(secondTarget, settings, infoPair, filePair0, filePair1);
+        await ReVerifySplit(secondTarget, settings, info, file1, file2);
     }
 
     async Task ReVerifySplit(TypeToSplit target, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)

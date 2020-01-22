@@ -5,16 +5,22 @@ using Verify;
 
 static class FileNameBuilder
 {
-    public static FilePair GetFileNames(string extension, string? suffix, Namer namer, Type testType, string directory, string testName)
+    public static FilePair GetFileNames(string extension, Namer namer, Type testType, string directory, string testName)
+    {
+        var filePrefix = GetFilePrefix(namer, testType, directory, testName);
+        return new FilePair(extension, filePrefix);
+    }
+
+    public static FilePair GetFileNames(string extension, string suffix, Namer namer, Type testType, string directory, string testName)
+    {
+        var filePrefix = GetFilePrefix(namer, testType, directory, testName);
+        return new FilePair(extension, $"{filePrefix}.{suffix}");
+    }
+
+    static string GetFilePrefix(Namer namer, Type testType, string directory, string testName)
     {
         var builder = new StringBuilder(Path.Combine(directory, testName));
-        var filePrefix = AppendFileParts(namer, testType, builder);
-        if (suffix != null)
-        {
-            filePrefix = $"{filePrefix}.{suffix}";
-        }
-
-        return new FilePair(extension, filePrefix);
+        return AppendFileParts(namer, testType, builder);
     }
 
     public static string GetVerifiedPattern(string extension, Namer namer, Type testType, string testName)

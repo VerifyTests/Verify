@@ -11,15 +11,11 @@ static class FileNameBuilder
         var filePrefix = AppendFileParts(namer, testType, builder);
         if (suffix == null)
         {
-            var received = $"{filePrefix}.received.{extension}";
-            var verified = $"{filePrefix}.verified.{extension}";
-            return new FilePair(extension, received, verified);
+            return new FilePair(extension, filePrefix);
         }
         else
         {
-            var received = $"{filePrefix}.{suffix}.received.{extension}";
-            var verified = $"{filePrefix}.{suffix}.verified.{extension}";
-            return new FilePair(extension, received, verified);
+            return new FilePair(extension, $"{filePrefix}.{suffix}");
         }
     }
 

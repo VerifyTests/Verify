@@ -67,16 +67,14 @@ public partial class Tests :
         }
 
         var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.{extension}");
-        var verified = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.verified.{extension}");
-        var received = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.received.{extension}");
-        var pair = new FilePair(extension, received, verified);
+        var pair = new FilePair(extension, Context.UniqueTestName);
 
-        DeleteAll(danglingFile, verified, received);
+        DeleteAll(danglingFile, pair.Verified, pair.Received);
         File.WriteAllText(danglingFile, "");
 
         if (hasExistingReceived)
         {
-            File.WriteAllText(received, "");
+            File.WriteAllText(pair.Received, "");
         }
 
         await InitialVerify(initialTarget, hasMatchingDiffTool, settings, pair);

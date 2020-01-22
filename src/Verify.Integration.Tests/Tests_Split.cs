@@ -37,21 +37,11 @@ public partial class Tests :
             settings.AutoVerify();
         }
 
-        var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.03.verified.txt");
-
-        var infoPair = new FilePair(
-            "txt",
-            Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.info.received.txt"),
-            Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.info.verified.txt"));
-        var filePair0 = new FilePair(
-            "txt",
-            Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.00.received.txt"),
-            Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.00.verified.txt"));
-        var filePair1 = new FilePair(
-            "txt",
-            Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.received.txt"),
-            Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.txt"));
-
+        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.");
+        var danglingFile = $"{prefix}03.verified.txt";
+        var infoPair = new FilePair("txt", $"{prefix}info");
+        var filePair0 = new FilePair("txt", $"{prefix}00");
+        var filePair1 = new FilePair("txt", $"{prefix}01");
 
         DeleteAll(danglingFile, infoPair.Received, infoPair.Verified, filePair0.Verified, filePair0.Received, filePair1.Verified, filePair1.Received);
         File.WriteAllText(danglingFile, "");

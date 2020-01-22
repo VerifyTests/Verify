@@ -7,7 +7,6 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618

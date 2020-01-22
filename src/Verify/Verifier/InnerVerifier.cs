@@ -30,7 +30,12 @@ public partial class InnerVerifier
         this.testName = testName;
     }
 
-    FilePair GetFileNames(string extension, Namer namer, string? suffix = null)
+    FilePair GetFileNames(string extension, Namer namer)
+    {
+        return FileNameBuilder.GetFileNames(extension, namer, testType, directory, testName);
+    }
+
+    FilePair GetFileNames(string extension, Namer namer, string suffix)
     {
         return FileNameBuilder.GetFileNames(extension, suffix, namer, testType, directory, testName);
     }

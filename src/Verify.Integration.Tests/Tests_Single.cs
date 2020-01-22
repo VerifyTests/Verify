@@ -66,20 +66,19 @@ public partial class Tests :
             settings.AutoVerify();
         }
 
-        var danglingFile = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.01.verified.{extension}");
-        var verified = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.verified.{extension}");
-        var received = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.received.{extension}");
-        var pair = new FilePair(extension, received, verified);
+        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}");
+        var danglingFile = Path.Combine(SourceDirectory, $"{prefix}.01.verified.{extension}");
+        var file = new FilePair(extension, prefix);
 
-        DeleteAll(danglingFile, verified, received);
+        DeleteAll(danglingFile, file.Verified, file.Received);
         File.WriteAllText(danglingFile, "");
 
         if (hasExistingReceived)
         {
-            File.WriteAllText(received, "");
+            File.WriteAllText(file.Received, "");
         }
 
-        await InitialVerify(initialTarget, hasMatchingDiffTool, settings, pair);
+        await InitialVerify(initialTarget, hasMatchingDiffTool, settings, file);
 
         if (!autoVerify)
         {
@@ -88,16 +87,16 @@ public partial class Tests :
 
         AssertNotExists(danglingFile);
 
-        await ReVerify(initialTarget, settings, pair);
+        await ReVerify(initialTarget, settings, file);
 
-        await InitialVerify(secondTarget, hasMatchingDiffTool, settings, pair);
+        await InitialVerify(secondTarget, hasMatchingDiffTool, settings, file);
 
         if (!autoVerify)
         {
             RunClipboardCommand();
         }
 
-        await ReVerify(secondTarget, settings, pair);
+        await ReVerify(secondTarget, settings, file);
     }
 
     async Task ReVerify(Func<object> target, VerifySettings settings, FilePair pair)

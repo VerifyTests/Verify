@@ -19,16 +19,24 @@ partial class InnerVerifier
         await VerifyInfo(engine, settings, info);
         for (var index = 0; index < list.Count; index++)
         {
-            var suffix = GetSuffix(list, index);
-
+            var file = GetFileForIndex(settings, list, index, extension);
             var stream = list[index];
-            var file = GetFileNames(extension, settings.Namer, suffix);
             var result = await Comparer.Streams(stream, file);
 
             engine.HandleCompareResult(result, file);
         }
 
         await engine.ThrowIfRequired();
+    }
+
+    FilePair GetFileForIndex(VerifySettings settings, List<Stream> list, int index, string extension)
+    {
+        if (list.Count > 1)
+        {
+            return GetFileNames(extension, settings.Namer, $"{index:D2}");
+        }
+
+        return GetFileNames(extension, settings.Namer);
     }
 
     async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
@@ -46,15 +54,5 @@ partial class InnerVerifier
 
         var result = await Comparer.Text(file, scrubbedInput);
         engine.HandleCompareResult(result, file);
-    }
-
-    static string? GetSuffix(List<Stream> list, int index)
-    {
-        if (list.Count > 1)
-        {
-            return $"{index:D2}";
-        }
-
-        return null;
     }
 }

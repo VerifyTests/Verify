@@ -1,19 +1,20 @@
 ﻿using System.Diagnostics;
 using System.IO;
 
-[DebuggerDisplay("Extension = {Extension} | Name = {FileName}")]
+[DebuggerDisplay("Extension = {Extension} | Name = {Name}")]
 class FilePair
 {
     public string Extension { get; }
     public string Received { get; }
-    public string ReceivedFileName => Path.GetFileName(Received);
     public string Verified { get; }
-    public string FileName => Path.GetFileName(Verified.Replace(".verified."+Extension, ""));
+    public string Name { get; }
 
-    public FilePair(string extension, string received, string verified)
+    public FilePair(string extension, string prefix)
     {
         Extension = extension;
-        Received = received;
-        Verified = verified;
+        Name = Path.GetFileName(prefix);
+        Received = $"{prefix}.received.{extension}";
+        Verified = $"{prefix}.verified.{extension}";
     }
+
 }

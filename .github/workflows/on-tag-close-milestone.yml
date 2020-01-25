@@ -16,3 +16,5 @@ jobs:
       uses: WyriHaximus/github-action-close-milestone@0.1.0
       with:
         number: ${{ github.ref }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

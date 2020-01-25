@@ -7,15 +7,7 @@ jobs:
   close-milestone:
     runs-on: windows-latest
     steps:
-    - name: Set tag name
-      run: echo ::set-output name=tag::${GITHUB_REF:10}
-    - name: Set repo owner
-      run: echo ::set-output name=owner::${GITHUB_REPOSITORY:~0,10}
-    - name: install GitReleaseManager.Tool
-      run: dotnet tool install --global GitReleaseManager.Tool
     - name: install GitReleaseManager choco
       run: choco install gitreleasemanager.portable -y
-    - name: Set repo name
-      run: echo ::set-output name=repo::${GITHUB_REPOSITORY:11}
-    - run: 'gitreleasemanager create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'
-    - run: 'gitreleasemanager close -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'
+    - run: 'gitreleasemanager create -m ${GITHUB_REPOSITORY:11} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}'
+    - run: 'gitreleasemanager close -m ${GITHUB_REPOSITORY:11} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}'

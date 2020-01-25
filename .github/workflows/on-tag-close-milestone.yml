@@ -11,6 +11,8 @@ jobs:
       run: echo ::set-output name=tag::${GITHUB_REF:10}
     - name: Set repo owner
       run: echo ::set-output name=owner::${GITHUB_REPOSITORY:~0,10}
+    - name: install GitReleaseManager.Tool
+      run: dotnet tool install --global GitReleaseManager.Tool
     - name: Set repo name
       run: echo ::set-output name=repo::${GITHUB_REPOSITORY:11}
     - run: '%USERPROFILE%\.dotnet\tools\dotnet-gitreleasemanager.exe create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'

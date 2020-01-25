@@ -1,0 +1,17 @@
+name: on-tag-close-milestone
+
+on: 
+  push:
+    tags:
+      - '[0-9]+\.[0-9]+\.[0-9]+'
+
+jobs:
+  close-milestone:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Close Milestone
+      uses: WyriHaximus/github-action-close-milestone@0.1.0
+      with:
+        number: ${{ github.ref }}

@@ -3,7 +3,7 @@ name: release-notes-generator-action
 on: 
   milestone:
     types: [closed]
-name: Milestone Closure
+
 jobs:
   create-release-notes:
     runs-on: ubuntu-latest

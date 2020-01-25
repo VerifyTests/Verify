@@ -11,11 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Set output
+      id: vars
+      run: echo ::set-output name=tag::${GITHUB_REF:10}
     - name: Debug Action
       uses: hmarr/debug-action@v1.0.0
     - name: Close Milestone
       uses: WyriHaximus/github-action-close-milestone@0.1.0
       with:
-        number: ${{ github.ref }}
+        number: ${{ steps.vars.outputs.tag }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

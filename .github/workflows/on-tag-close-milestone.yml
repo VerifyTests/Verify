@@ -19,5 +19,5 @@ jobs:
       run: echo ::set-output name=repo::${GITHUB_REPOSITORY:11}
     - name: Debug Action
       uses: hmarr/debug-action@v1.0.0
-    - run: dotnet-gitreleasemanager create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}
-    - run: dotnet-gitreleasemanager close -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}
+    - run: dotnet gitreleasemanager create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}
+    - run: dotnet gitreleasemanager close -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}

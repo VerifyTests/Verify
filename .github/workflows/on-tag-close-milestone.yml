@@ -15,5 +15,5 @@ jobs:
       run: dotnet tool install --global GitReleaseManager.Tool
     - name: Set repo name
       run: echo ::set-output name=repo::${GITHUB_REPOSITORY:11}
-    - run: '%USERPROFILE%\.dotnet\tools\dotnet-gitreleasemanager.exe create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'
-    - run: '%USERPROFILE%\.dotnet\tools\dotnet-gitreleasemanager.exe close -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'
+    - run: '${{MY_ENV_VAR}}\.dotnet\tools\dotnet-gitreleasemanager.exe create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'
+    - run: '${{MY_ENV_VAR}}\.dotnet\tools\dotnet-gitreleasemanager.exe close -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{steps.vars.outputs.owner}} -r ${{steps.vars.outputs.repo}}'

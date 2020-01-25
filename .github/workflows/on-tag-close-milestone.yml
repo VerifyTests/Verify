@@ -12,6 +12,9 @@ jobs:
 
     steps:
 
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.100' # SDK Version to use.
     - name: Set output
       id: vars
       run: echo ::set-output name=tag::${GITHUB_REF:10}

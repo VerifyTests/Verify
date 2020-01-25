@@ -5,11 +5,8 @@ on:
       - '[0-9]+\.[0-9]+\.[0-9]+'
 jobs:
   close-milestone:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '3.1.100'
     - run: dotnet tool install --global GitReleaseManager.Tool
     - name: Set tag name
       run: echo ::set-output name=tag::${GITHUB_REF:10}

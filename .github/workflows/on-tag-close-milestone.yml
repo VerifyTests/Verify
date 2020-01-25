@@ -1,28 +1,19 @@
 name: on-tag-close-milestone
-
 on: 
   push:
     tags:
       - '[0-9]+\.[0-9]+\.[0-9]+'
-
 jobs:
   close-milestone:
-
     runs-on: ubuntu-latest
-
     steps:
-
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.100' # SDK Version to use.
-    - name: Set output
-      id: vars
+        dotnet-version: '3.1.100'
+    - run: dotnet tool install --global GitReleaseManager.Tool
+    - name: Set tag name
       run: echo ::set-output name=tag::${GITHUB_REF:10}
     - name: Debug Action
       uses: hmarr/debug-action@v1.0.0
-    - name: Close Milestone
-      uses: WyriHaximus/github-action-close-milestone@0.1.0
-      with:
-        number: ${{ steps.vars.outputs.tag }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: dotnet-gitreleasemanager create -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{github.repository}} -r ${{secrets.REPO}}
+    - run: dotnet-gitreleasemanager close -m ${{steps.vars.outputs.tag}} --token ${{secrets.GITHUB_TOKEN}} -o ${{github.repository}} -r ${{secrets.REPO}}

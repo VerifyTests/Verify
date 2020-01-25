@@ -13,4 +13,4 @@ jobs:
     - name: Run
       run: | 
         dotnet tool install --global GitReleaseManager.Tool
-        dotnet-gitreleasemanager create -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}'
+        dotnet-gitreleasemanager create -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}

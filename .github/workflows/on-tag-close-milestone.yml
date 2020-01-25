@@ -5,9 +5,12 @@ on:
       - '[0-9]+\.[0-9]+\.[0-9]+'
 jobs:
   close-milestone:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-    - name: install GitReleaseManager choco
-      run: choco install gitreleasemanager.portable -y
-    - run: 'gitreleasemanager create -m ${GITHUB_REPOSITORY:11} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}'
-    - run: 'gitreleasemanager close -m ${GITHUB_REPOSITORY:11} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}'
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.100'
+    - name: Run
+      run: | 
+        dotnet tool install --global GitReleaseManager.Tool
+        dotnet-gitreleasemanager create -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY:~0,10} -r ${GITHUB_REPOSITORY:11}'

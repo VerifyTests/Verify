@@ -9,10 +9,6 @@ jobs:
     steps:
     - name: Get env vars
       run: |
-        echo GITHUB_WORKFLOW   = ${env::GITHUB_WORKFLOW}
-        echo GITHUB_WORKFLOW   = ${env:GITHUB_WORKFLOW}
-        echo GITHUB_WORKFLOW   = $env::GITHUB_WORKFLOW
-        echo GITHUB_WORKFLOW   = $env:GITHUB_WORKFLOW
         echo HOME              = $HOME
         echo GITHUB_ACTION     = $GITHUB_ACTION
         echo GITHUB_ACTIONS    = $GITHUB_ACTIONS

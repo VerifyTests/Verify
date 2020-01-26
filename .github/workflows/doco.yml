@@ -1,0 +1,27 @@
+name: on-tag-do-release
+on: 
+  push:
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+    - name: Get env vars
+      run: |
+        echo HOME              = $HOME
+        echo GITHUB_ACTION     = $GITHUB_ACTION
+        echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
+        echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
+        echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
+        echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
+        echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
+        echo GITHUB_SHA        = $GITHUB_SHA
+        echo GITHUB_REF        = $GITHUB_REF
+        echo tag               = ${GITHUB_REF:10}
+        echo repo              = ${GITHUB_REPOSITORY#*/}
+        echo owner             = ${GITHUB_REPOSITORY%/*} 
+      shell: bash
+    - name: Run MarkdownSnippets
+      run: | 
+        dotnet tool install --global MarkdownSnippets.Tool
+        mdsnippets ${GITHUB_WORKSPACE}
+      shell: bash

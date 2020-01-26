@@ -22,15 +22,13 @@ jobs:
         echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
         echo GITHUB_SHA        = $GITHUB_SHA
         echo GITHUB_REF        = $GITHUB_REF
-        echo tag        = ${GITHUB_REF:10}
-        echo repo        = ${GITHUB_REPOSITORY#*/}
-        echo owner        = ${GITHUB_REPOSITORY%/*} 
+        echo tag               = ${GITHUB_REF:10}
+        echo repo              = ${GITHUB_REPOSITORY#*/}
+        echo owner             = ${GITHUB_REPOSITORY%/*} 
       shell: bash
-#    - uses: actions/setup-dotnet@v1
-#      with:
-#        dotnet-version: '3.1.100'
     - name: Run
       run: | 
         dotnet tool install --global GitReleaseManager.Tool
         dotnet-gitreleasemanager create -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY%/*}  -r ${GITHUB_REPOSITORY#*/}
+        dotnet-gitreleasemanager close -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY%/*}  -r ${GITHUB_REPOSITORY#*/}
       shell: bash

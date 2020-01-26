@@ -20,8 +20,12 @@ jobs:
         echo repo              = ${GITHUB_REPOSITORY#*/}
         echo owner             = ${GITHUB_REPOSITORY%/*} 
       shell: bash
+    - uses: actions/checkout@2
     - name: Run MarkdownSnippets
       run: | 
         dotnet tool install --global MarkdownSnippets.Tool
         mdsnippets ${GITHUB_WORKSPACE}
+        remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
+        echo "remote $remote";
+        git push "${remote_repo}" HEAD:${INPUT_BRANCH}
       shell: bash

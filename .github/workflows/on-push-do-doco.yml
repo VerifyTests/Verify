@@ -29,6 +29,8 @@ jobs:
       shell: bash
     - name: Push changes
       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git diff-index --quiet HEAD || git commit -m "Doco changes" -a
         remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
         echo "remote $remote";

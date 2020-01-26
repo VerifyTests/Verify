@@ -1,4 +1,4 @@
-name: on-tag-do-release
+name: on-push-do-doco
 on: 
   push:
 jobs:

@@ -21,7 +21,7 @@ jobs:
         echo repo              = ${GITHUB_REPOSITORY#*/}
         echo owner             = ${GITHUB_REPOSITORY%/*} 
       shell: bash
-    - uses: actions/checkout@2
+    - uses: actions/checkout@v2
     - name: Run MarkdownSnippets
       run: | 
         dotnet tool install --global MarkdownSnippets.Tool

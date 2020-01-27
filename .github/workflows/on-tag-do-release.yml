@@ -1,5 +1,5 @@
 name: on-tag-do-release
-on: 
+on:
   push:
     tags:
       - '[0-9]+\.[0-9]+\.[0-9]+'
@@ -7,24 +7,13 @@ jobs:
   release:
     runs-on: windows-latest
     steps:
-    - name: Get env vars
-      run: |
-        echo HOME              = $HOME
-        echo GITHUB_ACTION     = $GITHUB_ACTION
-        echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
-        echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
-        echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
-        echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
-        echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
-        echo GITHUB_SHA        = $GITHUB_SHA
-        echo GITHUB_REF        = $GITHUB_REF
-        echo tag               = ${GITHUB_REF:10}
-        echo repo              = ${GITHUB_REPOSITORY#*/}
-        echo owner             = ${GITHUB_REPOSITORY%/*} 
-      shell: bash
     - name: Run
-      run: | 
+      run: |
         dotnet tool install --global GitReleaseManager.Tool
-        dotnet-gitreleasemanager create -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY%/*}  -r ${GITHUB_REPOSITORY#*/}
-        dotnet-gitreleasemanager close -m ${GITHUB_REF:10} --token ${{secrets.GITHUB_TOKEN}} -o ${GITHUB_REPOSITORY%/*}  -r ${GITHUB_REPOSITORY#*/}
+        tag="${GITHUB_REF:10}"
+        owner="${GITHUB_REPOSITORY%/*}"
+        repo="${GITHUB_REPOSITORY#*/}"
+        dotnet-gitreleasemanager create -m ${tag} --token ${{secrets.GITHUB_TOKEN}} -o ${owner} -r ${repo}
+        dotnet-gitreleasemanager close -m ${tag} --token ${{secrets.GITHUB_TOKEN}} -o ${owner} -r ${repo}
+        dotnet-gitreleasemanager publish -t ${tag} --token ${{secrets.GITHUB_TOKEN}} -o ${owner} -r ${repo}
       shell: bash

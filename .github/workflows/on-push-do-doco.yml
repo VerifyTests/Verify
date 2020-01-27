@@ -5,22 +5,6 @@ jobs:
   release:
     runs-on: windows-latest
     steps:
-    - name: Get env vars
-      run: |
-        echo HOME              = $HOME
-        echo GITHUB_ACTION     = $GITHUB_ACTION
-        echo GITHUB_ACTOR      = $GITHUB_ACTOR
-        echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
-        echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
-        echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
-        echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
-        echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
-        echo GITHUB_SHA        = $GITHUB_SHA
-        echo GITHUB_REF        = $GITHUB_REF
-        echo branch            = ${GITHUB_REF:11}
-        echo repo              = ${GITHUB_REPOSITORY#*/}
-        echo owner             = ${GITHUB_REPOSITORY%/*} 
-      shell: bash
     - uses: actions/checkout@v2
     - name: Run MarkdownSnippets
       run: | 
@@ -33,6 +17,5 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Doco changes" -a  || echo "Nothing to update"
         remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
-        echo "remote $remote";
         git push "${remote}" ${GITHUB_REF:11} || echo "nothing to commit"
       shell: bash

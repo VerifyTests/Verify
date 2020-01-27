@@ -141,7 +141,7 @@ public Task Simple()
   * **Multiple changes visualized in singe test run**: In the assertion approach, if multiple assertions require changing, this only becomes apparent over multiple test runs. In the verification approach, multiple changes can be [visualized in one test run](/docs/SecondDiff.png).
   * **Simpler creation of test "contract"**: In the assertion approach, complex models can require significant code to do the initial assertion. In the verification approach, the actual test and code-under-test can be used to create that "contract". See [initial verification](#initial-verification).
   * **Verification files committed to source control**: All resulting verified files are committed to source control in the most appropriate format. This means these files can be viewed at any time using any tooling. The files can also be diff'd over the history of the code base. This works for any file type, for example:
-    * Html content can be committed as `.html` files. 
+    * Html content can be committed as `.html` files.
     * Office documents can be committed as a rendered `.png` (see [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose)).
     * Database schema can be committed as `.sql` (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
 

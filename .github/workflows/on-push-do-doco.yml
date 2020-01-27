@@ -31,7 +31,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git diff-index --quiet HEAD || git commit -m "Doco changes" -a
+        git commit -m "Doco changes" -a  || echo "Nothing to update"
         remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
         echo "remote $remote";
         git push "${remote_repo}" HEAD:${GITHUB_REF} || echo "nothing to commit"

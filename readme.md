@@ -430,11 +430,6 @@ Projects/tools that may be a better alternative to Verify
 To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
-## Release Notes
-
-See [closed milestones](../../milestones?state=closed).
-
-
 ## Icon
 
 [Helmet](https://thenounproject.com/term/helmet/9554/) designed by [Leonidas Ikonomou](https://thenounproject.com/alterego) from [The Noun Project](https://thenounproject.com).

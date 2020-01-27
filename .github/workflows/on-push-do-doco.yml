@@ -1,5 +1,5 @@
 name: on-push-do-doco
-on: 
+on:
   push:
 jobs:
   release:
@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run MarkdownSnippets
-      run: | 
+      run: |
         dotnet tool install --global MarkdownSnippets.Tool
         mdsnippets ${GITHUB_WORKSPACE}
       shell: bash
@@ -17,5 +17,6 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Doco changes" -a  || echo "nothing to commit"
         remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
-        git push "${remote}" ${GITHUB_REF:11} || echo "nothing to push"
+        branch="${GITHUB_REF:11}"
+        git push "${remote}" ${branch} || echo "nothing to push"
       shell: bash

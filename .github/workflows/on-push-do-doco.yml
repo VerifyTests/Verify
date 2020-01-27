@@ -17,7 +17,7 @@ jobs:
         echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
         echo GITHUB_SHA        = $GITHUB_SHA
         echo GITHUB_REF        = $GITHUB_REF
-        echo tag               = ${GITHUB_REF:10}
+        echo branch            = ${GITHUB_REF:11}
         echo repo              = ${GITHUB_REPOSITORY#*/}
         echo owner             = ${GITHUB_REPOSITORY%/*} 
       shell: bash
@@ -34,5 +34,5 @@ jobs:
         git commit -m "Doco changes" -a  || echo "Nothing to update"
         remote="https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
         echo "remote $remote";
-        git push "${remote_repo}" HEAD:${GITHUB_REF} || echo "nothing to commit"
+        git push "${remote}" ${GITHUB_REF:11} || echo "nothing to commit"
       shell: bash

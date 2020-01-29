@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -77,7 +78,7 @@ public partial class Tests :
                 continue;
             }
 
-            var commands = string.Join(Environment.NewLine,ProcessCleanup.processCommands.Select(x=>x.Command));
+            var commands = string.Join(Environment.NewLine, ProcessCleanup.Commands.Select(x => x.Command));
             string message;
             if (isRunning)
             {
@@ -87,6 +88,7 @@ public partial class Tests :
             {
                 message = "Expected command not running";
             }
+
             throw new Exception($@"{message}
 {command}
 Commands:

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -80,9 +81,9 @@ public partial class Tests :
         var infoCommand = tool.BuildCommand(info);
         var file1Command = tool.BuildCommand(file1);
         var file2Command = tool.BuildCommand(file2);
-        ProcessCleanup.RefreshCommands();
+        ProcessCleanup.Refresh();
         await Verify(target, settings);
-        ProcessCleanup.RefreshCommands();
+        ProcessCleanup.Refresh();
         AssertProcessNotRunning(infoCommand);
         AssertProcessNotRunning(file1Command);
         AssertProcessNotRunning(file2Command);
@@ -107,7 +108,7 @@ public partial class Tests :
         else
         {
             await Throws(() => Verify(target, settings));
-            ProcessCleanup.RefreshCommands();
+            ProcessCleanup.Refresh();
             AssertProcess( hasMatchingDiffTool, info,file1, file2);
             if (hasMatchingDiffTool)
             {

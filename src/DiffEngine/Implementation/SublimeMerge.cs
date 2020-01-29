@@ -1,8 +1,9 @@
 ﻿using System;
+using DiffEngine;
 
-public static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool SublimeMerge() => new DiffTool(
+    public static DiffTool SublimeMerge() => new DiffTool(
         name: "Sublime Merge",
         url: "https://www.sublimemerge.com/",
         supportsAutoRefresh: false,

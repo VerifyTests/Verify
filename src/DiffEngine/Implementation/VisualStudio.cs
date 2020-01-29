@@ -1,8 +1,9 @@
 ﻿using System;
+using DiffEngine;
 
-public static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool VisualStudio() => new DiffTool(
+    public static DiffTool VisualStudio() => new DiffTool(
         name: "VisualStudio",
         url: "https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff",
         supportsAutoRefresh: true,

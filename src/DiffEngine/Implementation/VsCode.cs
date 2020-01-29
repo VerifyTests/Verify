@@ -1,8 +1,9 @@
 ﻿using System;
+using DiffEngine;
 
-public static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool VsCode() => new DiffTool(
+    public static DiffTool VsCode() => new DiffTool(
         name: "Visual Studio Code",
         url: "https://code.visualstudio.com/docs/editor/command-line",
         supportsAutoRefresh: true,

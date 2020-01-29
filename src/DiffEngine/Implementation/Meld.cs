@@ -1,8 +1,9 @@
 ﻿using System;
+using DiffEngine;
 
-public static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool Meld() => new DiffTool(
+    public static DiffTool Meld() => new DiffTool(
         name: "Meld",
         url: "https://meldmerge.org/",
         supportsAutoRefresh: false,

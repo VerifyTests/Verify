@@ -1,8 +1,9 @@
 ﻿using System;
+using DiffEngine;
 
-public static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool AraxisMerge() => new DiffTool(
+    public static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
         supportsAutoRefresh: true,

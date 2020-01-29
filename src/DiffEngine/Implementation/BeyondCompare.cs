@@ -1,6 +1,8 @@
-﻿public static partial class DiffTools
+﻿using DiffEngine;
+
+static partial class Implementation
 {
-    static DiffTool BeyondCompare() => new DiffTool(
+    public static DiffTool BeyondCompare() => new DiffTool(
         name: "BeyondCompare",
         url: "https://www.scootersoftware.com/v4help/index.html?command_line_reference.html",
         supportsAutoRefresh: true,

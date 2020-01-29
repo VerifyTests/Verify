@@ -13,9 +13,10 @@ public class DiffRunnerTests :
         {
             return;
         }
-        var file = new FilePair("txt", Path.Combine(SourceDirectory, "DiffRunner"));
-        //TODO: remove file
-        DiffRunner.Launch(tool, file.Received,file.Verified);
+
+        DiffRunner.Launch(tool,
+            Path.Combine(SourceDirectory, "DiffRunner.file1.txt"),
+            Path.Combine(SourceDirectory, "DiffRunner.file2.txt"));
     }
 
     public DiffRunnerTests(ITestOutputHelper output) :

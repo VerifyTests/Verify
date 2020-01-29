@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using DiffEngine;
 
 static class EmptyFilesWrapper
 {

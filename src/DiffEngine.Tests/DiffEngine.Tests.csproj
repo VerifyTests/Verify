@@ -17,4 +17,24 @@
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="DiffToolsTest.AfterJson.verified.txt">
+      <DependentUpon>$(
+        [System.String]::Copy('%(FileName)')
+        .SubString(
+        0,
+        $([System.String]::Copy('%(FileName)').IndexOf('.'))
+        )
+        )$(ProjectExt.Replace('proj', ''))</DependentUpon>
+    </None>
+    <None Update="DiffToolsTest.Simple.verified.txt">
+      <DependentUpon>$(
+        [System.String]::Copy('%(FileName)')
+        .SubString(
+        0,
+        $([System.String]::Copy('%(FileName)').IndexOf('.'))
+        )
+        )$(ProjectExt.Replace('proj', ''))</DependentUpon>
+    </None>
+  </ItemGroup>
 </Project>

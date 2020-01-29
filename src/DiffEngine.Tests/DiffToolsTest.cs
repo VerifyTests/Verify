@@ -88,14 +88,14 @@ public class DiffToolsTest :
     //    }
     //}
 
-    [Fact(Skip="reason")]
+    [Fact(Skip = "reason")]
     public void LaunchTextDiff()
     {
         foreach (var tool in DiffTools.ResolvedDiffTools)
         {
-            var file = new FilePair("txt", Path.Combine(SourceDirectory, "input"));
-            //todo: remove file
-            DiffRunner.Launch(tool,file.Received,file.Verified);
+            DiffRunner.Launch(tool,
+                Path.Combine(SourceDirectory, "input.file1.txt"),
+                Path.Combine(SourceDirectory, "input.file2.txt"));
         }
     }
 

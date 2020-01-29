@@ -62,7 +62,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 ## Supported Diff tools:
 
- <!-- include: diffTools. path: /src/Verify.Tests/DiffTool/diffTools.include.md -->
+ <!-- include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
   * IsMdi: True
@@ -248,7 +248,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * jpg
  * png
  * tif
- * rtf <!-- end include: diffTools. path: /src/Verify.Tests/DiffTool/diffTools.include.md -->
+ * rtf <!-- end include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
 
 
 ## Disable Diff

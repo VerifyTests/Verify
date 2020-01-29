@@ -52,7 +52,7 @@ namespace DiffEngine
             Launch(diffTool, path1, path2);
         }
 
-        public static void Launch(ResolvedDiffTool tool, string path1, string path2)
+        internal static void Launch(ResolvedDiffTool tool, string path1, string path2)
         {
             Guard.AgainstNull(tool, nameof(tool));
             var command = tool.BuildCommand(path1, path2);

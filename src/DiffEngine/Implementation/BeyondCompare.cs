@@ -1,6 +1,4 @@
-﻿using DiffEngine;
-
-static partial class Implementation
+﻿static partial class Implementation
 {
     public static DiffTool BeyondCompare() => new DiffTool(
         name: "BeyondCompare",

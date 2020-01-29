@@ -194,12 +194,7 @@ class VerifyEngine
             return;
         }
 
-        if (!DiffTools.TryFind(extension, out var diffTool))
-        {
-            return;
-        }
-
-        DiffRunner.Launch(diffTool, item.Received, item.Verified);
+        DiffRunner.TryLaunch(extension, item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -246,17 +241,7 @@ class VerifyEngine
             return;
         }
 
-        if (!DiffTools.TryFind(extension, out var diffTool))
-        {
-            return;
-        }
-
-        if (!EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
-        {
-            return;
-        }
-
-        DiffRunner.Launch(diffTool, item.Received, item.Verified);
+        DiffRunner.TryLaunch(extension, item.Received, item.Verified);
     }
 
     static void AcceptChanges(FilePair item)

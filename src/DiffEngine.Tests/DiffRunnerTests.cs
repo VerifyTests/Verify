@@ -10,12 +10,7 @@ public class DiffRunnerTests :
     [Fact(Skip = "Explicit")]
     public void Launch()
     {
-        if (!DiffTools.TryFind("txt", out var tool))
-        {
-            return;
-        }
-
-        DiffRunner.Launch(tool,
+        DiffRunner.TryLaunch("txt",
             Path.Combine(SourceDirectory, "DiffRunner.file1.txt"),
             Path.Combine(SourceDirectory, "DiffRunner.file2.txt"));
     }

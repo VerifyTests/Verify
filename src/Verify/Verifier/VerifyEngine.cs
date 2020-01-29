@@ -156,10 +156,7 @@ class VerifyEngine
         }
         foreach (var equal in equals)
         {
-            if (DiffTools.TryFind(extension, out var diffTool))
-            {
-                DiffRunner.KillProcessIfSupported(diffTool, equal.Received, equal.Verified);
-            }
+            DiffRunner.TryKillProcessIfSupported(extension, equal.Received, equal.Verified);
         }
     }
 

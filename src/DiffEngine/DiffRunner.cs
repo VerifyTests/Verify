@@ -4,14 +4,18 @@ namespace DiffEngine
 {
     public static class DiffRunner
     {
-        public static void KillProcessIfSupported(ResolvedDiffTool tool, string path1, string path2)
+        public static void TryKillProcessIfSupported(string extension, string path1, string path2)
         {
-            Guard.AgainstNull(tool, nameof(tool));
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
             Guard.AgainstNullOrEmpty(path2, nameof(path2));
-            var command = tool.BuildCommand(path1, path2);
+            if (!DiffTools.TryFind(extension, out var diffTool))
+            {
+                return;
+            }
+            var command = diffTool.BuildCommand(path1, path2);
 
-            if (tool.IsMdi)
+            if (diffTool.IsMdi)
             {
                 return;
             }

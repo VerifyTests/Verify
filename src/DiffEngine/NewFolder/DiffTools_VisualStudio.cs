@@ -1,6 +1,6 @@
 ﻿using System;
 
-static partial class DiffTools
+public static partial class DiffTools
 {
     static DiffTool VisualStudio() => new DiffTool(
         name: "VisualStudio",
@@ -8,7 +8,7 @@ static partial class DiffTools
         supportsAutoRefresh: true,
         isMdi: true,
         // Verified before Received since only detects and refresh the diff based on the first file
-        buildArguments: pair => $"/diff \"{pair.Verified}\" \"{pair.Received}\"",
+        buildArguments: (path1, path2) => $"/diff \"{path2}\" \"{path1}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe",

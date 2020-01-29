@@ -102,7 +102,7 @@ public partial class Tests :
 
     async Task ReVerify(Func<object> target, VerifySettings settings, FilePair pair)
     {
-        var command = tool.BuildCommand(pair);
+        var command = tool.BuildCommand(pair.Received,pair.Verified);
         ProcessCleanup.Refresh();
         await Verify(target(), settings);
         ProcessCleanup.Refresh();

@@ -1,11 +1,11 @@
 ﻿using System;
 
-static partial class DiffTools
+public static partial class DiffTools
 {
     static DiffTool WinMerge() => new DiffTool(
         name: "WinMerge",
         url: "https://manual.winmerge.org/en/Command_line.html",
-        buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
+        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
         supportsAutoRefresh: true,
         isMdi: false,
         windowsExePaths: new[]

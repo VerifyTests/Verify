@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using DiffEngine;
 
-static partial class DiffTools
+public static partial class DiffTools
 {
     public static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
     public static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
@@ -26,11 +26,6 @@ static partial class DiffTools
 
     static DiffTools()
     {
-        if (BuildServerDetector.Detected)
-        {
-            return;
-        }
-
         foreach (var tool in Tools().Where(x => x.Exists))
         {
             var diffTool = new ResolvedDiffTool(

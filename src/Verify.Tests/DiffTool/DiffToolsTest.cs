@@ -94,7 +94,8 @@ public class DiffToolsTest :
         foreach (var tool in DiffTools.ResolvedDiffTools)
         {
             var file = new FilePair("txt", Path.Combine(SourceDirectory, "input"));
-            DiffRunner.Launch(tool,file);
+            //todo: remove file
+            DiffRunner.Launch(tool,file.Received,file.Verified);
         }
     }
 

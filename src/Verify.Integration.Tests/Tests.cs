@@ -24,7 +24,7 @@ public partial class Tests :
         tool = new ResolvedDiffTool(
             name: "FakeDiffTool",
             exePath: diffToolPath,
-            buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
+            buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             isMdi: false,
             supportsAutoRefresh: true);
 
@@ -72,7 +72,7 @@ public partial class Tests :
     {
         foreach (var pair in pairs)
         {
-            var command = tool.BuildCommand(pair);
+            var command = tool.BuildCommand(pair.Received,pair.Verified);
             if (isRunning == ProcessCleanup.IsRunning(command))
             {
                 continue;

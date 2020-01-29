@@ -1,13 +1,13 @@
 ﻿using System;
 
-static partial class DiffTools
+public static partial class DiffTools
 {
     static DiffTool SublimeMerge() => new DiffTool(
         name: "Sublime Merge",
         url: "https://www.sublimemerge.com/",
         supportsAutoRefresh: false,
         isMdi: false,
-        buildArguments: pair => $"mergetool \"{pair.Received}\" \"{pair.Verified}\"",
+        buildArguments: (path1, path2) => $"mergetool \"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Sublime Merge\smerge.exe"

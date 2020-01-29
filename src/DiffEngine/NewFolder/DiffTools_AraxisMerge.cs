@@ -1,13 +1,13 @@
 ﻿using System;
 
-static partial class DiffTools
+public static partial class DiffTools
 {
     static DiffTool AraxisMerge() => new DiffTool(
         name: "AraxisMerge",
         url: "https://www.araxis.com/merge",
         supportsAutoRefresh: true,
         isMdi: true,
-        buildArguments: pair => $"/nowait \"{pair.Received}\" \"{pair.Verified}\"",
+        buildArguments: (path1, path2) => $"/nowait \"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"

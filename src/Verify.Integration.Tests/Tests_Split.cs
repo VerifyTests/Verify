@@ -78,9 +78,9 @@ public partial class Tests :
 
     async Task ReVerifySplit(TypeToSplit target, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)
     {
-        var infoCommand = tool.BuildCommand(info);
-        var file1Command = tool.BuildCommand(file1);
-        var file2Command = tool.BuildCommand(file2);
+        var infoCommand = tool.BuildCommand(info.Received, info.Verified);
+        var file1Command = tool.BuildCommand(file1.Received, file1.Verified);
+        var file2Command = tool.BuildCommand(file2.Received, file2.Verified);
         ProcessCleanup.Refresh();
         await Verify(target, settings);
         ProcessCleanup.Refresh();

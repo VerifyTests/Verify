@@ -1,11 +1,11 @@
-﻿static partial class DiffTools
+﻿public static partial class DiffTools
 {
     static DiffTool BeyondCompare() => new DiffTool(
         name: "BeyondCompare",
         url: "https://www.scootersoftware.com/v4help/index.html?command_line_reference.html",
         supportsAutoRefresh: true,
         isMdi: false,
-        buildArguments: pair => $"/solo \"{pair.Received}\" \"{pair.Verified}\"",
+        buildArguments: (path1, path2) => $"/solo \"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Beyond Compare 4\BCompare.exe"

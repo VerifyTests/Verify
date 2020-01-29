@@ -158,7 +158,7 @@ class VerifyEngine
         {
             if (DiffTools.TryFind(extension, out var diffTool))
             {
-                DiffRunner.KillProcessIfSupported(diffTool, equal);
+                DiffRunner.KillProcessIfSupported(diffTool, equal.Received, equal.Verified);
             }
         }
     }
@@ -202,7 +202,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.Launch(diffTool, item);
+        DiffRunner.Launch(diffTool, item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -259,7 +259,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.Launch(diffTool, item);
+        DiffRunner.Launch(diffTool, item.Received, item.Verified);
     }
 
     static void AcceptChanges(FilePair item)

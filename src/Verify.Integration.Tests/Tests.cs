@@ -19,6 +19,7 @@ public partial class Tests :
 
     static Tests()
     {
+        BuildServerDetector.Detected = false;
         var diffToolPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
         tool = new ResolvedDiffTool(
             name: "FakeDiffTool",

@@ -3,17 +3,13 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.CodeDom" Version="4.7.0" />
-    <PackageReference Include="TextCopy" Version="3.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <Compile Include="..\Verify\Helpers\Guard.cs" Link="Guard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EmptyFiles" Version="0.7.0" PrivateAssets="None" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />
-    <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
-    <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DiffEngine\DiffEngine.csproj" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DiffEngine;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -88,13 +89,14 @@ public class DiffToolsTest :
     //    }
     //}
 
-    [Fact(Skip="reason")]
+    [Fact(Skip = "reason")]
     public void LaunchTextDiff()
     {
         foreach (var tool in DiffTools.ResolvedDiffTools)
         {
-            var file = new FilePair("txt", Path.Combine(SourceDirectory, "input"));
-            DiffRunner.Launch(tool,file);
+            DiffRunner.Launch(tool,
+                Path.Combine(SourceDirectory, "input.file1.txt"),
+                Path.Combine(SourceDirectory, "input.file2.txt"));
         }
     }
 

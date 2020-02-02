@@ -11,6 +11,7 @@ class CustomContractResolver :
 {
     bool ignoreEmptyCollections;
     bool ignoreFalse;
+    bool includeObsoletes;
     IReadOnlyDictionary<Type, List<string>> ignored;
     IReadOnlyList<Type> ignoredTypes;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
@@ -19,6 +20,7 @@ class CustomContractResolver :
     public CustomContractResolver(
         bool ignoreEmptyCollections,
         bool ignoreFalse,
+        bool includeObsoletes,
         IReadOnlyDictionary<Type, List<string>> ignored,
         IReadOnlyList<Type> ignoredTypes,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
@@ -29,6 +31,7 @@ class CustomContractResolver :
         Guard.AgainstNull(ignoreMembersThatThrow, nameof(ignoreMembersThatThrow));
         this.ignoreEmptyCollections = ignoreEmptyCollections;
         this.ignoreFalse = ignoreFalse;
+        this.includeObsoletes = includeObsoletes;
         this.ignored = ignored;
         this.ignoredTypes = ignoredTypes;
         this.ignoreMembersThatThrow = ignoreMembersThatThrow;
@@ -52,10 +55,13 @@ class CustomContractResolver :
 
         property.ConfigureIfBool(member, ignoreFalse);
 
-        if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
+        if (!includeObsoletes)
         {
-            property.Ignored = true;
-            return property;
+            if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
+            {
+                property.Ignored = true;
+                return property;
+            }
         }
 
         if (ignoredTypes.Any(x => x.IsAssignableFrom(property.PropertyType)))

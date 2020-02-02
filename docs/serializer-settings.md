@@ -28,6 +28,7 @@ Serialization settings can be customized at three levels:
   * [Scoped settings](#scoped-settings)
   * [Ignoring a type](#ignoring-a-type)
   * [Ignoring a instance](#ignoring-a-instance)
+  * [Obsolete members ignored](#obsolete-members-ignored)
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)<!-- endtoc -->
@@ -47,7 +48,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L152-L161' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L153-L162' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -144,7 +145,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L557-L573' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L581-L597' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -358,6 +359,12 @@ Result:
 ```
 <sup><a href='/src/Verify.Tests/Tests.AddIgnoreInstance.verified.txt#L1-L5' title='File snippet `Tests.AddIgnoreInstance.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.AddIgnoreInstance.verified.txt' title='Navigate to start of snippet `Tests.AddIgnoreInstance.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## Obsolete members ignored
+
+Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
+
 
 
 ## Ignore member by expressions

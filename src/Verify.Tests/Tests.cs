@@ -378,25 +378,49 @@ public class Tests :
     {
         public Guid NotImplementedExceptionProperty => throw new NotSupportedException();
     }
+    
+#pragma warning disable 612
+
+    #region WithObsolete
+
+    class WithObsolete
+    {
+        [Obsolete]
+        public string ObsoleteProperty { get; set; }
+        public string OtherProperty { get; set; }
+    }
 
     [Fact]
     public Task WithObsoleteProp()
     {
-        var target = new WithObsolete();
+        var target = new WithObsolete
+        {
+            ObsoleteProperty = "value1",
+            OtherProperty = "value2"
+        };
         return Verify(target);
     }
 
-    class WithObsolete
-    {
-        Guid obsoleteProperty;
+    #endregion
 
-        [Obsolete]
-        public Guid ObsoleteProperty
+    #region WithObsoleteIncluded
+
+    [Fact]
+    public Task WithObsoletePropIncluded()
+    {
+        var target = new WithObsolete
         {
-            get { throw new NotImplementedException(); }
-            set => obsoleteProperty = value;
-        }
+            ObsoleteProperty = "value1",
+            OtherProperty = "value2"
+        };
+        var settings = new VerifySettings();
+        settings.ModifySerialization(serialization=> { serialization.IncludeObsoletes(); });
+        return Verify(target, settings);
     }
+
+    #endregion
+    
+#pragma warning restore 612
 
     [Fact]
     public Task Escaping()

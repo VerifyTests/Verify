@@ -119,6 +119,29 @@ Result:
 snippet: Tests.AddIgnoreInstance.verified.txt
 
 
+## Obsolete members ignored
+
+Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
+
+snippet: WithObsoleteProp
+
+Result:
+
+snippet: Tests.WithObsoleteProp.verified.txt
+
+
+## Including Obsolete members
+
+Obsolete members can be included using `IncludeObsoletes`:
+
+snippet: WithObsoletePropIncluded
+
+Result:
+
+snippet: Tests.WithObsoletePropIncluded.verified.txt
+
+
+
 ## Ignore member by expressions
 
 To ignore members of a certain type using an expression:

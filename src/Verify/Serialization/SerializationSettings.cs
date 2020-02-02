@@ -35,7 +35,8 @@ namespace Verify
                 ignoreMembersWithType = ignoreMembersWithType.Clone(),
                 ignoredInstances = ignoredInstances.Clone(),
                 scrubDateTimes = scrubDateTimes,
-                scrubGuids = scrubGuids
+                scrubGuids = scrubGuids,
+                includeObsoletes = includeObsoletes,
             };
         }
 
@@ -164,6 +165,7 @@ namespace Verify
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,
+                includeObsoletes,
                 ignoredMembers,
                 ignoreMembersWithType,
                 ignoreMembersThatThrow,
@@ -223,6 +225,13 @@ namespace Verify
         internal void RegenSettings()
         {
             currentSettings = BuildSettings();
+        }
+        
+        bool includeObsoletes;
+
+        public void IncludeObsoletes()
+        {
+            includeObsoletes = true;
         }
     }
 }

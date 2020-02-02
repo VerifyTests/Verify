@@ -28,6 +28,8 @@ Serialization settings can be customized at three levels:
   * [Scoped settings](#scoped-settings)
   * [Ignoring a type](#ignoring-a-type)
   * [Ignoring a instance](#ignoring-a-instance)
+  * [Obsolete members ignored](#obsolete-members-ignored)
+  * [Including Obsolete members](#including-obsolete-members)
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)<!-- endtoc -->
@@ -47,7 +49,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L152-L161' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L153-L162' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -144,7 +146,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L557-L573' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L581-L597' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -358,6 +360,85 @@ Result:
 ```
 <sup><a href='/src/Verify.Tests/Tests.AddIgnoreInstance.verified.txt#L1-L5' title='File snippet `Tests.AddIgnoreInstance.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.AddIgnoreInstance.verified.txt' title='Navigate to start of snippet `Tests.AddIgnoreInstance.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## Obsolete members ignored
+
+Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
+
+<!-- snippet: WithObsoleteProp -->
+<a id='snippet-withobsoleteprop'/></a>
+```cs
+class WithObsolete
+{
+    [Obsolete]
+    public string ObsoleteProperty { get; set; }
+    public string OtherProperty { get; set; }
+}
+
+[Fact]
+public Task WithObsoleteProp()
+{
+    var target = new WithObsolete
+    {
+        ObsoleteProperty = "value1",
+        OtherProperty = "value2"
+    };
+    return Verify(target);
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L384-L404' title='File snippet `withobsoleteprop` was extracted from'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Navigate to start of snippet `withobsoleteprop`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.WithObsoleteProp.verified.txt -->
+<a id='snippet-Tests.WithObsoleteProp.verified.txt'/></a>
+```txt
+{
+  OtherProperty: 'value2'
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.WithObsoleteProp.verified.txt#L1-L3' title='File snippet `Tests.WithObsoleteProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.WithObsoleteProp.verified.txt' title='Navigate to start of snippet `Tests.WithObsoleteProp.verified.txt`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## Including Obsolete members
+
+Obsolete members can be included using `IncludeObsoletes`:
+
+<!-- snippet: WithObsoletePropIncluded -->
+<a id='snippet-withobsoletepropincluded'/></a>
+```cs
+[Fact]
+public Task WithObsoletePropIncluded()
+{
+    var target = new WithObsolete
+    {
+        ObsoleteProperty = "value1",
+        OtherProperty = "value2"
+    };
+    var settings = new VerifySettings();
+    settings.ModifySerialization(_=> { _.IncludeObsoletes(); });
+    return Verify(target, settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L406-L421' title='File snippet `withobsoletepropincluded` was extracted from'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Navigate to start of snippet `withobsoletepropincluded`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: Tests.WithObsoletePropIncluded.verified.txt -->
+<a id='snippet-Tests.WithObsoletePropIncluded.verified.txt'/></a>
+```txt
+{
+  ObsoleteProperty: 'value1',
+  OtherProperty: 'value2'
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.WithObsoletePropIncluded.verified.txt#L1-L4' title='File snippet `Tests.WithObsoletePropIncluded.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.WithObsoletePropIncluded.verified.txt' title='Navigate to start of snippet `Tests.WithObsoletePropIncluded.verified.txt`'>anchor</a></sup>
+<!-- endsnippet -->
+
 
 
 ## Ignore member by expressions

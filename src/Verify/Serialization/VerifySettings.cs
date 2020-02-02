@@ -31,5 +31,6 @@ namespace Verify
             serialization.AddExtraSettings(action);
             serialization.RegenSettings();
         }
+
     }
 }

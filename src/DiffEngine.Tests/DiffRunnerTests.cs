@@ -10,9 +10,22 @@ public class DiffRunnerTests :
     [Fact(Skip = "Explicit")]
     public void Launch()
     {
-        DiffRunner.TryLaunch("txt",
-            Path.Combine(SourceDirectory, "DiffRunner.file1.txt"),
-            Path.Combine(SourceDirectory, "DiffRunner.file2.txt"));
+        var path1 = Path.Combine(SourceDirectory, "DiffRunner.file1.txt");
+        var path2 = Path.Combine(SourceDirectory, "DiffRunner.file2.txt");
+        #region DiffRunnerLaunch
+        DiffRunner.Launch("txt", path1, path2);
+        #endregion
+    }
+
+    [Fact(Skip = "Explicit")]
+    public void Kill()
+    {
+        var path1 = Path.Combine(SourceDirectory, "DiffRunner.file1.txt");
+        var path2 = Path.Combine(SourceDirectory, "DiffRunner.file2.txt");
+        DiffRunner.Launch("txt", path1, path2);
+        #region DiffRunnerKill
+        DiffRunner.Kill("txt", path1, path2);
+        #endregion
     }
 
     public DiffRunnerTests(ITestOutputHelper output) :

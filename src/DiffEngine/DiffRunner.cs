@@ -3,9 +3,15 @@ using System.IO;
 
 namespace DiffEngine
 {
+    /// <summary>
+    /// Manages diff tools processes.
+    /// </summary>
     public static class DiffRunner
     {
-        public static void TryKillProcessIfSupported(string extension, string path1, string path2)
+        /// <summary>
+        /// Find and kill a diff tool process.
+        /// </summary>
+        public static void Kill(string extension, string path1, string path2)
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
@@ -23,8 +29,11 @@ namespace DiffEngine
 
             ProcessCleanup.Kill(command);
         }
-
-        public static void TryLaunch(string extension, string path1, string path2)
+        
+        /// <summary>
+        /// Launch a diff tool for the given <paramref name="extension"/>.
+        /// </summary>
+        public static void Launch(string extension, string path1, string path2)
         {
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
             Guard.AgainstNullOrEmpty(path2, nameof(path2));

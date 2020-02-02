@@ -261,3 +261,48 @@ settings.DisableDiff();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L29-L34' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## DiffEngine
+
+DiffEngine contains all functionality used to manage diff tools processes. It is shipped as a stand alone NuGet package: https://www.nuget.org/packages/DiffEngine/. It is designed to be used by [other Snapshot/Approval testing projects](/#alternatives).
+
+
+### Launching a diff tool
+
+A diff tool can be launched using the following:
+
+<!-- snippet: DiffRunnerLaunch -->
+<a id='snippet-diffrunnerlaunch'/></a>
+```cs
+DiffRunner.Launch("txt", path1, path2);
+```
+<sup><a href='/src/DiffEngine.Tests/DiffRunnerTests.cs#L15-L17' title='File snippet `diffrunnerlaunch` was extracted from'>snippet source</a> | <a href='#snippet-diffrunnerlaunch' title='Navigate to start of snippet `diffrunnerlaunch`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Note that this method will respect the above [difference behavior](#detected-difference-behavior) in terms of Auto refresh and MDI behaviors.
+
+
+### Closing a diff tool
+
+A diff tool can be closed using the following:
+
+<!-- snippet: DiffRunnerKill -->
+<a id='snippet-diffrunnerkill'/></a>
+```cs
+DiffRunner.Kill("txt", path1, path2);
+```
+<sup><a href='/src/DiffEngine.Tests/DiffRunnerTests.cs#L26-L28' title='File snippet `diffrunnerkill` was extracted from'>snippet source</a> | <a href='#snippet-diffrunnerkill' title='Navigate to start of snippet `diffrunnerkill`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Note that this method will respect the above [difference behavior](#detected-difference-behavior) in terms of MDI behavior.
+
+
+### File type detection
+
+`DiffEngine.Extensions` use data sourced from [sindresorhus/text-extensions](https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json) to determine if a given file or extension is a text file.
+
+Methods:
+
+ * `Extensions.IsTextExtension()` determines if a file extension (without a period `.`) represents a text file.
+ * `Extensions.IsTextFile()` determines if a file path represents a text file.

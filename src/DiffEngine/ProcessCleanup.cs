@@ -41,8 +41,12 @@ namespace DiffEngine
             SafeProcessHandle processHandle,
             int exitCode);
 
+        /// <summary>
+        /// Find a process with the matching command line and kill it.
+        /// </summary>
         public static void Kill(string command)
         {
+            Guard.AgainstNullOrEmpty(command, nameof(command));
             foreach (var processCommand in Commands
                 .Where(x => x.Command == command))
             {
@@ -52,6 +56,7 @@ namespace DiffEngine
 
         public static bool IsRunning(string command)
         {
+            Guard.AgainstNullOrEmpty(command, nameof(command));
             return commands.Any(x => x.Command == command);
         }
 
@@ -67,6 +72,9 @@ namespace DiffEngine
             TerminateProcess(processHandle, -1);
         }
 
+        /// <summary>
+        /// Find all processes with `.received.` in the command line.
+        /// </summary>
         public static IEnumerable<ProcessCommand> FindAll()
         {
             var wmiQuery = @"

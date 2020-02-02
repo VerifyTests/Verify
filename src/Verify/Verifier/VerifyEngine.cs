@@ -156,7 +156,7 @@ class VerifyEngine
         }
         foreach (var equal in equals)
         {
-            DiffRunner.TryKillProcessIfSupported(extension, equal.Received, equal.Verified);
+            DiffRunner.Kill(extension, equal.Received, equal.Verified);
         }
     }
 
@@ -194,7 +194,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.TryLaunch(extension, item.Received, item.Verified);
+        DiffRunner.Launch(extension, item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -241,7 +241,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.TryLaunch(extension, item.Received, item.Verified);
+        DiffRunner.Launch(extension, item.Received, item.Verified);
     }
 
     static void AcceptChanges(FilePair item)

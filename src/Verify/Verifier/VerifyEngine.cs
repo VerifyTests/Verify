@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiffEngine;
 using Verify;
 
 [DebuggerDisplay("extension = {extension} | missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
@@ -155,10 +156,7 @@ class VerifyEngine
         }
         foreach (var equal in equals)
         {
-            if (DiffTools.TryFind(extension, out var diffTool))
-            {
-                DiffRunner.KillProcessIfSupported(diffTool, equal);
-            }
+            DiffRunner.TryKillProcessIfSupported(extension, equal.Received, equal.Verified);
         }
     }
 
@@ -196,12 +194,7 @@ class VerifyEngine
             return;
         }
 
-        if (!DiffTools.TryFind(extension, out var diffTool))
-        {
-            return;
-        }
-
-        DiffRunner.Launch(diffTool, item);
+        DiffRunner.TryLaunch(extension, item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -248,17 +241,7 @@ class VerifyEngine
             return;
         }
 
-        if (!DiffTools.TryFind(extension, out var diffTool))
-        {
-            return;
-        }
-
-        if (!EmptyFilesWrapper.TryWriteEmptyFile(item.Extension, item.Verified))
-        {
-            return;
-        }
-
-        DiffRunner.Launch(diffTool, item);
+        DiffRunner.TryLaunch(extension, item.Received, item.Verified);
     }
 
     static void AcceptChanges(FilePair item)

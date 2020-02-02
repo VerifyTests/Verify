@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -101,10 +102,10 @@ public partial class Tests :
 
     async Task ReVerify(Func<object> target, VerifySettings settings, FilePair pair)
     {
-        var command = tool.BuildCommand(pair);
-        ProcessCleanup.RefreshCommands();
+        var command = tool.BuildCommand(pair.Received,pair.Verified);
+        ProcessCleanup.Refresh();
         await Verify(target(), settings);
-        ProcessCleanup.RefreshCommands();
+        ProcessCleanup.Refresh();
         AssertProcessNotRunning(command);
 
         AssertNotExists(pair.Received);
@@ -121,7 +122,7 @@ public partial class Tests :
         else
         {
             await Throws(() => Verify(target(), settings));
-            ProcessCleanup.RefreshCommands();
+            ProcessCleanup.Refresh();
             AssertProcess(hasMatchingDiffTool, pair);
             if (hasMatchingDiffTool)
             {

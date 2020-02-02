@@ -8,7 +8,7 @@ class DiffTool
     public string Url { get; }
     public bool SupportsAutoRefresh { get; }
     public bool IsMdi { get; }
-    public Func<FilePair, string> BuildArguments { get; }
+    public Func<string, string, string> BuildArguments { get; }
     public string[] BinaryExtensions { get; }
     public string? ExePath { get; private set; }
     public bool Exists { get; private set; }
@@ -21,7 +21,7 @@ class DiffTool
         string url,
         bool supportsAutoRefresh,
         bool isMdi,
-        Func<FilePair,string> buildArguments,
+        Func<string, string, string> buildArguments,
         string[] windowsExePaths,
         string[] binaryExtensions,
         string[] linuxExePaths,
@@ -72,6 +72,7 @@ class DiffTool
             {
                 continue;
             }
+
             ExePath = expanded;
             Exists = true;
             return;

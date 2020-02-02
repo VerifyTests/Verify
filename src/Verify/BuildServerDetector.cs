@@ -45,7 +45,6 @@ static class BuildServerDetector
         if (Environment.GetEnvironmentVariable("teamcity") != null)
         {
             Detected = true;
-            return;
         }
     }
 

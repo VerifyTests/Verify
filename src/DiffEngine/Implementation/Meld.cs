@@ -1,13 +1,13 @@
 ﻿using System;
 
-static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool Meld() => new DiffTool(
+    public static DiffTool Meld() => new DiffTool(
         name: "Meld",
         url: "https://meldmerge.org/",
         supportsAutoRefresh: false,
         isMdi: false,
-        buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
+        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\Meld\meld.exe"

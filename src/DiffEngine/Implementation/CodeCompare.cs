@@ -1,13 +1,13 @@
 ﻿using System;
 
-static partial class DiffTools
+static partial class Implementation
 {
-    static DiffTool CodeCompare() => new DiffTool(
+    public static DiffTool CodeCompare() => new DiffTool(
         name: "CodeCompare",
         url: "https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm",
         supportsAutoRefresh: false,
         isMdi: true,
-        buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
+        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe"

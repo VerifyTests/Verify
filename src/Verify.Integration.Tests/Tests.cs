@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -23,7 +24,7 @@ public partial class Tests :
         tool = new ResolvedDiffTool(
             name: "FakeDiffTool",
             exePath: diffToolPath,
-            buildArguments: pair => $"\"{pair.Received}\" \"{pair.Verified}\"",
+            buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             isMdi: false,
             supportsAutoRefresh: true);
 
@@ -71,13 +72,13 @@ public partial class Tests :
     {
         foreach (var pair in pairs)
         {
-            var command = tool.BuildCommand(pair);
+            var command = tool.BuildCommand(pair.Received,pair.Verified);
             if (isRunning == ProcessCleanup.IsRunning(command))
             {
                 continue;
             }
 
-            var commands = string.Join(Environment.NewLine,ProcessCleanup.processCommands.Select(x=>x.Command));
+            var commands = string.Join(Environment.NewLine, ProcessCleanup.Commands.Select(x => x.Command));
             string message;
             if (isRunning)
             {
@@ -87,6 +88,7 @@ public partial class Tests :
             {
                 message = "Expected command not running";
             }
+
             throw new Exception($@"{message}
 {command}
 Commands:

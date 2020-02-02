@@ -130,7 +130,7 @@ Result:
 snippet: Tests.WithObsoleteProp.verified.txt
 
 
-## Including Obsolete members
+### Including Obsolete members
 
 Obsolete members can be included using `IncludeObsoletes`:
 

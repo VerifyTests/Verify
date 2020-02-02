@@ -29,7 +29,7 @@ Serialization settings can be customized at three levels:
   * [Ignoring a type](#ignoring-a-type)
   * [Ignoring a instance](#ignoring-a-instance)
   * [Obsolete members ignored](#obsolete-members-ignored)
-  * [Including Obsolete members](#including-obsolete-members)
+    * [Including Obsolete members](#including-obsolete-members)
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)<!-- endtoc -->
@@ -403,7 +403,7 @@ Result:
 <!-- endsnippet -->
 
 
-## Including Obsolete members
+### Including Obsolete members
 
 Obsolete members can be included using `IncludeObsoletes`:
 

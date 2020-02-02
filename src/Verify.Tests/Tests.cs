@@ -381,7 +381,7 @@ public class Tests :
     
 #pragma warning disable 612
 
-    #region WithObsolete
+    #region WithObsoleteProp
 
     class WithObsolete
     {
@@ -403,7 +403,7 @@ public class Tests :
 
     #endregion
 
-    #region WithObsoleteIncluded
+    #region WithObsoletePropIncluded
 
     [Fact]
     public Task WithObsoletePropIncluded()
@@ -414,7 +414,7 @@ public class Tests :
             OtherProperty = "value2"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(serialization=> { serialization.IncludeObsoletes(); });
+        settings.ModifySerialization(_=> { _.IncludeObsoletes(); });
         return Verify(target, settings);
     }
 

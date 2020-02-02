@@ -123,22 +123,22 @@ snippet: Tests.AddIgnoreInstance.verified.txt
 
 Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
 
-snippet: WithObsolete
+snippet: WithObsoleteProp
 
 Result:
 
-snippet: Tests.WithObsolete.verified.txt
+snippet: Tests.WithObsoleteProp.verified.txt
 
 
 ## Including Obsolete members
 
 Obsolete members can be included using `IncludeObsoletes`:
 
-snippet: WithObsoleteIncluded
+snippet: WithObsoletePropIncluded
 
 Result:
 
-snippet: Tests.WithObsoleteIncluded.verified.txt
+snippet: Tests.WithObsoletePropIncluded.verified.txt
 
 
 

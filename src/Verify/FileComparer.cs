@@ -58,8 +58,11 @@ static class FileComparer
 
         while (true)
         {
-            var count1 = await ReadBufferAsync(stream1, buffer1);
-            var count2 = await ReadBufferAsync(stream2, buffer2);
+            var t1 = ReadBufferAsync(stream1, buffer1);
+            var t2 = ReadBufferAsync(stream2, buffer2);
+
+            var count1 = await t1;
+            var count2 = await t2;
 
             if (count1 != count2)
             {
@@ -74,8 +77,8 @@ static class FileComparer
             var iterations = (int) Math.Ceiling((double) count1 / sizeof(long));
             for (var i = 0; i < iterations; i++)
             {
-                var startIndex = i * sizeof(long);
-                if (BitConverter.ToInt64(buffer1, startIndex) != BitConverter.ToInt64(buffer2, startIndex))
+                var start = i * sizeof(long);
+                if (BitConverter.ToInt64(buffer1, start) != BitConverter.ToInt64(buffer2, start))
                 {
                     return false;
                 }

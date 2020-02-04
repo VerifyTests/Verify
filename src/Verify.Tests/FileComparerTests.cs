@@ -15,9 +15,9 @@ public class FileComparerTests :
     [Fact]
     public void Equals()
     {
+        File.Copy("sample.bmp", "sample.tmp", true);
         try
         {
-            File.Copy("sample.bmp", "sample.tmp", true);
             Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
         }
         finally
@@ -35,9 +35,9 @@ public class FileComparerTests :
     [Fact]
     public void ShouldNotLock()
     {
+        File.Copy("sample.bmp", "sample.tmp", true);
         try
         {
-            File.Copy("sample.bmp", "sample.tmp", true);
             using (new FileStream("sample.bmp",
                 FileMode.Open,
                 FileAccess.Read,

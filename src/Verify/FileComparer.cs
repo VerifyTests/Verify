@@ -70,11 +70,9 @@ static class FileComparer
                 return true;
             }
 
-            var iterations = (int) Math.Ceiling((double) count / sizeof(long));
-            for (var i = 0; i < iterations; i++)
+            for (var i = 0; i < count; i+= sizeof(long))
             {
-                var start = i * sizeof(long);
-                if (BitConverter.ToInt64(buffer1, start) != BitConverter.ToInt64(buffer2, start))
+                if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
                 {
                     return false;
                 }

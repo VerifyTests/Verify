@@ -7,9 +7,23 @@ public class FileComparerTests :
     VerifyBase
 {
     [Fact]
-    public void Equals()
+    public void SamePathEquals()
     {
         Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.bmp"));
+    }
+
+    [Fact]
+    public void Equals()
+    {
+        try
+        {
+            File.Copy("sample.bmp", "sample.tmp", true);
+            Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
+        }
+        finally
+        {
+            File.Delete("sample.tmp");
+        }
     }
 
     [Fact]
@@ -17,18 +31,26 @@ public class FileComparerTests :
     {
         Assert.False(FileComparer.FilesEqual("sample.bmp", "sample.txt"));
     }
-#if NETCOREAPP3_1
 
     [Fact]
     public void ShouldNotLock()
     {
-        using (File.OpenWrite("sample.bmp"))
+        try
         {
-            Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.bmp"));
+            File.Copy("sample.bmp", "sample.tmp", true);
+            using (new FileStream("sample.bmp",
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.Read))
+            {
+                Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
+            }
+        }
+        finally
+        {
+            File.Delete("sample.tmp");
         }
     }
-
-#endif
 
     public FileComparerTests(ITestOutputHelper output) :
         base(output)

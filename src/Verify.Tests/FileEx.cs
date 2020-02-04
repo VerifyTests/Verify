@@ -4,9 +4,19 @@ public static class FileEx
 {
     public static bool IsFileLocked(string file)
     {
+        return IsFileLocked(file, FileAccess.ReadWrite);
+    }
+
+    public static bool IsFileReadLocked(string file)
+    {
+        return IsFileLocked(file, FileAccess.Read);
+    }
+
+    static bool IsFileLocked(string file, FileAccess access)
+    {
         try
         {
-            using var stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
+            using var stream = new FileStream (file, FileMode.Open, access);
             stream.Close();
         }
         catch (IOException)

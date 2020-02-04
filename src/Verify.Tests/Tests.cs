@@ -378,7 +378,7 @@ public class Tests :
     {
         public Guid NotImplementedExceptionProperty => throw new NotSupportedException();
     }
-    
+
 #pragma warning disable 612
 
     #region WithObsoleteProp
@@ -419,7 +419,7 @@ public class Tests :
     }
 
     #endregion
-    
+
 #pragma warning restore 612
 
     [Fact]
@@ -629,7 +629,6 @@ public class Tests :
         await VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
-
 
     public class DateTimeTarget
     {

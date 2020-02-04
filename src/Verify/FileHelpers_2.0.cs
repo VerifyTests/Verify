@@ -21,12 +21,12 @@ static partial class FileHelpers
 
     public static async Task<string> ReadText(string filePath)
     {
-        using var sourceStream = OpenRead(filePath);
+        using var stream = OpenRead(filePath);
         var builder = new StringBuilder();
 
         var buffer = new byte[0x1000];
         int numRead;
-        while ((numRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+        while ((numRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
         {
             var text = Encoding.UTF8.GetString(buffer, 0, numRead);
             builder.Append(text);

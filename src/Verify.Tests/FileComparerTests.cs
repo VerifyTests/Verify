@@ -26,6 +26,25 @@ public class FileComparerTests :
             File.Delete("sample.tmp");
         }
     }
+    [Fact]
+    public async Task BinaryNotEqualsSameLength()
+    {
+        File.Copy("sample.bmp", "sample.tmp", true);
+        using (var stream = File.Open("sample.tmp", FileMode.Open))
+        {
+            stream.Position = 100;
+            stream.WriteByte(8);
+        }
+
+        try
+        {
+            Assert.False(await FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
+        }
+        finally
+        {
+            File.Delete("sample.tmp");
+        }
+    }
 
     [Fact]
     public async Task BinaryNotEquals()

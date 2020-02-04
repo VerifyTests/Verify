@@ -1,5 +1,4 @@
-﻿using System.IO;
-using VerifyXunit;
+﻿using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 

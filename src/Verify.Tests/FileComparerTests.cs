@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -7,18 +8,18 @@ public class FileComparerTests :
     VerifyBase
 {
     [Fact]
-    public void SamePathEquals()
+    public async Task SamePathEquals()
     {
-        Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.bmp"));
+        Assert.True(await FileComparer.FilesEqual("sample.bmp", "sample.bmp"));
     }
 
     [Fact]
-    public void BinaryEquals()
+    public async Task BinaryEquals()
     {
         File.Copy("sample.bmp", "sample.tmp", true);
         try
         {
-            Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
+            Assert.True(await FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
         }
         finally
         {
@@ -27,13 +28,13 @@ public class FileComparerTests :
     }
 
     [Fact]
-    public void BinaryNotEquals()
+    public async Task BinaryNotEquals()
     {
-        Assert.False(FileComparer.FilesEqual("sample.bmp", "sample.txt"));
+        Assert.False(await FileComparer.FilesEqual("sample.bmp", "sample.txt"));
     }
 
     [Fact]
-    public void ShouldNotLock()
+    public async Task ShouldNotLock()
     {
         File.Copy("sample.bmp", "sample.tmp", true);
         try
@@ -43,7 +44,7 @@ public class FileComparerTests :
                 FileAccess.Read,
                 FileShare.Read))
             {
-                Assert.True(FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
+                Assert.True(await FileComparer.FilesEqual("sample.bmp", "sample.tmp"));
             }
         }
         finally

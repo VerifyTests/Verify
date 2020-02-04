@@ -32,7 +32,7 @@ static class Comparer
         {
             await FileHelpers.WriteStream(file.Received, stream);
 
-            var result = FileComparer.DoCompare(file.Received, file.Verified);
+            var result = await FileComparer.DoCompare(file.Received, file.Verified);
 
             if (result == CompareResult.Equal)
             {

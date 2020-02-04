@@ -28,7 +28,7 @@ static class FileComparer
         return FilesAreEqual(new FileInfo(path1), new FileInfo(path2));
     }
 
-    const int BYTES_TO_READ = sizeof(long);
+    const int bytesToRead = sizeof(long);
 
     static bool FilesAreEqual(FileInfo first, FileInfo second)
     {
@@ -42,17 +42,17 @@ static class FileComparer
             return true;
         }
 
-        var iterations = (int) Math.Ceiling((double) first.Length / BYTES_TO_READ);
+        var iterations = (int) Math.Ceiling((double) first.Length / bytesToRead);
 
-        using var fs1 = first.OpenRead();
-        using var fs2 = second.OpenRead();
-        var one = new byte[BYTES_TO_READ];
-        var two = new byte[BYTES_TO_READ];
+        using var fs1 = FileHelpers.OpenRead(first.FullName);
+        using var fs2 = FileHelpers.OpenRead(second.FullName);
+        var one = new byte[bytesToRead];
+        var two = new byte[bytesToRead];
 
         for (var i = 0; i < iterations; i++)
         {
-            fs1.Read(one, 0, BYTES_TO_READ);
-            fs2.Read(two, 0, BYTES_TO_READ);
+            fs1.Read(one, 0, bytesToRead);
+            fs2.Read(two, 0, bytesToRead);
 
             if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
             {

@@ -11,6 +11,14 @@ static partial class FileHelpers
         }
     }
 
+    public static FileStream OpenRead(string path)
+    {
+        return new FileStream(path,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read);
+    }
+
     public static string Extension(string path)
     {
         return Path.GetExtension(path).Substring(1);

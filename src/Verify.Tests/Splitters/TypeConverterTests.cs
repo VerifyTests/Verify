@@ -109,7 +109,7 @@ public class TypeConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        var bitmap = new Bitmap(File.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 
@@ -125,7 +125,7 @@ public class TypeConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        var bitmap = new Bitmap(File.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 

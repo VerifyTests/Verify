@@ -25,7 +25,7 @@ public class ExtensionConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        return Verify(File.OpenRead("sample.bmp"), settings);
+        return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
     [Fact]
     public Task WithInfo()
@@ -44,7 +44,7 @@ public class ExtensionConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        return Verify(File.OpenRead("sample.bmp"), settings);
+        return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
 
     IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)

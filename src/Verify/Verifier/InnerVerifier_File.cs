@@ -16,7 +16,7 @@ partial class InnerVerifier
             settings.UseExtension(FileHelpers.Extension(path));
         }
 
-        return Verify(File.OpenRead(path), settings);
+        return Verify(FileHelpers.OpenRead(path), settings);
     }
 
     public Task VerifyFile(

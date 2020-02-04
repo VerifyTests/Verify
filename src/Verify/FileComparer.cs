@@ -59,22 +59,18 @@ static class FileComparer
         while (true)
         {
             var t1 = ReadBufferAsync(stream1, buffer1);
-            var t2 = ReadBufferAsync(stream2, buffer2);
+            await ReadBufferAsync(stream2, buffer2);
 
-            var count1 = await t1;
-            var count2 = await t2;
+            var count = await t1;
 
-            if (count1 != count2)
-            {
-                return false;
-            }
+            //no need to compare size here since only enter on files being same size
 
-            if (count1 == 0)
+            if (count == 0)
             {
                 return true;
             }
 
-            var iterations = (int) Math.Ceiling((double) count1 / sizeof(long));
+            var iterations = (int) Math.Ceiling((double) count / sizeof(long));
             for (var i = 0; i < iterations; i++)
             {
                 var start = i * sizeof(long);

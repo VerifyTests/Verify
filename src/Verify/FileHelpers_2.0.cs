@@ -9,37 +9,19 @@ static partial class FileHelpers
     {
         var encodedText = Encoding.UTF8.GetBytes(text);
 
-        using var fileStream = new FileStream(
-            filePath,
-            FileMode.Create,
-            FileAccess.Write,
-            FileShare.None,
-            bufferSize: 4096,
-            useAsync: true);
+        using var fileStream = OpenWrite(filePath);
         await fileStream.WriteAsync(encodedText, 0, encodedText.Length);
     }
 
     public static async Task WriteStream(string filePath, Stream stream)
     {
-        using var fileStream = new FileStream(
-            filePath,
-            FileMode.Create,
-            FileAccess.Write,
-            FileShare.None,
-            bufferSize: 4096,
-            useAsync: true);
+        using var fileStream = OpenWrite(filePath);
         await stream.CopyToAsync(fileStream);
     }
 
     public static async Task<string> ReadText(string filePath)
     {
-        using var sourceStream = new FileStream(
-            filePath,
-            FileMode.Open,
-            FileAccess.Read,
-            FileShare.Read,
-            bufferSize: 4096,
-            useAsync: true);
+        using var sourceStream = OpenRead(filePath);
         var builder = new StringBuilder();
 
         var buffer = new byte[0x1000];

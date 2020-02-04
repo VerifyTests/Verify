@@ -13,7 +13,7 @@ public class FileComparerTests :
     }
 
     [Fact]
-    public void Equals()
+    public void BinaryEquals()
     {
         File.Copy("sample.bmp", "sample.tmp", true);
         try
@@ -27,7 +27,7 @@ public class FileComparerTests :
     }
 
     [Fact]
-    public void NotEquals()
+    public void BinaryNotEquals()
     {
         Assert.False(FileComparer.FilesEqual("sample.bmp", "sample.txt"));
     }

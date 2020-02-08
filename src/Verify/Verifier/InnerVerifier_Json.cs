@@ -20,17 +20,20 @@ partial class InnerVerifier
             var converterSettings = GetConverterSettings<T>(settings, converter);
             var result = await converter.Func(input!, converterSettings);
             await VerifyBinary(result.Streams, converterSettings, result.Info);
+            return;
         }
 
         if (input is Stream stream)
         {
             await VerifyStream(settings, stream);
+            return;
         }
 
         if (typeof(T).ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) input!;
             await VerifyBinary(enumerable.Cast<Stream>(), settings, null);
+            return;
         }
 
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);

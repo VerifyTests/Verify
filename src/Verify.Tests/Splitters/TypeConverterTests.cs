@@ -18,8 +18,11 @@ public class TypeConverterTests :
     public Task DifferingExtensions()
     {
         SharedVerifySettings.RegisterFileConverter<ClassToSplit3>(
-            "notTxt",
-            (classToSplit, _) => throw new Exception());
+            "notTxt", async (classToSplit, _) =>
+            {
+                await Task.Delay(1);
+                throw new Exception();
+            });
 
         SharedVerifySettings.RegisterFileConverter<ClassToSplit3>(
             "txt",

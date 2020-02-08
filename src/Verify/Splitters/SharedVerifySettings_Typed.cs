@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Verify
 {
@@ -40,14 +41,34 @@ namespace Verify
             Func<T, VerifySettings, ConversionResult> func)
         {
             Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter<T>((o, settings) => Task.FromResult(func(o, settings)));
+        }
+
+        public static void RegisterFileConverter<T>(
+            Func<T, VerifySettings, Task<ConversionResult>> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
             var converter = new TypeConverter(
-                (o, settings) => func((T) o, settings),
+                (o, settings) =>
+                {
+                    return func((T) o, settings);
+                },
                 type => type == typeof(T));
             typedConverters.Add(converter);
         }
 
         public static void RegisterFileConverter(
             Func<object, VerifySettings, ConversionResult> func,
+            Func<Type, bool> canConvert)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter(
+                (o, settings) => Task.FromResult(func(o, settings)),
+                canConvert);
+        }
+
+        public static void RegisterFileConverter(
+            Func<object, VerifySettings, Task<ConversionResult>> func,
             Func<Type, bool> canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -63,6 +84,16 @@ namespace Verify
             Func<T, VerifySettings, ConversionResult> func)
         {
             Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter<T>(
+                toExtension,
+                (o, settings) => Task.FromResult(func(o, settings)));
+        }
+
+        public static void RegisterFileConverter<T>(
+            string toExtension,
+            Func<T, VerifySettings, Task<ConversionResult>> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new TypeConverter(
                 toExtension,
@@ -74,6 +105,18 @@ namespace Verify
         public static void RegisterFileConverter(
             string toExtension,
             Func<object, VerifySettings, ConversionResult> func,
+            Func<Type, bool> canConvert)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter(
+                toExtension,
+                (o, settings) => Task.FromResult(func(o, settings)), 
+                canConvert);
+        }
+
+        public static void RegisterFileConverter(
+            string toExtension,
+            Func<object, VerifySettings, Task<ConversionResult>> func,
             Func<Type, bool> canConvert)
         {
             Guard.AgainstNull(func, nameof(func));

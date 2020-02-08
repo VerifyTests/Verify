@@ -49,11 +49,8 @@ namespace Verify
         {
             Guard.AgainstNull(func, nameof(func));
             var converter = new TypeConverter(
-                (o, settings) =>
-                {
-                    return func((T) o, settings);
-                },
-                type => type == typeof(T));
+                (o, settings) => func((T) o, settings),
+                type => typeof(T).IsAssignableFrom(type));
             typedConverters.Add(converter);
         }
 
@@ -98,7 +95,7 @@ namespace Verify
             var converter = new TypeConverter(
                 toExtension,
                 (o, settings) => func((T) o, settings),
-                type => type == typeof(T));
+                type => typeof(T).IsAssignableFrom(type));
             typedConverters.Add(converter);
         }
 
@@ -110,7 +107,7 @@ namespace Verify
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter(
                 toExtension,
-                (o, settings) => Task.FromResult(func(o, settings)), 
+                (o, settings) => Task.FromResult(func(o, settings)),
                 canConvert);
         }
 

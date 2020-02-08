@@ -8,7 +8,7 @@ using Verify;
 
 partial class InnerVerifier
 {
-    public Task Verify<T>(T input, VerifySettings? settings = null)
+    public async Task Verify<T>(T input, VerifySettings? settings = null)
     {
         Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
@@ -18,23 +18,23 @@ partial class InnerVerifier
             out var converter))
         {
             var converterSettings = GetConverterSettings<T>(settings, converter);
-            var result = converter.Func(input!, converterSettings);
-            return VerifyBinary(result.Streams, converterSettings, result.Info);
+            var result = await converter.Func(input!, converterSettings);
+            await VerifyBinary(result.Streams, converterSettings, result.Info);
         }
 
         if (input is Stream stream)
         {
-            return VerifyStream(settings, stream);
+            await VerifyStream(settings, stream);
         }
 
         if (typeof(T).ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) input!;
-            return VerifyBinary(enumerable.Cast<Stream>(), settings, null);
+            await VerifyBinary(enumerable.Cast<Stream>(), settings, null);
         }
 
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
-        return Verify(formatJson, settings);
+        await Verify(formatJson, settings);
     }
 
     static VerifySettings GetConverterSettings<T>(VerifySettings settings, TypeConverter converter)

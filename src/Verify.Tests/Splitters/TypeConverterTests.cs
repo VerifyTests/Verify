@@ -15,6 +15,26 @@ public class TypeConverterTests :
     VerifyBase
 {
     [Fact]
+    public Task Inherited()
+    {
+        SharedVerifySettings.RegisterFileConverter<ParentClass>(
+            "txt",
+            (instance, _) =>
+            {
+                var streams = ToStream(instance.Value);
+                return new ConversionResult(null, streams);
+            });
+
+        var target = new InheritedClass
+        {
+            Value = "line1"
+        };
+        var settings = new VerifySettings();
+        settings.UseExtension("txt");
+        return Verify(target, settings);
+    }
+
+    [Fact]
     public Task DifferingExtensions()
     {
         SharedVerifySettings.RegisterFileConverter<ClassToSplit3>(
@@ -52,6 +72,15 @@ public class TypeConverterTests :
         public string Value { get; set; } = null!;
     }
 
+    public class ParentClass
+    {
+        public string Value { get; set; } = null!;
+    }
+
+    public class InheritedClass : ParentClass
+    {
+    }
+
     [Fact]
     public Task ConvertWithExtInSettings()
     {
@@ -74,6 +103,7 @@ public class TypeConverterTests :
     {
         public string Value { get; set; } = null!;
     }
+
     [Fact]
     public Task ConvertWithNewline()
     {

@@ -14,5 +14,12 @@ namespace Verify
             Info = info;
             Streams = streams;
         }
+
+        public ConversionResult(object? info, Stream stream)
+        {
+            Guard.AgainstNull(stream, nameof(stream));
+            Info = info;
+            Streams = new List<Stream> {stream};
+        }
     }
 }

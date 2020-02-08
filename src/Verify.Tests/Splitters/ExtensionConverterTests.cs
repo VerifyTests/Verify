@@ -27,6 +27,23 @@ public class ExtensionConverterTests :
         settings.UseExtension("bmp");
         return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
+
+    [Fact]
+    public Task AsyncExtensionConversion()
+    {
+        SharedVerifySettings.RegisterFileConverter(
+            "bmp",
+            "png",
+            (stream, _) =>
+            {
+                var streams = ConvertBmpTpPngStreams(stream);
+                return Task.FromResult(new ConversionResult(null, streams));
+            });
+        var settings = new VerifySettings();
+        settings.UseExtension("bmp");
+        return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+    }
+
     [Fact]
     public Task WithInfo()
     {

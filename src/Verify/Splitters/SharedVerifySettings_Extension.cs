@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Verify
 {
@@ -17,6 +18,18 @@ namespace Verify
             string fromExtension,
             string toExtension,
             Func<Stream, VerifySettings, ConversionResult> func)
+        {
+            Guard.AgainstNull(func, nameof(func));
+            RegisterFileConverter(
+                fromExtension,
+                toExtension,
+                (stream, settings) => Task.FromResult(func(stream, settings)));
+        }
+
+        public static void RegisterFileConverter(
+            string fromExtension,
+            string toExtension,
+            Func<Stream, VerifySettings, Task<ConversionResult>> func)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));

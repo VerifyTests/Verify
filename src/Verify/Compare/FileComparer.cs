@@ -1,22 +1,23 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Verify;
 
 static class FileComparer
 {
-    public static async Task<CompareResult> DoCompare(string receivedPath, string verifiedPath)
+    public static async Task<CompareResult> DoCompare(VerifySettings settings, FilePair file)
     {
-        if (!File.Exists(verifiedPath))
+        if (!File.Exists(file.Verified))
         {
             return CompareResult.MissingVerified;
         }
 
-        if (EmptyFiles.IsEmptyFile(verifiedPath))
+        if (EmptyFiles.IsEmptyFile(file.Verified))
         {
             return CompareResult.NotEqual;
         }
 
-        if (!await FilesEqual(receivedPath, verifiedPath))
+        if (!await FilesEqual(settings, file))
         {
             return CompareResult.NotEqual;
         }
@@ -24,30 +25,47 @@ static class FileComparer
         return CompareResult.Equal;
     }
 
-    public static Task<bool> FilesEqual(string path1, string path2)
+    public static Task<bool> FilesEqual(VerifySettings settings, FilePair file)
     {
-        return FilesAreEqual(new FileInfo(path1), new FileInfo(path2));
+        if (settings.comparer != null)
+        {
+            return DoCompare(file.Received, file.Verified, settings.comparer);
+        }
+        if (SharedVerifySettings.TryGetComparer(file.Extension, out var comparer))
+        {
+            return DoCompare(file.Received, file.Verified, comparer);
+        }
+
+        if (!FilesAreSameSize(file))
+        {
+            return Task.FromResult(false);
+        }
+
+        return DefaultCompare(file.Received, file.Verified);
     }
 
-    static async Task<bool> FilesAreEqual(FileInfo first, FileInfo second)
+    public static Task<bool> DefaultCompare(string received, string verified)
     {
-        if (first.Length != second.Length)
-        {
-            return false;
-        }
+        return DoCompare(received, verified, StreamsAreEqual);
+    }
 
-        if (string.Equals(first.FullName, second.FullName, StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
+    static bool FilesAreSameSize(FilePair file)
+    {
+        var first = new FileInfo(file.Received);
+        var second = new FileInfo(file.Verified);
+        return first.Length == second.Length;
+    }
+
+    static async Task<bool> DoCompare(string first, string second, Func<Stream, Stream, Task<bool>> compare)
+    {
 #if NETSTANDARD2_1
-        await using var fs1 = FileHelpers.OpenRead(first.FullName);
-        await using var fs2 = FileHelpers.OpenRead(second.FullName);
-        #else
-        using var fs1 = FileHelpers.OpenRead(first.FullName);
-        using var fs2 = FileHelpers.OpenRead(second.FullName);
+        await using var fs1 = FileHelpers.OpenRead(first);
+        await using var fs2 = FileHelpers.OpenRead(second);
+#else
+        using var fs1 = FileHelpers.OpenRead(first);
+        using var fs2 = FileHelpers.OpenRead(second);
 #endif
-        return await StreamsAreEqual(fs1, fs2);
+        return await compare(fs1, fs2);
     }
 
     static async Task<bool> StreamsAreEqual(Stream stream1, Stream stream2)
@@ -79,6 +97,7 @@ static class FileComparer
             }
         }
     }
+
     static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     {
         var bytesRead = 0;

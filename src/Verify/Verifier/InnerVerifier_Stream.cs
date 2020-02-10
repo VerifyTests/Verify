@@ -21,7 +21,7 @@ partial class InnerVerifier
         {
             var file = GetFileForIndex(settings, list, index, extension);
             var stream = list[index];
-            var result = await Comparer.Streams(stream, file);
+            var result = await Comparer.Streams(settings, stream, file);
 
             engine.HandleCompareResult(result, file);
         }

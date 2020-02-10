@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Verify;
 
 static class Comparer
 {
@@ -19,12 +20,12 @@ static class Comparer
         {
             return CompareResult.Equal;
         }
+
         await FileHelpers.WriteText(file.Received, scrubbedInput);
         return CompareResult.NotEqual;
-
     }
 
-    public static async Task<CompareResult> Streams(Stream stream, FilePair file)
+    public static async Task<CompareResult> Streams(VerifySettings settings, Stream stream, FilePair file)
     {
         stream.MoveToStart();
 
@@ -32,7 +33,7 @@ static class Comparer
         {
             await FileHelpers.WriteStream(file.Received, stream);
 
-            var result = await FileComparer.DoCompare(file.Received, file.Verified);
+            var result = await FileComparer.DoCompare(settings, file);
 
             if (result == CompareResult.Equal)
             {

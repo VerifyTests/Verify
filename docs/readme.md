@@ -15,4 +15,5 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Diff Tool](/docs/diff-tool.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
+  * [Comparers](/docs/comparer.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->

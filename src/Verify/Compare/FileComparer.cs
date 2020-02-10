@@ -68,6 +68,7 @@ static class FileComparer
         return await compare(fs1, fs2);
     }
 
+    #region DefualtCompare
     static async Task<bool> StreamsAreEqual(Stream stream1, Stream stream2)
     {
         const int bufferSize = 1024 * sizeof(long);
@@ -115,4 +116,5 @@ static class FileComparer
 
         return bytesRead;
     }
+    #endregion
 }

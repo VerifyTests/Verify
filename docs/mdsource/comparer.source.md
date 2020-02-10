@@ -1,11 +1,11 @@
 # Comparer
 
-Comparers are use to non-text files.
+Comparers are used to compare non-text files.
 
 
 ## Custom Comparer
 
-Using a custom comparer can be helpful when a result has changed, but not enough to fail verification. For examples when rendering images/forms on different operating systems.
+Using a custom comparer can be helpful when a result has changed, but not enough to fail verification. For example when rendering images/forms on different operating systems.
 
 For samples purposes case insensitive string comparison will be used:
 

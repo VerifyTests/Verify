@@ -174,12 +174,13 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 
 ## Extensions
 
- * [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose): Extends Verify to allow verification of documents (pdf, docx, xslx, and pptx) via Aspose.
- * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Adds Verify support to verify NServiceBus Test Contexts.
- * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Extends Verify to allow verification of web bits.
- * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Allow verification of SqlServer bits.
- * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Extends Verify to allow verification of EntityFramework bits.
- * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Extends Verify to allow verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+ * [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose): Verification of documents (pdf, docx, xslx, and pptx) via Aspose.
+ * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
+ * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Verification of web bits.
+ * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Verification of SqlServer bits.
+ * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Verification of EntityFramework bits.
+ * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+ * [Verify.Xaml](https://github.com/SimonCropp/Verify.Xaml): Verification of Xaml UIs.
 
 
 ## Alternatives

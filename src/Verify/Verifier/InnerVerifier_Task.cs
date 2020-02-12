@@ -20,7 +20,6 @@ partial class InnerVerifier
         }
         finally
         {
-#if NETSTANDARD2_1
             if (target is IAsyncDisposable asyncDisposable)
             {
                 await asyncDisposable.DisposeAsync();
@@ -29,12 +28,6 @@ partial class InnerVerifier
             {
                 disposable.Dispose();
             }
-#else
-            if (target is IDisposable disposable)
-            {
-                disposable.Dispose();
-            }
-#endif
         }
     }
 }

@@ -572,7 +572,6 @@ public class Tests :
             throw new Exception();
         }
     }
-#endif
 
     [Fact]
     public async Task TaskResultDisposable()

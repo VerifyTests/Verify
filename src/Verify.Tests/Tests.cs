@@ -496,7 +496,6 @@ public class Tests :
         return Verify(target);
     }
 
-#if NETCOREAPP3_1
     [Fact]
     public async Task TaskResultAsyncDisposable()
     {
@@ -529,7 +528,6 @@ public class Tests :
             Disposed = true;
         }
     }
-#endif
 
     [Fact]
     public async Task TaskResultDisposable()

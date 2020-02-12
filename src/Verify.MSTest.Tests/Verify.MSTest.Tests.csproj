@@ -14,6 +14,7 @@
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.0" Condition="$(TargetFramework) == 'net48'" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

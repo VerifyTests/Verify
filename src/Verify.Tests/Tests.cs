@@ -116,6 +116,7 @@ public class Tests :
     public async Task AddIgnoreInstance()
     {
         #region AddIgnoreInstance
+
         var settings = new VerifySettings();
         settings.ModifySerialization(
             _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
@@ -151,6 +152,7 @@ public class Tests :
     public async Task IgnoreType()
     {
         #region AddIgnoreType
+
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
 
@@ -190,6 +192,7 @@ public class Tests :
     public async Task IgnoreMemberByExpression()
     {
         #region IgnoreMemberByExpression
+
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
@@ -214,6 +217,7 @@ public class Tests :
     public async Task IgnoreMemberByName()
     {
         #region IgnoreMemberByName
+
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
@@ -260,6 +264,7 @@ public class Tests :
     public async Task CustomExceptionProp()
     {
         #region IgnoreMembersThatThrow
+
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
@@ -324,6 +329,7 @@ public class Tests :
     public async Task ExceptionMessageProp()
     {
         #region IgnoreMembersThatThrowExpression
+
         var settings = new VerifySettings();
         settings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
@@ -385,8 +391,7 @@ public class Tests :
 
     class WithObsolete
     {
-        [Obsolete]
-        public string ObsoleteProperty { get; set; }
+        [Obsolete] public string ObsoleteProperty { get; set; }
         public string OtherProperty { get; set; }
     }
 
@@ -414,7 +419,7 @@ public class Tests :
             OtherProperty = "value2"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_=> { _.IncludeObsoletes(); });
+        settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
         return Verify(target, settings);
     }
 
@@ -496,14 +501,54 @@ public class Tests :
         return Verify(target);
     }
 
-#if NETCOREAPP3_1
+    static async IAsyncEnumerable<string> AsyncEnumerableMethod()
+    {
+        await Task.Delay(1);
+        yield return "one";
+        await Task.Delay(1);
+        yield return "two";
+    }
+
+    [Fact]
+    public async Task AsyncEnumerable()
+    {
+        await Verify(AsyncEnumerableMethod());
+    }
+
+    static async IAsyncEnumerable<DisposableTarget> AsyncEnumerableDisposableMethod(DisposableTarget target)
+    {
+        await Task.Delay(1);
+        yield return target;
+    }
+
+    [Fact]
+    public async Task AsyncEnumerableDisposable()
+    {
+        var target = new DisposableTarget();
+        await Verify(AsyncEnumerableDisposableMethod(target));
+        Assert.True(target.Disposed);
+    }
+
+    static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)
+    {
+        await Task.Delay(1);
+        yield return target;
+    }
+
+    [Fact]
+    public async Task AsyncEnumerableAsyncDisposable()
+    {
+        var target = new AsyncDisposableTarget();
+        await Verify(AsyncEnumerableAsyncDisposableMethod(target));
+        Assert.True(target.AsyncDisposed);
+    }
+
     [Fact]
     public async Task TaskResultAsyncDisposable()
     {
         var disposableTarget = new AsyncDisposableTarget();
         var target = Task.FromResult(disposableTarget);
         await Verify(target);
-        Assert.False(disposableTarget.Disposed);
         Assert.True(disposableTarget.AsyncDisposed);
     }
 
@@ -522,11 +567,9 @@ public class Tests :
             return new ValueTask();
         }
 
-        public bool Disposed;
-
         public void Dispose()
         {
-            Disposed = true;
+            throw new Exception();
         }
     }
 #endif

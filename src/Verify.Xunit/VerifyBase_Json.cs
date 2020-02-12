@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Verify;
 
 namespace VerifyXunit
@@ -11,6 +12,14 @@ namespace VerifyXunit
         {
             var verifier = GetVerifier();
             return verifier.Verify(task, settings);
+        }
+
+        public Task Verify<T>(
+            IAsyncEnumerable<T> enumerable,
+            VerifySettings? settings = null)
+        {
+            var verifier = GetVerifier();
+            return verifier.Verify(enumerable, settings);
         }
 
         public Task Verify<T>(

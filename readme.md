@@ -14,6 +14,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Verification tool to enable simple approval of complex models and documents.
 
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify?utm_source=nuget-verify&utm_medium=referral&utm_campaign=enterprise).
+
 <!-- toc -->
 ## Contents
 

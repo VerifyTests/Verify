@@ -6,8 +6,7 @@
     <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
-    <PackageReference Include="CoenM.ImageSharp.ImageHash" Version="1.0.0-beta0004" />
+    <PackageReference Include="Shipwreck.Phash.Bitmaps" Version="0.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="18.0.0" PrivateAssets="all" />

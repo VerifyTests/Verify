@@ -14,7 +14,7 @@ Comparers are used to compare non-text files.
 
 Using a custom comparer can be helpful when a result has changed, but not enough to fail verification. For example when rendering images/forms on different operating systems.
 
-For samples purposes an [image difference hash algorithm](https://github.com/coenm/ImageHash#hash-algorithms) from the [ImageHash project](https://github.com/coenm/ImageHash) will be used:
+For samples purposes an image difference hash algorithm from the [ImageHash project](https://github.com/pgrho/phash) will be used:
 
 <!-- snippet: ImageComparer -->
 <a id='snippet-imagecomparer'/></a>
@@ -23,18 +23,17 @@ static bool CompareImages(Stream stream1, Stream stream2)
 {
     var hash1 = HashImage(stream1);
     var hash2 = HashImage(stream2);
-    var percentage = CompareHash.Similarity(hash1, hash2);
-    return percentage > 99;
+    var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
+    return score > .999;
 }
 
-static ulong HashImage(Stream stream)
+static Digest HashImage(Stream stream)
 {
-    var algorithm = new DifferenceHash();
-    using var image = Image.Load<Rgba32>(stream);
-    return algorithm.Hash(image);
+    using var bitmap = (Bitmap) Image.FromStream(stream);
+    return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L37-L52' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L50' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -48,7 +47,7 @@ settings.UseComparer(CompareImages);
 settings.UseExtension("png");
 await Verify("TheImage.png", settings);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L21-L26' title='File snippet `instancecomparer` was extracted from'>snippet source</a> | <a href='#snippet-instancecomparer' title='Navigate to start of snippet `instancecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L20-L25' title='File snippet `instancecomparer` was extracted from'>snippet source</a> | <a href='#snippet-instancecomparer' title='Navigate to start of snippet `instancecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -60,7 +59,7 @@ await Verify("TheImage.png", settings);
 SharedVerifySettings.RegisterComparer("png", CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L31-L34' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L30-L33' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

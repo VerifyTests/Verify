@@ -1,9 +1,8 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
-using CoenM.ImageHash;
-using CoenM.ImageHash.HashAlgorithms;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+using Shipwreck.Phash;
+using Shipwreck.Phash.Bitmaps;
 using Verify;
 using VerifyXunit;
 using Xunit.Abstractions;
@@ -39,15 +38,14 @@ public class ComparerSnippets :
     {
         var hash1 = HashImage(stream1);
         var hash2 = HashImage(stream2);
-        var percentage = CompareHash.Similarity(hash1, hash2);
-        return percentage > 99;
+        var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
+        return score > .999;
     }
 
-    static ulong HashImage(Stream stream)
+    static Digest HashImage(Stream stream)
     {
-        var algorithm = new DifferenceHash();
-        using var image = Image.Load<Rgba32>(stream);
-        return algorithm.Hash(image);
+        using var bitmap = (Bitmap) Image.FromStream(stream);
+        return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
     }
     #endregion
 }

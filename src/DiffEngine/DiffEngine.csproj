@@ -9,6 +9,6 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" Condition="$(TargetFramework) != 'net472'" />
-    <Reference Include="System.Management"  Condition="$(TargetFramework) == 'net472'" />
+    <Reference Include="System.Management" Condition="$(TargetFramework) == 'net472'" />
   </ItemGroup>
 </Project>

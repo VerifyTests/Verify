@@ -265,6 +265,8 @@ settings.DisableDiff();
 
 ## DiffEngine
 
+**API SUBJECT TO CHNAGE IN MINOR RELEASES**
+
 DiffEngine contains all functionality used to manage diff tools processes. It is shipped as a stand alone NuGet package: https://www.nuget.org/packages/DiffEngine/. It is designed to be used by [other Snapshot/Approval testing projects](/#alternatives).
 
 

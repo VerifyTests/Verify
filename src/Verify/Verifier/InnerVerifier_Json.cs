@@ -17,7 +17,7 @@ partial class InnerVerifier
             settings.extension,
             out var converter))
         {
-            var converterSettings = GetConverterSettings<T>(settings, converter);
+            var converterSettings = GetConverterSettings(settings, converter);
             var result = await converter.Func(input!, converterSettings);
             await VerifyBinary(result.Streams, converterSettings, result.Info);
             return;
@@ -40,7 +40,7 @@ partial class InnerVerifier
         await Verify(formatJson, settings);
     }
 
-    static VerifySettings GetConverterSettings<T>(VerifySettings settings, TypeConverter converter)
+    static VerifySettings GetConverterSettings(VerifySettings settings, TypeConverter converter)
     {
         if (converter.ToExtension != null)
         {

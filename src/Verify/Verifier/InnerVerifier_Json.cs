@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,25 +54,5 @@ partial class InnerVerifier
         }
 
         throw new Exception("No extension defined.");
-    }
-
-    async Task VerifyStream(VerifySettings settings, Stream stream)
-    {
-        using (stream)
-        {
-            if (settings.HasExtension())
-            {
-                if (SharedVerifySettings.TryGetConverter(settings.extension!, out var converter))
-                {
-                    var converterSettings = new VerifySettings(settings);
-                    converterSettings.UseExtension(converter.ToExtension);
-                    var result = await converter.Func(stream, converterSettings);
-                    await VerifyBinary(result.Streams, converterSettings, result.Info);
-                    return;
-                }
-            }
-
-            await VerifyBinary(new List<Stream> {stream}, settings, null);
-        }
     }
 }

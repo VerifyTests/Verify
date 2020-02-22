@@ -7,6 +7,24 @@ namespace VerifyMSTest
 {
     public partial class VerifyBase
     {
+        public async Task Verify(
+            byte[] target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            using var verifier = BuildVerifier(sourceFile, settings);
+            await verifier.Verify(target);
+        }
+
+        public async Task Verify(
+            Task<byte[]> target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            using var verifier = BuildVerifier(sourceFile, settings);
+            await verifier.Verify(await target);
+        }
+
         public async Task VerifyFile(
             string path,
             VerifySettings? settings = null,

@@ -666,6 +666,26 @@ public class Tests :
     }
 
     [Fact]
+    public async Task VerifyBytes()
+    {
+        var settings = new VerifySettings();
+        settings.UseExtension("jpg");
+        await Verify(File.ReadAllBytes("sample.jpg"), settings);
+    }
+
+#if NETCOREAPP3_1
+
+    [Fact]
+    public async Task VerifyBytesAsync()
+    {
+        var settings = new VerifySettings();
+        settings.UseExtension("jpg");
+        await Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
+    }
+
+#endif
+
+    [Fact]
     public async Task VerifyFilePath()
     {
         await VerifyFile("sample.txt");

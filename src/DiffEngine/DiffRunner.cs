@@ -8,6 +8,14 @@ namespace DiffEngine
     /// </summary>
     public static class DiffRunner
     {
+        static uint maxInstancesToLaunch = uint.MaxValue;
+        static uint launchedInstances;
+
+        public static void MaxInstancesToLaunch(uint value)
+        {
+            maxInstancesToLaunch = value;
+        }
+
         /// <summary>
         /// Find and kill a diff tool process.
         /// </summary>
@@ -29,7 +37,7 @@ namespace DiffEngine
 
             ProcessCleanup.Kill(command);
         }
-        
+
         /// <summary>
         /// Launch a diff tool for the given <paramref name="extension"/>.
         /// </summary>
@@ -37,6 +45,11 @@ namespace DiffEngine
         {
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
             Guard.AgainstNullOrEmpty(path2, nameof(path2));
+
+            if (launchedInstances > maxInstancesToLaunch)
+            {
+                return;
+            }
             if (!DiffTools.TryFind(extension, out var diffTool))
             {
                 return;
@@ -57,6 +70,8 @@ namespace DiffEngine
                     return;
                 }
             }
+
+            launchedInstances++;
 
             Launch(diffTool, path1, path2);
         }

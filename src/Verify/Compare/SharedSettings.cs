@@ -21,7 +21,7 @@ namespace Verify
             Guard.AgainstNull(func, nameof(func));
             RegisterComparer(
                 extension,
-                (stream, settings) => Task.FromResult(func(stream, settings)));
+                (stream1, stream2) => Task.FromResult(func(stream1, stream2)));
         }
 
         public static void RegisterComparer(

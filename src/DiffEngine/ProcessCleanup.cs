@@ -21,7 +21,7 @@ namespace DiffEngine
 
         public static void Refresh()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 commands = FindAll().ToList();

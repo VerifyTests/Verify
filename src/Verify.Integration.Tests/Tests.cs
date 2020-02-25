@@ -53,6 +53,7 @@ public partial class Tests :
                     new MemoryStream(Encoding.UTF8.GetBytes(split.Property1)),
                     new MemoryStream(Encoding.UTF8.GetBytes(split.Property2))
                 }));
+        DiffRunner.MaxInstancesToLaunch(uint.MaxValue);
     }
 
     static void DeleteAll(params string[] files)

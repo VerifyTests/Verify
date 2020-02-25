@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,13 +14,14 @@ public class FileComparerTests :
         File.Copy("sample.bmp", "sample.tmp", true);
         try
         {
-            Assert.True(await FileComparer.DefaultCompare("sample.bmp", "sample.tmp"));
+            Assert.True(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp"));
         }
         finally
         {
             File.Delete("sample.tmp");
         }
     }
+
     [Fact]
     public async Task BinaryNotEqualsSameLength()
     {
@@ -32,7 +34,7 @@ public class FileComparerTests :
 
         try
         {
-            Assert.False(await FileComparer.DefaultCompare("sample.bmp", "sample.tmp"));
+            Assert.False(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp"));
         }
         finally
         {
@@ -43,7 +45,7 @@ public class FileComparerTests :
     [Fact]
     public async Task BinaryNotEquals()
     {
-        Assert.False(await FileComparer.DefaultCompare("sample.bmp", "sample.txt"));
+        Assert.False(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.txt"));
     }
 
     [Fact]
@@ -57,7 +59,7 @@ public class FileComparerTests :
                 FileAccess.Read,
                 FileShare.Read))
             {
-                Assert.True(await FileComparer.DefaultCompare("sample.bmp", "sample.tmp"));
+                Assert.True(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp"));
             }
         }
         finally

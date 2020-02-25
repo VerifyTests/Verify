@@ -6,7 +6,7 @@ namespace Verify
 {
     public partial class VerifySettings
     {
-        internal Func<Stream, Stream, Task<bool>>? comparer;
+        internal Func<VerifySettings, Stream, Stream, Task<bool>>? comparer;
 
         public void UseComparer(
             Func<Stream, Stream, bool> func)
@@ -20,7 +20,7 @@ namespace Verify
             Func<Stream, Stream, Task<bool>> func)
         {
             Guard.AgainstNull(func, nameof(func));
-            comparer = func;
+            comparer = (settings, stream1, stream2) => func(stream1, stream2);
         }
     }
 }

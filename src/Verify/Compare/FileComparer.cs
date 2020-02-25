@@ -29,11 +29,11 @@ static class FileComparer
     {
         if (settings.comparer != null)
         {
-            return DoCompare(file.Received, file.Verified, settings.comparer);
+            return DoCompare(settings, file.Received, file.Verified, settings.comparer);
         }
         if (SharedVerifySettings.TryGetComparer(file.Extension, out var comparer))
         {
-            return DoCompare(file.Received, file.Verified, comparer);
+            return DoCompare(settings, file.Received, file.Verified, comparer);
         }
 
         if (!FilesAreSameSize(file))
@@ -41,12 +41,16 @@ static class FileComparer
             return Task.FromResult(false);
         }
 
-        return DefaultCompare(file.Received, file.Verified);
+        return DefaultCompare(settings, file.Received, file.Verified);
     }
 
-    public static Task<bool> DefaultCompare(string received, string verified)
+    public static Task<bool> DefaultCompare(VerifySettings settings, string received, string verified)
     {
-        return DoCompare(received, verified, StreamsAreEqual);
+        return DoCompare(
+            settings,
+            received,
+            verified,
+            (verifySettings, stream1, stream2) => StreamsAreEqual(stream1, stream2));
     }
 
     static bool FilesAreSameSize(FilePair file)
@@ -56,7 +60,7 @@ static class FileComparer
         return first.Length == second.Length;
     }
 
-    static async Task<bool> DoCompare(string first, string second, Func<Stream, Stream, Task<bool>> compare)
+    static async Task<bool> DoCompare(VerifySettings settings, string first, string second, Func<VerifySettings, Stream, Stream, Task<bool>> compare)
     {
 #if NETSTANDARD2_1
         await using var fs1 = FileHelpers.OpenRead(first);
@@ -65,7 +69,7 @@ static class FileComparer
         using var fs1 = FileHelpers.OpenRead(first);
         using var fs2 = FileHelpers.OpenRead(second);
 #endif
-        return await compare(fs1, fs2);
+        return await compare(settings, fs1, fs2);
     }
 
     #region DefualtCompare

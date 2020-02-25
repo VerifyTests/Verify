@@ -64,6 +64,23 @@ public class Tests :
     }
 
     [Fact]
+    public async Task SettingsArePassed()
+    {
+        VerifySettings? fromGlobal = null;
+        SharedVerifySettings.RegisterComparer(
+            "SettingsArePassed",
+            (verifySettings, stream1, stream2) =>
+            {
+                fromGlobal = verifySettings;
+                return true;
+            });
+        var settings = new VerifySettings();
+        settings.UseExtension("SettingsArePassed");
+        await Verify(new MemoryStream(new byte[]{1}), settings);
+        Assert.Same(fromGlobal, settings);
+    }
+
+    [Fact]
     public async Task ShouldUseShortTypeName()
     {
         #region type

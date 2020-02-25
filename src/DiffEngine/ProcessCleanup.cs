@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Microsoft.Win32.SafeHandles;
 
 namespace DiffEngine
@@ -20,6 +21,7 @@ namespace DiffEngine
 
         public static void Refresh()
         {
+            Thread.Sleep(1000);
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 commands = FindAll().ToList();

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 static class StreamExtensions
 {
@@ -8,5 +9,10 @@ static class StreamExtensions
         {
             stream.Position = 0;
         }
+    }
+    public static async Task<string> ReadAsString(this Stream stream)
+    {
+        using var reader = new StreamReader(stream);
+        return await reader.ReadToEndAsync();
     }
 }

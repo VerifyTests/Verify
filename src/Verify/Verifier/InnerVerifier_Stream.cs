@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DiffEngine;
 using Verify;
 
 partial class InnerVerifier
@@ -48,12 +49,26 @@ partial class InnerVerifier
         {
             var file = GetFileForIndex(settings, list, index, extension);
             var stream = list[index];
-            var result = await Comparer.Streams(settings, stream, file);
+            stream.MoveToStart();
+
+            var result = await GetResult(settings, file, stream);
 
             engine.HandleCompareResult(result, file);
         }
 
         await engine.ThrowIfRequired();
+    }
+
+     static async Task<CompareResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
+    {
+        if (Extensions.IsTextExtension(file.Extension))
+        {
+            var readAsString = await stream.ReadAsString();
+            var scrubbedInput = ScrubInput(readAsString, settings);
+            return await Comparer.Text(file, scrubbedInput);
+        }
+
+        return await Comparer.Streams(settings, stream, file);
     }
 
     FilePair GetFileForIndex(VerifySettings settings, List<Stream> list, int index, string extension)

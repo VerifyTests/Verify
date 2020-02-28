@@ -13,6 +13,18 @@ public class ExtensionConverterTests :
     VerifyBase
 {
     [Fact]
+    public Task TextSplit()
+    {
+        SharedVerifySettings.RegisterFileConverter(
+            "split",
+            "txt",
+            (stream, _) => new ConversionResult(null, stream));
+        var settings = new VerifySettings();
+        settings.UseExtension("txt");
+        return Verify(FileHelpers.OpenRead("sample.split"), settings);
+    }
+
+    [Fact]
     public Task ExtensionConversion()
     {
         SharedVerifySettings.RegisterFileConverter(

@@ -27,8 +27,6 @@ static class Comparer
 
     public static async Task<CompareResult> Streams(VerifySettings settings, Stream stream, FilePair file)
     {
-        stream.MoveToStart();
-
         try
         {
             await FileHelpers.WriteStream(file.Received, stream);

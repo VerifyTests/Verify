@@ -418,7 +418,8 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Verification of EntityFramework bits.
  * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
  * [Verify.Xaml](https://github.com/SimonCropp/Verify.Xaml): Verification of Xaml UIs.
- * [Verify.ImageMagick](https://github.com/SimonCropp/Verify.ImageMagick): Verification of images via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
+ * [Verify.ImageMagick](https://github.com/SimonCropp/Verify.ImageMagick): Verification and comparison of images via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
+ * [Verify.Phash](https://github.com/SimonCropp/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
 
 
 ## Alternatives

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace DiffEngine
@@ -28,6 +29,7 @@ namespace DiffEngine
             {
                 return;
             }
+
             var command = diffTool.BuildCommand(path1, path2);
 
             if (diffTool.IsMdi)
@@ -50,10 +52,12 @@ namespace DiffEngine
             {
                 return;
             }
+
             if (!DiffTools.TryFind(extension, out var diffTool))
             {
                 return;
             }
+
             //TODO: throw if both dont exist
             if (!File.Exists(path1))
             {
@@ -94,17 +98,17 @@ namespace DiffEngine
                 }
             }
 
-            using var process = new Process
+            var arguments = tool.BuildArguments(path1, path2);
+            try
             {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = tool.ExePath,
-                    Arguments = tool.BuildArguments(path1, path2),
-                    UseShellExecute = false,
-                    CreateNoWindow = false,
-                }
-            };
-            process.StartWithCatch();
+                Process.Start(tool.ExePath, arguments);
+            }
+            catch (Exception exception)
+            {
+                var message = $@"Failed to launch diff tool.
+{tool.ExePath} {arguments}";
+                throw new Exception(message, exception);
+            }
         }
     }
 }

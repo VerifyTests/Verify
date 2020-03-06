@@ -12,6 +12,13 @@ namespace Verify
             AddScrubber(Scrubbers.ScrubMachineName);
         }
 
+        internal bool newLineEscapingDisabled;
+
+        public void DisableNewLineEscaping()
+        {
+            newLineEscapingDisabled = true;
+        }
+
         public void AddScrubber(Func<string, string> scrubber)
         {
             Guard.AgainstNull(scrubber, nameof(scrubber));

@@ -14,6 +14,13 @@ namespace Verify
             GlobalScrubbers.Insert(0, scrubber);
         }
 
+        internal static bool newLineEscapingDisabled;
+
+        public static void DisableNewLineEscaping()
+        {
+            newLineEscapingDisabled = true;
+        }
+
         public static void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
         {
             GlobalScrubbers.Insert(0, s => s.RemoveLinesContaining(comparison, stringToMatch));

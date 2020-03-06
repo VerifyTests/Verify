@@ -226,7 +226,7 @@ namespace Verify
         {
             currentSettings = BuildSettings();
         }
-        
+
         bool includeObsoletes;
 
         public void IncludeObsoletes()

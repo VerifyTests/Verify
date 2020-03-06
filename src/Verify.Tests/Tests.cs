@@ -45,6 +45,20 @@ public class Tests :
     }
 
     [Fact]
+    public Task NewLineEscapedInProperty()
+    {
+        return Verify(new {Property ="a\r\nb"});
+    }
+
+    [Fact]
+    public Task NewLineNotEscapedInProperty()
+    {
+        var settings = new VerifySettings();
+        settings.DisableNewLineEscaping();
+        return Verify(new {Property ="a\r\nb"}, settings);
+    }
+
+    [Fact]
     public async Task ShouldReUseGuid()
     {
         #region guid

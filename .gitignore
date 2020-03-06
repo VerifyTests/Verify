@@ -13,3 +13,4 @@ src/Verify.Tests/Tests.StreamMultipleNegative.01.verified.bin
 src/Verify.Tests/Tests.TextNegative.verified.tmp
 .idea
 .DS_Store
+src/Verify.sln.DotSettings.user

@@ -197,7 +197,7 @@ snippet: NewLineEscapedInProperty
 
 snippet: Tests.NewLineEscapedInProperty.verified.txt
 
-This can be disable as follows:
+This can be disabled:
 
 snippet: DisableNewLineEscaping
 

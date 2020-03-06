@@ -602,7 +602,7 @@ return Verify(new {Property ="a\r\nb"});
 <sup><a href='/src/Verify.Tests/Tests.NewLineEscapedInProperty.verified.txt#L1-L3' title='File snippet `Tests.NewLineEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.NewLineEscapedInProperty.verified.txt' title='Navigate to start of snippet `Tests.NewLineEscapedInProperty.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
-This can be disable as follows:
+This can be disabled:
 
 <!-- snippet: DisableNewLineEscaping -->
 <a id='snippet-disablenewlineescaping'/></a>

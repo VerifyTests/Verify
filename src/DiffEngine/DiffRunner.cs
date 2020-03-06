@@ -48,7 +48,7 @@ namespace DiffEngine
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
             Guard.AgainstNullOrEmpty(path2, nameof(path2));
 
-            if (launchedInstances > maxInstancesToLaunch)
+            if (launchedInstances >= maxInstancesToLaunch)
             {
                 return;
             }

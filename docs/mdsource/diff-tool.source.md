@@ -37,6 +37,15 @@ If a diff tool is running for the comparison of the current verification (per te
 include: diffToolCleanup
 
 
+## MaxInstancesToLaunch
+
+By default a maximum of 5 diff tool instances will be launched. This prevents a change that break many test from causing too much load on a machine.
+
+This value can be changed:
+
+snippet: MaxInstancesToLaunch
+
+
 ## Successful verification behavior
 
 If a diff tool is running for the comparison of the current verification (per test), and a new verification passes, the following logic will be applied:

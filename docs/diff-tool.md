@@ -46,6 +46,21 @@ This allows, in most cases, for no manual closing of the diff tool to be require
 This behavior is currently supported on Windows. On Linux and OSX, diff tool instances must be manually managed. <!-- end include: diffToolCleanup. path: /docs/mdsource/diffToolCleanup.include.md -->
 
 
+## MaxInstancesToLaunch
+
+By default a maximum of 5 diff tool instances will be launched. This prevents a change that break many test from causing too much load on a machine.
+
+This value can be changed:
+
+<!-- snippet: MaxInstancesToLaunch -->
+<a id='snippet-maxinstancestolaunch'/></a>
+```cs
+DiffRunner.MaxInstancesToLaunch(10);
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L84-L88' title='File snippet `maxinstancestolaunch` was extracted from'>snippet source</a> | <a href='#snippet-maxinstancestolaunch' title='Navigate to start of snippet `maxinstancestolaunch`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
 ## Successful verification behavior
 
 If a diff tool is running for the comparison of the current verification (per test), and a new verification passes, the following logic will be applied:

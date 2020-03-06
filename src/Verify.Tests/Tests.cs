@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using DiffEngine;
 using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
@@ -73,6 +74,16 @@ public class Tests :
         };
 
         await Verify(target);
+
+        #endregion
+    }
+
+    [Fact]
+    public void MaxInstancesToLaunch()
+    {
+        #region MaxInstancesToLaunch
+
+        DiffRunner.MaxInstancesToLaunch(10);
 
         #endregion
     }

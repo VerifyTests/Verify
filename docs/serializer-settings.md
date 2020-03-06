@@ -32,7 +32,8 @@ Serialization settings can be customized at three levels:
     * [Including Obsolete members](#including-obsolete-members)
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
-  * [Members that throw](#members-that-throw)<!-- endtoc -->
+  * [Members that throw](#members-that-throw)
+  * [DisableNewLineEscaping](#disablenewlineescaping)<!-- endtoc -->
 
 
 ## Default settings
@@ -96,7 +97,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L65-L78' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L69-L82' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -146,7 +147,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L665-L681' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L669-L685' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -302,7 +303,7 @@ var target = new IgnoreTypeTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L196-L214' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L200-L218' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -344,7 +345,7 @@ var target = new IgnoreInstanceTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L160-L179' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L164-L183' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -386,7 +387,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L432-L451' title='File snippet `withobsoleteprop` was extracted from'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Navigate to start of snippet `withobsoleteprop`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L436-L455' title='File snippet `withobsoleteprop` was extracted from'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Navigate to start of snippet `withobsoleteprop`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -422,7 +423,7 @@ public Task WithObsoletePropIncluded()
     return Verify(target, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L453-L468' title='File snippet `withobsoletepropincluded` was extracted from'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Navigate to start of snippet `withobsoletepropincluded`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L457-L472' title='File snippet `withobsoletepropincluded` was extracted from'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Navigate to start of snippet `withobsoletepropincluded`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -464,7 +465,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L236-L255' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L240-L259' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -505,7 +506,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L261-L281' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L265-L285' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -540,7 +541,7 @@ settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 var target = new WithCustomException();
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L308-L316' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L312-L320' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -565,7 +566,7 @@ settings.ModifySerialization(
 var target = new WithExceptionIgnoreMessage();
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L373-L382' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L377-L386' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -576,4 +577,50 @@ Result:
 {}
 ```
 <sup><a href='/src/Verify.Tests/Tests.ExceptionMessageProp.verified.txt#L1-L1' title='File snippet `Tests.ExceptionMessageProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.ExceptionMessageProp.verified.txt' title='Navigate to start of snippet `Tests.ExceptionMessageProp.verified.txt`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## DisableNewLineEscaping
+
+By default newlines in json are escaped with `\r\n`:
+
+<!-- snippet: NewLineEscapedInProperty -->
+<a id='snippet-newlineescapedinproperty'/></a>
+```cs
+return Verify(new {Property ="a\r\nb"});
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L51-L53' title='File snippet `newlineescapedinproperty` was extracted from'>snippet source</a> | <a href='#snippet-newlineescapedinproperty' title='Navigate to start of snippet `newlineescapedinproperty`'>anchor</a></sup>
+<!-- endsnippet -->
+
+<!-- snippet: Tests.NewLineEscapedInProperty.verified.txt -->
+<a id='snippet-Tests.NewLineEscapedInProperty.verified.txt'/></a>
+```txt
+{
+  Property: 'a\r\nb'
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.NewLineEscapedInProperty.verified.txt#L1-L3' title='File snippet `Tests.NewLineEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.NewLineEscapedInProperty.verified.txt' title='Navigate to start of snippet `Tests.NewLineEscapedInProperty.verified.txt`'>anchor</a></sup>
+<!-- endsnippet -->
+
+This can be disable as follows:
+
+<!-- snippet: DisableNewLineEscaping -->
+<a id='snippet-disablenewlineescaping'/></a>
+```cs
+var settings = new VerifySettings();
+settings.DisableNewLineEscaping();
+await Verify(new {Property = "a\r\nb"}, settings);
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L59-L63' title='File snippet `disablenewlineescaping` was extracted from'>snippet source</a> | <a href='#snippet-disablenewlineescaping' title='Navigate to start of snippet `disablenewlineescaping`'>anchor</a></sup>
+<!-- endsnippet -->
+
+<!-- snippet: Tests.NewLineNotEscapedInProperty.verified.txt -->
+<a id='snippet-Tests.NewLineNotEscapedInProperty.verified.txt'/></a>
+```txt
+{
+  Property: 'a
+b'
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.NewLineNotEscapedInProperty.verified.txt#L1-L4' title='File snippet `Tests.NewLineNotEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.NewLineNotEscapedInProperty.verified.txt' title='Navigate to start of snippet `Tests.NewLineNotEscapedInProperty.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->

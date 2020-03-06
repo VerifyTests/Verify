@@ -48,15 +48,19 @@ public class Tests :
     [Fact]
     public Task NewLineEscapedInProperty()
     {
+        #region NewLineEscapedInProperty
         return Verify(new {Property ="a\r\nb"});
+        #endregion
     }
 
     [Fact]
-    public Task NewLineNotEscapedInProperty()
+    public async Task NewLineNotEscapedInProperty()
     {
+        #region DisableNewLineEscaping
         var settings = new VerifySettings();
         settings.DisableNewLineEscaping();
-        return Verify(new {Property ="a\r\nb"}, settings);
+        await Verify(new {Property = "a\r\nb"}, settings);
+        #endregion
     }
 
     [Fact]

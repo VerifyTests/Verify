@@ -187,3 +187,18 @@ snippet: IgnoreMembersThatThrowExpression
 Result:
 
 snippet: Tests.ExceptionMessageProp.verified.txt
+
+
+## DisableNewLineEscaping
+
+By default newlines in json are escaped with `\r\n`:
+
+snippet: NewLineEscapedInProperty
+
+snippet: Tests.NewLineEscapedInProperty.verified.txt
+
+This can be disable as follows:
+
+snippet: DisableNewLineEscaping
+
+snippet: Tests.NewLineNotEscapedInProperty.verified.txt

@@ -421,6 +421,7 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.ImageMagick](https://github.com/SimonCropp/Verify.ImageMagick): Verification and comparison of images via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
  * [Verify.Phash](https://github.com/SimonCropp/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
  * [Verify.ICSharpCode.Decompiler](https://github.com/SimonCropp/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
+ * [Verify.WinForms](https://github.com/SimonCropp/Verify.WinForms): Verification of WinForms UIs.
 
 
 ## Alternatives

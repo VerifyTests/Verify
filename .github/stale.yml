@@ -14,3 +14,8 @@ closeComment: false
 # Optionally, specify configuration settings that are specific to just 'issues' or 'pulls':
 pulls:
   daysUntilStale: 30
+exemptLabels:
+  - Question
+  - Bug
+  - Feature
+  - Improvement

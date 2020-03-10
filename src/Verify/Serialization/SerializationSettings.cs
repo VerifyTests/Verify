@@ -21,6 +21,7 @@ namespace Verify
         }
 
         Dictionary<Type, List<string>> ignoredMembers = new Dictionary<Type, List<string>>();
+        List<string> ignoredByNameMembers = new List<string>();
         Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new Dictionary<Type, List<Func<object, bool>>>();
 
         public SerializationSettings Clone()
@@ -28,6 +29,7 @@ namespace Verify
             return new SerializationSettings
             {
                 ignoredMembers = ignoredMembers.Clone(),
+                ignoredByNameMembers = ignoredByNameMembers.Clone(),
                 ignoreEmptyCollections = ignoreEmptyCollections,
                 ExtraSettings = ExtraSettings.Clone(),
                 ignoreFalse = ignoreFalse,
@@ -57,6 +59,12 @@ namespace Verify
             }
 
             list.Add(name);
+        }
+
+        public void IgnoreMember(string name)
+        {
+            Guard.AgainstNullOrEmpty(name, nameof(name));
+            ignoredByNameMembers.Add(name);
         }
 
         public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
@@ -167,6 +175,7 @@ namespace Verify
                 ignoreFalse,
                 includeObsoletes,
                 ignoredMembers,
+                ignoredByNameMembers,
                 ignoreMembersWithType,
                 ignoreMembersThatThrow,
                 ignoredInstances);

@@ -12,7 +12,8 @@ class CustomContractResolver :
     bool ignoreEmptyCollections;
     bool ignoreFalse;
     bool includeObsoletes;
-    IReadOnlyDictionary<Type, List<string>> ignored;
+    IReadOnlyDictionary<Type, List<string>> ignoredMembers;
+    IReadOnlyList<string> ignoredByNameMembers;
     IReadOnlyList<Type> ignoredTypes;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
     IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
@@ -21,18 +22,20 @@ class CustomContractResolver :
         bool ignoreEmptyCollections,
         bool ignoreFalse,
         bool includeObsoletes,
-        IReadOnlyDictionary<Type, List<string>> ignored,
+        IReadOnlyDictionary<Type, List<string>> ignoredMembers,
+        IReadOnlyList<string> ignoredByNameMembers,
         IReadOnlyList<Type> ignoredTypes,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
         IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances)
     {
-        Guard.AgainstNull(ignored, nameof(ignored));
+        Guard.AgainstNull(ignoredMembers, nameof(ignoredMembers));
         Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
         Guard.AgainstNull(ignoreMembersThatThrow, nameof(ignoreMembersThatThrow));
         this.ignoreEmptyCollections = ignoreEmptyCollections;
         this.ignoreFalse = ignoreFalse;
         this.includeObsoletes = includeObsoletes;
-        this.ignored = ignored;
+        this.ignoredMembers = ignoredMembers;
+        this.ignoredByNameMembers = ignoredByNameMembers;
         this.ignoredTypes = ignoredTypes;
         this.ignoreMembersThatThrow = ignoreMembersThatThrow;
         this.ignoredInstances = ignoredInstances;
@@ -70,7 +73,13 @@ class CustomContractResolver :
             return property;
         }
 
-        foreach (var keyValuePair in ignored)
+        if (ignoredByNameMembers.Contains(property.PropertyName!))
+        {
+            property.Ignored = true;
+            return property;
+        }
+
+        foreach (var keyValuePair in ignoredMembers)
         {
             if (keyValuePair.Value.Contains(property.PropertyName!))
             {

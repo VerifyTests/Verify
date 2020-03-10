@@ -267,6 +267,7 @@ public class Tests :
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
+            _.IgnoreMember("PropertyByName");
             var type = typeof(IgnoreExplicitTarget);
             _.IgnoreMember(type, "Property");
             _.IgnoreMember(type, "Field");
@@ -278,7 +279,8 @@ public class Tests :
         {
             Include = "Value",
             Field = "Value",
-            Property = "Value"
+            Property = "Value",
+            PropertyByName = "Value"
         };
         await Verify(target, settings);
 
@@ -289,6 +291,7 @@ public class Tests :
     {
         public string Include;
         public string Property { get; set; }
+        public string PropertyByName { get; set; }
         public string GetOnlyProperty => "asd";
         public string PropertyThatThrows => throw new Exception();
         public string Field;

@@ -17,6 +17,15 @@ public class TypeNameConverterTests :
     }
 
     [Fact]
+    public Task GenericArguments()
+    {
+        var type = typeof(IEnumerable<>)
+            .GetGenericArguments()
+            .First();
+        return Verify(TypeNameConverter.GetName(type));
+    }
+
+    [Fact]
     public Task Nested()
     {
         return Verify(TypeNameConverter.GetName(typeof(TargetWithNested)));

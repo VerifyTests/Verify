@@ -42,7 +42,7 @@ namespace Verify
                 }
             }
 
-            var typeName = type.FullName.Replace(type.Namespace + ".", "");
+            var typeName = GetTypeName(type);
             var reference = new CodeTypeReference(typeName);
             var name = codeDomProvider.GetTypeOutput(reference);
             var list = new List<string>();
@@ -54,6 +54,15 @@ namespace Verify
             }
 
             return name;
+        }
+
+        static string GetTypeName(Type type)
+        {
+            if (type.FullName == null)
+            {
+                return type.Name;
+            }
+            return type.FullName.Replace(type.Namespace + ".", "");
         }
 
         static bool IsAnonType(this Type type)

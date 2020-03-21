@@ -412,16 +412,16 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 ## Extensions
 
  * [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose): Verification of documents (pdf, docx, xslx, and pptx) via Aspose.
- * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
- * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Verification of web bits.
- * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Verification of SqlServer bits.
  * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Verification of EntityFramework bits.
- * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
- * [Verify.Xaml](https://github.com/SimonCropp/Verify.Xaml): Verification of Xaml UIs.
- * [Verify.ImageMagick](https://github.com/SimonCropp/Verify.ImageMagick): Verification and comparison of images via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
- * [Verify.Phash](https://github.com/SimonCropp/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
  * [Verify.ICSharpCode.Decompiler](https://github.com/SimonCropp/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
+ * [Verify.ImageMagick](https://github.com/SimonCropp/Verify.ImageMagick): Verification and comparison of images via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
+ * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+ * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
+ * [Verify.Phash](https://github.com/SimonCropp/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
+ * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Verification of SqlServer bits.
+ * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Verification of web bits.
  * [Verify.WinForms](https://github.com/SimonCropp/Verify.WinForms): Verification of WinForms UIs.
+ * [Verify.Xaml](https://github.com/SimonCropp/Verify.Xaml): Verification of Xaml UIs.
 
 
 ## Alternatives

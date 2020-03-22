@@ -70,31 +70,27 @@ Given a class to be tested:
 snippet: ClassBeingTested
 
 
-### Test
-
-It can be tested as follows:
-
-
-#### xUnit
+### xUnit
 
 snippet: SampleTestXunit
 
 
-#### NUnit
+### NUnit
 
 snippet: SampleTestNUnit
 
 
-#### MSTest
+### MSTest
 
 snippet: SampleTestMSTest
 
 
-#### bunit
+### bunit
 
 snippet: SampleTestBunit
 
-**Component test**
+
+#### Component test
 
 Given the following Component:
 

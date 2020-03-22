@@ -23,7 +23,10 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Verification versus Assertion](#verification-versus-assertion)
   * [Usage](#usage)
     * [Class being tested](#class-being-tested)
-    * [Test](#test)
+    * [xUnit](#xunit)
+    * [NUnit](#nunit)
+    * [MSTest](#mstest)
+    * [bunit](#bunit)
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
     * [Disable Clipboard](#disable-clipboard)
@@ -189,12 +192,7 @@ public static class ClassBeingTested
 <!-- endsnippet -->
 
 
-### Test
-
-It can be tested as follows:
-
-
-#### xUnit
+### xUnit
 
 <!-- snippet: SampleTestXunit -->
 <a id='snippet-sampletestxunit'/></a>
@@ -219,7 +217,7 @@ public class SampleTest :
 <!-- endsnippet -->
 
 
-#### NUnit
+### NUnit
 
 <!-- snippet: SampleTestNUnit -->
 <a id='snippet-sampletestnunit'/></a>
@@ -239,7 +237,7 @@ public class SampleTest
 <!-- endsnippet -->
 
 
-#### MSTest
+### MSTest
 
 <!-- snippet: SampleTestMSTest -->
 <a id='snippet-sampletestmstest'/></a>
@@ -260,7 +258,7 @@ public class SampleTest :
 <!-- endsnippet -->
 
 
-#### bunit
+### bunit
 
 <!-- snippet: SampleTestBunit -->
 <a id='snippet-sampletestbunit'/></a>
@@ -284,7 +282,8 @@ public class SampleTest :
 <sup><a href='/src/Verify.Bunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletestbunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestbunit' title='Navigate to start of snippet `sampletestbunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
-**Component test**
+
+#### Component test
 
 Given the following Component:
 

@@ -43,6 +43,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiffEngine", "DiffEngine\Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiffEngine.Tests", "DiffEngine.Tests\DiffEngine.Tests.csproj", "{58DF5836-41EC-450B-9AAA-AFA4B79169EA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Bunit", "Verify.Bunit\Verify.Bunit.csproj", "{ADE959D4-6445-43BD-9372-5764E5405FBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Bunit.Tests", "Verify.Bunit.Tests\Verify.Bunit.Tests.csproj", "{81EFD37F-B256-433D-9524-DCDCC788905B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +109,14 @@ Global
 		{58DF5836-41EC-450B-9AAA-AFA4B79169EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58DF5836-41EC-450B-9AAA-AFA4B79169EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58DF5836-41EC-450B-9AAA-AFA4B79169EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE959D4-6445-43BD-9372-5764E5405FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE959D4-6445-43BD-9372-5764E5405FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE959D4-6445-43BD-9372-5764E5405FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE959D4-6445-43BD-9372-5764E5405FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81EFD37F-B256-433D-9524-DCDCC788905B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EFD37F-B256-433D-9524-DCDCC788905B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EFD37F-B256-433D-9524-DCDCC788905B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EFD37F-B256-433D-9524-DCDCC788905B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

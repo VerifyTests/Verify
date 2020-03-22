@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <SignAssembly>false</SignAssembly>
+    <Version>$(Version)-beta.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EmptyFiles" Version="0.7.0" PrivateAssets="None" />
+    <PackageReference Include="xunit.assert" Version="2.4.1" />
+    <PackageReference Include="XunitContext" Version="1.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="bunit" Version="1.0.0-beta-6" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
+    <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
+    <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.0" Condition="$(TargetFramework) != 'netstandard2.1'" />
+  </ItemGroup>
+</Project>

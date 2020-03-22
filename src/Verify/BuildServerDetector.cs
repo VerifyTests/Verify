@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable CommentTypo
 
 static class BuildServerDetector
 {

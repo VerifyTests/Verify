@@ -1,0 +1,5 @@
+{
+  Instance: {
+    Title: 'My Test Component'
+  }
+}

@@ -4,6 +4,7 @@
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.Bunit.svg?label=Verify.Bunit)](https://www.nuget.org/packages/Verify.Bunit/)
 
 Verification tool to enable simple approval of complex models and documents.
 
@@ -18,6 +19,7 @@ include: doc-index
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/
  * https://nuget.org/packages/Verify.MSTest/
+ * https://nuget.org/packages/Verify.Bunit/
 
 
 ## Verification versus Assertion
@@ -86,6 +88,27 @@ snippet: SampleTestNUnit
 #### MSTest
 
 snippet: SampleTestMSTest
+
+
+#### bunit
+
+snippet: SampleTestBunit
+
+**Component test**
+
+Given the following Component:
+
+snippet: TestComponent.razor
+
+This test:
+
+snippet: ComponentTest
+
+Will produce:
+
+snippet: VerifyObjectSamples.Component.verified.html
+
+snippet: VerifyObjectSamples.Component.info.verified.txt
 
 
 ### Initial Verification

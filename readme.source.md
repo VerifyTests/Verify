@@ -102,7 +102,12 @@ snippet: ComponentTest
 
 Will produce:
 
+`...Component.verified.html`
+
 snippet: VerifyObjectSamples.Component.verified.html
+
+
+`...Component.info.verified.txt`
 
 snippet: VerifyObjectSamples.Component.info.verified.txt
 

@@ -320,6 +320,8 @@ public Task Component()
 
 Will produce:
 
+`...Component.verified.html`
+
 <!-- snippet: VerifyObjectSamples.Component.verified.html -->
 <a id='snippet-VerifyObjectSamples.Component.verified.html'/></a>
 ```html
@@ -330,6 +332,9 @@ Will produce:
 ```
 <sup><a href='/src/Verify.Bunit.Tests/VerifyObjectSamples.Component.verified.html#L1-L4' title='File snippet `VerifyObjectSamples.Component.verified.html` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Component.verified.html' title='Navigate to start of snippet `VerifyObjectSamples.Component.verified.html`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+`...Component.info.verified.txt`
 
 <!-- snippet: VerifyObjectSamples.Component.info.verified.txt -->
 <a id='snippet-VerifyObjectSamples.Component.info.verified.txt'/></a>

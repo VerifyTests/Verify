@@ -147,6 +147,27 @@ public class TypeConverterTests :
     }
 
     [Fact]
+    public Task WithInfoShouldRespectSettings()
+    {
+        SharedVerifySettings.RegisterFileConverter<Bitmap>(
+            "png",
+            (bitmap1, _) =>
+            {
+                var streams = ConvertBmpTpPngStreams(bitmap1);
+                var info = new
+                {
+                    Property = "Value"
+                };
+                return new ConversionResult(info, streams);
+            });
+        var settings = new VerifySettings();
+        settings.UseExtension("bmp");
+        settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
+        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
+        return Verify(bitmap, settings);
+    }
+
+    [Fact]
     public Task TypeConversion()
     {
         SharedVerifySettings.RegisterFileConverter<Bitmap>(

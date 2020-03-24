@@ -19,6 +19,8 @@ namespace Verify
             clipboardEnabled = settingsToClone.clipboardEnabled;
             diffEnabled = settingsToClone.diffEnabled;
             autoVerify = settingsToClone.autoVerify;
+            serialization = settingsToClone.serialization;
+            newLineEscapingDisabled = settingsToClone.newLineEscapingDisabled;
             Namer = new Namer(settingsToClone.Namer);
             foreach (var pair in settingsToClone.Data)
             {

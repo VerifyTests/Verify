@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net472</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net461</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Verify\Helpers\Guard.cs" Link="Guard.cs" />
@@ -8,7 +8,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" Condition="$(TargetFramework) != 'net472'" />
-    <Reference Include="System.Management" Condition="$(TargetFramework) == 'net472'" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" Condition="$(TargetFramework) != 'net461'" />
+    <Reference Include="System.Management" Condition="$(TargetFramework) == 'net461'" />
   </ItemGroup>
 </Project>

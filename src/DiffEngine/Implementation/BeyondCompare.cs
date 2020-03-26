@@ -8,8 +8,7 @@
         buildArguments: (path1, path2) => $"/solo \"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
-            @"%ProgramFiles%\Beyond Compare 4\BCompare.exe",
-            @"%ProgramFiles%\Beyond Compare 3\BCompare.exe",
+            @"%ProgramFiles%\Beyond Compare 4\BCompare.exe"
         },
         linuxExePaths: new[]
         {

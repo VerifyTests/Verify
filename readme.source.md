@@ -108,12 +108,11 @@ snippet: ComponentTest
 
 Will produce:
 
-`...Component.verified.html`
+The component rendered as html `...Component.verified.html`:
 
 snippet: VerifyObjectSamples.Component.verified.html
 
-
-`...Component.info.verified.txt`
+And the current model rendered as txt `...Component.info.verified.txt`:
 
 snippet: VerifyObjectSamples.Component.info.verified.txt
 

@@ -268,28 +268,6 @@ public class SampleTest :
 
 Support for [bunit](https://bunit.egilhansen.com/docs/)
 
-<!-- snippet: SampleTestBunit -->
-<a id='snippet-sampletestbunit'/></a>
-```cs
-public class SampleTest :
-    VerifyBase
-{
-    [Fact]
-    public Task Simple()
-    {
-        var person = ClassBeingTested.FindPerson();
-        return Verify(person);
-    }
-
-    public SampleTest(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-}
-```
-<sup><a href='/src/Verify.Bunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletestbunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestbunit' title='Navigate to start of snippet `sampletestbunit`'>anchor</a></sup>
-<!-- endsnippet -->
-
 
 #### Component test
 

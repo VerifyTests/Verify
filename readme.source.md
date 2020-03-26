@@ -95,8 +95,6 @@ snippet: SampleTestMSTest
 
 Support for [bunit](https://bunit.egilhansen.com/docs/)
 
-snippet: SampleTestBunit
-
 
 #### Component test
 

@@ -93,7 +93,7 @@ snippet: SampleTestMSTest
 
 ### bunit
 
-Support for [bunit](https://bunit.egilhansen.com/docs/)
+Support for rendering a [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) to a verified file via [bunit](https://bunit.egilhansen.com/docs/).
 
 
 #### Component test

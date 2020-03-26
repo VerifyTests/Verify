@@ -72,20 +72,28 @@ snippet: ClassBeingTested
 
 ### xUnit
 
+Support for [xUnit](https://xunit.net/)
+
 snippet: SampleTestXunit
 
 
 ### NUnit
+
+Support for [NUnit](https://nunit.org/)
 
 snippet: SampleTestNUnit
 
 
 ### MSTest
 
+Support for [MSTest](https://github.com/Microsoft/testfx-docs)
+
 snippet: SampleTestMSTest
 
 
 ### bunit
+
+Support for [bunit](https://bunit.egilhansen.com/docs/)
 
 snippet: SampleTestBunit
 

@@ -194,6 +194,8 @@ public static class ClassBeingTested
 
 ### xUnit
 
+Support for [xUnit](https://xunit.net/)
+
 <!-- snippet: SampleTestXunit -->
 <a id='snippet-sampletestxunit'/></a>
 ```cs
@@ -219,6 +221,8 @@ public class SampleTest :
 
 ### NUnit
 
+Support for [NUnit](https://nunit.org/)
+
 <!-- snippet: SampleTestNUnit -->
 <a id='snippet-sampletestnunit'/></a>
 ```cs
@@ -238,6 +242,8 @@ public class SampleTest
 
 
 ### MSTest
+
+Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 <!-- snippet: SampleTestMSTest -->
 <a id='snippet-sampletestmstest'/></a>
@@ -259,6 +265,8 @@ public class SampleTest :
 
 
 ### bunit
+
+Support for [bunit](https://bunit.egilhansen.com/docs/)
 
 <!-- snippet: SampleTestBunit -->
 <a id='snippet-sampletestbunit'/></a>

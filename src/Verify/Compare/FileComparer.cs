@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using EmptyFiles;
 using Verify;
 
 static class FileComparer
@@ -12,7 +13,7 @@ static class FileComparer
             return CompareResult.MissingVerified;
         }
 
-        if (EmptyFiles.IsEmptyFile(file.Verified))
+        if (AllFiles.IsEmptyFile(file.Verified))
         {
             return CompareResult.NotEqual;
         }

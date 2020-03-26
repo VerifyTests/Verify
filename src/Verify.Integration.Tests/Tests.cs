@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
+using EmptyFiles;
 using Verify;
 using VerifyXunit;
 using Xunit;
@@ -38,8 +39,8 @@ public partial class Tests :
             {"txt", tool},
             {"knownBin", tool},
         };
-        var binPath = EmptyFiles.Files["jpg"];
-        EmptyFiles.Files = new Dictionary<string, EmptyFile>
+        var binPath = AllFiles.Files["jpg"];
+        AllFiles.Files = new Dictionary<string, EmptyFile>
         {
             {"knownBin", binPath},
         };

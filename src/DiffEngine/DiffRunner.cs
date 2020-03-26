@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using EmptyFiles;
 
 namespace DiffEngine
 {
@@ -61,7 +62,7 @@ namespace DiffEngine
             //TODO: throw if both dont exist
             if (!File.Exists(path1))
             {
-                if (!EmptyFilesWrapper.TryWriteEmptyFile(extension, path1))
+                if (!AllFiles.TryCreateFile(path1, true))
                 {
                     return;
                 }
@@ -69,7 +70,7 @@ namespace DiffEngine
 
             if (!File.Exists(path2))
             {
-                if (!EmptyFilesWrapper.TryWriteEmptyFile(extension, path2))
+                if (!AllFiles.TryCreateFile(path2, true))
                 {
                     return;
                 }

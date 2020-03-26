@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DiffEngine;
+using EmptyFiles;
 using Verify;
 
 partial class InnerVerifier

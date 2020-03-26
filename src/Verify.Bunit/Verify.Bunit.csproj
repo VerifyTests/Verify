@@ -5,7 +5,7 @@
     <Version>$(Version)-beta.1</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EmptyFiles" Version="0.7.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="0.9.0" PrivateAssets="None" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="XunitContext" Version="1.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

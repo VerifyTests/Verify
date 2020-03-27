@@ -9,6 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
   * [Serializer Settings](/docs/serializer-settings.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [File naming](/docs/naming.md)
+  * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)
   * [Diff Tool](/docs/diff-tool.md)

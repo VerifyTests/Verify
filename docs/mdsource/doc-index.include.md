@@ -1,5 +1,6 @@
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
+  * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)
   * [Diff Tool](/docs/diff-tool.md)

@@ -5,10 +5,12 @@ using VerifyNUnit;
 [TestFixture]
 public class ParametersSample
 {
+    #region NUnitTestCase
     [TestCase("Value1")]
     [TestCase("Value2")]
-    public Task Usage(string arg)
+    public Task TestCaseUsage(string arg)
     {
         return Verifier.Verify(arg);
     }
+    #endregion
 }

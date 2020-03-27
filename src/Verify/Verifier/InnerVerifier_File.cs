@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using EmptyFiles;
 using Verify;
 
 partial class InnerVerifier
@@ -13,7 +14,7 @@ partial class InnerVerifier
         if (!settings.HasExtension())
         {
             settings = new VerifySettings(settings);
-            settings.UseExtension(FileHelpers.Extension(path));
+            settings.UseExtension(Extensions.GetExtension(path));
         }
 
         return Verify(FileHelpers.OpenRead(path), settings);

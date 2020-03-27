@@ -9,10 +9,9 @@ using DiffEngine;
 using EmptyFiles;
 using Verify;
 
-[DebuggerDisplay("extension = {extension} | missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
+[DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
 class VerifyEngine
 {
-    string extension;
     VerifySettings settings;
     List<FilePair> missings = new List<FilePair>();
     List<FilePair> notEquals = new List<FilePair>();
@@ -26,7 +25,6 @@ class VerifyEngine
         string directory,
         string testName)
     {
-        this.extension = extension;
         this.settings = settings;
         var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testType, testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
@@ -157,7 +155,7 @@ class VerifyEngine
         }
         foreach (var equal in equals)
         {
-            DiffRunner.Kill(equal.Extension, equal.Received, equal.Verified);
+            DiffRunner.Kill(equal.Received, equal.Verified);
         }
     }
 
@@ -195,7 +193,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.Launch(item.Extension, item.Received, item.Verified);
+        DiffRunner.Launch(item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -242,7 +240,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.Launch(item.Extension, item.Received, item.Verified);
+        DiffRunner.Launch(item.Received, item.Verified);
     }
 
     static void AcceptChanges(FilePair item)

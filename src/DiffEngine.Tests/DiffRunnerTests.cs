@@ -13,7 +13,7 @@ public class DiffRunnerTests :
         var path1 = Path.Combine(SourceDirectory, "DiffRunner.file1.txt");
         var path2 = Path.Combine(SourceDirectory, "DiffRunner.file2.txt");
         #region DiffRunnerLaunch
-        DiffRunner.Launch("txt", path1, path2);
+        DiffRunner.Launch(path1, path2);
         #endregion
     }
 
@@ -22,9 +22,9 @@ public class DiffRunnerTests :
     {
         var path1 = Path.Combine(SourceDirectory, "DiffRunner.file1.txt");
         var path2 = Path.Combine(SourceDirectory, "DiffRunner.file2.txt");
-        DiffRunner.Launch("txt", path1, path2);
+        DiffRunner.Launch(path1, path2);
         #region DiffRunnerKill
-        DiffRunner.Kill("txt", path1, path2);
+        DiffRunner.Kill(path1, path2);
         #endregion
     }
 

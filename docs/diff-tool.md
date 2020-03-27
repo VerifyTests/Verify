@@ -292,7 +292,7 @@ A diff tool can be launched using the following:
 <!-- snippet: DiffRunnerLaunch -->
 <a id='snippet-diffrunnerlaunch'/></a>
 ```cs
-DiffRunner.Launch("txt", path1, path2);
+DiffRunner.Launch(path1, path2);
 ```
 <sup><a href='/src/DiffEngine.Tests/DiffRunnerTests.cs#L15-L17' title='File snippet `diffrunnerlaunch` was extracted from'>snippet source</a> | <a href='#snippet-diffrunnerlaunch' title='Navigate to start of snippet `diffrunnerlaunch`'>anchor</a></sup>
 <!-- endsnippet -->
@@ -307,7 +307,7 @@ A diff tool can be closed using the following:
 <!-- snippet: DiffRunnerKill -->
 <a id='snippet-diffrunnerkill'/></a>
 ```cs
-DiffRunner.Kill("txt", path1, path2);
+DiffRunner.Kill(path1, path2);
 ```
 <sup><a href='/src/DiffEngine.Tests/DiffRunnerTests.cs#L26-L28' title='File snippet `diffrunnerkill` was extracted from'>snippet source</a> | <a href='#snippet-diffrunnerkill' title='Navigate to start of snippet `diffrunnerkill`'>anchor</a></sup>
 <!-- endsnippet -->

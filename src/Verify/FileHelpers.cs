@@ -31,14 +31,4 @@ static partial class FileHelpers
             bufferSize: 4096,
             useAsync: true);
     }
-
-    public static string Extension(string path)
-    {
-        return Path.GetExtension(path).Substring(1);
-    }
-
-    public static void WriteEmptyText(string path)
-    {
-        File.CreateText(path).Dispose();
-    }
 }

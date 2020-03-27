@@ -21,11 +21,11 @@ namespace DiffEngine
         /// <summary>
         /// Find and kill a diff tool process.
         /// </summary>
-        public static void Kill(string extension, string path1, string path2)
+        public static void Kill(string path1, string path2)
         {
-            Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
             Guard.AgainstNullOrEmpty(path2, nameof(path2));
+            var extension = Extensions.GetExtension(path1);
             if (!DiffTools.TryFind(extension, out var diffTool))
             {
                 return;
@@ -42,13 +42,13 @@ namespace DiffEngine
         }
 
         /// <summary>
-        /// Launch a diff tool for the given <paramref name="extension"/>.
+        /// Launch a diff tool for the given paths.
         /// </summary>
-        public static void Launch(string extension, string path1, string path2)
+        public static void Launch(string path1, string path2)
         {
             Guard.AgainstNullOrEmpty(path1, nameof(path1));
             Guard.AgainstNullOrEmpty(path2, nameof(path2));
-
+            var extension = Extensions.GetExtension(path1);
             if (launchedInstances >= maxInstancesToLaunch)
             {
                 return;

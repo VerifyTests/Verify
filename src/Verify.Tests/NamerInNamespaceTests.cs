@@ -11,34 +11,9 @@ namespace TheNamesapce
         VerifyBase
     {
         [Fact]
-        public Task Runtime()
+        public Task Run()
         {
-            var settings = new VerifySettings();
-            settings.UniqueForRuntime();
-            return Verify(Namer.Runtime, settings);
-        }
-
-        [Fact]
-        public Task RuntimeAndVersion()
-        {
-            var settings = new VerifySettings();
-            settings.UniqueForRuntimeAndVersion();
-            return Verify(Namer.RuntimeAndVersion, settings);
-        }
-
-        [Fact]
-        public void AccessNamerRuntimeAndVersion()
-        {
-            Debug.WriteLine(Namer.Runtime);
-            Debug.WriteLine(Namer.RuntimeAndVersion);
-        }
-
-        [Fact]
-        public Task AssemblyConfiguration()
-        {
-            var settings = new VerifySettings();
-            settings.UniqueForAssemblyConfiguration();
-            return Verify("Foo", settings);
+            return Verify("value");
         }
 
         public NamerInNamespaceTests(ITestOutputHelper output) :

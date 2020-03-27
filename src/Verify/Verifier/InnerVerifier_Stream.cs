@@ -61,7 +61,7 @@ partial class InnerVerifier
 
      static async Task<CompareResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
     {
-        if (Extensions.IsTextExtension(file.Extension))
+        if (Extensions.IsText(file.Extension))
         {
             var readAsString = await stream.ReadAsString();
             var scrubbedInput = ScrubInput(readAsString, settings);

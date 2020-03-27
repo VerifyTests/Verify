@@ -162,7 +162,7 @@ class VerifyEngine
     async Task ProcessNotEquals(StringBuilder builder, FilePair item)
     {
         builder.AppendLine($"{Path.GetFileName(item.Received)}");
-        if (Extensions.IsTextExtension(item.Extension))
+        if (Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{File.ReadAllText(item.Received)}");
             if (File.Exists(item.Verified))
@@ -213,7 +213,7 @@ class VerifyEngine
     async Task ProcessMissing(StringBuilder builder, FilePair item)
     {
         builder.AppendLine($"{Path.GetFileName(item.Verified)}");
-        if (Extensions.IsTextExtension(item.Extension))
+        if (Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{Path.GetFileName(item.Received)}");
             builder.AppendLine($"{File.ReadAllText(item.Received)}");

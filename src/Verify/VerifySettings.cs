@@ -35,6 +35,9 @@ namespace Verify
             }
         }
 
+        /// <summary>
+        /// Allows extensions to Verify to pass config via <see cref="VerifySettings"/>.
+        /// </summary>
         public IDictionary<string, object> Data { get; } = new Dictionary<string, object>();
 
         public VerifySettings()

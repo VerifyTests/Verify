@@ -44,7 +44,7 @@ static class DiffTools
 
     public static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool? tool)
     {
-        if (Extensions.IsTextExtension(extension))
+        if (Extensions.IsText(extension))
         {
             tool = ResolvedDiffTools.LastOrDefault();
             return tool != null;

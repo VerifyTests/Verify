@@ -82,6 +82,8 @@ public Task TestCaseUsage(string arg)
 
 ## MSTest
 
+MSTest does not expose the parameter values via its extensibility context. So parameter values must passed in via settings.
+
 
 ### DataRow
 

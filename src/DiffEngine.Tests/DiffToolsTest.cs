@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DiffEngine;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -75,30 +74,24 @@ public class DiffToolsTest :
     //[Fact]
     //public void LaunchImageDiff()
     //{
-    //    foreach (var tool in DiffTools.Tools().Where(x => x.Exists))
+    //    foreach (var tool in DiffTools.ResolvedDiffTools)
     //    {
-    //        if (!tool.BinaryExtensions.Contains("png"))
-    //        {
-    //            continue;
-    //        }
-
-    //        DiffRunner.Launch(
-    //            new ResolvedDiffTool(tool.Name, tool.ExePath!, tool.ArgumentPrefix),
-    //            receivedPath: Path.Combine(SourceDirectory, "input_received.png"),
-    //            verifiedPath: Path.Combine(SourceDirectory, "input_verified.png"));
+    //        DiffRunner.Launch(tool,
+    //            Path.Combine(SourceDirectory, "input.file1.png"),
+    //            Path.Combine(SourceDirectory, "input.file2.png"));
     //    }
     //}
 
-    [Fact(Skip = "reason")]
-    public void LaunchTextDiff()
-    {
-        foreach (var tool in DiffTools.ResolvedDiffTools)
-        {
-            DiffRunner.Launch(tool,
-                Path.Combine(SourceDirectory, "input.file1.txt"),
-                Path.Combine(SourceDirectory, "input.file2.txt"));
-        }
-    }
+    //[Fact]
+    //public void LaunchTextDiff()
+    //{
+    //    foreach (var tool in DiffTools.ResolvedDiffTools)
+    //    {
+    //        DiffRunner.Launch(tool,
+    //            Path.Combine(SourceDirectory, "input.file1.txt"),
+    //            Path.Combine(SourceDirectory, "input.file2.txt"));
+    //    }
+    //}
 
     [Fact]
     public void ExtensionLookup()

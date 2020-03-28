@@ -14,8 +14,13 @@ static class DiffTools
         {
             Implementation.VisualStudio(),
             Implementation.VsCode(),
+            Implementation.KDiff3(),
+            Implementation.TortoiseIDiff(),
+            Implementation.TortoiseMerge(),
+            Implementation.DiffMerge(),
             Implementation.WinMerge(),
             Implementation.CodeCompare(),
+            Implementation.Kaleidoscope(),
             Implementation.SublimeMerge(),
             Implementation.Meld(),
             Implementation.AraxisMerge(),

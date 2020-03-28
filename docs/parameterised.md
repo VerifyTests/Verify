@@ -35,7 +35,7 @@ public Task InlineDataUsage(string arg)
     return Verify(arg);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L11-L19' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L18' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -57,7 +57,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L21-L34' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L20-L33' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

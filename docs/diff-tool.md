@@ -106,6 +106,15 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
  * `/usr/local/bin/code`
 
+## [TkDiff](https://sourceforge.net/projects/tkdiff/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### OSX scanned paths:
+
+ * `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
+
 ## [KDiff3](https://github.com/KDE/kdiff3)
 
   * IsMdi: False

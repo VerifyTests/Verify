@@ -28,8 +28,8 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 <a id='snippet-xunitinlinedata'/></a>
 ```cs
 [Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
+[InlineData("Value9")]
+[InlineData("Value10")]
 public Task InlineDataUsage(string arg)
 {
     return Verify(arg);

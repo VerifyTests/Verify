@@ -3,7 +3,7 @@
     public static DiffTool Kaleidoscope() => new DiffTool(
         name: "Kaleidoscope",
         url: "https://www.kaleidoscopeapp.com/",
-        supportsAutoRefresh: true,
+        supportsAutoRefresh: false,
         isMdi: false,
         buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
         windowsExePaths: new string[]
@@ -14,7 +14,7 @@
         },
         osxExePaths: new[]
         {
-            "/Applications/Kaleidoscope.app/Contents/MacOS/ksdiff"
+            "/usr/local/bin/ksdiff"
         },
         binaryExtensions: new[]
         {

@@ -9,8 +9,8 @@ public class ParametersSample :
 {
     #region xunitInlineData
     [Theory]
-    [InlineData("Value9")]
-    [InlineData("Value10")]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
     public Task InlineDataUsage(string arg)
     {
         return Verify(arg);

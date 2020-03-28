@@ -14,6 +14,7 @@ static class DiffTools
         {
             Implementation.VisualStudio(),
             Implementation.VsCode(),
+            Implementation.TkDiff(),
             Implementation.KDiff3(),
             Implementation.TortoiseIDiff(),
             Implementation.TortoiseMerge(),

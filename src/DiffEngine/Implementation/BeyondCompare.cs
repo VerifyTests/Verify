@@ -36,8 +36,10 @@
             "gif",
             "ico",
             "jpg",
+            "jpeg",
             "png",
             "tif",
+            "tiff",
             "rtf"
         });
 }

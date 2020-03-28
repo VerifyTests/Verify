@@ -28,6 +28,7 @@
             "pbm",
             "pgm",
             "ppm",
+            "tif",
             "tiff",
             "xbm",
             "xpm"

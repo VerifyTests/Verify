@@ -106,6 +106,65 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
  * `/usr/local/bin/code`
 
+## [KDiff3](https://github.com/KDE/kdiff3)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\KDiff3\kdiff3.exe`
+
+### OSX scanned paths:
+
+ * `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
+
+## [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
+
+### Supported binary extensions:
+
+ * bmp
+ * gif
+ * ico
+ * jpg
+ * jpeg
+ * png
+ * tif
+ * tiff
+
+## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
+
+## [DiffMerge](https://www.sourcegear.com/diffmerge/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
+
+### OSX scanned paths:
+
+ * `/Applications/DiffMerge.app/Contents/MacOS/DiffMerge`
+
+### Linux scanned paths:
+
+ * `/usr/bin/diffmerge`
+
 ## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
 
   * IsMdi: False
@@ -123,6 +182,26 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 ### Windows scanned paths:
 
  * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
+
+## [Kaleidoscope](https://www.kaleidoscopeapp.com/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### OSX scanned paths:
+
+ * `/usr/local/bin/ksdiff`
+
+### Supported binary extensions:
+
+ * bmp
+ * gif
+ * ico
+ * jpg
+ * jpeg
+ * png
+ * tiff
+ * tif
 
 ## [Sublime Merge](https://www.sublimemerge.com/)
 
@@ -223,6 +302,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * pbm
  * pgm
  * ppm
+ * tif
  * tiff
  * xbm
  * xpm
@@ -235,6 +315,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 ### Windows scanned paths:
 
  * `%ProgramFiles%\Beyond Compare 4\BCompare.exe`
+ * `%ProgramFiles%\Beyond Compare 3\BCompare.exe`
 
 ### OSX scanned paths:
 
@@ -261,8 +342,10 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * gif
  * ico
  * jpg
+ * jpeg
  * png
  * tif
+ * tiff
  * rtf <!-- end include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
 
 

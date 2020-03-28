@@ -72,27 +72,27 @@ public class DiffToolsTest :
         }
     }
 
-    [Fact]
-    public void LaunchImageDiff()
-    {
-        foreach (var tool in DiffTools.ResolvedDiffTools)
-        {
-            DiffRunner.Launch(tool,
-                Path.Combine(SourceDirectory, "input.file1.png"),
-                Path.Combine(SourceDirectory, "input.file2.png"));
-        }
-    }
+    //[Fact]
+    //public void LaunchImageDiff()
+    //{
+    //    foreach (var tool in DiffTools.ResolvedDiffTools)
+    //    {
+    //        DiffRunner.Launch(tool,
+    //            Path.Combine(SourceDirectory, "input.file1.png"),
+    //            Path.Combine(SourceDirectory, "input.file2.png"));
+    //    }
+    //}
 
-    [Fact]
-    public void LaunchTextDiff()
-    {
-        foreach (var tool in DiffTools.ResolvedDiffTools)
-        {
-            DiffRunner.Launch(tool,
-                Path.Combine(SourceDirectory, "input.file1.txt"),
-                Path.Combine(SourceDirectory, "input.file2.txt"));
-        }
-    }
+    //[Fact]
+    //public void LaunchTextDiff()
+    //{
+    //    foreach (var tool in DiffTools.ResolvedDiffTools)
+    //    {
+    //        DiffRunner.Launch(tool,
+    //            Path.Combine(SourceDirectory, "input.file1.txt"),
+    //            Path.Combine(SourceDirectory, "input.file2.txt"));
+    //    }
+    //}
 
     [Fact]
     public void ExtensionLookup()

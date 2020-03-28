@@ -12,15 +12,20 @@ static class DiffTools
     {
         return new List<DiffTool>
         {
-            Implementation.VisualStudio(),
-            Implementation.VsCode(),
-            Implementation.WinMerge(),
-            Implementation.CodeCompare(),
-            Implementation.SublimeMerge(),
-            Implementation.Meld(),
-            Implementation.AraxisMerge(),
-            Implementation.P4Merge(),
-            Implementation.BeyondCompare()
+            //Implementation.VisualStudio(),
+            //Implementation.VsCode(),
+            //Implementation.KDiff3(),
+            //Implementation.TortoiseIDiff(),
+            //Implementation.TortoiseMerge(),
+            Implementation.DiffMerge(),
+            //Implementation.WinMerge(),
+            //Implementation.CodeCompare(),
+            //Implementation.Kaleidoscope(),
+            //Implementation.SublimeMerge(),
+            //Implementation.Meld(),
+            //Implementation.AraxisMerge(),
+            //Implementation.P4Merge(),
+            //Implementation.BeyondCompare()
         };
     }
 

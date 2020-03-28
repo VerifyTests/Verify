@@ -3,59 +3,85 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EmptyFiles;
 
-static class DiffTools
+namespace DiffEngine
 {
-    public static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
-    public static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
-
-    internal static List<DiffTool> Tools()
+    public static class DiffTools
     {
-        return new List<DiffTool>
-        {
-            Implementation.VisualStudio(),
-            Implementation.VsCode(),
-            Implementation.TkDiff(),
-            Implementation.KDiff3(),
-            Implementation.TortoiseIDiff(),
-            Implementation.TortoiseMerge(),
-            Implementation.DiffMerge(),
-            Implementation.WinMerge(),
-            Implementation.CodeCompare(),
-            Implementation.Kaleidoscope(),
-            Implementation.SublimeMerge(),
-            Implementation.Meld(),
-            Implementation.AraxisMerge(),
-            Implementation.P4Merge(),
-            Implementation.BeyondCompare()
-        };
-    }
+        internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
+        internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
+        internal static List<DiffTool> TextDiffTools = new List<DiffTool>();
 
-    static DiffTools()
-    {
-        foreach (var tool in Tools().Where(x => x.Exists))
+        internal static List<ToolDefinition> Tools()
         {
-            var diffTool = new ResolvedDiffTool(
-                tool.Name,
-                tool.ExePath!,
-                tool.BuildArguments,
-                tool.IsMdi,
-                tool.SupportsAutoRefresh);
-            ResolvedDiffTools.Add(diffTool);
-            foreach (var ext in tool.BinaryExtensions)
+            return new List<ToolDefinition>
             {
-                ExtensionLookup[ext] = diffTool;
+                Implementation.VisualStudio(),
+                Implementation.VsCode(),
+                Implementation.TkDiff(),
+                Implementation.KDiff3(),
+                Implementation.TortoiseIDiff(),
+                Implementation.TortoiseMerge(),
+                Implementation.DiffMerge(),
+                Implementation.WinMerge(),
+                Implementation.CodeCompare(),
+                Implementation.Kaleidoscope(),
+                Implementation.SublimeMerge(),
+                Implementation.Meld(),
+                Implementation.AraxisMerge(),
+                Implementation.P4Merge(),
+                Implementation.BeyondCompare()
+            };
+        }
+
+        static DiffTools()
+        {
+            foreach (var tool in Tools().Where(x => x.Exists))
+            {
+                var diffTool = new ResolvedDiffTool(
+                    tool.Name,
+                    tool.ExePath!,
+                    tool.BuildArguments,
+                    tool.IsMdi,
+                    tool.SupportsAutoRefresh,
+                    tool.BinaryExtensions);
+                if (tool.SupportsText)
+                {
+                    TextDiffTools.Add(diffTool.Name);
+                }
+                ResolvedDiffTools.Add(diffTool);
+                foreach (var ext in tool.BinaryExtensions)
+                {
+                    ExtensionLookup[ext] = diffTool;
+                }
             }
         }
-    }
 
-    public static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool? tool)
-    {
-        if (Extensions.IsText(extension))
+        internal static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool? tool)
         {
-            tool = ResolvedDiffTools.LastOrDefault();
-            return tool != null;
+            if (Extensions.IsText(extension))
+            {
+                tool = ResolvedDiffTools.LastOrDefault();
+                return tool != null;
+            }
+
+            return ExtensionLookup.TryGetValue(extension, out tool);
         }
 
-        return ExtensionLookup.TryGetValue(extension, out tool);
+        public static bool IsDetectedFor(DiffTool diffTool, string extensionOrPath)
+        {
+            var extension = Extensions.GetExtension(extensionOrPath);
+            if (Extensions.IsText(extension))
+            {
+                return TextDiffTools.Contains(diffTool);
+            }
+
+            var tool = ResolvedDiffTools.SingleOrDefault(_ => _.Name == diffTool);
+            if (tool == null)
+            {
+                return false;
+            }
+
+            return tool.BinaryExtensions.Contains(extension);
+        }
     }
 }

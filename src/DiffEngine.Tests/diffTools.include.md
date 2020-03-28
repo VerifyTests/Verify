@@ -10,7 +10,7 @@
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe`
 
-## [Visual Studio Code](https://code.visualstudio.com/docs/editor/command-line)
+## [VisualStudioCode](https://code.visualstudio.com/docs/editor/command-line)
 
   * IsMdi: True
   * SupportsAutoRefresh: True
@@ -57,6 +57,9 @@
 ### Windows scanned paths:
 
  * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
+
+### Supported Text files: False
+
 
 ### Supported binary extensions:
 
@@ -122,6 +125,9 @@
 
  * `/usr/local/bin/ksdiff`
 
+### Supported Text files: True
+
+
 ### Supported binary extensions:
 
  * bmp
@@ -133,7 +139,7 @@
  * tiff
  * tif
 
-## [Sublime Merge](https://www.sublimemerge.com/)
+## [SublimeMerge](https://www.sublimemerge.com/)
 
   * IsMdi: False
   * SupportsAutoRefresh: False
@@ -180,6 +186,9 @@
 
  * `/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge`
 
+### Supported Text files: True
+
+
 ### Supported binary extensions:
 
  * bmp
@@ -222,6 +231,9 @@
 
  * `/usr/bin/p4merge`
 
+### Supported Text files: True
+
+
 ### Supported binary extensions:
 
  * bmp
@@ -254,6 +266,9 @@
 ### Linux scanned paths:
 
  * `/usr/lib/beyondcompare/bcomp`
+
+### Supported Text files: True
+
 
 ### Supported binary extensions:
 

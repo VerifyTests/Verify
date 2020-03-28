@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DiffEngine;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,6 +10,15 @@ using Xunit.Abstractions;
 public class DiffToolsTest :
     VerifyBase
 {
+    //[Fact]
+    //public void IsDetected()
+    //{
+    //    Assert.False(DiffTools.IsDetectedFor(DiffTool.Kaleidoscope, "png"));
+    //    Assert.False(DiffTools.IsDetectedFor(DiffTool.Kaleidoscope, "txt"));
+    //    Assert.True(DiffTools.IsDetectedFor(DiffTool.VisualStudio, "txt"));
+    //    Assert.True(DiffTools.IsDetectedFor(DiffTool.BeyondCompare, "png"));
+    //}
+
     [Fact]
     public async Task WriteFoundTools()
     {
@@ -60,6 +70,10 @@ public class DiffToolsTest :
             {
                 continue;
             }
+
+            await writer.WriteLineAsync($@"
+### Supported Text files: {tool.SupportsText}
+");
 
             await writer.WriteLineAsync(@"
 ### Supported binary extensions:

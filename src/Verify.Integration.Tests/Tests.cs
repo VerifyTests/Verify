@@ -23,11 +23,12 @@ public partial class Tests :
         BuildServerDetector.Detected = false;
         var diffToolPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
         tool = new ResolvedDiffTool(
-            name: "FakeDiffTool",
+            name: DiffTool.VisualStudio,
             exePath: diffToolPath,
             buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             isMdi: false,
-            supportsAutoRefresh: true);
+            supportsAutoRefresh: true,
+            binaryExtensions: new string[]{});
 
         DiffTools.ResolvedDiffTools = new List<ResolvedDiffTool>
         {

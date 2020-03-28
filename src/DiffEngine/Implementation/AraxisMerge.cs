@@ -1,22 +1,19 @@
 ﻿using System;
+using DiffEngine;
 
 static partial class Implementation
 {
-    public static DiffTool AraxisMerge() => new DiffTool(
-        name: "AraxisMerge",
+    public static ToolDefinition AraxisMerge() => new ToolDefinition(
+        name: DiffTool.AraxisMerge,
         url: "https://www.araxis.com/merge",
         supportsAutoRefresh: true,
         isMdi: true,
+        supportsText: true,
         buildArguments: (path1, path2) => $"/nowait \"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
         },
-        osxExePaths: new[]
-        {
-            "/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge"
-        },
-        linuxExePaths: Array.Empty<string>(),
         binaryExtensions: new[]
         {
             //https://www.araxis.com/merge/documentation-windows/comparing-image-files.en
@@ -42,5 +39,10 @@ static partial class Implementation
             "tiff",
             "tga",
             "wmf", //?
+        },
+        linuxExePaths: Array.Empty<string>(),
+        osxExePaths: new[]
+        {
+            "/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge"
         });
 }

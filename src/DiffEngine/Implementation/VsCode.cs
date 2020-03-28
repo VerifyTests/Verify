@@ -1,18 +1,20 @@
 ﻿using System;
+using DiffEngine;
 
 static partial class Implementation
 {
-    public static DiffTool VsCode() => new DiffTool(
-        name: "Visual Studio Code",
+    public static ToolDefinition VsCode() => new ToolDefinition(
+        name: DiffTool.VisualStudioCode,
         url: "https://code.visualstudio.com/docs/editor/command-line",
         supportsAutoRefresh: true,
         isMdi: true,
-        // Verified before Received only detects and refresh the diff based on the first file
+        supportsText: true,
         buildArguments: (path1, path2) => $"--diff \"{path2}\" \"{path1}\"",
         windowsExePaths: new[]
         {
             @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"
         },
+        binaryExtensions: Array.Empty<string>(),
         linuxExePaths: new[]
         {
             @"/usr/local/bin/code"
@@ -20,6 +22,5 @@ static partial class Implementation
         osxExePaths: new[]
         {
             "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-        },
-        binaryExtensions: Array.Empty<string>());
+        });
 }

@@ -89,7 +89,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe`
 
-## [Visual Studio Code](https://code.visualstudio.com/docs/editor/command-line)
+## [VisualStudioCode](https://code.visualstudio.com/docs/editor/command-line)
 
   * IsMdi: True
   * SupportsAutoRefresh: True
@@ -136,6 +136,9 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 ### Windows scanned paths:
 
  * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
+
+### Supported Text files: False
+
 
 ### Supported binary extensions:
 
@@ -201,6 +204,9 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
  * `/usr/local/bin/ksdiff`
 
+### Supported Text files: True
+
+
 ### Supported binary extensions:
 
  * bmp
@@ -212,7 +218,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * tiff
  * tif
 
-## [Sublime Merge](https://www.sublimemerge.com/)
+## [SublimeMerge](https://www.sublimemerge.com/)
 
   * IsMdi: False
   * SupportsAutoRefresh: False
@@ -259,6 +265,9 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
  * `/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge`
 
+### Supported Text files: True
+
+
 ### Supported binary extensions:
 
  * bmp
@@ -301,6 +310,9 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
  * `/usr/bin/p4merge`
 
+### Supported Text files: True
+
+
 ### Supported binary extensions:
 
  * bmp
@@ -333,6 +345,9 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 ### Linux scanned paths:
 
  * `/usr/lib/beyondcompare/bcomp`
+
+### Supported Text files: True
+
 
 ### Supported binary extensions:
 

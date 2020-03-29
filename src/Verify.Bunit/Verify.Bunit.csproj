@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <SignAssembly>false</SignAssembly>
-    <Version>$(Version)-beta.1</Version>
+    <Version>$(Version)</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EmptyFiles" Version="0.11.1" PrivateAssets="None" />

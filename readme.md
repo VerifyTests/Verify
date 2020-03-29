@@ -31,6 +31,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [Subsequent Verification](#subsequent-verification)
     * [Disable Clipboard](#disable-clipboard)
     * [AutoVerify](#autoverify)
+    * [OnHandlers](#onhandlers)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
   * [Extensions](#extensions)
@@ -451,7 +452,7 @@ The clipboard behavior can be disable using the following:
 var settings = new VerifySettings();
 settings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L9-L14' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L36-L41' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -469,10 +470,42 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L19-L24' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L46-L51' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
+
+
+### OnHandlers
+
+`OnFirstVerify` is called when there is no verified file.
+
+`OnVerifyMismatch` is called when a received file does not match the existing verified file.
+
+<!-- snippet: OnHandlers -->
+<a id='snippet-onhandlers'/></a>
+```cs
+public async Task OnHandlersSample()
+{
+    var settings = new VerifySettings();
+    settings.OnFirstVerify(
+        receivedFile =>
+        {
+            Debug.WriteLine(receivedFile);
+            return Task.CompletedTask;
+        });
+    settings.OnVerifyMismatch(
+        (receivedFile, verifiedFile) =>
+        {
+            Debug.WriteLine(receivedFile);
+            Debug.WriteLine(verifiedFile);
+            return Task.CompletedTask;
+        });
+    await Verify("value", settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L13-L32' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
+<!-- endsnippet -->
 
 
 ## Received and Verified

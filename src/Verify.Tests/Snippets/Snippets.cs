@@ -1,9 +1,36 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Verify;
+using VerifyXunit;
+using Xunit;
+using Xunit.Abstractions;
 
-public class Snippets
+public class Snippets:
+    VerifyBase
 {
+    #region OnHandlers
+    public async Task OnHandlersSample()
+    {
+        var settings = new VerifySettings();
+        settings.OnFirstVerify(
+            receivedFile =>
+            {
+                Debug.WriteLine(receivedFile);
+                return Task.CompletedTask;
+            });
+        settings.OnVerifyMismatch(
+            (receivedFile, verifiedFile) =>
+            {
+                Debug.WriteLine(receivedFile);
+                Debug.WriteLine(verifiedFile);
+                return Task.CompletedTask;
+            });
+        await Verify("value", settings);
+    }
+    #endregion
+
     void DisableClipboard()
     {
         #region DisableClipboard
@@ -65,5 +92,10 @@ public class Snippets
             _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 
         #endregion
+    }
+
+    public Snippets(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

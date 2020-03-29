@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Verify
 {
@@ -21,6 +22,8 @@ namespace Verify
             autoVerify = settingsToClone.autoVerify;
             serialization = settingsToClone.serialization;
             newLineEscapingDisabled = settingsToClone.newLineEscapingDisabled;
+            handleOnFirstVerify = settingsToClone.handleOnFirstVerify;
+            handleOnVerifyMismatch = settingsToClone.handleOnVerifyMismatch;
             Namer = new Namer(settingsToClone.Namer);
             foreach (var pair in settingsToClone.Data)
             {

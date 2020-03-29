@@ -8,6 +8,7 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
@@ -25,6 +26,62 @@ public class Tests :
     public Task ScrubCurrentDirectory()
     {
         return Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
+    }
+
+    [Fact]
+    public async Task OnVerifyMismatch()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.DisableClipboard();
+        var onFirstVerifyCalled = false;
+        var onVerifyMismatchCalled = false;
+        settings.OnFirstVerify(
+            receivedFile =>
+            {
+                onFirstVerifyCalled = true;
+                return Task.CompletedTask;
+            });
+        settings.OnVerifyMismatch(
+            (receivedFile, verifiedFile) =>
+            {
+                Assert.NotEmpty(receivedFile);
+                Assert.NotNull(receivedFile);
+                Assert.NotEmpty(verifiedFile);
+                Assert.NotNull(verifiedFile);
+                onVerifyMismatchCalled = true;
+                return Task.CompletedTask;
+            });
+        await Assert.ThrowsAsync<XunitException>(() => Verify("value", settings));
+        Assert.False(onFirstVerifyCalled);
+        Assert.True(onVerifyMismatchCalled);
+    }
+
+    [Fact]
+    public async Task OnFirstVerify()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.DisableClipboard();
+        var onFirstVerifyCalled = false;
+        var onVerifyMismatchCalled = false;
+        settings.OnFirstVerify(
+            receivedFile =>
+            {
+                Assert.NotEmpty(receivedFile);
+                Assert.NotNull(receivedFile);
+                onFirstVerifyCalled = true;
+                return Task.CompletedTask;
+            });
+        settings.OnVerifyMismatch(
+            (receivedFile, verifiedFile) =>
+            {
+                onVerifyMismatchCalled = true;
+                return Task.CompletedTask;
+            });
+        await Assert.ThrowsAsync<XunitException>(() => Verify("value", settings));
+        Assert.True(onFirstVerifyCalled);
+        Assert.False(onVerifyMismatchCalled);
     }
 
     [Fact]

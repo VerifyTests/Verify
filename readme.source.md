@@ -193,6 +193,15 @@ snippet: AutoVerify
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
 
 
+### OnHandlers
+
+`OnFirstVerify` is called when there is no verified file.
+
+`OnVerifyMismatch` is called when a received file does not match the existing verified file.
+
+snippet: OnHandlers
+
+
 ## Received and Verified
 
  * **All `*.verified.*` files should be committed to source control.**

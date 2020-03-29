@@ -57,7 +57,7 @@ This value can be changed:
 ```cs
 DiffRunner.MaxInstancesToLaunch(10);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L88-L92' title='File snippet `maxinstancestolaunch` was extracted from'>snippet source</a> | <a href='#snippet-maxinstancestolaunch' title='Navigate to start of snippet `maxinstancestolaunch`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L145-L149' title='File snippet `maxinstancestolaunch` was extracted from'>snippet source</a> | <a href='#snippet-maxinstancestolaunch' title='Navigate to start of snippet `maxinstancestolaunch`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -381,7 +381,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L29-L34' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L61' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -188,6 +188,10 @@ class VerifyEngine
 
     async Task ProcessNotEquals(StringBuilder builder, FilePair item)
     {
+        if (settings.handleOnVerifyMismatch != null)
+        {
+            await settings.handleOnVerifyMismatch(item.Received, item.Verified);
+        }
         builder.AppendLine($"{Path.GetFileName(item.Received)}");
         if (Extensions.IsText(item.Extension))
         {
@@ -239,6 +243,10 @@ class VerifyEngine
 
     async Task ProcessMissing(StringBuilder builder, FilePair item)
     {
+        if (settings.handleOnFirstVerify != null)
+        {
+            await settings.handleOnFirstVerify(item.Received);
+        }
         builder.AppendLine($"{Path.GetFileName(item.Verified)}");
         if (Extensions.IsText(item.Extension))
         {

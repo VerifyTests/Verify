@@ -191,11 +191,11 @@ class VerifyEngine
         builder.AppendLine($"{Path.GetFileName(item.Received)}");
         if (Extensions.IsText(item.Extension))
         {
-            builder.AppendLine($"{File.ReadAllText(item.Received)}");
+            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
             if (File.Exists(item.Verified))
             {
                 builder.AppendLine($"{Path.GetFileName(item.Verified)}");
-                builder.AppendLine($"{File.ReadAllText(item.Verified)}");
+                builder.AppendLine($"{await FileHelpers.ReadText(item.Verified)}");
             }
         }
 
@@ -243,7 +243,7 @@ class VerifyEngine
         if (Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{Path.GetFileName(item.Received)}");
-            builder.AppendLine($"{File.ReadAllText(item.Received)}");
+            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
         }
 
         if (BuildServerDetector.Detected)

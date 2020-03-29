@@ -3,7 +3,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace TheNamesapce
+namespace TheNamespace.Bar
 {
     public class NamerInNamespaceTests :
         VerifyBase

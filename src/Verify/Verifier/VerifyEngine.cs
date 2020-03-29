@@ -28,10 +28,37 @@ class VerifyEngine
         this.settings = settings;
         var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testType, testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
+
+        RenameBadNamespacePrefixedFiles(testType, directory,extension, testName);
+
         var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testType, testName);
         foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
         {
             File.Delete(file);
+        }
+    }
+
+    //TODO: delete in May2020. renames verified files that have been incorrectly created with a namespace
+    static void RenameBadNamespacePrefixedFiles(Type testType, string directory, string extension, string testName)
+    {
+        var @namespace = testType.Namespace;
+        if (@namespace == null)
+        {
+            return;
+        }
+
+        var badNamespacePrefix = @namespace.Substring(@namespace.IndexOf('.') + 1) + ".";
+        var searchPattern = $"{badNamespacePrefix}{testName}*.verified.{extension}";
+        foreach (var fileWithNamespacePrefix in Directory.EnumerateFiles(directory, searchPattern))
+        {
+            var destFileName = fileWithNamespacePrefix.Replace(badNamespacePrefix, "");
+            if (File.Exists(destFileName))
+            {
+                File.Delete(fileWithNamespacePrefix);
+                continue;
+            }
+
+            File.Move(fileWithNamespacePrefix, destFileName);
         }
     }
 

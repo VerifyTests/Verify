@@ -381,7 +381,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L61' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L55-L60' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

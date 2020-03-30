@@ -4,6 +4,8 @@
     <NoWarn>$(NoWarn);CS0436</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="$(SOlutionDir)Verify\buildMultiTargeting\Verify.props" PackagePath="buildMultiTargeting\Verify.props" />
+    <Content Include="$(SOlutionDir)Verify\build\Verify.props" PackagePath="build\Verify.props" />
     <Compile Include="..\Shared\*.cs" />
     <PackageReference Include="EmptyFiles" Version="0.11.1" PrivateAssets="None" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

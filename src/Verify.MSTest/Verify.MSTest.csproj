@@ -4,8 +4,8 @@
     <NoWarn>$(NoWarn);CS0436</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="$(SolutionDir)\DeterministicSuppression\buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.MSTest.targets" />
-    <Content Include="$(SolutionDir)\DeterministicSuppression\build.targets" PackagePath="build\Verify.MSTest.targets" />
+    <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.MSTest.targets" />
+    <Content Include="build.targets" PackagePath="build\Verify.MSTest.targets" />
     <Compile Include="..\Shared\*.cs" />
     <PackageReference Include="EmptyFiles" Version="0.11.1" PrivateAssets="None" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

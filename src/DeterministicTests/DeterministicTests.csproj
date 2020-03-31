@@ -15,5 +15,5 @@
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
-  <Import Project="$(SolutionDir)DeterministicSuppression\build.targets" />
+  <Import Project="..\Verify.Xunit\build.targets" />
 </Project>

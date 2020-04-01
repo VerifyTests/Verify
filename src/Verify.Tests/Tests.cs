@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using DiffEngine;
 using Newtonsoft.Json;
@@ -576,13 +577,24 @@ public class Tests :
     }
 
     [Fact]
-    public Task ShouldScrubGuidDictionaryKey()
+    public Task ShouldScrubDictionaryKey()
     {
-        var target = new Dictionary<Guid, string>
-        {
-            {Guid.NewGuid(), "value"}
-        };
-        return Verify(target);
+        return Verify(
+            new
+            {
+                guid = new Dictionary<Guid, string>
+                {
+                    {Guid.NewGuid(), "value"}
+                },
+                dateTime = new Dictionary<DateTime, string>
+                {
+                    {DateTime.Now, "value"}
+                },
+                dateTimeOffset = new Dictionary<DateTimeOffset, string>
+                {
+                    {DateTimeOffset.Now, "value"}
+                }
+            });
     }
 
     [Fact]

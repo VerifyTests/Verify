@@ -170,6 +170,7 @@ namespace Verify
             #endregion
 
             settings.SerializationBinder = new ShortNameBinder();
+            var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes,settings);
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,
@@ -178,8 +179,16 @@ namespace Verify
                 ignoredByNameMembers,
                 ignoreMembersWithType,
                 ignoreMembersThatThrow,
-                ignoredInstances);
-            AddConverters(scrubGuids, scrubDateTimes, settings);
+                ignoredInstances,
+                scrubber);
+            var converters = settings.Converters;
+            converters.Add(new StringConverter(scrubber));
+            converters.Add(new GuidConverter(scrubber));
+            converters.Add(new DateTimeConverter(scrubber));
+            converters.Add(new DateTimeOffsetConverter(scrubber));
+            converters.Add(new StringEnumConverter());
+            converters.Add(new DelegateConverter());
+            converters.Add(new TypeJsonConverter());
             foreach (var extraSetting in ExtraSettings)
             {
                 extraSetting(settings);
@@ -195,19 +204,6 @@ namespace Verify
 
         List<Action<JsonSerializerSettings>> ExtraSettings = new List<Action<JsonSerializerSettings>>();
         internal JsonSerializerSettings currentSettings;
-
-        static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
-        {
-            var converters = settings.Converters;
-            var sharedScrubber = new SharedScrubber(scrubGuids, scrubDateTimes);
-            converters.Add(new StringScrubbingConverter(sharedScrubber));
-            converters.Add(new GuidConverter(sharedScrubber));
-            converters.Add(new DateTimeConverter(sharedScrubber));
-            converters.Add(new DateTimeOffsetConverter(sharedScrubber));
-            converters.Add(new StringEnumConverter());
-            converters.Add(new DelegateConverter());
-            converters.Add(new TypeJsonConverter());
-        }
 
         internal void RegenSettings()
         {

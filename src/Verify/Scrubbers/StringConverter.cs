@@ -2,12 +2,12 @@
 using Newtonsoft.Json;
 using Verify;
 
-class StringScrubbingConverter :
+class StringConverter :
     WriteOnlyJsonConverter
 {
     SharedScrubber sharedScrubber;
 
-    public StringScrubbingConverter(SharedScrubber sharedScrubber)
+    public StringConverter(SharedScrubber sharedScrubber)
     {
         this.sharedScrubber = sharedScrubber;
     }

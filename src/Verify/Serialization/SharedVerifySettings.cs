@@ -21,12 +21,12 @@ namespace Verify
 
         public static void AddExtraDatetimeFormat(string format)
         {
-            StringScrubbingConverter.datetimeFormats.Add(format);
+            SharedScrubber.datetimeFormats.Add(format);
         }
 
         public static void AddExtraDatetimeOffsetFormat(string format)
         {
-            StringScrubbingConverter.datetimeOffsetFormats.Add(format);
+            SharedScrubber.datetimeOffsetFormats.Add(format);
         }
     }
 }

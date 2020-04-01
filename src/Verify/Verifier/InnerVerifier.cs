@@ -18,6 +18,7 @@ public partial class InnerVerifier
         Func<DateTimeOffset, int> dateTimeOffsetIntOrNext)
     {
         InnerVerifier.exceptionBuilder = exceptionBuilder;
+        SharedScrubber.SetIntOrNext(guidIntOrNext, dateTimeIntOrNext, dateTimeOffsetIntOrNext);
         Scrubber<Guid>.SetIntOrNext(guidIntOrNext);
         Scrubber<DateTime>.SetIntOrNext(dateTimeIntOrNext);
         Scrubber<DateTimeOffset>.SetIntOrNext(dateTimeOffsetIntOrNext);

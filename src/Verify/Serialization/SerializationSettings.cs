@@ -202,6 +202,9 @@ namespace Verify
             converters.Add(new StringEnumConverter());
             converters.Add(new DelegateConverter());
             converters.Add(new TypeJsonConverter());
+            var sharedScrubber = new SharedScrubber(scrubGuids, scrubDateTimes);
+            converters.Add(new StringScrubbingConverter(sharedScrubber));
+
             if (scrubGuids && scrubDateTimes)
             {
                 var guidScrubbingConverter = new Scrubber<Guid>();
@@ -210,7 +213,6 @@ namespace Verify
                 converters.Add(dateTimeScrubber);
                 var dateTimeOffsetScrubber = new Scrubber<DateTimeOffset>();
                 converters.Add(dateTimeOffsetScrubber);
-                converters.Add(new StringScrubbingConverter(guidScrubbingConverter, dateTimeScrubber, dateTimeOffsetScrubber));
                 return;
             }
 
@@ -218,7 +220,6 @@ namespace Verify
             {
                 var guidScrubbingConverter = new Scrubber<Guid>();
                 converters.Add(guidScrubbingConverter);
-                converters.Add(new StringScrubbingConverter(guidScrubbingConverter, null, null));
             }
 
             if (scrubDateTimes)
@@ -227,8 +228,8 @@ namespace Verify
                 converters.Add(dateTimeScrubber);
                 var dateTimeOffsetScrubber = new Scrubber<DateTimeOffset>();
                 converters.Add(dateTimeOffsetScrubber);
-                converters.Add(new StringScrubbingConverter(null, dateTimeScrubber, dateTimeOffsetScrubber));
             }
+
         }
 
         internal void RegenSettings()

@@ -42,6 +42,18 @@ class CustomContractResolver :
         IgnoreSerializableInterface = true;
     }
 
+    //protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
+    //{
+    //    var contract = base.CreateDictionaryContract(objectType);
+    //    contract.DictionaryKeyResolver = ContractDictionaryKeyResolver;
+    //    return contract;
+    //}
+
+    //private string ContractDictionaryKeyResolver(string s)
+    //{
+    //    return "a";
+    //}
+
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
     {
         var property = base.CreateProperty(member, memberSerialization);

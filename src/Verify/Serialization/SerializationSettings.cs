@@ -199,37 +199,14 @@ namespace Verify
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {
             var converters = settings.Converters;
+            var sharedScrubber = new SharedScrubber(scrubGuids, scrubDateTimes);
+            converters.Add(new StringScrubbingConverter(sharedScrubber));
+            converters.Add(new GuidConverter(sharedScrubber));
+            converters.Add(new DateTimeConverter(sharedScrubber));
+            converters.Add(new DateTimeOffsetConverter(sharedScrubber));
             converters.Add(new StringEnumConverter());
             converters.Add(new DelegateConverter());
             converters.Add(new TypeJsonConverter());
-            var sharedScrubber = new SharedScrubber(scrubGuids, scrubDateTimes);
-            converters.Add(new StringScrubbingConverter(sharedScrubber));
-
-            if (scrubGuids && scrubDateTimes)
-            {
-                var guidScrubbingConverter = new Scrubber<Guid>();
-                converters.Add(guidScrubbingConverter);
-                var dateTimeScrubber = new Scrubber<DateTime>();
-                converters.Add(dateTimeScrubber);
-                var dateTimeOffsetScrubber = new Scrubber<DateTimeOffset>();
-                converters.Add(dateTimeOffsetScrubber);
-                return;
-            }
-
-            if (scrubGuids)
-            {
-                var guidScrubbingConverter = new Scrubber<Guid>();
-                converters.Add(guidScrubbingConverter);
-            }
-
-            if (scrubDateTimes)
-            {
-                var dateTimeScrubber = new Scrubber<DateTime>();
-                converters.Add(dateTimeScrubber);
-                var dateTimeOffsetScrubber = new Scrubber<DateTimeOffset>();
-                converters.Add(dateTimeOffsetScrubber);
-            }
-
         }
 
         internal void RegenSettings()

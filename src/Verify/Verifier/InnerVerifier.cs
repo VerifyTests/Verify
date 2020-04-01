@@ -19,9 +19,6 @@ public partial class InnerVerifier
     {
         InnerVerifier.exceptionBuilder = exceptionBuilder;
         SharedScrubber.SetIntOrNext(guidIntOrNext, dateTimeIntOrNext, dateTimeOffsetIntOrNext);
-        Scrubber<Guid>.SetIntOrNext(guidIntOrNext);
-        Scrubber<DateTime>.SetIntOrNext(dateTimeIntOrNext);
-        Scrubber<DateTimeOffset>.SetIntOrNext(dateTimeOffsetIntOrNext);
     }
 
     public InnerVerifier(Type testType, string directory, string testName)

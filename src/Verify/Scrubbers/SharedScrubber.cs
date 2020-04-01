@@ -30,34 +30,39 @@ class SharedScrubber
         this.scrubDateTimes = scrubDateTimes;
     }
 
-    public string? GetValue(Guid? value)
+    public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
     {
-        if (value == null)
-        {
-            return null;
-        }
-
-        var next = intOrNextGuid(value.Value);
-        return $"Guid_{next}";
-    }
-
-    public bool TryGetGuid(object? value, [NotNullWhen(true)] out string? result)
-    {
-        if (value == null)
+        if (!scrubGuids)
         {
             result = null;
             return false;
         }
 
-        var guid = (Guid) value;
+        result = Convert(value);
+        return true;
+    }
 
-        if (!scrubGuids)
+    public bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
+    {
+        if (!scrubDateTimes)
         {
-            result = value.ToString();
-            return true;
+            result = null;
+            return false;
         }
 
-        result = Convert(guid);
+        result = Convert(value);
+        return true;
+    }
+
+    public bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
+    {
+        if (!scrubDateTimes)
+        {
+            result = null;
+            return false;
+        }
+
+        result = Convert(value);
         return true;
     }
 

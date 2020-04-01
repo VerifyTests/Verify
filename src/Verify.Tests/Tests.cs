@@ -576,6 +576,16 @@ public class Tests :
     }
 
     [Fact]
+    public Task ShouldScrubGuidDictionaryKey()
+    {
+        var target = new Dictionary<Guid, string>
+        {
+            {Guid.NewGuid(), "value"}
+        };
+        return Verify(target);
+    }
+
+    [Fact]
     public Task ShouldIgnoreEmptyList()
     {
         var target = new CollectionTarget

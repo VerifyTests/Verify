@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: true,
         isMdi: true,
         supportsText: true,
-        buildArguments: (path1, path2) => $"/diff \"{path2}\" \"{path1}\"",
+        buildArguments: (tempFile, targetFile) => $"/diff \"{targetFile}\" \"{tempFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe",

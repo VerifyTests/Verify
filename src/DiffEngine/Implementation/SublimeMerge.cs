@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: false,
         isMdi: false,
         supportsText: true,
-        buildArguments: (path1, path2) => $"mergetool \"{path1}\" \"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"mergetool \"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Sublime Merge\smerge.exe"

@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: true,
         isMdi: false,
         supportsText: true,
-        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"\"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles(x86)%\WinMerge\WinMergeU.exe"

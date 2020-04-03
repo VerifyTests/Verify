@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: false,
         isMdi: false,
         supportsText: false,
-        buildArguments: (path1, path2) => $"/left:\"{path1}\" /right:\"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"/left:\"{tempFile}\" /right:\"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe"

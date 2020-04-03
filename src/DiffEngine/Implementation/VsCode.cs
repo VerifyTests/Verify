@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: true,
         isMdi: true,
         supportsText: true,
-        buildArguments: (path1, path2) => $"--diff \"{path2}\" \"{path1}\"",
+        buildArguments: (tempFile, targetFile) => $"--diff \"{targetFile}\" \"{tempFile}\"",
         windowsExePaths: new[]
         {
             @"%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe"

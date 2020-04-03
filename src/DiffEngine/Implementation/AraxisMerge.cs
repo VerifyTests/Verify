@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: true,
         isMdi: true,
         supportsText: true,
-        buildArguments: (path1, path2) => $"/nowait \"{path1}\" \"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"/nowait \"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"

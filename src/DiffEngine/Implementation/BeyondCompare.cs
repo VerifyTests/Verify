@@ -8,7 +8,7 @@ static partial class Implementation
         supportsAutoRefresh: true,
         isMdi: false,
         supportsText: true,
-        buildArguments: (path1, path2) => $"/solo \"{path1}\" \"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"/solo \"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Beyond Compare 4\BCompare.exe",

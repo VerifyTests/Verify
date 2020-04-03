@@ -21,17 +21,17 @@ namespace DiffEngine
         /// <summary>
         /// Find and kill a diff tool process.
         /// </summary>
-        public static void Kill(string path1, string path2)
+        public static void Kill(string tempFile, string targetFile)
         {
-            Guard.AgainstNullOrEmpty(path1, nameof(path1));
-            Guard.AgainstNullOrEmpty(path2, nameof(path2));
-            var extension = Extensions.GetExtension(path1);
+            Guard.AgainstNullOrEmpty(tempFile, nameof(tempFile));
+            Guard.AgainstNullOrEmpty(targetFile, nameof(targetFile));
+            var extension = Extensions.GetExtension(tempFile);
             if (!DiffTools.TryFind(extension, out var diffTool))
             {
                 return;
             }
 
-            var command = diffTool.BuildCommand(path1, path2);
+            var command = diffTool.BuildCommand(tempFile, targetFile);
 
             if (diffTool.IsMdi)
             {
@@ -44,11 +44,11 @@ namespace DiffEngine
         /// <summary>
         /// Launch a diff tool for the given paths.
         /// </summary>
-        public static void Launch(string path1, string path2)
+        public static void Launch(string tempFile, string targetFile)
         {
-            Guard.AgainstNullOrEmpty(path1, nameof(path1));
-            Guard.AgainstNullOrEmpty(path2, nameof(path2));
-            var extension = Extensions.GetExtension(path1);
+            Guard.AgainstNullOrEmpty(tempFile, nameof(tempFile));
+            Guard.AgainstNullOrEmpty(targetFile, nameof(targetFile));
+            var extension = Extensions.GetExtension(tempFile);
             if (launchedInstances >= maxInstancesToLaunch)
             {
                 return;
@@ -60,17 +60,17 @@ namespace DiffEngine
             }
 
             //TODO: throw if both dont exist
-            if (!File.Exists(path1))
+            if (!File.Exists(tempFile))
             {
-                if (!AllFiles.TryCreateFile(path1, true))
+                if (!AllFiles.TryCreateFile(tempFile, true))
                 {
                     return;
                 }
             }
 
-            if (!File.Exists(path2))
+            if (!File.Exists(targetFile))
             {
-                if (!AllFiles.TryCreateFile(path2, true))
+                if (!AllFiles.TryCreateFile(targetFile, true))
                 {
                     return;
                 }
@@ -78,13 +78,13 @@ namespace DiffEngine
 
             launchedInstances++;
 
-            Launch(diffTool, path1, path2);
+            Launch(diffTool, tempFile, targetFile);
         }
 
-        static void Launch(ResolvedDiffTool tool, string path1, string path2)
+        static void Launch(ResolvedDiffTool tool, string tempFile, string targetFile)
         {
             Guard.AgainstNull(tool, nameof(tool));
-            var command = tool.BuildCommand(path1, path2);
+            var command = tool.BuildCommand(tempFile, targetFile);
             var isDiffToolRunning = ProcessCleanup.IsRunning(command);
             if (isDiffToolRunning)
             {
@@ -99,7 +99,7 @@ namespace DiffEngine
                 }
             }
 
-            var arguments = tool.BuildArguments(path1, path2);
+            var arguments = tool.BuildArguments(tempFile, targetFile);
             try
             {
                 Process.Start(tool.ExePath, arguments);

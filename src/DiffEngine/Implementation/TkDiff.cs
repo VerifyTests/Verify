@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: false,
         isMdi: false,
         supportsText: true,
-        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"\"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: Array.Empty<string>(),
         binaryExtensions: Array.Empty<string>(),
         linuxExePaths: Array.Empty<string>(),

@@ -9,7 +9,7 @@ static partial class Implementation
         supportsAutoRefresh: false,
         isMdi: true,
         supportsText: true,
-        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+        buildArguments: (tempFile, targetFile) => $"\"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Devart\Code Compare\CodeCompare.exe"

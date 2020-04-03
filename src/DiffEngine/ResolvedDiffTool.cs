@@ -11,9 +11,9 @@ class ResolvedDiffTool
     public bool SupportsAutoRefresh { get; }
     public IReadOnlyList<string> BinaryExtensions { get; }
 
-    public string BuildCommand(string path1, string path2)
+    public string BuildCommand(string tempFile, string targetFile)
     {
-        return $"\"{ExePath}\" {BuildArguments(path1, path2)}";
+        return $"\"{ExePath}\" {BuildArguments(tempFile, targetFile)}";
     }
 
     public ResolvedDiffTool(DiffTool name,

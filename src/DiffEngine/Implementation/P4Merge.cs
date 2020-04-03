@@ -8,7 +8,7 @@ static partial class Implementation
         supportsAutoRefresh: false,
         isMdi: false,
         supportsText: true,
-        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"", 
+        buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Perforce\p4merge.exe"

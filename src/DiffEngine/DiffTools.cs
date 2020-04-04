@@ -67,6 +67,29 @@ namespace DiffEngine
             return ExtensionLookup.TryGetValue(extension, out tool);
         }
 
+        internal static bool TryFind(DiffTool tool, string extension, [NotNullWhen(true)] out ResolvedDiffTool? resolvedTool)
+        {
+            if (Extensions.IsText(extension))
+            {
+                resolvedTool = ResolvedDiffTools.FirstOrDefault(x=>x.Name==tool);
+                return resolvedTool != null;
+            }
+
+            resolvedTool = ResolvedDiffTools.SingleOrDefault(x => x.Name == tool);
+            if (resolvedTool == null)
+            {
+                return false;
+            }
+
+            if (!resolvedTool.BinaryExtensions.Contains(extension))
+            {
+                resolvedTool = null;
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool IsDetectedFor(DiffTool diffTool, string extensionOrPath)
         {
             var extension = Extensions.GetExtension(extensionOrPath);

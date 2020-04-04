@@ -41,30 +41,48 @@ namespace DiffEngine
             ProcessCleanup.Kill(command);
         }
 
-        /// <summary>
-        /// Launch a diff tool for the given paths.
-        /// </summary>
-        public static void Launch(string tempFile, string targetFile)
+        public static LaunchResult Launch(DiffTool tool, string tempFile, string targetFile)
         {
             Guard.AgainstNullOrEmpty(tempFile, nameof(tempFile));
             Guard.AgainstNullOrEmpty(targetFile, nameof(targetFile));
             var extension = Extensions.GetExtension(tempFile);
-            if (launchedInstances >= maxInstancesToLaunch)
+            if (!DiffTools.TryFind(tool, extension, out var resolvedTool))
             {
-                return;
+                return LaunchResult.NoDiffToolForExtension;
             }
+
+            return Launch(resolvedTool, tempFile, targetFile);
+        }
+
+        /// <summary>
+        /// Launch a diff tool for the given paths.
+        /// </summary>
+        public static LaunchResult Launch(string tempFile, string targetFile)
+        {
+            Guard.AgainstNullOrEmpty(tempFile, nameof(tempFile));
+            Guard.AgainstNullOrEmpty(targetFile, nameof(targetFile));
+            var extension = Extensions.GetExtension(tempFile);
 
             if (!DiffTools.TryFind(extension, out var diffTool))
             {
-                return;
+                return LaunchResult.NoDiffToolForExtension;
             }
 
+            return Launch(diffTool, tempFile, targetFile);
+        }
+
+        static LaunchResult Launch(ResolvedDiffTool diffTool, string tempFile, string targetFile)
+        {
+            if (launchedInstances >= maxInstancesToLaunch)
+            {
+                return LaunchResult.TooManyRunningDiffTools;
+            }
             //TODO: throw if both dont exist
             if (!File.Exists(tempFile))
             {
                 if (!AllFiles.TryCreateFile(tempFile, true))
                 {
-                    return;
+                    return LaunchResult.NoEmptyFileForExtension;
                 }
             }
 
@@ -72,44 +90,48 @@ namespace DiffEngine
             {
                 if (!AllFiles.TryCreateFile(targetFile, true))
                 {
-                    return;
+                    return LaunchResult.NoEmptyFileForExtension;
                 }
             }
 
             launchedInstances++;
 
-            Launch(diffTool, tempFile, targetFile);
-        }
-
-        static void Launch(ResolvedDiffTool tool, string tempFile, string targetFile)
-        {
-            Guard.AgainstNull(tool, nameof(tool));
-            var command = tool.BuildCommand(tempFile, targetFile);
+            var command = diffTool.BuildCommand(tempFile, targetFile);
             var isDiffToolRunning = ProcessCleanup.IsRunning(command);
             if (isDiffToolRunning)
             {
-                if (tool.SupportsAutoRefresh)
+                if (diffTool.SupportsAutoRefresh)
                 {
-                    return;
+                    return LaunchResult.AlreadyRunningAndSupportsRefresh;
                 }
 
-                if (!tool.IsMdi)
+                if (!diffTool.IsMdi)
                 {
                     ProcessCleanup.Kill(command);
                 }
             }
 
-            var arguments = tool.BuildArguments(tempFile, targetFile);
+            var arguments = diffTool.BuildArguments(tempFile, targetFile);
             try
             {
-                Process.Start(tool.ExePath, arguments);
+                Process.Start(diffTool.ExePath, arguments);
+                return LaunchResult.StartedNewInstance;
             }
             catch (Exception exception)
             {
                 var message = $@"Failed to launch diff tool.
-{tool.ExePath} {arguments}";
+{diffTool.ExePath} {arguments}";
                 throw new Exception(message, exception);
             }
         }
+    }
+
+    public enum LaunchResult
+    {
+        NoEmptyFileForExtension,
+        AlreadyRunningAndSupportsRefresh,
+        StartedNewInstance,
+        TooManyRunningDiffTools,
+        NoDiffToolForExtension
     }
 }

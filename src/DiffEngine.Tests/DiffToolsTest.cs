@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using DiffEngine;
 using VerifyXunit;
 using Xunit;
@@ -20,50 +19,50 @@ public class DiffToolsTest :
     //}
 
     [Fact]
-    public async Task WriteFoundTools()
+    public void WriteFoundTools()
     {
         var md = Path.Combine(SourceDirectory, "diffTools.include.md");
         File.Delete(md);
         using var writer = File.CreateText(md);
         foreach (var tool in DiffTools.Tools())
         {
-            await writer.WriteLineAsync($@"
+            writer.WriteLine($@"
 ## [{tool.Name}]({tool.Url})");
 
-            await writer.WriteLineAsync($@"
+            writer.WriteLine($@"
   * IsMdi: {tool.IsMdi}
   * SupportsAutoRefresh: {tool.SupportsAutoRefresh}");
 
             if (tool.WindowsExePaths.Any())
             {
-                await writer.WriteLineAsync(@"
+                writer.WriteLine(@"
 ### Windows scanned paths:
 ");
                 foreach (var path in tool.WindowsExePaths)
                 {
-                    await writer.WriteLineAsync($@" * `{path}`");
+                    writer.WriteLine($@" * `{path}`");
                 }
             }
 
             if (tool.OsxExePaths.Any())
             {
-                await writer.WriteLineAsync(@"
+                writer.WriteLine(@"
 ### OSX scanned paths:
 ");
                 foreach (var path in tool.OsxExePaths)
                 {
-                    await writer.WriteLineAsync($@" * `{path}`");
+                    writer.WriteLine($@" * `{path}`");
                 }
             }
 
             if (tool.LinuxExePaths.Any())
             {
-                await writer.WriteLineAsync(@"
+                writer.WriteLine(@"
 ### Linux scanned paths:
 ");
                 foreach (var path in tool.LinuxExePaths)
                 {
-                    await writer.WriteLineAsync($@" * `{path}`");
+                    writer.WriteLine($@" * `{path}`");
                 }
             }
             if (!tool.BinaryExtensions.Any())
@@ -71,16 +70,16 @@ public class DiffToolsTest :
                 continue;
             }
 
-            await writer.WriteLineAsync($@"
+            writer.WriteLine($@"
 ### Supported Text files: {tool.SupportsText}
 ");
 
-            await writer.WriteLineAsync(@"
+            writer.WriteLine(@"
 ### Supported binary extensions:
 ");
             foreach (var extension in tool.BinaryExtensions)
             {
-                await writer.WriteLineAsync($@" * {extension}");
+                writer.WriteLine($@" * {extension}");
             }
         }
     }
@@ -114,6 +113,24 @@ public class DiffToolsTest :
         {
             Debug.WriteLine($"{tool.Key}: {tool.Value.Name}");
         }
+    }
+    [Fact]
+    public void TryFind()
+    {
+        Assert.True(DiffTools.TryFind("txt", out var resolved));
+        Assert.NotNull(resolved);
+
+        Assert.True(DiffTools.TryFind(DiffTool.VisualStudio, "txt", out resolved));
+        Assert.NotNull(resolved);
+
+        Assert.False(DiffTools.TryFind("notFound", out resolved));
+        Assert.Null(resolved);
+
+        Assert.False(DiffTools.TryFind(DiffTool.VisualStudio, "notFound", out resolved));
+        Assert.Null(resolved);
+
+        Assert.False(DiffTools.TryFind(DiffTool.Kaleidoscope, "txt", out resolved));
+        Assert.Null(resolved);
     }
 
     public DiffToolsTest(ITestOutputHelper output) :

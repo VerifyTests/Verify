@@ -9,7 +9,7 @@
     <Content Include="build.targets" PackagePath="build\Verify.Bunit.targets" />
     <PackageReference Include="EmptyFiles" Version="0.11.1" PrivateAssets="None" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
-    <PackageReference Include="XunitContext" Version="1.8.0" />
+    <PackageReference Include="XunitContext" Version="1.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="bunit" Version="1.0.0-beta-6" />
     <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />

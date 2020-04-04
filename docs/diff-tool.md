@@ -151,6 +151,15 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * tif
  * tiff
 
+## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
+
 ## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
 
   * IsMdi: False

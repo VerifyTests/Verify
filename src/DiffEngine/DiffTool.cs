@@ -7,6 +7,7 @@ namespace DiffEngine
         TkDiff,
         KDiff3,
         TortoiseIDiff,
+        TortoiseGitMerge,
         TortoiseMerge,
         DiffMerge,
         WinMerge,

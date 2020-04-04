@@ -72,6 +72,15 @@
  * tif
  * tiff
 
+## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
+
 ## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
 
   * IsMdi: False

@@ -20,6 +20,7 @@ namespace DiffEngine
                 Implementation.TkDiff(),
                 Implementation.KDiff3(),
                 Implementation.TortoiseIDiff(),
+                Implementation.TortoiseGitMerge(),
                 Implementation.TortoiseMerge(),
                 Implementation.DiffMerge(),
                 Implementation.WinMerge(),

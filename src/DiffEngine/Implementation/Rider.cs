@@ -16,5 +16,7 @@ static partial class Implementation
         },
         binaryExtensions: Array.Empty<string>(),
         linuxExePaths: Array.Empty<string>(),
+        //@"/Applications/Rider*/Contents/MacOS/rider"
+        // not current supported on macos since the diff commandline does not work
         osxExePaths: Array.Empty<string>());
 }

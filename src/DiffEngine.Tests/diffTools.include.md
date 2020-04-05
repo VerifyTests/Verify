@@ -1,4 +1,13 @@
 
+## [Rider](https://www.jetbrains.com/rider/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
+
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
   * IsMdi: True

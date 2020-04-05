@@ -78,6 +78,15 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 ## Supported Diff tools:
 
  <!-- include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
+## [Rider](https://www.jetbrains.com/rider/)
+
+  * IsMdi: False
+  * SupportsAutoRefresh: False
+
+### Windows scanned paths:
+
+ * `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
+
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
   * IsMdi: True

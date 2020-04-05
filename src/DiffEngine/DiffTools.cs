@@ -15,6 +15,7 @@ namespace DiffEngine
         {
             return new List<ToolDefinition>
             {
+                Implementation.Rider(),
                 Implementation.VisualStudio(),
                 Implementation.VsCode(),
                 Implementation.TkDiff(),

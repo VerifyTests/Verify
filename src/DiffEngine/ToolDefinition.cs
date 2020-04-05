@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using DiffEngine;
 
@@ -70,15 +71,12 @@ class ToolDefinition
     {
         foreach (var exePath in exePaths)
         {
-            var expanded = Environment.ExpandEnvironmentVariables(exePath);
-            if (!File.Exists(expanded))
+            if (WildcardFileFinder.TryFind(exePath, out var result))
             {
-                continue;
+                ExePath = result;
+                Exists = true;
+                return;
             }
-
-            ExePath = expanded;
-            Exists = true;
-            return;
         }
     }
 }

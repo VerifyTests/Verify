@@ -18,5 +18,6 @@ namespace DiffEngine
         AraxisMerge,
         P4Merge,
         BeyondCompare,
+        Rider
     }
 }

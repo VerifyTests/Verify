@@ -19,7 +19,7 @@ static class WildcardFileFinder
             var directoryPart = Path.GetDirectoryName(expanded);
             var filePart = Path.GetFileName(expanded);
             var segments = directoryPart.Split(separators);
-            var currentPath = segments[0];
+            var currentPath = segments[0] + Path.DirectorySeparatorChar;
             foreach (var segment in segments.Skip(1))
             {
                 if (segment.Contains('*'))
@@ -67,7 +67,7 @@ static class WildcardFileFinder
             return false;
         }
 
-        if (!File.Exists(expanded))
+        if (File.Exists(expanded))
         {
             result = expanded;
             return true;

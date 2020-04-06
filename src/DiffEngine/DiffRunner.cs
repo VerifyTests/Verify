@@ -43,7 +43,7 @@ namespace DiffEngine
 
         public static LaunchResult Launch(DiffTool tool, string tempFile, string targetFile)
         {
-            Guard.AgainstNullOrEmpty(tempFile, nameof(tempFile));
+            Guard.FileExists(tempFile, nameof(tempFile));
             Guard.AgainstNullOrEmpty(targetFile, nameof(targetFile));
             var extension = Extensions.GetExtension(tempFile);
             if (!DiffTools.TryFind(tool, extension, out var resolvedTool))
@@ -59,7 +59,7 @@ namespace DiffEngine
         /// </summary>
         public static LaunchResult Launch(string tempFile, string targetFile)
         {
-            Guard.AgainstNullOrEmpty(tempFile, nameof(tempFile));
+            Guard.FileExists(tempFile, nameof(tempFile));
             Guard.AgainstNullOrEmpty(targetFile, nameof(targetFile));
             var extension = Extensions.GetExtension(tempFile);
 
@@ -76,14 +76,6 @@ namespace DiffEngine
             if (launchedInstances >= maxInstancesToLaunch)
             {
                 return LaunchResult.TooManyRunningDiffTools;
-            }
-            //TODO: throw if both dont exist
-            if (!File.Exists(tempFile))
-            {
-                if (!AllFiles.TryCreateFile(tempFile, true))
-                {
-                    return LaunchResult.NoEmptyFileForExtension;
-                }
             }
 
             if (!File.Exists(targetFile))

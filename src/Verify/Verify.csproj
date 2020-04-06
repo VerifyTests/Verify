@@ -13,6 +13,7 @@
     <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
     <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
     <ProjectReference Include="..\DiffEngine\DiffEngine.csproj" />
+    <PackageReference Include="EmptyFiles" Version="1.0.0" PrivateAssets="None" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.0" Condition="$(TargetFramework) != 'netstandard2.1'" />
   </ItemGroup>
 </Project>

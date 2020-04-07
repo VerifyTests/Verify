@@ -1,5 +1,4 @@
-﻿#if DEBUG
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using DiffEngine;
@@ -66,6 +65,7 @@ public class DiffToolsTest :
                     writer.WriteLine($@" * `{path}`");
                 }
             }
+
             if (!tool.BinaryExtensions.Any())
             {
                 continue;
@@ -115,6 +115,8 @@ public class DiffToolsTest :
             Debug.WriteLine($"{tool.Key}: {tool.Value.Name}");
         }
     }
+
+#if DEBUG
     [Fact]
     public void TryFind()
     {
@@ -133,10 +135,10 @@ public class DiffToolsTest :
         Assert.False(DiffTools.TryFind(DiffTool.Kaleidoscope, "txt", out resolved));
         Assert.Null(resolved);
     }
+#endif
 
     public DiffToolsTest(ITestOutputHelper output) :
         base(output)
     {
     }
 }
-#endif

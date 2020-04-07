@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿#if DEBUG
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using DiffEngine;
@@ -138,3 +139,4 @@ public class DiffToolsTest :
     {
     }
 }
+#endif

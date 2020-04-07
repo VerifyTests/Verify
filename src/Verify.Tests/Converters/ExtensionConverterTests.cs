@@ -1,4 +1,4 @@
-﻿#if(NETCOREAPP3_1)
+﻿#if(NETCOREAPP3_1 && DEBUG)
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;

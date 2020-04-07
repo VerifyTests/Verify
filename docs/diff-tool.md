@@ -87,6 +87,10 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
  * `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
 
+### OSX scanned paths:
+
+ * `/Applications/Rider*/Contents/MacOS/rider`
+
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
   * IsMdi: True

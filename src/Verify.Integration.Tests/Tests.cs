@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -21,7 +22,7 @@ public partial class Tests :
     static Tests()
     {
         BuildServerDetector.Detected = false;
-        var diffToolPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
+        var diffToolPath = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
         tool = new ResolvedDiffTool(
             name: DiffTool.VisualStudio,
             exePath: diffToolPath,
@@ -132,3 +133,4 @@ Commands:
         ClipboardCapture.Clear();
     }
 }
+#endif

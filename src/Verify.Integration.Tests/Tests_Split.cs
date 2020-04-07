@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿#if DEBUG
+
+using System.IO;
 using System.Threading.Tasks;
 using DiffEngine;
 using Verify;
@@ -123,3 +125,4 @@ public partial class Tests :
         }
     }
 }
+#endif

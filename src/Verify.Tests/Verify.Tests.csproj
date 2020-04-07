@@ -8,6 +8,9 @@
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>netcoreapp3.1;net48</TargetFrameworks>
   </PropertyGroup>
+  <ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
+    <Compile Remove="Converters\TypeConverterTests.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Shipwreck.Phash.Bitmaps" Version="0.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

@@ -19,7 +19,8 @@ class ToolDefinition
     public string[] OsxExePaths { get; }
     public bool SupportsText { get; }
 
-    public ToolDefinition(DiffTool name,
+    public ToolDefinition(
+        DiffTool name,
         string url,
         bool supportsAutoRefresh,
         bool isMdi,

@@ -12,7 +12,7 @@
     <Compile Include="..\Shared\*.cs" />
     <PackageReference Include="EmptyFiles" Version="1.0.0" PrivateAssets="None" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

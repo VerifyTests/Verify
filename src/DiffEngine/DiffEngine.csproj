@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Verify\Helpers\Guard.cs" Link="Guard.cs" />
-    <PackageReference Include="EmptyFiles" Version="1.0.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="1.0.1" PrivateAssets="None" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />

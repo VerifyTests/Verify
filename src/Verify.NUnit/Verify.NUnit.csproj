@@ -9,7 +9,7 @@
     <Content Include="build.targets" PackagePath="build\Verify.NUnit.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.NUnit.targets" />
     <Compile Include="..\Shared\*.cs" />
-    <PackageReference Include="EmptyFiles" Version="1.0.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="1.0.1" PrivateAssets="None" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />

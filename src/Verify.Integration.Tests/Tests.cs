@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -132,3 +133,4 @@ Commands:
         ClipboardCapture.Clear();
     }
 }
+#endif

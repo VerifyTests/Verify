@@ -9,7 +9,9 @@ static partial class Implementation
         supportsAutoRefresh: true,
         isMdi: true,
         supportsText: true,
-        buildArguments: (tempFile, targetFile) => $"/nowait \"{tempFile}\" \"{targetFile}\"",
+        //https://www.araxis.com/merge/documentation-windows/command-line.en
+        //https://www.araxis.com/merge/documentation-os-x/command-line.en
+        buildArguments: (tempFile, targetFile) => $"-nowait \"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
             @"%ProgramFiles%\Araxis\Araxis Merge\Compare.exe"
@@ -43,6 +45,7 @@ static partial class Implementation
         linuxExePaths: Array.Empty<string>(),
         osxExePaths: new[]
         {
-            "/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge"
+            //https://www.araxis.com/merge/documentation-os-x/installing.en
+            "/Applications/Araxis Merge.app/Contents/Utilities/compare"
         });
 }

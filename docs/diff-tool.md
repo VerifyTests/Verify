@@ -78,345 +78,6 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 ## Supported Diff tools:
 
  <!-- include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
-## [Rider](https://www.jetbrains.com/rider/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** ` diff "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
-
-### OSX settings:
-
-
-**Example arguments:** ` diff "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/Rider*/Contents/MacOS/rider`
-
-## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
-
-  * Is MDI: True
-  * Supports auto-refresh: True
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `/diff "targetFile" "tempFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
- * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
- * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe`
-
-## [VisualStudioCode](https://code.visualstudio.com)
-
-  * Is MDI: True
-  * Supports auto-refresh: True
-  * Supports text files: True
-
-### Notes:
-
-
- * [Command line reference](https://code.visualstudio.com/docs/editor/command-line)
-
-### Windows settings:
-
-
-**Example arguments:** `--diff "targetFile" "tempFile"`
-
-**Scanned paths:**
-
- * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
-
-### OSX settings:
-
-
-**Example arguments:** `--diff "targetFile" "tempFile"`
-
-**Scanned paths:**
-
- * `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
-
-### Linux settings:
-
-
-**Example arguments:** `--diff "targetFile" "tempFile"`
-
-**Scanned paths:**
-
- * `/usr/local/bin/code`
-
-## [TkDiff](https://sourceforge.net/projects/tkdiff/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### OSX settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
-
-## [KDiff3](https://github.com/KDE/kdiff3)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\KDiff3\kdiff3.exe`
-
-### OSX settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
-
-## [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: False
-
-### Windows settings:
-
-
-**Example arguments:** `/left:"tempFile" /right:"targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * ico
- * jpg
- * jpeg
- * png
- * tif
- * tiff
-
-## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
-
-## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
-
-## [DiffMerge](https://www.sourcegear.com/diffmerge/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `--nosplash "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
-
-### OSX settings:
-
-
-**Example arguments:** `--nosplash "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/DiffMerge.app/Contents/MacOS/DiffMerge`
-
-### Linux settings:
-
-
-**Example arguments:** `--nosplash "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/usr/bin/diffmerge`
-
-## [WinMerge](https://winmerge.org/)
-
-  * Is MDI: False
-  * Supports auto-refresh: True
-  * Supports text files: True
-
-### Notes:
-
-
- * [Command line reference](https://manual.winmerge.org/en/Command_line.html)
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
-
-## [CodeCompare](https://www.devart.com/codecompare/)
-
-  * Is MDI: True
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Notes:
-
-
- * [Command line reference](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
-
-## [Kaleidoscope](https://www.kaleidoscopeapp.com/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### OSX settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/usr/local/bin/ksdiff`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * ico
- * jpg
- * jpeg
- * png
- * tiff
- * tif
-
-## [SublimeMerge](https://www.sublimemerge.com/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `mergetool "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\Sublime Merge\smerge.exe`
-
-### OSX settings:
-
-
-**Example arguments:** `mergetool "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/smerge.app/Contents/MacOS/smerge`
-
-### Linux settings:
-
-
-**Example arguments:** `mergetool "tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/usr/bin/smerge`
-
-## [Meld](https://meldmerge.org/)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles(x86)%\Meld\meld.exe`
-
-### OSX settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/meld.app/Contents/MacOS/meld`
-
-### Linux settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/usr/bin/meld`
-
 ## [AraxisMerge](https://www.araxis.com/merge)
 
   * Is MDI: True
@@ -473,54 +134,6 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * tiff
  * tga
  * wmf
-
-## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
-
-  * Is MDI: False
-  * Supports auto-refresh: False
-  * Supports text files: True
-
-### Windows settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `%ProgramFiles%\Perforce\p4merge.exe`
-
-### OSX settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/Applications/p4merge.app/Contents/MacOS/p4merge`
-
-### Linux settings:
-
-
-**Example arguments:** `"tempFile" "targetFile"`
-
-**Scanned paths:**
-
- * `/usr/bin/p4merge`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * jpg
- * jpeg
- * png
- * pbm
- * pgm
- * ppm
- * tif
- * tiff
- * xbm
- * xpm
 
 ## [BeyondCompare](https://www.scootersoftware.com)
 
@@ -582,7 +195,394 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
  * png
  * tif
  * tiff
- * rtf <!-- end include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
+ * rtf
+
+## [CodeCompare](https://www.devart.com/codecompare/)
+
+  * Is MDI: True
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Notes:
+
+
+ * [Command line reference](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
+
+## [DiffMerge](https://www.sourcegear.com/diffmerge/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `--nosplash "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
+
+### OSX settings:
+
+
+**Example arguments:** `--nosplash "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/DiffMerge.app/Contents/MacOS/DiffMerge`
+
+### Linux settings:
+
+
+**Example arguments:** `--nosplash "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/usr/bin/diffmerge`
+
+## [Kaleidoscope](https://www.kaleidoscopeapp.com/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### OSX settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/usr/local/bin/ksdiff`
+
+### Supported binary extensions:
+
+ * bmp
+ * gif
+ * ico
+ * jpg
+ * jpeg
+ * png
+ * tiff
+ * tif
+
+## [KDiff3](https://github.com/KDE/kdiff3)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\KDiff3\kdiff3.exe`
+
+### OSX settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
+
+## [Meld](https://meldmerge.org/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles(x86)%\Meld\meld.exe`
+
+### OSX settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/meld.app/Contents/MacOS/meld`
+
+### Linux settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/usr/bin/meld`
+
+## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\Perforce\p4merge.exe`
+
+### OSX settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/p4merge.app/Contents/MacOS/p4merge`
+
+### Linux settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/usr/bin/p4merge`
+
+### Supported binary extensions:
+
+ * bmp
+ * gif
+ * jpg
+ * jpeg
+ * png
+ * pbm
+ * pgm
+ * ppm
+ * tif
+ * tiff
+ * xbm
+ * xpm
+
+## [Rider](https://www.jetbrains.com/rider/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** ` diff "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
+
+### OSX settings:
+
+
+**Example arguments:** ` diff "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/Rider*/Contents/MacOS/rider`
+
+## [SublimeMerge](https://www.sublimemerge.com/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `mergetool "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\Sublime Merge\smerge.exe`
+
+### OSX settings:
+
+
+**Example arguments:** `mergetool "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/smerge.app/Contents/MacOS/smerge`
+
+### Linux settings:
+
+
+**Example arguments:** `mergetool "tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/usr/bin/smerge`
+
+## [TkDiff](https://sourceforge.net/projects/tkdiff/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### OSX settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
+
+## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
+
+## [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: False
+
+### Windows settings:
+
+
+**Example arguments:** `/left:"tempFile" /right:"targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
+
+### Supported binary extensions:
+
+ * bmp
+ * gif
+ * ico
+ * jpg
+ * jpeg
+ * png
+ * tif
+ * tiff
+
+## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
+
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
+
+## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
+
+  * Is MDI: True
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Windows settings:
+
+
+**Example arguments:** `/diff "targetFile" "tempFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
+ * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
+ * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe`
+
+## [VisualStudioCode](https://code.visualstudio.com)
+
+  * Is MDI: True
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Notes:
+
+
+ * [Command line reference](https://code.visualstudio.com/docs/editor/command-line)
+
+### Windows settings:
+
+
+**Example arguments:** `--diff "targetFile" "tempFile"`
+
+**Scanned paths:**
+
+ * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+
+### OSX settings:
+
+
+**Example arguments:** `--diff "targetFile" "tempFile"`
+
+**Scanned paths:**
+
+ * `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
+
+### Linux settings:
+
+
+**Example arguments:** `--diff "targetFile" "tempFile"`
+
+**Scanned paths:**
+
+ * `/usr/local/bin/code`
+
+## [WinMerge](https://winmerge.org/)
+
+  * Is MDI: False
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Notes:
+
+
+ * [Command line reference](https://manual.winmerge.org/en/Command_line.html)
+
+### Windows settings:
+
+
+**Example arguments:** `"tempFile" "targetFile"`
+
+**Scanned paths:**
+
+ * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe` <!-- end include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
 
 
 ## Disable Diff
@@ -595,6 +595,37 @@ settings.DisableDiff();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L55-L60' title='File snippet `disablediff` was extracted from'>snippet source</a> | <a href='#snippet-disablediff' title='Navigate to start of snippet `disablediff`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## Diff Tool order
+
+
+### Default
+
+ * BeyondCompare <!-- include: defaultDiffToolOrder. path: /src/DiffEngine.Tests/defaultDiffToolOrder.include.md -->
+ * P4Merge
+ * AraxisMerge
+ * Meld
+ * SublimeMerge
+ * Kaleidoscope
+ * CodeCompare
+ * WinMerge
+ * DiffMerge
+ * TortoiseMerge
+ * TortoiseGitMerge
+ * TortoiseIDiff
+ * KDiff3
+ * TkDiff
+ * VisualStudioCode
+ * VisualStudio
+ * Rider <!-- end include: defaultDiffToolOrder. path: /src/DiffEngine.Tests/defaultDiffToolOrder.include.md -->
+
+
+### Custom order
+
+Set an `Verify.DiffToolOrder` with the preferred order of diff tool resolution. The value can be comma (`,`), pipe (`|`), or space separated.
+
+For example `VisualStudio,Meld` will result in VisualStudio then Meld then all other tools being the order.
 
 
 ## DiffEngine

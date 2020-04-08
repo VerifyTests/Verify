@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using DiffEngine;
 using VerifyXunit;
 using Xunit;
@@ -17,6 +19,19 @@ public class DiffToolsTest :
     //    Assert.True(DiffTools.IsDetectedFor(DiffTool.VisualStudio, "txt"));
     //    Assert.True(DiffTools.IsDetectedFor(DiffTool.BeyondCompare, "png"));
     //}
+
+    [Fact]
+    public Task ParseEnvironmentVariable()
+    {
+        return Verify(DiffTools.ParseEnvironmentVariable("VisualStudio,Meld"));
+    }
+
+    [Fact]
+    public Task BadEnvironmentVariable()
+    {
+        var exception = Assert.Throws<Exception>(() => DiffTools.ParseEnvironmentVariable("Foo").ToList());
+        return Verify(exception.Message);
+    }
 
     [Fact]
     public void WriteFoundTools()

@@ -24,7 +24,11 @@ public class DiffToolsTest :
         var md = Path.Combine(SourceDirectory, "diffTools.include.md");
         File.Delete(md);
         using var writer = File.CreateText(md);
-        foreach (var tool in DiffTools.Tools())
+        var tools = DiffTools
+            .Tools();
+
+        foreach (var tool in tools
+            .OrderBy(x => x.Name.ToString()))
         {
             writer.WriteLine($@"
 ## [{tool.Name}]({tool.Url})");
@@ -103,6 +107,19 @@ public class DiffToolsTest :
                     writer.WriteLine($@" * {extension}");
                 }
             }
+        }
+    }
+
+    [Fact]
+    public void WriteDefaultDiffToolOrder()
+    {
+        var md = Path.Combine(SourceDirectory, "defaultDiffToolOrder.include.md");
+        File.Delete(md);
+        using var writer = File.CreateText(md);
+
+        foreach (var tool in DiffTools.Tools())
+        {
+            writer.WriteLine($@" * {tool.Name}");
         }
     }
 

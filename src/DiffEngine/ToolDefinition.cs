@@ -10,9 +10,9 @@ class ToolDefinition
     public string Url { get; }
     public bool SupportsAutoRefresh { get; }
     public bool IsMdi { get; }
-    public Func<string, string, string> BuildWindowsArguments { get; }
-    public Func<string, string, string> BuildLinuxArguments { get; }
-    public Func<string, string, string> BuildOsxArguments { get; }
+    public Func<string, string, string>? BuildWindowsArguments { get; }
+    public Func<string, string, string>? BuildLinuxArguments { get; }
+    public Func<string, string, string>? BuildOsxArguments { get; }
 
     public Func<string, string, string> BuildArguments
     {
@@ -20,17 +20,17 @@ class ToolDefinition
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return BuildWindowsArguments;
+                return BuildWindowsArguments!;
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                return BuildLinuxArguments;
+                return BuildLinuxArguments!;
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                return BuildOsxArguments;
+                return BuildOsxArguments!;
             }
 
             throw new Exception($"OS not supported: {RuntimeInformation.OSDescription}");
@@ -46,6 +46,37 @@ class ToolDefinition
     public string? Notes { get; }
     public bool SupportsText { get; }
 
+    public ToolDefinition(
+        DiffTool name,
+        string url,
+        bool supportsAutoRefresh,
+        bool isMdi,
+        bool supportsText,
+        Func<string, string, string>? buildWindowsArguments,
+        Func<string, string, string>? buildLinuxArguments,
+        Func<string, string, string>? buildOsxArguments,
+        string[] windowsExePaths,
+        string[] binaryExtensions,
+        string[] linuxExePaths,
+        string[] osxExePaths,
+        string? notes = null)
+    {
+        Name = name;
+        Url = url;
+        SupportsAutoRefresh = supportsAutoRefresh;
+        IsMdi = isMdi;
+        BuildWindowsArguments = buildWindowsArguments;
+        BuildLinuxArguments = buildLinuxArguments;
+        BuildOsxArguments = buildOsxArguments;
+        BinaryExtensions = binaryExtensions;
+        WindowsExePaths = windowsExePaths;
+        LinuxExePaths = linuxExePaths;
+        OsxExePaths = osxExePaths;
+        Notes = notes;
+        SupportsText = supportsText;
+
+        FindExe();
+    }
     public ToolDefinition(
         DiffTool name,
         string url,

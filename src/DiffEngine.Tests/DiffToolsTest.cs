@@ -30,8 +30,9 @@ public class DiffToolsTest :
 ## [{tool.Name}]({tool.Url})");
 
             writer.WriteLine($@"
-  * IsMdi: {tool.IsMdi}
-  * SupportsAutoRefresh: {tool.SupportsAutoRefresh}");
+  * Is MDI: {tool.IsMdi}
+  * Supports auto-refresh: {tool.SupportsAutoRefresh}
+  * Supports text files: {tool.SupportsText}");
 
             if (tool.Notes != null)
             {
@@ -47,7 +48,7 @@ public class DiffToolsTest :
 ### Windows settings:
 ");
                 writer.WriteLine($@"
-**Example arguments:** `{tool.BuildWindowsArguments("tempFile", "targetFile")}`");
+**Example arguments:** `{tool.BuildWindowsArguments!("tempFile", "targetFile")}`");
 
                 writer.WriteLine(@"
 **Scanned paths:**
@@ -61,10 +62,10 @@ public class DiffToolsTest :
             if (tool.OsxExePaths.Any())
             {
                 writer.WriteLine(@"
-### Osx settings:
+### OSX settings:
 ");
                 writer.WriteLine($@"
-**Example arguments:** `{tool.BuildOsxArguments("tempFile", "targetFile")}`");
+**Example arguments:** `{tool.BuildOsxArguments!("tempFile", "targetFile")}`");
 
                 writer.WriteLine(@"
 **Scanned paths:**
@@ -81,7 +82,7 @@ public class DiffToolsTest :
 ### Linux settings:
 ");
                 writer.WriteLine($@"
-**Example arguments:** `{tool.BuildLinuxArguments("tempFile", "targetFile")}`");
+**Example arguments:** `{tool.BuildLinuxArguments!("tempFile", "targetFile")}`");
 
                 writer.WriteLine(@"
 **Scanned paths:**
@@ -91,10 +92,6 @@ public class DiffToolsTest :
                     writer.WriteLine($@" * `{path}`");
                 }
             }
-
-            writer.WriteLine($@"
-### Supported Text files: {tool.SupportsText}
-");
 
             if (tool.BinaryExtensions.Any())
             {

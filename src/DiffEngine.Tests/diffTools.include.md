@@ -1,8 +1,9 @@
 
 ## [Rider](https://www.jetbrains.com/rider/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -13,7 +14,7 @@
 
  * `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** ` diff "tempFile" "targetFile"`
@@ -22,13 +23,11 @@
 
  * `/Applications/Rider*/Contents/MacOS/rider`
 
-### Supported Text files: True
-
-
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
-  * IsMdi: True
-  * SupportsAutoRefresh: True
+  * Is MDI: True
+  * Supports auto-refresh: True
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -41,13 +40,16 @@
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`
  * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe`
 
-### Supported Text files: True
+## [VisualStudioCode](https://code.visualstudio.com)
+
+  * Is MDI: True
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Notes:
 
 
-## [VisualStudioCode](https://code.visualstudio.com/docs/editor/command-line)
-
-  * IsMdi: True
-  * SupportsAutoRefresh: True
+ * [Command line reference](https://code.visualstudio.com/docs/editor/command-line)
 
 ### Windows settings:
 
@@ -58,7 +60,7 @@
 
  * `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `--diff "targetFile" "tempFile"`
@@ -76,15 +78,13 @@
 
  * `/usr/local/bin/code`
 
-### Supported Text files: True
-
-
 ## [TkDiff](https://sourceforge.net/projects/tkdiff/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
@@ -93,13 +93,11 @@
 
  * `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
 
-### Supported Text files: True
-
-
 ## [KDiff3](https://github.com/KDE/kdiff3)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -110,7 +108,7 @@
 
  * `%ProgramFiles%\KDiff3\kdiff3.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
@@ -119,13 +117,11 @@
 
  * `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
 
-### Supported Text files: True
-
-
 ## [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: False
 
 ### Windows settings:
 
@@ -135,9 +131,6 @@
 **Scanned paths:**
 
  * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
-
-### Supported Text files: False
-
 
 ### Supported binary extensions:
 
@@ -152,8 +145,9 @@
 
 ## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -164,13 +158,11 @@
 
  * `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
 
-### Supported Text files: True
-
-
 ## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -181,13 +173,11 @@
 
  * `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
 
-### Supported Text files: True
-
-
 ## [DiffMerge](https://www.sourcegear.com/diffmerge/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -198,7 +188,7 @@
 
  * `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `--nosplash "tempFile" "targetFile"`
@@ -216,13 +206,16 @@
 
  * `/usr/bin/diffmerge`
 
-### Supported Text files: True
+## [WinMerge](https://winmerge.org/)
+
+  * Is MDI: False
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Notes:
 
 
-## [WinMerge](https://manual.winmerge.org/en/Command_line.html)
-
-  * IsMdi: False
-  * SupportsAutoRefresh: True
+ * [Command line reference](https://manual.winmerge.org/en/Command_line.html)
 
 ### Windows settings:
 
@@ -233,13 +226,16 @@
 
  * `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
 
-### Supported Text files: True
+## [CodeCompare](https://www.devart.com/codecompare/)
+
+  * Is MDI: True
+  * Supports auto-refresh: False
+  * Supports text files: True
+
+### Notes:
 
 
-## [CodeCompare](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
-
-  * IsMdi: True
-  * SupportsAutoRefresh: False
+ * [Command line reference](https://www.devart.com/codecompare/docs/index.html?comparing_via_command_line.htm)
 
 ### Windows settings:
 
@@ -250,15 +246,13 @@
 
  * `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
-### Supported Text files: True
-
-
 ## [Kaleidoscope](https://www.kaleidoscopeapp.com/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
@@ -266,9 +260,6 @@
 **Scanned paths:**
 
  * `/usr/local/bin/ksdiff`
-
-### Supported Text files: True
-
 
 ### Supported binary extensions:
 
@@ -283,8 +274,9 @@
 
 ## [SublimeMerge](https://www.sublimemerge.com/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -295,7 +287,7 @@
 
  * `%ProgramFiles%\Sublime Merge\smerge.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `mergetool "tempFile" "targetFile"`
@@ -313,13 +305,11 @@
 
  * `/usr/bin/smerge`
 
-### Supported Text files: True
-
-
 ## [Meld](https://meldmerge.org/)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -330,7 +320,7 @@
 
  * `%ProgramFiles(x86)%\Meld\meld.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
@@ -348,13 +338,19 @@
 
  * `/usr/bin/meld`
 
-### Supported Text files: True
-
-
 ## [AraxisMerge](https://www.araxis.com/merge)
 
-  * IsMdi: True
-  * SupportsAutoRefresh: True
+  * Is MDI: True
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Notes:
+
+
+ * [Supported image files](https://www.araxis.com/merge/documentation-windows/comparing-image-files.en)
+ * [Windows command line usage](https://www.araxis.com/merge/documentation-windows/command-line.en)
+ * [MacOS command line usage](https://www.araxis.com/merge/documentation-os-x/command-line.en)
+ * [Installing MacOS command line](https://www.araxis.com/merge/documentation-os-x/installing.en)
 
 ### Windows settings:
 
@@ -365,17 +361,14 @@
 
  * `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
-### Osx settings:
+### OSX settings:
 
 
-**Example arguments:** `/nowait "tempFile" "targetFile"`
+**Example arguments:** `-nowait "tempFile" "targetFile"`
 
 **Scanned paths:**
 
- * `/Applications/Araxis Merge.app/Contents/MacOS/Araxis Merge`
-
-### Supported Text files: True
-
+ * `/Applications/Araxis Merge.app/Contents/Utilities/compare`
 
 ### Supported binary extensions:
 
@@ -404,8 +397,9 @@
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: False
+  * Is MDI: False
+  * Supports auto-refresh: False
+  * Supports text files: True
 
 ### Windows settings:
 
@@ -416,7 +410,7 @@
 
  * `%ProgramFiles%\Perforce\p4merge.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
@@ -434,9 +428,6 @@
 
  * `/usr/bin/p4merge`
 
-### Supported Text files: True
-
-
 ### Supported binary extensions:
 
  * bmp
@@ -452,10 +443,16 @@
  * xbm
  * xpm
 
-## [BeyondCompare](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
+## [BeyondCompare](https://www.scootersoftware.com)
 
-  * IsMdi: False
-  * SupportsAutoRefresh: True
+  * Is MDI: False
+  * Supports auto-refresh: True
+  * Supports text files: True
+
+### Notes:
+
+
+ * [Command line reference](https://www.scootersoftware.com/v4help/index.html?command_line_reference.html)
 
 ### Windows settings:
 
@@ -467,7 +464,7 @@
  * `%ProgramFiles%\Beyond Compare 4\BCompare.exe`
  * `%ProgramFiles%\Beyond Compare 3\BCompare.exe`
 
-### Osx settings:
+### OSX settings:
 
 
 **Example arguments:** `/solo "tempFile" "targetFile"`
@@ -484,9 +481,6 @@
 **Scanned paths:**
 
  * `/usr/lib/beyondcompare/bcomp`
-
-### Supported Text files: True
-
 
 ### Supported binary extensions:
 

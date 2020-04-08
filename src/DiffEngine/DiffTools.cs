@@ -51,6 +51,7 @@ namespace DiffEngine
                 {
                     TextDiffTools.Add(diffTool);
                 }
+
                 ResolvedDiffTools.Add(diffTool);
                 foreach (var ext in tool.BinaryExtensions)
                 {
@@ -109,7 +110,7 @@ namespace DiffEngine
         {
             if (Extensions.IsText(extension))
             {
-                tool = ResolvedDiffTools.LastOrDefault();
+                tool = TextDiffTools.LastOrDefault();
                 return tool != null;
             }
 
@@ -120,7 +121,7 @@ namespace DiffEngine
         {
             if (Extensions.IsText(extension))
             {
-                resolvedTool = ResolvedDiffTools.FirstOrDefault(x=>x.Name==tool);
+                resolvedTool = TextDiffTools.FirstOrDefault(x => x.Name == tool);
                 return resolvedTool != null;
             }
 
@@ -144,7 +145,7 @@ namespace DiffEngine
             var extension = Extensions.GetExtension(extensionOrPath);
             if (Extensions.IsText(extension))
             {
-                return TextDiffTools.Any(x=>x.Name == diffTool);
+                return TextDiffTools.Any(x => x.Name == diffTool);
             }
 
             var tool = ResolvedDiffTools.SingleOrDefault(_ => _.Name == diffTool);

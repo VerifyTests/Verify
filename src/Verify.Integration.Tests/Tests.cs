@@ -35,6 +35,10 @@ public partial class Tests :
         {
             tool
         };
+        DiffTools.TextDiffTools = new List<ResolvedDiffTool>
+        {
+            tool
+        };
 
         DiffTools.ExtensionLookup = new Dictionary<string, ResolvedDiffTool>
         {

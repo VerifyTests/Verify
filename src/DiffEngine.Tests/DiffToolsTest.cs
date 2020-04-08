@@ -33,10 +33,24 @@ public class DiffToolsTest :
   * IsMdi: {tool.IsMdi}
   * SupportsAutoRefresh: {tool.SupportsAutoRefresh}");
 
+            if (tool.Notes != null)
+            {
+                writer.WriteLine(@"
+### Notes:
+");
+                writer.WriteLine(tool.Notes);
+            }
+
             if (tool.WindowsExePaths.Any())
             {
                 writer.WriteLine(@"
-### Windows scanned paths:
+### Windows settings:
+");
+                writer.WriteLine($@"
+**Example arguments:** `{tool.BuildWindowsArguments("tempFile", "targetFile")}`");
+
+                writer.WriteLine(@"
+**Scanned paths:**
 ");
                 foreach (var path in tool.WindowsExePaths)
                 {
@@ -47,7 +61,13 @@ public class DiffToolsTest :
             if (tool.OsxExePaths.Any())
             {
                 writer.WriteLine(@"
-### OSX scanned paths:
+### Osx settings:
+");
+                writer.WriteLine($@"
+**Example arguments:** `{tool.BuildOsxArguments("tempFile", "targetFile")}`");
+
+                writer.WriteLine(@"
+**Scanned paths:**
 ");
                 foreach (var path in tool.OsxExePaths)
                 {
@@ -58,7 +78,13 @@ public class DiffToolsTest :
             if (tool.LinuxExePaths.Any())
             {
                 writer.WriteLine(@"
-### Linux scanned paths:
+### Linux settings:
+");
+                writer.WriteLine($@"
+**Example arguments:** `{tool.BuildLinuxArguments("tempFile", "targetFile")}`");
+
+                writer.WriteLine(@"
+**Scanned paths:**
 ");
                 foreach (var path in tool.LinuxExePaths)
                 {
@@ -66,21 +92,19 @@ public class DiffToolsTest :
                 }
             }
 
-            if (!tool.BinaryExtensions.Any())
-            {
-                continue;
-            }
-
             writer.WriteLine($@"
 ### Supported Text files: {tool.SupportsText}
 ");
 
-            writer.WriteLine(@"
+            if (tool.BinaryExtensions.Any())
+            {
+                writer.WriteLine(@"
 ### Supported binary extensions:
 ");
-            foreach (var extension in tool.BinaryExtensions)
-            {
-                writer.WriteLine($@" * {extension}");
+                foreach (var extension in tool.BinaryExtensions)
+                {
+                    writer.WriteLine($@" * {extension}");
+                }
             }
         }
     }

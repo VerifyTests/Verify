@@ -5,7 +5,7 @@ static partial class Implementation
 {
     public static ToolDefinition VsCode() => new ToolDefinition(
         name: DiffTool.VisualStudioCode,
-        url: "https://code.visualstudio.com/docs/editor/command-line",
+        url: "https://code.visualstudio.com",
         supportsAutoRefresh: true,
         isMdi: true,
         supportsText: true,
@@ -22,5 +22,7 @@ static partial class Implementation
         osxExePaths: new[]
         {
             "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-        });
+        },
+        notes:@"
+ * [Command line reference](https://code.visualstudio.com/docs/editor/command-line)");
 }

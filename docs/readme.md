@@ -13,6 +13,8 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)
   * [Diff Tool](/docs/diff-tool.md)
+  * [Diff Tool Order](/docs/diff-tool.order.md)
+  * [Diff Engine](/docs/diif-engine.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
   * [Comparers](/docs/comparer.md)

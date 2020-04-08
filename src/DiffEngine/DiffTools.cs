@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EmptyFiles;
@@ -9,7 +10,7 @@ namespace DiffEngine
     {
         internal static Dictionary<string, ResolvedDiffTool> ExtensionLookup = new Dictionary<string, ResolvedDiffTool>();
         internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
-        internal static List<DiffTool> TextDiffTools = new List<DiffTool>();
+        internal static List<ResolvedDiffTool> TextDiffTools = new List<ResolvedDiffTool>();
 
         internal static List<ToolDefinition> Tools()
         {
@@ -48,7 +49,7 @@ namespace DiffEngine
                     tool.BinaryExtensions);
                 if (tool.SupportsText)
                 {
-                    TextDiffTools.Add(diffTool.Name);
+                    TextDiffTools.Add(diffTool);
                 }
                 ResolvedDiffTools.Add(diffTool);
                 foreach (var ext in tool.BinaryExtensions)
@@ -143,7 +144,7 @@ namespace DiffEngine
             var extension = Extensions.GetExtension(extensionOrPath);
             if (Extensions.IsText(extension))
             {
-                return TextDiffTools.Contains(diffTool);
+                return TextDiffTools.Any(x=>x.Name == diffTool);
             }
 
             var tool = ResolvedDiffTools.SingleOrDefault(_ => _.Name == diffTool);

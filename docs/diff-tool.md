@@ -597,6 +597,37 @@ settings.DisableDiff();
 <!-- endsnippet -->
 
 
+## Diff Tool order
+
+
+### Default
+
+ * BeyondCompare <!-- include: defaultDiffToolOrder. path: /src/DiffEngine.Tests/defaultDiffToolOrder.include.md -->
+ * P4Merge
+ * AraxisMerge
+ * Meld
+ * SublimeMerge
+ * Kaleidoscope
+ * CodeCompare
+ * WinMerge
+ * DiffMerge
+ * TortoiseMerge
+ * TortoiseGitMerge
+ * TortoiseIDiff
+ * KDiff3
+ * TkDiff
+ * VisualStudioCode
+ * VisualStudio
+ * Rider <!-- end include: defaultDiffToolOrder. path: /src/DiffEngine.Tests/defaultDiffToolOrder.include.md -->
+
+
+### Custom order
+
+Set an `Verify.DiffToolOrder` with the preferred order of diff tool resolution. The value can be comma (`,`), pipe (`|`), or space separated.
+
+For example `VisualStudio,Meld` will result in VisualStudio then Meld then all other tools being the order.
+
+
 ## DiffEngine
 
 **API SUBJECT TO CHNAGE IN MINOR RELEASES**

@@ -58,6 +58,52 @@ namespace DiffEngine
             }
         }
 
+        internal static IEnumerable<ToolDefinition> ReadMachineTools()
+        {
+            var allTool = Tools().Where(x => x.Exists).ToList();
+            var diffOrder = Environment.GetEnvironmentVariable("Verify.DiffToolOrder");
+            if (string.IsNullOrWhiteSpace(diffOrder))
+            {
+                return allTool;
+            }
+
+            return ReadToolsFromEnvironmentVariable(diffOrder, allTool);
+        }
+
+        internal static IEnumerable<DiffTool> ParseEnvironmentVariable(string diffOrder)
+        {
+            foreach (var toolString in diffOrder
+                .Split(new[] {',', '|', ' '}, StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (!Enum.TryParse<DiffTool>(toolString, out var diffTool))
+                {
+                    throw new Exception($"Unable to parse tool from `Verify.DiffToolOrder` environment variable: {toolString}");
+                }
+
+                yield return diffTool;
+            }
+        }
+
+        internal static IEnumerable<ToolDefinition> ReadToolsFromEnvironmentVariable(string diffOrder, List<ToolDefinition> allTools)
+        {
+            foreach (var diffTool in ParseEnvironmentVariable(diffOrder))
+            {
+                var definition = allTools.SingleOrDefault(x => x.Name == diffTool);
+                if (definition == null)
+                {
+                    throw new Exception($"`Verify.DiffToolOrder` is configured to use '{diffTool}' but it is not installed.");
+                }
+
+                yield return definition;
+                allTools.Remove(definition);
+            }
+
+            foreach (var definition in allTools)
+            {
+                yield return definition;
+            }
+        }
+
         internal static bool TryFind(string extension, [NotNullWhen(true)] out ResolvedDiffTool? tool)
         {
             if (Extensions.IsText(extension))

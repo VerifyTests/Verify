@@ -29,6 +29,7 @@ public partial class Tests :
             buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             isMdi: false,
             supportsAutoRefresh: true,
+            requiresTarget: true,
             binaryExtensions: new string[]{});
 
         DiffTools.ResolvedDiffTools = new List<ResolvedDiffTool>

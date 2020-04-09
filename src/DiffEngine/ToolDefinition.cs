@@ -45,6 +45,7 @@ class ToolDefinition
     public string[] OsxExePaths { get; }
     public string? Notes { get; }
     public bool SupportsText { get; }
+    public bool RequiresTarget { get; }
 
     public ToolDefinition(
         DiffTool name,
@@ -52,6 +53,7 @@ class ToolDefinition
         bool supportsAutoRefresh,
         bool isMdi,
         bool supportsText,
+        bool requiresTarget,
         Func<string, string, string>? buildWindowsArguments,
         Func<string, string, string>? buildLinuxArguments,
         Func<string, string, string>? buildOsxArguments,
@@ -74,15 +76,18 @@ class ToolDefinition
         OsxExePaths = osxExePaths;
         Notes = notes;
         SupportsText = supportsText;
+        RequiresTarget = requiresTarget;
 
         FindExe();
     }
+
     public ToolDefinition(
         DiffTool name,
         string url,
         bool supportsAutoRefresh,
         bool isMdi,
         bool supportsText,
+        bool requiresTarget,
         Func<string, string, string> buildArguments,
         string[] windowsExePaths,
         string[] binaryExtensions,
@@ -103,6 +108,7 @@ class ToolDefinition
         OsxExePaths = osxExePaths;
         Notes = notes;
         SupportsText = supportsText;
+        RequiresTarget = requiresTarget;
 
         FindExe();
     }

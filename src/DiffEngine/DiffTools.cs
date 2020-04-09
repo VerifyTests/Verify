@@ -46,7 +46,8 @@ namespace DiffEngine
                     tool.BuildArguments,
                     tool.IsMdi,
                     tool.SupportsAutoRefresh,
-                    tool.BinaryExtensions);
+                    tool.BinaryExtensions,
+                    tool.RequiresTarget);
                 if (tool.SupportsText)
                 {
                     TextDiffTools.Add(diffTool);

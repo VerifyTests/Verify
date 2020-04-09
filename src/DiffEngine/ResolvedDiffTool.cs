@@ -10,6 +10,7 @@ class ResolvedDiffTool
     public bool IsMdi { get; }
     public bool SupportsAutoRefresh { get; }
     public IReadOnlyList<string> BinaryExtensions { get; }
+    public bool RequiresTarget { get; }
 
     public string BuildCommand(string tempFile, string targetFile)
     {
@@ -21,7 +22,8 @@ class ResolvedDiffTool
         Func<string, string, string> buildArguments,
         bool isMdi,
         bool supportsAutoRefresh,
-        string[] binaryExtensions)
+        string[] binaryExtensions,
+        bool requiresTarget)
     {
         Name = name;
         ExePath = exePath;
@@ -29,5 +31,6 @@ class ResolvedDiffTool
         IsMdi = isMdi;
         SupportsAutoRefresh = supportsAutoRefresh;
         BinaryExtensions = binaryExtensions;
+        RequiresTarget = requiresTarget;
     }
 }

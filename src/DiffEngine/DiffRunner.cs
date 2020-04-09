@@ -78,7 +78,7 @@ namespace DiffEngine
                 return LaunchResult.TooManyRunningDiffTools;
             }
 
-            if (!File.Exists(targetFile))
+            if (diffTool.RequiresTarget && !File.Exists(targetFile))
             {
                 if (!AllFiles.TryCreateFile(targetFile, true))
                 {

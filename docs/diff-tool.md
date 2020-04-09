@@ -98,14 +98,14 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `/nowait "tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\Araxis\Araxis Merge\Compare.exe
+**Scanned paths:** `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `-nowait "tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/Araxis Merge.app/Contents/Utilities/compare
+**Scanned paths:** `/Applications/Araxis Merge.app/Contents/Utilities/compare`
 
 ## [BeyondCompare](https://www.scootersoftware.com)
 
@@ -124,21 +124,21 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `/solo "tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\Beyond Compare *\BCompare.exe
+**Scanned paths:** `%ProgramFiles%\Beyond Compare *\BCompare.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `/solo "tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/Beyond Compare.app/Contents/MacOS/bcomp
+**Scanned paths:** `/Applications/Beyond Compare.app/Contents/MacOS/bcomp`
 
 ### Linux settings:
 
 
 **Example arguments:** `/solo "tempFile" "targetFile"`
 
-**Scanned paths:** /usr/lib/beyondcompare/bcomp
+**Scanned paths:** `/usr/lib/beyondcompare/bcomp`
 
 ## [CodeCompare](https://www.devart.com/codecompare/)
 
@@ -156,7 +156,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\Devart\Code Compare\CodeCompare.exe
+**Scanned paths:** `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
 ## [DiffMerge](https://www.sourcegear.com/diffmerge/)
 
@@ -169,21 +169,21 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `--nosplash "tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe
+**Scanned paths:** `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `--nosplash "tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/DiffMerge.app/Contents/MacOS/DiffMerge
+**Scanned paths:** `/Applications/DiffMerge.app/Contents/MacOS/DiffMerge`
 
 ### Linux settings:
 
 
 **Example arguments:** `--nosplash "tempFile" "targetFile"`
 
-**Scanned paths:** /usr/bin/diffmerge
+**Scanned paths:** `/usr/bin/diffmerge`
 
 ## [Kaleidoscope](https://www.kaleidoscopeapp.com/)
 
@@ -197,7 +197,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /usr/local/bin/ksdiff
+**Scanned paths:** `/usr/local/bin/ksdiff`
 
 ## [KDiff3](https://github.com/KDE/kdiff3)
 
@@ -210,14 +210,14 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\KDiff3\kdiff3.exe
+**Scanned paths:** `%ProgramFiles%\KDiff3\kdiff3.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/kdiff3.app/Contents/MacOS/kdiff3
+**Scanned paths:** `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
 
 ## [Meld](https://meldmerge.org/)
 
@@ -230,21 +230,21 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles(x86)%\Meld\meld.exe
+**Scanned paths:** `%ProgramFiles(x86)%\Meld\meld.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/meld.app/Contents/MacOS/meld
+**Scanned paths:** `/Applications/meld.app/Contents/MacOS/meld`
 
 ### Linux settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /usr/bin/meld
+**Scanned paths:** `/usr/bin/meld`
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
@@ -258,21 +258,21 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\Perforce\p4merge.exe
+**Scanned paths:** `%ProgramFiles%\Perforce\p4merge.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/p4merge.app/Contents/MacOS/p4merge
+**Scanned paths:** `/Applications/p4merge.app/Contents/MacOS/p4merge`
 
 ### Linux settings:
 
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /usr/bin/p4merge
+**Scanned paths:** `/usr/bin/p4merge`
 
 ## [Rider](https://www.jetbrains.com/rider/)
 
@@ -285,14 +285,14 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** ` diff "tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe
+**Scanned paths:** `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** ` diff "tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/Rider*/Contents/MacOS/rider
+**Scanned paths:** `/Applications/Rider*/Contents/MacOS/rider`
 
 ## [SublimeMerge](https://www.sublimemerge.com/)
 
@@ -305,21 +305,21 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `mergetool "tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\Sublime Merge\smerge.exe
+**Scanned paths:** `%ProgramFiles%\Sublime Merge\smerge.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `mergetool "tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/smerge.app/Contents/MacOS/smerge
+**Scanned paths:** `/Applications/smerge.app/Contents/MacOS/smerge`
 
 ### Linux settings:
 
 
 **Example arguments:** `mergetool "tempFile" "targetFile"`
 
-**Scanned paths:** /usr/bin/smerge
+**Scanned paths:** `/usr/bin/smerge`
 
 ## [TkDiff](https://sourceforge.net/projects/tkdiff/)
 
@@ -332,7 +332,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** /Applications/TkDiff.app/Contents/MacOS/tkdiff
+**Scanned paths:** `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
 
 ## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
 
@@ -345,7 +345,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe
+**Scanned paths:** `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
 
 ## [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
 
@@ -359,7 +359,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `/left:"tempFile" /right:"targetFile"`
 
-**Scanned paths:** %ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe
+**Scanned paths:** `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
 
 ## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
 
@@ -372,7 +372,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe
+**Scanned paths:** `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
@@ -407,21 +407,21 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `--diff "targetFile" "tempFile"`
 
-**Scanned paths:** %LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe
+**Scanned paths:** `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
 
 ### OSX settings:
 
 
 **Example arguments:** `--diff "targetFile" "tempFile"`
 
-**Scanned paths:** /Applications/Visual Studio Code.app/Contents/Resources/app/bin/code
+**Scanned paths:** `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
 
 ### Linux settings:
 
 
 **Example arguments:** `--diff "targetFile" "tempFile"`
 
-**Scanned paths:** /usr/local/bin/code
+**Scanned paths:** `/usr/local/bin/code`
 
 ## [WinMerge](https://winmerge.org/)
 
@@ -439,7 +439,7 @@ This behavior is currently supported on Windows. On Linux and OSX, diff tool ins
 
 **Example arguments:** `"tempFile" "targetFile"`
 
-**Scanned paths:** %ProgramFiles(x86)%\WinMerge\WinMergeU.exe <!-- end include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
+**Scanned paths:** `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe` <!-- end include: diffTools. path: /src/DiffEngine.Tests/diffTools.include.md -->
 
 
 ## Disable Diff

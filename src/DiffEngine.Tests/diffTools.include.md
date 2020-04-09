@@ -18,13 +18,13 @@
 
 
  * Example arguments: `/nowait "tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
+ * Scanned path: `%ProgramFiles%\Araxis\Araxis Merge\Compare.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `-nowait "tempFile" "targetFile"`
- * Scanned paths: `/Applications/Araxis Merge.app/Contents/Utilities/compare`
+ * Scanned path: `/Applications/Araxis Merge.app/Contents/Utilities/compare`
 
 ## [BeyondCompare](https://www.scootersoftware.com)
 
@@ -42,19 +42,19 @@
 
 
  * Example arguments: `/solo "tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\Beyond Compare *\BCompare.exe`
+ * Scanned path: `%ProgramFiles%\Beyond Compare *\BCompare.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `/solo "tempFile" "targetFile"`
- * Scanned paths: `/Applications/Beyond Compare.app/Contents/MacOS/bcomp`
+ * Scanned path: `/Applications/Beyond Compare.app/Contents/MacOS/bcomp`
 
 ### Linux settings:
 
 
  * Example arguments: `/solo "tempFile" "targetFile"`
- * Scanned paths: `/usr/lib/beyondcompare/bcomp`
+ * Scanned path: `/usr/lib/beyondcompare/bcomp`
 
 ## [CodeCompare](https://www.devart.com/codecompare/)
 
@@ -71,7 +71,7 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
+ * Scanned path: `%ProgramFiles%\Devart\Code Compare\CodeCompare.exe`
 
 ## [DiffMerge](https://www.sourcegear.com/diffmerge/)
 
@@ -83,19 +83,19 @@
 
 
  * Example arguments: `--nosplash "tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
+ * Scanned path: `%ProgramFiles%\SourceGear\Common\DiffMerge\sgdm.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `--nosplash "tempFile" "targetFile"`
- * Scanned paths: `/Applications/DiffMerge.app/Contents/MacOS/DiffMerge`
+ * Scanned path: `/Applications/DiffMerge.app/Contents/MacOS/DiffMerge`
 
 ### Linux settings:
 
 
  * Example arguments: `--nosplash "tempFile" "targetFile"`
- * Scanned paths: `/usr/bin/diffmerge`
+ * Scanned path: `/usr/bin/diffmerge`
 
 ## [Kaleidoscope](https://www.kaleidoscopeapp.com/)
 
@@ -108,7 +108,7 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/usr/local/bin/ksdiff`
+ * Scanned path: `/usr/local/bin/ksdiff`
 
 ## [KDiff3](https://github.com/KDE/kdiff3)
 
@@ -120,13 +120,13 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\KDiff3\kdiff3.exe`
+ * Scanned path: `%ProgramFiles%\KDiff3\kdiff3.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
+ * Scanned path: `/Applications/kdiff3.app/Contents/MacOS/kdiff3`
 
 ## [Meld](https://meldmerge.org/)
 
@@ -138,19 +138,19 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles(x86)%\Meld\meld.exe`
+ * Scanned path: `%ProgramFiles(x86)%\Meld\meld.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/Applications/meld.app/Contents/MacOS/meld`
+ * Scanned path: `/Applications/meld.app/Contents/MacOS/meld`
 
 ### Linux settings:
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/usr/bin/meld`
+ * Scanned path: `/usr/bin/meld`
 
 ## [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
 
@@ -163,19 +163,19 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\Perforce\p4merge.exe`
+ * Scanned path: `%ProgramFiles%\Perforce\p4merge.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/Applications/p4merge.app/Contents/MacOS/p4merge`
+ * Scanned path: `/Applications/p4merge.app/Contents/MacOS/p4merge`
 
 ### Linux settings:
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/usr/bin/p4merge`
+ * Scanned path: `/usr/bin/p4merge`
 
 ## [Rider](https://www.jetbrains.com/rider/)
 
@@ -187,13 +187,13 @@
 
 
  * Example arguments: ` diff "tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
+ * Scanned path: `%ProgramFiles%\JetBrains\JetBrains Rider *\bin\rider64.exe`
 
 ### OSX settings:
 
 
  * Example arguments: ` diff "tempFile" "targetFile"`
- * Scanned paths: `/Applications/Rider*/Contents/MacOS/rider`
+ * Scanned path: `/Applications/Rider*/Contents/MacOS/rider`
 
 ## [SublimeMerge](https://www.sublimemerge.com/)
 
@@ -205,19 +205,19 @@
 
 
  * Example arguments: `mergetool "tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\Sublime Merge\smerge.exe`
+ * Scanned path: `%ProgramFiles%\Sublime Merge\smerge.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `mergetool "tempFile" "targetFile"`
- * Scanned paths: `/Applications/smerge.app/Contents/MacOS/smerge`
+ * Scanned path: `/Applications/smerge.app/Contents/MacOS/smerge`
 
 ### Linux settings:
 
 
  * Example arguments: `mergetool "tempFile" "targetFile"`
- * Scanned paths: `/usr/bin/smerge`
+ * Scanned path: `/usr/bin/smerge`
 
 ## [TkDiff](https://sourceforge.net/projects/tkdiff/)
 
@@ -229,7 +229,7 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
+ * Scanned path: `/Applications/TkDiff.app/Contents/MacOS/tkdiff`
 
 ## [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
 
@@ -241,7 +241,7 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
+ * Scanned path: `%ProgramFiles%\TortoiseGit\bin\TortoiseGitMerge.exe`
 
 ## [TortoiseIDiff](https://tortoisesvn.net/TortoiseIDiff.html)
 
@@ -254,7 +254,7 @@
 
 
  * Example arguments: `/left:"tempFile" /right:"targetFile"`
- * Scanned paths: `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
+ * Scanned path: `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
 
 ## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
 
@@ -266,7 +266,7 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
+ * Scanned path: `%ProgramFiles%\TortoiseSVN\bin\TortoiseMerge.exe`
 
 ## [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)
 
@@ -299,19 +299,19 @@
 
 
  * Example arguments: `--diff "targetFile" "tempFile"`
- * Scanned paths: `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
+ * Scanned path: `%LOCALAPPDATA%\Programs\Microsoft VS Code\code.exe`
 
 ### OSX settings:
 
 
  * Example arguments: `--diff "targetFile" "tempFile"`
- * Scanned paths: `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
+ * Scanned path: `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
 
 ### Linux settings:
 
 
  * Example arguments: `--diff "targetFile" "tempFile"`
- * Scanned paths: `/usr/local/bin/code`
+ * Scanned path: `/usr/local/bin/code`
 
 ## [WinMerge](https://winmerge.org/)
 
@@ -328,4 +328,4 @@
 
 
  * Example arguments: `"tempFile" "targetFile"`
- * Scanned paths: `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`
+ * Scanned path: `%ProgramFiles(x86)%\WinMerge\WinMergeU.exe`

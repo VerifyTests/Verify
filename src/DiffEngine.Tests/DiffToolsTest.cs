@@ -112,7 +112,7 @@ public class DiffToolsTest :
         }
         else
         {
-            writer.WriteLine($@" * Scanned paths: `{paths.Single()}`");
+            writer.WriteLine($@" * Scanned path: `{paths.Single()}`");
         }
     }
 

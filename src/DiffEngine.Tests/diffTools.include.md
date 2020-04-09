@@ -278,7 +278,7 @@
 
 
  * Example arguments: `/diff "targetFile" "tempFile"`
-**Scanned paths:**
+ * Scanned paths:
 
   * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe`
   * `%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe`

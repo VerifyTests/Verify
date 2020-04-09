@@ -99,11 +99,11 @@ public class DiffToolsTest :
         }
     }
 
-    static void WritePaths(StreamWriter writer, string[] paths)
+    static void WritePaths(TextWriter writer, string[] paths)
     {
         if (paths.Length > 1)
         {
-            writer.WriteLine(@"**Scanned paths:**
+            writer.WriteLine(@" * Scanned paths:
 ");
             foreach (var path in paths)
             {

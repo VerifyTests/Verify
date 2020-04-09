@@ -53,6 +53,11 @@ public class DiffToolsTest :
   * Supports auto-refresh: {tool.SupportsAutoRefresh}
   * Supports text files: {tool.SupportsText}");
 
+            if (tool.BinaryExtensions.Any())
+            {
+                writer.WriteLine(@" * Supported binary extensions: " + string.Join(", ", tool.BinaryExtensions));
+            }
+
             if (tool.Notes != null)
             {
                 writer.WriteLine(@"
@@ -109,17 +114,6 @@ public class DiffToolsTest :
                 foreach (var path in tool.LinuxExePaths)
                 {
                     writer.WriteLine($@" * `{path}`");
-                }
-            }
-
-            if (tool.BinaryExtensions.Any())
-            {
-                writer.WriteLine(@"
-### Supported binary extensions:
-");
-                foreach (var extension in tool.BinaryExtensions)
-                {
-                    writer.WriteLine($@" * {extension}");
                 }
             }
         }

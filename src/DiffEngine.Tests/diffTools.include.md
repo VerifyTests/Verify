@@ -4,6 +4,7 @@
   * Is MDI: True
   * Supports auto-refresh: True
   * Supports text files: True
+ * Supported binary extensions: bmp, dib, emf, gif, jif, j2c, j2k, jp2, jpc, jpeg, jpg, jpx, pbm, pcx, pgm, png, ppm, ras, tif, tiff, tga, wmf
 
 ### Notes:
 
@@ -31,36 +32,12 @@
 
  * `/Applications/Araxis Merge.app/Contents/Utilities/compare`
 
-### Supported binary extensions:
-
- * bmp
- * dib
- * emf
- * gif
- * jif
- * j2c
- * j2k
- * jp2
- * jpc
- * jpeg
- * jpg
- * jpx
- * pbm
- * pcx
- * pgm
- * png
- * ppm
- * ras
- * tif
- * tiff
- * tga
- * wmf
-
 ## [BeyondCompare](https://www.scootersoftware.com)
 
   * Is MDI: False
   * Supports auto-refresh: True
   * Supports text files: True
+ * Supported binary extensions: mp3, xls, xlsm, xlsx, doc, docm, docx, dot, dotm, dotx, pdf, bmp, gif, ico, jpg, jpeg, png, tif, tiff, rtf
 
 ### Notes:
 
@@ -94,29 +71,6 @@
 **Scanned paths:**
 
  * `/usr/lib/beyondcompare/bcomp`
-
-### Supported binary extensions:
-
- * mp3
- * xls
- * xlsm
- * xlsx
- * doc
- * docm
- * docx
- * dot
- * dotm
- * dotx
- * pdf
- * bmp
- * gif
- * ico
- * jpg
- * jpeg
- * png
- * tif
- * tiff
- * rtf
 
 ## [CodeCompare](https://www.devart.com/codecompare/)
 
@@ -176,6 +130,7 @@
   * Is MDI: False
   * Supports auto-refresh: False
   * Supports text files: True
+ * Supported binary extensions: bmp, gif, ico, jpg, jpeg, png, tiff, tif
 
 ### OSX settings:
 
@@ -185,17 +140,6 @@
 **Scanned paths:**
 
  * `/usr/local/bin/ksdiff`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * ico
- * jpg
- * jpeg
- * png
- * tiff
- * tif
 
 ## [KDiff3](https://github.com/KDE/kdiff3)
 
@@ -259,6 +203,7 @@
   * Is MDI: False
   * Supports auto-refresh: False
   * Supports text files: True
+ * Supported binary extensions: bmp, gif, jpg, jpeg, png, pbm, pgm, ppm, tif, tiff, xbm, xpm
 
 ### Windows settings:
 
@@ -286,21 +231,6 @@
 **Scanned paths:**
 
  * `/usr/bin/p4merge`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * jpg
- * jpeg
- * png
- * pbm
- * pgm
- * ppm
- * tif
- * tiff
- * xbm
- * xpm
 
 ## [Rider](https://www.jetbrains.com/rider/)
 
@@ -394,6 +324,7 @@
   * Is MDI: False
   * Supports auto-refresh: False
   * Supports text files: False
+ * Supported binary extensions: bmp, gif, ico, jpg, jpeg, png, tif, tiff
 
 ### Windows settings:
 
@@ -403,17 +334,6 @@
 **Scanned paths:**
 
  * `%ProgramFiles%\TortoiseSVN\bin\TortoiseIDiff.exe`
-
-### Supported binary extensions:
-
- * bmp
- * gif
- * ico
- * jpg
- * jpeg
- * png
- * tif
- * tiff
 
 ## [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)
 

@@ -46,10 +46,9 @@ public partial class Tests :
             {"knownBin", tool},
         };
         var binPath = AllFiles.Files["jpg"];
-        AllFiles.Files = new Dictionary<string, EmptyFile>
-        {
-            {"knownBin", binPath},
-        };
+        var newPath = Path.ChangeExtension(binPath.Path, "knownBin");
+        File.Copy(binPath.Path, newPath, true);
+        AllFiles.UseFile(Category.Image, newPath);
 
         SharedVerifySettings.RegisterFileConverter<TypeToSplit>(
             "txt",

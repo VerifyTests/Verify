@@ -7,7 +7,7 @@
   <ItemGroup>
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.Bunit.targets" />
     <Content Include="build.targets" PackagePath="build\Verify.Bunit.targets" />
-    <PackageReference Include="EmptyFiles" Version="1.1.2" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="2.0.0" PrivateAssets="None" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="XunitContext" Version="1.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

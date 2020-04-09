@@ -72,7 +72,7 @@ public class DiffToolsTest :
 ### Windows settings:
 ");
                 writer.WriteLine($@"
-**Example arguments:** `{tool.BuildWindowsArguments!("tempFile", "targetFile")}`");
+ * Example arguments: `{tool.BuildWindowsArguments!("tempFile", "targetFile")}`");
                 WritePaths(writer, tool.WindowsExePaths);
             }
 
@@ -82,7 +82,7 @@ public class DiffToolsTest :
 ### OSX settings:
 ");
                 writer.WriteLine($@"
-**Example arguments:** `{tool.BuildOsxArguments!("tempFile", "targetFile")}`");
+ * Example arguments: `{tool.BuildOsxArguments!("tempFile", "targetFile")}`");
                 WritePaths(writer, tool.OsxExePaths);
             }
 
@@ -92,7 +92,7 @@ public class DiffToolsTest :
 ### Linux settings:
 ");
                 writer.WriteLine($@"
-**Example arguments:** `{tool.BuildLinuxArguments!("tempFile", "targetFile")}`");
+ * Example arguments: `{tool.BuildLinuxArguments!("tempFile", "targetFile")}`");
 
                 WritePaths(writer, tool.LinuxExePaths);
             }
@@ -103,18 +103,16 @@ public class DiffToolsTest :
     {
         if (paths.Length > 1)
         {
-            writer.WriteLine(@"
-**Scanned paths:**
+            writer.WriteLine(@"**Scanned paths:**
 ");
             foreach (var path in paths)
             {
-                writer.WriteLine($@" * `{path}`");
+                writer.WriteLine($@"  * `{path}`");
             }
         }
         else
         {
-            writer.WriteLine($@"
-**Scanned paths:** `{paths.Single()}`");
+            writer.WriteLine($@" * Scanned paths: `{paths.Single()}`");
         }
     }
 

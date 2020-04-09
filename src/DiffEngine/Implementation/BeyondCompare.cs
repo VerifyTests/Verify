@@ -11,8 +11,7 @@ static partial class Implementation
         buildArguments: (tempFile, targetFile) => $"/solo \"{tempFile}\" \"{targetFile}\"",
         windowsExePaths: new[]
         {
-            @"%ProgramFiles%\Beyond Compare 4\BCompare.exe",
-            @"%ProgramFiles%\Beyond Compare 3\BCompare.exe"
+            @"%ProgramFiles%\Beyond Compare *\BCompare.exe"
         },
         binaryExtensions: new[]
         {

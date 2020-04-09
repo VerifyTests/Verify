@@ -73,14 +73,7 @@ public class DiffToolsTest :
 ");
                 writer.WriteLine($@"
 **Example arguments:** `{tool.BuildWindowsArguments!("tempFile", "targetFile")}`");
-
-                writer.WriteLine(@"
-**Scanned paths:**
-");
-                foreach (var path in tool.WindowsExePaths)
-                {
-                    writer.WriteLine($@" * `{path}`");
-                }
+                WritePaths(writer, tool.WindowsExePaths);
             }
 
             if (tool.OsxExePaths.Any())
@@ -90,14 +83,7 @@ public class DiffToolsTest :
 ");
                 writer.WriteLine($@"
 **Example arguments:** `{tool.BuildOsxArguments!("tempFile", "targetFile")}`");
-
-                writer.WriteLine(@"
-**Scanned paths:**
-");
-                foreach (var path in tool.OsxExePaths)
-                {
-                    writer.WriteLine($@" * `{path}`");
-                }
+                WritePaths(writer, tool.OsxExePaths);
             }
 
             if (tool.LinuxExePaths.Any())
@@ -108,14 +94,27 @@ public class DiffToolsTest :
                 writer.WriteLine($@"
 **Example arguments:** `{tool.BuildLinuxArguments!("tempFile", "targetFile")}`");
 
-                writer.WriteLine(@"
+                WritePaths(writer, tool.LinuxExePaths);
+            }
+        }
+    }
+
+    static void WritePaths(StreamWriter writer, string[] paths)
+    {
+        if (paths.Length > 1)
+        {
+            writer.WriteLine(@"
 **Scanned paths:**
 ");
-                foreach (var path in tool.LinuxExePaths)
-                {
-                    writer.WriteLine($@" * `{path}`");
-                }
+            foreach (var path in paths)
+            {
+                writer.WriteLine($@" * `{path}`");
             }
+        }
+        else
+        {
+            writer.WriteLine($@"
+**Scanned paths:** `{paths.Single()}`");
         }
     }
 

@@ -55,7 +55,7 @@ public class DiffToolsTest :
 
             if (tool.BinaryExtensions.Any())
             {
-                writer.WriteLine(@" * Supported binary extensions: " + string.Join(", ", tool.BinaryExtensions));
+                writer.WriteLine(@" * Supported binaries: " + string.Join(", ", tool.BinaryExtensions));
             }
 
             if (tool.Notes != null)

@@ -4,7 +4,7 @@
   * Is MDI: True
   * Supports auto-refresh: True
   * Supports text files: True
- * Supported binary extensions: bmp, dib, emf, gif, jif, j2c, j2k, jp2, jpc, jpeg, jpg, jpx, pbm, pcx, pgm, png, ppm, ras, tif, tiff, tga, wmf
+ * Supported binaries: bmp, dib, emf, gif, jif, j2c, j2k, jp2, jpc, jpeg, jpg, jpx, pbm, pcx, pgm, png, ppm, ras, tif, tiff, tga, wmf
 
 ### Notes:
 
@@ -37,7 +37,7 @@
   * Is MDI: False
   * Supports auto-refresh: True
   * Supports text files: True
- * Supported binary extensions: mp3, xls, xlsm, xlsx, doc, docm, docx, dot, dotm, dotx, pdf, bmp, gif, ico, jpg, jpeg, png, tif, tiff, rtf
+ * Supported binaries: mp3, xls, xlsm, xlsx, doc, docm, docx, dot, dotm, dotx, pdf, bmp, gif, ico, jpg, jpeg, png, tif, tiff, rtf
 
 ### Notes:
 
@@ -130,7 +130,7 @@
   * Is MDI: False
   * Supports auto-refresh: False
   * Supports text files: True
- * Supported binary extensions: bmp, gif, ico, jpg, jpeg, png, tiff, tif
+ * Supported binaries: bmp, gif, ico, jpg, jpeg, png, tiff, tif
 
 ### OSX settings:
 
@@ -203,7 +203,7 @@
   * Is MDI: False
   * Supports auto-refresh: False
   * Supports text files: True
- * Supported binary extensions: bmp, gif, jpg, jpeg, png, pbm, pgm, ppm, tif, tiff, xbm, xpm
+ * Supported binaries: bmp, gif, jpg, jpeg, png, pbm, pgm, ppm, tif, tiff, xbm, xpm
 
 ### Windows settings:
 
@@ -324,7 +324,7 @@
   * Is MDI: False
   * Supports auto-refresh: False
   * Supports text files: False
- * Supported binary extensions: bmp, gif, ico, jpg, jpeg, png, tif, tiff
+ * Supported binaries: bmp, gif, ico, jpg, jpeg, png, tif, tiff
 
 ### Windows settings:
 

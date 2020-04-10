@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -150,15 +149,6 @@ public class DiffToolsTest :
     //            Path.Combine(SourceDirectory, "input.file2.txt"));
     //    }
     //}
-
-    [Fact]
-    public void ExtensionLookup()
-    {
-        foreach (var tool in DiffTools.ExtensionLookup)
-        {
-            Debug.WriteLine($"{tool.Key}: {tool.Value.Tool}");
-        }
-    }
 
 #if DEBUG
     [Fact]

@@ -30,8 +30,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullOrEmpty<T>(T[] value, string argumentName)
-        where T : class
+    public static void AgainstNullOrEmpty(object[] value, string argumentName)
     {
         if (value == null)
         {
@@ -49,6 +48,18 @@ static class Guard
         }
     }
 
+    public static void AgainstNullOrEmpty<T>(T[] value, string argumentName)
+    {
+        if (value == null)
+        {
+            throw new ArgumentNullException(argumentName);
+        }
+
+        if (value.Length == 0)
+        {
+            throw new ArgumentNullException(argumentName, "Argument cannot be empty.");
+        }
+    }
     public static void AgainstBadExtension(string value, string argumentName)
     {
         AgainstNullOrEmpty(value, argumentName);

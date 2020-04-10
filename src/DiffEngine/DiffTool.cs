@@ -2,22 +2,22 @@ namespace DiffEngine
 {
     public enum DiffTool
     {
+        BeyondCompare,
+        P4Merge,
+        AraxisMerge,
+        Meld,
+        SublimeMerge,
+        Kaleidoscope,
+        CodeCompare,
+        WinMerge,
+        DiffMerge,
+        TortoiseMerge,
+        TortoiseGitMerge,
+        TortoiseIDiff,
+        KDiff3,
+        TkDiff,
         VisualStudio,
         VisualStudioCode,
-        TkDiff,
-        KDiff3,
-        TortoiseIDiff,
-        TortoiseGitMerge,
-        TortoiseMerge,
-        DiffMerge,
-        WinMerge,
-        CodeCompare,
-        Kaleidoscope,
-        SublimeMerge,
-        Meld,
-        AraxisMerge,
-        P4Merge,
-        BeyondCompare,
         Rider
     }
 }

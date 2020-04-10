@@ -31,6 +31,20 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ## Custom order
 
-Set an `Verify.DiffToolOrder` with the preferred order of diff tool resolution. The value can be comma (`,`), pipe (`|`), or space separated.
+
+### ViaEnvironment Variable
+
+Set an `Verify.DiffToolOrder` envrironment variable with the preferred order of diff tool resolution. The value can be comma (`,`), pipe (`|`), or space separated.
 
 For example `VisualStudio,Meld` will result in VisualStudio then Meld then all other tools being the order.
+
+
+### Via Code
+
+<!-- snippet: UseOrder -->
+<a id='snippet-useorder'/></a>
+```cs
+DiffTools.UseOrder(DiffTool.VisualStudio, DiffTool.AraxisMerge);
+```
+<sup><a href='/src/DiffEngine.ToolOrder.Tests/Tests.cs#L14-L16' title='File snippet `useorder` was extracted from'>snippet source</a> | <a href='#snippet-useorder' title='Navigate to start of snippet `useorder`'>anchor</a></sup>
+<!-- endsnippet -->

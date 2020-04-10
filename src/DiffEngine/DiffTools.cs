@@ -64,7 +64,43 @@ namespace DiffEngine
 
         static DiffTools()
         {
-            foreach (var tool in ReadMachineTools())
+            var diffOrder = Environment.GetEnvironmentVariable("Verify.DiffToolOrder");
+            IEnumerable<DiffTool> order;
+            bool throwForNoTool;
+            if (string.IsNullOrWhiteSpace(diffOrder))
+            {
+                throwForNoTool = false;
+                order = Enum.GetValues(typeof(DiffTool)).Cast<DiffTool>();
+            }
+            else
+            {
+                throwForNoTool = true;
+                order = ParseEnvironmentVariable(diffOrder);
+            }
+
+            var tools = ToolsByOrder(throwForNoTool, order);
+
+            InitLookups(tools);
+        }
+
+        public static void UseOrder(params DiffTool[] order)
+        {
+            UseOrder(false, order);
+        }
+
+        public static void UseOrder(bool throwForNoTool, params DiffTool[] order)
+        {
+            Guard.AgainstNullOrEmpty(order, nameof(order));
+            var tools = ToolsByOrder(throwForNoTool, order);
+            ExtensionLookup.Clear();
+            ResolvedDiffTools.Clear();
+            TextDiffTools.Clear();
+            InitLookups(tools);
+        }
+
+        static void InitLookups(IEnumerable<ToolDefinition> tools)
+        {
+            foreach (var tool in tools)
             {
                 var diffTool = new ResolvedDiffTool(
                     tool.Name,
@@ -90,18 +126,6 @@ namespace DiffEngine
             }
         }
 
-        internal static IEnumerable<ToolDefinition> ReadMachineTools()
-        {
-            var allTool = Tools().Where(x => x.Exists).ToList();
-            var diffOrder = Environment.GetEnvironmentVariable("Verify.DiffToolOrder");
-            if (string.IsNullOrWhiteSpace(diffOrder))
-            {
-                return allTool;
-            }
-
-            return ToolsOrderedByEnvironmentVariable(diffOrder, allTool);
-        }
-
         internal static IEnumerable<DiffTool> ParseEnvironmentVariable(string diffOrder)
         {
             foreach (var toolString in diffOrder
@@ -116,15 +140,19 @@ namespace DiffEngine
             }
         }
 
-        internal static IEnumerable<ToolDefinition> ToolsOrderedByEnvironmentVariable(
-            string diffOrder,
-            List<ToolDefinition> allTools)
+        static IEnumerable<ToolDefinition> ToolsByOrder(bool throwForNoTool, IEnumerable<DiffTool> order)
         {
-            foreach (var diffTool in ParseEnvironmentVariable(diffOrder))
+            var allTools = Tools().Where(x => x.Exists).ToList();
+            foreach (var diffTool in order)
             {
                 var definition = allTools.SingleOrDefault(x => x.Name == diffTool);
                 if (definition == null)
                 {
+                    if (!throwForNoTool)
+                    {
+                        continue;
+                    }
+
                     throw new Exception($"`Verify.DiffToolOrder` is configured to use '{diffTool}' but it is not installed.");
                 }
 

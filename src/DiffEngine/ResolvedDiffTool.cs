@@ -17,7 +17,8 @@ class ResolvedDiffTool
         return $"\"{ExePath}\" {BuildArguments(tempFile, targetFile)}";
     }
 
-    public ResolvedDiffTool(DiffTool name,
+    public ResolvedDiffTool(
+        DiffTool name,
         string exePath,
         Func<string, string, string> buildArguments,
         bool isMdi,

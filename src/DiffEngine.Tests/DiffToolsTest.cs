@@ -156,7 +156,7 @@ public class DiffToolsTest :
     {
         foreach (var tool in DiffTools.ExtensionLookup)
         {
-            Debug.WriteLine($"{tool.Key}: {tool.Value.Name}");
+            Debug.WriteLine($"{tool.Key}: {tool.Value.Tool}");
         }
     }
 

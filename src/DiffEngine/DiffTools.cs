@@ -132,11 +132,11 @@ namespace DiffEngine
         {
             if (Extensions.IsText(extension))
             {
-                resolvedTool = TextDiffTools.FirstOrDefault(x => x.Name == tool);
+                resolvedTool = TextDiffTools.FirstOrDefault(x => x.Tool == tool);
                 return resolvedTool != null;
             }
 
-            resolvedTool = ResolvedDiffTools.SingleOrDefault(x => x.Name == tool);
+            resolvedTool = ResolvedDiffTools.SingleOrDefault(x => x.Tool == tool);
             if (resolvedTool == null)
             {
                 return false;
@@ -156,10 +156,10 @@ namespace DiffEngine
             var extension = Extensions.GetExtension(extensionOrPath);
             if (Extensions.IsText(extension))
             {
-                return TextDiffTools.Any(x => x.Name == diffTool);
+                return TextDiffTools.Any(x => x.Tool == diffTool);
             }
 
-            var tool = ResolvedDiffTools.SingleOrDefault(_ => _.Name == diffTool);
+            var tool = ResolvedDiffTools.SingleOrDefault(_ => _.Tool == diffTool);
             if (tool == null)
             {
                 return false;

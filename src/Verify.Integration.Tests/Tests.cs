@@ -18,13 +18,13 @@ public partial class Tests :
     VerifyBase
 {
     static ResolvedDiffTool tool;
+    static string diffToolPath = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
 
     static Tests()
     {
         BuildServerDetector.Detected = false;
-        var diffToolPath = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
         tool = new ResolvedDiffTool(
-            name: DiffTool.VisualStudio,
+            tool: DiffTool.VisualStudio,
             exePath: diffToolPath,
             buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             isMdi: false,
@@ -80,7 +80,7 @@ public partial class Tests :
     {
         foreach (var pair in pairs)
         {
-            var command = tool.BuildCommand(pair.Received,pair.Verified);
+            var command = BuildCommand(pair);
             if (isRunning == ProcessCleanup.IsRunning(command))
             {
                 continue;
@@ -102,6 +102,11 @@ public partial class Tests :
 Commands:
 {commands}");
         }
+    }
+
+    static string BuildCommand(FilePair pair)
+    {
+        return $"\"{diffToolPath}\" \"{pair.Received}\" \"{pair.Verified}\"";
     }
 
     static void RunClipboardCommand()

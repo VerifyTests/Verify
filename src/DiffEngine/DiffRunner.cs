@@ -12,7 +12,6 @@ namespace DiffEngine
     {
         static uint maxInstancesToLaunch = 5;
         static uint launchedInstances;
-
         public static void MaxInstancesToLaunch(uint value)
         {
             maxInstancesToLaunch = value;

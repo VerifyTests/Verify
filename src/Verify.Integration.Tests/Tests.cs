@@ -17,35 +17,19 @@ using Xunit.Sdk;
 public partial class Tests :
     VerifyBase
 {
-    static ResolvedDiffTool tool;
     static string diffToolPath = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
 
     static Tests()
     {
         BuildServerDetector.Detected = false;
-        tool = new ResolvedDiffTool(
-            tool: DiffTool.VisualStudio,
-            exePath: diffToolPath,
-            buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
-            isMdi: false,
+        DiffTools.AddCustomTool(
             supportsAutoRefresh: true,
+            isMdi: false,
+            supportsText: true,
             requiresTarget: true,
-            binaryExtensions: new string[]{});
-
-        DiffTools.ResolvedDiffTools = new List<ResolvedDiffTool>
-        {
-            tool
-        };
-        DiffTools.TextDiffTools = new List<ResolvedDiffTool>
-        {
-            tool
-        };
-
-        DiffTools.ExtensionLookup = new Dictionary<string, ResolvedDiffTool>
-        {
-            {"txt", tool},
-            {"knownBin", tool},
-        };
+            buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+            exePath: diffToolPath,
+            binaryExtensions: new[] {"knownBin"});
         var binPath = AllFiles.Files["jpg"];
         var newPath = Path.ChangeExtension(binPath.Path, "knownBin");
         File.Copy(binPath.Path, newPath, true);

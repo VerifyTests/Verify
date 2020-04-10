@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using DiffEngine;
 using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
@@ -9,6 +10,20 @@ using Xunit.Abstractions;
 public class Snippets:
     VerifyBase
 {
+    void AddCustomTool(string diffToolPath)
+    {
+        #region AddCustomTool
+        DiffTools.AddCustomTool(
+            supportsAutoRefresh: true,
+            isMdi: false,
+            supportsText: true,
+            requiresTarget: true,
+            buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+            exePath: diffToolPath,
+            binaryExtensions: new[] {"jpg"});
+        #endregion
+    }
+
     #region OnHandlers
     public async Task OnHandlersSample()
     {

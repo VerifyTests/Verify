@@ -4,7 +4,7 @@ using DiffEngine;
 
 class ResolvedDiffTool
 {
-    public DiffTool Tool { get; }
+    public DiffTool? Tool { get; }
     public string ExePath { get; }
     public Func<string, string, string> BuildArguments { get; }
     public bool IsMdi { get; }
@@ -18,7 +18,7 @@ class ResolvedDiffTool
     }
 
     public ResolvedDiffTool(
-        DiffTool tool,
+        DiffTool? tool,
         string exePath,
         Func<string, string, string> buildArguments,
         bool isMdi,

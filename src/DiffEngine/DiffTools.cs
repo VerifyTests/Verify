@@ -12,6 +12,32 @@ namespace DiffEngine
         internal static List<ResolvedDiffTool> ResolvedDiffTools = new List<ResolvedDiffTool>();
         internal static List<ResolvedDiffTool> TextDiffTools = new List<ResolvedDiffTool>();
 
+        public static void AddCustomTool(
+            bool supportsAutoRefresh,
+            bool isMdi,
+            bool supportsText,
+            bool requiresTarget,
+            Func<string, string, string> buildArguments,
+            string exePath,
+            string[] binaryExtensions)
+        {
+            Guard.AgainstNull(binaryExtensions, nameof(binaryExtensions));
+            Guard.AgainstNull(buildArguments, nameof(buildArguments));
+            Guard.FileExists(exePath, nameof(exePath));
+            var tool = new ResolvedDiffTool(null, exePath, buildArguments, isMdi, supportsAutoRefresh, binaryExtensions, requiresTarget);
+            if (supportsText)
+            {
+                TextDiffTools.Insert(0, tool);
+            }
+
+            ResolvedDiffTools.Insert(0, tool);
+            foreach (var extension in binaryExtensions)
+            {
+                var cleanedExtension = Extensions.GetExtension(extension);
+                ExtensionLookup[cleanedExtension] = tool;
+            }
+        }
+
         internal static List<ToolDefinition> Tools()
         {
             return new List<ToolDefinition>

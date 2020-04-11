@@ -1,5 +1,7 @@
-﻿using Verify;
+﻿using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
+using Xunit;
 using Xunit.Abstractions;
 
 public class SerializationTests :
@@ -30,6 +32,24 @@ public class SerializationTests :
     {
         #region DontIgnoreFalse
         SharedVerifySettings.ModifySerialization(_ => _.DontIgnoreFalse());
+        #endregion
+    }
+
+    [Fact]
+    public Task NewLineEscapedInProperty()
+    {
+        #region NewLineEscapedInProperty
+        return Verify(new {Property ="a\r\nb"});
+        #endregion
+    }
+
+    [Fact]
+    public async Task NewLineNotEscapedInProperty()
+    {
+        #region DisableNewLineEscaping
+        var settings = new VerifySettings();
+        settings.DisableNewLineEscaping();
+        await Verify(new {Property = "a\r\nb"}, settings);
         #endregion
     }
 

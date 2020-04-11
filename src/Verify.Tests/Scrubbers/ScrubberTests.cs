@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
@@ -47,6 +48,12 @@ public class ScrubberTests :
         verifySettings.AddScrubber(fullText => fullText.Substring(0, 100));
 
         #endregion
+    }
+
+    [Fact]
+    public Task ScrubTempPath()
+    {
+        return Verify(Path.GetTempPath().TrimEnd('/', '\\'));
     }
 
     [Fact]

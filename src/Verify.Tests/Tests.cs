@@ -80,30 +80,6 @@ public class Tests :
     }
 
     [Fact]
-    public Task ScrubTempPath()
-    {
-        return Verify(Path.GetTempPath().TrimEnd('/', '\\'));
-    }
-
-    [Fact]
-    public Task NewLineEscapedInProperty()
-    {
-        #region NewLineEscapedInProperty
-        return Verify(new {Property ="a\r\nb"});
-        #endregion
-    }
-
-    [Fact]
-    public async Task NewLineNotEscapedInProperty()
-    {
-        #region DisableNewLineEscaping
-        var settings = new VerifySettings();
-        settings.DisableNewLineEscaping();
-        await Verify(new {Property = "a\r\nb"}, settings);
-        #endregion
-    }
-
-    [Fact]
     public async Task ShouldReUseGuid()
     {
         #region guid

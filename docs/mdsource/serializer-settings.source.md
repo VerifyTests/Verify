@@ -195,10 +195,10 @@ By default newlines in json are escaped with `\r\n`:
 
 snippet: NewLineEscapedInProperty
 
-snippet: Tests.NewLineEscapedInProperty.verified.txt
+snippet: SerializationTests.NewLineEscapedInProperty.verified.txt
 
 This can be disabled:
 
 snippet: DisableNewLineEscaping
 
-snippet: Tests.NewLineNotEscapedInProperty.verified.txt
+snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt

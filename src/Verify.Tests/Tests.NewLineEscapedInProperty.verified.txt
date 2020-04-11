@@ -1,3 +1,0 @@
-{
-  Property: 'a\r\nb'
-}

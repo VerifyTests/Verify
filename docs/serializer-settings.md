@@ -308,8 +308,8 @@ await Verify(target, settings);
 
 Result:
 
-<!-- snippet: Tests.IgnoreType.verified.txt -->
-<a id='snippet-Tests.IgnoreType.verified.txt'/></a>
+<!-- snippet: SerializationTests.IgnoreType.verified.txt -->
+<a id='snippet-SerializationTests.IgnoreType.verified.txt'/></a>
 ```txt
 {
   ToInclude: {
@@ -317,7 +317,7 @@ Result:
   }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.IgnoreType.verified.txt#L1-L5' title='File snippet `Tests.IgnoreType.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.IgnoreType.verified.txt' title='Navigate to start of snippet `Tests.IgnoreType.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreType.verified.txt#L1-L5' title='File snippet `SerializationTests.IgnoreType.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreType.verified.txt' title='Navigate to start of snippet `SerializationTests.IgnoreType.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -350,8 +350,8 @@ await Verify(target, settings);
 
 Result:
 
-<!-- snippet: Tests.AddIgnoreInstance.verified.txt -->
-<a id='snippet-Tests.AddIgnoreInstance.verified.txt'/></a>
+<!-- snippet: SerializationTests.AddIgnoreInstance.verified.txt -->
+<a id='snippet-SerializationTests.AddIgnoreInstance.verified.txt'/></a>
 ```txt
 {
   ToInclude: {
@@ -359,7 +359,7 @@ Result:
   }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.AddIgnoreInstance.verified.txt#L1-L5' title='File snippet `Tests.AddIgnoreInstance.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.AddIgnoreInstance.verified.txt' title='Navigate to start of snippet `Tests.AddIgnoreInstance.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.AddIgnoreInstance.verified.txt#L1-L5' title='File snippet `SerializationTests.AddIgnoreInstance.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.AddIgnoreInstance.verified.txt' title='Navigate to start of snippet `SerializationTests.AddIgnoreInstance.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -392,14 +392,14 @@ public Task WithObsoleteProp()
 
 Result:
 
-<!-- snippet: Tests.WithObsoleteProp.verified.txt -->
-<a id='snippet-Tests.WithObsoleteProp.verified.txt'/></a>
+<!-- snippet: SerializationTests.WithObsoleteProp.verified.txt -->
+<a id='snippet-SerializationTests.WithObsoleteProp.verified.txt'/></a>
 ```txt
 {
   OtherProperty: 'value2'
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.WithObsoleteProp.verified.txt#L1-L3' title='File snippet `Tests.WithObsoleteProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.WithObsoleteProp.verified.txt' title='Navigate to start of snippet `Tests.WithObsoleteProp.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoleteProp.verified.txt#L1-L3' title='File snippet `SerializationTests.WithObsoleteProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.WithObsoleteProp.verified.txt' title='Navigate to start of snippet `SerializationTests.WithObsoleteProp.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -428,17 +428,16 @@ public Task WithObsoletePropIncluded()
 
 Result:
 
-<!-- snippet: Tests.WithObsoletePropIncluded.verified.txt -->
-<a id='snippet-Tests.WithObsoletePropIncluded.verified.txt'/></a>
+<!-- snippet: SerializationTests.WithObsoletePropIncluded.verified.txt -->
+<a id='snippet-SerializationTests.WithObsoletePropIncluded.verified.txt'/></a>
 ```txt
 {
   ObsoleteProperty: 'value1',
   OtherProperty: 'value2'
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.WithObsoletePropIncluded.verified.txt#L1-L4' title='File snippet `Tests.WithObsoletePropIncluded.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.WithObsoletePropIncluded.verified.txt' title='Navigate to start of snippet `Tests.WithObsoletePropIncluded.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoletePropIncluded.verified.txt#L1-L4' title='File snippet `SerializationTests.WithObsoletePropIncluded.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.WithObsoletePropIncluded.verified.txt' title='Navigate to start of snippet `SerializationTests.WithObsoletePropIncluded.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
-
 
 
 ## Ignore member by expressions
@@ -470,14 +469,14 @@ await Verify(target, settings);
 
 Result:
 
-<!-- snippet: Tests.IgnoreMemberByExpression.verified.txt -->
-<a id='snippet-Tests.IgnoreMemberByExpression.verified.txt'/></a>
+<!-- snippet: SerializationTests.IgnoreMemberByExpression.verified.txt -->
+<a id='snippet-SerializationTests.IgnoreMemberByExpression.verified.txt'/></a>
 ```txt
 {
   Include: 'Value'
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.IgnoreMemberByExpression.verified.txt#L1-L3' title='File snippet `Tests.IgnoreMemberByExpression.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.IgnoreMemberByExpression.verified.txt' title='Navigate to start of snippet `Tests.IgnoreMemberByExpression.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByExpression.verified.txt#L1-L3' title='File snippet `SerializationTests.IgnoreMemberByExpression.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByExpression.verified.txt' title='Navigate to start of snippet `SerializationTests.IgnoreMemberByExpression.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -513,14 +512,14 @@ await Verify(target, settings);
 
 Result:
 
-<!-- snippet: Tests.IgnoreMemberByName.verified.txt -->
-<a id='snippet-Tests.IgnoreMemberByName.verified.txt'/></a>
+<!-- snippet: SerializationTests.IgnoreMemberByName.verified.txt -->
+<a id='snippet-SerializationTests.IgnoreMemberByName.verified.txt'/></a>
 ```txt
 {
   Include: 'Value'
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.IgnoreMemberByName.verified.txt#L1-L3' title='File snippet `Tests.IgnoreMemberByName.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.IgnoreMemberByName.verified.txt' title='Navigate to start of snippet `Tests.IgnoreMemberByName.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L3' title='File snippet `SerializationTests.IgnoreMemberByName.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByName.verified.txt' title='Navigate to start of snippet `SerializationTests.IgnoreMemberByName.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -548,12 +547,12 @@ await Verify(target, settings);
 
 Result:
 
-<!-- snippet: Tests.CustomExceptionProp.verified.txt -->
-<a id='snippet-Tests.CustomExceptionProp.verified.txt'/></a>
+<!-- snippet: SerializationTests.CustomExceptionProp.verified.txt -->
+<a id='snippet-SerializationTests.CustomExceptionProp.verified.txt'/></a>
 ```txt
 {}
 ```
-<sup><a href='/src/Verify.Tests/Tests.CustomExceptionProp.verified.txt#L1-L1' title='File snippet `Tests.CustomExceptionProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.CustomExceptionProp.verified.txt' title='Navigate to start of snippet `Tests.CustomExceptionProp.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.CustomExceptionProp.verified.txt#L1-L1' title='File snippet `SerializationTests.CustomExceptionProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.CustomExceptionProp.verified.txt' title='Navigate to start of snippet `SerializationTests.CustomExceptionProp.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Ignore by exception type and expression:
@@ -573,12 +572,12 @@ await Verify(target, settings);
 
 Result:
 
-<!-- snippet: Tests.ExceptionMessageProp.verified.txt -->
-<a id='snippet-Tests.ExceptionMessageProp.verified.txt'/></a>
+<!-- snippet: SerializationTests.ExceptionMessageProp.verified.txt -->
+<a id='snippet-SerializationTests.ExceptionMessageProp.verified.txt'/></a>
 ```txt
 {}
 ```
-<sup><a href='/src/Verify.Tests/Tests.ExceptionMessageProp.verified.txt#L1-L1' title='File snippet `Tests.ExceptionMessageProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.ExceptionMessageProp.verified.txt' title='Navigate to start of snippet `Tests.ExceptionMessageProp.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ExceptionMessageProp.verified.txt#L1-L1' title='File snippet `SerializationTests.ExceptionMessageProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.ExceptionMessageProp.verified.txt' title='Navigate to start of snippet `SerializationTests.ExceptionMessageProp.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

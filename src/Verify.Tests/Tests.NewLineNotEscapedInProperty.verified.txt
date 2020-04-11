@@ -1,4 +1,0 @@
-{
-  Property: 'a
-b'
-}

@@ -105,7 +105,7 @@ snippet: AddIgnoreType
 
 Result:
 
-snippet: Tests.IgnoreType.verified.txt
+snippet: SerializationTests.IgnoreType.verified.txt
 
 
 ## Ignoring a instance
@@ -116,7 +116,7 @@ snippet: AddIgnoreInstance
 
 Result:
 
-snippet: Tests.AddIgnoreInstance.verified.txt
+snippet: SerializationTests.AddIgnoreInstance.verified.txt
 
 
 ## Obsolete members ignored
@@ -127,7 +127,7 @@ snippet: WithObsoleteProp
 
 Result:
 
-snippet: Tests.WithObsoleteProp.verified.txt
+snippet: SerializationTests.WithObsoleteProp.verified.txt
 
 
 ### Including Obsolete members
@@ -138,8 +138,7 @@ snippet: WithObsoletePropIncluded
 
 Result:
 
-snippet: Tests.WithObsoletePropIncluded.verified.txt
-
+snippet: SerializationTests.WithObsoletePropIncluded.verified.txt
 
 
 ## Ignore member by expressions
@@ -150,7 +149,7 @@ snippet: IgnoreMemberByExpression
 
 Result:
 
-snippet: Tests.IgnoreMemberByExpression.verified.txt
+snippet: SerializationTests.IgnoreMemberByExpression.verified.txt
 
 
 ## Ignore member by name
@@ -161,7 +160,7 @@ snippet: IgnoreMemberByName
 
 Result:
 
-snippet: Tests.IgnoreMemberByName.verified.txt
+snippet: SerializationTests.IgnoreMemberByName.verified.txt
 
 
 ## Members that throw
@@ -178,7 +177,7 @@ snippet: IgnoreMembersThatThrow
 
 Result:
 
-snippet: Tests.CustomExceptionProp.verified.txt
+snippet: SerializationTests.CustomExceptionProp.verified.txt
 
 Ignore by exception type and expression:
 
@@ -186,7 +185,7 @@ snippet: IgnoreMembersThatThrowExpression
 
 Result:
 
-snippet: Tests.ExceptionMessageProp.verified.txt
+snippet: SerializationTests.ExceptionMessageProp.verified.txt
 
 
 ## DisableNewLineEscaping

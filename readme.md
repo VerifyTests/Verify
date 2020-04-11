@@ -42,10 +42,10 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)
-  * [Diff Tool](/docs/diff-tool.md)
-  * [Diff Tool Order](/docs/diff-tool.order.md)
-  * [Diff Engine](/docs/diff-engine.md)
-  * [Custom Diff Tool](/docs/diff-tool.custom.md)
+  * [Diff Engine](https://github.com/SimonCropp/DiffEngine)
+  * [Diff Tools](https://github.com/SimonCropp/DiffEngine/blob/master/docs/diff-tool.md)
+  * [Diff Tool Order](https://github.com/SimonCropp/DiffEngine/blob/master/docs/diff-tool.order.md)
+  * [Custom Diff Tool](https://github.com/SimonCropp/DiffEngine/blob/master/docs/diff-tool.custom.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
   * [Comparers](/docs/comparer.md)
@@ -455,7 +455,7 @@ The clipboard behavior can be disable using the following:
 var settings = new VerifySettings();
 settings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L50-L55' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L36-L41' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -473,7 +473,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L60-L65' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L46-L51' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -507,7 +507,7 @@ public async Task OnHandlersSample()
     await Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L27-L46' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L13-L32' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

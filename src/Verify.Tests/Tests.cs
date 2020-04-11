@@ -79,16 +79,6 @@ public class Tests :
 
 
     [Fact]
-    public void MaxInstancesToLaunch()
-    {
-        #region MaxInstancesToLaunch
-
-        DiffRunner.MaxInstancesToLaunch(10);
-
-        #endregion
-    }
-
-    [Fact]
     public async Task SettingsArePassed()
     {
         VerifySettings? fromGlobal = null;

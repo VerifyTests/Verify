@@ -241,7 +241,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L80-L89' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L66-L75' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

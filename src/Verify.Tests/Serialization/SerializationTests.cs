@@ -720,7 +720,7 @@ public class SerializationTests :
 
 #endif
 
-    public void ScopedSerializer()
+    void ScopedSerializer()
     {
         #region ScopedSerializer
 

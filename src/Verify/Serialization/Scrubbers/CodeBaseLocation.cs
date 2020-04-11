@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 static class CodeBaseLocation
 {
@@ -6,11 +7,8 @@ static class CodeBaseLocation
     {
         var assembly = typeof(CodeBaseLocation).Assembly;
 
-        var path = assembly.CodeBase
-            .Replace("file:///", "")
-            .Replace("file://", "")
-            .Replace(@"file:\\\", "")
-            .Replace(@"file:\\", "");
+        var uri = new UriBuilder(assembly.CodeBase);
+        var path = Uri.UnescapeDataString(uri.Path);
 
         CurrentDirectory = Path.GetDirectoryName(path);
     }

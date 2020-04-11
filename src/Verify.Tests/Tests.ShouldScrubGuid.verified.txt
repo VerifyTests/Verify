@@ -1,5 +1,0 @@
-{
-  Guid: Guid_1,
-  GuidNullable: Guid_2,
-  GuidString: Guid_3
-}

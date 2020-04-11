@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using DiffEngine;
 using Newtonsoft.Json;
@@ -121,26 +120,10 @@ public class Tests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verify(new MemoryStream(new byte[]{1}), settings);
+        await Verify(new MemoryStream(new byte[] {1}), settings);
         Assert.Same(fromGlobal, settings);
     }
 
-    [Fact]
-    public async Task ShouldUseShortTypeName()
-    {
-        #region type
-
-        var foo = new {x = 1};
-        var target = new TypeTarget
-        {
-            Type = GetType(),
-            Dynamic = foo.GetType(),
-        };
-
-        await Verify(target);
-
-        #endregion
-    }
 #if(!NETSTANDARD2_0)
     [Fact]
     public async Task NamedTuple()
@@ -695,12 +678,6 @@ public class Tests :
         public Guid? GuidNullable;
         public string GuidString;
         public Guid OtherGuid;
-    }
-
-    public class TypeTarget
-    {
-        public Type Type;
-        public Type Dynamic;
     }
 
     [Fact]

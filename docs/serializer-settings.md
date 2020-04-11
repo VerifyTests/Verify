@@ -97,7 +97,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L85-L98' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L84-L97' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -147,7 +147,7 @@ var target = new DateTimeTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L709-L725' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L686-L702' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -303,7 +303,7 @@ var target = new IgnoreTypeTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L216-L234' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L199-L217' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -345,7 +345,7 @@ var target = new IgnoreInstanceTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L180-L199' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L163-L182' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -387,7 +387,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L455-L474' title='File snippet `withobsoleteprop` was extracted from'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Navigate to start of snippet `withobsoleteprop`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L438-L457' title='File snippet `withobsoleteprop` was extracted from'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Navigate to start of snippet `withobsoleteprop`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -423,7 +423,7 @@ public Task WithObsoletePropIncluded()
     return Verify(target, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L476-L491' title='File snippet `withobsoletepropincluded` was extracted from'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Navigate to start of snippet `withobsoletepropincluded`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L459-L474' title='File snippet `withobsoletepropincluded` was extracted from'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Navigate to start of snippet `withobsoletepropincluded`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -465,7 +465,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L256-L275' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L239-L258' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -508,7 +508,7 @@ var target = new IgnoreExplicitTarget
 };
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L281-L303' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L264-L286' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -543,7 +543,7 @@ settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 var target = new WithCustomException();
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L331-L339' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L314-L322' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -568,7 +568,7 @@ settings.ModifySerialization(
 var target = new WithExceptionIgnoreMessage();
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L396-L405' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L379-L388' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:

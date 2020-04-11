@@ -6,6 +6,9 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
+// Non-nullable field is uninitialized.
+#pragma warning disable CS8618
+
 public class ScrubberTests :
     VerifyBase
 {
@@ -73,6 +76,30 @@ public class ScrubberTests :
     {
         return Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
     }
+
+    public class TypeTarget
+    {
+        public Type Type;
+        public Type Dynamic;
+    }
+
+    [Fact]
+    public async Task ShouldUseShortTypeName()
+    {
+        #region type
+
+        var foo = new {x = 1};
+        var target = new TypeTarget
+        {
+            Type = GetType(),
+            Dynamic = foo.GetType(),
+        };
+
+        await Verify(target);
+
+        #endregion
+    }
+
     public ScrubberTests(ITestOutputHelper output) :
         base(output)
     {

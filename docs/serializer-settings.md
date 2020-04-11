@@ -262,7 +262,7 @@ settings.ModifySerialization(
 settings.AddExtraSettings(
     _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L94-L108' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L725-L739' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:

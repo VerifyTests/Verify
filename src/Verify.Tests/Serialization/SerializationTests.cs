@@ -719,6 +719,26 @@ public class SerializationTests :
     }
 
 #endif
+
+    public void ScopedSerializer()
+    {
+        #region ScopedSerializer
+
+        var person = new Person
+        {
+            GivenNames = "John",
+            FamilyName = "Smith",
+            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+        };
+        var settings = new VerifySettings();
+        settings.ModifySerialization(
+            _ => _.DontScrubDateTimes());
+        settings.AddExtraSettings(
+            _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
+
+        #endregion
+    }
+
     public SerializationTests(ITestOutputHelper output) :
         base(output)
     {

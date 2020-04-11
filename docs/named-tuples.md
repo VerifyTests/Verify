@@ -21,7 +21,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     return (true, "A", "B");
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L138-L145' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L159-L166' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Can be verified:
@@ -31,13 +31,13 @@ Can be verified:
 ```cs
 await Verify(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L131-L135' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L152-L156' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Resulting in:
 
-<!-- snippet: Tests.NamedTuple.verified.txt -->
-<a id='snippet-Tests.NamedTuple.verified.txt'/></a>
+<!-- snippet: SerializationTests.NamedTuple.verified.txt -->
+<a id='snippet-SerializationTests.NamedTuple.verified.txt'/></a>
 ```txt
 {
   Member1: true,
@@ -45,5 +45,5 @@ Resulting in:
   Member3: 'B'
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.NamedTuple.verified.txt#L1-L5' title='File snippet `Tests.NamedTuple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.NamedTuple.verified.txt' title='Navigate to start of snippet `Tests.NamedTuple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NamedTuple.verified.txt#L1-L5' title='File snippet `SerializationTests.NamedTuple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NamedTuple.verified.txt' title='Navigate to start of snippet `SerializationTests.NamedTuple.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->

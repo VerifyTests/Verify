@@ -124,39 +124,6 @@ public class Tests :
         Assert.Same(fromGlobal, settings);
     }
 
-#if(!NETSTANDARD2_0)
-    [Fact]
-    public async Task NamedTuple()
-    {
-        #region VerifyTuple
-
-        await Verify(() => MethodWithNamedTuple());
-
-        #endregion
-    }
-
-    #region MethodWithNamedTuple
-
-    static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
-    {
-        return (true, "A", "B");
-    }
-
-    #endregion
-
-    [Fact]
-    public async Task Tuple()
-    {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(() => MethodWithTuple()));
-        await Verify(exception.Message);
-    }
-
-    static (bool, string, string) MethodWithTuple()
-    {
-        return (true, "A", "B");
-    }
-
-#endif
     [Fact]
     public async Task AddIgnoreInstance()
     {

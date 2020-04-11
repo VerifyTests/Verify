@@ -1,4 +1,0 @@
-{
-  Type: 'ScrubberTests',
-  Dynamic: 'dynamic'
-}

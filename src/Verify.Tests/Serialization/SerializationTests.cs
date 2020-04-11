@@ -2,7 +2,7 @@
 using VerifyXunit;
 using Xunit.Abstractions;
 
-public class SerializationSettingsSnippets :
+public class SerializationTests :
     VerifyBase
 {
     void DontIgnoreEmptyCollections()
@@ -33,7 +33,7 @@ public class SerializationSettingsSnippets :
         #endregion
     }
 
-    public SerializationSettingsSnippets(ITestOutputHelper output) :
+    public SerializationTests(ITestOutputHelper output) :
         base(output)
     {
     }

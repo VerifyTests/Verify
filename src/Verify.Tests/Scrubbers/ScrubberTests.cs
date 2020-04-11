@@ -1,7 +1,10 @@
 ﻿using System;
 using Verify;
+using VerifyXunit;
+using Xunit.Abstractions;
 
-public class ScrubbersSnippets
+public class ScrubberTests :
+    VerifyBase
 {
     void List()
     {
@@ -42,5 +45,9 @@ public class ScrubbersSnippets
         verifySettings.AddScrubber(fullText => fullText.Substring(0, 100));
 
         #endregion
+    }
+    public ScrubberTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

@@ -118,19 +118,6 @@ public class Tests :
     }
 
     [Fact]
-    public Task ExceptionProps()
-    {
-        try
-        {
-            throw new Exception();
-        }
-        catch (Exception exception)
-        {
-            return Verify(exception);
-        }
-    }
-
-    [Fact]
     public Task TaskResult()
     {
         var target = Task.FromResult("value");

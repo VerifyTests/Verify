@@ -30,7 +30,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L13-L17' title='File snippet `scrublines` was extracted from'>snippet source</a> | <a href='#snippet-scrublines' title='Navigate to start of snippet `scrublines`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L15-L19' title='File snippet `scrublines` was extracted from'>snippet source</a> | <a href='#snippet-scrublines' title='Navigate to start of snippet `scrublines`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -45,7 +45,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L19-L23' title='File snippet `scrublinescontaining` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Navigate to start of snippet `scrublinescontaining`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L21-L25' title='File snippet `scrublinescontaining` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Navigate to start of snippet `scrublinescontaining`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Case insensitive by default (StringComparison.OrdinalIgnoreCase).
@@ -57,7 +57,7 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L25-L29' title='File snippet `scrublinescontainingordinal` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Navigate to start of snippet `scrublinescontainingordinal`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L27-L31' title='File snippet `scrublinescontainingordinal` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Navigate to start of snippet `scrublinescontainingordinal`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -72,7 +72,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L31-L35' title='File snippet `scrublineswithreplace` was extracted from'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Navigate to start of snippet `scrublineswithreplace`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L33-L37' title='File snippet `scrublineswithreplace` was extracted from'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Navigate to start of snippet `scrublineswithreplace`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -85,7 +85,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L37-L41' title='File snippet `scrubmachinename` was extracted from'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Navigate to start of snippet `scrubmachinename`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Scrubbers/ScrubberTests.cs#L39-L43' title='File snippet `scrubmachinename` was extracted from'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Navigate to start of snippet `scrubmachinename`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

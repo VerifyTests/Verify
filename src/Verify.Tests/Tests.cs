@@ -24,12 +24,6 @@ public class Tests :
     }
 
     [Fact]
-    public Task ScrubCurrentDirectory()
-    {
-        return Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
-    }
-
-    [Fact]
     public async Task OnVerifyMismatch()
     {
         var settings = new VerifySettings();
@@ -89,18 +83,6 @@ public class Tests :
     public Task ScrubTempPath()
     {
         return Verify(Path.GetTempPath().TrimEnd('/', '\\'));
-    }
-
-    [Fact]
-    public Task ScrubCodeBaseLocation()
-    {
-        return Verify(CodeBaseLocation.CurrentDirectory.TrimEnd('/', '\\'));
-    }
-
-    [Fact]
-    public Task ScrubBaseDirectory()
-    {
-        return Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
     }
 
     [Fact]

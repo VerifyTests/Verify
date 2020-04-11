@@ -1,8 +1,0 @@
-{
-  DateTime: DateTime_1,
-  DateTimeNullable: DateTime_1,
-  DateTimeOffset: DateTimeOffset_1,
-  DateTimeOffsetNullable: DateTimeOffset_1,
-  DateTimeString: DateTimeOffset_2,
-  DateTimeOffsetString: DateTimeOffset_2
-}

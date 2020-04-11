@@ -43,7 +43,7 @@ snippet: guid
 
 Results in the following:
 
-snippet: Tests.ShouldReUseGuid.verified.txt
+snippet: SerializationTests.ShouldReUseGuid.verified.txt
 
 To disable this behavior globally use:
 
@@ -58,7 +58,7 @@ snippet: Date
 
 Results in the following:
 
-snippet: Tests.ShouldReUseDatetime.verified.txt
+snippet: SerializationTests.ShouldReUseDatetime.verified.txt
 
 To disable this behavior globally use:
 

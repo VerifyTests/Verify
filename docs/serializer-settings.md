@@ -102,8 +102,8 @@ await Verify(target);
 
 Results in the following:
 
-<!-- snippet: Tests.ShouldReUseGuid.verified.txt -->
-<a id='snippet-Tests.ShouldReUseGuid.verified.txt'/></a>
+<!-- snippet: SerializationTests.ShouldReUseGuid.verified.txt -->
+<a id='snippet-SerializationTests.ShouldReUseGuid.verified.txt'/></a>
 ```txt
 {
   Guid: Guid_1,
@@ -112,7 +112,7 @@ Results in the following:
   OtherGuid: Guid_2
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.ShouldReUseGuid.verified.txt#L1-L6' title='File snippet `Tests.ShouldReUseGuid.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.ShouldReUseGuid.verified.txt' title='Navigate to start of snippet `Tests.ShouldReUseGuid.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseGuid.verified.txt#L1-L6' title='File snippet `SerializationTests.ShouldReUseGuid.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseGuid.verified.txt' title='Navigate to start of snippet `SerializationTests.ShouldReUseGuid.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 To disable this behavior globally use:
@@ -152,8 +152,8 @@ await Verify(target);
 
 Results in the following:
 
-<!-- snippet: Tests.ShouldReUseDatetime.verified.txt -->
-<a id='snippet-Tests.ShouldReUseDatetime.verified.txt'/></a>
+<!-- snippet: SerializationTests.ShouldReUseDatetime.verified.txt -->
+<a id='snippet-SerializationTests.ShouldReUseDatetime.verified.txt'/></a>
 ```txt
 {
   DateTime: DateTime_1,
@@ -164,7 +164,7 @@ Results in the following:
   DateTimeOffsetString: DateTimeOffset_2
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.ShouldReUseDatetime.verified.txt#L1-L8' title='File snippet `Tests.ShouldReUseDatetime.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Tests.ShouldReUseDatetime.verified.txt' title='Navigate to start of snippet `Tests.ShouldReUseDatetime.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseDatetime.verified.txt#L1-L8' title='File snippet `SerializationTests.ShouldReUseDatetime.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseDatetime.verified.txt' title='Navigate to start of snippet `SerializationTests.ShouldReUseDatetime.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 To disable this behavior globally use:

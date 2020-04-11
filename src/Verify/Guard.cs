@@ -60,6 +60,7 @@ static class Guard
             throw new ArgumentNullException(argumentName, "Argument cannot be empty.");
         }
     }
+
     public static void AgainstBadExtension(string value, string argumentName)
     {
         AgainstNullOrEmpty(value, argumentName);

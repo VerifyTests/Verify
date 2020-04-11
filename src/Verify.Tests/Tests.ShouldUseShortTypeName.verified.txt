@@ -1,4 +1,0 @@
-{
-  Type: 'Tests',
-  Dynamic: 'dynamic'
-}

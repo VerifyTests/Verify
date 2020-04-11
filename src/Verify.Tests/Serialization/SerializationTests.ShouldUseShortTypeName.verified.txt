@@ -1,0 +1,4 @@
+{
+  Type: 'SerializationTests',
+  Dynamic: 'dynamic'
+}

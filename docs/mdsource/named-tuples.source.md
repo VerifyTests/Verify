@@ -14,4 +14,4 @@ snippet: VerifyTuple
 
 Resulting in:
 
-snippet: Tests.NamedTuple.verified.txt
+snippet: SerializationTests.NamedTuple.verified.txt

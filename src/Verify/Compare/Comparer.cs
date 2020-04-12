@@ -5,9 +5,9 @@ using Verify;
 
 static class Comparer
 {
-    public static async Task<CompareResult> Text(FilePair file, string scrubbedInput)
+    public static async Task<CompareResult> Text(FilePair file, string scrubbedInput, bool ignoreTrailingWhitespace)
     {
-        scrubbedInput = scrubbedInput.Replace("\r\n", "\n");
+        scrubbedInput = Scrub(scrubbedInput, ignoreTrailingWhitespace);
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
@@ -16,7 +16,7 @@ static class Comparer
         }
 
         var verifiedText = await FileHelpers.ReadText(file.Verified);
-        verifiedText = verifiedText.Replace("\r\n", "\n");
+        verifiedText = Scrub(verifiedText, ignoreTrailingWhitespace);
         if (string.Equals(verifiedText, scrubbedInput, StringComparison.OrdinalIgnoreCase))
         {
             return CompareResult.Equal;
@@ -24,6 +24,17 @@ static class Comparer
 
         await FileHelpers.WriteText(file.Received, scrubbedInput);
         return CompareResult.NotEqual;
+    }
+
+    static string Scrub(string scrubbedInput, bool ignoreTrailingWhitespace)
+    {
+        scrubbedInput = scrubbedInput.Replace("\r\n", "\n");
+        if (ignoreTrailingWhitespace)
+        {
+            scrubbedInput = scrubbedInput.TrimEnd();
+        }
+
+        return scrubbedInput;
     }
 
     public static async Task<CompareResult> Streams(VerifySettings settings, Stream stream, FilePair file)

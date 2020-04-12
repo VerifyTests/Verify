@@ -39,6 +39,7 @@ partial class InnerVerifier
         {
             formatJson = formatJson.Replace("\\n", "\n").Replace("\\r", "\r");
         }
+        settings.IgnoreTrailingWhitespace();
         await Verify(formatJson, settings);
     }
 

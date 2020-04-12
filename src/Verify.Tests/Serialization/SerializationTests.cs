@@ -717,6 +717,15 @@ public class SerializationTests :
 
     #endregion
 
+    [Fact]
+    public async Task TrailingWhitespace()
+    {
+        await Verify(
+            new
+            {
+                Property="Value"
+            });
+    }
 
 #pragma warning restore 612
     [Fact]

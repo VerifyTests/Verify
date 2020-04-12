@@ -16,6 +16,7 @@ namespace Verify
 
             instanceScrubbers = new List<Func<string, string>>(settingsToClone.instanceScrubbers);
             extension = settingsToClone.extension;
+            ignoreTrailingWhitespace = settingsToClone.ignoreTrailingWhitespace;
             clipboardEnabled = settingsToClone.clipboardEnabled;
             diffEnabled = settingsToClone.diffEnabled;
             autoVerify = settingsToClone.autoVerify;

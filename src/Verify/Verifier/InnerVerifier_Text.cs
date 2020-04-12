@@ -20,7 +20,7 @@ partial class InnerVerifier
 
         var scrubbedInput = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
 
-        var result = await Comparer.Text(file, scrubbedInput);
+        var result = await Comparer.Text(file, scrubbedInput, settings.ignoreTrailingWhitespace);
         engine.HandleCompareResult(result, file);
         await engine.ThrowIfRequired();
     }

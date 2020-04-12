@@ -7,6 +7,7 @@ static class Comparer
 {
     public static async Task<CompareResult> Text(FilePair file, string scrubbedInput)
     {
+        scrubbedInput = scrubbedInput.Replace("\r\n", "\n");
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {

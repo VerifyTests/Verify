@@ -9,7 +9,7 @@ partial class InnerVerifier
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
-        var innerVerifier = new VerifyEngine(
+        var engine = new VerifyEngine(
             extension,
             settings,
             testType,
@@ -18,16 +18,10 @@ partial class InnerVerifier
 
         var file = GetFileNames(extension, settings.Namer);
 
-        var scrubbedInput = ScrubInput(input, settings);
+        var scrubbedInput = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
 
         var result = await Comparer.Text(file, scrubbedInput);
-        innerVerifier.HandleCompareResult(result, file);
-        await innerVerifier.ThrowIfRequired();
-    }
-
-    static string ScrubInput(string input, VerifySettings settings)
-    {
-        return ApplyScrubbers.Apply(input, settings.instanceScrubbers)
-            .Replace("\r\n", "\n");
+        engine.HandleCompareResult(result, file);
+        await engine.ThrowIfRequired();
     }
 }

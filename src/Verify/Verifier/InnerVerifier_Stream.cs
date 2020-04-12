@@ -64,7 +64,7 @@ partial class InnerVerifier
         if (Extensions.IsText(file.Extension))
         {
             var readAsString = await stream.ReadAsString();
-            var scrubbedInput = ScrubInput(readAsString, settings);
+            var scrubbedInput = ApplyScrubbers.Apply(readAsString, settings.instanceScrubbers);
             return await Comparer.Text(file, scrubbedInput);
         }
 
@@ -92,7 +92,7 @@ partial class InnerVerifier
 
         var formatJson = JsonFormatter.AsJson(info, settings.serialization.currentSettings);
 
-        var scrubbedInput = ScrubInput(formatJson, settings);
+        var scrubbedInput = ApplyScrubbers.Apply(formatJson, settings.instanceScrubbers);
 
         var result = await Comparer.Text(file, scrubbedInput);
         engine.HandleCompareResult(result, file);

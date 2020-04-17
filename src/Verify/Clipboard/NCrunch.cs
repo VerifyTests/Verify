@@ -2,8 +2,5 @@
 
 static class NCrunch
 {
-    public static bool Enabled()
-    {
-        return Environment.GetEnvironmentVariable("NCrunch") == "1";
-    }
+    public static bool Enabled = Environment.GetEnvironmentVariable("NCrunch") == "1";
 }

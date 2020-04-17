@@ -6,7 +6,7 @@
 
         static bool ShouldEnableDiff()
         {
-            if (NCrunch.Enabled())
+            if (NCrunch.Enabled)
             {
                 return false;
             }

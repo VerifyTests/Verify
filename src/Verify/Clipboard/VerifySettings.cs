@@ -6,7 +6,7 @@
 
         static bool ShouldEnableClipboard()
         {
-            if (NCrunch.Enabled())
+            if (NCrunch.Enabled)
             {
                 return false;
             }

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DiffEngine;
-using EmptyFiles;
-using Verify;
+﻿using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 public class Tests :
     VerifyBase

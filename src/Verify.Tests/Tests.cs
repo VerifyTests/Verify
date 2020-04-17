@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;

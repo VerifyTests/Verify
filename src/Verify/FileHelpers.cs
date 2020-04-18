@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using System.Text;
 
 static partial class FileHelpers
 {
+    public static readonly Encoding Utf8NoBOM = new UTF8Encoding(false, true);
     public static void DeleteIfEmpty(string path)
     {
         var fileInfo = new FileInfo(path);

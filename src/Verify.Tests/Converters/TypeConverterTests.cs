@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
@@ -63,7 +62,7 @@ public class TypeConverterTests :
 
     static List<Stream> ToStream(string splitValue)
     {
-        var bytes = Encoding.UTF8.GetBytes(splitValue);
+        var bytes = FileHelpers.Utf8NoBOM.GetBytes(splitValue);
         return new List<Stream> {new MemoryStream(bytes)};
     }
 

@@ -7,7 +7,7 @@ static partial class FileHelpers
 {
     public static async Task WriteText(string filePath, string text)
     {
-        var encodedText = Encoding.UTF8.GetBytes(text);
+        var encodedText = Utf8NoBOM.GetBytes(text);
 
         using var fileStream = OpenWrite(filePath);
         await fileStream.WriteAsync(encodedText, 0, encodedText.Length);
@@ -28,7 +28,7 @@ static partial class FileHelpers
         int numRead;
         while ((numRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
         {
-            var text = Encoding.UTF8.GetString(buffer, 0, numRead);
+            var text = Utf8NoBOM.GetString(buffer, 0, numRead);
             builder.Append(text);
         }
 

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
 using EmptyFiles;
@@ -41,8 +40,8 @@ public partial class Tests :
                 split.Info,
                 new List<Stream>
                 {
-                    new MemoryStream(Encoding.UTF8.GetBytes(split.Property1)),
-                    new MemoryStream(Encoding.UTF8.GetBytes(split.Property2))
+                    new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1)),
+                    new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2))
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }

@@ -1,0 +1,5 @@
+{
+  Message: 'Could not convert `Verify.DisableClipboard` environment variable to a bool. Value: foo',
+  Data: {},
+  Source: 'Verify'
+}

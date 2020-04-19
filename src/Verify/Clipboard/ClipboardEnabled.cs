@@ -8,14 +8,19 @@ static class ClipboardEnabled
     static ClipboardEnabled()
     {
         var disabledText = Environment.GetEnvironmentVariable("Verify.DisableClipboard");
+        clipboardDisabled= ParseEnvironmentVariable(disabledText);
+    }
+
+    public static bool ParseEnvironmentVariable(string? disabledText)
+    {
         if (disabledText == null)
         {
-            return;
+            return false;
         }
 
-        if (bool.TryParse(disabledText, out clipboardDisabled))
+        if (bool.TryParse(disabledText, out var disabled))
         {
-            return;
+            return disabled;
         }
 
         throw new Exception($"Could not convert `Verify.DisableClipboard` environment variable to a bool. Value: {disabledText}");

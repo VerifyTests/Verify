@@ -16,5 +16,4 @@ class FilePair
         Received = $"{prefix}.received.{extension}";
         Verified = $"{prefix}.verified.{extension}";
     }
-
 }

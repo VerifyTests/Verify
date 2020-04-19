@@ -8,7 +8,7 @@ static class ClipboardEnabled
     static ClipboardEnabled()
     {
         var disabledText = Environment.GetEnvironmentVariable("Verify.DisableClipboard");
-        clipboardDisabled= ParseEnvironmentVariable(disabledText);
+        clipboardDisabled = ParseEnvironmentVariable(disabledText);
     }
 
     public static bool ParseEnvironmentVariable(string? disabledText)

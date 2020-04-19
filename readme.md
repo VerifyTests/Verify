@@ -449,6 +449,9 @@ The same approach can be used to verify the results and the change to `SampleTes
 
 The clipboard behavior can be disable using the following:
 
+
+#### Per Test
+
 <!-- snippet: DisableClipboard -->
 <a id='snippet-disableclipboard'/></a>
 ```cs
@@ -457,6 +460,33 @@ settings.DisableClipboard();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L34-L39' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+#### For all tests
+
+<!-- snippet: DisableClipboardGlobal -->
+<a id='snippet-disableclipboardglobal'/></a>
+```cs
+SharedVerifySettings.DisableClipboard();
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L54-L58' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
+<!-- endsnippet -->
+
+If clipboard is disabled for all tests, it can be re-enabled at the test level:
+
+<!-- snippet: EnableClipboard -->
+<a id='snippet-enableclipboard'/></a>
+```cs
+var settings = new VerifySettings();
+settings.EnableClipboard();
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L44-L49' title='File snippet `enableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-enableclipboard' title='Navigate to start of snippet `enableclipboard`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+#### For a machine
+
+Set a `Verify.DisableClipboard` environment variable to `true`. This overrides the above settings.
 
 
 ### AutoVerify
@@ -473,7 +503,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L44-L49' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L63-L68' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.

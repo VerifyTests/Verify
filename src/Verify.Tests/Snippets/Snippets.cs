@@ -39,6 +39,25 @@ public class Snippets:
         #endregion
     }
 
+    void EnableClipboard()
+    {
+        #region EnableClipboard
+
+        var settings = new VerifySettings();
+        settings.EnableClipboard();
+
+        #endregion
+    }
+
+    void DisableClipboardGlobal()
+    {
+        #region DisableClipboardGlobal
+
+        SharedVerifySettings.DisableClipboard();
+
+        #endregion
+    }
+
     void AutoVerify()
     {
         #region AutoVerify

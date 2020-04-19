@@ -2,16 +2,11 @@
 {
     public static partial class SharedVerifySettings
     {
-        internal static bool? clipboardEnabled;
+        internal static bool clipboardDisabled;
 
         public static void DisableClipboard()
         {
-            clipboardEnabled = false;
-        }
-
-        public static void EnableClipboard()
-        {
-            clipboardEnabled = true;
+            clipboardDisabled = false;
         }
     }
 }

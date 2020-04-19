@@ -177,7 +177,24 @@ The same approach can be used to verify the results and the change to `SampleTes
 
 The clipboard behavior can be disable using the following:
 
+
+#### Per Test
+
 snippet: DisableClipboard
+
+
+#### For all tests
+
+snippet: DisableClipboardGlobal
+
+If clipboard is disabled for all tests, it can be re-enabled at the test level:
+
+snippet: EnableClipboard
+
+
+#### For a machine
+
+Set a `Verify.DisableClipboard` environment variable to `true`. This overrides the above settings.
 
 
 ### AutoVerify

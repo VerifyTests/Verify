@@ -28,20 +28,11 @@ static class ClipboardEnabled
             return false;
         }
 
-        if (settings.clipboardEnabled == null && SharedVerifySettings.clipboardEnabled == null)
+        if (settings.clipboardEnabled == null)
         {
-            return true;
+            return !SharedVerifySettings.clipboardDisabled;
         }
 
-        if (settings.clipboardEnabled != null)
-        {
-            return settings.clipboardEnabled.Value;
-        }
-        if (SharedVerifySettings.clipboardEnabled != null)
-        {
-            return SharedVerifySettings.clipboardEnabled.Value;
-        }
-
-        return SharedVerifySettings.clipboardEnabled!.Value || settings.clipboardEnabled!.Value;
+        return settings.clipboardEnabled.Value;
     }
 }

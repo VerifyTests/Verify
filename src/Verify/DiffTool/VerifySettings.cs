@@ -1,21 +1,11 @@
-﻿namespace Verify
+﻿using DiffEngine;
+
+namespace Verify
 {
     public partial class VerifySettings
     {
-        internal bool diffEnabled = ShouldEnableDiff();
-
-        static bool ShouldEnableDiff()
-        {
-            if (NCrunch.Enabled)
-            {
-                return false;
-            }
-            if (BuildServerDetector.Detected)
-            {
-                return false;
-            }
-            return true;
-        }
+        internal bool diffEnabled = !NCrunch.Enabled &&
+                                    !BuildServerDetector.Detected;
 
         public void DisableDiff()
         {

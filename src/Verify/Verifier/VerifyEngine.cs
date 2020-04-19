@@ -113,7 +113,7 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        if (settings.clipboardEnabled && !settings.autoVerify)
+        if (ClipboardEnabled.IsEnabled(settings) && !settings.autoVerify)
         {
             builder.AppendLine("Verify command placed in clipboard.");
         }
@@ -152,7 +152,7 @@ class VerifyEngine
             return Task.CompletedTask;
         }
 
-        if (!settings.clipboardEnabled)
+        if (!ClipboardEnabled.IsEnabled(settings))
         {
             return Task.CompletedTask;
         }
@@ -214,7 +214,7 @@ class VerifyEngine
             return;
         }
 
-        if (settings.clipboardEnabled)
+        if (ClipboardEnabled.IsEnabled(settings))
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
@@ -265,7 +265,7 @@ class VerifyEngine
             return;
         }
 
-        if (settings.clipboardEnabled)
+        if (ClipboardEnabled.IsEnabled(settings))
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }

@@ -1,15 +1,17 @@
-﻿using DiffEngine;
-
-namespace Verify
+﻿namespace Verify
 {
     public partial class VerifySettings
     {
-        internal bool clipboardEnabled = !NCrunch.Enabled &&
-                                         !BuildServerDetector.Detected;
+        internal bool? clipboardEnabled;
 
         public void DisableClipboard()
         {
             clipboardEnabled = false;
+        }
+
+        public void EnableClipboard()
+        {
+            clipboardEnabled = true;
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Threading;
 
 class Program
 {
     static void Main()
     {
-        Console.ReadLine();
+        Thread.Sleep(5000);
     }
 }

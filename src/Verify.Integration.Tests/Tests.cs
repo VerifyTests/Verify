@@ -21,12 +21,13 @@ public partial class Tests :
     static Tests()
     {
         BuildServerDetector.Detected = false;
-        DiffTools.AddCustomTool(
-            supportsAutoRefresh: true,
+        DiffTools.AddTool(
+            name:"MyTools",
+            autoRefresh: true,
             isMdi: false,
             supportsText: true,
             requiresTarget: true,
-            buildArguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+            arguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             exePath: diffToolPath,
             binaryExtensions: new[] {"knownBin"});
         var binPath = AllFiles.Files["jpg"];

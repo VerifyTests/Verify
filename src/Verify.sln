@@ -19,6 +19,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify", "Verify\Verify.csproj", "{A017D3FD-7DA5-4DF4-A169-72DE4AF76048}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.Tests", "Verify.Tests\Verify.Tests.csproj", "{C4875357-5EF0-40DC-9E53-0F5B0236534F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EBA9F929-B9A7-4685-8117-34E5DD6F4AEB} = {EBA9F929-B9A7-4685-8117-34E5DD6F4AEB}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TargetLibrary", "TargetLibrary\TargetLibrary.csproj", "{5E9C9DF9-6E0B-4C6A-808F-0FDB51B21B41}"
 EndProject

@@ -34,12 +34,23 @@ public class ComparerSnippets :
     }
 
     #region ImageComparer
-    static Task<bool> CompareImages(VerifySettings settings, Stream received, Stream verified)
+    static Task<CompareResult> CompareImages(
+        VerifySettings settings,
+        Stream received,
+        Stream verified)
     {
         var hash1 = HashImage(received);
         var hash2 = HashImage(verified);
         var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
-        return Task.FromResult(score > .999);
+        var isEqual = score > .999;
+        if (isEqual)
+        {
+            return Task.FromResult(CompareResult.Equal);
+        }
+
+        var message = $"Score greater than .999. Received score: {score}.";
+        var result = CompareResult.NotEqual(message);
+        return Task.FromResult(result);
     }
 
     static Digest HashImage(Stream stream)

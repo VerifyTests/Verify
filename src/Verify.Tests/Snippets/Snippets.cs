@@ -19,10 +19,11 @@ public class Snippets:
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile) =>
+            (receivedFile, verifiedFile, message) =>
             {
                 Debug.WriteLine(receivedFile);
                 Debug.WriteLine(verifiedFile);
+                Debug.WriteLine(message);
                 return Task.CompletedTask;
             });
         await Verify("value", settings);

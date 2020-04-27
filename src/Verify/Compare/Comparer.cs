@@ -4,29 +4,30 @@ using Verify;
 
 static class Comparer
 {
-    public static async Task<CompareResult> Text(FilePair file, string scrubbedInput, VerifySettings settings)
+    public static async Task<(Equality equality, string? message)> Text(FilePair file, string scrubbedInput, VerifySettings settings)
     {
         scrubbedInput = Scrub(scrubbedInput, settings.ignoreTrailingWhitespace);
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
             await FileHelpers.WriteText(file.Received, scrubbedInput);
-            return CompareResult.MissingVerified;
+            return (Equality.MissingVerified, null);
         }
 
         var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = Scrub(verifiedText, settings.ignoreTrailingWhitespace);
 
-        if (await CompareStrings(scrubbedInput, verifiedText, settings))
+        var result = await CompareStrings(scrubbedInput, verifiedText, settings);
+        if (result.IsEqual)
         {
-            return CompareResult.Equal;
+            return (Equality.Equal, result.Message);
         }
 
         await FileHelpers.WriteText(file.Received, scrubbedInput);
-        return CompareResult.NotEqual;
+        return (Equality.NotEqual, null);
     }
 
-    static Task<bool> CompareStrings(string scrubbedInput, string verifiedText, VerifySettings settings)
+    static Task<CompareResult> CompareStrings(string scrubbedInput, string verifiedText, VerifySettings settings)
     {
         var extension = settings.ExtensionOrTxt();
         if (settings.comparer != null)
@@ -41,7 +42,9 @@ static class Comparer
             using var stream2 = MemoryStream(verifiedText);
             return comparer(settings, stream1, stream2);
         }
-        return Task.FromResult(string.Equals(verifiedText, scrubbedInput));
+
+        var result = new CompareResult(string.Equals(verifiedText, scrubbedInput));
+        return Task.FromResult(result);
     }
 
     static MemoryStream MemoryStream(string text)
@@ -60,7 +63,7 @@ static class Comparer
         return scrubbedInput;
     }
 
-    public static async Task<CompareResult> Streams(VerifySettings settings, Stream stream, FilePair file)
+    public static async Task<(Equality equality, string? message)> Streams(VerifySettings settings, Stream stream, FilePair file)
     {
         try
         {
@@ -68,7 +71,7 @@ static class Comparer
 
             var result = await FileComparer.DoCompare(settings, file);
 
-            if (result == CompareResult.Equal)
+            if (result.equality == Equality.Equal)
             {
                 File.Delete(file.Received);
                 return result;

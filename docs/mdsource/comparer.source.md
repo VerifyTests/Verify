@@ -11,6 +11,8 @@ For samples purposes an image difference hash algorithm from the [ImageHash proj
 
 snippet: ImageComparer
 
+The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
+
 
 ### Instance comparer
 

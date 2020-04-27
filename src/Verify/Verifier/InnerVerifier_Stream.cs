@@ -59,7 +59,7 @@ partial class InnerVerifier
         await engine.ThrowIfRequired();
     }
 
-     static async Task<CompareResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
+     static async Task<(Equality equality, string? message)> GetResult(VerifySettings settings, FilePair file, Stream stream)
     {
         if (Extensions.IsText(file.Extension))
         {

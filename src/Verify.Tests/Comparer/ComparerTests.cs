@@ -18,7 +18,7 @@ public class ComparerTests :
         settings.DisableDiff();
         settings.DisableClipboard();
         var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("NotTheText", settings));
-        Assert.True(exception.Message.Contains("theMessage"));
+        Assert.Contains("theMessage", exception.Message);
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class ComparerTests :
         settings.DisableDiff();
         settings.DisableClipboard();
         var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("TheText", settings));
-        Assert.True(exception.Message.Contains("theMessage"));
+        Assert.Contains("theMessage", exception.Message);
     }
 
     [Fact]

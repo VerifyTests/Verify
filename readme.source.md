@@ -232,6 +232,7 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 
 ## Extensions
 
+ * [Verify.AngleSharp.Diffing](https://github.com/SimonCropp/Verify.AngleSharp.Diffing): Comparison of html files via [AngleSharp.Diffing](https://github.com/AngleSharp/AngleSharp.Diffing).
  * [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose): Verification of documents (pdf, docx, xslx, and pptx) via Aspose.
  * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Verification of EntityFramework bits.
  * [Verify.ICSharpCode.Decompiler](https://github.com/SimonCropp/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).

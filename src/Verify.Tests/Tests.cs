@@ -83,10 +83,10 @@ public class Tests :
         VerifySettings? fromGlobal = null;
         SharedVerifySettings.RegisterComparer(
             "SettingsArePassed",
-            (verifySettings, stream1, stream2) =>
+            (verifySettings, received, verified) =>
             {
                 fromGlobal = verifySettings;
-                return true;
+                return Task.FromResult(true);
             });
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");

@@ -29,10 +29,10 @@ public class ComparerTests :
         await Verify("thetext", settings);
     }
 
-    static bool Compare(Stream one, Stream two)
+    static async Task<bool> Compare(VerifySettings settings, Stream received, Stream verified)
     {
-        var stringOne = one.ReadString();
-        var stringTwo = two.ReadString();
+        var stringOne = await received.ReadString();
+        var stringTwo = await verified.ReadString();
         return string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase);
     }
 

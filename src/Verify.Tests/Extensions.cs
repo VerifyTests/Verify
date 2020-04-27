@@ -1,10 +1,11 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 static class Extensions
 {
-    public static string ReadString(this Stream stream)
+    public static async Task<string> ReadString(this Stream stream)
     {
         using var reader = new StreamReader(stream);
-        return reader.ReadToEnd();
+        return await reader.ReadToEndAsync();
     }
 }

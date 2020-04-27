@@ -1,26 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace Verify
+﻿namespace Verify
 {
     public partial class VerifySettings
     {
-        internal Func<VerifySettings, Stream, Stream, Task<bool>>? comparer;
+        internal Compare? comparer;
 
-        public void UseComparer(
-            Func<Stream, Stream, bool> func)
+        public void UseComparer(Compare func)
         {
             Guard.AgainstNull(func, nameof(func));
-            UseComparer(
-                (stream, settings) => Task.FromResult(func(stream, settings)));
-        }
-
-        public void UseComparer(
-            Func<Stream, Stream, Task<bool>> func)
-        {
-            Guard.AgainstNull(func, nameof(func));
-            comparer = (settings, stream1, stream2) => func(stream1, stream2);
+            comparer = func;
         }
     }
 }

@@ -61,7 +61,7 @@ static class FileComparer
         return first.Length == second.Length;
     }
 
-    static async Task<bool> DoCompare(VerifySettings settings, string first, string second, Func<VerifySettings, Stream, Stream, Task<bool>> compare)
+    static async Task<bool> DoCompare(VerifySettings settings, string first, string second, Compare compare)
     {
 #if NETSTANDARD2_1
         await using var fs1 = FileHelpers.OpenRead(first);

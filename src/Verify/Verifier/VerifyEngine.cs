@@ -166,11 +166,11 @@ class VerifyEngine
         {
             await settings.handleOnVerifyMismatch(item.Received, item.Verified, message);
         }
-        builder.AppendLine($"{Path.GetFileName(item.Received)}");
         if (message != null)
         {
-            builder.AppendLine($"Message: {message}");
+            builder.AppendLine($"Comparer result: {message}");
         }
+        builder.AppendLine($"{Path.GetFileName(item.Received)}");
         if (Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");

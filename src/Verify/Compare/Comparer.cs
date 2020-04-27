@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Verify;
 
 static class Comparer
 {
-    public static async Task<CompareResult> Text(FilePair file, string scrubbedInput, bool ignoreTrailingWhitespace)
+    public static async Task<CompareResult> Text(FilePair file, string scrubbedInput, VerifySettings settings)
     {
-        scrubbedInput = Scrub(scrubbedInput, ignoreTrailingWhitespace);
+        scrubbedInput = Scrub(scrubbedInput, settings.ignoreTrailingWhitespace);
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
@@ -16,14 +15,38 @@ static class Comparer
         }
 
         var verifiedText = await FileHelpers.ReadText(file.Verified);
-        verifiedText = Scrub(verifiedText, ignoreTrailingWhitespace);
-        if (string.Equals(verifiedText, scrubbedInput))
+        verifiedText = Scrub(verifiedText, settings.ignoreTrailingWhitespace);
+
+        if (await CompareStrings(scrubbedInput, verifiedText, settings))
         {
             return CompareResult.Equal;
         }
 
         await FileHelpers.WriteText(file.Received, scrubbedInput);
         return CompareResult.NotEqual;
+    }
+
+    static Task<bool> CompareStrings(string scrubbedInput, string verifiedText, VerifySettings settings)
+    {
+        var extension = settings.ExtensionOrTxt();
+        if (settings.comparer != null)
+        {
+            using var stream1 = MemoryStream(scrubbedInput);
+            using var stream2 = MemoryStream(verifiedText);
+            return settings.comparer(settings, stream1, stream2);
+        }
+        if (SharedVerifySettings.TryGetComparer(extension, out var comparer))
+        {
+            using var stream1 = MemoryStream(scrubbedInput);
+            using var stream2 = MemoryStream(verifiedText);
+            return comparer(settings, stream1, stream2);
+        }
+        return Task.FromResult(string.Equals(verifiedText, scrubbedInput));
+    }
+
+    static MemoryStream MemoryStream(string text)
+    {
+        return new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(text));
     }
 
     static string Scrub(string scrubbedInput, bool ignoreTrailingWhitespace)

@@ -65,7 +65,7 @@ partial class InnerVerifier
         {
             var readAsString = await stream.ReadAsString();
             var scrubbedInput = ApplyScrubbers.Apply(readAsString, settings.instanceScrubbers);
-            return await Comparer.Text(file, scrubbedInput, settings.ignoreTrailingWhitespace);
+            return await Comparer.Text(file, scrubbedInput, settings);
         }
 
         return await Comparer.Streams(settings, stream, file);
@@ -94,7 +94,7 @@ partial class InnerVerifier
 
         var scrubbedInput = ApplyScrubbers.Apply(formatJson, settings.instanceScrubbers);
 
-        var result = await Comparer.Text(file, scrubbedInput, settings.ignoreTrailingWhitespace);
+        var result = await Comparer.Text(file, scrubbedInput, settings);
         engine.HandleCompareResult(result, file);
     }
 }

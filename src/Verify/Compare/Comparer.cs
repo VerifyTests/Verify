@@ -17,7 +17,7 @@ static class Comparer
 
         var verifiedText = await FileHelpers.ReadText(file.Verified);
         verifiedText = Scrub(verifiedText, ignoreTrailingWhitespace);
-        if (string.Equals(verifiedText, scrubbedInput, StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(verifiedText, scrubbedInput))
         {
             return CompareResult.Equal;
         }

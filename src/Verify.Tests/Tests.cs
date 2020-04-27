@@ -101,6 +101,16 @@ public class Tests :
     }
 
     [Fact]
+    public async Task ShouldNotIgnoreCase()
+    {
+        await Verify("A");
+        var verifySettings = new VerifySettings();
+        verifySettings .DisableClipboard();
+        verifySettings .DisableDiff();
+        await Assert.ThrowsAsync<XunitException>(() => Verify("a", verifySettings));
+    }
+
+    [Fact]
     public Task Newlines()
     {
         return Verify("a\r\nb\nc");

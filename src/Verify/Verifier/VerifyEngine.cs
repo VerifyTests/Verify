@@ -29,8 +29,6 @@ class VerifyEngine
         var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testType, testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
 
-        RenameBadNamespacePrefixedFiles(testType, directory,extension, testName);
-
         var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testType, testName);
         foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
         {

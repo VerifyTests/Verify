@@ -40,7 +40,7 @@ static class FileComparer
 
         if (!FilesAreSameSize(file))
         {
-            return Task.FromResult(new CompareResult(false));
+            return Task.FromResult(CompareResult.NotEqual());
         }
 
         return DefaultCompare(settings, file.Received, file.Verified);
@@ -92,14 +92,14 @@ static class FileComparer
 
             if (count == 0)
             {
-                return new CompareResult(isEqual: true);
+                return CompareResult.Equal;
             }
 
             for (var i = 0; i < count; i+= sizeof(long))
             {
                 if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
                 {
-                    return new CompareResult(isEqual: false);
+                    return CompareResult.NotEqual();
                 }
             }
         }

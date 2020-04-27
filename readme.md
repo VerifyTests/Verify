@@ -458,7 +458,7 @@ The clipboard behavior can be disable using the following:
 var settings = new VerifySettings();
 settings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L34-L39' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L35-L40' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -469,7 +469,7 @@ settings.DisableClipboard();
 ```cs
 SharedVerifySettings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L54-L58' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L55-L59' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
 <!-- endsnippet -->
 
 If clipboard is disabled for all tests, it can be re-enabled at the test level:
@@ -480,7 +480,7 @@ If clipboard is disabled for all tests, it can be re-enabled at the test level:
 var settings = new VerifySettings();
 settings.EnableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L44-L49' title='File snippet `enableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-enableclipboard' title='Navigate to start of snippet `enableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L45-L50' title='File snippet `enableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-enableclipboard' title='Navigate to start of snippet `enableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -503,7 +503,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L63-L68' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L64-L69' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -528,16 +528,17 @@ public async Task OnHandlersSample()
             return Task.CompletedTask;
         });
     settings.OnVerifyMismatch(
-        (receivedFile, verifiedFile) =>
+        (receivedFile, verifiedFile, message) =>
         {
             Debug.WriteLine(receivedFile);
             Debug.WriteLine(verifiedFile);
+            Debug.WriteLine(message);
             return Task.CompletedTask;
         });
     await Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L11-L30' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L11-L31' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

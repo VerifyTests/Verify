@@ -43,9 +43,13 @@ public class ComparerSnippets :
         var hash2 = HashImage(verified);
         var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
         var isEqual = score > .999;
-        var result = new CompareResult(
-            isEqual,
-            message: $"Score greater than .999. Received score:{score}");
+        if (isEqual)
+        {
+            return Task.FromResult(CompareResult.Equal);
+        }
+
+        var message = $"Score greater than .999. Received score: {score}.";
+        var result = CompareResult.NotEqual(message);
         return Task.FromResult(result);
     }
 

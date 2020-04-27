@@ -35,7 +35,7 @@ public class Tests :
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile) =>
+            (receivedFile, verifiedFile, message) =>
             {
                 Assert.NotEmpty(receivedFile);
                 Assert.NotNull(receivedFile);
@@ -66,7 +66,7 @@ public class Tests :
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile) =>
+            (receivedFile, verifiedFile, message) =>
             {
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;

@@ -14,7 +14,7 @@ class VerifyEngine
 {
     VerifySettings settings;
     List<FilePair> missings = new List<FilePair>();
-    List<FilePair> notEquals = new List<FilePair>();
+    List<(FilePair filePair, string? message)> notEquals = new List<(FilePair, string?)>();
     List<FilePair> equals = new List<FilePair>();
     List<string> danglingVerified;
 
@@ -44,7 +44,7 @@ class VerifyEngine
                 AddMissing(file);
                 break;
             case Equality.NotEqual:
-                AddNotEquals(file);
+                AddNotEquals(file, compareResult.message);
                 break;
             case Equality.Equal:
                 AddEquals(file);
@@ -58,9 +58,9 @@ class VerifyEngine
         danglingVerified.Remove(item.Verified);
     }
 
-    public void AddNotEquals(FilePair item)
+    public void AddNotEquals(FilePair item,string? message)
     {
-        notEquals.Add(item);
+        notEquals.Add((item,message));
         danglingVerified.Remove(item.Verified);
     }
 
@@ -144,7 +144,7 @@ class VerifyEngine
         builder.AppendLine("Differences:");
         foreach (var item in notEquals)
         {
-            await ProcessNotEquals(builder, item);
+            await ProcessNotEquals(builder, item.filePair, item.message);
         }
     }
 
@@ -160,13 +160,17 @@ class VerifyEngine
         }
     }
 
-    async Task ProcessNotEquals(StringBuilder builder, FilePair item)
+    async Task ProcessNotEquals(StringBuilder builder, FilePair item, string? message)
     {
         if (settings.handleOnVerifyMismatch != null)
         {
-            await settings.handleOnVerifyMismatch(item.Received, item.Verified);
+            await settings.handleOnVerifyMismatch(item.Received, item.Verified, message);
         }
         builder.AppendLine($"{Path.GetFileName(item.Received)}");
+        if (message != null)
+        {
+            builder.AppendLine($"Message: {message}");
+        }
         if (Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");

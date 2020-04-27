@@ -28,9 +28,13 @@ static Task<CompareResult> CompareImages(
     var hash2 = HashImage(verified);
     var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
     var isEqual = score > .999;
-    var result = new CompareResult(
-        isEqual,
-        message: $"Score greater than .999. Received score:{score}");
+    if (isEqual)
+    {
+        return Task.FromResult(CompareResult.Equal);
+    }
+
+    var message = $"Score greater than .999. Received score: {score}.";
+    var result = CompareResult.NotEqual(message);
     return Task.FromResult(result);
 }
 
@@ -40,8 +44,10 @@ static Digest HashImage(Stream stream)
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L57' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L61' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
+
+The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
 
 
 ### Instance comparer
@@ -92,14 +98,14 @@ static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
 
         if (count == 0)
         {
-            return new CompareResult(isEqual: true);
+            return CompareResult.Equal;
         }
 
         for (var i = 0; i < count; i+= sizeof(long))
         {
             if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
             {
-                return new CompareResult(isEqual: false);
+                return CompareResult.NotEqual();
             }
         }
     }

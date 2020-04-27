@@ -20,11 +20,11 @@ static class Comparer
         var result = await CompareStrings(scrubbedInput, verifiedText, settings);
         if (result.IsEqual)
         {
-            return (Equality.Equal, result.Message);
+            return (Equality.Equal, null);
         }
 
         await FileHelpers.WriteText(file.Received, scrubbedInput);
-        return (Equality.NotEqual, null);
+        return (Equality.NotEqual, result.Message);
     }
 
     static Task<CompareResult> CompareStrings(string scrubbedInput, string verifiedText, VerifySettings settings)

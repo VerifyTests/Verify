@@ -19,12 +19,19 @@ For samples purposes an image difference hash algorithm from the [ImageHash proj
 <!-- snippet: ImageComparer -->
 <a id='snippet-imagecomparer'/></a>
 ```cs
-static Task<bool> CompareImages(VerifySettings settings, Stream received, Stream verified)
+static Task<CompareResult> CompareImages(
+    VerifySettings settings,
+    Stream received,
+    Stream verified)
 {
     var hash1 = HashImage(received);
     var hash2 = HashImage(verified);
     var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
-    return Task.FromResult(score > .999);
+    var isEqual = score > .999;
+    var result = new CompareResult(
+        isEqual,
+        message: $"Score greater than .999. Received score:{score}");
+    return Task.FromResult(result);
 }
 
 static Digest HashImage(Stream stream)
@@ -33,7 +40,7 @@ static Digest HashImage(Stream stream)
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L50' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L57' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -68,7 +75,7 @@ await VerifyFile("TheImage.png");
 <!-- snippet: DefualtCompare -->
 <a id='snippet-defualtcompare'/></a>
 ```cs
-static async Task<bool> StreamsAreEqual(Stream stream1, Stream stream2)
+static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
 {
     const int bufferSize = 1024 * sizeof(long);
     var buffer1 = new byte[bufferSize];
@@ -85,14 +92,14 @@ static async Task<bool> StreamsAreEqual(Stream stream1, Stream stream2)
 
         if (count == 0)
         {
-            return true;
+            return new CompareResult(isEqual: true);
         }
 
         for (var i = 0; i < count; i+= sizeof(long))
         {
             if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
             {
-                return false;
+                return new CompareResult(isEqual: false);
             }
         }
     }
@@ -116,5 +123,5 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L76-L124' title='File snippet `defualtcompare` was extracted from'>snippet source</a> | <a href='#snippet-defualtcompare' title='Navigate to start of snippet `defualtcompare`'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L77-L125' title='File snippet `defualtcompare` was extracted from'>snippet source</a> | <a href='#snippet-defualtcompare' title='Navigate to start of snippet `defualtcompare`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -14,7 +14,8 @@ public class FileComparerTests :
         File.Copy("sample.bmp", "sample.tmp", true);
         try
         {
-            Assert.True(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp"));
+            var result = await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp");
+            Assert.True(result.IsEqual);
         }
         finally
         {
@@ -34,7 +35,8 @@ public class FileComparerTests :
 
         try
         {
-            Assert.False(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp"));
+            var result = await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp");
+            Assert.False(result.IsEqual);
         }
         finally
         {
@@ -45,7 +47,8 @@ public class FileComparerTests :
     [Fact]
     public async Task BinaryNotEquals()
     {
-        Assert.False(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.txt"));
+        var result = await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.txt");
+        Assert.False(result.IsEqual);
     }
 
     [Fact]
@@ -59,7 +62,8 @@ public class FileComparerTests :
                 FileAccess.Read,
                 FileShare.Read))
             {
-                Assert.True(await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp"));
+                var result = await FileComparer.DefaultCompare(VerifySettings.Default, "sample.bmp", "sample.tmp");
+                Assert.True(result.IsEqual);
             }
         }
         finally

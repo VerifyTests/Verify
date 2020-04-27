@@ -3,5 +3,5 @@ using System.Threading.Tasks;
 
 namespace Verify
 {
-    public delegate Task<bool> Compare(VerifySettings settings, Stream received, Stream verified);
+    public delegate Task<CompareResult> Compare(VerifySettings settings, Stream received, Stream verified);
 }

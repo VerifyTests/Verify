@@ -6,27 +6,28 @@ using Verify;
 
 static class FileComparer
 {
-    public static async Task<CompareResult> DoCompare(VerifySettings settings, FilePair file)
+    public static async Task<(Equality equality, string? message)> DoCompare(VerifySettings settings, FilePair file)
     {
         if (!File.Exists(file.Verified))
         {
-            return CompareResult.MissingVerified;
+            return (Equality.MissingVerified, null);
         }
 
         if (AllFiles.IsEmptyFile(file.Verified))
         {
-            return CompareResult.NotEqual;
+            return (Equality.NotEqual, null);
         }
 
-        if (!await FilesEqual(settings, file))
+        var compareResult = await FilesEqual(settings, file);
+        if (compareResult.IsEqual)
         {
-            return CompareResult.NotEqual;
+            return (Equality.Equal, null);
         }
 
-        return CompareResult.Equal;
+        return (Equality.NotEqual, compareResult.Message);
     }
 
-    public static Task<bool> FilesEqual(VerifySettings settings, FilePair file)
+    public static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair file)
     {
         if (settings.comparer != null)
         {
@@ -39,13 +40,13 @@ static class FileComparer
 
         if (!FilesAreSameSize(file))
         {
-            return Task.FromResult(false);
+            return Task.FromResult(new CompareResult(false));
         }
 
         return DefaultCompare(settings, file.Received, file.Verified);
     }
 
-    public static Task<bool> DefaultCompare(VerifySettings settings, string received, string verified)
+    public static Task<CompareResult> DefaultCompare(VerifySettings settings, string received, string verified)
     {
         return DoCompare(
             settings,
@@ -61,7 +62,7 @@ static class FileComparer
         return first.Length == second.Length;
     }
 
-    static async Task<bool> DoCompare(VerifySettings settings, string first, string second, Compare compare)
+    static async Task<CompareResult> DoCompare(VerifySettings settings, string first, string second, Compare compare)
     {
 #if NETSTANDARD2_1
         await using var fs1 = FileHelpers.OpenRead(first);
@@ -74,7 +75,7 @@ static class FileComparer
     }
 
     #region DefualtCompare
-    static async Task<bool> StreamsAreEqual(Stream stream1, Stream stream2)
+    static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
     {
         const int bufferSize = 1024 * sizeof(long);
         var buffer1 = new byte[bufferSize];
@@ -91,14 +92,14 @@ static class FileComparer
 
             if (count == 0)
             {
-                return true;
+                return new CompareResult(isEqual: true);
             }
 
             for (var i = 0; i < count; i+= sizeof(long))
             {
                 if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
                 {
-                    return false;
+                    return new CompareResult(isEqual: false);
                 }
             }
         }

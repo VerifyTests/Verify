@@ -1,6 +1,14 @@
-﻿enum CompareResult
+﻿namespace Verify
 {
-    Equal,
-    NotEqual,
-    MissingVerified
+    public readonly struct CompareResult
+    {
+        public bool IsEqual { get; }
+        public string? Message { get; }
+
+        public CompareResult(in bool isEqual, in string? message = null)
+        {
+            IsEqual = isEqual;
+            Message = message;
+        }
+    }
 }

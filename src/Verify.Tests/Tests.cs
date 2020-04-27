@@ -86,7 +86,7 @@ public class Tests :
             (verifySettings, received, verified) =>
             {
                 fromGlobal = verifySettings;
-                return Task.FromResult(true);
+                return Task.FromResult(new CompareResult(true));
             });
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");

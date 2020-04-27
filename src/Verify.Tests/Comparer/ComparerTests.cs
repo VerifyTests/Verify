@@ -29,11 +29,11 @@ public class ComparerTests :
         await Verify("thetext", settings);
     }
 
-    static async Task<bool> Compare(VerifySettings settings, Stream received, Stream verified)
+    static async Task<CompareResult> Compare(VerifySettings settings, Stream received, Stream verified)
     {
         var stringOne = await received.ReadString();
         var stringTwo = await verified.ReadString();
-        return string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase);
+        return new CompareResult(string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase));
     }
 
     public ComparerTests(ITestOutputHelper output) :

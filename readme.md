@@ -34,6 +34,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [OnHandlers](#onhandlers)
   * [Received and Verified](#received-and-verified)
   * [Not valid json](#not-valid-json)
+  * [Videos](#videos)
   * [Extensions](#extensions)
   * [Alternatives](#alternatives)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
@@ -222,6 +223,8 @@ public class SampleTest :
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
 <!-- endsnippet -->
+
+ * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
 
 
 ### NUnit
@@ -551,6 +554,11 @@ public async Task OnHandlersSample()
 ## Not valid json
 
 Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+
+
+## Videos
+
+ * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
 
 
 ## Extensions

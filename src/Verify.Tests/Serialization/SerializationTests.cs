@@ -434,11 +434,13 @@ public class SerializationTests :
     [Fact]
     public async Task ExpressionString()
     {
-        var parameter = Expression.Parameter(typeof(Exception),"source");
+        var parameter = Expression.Parameter(typeof(Exception), "source");
         var property = Expression.Property(parameter, "Message");
         var convert = Expression.Convert(property, typeof(object));
         var expression = Expression.Lambda<Func<Exception, object>>(convert, parameter);
-        await Verify(expression);
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        await Verify(expression, settings);
     }
 
     class WithExceptionIgnoreMessage

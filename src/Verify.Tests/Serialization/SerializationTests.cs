@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Verify;
@@ -428,6 +429,16 @@ public class SerializationTests :
         await Verify(target, settings);
 
         #endregion
+    }
+
+    [Fact]
+    public async Task ExpressionString()
+    {
+        var parameter = Expression.Parameter(typeof(Exception),"source");
+        var property = Expression.Property(parameter, "Message");
+        var convert = Expression.Convert(property, typeof(object));
+        var expression = Expression.Lambda<Func<Exception, object>>(convert, parameter);
+        await Verify(expression);
     }
 
     class WithExceptionIgnoreMessage

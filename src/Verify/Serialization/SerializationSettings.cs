@@ -187,6 +187,7 @@ namespace Verify
             converters.Add(new DateTimeConverter(scrubber));
             converters.Add(new DateTimeOffsetConverter(scrubber));
             converters.Add(new StringEnumConverter());
+            converters.Add(new ExpressionConverter());
             converters.Add(new DelegateConverter());
             converters.Add(new TypeJsonConverter());
             foreach (var extraSetting in ExtraSettings)

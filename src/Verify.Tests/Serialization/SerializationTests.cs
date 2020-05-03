@@ -432,7 +432,7 @@ public class SerializationTests :
     }
 
     [Fact]
-    public async Task ExpressionString()
+    public Task ExpressionString()
     {
         var parameter = Expression.Parameter(typeof(Exception), "source");
         var property = Expression.Property(parameter, "Message");
@@ -440,7 +440,7 @@ public class SerializationTests :
         var expression = Expression.Lambda<Func<Exception, object>>(convert, parameter);
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        await Verify(expression, settings);
+        return Verify(expression, settings);
     }
 
     class WithExceptionIgnoreMessage
@@ -633,14 +633,14 @@ public class SerializationTests :
     }
 
     [Fact]
-    public void ExceptionProp()
+    public Task ExceptionProp()
     {
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         var target = new WithException();
 
-        Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
+        return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
     }
 
     class WithException
@@ -649,14 +649,14 @@ public class SerializationTests :
     }
 
     [Fact]
-    public void ExceptionNotIgnoreMessageProp()
+    public Task ExceptionNotIgnoreMessageProp()
     {
         var settings = new VerifySettings();
         settings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         var target = new WithExceptionNotIgnoreMessage();
 
-        Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
+        return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
     }
 
     class WithExceptionNotIgnoreMessage

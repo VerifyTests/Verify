@@ -386,6 +386,10 @@ public class SerializationTests :
                 dateTimeOffset = new Dictionary<DateTimeOffset, string>
                 {
                     {DateTimeOffset.Now, "value"}
+                },
+                type = new Dictionary<Type, string>
+                {
+                    {typeof(SerializationTests), "value"}
                 }
             });
     }

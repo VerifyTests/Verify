@@ -72,6 +72,10 @@ class CustomContractResolver :
                     return result;
                 }
             }
+            if (keyType == typeof(Type))
+            {
+                return TypeNameConverter.GetName(Type.GetType(value));
+            }
 
             return value;
         };

@@ -1,6 +1,6 @@
 # <img src="/src/icon.png" height="30px"> Verify
 
-[![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
+[![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/VerifyTests/Verify)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
@@ -51,13 +51,13 @@ snippet: VerificationTest
 
   * **Less test code**: verification test require less code to write.
   * **Reduced risk of incorrect test code**: Given the above assertion based test it would be difficult to ensure that no property is missing from the assertion. For example if a new property is added to the model. In the verification test that change would automatically be highlighted when the test is next run.
-  * **Test failure visualization**: Verification test allows [visualization in a diff tool](https://github.com/SimonCropp/DiffEngine) that works for [complex models](/docs/SecondDiff.png) and [binary documents](/docs/binary.md).
+  * **Test failure visualization**: Verification test allows [visualization in a diff tool](https://github.com/VerifyTests/DiffEngine) that works for [complex models](/docs/SecondDiff.png) and [binary documents](/docs/binary.md).
   * **Multiple changes visualized in singe test run**: In the assertion approach, if multiple assertions require changing, this only becomes apparent over multiple test runs. In the verification approach, multiple changes can be [visualized in one test run](/docs/SecondDiff.png).
   * **Simpler creation of test "contract"**: In the assertion approach, complex models can require significant code to do the initial assertion. In the verification approach, the actual test and code-under-test can be used to create that "contract". See [initial verification](#initial-verification).
   * **Verification files committed to source control**: All resulting verified files are committed to source control in the most appropriate format. This means these files can be viewed at any time using any tooling. The files can also be diff'd over the history of the code base. This works for any file type, for example:
     * Html content can be committed as `.html` files.
-    * Office documents can be committed as a rendered `.png` (see [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose)).
-    * Database schema can be committed as `.sql` (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
+    * Office documents can be committed as a rendered `.png` (see [Verify.Aspose](https://github.com/VerifyTests/Verify.Aspose)).
+    * Database schema can be committed as `.sql` (see [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer)).
 
 
 ## Usage
@@ -132,7 +132,7 @@ The clipboard will contain the following:
 
 > move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
 
-If a [Diff Tool](https://github.com/SimonCropp/DiffEngine) is detected it will display the diff:
+If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
 
 ![InitialDiff](/docs/InitialDiff.png)
 
@@ -168,7 +168,7 @@ The clipboard will again contain the following:
 
 > move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
 
-And the [Diff Tool](https://github.com/SimonCropp/DiffEngine) is will display the diff:
+And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
@@ -203,7 +203,7 @@ Set a `Verify.DisableClipboard` environment variable to `true`. This overrides t
 
 In some scenarios it makes sense to auto-accept any changes as part of a given test run. For example:
 
- * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer)).
+ * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer)).
 
 This can be done using `AutoVerify()`:
 
@@ -239,18 +239,18 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 
 ## Extensions
 
- * [Verify.AngleSharp.Diffing](https://github.com/SimonCropp/Verify.AngleSharp.Diffing): Comparison of html files via [AngleSharp.Diffing](https://github.com/AngleSharp/AngleSharp.Diffing).
- * [Verify.Aspose](https://github.com/SimonCropp/Verify.Aspose): Verification of documents (pdf, docx, xslx, and pptx) via Aspose.
- * [Verify.EntityFramework](https://github.com/SimonCropp/Verify.EntityFramework): Verification of EntityFramework bits.
- * [Verify.ICSharpCode.Decompiler](https://github.com/SimonCropp/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
- * [Verify.ImageMagick](https://github.com/SimonCropp/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
- * [Verify.ImageSharp](https://github.com/SimonCropp/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
+ * [Verify.AngleSharp.Diffing](https://github.com/VerifyTests/Verify.AngleSharp.Diffing): Comparison of html files via [AngleSharp.Diffing](https://github.com/AngleSharp/AngleSharp.Diffing).
+ * [Verify.Aspose](https://github.com/VerifyTests/VerifyTests.Aspose): Verification of documents (pdf, docx, xslx, and pptx) via Aspose.
+ * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework): Verification of EntityFramework bits.
+ * [Verify.ICSharpCode.Decompiler](https://github.com/VerifyTests/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
+ * [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
+ * [Verify.ImageSharp](https://github.com/VerifyTests/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
  * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
- * [Verify.Phash](https://github.com/SimonCropp/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
- * [Verify.SqlServer](https://github.com/SimonCropp/Verify.SqlServer): Verification of SqlServer bits.
- * [Verify.Web](https://github.com/SimonCropp/Verify.Web): Verification of web bits.
- * [Verify.WinForms](https://github.com/SimonCropp/Verify.WinForms): Verification of WinForms UIs.
- * [Verify.Xaml](https://github.com/SimonCropp/Verify.Xaml): Verification of Xaml UIs.
+ * [Verify.Phash](https://github.com/VerifyTests/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
+ * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
+ * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
+ * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
+ * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.
 
 
 ## Alternatives

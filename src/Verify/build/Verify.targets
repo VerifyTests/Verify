@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Condition="$(DesignTimeBuild) != true">
   <ItemGroup>
-
-    <VerifyFiles Include="**\*.received.*;**\*.verified.*" >
+    <None Update="**\*.received.*;**\*.verified.*">
       <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
-    </VerifyFiles>
-    <None Update="@(VerifyFiles)">
+      <DotIndex>$([System.String]::Copy('%(FileName)').IndexOf('.'))</DotIndex>
+
       <DependentUpon>$(
         [System.String]::Copy('%(FileName)')
         .SubString(
         0,
-        $([System.String]::Copy('%(FileName)').IndexOf('.'))
+        %(DotIndex)
         )
-        )%(VerifyFiles.ParentExtension)</DependentUpon>
+        )%(ParentExtension)</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

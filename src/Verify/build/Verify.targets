@@ -2,13 +2,9 @@
 <Project Condition="$(DesignTimeBuild) != true">
   <ItemGroup>
     <None Update="**\*.received.*;**\*.verified.*">
-      <DependentUpon>$(
-        [System.String]::Copy('%(FileName)')
-        .SubString(
-        0,
-        $([System.String]::Copy('%(FileName)').IndexOf('.'))
-        )
-        )$(ProjectExt.Replace('proj', ''))</DependentUpon>
+      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

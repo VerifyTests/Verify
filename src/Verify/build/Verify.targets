@@ -3,8 +3,7 @@
   <ItemGroup>
     <None Update="**\*.received.*;**\*.verified.*">
       <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
-      <DotIndex>$([System.String]::Copy('%(FileName)').IndexOf('.'))</DotIndex>
-      <ParentFile>$([System.String]::Copy('%(FileName)').SubString(0,%(DotIndex)))</ParentFile>
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
     </None>
   </ItemGroup>

@@ -10,7 +10,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ## AppVeyor
 
-https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts
+Use an [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).
 
 <!-- snippet: AppVeyorArtifacts -->
 <a id='snippet-appveyorartifacts'/></a>
@@ -32,3 +32,5 @@ on_failure:
 ```
 <sup><a href='/src/appveyor.yml#L11-L26' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
 <!-- endsnippet -->
+
+See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).

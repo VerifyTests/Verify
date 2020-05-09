@@ -12,12 +12,23 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts
 
-```
-build_script:
+<!-- snippet: AppVeyorArtifacts -->
+<a id='snippet-appveyorartifacts'/></a>
+```yml
+on_failure:
 - ps: >-
-    dotnet build src --configuration Release
+    $receivedFiles = Get-ChildItem .\**\*.received.*
 
-    dotnet test src --configuration Release --no-build --no-restore --filter Category!=Integration
+    foreach ($receivedFile in $receivedFiles)
+    {
+      Push-AppveyorArtifact $receivedFile.FullName -FileName $receivedFile.Name
+      $verifiedFile = $receivedFile.FullName.Replace('.received.','.verified.')
 
-    Get-ChildItem .\**\*.received.* | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+      if (Test-Path $verifiedFile -PathType leaf)
+      {
+        Push-AppveyorArtifact $verifiedFile.FullName -FileName $verifiedFile.Name
+      }
+    }
 ```
+<sup><a href='/src/appveyor.yml#L11-L26' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
+<!-- endsnippet -->

@@ -17,7 +17,7 @@ public class LinesScrubberTests :
             settings: settings,
             target: @"a
 b
-c
+cs
 D
 e
 f");

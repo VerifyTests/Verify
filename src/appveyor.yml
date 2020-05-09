@@ -16,12 +16,6 @@ on_failure:
     foreach ($receivedFile in $receivedFiles)
     {
       Push-AppveyorArtifact $receivedFile.FullName -FileName $receivedFile.Name
-      $verifiedFile = $receivedFile.FullName.Replace('.received.','.verified.')
-
-      if (Test-Path $verifiedFile -PathType leaf)
-      {
-        Push-AppveyorArtifact $verifiedFile.FullName -FileName $verifiedFile.Name
-      }
     }
 # end-snippet
 test: off

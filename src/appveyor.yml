@@ -8,20 +8,22 @@ build_script:
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore
+# begin-snippet: AppVeyorArtifacts
 on_failure:
 - ps: >-
-  $receivedFiles = Get-ChildItem .\**\*.received.*
+    $receivedFiles = Get-ChildItem .\**\*.received.*
 
-  foreach ($receivedFile in $receivedFiles)
-  {
-    Push-AppveyorArtifact $receivedFile.FullName -FileName $receivedFile.Name
-    $verifiedFile = $receivedFile.FullName.Replace('.received.','.verified.')
-
-    if (Test-Path $verifiedFile -PathType leaf)
+    foreach ($receivedFile in $receivedFiles)
     {
-      Push-AppveyorArtifact $verifiedFile.FullName -FileName $verifiedFile.Name
+      Push-AppveyorArtifact $receivedFile.FullName -FileName $receivedFile.Name
+      $verifiedFile = $receivedFile.FullName.Replace('.received.','.verified.')
+
+      if (Test-Path $verifiedFile -PathType leaf)
+      {
+        Push-AppveyorArtifact $verifiedFile.FullName -FileName $verifiedFile.Name
+      }
     }
-  }
+# end-snippet
 test: off
 artifacts:
 - path: nugets\*.nupkg

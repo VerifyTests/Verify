@@ -10,13 +10,7 @@ build_script:
     dotnet test src --configuration Release --no-build --no-restore
 # begin-snippet: AppVeyorArtifacts
 on_failure:
-- ps: >-
-    $receivedFiles = Get-ChildItem .\**\*.received.*
-
-    foreach ($receivedFile in $receivedFiles)
-    {
-      Push-AppveyorArtifact $receivedFile.FullName -FileName $receivedFile.Name
-    }
+- ps: Get-ChildItem .\**\*.received.* | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 # end-snippet
 test: off
 artifacts:

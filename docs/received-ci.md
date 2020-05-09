@@ -22,15 +22,9 @@ on_failure:
     foreach ($receivedFile in $receivedFiles)
     {
       Push-AppveyorArtifact $receivedFile.FullName -FileName $receivedFile.Name
-      $verifiedFile = $receivedFile.FullName.Replace('.received.','.verified.')
-
-      if (Test-Path $verifiedFile -PathType leaf)
-      {
-        Push-AppveyorArtifact $verifiedFile.FullName -FileName $verifiedFile.Name
-      }
     }
 ```
-<sup><a href='/src/appveyor.yml#L11-L26' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
+<sup><a href='/src/appveyor.yml#L11-L20' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
 <!-- endsnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).

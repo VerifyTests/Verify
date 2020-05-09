@@ -375,7 +375,7 @@ This will result in the `SampleTest.Simple.verified.txt` being created:
   FamilyName: 'Smith',
   Spouse: 'Jill',
   Address: {
-    Street: '4 Puddlde Lane',
+    Street: '4 Puddle Lane',
     Country: 'USA'
   },
   Children: [

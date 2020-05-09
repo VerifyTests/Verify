@@ -1,4 +1,5 @@
 image:
+- macos
 - Visual Studio 2019
 skip_commits:
   message: /doco|Merge pull request.*/
@@ -9,11 +10,7 @@ build_script:
     dotnet test src --configuration Release --no-build --no-restore
 # begin-snippet: AppVeyorArtifacts
 on_failure:
-  - ps: >-
-    Get-ChildItem *.received.* -recurse | %
-    {
-      Push-AppveyorArtifact $_.FullName -FileName $_.Name
-    }
+  - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 # end-snippet
 test: off
 artifacts:

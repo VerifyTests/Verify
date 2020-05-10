@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="3.0.3" />
     <PackageReference Include="System.CodeDom" Version="4.7.0" />
-    <PackageReference Include="TextCopy" Version="3.2.0" />
+    <PackageReference Include="TextCopy" Version="3.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />

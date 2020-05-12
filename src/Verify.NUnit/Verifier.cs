@@ -16,18 +16,20 @@ namespace VerifyNUnit
                 input => CounterContext.Current.IntOrNext(input));
         }
 
-        static FieldInfo field = typeof(TestContext.TestAdapter).GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
+        static FieldInfo field = typeof(TestContext.TestAdapter)
+            .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
 
         static DisposableVerifier BuildVerifier(string sourceFile)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var context = TestContext.CurrentContext;
-            var testAdapter = context.Test;
-            var test = (Test) field.GetValue(testAdapter);
+            var adapter = context.Test;
+            var test = (Test) field.GetValue(adapter);
 
-            var testType = test.TypeInfo.Type;
-            var uniqueTestName = TestNameBuilder.GetUniqueTestName(testType, test.Method.MethodInfo, testAdapter.Arguments);
-            return new DisposableVerifier(testType, Path.GetDirectoryName(sourceFile), uniqueTestName);
+            var type = test.TypeInfo.Type;
+            var method = test.Method.MethodInfo;
+            var name = TestNameBuilder.GetUniqueTestName(type, method, adapter.Arguments);
+            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), name);
         }
     }
 }

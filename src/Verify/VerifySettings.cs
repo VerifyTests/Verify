@@ -7,25 +7,25 @@ namespace Verify
     {
         internal static VerifySettings Default = new VerifySettings();
 
-        public VerifySettings(VerifySettings? settingsToClone)
+        public VerifySettings(VerifySettings? settings)
         {
-            if (settingsToClone == null)
+            if (settings == null)
             {
                 return;
             }
 
-            instanceScrubbers = new List<Func<string, string>>(settingsToClone.instanceScrubbers);
-            extension = settingsToClone.extension;
-            ignoreTrailingWhitespace = settingsToClone.ignoreTrailingWhitespace;
-            clipboardEnabled = settingsToClone.clipboardEnabled;
-            diffEnabled = settingsToClone.diffEnabled;
-            autoVerify = settingsToClone.autoVerify;
-            serialization = settingsToClone.serialization;
-            newLineEscapingDisabled = settingsToClone.newLineEscapingDisabled;
-            handleOnFirstVerify = settingsToClone.handleOnFirstVerify;
-            handleOnVerifyMismatch = settingsToClone.handleOnVerifyMismatch;
-            Namer = new Namer(settingsToClone.Namer);
-            foreach (var pair in settingsToClone.Data)
+            instanceScrubbers = new List<Func<string, string>>(settings.instanceScrubbers);
+            extension = settings.extension;
+            ignoreTrailingWhitespace = settings.ignoreTrailingWhitespace;
+            clipboardEnabled = settings.clipboardEnabled;
+            diffEnabled = settings.diffEnabled;
+            autoVerify = settings.autoVerify;
+            serialization = settings.serialization;
+            newLineEscapingDisabled = settings.newLineEscapingDisabled;
+            handleOnFirstVerify = settings.handleOnFirstVerify;
+            handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
+            Namer = new Namer(settings.Namer);
+            foreach (var pair in settings.Data)
             {
                 if (pair.Value is ICloneable cloneable)
                 {

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Verify;
@@ -21,15 +22,18 @@ public class NamerTests :
     public async Task DeriveTestDirectory()
     {
         string? receivedTestDirectory = null;
+        Type? receivedType = null;
         string? receivedProjectDirectory = null;
         SharedVerifySettings.DeriveTestDirectory(
-            (testDirectory, projectDirectory) =>
+            (type, testDirectory, projectDirectory) =>
             {
+                receivedType = type;
                 receivedTestDirectory = testDirectory;
                 receivedProjectDirectory = projectDirectory;
                 return testDirectory;
             });
         await Verify("DeriveTestDirectory");
+        Assert.NotNull(receivedType);
         Assert.True(Directory.Exists(receivedTestDirectory));
         Assert.True(Directory.Exists(receivedProjectDirectory));
     }

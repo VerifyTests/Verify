@@ -6,23 +6,19 @@ namespace Verify
 {
     public static partial class SharedVerifySettings
     {
-        internal static DeriveTestDirectory? deriveTestDirectory;
+        internal static DeriveTestDirectory? deriveDirectory;
 
-        internal static string DeriveDirectory(Type testType, string testDirectory)
+        internal static string DeriveDirectory(Type type, string testDirectory)
         {
-            if (deriveTestDirectory == null)
+            if (deriveDirectory == null)
             {
                 return testDirectory;
             }
 
-            var projectAttribute = testType.Assembly
+            var projectDirectory = type.Assembly
                 .GetCustomAttributes<AssemblyMetadataAttribute>()
-                .SingleOrDefault(x => x.Key == "Verify.ProjectDirectory");
-            if (projectAttribute == null)
-            {
-                return testDirectory;
-            }
-            return deriveTestDirectory(testDirectory, projectAttribute.Value);
+                .SingleOrDefault(x => x.Key == "Verify.ProjectDirectory")?.Value;
+            return deriveDirectory(type, testDirectory, projectDirectory);
         }
 
         /// <summary>
@@ -36,10 +32,10 @@ namespace Verify
         public static void DeriveTestDirectory(DeriveTestDirectory deriveTestDirectory)
         {
             Guard.AgainstNull(deriveTestDirectory, nameof(deriveTestDirectory));
-            SharedVerifySettings.deriveTestDirectory =
-                (testDirectory, projectDirectory) =>
+            deriveDirectory =
+                (type, testDirectory, projectDirectory) =>
                 {
-                    var result = deriveTestDirectory(testDirectory, projectDirectory);
+                    var result = deriveTestDirectory(type, testDirectory, projectDirectory);
                     Guard.DirectoryExists(result, nameof(result));
                     return result;
                 };

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
@@ -14,6 +15,22 @@ public class NamerTests :
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verify(Namer.Runtime, settings);
+    }
+
+    [Fact]
+    public async Task DeriveTestDirectory()
+    {
+        string? received = null;
+        SharedVerifySettings.DeriveTestDirectory(
+            directory =>
+            {
+                received = directory;
+                return directory;
+            });
+        await Verify("DeriveTestDirectory");
+        Assert.NotNull(received);
+        Assert.NotEmpty(received);
+        Assert.True(Directory.Exists(received));
     }
 
     [Fact]

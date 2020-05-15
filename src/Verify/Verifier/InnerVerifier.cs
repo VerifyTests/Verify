@@ -24,7 +24,7 @@ public partial class InnerVerifier
     public InnerVerifier(Type testType, string directory, string testName)
     {
         this.testType = testType;
-        this.directory = directory;
+        this.directory = SharedVerifySettings.deriveTestDirectory(directory);
         this.testName = testName;
     }
 

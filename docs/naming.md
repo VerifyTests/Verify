@@ -352,5 +352,5 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L30-L33' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
 <!-- endsnippet -->

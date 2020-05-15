@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AttributesFile>Verify.Attributes$(ProjectExt.Replace('proj', ''))</AttributesFile>
+  </PropertyGroup>
   <ItemGroup>
     <None Update="**\*.received.*;**\*.verified.*">
       <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
@@ -12,10 +15,9 @@
           Condition="'$(Language)'=='VB' or '$(Language)'=='C#'"
           BeforeTargets="BeforeCompile;CoreCompile"
           Inputs="$(MSBuildAllProjects)"
-          Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">
+          Outputs="$(IntermediateOutputPath)$(AttributesFile)">
     <PropertyGroup>
-      <CodeExtension>$(ProjectExt.Replace('proj', ''))</CodeExtension>
-      <AttributesFile>$(IntermediateOutputPath)Verify.Attributes$(CodeExtension)</AttributesFile>
+      <AttributesFilePath>$(IntermediateOutputPath)$(AttributesFile)</AttributesFilePath>
     </PropertyGroup>
     <ItemGroup>
       <Attributes Include="System.Reflection.AssemblyMetadata">
@@ -23,11 +25,11 @@
         <_Parameter2>$(ProjectDir)</_Parameter2>
       </Attributes>
       <!-- Ensure file is not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
-      <Compile Remove="$(AttributesFile)" />
+      <Compile Remove="$(AttributesFilePath)" />
     </ItemGroup>
     <WriteCodeFragment AssemblyAttributes="@(Attributes)"
                        Language="$(Language)"
-                       OutputFile="$(AttributesFile)">
+                       OutputFile="$(AttributesFilePath)">
       <Output TaskParameter="OutputFile" ItemName="Compile" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>

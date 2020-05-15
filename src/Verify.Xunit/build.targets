@@ -2,5 +2,6 @@
 <Project>
   <PropertyGroup>
     <Deterministic>false</Deterministic>
+    <DeterministicSourcePaths>false</DeterministicSourcePaths>
   </PropertyGroup>
 </Project>

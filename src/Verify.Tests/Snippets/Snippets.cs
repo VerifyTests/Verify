@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using DiffEngine;
 using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
@@ -55,6 +58,24 @@ public class Snippets:
         #region DisableClipboardGlobal
 
         SharedVerifySettings.DisableClipboard();
+
+        #endregion
+    }
+
+    void DeriveTestDirectory()
+    {
+        #region DeriveTestDirectory
+
+        if (BuildServerDetector.Detected)
+        {
+            var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
+            SharedVerifySettings.DeriveTestDirectory(
+                (type, testDirectory, projectDirectory) =>
+                {
+                    var testDirectorySuffix = testDirectory.Replace(projectDirectory!, string.Empty);
+                    return Path.Combine(buildDirectory, testDirectorySuffix);
+                });
+        }
 
         #endregion
     }

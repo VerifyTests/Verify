@@ -21,10 +21,10 @@
     </PropertyGroup>
     <ItemGroup>
       <Attributes Include="System.Reflection.AssemblyMetadata">
-        <_Parameter1>Verify.ProjectDir</_Parameter1>
+        <_Parameter1>Verify.ProjectDirectory</_Parameter1>
         <_Parameter2>$(ProjectDir)</_Parameter2>
       </Attributes>
-      <!-- Ensure file is not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
+      <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
       <Compile Remove="$(AttributesFilePath)" />
     </ItemGroup>
     <WriteCodeFragment AssemblyAttributes="@(Attributes)"

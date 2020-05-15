@@ -20,17 +20,18 @@ public class NamerTests :
     [Fact]
     public async Task DeriveTestDirectory()
     {
-        string? received = null;
+        string? receivedTestDirectory = null;
+        string? receivedProjectDirectory = null;
         SharedVerifySettings.DeriveTestDirectory(
-            directory =>
+            (testDirectory, projectDirectory) =>
             {
-                received = directory;
-                return directory;
+                receivedTestDirectory = testDirectory;
+                receivedProjectDirectory = projectDirectory;
+                return testDirectory;
             });
         await Verify("DeriveTestDirectory");
-        Assert.NotNull(received);
-        Assert.NotEmpty(received);
-        Assert.True(Directory.Exists(received));
+        Assert.True(Directory.Exists(receivedTestDirectory));
+        Assert.True(Directory.Exists(receivedProjectDirectory));
     }
 
     [Fact]

@@ -27,24 +27,24 @@ static class Comparer
         return new EqualityResult(Equality.NotEqual, result.Message);
     }
 
-    static Task<CompareResult> CompareStrings(string scrubbedInput, string verifiedText, VerifySettings settings)
+    static async Task<CompareResult> CompareStrings(string scrubbedInput, string verifiedText, VerifySettings settings)
     {
         var extension = settings.ExtensionOrTxt();
         if (settings.comparer != null)
         {
             using var stream1 = MemoryStream(scrubbedInput);
             using var stream2 = MemoryStream(verifiedText);
-            return settings.comparer(settings, stream1, stream2);
+            return await settings.comparer(settings, stream1, stream2);
         }
         if (SharedVerifySettings.TryGetComparer(extension, out var comparer))
         {
             using var stream1 = MemoryStream(scrubbedInput);
             using var stream2 = MemoryStream(verifiedText);
-            return comparer(settings, stream1, stream2);
+            return await comparer(settings, stream1, stream2);
         }
 
         var result = new CompareResult(string.Equals(verifiedText, scrubbedInput));
-        return Task.FromResult(result);
+        return result;
     }
 
     static MemoryStream MemoryStream(string text)

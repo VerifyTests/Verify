@@ -8,7 +8,10 @@ static class JsonFormatter
     {
         var serializer = JsonSerializer.Create(settings);
         var builder = new StringBuilder();
-        using var stringWriter = new StringWriter(builder);
+        using var stringWriter = new StringWriter(builder)
+        {
+            NewLine = "\n"
+        };
         using var writer = new JsonTextWriter(stringWriter)
         {
             QuoteChar = '\'',

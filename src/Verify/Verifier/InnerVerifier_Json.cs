@@ -37,9 +37,8 @@ partial class InnerVerifier
         var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
         if (settings.newLineEscapingDisabled || SharedVerifySettings.newLineEscapingDisabled)
         {
-            formatJson = formatJson.Replace("\\n", "\n").Replace("\\r", "\r");
+            formatJson = formatJson.Replace("\\r\\n", "\n");
         }
-        settings.IgnoreTrailingWhitespace();
         await Verify(formatJson, settings);
     }
 

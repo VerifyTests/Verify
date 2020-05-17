@@ -17,7 +17,6 @@ namespace Verify
 
             instanceScrubbers = new List<Action<StringBuilder>>(settings.instanceScrubbers);
             extension = settings.extension;
-            ignoreTrailingWhitespace = settings.ignoreTrailingWhitespace;
             clipboardEnabled = settings.clipboardEnabled;
             diffEnabled = settings.diffEnabled;
             autoVerify = settings.autoVerify;

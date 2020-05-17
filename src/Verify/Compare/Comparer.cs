@@ -44,8 +44,6 @@ static class Comparer
             return await comparer(settings, stream1, stream2);
         }
 
-        var s = received.ToString();
-        var s1 = verified.ToString();
         return new CompareResult(verified.Compare(received));
     }
 

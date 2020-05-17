@@ -36,15 +36,15 @@ class VerifyEngine
         }
     }
 
-    public void HandleCompareResult((Equality equality, string? message) compareResult, FilePair file)
+    public void HandleCompareResult(EqualityResult compareResult, FilePair file)
     {
-        switch (compareResult.equality)
+        switch (compareResult.Equality)
         {
             case Equality.MissingVerified:
                 AddMissing(file);
                 break;
             case Equality.NotEqual:
-                AddNotEquals(file, compareResult.message);
+                AddNotEquals(file, compareResult.Message);
                 break;
             case Equality.Equal:
                 AddEquals(file);

@@ -6,25 +6,25 @@ using Verify;
 
 static class FileComparer
 {
-    public static async Task<(Equality equality, string? message)> DoCompare(VerifySettings settings, FilePair file)
+    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file)
     {
         if (!File.Exists(file.Verified))
         {
-            return (Equality.MissingVerified, null);
+            return Equality.MissingVerified;
         }
 
         if (AllFiles.IsEmptyFile(file.Verified))
         {
-            return (Equality.NotEqual, null);
+            return Equality.NotEqual;
         }
 
         var compareResult = await FilesEqual(settings, file);
         if (compareResult.IsEqual)
         {
-            return (Equality.Equal, null);
+            return Equality.Equal;
         }
 
-        return (Equality.NotEqual, compareResult.Message);
+        return new EqualityResult(Equality.NotEqual, compareResult.Message);
     }
 
     public static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair file)

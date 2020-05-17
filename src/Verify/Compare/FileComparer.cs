@@ -27,7 +27,7 @@ static class FileComparer
         return new EqualityResult(Equality.NotEqual, compareResult.Message);
     }
 
-    public static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair file)
+    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair file)
     {
         if (settings.TryFindComparer(out var compare))
         {

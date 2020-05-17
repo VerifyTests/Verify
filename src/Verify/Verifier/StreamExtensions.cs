@@ -24,7 +24,7 @@ static class StreamExtensions
             builder.Append('\n');
         }
 
-        builder.Length--;
+        builder.Length -= 1;
         return builder;
     }
 }

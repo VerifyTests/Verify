@@ -22,8 +22,10 @@ static class LinesScrubber
         string line;
         while ((line = reader.ReadLine()) != null)
         {
-            input.AppendLine(replaceLine(line));
+            input.Append(replaceLine(line));
+            input.Append('\n');
         }
+        input.Length -= 1;
     }
 
     public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine)
@@ -41,8 +43,11 @@ static class LinesScrubber
             {
                 continue;
             }
-            input.AppendLine(line);
+            input.Append(line);
+            input.Append('\n');
         }
+
+        input.Length -= 1;
     }
 
     static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison)

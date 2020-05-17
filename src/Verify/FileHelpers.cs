@@ -36,18 +36,8 @@ static partial class FileHelpers
             useAsync: true);
     }
 
-    static async Task<StringBuilder> ReadText(FileStream stream)
+    static Task<StringBuilder> ReadText(FileStream stream)
     {
-        var builder = new StringBuilder();
-
-        var buffer = new byte[0x1000];
-        int numRead;
-        while ((numRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
-        {
-            var text = Utf8NoBOM.GetString(buffer, 0, numRead);
-            builder.Append(text);
-        }
-
-        return builder;
+        return stream.ReadAsString();
     }
 }

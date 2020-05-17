@@ -2,7 +2,6 @@
 
 static class StringBuilderExtensions
 {
-
     public static bool Compare(this StringBuilder builder1, StringBuilder builder2)
     {
         if (builder1.Length != builder2.Length)

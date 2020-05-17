@@ -58,7 +58,7 @@ public class TypeNameConverterTests :
     [Fact]
     public Task Dynamic()
     {
-        return Verify(TypeNameConverter.GetName(new{Name="foo"}.GetType()));
+        return Verify(TypeNameConverter.GetName(new {Name = "foo"}.GetType()));
     }
 
     [Fact]

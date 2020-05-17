@@ -1,5 +1,6 @@
 ﻿#if(NETSTANDARD2_1)
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 static partial class FileHelpers
@@ -9,9 +10,10 @@ static partial class FileHelpers
         return File.WriteAllTextAsync(filePath, text);
     }
 
-    public static Task<string> ReadText(string filePath)
+    public static async Task<StringBuilder> ReadText(string filePath)
     {
-        return File.ReadAllTextAsync(filePath);
+        await using var stream = OpenRead(filePath);
+        return await ReadText(stream);
     }
 
     public static async Task WriteStream(string filePath, Stream stream)

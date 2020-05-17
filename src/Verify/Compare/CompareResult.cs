@@ -1,5 +1,8 @@
-﻿namespace Verify
+﻿using System.Diagnostics;
+
+namespace Verify
 {
+    [DebuggerDisplay("IsEqual = {IsEqual} | Message = {Message}")]
     public readonly struct CompareResult
     {
         public bool IsEqual { get; }

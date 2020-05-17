@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 static class JsonFormatter
 {
-    public static string AsJson<T>(T input, JsonSerializerSettings settings)
+    public static StringBuilder AsJson<T>(T input, JsonSerializerSettings settings)
     {
         var serializer = JsonSerializer.Create(settings);
         var builder = new StringBuilder();
@@ -16,6 +16,6 @@ static class JsonFormatter
         };
         serializer.Serialize(writer, input);
         builder.Replace(@"\\", @"\");
-        return builder.ToString();
+        return builder;
     }
 }

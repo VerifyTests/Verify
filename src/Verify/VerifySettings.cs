@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Verify
 {
@@ -14,7 +15,7 @@ namespace Verify
                 return;
             }
 
-            instanceScrubbers = new List<Func<string, string>>(settings.instanceScrubbers);
+            instanceScrubbers = new List<Action<StringBuilder>>(settings.instanceScrubbers);
             extension = settings.extension;
             ignoreTrailingWhitespace = settings.ignoreTrailingWhitespace;
             clipboardEnabled = settings.clipboardEnabled;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using EmptyFiles;
 using Verify;
@@ -61,14 +62,13 @@ partial class InnerVerifier
 
      static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
     {
-        if (Extensions.IsText(file.Extension))
+        if (!Extensions.IsText(file.Extension))
         {
-            var readAsString = await stream.ReadAsString();
-            var scrubbedInput = ApplyScrubbers.Apply(readAsString, settings.instanceScrubbers);
-            return await Comparer.Text(file, scrubbedInput, settings);
+            return await Comparer.Streams(settings, stream, file);
         }
-
-        return await Comparer.Streams(settings, stream, file);
+        var builder = new StringBuilder(await stream.ReadAsString());
+        ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+        return await Comparer.Text(file, builder, settings);
     }
 
     FilePair GetFileForIndex(VerifySettings settings, List<Stream> list, int index, string extension)
@@ -90,11 +90,11 @@ partial class InnerVerifier
 
         var file = GetFileNames("txt", settings.Namer, "info");
 
-        var formatJson = JsonFormatter.AsJson(info, settings.serialization.currentSettings);
+        var builder = JsonFormatter.AsJson(info, settings.serialization.currentSettings);
 
-        var scrubbedInput = ApplyScrubbers.Apply(formatJson, settings.instanceScrubbers);
+        ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 
-        var result = await Comparer.Text(file, scrubbedInput, settings);
+        var result = await Comparer.Text(file, builder, settings);
         engine.HandleCompareResult(result, file);
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Text;
 
 namespace Verify
 {
     public static class Scrubbers
     {
-        public static string ScrubMachineName(string s)
+        public static void ScrubMachineName(StringBuilder builder)
         {
-            return s.Replace(Environment.MachineName, "TheMachineName");
+            builder.Replace(Environment.MachineName, "TheMachineName");
         }
     }
 }

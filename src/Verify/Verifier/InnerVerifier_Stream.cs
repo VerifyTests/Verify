@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EmptyFiles;
 using Verify;
@@ -66,7 +65,7 @@ partial class InnerVerifier
         {
             return await Comparer.Streams(settings, stream, file);
         }
-        var builder = new StringBuilder(await stream.ReadAsString());
+        var builder = await stream.ReadAsString();
         ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
         return await Comparer.Text(file, builder, settings);
     }

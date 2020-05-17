@@ -19,20 +19,10 @@ static partial class FileHelpers
         await stream.CopyToAsync(fileStream);
     }
 
-    public static async Task<string> ReadText(string filePath)
+    public static async Task<StringBuilder> ReadText(string filePath)
     {
         using var stream = OpenRead(filePath);
-        var builder = new StringBuilder();
-
-        var buffer = new byte[0x1000];
-        int numRead;
-        while ((numRead = await stream.ReadAsync(buffer, 0, buffer.Length)) != 0)
-        {
-            var text = Utf8NoBOM.GetString(buffer, 0, numRead);
-            builder.Append(text);
-        }
-
-        return builder.ToString();
+        return await ReadText(stream);
     }
 }
 #endif

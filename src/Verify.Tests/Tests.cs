@@ -113,7 +113,7 @@ public class Tests :
     [Fact]
     public Task Newlines()
     {
-        return Verify("a\r\nb\nc");
+        return Verify("a\r\nb\nc\rd");
     }
 
     [Fact]

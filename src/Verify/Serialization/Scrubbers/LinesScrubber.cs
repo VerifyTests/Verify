@@ -5,36 +5,36 @@ using System.Text;
 
 static class LinesScrubber
 {
-    public static string RemoveLinesContaining(this string input, StringComparison comparison, params string[] stringToMatch)
+    public static void RemoveLinesContaining(this StringBuilder input, StringComparison comparison, params string[] stringToMatch)
     {
-        Guard.AgainstNullOrEmpty(input, nameof(input));
+        Guard.AgainstNull(input, nameof(input));
         Guard.AgainstNullOrEmpty(stringToMatch, nameof(stringToMatch));
-        return FilterLines(input, s => s.LineContains(stringToMatch, comparison));
+        FilterLines(input, s => s.LineContains(stringToMatch, comparison));
     }
 
-    public static string ReplaceLines(this string input, Func<string, string> replaceLine)
+    public static void ReplaceLines(this StringBuilder input, Func<string, string> replaceLine)
     {
-        Guard.AgainstNullOrEmpty(input, nameof(input));
+        Guard.AgainstNull(input, nameof(input));
         Guard.AgainstNull(replaceLine, nameof(replaceLine));
 
-        using var reader = new StringReader(input);
-        var builder = new StringBuilder();
-
+        using var reader = new StringReader(input.ToString());
+        input.Clear();
         string line;
         while ((line = reader.ReadLine()) != null)
         {
-            builder.AppendLine(replaceLine(line));
+            input.Append(replaceLine(line));
+            input.Append('\n');
         }
-
-        return builder.ToString();
+        input.Length -= 1;
     }
-    public static string FilterLines(this string input, Func<string, bool> removeLine)
+
+    public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine)
     {
-        Guard.AgainstNullOrEmpty(input, nameof(input));
+        Guard.AgainstNull(input, nameof(input));
         Guard.AgainstNull(removeLine, nameof(removeLine));
 
-        using var reader = new StringReader(input);
-        var builder = new StringBuilder();
+        using var reader = new StringReader(input.ToString());
+        input.Clear();
 
         string line;
         while ((line = reader.ReadLine()) != null)
@@ -43,10 +43,11 @@ static class LinesScrubber
             {
                 continue;
             }
-            builder.AppendLine(line);
+            input.Append(line);
+            input.Append('\n');
         }
 
-        return builder.ToString();
+        input.Length -= 1;
     }
 
     static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison)

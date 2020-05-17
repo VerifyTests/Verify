@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 static partial class FileHelpers
 {
@@ -33,5 +34,10 @@ static partial class FileHelpers
             FileShare.Read,
             bufferSize: 4096,
             useAsync: true);
+    }
+
+    static Task<StringBuilder> ReadText(FileStream stream)
+    {
+        return stream.ReadAsString();
     }
 }

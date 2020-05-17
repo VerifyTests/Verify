@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Verify;
 
 static class ApplyScrubbers
@@ -16,26 +17,24 @@ static class ApplyScrubbers
         tempPath = CleanPath(Path.GetTempPath());
     }
 
-    public static string Apply(string target, List<Func<string, string>> scrubbers)
+    public static void Apply(StringBuilder target, List<Action<StringBuilder>> scrubbers)
     {
         foreach (var replace in currentDirectoryReplacements)
         {
-            target = target.Replace(replace, "CurrentDirectory");
+            target.Replace(replace, "CurrentDirectory");
         }
 
-        target = target.Replace(tempPath, "TempPath");
+        target.Replace(tempPath, "TempPath");
 
         foreach (var scrubber in scrubbers)
         {
-            target = scrubber(target);
+            scrubber(target);
         }
 
         foreach (var scrubber in SharedVerifySettings.GlobalScrubbers)
         {
-            target = scrubber(target);
+            scrubber(target);
         }
-
-        return target;
     }
 
     static string CleanPath(string directory)

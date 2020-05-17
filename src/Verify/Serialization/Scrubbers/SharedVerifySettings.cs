@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Verify
 {
     public static partial class SharedVerifySettings
     {
-        internal static List<Func<string, string>> GlobalScrubbers = new List<Func<string, string>>();
+        internal static List<Action<StringBuilder>> GlobalScrubbers = new List<Action<StringBuilder>>();
 
-        public static void AddScrubber(Func<string, string> scrubber)
+        public static void AddScrubber(Action<StringBuilder> scrubber)
         {
             Guard.AgainstNull(scrubber, nameof(scrubber));
 

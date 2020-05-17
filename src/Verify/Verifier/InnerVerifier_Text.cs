@@ -1,9 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using Verify;
 
 partial class InnerVerifier
 {
-    public async Task Verify(string input, VerifySettings? settings = null)
+    public Task Verify(string input, VerifySettings? settings = null)
+    {
+        return Verify(new StringBuilder(input), settings);
+    }
+
+    async Task Verify(StringBuilder input, VerifySettings? settings)
     {
         Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
@@ -18,9 +24,9 @@ partial class InnerVerifier
 
         var file = GetFileNames(extension, settings.Namer);
 
-        var scrubbedInput = ApplyScrubbers.Apply(input, settings.instanceScrubbers);
+        ApplyScrubbers.Apply(input, settings.instanceScrubbers);
 
-        var result = await Comparer.Text(file, scrubbedInput, settings);
+        var result = await Comparer.Text(file, input, settings);
         engine.HandleCompareResult(result, file);
         await engine.ThrowIfRequired();
     }

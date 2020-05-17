@@ -221,7 +221,7 @@ public class SerializationTests :
 
         #region AddScrubber
 
-        verifySettings.AddScrubber(fullText => fullText.Substring(0, 100));
+        verifySettings.AddScrubber(fullText => fullText.Remove(0, 100));
 
         #endregion
     }

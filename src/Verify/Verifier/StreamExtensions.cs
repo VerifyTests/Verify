@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 static class StreamExtensions
@@ -10,9 +11,20 @@ static class StreamExtensions
             stream.Position = 0;
         }
     }
-    public static async Task<string> ReadAsString(this Stream stream)
+
+    public static async Task<StringBuilder> ReadAsString(this Stream stream)
     {
         using var reader = new StreamReader(stream);
-        return await reader.ReadToEndAsync();
+        var builder = new StringBuilder((int) stream.Length);
+
+        string line;
+        while ((line = await reader.ReadLineAsync()) != null)
+        {
+            builder.Append(line);
+            builder.Append('\n');
+        }
+
+        builder.Length -= 1;
+        return builder;
     }
 }

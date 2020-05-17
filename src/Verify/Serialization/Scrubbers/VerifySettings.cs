@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Verify
 {
     public partial class VerifySettings
     {
-        internal List<Func<string, string>> instanceScrubbers = new List<Func<string, string>>();
+        internal List<Action<StringBuilder>> instanceScrubbers = new List<Action<StringBuilder>>();
 
         public void ScrubMachineName()
         {
@@ -19,7 +20,7 @@ namespace Verify
             newLineEscapingDisabled = true;
         }
 
-        public void AddScrubber(Func<string, string> scrubber)
+        public void AddScrubber(Action<StringBuilder> scrubber)
         {
             Guard.AgainstNull(scrubber, nameof(scrubber));
 

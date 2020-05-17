@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Bunit;
 
-class ComponentReader
+static class ComponentReader
 {
     public static object? GetInstance(IRenderedFragment fragment)
     {
@@ -11,11 +11,12 @@ class ComponentReader
             return null;
         }
 
-        var renderComponentInterface = type.GetInterfaces()
-            .Where(x => x.IsGenericType &&
-                        x.GetGenericTypeDefinition() == typeof(IRenderedComponent<>))
-            .SingleOrDefault();
-        if (renderComponentInterface  == null)
+        var renderComponentInterface = type
+            .GetInterfaces()
+            .SingleOrDefault(x =>
+                x.IsGenericType &&
+                x.GetGenericTypeDefinition() == typeof(IRenderedComponent<>));
+        if (renderComponentInterface == null)
         {
             return null;
         }

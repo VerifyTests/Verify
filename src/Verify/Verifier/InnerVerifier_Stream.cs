@@ -16,7 +16,11 @@ partial class InnerVerifier
 
     async Task VerifyStream(VerifySettings settings, Stream stream)
     {
+#if NETSTANDARD2_1
+        await using (stream)
+#else
         using (stream)
+#endif
         {
             if (settings.HasExtension())
             {
@@ -48,10 +52,8 @@ partial class InnerVerifier
         for (var index = 0; index < list.Count; index++)
         {
             var file = GetFileForIndex(settings, list, index, extension);
-            var stream = list[index];
-            stream.MoveToStart();
 
-            var result = await GetResult(settings, file, stream);
+            var result = await GetResult(settings, file, list[index]);
 
             engine.HandleCompareResult(result, file);
         }
@@ -59,15 +61,24 @@ partial class InnerVerifier
         await engine.ThrowIfRequired();
     }
 
-     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
     {
-        if (!Extensions.IsText(file.Extension))
+#if NETSTANDARD2_1
+        await using (stream)
+#else
+        using (stream)
+#endif
         {
-            return await Comparer.Streams(settings, stream, file);
+            stream.MoveToStart();
+            if (!Extensions.IsText(file.Extension))
+            {
+                return await Comparer.Streams(settings, stream, file);
+            }
+
+            var builder = await stream.ReadAsString();
+            ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+            return await Comparer.Text(file, builder, settings);
         }
-        var builder = await stream.ReadAsString();
-        ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-        return await Comparer.Text(file, builder, settings);
     }
 
     FilePair GetFileForIndex(VerifySettings settings, List<Stream> list, int index, string extension)

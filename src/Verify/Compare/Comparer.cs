@@ -30,14 +30,22 @@ static class Comparer
 
     static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings)
     {
-        if (settings.TryFindComparer(out var compare))
+        if (!settings.TryFindComparer(out var compare))
         {
-            using var stream1 = MemoryStream(received.ToString());
-            using var stream2 = MemoryStream(verified.ToString());
-            return await compare(settings, stream1, stream2);
+            return new CompareResult(verified.Compare(received));
         }
 
-        return new CompareResult(verified.Compare(received));
+        var receivedText = received.ToString();
+        var verifiedText = verified.ToString();
+#if NETSTANDARD2_1
+        await using var stream1 = MemoryStream(receivedText);
+        await using var stream2 = MemoryStream(verifiedText);
+#else
+        using var stream1 = MemoryStream(receivedText);
+        using var stream2 = MemoryStream(verifiedText);
+#endif
+
+        return await compare(settings, stream1, stream2);
     }
 
     static MemoryStream MemoryStream(string text)
@@ -60,27 +68,15 @@ static class Comparer
         Stream stream,
         FilePair file)
     {
-        try
+        await FileHelpers.WriteStream(file.Received, stream);
+
+        var result = await FileComparer.DoCompare(settings, file);
+
+        if (result.Equality == Equality.Equal)
         {
-            await FileHelpers.WriteStream(file.Received, stream);
-
-            var result = await FileComparer.DoCompare(settings, file);
-
-            if (result.Equality == Equality.Equal)
-            {
-                File.Delete(file.Received);
-                return result;
-            }
-
-            return result;
+            File.Delete(file.Received);
         }
-        finally
-        {
-#if NETSTANDARD2_1
-            await stream.DisposeAsync();
-#else
-            stream.Dispose();
-#endif
-        }
+
+        return result;
     }
 }

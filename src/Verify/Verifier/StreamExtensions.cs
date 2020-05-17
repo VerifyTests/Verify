@@ -14,7 +14,7 @@ static class StreamExtensions
 
     public static async Task<StringBuilder> ReadAsString(this Stream stream)
     {
-        using var reader = new StreamReader(stream);
+        using var reader = new StreamReader(stream, FileHelpers.Utf8NoBOM);
         var builder = new StringBuilder((int) stream.Length);
 
         string line;

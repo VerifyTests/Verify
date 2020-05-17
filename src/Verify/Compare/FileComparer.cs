@@ -29,13 +29,9 @@ static class FileComparer
 
     public static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair file)
     {
-        if (settings.comparer != null)
+        if (settings.TryFindComparer(out var compare))
         {
-            return DoCompare(settings, file.Received, file.Verified, settings.comparer);
-        }
-        if (SharedVerifySettings.TryGetComparer(file.Extension, out var comparer))
-        {
-            return DoCompare(settings, file.Received, file.Verified, comparer);
+            return DoCompare(settings, file.Received, file.Verified, compare);
         }
 
         if (!FilesAreSameSize(file))

@@ -30,18 +30,11 @@ static class Comparer
 
     static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings)
     {
-        var extension = settings.ExtensionOrTxt();
-        if (settings.comparer != null)
+        if (settings.TryFindComparer(out var compare))
         {
             using var stream1 = MemoryStream(received.ToString());
             using var stream2 = MemoryStream(verified.ToString());
-            return await settings.comparer(settings, stream1, stream2);
-        }
-        if (SharedVerifySettings.TryGetComparer(extension, out var comparer))
-        {
-            using var stream1 = MemoryStream(received.ToString());
-            using var stream2 = MemoryStream(verified.ToString());
-            return await comparer(settings, stream1, stream2);
+            return await compare(settings, stream1, stream2);
         }
 
         return new CompareResult(verified.Compare(received));

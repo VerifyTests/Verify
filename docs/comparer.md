@@ -129,5 +129,5 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L77-L125' title='File snippet `defualtcompare` was extracted from'>snippet source</a> | <a href='#snippet-defualtcompare' title='Navigate to start of snippet `defualtcompare`'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='File snippet `defualtcompare` was extracted from'>snippet source</a> | <a href='#snippet-defualtcompare' title='Navigate to start of snippet `defualtcompare`'>anchor</a></sup>
 <!-- endsnippet -->

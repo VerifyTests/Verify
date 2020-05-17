@@ -6,7 +6,10 @@ partial class InnerVerifier
 {
     public Task Verify(string input, VerifySettings? settings = null)
     {
-        return Verify(new StringBuilder(input), settings);
+        var builder = new StringBuilder(input);
+        builder.Replace("\r\n", "\n");
+        builder.Replace("\r", "\n");
+        return Verify(builder, settings);
     }
 
     async Task Verify(StringBuilder input, VerifySettings? settings)

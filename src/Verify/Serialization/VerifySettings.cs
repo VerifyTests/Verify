@@ -5,13 +5,6 @@ namespace Verify
 {
     public partial class VerifySettings
     {
-        internal bool ignoreTrailingWhitespace;
-
-        public void IgnoreTrailingWhitespace()
-        {
-            ignoreTrailingWhitespace = true;
-        }
-
         internal SerializationSettings serialization = SharedVerifySettings.serialization;
         bool isCloned;
 

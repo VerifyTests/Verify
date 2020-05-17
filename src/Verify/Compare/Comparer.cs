@@ -7,7 +7,6 @@ static class Comparer
 {
     public static async Task<EqualityResult> Text(FilePair file, StringBuilder received, VerifySettings settings)
     {
-        Scrub(received, settings.ignoreTrailingWhitespace);
         FileHelpers.DeleteIfEmpty(file.Verified);
         if (!File.Exists(file.Verified))
         {
@@ -16,7 +15,6 @@ static class Comparer
         }
 
         var verified = await FileHelpers.ReadText(file.Verified);
-        Scrub(verified, settings.ignoreTrailingWhitespace);
 
         var result = await CompareStrings(received, verified, settings);
         if (result.IsEqual)
@@ -51,16 +49,6 @@ static class Comparer
     static MemoryStream MemoryStream(string text)
     {
         return new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(text));
-    }
-
-    static void Scrub(StringBuilder scrubbedInput, bool ignoreTrailingWhitespace)
-    {
-        scrubbedInput.Replace("\r\n", "\n");
-        scrubbedInput.Replace("\r", "\n");
-        if (ignoreTrailingWhitespace)
-        {
-            scrubbedInput.TrimEnd();
-        }
     }
 
     public static async Task<EqualityResult> Streams(

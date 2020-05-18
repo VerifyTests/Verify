@@ -17,7 +17,8 @@ static class LinesScrubber
         Guard.AgainstNull(input, nameof(input));
         Guard.AgainstNull(replaceLine, nameof(replaceLine));
 
-        using var reader = new StringReader(input.ToString());
+        var theString = input.ToString();
+        using var reader = new StringReader(theString);
         input.Clear();
         string line;
         while ((line = reader.ReadLine()) != null)
@@ -25,7 +26,10 @@ static class LinesScrubber
             input.Append(replaceLine(line));
             input.Append('\n');
         }
-        input.Length -= 1;
+        if (!theString.EndsWith("\n"))
+        {
+            input.Length -= 1;
+        }
     }
 
     public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine)
@@ -33,7 +37,8 @@ static class LinesScrubber
         Guard.AgainstNull(input, nameof(input));
         Guard.AgainstNull(removeLine, nameof(removeLine));
 
-        using var reader = new StringReader(input.ToString());
+        var theString = input.ToString();
+        using var reader = new StringReader(theString);
         input.Clear();
 
         string line;
@@ -47,7 +52,10 @@ static class LinesScrubber
             input.Append('\n');
         }
 
-        input.Length -= 1;
+        if (!theString.EndsWith("\n"))
+        {
+            input.Length -= 1;
+        }
     }
 
     static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison)

@@ -13,6 +13,15 @@ namespace Verify
             AddScrubber(Scrubbers.ScrubMachineName);
         }
 
+        internal bool IsNewLineEscapingDisabled
+        {
+            get
+            {
+                return newLineEscapingDisabled ||
+                       SharedVerifySettings.newLineEscapingDisabled;
+            }
+        }
+
         internal bool newLineEscapingDisabled;
 
         public void DisableNewLineEscaping()

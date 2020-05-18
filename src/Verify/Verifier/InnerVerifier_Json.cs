@@ -39,6 +39,7 @@ partial class InnerVerifier
             input,
             settings.serialization.currentSettings,
             settings.IsNewLineEscapingDisabled);
+        var s = formatJson.ToString();
         await Verify(formatJson, settings);
     }
 

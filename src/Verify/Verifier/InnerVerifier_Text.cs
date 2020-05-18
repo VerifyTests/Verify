@@ -28,7 +28,7 @@ partial class InnerVerifier
         var file = GetFileNames(extension, settings.Namer);
 
         ApplyScrubbers.Apply(input, settings.instanceScrubbers);
-
+        var s = input.ToString();
         var result = await Comparer.Text(file, input, settings);
         engine.HandleCompareResult(result, file);
         await engine.ThrowIfRequired();

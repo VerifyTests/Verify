@@ -95,12 +95,6 @@ public class Tests :
     }
 
     [Fact]
-    public Task NewlinesText()
-    {
-        return Verify("a\r\nb\nc");
-    }
-
-    [Fact]
     public async Task ShouldNotIgnoreCase()
     {
         await Verify("A");
@@ -113,7 +107,7 @@ public class Tests :
     [Fact]
     public Task Newlines()
     {
-        return Verify("a\r\nb\nc\rd");
+        return Verify("a\r\nb\nc\rd\r\n");
     }
 
     [Fact]

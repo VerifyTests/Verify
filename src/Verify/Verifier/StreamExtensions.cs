@@ -24,7 +24,11 @@ static class StreamExtensions
             builder.Append('\n');
         }
 
-        builder.Length -= 1;
+        if (builder.Length > stream.Length)
+        {
+            builder.Length -= 1;
+        }
+
         return builder;
     }
 }

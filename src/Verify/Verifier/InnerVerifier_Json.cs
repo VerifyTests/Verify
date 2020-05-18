@@ -34,11 +34,11 @@ partial class InnerVerifier
             await VerifyBinary(enumerable.Cast<Stream>(), settings, null);
             return;
         }
-        var formatJson = JsonFormatter.AsJson(input, settings.serialization.currentSettings);
-        if (settings.newLineEscapingDisabled || SharedVerifySettings.newLineEscapingDisabled)
-        {
-            formatJson = formatJson.Replace("\\n", "\n");
-        }
+
+        var formatJson = JsonFormatter.AsJson(
+            input,
+            settings.serialization.currentSettings,
+            settings.IsNewLineEscapingDisabled);
         await Verify(formatJson, settings);
     }
 

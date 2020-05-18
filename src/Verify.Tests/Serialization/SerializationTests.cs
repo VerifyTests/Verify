@@ -171,7 +171,7 @@ public class SerializationTests :
     public Task NewLineEscapedInProperty()
     {
         #region NewLineEscapedInProperty
-        return Verify(new {Property = "a\r\nb"});
+        return Verify(new {Property = "a\r\nb\\nc"});
         #endregion
     }
 
@@ -181,7 +181,7 @@ public class SerializationTests :
         #region DisableNewLineEscaping
         var settings = new VerifySettings();
         settings.DisableNewLineEscaping();
-        await Verify(new {Property = "a\r\nb"}, settings);
+        await Verify(new {Property = "a\r\nb\\nc"}, settings);
         #endregion
     }
 

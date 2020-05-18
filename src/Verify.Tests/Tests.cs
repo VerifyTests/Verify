@@ -76,7 +76,6 @@ public class Tests :
         Assert.False(onVerifyMismatchCalled);
     }
 
-
     [Fact]
     public async Task SettingsArePassed()
     {

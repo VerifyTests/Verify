@@ -100,7 +100,10 @@ partial class InnerVerifier
 
         var file = GetFileNames("txt", settings.Namer, "info");
 
-        var builder = JsonFormatter.AsJson(info, settings.serialization.currentSettings);
+        var builder = JsonFormatter.AsJson(
+            info,
+            settings.serialization.currentSettings,
+            settings.IsNewLineEscapingDisabled);
 
         ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 

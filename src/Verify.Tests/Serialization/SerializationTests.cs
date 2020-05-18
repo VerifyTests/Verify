@@ -61,6 +61,18 @@ public class SerializationTests :
     }
 
     [Fact]
+    public Task ScrubberWithBadNewLine()
+    {
+        var settings = new VerifySettings();
+        settings.AddScrubber(s =>
+        {
+            s.AppendLine("b");
+            s.AppendLine("c");
+        });
+        return Verify("a", settings);
+    }
+
+    [Fact]
     public Task ExampleNonDefaults()
     {
         var person = new Person

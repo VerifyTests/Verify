@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Verify;
 
@@ -34,6 +35,11 @@ static class ApplyScrubbers
         foreach (var scrubber in SharedVerifySettings.GlobalScrubbers)
         {
             scrubber(target);
+        }
+
+        if (scrubbers.Any() || SharedVerifySettings.GlobalScrubbers.Any())
+        {
+            target.FixNewlines();
         }
     }
 

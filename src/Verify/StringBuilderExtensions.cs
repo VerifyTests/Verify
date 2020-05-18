@@ -2,6 +2,12 @@
 
 static class StringBuilderExtensions
 {
+    public static void FixNewlines(this StringBuilder builder)
+    {
+        builder.Replace("\r\n", "\n");
+        builder.Replace("\r", "\n");
+    }
+
     public static bool Compare(this StringBuilder builder1, StringBuilder builder2)
     {
         if (builder1.Length != builder2.Length)

@@ -4,6 +4,6 @@
     Instance: {
       Title: 'My Test Component'
     },
-    Markup: '<div>\r\n    <h1>My Test Component</h1>\r\n    <button>MyButton</button>\r\n</div>'
+    Markup: '<div>\n    <h1>My Test Component</h1>\n    <button>MyButton</button>\n</div>'
   }
 }

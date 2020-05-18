@@ -26,7 +26,7 @@ class StringConverter :
             return;
         }
 
-        writer.WriteValue(valueAsString);
+        writer.WriteValue(valueAsString.Replace("\r\n", "\n").Replace("\r", "\n"));
     }
 
     public override bool CanRead => false;

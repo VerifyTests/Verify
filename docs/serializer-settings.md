@@ -597,7 +597,7 @@ return Verify(new {Property = "a\r\nb"});
 <a id='snippet-SerializationTests.NewLineEscapedInProperty.verified.txt'/></a>
 ```txt
 {
-  Property: 'a\r\nb'
+  Property: 'a\nb'
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineEscapedInProperty.verified.txt#L1-L3' title='File snippet `SerializationTests.NewLineEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineEscapedInProperty.verified.txt' title='Navigate to start of snippet `SerializationTests.NewLineEscapedInProperty.verified.txt`'>anchor</a></sup>

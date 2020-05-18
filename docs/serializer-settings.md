@@ -597,7 +597,7 @@ return Verify(new {Property = "a\r\nb\\nc"});
 <a id='snippet-SerializationTests.NewLineEscapedInProperty.verified.txt'/></a>
 ```txt
 {
-  Property: 'a\nb'
+  Property: 'a\nb\nc'
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineEscapedInProperty.verified.txt#L1-L3' title='File snippet `SerializationTests.NewLineEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineEscapedInProperty.verified.txt' title='Navigate to start of snippet `SerializationTests.NewLineEscapedInProperty.verified.txt`'>anchor</a></sup>
@@ -620,7 +620,7 @@ await Verify(new {Property = "a\r\nb\\nc"}, settings);
 ```txt
 {
   Property: 'a
-b'
+b\nc'
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineNotEscapedInProperty.verified.txt#L1-L4' title='File snippet `SerializationTests.NewLineNotEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt' title='Navigate to start of snippet `SerializationTests.NewLineNotEscapedInProperty.verified.txt`'>anchor</a></sup>

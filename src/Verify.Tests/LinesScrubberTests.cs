@@ -32,8 +32,20 @@ f");
             settings: settings,
             target:  @"b
 ");
-
     }
+
+    [Fact]
+    public Task DontScrubMultiNewline()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubLines(removeLine: x => x.Contains("D"));
+        return Verify(
+            settings: settings,
+            target:  @"b
+
+c");
+    }
+
     [Fact]
     public Task FilterLines()
     {

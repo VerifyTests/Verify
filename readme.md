@@ -366,6 +366,9 @@ To verify the result:
  * Use the diff tool to accept the changes, or
  * Manually copy the text to the new file
 
+
+#### Verified result
+
 This will result in the `SampleTest.Simple.verified.txt` being created:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt -->

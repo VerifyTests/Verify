@@ -7,15 +7,6 @@ namespace VerifyMSTest
 {
     public partial class VerifyBase
     {
-        static VerifyBase()
-        {
-            InnerVerifier.Init(
-                message => new AssertFailedException(message),
-                input => CounterContext.Current.IntOrNext(input),
-                input => CounterContext.Current.IntOrNext(input),
-                input => CounterContext.Current.IntOrNext(input));
-        }
-
         public TestContext TestContext
         {
             get => testContext;

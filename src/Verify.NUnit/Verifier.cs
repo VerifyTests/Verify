@@ -7,15 +7,6 @@ namespace VerifyNUnit
 {
     public static partial class Verifier
     {
-        static Verifier()
-        {
-            InnerVerifier.Init(
-                message => new NUnitException(message),
-                input => CounterContext.Current.IntOrNext(input),
-                input => CounterContext.Current.IntOrNext(input),
-                input => CounterContext.Current.IntOrNext(input));
-        }
-
         static FieldInfo field = typeof(TestContext.TestAdapter)
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
 

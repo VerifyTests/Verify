@@ -14,8 +14,6 @@
     <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="All" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="bunit" Version="1.0.0-beta-6" />
-    <PackageReference Include="bunit" Version="1.0.0-beta-7" />
-    <PackageReference Include="bunit" Version="1.0.0-beta-6" />
     <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

@@ -13,6 +13,16 @@ Verify is heavily influenced by [ApprovalTests](https://github.com/approvals/App
 ## Differences to ApprovalTests
 
 
+### Object Serialization
+
+Verify supports verification of any object through the use of Json.net
+
+
+### Custom comparers
+
+Verify supports [Custom comparer](comparer.md).
+
+
 ### No stack trace and symbols
 
 ApprovalTests uses the stack trace and information from debug symbols. This results in a requirement for test assembly to have symbols enable and not be optimized.

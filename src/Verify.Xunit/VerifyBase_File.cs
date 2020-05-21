@@ -14,12 +14,12 @@ namespace VerifyXunit
             return verifier.Verify(target, settings);
         }
 
-        public async Task Verify(
+        public Task Verify(
             Task<byte[]> target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            await verifier.Verify(await target, settings);
+            return verifier.Verify(target, settings);
         }
 
         public Task VerifyFile(

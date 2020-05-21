@@ -15,7 +15,7 @@ static class ComponentReader
             .GetInterfaces()
             .SingleOrDefault(x =>
                 x.IsGenericType &&
-                x.GetGenericTypeDefinition() == typeof(IRenderedComponent<>));
+                x.GetGenericTypeDefinition() == typeof(IRenderedComponentBase<>));
         if (renderComponentInterface == null)
         {
             return null;

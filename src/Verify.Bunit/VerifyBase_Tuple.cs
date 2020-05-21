@@ -9,11 +9,13 @@ namespace VerifyBunit
 {
     public partial class VerifyBase
     {
-        public Task Verify(
+        public async Task Verify(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null)
         {
-            return GetVerifier().Verify(expression, settings);
+            var verifier = GetVerifier();
+            await verifier.Verify(expression, settings);
+            Flush();
         }
     }
 }

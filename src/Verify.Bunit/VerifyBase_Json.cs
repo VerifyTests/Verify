@@ -6,28 +6,31 @@ namespace VerifyBunit
 {
     public partial class VerifyBase
     {
-        public Task Verify<T>(
+        public async Task Verify<T>(
             Task<T> task,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.Verify(task, settings);
+            await verifier.Verify(task, settings);
+            Flush();
         }
 
-        public Task Verify<T>(
+        public async Task Verify<T>(
             IAsyncEnumerable<T> enumerable,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.Verify(enumerable, settings);
+            await verifier.Verify(enumerable, settings);
+            Flush();
         }
 
-        public Task Verify<T>(
+        public async Task Verify<T>(
             T target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.Verify(target, settings);
+            await verifier.Verify(target, settings);
+            Flush();
         }
     }
 }

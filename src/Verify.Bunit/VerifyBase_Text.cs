@@ -5,9 +5,11 @@ namespace VerifyBunit
 {
     public partial class VerifyBase
     {
-        public Task Verify(string target, VerifySettings? settings = null)
+        public async Task Verify(string target, VerifySettings? settings = null)
         {
-            return GetVerifier().Verify(target, settings);
+            var verifier = GetVerifier();
+            await verifier.Verify(target, settings);
+            Flush();
         }
     }
 }

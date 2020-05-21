@@ -6,12 +6,13 @@ namespace VerifyBunit
 {
     public partial class VerifyBase
     {
-        public Task Verify(
+        public async Task Verify(
             byte[] target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.Verify(target, settings);
+            await verifier.Verify(target, settings);
+            Flush();
         }
 
         public async Task Verify(
@@ -20,22 +21,25 @@ namespace VerifyBunit
         {
             var verifier = GetVerifier();
             await verifier.Verify(await target, settings);
+            Flush();
         }
 
-        public Task VerifyFile(
+        public async Task VerifyFile(
             string path,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.VerifyFile(path, settings);
+            await verifier.VerifyFile(path, settings);
+            Flush();
         }
 
-        public Task VerifyFile(
+        public async Task VerifyFile(
             FileInfo file,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.VerifyFile(file, settings);
+            await verifier.VerifyFile(file, settings);
+            Flush();
         }
     }
 }

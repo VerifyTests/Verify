@@ -19,7 +19,8 @@ namespace VerifyXunit
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            await verifier.Verify(await target, settings);
+            var bytes = await target;
+            await verifier.Verify(bytes, settings);
         }
 
         public Task VerifyFile(

@@ -6,7 +6,7 @@ using Xunit.Abstractions;
 namespace VerifyBunit
 {
     public partial class VerifyBase :
-        ComponentTestFixture
+        TestContext
     {
         public VerifyBase(
             ITestOutputHelper output,
@@ -21,9 +21,16 @@ namespace VerifyBunit
             return new InnerVerifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
         }
 
-        protected override void Dispose(bool disposing)
+        //TODO: move the ContextCleanup back into the dispose when bunit is released
+        //protected override void Dispose(bool disposing)
+        //{
+        //    base.Dispose(disposing);
+        //    XunitContext.Flush();
+        //}
+
+        //TODO: remove when bunit is released
+        protected void Flush()
         {
-            base.Dispose(disposing);
             XunitContext.Flush();
         }
     }

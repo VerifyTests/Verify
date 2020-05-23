@@ -12,7 +12,8 @@ partial class InnerVerifier
         Guard.AgainstNull(input, nameof(input));
         settings = settings.OrDefault();
 
-        if (SharedVerifySettings.TryGetConverter<T>(
+        if (SharedVerifySettings.TryGetConverter(
+            input,
             settings.extension,
             out var converter))
         {

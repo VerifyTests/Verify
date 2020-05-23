@@ -3,11 +3,11 @@
 class TypeConverter
 {
     public string? ToExtension { get; }
-    public AsyncInstanceConversion Func { get; }
+    public AsyncConversion Func { get; }
     public CanConvert CanConvert { get; }
 
     public TypeConverter(
-        AsyncInstanceConversion func,
+        AsyncConversion func,
         CanConvert canConvert)
     {
         Func = func;
@@ -16,7 +16,7 @@ class TypeConverter
 
     public TypeConverter(
         string toExtension,
-        AsyncInstanceConversion func,
+        AsyncConversion func,
         CanConvert canConvert)
     {
         ToExtension = toExtension;

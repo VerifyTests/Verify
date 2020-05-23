@@ -4,11 +4,11 @@ using Verify;
 class StreamConverter
 {
     public string ToExtension { get; }
-    public AsyncInstanceConversion<Stream> Func { get; }
+    public AsyncConversion<Stream> Func { get; }
 
     public StreamConverter(
         string toExtension,
-        AsyncInstanceConversion<Stream> func)
+        AsyncConversion<Stream> func)
     {
         ToExtension = toExtension;
         Func = func;

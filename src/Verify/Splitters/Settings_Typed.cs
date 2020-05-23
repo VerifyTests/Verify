@@ -38,7 +38,7 @@ namespace Verify
         }
 
         public static void RegisterFileConverter<T>(
-            InstanceConversion<T> func,
+            Conversion<T> func,
             CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -48,7 +48,7 @@ namespace Verify
         }
 
         public static void RegisterFileConverter<T>(
-            AsyncInstanceConversion<T> func,
+            AsyncConversion<T> func,
             CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -59,7 +59,7 @@ namespace Verify
         }
 
         public static void RegisterFileConverter(
-            InstanceConversion func,
+            Conversion func,
             CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -69,7 +69,7 @@ namespace Verify
         }
 
         public static void RegisterFileConverter(
-            AsyncInstanceConversion func,
+            AsyncConversion func,
             CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -82,7 +82,7 @@ namespace Verify
 
         public static void RegisterFileConverter<T>(
             string toExtension,
-            InstanceConversion<T> func,
+            Conversion<T> func,
             CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -94,7 +94,7 @@ namespace Verify
 
         public static void RegisterFileConverter<T>(
             string toExtension,
-            AsyncInstanceConversion<T> func,
+            AsyncConversion<T> func,
             CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -111,24 +111,23 @@ namespace Verify
         {
             if (canConvert == null)
             {
-                return target => true;
+                return target => target is T;
             }
 
-            return target => canConvert((T) target);
-        }
-
-        static CanConvert DefaultCanConvert<T>(CanConvert? canConvert)
-        {
-            if (canConvert != null)
+            return target =>
             {
-                return canConvert;
-            }
-            return target => target is T;
+                if (target is T cast)
+                {
+                    return canConvert(cast);
+                }
+
+                return false;
+            };
         }
 
         public static void RegisterFileConverter(
             string toExtension,
-            InstanceConversion func,
+            Conversion func,
             CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
@@ -140,7 +139,7 @@ namespace Verify
 
         public static void RegisterFileConverter(
             string toExtension,
-            AsyncInstanceConversion func,
+            AsyncConversion func,
             CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));

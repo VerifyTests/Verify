@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Verify;
 
 class StreamConverter
 {
     public string ToExtension { get; }
-    public Func<Stream, VerifySettings, Task<ConversionResult>> Func { get; }
+    public AsyncConversion<Stream> Func { get; }
 
     public StreamConverter(
         string toExtension,
-        Func<Stream, VerifySettings, Task<ConversionResult>> func)
+        AsyncConversion<Stream> func)
     {
         ToExtension = toExtension;
         Func = func;

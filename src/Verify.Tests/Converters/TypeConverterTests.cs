@@ -126,6 +126,47 @@ public class TypeConverterTests :
     }
 
     [Fact]
+    public Task ConvertWithCanConvert_Invalid()
+    {
+        SharedVerifySettings.RegisterFileConverter<CanConvertTarget>(
+            "txt",
+            (instance, _) =>
+            {
+                var streams = ToStream(instance.Value);
+                return new ConversionResult(null, streams);
+            },
+            o => o.Value == "Valid");
+        var target = new CanConvertTarget
+        {
+            Value = "Invalid"
+        };
+        return Verify(target);
+    }
+
+    [Fact]
+    public Task ConvertWithCanConvert_Valid()
+    {
+        SharedVerifySettings.RegisterFileConverter<CanConvertTarget>(
+            "txt",
+            (instance, _) =>
+            {
+                var streams = ToStream(instance.Value);
+                return new ConversionResult(null, streams);
+            },
+            o => o.Value == "Valid");
+        var target = new CanConvertTarget
+        {
+            Value = "Valid"
+        };
+        return Verify(target);
+    }
+
+    public class CanConvertTarget
+    {
+        public string Value { get; set; } = null!;
+    }
+
+    [Fact]
     public Task WithInfo()
     {
         SharedVerifySettings.RegisterFileConverter<Bitmap>(

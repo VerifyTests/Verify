@@ -1,6 +1,6 @@
-﻿using System;
-
+﻿
 namespace Verify
 {
-    public delegate bool CanConvert(Type type);
+    public delegate bool CanConvert<in T>(T target);
+    public delegate bool CanConvert(object target);
 }

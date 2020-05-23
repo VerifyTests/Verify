@@ -10,6 +10,7 @@ namespace Verify
         static List<TypeConverter> typedConverters = new List<TypeConverter>();
 
         internal static bool TryGetConverter<T>(
+            T target,
             string? extension,
             [NotNullWhen(true)] out TypeConverter? converter)
         {
@@ -18,7 +19,7 @@ namespace Verify
                 foreach (var typedConverter in typedConverters
                     .Where(_ => _.ToExtension != null &&
                                 _.ToExtension == extension &&
-                                _.CanConvert(typeof(T))))
+                                _.CanConvert(target!)))
                 {
                     converter = typedConverter;
                     return true;
@@ -26,7 +27,7 @@ namespace Verify
             }
 
             foreach (var typedConverter in typedConverters
-                .Where(_ => _.CanConvert(typeof(T))))
+                .Where(_ => _.CanConvert(target!)))
             {
                 converter = typedConverter;
                 return true;
@@ -38,23 +39,22 @@ namespace Verify
 
         public static void RegisterFileConverter<T>(
             InstanceConversion<T> func,
-            CanConvert? canConvert = null)
+            CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
-            RegisterFileConverter<T>(
+            RegisterFileConverter(
                 (o, settings) => Task.FromResult(func(o, settings)),
                 canConvert);
         }
 
         public static void RegisterFileConverter<T>(
             AsyncInstanceConversion<T> func,
-            CanConvert? canConvert = null)
+            CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
-            canConvert = DefaultCanConvert<T>(canConvert);
             var converter = new TypeConverter(
                 (o, settings) => func((T) o, settings),
-                canConvert);
+                DefaultCanConvert(canConvert));
             typedConverters.Add(converter);
         }
 
@@ -83,10 +83,10 @@ namespace Verify
         public static void RegisterFileConverter<T>(
             string toExtension,
             InstanceConversion<T> func,
-            CanConvert? canConvert = null)
+            CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
-            RegisterFileConverter<T>(
+            RegisterFileConverter(
                 toExtension,
                 (o, settings) => Task.FromResult(func(o, settings)),
                 canConvert);
@@ -95,17 +95,26 @@ namespace Verify
         public static void RegisterFileConverter<T>(
             string toExtension,
             AsyncInstanceConversion<T> func,
-            CanConvert? canConvert = null)
+            CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            canConvert = DefaultCanConvert<T>(canConvert);
 
             var converter = new TypeConverter(
                 toExtension,
                 (o, settings) => func((T) o, settings),
-                canConvert);
+                DefaultCanConvert(canConvert));
             typedConverters.Add(converter);
+        }
+
+        static CanConvert DefaultCanConvert<T>(CanConvert<T>? canConvert)
+        {
+            if (canConvert == null)
+            {
+                return target => true;
+            }
+
+            return target => canConvert((T) target);
         }
 
         static CanConvert DefaultCanConvert<T>(CanConvert? canConvert)
@@ -114,7 +123,7 @@ namespace Verify
             {
                 return canConvert;
             }
-            return type => typeof(T).IsAssignableFrom(type);
+            return target => target is T;
         }
 
         public static void RegisterFileConverter(

@@ -16,7 +16,7 @@ namespace Verify
         public static void RegisterFileConverter(
             string fromExtension,
             string toExtension,
-            ObjectConversion<Stream> func)
+            InstanceConversion<Stream> func)
         {
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter(
@@ -28,7 +28,7 @@ namespace Verify
         public static void RegisterFileConverter(
             string fromExtension,
             string toExtension,
-            AsyncObjectConversion<Stream> func)
+            AsyncInstanceConversion<Stream> func)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));

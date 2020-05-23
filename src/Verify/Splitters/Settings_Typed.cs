@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,8 +37,8 @@ namespace Verify
         }
 
         public static void RegisterFileConverter<T>(
-            ObjectConversion<T> func,
-            Func<Type, bool>? canConvert = null)
+            InstanceConversion<T> func,
+            CanConvert? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter<T>(
@@ -48,8 +47,8 @@ namespace Verify
         }
 
         public static void RegisterFileConverter<T>(
-            AsyncObjectConversion<T> func,
-            Func<Type, bool>? canConvert = null)
+            AsyncInstanceConversion<T> func,
+            CanConvert? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
             canConvert = DefaultCanConvert<T>(canConvert);
@@ -60,8 +59,8 @@ namespace Verify
         }
 
         public static void RegisterFileConverter(
-            ObjectConversion<object> func,
-            Func<Type, bool> canConvert)
+            InstanceConversion func,
+            CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter(
@@ -70,8 +69,8 @@ namespace Verify
         }
 
         public static void RegisterFileConverter(
-            AsyncObjectConversion<object> func,
-            Func<Type, bool> canConvert)
+            AsyncInstanceConversion func,
+            CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstNull(canConvert, nameof(canConvert));
@@ -83,8 +82,8 @@ namespace Verify
 
         public static void RegisterFileConverter<T>(
             string toExtension,
-            ObjectConversion<T> func,
-            Func<Type, bool>? canConvert = null)
+            InstanceConversion<T> func,
+            CanConvert? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter<T>(
@@ -95,8 +94,8 @@ namespace Verify
 
         public static void RegisterFileConverter<T>(
             string toExtension,
-            AsyncObjectConversion<T> func,
-            Func<Type, bool>? canConvert = null)
+            AsyncInstanceConversion<T> func,
+            CanConvert? canConvert = null)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(toExtension, nameof(toExtension));
@@ -109,7 +108,7 @@ namespace Verify
             typedConverters.Add(converter);
         }
 
-        static Func<Type, bool> DefaultCanConvert<T>(Func<Type, bool>? canConvert)
+        static CanConvert DefaultCanConvert<T>(CanConvert? canConvert)
         {
             if (canConvert != null)
             {
@@ -120,8 +119,8 @@ namespace Verify
 
         public static void RegisterFileConverter(
             string toExtension,
-            ObjectConversion<object> func,
-            Func<Type, bool> canConvert)
+            InstanceConversion func,
+            CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter(
@@ -132,8 +131,8 @@ namespace Verify
 
         public static void RegisterFileConverter(
             string toExtension,
-            AsyncObjectConversion<object> func,
-            Func<Type, bool> canConvert)
+            AsyncInstanceConversion func,
+            CanConvert canConvert)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstNull(canConvert, nameof(canConvert));

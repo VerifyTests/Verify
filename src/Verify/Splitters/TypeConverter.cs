@@ -1,15 +1,14 @@
-﻿using System;
-using Verify;
+﻿using Verify;
 
 class TypeConverter
 {
     public string? ToExtension { get; }
-    public AsyncObjectConversion<object> Func { get; }
-    public Func<Type, bool> CanConvert { get; }
+    public AsyncInstanceConversion Func { get; }
+    public CanConvert CanConvert { get; }
 
     public TypeConverter(
-        AsyncObjectConversion<object> func,
-        Func<Type, bool> canConvert)
+        AsyncInstanceConversion func,
+        CanConvert canConvert)
     {
         Func = func;
         CanConvert = canConvert;
@@ -17,8 +16,8 @@ class TypeConverter
 
     public TypeConverter(
         string toExtension,
-        AsyncObjectConversion<object> func,
-        Func<Type, bool> canConvert)
+        AsyncInstanceConversion func,
+        CanConvert canConvert)
     {
         ToExtension = toExtension;
         Func = func;

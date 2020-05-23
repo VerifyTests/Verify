@@ -4,17 +4,16 @@ using Verify;
 
 partial class InnerVerifier
 {
-    public Task Verify(string input, VerifySettings? settings = null)
+    public Task Verify(string target, VerifySettings? settings = null)
     {
-        var builder = new StringBuilder(input);
+        var builder = new StringBuilder(target);
         builder.FixNewlines();
         return Verify(builder, settings);
     }
 
-
-    async Task Verify(StringBuilder input, VerifySettings? settings)
+    async Task Verify(StringBuilder target, VerifySettings? settings)
     {
-        Guard.AgainstNull(input, nameof(input));
+        Guard.AgainstNull(target, nameof(target));
         settings = settings.OrDefault();
 
         var extension = settings.ExtensionOrTxt();
@@ -27,9 +26,9 @@ partial class InnerVerifier
 
         var file = GetFileNames(extension, settings.Namer);
 
-        ApplyScrubbers.Apply(input, settings.instanceScrubbers);
-        var s = input.ToString();
-        var result = await Comparer.Text(file, input, settings);
+        ApplyScrubbers.Apply(target, settings.instanceScrubbers);
+        var s = target.ToString();
+        var result = await Comparer.Text(file, target, settings);
         engine.HandleCompareResult(result, file);
         await engine.ThrowIfRequired();
     }

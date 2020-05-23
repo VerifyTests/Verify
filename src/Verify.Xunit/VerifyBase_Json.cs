@@ -7,19 +7,19 @@ namespace VerifyXunit
     public partial class VerifyBase
     {
         public Task Verify<T>(
-            Task<T> task,
+            Task<T> target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.Verify(task, settings);
+            return verifier.Verify(target, settings);
         }
 
         public Task Verify<T>(
-            IAsyncEnumerable<T> enumerable,
+            IAsyncEnumerable<T> target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.Verify(enumerable, settings);
+            return verifier.Verify(target, settings);
         }
 
         public Task Verify<T>(

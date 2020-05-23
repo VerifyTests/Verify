@@ -21,10 +21,10 @@ partial class InnerVerifier
     }
 
     public Task VerifyFile(
-        FileInfo file,
+        FileInfo target,
         VerifySettings? settings = null)
     {
-        Guard.AgainstNull(file, nameof(file));
-        return VerifyFile(file.FullName, settings);
+        Guard.AgainstNull(target, nameof(target));
+        return VerifyFile(target.FullName, settings);
     }
 }

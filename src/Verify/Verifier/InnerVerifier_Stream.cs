@@ -7,10 +7,10 @@ using Verify;
 
 partial class InnerVerifier
 {
-    public Task Verify(byte[] input, VerifySettings? settings = null)
+    public Task Verify(byte[] target, VerifySettings? settings = null)
     {
-        Guard.AgainstNull(input, nameof(input));
-        var stream = new MemoryStream(input);
+        Guard.AgainstNull(target, nameof(target));
+        var stream = new MemoryStream(target);
         return Verify(stream, settings);
     }
 

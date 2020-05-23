@@ -11,11 +11,11 @@ namespace Verify
             return comparers.TryGetValue(extension, out comparer);
         }
 
-        public static void RegisterComparer(string extension, Compare func)
+        public static void RegisterComparer(string extension, Compare compare)
         {
-            Guard.AgainstNull(func, nameof(func));
+            Guard.AgainstNull(compare, nameof(compare));
             Guard.AgainstBadExtension(extension, nameof(extension));
-            comparers[extension] = func;
+            comparers[extension] = compare;
         }
     }
 }

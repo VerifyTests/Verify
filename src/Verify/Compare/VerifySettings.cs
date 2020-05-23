@@ -6,10 +6,10 @@ namespace Verify
     {
         Compare? comparer;
 
-        public void UseComparer(Compare func)
+        public void UseComparer(Compare compare)
         {
-            Guard.AgainstNull(func, nameof(func));
-            comparer = func;
+            Guard.AgainstNull(compare, nameof(compare));
+            comparer = compare;
         }
 
         internal bool TryFindComparer([NotNullWhen(true)] out Compare? compare)

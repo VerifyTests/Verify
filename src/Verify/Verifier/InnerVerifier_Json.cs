@@ -18,7 +18,7 @@ partial class InnerVerifier
             out var converter))
         {
             var converterSettings = GetConverterSettings(settings, converter);
-            var result = await converter.Func(input!, converterSettings);
+            var result = await converter.Conversion(input!, converterSettings);
             await VerifyBinary(result.Streams, converterSettings, result.Info);
             return;
         }

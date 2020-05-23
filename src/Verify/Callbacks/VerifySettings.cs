@@ -4,18 +4,18 @@
     {
         internal FirstVerify? handleOnFirstVerify;
 
-        public void OnFirstVerify(FirstVerify func)
+        public void OnFirstVerify(FirstVerify firstVerify)
         {
-            Guard.AgainstNull(func, nameof(func));
-            handleOnFirstVerify = func;
+            Guard.AgainstNull(firstVerify, nameof(firstVerify));
+            handleOnFirstVerify = firstVerify;
         }
 
         internal VerifyMismatch? handleOnVerifyMismatch;
 
-        public void OnVerifyMismatch(VerifyMismatch func)
+        public void OnVerifyMismatch(VerifyMismatch verifyMismatch)
         {
-            Guard.AgainstNull(func, nameof(func));
-            handleOnVerifyMismatch = func;
+            Guard.AgainstNull(verifyMismatch, nameof(verifyMismatch));
+            handleOnVerifyMismatch = verifyMismatch;
         }
     }
 }

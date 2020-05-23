@@ -28,7 +28,7 @@ partial class InnerVerifier
                 {
                     var converterSettings = new VerifySettings(settings);
                     converterSettings.UseExtension(converter.ToExtension);
-                    var result = await converter.Func(stream, converterSettings);
+                    var result = await converter.Conversion(stream, converterSettings);
                     await VerifyBinary(result.Streams, converterSettings, result.Info);
                     return;
                 }

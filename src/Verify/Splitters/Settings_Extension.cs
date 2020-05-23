@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -17,7 +16,7 @@ namespace Verify
         public static void RegisterFileConverter(
             string fromExtension,
             string toExtension,
-            Func<Stream, VerifySettings, ConversionResult> func)
+            ObjectConversion<Stream> func)
         {
             Guard.AgainstNull(func, nameof(func));
             RegisterFileConverter(
@@ -29,7 +28,7 @@ namespace Verify
         public static void RegisterFileConverter(
             string fromExtension,
             string toExtension,
-            Func<Stream, VerifySettings, Task<ConversionResult>> func)
+            AsyncObjectConversion<Stream> func)
         {
             Guard.AgainstNull(func, nameof(func));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));

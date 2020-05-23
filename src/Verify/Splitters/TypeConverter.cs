@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Verify;
 
 class TypeConverter
 {
     public string? ToExtension { get; }
-    public Func<object, VerifySettings, Task<ConversionResult>> Func { get; }
+    public AsyncObjectConversion<object> Func { get; }
     public Func<Type, bool> CanConvert { get; }
 
     public TypeConverter(
-        Func<object, VerifySettings, Task<ConversionResult>> func,
+        AsyncObjectConversion<object> func,
         Func<Type, bool> canConvert)
     {
         Func = func;
@@ -18,7 +17,7 @@ class TypeConverter
 
     public TypeConverter(
         string toExtension,
-        Func<object, VerifySettings, Task<ConversionResult>> func,
+        AsyncObjectConversion<object> func,
         Func<Type, bool> canConvert)
     {
         ToExtension = toExtension;

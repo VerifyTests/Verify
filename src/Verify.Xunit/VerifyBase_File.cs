@@ -32,11 +32,11 @@ namespace VerifyXunit
         }
 
         public Task VerifyFile(
-            FileInfo file,
+            FileInfo path,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            return verifier.VerifyFile(file, settings);
+            return verifier.VerifyFile(path, settings);
         }
     }
 }

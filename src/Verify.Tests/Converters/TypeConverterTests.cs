@@ -191,7 +191,8 @@ public class TypeConverterTests :
     {
         SharedVerifySettings.RegisterFileConverter<Bitmap>(
             "png",
-            (bitmap1, _) =>
+            canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
+            conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
                 var info = new
@@ -212,7 +213,8 @@ public class TypeConverterTests :
     {
         SharedVerifySettings.RegisterFileConverter<Bitmap>(
             "png",
-            (bitmap1, _) =>
+            canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
+            conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
                 return new ConversionResult(null, streams);

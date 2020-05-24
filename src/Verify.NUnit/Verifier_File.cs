@@ -35,12 +35,12 @@ namespace VerifyNUnit
         }
 
         public static async Task VerifyFile(
-            FileInfo file,
+            FileInfo path,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
             using var verifier = BuildVerifier(sourceFile);
-            await verifier.VerifyFile(file, settings);
+            await verifier.VerifyFile(path, settings);
         }
     }
 }

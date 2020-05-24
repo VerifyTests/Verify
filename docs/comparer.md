@@ -44,7 +44,7 @@ static Digest HashImage(Stream stream)
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L61' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L39-L64' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -60,7 +60,7 @@ settings.UseComparer(CompareImages);
 settings.UseExtension("png");
 await Verify("TheImage.png", settings);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L20-L25' title='File snippet `instancecomparer` was extracted from'>snippet source</a> | <a href='#snippet-instancecomparer' title='Navigate to start of snippet `instancecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L21-L26' title='File snippet `instancecomparer` was extracted from'>snippet source</a> | <a href='#snippet-instancecomparer' title='Navigate to start of snippet `instancecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -69,10 +69,12 @@ await Verify("TheImage.png", settings);
 <!-- snippet: StaticComparer -->
 <a id='snippet-staticcomparer'/></a>
 ```cs
-SharedVerifySettings.RegisterComparer("png", CompareImages);
+SharedVerifySettings.RegisterComparer(
+    extension: "png",
+    compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L30-L33' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L31-L36' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

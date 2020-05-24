@@ -28,7 +28,9 @@ public class ComparerSnippets :
     public async Task StaticComparer()
     {
         #region StaticComparer
-        SharedVerifySettings.RegisterComparer("png", CompareImages);
+        SharedVerifySettings.RegisterComparer(
+            extension: "png",
+            compare: CompareImages);
         await VerifyFile("TheImage.png");
         #endregion
     }

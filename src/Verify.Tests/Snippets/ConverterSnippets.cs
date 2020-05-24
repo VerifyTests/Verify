@@ -11,20 +11,17 @@ using Xunit.Abstractions;
 public class ConverterSnippets :
     VerifyBase
 {
-    public ConverterSnippets(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-
     [Fact]
     public async Task Type()
     {
         #region RegisterFileConverterType
-        SharedVerifySettings.RegisterFileConverter(
-            "png",
-            (stream, settings) =>
+        SharedVerifySettings.RegisterFileConverter<Image>(
+            toExtension: "png",
+            #region ConverterCanConvert
+            canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
+            #endregion
+            conversion: (image, settings) =>
             {
-                using Image image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
                 var streams = new List<Stream>();
@@ -47,8 +44,9 @@ public class ConverterSnippets :
             });
 
         #endregion
-        #region FileConverterVerify
-        await VerifyFile("sample.tif");
+        #region FileConverterTypeVerify
+        using var stream = File.OpenRead("sample.tif");
+        await Verify(Image.FromStream(stream));
         #endregion
     }
 
@@ -57,9 +55,9 @@ public class ConverterSnippets :
     {
         #region RegisterFileConverterExtension
         SharedVerifySettings.RegisterFileConverter(
-            "tif",
-            "png",
-            (stream, settings) =>
+            fromExtension: "tif",
+            toExtension: "png",
+            conversion: (stream, settings) =>
             {
                 using Image image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);
@@ -84,8 +82,13 @@ public class ConverterSnippets :
             });
 
         #endregion
-        #region FileConverterVerify
+        #region FileConverterExtensionVerify
         await VerifyFile("sample.tif");
         #endregion
+    }
+
+    public ConverterSnippets(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }

@@ -44,7 +44,7 @@ static Digest HashImage(Stream stream)
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L36-L61' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L38-L63' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -69,10 +69,12 @@ await Verify("TheImage.png", settings);
 <!-- snippet: StaticComparer -->
 <a id='snippet-staticcomparer'/></a>
 ```cs
-SharedVerifySettings.RegisterComparer("png", CompareImages);
+SharedVerifySettings.RegisterComparer(
+    extension: "png",
+    compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L30-L33' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L30-L35' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

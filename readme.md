@@ -51,6 +51,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Verifying binary data](/docs/binary.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
+  * [Converters](/docs/converter.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
 
 

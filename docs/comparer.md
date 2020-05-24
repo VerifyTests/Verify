@@ -43,9 +43,9 @@ static Digest HashImage(Stream stream)
     using var bitmap = (Bitmap) Image.FromStream(stream);
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
-```
+
 <sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L39-L64' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
-<!-- endsnippet -->
+
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
 
@@ -74,8 +74,8 @@ SharedVerifySettings.RegisterComparer(
     compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
+
 <sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L31-L36' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
-<!-- endsnippet -->
 
 
 ## Default Comparison

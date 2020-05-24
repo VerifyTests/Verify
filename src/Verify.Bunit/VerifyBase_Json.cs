@@ -7,20 +7,20 @@ namespace VerifyBunit
     public partial class VerifyBase
     {
         public async Task Verify<T>(
-            Task<T> task,
+            Task<T> target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            await verifier.Verify(task, settings);
+            await verifier.Verify(target, settings);
             Flush();
         }
 
         public async Task Verify<T>(
-            IAsyncEnumerable<T> enumerable,
+            IAsyncEnumerable<T> target,
             VerifySettings? settings = null)
         {
             var verifier = GetVerifier();
-            await verifier.Verify(enumerable, settings);
+            await verifier.Verify(target, settings);
             Flush();
         }
 

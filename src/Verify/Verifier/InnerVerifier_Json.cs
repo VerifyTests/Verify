@@ -7,23 +7,23 @@ using Verify;
 
 partial class InnerVerifier
 {
-    public async Task Verify<T>(T input, VerifySettings? settings = null)
+    public async Task Verify<T>(T target, VerifySettings? settings = null)
     {
-        Guard.AgainstNull(input, nameof(input));
+        Guard.AgainstNull(target, nameof(target));
         settings = settings.OrDefault();
 
         if (SharedVerifySettings.TryGetConverter(
-            input,
+            target,
             settings.extension,
             out var converter))
         {
             var converterSettings = GetConverterSettings(settings, converter);
-            var result = await converter.Conversion(input!, converterSettings);
+            var result = await converter.Conversion(target!, converterSettings);
             await VerifyBinary(result.Streams, converterSettings, result.Info);
             return;
         }
 
-        if (input is Stream stream)
+        if (target is Stream stream)
         {
             await VerifyStream(settings, stream);
             return;
@@ -31,13 +31,13 @@ partial class InnerVerifier
 
         if (typeof(T).ImplementsStreamEnumerable())
         {
-            var enumerable = (IEnumerable) input!;
+            var enumerable = (IEnumerable) target!;
             await VerifyBinary(enumerable.Cast<Stream>(), settings, null);
             return;
         }
 
         var formatJson = JsonFormatter.AsJson(
-            input,
+            target,
             settings.serialization.currentSettings,
             settings.IsNewLineEscapingDisabled);
         var s = formatJson.ToString();

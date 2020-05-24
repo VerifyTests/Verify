@@ -20,4 +20,5 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Verifying binary data](/docs/binary.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
+  * [Converters](/docs/converter.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->

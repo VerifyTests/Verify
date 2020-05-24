@@ -8,10 +8,10 @@ using Verify;
 partial class InnerVerifier
 {
     public Task Verify(
-        Expression<Func<ITuple>> expression,
+        Expression<Func<ITuple>> target,
         VerifySettings? settings = null)
     {
-        var dictionary = TupleConverter.ExpressionToDictionary(expression);
+        var dictionary = TupleConverter.ExpressionToDictionary(target);
         return Verify(dictionary, settings);
     }
 }

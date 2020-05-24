@@ -11,4 +11,5 @@
   * [Verifying binary data](/docs/binary.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
+  * [Converters](/docs/converter.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)

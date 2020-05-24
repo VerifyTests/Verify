@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿#if(NETCOREAPP3_1 && DEBUG)
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using Shipwreck.Phash;
@@ -28,7 +29,9 @@ public class ComparerSnippets :
     public async Task StaticComparer()
     {
         #region StaticComparer
-        SharedVerifySettings.RegisterComparer("png", CompareImages);
+        SharedVerifySettings.RegisterComparer(
+            extension: "png",
+            compare: CompareImages);
         await VerifyFile("TheImage.png");
         #endregion
     }
@@ -60,3 +63,4 @@ public class ComparerSnippets :
     }
     #endregion
 }
+#endif

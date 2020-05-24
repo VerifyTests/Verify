@@ -41,7 +41,7 @@ The info file:
 
 Multiple png files:
 
-<img src="../Verify.Tests/Snippets/ConverterSnippets.Type.00.verified.png" alt="Converter page one verified" width="400">
+<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.00.verified.png" alt="Converter page one verified" width="400">
 
 
 ### Typed converter

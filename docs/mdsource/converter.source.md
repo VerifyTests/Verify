@@ -25,8 +25,7 @@ snippet: ConverterSnippets.Type.info.verified.txt
 
 Multiple png files:
 
-<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.00.verified.png" alt="Converter page one verified" width="200">
-<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.01.verified.png" alt="Converter page one verified" width="200">
+<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.00.verified.png" alt="Converter page one verified" width="200"><img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.01.verified.png" alt="Converter page one verified" width="200">
 
 
 ### Typed converter

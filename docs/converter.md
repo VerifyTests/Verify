@@ -19,7 +19,7 @@ When a target is split the result the result is:
 
  * tiff => png per page
  * spreadsheet => csv per sheet
- * pdf => pdf per page
+ * pdf => png per page
 
 
 ## Example

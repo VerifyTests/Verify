@@ -9,7 +9,7 @@
     <Content Include="build.targets" PackagePath="build\Verify.NUnit.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.NUnit.targets" />
     <Compile Include="..\Shared\*.cs" />
-    <PackageReference Include="Fody" Version="6.1.1" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.1.2" PrivateAssets="All" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.0.3" PrivateAssets="None" />
     <PackageReference Include="NUnit" Version="3.12.0" />

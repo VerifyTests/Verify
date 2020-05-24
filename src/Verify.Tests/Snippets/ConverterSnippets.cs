@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if(NETCOREAPP3_1 && DEBUG)
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -92,3 +93,4 @@ public class ConverterSnippets :
     {
     }
 }
+#endif

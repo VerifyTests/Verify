@@ -4,7 +4,7 @@ Converters are used to split a target into its component parts, then verify each
 
 When a target is split the result the result is:
 
- * The info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.info.verified.txt`
+ * An info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.info.verified.txt`
  * Zero or more documents of a specified extension. File name: `{TestType}.{TestMethod}.{Index}.verified.{Extension}`
 
 
@@ -31,17 +31,20 @@ Multiple png files:
 
 ### Typed converter
 
-This sample uses a typed approach. So the converter acts on an in memory instance matching based on type
+This sample uses a typed approach. So the converter acts on an in memory instance matching based on type.
 
 snippet: RegisterFileConverterType
 
 snippet: FileConverterTypeVerify
 
-Note that this sample also uses the optional 
+Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
 
 snippet: ConverterCanConvert
 
+
 ### Expression converter
+
+This sample uses a extension approach. So the converter acts on a file or stream based on the extension (configured or detected).
 
 snippet: RegisterFileConverterExtension
 

@@ -11,7 +11,7 @@ Converters are used to split a target into its component parts, then verify each
 
 When a target is split the result the result is:
 
- * The info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.info.verified.txt`
+ * An info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.info.verified.txt`
  * Zero or more documents of a specified extension. File name: `{TestType}.{TestMethod}.{Index}.verified.{Extension}`
 
 
@@ -47,7 +47,7 @@ Multiple png files:
 
 ### Typed converter
 
-This sample uses a typed approach. So the converter acts on an in memory instance matching based on type
+This sample uses a typed approach. So the converter acts on an in memory instance matching based on type.
 
 <!-- snippet: RegisterFileConverterType -->
 <a id='snippet-registerfileconvertertype'/></a>
@@ -90,7 +90,7 @@ await Verify(Image.FromStream(stream));
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L50' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
-Note that this sample also uses the optional 
+Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
 
 <!-- snippet: ConverterCanConvert -->
 <a id='snippet-convertercanconvert'/></a>
@@ -100,7 +100,10 @@ canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L20-L22' title='File snippet `convertercanconvert` was extracted from'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Navigate to start of snippet `convertercanconvert`'>anchor</a></sup>
 <!-- endsnippet -->
 
+
 ### Expression converter
+
+This sample uses a extension approach. So the converter acts on a file or stream based on the extension (configured or detected).
 
 <!-- snippet: RegisterFileConverterExtension -->
 <a id='snippet-registerfileconverterextension'/></a>

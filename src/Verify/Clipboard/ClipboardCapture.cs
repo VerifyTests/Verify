@@ -66,7 +66,7 @@ static class ClipboardCapture
         try
         {
             builder.AppendLine(command);
-            await Clipboard.SetTextAsync(builder.ToString());
+            await ClipboardService.SetTextAsync(builder.ToString());
         }
         finally
         {

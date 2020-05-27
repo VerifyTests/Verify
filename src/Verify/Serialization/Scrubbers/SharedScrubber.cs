@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 class SharedScrubber
 {
     internal static List<string> datetimeFormats = new List<string>();
     internal static List<string> datetimeOffsetFormats = new List<string>();
+    bool scrubInlineGuids;
     bool scrubGuids;
     bool scrubDateTimes;
     JsonSerializerSettings settings;
@@ -26,9 +28,10 @@ class SharedScrubber
         intOrNextDateTimeOffset = dateTimeOffset;
     }
 
-    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
+    public SharedScrubber(bool scrubGuids, bool scrubInlineGuids, bool scrubDateTimes, JsonSerializerSettings settings)
     {
         this.scrubGuids = scrubGuids;
+        this.scrubInlineGuids = scrubInlineGuids;
         this.scrubDateTimes = scrubDateTimes;
         this.settings = settings;
     }
@@ -104,6 +107,11 @@ class SharedScrubber
             return true;
         }
 
+        if (TryParsePartialGuids(value, out result))
+        {
+            return true;
+        }
+        
         result = null;
         return false;
     }
@@ -163,6 +171,33 @@ class SharedScrubber
             if (Guid.TryParse(value, out var guid))
             {
                 result = Convert(guid);
+                return true;
+            }
+        }
+
+        result = null;
+        return false;
+    }
+
+    static readonly string GuidPattern = @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b";
+    static readonly Regex Regex = new Regex(GuidPattern, RegexOptions.IgnoreCase);
+    
+    public bool TryParsePartialGuids(string value, [NotNullWhen(true)] out string? result)
+    {
+        if (scrubInlineGuids)
+        {
+            var guids = Regex.Matches(value);
+            if (guids.Count > 0)
+            {
+                result = value;
+                foreach (var id in guids)
+                {
+                    var stringGuid = id.ToString();
+                    var guid = Guid.Parse(stringGuid);
+                    var convertedGuid = Convert(guid);
+
+                    result = result.Replace(stringGuid, convertedGuid);
+                }
                 return true;
             }
         }

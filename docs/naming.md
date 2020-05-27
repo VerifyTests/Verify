@@ -175,6 +175,52 @@ Usage:
 <a id='snippet-ExtensionSample.cs'/></a>
 ```cs
 using System.Threading.Tasks;
+using NUnit.Framework;
+using Verify;
+using VerifyNUnit;
+
+[TestFixture]
+public class ExtensionSample
+{
+    VerifySettings classLevelSettings;
+
+    public ExtensionSample()
+    {
+        classLevelSettings = new VerifySettings();
+        classLevelSettings.UseExtension("json");
+    }
+
+    [Test]
+    public async Task AtMethod()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.UseExtension("xml");
+        await Verifier.Verify(
+            target: @"<note>
+<to>Joe</to>
+<from>Kim</from>
+<heading>Reminder</heading>
+</note>",
+            settings: settings);
+    }
+
+    [Test]
+    public async Task SharedClassLevelSettings()
+    {
+        await Verifier.Verify(
+            target: @"{
+    ""fruit"": ""Apple"",
+    ""size"": ""Large"",
+    ""color"": ""Red""
+}",
+            settings: classLevelSettings);
+    }
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<a id='snippet-ExtensionSample.cs-1'/></a>
+```cs
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Verify;
 using VerifyMSTest;
@@ -218,53 +264,7 @@ public class ExtensionSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.cs-1'/></a>
-```cs
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Verify;
-using VerifyNUnit;
-
-[TestFixture]
-public class ExtensionSample
-{
-    VerifySettings classLevelSettings;
-
-    public ExtensionSample()
-    {
-        classLevelSettings = new VerifySettings();
-        classLevelSettings.UseExtension("json");
-    }
-
-    [Test]
-    public async Task AtMethod()
-    {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.UseExtension("xml");
-        await Verifier.Verify(
-            target: @"<note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
-</note>",
-            settings: settings);
-    }
-
-    [Test]
-    public async Task SharedClassLevelSettings()
-    {
-        await Verifier.Verify(
-            target: @"{
-    ""fruit"": ""Apple"",
-    ""size"": ""Large"",
-    ""color"": ""Red""
-}",
-            settings: classLevelSettings);
-    }
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-1' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-1' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <a id='snippet-ExtensionSample.cs-2'/></a>
 ```cs
 using System.Threading.Tasks;

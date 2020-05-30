@@ -198,6 +198,8 @@ class SharedScrubber
 
                     result = result.Replace(stringGuid, convertedGuid);
                 }
+
+                result = string.Format("{0}{1}{0}", JsonFormatter.QuoteChar, result);
                 return true;
             }
         }

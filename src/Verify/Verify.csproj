@@ -11,7 +11,7 @@
     <PackageReference Include="TextCopy" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />
     <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />

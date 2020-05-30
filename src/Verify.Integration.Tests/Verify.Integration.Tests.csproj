@@ -12,7 +12,7 @@
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.42" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

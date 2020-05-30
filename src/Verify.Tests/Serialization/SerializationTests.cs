@@ -204,6 +204,13 @@ public class SerializationTests :
         #endregion
     }
 
+    void DontScrubInlineGuids()
+    {
+        #region DontScrubInlineGuids
+        SharedVerifySettings.ModifySerialization(_ => _.DontScrubInlineGuids());
+        #endregion
+    }
+
     void DontScrubDateTimes()
     {
         #region DontScrubDateTimes

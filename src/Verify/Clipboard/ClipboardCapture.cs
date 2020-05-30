@@ -17,8 +17,8 @@ static class ClipboardCapture
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            moveCommand = "move /Y \"{0}\" \"{1}\"";
-            deleteCommand = "del \"{0}\"";
+            moveCommand = "cmd /c move /Y \"{0}\" \"{1}\"";
+            deleteCommand = "cmd /c del \"{0}\"";
             return;
         }
 

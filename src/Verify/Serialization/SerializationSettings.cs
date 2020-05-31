@@ -170,7 +170,7 @@ namespace Verify
             #endregion
 
             settings.SerializationBinder = new ShortNameBinder();
-            var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes,settings);
+            var scrubber = new SharedScrubber(scrubGuids, scrubInlineGuids, scrubDateTimes, settings);
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,
@@ -216,6 +216,13 @@ namespace Verify
         public void IncludeObsoletes()
         {
             includeObsoletes = true;
+        }
+
+        bool scrubInlineGuids = true;
+        
+        public void DontScrubInlineGuids()
+        {
+            scrubInlineGuids = false;
         }
     }
 }

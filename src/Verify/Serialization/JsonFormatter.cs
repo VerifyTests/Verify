@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 
 static class JsonFormatter
 {
+    internal static char QuoteChar = '\'';
+    
     public static StringBuilder AsJson<T>(T input, JsonSerializerSettings settings, bool newLineEscapingDisabled)
     {
         var serializer = JsonSerializer.Create(settings);
@@ -10,7 +12,7 @@ static class JsonFormatter
         using var stringWriter = new StringWriterEx(builder,newLineEscapingDisabled);
         using var writer = new JsonTextWriter(stringWriter)
         {
-            QuoteChar = '\'',
+            QuoteChar = QuoteChar,
             QuoteName = false
         };
         serializer.Serialize(writer, input);

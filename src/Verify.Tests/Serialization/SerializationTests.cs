@@ -150,6 +150,45 @@ public class SerializationTests :
         settings.UseExtension("jpg");
         await Verify(File.ReadAllBytes("sample.jpg"), settings);
     }
+    
+    [Fact]
+    public Task ShouldScrubInlineGuidsByDefault()
+    {
+        var id = Guid.NewGuid();
+        var product = new
+        {
+            Title = $"item {id} - (ID={{{id}}})",
+            Variant = new
+            {
+                Id = "variant id: " + Guid.NewGuid()
+            }
+        };
+
+        var settings = new VerifySettings();
+        
+        return Verify(product, settings);
+    }
+    
+    [Fact]
+    public Task ShouldBeAbleToExcludeInlineGuids()
+    {
+        var id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c");
+        var product = new
+        {
+            Title = $"item {id} - (ID={{{id}}})",
+            Variant = new
+            {
+                Id = "variant id: " + id
+            }
+        };
+
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ =>
+        {
+            _.DontScrubInlineGuids();
+        });
+        return Verify(product, settings);
+    }
 
     void DontIgnoreEmptyCollections()
     {
@@ -162,6 +201,13 @@ public class SerializationTests :
     {
         #region DontScrubGuids
         SharedVerifySettings.ModifySerialization(_ => _.DontScrubGuids());
+        #endregion
+    }
+
+    void DontScrubInlineGuids()
+    {
+        #region DontScrubInlineGuids
+        SharedVerifySettings.ModifySerialization(_ => _.DontScrubInlineGuids());
         #endregion
     }
 

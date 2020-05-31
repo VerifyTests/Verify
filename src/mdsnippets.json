@@ -1,4 +1,5 @@
 ﻿{
   "TocExcludes": [ "NuGet packages", "Release Notes", "Icon" ],
-  "MaxWidth": 120
+  "MaxWidth": 120,
+  "ValidateContent": true
 }

@@ -1,6 +1,6 @@
 {
-  Title: 'item ebced679-45d3-4653-8791-3d969c4a986c - (ID={ebced679-45d3-4653-8791-3d969c4a986c})',
+  Title: 'item Guid_1 - (ID={Guid_1})',
   Variant: {
-    Id: 'variant id: ebced679-45d3-4653-8791-3d969c4a986c'
+    Id: 'variant id: Guid_1'
   }
 }

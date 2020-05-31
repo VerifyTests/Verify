@@ -218,11 +218,11 @@ namespace Verify
             includeObsoletes = true;
         }
 
-        bool scrubInlineGuids = true;
-        
-        public void DontScrubInlineGuids()
+        bool scrubInlineGuids;
+
+        public void ScrubInlineGuids()
         {
-            scrubInlineGuids = false;
+            scrubInlineGuids = true;
         }
     }
 }

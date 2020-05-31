@@ -46,7 +46,7 @@ public class ConverterSnippets :
 
         #endregion
         #region FileConverterTypeVerify
-        using var stream = File.OpenRead("sample.tif");
+        await using var stream = File.OpenRead("sample.tif");
         await Verify(Image.FromStream(stream));
         #endregion
     }

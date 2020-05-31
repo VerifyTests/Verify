@@ -49,9 +49,9 @@ To disable this behavior globally use:
 
 snippet: DontScrubGuids
 
-Strings containing inline Guids are also scrubbed by default. To disable this behavior, use:
+Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
-snippet: DontScrubInlineGuids
+snippet: ScrubInlineGuids
 
 
 ## Dates are scrubbed

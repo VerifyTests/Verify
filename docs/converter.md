@@ -83,7 +83,7 @@ SharedVerifySettings.RegisterFileConverter<Image>(
 <!-- snippet: FileConverterTypeVerify -->
 <a id='snippet-fileconvertertypeverify'/></a>
 ```cs
-using var stream = File.OpenRead("sample.tif");
+await using var stream = File.OpenRead("sample.tif");
 await Verify(Image.FromStream(stream));
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L48-L51' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>

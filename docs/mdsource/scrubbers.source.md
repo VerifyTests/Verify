@@ -110,4 +110,4 @@ snippet: ScrubberLevelsSampleMSTest
 
 ### Result
 
-snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt
+snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt

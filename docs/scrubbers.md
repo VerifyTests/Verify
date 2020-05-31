@@ -328,7 +328,7 @@ public class ScrubberLevelsSample :
     }
 
     [Fact]
-    public Task Simple()
+    public Task Usage()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
@@ -422,10 +422,10 @@ public class ScrubberLevelsSample :
 
 ### Result
 
-<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt'/></a>
+<!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt -->
+<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt'/></a>
 ```txt
 A B C
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt#L1-L1' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Simple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt#L1-L1' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
-using VerifyBunit;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
 
-#region SampleTestBunit
-public class SampleTest :
+#region SampleTestXunit
+public class Sample :
     VerifyBase
 {
     [Fact]
-    public Task Simple()
+    public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
         return Verify(person);
     }
 
-    public SampleTest(ITestOutputHelper output) :
+    public Sample(ITestOutputHelper output) :
         base(output)
     {
     }

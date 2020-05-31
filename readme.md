@@ -13,7 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Bunit.svg?label=Verify.Bunit)](https://www.nuget.org/packages/Verify.Bunit/)
 
-Verification tool to enable simple approval of complex models and documents.
+Verification tool to enable approval of complex models and documents.
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify?utm_source=nuget-verify&utm_medium=referral&utm_campaign=enterprise).
 
@@ -207,23 +207,23 @@ Support for [xUnit](https://xunit.net/)
 <!-- snippet: SampleTestXunit -->
 <a id='snippet-sampletestxunit'/></a>
 ```cs
-public class SampleTest :
+public class Sample :
     VerifyBase
 {
     [Fact]
-    public Task Simple()
+    public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
         return Verify(person);
     }
 
-    public SampleTest(ITestOutputHelper output) :
+    public Sample(ITestOutputHelper output) :
         base(output)
     {
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.cs#L6-L22' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L6-L22' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
@@ -237,17 +237,17 @@ Support for [NUnit](https://nunit.org/)
 <a id='snippet-sampletestnunit'/></a>
 ```cs
 [TestFixture]
-public class SampleTest
+public class Sample
 {
     [Test]
-    public Task Simple()
+    public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
         return Verifier.Verify(person);
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/SampleTest.cs#L5-L16' title='File snippet `sampletestnunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Navigate to start of snippet `sampletestnunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L5-L16' title='File snippet `sampletestnunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Navigate to start of snippet `sampletestnunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -259,18 +259,18 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 <a id='snippet-sampletestmstest'/></a>
 ```cs
 [TestClass]
-public class SampleTest :
+public class Sample :
     VerifyBase
 {
     [TestMethod]
-    public Task Simple()
+    public Task Test ()
     {
         var person = ClassBeingTested.FindPerson();
         return Verify(person);
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/SampleTest.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -349,13 +349,13 @@ And the current model rendered as txt `...Component.info.verified.txt`:
 When the test is initially run will fail with:
 
 ```
-First verification. SampleTest.Simple.verified.txt not found.
+First verification. Sample.Test.verified.txt not found.
 Verification command has been copied to the clipboard.
 ```
 
 The clipboard will contain the following:
 
-> move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
 
 If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
 
@@ -370,10 +370,10 @@ To verify the result:
 
 #### Verified result
 
-This will result in the `SampleTest.Simple.verified.txt` being created:
+This will result in the `Sample.Test.verified.txt` being created:
 
-<!-- snippet: Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt'/></a>
+<!-- snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt -->
+<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'/></a>
 ```txt
 {
   GivenNames: 'John',
@@ -390,7 +390,7 @@ This will result in the `SampleTest.Simple.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt#L1-L14' title='File snippet `Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='File snippet `Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -444,13 +444,13 @@ Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:
 
 The clipboard will again contain the following:
 
-> move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
 
 And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
-The same approach can be used to verify the results and the change to `SampleTest.Simple.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
+The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
 ### Disable Clipboard

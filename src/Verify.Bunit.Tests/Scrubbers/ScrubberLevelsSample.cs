@@ -18,7 +18,7 @@ public class ScrubberLevelsSample :
     }
 
     [Fact]
-    public Task Simple()
+    public Task Usage()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));

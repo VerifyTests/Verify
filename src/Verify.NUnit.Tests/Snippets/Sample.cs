@@ -4,10 +4,10 @@ using VerifyNUnit;
 
 #region SampleTestNUnit
 [TestFixture]
-public class SampleTest
+public class Sample
 {
     [Test]
-    public Task Simple()
+    public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
         return Verifier.Verify(person);

@@ -6,7 +6,7 @@
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Bunit.svg?label=Verify.Bunit)](https://www.nuget.org/packages/Verify.Bunit/)
 
-Verification tool to enable simple approval of complex models and documents.
+Verification tool to enable approval of complex models and documents.
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify?utm_source=nuget-verify&utm_medium=referral&utm_campaign=enterprise).
 
@@ -124,13 +124,13 @@ snippet: VerifyObjectSamples.Component.info.verified.txt
 When the test is initially run will fail with:
 
 ```
-First verification. SampleTest.Simple.verified.txt not found.
+First verification. Sample.Test.verified.txt not found.
 Verification command has been copied to the clipboard.
 ```
 
 The clipboard will contain the following:
 
-> move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
 
 If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
 
@@ -145,9 +145,9 @@ To verify the result:
 
 #### Verified result
 
-This will result in the `SampleTest.Simple.verified.txt` being created:
+This will result in the `Sample.Test.verified.txt` being created:
 
-snippet: Verify.Xunit.Tests/Snippets/SampleTest.Simple.verified.txt
+snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt
 
 
 ### Subsequent Verification
@@ -169,13 +169,13 @@ Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:
 
 The clipboard will again contain the following:
 
-> move /Y "C:\Code\Sample\SampleTest.Simple.received.txt" "C:\Code\Sample\SampleTest.Simple.verified.txt"
+> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
 
 And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
-The same approach can be used to verify the results and the change to `SampleTest.Simple.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
+The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
 ### Disable Clipboard

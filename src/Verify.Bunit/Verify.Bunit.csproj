@@ -11,7 +11,7 @@
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="XunitContext" Version="1.9.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Fody" Version="6.1.2" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.2.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="bunit" Version="1.0.0-beta-7" />
     <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />

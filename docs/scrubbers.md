@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Scrubbers
 
-Scrubbers run on the final string prior to doing the verification action.
+Scrubbers run on the final string before doing the verification action.
 
 Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 

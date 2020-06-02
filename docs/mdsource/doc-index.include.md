@@ -1,3 +1,4 @@
+  * [Clipboard](/docs/clipboard.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
   * [Parameterised tests](/docs/parameterised.md)

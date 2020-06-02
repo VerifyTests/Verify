@@ -130,7 +130,9 @@ Verification command has been copied to the clipboard.
 
 The clipboard will contain the following:
 
-> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+> cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+
+See also: [Clipboard](/docs/clipboard.md)
 
 If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
 
@@ -169,37 +171,15 @@ Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:
 
 The clipboard will again contain the following:
 
-> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+> cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+
+See also: [Clipboard](/docs/clipboard.md)
 
 And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
-
-
-### Disable Clipboard
-
-The clipboard behavior can be disable using the following:
-
-
-#### Per Test
-
-snippet: DisableClipboard
-
-
-#### For all tests
-
-snippet: DisableClipboardGlobal
-
-If clipboard is disabled for all tests, it can be re-enabled at the test level:
-
-snippet: EnableClipboard
-
-
-#### For a machine
-
-Set a `Verify.DisableClipboard` environment variable to `true`. This overrides the above settings.
 
 
 ### AutoVerify

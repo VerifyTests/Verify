@@ -19,24 +19,24 @@ static class ClipboardCapture
         {
             moveCommand = "cmd /c move /Y \"{0}\" \"{1}\"";
             deleteCommand = "cmd /c del \"{0}\"";
-            return;
         }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        else
         {
             moveCommand = "mv -f \"{0}\" \"{1}\"";
             deleteCommand = "rm -f \"{0}\"";
-            return;
         }
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        var envMoveCommand = Environment.GetEnvironmentVariable("Verify.MoveCommand");
+        if (envMoveCommand != null)
         {
-            moveCommand = "mv -f \"{0}\" \"{1}\"";
-            deleteCommand = "rm -f \"{0}\"";
-            return;
+            moveCommand = envMoveCommand;
         }
 
-        throw new Exception($"OS not supported: {RuntimeInformation.OSDescription}");
+        var envDeleteCommand = Environment.GetEnvironmentVariable("Verify.DeleteCommand");
+        if (envDeleteCommand != null)
+        {
+            deleteCommand = envDeleteCommand;
+        }
     }
 
     public static void Clear()

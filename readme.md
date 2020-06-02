@@ -29,7 +29,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [bunit](#bunit)
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
-    * [Disable Clipboard](#disable-clipboard)
     * [AutoVerify](#autoverify)
     * [OnHandlers](#onhandlers)
   * [Received and Verified](#received-and-verified)
@@ -38,7 +37,8 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Extensions](#extensions)
   * [Alternatives](#alternatives)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
-  * [Serializer Settings](/docs/serializer-settings.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
   * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
@@ -355,7 +355,9 @@ Verification command has been copied to the clipboard.
 
 The clipboard will contain the following:
 
-> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+> cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+
+See also: [Clipboard](/docs/clipboard.md)
 
 If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
 
@@ -444,57 +446,15 @@ Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:
 
 The clipboard will again contain the following:
 
-> move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+> cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
+
+See also: [Clipboard](/docs/clipboard.md)
 
 And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
-
-
-### Disable Clipboard
-
-The clipboard behavior can be disable using the following:
-
-
-#### Per Test
-
-<!-- snippet: DisableClipboard -->
-<a id='snippet-disableclipboard'/></a>
-```cs
-var settings = new VerifySettings();
-settings.DisableClipboard();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L43' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
-<!-- endsnippet -->
-
-
-#### For all tests
-
-<!-- snippet: DisableClipboardGlobal -->
-<a id='snippet-disableclipboardglobal'/></a>
-```cs
-SharedVerifySettings.DisableClipboard();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L58-L62' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
-<!-- endsnippet -->
-
-If clipboard is disabled for all tests, it can be re-enabled at the test level:
-
-<!-- snippet: EnableClipboard -->
-<a id='snippet-enableclipboard'/></a>
-```cs
-var settings = new VerifySettings();
-settings.EnableClipboard();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L48-L53' title='File snippet `enableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-enableclipboard' title='Navigate to start of snippet `enableclipboard`'>anchor</a></sup>
-<!-- endsnippet -->
-
-
-#### For a machine
-
-Set a `Verify.DisableClipboard` environment variable to `true`. This overrides the above settings.
 
 
 ### AutoVerify

@@ -225,7 +225,7 @@ public class TypeConverterTests :
         return Verify(bitmap, settings);
     }
 
-    IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
+    static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
     {
         var stream = new MemoryStream();
         bitmap.Save(stream, ImageFormat.Png);

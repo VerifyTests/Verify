@@ -76,7 +76,7 @@ public class ExtensionConverterTests :
         return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
 
-    IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)
+    static IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)
     {
         var bitmap = new Bitmap(input);
         var stream = new MemoryStream();

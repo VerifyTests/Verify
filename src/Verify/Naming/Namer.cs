@@ -5,9 +5,9 @@ namespace Verify
 {
     public class Namer
     {
-        internal bool UniqueForRuntime = false;
-        internal bool UniqueForAssemblyConfiguration = false;
-        internal bool UniqueForRuntimeAndVersion = false;
+        internal bool UniqueForRuntime;
+        internal bool UniqueForAssemblyConfiguration;
+        internal bool UniqueForRuntimeAndVersion;
 
         static Namer()
         {

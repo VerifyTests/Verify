@@ -6,6 +6,9 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\TestNameBuilder.cs" Link="TestNameBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="build.targets" PackagePath="build\Verify.Xunit.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.Xunit.targets" />
     <PackageReference Include="EmptyFiles" Version="2.0.3" PrivateAssets="None" />

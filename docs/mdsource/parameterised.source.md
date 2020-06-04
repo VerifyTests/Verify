@@ -1,5 +1,6 @@
 # Parameterised Tests
 
+
 ## Additions to file name
 
 Every parameterised case has a unique file name the arguments are appended to the [file name](/docs/naming.md).
@@ -23,6 +24,15 @@ snippet: xunitInlineData
 ### MemberData
 
 snippet: xunitMemberData
+
+
+### Complex MemberData
+
+xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()` on the base class.
+
+snippet: xunitComplexMemberData
+
+`SharedVerifySettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
 ## NUnit

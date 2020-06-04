@@ -19,7 +19,7 @@ namespace VerifyNUnit
 
             var type = test.TypeInfo.Type;
             var method = test.Method.MethodInfo;
-            var name = TestNameBuilder.GetUniqueTestName(type, method, adapter.Arguments); 
+            var name = TestNameBuilder.GetUniqueTestName(type, method, adapter.Arguments);
             return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), name);
         }
     }

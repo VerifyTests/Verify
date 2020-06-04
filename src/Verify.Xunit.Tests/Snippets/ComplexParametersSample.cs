@@ -19,7 +19,6 @@ public class ComplexParametersSample :
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        // required since
         UseParameters(arg);
         return Verify(arg);
     }

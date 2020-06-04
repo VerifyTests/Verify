@@ -7,6 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Parameterised Tests
 
+
 ## Additions to file name
 
 Every parameterised case has a unique file name the arguments are appended to the [file name](/docs/naming.md).
@@ -59,6 +60,60 @@ public static IEnumerable<object[]> GetData()
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L20-L33' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+### Complex MemberData
+
+xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()` on the base class.
+
+<!-- snippet: xunitComplexMemberData -->
+<a id='snippet-xunitcomplexmemberdata'/></a>
+```cs
+public class ComplexParametersSample :
+    VerifyBase
+{
+    static ComplexParametersSample()
+    {
+        //TODO: this should be in the appdomain startup code
+        SharedVerifySettings.NameForParameter<ComplexData>(_ => _.Value);
+    }
+
+    [Theory]
+    [MemberData(nameof(GetComplexMemberData))]
+    public Task ComplexMemberData(ComplexData arg)
+    {
+        // required since
+        UseParameters(arg);
+        return Verify(arg);
+    }
+
+    public static IEnumerable<object[]> GetComplexMemberData()
+    {
+        yield return new object[]
+        {
+            new ComplexData {Value = "Value1"}
+        };
+        yield return new object[]
+        {
+            new ComplexData {Value = "Value2"}
+        };
+    }
+
+    public class ComplexData
+    {
+        public string Value { get; set; } = null!;
+    }
+
+    public ComplexParametersSample(ITestOutputHelper output) :
+        base(output)
+    {
+    }
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L8-L49' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
+<!-- endsnippet -->
+
+`SharedVerifySettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
 ## NUnit

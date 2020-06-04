@@ -19,15 +19,17 @@ namespace Verify
             parameterToNameLookup.Add(typeof(T), o => func((T)o));
         }
 
-        public static void GetNameForParameter<T>(T parameter)
+        public static string GetNameForParameter(object parameter)
         {
             foreach (var parameterToName in parameterToNameLookup)
             {
                 if (parameterToName.Key.IsInstanceOfType(parameter))
                 {
-                    return parameterToName.Value();
+                    return parameterToName.Value(parameter!);
                 }
             }
+
+            return parameter!.ToString();
         }
 
         public static void UniqueForAssemblyConfiguration()

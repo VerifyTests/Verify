@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -17,7 +18,8 @@ namespace VerifyXunit
         InnerVerifier GetVerifier()
         {
             var context = Context;
-            return new InnerVerifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
+            var name = TestNameBuilder.GetUniqueTestName(context.TestType, context.MethodInfo, context.Parameters.Select(x=>x.Value).ToList());
+            return new InnerVerifier(context.TestType, context.SourceDirectory, name);
         }
     }
 }

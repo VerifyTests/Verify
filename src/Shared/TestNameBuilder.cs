@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Verify;
 
 static class TestNameBuilder
 {
@@ -39,7 +40,7 @@ static class TestNameBuilder
                 continue;
             }
 
-            builder.Append($"{parameterValue}_");
+            builder.Append($"{SharedVerifySettings.GetNameForParameter(parameterValue)}_");
         }
 
         builder.Length -= 1;

@@ -22,6 +22,7 @@ public class ParametersSample :
     [MemberData(nameof(GetData))]
     public Task MemberDataUsage(string arg)
     {
+        base.UseParameters(arg);
         return Verify(arg);
     }
 

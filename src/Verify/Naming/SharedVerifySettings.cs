@@ -19,7 +19,7 @@ namespace Verify
             parameterToNameLookup.Add(typeof(T), o => func((T)o));
         }
 
-        public static string GetNameForParameter(object parameter)
+        internal static string GetNameForParameter(object parameter)
         {
             foreach (var parameterToName in parameterToNameLookup)
             {

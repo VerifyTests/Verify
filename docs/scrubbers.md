@@ -328,24 +328,21 @@ public class ScrubberLevelsSample :
     }
 
     [Fact]
-    public Task Usage()
+    public Task Simple()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
         return Verify("One Two Three", settings);
     }
 
-    [GlobalSetUp]
-    public static class GlobalSetup
+    static ScrubberLevelsSample()
     {
-        public static void Setup()
-        {
-            SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
-        }
+        // Should be dont at appdomain startup
+        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L7-L37' title='File snippet `scrubberlevelssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Navigate to start of snippet `scrubberlevelssamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L7-L34' title='File snippet `scrubberlevelssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Navigate to start of snippet `scrubberlevelssamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -3,14 +3,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
 
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
 
-public class VerifyObjectSamples :
-    VerifyBase
+public class VerifyObjectSamples
 {
     async Task ChangeDefaultsPerVerification(object target)
     {
@@ -23,11 +20,11 @@ public class VerifyObjectSamples :
             _.DontScrubDateTimes();
             _.DontIgnoreFalse();
         });
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
         #endregion
     }
 
-    [Fact]
+    [VerifyFact]
     public async Task ScopedSerializer()
     {
         var person = new Person
@@ -39,7 +36,7 @@ public class VerifyObjectSamples :
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
-        await Verify(person, settings);
+        await Verifier.Verify(person, settings);
     }
 
     async Task Before()
@@ -58,13 +55,13 @@ public class VerifyObjectSamples :
             }
         };
 
-        await Verify(person);
+        await Verifier.Verify(person);
 
         #endregion
     }
 
     #region AnonXunit
-    [Fact]
+    [VerifyFact]
     public async Task Anon()
     {
         var person1 = new Person
@@ -78,7 +75,7 @@ public class VerifyObjectSamples :
             FamilyName = "Aguirre"
         };
 
-        await Verify(
+        await Verifier.Verify(
             new
             {
                 person1,
@@ -104,7 +101,7 @@ public class VerifyObjectSamples :
             }
         };
 
-        await Verify(person);
+        await Verifier.Verify(person);
 
         #endregion
     }
@@ -123,10 +120,5 @@ public class VerifyObjectSamples :
         public string Street;
         public string Country;
         public string Suburb;
-    }
-
-    public VerifyObjectSamples(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

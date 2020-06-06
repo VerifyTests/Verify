@@ -2,27 +2,24 @@
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
-
-public class ParametersSample :
-    VerifyBase
+public class ParametersSample
 {
     #region xunitInlineData
-    [Theory]
+    [VerifyTheory]
     [InlineData("Value1")]
     [InlineData("Value2")]
     public Task InlineDataUsage(string arg)
     {
-        return Verify(arg);
+        return Verifier.Verify(arg);
     }
     #endregion
 
     #region xunitMemberData
-    [Theory]
+    [VerifyTheory]
     [MemberData(nameof(GetData))]
     public Task MemberDataUsage(string arg)
     {
-        return Verify(arg);
+        return Verifier.Verify(arg);
     }
 
     public static IEnumerable<object[]> GetData()
@@ -31,9 +28,4 @@ public class ParametersSample :
         yield return new object[] {"Value2"};
     }
     #endregion
-
-    public ParametersSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }

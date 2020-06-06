@@ -3,11 +3,9 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 #region xunitComplexMemberData
-public class ComplexParametersSample :
-    VerifyBase
+public class ComplexParametersSample
 {
     static ComplexParametersSample()
     {
@@ -15,12 +13,13 @@ public class ComplexParametersSample :
         SharedVerifySettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 
-    [Theory]
+    [VerifyTheory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        UseParameters(arg);
-        return Verify(arg);
+        //TODO:
+       // UseParameters(arg);
+        return Verifier.Verify(arg);
     }
 
     public static IEnumerable<object[]> GetComplexMemberData()
@@ -29,20 +28,15 @@ public class ComplexParametersSample :
         {
             new ComplexData {Value = "Value1"}
         };
-        yield return new object[]
-        {
-            new ComplexData {Value = "Value2"}
-        };
+        //yield return new object[]
+        //{
+        //    new ComplexData {Value = "Value2"}
+        //};
     }
 
     public class ComplexData
     {
         public string Value { get; set; } = null!;
-    }
-
-    public ComplexParametersSample(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
 #endregion

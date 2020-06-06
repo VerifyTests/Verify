@@ -2,10 +2,8 @@
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class CompareToAssert :
-    VerifyBase
+public class CompareToAssert
 {
     #region TraditionalTest
     [Fact]
@@ -26,16 +24,11 @@ public class CompareToAssert :
     #endregion
 
     #region VerificationTest
-    [Fact]
+    [VerifyFact]
     public Task Simple()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
     #endregion
-
-    public CompareToAssert(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }

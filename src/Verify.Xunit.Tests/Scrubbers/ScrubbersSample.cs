@@ -2,18 +2,11 @@
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
 
 #region ScrubbersSampleXunit
-public class ScrubbersSample :
-    VerifyBase
+public class ScrubbersSample
 {
-    public ScrubbersSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-    [Fact]
+    [VerifyFact]
     public Task Lines()
     {
         var settings = new VerifySettings();
@@ -29,7 +22,7 @@ public class ScrubbersSample :
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
 LineA
@@ -43,7 +36,7 @@ LineJ
 ");
     }
 
-    [Fact]
+    [VerifyFact]
     public Task ScrubberAppliedAfterJsonSerialization()
     {
         var target = new ToBeScrubbed
@@ -54,7 +47,7 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 }
 #endregion

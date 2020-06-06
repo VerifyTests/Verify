@@ -1,19 +1,11 @@
 ﻿using System.Threading.Tasks;
 using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
 
-public class VerifyTextSample :
-    VerifyBase
+public class VerifyTextSample
 {
-    [Fact]
+    [VerifyFact]
     public Task Simple()
     {
-        return Verify("Foo");
-    }
-
-    public VerifyTextSample(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify("Foo");
     }
 }

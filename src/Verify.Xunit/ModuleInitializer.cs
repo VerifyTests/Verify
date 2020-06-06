@@ -1,5 +1,4 @@
-﻿using Xunit;
-using Xunit.Sdk;
+﻿using Xunit.Sdk;
 
 static class ModuleInitializer
 {
@@ -7,8 +6,8 @@ static class ModuleInitializer
     {
         InnerVerifier.Init(
             message => new XunitException(message),
-            input => XunitContext.Context.IntOrNext(input),
-            input => XunitContext.Context.IntOrNext(input),
-            input => XunitContext.Context.IntOrNext(input));
+            input => CounterContext.Current.IntOrNext(input),
+            input => CounterContext.Current.IntOrNext(input),
+            input => CounterContext.Current.IntOrNext(input));
     }
 }

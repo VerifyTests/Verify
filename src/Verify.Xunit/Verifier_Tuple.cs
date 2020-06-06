@@ -7,13 +7,14 @@ using Verify;
 
 namespace VerifyXunit
 {
-    public partial class VerifyBase
+    public static partial class Verifier
     {
-        public Task Verify(
+        public static Task Verify(
             Expression<Func<ITuple>> expression,
-            VerifySettings? settings = null)
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
         {
-            return GetVerifier().Verify(expression, settings);
+            return GetVerifier(sourceFile).Verify(expression, settings);
         }
     }
 }

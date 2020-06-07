@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Xunit.Sdk;
 
 namespace VerifyXunit
@@ -12,7 +13,9 @@ namespace VerifyXunit
             var testCase = context.TestCase;
             var type = (ReflectionTypeInfo) testCase.TestMethod.TestClass.Class;
             var method = (ReflectionMethodInfo) testCase.TestMethod.Method;
-            var parameters = testCase.TestMethodArguments ?? Context.GetDataRow();
+            var parameters = testCase.TestMethodArguments ??
+                             testCase.DataRow ??
+                             Array.Empty<object>();
             var name = TestNameBuilder.GetUniqueTestName(type.Type, method.MethodInfo, parameters);
             return new DisposableVerifier(type.Type, Path.GetDirectoryName(sourceFile), name);
         }

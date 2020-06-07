@@ -8,11 +8,13 @@ using Xunit.Sdk;
 class TestCase :
     IXunitTestCase
 {
-    IXunitTestCase target = null!;
+    XunitTestCase target = null!;
+    private readonly bool isTheory;
 
-    public TestCase(IXunitTestCase target)
+    public TestCase(XunitTestCase target, bool isTheory)
     {
         this.target = target;
+        this.isTheory = isTheory;
     }
 
     public TestCase()
@@ -22,7 +24,7 @@ class TestCase :
     public void Deserialize(IXunitSerializationInfo info)
     {
         var targetType = info.GetValue<string>("targetType");
-        target = (IXunitTestCase) Activator.CreateInstance(Type.GetType(targetType));
+        target = (XunitTestCase) Activator.CreateInstance(Type.GetType(targetType));
         target.Deserialize(info);
     }
 
@@ -52,9 +54,14 @@ class TestCase :
 
     public async Task<RunSummary> RunAsync(IMessageSink messageSink, IMessageBus messageBus, object[] arguments, ExceptionAggregator aggregator, CancellationTokenSource cancellation)
     {
-        Context.Set(messageSink, target);
+        Context.Set(messageSink, this);
         try
         {
+            if (isTheory)
+            {
+                var theoryTestCaseRunner = new VerifyTheoryTestCaseRunner(this, target.DisplayName, target.SkipReason, arguments, messageSink, messageBus, aggregator, cancellation);
+                return await theoryTestCaseRunner.RunAsync();
+            }
             return await target.RunAsync(messageSink, messageBus, arguments, aggregator, cancellation);
         }
         finally
@@ -68,4 +75,5 @@ class TestCase :
     public IMethodInfo Method => target.Method;
 
     public int Timeout => target.Timeout;
+    public object[]? DataRow { get; set; }
 }

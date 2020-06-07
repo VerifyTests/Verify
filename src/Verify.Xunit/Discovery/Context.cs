@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Threading;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 class Context
 {
     static AsyncLocal<Context?> local = new AsyncLocal<Context?>();
-    static AsyncLocal<object[]?> dataSet = new AsyncLocal<object[]?>();
 
-    public Context(IMessageSink messageSink, IXunitTestCase testCase)
+    public Context(IMessageSink sink, TestCase testCase)
     {
-        MessageSink = messageSink;
+        Sink = sink;
         TestCase = testCase;
     }
 
@@ -24,32 +22,17 @@ class Context
 
         return local.Value!;
     }
-    public static object[] GetDataRow()
-    {
-        if (dataSet.Value == null)
-        {
-            return Array.Empty<object>();
-        }
-
-        return dataSet.Value!;
-    }
 
     public static void Clear()
     {
         local.Value = null;
-        dataSet.Value = null;
     }
 
-    public static void Set(IMessageSink messageSink, IXunitTestCase target)
+    public static void Set(IMessageSink sink, TestCase target)
     {
-        local.Value = new Context(messageSink, target);
+        local.Value = new Context(sink, target);
     }
 
-    public static void SetDataRow(object[]? dataRow)
-    {
-        dataSet.Value = dataRow;
-    }
-
-    public IMessageSink MessageSink { get; }
-    public IXunitTestCase TestCase { get; }
+    public IMessageSink Sink { get; }
+    public TestCase TestCase { get; }
 }

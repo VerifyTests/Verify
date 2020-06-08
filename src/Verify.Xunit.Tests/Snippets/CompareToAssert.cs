@@ -24,7 +24,7 @@ public class CompareToAssert
     #endregion
 
     #region VerificationTest
-    [VerifyFact]
+    [Fact]
     public Task Simple()
     {
         var person = ClassBeingTested.FindPerson();

@@ -66,7 +66,7 @@ The clipboard behavior can be disable using the following:
 var settings = new VerifySettings();
 settings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L43' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L36-L41' title='File snippet `disableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboard' title='Navigate to start of snippet `disableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -77,7 +77,7 @@ settings.DisableClipboard();
 ```cs
 SharedVerifySettings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L58-L62' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L60' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
 <!-- endsnippet -->
 
 If clipboard is disabled for all tests, it can be re-enabled at the test level:
@@ -88,7 +88,7 @@ If clipboard is disabled for all tests, it can be re-enabled at the test level:
 var settings = new VerifySettings();
 settings.EnableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L48-L53' title='File snippet `enableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-enableclipboard' title='Navigate to start of snippet `enableclipboard`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L46-L51' title='File snippet `enableclipboard` was extracted from'>snippet source</a> | <a href='#snippet-enableclipboard' title='Navigate to start of snippet `enableclipboard`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

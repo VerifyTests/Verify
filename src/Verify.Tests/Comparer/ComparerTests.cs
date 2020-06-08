@@ -4,11 +4,9 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
-public class ComparerTests :
-    VerifyBase
+public class ComparerTests
 {
     [Fact]
     public async Task Instance_with_message()
@@ -17,7 +15,7 @@ public class ComparerTests :
         settings.UseComparer(CompareWithMessage);
         settings.DisableDiff();
         settings.DisableClipboard();
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("NotTheText", settings));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("NotTheText", settings));
         Assert.Contains("theMessage", exception.Message);
     }
 
@@ -26,8 +24,8 @@ public class ComparerTests :
     {
         var settings = new VerifySettings();
         settings.UseComparer(Compare);
-        await Verify("TheText", settings);
-        await Verify("thetext", settings);
+        await Verifier.Verify("TheText", settings);
+        await Verifier.Verify("thetext", settings);
     }
 
     [Fact]
@@ -38,7 +36,7 @@ public class ComparerTests :
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
         settings.DisableClipboard();
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verify("TheText", settings));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("TheText", settings));
         Assert.Contains("theMessage", exception.Message);
     }
 
@@ -48,8 +46,8 @@ public class ComparerTests :
         SharedVerifySettings.RegisterComparer("staticComparerExt", Compare);
         var settings = new VerifySettings();
         settings.UseExtension("staticComparerExt");
-        await Verify("TheText", settings);
-        await Verify("thetext", settings);
+        await Verifier.Verify("TheText", settings);
+        await Verifier.Verify("thetext", settings);
     }
 
     static async Task<CompareResult> Compare(VerifySettings settings, Stream received, Stream verified)
@@ -62,10 +60,5 @@ public class ComparerTests :
     static Task<CompareResult> CompareWithMessage(VerifySettings settings, Stream received, Stream verified)
     {
         return Task.FromResult(CompareResult.NotEqual("theMessage"));
-    }
-
-    public ComparerTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

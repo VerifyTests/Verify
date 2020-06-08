@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class TypeConverterTests :
-    VerifyBase
+public class TypeConverterTests
 {
     [Fact]
     public Task Inherited()
@@ -30,14 +28,15 @@ public class TypeConverterTests :
         };
         var settings = new VerifySettings();
         settings.UseExtension("txt");
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     [Fact]
     public Task DifferingExtensions()
     {
         SharedVerifySettings.RegisterFileConverter<ClassToSplit3>(
-            "notTxt", async (classToSplit, _) =>
+            "notTxt",
+            async (classToSplit, _) =>
             {
                 await Task.Delay(1);
                 throw new Exception();
@@ -57,7 +56,7 @@ public class TypeConverterTests :
         };
         var settings = new VerifySettings();
         settings.UseExtension("txt");
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     static List<Stream> ToStream(string splitValue)
@@ -95,7 +94,7 @@ public class TypeConverterTests :
         };
         var settings = new VerifySettings();
         settings.UseExtension("txt");
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     public class ClassToSplit2
@@ -117,7 +116,7 @@ public class TypeConverterTests :
         {
             Value = $@"line1{Environment.NewLine}line2"
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     public class ClassToSplit
@@ -140,7 +139,7 @@ public class TypeConverterTests :
         {
             Value = "Invalid"
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     [Fact]
@@ -158,7 +157,7 @@ public class TypeConverterTests :
         {
             Value = "Valid"
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     public class CanConvertTarget
@@ -183,7 +182,7 @@ public class TypeConverterTests :
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
-        return Verify(bitmap, settings);
+        return Verifier.Verify(bitmap, settings);
     }
 
     [Fact]
@@ -205,7 +204,7 @@ public class TypeConverterTests :
         settings.UseExtension("bmp");
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
-        return Verify(bitmap, settings);
+        return Verifier.Verify(bitmap, settings);
     }
 
     [Fact]
@@ -222,7 +221,7 @@ public class TypeConverterTests :
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
-        return Verify(bitmap, settings);
+        return Verifier.Verify(bitmap, settings);
     }
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
@@ -230,11 +229,6 @@ public class TypeConverterTests :
         var stream = new MemoryStream();
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
-    }
-
-    public TypeConverterTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
 #endif

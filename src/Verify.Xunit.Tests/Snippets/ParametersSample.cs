@@ -1,25 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Verify;
 using VerifyXunit;
 using Xunit;
 public class ParametersSample
 {
     #region xunitInlineData
-    [VerifyTheory]
+    [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
     public Task InlineDataUsage(string arg)
     {
-        return Verifier.Verify(arg);
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
     }
     #endregion
 
     #region xunitMemberData
-    [VerifyTheory]
+    [Theory]
     [MemberData(nameof(GetData))]
     public Task MemberDataUsage(string arg)
     {
-        return Verifier.Verify(arg);
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
     }
 
     public static IEnumerable<object[]> GetData()

@@ -137,7 +137,7 @@ public void TraditionalTest()
 <!-- snippet: VerificationTest -->
 <a id='snippet-verificationtest'/></a>
 ```cs
-[VerifyFact]
+[Fact]
 public Task Simple()
 {
     var person = ClassBeingTested.FindPerson();
@@ -209,7 +209,7 @@ Support for [xUnit](https://xunit.net/)
 ```cs
 public class Sample
 {
-    [VerifyFact]
+    [Fact]
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
@@ -218,7 +218,7 @@ public class Sample
 
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L4-L15' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L16' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
@@ -466,7 +466,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L85-L90' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L83-L88' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -498,10 +498,10 @@ public async Task OnHandlersSample()
             Debug.WriteLine(message);
             return Task.CompletedTask;
         });
-    await Verify("value", settings);
+    await Verifier.Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L14-L34' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L32' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

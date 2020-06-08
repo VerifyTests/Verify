@@ -7,12 +7,10 @@ using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
-public class SerializationTests :
-    VerifyBase
+public class SerializationTests
 {
     static SerializationTests()
     {
@@ -37,7 +35,7 @@ public class SerializationTests :
             DateTimeOffsetString = dateTimeOffset.ToString("F"),
         };
 
-        await Verify(target);
+        await Verifier.Verify(target);
 
         #endregion
     }
@@ -57,7 +55,7 @@ public class SerializationTests :
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
         };
 
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     [Fact]
@@ -69,7 +67,7 @@ public class SerializationTests :
             s.AppendLine("b");
             s.AppendLine("c");
         });
-        return Verify("a", settings);
+        return Verifier.Verify("a", settings);
     }
 
     [Fact]
@@ -99,7 +97,7 @@ public class SerializationTests :
             _.DontIgnoreEmptyCollections();
         });
         settings.AddScrubber(s => s.Replace("Lane", "Street"));
-        return Verify(person, settings);
+        return Verifier.Verify(person, settings);
     }
 
     [Fact]
@@ -122,7 +120,7 @@ public class SerializationTests :
 
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
-        return Verify(person, settings);
+        return Verifier.Verify(person, settings);
     }
 
     public class DateTimeTarget
@@ -140,7 +138,7 @@ public class SerializationTests :
     {
         var target = new DateTimeTarget();
 
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     [Fact]
@@ -148,7 +146,7 @@ public class SerializationTests :
     {
         var settings = new VerifySettings();
         settings.UseExtension("jpg");
-        await Verify(File.ReadAllBytes("sample.jpg"), settings);
+        await Verifier.Verify(File.ReadAllBytes("sample.jpg"), settings);
     }
 
     [Fact]
@@ -164,7 +162,7 @@ public class SerializationTests :
             }
         };
 
-        return Verify(product);
+        return Verifier.Verify(product);
     }
 
     [Fact]
@@ -185,7 +183,7 @@ public class SerializationTests :
         {
             _.ScrubInlineGuids();
         });
-        return Verify(product, settings);
+        return Verifier.Verify(product, settings);
     }
 
     void DontIgnoreEmptyCollections()
@@ -227,7 +225,7 @@ public class SerializationTests :
     public Task NewLineEscapedInProperty()
     {
         #region NewLineEscapedInProperty
-        return Verify(new {Property = "a\r\nb\\nc"});
+        return Verifier.Verify(new {Property = "a\r\nb\\nc"});
         #endregion
     }
 
@@ -237,7 +235,7 @@ public class SerializationTests :
         #region DisableNewLineEscaping
         var settings = new VerifySettings();
         settings.DisableNewLineEscaping();
-        await Verify(new {Property = "a\r\nb\\nc"}, settings);
+        await Verifier.Verify(new {Property = "a\r\nb\\nc"}, settings);
         #endregion
     }
 
@@ -285,25 +283,25 @@ public class SerializationTests :
     [Fact]
     public Task ScrubTempPath()
     {
-        return Verify(Path.GetTempPath().TrimEnd('/', '\\'));
+        return Verifier.Verify(Path.GetTempPath().TrimEnd('/', '\\'));
     }
 
     [Fact]
     public Task ScrubCurrentDirectory()
     {
-        return Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
+        return Verifier.Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
     }
 
     [Fact]
     public Task ScrubCodeBaseLocation()
     {
-        return Verify(CodeBaseLocation.CurrentDirectory.TrimEnd('/', '\\'));
+        return Verifier.Verify(CodeBaseLocation.CurrentDirectory.TrimEnd('/', '\\'));
     }
 
     [Fact]
     public Task ScrubBaseDirectory()
     {
-        return Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
+        return Verifier.Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
     }
 
     public class TypeTarget
@@ -324,7 +322,7 @@ public class SerializationTests :
             Dynamic = foo.GetType(),
         };
 
-        await Verify(target);
+        await Verifier.Verify(target);
 
         #endregion
     }
@@ -335,7 +333,7 @@ public class SerializationTests :
     {
         #region VerifyTuple
 
-        await Verify(() => MethodWithNamedTuple());
+        await Verifier.Verify(() => MethodWithNamedTuple());
 
         #endregion
     }
@@ -363,7 +361,7 @@ public class SerializationTests :
             OtherGuid = Guid.NewGuid(),
         };
 
-        await Verify(target);
+        await Verifier.Verify(target);
 
         #endregion
     }
@@ -372,7 +370,7 @@ public class SerializationTests :
     public Task ShouldIgnoreGuidDefaults()
     {
         var target = new GuidTarget();
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     [Fact]
@@ -384,7 +382,7 @@ public class SerializationTests :
             GuidNullable = Guid.NewGuid(),
             GuidString = Guid.NewGuid().ToString(),
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     public class GuidTarget
@@ -402,7 +400,7 @@ public class SerializationTests :
         {
             Property = @"\"
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     public class EscapeTarget
@@ -417,7 +415,7 @@ public class SerializationTests :
         {
             NotDate = "1.2.3"
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     public class NotDatesTarget
@@ -428,7 +426,7 @@ public class SerializationTests :
     [Fact]
     public Task ShouldScrubDictionaryKey()
     {
-        return Verify(
+        return Verifier.Verify(
             new
             {
                 guid = new Dictionary<Guid, string>
@@ -462,7 +460,7 @@ public class SerializationTests :
             ReadOnlyCollection = new List<string>(),
             Array = new string[] { }
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     public class CollectionTarget
@@ -486,7 +484,7 @@ public class SerializationTests :
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 
         var target = new WithExceptionIgnoreMessage();
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -500,7 +498,7 @@ public class SerializationTests :
         var expression = Expression.Lambda<Func<Exception, object>>(convert, parameter);
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify(expression, settings);
+        return Verifier.Verify(expression, settings);
     }
 
     class WithExceptionIgnoreMessage
@@ -512,7 +510,7 @@ public class SerializationTests :
     public Task NotImplementedExceptionProp()
     {
         var target = new WithNotImplementedException();
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     class WithNotImplementedException
@@ -541,7 +539,7 @@ public class SerializationTests :
                 Property = "Include"
             }
         };
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -576,7 +574,7 @@ public class SerializationTests :
                 Property = "Value"
             }
         };
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -617,7 +615,7 @@ public class SerializationTests :
             Field = "Value",
             Property = "Value"
         };
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -645,7 +643,7 @@ public class SerializationTests :
             Property = "Value",
             PropertyByName = "Value"
         };
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -669,7 +667,7 @@ public class SerializationTests :
         settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         var target = new WithCustomException();
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -688,7 +686,7 @@ public class SerializationTests :
         }
         catch (Exception exception)
         {
-            return Verify(exception);
+            return Verifier.Verify(exception);
         }
     }
 
@@ -700,7 +698,7 @@ public class SerializationTests :
 
         var target = new WithException();
 
-        return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
+        return Assert.ThrowsAsync<JsonSerializationException>(() => Verifier.Verify(target, settings));
     }
 
     class WithException
@@ -716,7 +714,7 @@ public class SerializationTests :
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         var target = new WithExceptionNotIgnoreMessage();
 
-        return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
+        return Assert.ThrowsAsync<JsonSerializationException>(() => Verifier.Verify(target, settings));
     }
 
     class WithExceptionNotIgnoreMessage
@@ -728,7 +726,7 @@ public class SerializationTests :
     public Task DelegateProp()
     {
         var target = new WithDelegate();
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     class WithDelegate
@@ -745,7 +743,7 @@ public class SerializationTests :
     public Task NotSupportedExceptionProp()
     {
         var target = new WithNotSupportedException();
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     class WithNotSupportedException
@@ -765,7 +763,7 @@ public class SerializationTests :
         };
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     #endregion
@@ -785,7 +783,7 @@ public class SerializationTests :
             ObsoleteProperty = "value1",
             OtherProperty = "value2"
         };
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     #endregion
@@ -794,8 +792,8 @@ public class SerializationTests :
     [Fact]
     public async Task Tuple()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(() => MethodWithTuple()));
-        await Verify(exception.Message);
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithTuple()));
+        await Verifier.Verify(exception.Message);
     }
 
     static (bool, string, string) MethodWithTuple()
@@ -822,10 +820,5 @@ public class SerializationTests :
             _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 
         #endregion
-    }
-
-    public SerializationTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

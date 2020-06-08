@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
+using Xunit;
 
 #region UniqueForSampleXunit
 public class UniqueForSample
 {
-    [VerifyFact]
+    [Fact]
     public Task Runtime()
     {
         var settings = new VerifySettings();
@@ -13,7 +14,7 @@ public class UniqueForSample
         return Verifier.Verify("value", settings);
     }
 
-    [VerifyFact]
+    [Fact]
     public Task RuntimeAndVersion()
     {
         var settings = new VerifySettings();
@@ -21,7 +22,7 @@ public class UniqueForSample
         return Verifier.Verify("value", settings);
     }
 
-    [VerifyFact]
+    [Fact]
     public Task AssemblyConfiguration()
     {
         var settings = new VerifySettings();

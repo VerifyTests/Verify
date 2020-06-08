@@ -9,9 +9,10 @@ namespace VerifyXunit
         public static Task Verify(
             string target,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "")
+            [CallerFilePath] string sourceFile = "",
+            [CallerMemberName] string methodName = "")
         {
-            var verifier = GetVerifier(sourceFile);
+            var verifier = GetVerifier(sourceFile, methodName, settings);
             return verifier.Verify(target, settings);
         }
     }

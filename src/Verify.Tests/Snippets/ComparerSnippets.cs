@@ -6,23 +6,16 @@ using Shipwreck.Phash;
 using Shipwreck.Phash.Bitmaps;
 using Verify;
 using VerifyXunit;
-using Xunit.Abstractions;
 
-public class ComparerSnippets :
-    VerifyBase
+public class ComparerSnippets
 {
-    public ComparerSnippets(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-
     public async Task InstanceComparer()
     {
         #region InstanceComparer
         var settings = new VerifySettings();
         settings.UseComparer(CompareImages);
         settings.UseExtension("png");
-        await Verify("TheImage.png", settings);
+        await Verifier.Verify("TheImage.png", settings);
         #endregion
     }
 
@@ -32,7 +25,7 @@ public class ComparerSnippets :
         SharedVerifySettings.RegisterComparer(
             extension: "png",
             compare: CompareImages);
-        await VerifyFile("TheImage.png");
+        await Verifier.VerifyFile("TheImage.png");
         #endregion
     }
 

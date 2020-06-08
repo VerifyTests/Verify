@@ -15,7 +15,7 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 <!-- snippet: anonXunit -->
 <a id='snippet-anonxunit'/></a>
 ```cs
-[VerifyFact]
+[Fact]
 public async Task Anon()
 {
     var person1 = new Person
@@ -37,7 +37,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L63-L85' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L64-L86' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

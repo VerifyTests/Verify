@@ -13,13 +13,13 @@ public class ComplexParametersSample
         SharedVerifySettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 
-    [VerifyTheory]
+    [Theory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        //TODO:
-       // UseParameters(arg);
-        return Verifier.Verify(arg);
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
     }
 
     public static IEnumerable<object[]> GetComplexMemberData()
@@ -28,10 +28,10 @@ public class ComplexParametersSample
         {
             new ComplexData {Value = "Value1"}
         };
-        //yield return new object[]
-        //{
-        //    new ComplexData {Value = "Value2"}
-        //};
+        yield return new object[]
+        {
+            new ComplexData {Value = "Value2"}
+        };
     }
 
     public class ComplexData

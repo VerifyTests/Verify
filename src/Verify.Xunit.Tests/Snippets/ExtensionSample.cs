@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
+using Xunit;
 
 public class ExtensionSample
 {
@@ -12,7 +13,7 @@ public class ExtensionSample
         classLevelSettings.UseExtension("json");
     }
 
-    [VerifyFact]
+    [Fact]
     public Task AtMethod()
     {
         var settings = new VerifySettings(classLevelSettings);
@@ -26,7 +27,7 @@ public class ExtensionSample
             settings: settings);
     }
 
-    [VerifyFact]
+    [Fact]
     public Task SharedClassLevelSettings()
     {
         return  Verifier.Verify(

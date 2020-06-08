@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
+using Xunit;
 
 #region ScrubberLevelsSampleXunit
 public class ScrubberLevelsSample
@@ -13,7 +14,7 @@ public class ScrubberLevelsSample
         classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    [VerifyFact]
+    [Fact]
     public Task Usage()
     {
         var settings = new VerifySettings(classLevelSettings);

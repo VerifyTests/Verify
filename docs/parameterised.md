@@ -28,15 +28,17 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 <!-- snippet: xunitInlineData -->
 <a id='snippet-xunitinlinedata'/></a>
 ```cs
-[VerifyTheory]
+[Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
 public Task InlineDataUsage(string arg)
 {
-    return Verifier.Verify(arg);
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    return Verifier.Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L7-L15' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L8-L18' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -45,11 +47,13 @@ public Task InlineDataUsage(string arg)
 <!-- snippet: xunitMemberData -->
 <a id='snippet-xunitmemberdata'/></a>
 ```cs
-[VerifyTheory]
+[Theory]
 [MemberData(nameof(GetData))]
 public Task MemberDataUsage(string arg)
 {
-    return Verifier.Verify(arg);
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    return Verifier.Verify(arg, settings);
 }
 
 public static IEnumerable<object[]> GetData()
@@ -58,7 +62,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L17-L30' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L20-L35' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -77,13 +81,13 @@ public class ComplexParametersSample
         SharedVerifySettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 
-    [VerifyTheory]
+    [Theory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        //TODO:
-       // UseParameters(arg);
-        return Verifier.Verify(arg);
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
     }
 
     public static IEnumerable<object[]> GetComplexMemberData()
@@ -92,10 +96,10 @@ public class ComplexParametersSample
         {
             new ComplexData {Value = "Value1"}
         };
-        //yield return new object[]
-        //{
-        //    new ComplexData {Value = "Value2"}
-        //};
+        yield return new object[]
+        {
+            new ComplexData {Value = "Value2"}
+        };
     }
 
     public class ComplexData

@@ -12,9 +12,11 @@ namespace VerifyXunit
         public static Task Verify(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "")
+            [CallerFilePath] string sourceFile = "",
+            [CallerMemberName] string methodName = "")
         {
-            return GetVerifier(sourceFile).Verify(expression, settings);
+            var verifier = GetVerifier(sourceFile, methodName, settings);
+            return verifier.Verify(expression, settings);
         }
     }
 }

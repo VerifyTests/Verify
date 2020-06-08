@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class ExtensionConverterTests :
-    VerifyBase
+public class ExtensionConverterTests
 {
     [Fact]
     public Task TextSplit()
@@ -21,7 +19,7 @@ public class ExtensionConverterTests :
             (stream, _) => new ConversionResult(null, stream));
         var settings = new VerifySettings();
         settings.UseExtension("txt");
-        return Verify(FileHelpers.OpenRead("sample.split"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.split"), settings);
     }
 
     [Fact]
@@ -37,7 +35,7 @@ public class ExtensionConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
 
     [Fact]
@@ -53,7 +51,7 @@ public class ExtensionConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
 
     [Fact]
@@ -73,7 +71,7 @@ public class ExtensionConverterTests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
-        return Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"), settings);
     }
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)
@@ -82,11 +80,6 @@ public class ExtensionConverterTests :
         var stream = new MemoryStream();
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
-    }
-
-    public ExtensionConverterTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
 #endif

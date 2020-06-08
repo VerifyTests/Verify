@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using VerifyXunit;
+using Xunit;
 
 public class VerifyTextSample
 {
-    [VerifyFact]
+    [Fact]
     public Task Simple()
     {
         return Verifier.Verify("Foo");

@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
+using Xunit;
 
 #region ScrubbersSampleXunit
 public class ScrubbersSample
 {
-    [VerifyFact]
+    [Fact]
     public Task Lines()
     {
         var settings = new VerifySettings();
@@ -36,7 +37,7 @@ LineJ
 ");
     }
 
-    [VerifyFact]
+    [Fact]
     public Task ScrubberAppliedAfterJsonSerialization()
     {
         var target = new ToBeScrubbed

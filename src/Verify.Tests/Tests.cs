@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
-public class Tests :
-    VerifyBase
+public class Tests
 {
     static Tests()
     {
@@ -44,7 +42,7 @@ public class Tests :
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<XunitException>(() => Verify("value", settings));
+        await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("value", settings));
         Assert.False(onFirstVerifyCalled);
         Assert.True(onVerifyMismatchCalled);
     }
@@ -71,7 +69,7 @@ public class Tests :
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<XunitException>(() => Verify("value", settings));
+        await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("value", settings));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
     }
@@ -89,31 +87,31 @@ public class Tests :
             });
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verify(new MemoryStream(new byte[] {1}), settings);
+        await Verifier.Verify(new MemoryStream(new byte[] {1}), settings);
         Assert.Same(fromGlobal, settings);
     }
 
     [Fact]
     public async Task ShouldNotIgnoreCase()
     {
-        await Verify("A");
+        await Verifier.Verify("A");
         var settings = new VerifySettings();
         settings.DisableClipboard();
         settings.DisableDiff();
-        await Assert.ThrowsAsync<XunitException>(() => Verify("a", settings));
+        await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("a", settings));
     }
 
     [Fact]
     public Task Newlines()
     {
-        return Verify("a\r\nb\nc\rd\r\n");
+        return Verifier.Verify("a\r\nb\nc\rd\r\n");
     }
 
     [Fact]
     public Task TaskResult()
     {
         var target = Task.FromResult("value");
-        return Verify(target);
+        return Verifier.Verify(target);
     }
 
     static async IAsyncEnumerable<string> AsyncEnumerableMethod()
@@ -127,7 +125,7 @@ public class Tests :
     [Fact]
     public async Task AsyncEnumerable()
     {
-        await Verify(AsyncEnumerableMethod());
+        await Verifier.Verify(AsyncEnumerableMethod());
     }
 
     static async IAsyncEnumerable<DisposableTarget> AsyncEnumerableDisposableMethod(DisposableTarget target)
@@ -140,7 +138,7 @@ public class Tests :
     public async Task AsyncEnumerableDisposable()
     {
         var target = new DisposableTarget();
-        await Verify(AsyncEnumerableDisposableMethod(target));
+        await Verifier.Verify(AsyncEnumerableDisposableMethod(target));
         Assert.True(target.Disposed);
     }
 
@@ -154,7 +152,7 @@ public class Tests :
     public async Task AsyncEnumerableAsyncDisposable()
     {
         var target = new AsyncDisposableTarget();
-        await Verify(AsyncEnumerableAsyncDisposableMethod(target));
+        await Verifier.Verify(AsyncEnumerableAsyncDisposableMethod(target));
         Assert.True(target.AsyncDisposed);
     }
 
@@ -163,7 +161,7 @@ public class Tests :
     {
         var disposableTarget = new AsyncDisposableTarget();
         var target = Task.FromResult(disposableTarget);
-        await Verify(target);
+        await Verifier.Verify(target);
         Assert.True(disposableTarget.AsyncDisposed);
     }
 
@@ -193,7 +191,7 @@ public class Tests :
     {
         var disposableTarget = new DisposableTarget();
         var target = Task.FromResult(disposableTarget);
-        await Verify(target);
+        await Verifier.Verify(target);
         Assert.True(disposableTarget.Disposed);
     }
 
@@ -219,7 +217,7 @@ public class Tests :
     {
         var settings = new VerifySettings();
         settings.UseExtension("jpg");
-        await Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
+        await Verifier.Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
 
 #endif
@@ -227,7 +225,7 @@ public class Tests :
     [Fact]
     public async Task VerifyFilePath()
     {
-        await VerifyFile("sample.txt");
+        await Verifier.VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
 
@@ -244,9 +242,4 @@ public class Tests :
     //    DontScrubDateTimes();
     //    await Verify(person);
     //}
-
-    public Tests(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }

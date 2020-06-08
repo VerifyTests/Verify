@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
+using Xunit;
 
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
@@ -24,7 +25,7 @@ public class VerifyObjectSamples
         #endregion
     }
 
-    [VerifyFact]
+    [Fact]
     public async Task ScopedSerializer()
     {
         var person = new Person
@@ -61,7 +62,7 @@ public class VerifyObjectSamples
     }
 
     #region AnonXunit
-    [VerifyFact]
+    [Fact]
     public async Task Anon()
     {
         var person1 = new Person

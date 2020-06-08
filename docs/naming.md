@@ -32,7 +32,7 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 ```cs
 public class UniqueForSample
 {
-    [VerifyFact]
+    [Fact]
     public Task Runtime()
     {
         var settings = new VerifySettings();
@@ -40,7 +40,7 @@ public class UniqueForSample
         return Verifier.Verify("value", settings);
     }
 
-    [VerifyFact]
+    [Fact]
     public Task RuntimeAndVersion()
     {
         var settings = new VerifySettings();
@@ -48,7 +48,7 @@ public class UniqueForSample
         return Verifier.Verify("value", settings);
     }
 
-    [VerifyFact]
+    [Fact]
     public Task AssemblyConfiguration()
     {
         var settings = new VerifySettings();
@@ -57,7 +57,7 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L5-L32' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L33' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -264,6 +264,7 @@ public class ExtensionSample
 using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
+using Xunit;
 
 public class ExtensionSample
 {
@@ -275,7 +276,7 @@ public class ExtensionSample
         classLevelSettings.UseExtension("json");
     }
 
-    [VerifyFact]
+    [Fact]
     public Task AtMethod()
     {
         var settings = new VerifySettings(classLevelSettings);
@@ -289,7 +290,7 @@ public class ExtensionSample
             settings: settings);
     }
 
-    [VerifyFact]
+    [Fact]
     public Task SharedClassLevelSettings()
     {
         return  Verifier.Verify(
@@ -302,7 +303,7 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L40' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L41' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:
@@ -342,5 +343,5 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L55' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L50-L53' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
 <!-- endsnippet -->

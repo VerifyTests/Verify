@@ -1,14 +1,14 @@
 ﻿#if DEBUG
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;
 
-public partial class Tests :
-    VerifyBase
+public partial class Tests
 {
     [Theory]
     [InlineData(false, false)]
@@ -25,7 +25,8 @@ public partial class Tests :
             () => "someOtherText",
             hasMatchingDiffTool: true,
             hasExistingReceived,
-            autoVerify);
+            autoVerify,
+            Info.OfMethod<Tests>("Text",));
     }
 
     [Theory]
@@ -50,7 +51,8 @@ public partial class Tests :
             () => new MemoryStream(new byte[] {2}),
             hasMatchingDiffTool,
             hasExistingReceived,
-            autoVerify);
+            autoVerify,
+            Info.OfMethod<Tests>("Stream"));
     }
 
     async Task RunTest(
@@ -59,7 +61,8 @@ public partial class Tests :
         Func<object> secondTarget,
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
-        bool autoVerify)
+        bool autoVerify,
+        MethodInfo caller)
     {
         var settings = new VerifySettings();
         settings.UseExtension(extension);
@@ -68,8 +71,12 @@ public partial class Tests :
             settings.AutoVerify();
         }
 
-        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}");
-        var danglingFile = Path.Combine(SourceDirectory, $"{prefix}.01.verified.{extension}");
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
+            typeof(Tests),
+            caller,
+            new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
+        var prefix = Path.GetFullPath(uniqueTestName);
+        var danglingFile = Path.GetFullPath($"{prefix}.01.verified.{extension}");
         var file = new FilePair(extension, prefix);
 
         DeleteAll(danglingFile, file.Verified, file.Received);
@@ -105,7 +112,7 @@ public partial class Tests :
     {
         var command = BuildCommand(pair);
         ProcessCleanup.Refresh();
-        await Verify(target(), settings);
+        await Verifier.Verify(target(), settings);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(command);
 
@@ -117,12 +124,12 @@ public partial class Tests :
     {
         if (settings.autoVerify)
         {
-            await Verify(target(), settings);
+            await Verifier.Verify(target(), settings);
             AssertExists(pair.Verified);
         }
         else
         {
-            await Throws(() => Verify(target(), settings));
+            await Throws(() => Verifier.Verify(target(), settings));
             ProcessCleanup.Refresh();
             AssertProcess(hasMatchingDiffTool, pair);
             if (hasMatchingDiffTool)

@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 using DiffEngine;
 using EmptyFiles;
 using Verify;
-using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
-public partial class Tests :
-    VerifyBase
+public partial class Tests
 {
     static string diffToolPath = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
 
@@ -120,8 +117,7 @@ Commands:
         return Assert.ThrowsAsync<XunitException>(testCode);
     }
 
-    public Tests(ITestOutputHelper output) :
-        base(output)
+    public Tests()
     {
         ClipboardCapture.Clear();
     }

@@ -1,14 +1,14 @@
 ﻿#if DEBUG
 
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using DiffEngine;
 using Verify;
 using VerifyXunit;
 using Xunit;
 
-public partial class Tests :
-    VerifyBase
+public partial class Tests
 {
     [Theory]
     [InlineData(false, false)]
@@ -24,7 +24,8 @@ public partial class Tests :
             new TypeToSplit("info2","value1.1","value2.1"),
             hasMatchingDiffTool: true,
             hasExistingReceived,
-            autoVerify);
+            autoVerify,
+            Info.OfMethod<Tests>("Split"));
     }
 
     async Task RunSplitTest(
@@ -32,7 +33,8 @@ public partial class Tests :
         TypeToSplit secondTarget,
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
-        bool autoVerify)
+        bool autoVerify,
+        MethodInfo caller)
     {
         var settings = new VerifySettings();
         if (autoVerify)
@@ -40,7 +42,11 @@ public partial class Tests :
             settings.AutoVerify();
         }
 
-        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.");
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
+            typeof(Tests),
+            caller,
+            new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
+        var prefix = Path.GetFullPath(uniqueTestName);
         var danglingFile = $"{prefix}03.verified.txt";
         var info = new FilePair("txt", $"{prefix}info");
         var file1 = new FilePair("txt", $"{prefix}00");
@@ -84,7 +90,7 @@ public partial class Tests :
         var file1Command = BuildCommand(file1);
         var file2Command = BuildCommand(file2);
         ProcessCleanup.Refresh();
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(infoCommand);
         AssertProcessNotRunning(file1Command);
@@ -102,14 +108,14 @@ public partial class Tests :
     {
         if (settings.autoVerify)
         {
-            await Verify(target, settings);
+            await Verifier.Verify(target, settings);
             AssertExists(info.Verified);
             AssertExists(file1.Verified);
             AssertExists(file2.Verified);
         }
         else
         {
-            await Throws(() => Verify(target, settings));
+            await Throws(() => Verifier.Verify(target, settings));
             ProcessCleanup.Refresh();
             AssertProcess( hasMatchingDiffTool, info,file1, file2);
             if (hasMatchingDiffTool)

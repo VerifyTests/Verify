@@ -11,14 +11,9 @@ public partial class InnerVerifier
     string testName;
     internal static Func<string, Exception> exceptionBuilder = null!;
 
-    public static void Init(
-        Func<string, Exception> exceptionBuilder,
-        Func<Guid, int> guidIntOrNext,
-        Func<DateTime, int> dateTimeIntOrNext,
-        Func<DateTimeOffset, int> dateTimeOffsetIntOrNext)
+    public static void Init(Func<string, Exception> exceptionBuilder)
     {
         InnerVerifier.exceptionBuilder = exceptionBuilder;
-        SharedScrubber.SetIntOrNext(guidIntOrNext, dateTimeIntOrNext, dateTimeOffsetIntOrNext);
     }
 
     public InnerVerifier(Type testType, string directory, string testName)

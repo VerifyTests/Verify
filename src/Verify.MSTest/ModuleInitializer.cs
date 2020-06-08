@@ -4,7 +4,6 @@ static class ModuleInitializer
 {
     public static void Initialize()
     {
-        InnerVerifier.Init(
-            message => new AssertFailedException(message));
+        InnerVerifier.Init(message => new AssertFailedException(message));
     }
 }

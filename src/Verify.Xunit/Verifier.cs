@@ -24,7 +24,7 @@ namespace VerifyXunit
                 throw new Exception($"Type `{className}` not found in assembly `{testAssembly.GetName().Name}`.");
             }
 
-            var methodInfo = type.GetMethod(method,BindingFlags.Instance|BindingFlags.Public|BindingFlags.FlattenHierarchy);
+            var methodInfo = type.GetMethod(method, BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             if (methodInfo == null)
             {
                 throw new Exception($"Method `{methodInfo}` not found on type `{type.Name}`.");

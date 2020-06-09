@@ -11,7 +11,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
-[![NuGet Status](https://img.shields.io/nuget/v/Verify.Bunit.svg?label=Verify.Bunit)](https://www.nuget.org/packages/Verify.Bunit/)
 
 Verification tool to enable approval of complex models and documents.
 
@@ -26,7 +25,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [xUnit](#xunit)
     * [NUnit](#nunit)
     * [MSTest](#mstest)
-    * [bunit](#bunit)
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
     * [AutoVerify](#autoverify)
@@ -60,7 +58,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/
  * https://nuget.org/packages/Verify.MSTest/
- * https://nuget.org/packages/Verify.Bunit/
 
 
 ## Verification versus Assertion
@@ -266,76 +263,6 @@ public class Sample :
 }
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
-<!-- endsnippet -->
-
-
-### bunit
-
-Support for rendering a [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) to a verified file via [bunit](https://bunit.egilhansen.com).
-
-
-#### Component test
-
-Given the following Component:
-
-<!-- snippet: TestComponent.razor -->
-<a id='snippet-TestComponent.razor'/></a>
-```razor
-<div>
-    <h1>@Title</h1>
-    <button>MyButton</button>
-</div>
-
-@code {
-    [Parameter]
-    public string Title { get; set; } = "My Test Component";
-}
-```
-<sup><a href='/src/Verify.Bunit.Tests/TestComponent.razor#L1-L9' title='File snippet `TestComponent.razor` was extracted from'>snippet source</a> | <a href='#snippet-TestComponent.razor' title='Navigate to start of snippet `TestComponent.razor`'>anchor</a></sup>
-<!-- endsnippet -->
-
-This test:
-
-<!-- snippet: ComponentTest -->
-<a id='snippet-componenttest'/></a>
-```cs
-[Fact]
-public Task Component()
-{
-    var component = RenderComponent<TestComponent>();
-    return Verify(component);
-}
-```
-<sup><a href='/src/Verify.Bunit.Tests/VerifyObjectSamples.cs#L16-L24' title='File snippet `componenttest` was extracted from'>snippet source</a> | <a href='#snippet-componenttest' title='Navigate to start of snippet `componenttest`'>anchor</a></sup>
-<!-- endsnippet -->
-
-Will produce:
-
-The component rendered as html `...Component.verified.html`:
-
-<!-- snippet: VerifyObjectSamples.Component.verified.html -->
-<a id='snippet-VerifyObjectSamples.Component.verified.html'/></a>
-```html
-<div>
-    <h1>My Test Component</h1>
-    <button>MyButton</button>
-</div>
-```
-<sup><a href='/src/Verify.Bunit.Tests/VerifyObjectSamples.Component.verified.html#L1-L4' title='File snippet `VerifyObjectSamples.Component.verified.html` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Component.verified.html' title='Navigate to start of snippet `VerifyObjectSamples.Component.verified.html`'>anchor</a></sup>
-<!-- endsnippet -->
-
-And the current model rendered as txt `...Component.info.verified.txt`:
-
-<!-- snippet: VerifyObjectSamples.Component.info.verified.txt -->
-<a id='snippet-VerifyObjectSamples.Component.info.verified.txt'/></a>
-```txt
-{
-  Instance: {
-    Title: 'My Test Component'
-  }
-}
-```
-<sup><a href='/src/Verify.Bunit.Tests/VerifyObjectSamples.Component.info.verified.txt#L1-L5' title='File snippet `VerifyObjectSamples.Component.info.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-VerifyObjectSamples.Component.info.verified.txt' title='Navigate to start of snippet `VerifyObjectSamples.Component.info.verified.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

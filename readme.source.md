@@ -93,32 +93,6 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 snippet: SampleTestMSTest
 
 
-### bunit
-
-Support for rendering a [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) to a verified file via [bunit](https://bunit.egilhansen.com).
-
-
-#### Component test
-
-Given the following Component:
-
-snippet: TestComponent.razor
-
-This test:
-
-snippet: ComponentTest
-
-Will produce:
-
-The component rendered as html `...Component.verified.html`:
-
-snippet: VerifyObjectSamples.Component.verified.html
-
-And the current model rendered as txt `...Component.info.verified.txt`:
-
-snippet: VerifyObjectSamples.Component.info.verified.txt
-
-
 ### Initial Verification
 
 When the test is initially run will fail with:

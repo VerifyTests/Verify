@@ -1,9 +1,0 @@
-{
-  OtherProp: 'Foo',
-  Component: {
-    Instance: {
-      Title: 'My Test Component'
-    },
-    Markup: '<div>\n    <h1>My Test Component</h1>\n    <button>MyButton</button>\n</div>'
-  }
-}

@@ -321,7 +321,7 @@ public class ScrubberLevelsSample
     }
 
     [Fact]
-    public Task Simple()
+    public Task Usage()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
@@ -335,6 +335,7 @@ public class ScrubberLevelsSample
     }
 }
 ```
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L31' title='File snippet `scrubberlevelssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Navigate to start of snippet `scrubberlevelssamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -1,10 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
 using Xunit.Sdk;
 
 namespace VerifyXunit
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public class InjectInfoAttribute :
         BeforeAfterTestAttribute
     {

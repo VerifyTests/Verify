@@ -2,6 +2,7 @@
 using VerifyXunit;
 using Xunit;
 
+[InjectInfo]
 public class Tests
 {
     [Fact]

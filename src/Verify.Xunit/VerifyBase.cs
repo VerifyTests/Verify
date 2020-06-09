@@ -1,25 +1,12 @@
-﻿using System.Linq;
-using System.Runtime.CompilerServices;
-using Xunit;
-using Xunit.Abstractions;
+﻿using System;
 
 namespace VerifyXunit
 {
-    public partial class VerifyBase :
-        XunitContextBase
+    [Obsolete(
+        "VerifyBase is no longer required. Instead use the static Verifier.Verify().",
+        error: true)]
+    public class VerifyBase
     {
-        public VerifyBase(
-            ITestOutputHelper output,
-            [CallerFilePath] string sourceFile = "") :
-            base(output, sourceFile)
-        {
-        }
 
-        InnerVerifier GetVerifier()
-        {
-            var context = Context;
-            var name = TestNameBuilder.GetUniqueTestName(context.TestType, context.MethodInfo, context.Parameters.Select(x=>x.Value).ToList());
-            return new InnerVerifier(context.TestType, context.SourceDirectory, name);
-        }
     }
 }

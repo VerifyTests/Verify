@@ -8,7 +8,6 @@
   <ItemGroup>
     <Content Include="build.targets" PackagePath="build\Verify.NUnit.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.NUnit.targets" />
-    <Compile Include="..\Shared\*.cs" />
     <PackageReference Include="Fody" Version="6.2.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.0.3" PrivateAssets="None" />

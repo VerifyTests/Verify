@@ -5,17 +5,15 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class NamerTests :
-    VerifyBase
+public class NamerTests
 {
     [Fact]
     public Task Runtime()
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify(Namer.Runtime, settings);
+        return Verifier.Verify(Namer.Runtime, settings);
     }
 
     [Fact]
@@ -32,7 +30,7 @@ public class NamerTests :
                 receivedProjectDirectory = projectDirectory;
                 return testDirectory;
             });
-        await Verify("DeriveTestDirectory");
+        await Verifier.Verify("DeriveTestDirectory");
         Assert.NotNull(receivedType);
         Assert.True(Directory.Exists(receivedTestDirectory));
         Assert.True(Directory.Exists(receivedProjectDirectory));
@@ -43,7 +41,7 @@ public class NamerTests :
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify(Namer.RuntimeAndVersion, settings);
+        return Verifier.Verify(Namer.RuntimeAndVersion, settings);
     }
 
     [Fact]
@@ -60,11 +58,6 @@ public class NamerTests :
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("Foo", settings);
-    }
-
-    public NamerTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify("Foo", settings);
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Text;
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class ClipboardEnabledTests :
-    VerifyBase
+public class ClipboardEnabledTests
 {
     [Fact]
     public void ParseEnvironmentVariable()
@@ -19,14 +16,7 @@ public class ClipboardEnabledTests :
     [Fact]
     public Task ParseEnvironmentVariable_failure()
     {
-        StringBuilder builder = new StringBuilder();
-        builder.Equals(new StringBuilder());
         var exception = Assert.Throws<Exception>(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
-        return Verify(exception);
-    }
-
-    public ClipboardEnabledTests(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify(exception);
     }
 }

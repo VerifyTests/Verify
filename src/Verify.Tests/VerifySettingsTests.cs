@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Verify;
-using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class VerifySettingsTests :
-    VerifyBase
+public class VerifySettingsTests
 {
     [Fact]
     public void DataIsCloned()
@@ -24,10 +21,5 @@ public class VerifySettingsTests :
         {
             return new MyCloneable();
         }
-    }
-
-    public VerifySettingsTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

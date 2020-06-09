@@ -30,15 +30,14 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 <!-- snippet: UniqueForSampleXunit -->
 <a id='snippet-uniqueforsamplexunit'/></a>
 ```cs
-public class UniqueForSample :
-    VerifyBase
+public class UniqueForSample
 {
     [Fact]
     public Task Runtime()
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]
@@ -46,7 +45,7 @@ public class UniqueForSample :
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]
@@ -54,16 +53,11 @@ public class UniqueForSample :
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
-    }
-
-    public UniqueForSample(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify("value", settings);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L7-L40' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L33' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -271,15 +265,12 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class ExtensionSample :
-    VerifyBase
+public class ExtensionSample
 {
     VerifySettings classLevelSettings;
 
-    public ExtensionSample(ITestOutputHelper output) :
-        base(output)
+    public ExtensionSample()
     {
         classLevelSettings = new VerifySettings();
         classLevelSettings.UseExtension("json");
@@ -290,7 +281,7 @@ public class ExtensionSample :
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verify(
+        return Verifier.Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -302,7 +293,7 @@ public class ExtensionSample :
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verify(
+        return  Verifier.Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
@@ -312,7 +303,7 @@ public class ExtensionSample :
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L44' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L41' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:
@@ -352,5 +343,5 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L55' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L50-L53' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
 <!-- endsnippet -->

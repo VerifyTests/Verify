@@ -3,17 +3,15 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class LinesScrubberTests :
-    VerifyBase
+public class LinesScrubberTests
 {
     [Fact]
     public Task ScrubLinesContaining()
     {
         var settings = new VerifySettings();
         settings.ScrubLinesContaining("c", "D", "F");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"a
 b
@@ -28,7 +26,7 @@ f");
     {
         var settings = new VerifySettings();
         settings.ScrubLines(removeLine: x => x.Contains("D"));
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target:  @"b
 ");
@@ -39,7 +37,7 @@ f");
     {
         var settings = new VerifySettings();
         settings.ScrubLines(removeLine: x => x.Contains("D"));
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target:  @"b
 
@@ -51,7 +49,7 @@ c");
     {
         var settings = new VerifySettings();
         settings.ScrubLines(removeLine: x => x.Contains("D"));
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target:  @"a
 b
@@ -66,7 +64,7 @@ f");
     {
         var settings = new VerifySettings();
         settings.ScrubLinesContaining(StringComparison.Ordinal, "c", "D", "F");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"a
 b
@@ -74,10 +72,5 @@ c
 D
 e
 f");
-    }
-
-    public LinesScrubberTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

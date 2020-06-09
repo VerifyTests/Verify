@@ -33,10 +33,12 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 [InlineData("Value2")]
 public Task InlineDataUsage(string arg)
 {
-    return Verify(arg);
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    return Verifier.Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L18' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L8-L18' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -49,7 +51,9 @@ public Task InlineDataUsage(string arg)
 [MemberData(nameof(GetData))]
 public Task MemberDataUsage(string arg)
 {
-    return Verify(arg);
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    return Verifier.Verify(arg, settings);
 }
 
 public static IEnumerable<object[]> GetData()
@@ -58,7 +62,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L20-L33' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L20-L35' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -69,8 +73,7 @@ xUnit only exposes parameter information when the types certain types. For unkno
 <!-- snippet: xunitComplexMemberData -->
 <a id='snippet-xunitcomplexmemberdata'/></a>
 ```cs
-public class ComplexParametersSample :
-    VerifyBase
+public class ComplexParametersSample
 {
     static ComplexParametersSample()
     {
@@ -82,8 +85,9 @@ public class ComplexParametersSample :
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        UseParameters(arg);
-        return Verify(arg);
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
     }
 
     public static IEnumerable<object[]> GetComplexMemberData()
@@ -102,14 +106,9 @@ public class ComplexParametersSample :
     {
         public string Value { get; set; } = null!;
     }
-
-    public ComplexParametersSample(ITestOutputHelper output) :
-        base(output)
-    {
-    }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L8-L48' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L42' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 `SharedVerifySettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.

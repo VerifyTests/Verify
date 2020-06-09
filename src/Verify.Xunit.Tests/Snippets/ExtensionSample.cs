@@ -2,15 +2,12 @@
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class ExtensionSample :
-    VerifyBase
+public class ExtensionSample
 {
     VerifySettings classLevelSettings;
 
-    public ExtensionSample(ITestOutputHelper output) :
-        base(output)
+    public ExtensionSample()
     {
         classLevelSettings = new VerifySettings();
         classLevelSettings.UseExtension("json");
@@ -21,7 +18,7 @@ public class ExtensionSample :
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verify(
+        return Verifier.Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -33,7 +30,7 @@ public class ExtensionSample :
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verify(
+        return  Verifier.Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",

@@ -1,37 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-using Bunit;
-using Xunit;
-using Xunit.Abstractions;
+﻿using System;
 
 namespace VerifyBunit
 {
-    public partial class VerifyBase :
-        TestContext
+    [Obsolete(
+        "Verify.Bunit is no longer required. Switch to Verify.Xunit which no longer requires a base class and can be used to verify the rendered result from bunit.",
+        error: true)]
+    public class VerifyBase
     {
-        public VerifyBase(
-            ITestOutputHelper output,
-            [CallerFilePath] string sourceFile = "")
-        {
-            XunitContext.Register(output, sourceFile);
-        }
-
-        InnerVerifier GetVerifier()
-        {
-            var context = XunitContext.Context;
-            return new InnerVerifier(context.TestType, context.SourceDirectory, context.UniqueTestName);
-        }
-
-        //TODO: move the ContextCleanup back into the dispose when bunit is released
-        //protected override void Dispose(bool disposing)
-        //{
-        //    base.Dispose(disposing);
-        //    XunitContext.Flush();
-        //}
-
-        //TODO: remove when bunit is released
-        protected void Flush()
-        {
-            XunitContext.Flush();
-        }
     }
 }

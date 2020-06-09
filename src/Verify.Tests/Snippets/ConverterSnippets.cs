@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class ConverterSnippets :
-    VerifyBase
+public class ConverterSnippets
 {
     [Fact]
     public async Task Type()
@@ -47,7 +45,7 @@ public class ConverterSnippets :
         #endregion
         #region FileConverterTypeVerify
         await using var stream = File.OpenRead("sample.tif");
-        await Verify(Image.FromStream(stream));
+        await Verifier.Verify(Image.FromStream(stream));
         #endregion
     }
 
@@ -84,13 +82,8 @@ public class ConverterSnippets :
 
         #endregion
         #region FileConverterExtensionVerify
-        await VerifyFile("sample.tif");
+        await Verifier.VerifyFile("sample.tif");
         #endregion
-    }
-
-    public ConverterSnippets(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
 #endif

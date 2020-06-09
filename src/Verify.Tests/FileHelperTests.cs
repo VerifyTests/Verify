@@ -1,9 +1,6 @@
-﻿using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
+﻿using Xunit;
 
-public class FileHelperTests :
-    VerifyBase
+public class FileHelperTests
 {
     [Fact]
     public void ShouldNotLock()
@@ -12,10 +9,5 @@ public class FileHelperTests :
         {
             Assert.False(FileEx.IsFileReadLocked("sample.txt"));
         }
-    }
-
-    public FileHelperTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

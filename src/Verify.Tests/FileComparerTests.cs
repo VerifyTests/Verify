@@ -1,12 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Verify;
-using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
-public class FileComparerTests :
-    VerifyBase
+public class FileComparerTests
 {
     [Fact]
     public async Task BinaryEquals()
@@ -70,10 +67,5 @@ public class FileComparerTests :
         {
             File.Delete("sample.tmp");
         }
-    }
-
-    public FileComparerTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

@@ -2,18 +2,16 @@
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 #region UniqueForSampleXunit
-public class UniqueForSample :
-    VerifyBase
+public class UniqueForSample
 {
     [Fact]
     public Task Runtime()
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]
@@ -21,7 +19,7 @@ public class UniqueForSample :
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]
@@ -29,12 +27,7 @@ public class UniqueForSample :
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
-    }
-
-    public UniqueForSample(ITestOutputHelper output) :
-        base(output)
-    {
+        return Verifier.Verify("value", settings);
     }
 }
 #endregion

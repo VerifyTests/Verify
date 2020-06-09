@@ -7,25 +7,29 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 
-public partial class Tests :
-    VerifyBase
+public partial class Tests
 {
     [Theory]
     [InlineData(false, false)]
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(true, true)]
-    public Task Text(
+    public async Task Text(
         bool hasExistingReceived,
         bool autoVerify)
     {
-        return RunTest(
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName("Tests_Single",Info.OfMethod<Tests>("Text"),new object[]{hasExistingReceived, autoVerify});
+        var settings = new VerifySettings();
+        settings.UseParameters(hasExistingReceived, autoVerify);
+        await RunTest(
             "txt",
             () => "someText",
             () => "someOtherText",
             hasMatchingDiffTool: true,
             hasExistingReceived,
-            autoVerify);
+            autoVerify,
+            settings,
+            uniqueTestName);
     }
 
     [Theory]
@@ -37,20 +41,25 @@ public partial class Tests :
     [InlineData(false, true, true)]
     [InlineData(false, false, true)]
     [InlineData(true, true, true)]
-    public Task Stream(
+    public async Task Stream(
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
         bool autoVerify)
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
-        return RunTest(
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName("Tests_Single", Info.OfMethod<Tests>("Stream"), new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
+        var settings = new VerifySettings();
+        settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);
+        await RunTest(
             extension: extension,
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}),
             hasMatchingDiffTool,
             hasExistingReceived,
-            autoVerify);
+            autoVerify,
+            settings,
+            uniqueTestName);
     }
 
     async Task RunTest(
@@ -59,16 +68,16 @@ public partial class Tests :
         Func<object> secondTarget,
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
-        bool autoVerify)
+        bool autoVerify,
+        VerifySettings settings,
+        string uniqueTestName)
     {
-        var settings = new VerifySettings();
         settings.UseExtension(extension);
         if (autoVerify)
         {
             settings.AutoVerify();
         }
-
-        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}");
+        var prefix = Path.Combine(SourceDirectory, uniqueTestName);
         var danglingFile = Path.Combine(SourceDirectory, $"{prefix}.01.verified.{extension}");
         var file = new FilePair(extension, prefix);
 
@@ -105,7 +114,7 @@ public partial class Tests :
     {
         var command = BuildCommand(pair);
         ProcessCleanup.Refresh();
-        await Verify(target(), settings);
+        await Verifier.Verify(target(), settings);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(command);
 
@@ -117,12 +126,12 @@ public partial class Tests :
     {
         if (settings.autoVerify)
         {
-            await Verify(target(), settings);
+            await Verifier.Verify(target(), settings);
             AssertExists(pair.Verified);
         }
         else
         {
-            await Throws(() => Verify(target(), settings));
+            await Throws(() => Verifier.Verify(target(), settings));
             ProcessCleanup.Refresh();
             AssertProcess(hasMatchingDiffTool, pair);
             if (hasMatchingDiffTool)

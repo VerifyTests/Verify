@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net48</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <TargetFrameworks>netcoreapp3.1;net48</TargetFrameworks>
-  </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Fody" Version="6.2.0" />
+    <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -18,6 +17,8 @@
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.1" Condition="$(TargetFramework) == 'net48'" />
+
+    <Folder Include="Scrubbers\" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

@@ -6,10 +6,8 @@ using DiffEngine;
 using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
-using Xunit.Abstractions;
 
-public class Snippets:
-    VerifyBase
+public class Snippets
 {
     #region OnHandlers
     public async Task OnHandlersSample()
@@ -29,7 +27,7 @@ public class Snippets:
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });
-        await Verify("value", settings);
+        await Verifier.Verify("value", settings);
     }
     #endregion
 
@@ -112,10 +110,5 @@ public class Snippets:
         });
 
         #endregion
-    }
-
-    public Snippets(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

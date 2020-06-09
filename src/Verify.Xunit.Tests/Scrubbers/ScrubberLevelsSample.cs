@@ -2,27 +2,24 @@
 using Verify;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 #region ScrubberLevelsSampleXunit
-public class ScrubberLevelsSample :
-    VerifyBase
+public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
 
-    public ScrubberLevelsSample(ITestOutputHelper output) :
-        base(output)
+    public ScrubberLevelsSample()
     {
         classLevelSettings = new VerifySettings();
         classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 
     [Fact]
-    public Task Simple()
+    public Task Usage()
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     static ScrubberLevelsSample()

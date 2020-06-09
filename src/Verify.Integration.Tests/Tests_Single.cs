@@ -18,6 +18,7 @@ public partial class Tests
         bool hasExistingReceived,
         bool autoVerify)
     {
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName("Tests_Single",Info.OfMethod<Tests>("Text"),new object[]{hasExistingReceived, autoVerify});
         var settings = new VerifySettings();
         settings.UseParameters(hasExistingReceived, autoVerify);
         await RunTest(
@@ -27,7 +28,8 @@ public partial class Tests
             hasMatchingDiffTool: true,
             hasExistingReceived,
             autoVerify,
-            settings);
+            settings,
+            uniqueTestName);
     }
 
     [Theory]
@@ -46,6 +48,7 @@ public partial class Tests
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName("Tests_Single", Info.OfMethod<Tests>("Stream"), new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
         var settings = new VerifySettings();
         settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);
         await RunTest(
@@ -55,7 +58,8 @@ public partial class Tests
             hasMatchingDiffTool,
             hasExistingReceived,
             autoVerify,
-            settings);
+            settings,
+            uniqueTestName);
     }
 
     async Task RunTest(
@@ -65,15 +69,15 @@ public partial class Tests
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
         bool autoVerify,
-        VerifySettings settings)
+        VerifySettings settings,
+        string uniqueTestName)
     {
         settings.UseExtension(extension);
         if (autoVerify)
         {
             settings.AutoVerify();
         }
-
-        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}");
+        var prefix = Path.Combine(SourceDirectory, uniqueTestName);
         var danglingFile = Path.Combine(SourceDirectory, $"{prefix}.01.verified.{extension}");
         var file = new FilePair(extension, prefix);
 

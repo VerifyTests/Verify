@@ -25,9 +25,10 @@ public partial class Tests
         {
             settings.AutoVerify();
         }
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName("Tests_Split", Info.OfMethod<Tests>("Split"), new object[] {hasExistingReceived, autoVerify});
 
         settings.UseParameters(hasExistingReceived, autoVerify);
-        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.");
+        var prefix = Path.Combine(SourceDirectory, $"{uniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
         var info = new FilePair("txt", $"{prefix}info");
         var file1 = new FilePair("txt", $"{prefix}00");

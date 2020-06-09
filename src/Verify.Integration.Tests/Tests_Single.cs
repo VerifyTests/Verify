@@ -1,7 +1,6 @@
 ﻿#if DEBUG
 using System;
 using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using DiffEngine;
 using Verify;
@@ -15,18 +14,20 @@ public partial class Tests
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(true, true)]
-    public Task Text(
+    public async Task Text(
         bool hasExistingReceived,
         bool autoVerify)
     {
-        return RunTest(
+        var settings = new VerifySettings();
+        settings.UseParameters(hasExistingReceived, autoVerify);
+        await RunTest(
             "txt",
             () => "someText",
             () => "someOtherText",
             hasMatchingDiffTool: true,
             hasExistingReceived,
             autoVerify,
-            Info.OfMethod<Tests>("Text",));
+            settings);
     }
 
     [Theory]
@@ -38,21 +39,23 @@ public partial class Tests
     [InlineData(false, true, true)]
     [InlineData(false, false, true)]
     [InlineData(true, true, true)]
-    public Task Stream(
+    public async Task Stream(
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
         bool autoVerify)
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
-        return RunTest(
+        var settings = new VerifySettings();
+        settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);
+        await RunTest(
             extension: extension,
             () => new MemoryStream(new byte[] {1}),
             () => new MemoryStream(new byte[] {2}),
             hasMatchingDiffTool,
             hasExistingReceived,
             autoVerify,
-            Info.OfMethod<Tests>("Stream"));
+            settings);
     }
 
     async Task RunTest(
@@ -62,21 +65,16 @@ public partial class Tests
         bool hasMatchingDiffTool,
         bool hasExistingReceived,
         bool autoVerify,
-        MethodInfo caller)
+        VerifySettings settings)
     {
-        var settings = new VerifySettings();
         settings.UseExtension(extension);
         if (autoVerify)
         {
             settings.AutoVerify();
         }
 
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            typeof(Tests),
-            caller,
-            new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
-        var prefix = Path.GetFullPath(uniqueTestName);
-        var danglingFile = Path.GetFullPath($"{prefix}.01.verified.{extension}");
+        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}");
+        var danglingFile = Path.Combine(SourceDirectory, $"{prefix}.01.verified.{extension}");
         var file = new FilePair(extension, prefix);
 
         DeleteAll(danglingFile, file.Verified, file.Received);

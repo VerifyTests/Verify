@@ -5,9 +5,11 @@ using Xunit.Sdk;
 
 namespace VerifyXunit
 {
-    public class InjectInfoAttribute : BeforeAfterTestAttribute
+    public class InjectInfoAttribute :
+        BeforeAfterTestAttribute
     {
         static AsyncLocal<MethodInfo?> local = new AsyncLocal<MethodInfo?>();
+
         public override void Before(MethodInfo info)
         {
             local.Value = info;
@@ -18,13 +20,14 @@ namespace VerifyXunit
             local.Value = null;
         }
 
-        internal static bool TryGet([NotNullWhen(true)] out MemberInfo? info)
+        internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
         {
             info = local.Value;
             if (info == null)
             {
                 return false;
             }
+
             return true;
         }
     }

@@ -6,8 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="3.2.2" />
-    <PackageReference Include="Fody" Version="6.2.0" />
-    <PackageReference Include="InfoOf.Fody" Version="1.6.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -15,6 +13,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />
+    <PackageReference Include="XunitContext" Version="1.9.4" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

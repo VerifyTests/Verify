@@ -1,7 +1,6 @@
 ﻿#if DEBUG
 
 using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using DiffEngine;
 using Verify;
@@ -15,38 +14,20 @@ public partial class Tests
     [InlineData(true, false)]
     [InlineData(false, true)]
     [InlineData(true, true)]
-    public Task Split(
+    public async Task Split(
         bool hasExistingReceived,
         bool autoVerify)
     {
-        return RunSplitTest(
-            new TypeToSplit("info1","value1","value2"),
-            new TypeToSplit("info2","value1.1","value2.1"),
-            hasMatchingDiffTool: true,
-            hasExistingReceived,
-            autoVerify,
-            Info.OfMethod<Tests>("Split"));
-    }
-
-    async Task RunSplitTest(
-        TypeToSplit initialTarget,
-        TypeToSplit secondTarget,
-        bool hasMatchingDiffTool,
-        bool hasExistingReceived,
-        bool autoVerify,
-        MethodInfo caller)
-    {
+        TypeToSplit initialTarget = new TypeToSplit("info1", "value1", "value2");
+        TypeToSplit secondTarget = new TypeToSplit("info2", "value1.1", "value2.1");
         var settings = new VerifySettings();
         if (autoVerify)
         {
             settings.AutoVerify();
         }
 
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            typeof(Tests),
-            caller,
-            new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
-        var prefix = Path.GetFullPath(uniqueTestName);
+        settings.UseParameters(hasExistingReceived, autoVerify);
+        var prefix = Path.Combine(SourceDirectory, $"{Context.UniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
         var info = new FilePair("txt", $"{prefix}info");
         var file1 = new FilePair("txt", $"{prefix}00");
@@ -62,8 +43,7 @@ public partial class Tests
             File.WriteAllText(file2.Received, "");
         }
 
-
-        await InitialVerifySplit(initialTarget, hasMatchingDiffTool, settings, info, file1, file2);
+        await InitialVerifySplit(initialTarget, true, settings, info, file1, file2);
 
         if (!autoVerify)
         {
@@ -74,7 +54,7 @@ public partial class Tests
 
         await ReVerifySplit(initialTarget, settings, info, file1, file2);
 
-        await InitialVerifySplit(secondTarget, hasMatchingDiffTool, settings, info, file1, file2);
+        await InitialVerifySplit(secondTarget, true, settings, info, file1, file2);
 
         if (!autoVerify)
         {
@@ -117,7 +97,7 @@ public partial class Tests
         {
             await Throws(() => Verifier.Verify(target, settings));
             ProcessCleanup.Refresh();
-            AssertProcess( hasMatchingDiffTool, info,file1, file2);
+            AssertProcess(hasMatchingDiffTool, info, file1, file2);
             if (hasMatchingDiffTool)
             {
                 AssertExists(info.Verified);

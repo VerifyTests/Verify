@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Verify;
 using VerifyXunit;
@@ -9,7 +8,6 @@ using VerifyXunit;
 static class TypeCache
 {
     static List<Type> types = null!;
-
 
     const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
 
@@ -27,9 +25,7 @@ static class TypeCache
                 throw new Exception("Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` at assembly startup. Or, alternatively, a `[InjectInfo]` to the type.");
             }
 
-            types = SharedVerifySettings.assembly.GetExportedTypes()
-                .Where(x => !x.IsAbstract && !x.IsNested)
-                .ToList();
+            types = SharedVerifySettings.assembly.InstanceTypes();
         }
 
         var type = FindType(file);

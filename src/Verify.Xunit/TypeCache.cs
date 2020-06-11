@@ -9,8 +9,6 @@ static class TypeCache
 {
     static List<Type> types = null!;
 
-    const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
-
     public static MethodInfo GetInfo(string file, string method)
     {
         if (InjectInfoAttribute.TryGet(out var info))
@@ -30,13 +28,7 @@ static class TypeCache
 
         var type = FindType(file);
 
-        var methodInfo = type.GetMethod(method, flags);
-        if (methodInfo == null)
-        {
-            throw new Exception($"Method `{method}` not found on type `{type.Name}`. File: {file}");
-        }
-
-        return methodInfo;
+        return type.GetPublicMethod(method);
     }
 
     static Type FindType(string file)

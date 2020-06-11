@@ -11,4 +11,14 @@ static class ReflectionExtensions
             .Where(x => !x.IsAbstract && !x.IsNested)
             .ToList();
     }
+    const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
+    public static MethodInfo GetPublicMethod(this Type type, string method)
+    {
+        var methodInfo = type.GetMethod(method, flags);
+        if (methodInfo != null)
+        {
+            return methodInfo;
+        }
+        throw new Exception($"Method `{method}` not found on type `{type.Name}`.");
+    }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.IO;
 using Verify;
 
 namespace VerifyXunit
@@ -10,26 +7,12 @@ namespace VerifyXunit
     {
         static InnerVerifier GetVerifier(string sourceFile, string method, VerifySettings? settings)
         {
-            var (type,methodInfo) = TypeCache.GetInfo(sourceFile, method);
-            var settingsParameters = settings.GetParameters();
-            var methodParameters = methodInfo.GetParameters();
-            if (methodParameters.Any() && !settingsParameters.Any())
-            {
-                throw new Exception($@"Method `{type.Name}.{methodInfo.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
-var settings = new VerifySettings();
-settings.UseParameters({string.Join(", ",methodParameters.Select(x=>x.Name))});
-await Verifier.Verify(target, settings);");
-            }
+            var methodInfo = TypeCache.GetInfo(sourceFile, method);
+            var parameters = settings.GetParameters(methodInfo);
 
             var className = Path.GetFileNameWithoutExtension(sourceFile);
-            var name = TestNameBuilder.GetUniqueTestName(className, methodInfo, settingsParameters);
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), name);
-        }
-
-        public static void SetTestAssembly(Assembly assembly)
-        {
-            Guard.AgainstNull(assembly, nameof(assembly));
-            TypeCache.SetTestAssembly(assembly);
+            var name = TestNameBuilder.GetUniqueTestName(className, methodInfo, parameters);
+            return new InnerVerifier(name, sourceFile);
         }
     }
 }

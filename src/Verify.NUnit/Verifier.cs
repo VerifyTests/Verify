@@ -2,6 +2,7 @@
 using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using Verify;
 
 namespace VerifyNUnit
 {
@@ -10,17 +11,20 @@ namespace VerifyNUnit
         static FieldInfo field = typeof(TestContext.TestAdapter)
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
 
-        static DisposableVerifier BuildVerifier(string sourceFile)
+        static InnerVerifier BuildVerifier(string sourceFile)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var context = TestContext.CurrentContext;
             var adapter = context.Test;
             var test = (Test) field.GetValue(adapter);
+            if (SharedVerifySettings.assembly == null)
+            {
+                SharedVerifySettings.SetTestAssembly(test.TypeInfo.Assembly);
+            }
 
-            var type = test.TypeInfo.Type;
             var method = test.Method.MethodInfo;
-            var name = TestNameBuilder.GetUniqueTestName(type, method, adapter.Arguments);
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), name);
+            var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
+            return new InnerVerifier(name, sourceFile);
         }
     }
 }

@@ -31,7 +31,7 @@ static class FileComparer
     {
         if (settings.TryFindComparer(out var compare))
         {
-            return DoCompare(settings, file.Received, file.Verified, compare);
+            return DoCompare(settings, file.Received, file.Verified, compare!);
         }
 
         if (!FilesAreSameSize(file))

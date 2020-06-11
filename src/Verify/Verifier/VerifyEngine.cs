@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,15 +20,14 @@ class VerifyEngine
     public VerifyEngine(
         string extension,
         VerifySettings settings,
-        Type testType,
         string directory,
         string testName)
     {
         this.settings = settings;
-        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testType, testName);
+        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testName);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
 
-        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testType, testName);
+        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testName);
         foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
         {
             File.Delete(file);

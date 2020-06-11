@@ -20,7 +20,6 @@ partial class InnerVerifier
         var engine = new VerifyEngine(
             extension,
             settings,
-            testType,
             directory,
             testName);
 

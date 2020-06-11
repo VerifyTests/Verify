@@ -15,15 +15,18 @@ namespace VerifyMSTest
 
         TestContext testContext = null!;
 
-        DisposableVerifier BuildVerifier(string sourceFile, VerifySettings? settings)
+        InnerVerifier BuildVerifier(string sourceFile, VerifySettings? settings)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var type = GetType();
 
             var methodInfo = type.GetMethod(testContext.TestName, BindingFlags.Instance | BindingFlags.Public);
 
-            var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, settings.GetParameters());
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), uniqueTestName);
+            var uniqueTestName = TestNameBuilder.GetUniqueTestName(
+                className: Path.GetFileNameWithoutExtension(sourceFile),
+                methodInfo,
+                settings.GetParameters(methodInfo));
+            return new InnerVerifier(uniqueTestName, sourceFile);
         }
     }
 }

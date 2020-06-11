@@ -44,7 +44,6 @@ partial class InnerVerifier
         var engine = new VerifyEngine(
             extension,
             settings,
-            testType,
             directory,
             testName);
         var list = streams.ToList();

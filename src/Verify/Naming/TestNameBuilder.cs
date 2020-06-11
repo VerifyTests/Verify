@@ -25,10 +25,10 @@ static class TestNameBuilder
         return GetUniqueTestName(className, method, parameterValues);
     }
 
-    public static string GetUniqueTestName(string className, MethodInfo method, IReadOnlyList<object> parameterValues)
+    public static string GetUniqueTestName(string className, MethodInfo method, IReadOnlyList<object>? parameterValues)
     {
         var name = $"{className}.{method.Name}";
-        if (!parameterValues.Any())
+        if (parameterValues == null || !parameterValues.Any())
         {
             return name;
         }

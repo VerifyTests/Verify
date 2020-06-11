@@ -22,7 +22,10 @@ namespace VerifyMSTest
 
             var methodInfo = type.GetMethod(testContext.TestName, BindingFlags.Instance | BindingFlags.Public);
 
-            var uniqueTestName = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), methodInfo, settings.GetParameters());
+            var uniqueTestName = TestNameBuilder.GetUniqueTestName(
+                className: Path.GetFileNameWithoutExtension(sourceFile),
+                methodInfo,
+                settings.GetParameters(methodInfo));
             return new DisposableVerifier(uniqueTestName, sourceFile);
         }
     }

@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Verify;
 using VerifyXunit;
 
 static class TypeCache
 {
-    static Assembly assembly = null!;
     static List<Type> types = null!;
 
-    public static void SetTestAssembly(Assembly assembly)
-    {
-        TypeCache.assembly = assembly;
-        types = assembly.GetExportedTypes()
-            .Where(x => !x.IsAbstract && !x.IsNested)
-            .ToList();
-    }
 
     const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
 
@@ -24,13 +17,19 @@ static class TypeCache
     {
         if (InjectInfoAttribute.TryGet(out var info))
         {
-            return (info!.DeclaringType, info!);
+            return (info!.ReflectedType, info!);
         }
 
-        if (assembly == null)
+        if (types == null)
         {
-            throw new Exception("Call `Verifier.SetTestAssembly(Assembly.GetExecutingAssembly());` at assembly startup. Or, alternatively, a `[InjectInfo]` to the type.");
+            if (SharedVerifySettings.assembly == null)
+            {
+                throw new Exception("Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` at assembly startup. Or, alternatively, a `[InjectInfo]` to the type.");
+            }
         }
+        types = SharedVerifySettings.assembly.GetExportedTypes()
+            .Where(x => !x.IsAbstract && !x.IsNested)
+            .ToList();
 
         var type = FindType(file);
 

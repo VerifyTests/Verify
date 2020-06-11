@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Verify;
 
 namespace VerifyXunit
@@ -23,13 +22,7 @@ await Verifier.Verify(target, settings);");
 
             var className = Path.GetFileNameWithoutExtension(sourceFile);
             var name = TestNameBuilder.GetUniqueTestName(className, methodInfo, settingsParameters);
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), name);
-        }
-
-        public static void SetTestAssembly(Assembly assembly)
-        {
-            Guard.AgainstNull(assembly, nameof(assembly));
-            TypeCache.SetTestAssembly(assembly);
+            return new DisposableVerifier(type, name, sourceFile);
         }
     }
 }

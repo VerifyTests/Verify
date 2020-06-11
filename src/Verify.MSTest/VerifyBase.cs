@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Verify;
 
@@ -23,7 +22,7 @@ namespace VerifyMSTest
             var methodInfo = type.GetMethod(testContext.TestName, BindingFlags.Instance | BindingFlags.Public);
 
             var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, settings.GetParameters());
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), uniqueTestName);
+            return new DisposableVerifier(type, uniqueTestName, sourceFile);
         }
     }
 }

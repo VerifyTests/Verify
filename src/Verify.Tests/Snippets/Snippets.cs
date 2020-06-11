@@ -68,8 +68,9 @@ public class Snippets
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
             SharedVerifySettings.DeriveTestDirectory(
-                (type, testDirectory, projectDirectory) =>
+                (sourceFile, projectDirectory) =>
                 {
+                    var testDirectory = Path.GetDirectoryName(sourceFile)!;
                     var testDirectorySuffix = testDirectory.Replace(projectDirectory!, string.Empty);
                     return Path.Combine(buildDirectory, testDirectorySuffix);
                 });

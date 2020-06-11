@@ -44,12 +44,13 @@ if (BuildServerDetector.Detected)
 {
     var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
     SharedVerifySettings.DeriveTestDirectory(
-        (type, testDirectory, projectDirectory) =>
+        (sourceFile, projectDirectory) =>
         {
+            var testDirectory = Path.GetDirectoryName(sourceFile)!;
             var testDirectorySuffix = testDirectory.Replace(projectDirectory!, string.Empty);
             return Path.Combine(buildDirectory, testDirectorySuffix);
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L65-L78' title='File snippet `derivetestdirectory` was extracted from'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Navigate to start of snippet `derivetestdirectory`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L65-L79' title='File snippet `derivetestdirectory` was extracted from'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Navigate to start of snippet `derivetestdirectory`'>anchor</a></sup>
 <!-- endsnippet -->

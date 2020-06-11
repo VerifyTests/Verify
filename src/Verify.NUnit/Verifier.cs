@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -20,7 +19,7 @@ namespace VerifyNUnit
             var type = test.TypeInfo.Type;
             var method = test.Method.MethodInfo;
             var name = TestNameBuilder.GetUniqueTestName(type, method, adapter.Arguments);
-            return new DisposableVerifier(type, Path.GetDirectoryName(sourceFile), name);
+            return new DisposableVerifier(type, name, sourceFile);
         }
     }
 }

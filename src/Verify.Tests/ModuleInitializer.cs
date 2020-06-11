@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using VerifyXunit;
+using Verify;
 
 static class ModuleInitializer
 {
     public static void Initialize()
     {
-        Verifier.SetTestAssembly(Assembly.GetExecutingAssembly());
+        SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());
     }
 }

@@ -16,10 +16,10 @@ public partial class InnerVerifier
         InnerVerifier.exceptionBuilder = exceptionBuilder;
     }
 
-    public InnerVerifier(Type testType, string directory, string testName)
+    public InnerVerifier(Type testType, string testName, string sourceFile)
     {
         this.testType = testType;
-        this.directory = SharedVerifySettings.DeriveDirectory(testType, directory);
+        directory = SharedVerifySettings.DeriveDirectory(sourceFile);
         this.testName = testName;
     }
 

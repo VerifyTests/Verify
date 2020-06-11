@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
+using System.IO;
 
 namespace Verify
 {
@@ -8,17 +7,23 @@ namespace Verify
     {
         internal static DeriveTestDirectory? deriveDirectory;
 
-        internal static string DeriveDirectory(Type type, string testDirectory)
+        internal static string DeriveDirectory(string sourceFile)
         {
             if (deriveDirectory == null)
             {
-                return testDirectory;
+                return Path.GetDirectoryName(sourceFile);
             }
 
-            var projectDirectory = type.Assembly
-                .GetCustomAttributes<AssemblyMetadataAttribute>()
-                .SingleOrDefault(x => x.Key == "Verify.ProjectDirectory")?.Value;
-            return deriveDirectory(type, testDirectory, projectDirectory);
+            if (projectDirectory == null)
+            {
+                throw new Exception("Using `DeriveTestDirectory` requires that the test assembly be initialized at assembly load time. Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());`.");
+            }
+            var directory = deriveDirectory(sourceFile, projectDirectory);
+            if (directory == null)
+            {
+                return Path.GetDirectoryName(sourceFile);
+            }
+            return directory;
         }
 
         /// <summary>
@@ -33,10 +38,14 @@ namespace Verify
         {
             Guard.AgainstNull(deriveTestDirectory, nameof(deriveTestDirectory));
             deriveDirectory =
-                (type, testDirectory, projectDirectory) =>
+                (sourceFile, projectDirectory) =>
                 {
-                    var result = deriveTestDirectory(type, testDirectory, projectDirectory);
-                    Guard.DirectoryExists(result, nameof(result));
+                    var result = deriveTestDirectory(sourceFile, projectDirectory);
+                    if (result != null)
+                    {
+                        Guard.DirectoryExists(result, nameof(result));
+                    }
+
                     return result;
                 };
         }

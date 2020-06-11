@@ -13,11 +13,11 @@ static class TypeCache
 
     const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy;
 
-    public static (Type, MethodInfo) GetInfo(string file, string method)
+    public static MethodInfo GetInfo(string file, string method)
     {
         if (InjectInfoAttribute.TryGet(out var info))
         {
-            return (info!.ReflectedType, info!);
+            return info!;
         }
 
         if (types == null)
@@ -26,10 +26,11 @@ static class TypeCache
             {
                 throw new Exception("Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` at assembly startup. Or, alternatively, a `[InjectInfo]` to the type.");
             }
+
+            types = SharedVerifySettings.assembly.GetExportedTypes()
+                .Where(x => !x.IsAbstract && !x.IsNested)
+                .ToList();
         }
-        types = SharedVerifySettings.assembly.GetExportedTypes()
-            .Where(x => !x.IsAbstract && !x.IsNested)
-            .ToList();
 
         var type = FindType(file);
 
@@ -39,7 +40,7 @@ static class TypeCache
             throw new Exception($"Method `{method}` not found on type `{type.Name}`. File: {file}");
         }
 
-        return (type, methodInfo);
+        return methodInfo;
     }
 
     static Type FindType(string file)

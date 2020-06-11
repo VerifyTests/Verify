@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -16,10 +17,9 @@ namespace VerifyNUnit
             var adapter = context.Test;
             var test = (Test) field.GetValue(adapter);
 
-            var type = test.TypeInfo.Type;
             var method = test.Method.MethodInfo;
-            var name = TestNameBuilder.GetUniqueTestName(type, method, adapter.Arguments);
-            return new DisposableVerifier(type, name, sourceFile);
+            var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
+            return new DisposableVerifier(name, sourceFile);
         }
     }
 }

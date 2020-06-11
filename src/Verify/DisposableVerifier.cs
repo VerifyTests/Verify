@@ -4,8 +4,8 @@ class DisposableVerifier:
     InnerVerifier,
     IDisposable
 {
-    public DisposableVerifier(Type testType, string testName, string sourceFile) :
-        base(testType, testName, sourceFile)
+    public DisposableVerifier(string testName, string sourceFile) :
+        base(testName, sourceFile)
     {
         CounterContext.Start();
     }

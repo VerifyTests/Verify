@@ -6,7 +6,6 @@ using Verify;
 /// </summary>
 public partial class InnerVerifier
 {
-    Type testType;
     string directory;
     string testName;
     internal static Func<string, Exception> exceptionBuilder = null!;
@@ -16,20 +15,19 @@ public partial class InnerVerifier
         InnerVerifier.exceptionBuilder = exceptionBuilder;
     }
 
-    public InnerVerifier(Type testType, string testName, string sourceFile)
+    public InnerVerifier(string testName, string sourceFile)
     {
-        this.testType = testType;
         directory = SharedVerifySettings.DeriveDirectory(sourceFile);
         this.testName = testName;
     }
 
     FilePair GetFileNames(string extension, Namer namer)
     {
-        return FileNameBuilder.GetFileNames(extension, namer, testType, directory, testName);
+        return FileNameBuilder.GetFileNames(extension, namer, directory, testName);
     }
 
     FilePair GetFileNames(string extension, Namer namer, string suffix)
     {
-        return FileNameBuilder.GetFileNames(extension, suffix, namer, testType, directory, testName);
+        return FileNameBuilder.GetFileNames(extension, suffix, namer, directory, testName);
     }
 }

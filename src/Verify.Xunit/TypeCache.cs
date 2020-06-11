@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using Verify;
 using VerifyXunit;
@@ -26,30 +25,9 @@ static class TypeCache
             types = SharedVerifySettings.assembly.InstanceTypes();
         }
 
-        var type = FindType(file);
-
-        return type.GetPublicMethod(method);
-    }
-
-    static Type FindType(string file)
-    {
-        var withoutExtension = file.Substring(0, file.LastIndexOf('.'));
-        var withDots = withoutExtension
-            .Replace(Path.DirectorySeparatorChar, '.')
-            .Replace(Path.AltDirectorySeparatorChar, '.');
-        foreach (var type in types)
+        if (types.FindTypeFromFile(file, out var type))
         {
-            if (withDots.EndsWith($".{type.FullName}"))
-            {
-                return type;
-            }
-        }
-        foreach (var type in types)
-        {
-            if (withDots.EndsWith($".{type.Name}"))
-            {
-                return type;
-            }
+            return type!.GetPublicMethod(method);
         }
 
         throw new Exception($"Unable to find type for file `{file}`. There are some known scenarios where the types cannot be derived (for example partial or nested classes). In these case add a `[InjectInfo]` to the type.");

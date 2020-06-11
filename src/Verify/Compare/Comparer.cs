@@ -43,7 +43,7 @@ static class Comparer
         using var stream2 = MemoryStream(verifiedText);
 #endif
 
-        return await compare(settings, stream1, stream2);
+        return await compare!(settings, stream1, stream2);
     }
 
     static MemoryStream MemoryStream(string text)

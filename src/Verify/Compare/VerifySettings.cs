@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Verify
+﻿namespace Verify
 {
     public partial class VerifySettings
     {
@@ -12,7 +10,7 @@ namespace Verify
             comparer = compare;
         }
 
-        internal bool TryFindComparer([NotNullWhen(true)] out Compare? compare)
+        internal bool TryFindComparer(out Compare? compare)
         {
             if (comparer != null)
             {

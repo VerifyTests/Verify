@@ -2,6 +2,7 @@
 using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using Verify;
 
 namespace VerifyNUnit
 {
@@ -16,6 +17,10 @@ namespace VerifyNUnit
             var context = TestContext.CurrentContext;
             var adapter = context.Test;
             var test = (Test) field.GetValue(adapter);
+            if (SharedVerifySettings.assembly == null)
+            {
+                SharedVerifySettings.SetTestAssembly(test.TypeInfo.Assembly);
+            }
 
             var method = test.Method.MethodInfo;
             var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);

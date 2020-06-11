@@ -14,9 +14,9 @@ namespace VerifyXunit
             var methodParameters = methodInfo.GetParameters();
             if (methodParameters.Any() && !settingsParameters.Any())
             {
-                throw new Exception($@"Method `{methodInfo.DeclaringType.Name}.{methodInfo.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
+                throw new Exception($@"Method `{methodInfo.DeclaringType.Name}.{method}` requires parameters, but none have been defined. Add UseParameters. For example:
 var settings = new VerifySettings();
-settings.UseParameters({string.Join(", ",methodParameters.Select(x=>x.Name))});
+settings.UseParameters({string.Join(", ", methodParameters.Select(x => x.Name))});
 await Verifier.Verify(target, settings);");
             }
 

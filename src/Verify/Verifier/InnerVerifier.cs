@@ -4,7 +4,8 @@ using Verify;
 /// <summary>
 /// Not for public use.
 /// </summary>
-public partial class InnerVerifier
+public partial class InnerVerifier :
+    IDisposable
 {
     string directory;
     string testName;
@@ -19,6 +20,7 @@ public partial class InnerVerifier
     {
         directory = SharedVerifySettings.DeriveDirectory(sourceFile);
         this.testName = testName;
+        CounterContext.Start();
     }
 
     FilePair GetFileNames(string extension, Namer namer)
@@ -29,5 +31,10 @@ public partial class InnerVerifier
     FilePair GetFileNames(string extension, Namer namer, string suffix)
     {
         return FileNameBuilder.GetFileNames(extension, suffix, namer, directory, testName);
+    }
+
+    public void Dispose()
+    {
+        CounterContext.Stop();
     }
 }

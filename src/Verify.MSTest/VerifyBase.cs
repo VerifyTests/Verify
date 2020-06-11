@@ -15,7 +15,7 @@ namespace VerifyMSTest
 
         TestContext testContext = null!;
 
-        DisposableVerifier BuildVerifier(string sourceFile, VerifySettings? settings)
+        InnerVerifier BuildVerifier(string sourceFile, VerifySettings? settings)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var type = GetType();
@@ -26,7 +26,7 @@ namespace VerifyMSTest
                 className: Path.GetFileNameWithoutExtension(sourceFile),
                 methodInfo,
                 settings.GetParameters(methodInfo));
-            return new DisposableVerifier(uniqueTestName, sourceFile);
+            return new InnerVerifier(uniqueTestName, sourceFile);
         }
     }
 }

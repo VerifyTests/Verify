@@ -12,7 +12,7 @@ namespace VerifyXunit
 
             var className = Path.GetFileNameWithoutExtension(sourceFile);
             var name = TestNameBuilder.GetUniqueTestName(className, methodInfo, parameters);
-            return new DisposableVerifier(name, sourceFile);
+            return new InnerVerifier(name, sourceFile);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace VerifyNUnit
         static FieldInfo field = typeof(TestContext.TestAdapter)
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
 
-        static DisposableVerifier BuildVerifier(string sourceFile)
+        static InnerVerifier BuildVerifier(string sourceFile)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var context = TestContext.CurrentContext;
@@ -24,7 +24,7 @@ namespace VerifyNUnit
 
             var method = test.Method.MethodInfo;
             var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
-            return new DisposableVerifier(name, sourceFile);
+            return new InnerVerifier(name, sourceFile);
         }
     }
 }

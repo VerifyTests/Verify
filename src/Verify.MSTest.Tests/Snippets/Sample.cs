@@ -4,14 +4,13 @@ using VerifyMSTest;
 
 #region SampleTestMSTest
 [TestClass]
-public class Sample :
-    VerifyBase
+public class Sample
 {
     [TestMethod]
     public Task Test ()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 #endregion

@@ -4,8 +4,7 @@ using Verify;
 using VerifyMSTest;
 
 [TestClass]
-public class ExtensionSample :
-    VerifyBase
+public class ExtensionSample
 {
     VerifySettings classLevelSettings;
 
@@ -20,7 +19,7 @@ public class ExtensionSample :
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verify(
+        return Verifier.Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -32,7 +31,7 @@ public class ExtensionSample :
     [TestMethod]
     public Task SharedClassLevelSettings()
     {
-        return Verify(
+        return Verifier.Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",

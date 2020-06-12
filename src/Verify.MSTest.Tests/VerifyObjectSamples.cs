@@ -9,8 +9,7 @@ using VerifyMSTest;
 #pragma warning disable CS8618
 
 [TestClass]
-public class VerifyObjectSamples :
-    VerifyBase
+public class VerifyObjectSamples
 {
     async Task ChangeDefaultsPerVerification(object target)
     {
@@ -23,7 +22,7 @@ public class VerifyObjectSamples :
             _.DontScrubDateTimes();
             _.DontIgnoreFalse();
         });
-        await Verify(target, settings);
+        await Verifier.Verify(target, settings);
 
         #endregion
     }
@@ -40,7 +39,7 @@ public class VerifyObjectSamples :
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
-        await Verify(person, settings);
+        await Verifier.Verify(person, settings);
     }
 
     async Task Before()
@@ -59,7 +58,7 @@ public class VerifyObjectSamples :
             }
         };
 
-        await Verify(person);
+        await Verifier.Verify(person);
 
         #endregion
     }
@@ -79,7 +78,7 @@ public class VerifyObjectSamples :
             FamilyName = "Aguirre"
         };
 
-        await Verify(
+        await Verifier.Verify(
             new
             {
                 person1,
@@ -105,7 +104,7 @@ public class VerifyObjectSamples :
             }
         };
 
-        await Verify(person);
+        await Verifier.Verify(person);
 
         #endregion
     }

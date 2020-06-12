@@ -104,15 +104,14 @@ public class UniqueForSample
 <a id='snippet-uniqueforsamplemstest'/></a>
 ```cs
 [TestClass]
-public class UniqueForSample :
-    VerifyBase
+public class UniqueForSample
 {
     [TestMethod]
     public Task Runtime()
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [TestMethod]
@@ -120,7 +119,7 @@ public class UniqueForSample :
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [TestMethod]
@@ -128,11 +127,11 @@ public class UniqueForSample :
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='File snippet `uniqueforsamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Navigate to start of snippet `uniqueforsamplemstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Navigate to start of snippet `uniqueforsamplemstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -174,8 +173,7 @@ using Verify;
 using VerifyMSTest;
 
 [TestClass]
-public class ExtensionSample :
-    VerifyBase
+public class ExtensionSample
 {
     VerifySettings classLevelSettings;
 
@@ -190,7 +188,7 @@ public class ExtensionSample :
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verify(
+        return Verifier.Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -202,7 +200,7 @@ public class ExtensionSample :
     [TestMethod]
     public Task SharedClassLevelSettings()
     {
-        return Verify(
+        return Verifier.Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
@@ -212,7 +210,7 @@ public class ExtensionSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <a id='snippet-ExtensionSample.cs-1'/></a>
 ```cs
 using System.Threading.Tasks;

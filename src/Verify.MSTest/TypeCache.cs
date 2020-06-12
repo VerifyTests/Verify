@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Verify;
-using VerifyXunit;
 
 static class TypeCache
 {
@@ -10,17 +9,11 @@ static class TypeCache
 
     public static MethodInfo GetInfo(string file, string method)
     {
-        if (InjectInfoAttribute.TryGet(out var info))
-        {
-            return info!;
-        }
-
         if (types == null)
         {
             if (SharedVerifySettings.assembly == null)
             {
-                throw new Exception(@"Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` at assembly startup.
-Or, alternatively, add a `[InjectInfo]` to all tests.");
+                throw new Exception("Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` at assembly startup. Or, alternatively, a `[InjectInfo]` to the type.");
             }
 
             types = SharedVerifySettings.assembly.InstanceTypes();
@@ -31,8 +24,6 @@ Or, alternatively, add a `[InjectInfo]` to all tests.");
             return type!.GetPublicMethod(method);
         }
 
-        throw new Exception($@"Unable to find type for file `{file}`.
-There are some known scenarios where the types cannot be derived (for example partial or nested classes).
-In these case add a `[InjectInfo]` to the type.");
+        throw new Exception($"Unable to find type for file `{file}`. There are some known scenarios where the types cannot be derived (for example partial or nested classes). In these case add a `[InjectInfo]` to the type.");
     }
 }

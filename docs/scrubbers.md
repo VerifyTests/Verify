@@ -217,8 +217,7 @@ LineJ
 <a id='snippet-scrubberssamplemstest'/></a>
 ```cs
 [TestClass]
-public class ScrubbersSample :
-    VerifyBase
+public class ScrubbersSample
 {
     [TestMethod]
     public Task Lines()
@@ -236,7 +235,7 @@ public class ScrubbersSample :
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
 LineA
@@ -261,11 +260,11 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='File snippet `scrubberssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Navigate to start of snippet `scrubberssamplemstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L55' title='File snippet `scrubberssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Navigate to start of snippet `scrubberssamplemstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -380,8 +379,7 @@ public class ScrubberLevelsSample
 <a id='snippet-scrubberlevelssamplemstest'/></a>
 ```cs
 [TestClass]
-public class ScrubberLevelsSample :
-    VerifyBase
+public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
 
@@ -396,7 +394,7 @@ public class ScrubberLevelsSample :
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     [AssemblyInitialize]
@@ -406,7 +404,7 @@ public class ScrubberLevelsSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L33' title='File snippet `scrubberlevelssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Navigate to start of snippet `scrubberlevelssamplemstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L32' title='File snippet `scrubberlevelssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Navigate to start of snippet `scrubberlevelssamplemstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

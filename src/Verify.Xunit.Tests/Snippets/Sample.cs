@@ -11,6 +11,5 @@ public class Sample
         var person = ClassBeingTested.FindPerson();
         return Verifier.Verify(person);
     }
-
 }
 #endregion

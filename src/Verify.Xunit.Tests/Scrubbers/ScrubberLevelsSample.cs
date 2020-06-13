@@ -4,6 +4,7 @@ using VerifyXunit;
 using Xunit;
 
 #region ScrubberLevelsSampleXunit
+[InjectInfo]
 public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;

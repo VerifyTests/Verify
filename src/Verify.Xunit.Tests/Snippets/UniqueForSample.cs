@@ -4,6 +4,7 @@ using VerifyXunit;
 using Xunit;
 
 #region UniqueForSampleXunit
+[InjectInfo]
 public class UniqueForSample
 {
     [Fact]

@@ -9,6 +9,7 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 
+[InjectInfo]
 public class TypeConverterTests
 {
     [Fact]

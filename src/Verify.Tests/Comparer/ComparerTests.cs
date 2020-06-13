@@ -6,6 +6,7 @@ using VerifyXunit;
 using Xunit;
 using Xunit.Sdk;
 
+[InjectInfo]
 public class ComparerTests
 {
     [Fact]

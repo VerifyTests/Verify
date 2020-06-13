@@ -1,12 +1,11 @@
-﻿using System;
-
+﻿
 namespace VerifyXunit
 {
-    [Obsolete(
-        "VerifyBase is no longer required. Instead use the static Verifier.Verify().",
-        error: true)]
+    [ObsoleteEx(
+        Message = "Instead add a [InjectInfoAttribute]`use the static Verifier.Verify().",
+        ReplacementTypeOrMember = "Verifier.Verify",
+        TreatAsErrorFromVersion = "5.0")]
     public class VerifyBase
     {
-
     }
 }

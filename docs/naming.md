@@ -30,6 +30,7 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 <!-- snippet: UniqueForSampleXunit -->
 <a id='snippet-uniqueforsamplexunit'/></a>
 ```cs
+[InjectInfo]
 public class UniqueForSample
 {
     [Fact]
@@ -57,7 +58,7 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L33' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -264,6 +265,7 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 
+[InjectInfo]
 public class ExtensionSample
 {
     VerifySettings classLevelSettings;
@@ -301,7 +303,7 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L41' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:
@@ -341,5 +343,5 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L46-L49' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
 <!-- endsnippet -->

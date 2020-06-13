@@ -5,6 +5,7 @@ using VerifyXunit;
 using Xunit;
 
 #region xunitComplexMemberData
+[InjectInfo]
 public class ComplexParametersSample
 {
     static ComplexParametersSample()

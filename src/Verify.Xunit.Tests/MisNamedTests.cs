@@ -1,15 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
+using Xunit.Sdk;
 
 public class NoAttributeTests
 {
     [Fact]
     public async Task ShouldThrow()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("Foo"));
-        Assert.Contains("Unable to find type for file", exception.Message);
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("Foo"));
+        Assert.Equal("Expected to find a `[InjectInfoAttribute]` on `MisNamedTests`.", exception.Message);
     }
 }
 

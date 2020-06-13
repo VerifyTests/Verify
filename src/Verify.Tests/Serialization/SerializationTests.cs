@@ -10,6 +10,7 @@ using Xunit;
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
+[InjectInfo]
 public class SerializationTests
 {
     static SerializationTests()

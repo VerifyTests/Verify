@@ -10,30 +10,27 @@ namespace VerifyXunit
         public static Task Verify<T>(
             Task<T> target,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "",
-            [CallerMemberName] string methodName = "")
+            [CallerFilePath] string sourceFile = "")
         {
-            var verifier = GetVerifier(sourceFile, methodName, settings);
+            var verifier = GetVerifier(sourceFile, settings);
             return verifier.Verify(target, settings);
         }
 
         public static Task Verify<T>(
             IAsyncEnumerable<T> target,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "",
-            [CallerMemberName] string methodName = "")
+            [CallerFilePath] string sourceFile = "")
         {
-            var verifier = GetVerifier(sourceFile, methodName, settings);
+            var verifier = GetVerifier(sourceFile, settings);
             return verifier.Verify(target, settings);
         }
 
         public static Task Verify<T>(
             T target,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "",
-            [CallerMemberName] string methodName = "")
+            [CallerFilePath] string sourceFile = "")
         {
-            var verifier = GetVerifier(sourceFile, methodName, settings);
+            var verifier = GetVerifier(sourceFile, settings);
             return verifier.Verify(target, settings);
         }
     }

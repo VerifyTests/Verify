@@ -38,7 +38,7 @@ public Task InlineDataUsage(string arg)
     return Verifier.Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L8-L18' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L9-L19' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -62,7 +62,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L20-L35' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L21-L36' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -73,6 +73,7 @@ xUnit only exposes parameter information when the types certain types. For unkno
 <!-- snippet: xunitComplexMemberData -->
 <a id='snippet-xunitcomplexmemberdata'/></a>
 ```cs
+[InjectInfo]
 public class ComplexParametersSample
 {
     static ComplexParametersSample()
@@ -108,7 +109,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L42' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
 `SharedVerifySettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.

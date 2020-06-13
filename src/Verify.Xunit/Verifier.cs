@@ -1,17 +1,22 @@
 ﻿using System.IO;
 using Verify;
+using Xunit.Sdk;
 
 namespace VerifyXunit
 {
     public static partial class Verifier
     {
-        static InnerVerifier GetVerifier(string sourceFile, string method, VerifySettings? settings)
+        static InnerVerifier GetVerifier(string sourceFile, VerifySettings? settings)
         {
-            var methodInfo = TypeCache.GetInfo(sourceFile, method);
-            var parameters = settings.GetParameters(methodInfo);
-
             var className = Path.GetFileNameWithoutExtension(sourceFile);
-            var name = TestNameBuilder.GetUniqueTestName(className, methodInfo, parameters);
+            if (!InjectInfoAttribute.TryGet(out var info))
+            {
+                throw new XunitException($"Expected to find a `[{nameof(InjectInfoAttribute)}]` on `{className}`.");
+            }
+
+            var parameters = settings.GetParameters(info!);
+
+            var name = TestNameBuilder.GetUniqueTestName(className, info!, parameters);
             return new InnerVerifier(name, sourceFile);
         }
     }

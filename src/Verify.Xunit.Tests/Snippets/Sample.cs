@@ -3,6 +3,7 @@ using VerifyXunit;
 using Xunit;
 
 #region SampleTestXunit
+[InjectInfo]
 public class Sample
 {
     [Fact]

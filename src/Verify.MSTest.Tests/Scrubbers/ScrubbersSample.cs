@@ -6,7 +6,8 @@ using VerifyMSTest;
 
 #region ScrubbersSampleMSTest
 [TestClass]
-public class ScrubbersSample
+public class ScrubbersSample :
+    VerifyBase
 {
     [TestMethod]
     public Task Lines()
@@ -24,7 +25,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verifier.Verify(
+        return Verify(
             settings: settings,
             target: @"
 LineA
@@ -49,7 +50,7 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verifier.Verify(target, settings);
+        return Verify(target, settings);
     }
 }
 #endregion

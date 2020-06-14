@@ -91,7 +91,7 @@ public async Task Anon()
         FamilyName = "Aguirre"
     };
 
-    await Verifier.Verify(
+    await Verify(
         new
         {
             person1,
@@ -99,7 +99,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L66-L88' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

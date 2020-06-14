@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
@@ -21,13 +22,14 @@ class VerifyEngine
         string extension,
         VerifySettings settings,
         string directory,
-        string testName)
+        string testName, 
+        Assembly assembly)
     {
         this.settings = settings;
-        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testName);
+        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testName, assembly);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
 
-        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testName);
+        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testName, assembly);
         foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
         {
             File.Delete(file);

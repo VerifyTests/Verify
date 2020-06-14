@@ -12,8 +12,6 @@
     <Compile Remove="Converters\TypeConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fody" Version="6.2.0" />
-    <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="DiffEngine" Version="3.2.2" />
     <PackageReference Include="Shipwreck.Phash.Bitmaps" Version="0.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

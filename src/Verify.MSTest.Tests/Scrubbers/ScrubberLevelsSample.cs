@@ -5,7 +5,8 @@ using VerifyMSTest;
 
 #region ScrubberLevelsSampleMSTest
 [TestClass]
-public class ScrubberLevelsSample
+public class ScrubberLevelsSample :
+    VerifyBase
 {
     VerifySettings classLevelSettings;
 
@@ -20,7 +21,7 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verifier.Verify("One Two Three", settings);
+        return Verify("One Two Three", settings);
     }
 
     [AssemblyInitialize]

@@ -151,8 +151,8 @@ public Task DataRowUsage(string arg)
 {
     var settings = new VerifySettings();
     settings.UseParameters(arg);
-    return Verifier.Verify(arg, settings);
+    return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L9-L19' title='File snippet `mstestdatarow` was extracted from'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Navigate to start of snippet `mstestdatarow`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='File snippet `mstestdatarow` was extracted from'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Navigate to start of snippet `mstestdatarow`'>anchor</a></sup>
 <!-- endsnippet -->

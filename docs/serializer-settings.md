@@ -218,9 +218,9 @@ settings.ModifySerialization(_ =>
     _.DontScrubDateTimes();
     _.DontIgnoreFalse();
 });
-await Verifier.Verify(target, settings);
+await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L16-L27' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L17-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
 <a id='snippet-changedefaultsperverification-1'/></a>
 ```cs
 var settings = new VerifySettings();

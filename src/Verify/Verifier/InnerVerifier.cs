@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Verify;
 
 /// <summary>
@@ -9,6 +10,7 @@ public partial class InnerVerifier :
 {
     string directory;
     string testName;
+    Assembly assembly;
     internal static Func<string, Exception> exceptionBuilder = null!;
 
     public static void Init(Func<string, Exception> exceptionBuilder)
@@ -16,21 +18,22 @@ public partial class InnerVerifier :
         InnerVerifier.exceptionBuilder = exceptionBuilder;
     }
 
-    public InnerVerifier(string testName, string sourceFile)
+    public InnerVerifier(string testName, string sourceFile, Assembly assembly)
     {
-        directory = SharedVerifySettings.DeriveDirectory(sourceFile);
+        directory = SharedVerifySettings.DeriveDirectory(sourceFile, assembly);
         this.testName = testName;
+        this.assembly = assembly;
         CounterContext.Start();
     }
 
     FilePair GetFileNames(string extension, Namer namer)
     {
-        return FileNameBuilder.GetFileNames(extension, namer, directory, testName);
+        return FileNameBuilder.GetFileNames(extension, namer, directory, testName, assembly);
     }
 
     FilePair GetFileNames(string extension, Namer namer, string suffix)
     {
-        return FileNameBuilder.GetFileNames(extension, suffix, namer, directory, testName);
+        return FileNameBuilder.GetFileNames(extension, suffix, namer, directory, testName, assembly);
     }
 
     public void Dispose()

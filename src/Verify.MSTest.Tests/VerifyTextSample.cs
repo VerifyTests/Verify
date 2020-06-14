@@ -2,11 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 [TestClass]
-public class VerifyTextSample
+public class VerifyTextSample :
+    VerifyBase
 {
     [TestMethod]
     public Task Simple()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 }

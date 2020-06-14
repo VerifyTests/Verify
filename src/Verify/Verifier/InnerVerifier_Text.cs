@@ -21,7 +21,8 @@ partial class InnerVerifier
             extension,
             settings,
             directory,
-            testName);
+            testName,
+            assembly);
 
         var file = GetFileNames(extension, settings.Namer);
 

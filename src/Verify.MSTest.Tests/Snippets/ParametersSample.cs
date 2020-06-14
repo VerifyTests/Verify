@@ -4,7 +4,8 @@ using Verify;
 using VerifyMSTest;
 
 [TestClass]
-public class ParametersSample
+public class ParametersSample :
+    VerifyBase
 {
     #region MSTestDataRow
     [DataTestMethod]
@@ -14,7 +15,7 @@ public class ParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verifier.Verify(arg, settings);
+        return Verify(arg, settings);
     }
     #endregion
 }

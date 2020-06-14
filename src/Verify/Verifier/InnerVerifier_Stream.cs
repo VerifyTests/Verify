@@ -45,7 +45,8 @@ partial class InnerVerifier
             extension,
             settings,
             directory,
-            testName);
+            testName,
+            assembly);
         var list = streams.ToList();
         await VerifyInfo(engine, settings, info);
         for (var index = 0; index < list.Count; index++)

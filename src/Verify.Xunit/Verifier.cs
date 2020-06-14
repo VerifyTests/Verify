@@ -17,7 +17,7 @@ namespace VerifyXunit
             var parameters = settings.GetParameters(info!);
 
             var name = TestNameBuilder.GetUniqueTestName(className, info!, parameters);
-            return new InnerVerifier(name, sourceFile);
+            return new InnerVerifier(name, sourceFile, info!.DeclaringType.Assembly);
         }
     }
 }

@@ -5,14 +5,15 @@ using VerifyMSTest;
 
 #region UniqueForSampleMSTest
 [TestClass]
-public class UniqueForSample
+public class UniqueForSample :
+    VerifyBase
 {
     [TestMethod]
     public Task Runtime()
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [TestMethod]
@@ -20,7 +21,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [TestMethod]
@@ -28,7 +29,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 }
 #endregion

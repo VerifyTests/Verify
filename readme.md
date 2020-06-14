@@ -251,17 +251,18 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 <a id='snippet-sampletestmstest'/></a>
 ```cs
 [TestClass]
-public class Sample
+public class Sample :
+    VerifyBase
 {
     [TestMethod]
     public Task Test ()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verifier.Verify(person);
+        return Verify(person);
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L16' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

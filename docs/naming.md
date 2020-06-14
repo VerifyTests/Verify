@@ -175,7 +175,7 @@ Usage:
 ```cs
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyTesting;
+using VerifyTests;
 using VerifyMSTest;
 
 [TestClass]
@@ -222,7 +222,7 @@ public class ExtensionSample :
 ```cs
 using System.Threading.Tasks;
 using NUnit.Framework;
-using VerifyTesting;
+using VerifyTests;
 using static VerifyNUnit.Verifier;
 
 [TestFixture]
@@ -267,7 +267,7 @@ public class ExtensionSample
 <a id='snippet-ExtensionSample.cs-2'/></a>
 ```cs
 using System.Threading.Tasks;
-using VerifyTesting;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
 using static VerifyXunit.Verifier;

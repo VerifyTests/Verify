@@ -29,7 +29,7 @@ See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packagin
 
 ## Custom Test directory
 
-In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using a custom delegate via `SharedVerifySettings.DeriveTestDirectory`. The parameters passed are as follows:
+In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using a custom delegate via `VerifierSettings.DeriveTestDirectory`. The parameters passed are as follows:
 
  * `type`: The test type.
  * `testDirectory`: The directory that the test source file existed in at compile time.
@@ -43,7 +43,7 @@ For example a possible implementation for [AppVeyor](https://www.appveyor.com/) 
 if (BuildServerDetector.Detected)
 {
     var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-    SharedVerifySettings.DeriveTestDirectory(
+    VerifierSettings.DeriveTestDirectory(
         (sourceFile, projectDirectory) =>
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;

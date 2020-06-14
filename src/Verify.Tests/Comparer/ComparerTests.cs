@@ -32,7 +32,7 @@ public class ComparerTests
     [Fact]
     public async Task Static_with_message()
     {
-        SharedVerifySettings.RegisterComparer("staticComparerExtMessage", CompareWithMessage);
+        VerifierSettings.RegisterComparer("staticComparerExtMessage", CompareWithMessage);
         var settings = new VerifySettings();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
@@ -44,7 +44,7 @@ public class ComparerTests
     [Fact]
     public async Task Static()
     {
-        SharedVerifySettings.RegisterComparer("staticComparerExt", Compare);
+        VerifierSettings.RegisterComparer("staticComparerExt", Compare);
         var settings = new VerifySettings();
         settings.UseExtension("staticComparerExt");
         await Verifier.Verify("TheText", settings);

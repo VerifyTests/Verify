@@ -22,7 +22,7 @@ public class ComparerSnippets
     public async Task StaticComparer()
     {
         #region StaticComparer
-        SharedVerifySettings.RegisterComparer(
+        VerifierSettings.RegisterComparer(
             extension: "png",
             compare: CompareImages);
         await Verifier.VerifyFile("TheImage.png");

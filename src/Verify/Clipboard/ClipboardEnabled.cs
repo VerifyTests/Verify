@@ -35,7 +35,7 @@ static class ClipboardEnabled
 
         if (settings.clipboardEnabled == null)
         {
-            return !SharedVerifySettings.clipboardDisabled;
+            return !VerifierSettings.clipboardDisabled;
         }
 
         return settings.clipboardEnabled.Value;

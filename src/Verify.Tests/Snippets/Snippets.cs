@@ -55,7 +55,7 @@ public class Snippets
     {
         #region DisableClipboardGlobal
 
-        SharedVerifySettings.DisableClipboard();
+        VerifierSettings.DisableClipboard();
 
         #endregion
     }
@@ -67,7 +67,7 @@ public class Snippets
         if (BuildServerDetector.Detected)
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-            SharedVerifySettings.DeriveTestDirectory(
+            VerifierSettings.DeriveTestDirectory(
                 (sourceFile, projectDirectory) =>
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;

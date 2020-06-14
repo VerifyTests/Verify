@@ -79,7 +79,7 @@ public class ComplexParametersSample
     static ComplexParametersSample()
     {
         //TODO: this should be in the appdomain startup code
-        SharedVerifySettings.NameForParameter<ComplexData>(_ => _.Value);
+        VerifierSettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 
     [Theory]
@@ -112,7 +112,7 @@ public class ComplexParametersSample
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
 <!-- endsnippet -->
 
-`SharedVerifySettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
+`VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
 ## NUnit

@@ -15,7 +15,7 @@ public class ConverterSnippets
     public async Task Type()
     {
         #region RegisterFileConverterType
-        SharedVerifySettings.RegisterFileConverter<Image>(
+        VerifierSettings.RegisterFileConverter<Image>(
             toExtension: "png",
             #region ConverterCanConvert
             canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
@@ -54,7 +54,7 @@ public class ConverterSnippets
     public async Task Extension()
     {
         #region RegisterFileConverterExtension
-        SharedVerifySettings.RegisterFileConverter(
+        VerifierSettings.RegisterFileConverter(
             fromExtension: "tif",
             toExtension: "png",
             conversion: (stream, settings) =>

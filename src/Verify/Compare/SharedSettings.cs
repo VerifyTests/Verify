@@ -2,7 +2,7 @@
 
 namespace VerifyTesting
 {
-    public static partial class SharedVerifySettings
+    public static partial class VerifierSettings
     {
         static Dictionary<string, Compare> comparers = new Dictionary<string, Compare>();
 

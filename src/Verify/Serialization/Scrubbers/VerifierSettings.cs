@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VerifyTesting
 {
-    public static partial class SharedVerifySettings
+    public static partial class VerifierSettings
     {
         internal static List<Action<StringBuilder>> GlobalScrubbers = new List<Action<StringBuilder>>();
 

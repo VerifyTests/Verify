@@ -18,7 +18,7 @@ namespace VerifyTesting
             get
             {
                 return newLineEscapingDisabled ||
-                       SharedVerifySettings.newLineEscapingDisabled;
+                       VerifierSettings.newLineEscapingDisabled;
             }
         }
 

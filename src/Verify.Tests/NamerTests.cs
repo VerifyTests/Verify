@@ -21,7 +21,7 @@ public class NamerTests
     {
         string? receivedSourceFile = null;
         string? receivedProjectDirectory = null;
-        SharedVerifySettings.DeriveTestDirectory(
+        VerifierSettings.DeriveTestDirectory(
             (sourceFile, projectDirectory) =>
             {
                 receivedSourceFile = sourceFile;

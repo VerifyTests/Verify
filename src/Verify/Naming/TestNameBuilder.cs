@@ -46,7 +46,7 @@ static class TestNameBuilder
                 continue;
             }
 
-            builder.Append($"{SharedVerifySettings.GetNameForParameter(parameterValue)}_");
+            builder.Append($"{VerifierSettings.GetNameForParameter(parameterValue)}_");
         }
 
         builder.Length -= 1;

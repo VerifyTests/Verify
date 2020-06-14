@@ -51,7 +51,7 @@ This sample uses a typed approach. So the converter acts on an in memory instanc
 <!-- snippet: RegisterFileConverterType -->
 <a id='snippet-registerfileconvertertype'/></a>
 ```cs
-SharedVerifySettings.RegisterFileConverter<Image>(
+VerifierSettings.RegisterFileConverter<Image>(
     toExtension: "png",
     canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
     conversion: (image, settings) =>
@@ -107,7 +107,7 @@ This sample uses a extension approach. So the converter acts on a file or stream
 <!-- snippet: RegisterFileConverterExtension -->
 <a id='snippet-registerfileconverterextension'/></a>
 ```cs
-SharedVerifySettings.RegisterFileConverter(
+VerifierSettings.RegisterFileConverter(
     fromExtension: "tif",
     toExtension: "png",
     conversion: (stream, settings) =>

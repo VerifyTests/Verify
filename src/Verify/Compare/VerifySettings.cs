@@ -17,7 +17,7 @@
                 compare = comparer;
                 return true;
             }
-            return SharedVerifySettings.TryGetComparer(ExtensionOrTxt(), out compare);
+            return VerifierSettings.TryGetComparer(ExtensionOrTxt(), out compare);
         }
     }
 }

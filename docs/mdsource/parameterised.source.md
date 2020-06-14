@@ -32,7 +32,7 @@ xUnit only exposes parameter information when the types certain types. For unkno
 
 snippet: xunitComplexMemberData
 
-`SharedVerifySettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
+`VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
 ## NUnit

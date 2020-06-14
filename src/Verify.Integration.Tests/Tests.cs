@@ -36,7 +36,7 @@ public partial class Tests :
         File.Copy(binPath.Path, newPath, true);
         AllFiles.UseFile(Category.Image, newPath);
 
-        SharedVerifySettings.RegisterFileConverter<TypeToSplit>(
+        VerifierSettings.RegisterFileConverter<TypeToSplit>(
             "txt",
             (split, settings) => new ConversionResult(
                 split.Info,

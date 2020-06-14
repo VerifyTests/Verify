@@ -21,7 +21,7 @@ namespace VerifyTesting
 
         public InnerVerifier(string testName, string sourceFile, Assembly assembly)
         {
-            directory = SharedVerifySettings.DeriveDirectory(sourceFile, assembly);
+            directory = VerifierSettings.DeriveDirectory(sourceFile, assembly);
             this.testName = testName;
             this.assembly = assembly;
             CounterContext.Start();

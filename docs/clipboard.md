@@ -75,7 +75,7 @@ settings.DisableClipboard();
 <!-- snippet: DisableClipboardGlobal -->
 <a id='snippet-disableclipboardglobal'/></a>
 ```cs
-SharedVerifySettings.DisableClipboard();
+VerifierSettings.DisableClipboard();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L60' title='File snippet `disableclipboardglobal` was extracted from'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Navigate to start of snippet `disableclipboardglobal`'>anchor</a></sup>
 <!-- endsnippet -->

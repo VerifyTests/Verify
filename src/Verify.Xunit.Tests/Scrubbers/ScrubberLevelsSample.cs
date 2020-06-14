@@ -29,7 +29,7 @@ public class ScrubberLevelsSample
     static ScrubberLevelsSample()
     {
         // Should be dont at appdomain startup
-        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 #endregion

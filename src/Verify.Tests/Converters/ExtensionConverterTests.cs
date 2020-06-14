@@ -14,7 +14,7 @@ public class ExtensionConverterTests
     [Fact]
     public Task TextSplit()
     {
-        SharedVerifySettings.RegisterFileConverter(
+        VerifierSettings.RegisterFileConverter(
             "split",
             "txt",
             (stream, _) => new ConversionResult(null, stream));
@@ -26,7 +26,7 @@ public class ExtensionConverterTests
     [Fact]
     public Task ExtensionConversion()
     {
-        SharedVerifySettings.RegisterFileConverter(
+        VerifierSettings.RegisterFileConverter(
             "bmp",
             "png",
             (stream, _) =>
@@ -42,7 +42,7 @@ public class ExtensionConverterTests
     [Fact]
     public Task AsyncExtensionConversion()
     {
-        SharedVerifySettings.RegisterFileConverter(
+        VerifierSettings.RegisterFileConverter(
             "bmp",
             "png",
             (stream, _) =>
@@ -58,7 +58,7 @@ public class ExtensionConverterTests
     [Fact]
     public Task WithInfo()
     {
-        SharedVerifySettings.RegisterFileConverter(
+        VerifierSettings.RegisterFileConverter(
             "bmp",
             "png",
             (stream, _) =>

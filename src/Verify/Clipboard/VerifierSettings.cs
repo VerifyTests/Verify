@@ -1,6 +1,6 @@
 ﻿namespace VerifyTesting
 {
-    public static partial class SharedVerifySettings
+    public static partial class VerifierSettings
     {
         internal static bool clipboardDisabled;
 

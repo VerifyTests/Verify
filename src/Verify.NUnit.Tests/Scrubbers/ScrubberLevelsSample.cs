@@ -27,7 +27,7 @@ public class ScrubberLevelsSample
     [OneTimeSetUp]
     public static void Setup()
     {
-        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 #endregion

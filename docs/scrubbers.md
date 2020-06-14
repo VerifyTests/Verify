@@ -16,7 +16,7 @@ Scrubber are executed in reveres order. So the most recent added method scrubber
 
 ## Available Scrubbers
 
-Scrubbers can be added to an instance of `VerifySettings` or globally on `SharedVerifySettings`.
+Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.
 
 
 ### ScrubLines
@@ -339,7 +339,7 @@ public class ScrubberLevelsSample
     static ScrubberLevelsSample()
     {
         // Should be dont at appdomain startup
-        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
@@ -376,7 +376,7 @@ public class ScrubberLevelsSample
     [OneTimeSetUp]
     public static void Setup()
     {
-        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
@@ -412,7 +412,7 @@ public class ScrubberLevelsSample :
     [AssemblyInitialize]
     public static void Setup(TestContext testContext)
     {
-        SharedVerifySettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```

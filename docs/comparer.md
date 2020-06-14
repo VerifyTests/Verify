@@ -69,7 +69,7 @@ await Verifier.Verify("TheImage.png", settings);
 <!-- snippet: StaticComparer -->
 <a id='snippet-staticcomparer'/></a>
 ```cs
-SharedVerifySettings.RegisterComparer(
+VerifierSettings.RegisterComparer(
     extension: "png",
     compare: CompareImages);
 await Verifier.VerifyFile("TheImage.png");

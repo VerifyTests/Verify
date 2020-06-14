@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace VerifyTesting
 {
-    public static partial class SharedVerifySettings
+    public static partial class VerifierSettings
     {
         static Dictionary<string, StreamConverter> extensionConverters = new Dictionary<string, StreamConverter>();
 

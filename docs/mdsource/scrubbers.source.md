@@ -9,7 +9,7 @@ Scrubber are executed in reveres order. So the most recent added method scrubber
 
 ## Available Scrubbers
 
-Scrubbers can be added to an instance of `VerifySettings` or globally on `SharedVerifySettings`.
+Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.
 
 
 ### ScrubLines

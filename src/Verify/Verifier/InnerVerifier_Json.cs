@@ -13,7 +13,7 @@ namespace VerifyTesting
             Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
 
-            if (SharedVerifySettings.TryGetConverter(
+            if (VerifierSettings.TryGetConverter(
                 target,
                 settings.extension,
                 out var converter))

@@ -15,8 +15,8 @@ public class SerializationTests
 {
     static SerializationTests()
     {
-        SharedVerifySettings.AddExtraDatetimeFormat("F");
-        SharedVerifySettings.AddExtraDatetimeOffsetFormat("F");
+        VerifierSettings.AddExtraDatetimeFormat("F");
+        VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
 
     [Fact]
@@ -190,35 +190,35 @@ public class SerializationTests
     void DontIgnoreEmptyCollections()
     {
         #region DontIgnoreEmptyCollections
-        SharedVerifySettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
+        VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
         #endregion
     }
 
     void DontScrubGuids()
     {
         #region DontScrubGuids
-        SharedVerifySettings.ModifySerialization(_ => _.DontScrubGuids());
+        VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
         #endregion
     }
 
     void ScrubInlineGuids()
     {
         #region ScrubInlineGuids
-        SharedVerifySettings.ModifySerialization(_ => _.ScrubInlineGuids());
+        VerifierSettings.ModifySerialization(_ => _.ScrubInlineGuids());
         #endregion
     }
 
     void DontScrubDateTimes()
     {
         #region DontScrubDateTimes
-        SharedVerifySettings.ModifySerialization(_ => _.DontScrubDateTimes());
+        VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
         #endregion
     }
 
     void DontIgnoreFalse()
     {
         #region DontIgnoreFalse
-        SharedVerifySettings.ModifySerialization(_ => _.DontIgnoreFalse());
+        VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
         #endregion
     }
 

@@ -32,12 +32,12 @@ static class ApplyScrubbers
             scrubber(target);
         }
 
-        foreach (var scrubber in SharedVerifySettings.GlobalScrubbers)
+        foreach (var scrubber in VerifierSettings.GlobalScrubbers)
         {
             scrubber(target);
         }
 
-        if (scrubbers.Any() || SharedVerifySettings.GlobalScrubbers.Any())
+        if (scrubbers.Any() || VerifierSettings.GlobalScrubbers.Any())
         {
             target.FixNewlines();
         }

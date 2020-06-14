@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VerifyTesting
 {
-    public static partial class SharedVerifySettings
+    public static partial class VerifierSettings
     {
         internal static Namer SharedNamer = new Namer();
         static Dictionary<Type, Func<object, string>> parameterToNameLookup = new Dictionary<Type, Func<object, string>>();

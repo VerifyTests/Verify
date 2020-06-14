@@ -40,16 +40,16 @@ static class FileNameBuilder
 
     static string AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
     {
-        if (namer.UniqueForRuntimeAndVersion || SharedVerifySettings.SharedNamer.UniqueForRuntimeAndVersion)
+        if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
             builder.Append($".{Namer.RuntimeAndVersion}");
         }
-        else if (namer.UniqueForRuntime || SharedVerifySettings.SharedNamer.UniqueForRuntime)
+        else if (namer.UniqueForRuntime || VerifierSettings.SharedNamer.UniqueForRuntime)
         {
             builder.Append($".{Namer.Runtime}");
         }
 
-        if (namer.UniqueForAssemblyConfiguration || SharedVerifySettings.SharedNamer.UniqueForAssemblyConfiguration)
+        if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
             if (assembly == null)
             {

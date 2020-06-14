@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace VerifyTesting
 {
-    public static partial class SharedVerifySettings
+    public static partial class VerifierSettings
     {
         static List<TypeConverter> typedConverters = new List<TypeConverter>();
 

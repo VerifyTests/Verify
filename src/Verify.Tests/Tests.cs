@@ -15,8 +15,8 @@ public class Tests
 {
     static Tests()
     {
-        SharedVerifySettings.AddExtraDatetimeFormat("F");
-        SharedVerifySettings.AddExtraDatetimeOffsetFormat("F");
+        VerifierSettings.AddExtraDatetimeFormat("F");
+        VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class Tests
     public async Task SettingsArePassed()
     {
         VerifySettings? fromGlobal = null;
-        SharedVerifySettings.RegisterComparer(
+        VerifierSettings.RegisterComparer(
             "SettingsArePassed",
             (verifySettings, received, verified) =>
             {

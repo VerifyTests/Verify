@@ -11,7 +11,7 @@ public class ComplexParametersSample
     static ComplexParametersSample()
     {
         //TODO: this should be in the appdomain startup code
-        SharedVerifySettings.NameForParameter<ComplexData>(_ => _.Value);
+        VerifierSettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 
     [Theory]

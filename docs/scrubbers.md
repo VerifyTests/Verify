@@ -102,7 +102,7 @@ Adds a scrubber with full control over the text via a `Func`
 <!-- snippet: ScrubbersSampleXunit -->
 <a id='snippet-scrubberssamplexunit'/></a>
 ```cs
-[InjectInfo]
+[UsesVerify]
 public class ScrubbersSample
 {
     [Fact]
@@ -311,7 +311,7 @@ Global scrubbers should be defined only once at appdomain startup. In this examp
 <!-- snippet: ScrubberLevelsSampleXunit -->
 <a id='snippet-scrubberlevelssamplexunit'/></a>
 ```cs
-[InjectInfo]
+[UsesVerify]
 public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;

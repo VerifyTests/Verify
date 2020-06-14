@@ -9,11 +9,11 @@ public class NoAttributeTests
     public async Task ShouldThrow()
     {
         var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("Foo"));
-        Assert.Equal("Expected to find a `[InjectInfoAttribute]` on `MisNamedTests`.", exception.Message);
+        Assert.Equal("Expected to find a `[UsesVerifyAttribute]` on `MisNamedTests`.", exception.Message);
     }
 }
 
-[InjectInfo]
+[UsesVerify]
 public class WithAttributeTests
 {
     [Fact]

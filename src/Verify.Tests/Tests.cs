@@ -10,7 +10,7 @@ using Xunit.Sdk;
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
-[InjectInfo]
+[UsesVerify]
 public class Tests
 {
     static Tests()

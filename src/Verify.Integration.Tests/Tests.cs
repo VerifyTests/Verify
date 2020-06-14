@@ -13,7 +13,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-[InjectInfo]
+[UsesVerify]
 public partial class Tests :
     XunitContextBase
 {

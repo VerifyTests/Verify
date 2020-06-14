@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 
-[InjectInfo]
+[UsesVerify]
 public class CompareToAssert
 {
     #region TraditionalTest

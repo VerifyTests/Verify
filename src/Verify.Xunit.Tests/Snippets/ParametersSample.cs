@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Verify;
 using VerifyXunit;
 using Xunit;
-[InjectInfo]
+[UsesVerify]
 public class ParametersSample
 {
     #region xunitInlineData

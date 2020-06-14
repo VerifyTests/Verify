@@ -7,7 +7,7 @@ using Xunit.Sdk;
 namespace VerifyXunit
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class InjectInfoAttribute :
+    public class UsesVerifyAttribute :
         BeforeAfterTestAttribute
     {
         static AsyncLocal<MethodInfo?> local = new AsyncLocal<MethodInfo?>();

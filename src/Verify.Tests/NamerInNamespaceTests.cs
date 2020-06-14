@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TheNamespace.Bar
 {
-    [InjectInfo]
+    [UsesVerify]
     public class NamerInNamespaceTests
     {
         [Fact]

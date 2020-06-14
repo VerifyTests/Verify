@@ -73,7 +73,7 @@ xUnit only exposes parameter information when the types certain types. For unkno
 <!-- snippet: xunitComplexMemberData -->
 <a id='snippet-xunitcomplexmemberdata'/></a>
 ```cs
-[InjectInfo]
+[UsesVerify]
 public class ComplexParametersSample
 {
     static ComplexParametersSample()

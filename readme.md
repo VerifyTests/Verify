@@ -204,7 +204,7 @@ Support for [xUnit](https://xunit.net/)
 <!-- snippet: SampleTestXunit -->
 <a id='snippet-sampletestxunit'/></a>
 ```cs
-[InjectInfo]
+[UsesVerify]
 public class Sample
 {
     [Fact]

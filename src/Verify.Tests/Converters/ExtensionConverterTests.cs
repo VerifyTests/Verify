@@ -8,7 +8,7 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 
-[InjectInfo]
+[UsesVerify]
 public class ExtensionConverterTests
 {
     [Fact]

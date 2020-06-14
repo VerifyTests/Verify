@@ -30,7 +30,7 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 <!-- snippet: UniqueForSampleXunit -->
 <a id='snippet-uniqueforsamplexunit'/></a>
 ```cs
-[InjectInfo]
+[UsesVerify]
 public class UniqueForSample
 {
     [Fact]
@@ -267,7 +267,7 @@ using Verify;
 using VerifyXunit;
 using Xunit;
 
-[InjectInfo]
+[UsesVerify]
 public class ExtensionSample
 {
     VerifySettings classLevelSettings;

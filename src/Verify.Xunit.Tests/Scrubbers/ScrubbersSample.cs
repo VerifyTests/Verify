@@ -5,7 +5,7 @@ using VerifyXunit;
 using Xunit;
 
 #region ScrubbersSampleXunit
-[InjectInfo]
+[UsesVerify]
 public class ScrubbersSample
 {
     [Fact]

@@ -9,9 +9,9 @@ namespace VerifyXunit
         static InnerVerifier GetVerifier(string sourceFile, VerifySettings? settings)
         {
             var className = Path.GetFileNameWithoutExtension(sourceFile);
-            if (!InjectInfoAttribute.TryGet(out var info))
+            if (!UsesVerifyAttribute.TryGet(out var info))
             {
-                throw new XunitException($"Expected to find a `[{nameof(InjectInfoAttribute)}]` on `{className}`.");
+                throw new XunitException($"Expected to find a `[{nameof(UsesVerifyAttribute)}]` on `{className}`.");
             }
 
             var parameters = settings.GetParameters(info!);

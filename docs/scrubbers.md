@@ -102,6 +102,8 @@ Adds a scrubber with full control over the text via a `Func`
 <!-- snippet: ScrubbersSampleXunit -->
 <a id='snippet-scrubberssamplexunit'/></a>
 ```cs
+using static VerifyXunit.Verifier;
+
 [UsesVerify]
 public class ScrubbersSample
 {
@@ -121,7 +123,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verifier.Verify(
+        return Verify(
             settings: settings,
             target: @"
 LineA
@@ -146,11 +148,11 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verifier.Verify(target, settings);
+        return Verify(target, settings);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L55' title='File snippet `scrubberssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Navigate to start of snippet `scrubberssamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L57' title='File snippet `scrubberssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Navigate to start of snippet `scrubberssamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -159,6 +161,8 @@ LineJ
 <!-- snippet: ScrubbersSampleNUnit -->
 <a id='snippet-scrubberssamplenunit'/></a>
 ```cs
+using static VerifyNUnit.Verifier;
+
 [TestFixture]
 public class ScrubbersSample
 {
@@ -179,7 +183,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verifier.Verify(
+        return Verify(
             settings: settings,
             target: @"
 LineA
@@ -204,11 +208,11 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             s => s.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verifier.Verify(target, settings);
+        return Verify(target, settings);
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='File snippet `scrubberssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Navigate to start of snippet `scrubberssamplenunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L6-L57' title='File snippet `scrubberssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Navigate to start of snippet `scrubberssamplenunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -311,6 +315,8 @@ Global scrubbers should be defined only once at appdomain startup. In this examp
 <!-- snippet: ScrubberLevelsSampleXunit -->
 <a id='snippet-scrubberlevelssamplexunit'/></a>
 ```cs
+using static VerifyXunit.Verifier;
+
 [UsesVerify]
 public class ScrubberLevelsSample
 {
@@ -327,7 +333,7 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verifier.Verify("One Two Three", settings);
+        return Verify("One Two Three", settings);
     }
 
     static ScrubberLevelsSample()
@@ -337,7 +343,7 @@ public class ScrubberLevelsSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L32' title='File snippet `scrubberlevelssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Navigate to start of snippet `scrubberlevelssamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L35' title='File snippet `scrubberlevelssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Navigate to start of snippet `scrubberlevelssamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -346,6 +352,8 @@ public class ScrubberLevelsSample
 <!-- snippet: ScrubberLevelsSampleNUnit -->
 <a id='snippet-scrubberlevelssamplenunit'/></a>
 ```cs
+using static VerifyNUnit.Verifier;
+
 [TestFixture]
 public class ScrubberLevelsSample
 {
@@ -362,7 +370,7 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verifier.Verify("One Two Three", settings);
+        return Verify("One Two Three", settings);
     }
 
     [OneTimeSetUp]
@@ -372,7 +380,7 @@ public class ScrubberLevelsSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L32' title='File snippet `scrubberlevelssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Navigate to start of snippet `scrubberlevelssamplenunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L5-L33' title='File snippet `scrubberlevelssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Navigate to start of snippet `scrubberlevelssamplenunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

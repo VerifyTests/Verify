@@ -30,6 +30,8 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 <!-- snippet: UniqueForSampleXunit -->
 <a id='snippet-uniqueforsamplexunit'/></a>
 ```cs
+using static VerifyXunit.Verifier;
+
 [UsesVerify]
 public class UniqueForSample
 {
@@ -38,7 +40,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
@@ -46,7 +48,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
@@ -54,11 +56,11 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L36' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -67,6 +69,8 @@ public class UniqueForSample
 <!-- snippet: UniqueForSampleNUnit -->
 <a id='snippet-uniqueforsamplenunit'/></a>
 ```cs
+using static VerifyNUnit.Verifier;
+
 [TestFixture]
 public class UniqueForSample
 {
@@ -75,7 +79,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
@@ -83,7 +87,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
@@ -91,11 +95,11 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L34' title='File snippet `uniqueforsamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Navigate to start of snippet `uniqueforsamplenunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L35' title='File snippet `uniqueforsamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Navigate to start of snippet `uniqueforsamplenunit`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -171,7 +175,7 @@ Usage:
 ```cs
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Verify;
+using VerifyTesting;
 using VerifyMSTest;
 
 [TestClass]
@@ -218,8 +222,8 @@ public class ExtensionSample :
 ```cs
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Verify;
-using VerifyNUnit;
+using VerifyTesting;
+using static VerifyNUnit.Verifier;
 
 [TestFixture]
 public class ExtensionSample
@@ -237,7 +241,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        await Verifier.Verify(
+        await Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -249,7 +253,7 @@ public class ExtensionSample
     [Test]
     public async Task SharedClassLevelSettings()
     {
-        await Verifier.Verify(
+        await Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
@@ -263,9 +267,10 @@ public class ExtensionSample
 <a id='snippet-ExtensionSample.cs-2'/></a>
 ```cs
 using System.Threading.Tasks;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
+using static VerifyXunit.Verifier;
 
 [UsesVerify]
 public class ExtensionSample
@@ -283,7 +288,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verifier.Verify(
+        return Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -295,7 +300,7 @@ public class ExtensionSample
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return  Verifier.Verify(
+        return Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
@@ -305,7 +310,7 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result in two files:

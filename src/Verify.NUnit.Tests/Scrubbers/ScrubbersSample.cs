@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using VerifyTesting;
-using VerifyNUnit;
 
 #region ScrubbersSampleNUnit
 using static VerifyNUnit.Verifier;

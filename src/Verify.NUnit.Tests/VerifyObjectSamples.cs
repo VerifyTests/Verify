@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using VerifyTesting;
+using VerifyTests;
 using VerifyNUnit;
 
 // Non-nullable field is uninitialized

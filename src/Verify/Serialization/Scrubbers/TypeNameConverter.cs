@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CSharp;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     public static class TypeNameConverter
     {

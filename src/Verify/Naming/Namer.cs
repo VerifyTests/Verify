@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     public class Namer
     {

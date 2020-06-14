@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using VerifyTesting;
+using VerifyTests;
 using static VerifyNUnit.Verifier;
 
 [TestFixture]

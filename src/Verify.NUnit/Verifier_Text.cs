@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using VerifyTesting;
+using VerifyTests;
 
 namespace VerifyNUnit
 {

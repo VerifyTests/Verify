@@ -3,7 +3,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     public static class ContractResolutionHelpers
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using EmptyFiles;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     partial class InnerVerifier
     {

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using VerifyTesting;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
 

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyTesting;
+using VerifyTests;
 
 namespace VerifyMSTest
 {

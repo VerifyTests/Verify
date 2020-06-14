@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyTesting;
+using VerifyTests;
 using VerifyMSTest;
 
 [TestClass]

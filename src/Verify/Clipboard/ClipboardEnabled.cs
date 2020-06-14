@@ -1,5 +1,5 @@
 ﻿using System;
-using VerifyTesting;
+using VerifyTests;
 
 static class ClipboardEnabled
 {

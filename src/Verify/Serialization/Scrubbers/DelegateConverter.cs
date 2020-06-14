@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
-using VerifyTesting;
+using VerifyTests;
 
 class DelegateConverter :
     WriteOnlyJsonConverter

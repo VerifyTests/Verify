@@ -3,7 +3,7 @@ using System;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using VerifyTesting;
+using VerifyTests;
 
 namespace VerifyMSTest
 {

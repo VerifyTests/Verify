@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     partial class InnerVerifier
     {

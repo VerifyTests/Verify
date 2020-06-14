@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using VerifyTesting;
+using VerifyTests;
 using VerifyMSTest;
 
 // Non-nullable field is uninitialized

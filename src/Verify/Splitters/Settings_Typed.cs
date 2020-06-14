@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     public static partial class VerifierSettings
     {

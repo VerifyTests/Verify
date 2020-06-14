@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using VerifyTesting;
+using VerifyTests;
 
 static class TestNameBuilder
 {

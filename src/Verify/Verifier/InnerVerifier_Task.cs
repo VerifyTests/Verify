@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     partial class InnerVerifier
     {

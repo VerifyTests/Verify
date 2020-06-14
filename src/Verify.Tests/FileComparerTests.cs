@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using VerifyTesting;
+using VerifyTests;
 using Xunit;
 
 public class FileComparerTests

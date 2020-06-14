@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using EmptyFiles;
-using VerifyTesting;
+using VerifyTests;
 
 static class FileComparer
 {

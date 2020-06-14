@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     public delegate Task FirstVerify(string receivedFile);
 }

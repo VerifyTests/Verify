@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     public static class ParameterSettings
     {

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace VerifyTesting
+namespace VerifyTests
 {
     partial class InnerVerifier
     {

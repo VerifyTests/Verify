@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework.Internal;
-using VerifyTesting;
+using VerifyTests;
 
 static class ModuleInitializer
 {

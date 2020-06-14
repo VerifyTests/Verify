@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using VerifyTesting;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
 // Non-nullable field is uninitialized.

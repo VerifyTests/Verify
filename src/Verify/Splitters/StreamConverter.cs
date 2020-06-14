@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using VerifyTesting;
+using VerifyTests;
 
 class StreamConverter
 {

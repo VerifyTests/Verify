@@ -1,4 +1,4 @@
-﻿using VerifyTesting;
+﻿using VerifyTests;
 using Xunit.Sdk;
 
 static class ModuleInitializer

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using VerifyTesting;
+using VerifyTests;
 
 class CustomContractResolver :
     DefaultContractResolver

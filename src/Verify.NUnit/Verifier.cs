@@ -2,6 +2,7 @@
 using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using VerifyTesting;
 
 namespace VerifyNUnit
 {

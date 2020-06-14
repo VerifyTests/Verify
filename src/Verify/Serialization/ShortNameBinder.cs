@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Serialization;
-using Verify;
+using VerifyTesting;
 
 class ShortNameBinder :
     ISerializationBinder

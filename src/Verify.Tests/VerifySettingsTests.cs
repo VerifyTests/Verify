@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Verify;
+using VerifyTesting;
 using Xunit;
 
 public class VerifySettingsTests

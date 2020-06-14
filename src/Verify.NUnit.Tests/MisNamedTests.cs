@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using VerifyNUnit;
+using static VerifyNUnit.Verifier;
 
 [TestFixture]
 public class DiffNamedTests
@@ -8,6 +8,6 @@ public class DiffNamedTests
     [Test]
     public Task ShouldPass()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Verify;
+using VerifyTesting;
 
 static class Comparer
 {

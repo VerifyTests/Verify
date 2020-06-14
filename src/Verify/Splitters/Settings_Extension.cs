@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Verify
+namespace VerifyTesting
 {
     public static partial class SharedVerifySettings
     {

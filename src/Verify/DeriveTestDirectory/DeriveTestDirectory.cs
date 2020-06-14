@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Verify
+namespace VerifyTesting
 {
     /// <summary>
     /// Used to use a custom directory to search for `.verified.` files.

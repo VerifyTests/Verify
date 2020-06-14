@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MyNamespace;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
 

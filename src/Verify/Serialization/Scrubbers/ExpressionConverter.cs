@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
-using Verify;
+using VerifyTesting;
 
 class ExpressionConverter :
     WriteOnlyJsonConverter

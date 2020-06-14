@@ -1,35 +1,37 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using Verify;
 
-partial class InnerVerifier
+namespace VerifyTesting
 {
-    public Task Verify(string target, VerifySettings? settings = null)
+    partial class InnerVerifier
     {
-        var builder = new StringBuilder(target);
-        builder.FixNewlines();
-        return Verify(builder, settings);
-    }
+        public Task Verify(string target, VerifySettings? settings = null)
+        {
+            var builder = new StringBuilder(target);
+            builder.FixNewlines();
+            return Verify(builder, settings);
+        }
 
-    async Task Verify(StringBuilder target, VerifySettings? settings)
-    {
-        Guard.AgainstNull(target, nameof(target));
-        settings = settings.OrDefault();
+        async Task Verify(StringBuilder target, VerifySettings? settings)
+        {
+            Guard.AgainstNull(target, nameof(target));
+            settings = settings.OrDefault();
 
-        var extension = settings.ExtensionOrTxt();
-        var engine = new VerifyEngine(
-            extension,
-            settings,
-            directory,
-            testName,
-            assembly);
+            var extension = settings.ExtensionOrTxt();
+            var engine = new VerifyEngine(
+                extension,
+                settings,
+                directory,
+                testName,
+                assembly);
 
-        var file = GetFileNames(extension, settings.Namer);
+            var file = GetFileNames(extension, settings.Namer);
 
-        ApplyScrubbers.Apply(target, settings.instanceScrubbers);
-        var s = target.ToString();
-        var result = await Comparer.Text(file, target, settings);
-        engine.HandleCompareResult(result, file);
-        await engine.ThrowIfRequired();
+            ApplyScrubbers.Apply(target, settings.instanceScrubbers);
+            var s = target.ToString();
+            var result = await Comparer.Text(file, target, settings);
+            engine.HandleCompareResult(result, file);
+            await engine.ThrowIfRequired();
+        }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
 
 #region ScrubberLevelsSampleXunit
+
+using static VerifyXunit.Verifier;
+
 [UsesVerify]
 public class ScrubberLevelsSample
 {
@@ -20,7 +23,7 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verifier.Verify("One Two Three", settings);
+        return Verify("One Two Three", settings);
     }
 
     static ScrubberLevelsSample()

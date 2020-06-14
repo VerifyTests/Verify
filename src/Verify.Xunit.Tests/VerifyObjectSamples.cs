@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
 

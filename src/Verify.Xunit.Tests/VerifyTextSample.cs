@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
+using static VerifyXunit.Verifier;
 
 [UsesVerify]
 public class VerifyTextSample
@@ -8,6 +9,6 @@ public class VerifyTextSample
     [Fact]
     public Task Simple()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 }

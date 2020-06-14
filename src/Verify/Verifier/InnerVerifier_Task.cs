@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Verify;
 
-partial class InnerVerifier
+namespace VerifyTesting
 {
-    public async Task Verify<T>(Task<T> task, VerifySettings? settings = null)
+    partial class InnerVerifier
     {
-        Guard.AgainstNull(task, nameof(task));
-        settings = settings.OrDefault();
-        var target = await task;
-        if (target == null)
+        public async Task Verify<T>(Task<T> task, VerifySettings? settings = null)
         {
-            throw new Exception("Task returned null.");
-        }
-
-        try
-        {
-            await Verify(target, settings);
-        }
-        finally
-        {
-            if (target is IAsyncDisposable asyncDisposable)
+            Guard.AgainstNull(task, nameof(task));
+            settings = settings.OrDefault();
+            var target = await task;
+            if (target == null)
             {
-                await asyncDisposable.DisposeAsync();
+                throw new Exception("Task returned null.");
             }
-            else if (target is IDisposable disposable)
+
+            try
             {
-                disposable.Dispose();
+                await Verify(target, settings);
+            }
+            finally
+            {
+                if (target is IAsyncDisposable asyncDisposable)
+                {
+                    await asyncDisposable.DisposeAsync();
+                }
+                else if (target is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
             }
         }
     }

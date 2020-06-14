@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Verify
+namespace VerifyTesting
 {
     public static class Scrubbers
     {

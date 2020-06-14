@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Verify;
+using VerifyTesting;
 
 class DateTimeConverter :
     WriteOnlyJsonConverter

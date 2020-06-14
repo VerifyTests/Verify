@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Shipwreck.Phash;
 using Shipwreck.Phash.Bitmaps;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 
 public class ComparerSnippets

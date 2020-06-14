@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
+using static VerifyXunit.Verifier;
 
 [UsesVerify]
 public class ExtensionSample
@@ -19,7 +20,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verifier.Verify(
+        return Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -31,7 +32,7 @@ public class ExtensionSample
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return  Verifier.Verify(
+        return Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",

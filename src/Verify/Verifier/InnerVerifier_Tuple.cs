@@ -3,16 +3,18 @@ using System;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Verify;
 
-partial class InnerVerifier
+namespace VerifyTesting
 {
-    public Task Verify(
-        Expression<Func<ITuple>> target,
-        VerifySettings? settings = null)
+    partial class InnerVerifier
     {
-        var dictionary = TupleConverter.ExpressionToDictionary(target);
-        return Verify(dictionary, settings);
+        public Task Verify(
+            Expression<Func<ITuple>> target,
+            VerifySettings? settings = null)
+        {
+            var dictionary = TupleConverter.ExpressionToDictionary(target);
+            return Verify(dictionary, settings);
+        }
     }
 }
 

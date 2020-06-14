@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Verify
+namespace VerifyTesting
 {
     public class ConversionResult
     {

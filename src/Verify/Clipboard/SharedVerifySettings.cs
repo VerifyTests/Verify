@@ -1,4 +1,4 @@
-﻿namespace Verify
+﻿namespace VerifyTesting
 {
     public static partial class SharedVerifySettings
     {

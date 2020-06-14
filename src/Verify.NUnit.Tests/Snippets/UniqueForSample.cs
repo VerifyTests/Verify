@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using Verify;
+using VerifyTesting;
 using VerifyNUnit;
 
 #region UniqueForSampleNUnit
+using static VerifyNUnit.Verifier;
+
 [TestFixture]
 public class UniqueForSample
 {
@@ -12,7 +14,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
@@ -20,7 +22,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
@@ -28,7 +30,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 }
 #endregion

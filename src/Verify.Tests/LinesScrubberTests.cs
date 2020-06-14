@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
 

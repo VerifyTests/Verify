@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using Verify;
+using VerifyTesting;
 using VerifyNUnit;
+using static VerifyNUnit.Verifier;
 
 [TestFixture]
 public class ExtensionSample
@@ -19,7 +20,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        await Verifier.Verify(
+        await Verify(
             target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
@@ -31,7 +32,7 @@ public class ExtensionSample
     [Test]
     public async Task SharedClassLevelSettings()
     {
-        await Verifier.Verify(
+        await Verify(
             target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",

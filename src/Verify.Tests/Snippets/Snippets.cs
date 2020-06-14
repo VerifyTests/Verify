@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using DiffEngine;
 using Newtonsoft.Json;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 
 public class Snippets

@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Verify
+namespace VerifyTesting
 {
     public static partial class SharedVerifySettings
     {

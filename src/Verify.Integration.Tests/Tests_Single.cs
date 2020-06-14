@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using DiffEngine;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
 

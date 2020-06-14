@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DiffEngine;
 using EmptyFiles;
-using Verify;
+using VerifyTesting;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;

@@ -1,4 +1,4 @@
-﻿using Verify;
+﻿using VerifyTesting;
 
 static class VerifySettingsEx
 {

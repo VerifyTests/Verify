@@ -1,4 +1,4 @@
-﻿using Verify;
+﻿using VerifyTesting;
 
 class TypeConverter
 {

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Verify
+namespace VerifyTesting
 {
     [DebuggerDisplay("IsEqual = {IsEqual} | Message = {Message}")]
     public readonly struct CompareResult

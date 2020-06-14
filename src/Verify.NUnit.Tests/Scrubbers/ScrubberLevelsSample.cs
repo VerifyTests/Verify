@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using Verify;
-using VerifyNUnit;
+using VerifyTesting;
 
 #region ScrubberLevelsSampleNUnit
+using static VerifyNUnit.Verifier;
+
 [TestFixture]
 public class ScrubberLevelsSample
 {
@@ -20,7 +21,7 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verifier.Verify("One Two Three", settings);
+        return Verify("One Two Three", settings);
     }
 
     [OneTimeSetUp]

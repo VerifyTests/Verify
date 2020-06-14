@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Verify
+namespace VerifyTesting
 {
     public delegate Task VerifyMismatch(string receivedFile, string verifiedFile, string? message);
 }

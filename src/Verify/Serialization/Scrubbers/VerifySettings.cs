@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Verify
+namespace VerifyTesting
 {
     public partial class VerifySettings
     {

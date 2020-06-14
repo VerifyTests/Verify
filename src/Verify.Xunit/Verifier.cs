@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Verify;
+using VerifyTesting;
 using Xunit.Sdk;
 
 namespace VerifyXunit

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Verify
+namespace VerifyTesting
 {
     public static partial class SharedVerifySettings
     {

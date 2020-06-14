@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VerifyTesting;
 
 static class ModuleInitializer
 {

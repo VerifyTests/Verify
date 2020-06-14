@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
 using EmptyFiles;
-using Verify;
+using VerifyTesting;
 
 [DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
 class VerifyEngine

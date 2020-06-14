@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Verify
+namespace VerifyTesting
 {
     public static partial class SharedVerifySettings
     {

@@ -3,6 +3,8 @@ using VerifyXunit;
 using Xunit;
 
 #region SampleTestXunit
+using static VerifyXunit.Verifier;
+
 [UsesVerify]
 public class Sample
 {
@@ -10,7 +12,7 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verifier.Verify(person);
+        return Verify(person);
     }
 }
 #endregion

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Verify;
+using VerifyTesting;
 
 static class FileNameBuilder
 {

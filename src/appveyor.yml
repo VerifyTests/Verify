@@ -3,7 +3,7 @@ image:
 - Visual Studio 2019
 skip_commits:
   message: /doco|Merge pull request.*/
-install:
+init:
 - ps: >-
     appveyor DownloadFile https://dot.net/v1/dotnet-install.ps1
 

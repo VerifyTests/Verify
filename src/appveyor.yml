@@ -1,19 +1,10 @@
 image:
-- macos
-- Visual Studio 2019
+#- macos
+- Visual Studio 2019 Preview
 skip_commits:
   message: /doco|Merge pull request.*/
-init:
-- ps: >-
-    (new-object net.webclient).DownloadFile('https://dot.net/v1/dotnet-install.ps1', "C:/dotnet-install.ps1")
-
-    powershell -NoProfile -NoLogo -ExecutionPolicy Unrestricted -Command "C:\dotnet-install.ps1 --Version 5.0.100-preview.5.20279.10"
 build_script:
 - ps: >-
-    Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "C:/dotnet-install.ps1"
-
-    C:/dotnet-install.ps1 --Version 5.0.100-preview.5.20279.10"
-
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore

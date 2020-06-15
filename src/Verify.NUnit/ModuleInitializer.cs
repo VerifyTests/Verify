@@ -1,10 +1,10 @@
-﻿using NUnit.Framework.Internal;
+﻿using NUnit.Framework;
 using VerifyTests;
 
 static class ModuleInitializer
 {
     public static void Initialize()
     {
-        InnerVerifier.Init(message => new NUnitException(message));
+        InnerVerifier.Init(message => new AssertionException(message));
     }
 }

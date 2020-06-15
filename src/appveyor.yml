@@ -5,6 +5,10 @@ skip_commits:
   message: /doco|Merge pull request.*/
 build_script:
 - ps: >-
+    appveyor DownloadFile https://dot.net/v1/dotnet-install.ps1
+
+    powershell -NoProfile -NoLogo -ExecutionPolicy Unrestricted -Command ".\dotnet-install.ps1 --Version 5.0.100-preview.5.20279.10
+
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
+using Xunit.Sdk;
 
 [UsesVerify]
 public class ClipboardEnabledTests
@@ -17,7 +18,7 @@ public class ClipboardEnabledTests
     [Fact]
     public Task ParseEnvironmentVariable_failure()
     {
-        var exception = Assert.Throws<Exception>(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
+        var exception = Assert.Throws<XunitException>(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
         return Verifier.Verify(exception);
     }
 }

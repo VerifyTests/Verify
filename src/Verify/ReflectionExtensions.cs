@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using VerifyTests;
 
 static class ReflectionExtensions
 {
@@ -19,6 +20,6 @@ static class ReflectionExtensions
         {
             return methodInfo;
         }
-        throw new Exception($"Method `{method}` not found on type `{type.Name}`.");
+        throw InnerVerifier.exceptionBuilder($"Method `{method}` not found on type `{type.Name}`.");
     }
 }

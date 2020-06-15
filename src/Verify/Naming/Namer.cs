@@ -45,7 +45,7 @@ namespace VerifyTests
                 return ("Core", Environment.Version);
             }
 
-            throw new Exception($"Could not resolve runtime for '{description}'.");
+            throw InnerVerifier.exceptionBuilder($"Could not resolve runtime for '{description}'.");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,7 +57,7 @@ namespace VerifyTests
                 return settings;
             }
 
-            throw new Exception("No extension defined.");
+            throw exceptionBuilder("No extension defined.");
         }
     }
 }

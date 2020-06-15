@@ -1,5 +1,5 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
+using VerifyTests;
 
 static class AttributeConfigReader
 {
@@ -11,6 +11,6 @@ static class AttributeConfigReader
             return attribute.Configuration;
         }
 
-        throw new Exception("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
+        throw InnerVerifier.exceptionBuilder("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
     }
 }

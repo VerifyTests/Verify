@@ -12,7 +12,7 @@ namespace VerifyTests
             var target = await task;
             if (target == null)
             {
-                throw new Exception("Task returned null.");
+                throw exceptionBuilder("Task returned null.");
             }
 
             try

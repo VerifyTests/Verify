@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using VerifyTests;
 
 static class ReflectionHelpers
 {
@@ -60,6 +61,6 @@ static class ReflectionHelpers
             return (T) fieldInfo.GetValue(instance);
         }
 
-        throw new Exception($"No supported MemberType: {member.MemberType}");
+        throw InnerVerifier.exceptionBuilder($"No supported MemberType: {member.MemberType}");
     }
 }

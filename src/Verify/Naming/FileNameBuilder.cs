@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Text;
 using VerifyTests;
@@ -53,7 +52,7 @@ static class FileNameBuilder
         {
             if (assembly == null)
             {
-                throw new Exception("`UniqueForAssemblyConfiguration` requires `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` to be called at assembly startup.");
+                throw InnerVerifier.exceptionBuilder("`UniqueForAssemblyConfiguration` requires `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` to be called at assembly startup.");
             }
             builder.Append($".{assembly.GetAttributeConfiguration()}");
         }

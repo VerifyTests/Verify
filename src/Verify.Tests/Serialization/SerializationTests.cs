@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
+using Xunit.Sdk;
+
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
@@ -793,7 +795,7 @@ public class SerializationTests
     [Fact]
     public async Task Tuple()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithTuple()));
+        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify(() => MethodWithTuple()));
         await Verifier.Verify(exception.Message);
     }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -21,7 +20,7 @@ namespace VerifyTests
                 ?.Value;
             if (projectDirectory == null)
             {
-                throw new Exception("Using `DeriveTestDirectory` requires that the test assembly be initialized at assembly load time. Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());`.");
+                throw InnerVerifier.exceptionBuilder("Using `DeriveTestDirectory` requires that the test assembly be initialized at assembly load time. Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());`.");
             }
             var directory = deriveDirectory(sourceFile, projectDirectory);
             if (directory == null)

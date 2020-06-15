@@ -82,7 +82,7 @@ public partial class Tests :
                 message = "Expected command not running";
             }
 
-            throw new Exception($@"{message}
+            throw InnerVerifier.exceptionBuilder($@"{message}
 {command}
 Commands:
 {commands}");

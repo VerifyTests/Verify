@@ -21,7 +21,7 @@ namespace VerifyTests
             {
                 return settingsParameters;
             }
-            throw new Exception($@"Method `{methodInfo.DeclaringType.Name}.{methodInfo.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
+            throw InnerVerifier.exceptionBuilder($@"Method `{methodInfo.DeclaringType.Name}.{methodInfo.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 var settings = new VerifySettings();
 settings.UseParameters({string.Join(", ", methodParameters.Select(x => x.Name))});
 await Verifier.Verify(target, settings);");

@@ -45,6 +45,11 @@ namespace VerifyTests
                 return ("Core", Environment.Version);
             }
 
+            if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
+            {
+                return ("DotNet", Environment.Version);
+            }
+
             throw InnerVerifier.exceptionBuilder($"Could not resolve runtime for '{description}'.");
         }
     }

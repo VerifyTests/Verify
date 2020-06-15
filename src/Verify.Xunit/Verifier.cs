@@ -11,7 +11,7 @@ namespace VerifyXunit
             var className = Path.GetFileNameWithoutExtension(sourceFile);
             if (!UsesVerifyAttribute.TryGet(out var info))
             {
-                throw new XunitException($"Expected to find a `[{nameof(UsesVerifyAttribute)}]` on `{className}`.");
+                throw new XunitException($"Expected to find a `[UsesVerify]` on `{className}`.");
             }
 
             var parameters = settings.GetParameters(info!);

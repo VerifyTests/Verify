@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
 static class Guard
 {
@@ -39,7 +38,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullOrEmpty(object[] value, string argumentName)
+    public static void AgainstNullOrEmpty(object?[] value, string argumentName)
     {
         if (value == null)
         {
@@ -49,11 +48,6 @@ static class Guard
         if (value.Length == 0)
         {
             throw new ArgumentNullException(argumentName, "Argument cannot be empty.");
-        }
-
-        if (value.Any(item => item == null))
-        {
-            throw new ArgumentNullException(argumentName);
         }
     }
 

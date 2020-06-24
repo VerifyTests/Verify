@@ -6,6 +6,11 @@ namespace VerifyXunit
 {
     public static partial class Verifier
     {
+        static Verifier()
+        {
+            InnerVerifier.Init(message => new XunitException(message));
+        }
+
         static InnerVerifier GetVerifier(string sourceFile, VerifySettings? settings)
         {
             var className = Path.GetFileNameWithoutExtension(sourceFile);

@@ -10,8 +10,6 @@
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.MSTest.targets" />
     <Content Include="build.targets" PackagePath="build\Verify.MSTest.targets" />
     <PackageReference Include="EmptyFiles" Version="2.0.3" PrivateAssets="None" />
-    <PackageReference Include="Fody" Version="6.2.0" PrivateAssets="all" />
-    <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />

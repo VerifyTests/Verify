@@ -8,6 +8,11 @@ namespace VerifyNUnit
 {
     public static partial class Verifier
     {
+        static Verifier()
+        {
+            InnerVerifier.Init(message => new AssertionException(message));
+        }
+
         static FieldInfo field = typeof(TestContext.TestAdapter)
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
 

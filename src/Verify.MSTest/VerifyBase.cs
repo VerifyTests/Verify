@@ -6,11 +6,6 @@ namespace VerifyMSTest
 {
     public partial class VerifyBase
     {
-        static VerifyBase()
-        {
-            InnerVerifier.Init(message => new AssertFailedException(message));
-        }
-
         public TestContext TestContext { get; set; } = null!;
 
         InnerVerifier BuildVerifier(string sourceFile, VerifySettings? settings)

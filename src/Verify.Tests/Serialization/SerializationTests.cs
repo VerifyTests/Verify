@@ -298,7 +298,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubCodeBaseLocation()
     {
-        return Verifier.Verify(CodeBaseLocation.CurrentDirectory.TrimEnd('/', '\\'));
+        return Verifier.Verify(CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\'));
     }
 
     [Fact]

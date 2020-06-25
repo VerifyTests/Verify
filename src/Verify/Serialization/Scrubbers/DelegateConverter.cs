@@ -21,7 +21,7 @@ class DelegateConverter :
         writer.WritePropertyName("Target");
         writer.WriteValue(TypeNameConverter.GetName(@delegate.Method.DeclaringType!));
         writer.WritePropertyName("Method");
-        var s = @delegate.Method.ToString();
+        var s = @delegate.Method.ToString()!;
         writer.WriteValue(CleanMethodName(s));
         writer.WriteEndObject();
     }

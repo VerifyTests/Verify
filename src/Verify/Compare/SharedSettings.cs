@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace VerifyTests
 {
@@ -6,7 +7,7 @@ namespace VerifyTests
     {
         static Dictionary<string, Compare> comparers = new Dictionary<string, Compare>();
 
-        internal static bool TryGetComparer(string extension, out Compare comparer)
+        internal static bool TryGetComparer(string extension, [NotNullWhen(true)] out Compare? comparer)
         {
             return comparers.TryGetValue(extension, out comparer);
         }

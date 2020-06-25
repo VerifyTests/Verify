@@ -25,7 +25,7 @@ namespace VerifyTests
             var directory = deriveDirectory(sourceFile, projectDirectory);
             if (directory == null)
             {
-                return Path.GetDirectoryName(sourceFile);
+                return Path.GetDirectoryName(sourceFile)!;
             }
             return directory;
         }

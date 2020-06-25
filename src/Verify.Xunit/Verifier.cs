@@ -14,10 +14,10 @@ namespace VerifyXunit
                 throw new XunitException($"Expected to find a `[UsesVerify]` on `{className}`.");
             }
 
-            var parameters = settings.GetParameters(info!);
+            var parameters = settings.GetParameters(info);
 
-            var name = TestNameBuilder.GetUniqueTestName(className, info!, parameters);
-            return new InnerVerifier(name, sourceFile, info!.DeclaringType.Assembly);
+            var name = TestNameBuilder.GetUniqueTestName(className, info, parameters);
+            return new InnerVerifier(name, sourceFile, info.DeclaringType!.Assembly);
         }
     }
 }

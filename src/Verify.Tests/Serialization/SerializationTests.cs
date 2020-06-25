@@ -351,6 +351,28 @@ public class SerializationTests
     #endregion
 
     [Fact]
+    public async Task PartialNamedTuple()
+    {
+        await Verifier.Verify(() => MethodWithPartialNamedTuple());
+    }
+
+    static (bool, string Member2, string Member3) MethodWithPartialNamedTuple()
+    {
+        return (true, "A", "B");
+    }
+
+    [Fact]
+    public async Task NamedTupleWithNull()
+    {
+        await Verifier.Verify(() => MethodWithNamedTupleWithNull());
+    }
+
+    static (string Member1, string? Member2) MethodWithNamedTupleWithNull()
+    {
+        return ("A", null);
+    }
+
+    [Fact]
     public async Task ShouldReUseGuid()
     {
         #region guid

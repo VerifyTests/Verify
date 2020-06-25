@@ -9,18 +9,25 @@ using VerifyTests;
 
 static class TupleConverter
 {
-    public static Dictionary<string, object> ExpressionToDictionary(Expression<Func<ITuple>> expression)
+    public static Dictionary<string, object?> ExpressionToDictionary(Expression<Func<ITuple>> expression)
     {
         var unaryExpression = (UnaryExpression) expression.Body;
         var methodCallExpression = (MethodCallExpression) unaryExpression.Operand;
         var method = methodCallExpression.Method;
         var attribute = ReadTupleElementNamesAttribute(method);
-        var dictionary = new Dictionary<string, object>();
+        var dictionary = new Dictionary<string, object?>();
         var result = expression.Compile().Invoke();
         for (var index = 0; index < attribute.TransformNames.Count; index++)
         {
             var transformName = attribute.TransformNames[index];
-            dictionary.Add(transformName, result[index]);
+            if (transformName == null)
+            {
+                dictionary.Add($"param{index+1}", result[index]);
+            }
+            else
+            {
+                dictionary.Add(transformName, result[index]);
+            }
         }
 
         return dictionary;

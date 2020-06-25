@@ -14,7 +14,10 @@ static class ApplyScrubbers
     {
         currentDirectoryReplacements.Add(CleanPath(AppDomain.CurrentDomain.BaseDirectory));
         currentDirectoryReplacements.Add(CleanPath(Environment.CurrentDirectory));
-        currentDirectoryReplacements.Add(CleanPath(CodeBaseLocation.CurrentDirectory));
+        if (CodeBaseLocation.CurrentDirectory != null)
+        {
+            currentDirectoryReplacements.Add(CleanPath(CodeBaseLocation.CurrentDirectory));
+        }
         tempPath = CleanPath(Path.GetTempPath());
     }
 

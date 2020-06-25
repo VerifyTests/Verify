@@ -7,11 +7,14 @@ static class CodeBaseLocation
     {
         var assembly = typeof(CodeBaseLocation).Assembly;
 
-        var uri = new UriBuilder(assembly.CodeBase);
-        var path = Uri.UnescapeDataString(uri.Path);
+        if (assembly.CodeBase != null)
+        {
+            var uri = new UriBuilder(assembly.CodeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
 
-        CurrentDirectory = Path.GetDirectoryName(path);
+            CurrentDirectory = Path.GetDirectoryName(path);
+        }
     }
 
-    public static string CurrentDirectory;
+    public static string? CurrentDirectory;
 }

@@ -58,6 +58,7 @@ class CustomContractResolver :
                     return result;
                 }
             }
+
             if (keyType == typeof(DateTimeOffset))
             {
                 if (scrubber.TryParseConvertDateTimeOffset(value, out var result))
@@ -65,6 +66,7 @@ class CustomContractResolver :
                     return result;
                 }
             }
+
             if (keyType == typeof(DateTime))
             {
                 if (scrubber.TryParseConvertDateTime(value, out var result))
@@ -72,6 +74,7 @@ class CustomContractResolver :
                     return result;
                 }
             }
+
             if (keyType == typeof(Type))
             {
                 return TypeNameConverter.GetName(Type.GetType(value));
@@ -79,9 +82,9 @@ class CustomContractResolver :
 
             return value;
         };
+
         return contract;
     }
-
 
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
     {

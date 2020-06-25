@@ -77,7 +77,13 @@ class CustomContractResolver :
 
             if (keyType == typeof(Type))
             {
-                return TypeNameConverter.GetName(Type.GetType(value));
+                var type = Type.GetType(value);
+                if (type == null)
+                {
+                    throw new Exception($"Could not load type `{value}`.");
+                }
+
+                return TypeNameConverter.GetName(type);
             }
 
             return value;

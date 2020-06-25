@@ -12,7 +12,7 @@ namespace VerifyTests
         {
             if (deriveDirectory == null)
             {
-                return Path.GetDirectoryName(sourceFile);
+                return Path.GetDirectoryName(sourceFile)!;
             }
 
             var projectDirectory = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()

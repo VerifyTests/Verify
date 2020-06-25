@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace VerifyTests
     {
         static Dictionary<string, StreamConverter> extensionConverters = new Dictionary<string, StreamConverter>();
 
-        internal static bool TryGetConverter(string extension, out StreamConverter converter)
+        internal static bool TryGetConverter(string extension, [NotNullWhen(true)] out StreamConverter? converter)
         {
             return extensionConverters.TryGetValue(extension, out converter);
         }

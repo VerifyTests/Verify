@@ -53,12 +53,12 @@ static class ReflectionHelpers
         // this value could be in a public field or public property
         if (member is PropertyInfo propertyInfo)
         {
-            return (T) propertyInfo.GetValue(instance, null);
+            return (T) propertyInfo.GetValue(instance, null)!;
         }
 
         if (member is FieldInfo fieldInfo)
         {
-            return (T) fieldInfo.GetValue(instance);
+            return (T) fieldInfo.GetValue(instance)!;
         }
 
         throw InnerVerifier.exceptionBuilder($"No supported MemberType: {member.MemberType}");

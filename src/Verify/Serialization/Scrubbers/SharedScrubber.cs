@@ -176,12 +176,12 @@ class SharedScrubber
         if (scrubInlineGuids)
         {
             var guids = Regex.Matches(value);
-            if (guids.Count > 0)
+            if (guids != null && guids.Count > 0)
             {
                 result = value;
-                foreach (var id in guids)
+                foreach (Match? id in guids)
                 {
-                    var stringGuid = id.ToString();
+                    var stringGuid = id!.Value;
                     var guid = Guid.Parse(stringGuid);
                     var convertedGuid = Convert(guid);
 

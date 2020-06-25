@@ -42,11 +42,11 @@ namespace VerifyTests
             };
         }
 
-        public void IgnoreMember<T>(Expression<Func<T, object>> expression)
+        public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
         {
             Guard.AgainstNull(expression, nameof(expression));
             var member = expression.FindMember();
-            IgnoreMember(member.DeclaringType, member.Name);
+            IgnoreMember(member.DeclaringType!, member.Name);
         }
 
         public void IgnoreMember(Type declaringType, string name)

@@ -29,7 +29,12 @@ namespace VerifyTests
                 }
             }
 
-            return parameter!.ToString();
+            var nameForParameter = parameter!.ToString();
+            if (nameForParameter == null)
+            {
+                throw new Exception($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+            }
+            return nameForParameter;
         }
 
         public static void UniqueForAssemblyConfiguration()

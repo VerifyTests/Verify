@@ -20,7 +20,7 @@ static class LinesScrubber
         var theString = input.ToString();
         using var reader = new StringReader(theString);
         input.Clear();
-        string line;
+        string? line;
         while ((line = reader.ReadLine()) != null)
         {
             input.Append(replaceLine(line));
@@ -41,7 +41,7 @@ static class LinesScrubber
         using var reader = new StringReader(theString);
         input.Clear();
 
-        string line;
+        string? line;
         while ((line = reader.ReadLine()) != null)
         {
             if (removeLine(line))

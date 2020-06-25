@@ -13,7 +13,7 @@ class StringWriterEx :
         base.NewLine = "\n";
     }
 
-    public override void Write(string value)
+    public override void Write(string? value)
     {
         if (newLineEscapingDisabled && value == "\\n")
         {

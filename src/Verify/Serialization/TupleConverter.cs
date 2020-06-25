@@ -28,7 +28,7 @@ static class TupleConverter
 
     static TupleElementNamesAttribute ReadTupleElementNamesAttribute(MethodInfo method)
     {
-        var attribute = (TupleElementNamesAttribute) method.ReturnTypeCustomAttributes
+        var attribute = (TupleElementNamesAttribute?) method.ReturnTypeCustomAttributes
             .GetCustomAttributes(typeof(TupleElementNamesAttribute), false)
             .SingleOrDefault();
         if (attribute != null)

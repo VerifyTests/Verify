@@ -2,6 +2,7 @@
 using System.Threading;
 
 abstract class Counter<T>
+    where T : struct
 {
     ConcurrentDictionary<T, int> cache = new ConcurrentDictionary<T, int>();
     int current;

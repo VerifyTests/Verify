@@ -50,6 +50,13 @@ snippet: RegisterFileConverterExtension
 snippet: FileConverterExtensionVerify
 
 
+### Cleanup
+
+If cleanup needs to occur after verification a callback can be passes to `ConversionResult`:
+
+snippet: ConversionResultWithCleanup
+
+
 ## Shipping
 
 Converters can be shipped as NuGet packages:

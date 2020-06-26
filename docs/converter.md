@@ -146,6 +146,26 @@ await Verifier.VerifyFile("sample.tif");
 <!-- endsnippet -->
 
 
+### Cleanup
+
+If cleanup needs to occur after verification a callback can be passes to `ConversionResult`:
+
+<!-- snippet: ConversionResultWithCleanup -->
+<a id='snippet-conversionresultwithcleanup'/></a>
+```cs
+return new ConversionResult(
+    info: info,
+    stream: File.OpenRead(filePath),
+    cleanup: () =>
+    {
+        File.Delete(filePath);
+        return Task.CompletedTask;
+    });
+```
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L115-L124' title='File snippet `conversionresultwithcleanup` was extracted from'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Navigate to start of snippet `conversionresultwithcleanup`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
 ## Shipping
 
 Converters can be shipped as NuGet packages:

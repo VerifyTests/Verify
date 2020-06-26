@@ -19,7 +19,7 @@ namespace VerifyTests
             {
                 var converterSettings = GetConverterSettings(settings, converter);
                 var result = await converter.Conversion(target!, converterSettings);
-                await VerifyBinary(result.Streams, converterSettings, result.Info);
+                await VerifyBinary(result.Streams, converterSettings, result.Info, result.Cleanup);
                 return;
             }
 
@@ -32,7 +32,7 @@ namespace VerifyTests
             if (typeof(T).ImplementsStreamEnumerable())
             {
                 var enumerable = (IEnumerable) target!;
-                await VerifyBinary(enumerable.Cast<Stream>(), settings, null);
+                await VerifyBinary(enumerable.Cast<Stream>(), settings, null, null);
                 return;
             }
 

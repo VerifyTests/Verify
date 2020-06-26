@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace VerifyTests
         async Task VerifyStream(VerifySettings settings, Stream stream)
         {
 #if NETSTANDARD2_1
-        await using (stream)
+            await using (stream)
 #else
             using (stream)
 #endif
@@ -30,16 +31,16 @@ namespace VerifyTests
                         var converterSettings = new VerifySettings(settings);
                         converterSettings.UseExtension(converter.ToExtension);
                         var result = await converter.Conversion(stream, converterSettings);
-                        await VerifyBinary(result.Streams, converterSettings, result.Info);
+                        await VerifyBinary(result.Streams, converterSettings, result.Info, result.Cleanup);
                         return;
                     }
                 }
 
-                await VerifyBinary(new List<Stream> {stream}, settings, null);
+                await VerifyBinary(new List<Stream> {stream}, settings, null, null);
             }
         }
 
-        async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings, object? info)
+        async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings, object? info, Func<Task>? cleanup)
         {
             var extension = settings.ExtensionOrBin();
             var engine = new VerifyEngine(
@@ -59,6 +60,10 @@ namespace VerifyTests
                 engine.HandleCompareResult(result, file);
             }
 
+            if (cleanup != null)
+            {
+                await cleanup.Invoke();
+            }
             await engine.ThrowIfRequired();
         }
 

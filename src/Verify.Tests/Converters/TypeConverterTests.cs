@@ -1,5 +1,4 @@
-﻿#if(NETCOREAPP3_1)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -99,6 +98,40 @@ public class TypeConverterTests
     }
 
     public class ClassToSplit2
+    {
+        public string Value { get; set; } = null!;
+    }
+
+    [Fact]
+    public async Task WithStreamRequiringCleanup()
+    {
+        object? info = null;
+        var filePath = "WithStreamRequiringCleanup.tmp";
+        await File.WriteAllTextAsync(filePath, "FileContent");
+        VerifierSettings.RegisterFileConverter<TargetForCleanup>(
+            "txt",
+            (instance, _) =>
+            {
+                #region ConversionResultWithCleanup
+                return new ConversionResult(
+                    info: info,
+                    stream: File.OpenRead(filePath),
+                    cleanup: () =>
+                    {
+                        File.Delete(filePath);
+                        return Task.CompletedTask;
+                    });
+                #endregion
+            });
+        var target = new TargetForCleanup
+        {
+            Value = "line1"
+        };
+        await Verifier.Verify(target);
+        Assert.False(File.Exists(filePath));
+    }
+
+    public class TargetForCleanup
     {
         public string Value { get; set; } = null!;
     }
@@ -232,4 +265,3 @@ public class TypeConverterTests
         yield return stream;
     }
 }
-#endif

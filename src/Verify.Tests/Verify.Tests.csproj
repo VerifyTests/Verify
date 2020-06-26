@@ -5,9 +5,6 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <TargetFrameworks>netcoreapp3.1;net48</TargetFrameworks>
-  </PropertyGroup>
   <ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
     <Compile Remove="Converters\TypeConverterTests.cs" />
   </ItemGroup>

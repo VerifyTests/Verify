@@ -1,5 +1,1 @@
-{
-  param1: true,
-  Member2: 'A',
-  Member3: 'B'
-}
+Only tuples with all parts are named can be used.

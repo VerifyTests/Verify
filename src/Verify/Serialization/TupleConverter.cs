@@ -22,12 +22,10 @@ static class TupleConverter
             var transformName = attribute.TransformNames[index];
             if (transformName == null)
             {
-                dictionary.Add($"param{index+1}", result[index]);
+                throw new Exception("Only tuples with all parts are named can be used.");
             }
-            else
-            {
-                dictionary.Add(transformName, result[index]);
-            }
+
+            dictionary.Add(transformName, result[index]);
         }
 
         return dictionary;

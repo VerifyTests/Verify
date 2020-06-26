@@ -353,7 +353,8 @@ public class SerializationTests
     [Fact]
     public async Task PartialNamedTuple()
     {
-        await Verifier.Verify(() => MethodWithPartialNamedTuple());
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithPartialNamedTuple()));
+        await Verifier.Verify(exception.Message);
     }
 
     static (bool, string Member2, string Member3) MethodWithPartialNamedTuple()

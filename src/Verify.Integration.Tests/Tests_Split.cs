@@ -18,8 +18,8 @@ public partial class Tests
         bool hasExistingReceived,
         bool autoVerify)
     {
-        TypeToSplit initialTarget = new TypeToSplit("info1", "value1", "value2");
-        TypeToSplit secondTarget = new TypeToSplit("info2", "value1.1", "value2.1");
+        var initialTarget = new TypeToSplit("info1", "value1", "value2");
+        var secondTarget = new TypeToSplit("info2", "value1.1", "value2.1");
         var settings = new VerifySettings();
         if (autoVerify)
         {

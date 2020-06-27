@@ -40,6 +40,7 @@ public partial class Tests :
             "txt",
             (split, settings) => new ConversionResult(
                 split.Info,
+                "txt",
                 new List<Stream>
                 {
                     new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1)),

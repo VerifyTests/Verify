@@ -19,7 +19,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "txt", streams);
             });
 
         var target = new InheritedClass
@@ -47,7 +47,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "txt", streams);
             });
 
         var target = new ClassToSplit3
@@ -80,29 +80,6 @@ public class TypeConverterTests
     }
 
     [Fact]
-    public Task ConvertWithExtInSettings()
-    {
-        VerifierSettings.RegisterFileConverter<ClassToSplit2>(
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
-            });
-        var target = new ClassToSplit2
-        {
-            Value = "line1"
-        };
-        var settings = new VerifySettings();
-        settings.UseExtension("txt");
-        return Verifier.Verify(target, settings);
-    }
-
-    public class ClassToSplit2
-    {
-        public string Value { get; set; } = null!;
-    }
-
-    [Fact]
     public async Task WithStreamRequiringCleanup()
     {
         object? info = null;
@@ -115,6 +92,7 @@ public class TypeConverterTests
                 #region ConversionResultWithCleanup
                 return new ConversionResult(
                     info: info,
+                    "txt",
                     stream: File.OpenRead(filePath),
                     cleanup: () =>
                     {
@@ -144,7 +122,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "txt", streams);
             });
         var target = new ClassToSplit
         {
@@ -166,7 +144,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "txt", streams);
             },
             o => o.Value == "Valid");
         var target = new CanConvertTarget
@@ -184,7 +162,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "txt", streams);
             },
             o => o.Value == "Valid");
         var target = new CanConvertTarget
@@ -211,7 +189,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, streams);
+                return new ConversionResult(info, "png", streams);
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -232,7 +210,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, streams);
+                return new ConversionResult(info, "png", streams);
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -250,7 +228,7 @@ public class TypeConverterTests
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "png", streams);
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");

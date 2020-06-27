@@ -74,10 +74,11 @@ VerifierSettings.RegisterFileConverter<Image>(
                 image.PixelFormat,
                 image.Size
             },
+            streamExtension: "png",
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L17-L46' title='File snippet `registerfileconvertertype` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Navigate to start of snippet `registerfileconvertertype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L17-L47' title='File snippet `registerfileconvertertype` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Navigate to start of snippet `registerfileconvertertype`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterTypeVerify -->
@@ -86,7 +87,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 await using var stream = File.OpenRead("sample.tif");
 await Verifier.Verify(Image.FromStream(stream));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L50' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L48-L51' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
@@ -131,10 +132,11 @@ VerifierSettings.RegisterFileConverter(
                 image.PixelFormat,
                 image.Size
             },
+            streamExtension: "png",
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L84' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L57-L86' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
@@ -142,7 +144,7 @@ VerifierSettings.RegisterFileConverter(
 ```cs
 await Verifier.VerifyFile("sample.tif");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L85-L87' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L87-L89' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -155,6 +157,7 @@ If cleanup needs to occur after verification a callback can be passes to `Conver
 ```cs
 return new ConversionResult(
     info: info,
+    "txt",
     stream: File.OpenRead(filePath),
     cleanup: () =>
     {
@@ -162,7 +165,7 @@ return new ConversionResult(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L115-L124' title='File snippet `conversionresultwithcleanup` was extracted from'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Navigate to start of snippet `conversionresultwithcleanup`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L92-L102' title='File snippet `conversionresultwithcleanup` was extracted from'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Navigate to start of snippet `conversionresultwithcleanup`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

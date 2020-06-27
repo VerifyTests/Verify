@@ -40,6 +40,7 @@ public class ConverterSnippets
                         image.PixelFormat,
                         image.Size
                     },
+                    streamExtension: "png",
                     streams);
             });
 
@@ -78,6 +79,7 @@ public class ConverterSnippets
                         image.PixelFormat,
                         image.Size
                     },
+                    streamExtension: "png",
                     streams);
             });
 

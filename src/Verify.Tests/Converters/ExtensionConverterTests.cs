@@ -17,7 +17,7 @@ public class ExtensionConverterTests
         VerifierSettings.RegisterFileConverter(
             "split",
             "txt",
-            (stream, _) => new ConversionResult(null, stream));
+            (stream, _) => new ConversionResult(null, "txt", stream));
         var settings = new VerifySettings();
         settings.UseExtension("txt");
         return Verifier.Verify(FileHelpers.OpenRead("sample.split"), settings);
@@ -32,7 +32,7 @@ public class ExtensionConverterTests
             (stream, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, "png", streams);
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -48,7 +48,7 @@ public class ExtensionConverterTests
             (stream, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(stream);
-                return Task.FromResult(new ConversionResult(null, streams));
+                return Task.FromResult(new ConversionResult(null, "png", streams));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -68,7 +68,7 @@ public class ExtensionConverterTests
                     Property ="Value"
                 };
                 var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(info, streams);
+                return new ConversionResult(info, "png", streams);
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");

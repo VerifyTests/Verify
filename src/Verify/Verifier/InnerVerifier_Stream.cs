@@ -31,18 +31,17 @@ namespace VerifyTests
                         var converterSettings = new VerifySettings(settings);
                         converterSettings.UseExtension(converter.ToExtension);
                         var result = await converter.Conversion(stream, converterSettings);
-                        await VerifyBinary(result.Streams, converterSettings, result.Info, result.Cleanup);
+                        await VerifyBinary(result.Streams,result.StreamExtension, converterSettings, result.Info, result.Cleanup);
                         return;
                     }
                 }
 
-                await VerifyBinary(new List<Stream> {stream}, settings, null, null);
+                await VerifyBinary(new List<Stream> {stream},settings.ExtensionOrBin(), settings, null, null);
             }
         }
 
-        async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings, object? info, Func<Task>? cleanup)
+        async Task VerifyBinary(IEnumerable<Stream> streams, string extension, VerifySettings settings, object? info, Func<Task>? cleanup)
         {
-            var extension = settings.ExtensionOrBin();
             var engine = new VerifyEngine(
                 extension,
                 settings,

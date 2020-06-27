@@ -16,7 +16,6 @@ public class ConverterSnippets
     {
         #region RegisterFileConverterType
         VerifierSettings.RegisterFileConverter<Image>(
-            toExtension: "png",
             #region ConverterCanConvert
             canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
             #endregion

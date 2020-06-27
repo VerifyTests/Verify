@@ -15,7 +15,6 @@ public class TypeConverterTests
     public Task Inherited()
     {
         VerifierSettings.RegisterFileConverter<ParentClass>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
@@ -23,34 +22,6 @@ public class TypeConverterTests
             });
 
         var target = new InheritedClass
-        {
-            Value = "line1"
-        };
-        var settings = new VerifySettings();
-        settings.UseExtension("txt");
-        return Verifier.Verify(target, settings);
-    }
-
-    [Fact]
-    public Task DifferingExtensions()
-    {
-        VerifierSettings.RegisterFileConverter<ClassToSplit3>(
-            "notTxt",
-            async (classToSplit, _) =>
-            {
-                await Task.Delay(1);
-                throw new Exception();
-            });
-
-        VerifierSettings.RegisterFileConverter<ClassToSplit3>(
-            "txt",
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, "txt", streams);
-            });
-
-        var target = new ClassToSplit3
         {
             Value = "line1"
         };
@@ -86,7 +57,6 @@ public class TypeConverterTests
         var filePath = "WithStreamRequiringCleanup.tmp";
         await File.WriteAllTextAsync(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
-            "txt",
             (instance, _) =>
             {
                 #region ConversionResultWithCleanup
@@ -118,7 +88,6 @@ public class TypeConverterTests
     public Task ConvertWithNewline()
     {
         VerifierSettings.RegisterFileConverter<ClassToSplit>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
@@ -140,7 +109,6 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Invalid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
@@ -158,7 +126,6 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Valid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
@@ -181,7 +148,6 @@ public class TypeConverterTests
     public Task WithInfo()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            "png",
             (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
@@ -201,7 +167,6 @@ public class TypeConverterTests
     public Task WithInfoShouldRespectSettings()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            "png",
             canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
@@ -223,7 +188,6 @@ public class TypeConverterTests
     public Task TypeConversion()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            "png",
             canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {

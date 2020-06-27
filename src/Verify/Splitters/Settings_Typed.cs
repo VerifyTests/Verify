@@ -11,21 +11,8 @@ namespace VerifyTests
 
         internal static bool TryGetTypedConverter<T>(
             T target,
-            string? extension,
             [NotNullWhen(true)] out TypeConverter? converter)
         {
-            if (extension != null)
-            {
-                foreach (var typedConverter in typedConverters
-                    .Where(_ => _.ToExtension != null &&
-                                _.ToExtension == extension &&
-                                _.CanConvert(target!)))
-                {
-                    converter = typedConverter;
-                    return true;
-                }
-            }
-
             foreach (var typedConverter in typedConverters
                 .Where(_ => _.CanConvert(target!)))
             {
@@ -80,33 +67,6 @@ namespace VerifyTests
             typedConverters.Add(converter);
         }
 
-        public static void RegisterFileConverter<T>(
-            string toExtension,
-            Conversion<T> conversion,
-            CanConvert<T>? canConvert = null)
-        {
-            Guard.AgainstNull(conversion, nameof(conversion));
-            RegisterFileConverter(
-                toExtension,
-                (o, settings) => Task.FromResult(conversion(o, settings)),
-                canConvert);
-        }
-
-        public static void RegisterFileConverter<T>(
-            string toExtension,
-            AsyncConversion<T> conversion,
-            CanConvert<T>? canConvert = null)
-        {
-            Guard.AgainstNull(conversion, nameof(conversion));
-            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-
-            var converter = new TypeConverter(
-                toExtension,
-                (o, settings) => conversion((T) o, settings),
-                DefaultCanConvert(canConvert));
-            typedConverters.Add(converter);
-        }
-
         static CanConvert DefaultCanConvert<T>(CanConvert<T>? canConvert)
         {
             if (canConvert == null)
@@ -123,33 +83,6 @@ namespace VerifyTests
 
                 return false;
             };
-        }
-
-        public static void RegisterFileConverter(
-            string toExtension,
-            Conversion conversion,
-            CanConvert canConvert)
-        {
-            Guard.AgainstNull(conversion, nameof(conversion));
-            RegisterFileConverter(
-                toExtension,
-                (o, settings) => Task.FromResult(conversion(o, settings)),
-                canConvert);
-        }
-
-        public static void RegisterFileConverter(
-            string toExtension,
-            AsyncConversion conversion,
-            CanConvert canConvert)
-        {
-            Guard.AgainstNull(conversion, nameof(conversion));
-            Guard.AgainstNull(canConvert, nameof(canConvert));
-            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            var converter = new TypeConverter(
-                toExtension,
-                conversion,
-                canConvert);
-            typedConverters.Add(converter);
         }
     }
 }

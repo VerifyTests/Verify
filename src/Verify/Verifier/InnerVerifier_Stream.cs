@@ -26,7 +26,7 @@ namespace VerifyTests
             {
                 if (settings.HasExtension())
                 {
-                    if (VerifierSettings.TryGetConverter(settings.extension!, out var converter))
+                    if (VerifierSettings.TryGetExtensionConverter(settings.extension!, out var converter))
                     {
                         var converterSettings = new VerifySettings(settings);
                         converterSettings.UseExtension(converter.ToExtension);

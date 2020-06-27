@@ -9,7 +9,7 @@ namespace VerifyTests
     {
         static List<TypeConverter> typedConverters = new List<TypeConverter>();
 
-        internal static bool TryGetConverter<T>(
+        internal static bool TryGetTypedConverter<T>(
             T target,
             string? extension,
             [NotNullWhen(true)] out TypeConverter? converter)

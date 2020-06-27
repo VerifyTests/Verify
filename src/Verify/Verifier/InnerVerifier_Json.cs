@@ -12,7 +12,7 @@ namespace VerifyTests
             Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
 
-            if (VerifierSettings.TryGetConverter(
+            if (VerifierSettings.TryGetTypedConverter(
                 target,
                 settings.extension,
                 out var converter))

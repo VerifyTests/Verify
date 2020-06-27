@@ -22,7 +22,7 @@ class VerifyEngine
         string extension,
         VerifySettings settings,
         string directory,
-        string testName, 
+        string testName,
         Assembly assembly)
     {
         this.settings = settings;

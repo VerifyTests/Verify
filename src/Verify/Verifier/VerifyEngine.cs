@@ -36,7 +36,7 @@ class VerifyEngine
         }
     }
 
-    public void HandleCompareResult(EqualityResult compareResult, FilePair file)
+    public void HandleCompareResult(EqualityResult compareResult, in FilePair file)
     {
         switch (compareResult.Equality)
         {
@@ -52,19 +52,19 @@ class VerifyEngine
         }
     }
 
-    public void AddMissing(FilePair item)
+    public void AddMissing(in FilePair item)
     {
         missings.Add(item);
         danglingVerified.Remove(item.Verified);
     }
 
-    public void AddNotEquals(FilePair item,string? message)
+    public void AddNotEquals(in FilePair item,string? message)
     {
         notEquals.Add((item,message));
         danglingVerified.Remove(item.Verified);
     }
 
-    public void AddEquals(FilePair item)
+    public void AddEquals(in FilePair item)
     {
         danglingVerified.Remove(item.Verified);
         equals.Add(item);
@@ -256,7 +256,7 @@ class VerifyEngine
         DiffRunner.Launch(item.Received, item.Verified);
     }
 
-    static void AcceptChanges(FilePair item)
+    static void AcceptChanges(in FilePair item)
     {
         File.Delete(item.Verified);
         File.Move(item.Received, item.Verified);

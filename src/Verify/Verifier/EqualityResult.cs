@@ -8,5 +8,6 @@
         Equality = equality;
         Message = message;
     }
+
     public static implicit operator EqualityResult(Equality equality) => new EqualityResult(equality);
 }

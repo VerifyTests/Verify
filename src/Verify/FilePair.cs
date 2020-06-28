@@ -2,7 +2,7 @@
 using System.IO;
 
 [DebuggerDisplay("Extension = {Extension} | Name = {Name}")]
-class FilePair
+readonly struct FilePair
 {
     public string Extension { get; }
     public string Received { get; }

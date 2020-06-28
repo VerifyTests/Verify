@@ -51,7 +51,7 @@ static class FileComparer
             (verifySettings, stream1, stream2) => StreamsAreEqual(stream1, stream2));
     }
 
-    static bool FilesAreSameSize(FilePair file)
+    static bool FilesAreSameSize(in FilePair file)
     {
         var first = new FileInfo(file.Received);
         var second = new FileInfo(file.Verified);

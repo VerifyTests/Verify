@@ -12,14 +12,10 @@ namespace VerifyTests
             Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
 
-            if (VerifierSettings.TryGetConverter(
-                target,
-                settings.extension,
-                out var converter))
+            if (VerifierSettings.TryGetTypedConverter(target, out var converter))
             {
-                var converterSettings = GetConverterSettings(settings, converter);
-                var result = await converter.Conversion(target!, converterSettings);
-                await VerifyBinary(result.Streams, converterSettings, result.Info, result.Cleanup);
+                var result = await converter.Conversion(target!, settings);
+                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);
                 return;
             }
 
@@ -32,7 +28,8 @@ namespace VerifyTests
             if (typeof(T).ImplementsStreamEnumerable())
             {
                 var enumerable = (IEnumerable) target!;
-                await VerifyBinary(enumerable.Cast<Stream>(), settings, null, null);
+                var streams = enumerable.Cast<Stream>().Select(x => new ConversionStream(settings.ExtensionOrBin(), x));
+                await VerifyBinary(streams, settings.ExtensionOrTxt(), settings, null, null);
                 return;
             }
 
@@ -41,23 +38,6 @@ namespace VerifyTests
                 settings.serialization.currentSettings,
                 settings.IsNewLineEscapingDisabled);
             await Verify(formatJson, settings);
-        }
-
-        static VerifySettings GetConverterSettings(VerifySettings settings, TypeConverter converter)
-        {
-            if (converter.ToExtension != null)
-            {
-                var converterSettings = new VerifySettings(settings);
-                converterSettings.UseExtension(converter.ToExtension);
-                return converterSettings;
-            }
-
-            if (settings.HasExtension())
-            {
-                return settings;
-            }
-
-            throw exceptionBuilder("No extension defined.");
         }
     }
 }

@@ -37,13 +37,12 @@ public partial class Tests :
         AllFiles.UseFile(Category.Image, newPath);
 
         VerifierSettings.RegisterFileConverter<TypeToSplit>(
-            "txt",
             (split, settings) => new ConversionResult(
                 split.Info,
-                new List<Stream>
+                new List<ConversionStream>
                 {
-                    new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1)),
-                    new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2))
+                 new ConversionStream("txt",   new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
+                     new ConversionStream("txt",   new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }

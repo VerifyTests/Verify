@@ -16,7 +16,6 @@ public class ConverterSnippets
     {
         #region RegisterFileConverterType
         VerifierSettings.RegisterFileConverter<Image>(
-            toExtension: "png",
             #region ConverterCanConvert
             canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
             #endregion
@@ -24,14 +23,14 @@ public class ConverterSnippets
             {
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                var streams = new List<Stream>();
+                var streams = new List<ConversionStream>();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    streams.Add(page);
+                    streams.Add(new ConversionStream("png",page));
                 }
 
                 return new ConversionResult(
@@ -56,20 +55,19 @@ public class ConverterSnippets
         #region RegisterFileConverterExtension
         VerifierSettings.RegisterFileConverter(
             fromExtension: "tif",
-            toExtension: "png",
             conversion: (stream, settings) =>
             {
                 using Image image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                var streams = new List<Stream>();
+                var streams = new List<ConversionStream>();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    streams.Add(page);
+                    streams.Add(new ConversionStream("png",page));
                 }
 
                 return new ConversionResult(

@@ -7,37 +7,30 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static Dictionary<string, StreamConverter> extensionConverters = new Dictionary<string, StreamConverter>();
+        static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new Dictionary<string, AsyncConversion<Stream>>();
 
-        internal static bool TryGetConverter(string extension, [NotNullWhen(true)] out StreamConverter? converter)
+        internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter)
         {
             return extensionConverters.TryGetValue(extension, out converter);
         }
 
         public static void RegisterFileConverter(
             string fromExtension,
-            string toExtension,
             Conversion<Stream> conversion)
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
                 fromExtension,
-                toExtension,
                 (stream, settings) => Task.FromResult(conversion(stream, settings)));
         }
 
         public static void RegisterFileConverter(
             string fromExtension,
-            string toExtension,
             AsyncConversion<Stream> conversion)
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
-            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
-            var converter = new StreamConverter(
-                toExtension,
-                conversion);
-            extensionConverters[fromExtension] = converter;
+            extensionConverters[fromExtension] = conversion;
         }
     }
 }

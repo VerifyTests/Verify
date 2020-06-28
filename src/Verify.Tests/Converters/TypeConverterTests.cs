@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -15,42 +16,13 @@ public class TypeConverterTests
     public Task Inherited()
     {
         VerifierSettings.RegisterFileConverter<ParentClass>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             });
 
         var target = new InheritedClass
-        {
-            Value = "line1"
-        };
-        var settings = new VerifySettings();
-        settings.UseExtension("txt");
-        return Verifier.Verify(target, settings);
-    }
-
-    [Fact]
-    public Task DifferingExtensions()
-    {
-        VerifierSettings.RegisterFileConverter<ClassToSplit3>(
-            "notTxt",
-            async (classToSplit, _) =>
-            {
-                await Task.Delay(1);
-                throw new Exception();
-            });
-
-        VerifierSettings.RegisterFileConverter<ClassToSplit3>(
-            "txt",
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
-            });
-
-        var target = new ClassToSplit3
         {
             Value = "line1"
         };
@@ -80,41 +52,18 @@ public class TypeConverterTests
     }
 
     [Fact]
-    public Task ConvertWithExtInSettings()
-    {
-        VerifierSettings.RegisterFileConverter<ClassToSplit2>(
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
-            });
-        var target = new ClassToSplit2
-        {
-            Value = "line1"
-        };
-        var settings = new VerifySettings();
-        settings.UseExtension("txt");
-        return Verifier.Verify(target, settings);
-    }
-
-    public class ClassToSplit2
-    {
-        public string Value { get; set; } = null!;
-    }
-
-    [Fact]
     public async Task WithStreamRequiringCleanup()
     {
         object? info = null;
         var filePath = "WithStreamRequiringCleanup.tmp";
         await File.WriteAllTextAsync(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
-            "txt",
             (instance, _) =>
             {
                 #region ConversionResultWithCleanup
                 return new ConversionResult(
                     info: info,
+                    "txt",
                     stream: File.OpenRead(filePath),
                     cleanup: () =>
                     {
@@ -140,11 +89,10 @@ public class TypeConverterTests
     public Task ConvertWithNewline()
     {
         VerifierSettings.RegisterFileConverter<ClassToSplit>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             });
         var target = new ClassToSplit
         {
@@ -162,11 +110,10 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Invalid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
             o => o.Value == "Valid");
         var target = new CanConvertTarget
@@ -180,11 +127,10 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Valid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            "txt",
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
             o => o.Value == "Valid");
         var target = new CanConvertTarget
@@ -203,7 +149,6 @@ public class TypeConverterTests
     public Task WithInfo()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            "png",
             (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
@@ -211,7 +156,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, streams);
+                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -223,7 +168,6 @@ public class TypeConverterTests
     public Task WithInfoShouldRespectSettings()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            "png",
             canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
@@ -232,7 +176,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, streams);
+                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -245,12 +189,11 @@ public class TypeConverterTests
     public Task TypeConversion()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            "png",
             canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
-                return new ConversionResult(null, streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");

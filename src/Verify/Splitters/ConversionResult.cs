@@ -8,10 +8,10 @@ namespace VerifyTests
     public class ConversionResult
     {
         public object? Info { get; }
-        public IEnumerable<Stream> Streams { get; }
+        public IEnumerable<ConversionStream> Streams { get; }
         public Func<Task>? Cleanup { get; }
 
-        public ConversionResult(object? info, IEnumerable<Stream> streams, Func<Task>? cleanup = null)
+        public ConversionResult(object? info, IEnumerable<ConversionStream> streams, Func<Task>? cleanup = null)
         {
             Guard.AgainstNull(streams, nameof(streams));
             Info = info;
@@ -19,26 +19,29 @@ namespace VerifyTests
             Cleanup = cleanup;
         }
 
-        public ConversionResult(object? info, IEnumerable<Stream> streams)
-        {
-            Guard.AgainstNull(streams, nameof(streams));
-            Info = info;
-            Streams = streams;
-        }
-
-        public ConversionResult(object? info, Stream stream)
+        public ConversionResult(object? info, string streamExtension, Stream stream, Func<Task>? cleanup = null)
         {
             Guard.AgainstNull(stream, nameof(stream));
-            Info = info;
-            Streams = new List<Stream> {stream};
-        }
-
-        public ConversionResult(object? info, Stream stream, Func<Task>? cleanup = null)
-        {
-            Guard.AgainstNull(stream, nameof(stream));
+            Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
             Info = info;
             Cleanup = cleanup;
-            Streams = new List<Stream> {stream};
+            Streams = new List<ConversionStream>
+            {
+                new ConversionStream(streamExtension, stream)
+            };
+        }
+    }
+    public class ConversionStream
+    {
+        public string Extension { get; }
+        public Stream Stream { get; }
+
+        public ConversionStream(string extension, Stream stream)
+        {
+            Guard.AgainstBadExtension(extension, nameof(extension));
+            Guard.AgainstNull(stream, nameof(stream));
+            Extension = extension;
+            Stream = stream;
         }
     }
 }

@@ -26,25 +26,22 @@ namespace VerifyTests
             {
                 if (settings.HasExtension())
                 {
-                    if (VerifierSettings.TryGetConverter(settings.extension!, out var converter))
+                    if (VerifierSettings.TryGetExtensionConverter(settings.extension!, out var conversion))
                     {
-                        var converterSettings = new VerifySettings(settings);
-                        converterSettings.UseExtension(converter.ToExtension);
-                        var result = await converter.Conversion(stream, converterSettings);
-                        await VerifyBinary(result.Streams, converterSettings, result.Info, result.Cleanup);
+                        var result = await conversion(stream, settings);
+                        await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);
                         return;
                     }
                 }
 
-                await VerifyBinary(new List<Stream> {stream}, settings, null, null);
+                await VerifyBinary(new List<ConversionStream> {new ConversionStream(settings.ExtensionOrBin(),stream)}, settings.ExtensionOrBin(), settings, null, null);
             }
         }
 
-        async Task VerifyBinary(IEnumerable<Stream> streams, VerifySettings settings, object? info, Func<Task>? cleanup)
+        async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, VerifySettings settings, object? info, Func<Task>? cleanup)
         {
-            var extension = settings.ExtensionOrBin();
             var engine = new VerifyEngine(
-                extension,
+                infoExtension,
                 settings,
                 directory,
                 testName,
@@ -53,9 +50,10 @@ namespace VerifyTests
             await VerifyInfo(engine, settings, info);
             for (var index = 0; index < list.Count; index++)
             {
-                var file = GetFileForIndex(settings, list, index, extension);
+                var conversionStream = list[index];
+                var file = GetFileForIndex(settings, list, index, conversionStream.Extension);
 
-                var result = await GetResult(settings, file, list[index]);
+                var result = await GetResult(settings, file, conversionStream);
 
                 engine.HandleCompareResult(result, file);
             }
@@ -67,8 +65,9 @@ namespace VerifyTests
             await engine.ThrowIfRequired();
         }
 
-        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Stream stream)
+        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, ConversionStream conversionStream)
         {
+            var stream = conversionStream.Stream;
 #if NETSTANDARD2_1
         await using (stream)
 #else
@@ -76,7 +75,7 @@ namespace VerifyTests
 #endif
             {
                 stream.MoveToStart();
-                if (!Extensions.IsText(file.Extension))
+                if (!Extensions.IsText(conversionStream.Extension))
                 {
                     return await Comparer.Streams(settings, stream, file);
                 }
@@ -87,7 +86,7 @@ namespace VerifyTests
             }
         }
 
-        FilePair GetFileForIndex(VerifySettings settings, List<Stream> list, int index, string extension)
+        FilePair GetFileForIndex(VerifySettings settings, List<ConversionStream> list, int index, string extension)
         {
             if (list.Count > 1)
             {

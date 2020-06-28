@@ -16,26 +16,21 @@ namespace VerifyTests
 
         public static void RegisterFileConverter(
             string fromExtension,
-            string toExtension,
             Conversion<Stream> conversion)
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
                 fromExtension,
-                toExtension,
                 (stream, settings) => Task.FromResult(conversion(stream, settings)));
         }
 
         public static void RegisterFileConverter(
             string fromExtension,
-            string toExtension,
             AsyncConversion<Stream> conversion)
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
-            Guard.AgainstBadExtension(toExtension, nameof(toExtension));
             var converter = new StreamConverter(
-                toExtension,
                 conversion);
             extensionConverters[fromExtension] = converter;
         }

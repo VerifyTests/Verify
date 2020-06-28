@@ -108,7 +108,6 @@ This sample uses a extension approach. So the converter acts on a file or stream
 ```cs
 VerifierSettings.RegisterFileConverter(
     fromExtension: "tif",
-    toExtension: "png",
     conversion: (stream, settings) =>
     {
         using Image image = Image.FromStream(stream);
@@ -133,7 +132,7 @@ VerifierSettings.RegisterFileConverter(
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L55-L83' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L55-L82' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
@@ -141,7 +140,7 @@ VerifierSettings.RegisterFileConverter(
 ```cs
 await Verifier.VerifyFile("sample.tif");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L84-L86' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L83-L85' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

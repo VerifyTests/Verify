@@ -55,7 +55,6 @@ public class ConverterSnippets
         #region RegisterFileConverterExtension
         VerifierSettings.RegisterFileConverter(
             fromExtension: "tif",
-            toExtension: "png",
             conversion: (stream, settings) =>
             {
                 using Image image = Image.FromStream(stream);

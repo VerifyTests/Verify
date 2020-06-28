@@ -28,10 +28,8 @@ namespace VerifyTests
                 {
                     if (VerifierSettings.TryGetExtensionConverter(settings.extension!, out var converter))
                     {
-                        var converterSettings = new VerifySettings(settings);
-                        converterSettings.UseExtension(converter.ToExtension);
-                        var result = await converter.Conversion(stream, converterSettings);
-                        await VerifyBinary(result.Streams, settings.ExtensionOrBin(), converterSettings, result.Info, result.Cleanup);
+                        var result = await converter.Conversion(stream, settings);
+                        await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);
                         return;
                     }
                 }

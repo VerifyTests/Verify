@@ -17,7 +17,6 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "split",
-            "txt",
             (stream, _) => new ConversionResult(null, "txt", stream));
         var settings = new VerifySettings();
         settings.UseExtension("txt");
@@ -29,11 +28,10 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "bmp",
-            "png",
             (stream, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(null, streams.Select(x=>new ConversionStream("png", x)));
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -45,11 +43,10 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "bmp",
-            "png",
             (stream, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(stream);
-                return Task.FromResult(new ConversionResult(null, streams.Select(x=>new ConversionStream("png",x))));
+                return Task.FromResult(new ConversionResult(null, streams.Select(x => new ConversionStream("png", x))));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -61,15 +58,14 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "bmp",
-            "png",
             (stream, _) =>
             {
                 var info = new
                 {
-                    Property ="Value"
+                    Property = "Value"
                 };
                 var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(info, streams.Select(x=> new ConversionStream("png",x)));
+                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");

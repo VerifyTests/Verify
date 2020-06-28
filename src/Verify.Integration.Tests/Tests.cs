@@ -39,11 +39,10 @@ public partial class Tests :
         VerifierSettings.RegisterFileConverter<TypeToSplit>(
             (split, settings) => new ConversionResult(
                 split.Info,
-                "txt",
-                new List<Stream>
+                new List<ConversionStream>
                 {
-                    new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1)),
-                    new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2))
+                 new ConversionStream("txt",   new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
+                     new ConversionStream("txt",   new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }

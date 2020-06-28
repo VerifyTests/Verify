@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -18,7 +19,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, "txt", streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             });
 
         var target = new InheritedClass
@@ -91,7 +92,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, "txt", streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             });
         var target = new ClassToSplit
         {
@@ -112,7 +113,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, "txt", streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
             o => o.Value == "Valid");
         var target = new CanConvertTarget
@@ -129,7 +130,7 @@ public class TypeConverterTests
             (instance, _) =>
             {
                 var streams = ToStream(instance.Value);
-                return new ConversionResult(null, "txt", streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
             o => o.Value == "Valid");
         var target = new CanConvertTarget
@@ -155,7 +156,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, "png", streams);
+                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -175,7 +176,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, "png", streams);
+                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -192,7 +193,7 @@ public class TypeConverterTests
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
-                return new ConversionResult(null, "png", streams);
+                return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");

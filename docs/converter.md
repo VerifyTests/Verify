@@ -57,14 +57,14 @@ VerifierSettings.RegisterFileConverter<Image>(
     {
         var pages = image.GetFrameCount(FrameDimension.Page);
 
-        var streams = new List<Stream>();
+        var streams = new List<ConversionStream>();
         for (var index = 0; index < pages; index++)
         {
             image.SelectActiveFrame(FrameDimension.Page, index);
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            streams.Add(page);
+            streams.Add(new ConversionStream("png",page));
         }
 
         return new ConversionResult(
@@ -73,11 +73,10 @@ VerifierSettings.RegisterFileConverter<Image>(
                 image.PixelFormat,
                 image.Size
             },
-            streamExtension: "png",
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L17-L46' title='File snippet `registerfileconvertertype` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Navigate to start of snippet `registerfileconvertertype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L17-L45' title='File snippet `registerfileconvertertype` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Navigate to start of snippet `registerfileconvertertype`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterTypeVerify -->
@@ -86,7 +85,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 await using var stream = File.OpenRead("sample.tif");
 await Verifier.Verify(Image.FromStream(stream));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L50' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L46-L49' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
@@ -115,14 +114,14 @@ VerifierSettings.RegisterFileConverter(
         using Image image = Image.FromStream(stream);
         var pages = image.GetFrameCount(FrameDimension.Page);
 
-        var streams = new List<Stream>();
+        var streams = new List<ConversionStream>();
         for (var index = 0; index < pages; index++)
         {
             image.SelectActiveFrame(FrameDimension.Page, index);
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            streams.Add(page);
+            streams.Add(new ConversionStream("png",page));
         }
 
         return new ConversionResult(
@@ -131,11 +130,10 @@ VerifierSettings.RegisterFileConverter(
                 image.PixelFormat,
                 image.Size
             },
-            streamExtension: "png",
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L85' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L55-L83' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
@@ -143,7 +141,7 @@ VerifierSettings.RegisterFileConverter(
 ```cs
 await Verifier.VerifyFile("sample.tif");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L86-L88' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L84-L86' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -164,7 +162,7 @@ return new ConversionResult(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L62-L72' title='File snippet `conversionresultwithcleanup` was extracted from'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Navigate to start of snippet `conversionresultwithcleanup`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L63-L73' title='File snippet `conversionresultwithcleanup` was extracted from'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Navigate to start of snippet `conversionresultwithcleanup`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -8,16 +8,13 @@ namespace VerifyTests
     public class ConversionResult
     {
         public object? Info { get; }
-        public string StreamExtension { get; }
-        public IEnumerable<Stream> Streams { get; }
+        public IEnumerable<ConversionStream> Streams { get; }
         public Func<Task>? Cleanup { get; }
 
-        public ConversionResult(object? info, string streamExtension, IEnumerable<Stream> streams, Func<Task>? cleanup = null)
+        public ConversionResult(object? info, IEnumerable<ConversionStream> streams, Func<Task>? cleanup = null)
         {
             Guard.AgainstNull(streams, nameof(streams));
-            Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
             Info = info;
-            StreamExtension = streamExtension;
             Streams = streams;
             Cleanup = cleanup;
         }
@@ -27,9 +24,24 @@ namespace VerifyTests
             Guard.AgainstNull(stream, nameof(stream));
             Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
             Info = info;
-            StreamExtension = streamExtension;
             Cleanup = cleanup;
-            Streams = new List<Stream> {stream};
+            Streams = new List<ConversionStream>
+            {
+                new ConversionStream(streamExtension, stream)
+            };
+        }
+    }
+    public class ConversionStream
+    {
+        public string Extension { get; }
+        public Stream Stream { get; }
+
+        public ConversionStream(string extension, Stream stream)
+        {
+            Guard.AgainstBadExtension(extension, nameof(extension));
+            Guard.AgainstNull(stream, nameof(stream));
+            Extension = extension;
+            Stream = stream;
         }
     }
 }

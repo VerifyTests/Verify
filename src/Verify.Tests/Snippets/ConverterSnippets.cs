@@ -23,14 +23,14 @@ public class ConverterSnippets
             {
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                var streams = new List<Stream>();
+                var streams = new List<ConversionStream>();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    streams.Add(page);
+                    streams.Add(new ConversionStream("png",page));
                 }
 
                 return new ConversionResult(
@@ -39,7 +39,6 @@ public class ConverterSnippets
                         image.PixelFormat,
                         image.Size
                     },
-                    streamExtension: "png",
                     streams);
             });
 
@@ -62,14 +61,14 @@ public class ConverterSnippets
                 using Image image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                var streams = new List<Stream>();
+                var streams = new List<ConversionStream>();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    streams.Add(page);
+                    streams.Add(new ConversionStream("png",page));
                 }
 
                 return new ConversionResult(
@@ -78,7 +77,6 @@ public class ConverterSnippets
                         image.PixelFormat,
                         image.Size
                     },
-                    streamExtension: "png",
                     streams);
             });
 

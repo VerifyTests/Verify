@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -32,7 +33,7 @@ public class ExtensionConverterTests
             (stream, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(null, "png", streams);
+                return new ConversionResult(null, streams.Select(x=>new ConversionStream("png", x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -48,7 +49,7 @@ public class ExtensionConverterTests
             (stream, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(stream);
-                return Task.FromResult(new ConversionResult(null, "png", streams));
+                return Task.FromResult(new ConversionResult(null, streams.Select(x=>new ConversionStream("png",x))));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");
@@ -68,7 +69,7 @@ public class ExtensionConverterTests
                     Property ="Value"
                 };
                 var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(info, "png", streams);
+                return new ConversionResult(info, streams.Select(x=> new ConversionStream("png",x)));
             });
         var settings = new VerifySettings();
         settings.UseExtension("bmp");

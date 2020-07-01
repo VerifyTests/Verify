@@ -11,10 +11,11 @@ namespace VerifyTests
 
         internal static bool TryGetTypedConverter<T>(
             T target,
+            VerifySettings settings,
             [NotNullWhen(true)] out TypeConverter? converter)
         {
             foreach (var typedConverter in typedConverters
-                .Where(_ => _.CanConvert(target!)))
+                .Where(_ => _.CanConvert(target!, settings)))
             {
                 converter = typedConverter;
                 return true;
@@ -71,14 +72,14 @@ namespace VerifyTests
         {
             if (canConvert == null)
             {
-                return target => target is T;
+                return (target, settings) => target is T;
             }
 
-            return target =>
+            return (target, settings) =>
             {
                 if (target is T cast)
                 {
-                    return canConvert(cast);
+                    return canConvert(cast, settings);
                 }
 
                 return false;

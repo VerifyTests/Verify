@@ -96,7 +96,7 @@ public class TypeConverterTests
             });
         var target = new ClassToSplit
         {
-            Value = $@"line1{Environment.NewLine}line2"
+            Value = $"line1{Environment.NewLine}line2"
         };
         return Verifier.Verify(target);
     }
@@ -115,7 +115,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
-            o => o.Value == "Valid");
+            (inner, settings) => inner.Value == "Valid");
         var target = new CanConvertTarget
         {
             Value = "Invalid"
@@ -132,7 +132,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
-            o => o.Value == "Valid");
+            (inner, settings) => inner.Value == "Valid");
         var target = new CanConvertTarget
         {
             Value = "Valid"
@@ -168,7 +168,7 @@ public class TypeConverterTests
     public Task WithInfoShouldRespectSettings()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, _) => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
@@ -189,7 +189,7 @@ public class TypeConverterTests
     public Task TypeConversion()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: target => Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, _) => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);

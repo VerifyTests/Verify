@@ -52,7 +52,7 @@ This sample uses a typed approach. So the converter acts on an in memory instanc
 <a id='snippet-registerfileconvertertype'/></a>
 ```cs
 VerifierSettings.RegisterFileConverter<Image>(
-    canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
+    canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
     conversion: (image, settings) =>
     {
         var pages = image.GetFrameCount(FrameDimension.Page);
@@ -93,7 +93,7 @@ Note that this sample also uses the optional `canConvert` to ensure that only `I
 <!-- snippet: ConverterCanConvert -->
 <a id='snippet-convertercanconvert'/></a>
 ```cs
-canConvert: target => Equals(target.RawFormat, ImageFormat.Tiff),
+canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L19-L21' title='File snippet `convertercanconvert` was extracted from'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Navigate to start of snippet `convertercanconvert`'>anchor</a></sup>
 <!-- endsnippet -->

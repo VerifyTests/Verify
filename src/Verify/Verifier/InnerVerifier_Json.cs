@@ -12,7 +12,7 @@ namespace VerifyTests
             Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
 
-            if (VerifierSettings.TryGetTypedConverter(target, out var converter))
+            if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings);
                 await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);

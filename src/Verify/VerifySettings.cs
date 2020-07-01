@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace VerifyTests
@@ -57,6 +58,17 @@ namespace VerifyTests
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             this.extension = extension;
+        }
+
+        public bool TryGetExtension([NotNullWhen(true)] out string? extension)
+        {
+            if (this.extension == null)
+            {
+                extension = null;
+                return false;
+            }
+            extension = this.extension;
+            return true;
         }
 
         internal string ExtensionOrTxt()

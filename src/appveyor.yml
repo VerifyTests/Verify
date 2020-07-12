@@ -1,5 +1,5 @@
 image:
-#- macos
+- macos
 - Visual Studio 2019 Preview
 skip_commits:
   message: /doco|Merge pull request.*/

@@ -115,6 +115,7 @@ public partial class Tests
         var command = BuildCommand(pair);
         ProcessCleanup.Refresh();
         await Verifier.Verify(target(), settings);
+        await Task.Delay(300);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(command);
 

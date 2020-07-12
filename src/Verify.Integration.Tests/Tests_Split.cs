@@ -72,6 +72,7 @@ public partial class Tests
         var file2Command = BuildCommand(file2);
         ProcessCleanup.Refresh();
         await Verifier.Verify(target, settings);
+        await Task.Delay(300);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(infoCommand);
         AssertProcessNotRunning(file1Command);

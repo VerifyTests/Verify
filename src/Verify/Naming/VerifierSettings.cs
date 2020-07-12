@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
         internal static Namer SharedNamer = new Namer();
-        static Dictionary<Type, Func<object, string>> parameterToNameLookup = new Dictionary<Type, Func<object, string>>();
+        static ConcurrentDictionary<Type, Func<object, string>> parameterToNameLookup = new ConcurrentDictionary<Type, Func<object, string>>();
 
         public static void UniqueForRuntime()
         {
@@ -16,7 +16,10 @@ namespace VerifyTests
         public static void NameForParameter<T>(ParameterToName<T> func)
         {
             Guard.AgainstNull(func, nameof(func));
-            parameterToNameLookup.Add(typeof(T), o => func((T)o));
+            parameterToNameLookup.AddOrUpdate(
+                key: typeof(T),
+                addValueFactory: type => o => func((T) o),
+                updateValueFactory: (type, _) => o => func((T) o));
         }
 
         internal static string GetNameForParameter(object parameter)

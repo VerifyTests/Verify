@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new Dictionary<string, AsyncConversion<Stream>>();
+        static ConcurrentDictionary<string, AsyncConversion<Stream>> extensionConverters = new ConcurrentDictionary<string, AsyncConversion<Stream>>();
 
         internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter)
         {

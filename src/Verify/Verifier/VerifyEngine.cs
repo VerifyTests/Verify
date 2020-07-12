@@ -150,7 +150,7 @@ class VerifyEngine
 
     void ProcessEquals()
     {
-        if (BuildServerDetector.Detected)
+        if (DiffRunner.Disabled)
         {
             return;
         }

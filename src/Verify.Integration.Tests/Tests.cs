@@ -22,6 +22,7 @@ public partial class Tests :
     static Tests()
     {
         BuildServerDetector.Detected = false;
+        DiffRunner.Disabled = false;
         DiffTools.AddTool(
             name:"MyTools",
             autoRefresh: true,
@@ -30,7 +31,8 @@ public partial class Tests :
             requiresTarget: true,
             arguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             exePath: diffToolPath,
-            binaryExtensions: new[] {"knownBin"});
+            binaryExtensions: new[] {"knownBin"},
+            shellExecute: false);
         var binPath = AllFiles.Files["jpg"];
         var newPath = Path.ChangeExtension(binPath.Path, "knownBin");
         File.Copy(binPath.Path, newPath, true);

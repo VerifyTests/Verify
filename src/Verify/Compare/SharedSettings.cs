@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 
 namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static Dictionary<string, Compare> comparers = new Dictionary<string, Compare>();
+        static ConcurrentDictionary<string, Compare> comparers = new ConcurrentDictionary<string, Compare>();
 
         internal static bool TryGetComparer(string extension, [NotNullWhen(true)] out Compare? comparer)
         {

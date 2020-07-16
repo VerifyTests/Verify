@@ -14,5 +14,13 @@ namespace VerifyTests
             Extension = extension;
             Stream = stream;
         }
+
+        public ConversionStream(string extension, string data)
+        {
+            Guard.AgainstBadExtension(extension, nameof(extension));
+            Guard.AgainstNull(data, nameof(data));
+            Extension = extension;
+            Stream = new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(data));
+        }
     }
 }

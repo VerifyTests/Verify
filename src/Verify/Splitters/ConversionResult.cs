@@ -30,5 +30,17 @@ namespace VerifyTests
                 new ConversionStream(streamExtension, stream)
             };
         }
+
+        public ConversionResult(object? info, string streamExtension, string data, Func<Task>? cleanup = null)
+        {
+            Guard.AgainstNull(data, nameof(data));
+            Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
+            Info = info;
+            Cleanup = cleanup;
+            Streams = new List<ConversionStream>
+            {
+                new ConversionStream(streamExtension, data)
+            };
+        }
     }
 }

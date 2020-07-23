@@ -5,7 +5,8 @@ Source File: /docs/mdsource/verify-options.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# <img src="/src/icon.png" height="30px"> Verify Options
+# Verify Options
+
 
 ## AutoVerify
 

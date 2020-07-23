@@ -1,4 +1,5 @@
-# <img src="/src/icon.png" height="30px"> Verify Options
+# Verify Options
+
 
 ## AutoVerify
 

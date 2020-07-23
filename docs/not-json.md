@@ -453,6 +453,7 @@ public async Task OnHandlersSample()
 ## More Documentation
 
   * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Verify options](/docs/verify-options.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
   * [Parameterised tests](/docs/parameterised.md)

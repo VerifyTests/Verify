@@ -27,8 +27,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [MSTest](#mstest)
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
-    * [AutoVerify](#autoverify)
-    * [OnHandlers](#onhandlers)
   * [Received and Verified](#received-and-verified)
   * [Videos](#videos)
   * [Extensions](#extensions)
@@ -367,59 +365,6 @@ And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display t
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
-### AutoVerify
-
-In some scenarios it makes sense to auto-accept any changes as part of a given test run. For example:
-
- * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer)).
-
-This can be done using `AutoVerify()`:
-
-<!-- snippet: AutoVerify -->
-<a id='snippet-autoverify'/></a>
-```cs
-var settings = new VerifySettings();
-settings.AutoVerify();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L89' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
-<!-- endsnippet -->
-
-Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
-
-
-### OnHandlers
-
-`OnFirstVerify` is called when there is no verified file.
-
-`OnVerifyMismatch` is called when a received file does not match the existing verified file.
-
-<!-- snippet: OnHandlers -->
-<a id='snippet-onhandlers'/></a>
-```cs
-public async Task OnHandlersSample()
-{
-    var settings = new VerifySettings();
-    settings.OnFirstVerify(
-        receivedFile =>
-        {
-            Debug.WriteLine(receivedFile);
-            return Task.CompletedTask;
-        });
-    settings.OnVerifyMismatch(
-        (receivedFile, verifiedFile, message) =>
-        {
-            Debug.WriteLine(receivedFile);
-            Debug.WriteLine(verifiedFile);
-            Debug.WriteLine(message);
-            return Task.CompletedTask;
-        });
-    await Verifier.Verify("value", settings);
-}
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L32' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
-<!-- endsnippet -->
-
-
 ## Received and Verified
 
  * **All `*.verified.*` files should be committed to source control.**
@@ -453,6 +398,7 @@ public async Task OnHandlersSample()
 ## More Documentation
 
   * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Verify options](/docs/verify-options.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
   * [Parameterised tests](/docs/parameterised.md)

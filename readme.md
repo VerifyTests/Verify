@@ -30,7 +30,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [AutoVerify](#autoverify)
     * [OnHandlers](#onhandlers)
   * [Received and Verified](#received-and-verified)
-  * [Not valid json](#not-valid-json)
   * [Videos](#videos)
   * [Extensions](#extensions)
   * [More Documentation](#more-documentation)
@@ -425,11 +424,6 @@ public async Task OnHandlersSample()
 
  * **All `*.verified.*` files should be committed to source control.**
  * **All `*.received.*` files should be excluded from source control.**
-
-
-## Not valid json
-
-Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
 
 ## Videos

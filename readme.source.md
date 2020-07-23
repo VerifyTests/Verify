@@ -181,11 +181,6 @@ snippet: OnHandlers
  * **All `*.received.*` files should be excluded from source control.**
 
 
-## Not valid json
-
-Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
-
-
 ## Videos
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)

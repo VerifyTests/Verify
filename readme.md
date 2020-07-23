@@ -33,24 +33,9 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
   * [Not valid json](#not-valid-json)
   * [Videos](#videos)
   * [Extensions](#extensions)
+  * [More Documentation](#more-documentation)
   * [Alternatives](#alternatives)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
-  * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
-  * [Serializer Settings](/docs/serializer-settings.md)
-  * [File naming](/docs/naming.md)
-  * [Parameterised tests](/docs/parameterised.md)
-  * [Named Tuples](/docs/named-tuples.md)
-  * [Scrubbers](/docs/scrubbers.md)
-  * [Diff Engine](https://github.com/VerifyTests/DiffEngine)
-  * [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.md)
-  * [Diff Tool Order](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md)
-  * [Custom Diff Tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md)
-  * [Using anonymous types](/docs/anonymous-types.md)
-  * [Verifying binary data](/docs/binary.md)
-  * [Build server](/docs/build-server.md)
-  * [Comparers](/docs/comparer.md)
-  * [Converters](/docs/converter.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
 
 
 ## NuGet packages
@@ -469,6 +454,26 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
  * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
  * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.
+
+
+## More Documentation
+
+  * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Serializer Settings](/docs/serializer-settings.md)
+  * [File naming](/docs/naming.md)
+  * [Parameterised tests](/docs/parameterised.md)
+  * [Named Tuples](/docs/named-tuples.md)
+  * [Scrubbers](/docs/scrubbers.md)
+  * [Diff Engine](https://github.com/VerifyTests/DiffEngine)
+  * [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.md)
+  * [Diff Tool Order](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md)
+  * [Custom Diff Tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md)
+  * [Using anonymous types](/docs/anonymous-types.md)
+  * [Verifying binary data](/docs/binary.md)
+  * [Build server](/docs/build-server.md)
+  * [Comparers](/docs/comparer.md)
+  * [Converters](/docs/converter.md)
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
 
 
 ## Alternatives

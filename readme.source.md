@@ -10,7 +10,6 @@ Verification tool to enable approval of complex models and documents.
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify?utm_source=nuget-verify&utm_medium=referral&utm_campaign=enterprise).
 
 toc
-include: doc-index
 
 
 ## NuGet packages
@@ -209,6 +208,11 @@ Note that the output is technically not valid json. [Single quotes are used](doc
  * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
  * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
  * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.
+
+
+## More Documentation
+
+include: doc-index
 
 
 ## Alternatives

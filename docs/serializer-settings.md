@@ -16,6 +16,7 @@ Serialization settings can be customized at three levels:
 <!-- toc -->
 ## Contents
 
+  * [Not valid json](#not-valid-json)
   * [Default settings](#default-settings)
   * [Single quotes used](#single-quotes-used)
   * [QuoteName is false](#quotename-is-false)
@@ -34,6 +35,11 @@ Serialization settings can be customized at three levels:
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)
   * [DisableNewLineEscaping](#disablenewlineescaping)<!-- endtoc -->
+
+
+## Not valid json
+
+Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
 
 ## Default settings

@@ -9,6 +9,11 @@ Serialization settings can be customized at three levels:
 toc
 
 
+## Not valid json
+
+Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+
+
 ## Default settings
 
 The default serialization settings are:

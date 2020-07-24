@@ -115,27 +115,6 @@ public class Tests
         return Verifier.Verify(target);
     }
 
-    [Fact]
-    public Task String()
-    {
-        return Verifier.Verify("theString");
-    }
-    [Fact]
-    public Task StringBoxed()
-    {
-        return Verifier.Verify((object)"theString");
-    }
-    [Fact]
-    public Task DateTime()
-    {
-        return Verifier.Verify(new DateTime(2000,1,1,1,1,1,1));
-    }
-    [Fact]
-    public Task DateTimeBoxed()
-    {
-        return Verifier.Verify((object)new DateTime(2000,1,1,1,1,1,1));
-    }
-
     static async IAsyncEnumerable<string> AsyncEnumerableMethod()
     {
         await Task.Delay(1);

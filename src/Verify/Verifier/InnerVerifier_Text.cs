@@ -28,7 +28,6 @@ namespace VerifyTests
             var file = GetFileNames(extension, settings.Namer);
 
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
-            var s = target.ToString();
             var result = await Comparer.Text(file, target, settings);
             engine.HandleCompareResult(result, file);
             await engine.ThrowIfRequired();

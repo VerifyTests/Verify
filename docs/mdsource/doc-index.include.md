@@ -1,4 +1,5 @@
   * [Clipboard](/docs/clipboard.md)
+  * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)

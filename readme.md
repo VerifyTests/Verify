@@ -358,7 +358,7 @@ The clipboard will again contain the following:
 
 See also: [Clipboard](/docs/clipboard.md)
 
-And the [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
+#### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 

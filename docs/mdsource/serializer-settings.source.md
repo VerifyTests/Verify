@@ -214,6 +214,14 @@ snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt
 
 ## TreatAsString
 
-TreatAsString can be used to treat a specific type as a string:
+Certain types, when passed directly in to Verify, are written directly without going through json serialization.
+
+The default mapping is:
+
+snippet: typeToStringMapping
+
+This bypasses the Guid and DateTime scrubbing mentioned above.
+
+Extra types can be added to this mapping:
 
 snippet: TreatAsString

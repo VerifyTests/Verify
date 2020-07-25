@@ -646,7 +646,58 @@ b\nc'
 
 ## TreatAsString
 
-TreatAsString can be used to treat a specific type as a string:
+Certain types, when passed directly in to Verify, are written directly without going through json serialization.
+
+The default mapping is:
+
+<!-- snippet: typeToStringMapping -->
+<a id='snippet-typetostringmapping'/></a>
+```cs
+{typeof(string), (target, settings) => (string) target},
+{typeof(bool), (target, settings) => ((bool) target).ToString()},
+{typeof(short), (target, settings) => ((short) target).ToString()},
+{typeof(ushort), (target, settings) => ((ushort) target).ToString()},
+{typeof(int), (target, settings) => ((int) target).ToString()},
+{typeof(uint), (target, settings) => ((uint) target).ToString()},
+{typeof(long), (target, settings) => ((long) target).ToString()},
+{typeof(ulong), (target, settings) => ((ulong) target).ToString()},
+{typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(Guid), (target, settings) => ((Guid) target).ToString()},
+{typeof(DateTime), (target, settings) =>
+    {
+        var dateTime = (DateTime) target;
+        return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+    }
+},
+{typeof(DateTimeOffset), (target, settings) =>
+    {
+        var dateTimeOffset = (DateTimeOffset) target;
+        return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+    }
+},
+{typeof(XmlNode), (target, settings) =>
+    {
+        var converted = (XmlNode) target;
+        var document = XDocument.Parse(converted.OuterXml);
+        settings.UseExtension("xml");
+        return document.ToString();
+    }
+},
+{typeof(XDocument), (target, settings) =>
+    {
+        var converted = (XDocument) target;
+        settings.UseExtension("xml");
+        return converted.ToString();
+    }
+}
+```
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L18-L57' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
+<!-- endsnippet -->
+
+This bypasses the Guid and DateTime scrubbing mentioned above.
+
+Extra types can be added to this mapping:
 
 <!-- snippet: TreatAsString -->
 <a id='snippet-treatasstring'/></a>

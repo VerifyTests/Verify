@@ -15,10 +15,9 @@ namespace VerifyTests
        internal static ConcurrentDictionary<Type, Func<object,VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object,VerifySettings, string>>(
             new Dictionary<Type, Func<object,VerifySettings, string>>()
             {
+                #region typeToStringMapping
                 {typeof(string), (target, settings) => (string) target},
                 {typeof(bool), (target, settings) => ((bool) target).ToString()},
-                {typeof(DateTime), (target, settings) => ((DateTime) target).ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz")},
-                {typeof(DateTimeOffset), (target, settings) => ((DateTimeOffset) target).ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz")},
                 {typeof(short), (target, settings) => ((short) target).ToString()},
                 {typeof(ushort), (target, settings) => ((ushort) target).ToString()},
                 {typeof(int), (target, settings) => ((int) target).ToString()},
@@ -28,6 +27,18 @@ namespace VerifyTests
                 {typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(Guid), (target, settings) => ((Guid) target).ToString()},
+                {typeof(DateTime), (target, settings) =>
+                    {
+                        var dateTime = (DateTime) target;
+                        return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+                    }
+                },
+                {typeof(DateTimeOffset), (target, settings) =>
+                    {
+                        var dateTimeOffset = (DateTimeOffset) target;
+                        return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+                    }
+                },
                 {typeof(XmlNode), (target, settings) =>
                     {
                         var converted = (XmlNode) target;
@@ -42,7 +53,8 @@ namespace VerifyTests
                         settings.UseExtension("xml");
                         return converted.ToString();
                     }
-                },
+                }
+                #endregion
             }
         );
 

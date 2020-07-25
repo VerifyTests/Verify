@@ -210,3 +210,10 @@ This can be disabled:
 snippet: DisableNewLineEscaping
 
 snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt
+
+
+## TreatAsString
+
+TreatAsString can be used to treat a specific type as a string:
+
+snippet: TreatAsString

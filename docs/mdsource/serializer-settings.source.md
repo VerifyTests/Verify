@@ -199,7 +199,7 @@ snippet: SerializationTests.ExceptionMessageProp.verified.txt
 
 ## DisableNewLineEscaping
 
-By default newlines in json are escaped with `\r\n`:
+By default newlines in json are escaped with `\n`:
 
 snippet: NewLineEscapedInProperty
 

@@ -71,7 +71,7 @@ public class SimpleTypeTests
         yield return new object[] {xmlDocument};
         var xDocument = XDocument.Parse(xml);
         yield return new object[] {xDocument};
-        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, 1)};
+        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)};
         yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1))};
     }
 }

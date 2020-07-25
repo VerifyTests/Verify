@@ -14,7 +14,6 @@ namespace VerifyTests
         {
             Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
-            var type = target!.GetType();
             switch (target)
             {
                 case string converted:
@@ -45,6 +44,9 @@ namespace VerifyTests
                     await VerifyString(converted.ToString(), settings);
                     return;
                 case float converted:
+                    await VerifyString(converted.ToString(), settings);
+                    return;
+                case Guid converted:
                     await VerifyString(converted.ToString(), settings);
                     return;
                 case decimal converted:

@@ -14,7 +14,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
-
+            var type = target!.GetType();
             switch (target)
             {
                 case string converted:

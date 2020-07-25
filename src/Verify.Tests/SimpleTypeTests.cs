@@ -19,19 +19,37 @@ public class SimpleTypeTests
         return Verifier.Verify(arg, settings);
     }
 
+    [Fact]
+    public Task StringWrappedInTask()
+    {
+        return Verifier.Verify(Task.FromResult("theString"));
+    }
+
+    [Fact]
+    public Task DateTimeWrappedInTask()
+    {
+        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, 1)));
+    }
+
+    [Fact]
+    public Task GuidWrappedInTask()
+    {
+        return Verifier.Verify(Task.FromResult(new Guid("ebced679-45d3-4653-8791-3d969c4a986c")));
+    }
+
     public static IEnumerable<object[]> GetData()
     {
         yield return new object[] {"theString"};
-        yield return new object[] {Task.FromResult("theString")};
         yield return new object[] {true};
         yield return new object[] {(long) 1};
         yield return new object[] {(short) 1};
-        yield return new object[] {(int) 1};
+        yield return new object[] {1};
         yield return new object[] {(uint) 1};
         yield return new object[] {(ulong) 1};
         yield return new object[] {(ushort) 1};
         yield return new object[] {(decimal) 1};
         yield return new object[] {(float) 1};
+        yield return new object[] {new Guid("ebced679-45d3-4653-8791-3d969c4a986c")};
         var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?>
 <body>
     <node>text</node>
@@ -42,6 +60,6 @@ public class SimpleTypeTests
         var xDocument = XDocument.Parse(xml);
         yield return new object[] {xDocument};
         yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, 1)};
-        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.Zero)};
+        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1))};
     }
 }

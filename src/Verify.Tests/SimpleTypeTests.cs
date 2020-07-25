@@ -40,7 +40,7 @@ public class SimpleTypeTests
     [Fact]
     public Task DateTimeWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, 1)));
+        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
 
     [Fact]

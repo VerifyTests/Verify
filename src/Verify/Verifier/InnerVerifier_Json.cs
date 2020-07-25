@@ -13,6 +13,7 @@ namespace VerifyTests
             if (target == null)
             {
                 await VerifyString("null", settings);
+                return;
             }
             if (target != null &&
                 VerifierSettings.typeToString.TryGetValue(target.GetType(), out var toString))

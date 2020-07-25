@@ -600,7 +600,7 @@ Result:
 
 ## DisableNewLineEscaping
 
-By default newlines in json are escaped with `\r\n`:
+By default newlines in json are escaped with `\n`:
 
 <!-- snippet: NewLineEscapedInProperty -->
 <a id='snippet-newlineescapedinproperty'/></a>

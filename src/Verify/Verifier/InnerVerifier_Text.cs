@@ -5,7 +5,7 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public Task Verify(string target, VerifySettings? settings = null)
+        Task VerifyString(string target, VerifySettings? settings = null)
         {
             var builder = new StringBuilder(target);
             builder.FixNewlines();

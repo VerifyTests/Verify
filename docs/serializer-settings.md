@@ -34,7 +34,8 @@ Serialization settings can be customized at three levels:
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)
-  * [DisableNewLineEscaping](#disablenewlineescaping)<!-- endtoc -->
+  * [DisableNewLineEscaping](#disablenewlineescaping)
+  * [TreatAsString](#treatasstring)<!-- endtoc -->
 
 
 ## Not valid json
@@ -257,7 +258,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L104-L113' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L123-L132' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -640,4 +641,72 @@ b\nc'
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineNotEscapedInProperty.verified.txt#L1-L4' title='File snippet `SerializationTests.NewLineNotEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt' title='Navigate to start of snippet `SerializationTests.NewLineNotEscapedInProperty.verified.txt`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+## TreatAsString
+
+Certain types, when passed directly in to Verify, are written directly without going through json serialization.
+
+The default mapping is:
+
+<!-- snippet: typeToStringMapping -->
+<a id='snippet-typetostringmapping'/></a>
+```cs
+{typeof(string), (target, settings) => (string) target},
+{typeof(bool), (target, settings) => ((bool) target).ToString()},
+{typeof(short), (target, settings) => ((short) target).ToString()},
+{typeof(ushort), (target, settings) => ((ushort) target).ToString()},
+{typeof(int), (target, settings) => ((int) target).ToString()},
+{typeof(uint), (target, settings) => ((uint) target).ToString()},
+{typeof(long), (target, settings) => ((long) target).ToString()},
+{typeof(ulong), (target, settings) => ((ulong) target).ToString()},
+{typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(Guid), (target, settings) => ((Guid) target).ToString()},
+{typeof(DateTime), (target, settings) =>
+    {
+        var dateTime = (DateTime) target;
+        return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+    }
+},
+{typeof(DateTimeOffset), (target, settings) =>
+    {
+        var dateTimeOffset = (DateTimeOffset) target;
+        return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+    }
+},
+{typeof(XmlNode), (target, settings) =>
+    {
+        var converted = (XmlNode) target;
+        var document = XDocument.Parse(converted.OuterXml);
+        settings.UseExtension("xml");
+        return document.ToString();
+    }
+},
+{typeof(XDocument), (target, settings) =>
+    {
+        var converted = (XDocument) target;
+        settings.UseExtension("xml");
+        return converted.ToString();
+    }
+}
+```
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L18-L57' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
+<!-- endsnippet -->
+
+This bypasses the Guid and DateTime scrubbing mentioned above.
+
+Extra types can be added to this mapping:
+
+<!-- snippet: TreatAsString -->
+<a id='snippet-treatasstring'/></a>
+```cs
+VerifierSettings.TreatAsString<ClassWithToString>(
+    (target, verifySettings) =>
+    {
+        return target.Property;
+    });
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L46-L54' title='File snippet `treatasstring` was extracted from'>snippet source</a> | <a href='#snippet-treatasstring' title='Navigate to start of snippet `treatasstring`'>anchor</a></sup>
 <!-- endsnippet -->

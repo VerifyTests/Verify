@@ -10,10 +10,6 @@ namespace VerifyTests
             Guard.AgainstNull(task, nameof(task));
             settings = settings.OrDefault();
             var target = await task;
-            if (target == null)
-            {
-                throw exceptionBuilder("Task returned null.");
-            }
 
             try
             {

@@ -124,9 +124,9 @@ public class Tests
     }
 
     [Fact]
-    public async Task AsyncEnumerable()
+    public Task AsyncEnumerable()
     {
-        await Verifier.Verify(AsyncEnumerableMethod());
+        return Verifier.Verify(AsyncEnumerableMethod());
     }
 
     static async IAsyncEnumerable<DisposableTarget> AsyncEnumerableDisposableMethod(DisposableTarget target)

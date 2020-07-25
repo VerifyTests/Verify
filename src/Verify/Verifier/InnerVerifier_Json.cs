@@ -9,8 +9,18 @@ namespace VerifyTests
     {
         public async Task Verify<T>(T target, VerifySettings? settings = null)
         {
-            Guard.AgainstNull(target, nameof(target));
             settings = settings.OrDefault();
+            if (target == null)
+            {
+                await VerifyString("null", settings);
+                return;
+            }
+            if (target != null &&
+                VerifierSettings.typeToString.TryGetValue(target.GetType(), out var toString))
+            {
+                await VerifyString(toString.Invoke(target, settings), settings);
+                return;
+            }
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {

@@ -52,5 +52,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L65-L79' title='File snippet `derivetestdirectory` was extracted from'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Navigate to start of snippet `derivetestdirectory`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L98' title='File snippet `derivetestdirectory` was extracted from'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Navigate to start of snippet `derivetestdirectory`'>anchor</a></sup>
 <!-- endsnippet -->

@@ -41,6 +41,25 @@ public class Snippets
         #endregion
     }
 
+    void TreatAsString()
+    {
+        #region TreatAsString
+
+        VerifierSettings.TreatAsString<ClassWithToString>(
+            (target, verifySettings) =>
+            {
+                return target.Property;
+            });
+
+        #endregion
+    }
+
+    class ClassWithToString
+    {
+        public string Property { get; set; } = null!;
+    }
+
+
     void EnableClipboard()
     {
         #region EnableClipboard

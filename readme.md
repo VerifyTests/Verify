@@ -21,7 +21,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 <table>
   <tr>
     <td>
-      <a href='https://dotnetfoundation.org' alt='Part of the .NET Foundation'><img src='/docs/dotNetFoundation.svg' height='30px'></a>
+      <a href='https://dotnetfoundation.org' alt='Part of the .NET Foundation'><img src='/docs/dotNetFoundation.svg' height='35px'></a>
     </td>
     <td>
       Part of the<br><a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>

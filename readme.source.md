@@ -11,6 +11,8 @@ Verify is called on the test result during the assertion phase. It serializes th
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify?utm_source=nuget-verify&utm_medium=referral&utm_campaign=enterprise).
 
+<a href='https://dotnetfoundation.org/projects/verify' alt='Part of the .NET Foundation'><img src='/docs/dotNetFoundation.svg' height='20px'></a>
+
 toc
 
 

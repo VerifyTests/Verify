@@ -13,7 +13,7 @@ namespace VerifyTests
         internal static SerializationSettings serialization = new SerializationSettings();
 
        internal static ConcurrentDictionary<Type, Func<object,VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object,VerifySettings, string>>(
-            new Dictionary<Type, Func<object,VerifySettings, string>>()
+            new Dictionary<Type, Func<object,VerifySettings, string>>
             {
                 #region typeToStringMapping
                 {typeof(string), (target, settings) => (string) target},
@@ -60,17 +60,15 @@ namespace VerifyTests
 
         public static void TreatAsString<T>(Func<T, VerifySettings, string>? toString = null)
         {
-            if (toString == null)
+            toString ??= (target, settings) =>
             {
-                toString = (target, settings) =>
+                if (target is null)
                 {
-                    if (target is null)
-                    {
-                        return "null";
-                    }
-                    return target.ToString();
-                };
-            }
+                    return "null";
+                }
+
+                return target.ToString();
+            };
             typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
         }
 

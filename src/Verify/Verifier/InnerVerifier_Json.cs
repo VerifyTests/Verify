@@ -15,8 +15,8 @@ namespace VerifyTests
                 await VerifyString("null", settings);
                 return;
             }
-            if (target != null &&
-                VerifierSettings.typeToString.TryGetValue(target.GetType(), out var toString))
+
+            if (VerifierSettings.typeToString.TryGetValue(target.GetType(), out var toString))
             {
                 await VerifyString(toString.Invoke(target, settings), settings);
                 return;

@@ -16,7 +16,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 Use an [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).
 
 <!-- snippet: AppVeyorArtifacts -->
-<a id='snippet-appveyorartifacts'/></a>
+<a id='snippet-appveyorartifacts'></a>
 ```yml
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
@@ -38,7 +38,7 @@ In some scenarios, as part of a build, the test assemblies are copied to a diffe
 For example a possible implementation for [AppVeyor](https://www.appveyor.com/) could be:
 
 <!-- snippet: DeriveTestDirectory -->
-<a id='snippet-derivetestdirectory'/></a>
+<a id='snippet-derivetestdirectory'></a>
 ```cs
 if (BuildServerDetector.Detected)
 {

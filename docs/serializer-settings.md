@@ -48,7 +48,7 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 The default serialization settings are:
 
 <!-- snippet: defaultSerialization -->
-<a id='snippet-defaultserialization'/></a>
+<a id='snippet-defaultserialization'></a>
 ```cs
 var settings = new JsonSerializerSettings
 {
@@ -78,7 +78,7 @@ By default empty collections are ignored during verification.
 To disable this behavior globally use:
 
 <!-- snippet: DontIgnoreEmptyCollections -->
-<a id='snippet-dontignoreemptycollections'/></a>
+<a id='snippet-dontignoreemptycollections'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
 ```
@@ -91,7 +91,7 @@ VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
 By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
 
 <!-- snippet: guid -->
-<a id='snippet-guid'/></a>
+<a id='snippet-guid'></a>
 ```cs
 var guid = Guid.NewGuid();
 var target = new GuidTarget
@@ -110,7 +110,7 @@ await Verifier.Verify(target);
 Results in the following:
 
 <!-- snippet: SerializationTests.ShouldReUseGuid.verified.txt -->
-<a id='snippet-SerializationTests.ShouldReUseGuid.verified.txt'/></a>
+<a id='snippet-SerializationTests.ShouldReUseGuid.verified.txt'></a>
 ```txt
 {
   Guid: Guid_1,
@@ -125,7 +125,7 @@ Results in the following:
 To disable this behavior globally use:
 
 <!-- snippet: DontScrubGuids -->
-<a id='snippet-dontscrubguids'/></a>
+<a id='snippet-dontscrubguids'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
 ```
@@ -135,7 +135,7 @@ VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
 <!-- snippet: ScrubInlineGuids -->
-<a id='snippet-scrubinlineguids'/></a>
+<a id='snippet-scrubinlineguids'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.ScrubInlineGuids());
 ```
@@ -148,7 +148,7 @@ VerifierSettings.ModifySerialization(_ => _.ScrubInlineGuids());
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
 <!-- snippet: Date -->
-<a id='snippet-date'/></a>
+<a id='snippet-date'></a>
 ```cs
 var dateTime = DateTime.Now;
 var dateTimeOffset = DateTimeOffset.Now;
@@ -170,7 +170,7 @@ await Verifier.Verify(target);
 Results in the following:
 
 <!-- snippet: SerializationTests.ShouldReUseDatetime.verified.txt -->
-<a id='snippet-SerializationTests.ShouldReUseDatetime.verified.txt'/></a>
+<a id='snippet-SerializationTests.ShouldReUseDatetime.verified.txt'></a>
 ```txt
 {
   DateTime: DateTime_1,
@@ -187,7 +187,7 @@ Results in the following:
 To disable this behavior globally use:
 
 <!-- snippet: DontScrubDateTimes -->
-<a id='snippet-dontscrubdatetimes'/></a>
+<a id='snippet-dontscrubdatetimes'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
 ```
@@ -202,7 +202,7 @@ By default values of `bool` and `bool?` are ignored during verification. So prop
 To disable this behavior globally use:
 
 <!-- snippet: DontIgnoreFalse -->
-<a id='snippet-dontignorefalse'/></a>
+<a id='snippet-dontignorefalse'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 ```
@@ -215,7 +215,7 @@ VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 `DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
 
 <!-- snippet: ChangeDefaultsPerVerification -->
-<a id='snippet-changedefaultsperverification'/></a>
+<a id='snippet-changedefaultsperverification'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -228,7 +228,7 @@ settings.ModifySerialization(_ =>
 await Verify(target, settings);
 ```
 <sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L17-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
-<a id='snippet-changedefaultsperverification-1'/></a>
+<a id='snippet-changedefaultsperverification-1'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -249,7 +249,7 @@ await Verifier.Verify(target, settings);
 To change the serialization settings for all verifications use `Global.ApplyExtraSettings()`:
 
 <!-- snippet: ExtraSettings -->
-<a id='snippet-extrasettings'/></a>
+<a id='snippet-extrasettings'></a>
 ```cs
 var settings = new VerifySettings();
 settings.AddExtraSettings(_ =>
@@ -265,7 +265,7 @@ settings.AddExtraSettings(_ =>
 ## Scoped settings
 
 <!-- snippet: ScopedSerializer -->
-<a id='snippet-scopedserializer'/></a>
+<a id='snippet-scopedserializer'></a>
 ```cs
 var person = new Person
 {
@@ -285,7 +285,7 @@ settings.AddExtraSettings(
 Result:
 
 <!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'/></a>
+<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'></a>
 ```txt
 {
   GivenNames: 'John',
@@ -302,7 +302,7 @@ Result:
 To ignore all members that match a certain type:
 
 <!-- snippet: AddIgnoreType -->
-<a id='snippet-addignoretype'/></a>
+<a id='snippet-addignoretype'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
@@ -326,7 +326,7 @@ await Verifier.Verify(target, settings);
 Result:
 
 <!-- snippet: SerializationTests.IgnoreType.verified.txt -->
-<a id='snippet-SerializationTests.IgnoreType.verified.txt'/></a>
+<a id='snippet-SerializationTests.IgnoreType.verified.txt'></a>
 ```txt
 {
   ToInclude: {
@@ -343,7 +343,7 @@ Result:
 To ignore instances of a type based on delegate:
 
 <!-- snippet: AddIgnoreInstance -->
-<a id='snippet-addignoreinstance'/></a>
+<a id='snippet-addignoreinstance'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(
@@ -368,7 +368,7 @@ await Verifier.Verify(target, settings);
 Result:
 
 <!-- snippet: SerializationTests.AddIgnoreInstance.verified.txt -->
-<a id='snippet-SerializationTests.AddIgnoreInstance.verified.txt'/></a>
+<a id='snippet-SerializationTests.AddIgnoreInstance.verified.txt'></a>
 ```txt
 {
   ToInclude: {
@@ -385,7 +385,7 @@ Result:
 Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
 
 <!-- snippet: WithObsoleteProp -->
-<a id='snippet-withobsoleteprop'/></a>
+<a id='snippet-withobsoleteprop'></a>
 ```cs
 class WithObsolete
 {
@@ -410,7 +410,7 @@ public Task WithObsoleteProp()
 Result:
 
 <!-- snippet: SerializationTests.WithObsoleteProp.verified.txt -->
-<a id='snippet-SerializationTests.WithObsoleteProp.verified.txt'/></a>
+<a id='snippet-SerializationTests.WithObsoleteProp.verified.txt'></a>
 ```txt
 {
   OtherProperty: 'value2'
@@ -425,7 +425,7 @@ Result:
 Obsolete members can be included using `IncludeObsoletes`:
 
 <!-- snippet: WithObsoletePropIncluded -->
-<a id='snippet-withobsoletepropincluded'/></a>
+<a id='snippet-withobsoletepropincluded'></a>
 ```cs
 [Fact]
 public Task WithObsoletePropIncluded()
@@ -446,7 +446,7 @@ public Task WithObsoletePropIncluded()
 Result:
 
 <!-- snippet: SerializationTests.WithObsoletePropIncluded.verified.txt -->
-<a id='snippet-SerializationTests.WithObsoletePropIncluded.verified.txt'/></a>
+<a id='snippet-SerializationTests.WithObsoletePropIncluded.verified.txt'></a>
 ```txt
 {
   ObsoleteProperty: 'value1',
@@ -462,7 +462,7 @@ Result:
 To ignore members of a certain type using an expression:
 
 <!-- snippet: IgnoreMemberByExpression -->
-<a id='snippet-ignorememberbyexpression'/></a>
+<a id='snippet-ignorememberbyexpression'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -487,7 +487,7 @@ await Verifier.Verify(target, settings);
 Result:
 
 <!-- snippet: SerializationTests.IgnoreMemberByExpression.verified.txt -->
-<a id='snippet-SerializationTests.IgnoreMemberByExpression.verified.txt'/></a>
+<a id='snippet-SerializationTests.IgnoreMemberByExpression.verified.txt'></a>
 ```txt
 {
   Include: 'Value'
@@ -502,7 +502,7 @@ Result:
 To ignore members of a certain type using type and name:
 
 <!-- snippet: IgnoreMemberByName -->
-<a id='snippet-ignorememberbyname'/></a>
+<a id='snippet-ignorememberbyname'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -530,7 +530,7 @@ await Verifier.Verify(target, settings);
 Result:
 
 <!-- snippet: SerializationTests.IgnoreMemberByName.verified.txt -->
-<a id='snippet-SerializationTests.IgnoreMemberByName.verified.txt'/></a>
+<a id='snippet-SerializationTests.IgnoreMemberByName.verified.txt'></a>
 ```txt
 {
   Include: 'Value'
@@ -551,7 +551,7 @@ Note that this is global for all members on all types.
 Ignore by exception type:
 
 <!-- snippet: IgnoreMembersThatThrow -->
-<a id='snippet-ignoremembersthatthrow'/></a>
+<a id='snippet-ignoremembersthatthrow'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
@@ -565,7 +565,7 @@ await Verifier.Verify(target, settings);
 Result:
 
 <!-- snippet: SerializationTests.CustomExceptionProp.verified.txt -->
-<a id='snippet-SerializationTests.CustomExceptionProp.verified.txt'/></a>
+<a id='snippet-SerializationTests.CustomExceptionProp.verified.txt'></a>
 ```txt
 {}
 ```
@@ -575,7 +575,7 @@ Result:
 Ignore by exception type and expression:
 
 <!-- snippet: IgnoreMembersThatThrowExpression -->
-<a id='snippet-ignoremembersthatthrowexpression'/></a>
+<a id='snippet-ignoremembersthatthrowexpression'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(
@@ -590,7 +590,7 @@ await Verifier.Verify(target, settings);
 Result:
 
 <!-- snippet: SerializationTests.ExceptionMessageProp.verified.txt -->
-<a id='snippet-SerializationTests.ExceptionMessageProp.verified.txt'/></a>
+<a id='snippet-SerializationTests.ExceptionMessageProp.verified.txt'></a>
 ```txt
 {}
 ```
@@ -603,7 +603,7 @@ Result:
 By default newlines in json are escaped with `\n`:
 
 <!-- snippet: NewLineEscapedInProperty -->
-<a id='snippet-newlineescapedinproperty'/></a>
+<a id='snippet-newlineescapedinproperty'></a>
 ```cs
 return Verifier.Verify(new {Property = "a\r\nb\\nc"});
 ```
@@ -611,7 +611,7 @@ return Verifier.Verify(new {Property = "a\r\nb\\nc"});
 <!-- endsnippet -->
 
 <!-- snippet: SerializationTests.NewLineEscapedInProperty.verified.txt -->
-<a id='snippet-SerializationTests.NewLineEscapedInProperty.verified.txt'/></a>
+<a id='snippet-SerializationTests.NewLineEscapedInProperty.verified.txt'></a>
 ```txt
 {
   Property: 'a\nb\nc'
@@ -623,7 +623,7 @@ return Verifier.Verify(new {Property = "a\r\nb\\nc"});
 This can be disabled:
 
 <!-- snippet: DisableNewLineEscaping -->
-<a id='snippet-disablenewlineescaping'/></a>
+<a id='snippet-disablenewlineescaping'></a>
 ```cs
 var settings = new VerifySettings();
 settings.DisableNewLineEscaping();
@@ -633,7 +633,7 @@ await Verifier.Verify(new {Property = "a\r\nb\\nc"}, settings);
 <!-- endsnippet -->
 
 <!-- snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt -->
-<a id='snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt'/></a>
+<a id='snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt'></a>
 ```txt
 {
   Property: 'a
@@ -651,7 +651,7 @@ Certain types, when passed directly in to Verify, are written directly without g
 The default mapping is:
 
 <!-- snippet: typeToStringMapping -->
-<a id='snippet-typetostringmapping'/></a>
+<a id='snippet-typetostringmapping'></a>
 ```cs
 {typeof(string), (target, settings) => (string) target},
 {typeof(bool), (target, settings) => ((bool) target).ToString()},
@@ -700,7 +700,7 @@ This bypasses the Guid and DateTime scrubbing mentioned above.
 Extra types can be added to this mapping:
 
 <!-- snippet: TreatAsString -->
-<a id='snippet-treatasstring'/></a>
+<a id='snippet-treatasstring'></a>
 ```cs
 VerifierSettings.TreatAsString<ClassWithToString>(
     (target, verifySettings) =>

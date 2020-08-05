@@ -54,7 +54,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
 Given a class to be tested:
 
 <!-- snippet: ClassBeingTested -->
-<a id='snippet-classbeingtested'/></a>
+<a id='snippet-classbeingtested'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -90,7 +90,7 @@ public static class ClassBeingTested
 Support for [xUnit](https://xunit.net/)
 
 <!-- snippet: SampleTestXunit -->
-<a id='snippet-sampletestxunit'/></a>
+<a id='snippet-sampletestxunit'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -116,7 +116,7 @@ public class Sample
 Support for [NUnit](https://nunit.org/)
 
 <!-- snippet: SampleTestNUnit -->
-<a id='snippet-sampletestnunit'/></a>
+<a id='snippet-sampletestnunit'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -140,7 +140,7 @@ public class Sample
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 <!-- snippet: SampleTestMSTest -->
-<a id='snippet-sampletestmstest'/></a>
+<a id='snippet-sampletestmstest'></a>
 ```cs
 [TestClass]
 public class Sample :
@@ -189,7 +189,7 @@ To verify the result:
 This will result in the `Sample.Test.verified.txt` being created:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'/></a>
+<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
 ```txt
 {
   GivenNames: 'John',
@@ -215,7 +215,7 @@ This will result in the `Sample.Test.verified.txt` being created:
 If the implementation of `ClassBeingTested` changes:
 
 <!-- snippet: ClassBeingTestedChanged -->
-<a id='snippet-classbeingtestedchanged'/></a>
+<a id='snippet-classbeingtestedchanged'></a>
 ```cs
 public static class ClassBeingTested
 {

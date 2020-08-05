@@ -14,7 +14,7 @@ Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.ru
 Given a method that returns a named tuple:
 
 <!-- snippet: MethodWithNamedTuple -->
-<a id='snippet-methodwithnamedtuple'/></a>
+<a id='snippet-methodwithnamedtuple'></a>
 ```cs
 static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
 {
@@ -27,7 +27,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
 Can be verified:
 
 <!-- snippet: VerifyTuple -->
-<a id='snippet-verifytuple'/></a>
+<a id='snippet-verifytuple'></a>
 ```cs
 await Verifier.Verify(() => MethodWithNamedTuple());
 ```
@@ -37,7 +37,7 @@ await Verifier.Verify(() => MethodWithNamedTuple());
 Resulting in:
 
 <!-- snippet: SerializationTests.NamedTuple.verified.txt -->
-<a id='snippet-SerializationTests.NamedTuple.verified.txt'/></a>
+<a id='snippet-SerializationTests.NamedTuple.verified.txt'></a>
 ```txt
 {
   Member1: true,

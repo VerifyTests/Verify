@@ -26,7 +26,7 @@ Allows lines to be selectively removed using a `Func`.
 For example remove lines containing `text`:
 
 <!-- snippet: ScrubLines -->
-<a id='snippet-scrublines'/></a>
+<a id='snippet-scrublines'></a>
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
@@ -41,7 +41,7 @@ Remove all lines containing any of the defined strings.
 For example remove lines containing `text1` or `text2`
 
 <!-- snippet: ScrubLinesContaining -->
-<a id='snippet-scrublinescontaining'/></a>
+<a id='snippet-scrublinescontaining'></a>
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
@@ -53,7 +53,7 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 `StringComparison` can be overridden:
 
 <!-- snippet: ScrubLinesContainingOrdinal -->
-<a id='snippet-scrublinescontainingordinal'/></a>
+<a id='snippet-scrublinescontainingordinal'></a>
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
@@ -68,7 +68,7 @@ Allows lines to be selectively replaced using a `Func`.
 For example converts lines to upper case:
 
 <!-- snippet: ScrubLinesWithReplace -->
-<a id='snippet-scrublineswithreplace'/></a>
+<a id='snippet-scrublineswithreplace'></a>
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
@@ -81,7 +81,7 @@ verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 Replaces `Environment.MachineName` with `TheMachineName`.
 
 <!-- snippet: ScrubMachineName -->
-<a id='snippet-scrubmachinename'/></a>
+<a id='snippet-scrubmachinename'></a>
 ```cs
 verifySettings.ScrubMachineName();
 ```
@@ -100,7 +100,7 @@ Adds a scrubber with full control over the text via a `Func`
 ### xUnit
 
 <!-- snippet: ScrubbersSampleXunit -->
-<a id='snippet-scrubberssamplexunit'/></a>
+<a id='snippet-scrubberssamplexunit'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -159,7 +159,7 @@ LineJ
 ### NUnit
 
 <!-- snippet: ScrubbersSampleNUnit -->
-<a id='snippet-scrubberssamplenunit'/></a>
+<a id='snippet-scrubberssamplenunit'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -219,7 +219,7 @@ LineJ
 ### MSTest
 
 <!-- snippet: ScrubbersSampleMSTest -->
-<a id='snippet-scrubberssamplemstest'/></a>
+<a id='snippet-scrubberssamplemstest'></a>
 ```cs
 [TestClass]
 public class ScrubbersSample :
@@ -277,7 +277,7 @@ LineJ
 ### Results
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'/></a>
+<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'></a>
 ```txt
 
 LineA
@@ -289,7 +289,7 @@ LineI
 <!-- endsnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt'/></a>
+<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt'></a>
 ```txt
 {
   RowVersion: 'TheRowVersion'
@@ -313,7 +313,7 @@ Global scrubbers should be defined only once at appdomain startup. In this examp
 ### xUnit
 
 <!-- snippet: ScrubberLevelsSampleXunit -->
-<a id='snippet-scrubberlevelssamplexunit'/></a>
+<a id='snippet-scrubberlevelssamplexunit'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -350,7 +350,7 @@ public class ScrubberLevelsSample
 ### NUnit
 
 <!-- snippet: ScrubberLevelsSampleNUnit -->
-<a id='snippet-scrubberlevelssamplenunit'/></a>
+<a id='snippet-scrubberlevelssamplenunit'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -387,7 +387,7 @@ public class ScrubberLevelsSample
 ### MSTest
 
 <!-- snippet: ScrubberLevelsSampleMSTest -->
-<a id='snippet-scrubberlevelssamplemstest'/></a>
+<a id='snippet-scrubberlevelssamplemstest'></a>
 ```cs
 [TestClass]
 public class ScrubberLevelsSample :
@@ -423,7 +423,7 @@ public class ScrubberLevelsSample :
 ### Result
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt'/></a>
+<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt'></a>
 ```txt
 A B C
 ```

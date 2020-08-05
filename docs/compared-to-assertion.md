@@ -26,7 +26,7 @@ Given the following method:
 ### Class being tested
 
 <!-- snippet: ClassBeingTested -->
-<a id='snippet-classbeingtested'/></a>
+<a id='snippet-classbeingtested'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -65,7 +65,7 @@ Compare a traditional assertion based test to a verification test.
 #### Traditional assertion test:
 
 <!-- snippet: TraditionalTest -->
-<a id='snippet-traditionaltest'/></a>
+<a id='snippet-traditionaltest'></a>
 ```cs
 [Fact]
 public void TraditionalTest()
@@ -90,7 +90,7 @@ public void TraditionalTest()
 #### Verification test
 
 <!-- snippet: VerificationTest -->
-<a id='snippet-verificationtest'/></a>
+<a id='snippet-verificationtest'></a>
 ```cs
 [Fact]
 public Task Simple()

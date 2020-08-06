@@ -29,7 +29,7 @@ Both the following examples take an input tiff and convert it to:
 The info file:
 
 <!-- snippet: ConverterSnippets.Type.info.verified.txt -->
-<a id='snippet-ConverterSnippets.Type.info.verified.txt'/></a>
+<a id='snippet-ConverterSnippets.Type.info.verified.txt'></a>
 ```txt
 {
   PixelFormat: 'Format8bppIndexed',
@@ -49,7 +49,7 @@ Multiple png files:
 This sample uses a typed approach. So the converter acts on an in memory instance matching based on type.
 
 <!-- snippet: RegisterFileConverterType -->
-<a id='snippet-registerfileconvertertype'/></a>
+<a id='snippet-registerfileconvertertype'></a>
 ```cs
 VerifierSettings.RegisterFileConverter<Image>(
     canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
@@ -80,7 +80,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterTypeVerify -->
-<a id='snippet-fileconvertertypeverify'/></a>
+<a id='snippet-fileconvertertypeverify'></a>
 ```cs
 await using var stream = File.OpenRead("sample.tif");
 await Verifier.Verify(Image.FromStream(stream));
@@ -91,7 +91,7 @@ await Verifier.Verify(Image.FromStream(stream));
 Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
 
 <!-- snippet: ConverterCanConvert -->
-<a id='snippet-convertercanconvert'/></a>
+<a id='snippet-convertercanconvert'></a>
 ```cs
 canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
 ```
@@ -104,7 +104,7 @@ canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
 This sample uses a extension approach. So the converter acts on a file or stream based on the extension (configured or detected).
 
 <!-- snippet: RegisterFileConverterExtension -->
-<a id='snippet-registerfileconverterextension'/></a>
+<a id='snippet-registerfileconverterextension'></a>
 ```cs
 VerifierSettings.RegisterFileConverter(
     fromExtension: "tif",
@@ -136,7 +136,7 @@ VerifierSettings.RegisterFileConverter(
 <!-- endsnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
-<a id='snippet-fileconverterextensionverify'/></a>
+<a id='snippet-fileconverterextensionverify'></a>
 ```cs
 await Verifier.VerifyFile("sample.tif");
 ```
@@ -149,7 +149,7 @@ await Verifier.VerifyFile("sample.tif");
 If cleanup needs to occur after verification a callback can be passes to `ConversionResult`:
 
 <!-- snippet: ConversionResultWithCleanup -->
-<a id='snippet-conversionresultwithcleanup'/></a>
+<a id='snippet-conversionresultwithcleanup'></a>
 ```cs
 return new ConversionResult(
     info: info,

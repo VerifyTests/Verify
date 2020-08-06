@@ -13,7 +13,7 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 ## xUnit
 
 <!-- snippet: anonXunit -->
-<a id='snippet-anonxunit'/></a>
+<a id='snippet-anonxunit'></a>
 ```cs
 [Fact]
 public async Task Anon()
@@ -44,7 +44,7 @@ public async Task Anon()
 ## NUnit
 
 <!-- snippet: anonNUnit -->
-<a id='snippet-anonnunit'/></a>
+<a id='snippet-anonnunit'></a>
 ```cs
 [Test]
 public async Task Anon()
@@ -75,7 +75,7 @@ public async Task Anon()
 ## MSTest
 
 <!-- snippet: anonMSTest -->
-<a id='snippet-anonmstest'/></a>
+<a id='snippet-anonmstest'></a>
 ```cs
 [TestMethod]
 public async Task Anon()
@@ -108,7 +108,7 @@ public async Task Anon()
 Results in the following:
 
 <!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt'/></a>
+<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt'></a>
 ```txt
 {
   person1: {

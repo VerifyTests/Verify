@@ -26,7 +26,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 ### InlineData
 
 <!-- snippet: xunitInlineData -->
-<a id='snippet-xunitinlinedata'/></a>
+<a id='snippet-xunitinlinedata'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -45,7 +45,7 @@ public Task InlineDataUsage(string arg)
 ### MemberData
 
 <!-- snippet: xunitMemberData -->
-<a id='snippet-xunitmemberdata'/></a>
+<a id='snippet-xunitmemberdata'></a>
 ```cs
 [Theory]
 [MemberData(nameof(GetData))]
@@ -71,7 +71,7 @@ public static IEnumerable<object[]> GetData()
 xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()` on the base class.
 
 <!-- snippet: xunitComplexMemberData -->
-<a id='snippet-xunitcomplexmemberdata'/></a>
+<a id='snippet-xunitcomplexmemberdata'></a>
 ```cs
 [UsesVerify]
 public class ComplexParametersSample
@@ -121,7 +121,7 @@ public class ComplexParametersSample
 ### TestCase
 
 <!-- snippet: NUnitTestCase -->
-<a id='snippet-nunittestcase'/></a>
+<a id='snippet-nunittestcase'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
@@ -142,7 +142,7 @@ MSTest does not expose the parameter values via its extensibility context. So pa
 ### DataRow
 
 <!-- snippet: MSTestDataRow -->
-<a id='snippet-mstestdatarow'/></a>
+<a id='snippet-mstestdatarow'></a>
 ```cs
 [DataTestMethod]
 [DataRow("Value1")]

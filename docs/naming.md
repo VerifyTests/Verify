@@ -28,7 +28,7 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 ### XUnit
 
 <!-- snippet: UniqueForSampleXunit -->
-<a id='snippet-uniqueforsamplexunit'/></a>
+<a id='snippet-uniqueforsamplexunit'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -67,7 +67,7 @@ public class UniqueForSample
 ### NUnit
 
 <!-- snippet: UniqueForSampleNUnit -->
-<a id='snippet-uniqueforsamplenunit'/></a>
+<a id='snippet-uniqueforsamplenunit'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -106,7 +106,7 @@ public class UniqueForSample
 ### MSTest
 
 <!-- snippet: UniqueForSampleMSTest -->
-<a id='snippet-uniqueforsamplemstest'/></a>
+<a id='snippet-uniqueforsamplemstest'></a>
 ```cs
 [TestClass]
 public class UniqueForSample :
@@ -171,7 +171,7 @@ It can be overridden at two levels:
 Usage:
 
 <!-- snippet: ExtensionSample.cs -->
-<a id='snippet-ExtensionSample.cs'/></a>
+<a id='snippet-ExtensionSample.cs'></a>
 ```cs
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -218,7 +218,7 @@ public class ExtensionSample :
 }
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.cs-1'/></a>
+<a id='snippet-ExtensionSample.cs-1'></a>
 ```cs
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -264,7 +264,7 @@ public class ExtensionSample
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ExtensionSample.cs#L1-L42' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-1' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
-<a id='snippet-ExtensionSample.cs-2'/></a>
+<a id='snippet-ExtensionSample.cs-2'></a>
 ```cs
 using System.Threading.Tasks;
 using VerifyTests;
@@ -316,7 +316,7 @@ public class ExtensionSample
 Result in two files:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'/></a>
+<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'></a>
 ```json
 {
     "fruit": "Apple",
@@ -328,7 +328,7 @@ Result in two files:
 <!-- endsnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'/></a>
+<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>
 ```xml
 <note>
 <to>Joe</to>
@@ -345,7 +345,7 @@ Result in two files:
 To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 
 <!-- snippet: AccessNamerRuntimeAndVersion -->
-<a id='snippet-accessnamerruntimeandversion'/></a>
+<a id='snippet-accessnamerruntimeandversion'></a>
 ```cs
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);

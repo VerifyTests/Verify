@@ -17,7 +17,7 @@ Using a custom comparer can be helpful when a result has changed, but not enough
 For samples purposes an image difference hash algorithm from the [ImageHash project](https://github.com/pgrho/phash) will be used:
 
 <!-- snippet: ImageComparer -->
-<a id='snippet-imagecomparer'/></a>
+<a id='snippet-imagecomparer'></a>
 ```cs
 static Task<CompareResult> CompareImages(
     VerifySettings settings,
@@ -53,7 +53,7 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 ### Instance comparer
 
 <!-- snippet: InstanceComparer -->
-<a id='snippet-instancecomparer'/></a>
+<a id='snippet-instancecomparer'></a>
 ```cs
 var settings = new VerifySettings();
 settings.UseComparer(CompareImages);
@@ -67,7 +67,7 @@ await Verifier.Verify("TheImage.png", settings);
 ### Static comparer
 
 <!-- snippet: StaticComparer -->
-<a id='snippet-staticcomparer'/></a>
+<a id='snippet-staticcomparer'></a>
 ```cs
 VerifierSettings.RegisterComparer(
     extension: "png",
@@ -81,7 +81,7 @@ await Verifier.VerifyFile("TheImage.png");
 ## Default Comparison
 
 <!-- snippet: DefualtCompare -->
-<a id='snippet-defualtcompare'/></a>
+<a id='snippet-defualtcompare'></a>
 ```cs
 static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
 {

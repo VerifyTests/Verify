@@ -92,9 +92,9 @@ class CustomContractResolver :
         return contract;
     }
 
-    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization serialization)
     {
-        var property = base.CreateProperty(member, memberSerialization);
+        var property = base.CreateProperty(member, serialization);
 
         if (property.PropertyType == null || property.ValueProvider == null)
         {

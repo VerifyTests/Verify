@@ -12,7 +12,7 @@ namespace VerifyTests
             WriteJson(writer, (T?) value, serializer);
         }
 
-        public abstract void WriteJson(JsonWriter writer, T? fragment, JsonSerializer serializer);
+        public abstract void WriteJson(JsonWriter writer, T? value, JsonSerializer serializer);
 
         public override bool CanConvert(Type type)
         {

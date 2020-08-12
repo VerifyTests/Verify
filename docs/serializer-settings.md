@@ -28,6 +28,7 @@ Serialization settings can be customized at three levels:
   * [Changing Json.NET settings](#changing-jsonnet-settings)
     * [Globally](#globally)
     * [Instance](#instance)
+    * [Json.NET Converter](#jsonnet-converter)
   * [Scoped settings](#scoped-settings)
   * [Ignoring a type](#ignoring-a-type)
   * [Ignoring a instance](#ignoring-a-instance)
@@ -279,6 +280,37 @@ settings.AddExtraSettings(_ =>
 });
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L132-L141' title='File snippet `extrasettingsinstance` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Navigate to start of snippet `extrasettingsinstance`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### Json.NET Converter
+
+One common use case is to register a custom [JsonConverter](https://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm). As only writing is required, to help with this there is `WriteOnlyJsonConverter`, and `WriteOnlyJsonConverter<T>`.
+
+<!-- snippet: CompanyConverter -->
+<a id='snippet-companyconverter'></a>
+```cs
+class CompanyConverter :
+    WriteOnlyJsonConverter<Company>
+{
+    public override void WriteJson(JsonWriter writer, Company? company, JsonSerializer serializer)
+    {
+        if (company != null)
+        {
+            serializer.Serialize(writer, company.Name);
+        }
+    }
+}
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L153-L167' title='File snippet `companyconverter` was extracted from'>snippet source</a> | <a href='#snippet-companyconverter' title='Navigate to start of snippet `companyconverter`'>anchor</a></sup>
+<!-- endsnippet -->
+
+<!-- snippet: JsonConverter -->
+<a id='snippet-jsonconverter'></a>
+```cs
+VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L146-L150' title='File snippet `jsonconverter` was extracted from'>snippet source</a> | <a href='#snippet-jsonconverter' title='Navigate to start of snippet `jsonconverter`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

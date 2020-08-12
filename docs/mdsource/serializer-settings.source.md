@@ -105,6 +105,15 @@ snippet: ExtraSettingsGlobal
 snippet: ExtraSettingsInstance
 
 
+### Json.NET Converter
+
+One common use case is to register a custom [JsonConverter](https://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm). As only writing is required, to help with this there is `WriteOnlyJsonConverter`, and `WriteOnlyJsonConverter<T>`.
+
+snippet: CompanyConverter
+
+snippet: JsonConverter
+
+
 ## Scoped settings
 
 snippet: ScopedSerializer

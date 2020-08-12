@@ -140,4 +140,34 @@ public class Snippets
 
         #endregion
     }
+
+    void Converter()
+    {
+        #region JsonConverter
+
+        VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
+
+        #endregion
+    }
+
+    #region CompanyConverter
+
+    class CompanyConverter :
+        WriteOnlyJsonConverter<Company>
+    {
+        public override void WriteJson(JsonWriter writer, Company? company, JsonSerializer serializer)
+        {
+            if (company != null)
+            {
+                serializer.Serialize(writer, company.Name);
+            }
+        }
+    }
+
+    #endregion
+
+    class Company
+    {
+        public string Name { get; set; } = null!;
+    }
 }

@@ -25,7 +25,9 @@ Serialization settings can be customized at three levels:
   * [Dates are scrubbed](#dates-are-scrubbed)
   * [Default Booleans are ignored](#default-booleans-are-ignored)
   * [Change defaults at the verification level](#change-defaults-at-the-verification-level)
-  * [Changing settings globally](#changing-settings-globally)
+  * [Changing Json.NET settings](#changing-jsonnet-settings)
+    * [Globally](#globally)
+    * [Instance](#instance)
   * [Scoped settings](#scoped-settings)
   * [Ignoring a type](#ignoring-a-type)
   * [Ignoring a instance](#ignoring-a-instance)
@@ -244,12 +246,30 @@ await Verifier.Verify(target, settings);
 <!-- endsnippet -->
 
 
-## Changing settings globally
+## Changing Json.NET settings
 
-To change the serialization settings for all verifications use `Global.ApplyExtraSettings()`:
+Extra Json.NET settings can be made:
 
-<!-- snippet: ExtraSettings -->
-<a id='snippet-extrasettings'></a>
+
+### Globally
+
+<!-- snippet: ExtraSettingsGlobal -->
+<a id='snippet-extrasettingsglobal'></a>
+```cs
+VerifierSettings.AddExtraSettings(_ =>
+{
+    _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+    _.TypeNameHandling = TypeNameHandling.All;
+});
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L122-L130' title='File snippet `extrasettingsglobal` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Navigate to start of snippet `extrasettingsglobal`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### Instance
+
+<!-- snippet: ExtraSettingsInstance -->
+<a id='snippet-extrasettingsinstance'></a>
 ```cs
 var settings = new VerifySettings();
 settings.AddExtraSettings(_ =>
@@ -258,7 +278,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L123-L132' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L132-L141' title='File snippet `extrasettingsinstance` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Navigate to start of snippet `extrasettingsinstance`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -703,10 +723,7 @@ Extra types can be added to this mapping:
 <a id='snippet-treatasstring'></a>
 ```cs
 VerifierSettings.TreatAsString<ClassWithToString>(
-    (target, settings) =>
-    {
-        return target.Property;
-    });
+    (target, settings) => { return target.Property; });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L46-L54' title='File snippet `treatasstring` was extracted from'>snippet source</a> | <a href='#snippet-treatasstring' title='Navigate to start of snippet `treatasstring`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L48-L53' title='File snippet `treatasstring` was extracted from'>snippet source</a> | <a href='#snippet-treatasstring' title='Navigate to start of snippet `treatasstring`'>anchor</a></sup>
 <!-- endsnippet -->

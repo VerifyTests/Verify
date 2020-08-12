@@ -10,6 +10,7 @@ using VerifyXunit;
 public class Snippets
 {
     #region OnHandlers
+
     public async Task OnHandlersSample()
     {
         var settings = new VerifySettings();
@@ -29,6 +30,7 @@ public class Snippets
             });
         await Verifier.Verify("value", settings);
     }
+
     #endregion
 
     void DisableClipboard()
@@ -46,10 +48,7 @@ public class Snippets
         #region TreatAsString
 
         VerifierSettings.TreatAsString<ClassWithToString>(
-            (target, settings) =>
-            {
-                return target.Property;
-            });
+            (target, settings) => { return target.Property; });
 
         #endregion
     }
@@ -120,7 +119,17 @@ public class Snippets
 
     void ApplyExtraSettingsSample()
     {
-        #region ExtraSettings
+        #region ExtraSettingsGlobal
+
+        VerifierSettings.AddExtraSettings(_ =>
+        {
+            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            _.TypeNameHandling = TypeNameHandling.All;
+        });
+
+        #endregion
+
+        #region ExtraSettingsInstance
 
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ =>

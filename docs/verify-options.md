@@ -22,7 +22,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L103-L108' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L102-L107' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -57,5 +57,5 @@ public async Task OnHandlersSample()
     await Verifier.Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L32' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L34' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
 <!-- endsnippet -->

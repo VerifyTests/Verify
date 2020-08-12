@@ -90,11 +90,19 @@ snippet: DontIgnoreFalse
 snippet: ChangeDefaultsPerVerification
 
 
-## Changing settings globally
+## Changing Json.NET settings
 
-To change the serialization settings for all verifications use `Global.ApplyExtraSettings()`:
+Extra Json.NET settings can be made:
 
-snippet: ExtraSettings
+
+### Globally
+
+snippet: ExtraSettingsGlobal
+
+
+### Instance
+
+snippet: ExtraSettingsInstance
 
 
 ## Scoped settings

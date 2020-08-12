@@ -96,7 +96,9 @@ class CustomContractResolver :
     {
         var property = base.CreateProperty(member, serialization);
 
-        if (property.PropertyType == null || property.ValueProvider == null)
+        var valueProvider = property.ValueProvider;
+        var propertyType = property.PropertyType;
+        if (propertyType == null || valueProvider == null)
         {
             return property;
         }
@@ -117,13 +119,14 @@ class CustomContractResolver :
             }
         }
 
-        if (ignoredTypes.Any(x => x.IsAssignableFrom(property.PropertyType)))
+        if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
         {
             property.Ignored = true;
             return property;
         }
 
-        if (ignoredByNameMembers.Contains(property.PropertyName!))
+        var propertyName = property.PropertyName!;
+        if (ignoredByNameMembers.Contains(propertyName))
         {
             property.Ignored = true;
             return property;
@@ -131,7 +134,7 @@ class CustomContractResolver :
 
         foreach (var keyValuePair in ignoredMembers)
         {
-            if (keyValuePair.Value.Contains(property.PropertyName!))
+            if (keyValuePair.Value.Contains(propertyName))
             {
                 if (keyValuePair.Key.IsAssignableFrom(property.DeclaringType))
                 {
@@ -141,11 +144,11 @@ class CustomContractResolver :
             }
         }
 
-        if (ignoredInstances.TryGetValue(property.PropertyType, out var funcs))
+        if (ignoredInstances.TryGetValue(propertyType, out var funcs))
         {
             property.ShouldSerialize = declaringInstance =>
             {
-                var instance = property.ValueProvider.GetValue(declaringInstance);
+                var instance = valueProvider.GetValue(declaringInstance);
 
                 if (instance == null)
                 {
@@ -164,7 +167,7 @@ class CustomContractResolver :
             };
         }
 
-        property.ValueProvider = new CustomValueProvider(property.ValueProvider, property.PropertyType, ignoreMembersThatThrow);
+        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow);
 
         return property;
     }

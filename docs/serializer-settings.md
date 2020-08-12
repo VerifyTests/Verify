@@ -703,7 +703,7 @@ Extra types can be added to this mapping:
 <a id='snippet-treatasstring'></a>
 ```cs
 VerifierSettings.TreatAsString<ClassWithToString>(
-    (target, verifySettings) =>
+    (target, settings) =>
     {
         return target.Property;
     });

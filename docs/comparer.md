@@ -45,7 +45,7 @@ static Digest HashImage(Stream stream)
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L32-L57' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
 
@@ -61,7 +61,7 @@ settings.UseExtension("png");
 await Verifier.Verify("TheImage.png", settings);
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L14-L19' title='File snippet `instancecomparer` was extracted from'>snippet source</a> | <a href='#snippet-instancecomparer' title='Navigate to start of snippet `instancecomparer`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Static comparer
@@ -75,7 +75,7 @@ VerifierSettings.RegisterComparer(
 await Verifier.VerifyFile("TheImage.png");
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L29' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Default Comparison
@@ -132,7 +132,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
 }
 ```
 <sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='File snippet `defualtcompare` was extracted from'>snippet source</a> | <a href='#snippet-defualtcompare' title='Navigate to start of snippet `defualtcompare`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Pre-packaged comparers

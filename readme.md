@@ -36,7 +36,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
   * [Extensions](#extensions)
   * [More Documentation](#more-documentation)
   * [Alternatives](#alternatives)
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## NuGet packages
@@ -82,7 +82,7 @@ public static class ClassBeingTested
 }
 ```
 <sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### xUnit
@@ -106,7 +106,7 @@ public class Sample
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L18' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
 
@@ -132,7 +132,7 @@ public class Sample
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L4-L17' title='File snippet `sampletestnunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Navigate to start of snippet `sampletestnunit`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### MSTest
@@ -155,7 +155,7 @@ public class Sample :
 }
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Initial Verification
@@ -207,7 +207,7 @@ This will result in the `Sample.Test.verified.txt` being created:
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='File snippet `Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Subsequent Verification
@@ -245,7 +245,7 @@ public static class ClassBeingTested
 }
 ```
 <sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L6-L33' title='File snippet `classbeingtestedchanged` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Navigate to start of snippet `classbeingtestedchanged`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 And the test is re run it will fail with
 
@@ -321,7 +321,7 @@ The same approach can be used to verify the results and the change to `Sample.Te
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- end include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- endInclude -->
 
 
 ## Alternatives

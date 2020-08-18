@@ -22,7 +22,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L344-L351' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Can be verified:
 
@@ -32,7 +32,7 @@ Can be verified:
 await Verifier.Verify(() => MethodWithNamedTuple());
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L337-L341' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Resulting in:
 
@@ -46,4 +46,4 @@ Resulting in:
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NamedTuple.verified.txt#L1-L5' title='File snippet `SerializationTests.NamedTuple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NamedTuple.verified.txt' title='Navigate to start of snippet `SerializationTests.NamedTuple.verified.txt`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->

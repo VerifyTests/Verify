@@ -54,7 +54,7 @@ public static class ClassBeingTested
 }
 ```
 <sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Tests
@@ -84,7 +84,7 @@ public void TraditionalTest()
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='File snippet `traditionaltest` was extracted from'>snippet source</a> | <a href='#snippet-traditionaltest' title='Navigate to start of snippet `traditionaltest`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 #### Verification test
@@ -100,4 +100,4 @@ public Task Simple()
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='File snippet `verificationtest` was extracted from'>snippet source</a> | <a href='#snippet-verificationtest' title='Navigate to start of snippet `verificationtest`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->

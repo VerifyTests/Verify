@@ -23,7 +23,7 @@ var settings = new VerifySettings();
 settings.AutoVerify();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L102-L107' title='File snippet `autoverify` was extracted from'>snippet source</a> | <a href='#snippet-autoverify' title='Navigate to start of snippet `autoverify`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
 
@@ -58,4 +58,4 @@ public async Task OnHandlersSample()
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L34' title='File snippet `onhandlers` was extracted from'>snippet source</a> | <a href='#snippet-onhandlers' title='Navigate to start of snippet `onhandlers`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->

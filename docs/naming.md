@@ -61,7 +61,7 @@ public class UniqueForSample
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L36' title='File snippet `uniqueforsamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Navigate to start of snippet `uniqueforsamplexunit`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### NUnit
@@ -100,7 +100,7 @@ public class UniqueForSample
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L35' title='File snippet `uniqueforsamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Navigate to start of snippet `uniqueforsamplenunit`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### MSTest
@@ -138,7 +138,7 @@ public class UniqueForSample :
 }
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='File snippet `uniqueforsamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Navigate to start of snippet `uniqueforsamplemstest`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Result
@@ -311,7 +311,7 @@ public class ExtensionSample
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L43' title='File snippet `ExtensionSample.cs` was extracted from'>snippet source</a> | <a href='#snippet-ExtensionSample.cs-2' title='Navigate to start of snippet `ExtensionSample.cs`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Result in two files:
 
@@ -325,7 +325,7 @@ Result in two files:
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='File snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
 <a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>
@@ -337,7 +337,7 @@ Result in two files:
 </note>
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='File snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## NamerRuntimeAndVersion
@@ -351,4 +351,4 @@ Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
 <sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='File snippet `accessnamerruntimeandversion` was extracted from'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Navigate to start of snippet `accessnamerruntimeandversion`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->

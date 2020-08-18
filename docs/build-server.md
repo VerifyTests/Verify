@@ -22,7 +22,7 @@ on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 ```
 <sup><a href='/src/appveyor.yml#L11-L14' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).
 
@@ -53,4 +53,4 @@ if (BuildServerDetector.Detected)
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L83-L97' title='File snippet `derivetestdirectory` was extracted from'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Navigate to start of snippet `derivetestdirectory`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->

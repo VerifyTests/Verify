@@ -100,7 +100,7 @@ class SharedScrubber
         {
             return true;
         }
-        
+
         result = null;
         return false;
     }
@@ -170,7 +170,7 @@ class SharedScrubber
 
     static readonly string GuidPattern = @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b";
     static readonly Regex Regex = new Regex(GuidPattern, RegexOptions.IgnoreCase);
-    
+
     public bool TryParsePartialGuids(string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubInlineGuids)

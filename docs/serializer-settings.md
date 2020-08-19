@@ -263,7 +263,7 @@ VerifierSettings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L122-L130' title='File snippet `extrasettingsglobal` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Navigate to start of snippet `extrasettingsglobal`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L121-L129' title='File snippet `extrasettingsglobal` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Navigate to start of snippet `extrasettingsglobal`'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -279,7 +279,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L132-L141' title='File snippet `extrasettingsinstance` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Navigate to start of snippet `extrasettingsinstance`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L131-L140' title='File snippet `extrasettingsinstance` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Navigate to start of snippet `extrasettingsinstance`'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -302,7 +302,7 @@ class CompanyConverter :
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L153-L167' title='File snippet `companyconverter` was extracted from'>snippet source</a> | <a href='#snippet-companyconverter' title='Navigate to start of snippet `companyconverter`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L166' title='File snippet `companyconverter` was extracted from'>snippet source</a> | <a href='#snippet-companyconverter' title='Navigate to start of snippet `companyconverter`'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
@@ -310,7 +310,7 @@ class CompanyConverter :
 ```cs
 VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L146-L150' title='File snippet `jsonconverter` was extracted from'>snippet source</a> | <a href='#snippet-jsonconverter' title='Navigate to start of snippet `jsonconverter`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L145-L149' title='File snippet `jsonconverter` was extracted from'>snippet source</a> | <a href='#snippet-jsonconverter' title='Navigate to start of snippet `jsonconverter`'>anchor</a></sup>
 <!-- endSnippet -->
 
 

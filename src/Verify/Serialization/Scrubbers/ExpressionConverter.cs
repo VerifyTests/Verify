@@ -19,6 +19,6 @@ class ExpressionConverter :
 
     public override bool CanConvert(Type type)
     {
-        return typeof(Expression).IsAssignableFrom(type) ;
+        return typeof(Expression).IsAssignableFrom(type);
     }
 }

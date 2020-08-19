@@ -58,7 +58,6 @@ public class Snippets
         public string Property { get; set; } = null!;
     }
 
-
     void EnableClipboard()
     {
         #region EnableClipboard

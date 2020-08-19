@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using VerifyTests;
@@ -311,6 +312,18 @@ public class SerializationTests
     {
         public Type Type;
         public Type Dynamic;
+    }
+
+    [Fact]
+    public Task QuoteEscaping()
+    {
+        return Verifier.Verify(
+            new
+            {
+                singleQuote = "'",
+                doubleQuote = "\"",
+                mixed = "\"'",
+            });
     }
 
     [Fact]

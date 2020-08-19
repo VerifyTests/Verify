@@ -48,7 +48,7 @@ public class Snippets
         #region TreatAsString
 
         VerifierSettings.TreatAsString<ClassWithToString>(
-            (target, settings) => { return target.Property; });
+            (target, settings) => target.Property);
 
         #endregion
     }

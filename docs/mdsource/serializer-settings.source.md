@@ -21,9 +21,11 @@ The default serialization settings are:
 snippet: defaultSerialization
 
 
-## Single quotes used
+## Custom quotes handling
 
 [JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
+
+If a string being serialized contains single quotes `'`, and does not contain double quotes `"`, then JsonTextWriter.QuoteChar will be double quotes `"`.
 
 
 ## QuoteName is false

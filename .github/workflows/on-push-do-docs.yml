@@ -2,7 +2,7 @@ name: on-push-do-docs
 on:
   push:
 jobs:
-  release:
+  docs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2

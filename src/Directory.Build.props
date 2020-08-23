@@ -6,10 +6,5 @@
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>
-    <!-- below required for TargetLib and Shared -->
-    <Nullable>enable</Nullable>
-    <LangVersion>8.0</LangVersion>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

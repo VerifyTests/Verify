@@ -117,21 +117,27 @@ class VerifyEngine
         }
     }
 
-    Task ProcessDangling(StringBuilder builder, string item)
+    async Task ProcessDangling(StringBuilder builder, string item)
     {
         builder.AppendLine($"  {Path.GetFileName(item)}");
         if (settings.autoVerify)
         {
             File.Delete(item);
-            return Task.CompletedTask;
+            return;
+        }
+
+        if (DiffEngineTray.IsRunning)
+        {
+            await DiffEngineTray.AddDelete(item);
+            return;
         }
 
         if (!ClipboardEnabled.IsEnabled(settings))
         {
-            return Task.CompletedTask;
+            return;
         }
 
-        return ClipboardCapture.AppendDelete(item);
+        await ClipboardCapture.AppendDelete(item);
     }
 
     async Task ProcessNotEquals(StringBuilder builder)
@@ -192,7 +198,8 @@ class VerifyEngine
             return;
         }
 
-        if (ClipboardEnabled.IsEnabled(settings))
+        if (!DiffEngineTray.IsRunning &&
+            ClipboardEnabled.IsEnabled(settings))
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
@@ -202,7 +209,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.Launch(item.Received, item.Verified);
+        await DiffRunner.Launch(item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -243,7 +250,8 @@ class VerifyEngine
             return;
         }
 
-        if (ClipboardEnabled.IsEnabled(settings))
+        if (!DiffEngineTray.IsRunning &&
+            ClipboardEnabled.IsEnabled(settings))
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
@@ -253,7 +261,7 @@ class VerifyEngine
             return;
         }
 
-        DiffRunner.Launch(item.Received, item.Verified);
+        await DiffRunner.Launch(item.Received, item.Verified);
     }
 
     static void AcceptChanges(in FilePair item)

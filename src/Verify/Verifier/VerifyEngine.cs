@@ -87,9 +87,16 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        if (ClipboardEnabled.IsEnabled(settings) && !settings.autoVerify)
+        if (!settings.autoVerify)
         {
-            builder.AppendLine("Verify command placed in clipboard.");
+            if (DiffEngineTray.IsRunning)
+            {
+                builder.AppendLine("Use DiffEngineTray to verify files.");
+            }
+            else if (ClipboardEnabled.IsEnabled(settings))
+            {
+                builder.AppendLine("Verify command placed in clipboard.");
+            }
         }
 
         await ProcessDangling(builder);

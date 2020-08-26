@@ -4,6 +4,7 @@ using VerifyXunit;
 using Xunit;
 using static VerifyXunit.Verifier;
 
+#region XunitExtensionSample
 [UsesVerify]
 public class ExtensionSample
 {
@@ -41,3 +42,4 @@ public class ExtensionSample
             settings: classLevelSettings);
     }
 }
+#endregion

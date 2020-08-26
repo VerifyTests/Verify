@@ -62,7 +62,7 @@ It can be overridden at two levels:
 
 Usage:
 
-snippet: ExtensionSample.cs
+snippet: XunitExtensionSample
 
 Result in two files:
 

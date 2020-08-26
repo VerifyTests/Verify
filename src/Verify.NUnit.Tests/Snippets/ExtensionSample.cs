@@ -3,6 +3,7 @@ using NUnit.Framework;
 using VerifyTests;
 using static VerifyNUnit.Verifier;
 
+#region NUnitExtensionSample
 [TestFixture]
 public class ExtensionSample
 {
@@ -40,3 +41,4 @@ public class ExtensionSample
             settings: classLevelSettings);
     }
 }
+#endregion

@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyTests;
 using VerifyMSTest;
 
+#region MSTestExtensionSample
+
 [TestClass]
 public class ExtensionSample :
     VerifyBase
@@ -41,3 +43,5 @@ public class ExtensionSample :
             settings: classLevelSettings);
     }
 }
+
+#endregion

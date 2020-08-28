@@ -11,6 +11,7 @@ Verify makes use of the clipboard.
 
 This is done via the [TextCopy project](https://github.com/CopyText/TextCopy).
 
+**An alternative to using the clipboard is the [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md).**
 
 ## Accept received
 

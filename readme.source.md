@@ -70,7 +70,10 @@ The clipboard will contain the following:
 
 > cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
 
-See also: [Clipboard](/docs/clipboard.md)
+Notes:
+
+ * [More Clipboard info](/docs/clipboard.md).
+ * **An alternative to using the clipboard is the [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md).**
 
 If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
 
@@ -112,6 +115,7 @@ The clipboard will again contain the following:
 > cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
 
 See also: [Clipboard](/docs/clipboard.md)
+
 
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 

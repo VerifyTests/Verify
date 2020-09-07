@@ -42,7 +42,15 @@ namespace VerifyTests
         /// <summary>
         /// Allows extensions to Verify to pass config via <see cref="VerifySettings"/>.
         /// </summary>
-        public IDictionary<string, object> Data { get; } = new Dictionary<string, object>();
+        [ObsoleteEx(
+            ReplacementTypeOrMember = "VerifySettings.Context",
+            RemoveInVersion = "7.0")]
+        public IDictionary<string, object> Data { get => Context; }
+
+        /// <summary>
+        /// Allows extensions to Verify to pass config via <see cref="VerifySettings"/>.
+        /// </summary>
+        public IDictionary<string, object> Context { get; } = new Dictionary<string, object>();
 
         public VerifySettings()
         {

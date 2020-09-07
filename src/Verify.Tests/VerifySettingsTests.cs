@@ -6,12 +6,12 @@ using Xunit;
 public class VerifySettingsTests
 {
     [Fact]
-    public void DataIsCloned()
+    public void ContextIsCloned()
     {
         var originalSettings = new VerifySettings();
-        originalSettings.Data.Add("cloneable", new MyCloneable());
+        originalSettings.Context.Add("cloneable", new MyCloneable());
         var newSettings = new VerifySettings(originalSettings);
-        Assert.NotSame(originalSettings.Data.Single().Value, newSettings.Data.Single().Value);
+        Assert.NotSame(originalSettings.Context.Single().Value, newSettings.Context.Single().Value);
     }
 
     class MyCloneable :

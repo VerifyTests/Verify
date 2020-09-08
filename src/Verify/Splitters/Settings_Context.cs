@@ -5,7 +5,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static ConcurrentBag<ContextConversion> contextConverters = new ConcurrentBag<ContextConversion>();
+        static ConcurrentBag<Appender> contextConverters = new ConcurrentBag<Appender>();
 
         internal static IEnumerable<ConversionStream> GetContextConverters(VerifySettings settings)
         {
@@ -19,10 +19,10 @@ namespace VerifyTests
             }
         }
 
-        public static void RegisterContextConverter(ContextConversion conversion)
+        public static void RegisterAppender(Appender appender)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
-            contextConverters.Add(conversion);
+            Guard.AgainstNull(appender, nameof(appender));
+            contextConverters.Add(appender);
         }
     }
 }

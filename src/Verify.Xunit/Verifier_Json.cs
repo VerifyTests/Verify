@@ -12,6 +12,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             var verifier = GetVerifier(sourceFile, settings);
             return verifier.Verify(target, settings);
         }
@@ -21,6 +22,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             var verifier = GetVerifier(sourceFile, settings);
             return verifier.Verify(target, settings);
         }
@@ -30,6 +32,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             var verifier = GetVerifier(sourceFile, settings);
             return verifier.Verify(target, settings);
         }

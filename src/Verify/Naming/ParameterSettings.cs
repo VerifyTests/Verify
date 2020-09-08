@@ -13,7 +13,7 @@ namespace VerifyTests
             settings.Data["Parameters"] = parameters;
         }
 
-        public static object?[] GetParameters(this VerifySettings? settings, MethodInfo methodInfo)
+        public static object?[] GetParameters(this VerifySettings settings, MethodInfo methodInfo)
         {
             var settingsParameters = settings.ParametersOrDefault();
             var methodParameters = methodInfo.GetParameters();
@@ -21,23 +21,20 @@ namespace VerifyTests
             {
                 return settingsParameters;
             }
+
             throw InnerVerifier.exceptionBuilder($@"Method `{methodInfo.DeclaringType!.Name}.{methodInfo.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 var settings = new VerifySettings();
 settings.UseParameters({string.Join(", ", methodParameters.Select(x => x.Name))});
 await Verifier.Verify(target, settings);");
-
         }
-        static object?[] ParametersOrDefault(this VerifySettings? settings)
-        {
-            if (settings == null)
-            {
-                return Array.Empty<object?>();
-            }
 
+        static object?[] ParametersOrDefault(this VerifySettings settings)
+        {
             if (settings.Data.TryGetValue("Parameters", out var data))
             {
                 return (object?[]) data;
             }
+
             return Array.Empty<object?>();
         }
     }

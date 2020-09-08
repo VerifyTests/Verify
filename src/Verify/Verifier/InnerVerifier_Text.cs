@@ -5,18 +5,16 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        Task VerifyString(string target, VerifySettings? settings = null)
+        Task VerifyString(string target, VerifySettings settings)
         {
             var builder = new StringBuilder(target);
             builder.FixNewlines();
             return Verify(builder, settings);
         }
 
-        async Task Verify(StringBuilder target, VerifySettings? settings)
+        async Task Verify(StringBuilder target, VerifySettings settings)
         {
             Guard.AgainstNull(target, nameof(target));
-            settings = settings.OrDefault();
-
             var extension = settings.ExtensionOrTxt();
             var engine = new VerifyEngine(
                 extension,

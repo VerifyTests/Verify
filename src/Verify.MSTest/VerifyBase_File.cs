@@ -12,8 +12,9 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.Verify(target);
+            await verifier.Verify(target, settings);
         }
 
         public async Task Verify(
@@ -21,8 +22,9 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.Verify(await target);
+            await verifier.Verify(await target, settings);
         }
 
         public async Task VerifyFile(
@@ -30,8 +32,9 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.VerifyFile(path);
+            await verifier.VerifyFile(path, settings);
         }
 
         public async Task VerifyFile(
@@ -39,8 +42,9 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.VerifyFile(path);
+            await verifier.VerifyFile(path, settings);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using VerifyTests;
 
 namespace VerifyNUnit
 {
@@ -10,10 +11,12 @@ namespace VerifyNUnit
     {
         public static async Task Verify(
             Expression<Func<ITuple>> expression,
+            VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile);
-            await verifier.Verify(expression);
+            await verifier.Verify(expression, settings);
         }
     }
 }

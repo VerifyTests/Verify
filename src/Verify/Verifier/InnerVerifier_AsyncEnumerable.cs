@@ -6,10 +6,9 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public async Task Verify<T>(IAsyncEnumerable<T> target, VerifySettings? settings = null)
+        public async Task Verify<T>(IAsyncEnumerable<T> target, VerifySettings settings)
         {
             Guard.AgainstNull(target, nameof(target));
-            settings = settings.OrDefault();
             var list = new List<T>();
             await foreach (var item in target)
             {

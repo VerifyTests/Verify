@@ -10,7 +10,7 @@ namespace VerifyTests
     {
         public Task Verify(
             Expression<Func<ITuple>> target,
-            VerifySettings? settings = null)
+            VerifySettings settings)
         {
             var dictionary = TupleConverter.ExpressionToDictionary(target);
             return Verify(dictionary, settings);

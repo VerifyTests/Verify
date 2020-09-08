@@ -8,10 +8,9 @@ namespace VerifyTests
     {
         public Task VerifyFile(
             string path,
-            VerifySettings? settings = null)
+            VerifySettings settings)
         {
             Guard.FileExists(path, nameof(path));
-            settings = settings.OrDefault();
             if (!settings.HasExtension())
             {
                 settings = new VerifySettings(settings);
@@ -23,7 +22,7 @@ namespace VerifyTests
 
         public Task VerifyFile(
             FileInfo target,
-            VerifySettings? settings = null)
+            VerifySettings settings)
         {
             Guard.AgainstNull(target, nameof(target));
             return VerifyFile(target.FullName, settings);

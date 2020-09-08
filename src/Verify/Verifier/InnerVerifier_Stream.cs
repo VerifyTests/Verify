@@ -9,7 +9,7 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public Task Verify(byte[] target, VerifySettings? settings = null)
+        public Task Verify(byte[] target, VerifySettings settings)
         {
             Guard.AgainstNull(target, nameof(target));
             var stream = new MemoryStream(target);

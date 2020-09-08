@@ -5,11 +5,11 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static ConcurrentBag<FileAppender> appenders = new ConcurrentBag<FileAppender>();
+        static ConcurrentBag<FileAppender> fileAppenders = new ConcurrentBag<FileAppender>();
 
         internal static IEnumerable<ConversionStream> GetFileAppenders(VerifySettings settings)
         {
-            foreach (var appender in appenders)
+            foreach (var appender in fileAppenders)
             {
                 var stream = appender(settings);
                 if (stream != null)
@@ -22,7 +22,7 @@ namespace VerifyTests
         public static void RegisterFileAppender(FileAppender appender)
         {
             Guard.AgainstNull(appender, nameof(appender));
-            appenders.Add(appender);
+            fileAppenders.Add(appender);
         }
     }
 }

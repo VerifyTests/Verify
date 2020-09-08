@@ -16,6 +16,7 @@ namespace VerifyTests
 
             instanceScrubbers = new List<Action<StringBuilder>>(settings.instanceScrubbers);
             extension = settings.extension;
+            SourceFile = settings.SourceFile;
             clipboardEnabled = settings.clipboardEnabled;
             diffEnabled = settings.diffEnabled;
             autoVerify = settings.autoVerify;

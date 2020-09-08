@@ -1,7 +1,5 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace VerifyTests
 {
@@ -9,16 +7,15 @@ namespace VerifyTests
     {
         static ConcurrentBag<ContextConversion> contextConverters = new ConcurrentBag<ContextConversion>();
 
-        internal static bool TryGetContextConverter(VerifySettings settings)
+        internal static IEnumerable<ConversionStream> GetContextConverters(VerifySettings settings)
         {
             foreach (var conversion in contextConverters)
             {
-                foreach (var VARIABLE in conversion(settings))
+                foreach (var stream in conversion(settings))
                 {
-                    
+                    yield return stream;
                 }
             }
-            return extensionConverters.TryGetValue(extension, out converter);
         }
 
         public static void RegisterContextConverter(ContextConversion conversion)

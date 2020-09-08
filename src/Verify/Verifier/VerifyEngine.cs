@@ -51,6 +51,13 @@ class VerifyEngine
                 break;
         }
     }
+    public void RunContextConverters(int startIndex)
+    {
+        foreach (var item in    VerifierSettings.GetContextConverters(settings))
+        {
+
+        }
+    }
 
     public void AddMissing(in FilePair item)
     {

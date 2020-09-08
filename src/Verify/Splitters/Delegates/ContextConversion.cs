@@ -2,5 +2,5 @@
 
 namespace VerifyTests
 {
-    public delegate IEnumerable<ConversionStream> ContextConversion(object target, VerifySettings settings);
+    public delegate IEnumerable<ConversionStream> ContextConversion(VerifySettings settings);
 }

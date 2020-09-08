@@ -57,6 +57,7 @@ namespace VerifyTests
 
                 engine.HandleCompareResult(result, file);
             }
+            engine.RunContextConverters();
 
             if (cleanup != null)
             {
@@ -114,6 +115,7 @@ namespace VerifyTests
 
             var result = await Comparer.Text(file, builder, settings);
             engine.HandleCompareResult(result, file);
+            engine.RunContextConverters();
         }
     }
 }

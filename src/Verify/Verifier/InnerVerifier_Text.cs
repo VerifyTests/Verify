@@ -30,6 +30,7 @@ namespace VerifyTests
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
             var result = await Comparer.Text(file, target, settings);
             engine.HandleCompareResult(result, file);
+            engine.RunContextConverters();
             await engine.ThrowIfRequired();
         }
     }

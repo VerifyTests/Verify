@@ -69,7 +69,7 @@ namespace VerifyTests
         {
             var stream = conversionStream.Stream;
 #if NETSTANDARD2_1
-        await using (stream)
+            await using (stream)
 #else
             using (stream)
 #endif

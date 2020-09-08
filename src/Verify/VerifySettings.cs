@@ -7,8 +7,6 @@ namespace VerifyTests
 {
     public partial class VerifySettings
     {
-        internal static VerifySettings Default = new VerifySettings();
-
         public VerifySettings(VerifySettings? settings)
         {
             if (settings == null)

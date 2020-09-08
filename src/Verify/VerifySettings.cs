@@ -16,6 +16,7 @@ namespace VerifyTests
 
             instanceScrubbers = new List<Action<StringBuilder>>(settings.instanceScrubbers);
             extension = settings.extension;
+            SourceFile = settings.SourceFile;
             clipboardEnabled = settings.clipboardEnabled;
             diffEnabled = settings.diffEnabled;
             autoVerify = settings.autoVerify;
@@ -50,7 +51,7 @@ namespace VerifyTests
         /// </summary>
         public IDictionary<string, object> Context { get; } = new Dictionary<string, object>();
 
-        public string SourceFile { get; set; } = null!;
+        public string SourceFile { get; internal set; } = null!;
 
         public VerifySettings()
         {

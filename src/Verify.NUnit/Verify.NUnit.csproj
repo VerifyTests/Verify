@@ -10,7 +10,7 @@
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.NUnit.targets" />
     <PackageReference Include="Fody" Version="6.2.5" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="All" />
-    <PackageReference Include="EmptyFiles" Version="2.0.4" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="2.0.5" PrivateAssets="None" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />

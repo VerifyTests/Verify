@@ -46,7 +46,7 @@ namespace VerifyTests
                 directory,
                 testName,
                 assembly);
-            var list = streams.Concat(VerifierSettings.GetContextConverters(settings)).ToList();
+            var list = streams.Concat(VerifierSettings.GetFileAppenders(settings)).ToList();
             await VerifyInfo(engine, settings, info);
 
             if (list.Count == 1)

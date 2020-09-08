@@ -26,7 +26,7 @@ namespace VerifyTests
                 testName,
                 assembly);
 
-            var list = VerifierSettings.GetContextConverters(settings).ToList();
+            var list = VerifierSettings.GetFileAppenders(settings).ToList();
             FilePair file;
             if (list.Any())
             {

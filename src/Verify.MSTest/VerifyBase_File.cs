@@ -12,8 +12,8 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            settings = settings.OrDefault();
-            using var verifier = BuildVerifier(sourceFile, settings);
+            settings = settings.OrDefault(sourceFile);
+            using var verifier = BuildVerifier(settings);
             await verifier.Verify(target, settings);
         }
 
@@ -22,8 +22,8 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            settings = settings.OrDefault();
-            using var verifier = BuildVerifier(sourceFile, settings);
+            settings = settings.OrDefault(sourceFile);
+            using var verifier = BuildVerifier(settings);
             await verifier.Verify(await target, settings);
         }
 
@@ -32,8 +32,8 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            settings = settings.OrDefault();
-            using var verifier = BuildVerifier(sourceFile, settings);
+            settings = settings.OrDefault(sourceFile);
+            using var verifier = BuildVerifier(settings);
             await verifier.VerifyFile(path, settings);
         }
 
@@ -42,8 +42,8 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            settings = settings.OrDefault();
-            using var verifier = BuildVerifier(sourceFile, settings);
+            settings = settings.OrDefault(sourceFile);
+            using var verifier = BuildVerifier(settings);
             await verifier.VerifyFile(path, settings);
         }
     }

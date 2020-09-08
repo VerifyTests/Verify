@@ -2,13 +2,10 @@
 
 static class VerifySettingsEx
 {
-    public static VerifySettings OrDefault(this VerifySettings? settings)
+    public static VerifySettings OrDefault(this VerifySettings? settings, string sourceFile)
     {
-        if (settings == null)
-        {
-            return new VerifySettings();
-        }
-
+        settings ??= new VerifySettings();
+        settings.SourceFile = sourceFile;
         return settings;
     }
 }

@@ -9,7 +9,7 @@ namespace VerifyMSTest
     {
         public TestContext TestContext { get; set; } = null!;
 
-        InnerVerifier BuildVerifier(string sourceFile, VerifySettings? settings)
+        InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var type = GetType();

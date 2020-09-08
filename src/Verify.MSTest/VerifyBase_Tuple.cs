@@ -14,8 +14,9 @@ namespace VerifyMSTest
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.Verify(target);
+            await verifier.Verify(target, settings);
         }
     }
 }

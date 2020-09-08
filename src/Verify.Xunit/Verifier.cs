@@ -6,7 +6,7 @@ namespace VerifyXunit
 {
     public static partial class Verifier
     {
-        static InnerVerifier GetVerifier(string sourceFile, VerifySettings? settings)
+        static InnerVerifier GetVerifier(string sourceFile, VerifySettings settings)
         {
             var className = Path.GetFileNameWithoutExtension(sourceFile);
             if (!UsesVerifyAttribute.TryGet(out var info))

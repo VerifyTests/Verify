@@ -7,9 +7,8 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public async Task Verify<T>(T target, VerifySettings? settings = null)
+        public async Task Verify<T>(T target, VerifySettings settings)
         {
-            settings = settings.OrDefault();
             if (target == null)
             {
                 await VerifyString("null", settings);

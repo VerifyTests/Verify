@@ -12,6 +12,7 @@ namespace VerifyNUnit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile);
             return verifier.Verify(target, settings);
         }
@@ -21,6 +22,7 @@ namespace VerifyNUnit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.Verify(await target, settings);
         }
@@ -30,6 +32,7 @@ namespace VerifyNUnit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.VerifyFile(path, settings);
         }
@@ -39,6 +42,7 @@ namespace VerifyNUnit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            settings = settings.OrDefault();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.VerifyFile(path, settings);
         }

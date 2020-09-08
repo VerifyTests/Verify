@@ -6,7 +6,7 @@ static class VerifySettingsEx
     {
         if (settings == null)
         {
-            return VerifySettings.Default;
+            return new VerifySettings();
         }
 
         return settings;

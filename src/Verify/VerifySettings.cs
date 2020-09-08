@@ -50,6 +50,8 @@ namespace VerifyTests
         /// </summary>
         public IDictionary<string, object> Context { get; } = new Dictionary<string, object>();
 
+        public string SourceFile { get; set; } = null!;
+
         public VerifySettings()
         {
         }

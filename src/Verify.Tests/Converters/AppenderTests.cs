@@ -4,14 +4,19 @@ using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
-public class ContextConverterTests
+public class AppenderTests
 {
-    static ContextConverterTests()
+    static AppenderTests()
     {
-        VerifierSettings.RegisterContextConverter(
+        VerifierSettings.RegisterAppender(
             settings =>
             {
-                return new ConversionStream("txt", "data");
+                if (settings.SourceFile.Contains("AppenderTests"))
+                {
+                    return new ConversionStream("txt", "data");
+                }
+
+                return null;
             });
     }
 

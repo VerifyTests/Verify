@@ -11,9 +11,10 @@ namespace VerifyTests
         {
             foreach (var conversion in contextConverters)
             {
-                foreach (var stream in conversion(settings))
+                var stream = conversion(settings);
+                if (stream != null)
                 {
-                    yield return stream;
+                    yield return (ConversionStream)stream;
                 }
             }
         }

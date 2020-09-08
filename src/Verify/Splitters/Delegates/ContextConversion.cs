@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
-    public delegate IEnumerable<ConversionStream> ContextConversion(VerifySettings settings);
+    public delegate ConversionStream? ContextConversion(VerifySettings settings);
 }

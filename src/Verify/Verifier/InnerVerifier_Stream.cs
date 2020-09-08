@@ -34,7 +34,7 @@ namespace VerifyTests
                     }
                 }
 
-                await VerifyBinary(new List<ConversionStream> {new ConversionStream(settings.ExtensionOrBin(),stream)}, settings.ExtensionOrBin(), settings, null, null);
+                await VerifyBinary(new List<ConversionStream> {new ConversionStream(settings.ExtensionOrBin(), stream)}, settings.ExtensionOrBin(), settings, null, null);
             }
         }
 
@@ -46,23 +46,32 @@ namespace VerifyTests
                 directory,
                 testName,
                 assembly);
-            var list = streams.ToList();
+            var list = streams.Concat(VerifierSettings.GetContextConverters(settings)).ToList();
             await VerifyInfo(engine, settings, info);
-            for (var index = 0; index < list.Count; index++)
+
+            if (list.Count == 1)
             {
-                var conversionStream = list[index];
-                var file = GetFileForIndex(settings, list, index, conversionStream.Extension);
-
-                var result = await GetResult(settings, file, conversionStream);
-
+                var stream = list[0];
+                var file = GetFileNames(stream.Extension, settings.Namer);
+                var result = await GetResult(settings, file, stream);
                 engine.HandleCompareResult(result, file);
             }
-            engine.RunContextConverters();
+            else
+            {
+                for (var index = 0; index < list.Count; index++)
+                {
+                    var stream = list[index];
+                    var file = GetFileNames(stream.Extension, settings.Namer, $"{index:D2}");
+                    var result = await GetResult(settings, file, stream);
+                    engine.HandleCompareResult(result, file);
+                }
+            }
 
             if (cleanup != null)
             {
                 await cleanup.Invoke();
             }
+
             await engine.ThrowIfRequired();
         }
 
@@ -87,16 +96,6 @@ namespace VerifyTests
             }
         }
 
-        FilePair GetFileForIndex(VerifySettings settings, List<ConversionStream> list, int index, string extension)
-        {
-            if (list.Count > 1)
-            {
-                return GetFileNames(extension, settings.Namer, $"{index:D2}");
-            }
-
-            return GetFileNames(extension, settings.Namer);
-        }
-
         async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
         {
             if (info == null)
@@ -115,7 +114,6 @@ namespace VerifyTests
 
             var result = await Comparer.Text(file, builder, settings);
             engine.HandleCompareResult(result, file);
-            engine.RunContextConverters();
         }
     }
 }

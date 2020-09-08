@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -18,6 +19,8 @@ namespace VerifyTests
             settings = settings.OrDefault();
 
             var extension = settings.ExtensionOrTxt();
+            ApplyScrubbers.Apply(target, settings.instanceScrubbers);
+
             var engine = new VerifyEngine(
                 extension,
                 settings,
@@ -25,12 +28,28 @@ namespace VerifyTests
                 testName,
                 assembly);
 
-            var file = GetFileNames(extension, settings.Namer);
+            var list = VerifierSettings.GetContextConverters(settings).ToList();
+            FilePair file;
+            if (list.Any())
+            {
+                file = GetFileNames(extension, settings.Namer, "01");
+            }
+            else
+            {
+                file = GetFileNames(extension, settings.Namer);
+            }
 
-            ApplyScrubbers.Apply(target, settings.instanceScrubbers);
             var result = await Comparer.Text(file, target, settings);
             engine.HandleCompareResult(result, file);
-            engine.RunContextConverters();
+
+            for (var index = 0; index < list.Count; index++)
+            {
+                var stream = list[index];
+                var conversionFile = GetFileNames(stream.Extension, settings.Namer, $"{index + 1:D2}");
+                var conversionResult = await GetResult(settings, conversionFile, stream);
+                engine.HandleCompareResult(conversionResult, file);
+            }
+
             await engine.ThrowIfRequired();
         }
     }

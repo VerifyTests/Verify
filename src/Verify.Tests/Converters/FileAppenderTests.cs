@@ -11,7 +11,7 @@ public class FileAppenderTests
         VerifierSettings.RegisterFileAppender(
             settings =>
             {
-                if (!settings.SourceFile.Contains("AppenderTests"))
+                if (!settings.SourceFile.Contains("FileAppenderTests"))
                 {
                     return null;
                 }

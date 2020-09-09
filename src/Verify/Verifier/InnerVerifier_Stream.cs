@@ -34,8 +34,9 @@ namespace VerifyTests
                     }
                 }
 
-                var streams = new List<ConversionStream> {new ConversionStream(settings.ExtensionOrBin(), stream)};
-                await VerifyBinary(streams, settings.ExtensionOrBin(), settings, null, null);
+                var extension = settings.ExtensionOrBin();
+                var streams = new List<ConversionStream> {new ConversionStream(extension, stream)};
+                await VerifyBinary(streams, extension, settings, null, null);
             }
         }
 

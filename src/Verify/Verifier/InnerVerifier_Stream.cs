@@ -46,26 +46,20 @@ namespace VerifyTests
                 directory,
                 testName,
                 assembly);
-            var list = streams.Concat(VerifierSettings.GetFileAppenders(settings)).ToList();
+
+            var builders = streams
+                .Concat(VerifierSettings.GetFileAppenders(settings))
+                .Select(appender =>
+                {
+                    return new ResultBuilder(
+                        appender.Extension,
+                        file => GetResult(settings, file, appender));
+                })
+                .ToList();
+
             await VerifyInfo(engine, settings, info);
 
-            if (list.Count == 1)
-            {
-                var stream = list[0];
-                var file = GetFileNames(stream.Extension, settings.Namer);
-                var result = await GetResult(settings, file, stream);
-                engine.HandleCompareResult(result, file);
-            }
-            else
-            {
-                for (var index = 0; index < list.Count; index++)
-                {
-                    var stream = list[index];
-                    var file = GetFileNames(stream.Extension, settings.Namer, $"{index:D2}");
-                    var result = await GetResult(settings, file, stream);
-                    engine.HandleCompareResult(result, file);
-                }
-            }
+            await HandleResults(settings, builders, engine);
 
             if (cleanup != null)
             {

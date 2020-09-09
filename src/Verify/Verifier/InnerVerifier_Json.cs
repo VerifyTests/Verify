@@ -45,7 +45,7 @@ namespace VerifyTests
             await SerializeAndVerify(target, settings);
         }
 
-        Task SerializeAndVerify<T>(T target, VerifySettings settings)
+        Task SerializeAndVerify(object target, VerifySettings settings)
         {
             var formatJson = JsonFormatter.AsJson(
                 target,

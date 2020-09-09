@@ -5,7 +5,7 @@ static class JsonFormatter
 {
     internal static char QuoteChar = '\'';
 
-    public static StringBuilder AsJson<T>(T input, JsonSerializerSettings settings, bool newLineEscapingDisabled)
+    public static StringBuilder AsJson(object input, JsonSerializerSettings settings, bool newLineEscapingDisabled)
     {
         var serializer = JsonSerializer.Create(settings);
         var builder = new StringBuilder();

@@ -53,7 +53,8 @@ namespace VerifyTests
             {
                 var stream = list[0];
                 var file = GetFileNames(stream.Extension, settings.Namer);
-                await ProcessConversionStream(settings, file, stream, engine);
+                var result = await GetResult(settings, file, stream);
+                engine.HandleCompareResult(result, file);
             }
             else
             {
@@ -61,7 +62,8 @@ namespace VerifyTests
                 {
                     var stream = list[index];
                     var file = GetFileNames(stream.Extension, settings.Namer, $"{index:D2}");
-                    await ProcessConversionStream(settings, file, stream, engine);
+                    var result = await GetResult(settings, file, stream);
+                    engine.HandleCompareResult(result, file);
                 }
             }
 
@@ -73,10 +75,9 @@ namespace VerifyTests
             await engine.ThrowIfRequired();
         }
 
-        static async Task ProcessConversionStream(VerifySettings settings, FilePair file, ConversionStream conversion, VerifyEngine engine)
+        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, ConversionStream conversionStream)
         {
-            EqualityResult result;
-            var stream = conversion.Stream;
+            var stream = conversionStream.Stream;
 #if NETSTANDARD2_1
             await using (stream)
 #else
@@ -84,19 +85,15 @@ namespace VerifyTests
 #endif
             {
                 stream.MoveToStart();
-                if (Extensions.IsText(conversion.Extension))
+                if (!Extensions.IsText(conversionStream.Extension))
                 {
-                    var builder = await stream.ReadAsString();
-                    ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                    result = await Comparer.Text(file, builder, settings);
+                    return await Comparer.Streams(settings, stream, file);
                 }
-                else
-                {
-                    result = await Comparer.Streams(settings, stream, file);
-                }
-            }
 
-            engine.HandleCompareResult(result, file);
+                var builder = await stream.ReadAsString();
+                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+                return await Comparer.Text(file, builder, settings);
+            }
         }
 
         async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)

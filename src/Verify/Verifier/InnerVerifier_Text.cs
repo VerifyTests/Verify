@@ -44,7 +44,8 @@ namespace VerifyTests
             {
                 var stream = list[index];
                 var conversionFile = GetFileNames(stream.Extension, settings.Namer, $"{index + 2:D2}");
-                await ProcessConversionStream(settings, conversionFile, stream, engine);
+                var conversionResult = await GetResult(settings, conversionFile, stream);
+                engine.HandleCompareResult(conversionResult, conversionFile);
             }
 
             await engine.ThrowIfRequired();

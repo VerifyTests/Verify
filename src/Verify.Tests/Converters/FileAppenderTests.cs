@@ -27,6 +27,12 @@ public class FileAppenderTests
     }
 
     [Fact]
+    public Task NullText()
+    {
+        return Verifier.Verify((string)null!);
+    }
+
+    [Fact]
     public Task Anon()
     {
         return Verifier.Verify(new {foo = "bar"});

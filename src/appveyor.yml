@@ -1,6 +1,11 @@
 image:
 - macos
 - Visual Studio 2019 Preview
+install:
+- ps: >-
+    Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "C:/dotnet-install.ps1"
+
+    C:/dotnet-install.ps1 --Version "5.0.100-preview.8.20417.9"
 skip_commits:
   message: /docs|Merge pull request.*/
 build_script:

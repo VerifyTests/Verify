@@ -92,7 +92,8 @@ namespace VerifyTests
 
         async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
         {
-            if (info == null)
+            var appends = VerifierSettings.GetJsonAppenders(settings);
+            if (info == null && !appends.Any())
             {
                 return;
             }
@@ -102,7 +103,8 @@ namespace VerifyTests
             var builder = JsonFormatter.AsJson(
                 info,
                 settings.serialization.currentSettings,
-                settings.IsNewLineEscapingDisabled);
+                settings.IsNewLineEscapingDisabled,
+                appends);
 
             ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 

@@ -7,16 +7,19 @@ namespace VerifyTests
     {
         static ConcurrentBag<JsonAppender> jsonAppenders = new ConcurrentBag<JsonAppender>();
 
-        internal static IEnumerable<ToAppend> GetJsonAppenders(VerifySettings settings)
+        internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
         {
+            var list = new List<ToAppend>();
             foreach (var appender in jsonAppenders)
             {
                 var data = appender(settings);
                 if (data != null)
                 {
-                    yield return data.Value;
+                    list.Add(data.Value);
                 }
             }
+
+            return list;
         }
 
         public static void RegisterJsonAppender(JsonAppender appender)

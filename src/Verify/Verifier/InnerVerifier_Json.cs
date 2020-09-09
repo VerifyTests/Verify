@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,15 +43,16 @@ namespace VerifyTests
                 return;
             }
 
-            await SerializeAndVerify(target, settings);
+            await SerializeAndVerify(target, settings, VerifierSettings.GetJsonAppenders(settings));
         }
 
-        Task SerializeAndVerify(object target, VerifySettings settings)
+        Task SerializeAndVerify(object target, VerifySettings settings, List<ToAppend> appends)
         {
             var formatJson = JsonFormatter.AsJson(
                 target,
                 settings.serialization.currentSettings,
-                settings.IsNewLineEscapingDisabled);
+                settings.IsNewLineEscapingDisabled,
+                appends);
             return VerifyStringBuilder(formatJson, settings);
         }
     }

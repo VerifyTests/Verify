@@ -35,7 +35,10 @@ namespace VerifyTests
                 }
 
                 var extension = settings.ExtensionOrBin();
-                var streams = new List<ConversionStream> {new ConversionStream(extension, stream)};
+                var streams = new List<ConversionStream>
+                {
+                    new ConversionStream(extension, stream)
+                };
                 await VerifyBinary(streams, extension, settings, null, null);
             }
         }

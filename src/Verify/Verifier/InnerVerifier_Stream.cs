@@ -13,7 +13,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(target, nameof(target));
             var stream = new MemoryStream(target);
-            return Verify(stream, settings);
+            return VerifyStream(settings, stream);
         }
 
         async Task VerifyStream(VerifySettings settings, Stream stream)

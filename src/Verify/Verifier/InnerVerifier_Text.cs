@@ -11,10 +11,10 @@ namespace VerifyTests
         {
             var builder = new StringBuilder(target);
             builder.FixNewlines();
-            return Verify(builder, settings);
+            return VerifyStringBuilder(builder, settings);
         }
 
-        async Task Verify(StringBuilder target, VerifySettings settings)
+        async Task VerifyStringBuilder(StringBuilder target, VerifySettings settings)
         {
             var extension = settings.ExtensionOrTxt();
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);

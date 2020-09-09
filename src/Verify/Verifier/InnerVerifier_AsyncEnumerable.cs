@@ -17,7 +17,7 @@ namespace VerifyTests
 
             try
             {
-                await Verify(list, settings);
+                await SerializeAndVerify(list, settings);
             }
             finally
             {

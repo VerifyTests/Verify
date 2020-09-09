@@ -17,7 +17,7 @@ namespace VerifyTests
                 settings.UseExtension(Extensions.GetExtension(path));
             }
 
-            return Verify(FileHelpers.OpenRead(path), settings);
+            return VerifyStream(settings, FileHelpers.OpenRead(path));
         }
 
         public Task VerifyFile(

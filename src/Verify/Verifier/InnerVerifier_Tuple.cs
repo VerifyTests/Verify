@@ -13,7 +13,7 @@ namespace VerifyTests
             VerifySettings settings)
         {
             var dictionary = TupleConverter.ExpressionToDictionary(target);
-            return Verify(dictionary, settings);
+            return SerializeAndVerify(dictionary, settings);
         }
     }
 }

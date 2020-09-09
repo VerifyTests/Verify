@@ -52,19 +52,19 @@ class VerifyEngine
         }
     }
 
-    public void AddMissing(in FilePair item)
+    void AddMissing(in FilePair item)
     {
         missings.Add(item);
         danglingVerified.Remove(item.Verified);
     }
 
-    public void AddNotEquals(in FilePair item,string? message)
+    void AddNotEquals(in FilePair item,string? message)
     {
         notEquals.Add((item,message));
         danglingVerified.Remove(item.Verified);
     }
 
-    public void AddEquals(in FilePair item)
+    void AddEquals(in FilePair item)
     {
         danglingVerified.Remove(item.Verified);
         equals.Add(item);

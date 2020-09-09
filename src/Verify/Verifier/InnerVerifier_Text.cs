@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,28 +27,46 @@ namespace VerifyTests
                 testName,
                 assembly);
 
-            var list = VerifierSettings.GetFileAppenders(settings).ToList();
-            FilePair file;
-            if (list.Any())
+            var builders = new List<ResultBuilder>
             {
-                file = GetFileNames(extension, settings.Namer, "01");
-            }
-            else
-            {
-                file = GetFileNames(extension, settings.Namer);
-            }
+                new ResultBuilder(extension, file => Comparer.Text(file, target, settings))
+            };
 
-            var result = await Comparer.Text(file, target, settings);
-            engine.HandleCompareResult(result, file);
+            builders.AddRange(VerifierSettings.GetFileAppenders(settings)
+                .Select(appender =>
+                {
+                    return new ResultBuilder(
+                        appender.Extension,
+                        file => GetResult(settings, file, appender));
+                }));
 
-            for (var index = 0; index < list.Count; index++)
-            {
-                var stream = list[index];
-                var conversionFile = GetFileNames(stream.Extension, settings.Namer, $"{index + 2:D2}");
-                await ProcessConversionStream(settings, conversionFile, stream, engine);
-            }
+            await HandleResults(settings, builders, engine);
 
             await engine.ThrowIfRequired();
+        }
+
+        async Task HandleResults(VerifySettings settings, List<ResultBuilder> results, VerifyEngine engine)
+        {
+            async Task HandleBuilder(ResultBuilder item, FilePair file)
+            {
+                var result = await item.GetResult(file);
+                engine.HandleCompareResult(result, file);
+            }
+
+            if (results.Count == 1)
+            {
+                var item = results[0];
+                var file = GetFileNames(item.Extension, settings.Namer);
+                await HandleBuilder(item, file);
+                return;
+            }
+
+            for (var index = 0; index < results.Count; index++)
+            {
+                var item = results[index];
+                var file = GetFileNames(item.Extension, settings.Namer, $"{index:D2}");
+                await HandleBuilder(item, file);
+            }
         }
     }
 }

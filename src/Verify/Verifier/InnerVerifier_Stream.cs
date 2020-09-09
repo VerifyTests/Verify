@@ -40,25 +40,26 @@ namespace VerifyTests
 
         async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, VerifySettings settings, object? info, Func<Task>? cleanup)
         {
-            var engine = new VerifyEngine(infoExtension, settings, directory, testName, assembly);
+            var engine = new VerifyEngine(
+                infoExtension,
+                settings,
+                directory,
+                testName,
+                assembly);
+
+            var builders = streams
+                .Concat(VerifierSettings.GetFileAppenders(settings))
+                .Select(appender =>
+                {
+                    return new ResultBuilder(
+                        appender.Extension,
+                        file => GetResult(settings, file, appender));
+                })
+                .ToList();
+
             await VerifyInfo(engine, settings, info);
 
-            var list = streams.Concat(VerifierSettings.GetFileAppenders(settings)).ToList();
-            if (list.Count == 1)
-            {
-                var stream = list[0];
-                var file = GetFileNames(stream.Extension, settings.Namer);
-                await ProcessConversionStream(settings, file, stream, engine);
-            }
-            else
-            {
-                for (var index = 0; index < list.Count; index++)
-                {
-                    var stream = list[index];
-                    var file = GetFileNames(stream.Extension, settings.Namer, $"{index:D2}");
-                    await ProcessConversionStream(settings, file, stream, engine);
-                }
-            }
+            await HandleResults(settings, builders, engine);
 
             if (cleanup != null)
             {
@@ -68,10 +69,9 @@ namespace VerifyTests
             await engine.ThrowIfRequired();
         }
 
-        static async Task ProcessConversionStream(VerifySettings settings, FilePair file, ConversionStream conversion, VerifyEngine engine)
+        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, ConversionStream conversionStream)
         {
-            EqualityResult result;
-            var stream = conversion.Stream;
+            var stream = conversionStream.Stream;
 #if NETSTANDARD2_1
             await using (stream)
 #else
@@ -79,42 +79,22 @@ namespace VerifyTests
 #endif
             {
                 stream.MoveToStart();
-                if (Extensions.IsText(conversion.Extension))
+                if (!Extensions.IsText(conversionStream.Extension))
                 {
-                    var builder = await stream.ReadAsString();
-                    ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                    result = await Comparer.Text(file, builder, settings);
+                    return await Comparer.Streams(settings, stream, file);
                 }
-                else
-                {
-                    result = await Comparer.Streams(settings, stream, file);
-                }
-            }
 
-            engine.HandleCompareResult(result, file);
+                var builder = await stream.ReadAsString();
+                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+                return await Comparer.Text(file, builder, settings);
+            }
         }
 
         async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
         {
-            var appenders = VerifierSettings.GetJsonAppenders(settings).ToList();
             if (info == null)
             {
-                if (appenders.Any())
-                {
-                    info = appenders.ToDictionary(x=>x.Name,x=>x.Data);
-                }
-            }
-            else
-            {
-                if (appenders.Any())
-                {
-                    var dictionary = new Dictionary<string, object> {{"target", info}};
-                    foreach (var appender in appenders)
-                    {
-                        dictionary.[appender.Name,appender.Data]
-                    }
-                    info = dictionary;
-                }
+                return;
             }
 
             var file = GetFileNames("txt", settings.Namer, "info");

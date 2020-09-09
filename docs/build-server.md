@@ -21,7 +21,7 @@ Use an [on_failure build step](https://www.appveyor.com/docs/build-configuration
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 ```
-<sup><a href='/src/appveyor.yml#L16-L19' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
+<sup><a href='/src/appveyor.yml#L20-L23' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
 <!-- endSnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).

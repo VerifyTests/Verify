@@ -34,18 +34,14 @@ namespace VerifyTests
                     }
                 }
 
-                await VerifyBinary(new List<ConversionStream> {new ConversionStream(settings.ExtensionOrBin(), stream)}, settings.ExtensionOrBin(), settings, null, null);
+                var streams = new List<ConversionStream> {new ConversionStream(settings.ExtensionOrBin(), stream)};
+                await VerifyBinary(streams, settings.ExtensionOrBin(), settings, null, null);
             }
         }
 
         async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, VerifySettings settings, object? info, Func<Task>? cleanup)
         {
-            var engine = new VerifyEngine(
-                infoExtension,
-                settings,
-                directory,
-                testName,
-                assembly);
+            var engine = new VerifyEngine(infoExtension, settings, directory, testName, assembly);
 
             var builders = streams
                 .Concat(VerifierSettings.GetFileAppenders(settings))

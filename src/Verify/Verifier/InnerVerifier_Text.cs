@@ -19,12 +19,7 @@ namespace VerifyTests
             var extension = settings.ExtensionOrTxt();
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
 
-            var engine = new VerifyEngine(
-                extension,
-                settings,
-                directory,
-                testName,
-                assembly);
+            var engine = new VerifyEngine(extension, settings, directory, testName, assembly);
 
             var builders = new List<ResultBuilder>
             {

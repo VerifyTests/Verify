@@ -40,15 +40,10 @@ namespace VerifyTests
 
         async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, VerifySettings settings, object? info, Func<Task>? cleanup)
         {
-            var engine = new VerifyEngine(
-                infoExtension,
-                settings,
-                directory,
-                testName,
-                assembly);
-            var list = streams.Concat(VerifierSettings.GetFileAppenders(settings)).ToList();
+            var engine = new VerifyEngine(infoExtension, settings, directory, testName, assembly);
             await VerifyInfo(engine, settings, info);
 
+            var list = streams.Concat(VerifierSettings.GetFileAppenders(settings)).ToList();
             if (list.Count == 1)
             {
                 var stream = list[0];
@@ -101,9 +96,25 @@ namespace VerifyTests
 
         async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
         {
+            var appenders = VerifierSettings.GetJsonAppenders(settings).ToList();
             if (info == null)
             {
-                return;
+                if (appenders.Any())
+                {
+                    info = appenders.ToDictionary(x=>x.Name,x=>x.Data);
+                }
+            }
+            else
+            {
+                if (appenders.Any())
+                {
+                    var dictionary = new Dictionary<string, object> {{"target", info}};
+                    foreach (var appender in appenders)
+                    {
+                        dictionary.[appender.Name,appender.Data]
+                    }
+                    info = dictionary;
+                }
             }
 
             var file = GetFileNames("txt", settings.Namer, "info");

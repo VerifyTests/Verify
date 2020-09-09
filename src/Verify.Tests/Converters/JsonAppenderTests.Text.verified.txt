@@ -1,0 +1,4 @@
+{
+  target: 'Foo',
+  theData: 'theValue'
+}

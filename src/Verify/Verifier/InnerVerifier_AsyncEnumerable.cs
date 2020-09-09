@@ -17,7 +17,7 @@ namespace VerifyTests
 
             try
             {
-                await SerializeAndVerify(list, settings);
+                await SerializeAndVerify(list, settings, VerifierSettings.GetJsonAppenders(settings));
             }
             finally
             {

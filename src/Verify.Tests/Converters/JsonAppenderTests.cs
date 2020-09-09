@@ -4,19 +4,19 @@ using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
-public class FileAppenderTests
+public class JsonAppenderTests
 {
-    static FileAppenderTests()
+    static JsonAppenderTests()
     {
-        VerifierSettings.RegisterFileAppender(
+        VerifierSettings.RegisterJsonAppender(
             settings =>
             {
-                if (!settings.SourceFile.Contains("FileAppenderTests"))
+                if (!settings.SourceFile.Contains("JsonAppenderTests"))
                 {
                     return null;
                 }
 
-                return new ConversionStream("txt", "data");
+                return new ToAppend("theData", "theValue");
             });
     }
 

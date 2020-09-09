@@ -9,8 +9,14 @@ namespace VerifyTests
     {
         Task VerifyString(string target, VerifySettings settings)
         {
+            var appenders = VerifierSettings.GetJsonAppenders(settings);
             var builder = new StringBuilder(target);
             builder.FixNewlines();
+            if (appenders.Any())
+            {
+                return SerializeAndVerify(builder.ToString(), settings, appenders);
+            }
+
             return VerifyStringBuilder(builder, settings);
         }
 

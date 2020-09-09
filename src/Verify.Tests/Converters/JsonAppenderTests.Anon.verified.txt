@@ -1,0 +1,6 @@
+{
+  target: {
+    foo: 'bar'
+  },
+  theData: 'theValue'
+}

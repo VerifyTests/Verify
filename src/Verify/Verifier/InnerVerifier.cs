@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace VerifyTests
 {
@@ -40,6 +42,30 @@ namespace VerifyTests
         public void Dispose()
         {
             CounterContext.Stop();
+        }
+
+        async Task HandleResults(VerifySettings settings, List<ResultBuilder> results, VerifyEngine engine)
+        {
+            async Task HandleBuilder(ResultBuilder item, FilePair file)
+            {
+                var result = await item.GetResult(file);
+                engine.HandleCompareResult(result, file);
+            }
+
+            if (results.Count == 1)
+            {
+                var item = results[0];
+                var file = GetFileNames(item.Extension, settings.Namer);
+                await HandleBuilder(item, file);
+                return;
+            }
+
+            for (var index = 0; index < results.Count; index++)
+            {
+                var item = results[index];
+                var file = GetFileNames(item.Extension, settings.Namer, $"{index:D2}");
+                await HandleBuilder(item, file);
+            }
         }
     }
 }

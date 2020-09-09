@@ -718,19 +718,22 @@ The default mapping is:
 {typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(Guid), (target, settings) => ((Guid) target).ToString()},
-{typeof(DateTime), (target, settings) =>
+{
+    typeof(DateTime), (target, settings) =>
     {
         var dateTime = (DateTime) target;
         return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
     }
 },
-{typeof(DateTimeOffset), (target, settings) =>
+{
+    typeof(DateTimeOffset), (target, settings) =>
     {
         var dateTimeOffset = (DateTimeOffset) target;
         return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
     }
 },
-{typeof(XmlNode), (target, settings) =>
+{
+    typeof(XmlNode), (target, settings) =>
     {
         var converted = (XmlNode) target;
         var document = XDocument.Parse(converted.OuterXml);
@@ -738,7 +741,8 @@ The default mapping is:
         return document.ToString();
     }
 },
-{typeof(XDocument), (target, settings) =>
+{
+    typeof(XDocument), (target, settings) =>
     {
         var converted = (XDocument) target;
         settings.UseExtension("xml");
@@ -746,7 +750,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L18-L57' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L23-L68' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

@@ -15,9 +15,9 @@ namespace VerifyTests
                 return;
             }
 
-            if (VerifierSettings.typeToString.TryGetValue(target.GetType(), out var toString))
+            if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                await VerifyString(toString.Invoke(target, settings), settings);
+                await VerifyString(toString(target, settings), settings);
                 return;
             }
 

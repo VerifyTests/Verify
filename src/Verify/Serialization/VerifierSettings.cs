@@ -12,10 +12,16 @@ namespace VerifyTests
     {
         internal static SerializationSettings serialization = new SerializationSettings();
 
-       internal static ConcurrentDictionary<Type, Func<object,VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object,VerifySettings, string>>(
-            new Dictionary<Type, Func<object,VerifySettings, string>>
+        public static bool TryGetToString<T>(T target, out Func<object, VerifySettings, string> toString)
+        {
+            return typeToString.TryGetValue(target!.GetType(), out toString);
+        }
+
+        internal static ConcurrentDictionary<Type, Func<object, VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object, VerifySettings, string>>(
+            new Dictionary<Type, Func<object, VerifySettings, string>>
             {
                 #region typeToStringMapping
+
                 {typeof(string), (target, settings) => (string) target},
                 {typeof(bool), (target, settings) => ((bool) target).ToString()},
                 {typeof(short), (target, settings) => ((short) target).ToString()},
@@ -27,19 +33,22 @@ namespace VerifyTests
                 {typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(Guid), (target, settings) => ((Guid) target).ToString()},
-                {typeof(DateTime), (target, settings) =>
+                {
+                    typeof(DateTime), (target, settings) =>
                     {
                         var dateTime = (DateTime) target;
                         return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
                     }
                 },
-                {typeof(DateTimeOffset), (target, settings) =>
+                {
+                    typeof(DateTimeOffset), (target, settings) =>
                     {
                         var dateTimeOffset = (DateTimeOffset) target;
                         return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
                     }
                 },
-                {typeof(XmlNode), (target, settings) =>
+                {
+                    typeof(XmlNode), (target, settings) =>
                     {
                         var converted = (XmlNode) target;
                         var document = XDocument.Parse(converted.OuterXml);
@@ -47,13 +56,15 @@ namespace VerifyTests
                         return document.ToString();
                     }
                 },
-                {typeof(XDocument), (target, settings) =>
+                {
+                    typeof(XDocument), (target, settings) =>
                     {
                         var converted = (XDocument) target;
                         settings.UseExtension("xml");
                         return converted.ToString();
                     }
                 }
+
                 #endregion
             }
         );

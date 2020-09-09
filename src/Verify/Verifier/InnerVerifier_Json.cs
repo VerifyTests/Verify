@@ -42,11 +42,16 @@ namespace VerifyTests
                 return;
             }
 
+            await SerializeAndVerify(target, settings);
+        }
+
+        Task SerializeAndVerify<T>(T target, VerifySettings settings)
+        {
             var formatJson = JsonFormatter.AsJson(
                 target,
                 settings.serialization.currentSettings,
                 settings.IsNewLineEscapingDisabled);
-            await Verify(formatJson, settings);
+            return VerifyStringBuilder(formatJson, settings);
         }
     }
 }

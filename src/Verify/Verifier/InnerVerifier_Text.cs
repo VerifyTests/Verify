@@ -16,7 +16,6 @@ namespace VerifyTests
 
         async Task Verify(StringBuilder target, VerifySettings settings)
         {
-            Guard.AgainstNull(target, nameof(target));
             var extension = settings.ExtensionOrTxt();
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
 

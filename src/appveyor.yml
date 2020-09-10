@@ -3,8 +3,7 @@ image:
 - Visual Studio 2019 Preview
 install:
 - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh
-- dotnet-install.sh --Version "5.0.100-preview.8.20417.9"
-- set PATH=%PATH%;%LOCALAPPDATA%\Microsoft\dotnet
+- sudo bash dotnet-install.sh --Version "5.0.100-preview.8.20417.9"
 - dotnet --version
 skip_commits:
   message: /docs|Merge pull request.*/

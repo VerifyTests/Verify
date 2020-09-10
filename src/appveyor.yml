@@ -23,8 +23,6 @@ for:
       - sudo mkdir /Users/appveyor/.local/share/NuGet
       - sudo chmod a+rwx /Users/appveyor/.local/share/NuGet
 build_script:
-    dotnet --version
-
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore

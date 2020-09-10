@@ -26,5 +26,27 @@ namespace VerifyTests
                 }
             }
         }
+
+        public async Task Verify<T>(ValueTask<T> task, VerifySettings settings)
+        {
+            Guard.AgainstNull(task, nameof(task));
+            var target = await task;
+
+            try
+            {
+                await Verify(target, settings);
+            }
+            finally
+            {
+                if (target is IAsyncDisposable asyncDisposable)
+                {
+                    await asyncDisposable.DisposeAsync();
+                }
+                else if (target is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
+        }
     }
 }

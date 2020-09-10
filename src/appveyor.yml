@@ -24,6 +24,8 @@ for:
       - sudo bash dotnet-install.sh --version 5.0.100-preview.8.20417.9
       - dotnet --version
 build_script:
+    dotnet --version
+    
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore

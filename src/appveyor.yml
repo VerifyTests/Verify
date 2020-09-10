@@ -19,7 +19,7 @@ for:
         - image: macos
     install:
       - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh
-      - dotnet-install.sh --version 5.0.100-preview.8.20417.9
+      - bash dotnet-install.sh --version 5.0.100-preview.8.20417.9
 build_script:
     dotnet --version
 

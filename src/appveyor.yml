@@ -13,8 +13,6 @@ for:
           Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
 
           ./dotnet-install.ps1 --Version '5.0.100-preview.8.20417.9'  -InstallDir 'C:\Program Files\dotnet'
-
-          dotnet --version
   -
     matrix:
       only:
@@ -22,10 +20,10 @@ for:
     install:
       - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh
       - sudo bash dotnet-install.sh --version 5.0.100-preview.8.20417.9
-      - dotnet --version
+      - sudo chmod a+rwx /Users/appveyor/.local/share/NuGet
 build_script:
     dotnet --version
-    
+
     dotnet build src --configuration Release
 
     dotnet test src --configuration Release --no-build --no-restore

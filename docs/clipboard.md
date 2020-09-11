@@ -95,4 +95,4 @@ settings.EnableClipboard();
 
 ### For a machine
 
-Set a `Verify.DisableClipboard` environment variable to `true`. This overrides the above settings.
+Set a `Verify_DisableClipboard` environment variable to `true`. This overrides the above settings.

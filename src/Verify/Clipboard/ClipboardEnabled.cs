@@ -1,5 +1,4 @@
-﻿using System;
-using VerifyTests;
+﻿using VerifyTests;
 
 static class ClipboardEnabled
 {
@@ -7,7 +6,7 @@ static class ClipboardEnabled
 
     static ClipboardEnabled()
     {
-        var disabledText = Environment.GetEnvironmentVariable("Verify.DisableClipboard");
+        var disabledText = EnvironmentEx.GetEnvironmentVariable("Verify_DisableClipboard");
         clipboardDisabled = ParseEnvironmentVariable(disabledText);
     }
 
@@ -23,7 +22,7 @@ static class ClipboardEnabled
             return disabled;
         }
 
-        throw InnerVerifier.exceptionBuilder($"Could not convert `Verify.DisableClipboard` environment variable to a bool. Value: {disabledText}");
+        throw InnerVerifier.exceptionBuilder($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}");
     }
 
     public static bool IsEnabled(VerifySettings settings)

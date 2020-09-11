@@ -133,6 +133,11 @@ class VerifyEngine
             return;
         }
 
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
         if (DiffEngineTray.IsRunning)
         {
             await DiffEngineTray.AddDelete(item);

@@ -9,7 +9,7 @@
     <Compile Remove="Converters\TypeConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="5.4.0" />
+    <PackageReference Include="DiffEngine" Version="5.4.1" />
     <PackageReference Include="Shipwreck.Phash.Bitmaps" Version="0.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200812-03" />

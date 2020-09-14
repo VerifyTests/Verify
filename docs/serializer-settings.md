@@ -717,6 +717,7 @@ The default mapping is:
 {typeof(ulong), (target, settings) => ((ulong) target).ToString()},
 {typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(double), (target, settings) => ((double) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(Guid), (target, settings) => ((Guid) target).ToString()},
 {
     typeof(DateTime), (target, settings) =>
@@ -750,7 +751,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L23-L68' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L23-L69' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

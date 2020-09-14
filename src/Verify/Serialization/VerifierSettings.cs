@@ -12,7 +12,7 @@ namespace VerifyTests
     {
         internal static SerializationSettings serialization = new SerializationSettings();
 
-        public static bool TryGetToString<T>(T target, out Func<object, VerifySettings, string> toString)
+        public static bool TryGetToString<T>(T target, out Func<object, VerifySettings, string>? toString)
         {
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
@@ -79,7 +79,7 @@ namespace VerifyTests
                     return "null";
                 }
 
-                return target.ToString();
+                return target.ToString()!;
             };
             typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
         }

@@ -11,7 +11,6 @@ for:
     install:
       - ps: >-
           Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
-
           ./dotnet-install.ps1 --Version 5.0.100-preview.8.20417.9 -InstallDir 'C:\Program Files\dotnet'
   -
     matrix:

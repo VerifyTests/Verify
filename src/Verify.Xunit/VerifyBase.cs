@@ -3,6 +3,7 @@ using VerifyTests;
 
 namespace VerifyXunit
 {
+    [UsesVerify]
     public partial class VerifyBase
     {
         VerifySettings? settings;

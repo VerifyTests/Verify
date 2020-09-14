@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 static class AssemblyLocation
 {
@@ -7,12 +6,7 @@ static class AssemblyLocation
     {
         var assembly = typeof(AssemblyLocation).Assembly;
 
-#pragma warning disable 618
-        var uri = new UriBuilder(assembly.CodeBase!);
-#pragma warning restore 618
-        var path = Uri.UnescapeDataString(uri.Path);
-
-        CurrentDirectory = Path.GetDirectoryName(path)!;
+        CurrentDirectory = Path.GetDirectoryName(assembly.Location)!;
     }
 
     public static string CurrentDirectory;

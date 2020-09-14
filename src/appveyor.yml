@@ -11,14 +11,14 @@ for:
     install:
       - ps: >-
           appveyor DownloadFile https://dot.net/v1/dotnet-install.ps1;
-          ./dotnet-install.ps1 --Version 5.0.100-preview.8.20417.9 -InstallDir 'C:\Program Files\dotnet';
+          ./dotnet-install.ps1 --Version 5.0.100-rc.1.20452.10 -InstallDir 'C:\Program Files\dotnet';
   -
     matrix:
       only:
         - image: macos
     install:
       - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh
-      - bash dotnet-install.sh --version 5.0.100-preview.8.20417.9
+      - bash dotnet-install.sh --version 5.0.100-rc.1.20452.10
       - sudo mkdir /Users/appveyor/.local/share/NuGet
       - sudo chmod a+rwx /Users/appveyor/.local/share/NuGet
 build_script:

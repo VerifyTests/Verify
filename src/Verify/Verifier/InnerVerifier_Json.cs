@@ -18,7 +18,7 @@ namespace VerifyTests
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                await VerifyString(toString(target, settings), settings);
+                await VerifyString(toString!(target, settings), settings);
                 return;
             }
 

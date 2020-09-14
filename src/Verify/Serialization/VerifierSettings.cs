@@ -32,6 +32,7 @@ namespace VerifyTests
                 {typeof(ulong), (target, settings) => ((ulong) target).ToString()},
                 {typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+                {typeof(double), (target, settings) => ((double) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(Guid), (target, settings) => ((Guid) target).ToString()},
                 {
                     typeof(DateTime), (target, settings) =>

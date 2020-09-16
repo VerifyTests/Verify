@@ -18,6 +18,16 @@ namespace VerifyXunit
         }
 
         public static Task Verify<T>(
+            ValueTask<T> target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            settings = settings.OrDefault(sourceFile);
+            var verifier = GetVerifier(settings);
+            return verifier.Verify(target, settings);
+        }
+
+        public static Task Verify<T>(
             IAsyncEnumerable<T> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")

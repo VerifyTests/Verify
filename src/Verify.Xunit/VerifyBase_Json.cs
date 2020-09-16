@@ -15,6 +15,14 @@ namespace VerifyXunit
         }
 
         public Task Verify<T>(
+            ValueTask<T> target,
+            VerifySettings? settings = null)
+        {
+            settings ??= this.settings;
+            return Verifier.Verify(target, settings, sourceFile);
+        }
+
+        public Task Verify<T>(
             IAsyncEnumerable<T> target,
             VerifySettings? settings = null)
         {

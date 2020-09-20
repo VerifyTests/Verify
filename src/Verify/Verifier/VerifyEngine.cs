@@ -221,7 +221,7 @@ class VerifyEngine
             return;
         }
 
-        await DiffRunner.Launch(item.Received, item.Verified);
+        await DiffRunner.LaunchAsync(item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -273,7 +273,7 @@ class VerifyEngine
             return;
         }
 
-        await DiffRunner.Launch(item.Received, item.Verified);
+        await DiffRunner.LaunchAsync(item.Received, item.Verified);
     }
 
     static void AcceptChanges(in FilePair item)

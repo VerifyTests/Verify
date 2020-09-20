@@ -140,7 +140,7 @@ class VerifyEngine
 
         if (DiffEngineTray.IsRunning)
         {
-            await DiffEngineTray.AddDelete(item);
+            await DiffEngineTray.AddDeleteAsync(item);
             return;
         }
 

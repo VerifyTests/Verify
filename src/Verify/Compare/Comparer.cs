@@ -35,12 +35,12 @@ static class Comparer
 
         var receivedText = received.ToString();
         var verifiedText = verified.ToString();
-#if NETSTANDARD2_1
-        await using var stream1 = MemoryStream(receivedText);
-        await using var stream2 = MemoryStream(verifiedText);
-#else
+#if NETSTANDARD2_0 || NETFRAMEWORK
         using var stream1 = MemoryStream(receivedText);
         using var stream2 = MemoryStream(verifiedText);
+#else
+        await using var stream1 = MemoryStream(receivedText);
+        await using var stream2 = MemoryStream(verifiedText);
 #endif
 
         return await compare!(settings, stream1, stream2);

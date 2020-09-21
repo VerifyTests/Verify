@@ -1,4 +1,4 @@
-﻿#if(NETSTANDARD2_1)
+﻿#if NETSTANDARD2_1 || NET5
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;

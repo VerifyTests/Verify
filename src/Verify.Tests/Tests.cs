@@ -210,9 +210,6 @@ public class Tests
         }
     }
 
-
-#if NETCOREAPP3_1
-
     [Fact]
     public async Task VerifyBytesAsync()
     {
@@ -220,8 +217,6 @@ public class Tests
         settings.UseExtension("jpg");
         await Verifier.Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
-
-#endif
 
     [Fact]
     public async Task VerifyFilePath()

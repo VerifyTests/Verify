@@ -60,12 +60,12 @@ static class FileComparer
 
     static async Task<CompareResult> DoCompare(VerifySettings settings, string first, string second, Compare compare)
     {
-#if NETSTANDARD2_1
-        await using var fs1 = FileHelpers.OpenRead(first);
-        await using var fs2 = FileHelpers.OpenRead(second);
-#else
+#if NETSTANDARD2_0 || NETFRAMEWORK
         using var fs1 = FileHelpers.OpenRead(first);
         using var fs2 = FileHelpers.OpenRead(second);
+#else
+        await using var fs1 = FileHelpers.OpenRead(first);
+        await using var fs2 = FileHelpers.OpenRead(second);
 #endif
         return await compare(settings, fs1, fs2);
     }

@@ -226,7 +226,7 @@ public class Tests
         await Verifier.VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
-    
+
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()
     //{

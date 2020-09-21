@@ -210,6 +210,7 @@ public class Tests
         }
     }
 
+    #if !NETFRAMEWORK
     [Fact]
     public async Task VerifyBytesAsync()
     {
@@ -217,6 +218,7 @@ public class Tests
         settings.UseExtension("jpg");
         await Verifier.Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
+    #endif
 
     [Fact]
     public async Task VerifyFilePath()
@@ -224,8 +226,7 @@ public class Tests
         await Verifier.VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
-
-
+    
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()
     //{

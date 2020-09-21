@@ -16,6 +16,7 @@ public class SimpleTypeTests
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg.GetType());
+        settings.UniqueForRuntime();
         return Verifier.Verify(arg, settings);
     }
 
@@ -40,7 +41,9 @@ public class SimpleTypeTests
     [Fact]
     public Task DateTimeWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)),settings);
     }
 
     [Fact]
@@ -71,7 +74,7 @@ public class SimpleTypeTests
         yield return new object[] {xmlDocument};
         var xDocument = XDocument.Parse(xml);
         yield return new object[] {xDocument};
-        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)};
-        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1))};
+        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()};
+        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};
     }
 }

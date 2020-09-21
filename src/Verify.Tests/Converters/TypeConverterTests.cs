@@ -56,7 +56,7 @@ public class TypeConverterTests
     {
         object? info = null;
         var filePath = "WithStreamRequiringCleanup.tmp";
-        await File.WriteAllTextAsync(filePath, "FileContent");
+        File.WriteAllText(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (instance, _) =>
             {

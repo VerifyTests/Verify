@@ -110,7 +110,7 @@ VerifierSettings.RegisterFileConverter(
     fromExtension: "tif",
     conversion: (stream, settings) =>
     {
-        using Image image = Image.FromStream(stream);
+        using var image = Image.FromStream(stream);
         var pages = image.GetFrameCount(FrameDimension.Page);
 
         var streams = new List<ConversionStream>();

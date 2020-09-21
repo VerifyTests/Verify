@@ -163,7 +163,7 @@ public class TypeConverterTests
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
-
+#if NET5_0
     [Fact]
     public Task WithInfoShouldRespectSettings()
     {
@@ -184,6 +184,7 @@ public class TypeConverterTests
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
+#endif
 
     [Fact]
     public Task TypeConversion()

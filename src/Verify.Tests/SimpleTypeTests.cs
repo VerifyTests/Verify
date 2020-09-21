@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using VerifyTests;
 using VerifyXunit;
 using Xunit;
+#if NET5_0
+using VerifyTests;
+#endif
 
 [UsesVerify]
 public class SimpleTypeTests
 {
+    #if NET5_0
     [Theory]
     [MemberData(nameof(GetData))]
     public Task Run(object arg)
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg.GetType());
-        settings.UniqueForRuntime();
         return Verifier.Verify(arg, settings);
     }
+    #endif
 
     [Fact]
     public Task StringWrappedInTask()
@@ -38,13 +41,13 @@ public class SimpleTypeTests
         return Verifier.Verify((object?)null);
     }
 
+#if NET5_0
     [Fact]
     public Task DateTimeWrappedInTask()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)),settings);
+        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
+#endif
 
     [Fact]
     public Task GuidWrappedInTask()

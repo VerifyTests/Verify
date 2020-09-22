@@ -15,7 +15,7 @@
     <PackageReference Include="DiffEngine" Version="6.0.0" />
     <PackageReference Include="Shipwreck.Phash.Bitmaps" Version="0.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200812-03" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200921-01" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="21.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />

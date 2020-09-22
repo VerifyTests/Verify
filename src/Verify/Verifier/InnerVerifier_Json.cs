@@ -37,8 +37,7 @@ namespace VerifyTests
 
             if (typeof(T).ImplementsStreamEnumerable())
             {
-                var enumerable = (IEnumerable) target!;
-                //TODO: add test with null stream
+                var enumerable = (IEnumerable) target;
                 var streams = enumerable.Cast<Stream>()
                     .Select(x =>
                     {

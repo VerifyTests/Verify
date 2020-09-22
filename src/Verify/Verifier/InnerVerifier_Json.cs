@@ -45,6 +45,7 @@ namespace VerifyTests
                         {
                             return new ConversionStream(settings.ExtensionOrTxt(), "null");
                         }
+
                         return new ConversionStream(settings.ExtensionOrBin(), x);
                     });
                 await VerifyBinary(streams, settings.ExtensionOrTxt(), settings, null, null);

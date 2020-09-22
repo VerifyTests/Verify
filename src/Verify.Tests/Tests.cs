@@ -106,7 +106,9 @@ public class Tests
     [Fact]
     public Task ThrowsAggregate()
     {
-        return Verifier.Throws(MethodThatThrowsAggregate);
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verifier.Throws(MethodThatThrowsAggregate, settings);
     }
 
     static void MethodThatThrowsAggregate()

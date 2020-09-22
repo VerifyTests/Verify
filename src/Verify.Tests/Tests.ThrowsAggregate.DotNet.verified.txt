@@ -1,0 +1,15 @@
+{
+  Type: 'AggregateException',
+  InnerExceptions: [
+    {
+      Type: 'Exception',
+      Message: 'The Message1'
+    },
+    {
+      Type: 'Exception',
+      Message: 'The Message2'
+    }
+  ],
+  Message: 'One or more errors occurred. (The Message1) (The Message2)',
+  Source: 'Verify.Tests'
+}

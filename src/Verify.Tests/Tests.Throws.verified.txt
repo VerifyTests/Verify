@@ -1,0 +1,6 @@
+{
+  Type: 'Exception',
+  Message: 'The message',
+  Data: {},
+  Source: 'Verify.Tests'
+}

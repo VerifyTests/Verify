@@ -52,7 +52,9 @@ namespace VerifyTests
                 return;
             }
 
-            await SerializeAndVerify(target, settings, VerifierSettings.GetJsonAppenders(settings));
+            var appenders = VerifierSettings.GetJsonAppenders(settings);
+            
+            await SerializeAndVerify(target, settings, appenders);
         }
 
         Task SerializeAndVerify(object target, VerifySettings settings, List<ToAppend> appends)

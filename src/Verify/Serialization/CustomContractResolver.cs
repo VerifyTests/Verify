@@ -52,6 +52,26 @@ class CustomContractResolver :
         return contract;
     }
 
+    protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+    {
+        var properties = base.CreateProperties(type, memberSerialization);
+        if (type.IsException())
+        {
+            properties.Insert(0,
+                new JsonProperty
+                {
+                    PropertyName = "Type",
+                    PropertyType = typeof(string),
+                    ValueProvider = new TypeNameProvider(type),
+                    Ignored = false,
+                    Readable = true,
+                    Writable = false,
+                });
+        }
+
+        return properties;
+    }
+
     string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
     {
         var keyType = contract.DictionaryKeyType;
@@ -102,6 +122,11 @@ class CustomContractResolver :
         if (propertyType == null || valueProvider == null)
         {
             return property;
+        }
+
+        if (propertyType.IsException())
+        {
+            property.TypeNameHandling = TypeNameHandling.All;
         }
 
         if (ignoreEmptyCollections)

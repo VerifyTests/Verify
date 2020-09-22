@@ -16,14 +16,19 @@ namespace VerifyTests
             }
             finally
             {
-                if (target is IAsyncDisposable asyncDisposable)
-                {
-                    await asyncDisposable.DisposeAsync();
-                }
-                else if (target is IDisposable disposable)
-                {
-                    disposable.Dispose();
-                }
+                await DoDispose(target);
+            }
+        }
+
+        static async Task DoDispose<T>(T target)
+        {
+            if (target is IAsyncDisposable asyncDisposable)
+            {
+                await asyncDisposable.DisposeAsync();
+            }
+            else if (target is IDisposable disposable)
+            {
+                disposable.Dispose();
             }
         }
 
@@ -38,14 +43,7 @@ namespace VerifyTests
             }
             finally
             {
-                if (target is IAsyncDisposable asyncDisposable)
-                {
-                    await asyncDisposable.DisposeAsync();
-                }
-                else if (target is IDisposable disposable)
-                {
-                    disposable.Dispose();
-                }
+                await DoDispose(target);
             }
         }
     }

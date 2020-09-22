@@ -14,6 +14,7 @@ namespace VerifyTests
         {
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
+            IgnoreMember<AggregateException>(x => x.InnerException);
             IgnoreMember<Exception>(x => x.HResult);
             IgnoreMember<Exception>(x => x.StackTrace);
 

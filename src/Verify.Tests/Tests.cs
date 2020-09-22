@@ -98,9 +98,20 @@ public class Tests
         return Verifier.Throws(MethodThatThrows);
     }
 
-    void MethodThatThrows()
+    static void MethodThatThrows()
     {
         throw new Exception("The Message");
+    }
+
+    [Fact]
+    public Task ThrowsAggregate()
+    {
+        return Verifier.Throws(MethodThatThrowsAggregate);
+    }
+
+    static void MethodThatThrowsAggregate()
+    {
+        throw new AggregateException(new Exception("The Message1"), new Exception("The Message2"));
     }
 
     [Fact]
@@ -109,7 +120,7 @@ public class Tests
         return Verifier.ThrowsAsync(TaskMethodThatThrows);
     }
 
-    Task TaskMethodThatThrows()
+    static Task TaskMethodThatThrows()
     {
         throw new Exception("The Message");
     }
@@ -120,7 +131,7 @@ public class Tests
         return Verifier.ThrowsAsync(ValueTaskMethodThatThrows);
     }
 
-    ValueTask ValueTaskMethodThatThrows()
+    static ValueTask ValueTaskMethodThatThrows()
     {
         throw new Exception("The Message");
     }

@@ -95,13 +95,23 @@ public class Tests
     [Fact]
     public Task Throws()
     {
-        return Verifier.Throws(() => throw new Exception("The message"));
+        return Verifier.Throws(MethodThatThrows);
+    }
+
+    void MethodThatThrows()
+    {
+        throw new Exception("The Message");
     }
 
     [Fact]
     public Task ThrowsTask()
     {
-        return Verifier.ThrowsAsync(() => Task.FromException(new Exception("The message")));
+        return Verifier.ThrowsAsync(TaskMethodThatThrows);
+    }
+
+    Task TaskMethodThatThrows()
+    {
+        throw new Exception("The Message");
     }
 
     [Fact]
@@ -110,7 +120,7 @@ public class Tests
         return Verifier.ThrowsAsync(ValueTaskMethodThatThrows);
     }
 
-    private ValueTask ValueTaskMethodThatThrows()
+    ValueTask ValueTaskMethodThatThrows()
     {
         throw new Exception("The Message");
     }

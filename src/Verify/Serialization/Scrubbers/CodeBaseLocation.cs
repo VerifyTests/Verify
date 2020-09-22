@@ -1,6 +1,6 @@
-﻿using System;
+﻿#if !NET5_0
+using System;
 using System.IO;
-
 static class CodeBaseLocation
 {
     static CodeBaseLocation()
@@ -18,3 +18,4 @@ static class CodeBaseLocation
 
     public static string? CurrentDirectory;
 }
+#endif

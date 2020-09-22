@@ -1,4 +1,4 @@
-﻿#if(!NETSTANDARD2_1)
+﻿#if NETSTANDARD2_0 || NETFRAMEWORK
 using System.IO;
 using System.Threading.Tasks;
 using System.Text;

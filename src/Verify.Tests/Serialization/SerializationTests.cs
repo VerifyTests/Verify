@@ -295,11 +295,13 @@ public class SerializationTests
         return Verifier.Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
     }
 
+#if !NET5_0
     [Fact]
     public Task ScrubCodeBaseLocation()
     {
         return Verifier.Verify(CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\'));
     }
+#endif
 
     [Fact]
     public Task ScrubBaseDirectory()

@@ -18,10 +18,10 @@ namespace VerifyTests
 
         async Task VerifyStream(VerifySettings settings, Stream stream)
         {
-#if NETSTANDARD2_1
-            await using (stream)
-#else
+#if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
+#else
+            await using (stream)
 #endif
             {
                 if (settings.HasExtension())
@@ -72,10 +72,10 @@ namespace VerifyTests
         static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, ConversionStream conversionStream)
         {
             var stream = conversionStream.Stream;
-#if NETSTANDARD2_1
-            await using (stream)
-#else
+#if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
+#else
+            await using (stream)
 #endif
             {
                 stream.MoveToStart();

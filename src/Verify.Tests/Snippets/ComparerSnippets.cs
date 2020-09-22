@@ -1,4 +1,4 @@
-﻿#if(NETCOREAPP3_1 && DEBUG)
+﻿#if DEBUG
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;

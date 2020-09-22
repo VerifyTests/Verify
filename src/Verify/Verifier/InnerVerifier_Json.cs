@@ -38,7 +38,9 @@ namespace VerifyTests
             if (typeof(T).ImplementsStreamEnumerable())
             {
                 var enumerable = (IEnumerable) target!;
-                var streams = enumerable.Cast<Stream>().Select(x => new ConversionStream(settings.ExtensionOrBin(), x));
+                //TODO: add test with null stream
+                var streams = enumerable.Cast<Stream>()
+                    .Select(x => new ConversionStream(settings.ExtensionOrBin(), x!));
                 await VerifyBinary(streams, settings.ExtensionOrTxt(), settings, null, null);
                 return;
             }
@@ -48,12 +50,12 @@ namespace VerifyTests
 
         Task SerializeAndVerify(object target, VerifySettings settings, List<ToAppend> appends)
         {
-            var formatJson = JsonFormatter.AsJson(
+            var json = JsonFormatter.AsJson(
                 target,
                 settings.serialization.currentSettings,
                 settings.IsNewLineEscapingDisabled,
                 appends);
-            return VerifyStringBuilder(formatJson, settings);
+            return VerifyStringBuilder(json, settings);
         }
     }
 }

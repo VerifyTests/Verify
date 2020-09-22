@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using VerifyTests;
 using VerifyXunit;
 using Xunit;
+#if NET5_0
+using VerifyTests;
+#endif
 
 [UsesVerify]
 public class SimpleTypeTests
 {
+    #if NET5_0
     [Theory]
     [MemberData(nameof(GetData))]
     public Task Run(object arg)
@@ -18,6 +21,7 @@ public class SimpleTypeTests
         settings.UseParameters(arg.GetType());
         return Verifier.Verify(arg, settings);
     }
+    #endif
 
     [Fact]
     public Task StringWrappedInTask()
@@ -37,11 +41,13 @@ public class SimpleTypeTests
         return Verifier.Verify((object?)null);
     }
 
+#if NET5_0
     [Fact]
     public Task DateTimeWrappedInTask()
     {
         return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
+#endif
 
     [Fact]
     public Task GuidWrappedInTask()
@@ -71,7 +77,7 @@ public class SimpleTypeTests
         yield return new object[] {xmlDocument};
         var xDocument = XDocument.Parse(xml);
         yield return new object[] {xDocument};
-        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)};
-        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1))};
+        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()};
+        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};
     }
 }

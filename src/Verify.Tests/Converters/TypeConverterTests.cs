@@ -56,7 +56,7 @@ public class TypeConverterTests
     {
         object? info = null;
         var filePath = "WithStreamRequiringCleanup.tmp";
-        await File.WriteAllTextAsync(filePath, "FileContent");
+        File.WriteAllText(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (instance, _) =>
             {
@@ -145,6 +145,7 @@ public class TypeConverterTests
         public string Value { get; set; } = null!;
     }
 
+#if NET5_0
     [Fact]
     public Task WithInfo()
     {
@@ -163,7 +164,6 @@ public class TypeConverterTests
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
-
     [Fact]
     public Task WithInfoShouldRespectSettings()
     {
@@ -200,6 +200,7 @@ public class TypeConverterTests
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
+#endif
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
     {

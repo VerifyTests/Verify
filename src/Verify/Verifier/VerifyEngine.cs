@@ -160,9 +160,9 @@ class VerifyEngine
         }
 
         builder.AppendLine("Differences:");
-        foreach (var item in notEquals)
+        foreach (var (filePair, message) in notEquals)
         {
-            await ProcessNotEquals(builder, item.filePair, item.message);
+            await ProcessNotEquals(builder, filePair, message);
         }
     }
 

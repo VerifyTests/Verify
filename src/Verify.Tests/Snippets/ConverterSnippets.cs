@@ -1,4 +1,4 @@
-﻿#if(NETCOREAPP3_1 && DEBUG)
+﻿#if DEBUG
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -43,8 +43,9 @@ public class ConverterSnippets
             });
 
         #endregion
+
         #region FileConverterTypeVerify
-        await using var stream = File.OpenRead("sample.tif");
+        using var stream = File.OpenRead("sample.tif");
         await Verifier.Verify(Image.FromStream(stream));
         #endregion
     }

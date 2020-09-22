@@ -17,7 +17,6 @@ public class ClipboardEnabledTests
     [Fact]
     public Task ParseEnvironmentVariable_failure()
     {
-        var exception = Assert.Throws<XunitException>(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
-        return Verifier.Verify(exception);
+        return Verifier.Throws(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
     }
 }

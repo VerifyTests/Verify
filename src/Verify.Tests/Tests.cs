@@ -93,6 +93,39 @@ public class Tests
     }
 
     [Fact]
+    public Task Throws()
+    {
+        return Verifier.Throws(MethodThatThrows);
+    }
+
+    void MethodThatThrows()
+    {
+        throw new Exception("The Message");
+    }
+
+    [Fact]
+    public Task ThrowsTask()
+    {
+        return Verifier.ThrowsAsync(TaskMethodThatThrows);
+    }
+
+    Task TaskMethodThatThrows()
+    {
+        throw new Exception("The Message");
+    }
+
+    [Fact]
+    public Task ThrowsValueTask()
+    {
+        return Verifier.ThrowsAsync(ValueTaskMethodThatThrows);
+    }
+
+    ValueTask ValueTaskMethodThatThrows()
+    {
+        throw new Exception("The Message");
+    }
+
+    [Fact]
     public Task Stream()
     {
         return Verifier.Verify(new MemoryStream(new byte[] {1}));

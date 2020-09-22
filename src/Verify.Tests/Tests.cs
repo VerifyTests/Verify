@@ -93,6 +93,34 @@ public class Tests
     }
 
     [Fact]
+    public Task Stream()
+    {
+        return Verifier.Verify(new MemoryStream(new byte[] {1}));
+    }
+
+    [Fact]
+    public Task Streams()
+    {
+        return Verifier.Verify(
+            new List<Stream>
+            {
+                new MemoryStream(new byte[] {1}),
+                new MemoryStream(new byte[] {2})
+            });
+    }
+
+    [Fact]
+    public Task StreamsWithNull()
+    {
+        return Verifier.Verify(
+            new List<Stream?>
+            {
+                new MemoryStream(new byte[] {1}),
+                null
+            });
+    }
+
+    [Fact]
     public async Task ShouldNotIgnoreCase()
     {
         await Verifier.Verify("A");

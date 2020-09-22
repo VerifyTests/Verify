@@ -40,7 +40,14 @@ namespace VerifyTests
                 var enumerable = (IEnumerable) target!;
                 //TODO: add test with null stream
                 var streams = enumerable.Cast<Stream>()
-                    .Select(x => new ConversionStream(settings.ExtensionOrBin(), x!));
+                    .Select(x =>
+                    {
+                        if (x == null)
+                        {
+                            return new ConversionStream(settings.ExtensionOrTxt(), "null");
+                        }
+                        return new ConversionStream(settings.ExtensionOrBin(), x);
+                    });
                 await VerifyBinary(streams, settings.ExtensionOrTxt(), settings, null, null);
                 return;
             }

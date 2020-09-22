@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,21 @@ using VerifyTests;
 
 static class ReflectionHelpers
 {
+    public static bool IsDictionary(this Type type)
+    {
+        if (typeof(IDictionary).IsAssignableFrom(type))
+        {
+            return true;
+        }
+
+        if (type.IsGenericDictionary())
+        {
+            return true;
+        }
+
+        return type.GetInterfaces().Any(IsGenericDictionary);
+    }
+
     public static bool IsCollection(this Type type)
     {
         if (type.IsGenericList())
@@ -34,6 +50,18 @@ static class ReflectionHelpers
             return false;
         }
         return type.GetGenericArguments()[0] == typeof(Stream);
+    }
+
+    static bool IsGenericDictionary(this Type x)
+    {
+        if (!x.IsGenericType)
+        {
+            return false;
+        }
+
+        var definition = x.GetGenericTypeDefinition();
+        return definition == typeof(IDictionary<,>) ||
+               definition == typeof(IReadOnlyDictionary<,>);
     }
 
     static bool IsGenericList(this Type x)

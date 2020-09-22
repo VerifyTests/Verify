@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
-using Xunit.Sdk;
 
 [UsesVerify]
 public class ClipboardEnabledTests

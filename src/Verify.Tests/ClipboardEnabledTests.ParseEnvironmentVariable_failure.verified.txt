@@ -2,6 +2,5 @@
   Type: 'XunitException',
   UserMessage: 'Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: foo',
   Message: 'Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: foo',
-  Data: {},
   Source: 'Verify'
 }

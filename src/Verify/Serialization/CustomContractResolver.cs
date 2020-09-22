@@ -48,48 +48,49 @@ class CustomContractResolver :
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        contract.DictionaryKeyResolver = value =>
-        {
-            var keyType = contract.DictionaryKeyType;
-            if (keyType == typeof(Guid))
-            {
-                if (scrubber.TryParseConvertGuid(value, out var result))
-                {
-                    return result;
-                }
-            }
-
-            if (keyType == typeof(DateTimeOffset))
-            {
-                if (scrubber.TryParseConvertDateTimeOffset(value, out var result))
-                {
-                    return result;
-                }
-            }
-
-            if (keyType == typeof(DateTime))
-            {
-                if (scrubber.TryParseConvertDateTime(value, out var result))
-                {
-                    return result;
-                }
-            }
-
-            if (keyType == typeof(Type))
-            {
-                var type = Type.GetType(value);
-                if (type == null)
-                {
-                    throw new Exception($"Could not load type `{value}`.");
-                }
-
-                return TypeNameConverter.GetName(type);
-            }
-
-            return value;
-        };
-
+        contract.DictionaryKeyResolver = value => ResolveDictionaryKey(contract, value);
         return contract;
+    }
+
+    string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
+    {
+        var keyType = contract.DictionaryKeyType;
+        if (keyType == typeof(Guid))
+        {
+            if (scrubber.TryParseConvertGuid(value, out var result))
+            {
+                return result;
+            }
+        }
+
+        if (keyType == typeof(DateTimeOffset))
+        {
+            if (scrubber.TryParseConvertDateTimeOffset(value, out var result))
+            {
+                return result;
+            }
+        }
+
+        if (keyType == typeof(DateTime))
+        {
+            if (scrubber.TryParseConvertDateTime(value, out var result))
+            {
+                return result;
+            }
+        }
+
+        if (keyType == typeof(Type))
+        {
+            var type = Type.GetType(value);
+            if (type == null)
+            {
+                throw new Exception($"Could not load type `{value}`.");
+            }
+
+            return TypeNameConverter.GetName(type);
+        }
+
+        return value;
     }
 
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization serialization)

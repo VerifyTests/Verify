@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETFRAMEWORK
+﻿#if NETSTANDARD2_0 || NET472
 using System.IO;
 using System.Threading.Tasks;
 using System.Text;

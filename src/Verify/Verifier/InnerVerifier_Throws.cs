@@ -42,6 +42,7 @@ namespace VerifyTests
             catch (Exception exception)
             {
                 await Verify(exception, settings);
+                return;
             }
 
             throw new Exception("Did not throw.");
@@ -56,6 +57,7 @@ namespace VerifyTests
             catch (Exception exception)
             {
                 await Verify(exception, settings);
+                return;
             }
 
             throw new Exception("Did not throw.");

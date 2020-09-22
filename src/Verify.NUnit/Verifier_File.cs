@@ -7,14 +7,14 @@ namespace VerifyNUnit
 {
     public static partial class Verifier
     {
-        public static Task Verify(
+        public static async Task Verify(
             byte[] target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
             settings = settings.OrDefault(sourceFile);
             using var verifier = BuildVerifier(sourceFile);
-            return verifier.Verify(target, settings);
+            await verifier.Verify(target, settings);
         }
 
         public static async Task Verify(

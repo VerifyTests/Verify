@@ -9,14 +9,14 @@ namespace VerifyXunit
 {
     public static partial class Verifier
     {
-        public static Task Verify(
+        public static async Task Verify(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
             settings = settings.OrDefault(sourceFile);
-            var verifier = GetVerifier(settings);
-            return verifier.Verify(expression, settings);
+            using var verifier = GetVerifier(settings);
+            await verifier.Verify(expression, settings);
         }
     }
 }

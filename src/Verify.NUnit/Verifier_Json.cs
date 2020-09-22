@@ -27,14 +27,14 @@ namespace VerifyNUnit
             await verifier.Verify(target, settings);
         }
 
-        public static Task Verify<T>(
+        public static async Task Verify<T>(
             IAsyncEnumerable<T> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
             settings = settings.OrDefault(sourceFile);
-            var verifier = BuildVerifier(sourceFile);
-            return verifier.Verify(target, settings);
+            using var verifier = BuildVerifier(sourceFile);
+            await verifier.Verify(target, settings);
         }
 
         public static async Task Verify<T>(

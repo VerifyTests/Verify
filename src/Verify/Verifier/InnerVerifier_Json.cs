@@ -53,7 +53,7 @@ namespace VerifyTests
             }
 
             var appenders = VerifierSettings.GetJsonAppenders(settings);
-            
+
             await SerializeAndVerify(target, settings, appenders);
         }
 

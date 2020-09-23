@@ -1,5 +1,4 @@
 {
   Type: 'Exception',
-  Message: 'The Message',
-  Source: 'Verify.Tests'
+  Message: 'The Message'
 }

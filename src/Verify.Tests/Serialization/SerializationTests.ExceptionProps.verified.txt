@@ -1,5 +1,4 @@
 {
   Type: 'Exception',
-  Message: "Exception of type 'System.Exception' was thrown.",
-  Source: 'Verify.Tests'
+  Message: "Exception of type 'System.Exception' was thrown."
 }

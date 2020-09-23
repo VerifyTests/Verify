@@ -104,6 +104,28 @@ public class Tests
     }
 
     [Fact]
+    public Task ThrowsArgumentException()
+    {
+        return Verifier.Throws(MethodThatThrowsArgumentException);
+    }
+
+    static void MethodThatThrowsArgumentException()
+    {
+        throw new ArgumentException("The Message", "The parameter");
+    }
+
+    [Fact]
+    public Task ThrowsInheritedArgumentException()
+    {
+        return Verifier.Throws(MethodThatThrowsArgumentNullException);
+    }
+
+    static void MethodThatThrowsArgumentNullException()
+    {
+        throw new ArgumentNullException("The parameter", "The Message");
+    }
+
+    [Fact]
     public Task ThrowsAggregate()
     {
         var settings = new VerifySettings();

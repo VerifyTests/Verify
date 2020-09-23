@@ -1,0 +1,5 @@
+{
+  Type: 'ArgumentException',
+  Message: 'The Message',
+  ParamName: 'The parameter'
+}

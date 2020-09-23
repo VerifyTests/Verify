@@ -113,6 +113,8 @@ class CustomContractResolver :
         return value;
     }
 
+    FieldInfo exceptionMessageField = typeof(Exception).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization serialization)
     {
         var property = base.CreateProperty(member, serialization);
@@ -122,6 +124,14 @@ class CustomContractResolver :
         if (propertyType == null || valueProvider == null)
         {
             return property;
+        }
+
+        if (member.Name == "Message")
+        {
+            if (member.DeclaringType == typeof(ArgumentException))
+            {
+                valueProvider = new ReflectionValueProvider(exceptionMessageField);
+            }
         }
 
         if (propertyType.IsException())

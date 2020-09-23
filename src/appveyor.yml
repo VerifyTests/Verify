@@ -7,14 +7,6 @@ for:
   -
     matrix:
       only:
-        - image: Visual Studio 2019 Preview
-    install:
-      - ps: >-
-          appveyor DownloadFile https://dot.net/v1/dotnet-install.ps1;
-          ./dotnet-install.ps1 --Version 5.0.100-rc.1.20452.10 -InstallDir 'C:\Program Files\dotnet';
-  -
-    matrix:
-      only:
         - image: macos
     install:
       - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh

@@ -32,7 +32,7 @@ namespace VerifyTests
                 {typeof(ulong), (target, settings) => ((ulong) target).ToString()},
                 {typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0
-                {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+             //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
                 {typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
                 {typeof(double), (target, settings) => ((double) target).ToString(CultureInfo.InvariantCulture)},

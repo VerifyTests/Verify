@@ -10,6 +10,5 @@
       Message: 'The Message2'
     }
   ],
-  Message: 'One or more errors occurred.',
-  Source: 'Verify.Tests'
+  Message: 'One or more errors occurred.'
 }

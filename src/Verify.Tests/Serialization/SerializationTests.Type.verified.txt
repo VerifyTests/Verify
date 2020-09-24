@@ -1,1 +1,1 @@
-'SerializationTests'
+SerializationTests

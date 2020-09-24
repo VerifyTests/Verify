@@ -1,1 +1,1 @@
-'SerializationTests / Task Method()'
+SerializationTests.Method()

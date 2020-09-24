@@ -127,7 +127,7 @@ public class SerializationTests
         return Verifier.Verify(person, settings);
     }
 
-    public class DateTimeTarget
+    class DateTimeTarget
     {
         public DateTime DateTime;
         public DateTime? DateTimeNullable;
@@ -310,7 +310,7 @@ public class SerializationTests
         return Verifier.Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
     }
 
-    public class TypeTarget
+    class TypeTarget
     {
         public Type Type;
         public Type Dynamic;

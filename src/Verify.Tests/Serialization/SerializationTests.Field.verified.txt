@@ -1,1 +1,1 @@
-'SerializationTests / String MyField'
+SerializationTests.MyField

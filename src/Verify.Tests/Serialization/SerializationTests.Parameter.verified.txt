@@ -1,1 +1,1 @@
-'SerializationTests / Void MyMethodWithParameters(Int32 x, String y) / x'
+x of SerializationTests.SerializationTests.MyMethodWithParameters(Int32 x, String y)

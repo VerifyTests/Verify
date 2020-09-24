@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
@@ -14,14 +15,43 @@ namespace VerifyTests
 
         public static bool TryGetToString<T>(T target, out Func<object, VerifySettings, string>? toString)
         {
+            if (target is Type type)
+            {
+                toString = (o, settings) => TypeNameConverter.GetName(type);
+                return true;
+            }
+            if (target is FieldInfo field)
+            {
+                toString = (o, settings) => TypeNameConverter.GetName(field);
+                return true;
+            }
+            if (target is PropertyInfo property)
+            {
+                toString = (o, settings) => TypeNameConverter.GetName(property);
+                return true;
+            }
+            if (target is MethodInfo method)
+            {
+                toString = (o, settings) => TypeNameConverter.GetName(method);
+                return true;
+            }
+            if (target is ConstructorInfo constructor)
+            {
+                toString = (o, settings) => TypeNameConverter.GetName(constructor);
+                return true;
+            }
+            if (target is ParameterInfo parameter)
+            {
+                toString = (o, settings) => TypeNameConverter.GetName(parameter);
+                return true;
+            }
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
 
-        static ConcurrentDictionary<Type, Func<object, VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object, VerifySettings, string>>(
+        private static ConcurrentDictionary<Type, Func<object, VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object, VerifySettings, string>>(
             new Dictionary<Type, Func<object, VerifySettings, string>>
             {
                 #region typeToStringMapping
-
                 {typeof(string), (target, settings) => (string) target},
                 {typeof(bool), (target, settings) => ((bool) target).ToString()},
                 {typeof(short), (target, settings) => ((short) target).ToString()},

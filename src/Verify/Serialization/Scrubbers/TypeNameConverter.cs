@@ -26,8 +26,8 @@ namespace VerifyTests
             return infoCache.GetOrAdd(parameter, info =>
             {
                 var member = GetName(parameter.Member);
-                var declaringType = GetName(parameter.Member!.DeclaringType!);
-                return $"{member} / {parameter.Name}";
+                var declaringType = GetName(parameter.Member.DeclaringType!);
+                return $"{parameter.Name} of {declaringType}.{member}";
             });
         }
 
@@ -35,9 +35,12 @@ namespace VerifyTests
         {
             return infoCache.GetOrAdd(field, info =>
             {
-                var fieldType = GetName(field.FieldType);
-                var declaringType = GetName(field.DeclaringType!);
-                return $"{declaringType} / {fieldType} {field.Name}";
+                if (field.DeclaringType == null)
+                {
+                    return $"Module.{field.Name}";
+                }
+                var declaringType = GetName(field.DeclaringType);
+                return $"{declaringType}.{field.Name}";
             });
         }
 
@@ -45,9 +48,12 @@ namespace VerifyTests
         {
             return infoCache.GetOrAdd(property, info =>
             {
-                var propertyType = GetName(property.PropertyType);
-                var declaringType = GetName(property.DeclaringType!);
-                return $"{declaringType} / {propertyType} {property.Name}";
+                if (property.DeclaringType == null)
+                {
+                    return $"Module.{property.Name}";
+                }
+                var declaringType = GetName(property.DeclaringType);
+                return $"{declaringType}.{property.Name}";
             });
         }
 
@@ -71,7 +77,15 @@ namespace VerifyTests
             return infoCache.GetOrAdd(constructor, info =>
             {
                 var declaringType = GetName(constructor.DeclaringType!);
-                var builder = new StringBuilder($"{declaringType}(");
+                var builder = new StringBuilder($"{declaringType}");
+                if (constructor.IsStatic)
+                {
+                    builder.Append(".cctor(");
+                }
+                else
+                {
+                    builder.Append(".ctor(");
+                }
                 var parameters = constructor.GetParameters()
                     .Select(x => $"{GetName(x.ParameterType)} {x.Name}");
                 builder.Append(string.Join(", ", parameters));
@@ -85,8 +99,7 @@ namespace VerifyTests
             return infoCache.GetOrAdd(method, info =>
             {
                 var declaringType = GetName(method.DeclaringType!);
-                var returnType = GetName(method.ReturnType);
-                var builder = new StringBuilder($"{declaringType} / {returnType} {method.Name}(");
+                var builder = new StringBuilder($"{declaringType}.{method.Name}(");
                 var parameters = method.GetParameters()
                     .Select(x => $"{GetName(x.ParameterType)} {x.Name}");
                 builder.Append(string.Join(", ", parameters));

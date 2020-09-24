@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -617,6 +618,73 @@ public class SerializationTests
         await Verifier.Verify(target, settings);
 
         #endregion
+    }
+
+    [Fact]
+    public Task Type()
+    {
+        return Verifier.Verify(GetType());
+    }
+
+    [Fact]
+    public Task Field()
+    {
+        var target = Info.OfField<SerializationTests>("MyField");
+        return Verifier.Verify(target);
+    }
+
+    public string MyField;
+
+    [Fact]
+    public Task GetProperty()
+    {
+        var target = Info.OfPropertyGet<SerializationTests>("MyProperty");
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task SetProperty()
+    {
+        var target = Info.OfPropertySet<SerializationTests>("MyProperty");
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task Property()
+    {
+        var target = typeof(SerializationTests).GetProperty("MyProperty");
+        return Verifier.Verify(target);
+    }
+
+    public string MyProperty { get; set; }
+
+    [Fact]
+    public Task Method()
+    {
+        return Verifier.Verify(Info.OfMethod<SerializationTests>("Method"));
+    }
+
+    [Fact]
+    public Task Constructor()
+    {
+        return Verifier.Verify(Info.OfConstructor<SerializationTests>());
+    }
+
+    [Fact]
+    public Task Parameter()
+    {
+        var method = Info.OfMethod<SerializationTests>("MyMethodWithParameters");
+        return Verifier.Verify(method.GetParameters().First());
+    }
+
+    [Fact]
+    public Task MethodWithParameters()
+    {
+        return Verifier.Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
+    }
+
+    void MyMethodWithParameters(int x, string y)
+    {
     }
 
     class IgnoreTypeTarget

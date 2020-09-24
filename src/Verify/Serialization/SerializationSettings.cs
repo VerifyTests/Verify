@@ -192,6 +192,11 @@ namespace VerifyTests
             converters.Add(new ExpressionConverter());
             converters.Add(new DelegateConverter());
             converters.Add(new TypeJsonConverter());
+            converters.Add(new MethodInfoConverter());
+            converters.Add(new FieldInfoConverter());
+            converters.Add(new ConstructorInfoConverter());
+            converters.Add(new PropertyInfoConverter());
+            converters.Add(new ParameterInfoConverter());
             foreach (var extraSetting in ExtraSettings)
             {
                 extraSetting(settings);

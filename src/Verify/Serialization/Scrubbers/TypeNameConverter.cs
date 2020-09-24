@@ -3,6 +3,8 @@ using System.CodeDom;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using Microsoft.CSharp;
 
 namespace VerifyTests
@@ -10,12 +12,87 @@ namespace VerifyTests
     public static class TypeNameConverter
     {
         static ConcurrentDictionary<Type, string> cacheDictionary = new ConcurrentDictionary<Type, string>();
+        static ConcurrentDictionary<ICustomAttributeProvider, string> infoCache = new ConcurrentDictionary<ICustomAttributeProvider, string>();
 
         static CSharpCodeProvider codeDomProvider = new CSharpCodeProvider();
 
         public static string GetName(Type type)
         {
             return cacheDictionary.GetOrAdd(type, Inner);
+        }
+
+        public static string GetName(ParameterInfo parameter)
+        {
+            return infoCache.GetOrAdd(parameter, info =>
+            {
+                var member = GetName(parameter.Member);
+                var declaringType = GetName(parameter.Member!.DeclaringType!);
+                return $"{member} / {parameter.Name}";
+            });
+        }
+
+        public static string GetName(FieldInfo field)
+        {
+            return infoCache.GetOrAdd(field, info =>
+            {
+                var fieldType = GetName(field.FieldType);
+                var declaringType = GetName(field.DeclaringType!);
+                return $"{declaringType} / {fieldType} {field.Name}";
+            });
+        }
+
+        public static string GetName(PropertyInfo property)
+        {
+            return infoCache.GetOrAdd(property, info =>
+            {
+                var propertyType = GetName(property.PropertyType);
+                var declaringType = GetName(property.DeclaringType!);
+                return $"{declaringType} / {propertyType} {property.Name}";
+            });
+        }
+
+        static string GetName(MemberInfo methodBase)
+        {
+            if (methodBase is ConstructorInfo constructor)
+            {
+                return GetName(constructor);
+            }
+
+            if (methodBase is MethodInfo method)
+            {
+                return GetName(method);
+            }
+
+            throw new InvalidOperationException();
+        }
+
+    public static string GetName(ConstructorInfo constructor)
+        {
+            return infoCache.GetOrAdd(constructor, info =>
+            {
+                var declaringType = GetName(constructor.DeclaringType!);
+                var builder = new StringBuilder($"{declaringType}(");
+                var parameters = constructor.GetParameters()
+                    .Select(x => $"{GetName(x.ParameterType)} {x.Name}");
+                builder.Append(string.Join(", ", parameters));
+                builder.Append(')');
+                return builder.ToString();
+            });
+        }
+
+        public static string GetName(MethodInfo method)
+        {
+            return infoCache.GetOrAdd(method, info =>
+            {
+                var declaringType = GetName(method.DeclaringType!);
+                var returnType = GetName(method.ReturnType);
+                var builder = new StringBuilder($"{declaringType} / {returnType} {method.Name}(");
+                var parameters = method.GetParameters()
+                    .Select(x => $"{GetName(x.ParameterType)} {x.Name}");
+                builder.Append(string.Join(", ", parameters));
+                builder.Append(')');
+                return builder.ToString();
+            });
         }
 
         static string Inner(Type type)

@@ -1,0 +1,1 @@
+'SerializationTests / String get_MyProperty()'

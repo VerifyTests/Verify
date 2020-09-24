@@ -3,6 +3,7 @@ using VerifyTests;
 
 namespace VerifyNUnit
 {
+    [TestFixture]
     public partial class VerifyBase
     {
         VerifySettings? settings;

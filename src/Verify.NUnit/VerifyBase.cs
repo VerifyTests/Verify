@@ -5,7 +5,7 @@ using VerifyTests;
 namespace VerifyNUnit
 {
     [TestFixture]
-    public partial class VerifyBase
+    public abstract partial class VerifyBase
     {
         VerifySettings? settings;
         string sourceFile;

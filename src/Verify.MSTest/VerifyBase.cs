@@ -6,7 +6,7 @@ using VerifyTests;
 namespace VerifyMSTest
 {
     [TestClass]
-    public partial class VerifyBase
+    public abstract partial class VerifyBase
     {
         public TestContext TestContext { get; set; } = null!;
 

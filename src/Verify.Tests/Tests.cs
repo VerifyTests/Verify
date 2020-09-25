@@ -161,6 +161,29 @@ public class Tests
     }
 
     [Fact]
+    public async Task StringWithDifferingNewline()
+    {
+        var fullPath = Path.GetFullPath("../../../Tests.StringWithDifferingNewline.verified.txt");
+        File.Delete(fullPath);
+        File.WriteAllText(fullPath, "a\r\nb");
+        await Verifier.Verify("a\r\nb");
+        await Verifier.Verify("a\rb");
+        await Verifier.Verify("a\nb");
+
+        File.Delete(fullPath);
+        File.WriteAllText(fullPath, "a\nb");
+        await Verifier.Verify("a\r\nb");
+        await Verifier.Verify("a\rb");
+        await Verifier.Verify("a\nb");
+
+        File.Delete(fullPath);
+        File.WriteAllText(fullPath, "a\rb");
+        await Verifier.Verify("a\r\nb");
+        await Verifier.Verify("a\rb");
+        await Verifier.Verify("a\nb");
+    }
+
+    [Fact]
     public Task Stream()
     {
         return Verifier.Verify(new MemoryStream(new byte[] {1}));

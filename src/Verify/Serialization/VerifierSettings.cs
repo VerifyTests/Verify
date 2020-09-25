@@ -20,31 +20,37 @@ namespace VerifyTests
                 toString = (o, settings) => TypeNameConverter.GetName(type);
                 return true;
             }
+
             if (target is FieldInfo field)
             {
                 toString = (o, settings) => TypeNameConverter.GetName(field);
                 return true;
             }
+
             if (target is PropertyInfo property)
             {
                 toString = (o, settings) => TypeNameConverter.GetName(property);
                 return true;
             }
+
             if (target is MethodInfo method)
             {
                 toString = (o, settings) => TypeNameConverter.GetName(method);
                 return true;
             }
+
             if (target is ConstructorInfo constructor)
             {
                 toString = (o, settings) => TypeNameConverter.GetName(constructor);
                 return true;
             }
+
             if (target is ParameterInfo parameter)
             {
                 toString = (o, settings) => TypeNameConverter.GetName(parameter);
                 return true;
             }
+
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
 
@@ -52,6 +58,7 @@ namespace VerifyTests
             new Dictionary<Type, Func<object, VerifySettings, string>>
             {
                 #region typeToStringMapping
+
                 {typeof(string), (target, settings) => (string) target},
                 {typeof(bool), (target, settings) => ((bool) target).ToString()},
                 {typeof(short), (target, settings) => ((short) target).ToString()},

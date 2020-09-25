@@ -15,7 +15,7 @@
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.45" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.46" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces"

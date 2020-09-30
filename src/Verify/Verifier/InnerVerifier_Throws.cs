@@ -19,7 +19,7 @@ namespace VerifyTests
             throw new Exception("Did not throw.");
         }
 
-        public Task Throws(Func<object> target, VerifySettings settings)
+        public Task Throws(Func<object?> target, VerifySettings settings)
         {
             try
             {

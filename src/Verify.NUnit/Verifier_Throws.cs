@@ -18,7 +18,7 @@ namespace VerifyNUnit
         }
 
         public static async Task Throws(
-            Func<object> target,
+            Func<object?> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {

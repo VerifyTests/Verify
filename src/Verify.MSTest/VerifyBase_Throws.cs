@@ -18,7 +18,7 @@ namespace VerifyMSTest
         }
 
         public async Task Throws(
-            Func<object> target,
+            Func<object?> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {

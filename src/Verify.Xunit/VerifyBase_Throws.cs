@@ -15,7 +15,7 @@ namespace VerifyXunit
         }
 
         public Task Throws(
-            Func<object> target,
+            Func<object?> target,
             VerifySettings? settings = null)
         {
             settings ??= this.settings;

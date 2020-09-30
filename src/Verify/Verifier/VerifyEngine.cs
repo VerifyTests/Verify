@@ -244,7 +244,7 @@ class VerifyEngine
         {
             await settings.handleOnFirstVerify(item.Received);
         }
-        builder.AppendLine($"{Path.GetFileName(item.Verified)}");
+        builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
         if (Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{Path.GetFileName(item.Received)}");

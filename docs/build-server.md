@@ -21,7 +21,7 @@ Use an [on_failure build step](https://www.appveyor.com/docs/build-configuration
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 ```
-<sup><a href='/src/appveyor.yml#L9-L12' title='File snippet `appveyorartifacts` was extracted from'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Navigate to start of snippet `appveyorartifacts`'>anchor</a></sup>
+<sup><a href='/src/appveyor.yml#L9-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).
@@ -52,5 +52,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L82-L96' title='File snippet `derivetestdirectory` was extracted from'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Navigate to start of snippet `derivetestdirectory`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L82-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -37,7 +37,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L65-L87' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L65-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -68,7 +68,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='File snippet `anonnunit` was extracted from'>snippet source</a> | <a href='#snippet-anonnunit' title='Navigate to start of snippet `anonnunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -99,7 +99,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -121,5 +121,5 @@ Results in the following:
   }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

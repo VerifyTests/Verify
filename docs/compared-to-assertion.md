@@ -53,7 +53,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -83,7 +83,7 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='File snippet `traditionaltest` was extracted from'>snippet source</a> | <a href='#snippet-traditionaltest' title='Navigate to start of snippet `traditionaltest`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-traditionaltest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -99,5 +99,5 @@ public Task Simple()
     return Verifier.Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='File snippet `verificationtest` was extracted from'>snippet source</a> | <a href='#snippet-verificationtest' title='Navigate to start of snippet `verificationtest`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-verificationtest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -38,7 +38,7 @@ public Task InlineDataUsage(string arg)
     return Verifier.Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -62,7 +62,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -109,7 +109,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -130,7 +130,7 @@ public Task TestCaseUsage(string arg)
     return Verifier.Verify(arg);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L8-L15' title='File snippet `nunittestcase` was extracted from'>snippet source</a> | <a href='#snippet-nunittestcase' title='Navigate to start of snippet `nunittestcase`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L8-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -154,5 +154,5 @@ public Task DataRowUsage(string arg)
     return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='File snippet `mstestdatarow` was extracted from'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Navigate to start of snippet `mstestdatarow`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

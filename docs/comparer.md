@@ -44,7 +44,7 @@ static Digest HashImage(Stream stream)
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L32-L57' title='File snippet `imagecomparer` was extracted from'>snippet source</a> | <a href='#snippet-imagecomparer' title='Navigate to start of snippet `imagecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L32-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -60,7 +60,7 @@ settings.UseComparer(CompareImages);
 settings.UseExtension("png");
 await Verifier.Verify("TheImage.png", settings);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L14-L19' title='File snippet `instancecomparer` was extracted from'>snippet source</a> | <a href='#snippet-instancecomparer' title='Navigate to start of snippet `instancecomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L14-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -74,7 +74,7 @@ VerifierSettings.RegisterComparer(
     compare: CompareImages);
 await Verifier.VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L29' title='File snippet `staticcomparer` was extracted from'>snippet source</a> | <a href='#snippet-staticcomparer' title='Navigate to start of snippet `staticcomparer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -131,7 +131,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='File snippet `defualtcompare` was extracted from'>snippet source</a> | <a href='#snippet-defualtcompare' title='Navigate to start of snippet `defualtcompare`'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

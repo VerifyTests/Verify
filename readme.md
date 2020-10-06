@@ -54,7 +54,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
 Given a class to be tested:
 
 <!-- snippet: ClassBeingTested -->
-<a id='snippet-classbeingtested'></a>
+<a id='1dbe2b6f'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -81,7 +81,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#1dbe2b6f' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -90,7 +90,7 @@ public static class ClassBeingTested
 Support for [xUnit](https://xunit.net/)
 
 <!-- snippet: SampleTestXunit -->
-<a id='snippet-sampletestxunit'></a>
+<a id='bd4b1100'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -105,7 +105,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L18' title='File snippet `sampletestxunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Navigate to start of snippet `sampletestxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L18' title='Snippet source file'>snippet source</a> | <a href='#bd4b1100' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
@@ -116,7 +116,7 @@ public class Sample
 Support for [NUnit](https://nunit.org/)
 
 <!-- snippet: SampleTestNUnit -->
-<a id='snippet-sampletestnunit'></a>
+<a id='d3c1f765'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -131,7 +131,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L4-L17' title='File snippet `sampletestnunit` was extracted from'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Navigate to start of snippet `sampletestnunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L4-L17' title='Snippet source file'>snippet source</a> | <a href='#d3c1f765' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -140,7 +140,7 @@ public class Sample
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 <!-- snippet: SampleTestMSTest -->
-<a id='snippet-sampletestmstest'></a>
+<a id='be90838a'></a>
 ```cs
 [TestClass]
 public class Sample :
@@ -154,7 +154,7 @@ public class Sample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='File snippet `sampletestmstest` was extracted from'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Navigate to start of snippet `sampletestmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='Snippet source file'>snippet source</a> | <a href='#be90838a' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -192,7 +192,7 @@ To verify the result:
 This will result in the `Sample.Test.verified.txt` being created:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
+<a id='90bc6a06'></a>
 ```txt
 {
   GivenNames: 'John',
@@ -209,7 +209,7 @@ This will result in the `Sample.Test.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='File snippet `Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#90bc6a06' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -218,7 +218,7 @@ This will result in the `Sample.Test.verified.txt` being created:
 If the implementation of `ClassBeingTested` changes:
 
 <!-- snippet: ClassBeingTestedChanged -->
-<a id='snippet-classbeingtestedchanged'></a>
+<a id='18969c7e'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -247,7 +247,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L6-L33' title='File snippet `classbeingtestedchanged` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Navigate to start of snippet `classbeingtestedchanged`'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L6-L33' title='Snippet source file'>snippet source</a> | <a href='#18969c7e' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 And the test is re run it will fail with

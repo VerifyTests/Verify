@@ -26,11 +26,11 @@ Allows lines to be selectively removed using a `Func`.
 For example remove lines containing `text`:
 
 <!-- snippet: ScrubLines -->
-<a id='snippet-scrublines'></a>
+<a id='07c433a3'></a>
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L250-L254' title='File snippet `scrublines` was extracted from'>snippet source</a> | <a href='#snippet-scrublines' title='Navigate to start of snippet `scrublines`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L250-L254' title='Snippet source file'>snippet source</a> | <a href='#07c433a3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -41,11 +41,11 @@ Remove all lines containing any of the defined strings.
 For example remove lines containing `text1` or `text2`
 
 <!-- snippet: ScrubLinesContaining -->
-<a id='snippet-scrublinescontaining'></a>
+<a id='bb228405'></a>
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L256-L260' title='File snippet `scrublinescontaining` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Navigate to start of snippet `scrublinescontaining`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L256-L260' title='Snippet source file'>snippet source</a> | <a href='#bb228405' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (StringComparison.OrdinalIgnoreCase).
@@ -53,11 +53,11 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 `StringComparison` can be overridden:
 
 <!-- snippet: ScrubLinesContainingOrdinal -->
-<a id='snippet-scrublinescontainingordinal'></a>
+<a id='dcda3b88'></a>
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L262-L266' title='File snippet `scrublinescontainingordinal` was extracted from'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Navigate to start of snippet `scrublinescontainingordinal`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L262-L266' title='Snippet source file'>snippet source</a> | <a href='#dcda3b88' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -68,11 +68,11 @@ Allows lines to be selectively replaced using a `Func`.
 For example converts lines to upper case:
 
 <!-- snippet: ScrubLinesWithReplace -->
-<a id='snippet-scrublineswithreplace'></a>
+<a id='eea32c36'></a>
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L268-L272' title='File snippet `scrublineswithreplace` was extracted from'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Navigate to start of snippet `scrublineswithreplace`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L268-L272' title='Snippet source file'>snippet source</a> | <a href='#eea32c36' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -81,11 +81,11 @@ verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 Replaces `Environment.MachineName` with `TheMachineName`.
 
 <!-- snippet: ScrubMachineName -->
-<a id='snippet-scrubmachinename'></a>
+<a id='10401bf5'></a>
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L274-L278' title='File snippet `scrubmachinename` was extracted from'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Navigate to start of snippet `scrubmachinename`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L274-L278' title='Snippet source file'>snippet source</a> | <a href='#10401bf5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -100,7 +100,7 @@ Adds a scrubber with full control over the text via a `Func`
 ### xUnit
 
 <!-- snippet: ScrubbersSampleXunit -->
-<a id='snippet-scrubberssamplexunit'></a>
+<a id='a84e6108'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -152,14 +152,14 @@ LineJ
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L57' title='File snippet `scrubberssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Navigate to start of snippet `scrubberssamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L57' title='Snippet source file'>snippet source</a> | <a href='#a84e6108' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### NUnit
 
 <!-- snippet: ScrubbersSampleNUnit -->
-<a id='snippet-scrubberssamplenunit'></a>
+<a id='bd0ed6a9'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -212,14 +212,14 @@ LineJ
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L6-L57' title='File snippet `scrubberssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Navigate to start of snippet `scrubberssamplenunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L6-L57' title='Snippet source file'>snippet source</a> | <a href='#bd0ed6a9' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MSTest
 
 <!-- snippet: ScrubbersSampleMSTest -->
-<a id='snippet-scrubberssamplemstest'></a>
+<a id='effcadd8'></a>
 ```cs
 [TestClass]
 public class ScrubbersSample :
@@ -270,14 +270,14 @@ LineJ
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='File snippet `scrubberssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Navigate to start of snippet `scrubberssamplemstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='Snippet source file'>snippet source</a> | <a href='#effcadd8' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Results
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'></a>
+<a id='b0432b33'></a>
 ```txt
 
 LineA
@@ -285,17 +285,17 @@ LineC
 NoMoreLineE
 LineI
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L5' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#b0432b33' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt'></a>
+<a id='e08b9334'></a>
 ```txt
 {
   RowVersion: 'TheRowVersion'
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt#L1-L3' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#e08b9334' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -313,7 +313,7 @@ Global scrubbers should be defined only once at appdomain startup. In this examp
 ### xUnit
 
 <!-- snippet: ScrubberLevelsSampleXunit -->
-<a id='snippet-scrubberlevelssamplexunit'></a>
+<a id='5614792f'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -343,14 +343,14 @@ public class ScrubberLevelsSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L35' title='File snippet `scrubberlevelssamplexunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Navigate to start of snippet `scrubberlevelssamplexunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L35' title='Snippet source file'>snippet source</a> | <a href='#5614792f' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### NUnit
 
 <!-- snippet: ScrubberLevelsSampleNUnit -->
-<a id='snippet-scrubberlevelssamplenunit'></a>
+<a id='74201a0c'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -380,14 +380,14 @@ public class ScrubberLevelsSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L5-L33' title='File snippet `scrubberlevelssamplenunit` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Navigate to start of snippet `scrubberlevelssamplenunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L5-L33' title='Snippet source file'>snippet source</a> | <a href='#74201a0c' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MSTest
 
 <!-- snippet: ScrubberLevelsSampleMSTest -->
-<a id='snippet-scrubberlevelssamplemstest'></a>
+<a id='7516fc19'></a>
 ```cs
 [TestClass]
 public class ScrubberLevelsSample :
@@ -416,16 +416,16 @@ public class ScrubberLevelsSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L33' title='File snippet `scrubberlevelssamplemstest` was extracted from'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Navigate to start of snippet `scrubberlevelssamplemstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L33' title='Snippet source file'>snippet source</a> | <a href='#7516fc19' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Result
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt'></a>
+<a id='e96e3984'></a>
 ```txt
 A B C
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt#L1-L1' title='File snippet `Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#e96e3984' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

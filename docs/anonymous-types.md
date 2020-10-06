@@ -13,7 +13,7 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 ## xUnit
 
 <!-- snippet: anonXunit -->
-<a id='snippet-anonxunit'></a>
+<a id='ec22c684'></a>
 ```cs
 [Fact]
 public async Task Anon()
@@ -37,14 +37,14 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L65-L87' title='File snippet `anonxunit` was extracted from'>snippet source</a> | <a href='#snippet-anonxunit' title='Navigate to start of snippet `anonxunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L65-L87' title='Snippet source file'>snippet source</a> | <a href='#ec22c684' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## NUnit
 
 <!-- snippet: anonNUnit -->
-<a id='snippet-anonnunit'></a>
+<a id='7c082449'></a>
 ```cs
 [Test]
 public async Task Anon()
@@ -68,14 +68,14 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='File snippet `anonnunit` was extracted from'>snippet source</a> | <a href='#snippet-anonnunit' title='Navigate to start of snippet `anonnunit`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='Snippet source file'>snippet source</a> | <a href='#7c082449' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## MSTest
 
 <!-- snippet: anonMSTest -->
-<a id='snippet-anonmstest'></a>
+<a id='91d43f07'></a>
 ```cs
 [TestMethod]
 public async Task Anon()
@@ -99,7 +99,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='File snippet `anonmstest` was extracted from'>snippet source</a> | <a href='#snippet-anonmstest' title='Navigate to start of snippet `anonmstest`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='Snippet source file'>snippet source</a> | <a href='#91d43f07' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -108,7 +108,7 @@ public async Task Anon()
 Results in the following:
 
 <!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt'></a>
+<a id='2753b441'></a>
 ```txt
 {
   person1: {
@@ -121,5 +121,5 @@ Results in the following:
   }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='File snippet `Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#2753b441' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

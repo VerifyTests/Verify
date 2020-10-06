@@ -26,7 +26,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 ### InlineData
 
 <!-- snippet: xunitInlineData -->
-<a id='snippet-xunitinlinedata'></a>
+<a id='b8883bf3'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -38,14 +38,14 @@ public Task InlineDataUsage(string arg)
     return Verifier.Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='File snippet `xunitinlinedata` was extracted from'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Navigate to start of snippet `xunitinlinedata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#b8883bf3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MemberData
 
 <!-- snippet: xunitMemberData -->
-<a id='snippet-xunitmemberdata'></a>
+<a id='5f9b8a92'></a>
 ```cs
 [Theory]
 [MemberData(nameof(GetData))]
@@ -62,7 +62,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='File snippet `xunitmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Navigate to start of snippet `xunitmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#5f9b8a92' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -71,7 +71,7 @@ public static IEnumerable<object[]> GetData()
 xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()` on the base class.
 
 <!-- snippet: xunitComplexMemberData -->
-<a id='snippet-xunitcomplexmemberdata'></a>
+<a id='c48b43b8'></a>
 ```cs
 [UsesVerify]
 public class ComplexParametersSample
@@ -109,7 +109,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='File snippet `xunitcomplexmemberdata` was extracted from'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Navigate to start of snippet `xunitcomplexmemberdata`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='Snippet source file'>snippet source</a> | <a href='#c48b43b8' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -121,7 +121,7 @@ public class ComplexParametersSample
 ### TestCase
 
 <!-- snippet: NUnitTestCase -->
-<a id='snippet-nunittestcase'></a>
+<a id='b9c107fd'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
@@ -130,7 +130,7 @@ public Task TestCaseUsage(string arg)
     return Verifier.Verify(arg);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L8-L15' title='File snippet `nunittestcase` was extracted from'>snippet source</a> | <a href='#snippet-nunittestcase' title='Navigate to start of snippet `nunittestcase`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L8-L15' title='Snippet source file'>snippet source</a> | <a href='#b9c107fd' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -142,7 +142,7 @@ MSTest does not expose the parameter values via its extensibility context. So pa
 ### DataRow
 
 <!-- snippet: MSTestDataRow -->
-<a id='snippet-mstestdatarow'></a>
+<a id='3e91a96f'></a>
 ```cs
 [DataTestMethod]
 [DataRow("Value1")]
@@ -154,5 +154,5 @@ public Task DataRowUsage(string arg)
     return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='File snippet `mstestdatarow` was extracted from'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Navigate to start of snippet `mstestdatarow`'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#3e91a96f' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

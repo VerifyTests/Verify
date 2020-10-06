@@ -26,7 +26,7 @@ Given the following method:
 ### Class being tested
 
 <!-- snippet: ClassBeingTested -->
-<a id='snippet-classbeingtested'></a>
+<a id='1dbe2b6f'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -53,7 +53,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='File snippet `classbeingtested` was extracted from'>snippet source</a> | <a href='#snippet-classbeingtested' title='Navigate to start of snippet `classbeingtested`'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#1dbe2b6f' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -65,7 +65,7 @@ Compare a traditional assertion based test to a verification test.
 #### Traditional assertion test:
 
 <!-- snippet: TraditionalTest -->
-<a id='snippet-traditionaltest'></a>
+<a id='8792aba5'></a>
 ```cs
 [Fact]
 public void TraditionalTest()
@@ -83,14 +83,14 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='File snippet `traditionaltest` was extracted from'>snippet source</a> | <a href='#snippet-traditionaltest' title='Navigate to start of snippet `traditionaltest`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='Snippet source file'>snippet source</a> | <a href='#8792aba5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Verification test
 
 <!-- snippet: VerificationTest -->
-<a id='snippet-verificationtest'></a>
+<a id='2dee7ce8'></a>
 ```cs
 [Fact]
 public Task Simple()
@@ -99,5 +99,5 @@ public Task Simple()
     return Verifier.Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='File snippet `verificationtest` was extracted from'>snippet source</a> | <a href='#snippet-verificationtest' title='Navigate to start of snippet `verificationtest`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='Snippet source file'>snippet source</a> | <a href='#2dee7ce8' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

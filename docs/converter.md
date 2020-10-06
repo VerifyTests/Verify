@@ -29,14 +29,14 @@ Both the following examples take an input tiff and convert it to:
 The info file:
 
 <!-- snippet: ConverterSnippets.Type.info.verified.txt -->
-<a id='snippet-ConverterSnippets.Type.info.verified.txt'></a>
+<a id='58bc1827'></a>
 ```txt
 {
   PixelFormat: 'Format8bppIndexed',
   Size: '473, 355'
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.Type.info.verified.txt#L1-L4' title='File snippet `ConverterSnippets.Type.info.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-ConverterSnippets.Type.info.verified.txt' title='Navigate to start of snippet `ConverterSnippets.Type.info.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.Type.info.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#58bc1827' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Multiple png files:
@@ -49,7 +49,7 @@ Multiple png files:
 This sample uses a typed approach. So the converter acts on an in memory instance matching based on type.
 
 <!-- snippet: RegisterFileConverterType -->
-<a id='snippet-registerfileconvertertype'></a>
+<a id='9b5c4e65'></a>
 ```cs
 VerifierSettings.RegisterFileConverter<Image>(
     canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
@@ -76,26 +76,26 @@ VerifierSettings.RegisterFileConverter<Image>(
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L17-L45' title='File snippet `registerfileconvertertype` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Navigate to start of snippet `registerfileconvertertype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L17-L45' title='Snippet source file'>snippet source</a> | <a href='#9b5c4e65' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: FileConverterTypeVerify -->
-<a id='snippet-fileconvertertypeverify'></a>
+<a id='28f53c67'></a>
 ```cs
 using var stream = File.OpenRead("sample.tif");
 await Verifier.Verify(Image.FromStream(stream));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L50' title='File snippet `fileconvertertypeverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Navigate to start of snippet `fileconvertertypeverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L50' title='Snippet source file'>snippet source</a> | <a href='#28f53c67' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
 
 <!-- snippet: ConverterCanConvert -->
-<a id='snippet-convertercanconvert'></a>
+<a id='464e8a44'></a>
 ```cs
 canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L19-L21' title='File snippet `convertercanconvert` was extracted from'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Navigate to start of snippet `convertercanconvert`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L19-L21' title='Snippet source file'>snippet source</a> | <a href='#464e8a44' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -104,7 +104,7 @@ canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
 This sample uses a extension approach. So the converter acts on a file or stream based on the extension (configured or detected).
 
 <!-- snippet: RegisterFileConverterExtension -->
-<a id='snippet-registerfileconverterextension'></a>
+<a id='9e00c303'></a>
 ```cs
 VerifierSettings.RegisterFileConverter(
     fromExtension: "tif",
@@ -132,15 +132,15 @@ VerifierSettings.RegisterFileConverter(
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L83' title='File snippet `registerfileconverterextension` was extracted from'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Navigate to start of snippet `registerfileconverterextension`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L83' title='Snippet source file'>snippet source</a> | <a href='#9e00c303' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
-<a id='snippet-fileconverterextensionverify'></a>
+<a id='82adb3bf'></a>
 ```cs
 await Verifier.VerifyFile("sample.tif");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L84-L86' title='File snippet `fileconverterextensionverify` was extracted from'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Navigate to start of snippet `fileconverterextensionverify`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L84-L86' title='Snippet source file'>snippet source</a> | <a href='#82adb3bf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -149,7 +149,7 @@ await Verifier.VerifyFile("sample.tif");
 If cleanup needs to occur after verification a callback can be passes to `ConversionResult`:
 
 <!-- snippet: ConversionResultWithCleanup -->
-<a id='snippet-conversionresultwithcleanup'></a>
+<a id='2ef9ecde'></a>
 ```cs
 return new ConversionResult(
     info: info,
@@ -161,7 +161,7 @@ return new ConversionResult(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L63-L73' title='File snippet `conversionresultwithcleanup` was extracted from'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Navigate to start of snippet `conversionresultwithcleanup`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L63-L73' title='Snippet source file'>snippet source</a> | <a href='#2ef9ecde' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

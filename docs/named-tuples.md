@@ -14,30 +14,30 @@ Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.ru
 Given a method that returns a named tuple:
 
 <!-- snippet: MethodWithNamedTuple -->
-<a id='snippet-methodwithnamedtuple'></a>
+<a id='38cf2557'></a>
 ```cs
 static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
 {
     return (true, "A", "B");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L359-L366' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L359-L366' title='Snippet source file'>snippet source</a> | <a href='#38cf2557' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Can be verified:
 
 <!-- snippet: VerifyTuple -->
-<a id='snippet-verifytuple'></a>
+<a id='e2941b4a'></a>
 ```cs
 await Verifier.Verify(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L352-L356' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L352-L356' title='Snippet source file'>snippet source</a> | <a href='#e2941b4a' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Resulting in:
 
 <!-- snippet: SerializationTests.NamedTuple.verified.txt -->
-<a id='snippet-SerializationTests.NamedTuple.verified.txt'></a>
+<a id='a1ea08c2'></a>
 ```txt
 {
   Member1: true,
@@ -45,5 +45,5 @@ Resulting in:
   Member3: 'B'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NamedTuple.verified.txt#L1-L5' title='File snippet `SerializationTests.NamedTuple.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NamedTuple.verified.txt' title='Navigate to start of snippet `SerializationTests.NamedTuple.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NamedTuple.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#a1ea08c2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

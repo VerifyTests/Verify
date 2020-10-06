@@ -51,7 +51,7 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 The default serialization settings are:
 
 <!-- snippet: defaultSerialization -->
-<a id='snippet-defaultserialization'></a>
+<a id='299038c4'></a>
 ```cs
 var settings = new JsonSerializerSettings
 {
@@ -60,7 +60,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L163-L172' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L163-L172' title='Snippet source file'>snippet source</a> | <a href='#299038c4' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -83,11 +83,11 @@ By default empty collections are ignored during verification.
 To disable this behavior globally use:
 
 <!-- snippet: DontIgnoreEmptyCollections -->
-<a id='snippet-dontignoreemptycollections'></a>
+<a id='3a2c2667'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L195-L197' title='File snippet `dontignoreemptycollections` was extracted from'>snippet source</a> | <a href='#snippet-dontignoreemptycollections' title='Navigate to start of snippet `dontignoreemptycollections`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L195-L197' title='Snippet source file'>snippet source</a> | <a href='#3a2c2667' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -96,7 +96,7 @@ VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
 By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
 
 <!-- snippet: guid -->
-<a id='snippet-guid'></a>
+<a id='34fe9adc'></a>
 ```cs
 var guid = Guid.NewGuid();
 var target = new GuidTarget
@@ -109,13 +109,13 @@ var target = new GuidTarget
 
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L394-L407' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L394-L407' title='Snippet source file'>snippet source</a> | <a href='#34fe9adc' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
 
 <!-- snippet: SerializationTests.ShouldReUseGuid.verified.txt -->
-<a id='snippet-SerializationTests.ShouldReUseGuid.verified.txt'></a>
+<a id='c8162c04'></a>
 ```txt
 {
   Guid: Guid_1,
@@ -124,27 +124,27 @@ Results in the following:
   OtherGuid: Guid_2
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseGuid.verified.txt#L1-L6' title='File snippet `SerializationTests.ShouldReUseGuid.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseGuid.verified.txt' title='Navigate to start of snippet `SerializationTests.ShouldReUseGuid.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseGuid.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#c8162c04' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To disable this behavior globally use:
 
 <!-- snippet: DontScrubGuids -->
-<a id='snippet-dontscrubguids'></a>
+<a id='d55ddea9'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L202-L204' title='File snippet `dontscrubguids` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Navigate to start of snippet `dontscrubguids`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L202-L204' title='Snippet source file'>snippet source</a> | <a href='#d55ddea9' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
 <!-- snippet: ScrubInlineGuids -->
-<a id='snippet-scrubinlineguids'></a>
+<a id='a3c65a19'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.ScrubInlineGuids());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L209-L211' title='File snippet `scrubinlineguids` was extracted from'>snippet source</a> | <a href='#snippet-scrubinlineguids' title='Navigate to start of snippet `scrubinlineguids`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L209-L211' title='Snippet source file'>snippet source</a> | <a href='#a3c65a19' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -153,7 +153,7 @@ VerifierSettings.ModifySerialization(_ => _.ScrubInlineGuids());
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
 <!-- snippet: Date -->
-<a id='snippet-date'></a>
+<a id='e927d067'></a>
 ```cs
 var dateTime = DateTime.Now;
 var dateTimeOffset = DateTimeOffset.Now;
@@ -169,13 +169,13 @@ var target = new DateTimeTarget
 
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L28-L44' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L28-L44' title='Snippet source file'>snippet source</a> | <a href='#e927d067' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
 
 <!-- snippet: SerializationTests.ShouldReUseDatetime.verified.txt -->
-<a id='snippet-SerializationTests.ShouldReUseDatetime.verified.txt'></a>
+<a id='fc85b66d'></a>
 ```txt
 {
   DateTime: DateTime_1,
@@ -186,17 +186,17 @@ Results in the following:
   DateTimeOffsetString: DateTimeOffset_2
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseDatetime.verified.txt#L1-L8' title='File snippet `SerializationTests.ShouldReUseDatetime.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseDatetime.verified.txt' title='Navigate to start of snippet `SerializationTests.ShouldReUseDatetime.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseDatetime.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#fc85b66d' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To disable this behavior globally use:
 
 <!-- snippet: DontScrubDateTimes -->
-<a id='snippet-dontscrubdatetimes'></a>
+<a id='733edfbe'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L216-L218' title='File snippet `dontscrubdatetimes` was extracted from'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Navigate to start of snippet `dontscrubdatetimes`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L216-L218' title='Snippet source file'>snippet source</a> | <a href='#733edfbe' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -207,11 +207,11 @@ By default values of `bool` and `bool?` are ignored during verification. So prop
 To disable this behavior globally use:
 
 <!-- snippet: DontIgnoreFalse -->
-<a id='snippet-dontignorefalse'></a>
+<a id='db37fc85'></a>
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L223-L225' title='File snippet `dontignorefalse` was extracted from'>snippet source</a> | <a href='#snippet-dontignorefalse' title='Navigate to start of snippet `dontignorefalse`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L223-L225' title='Snippet source file'>snippet source</a> | <a href='#db37fc85' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -220,7 +220,7 @@ VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 `DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
 
 <!-- snippet: ChangeDefaultsPerVerification -->
-<a id='snippet-changedefaultsperverification'></a>
+<a id='bd99740d'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -232,8 +232,8 @@ settings.ModifySerialization(_ =>
 });
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L17-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
-<a id='snippet-changedefaultsperverification-1'></a>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L17-L28' title='Snippet source file'>snippet source</a> | <a href='#bd99740d' title='Start of snippet'>anchor</a></sup>
+<a id='bd99740d-1'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -245,7 +245,7 @@ settings.ModifySerialization(_ =>
 });
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L16-L28' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification-1' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L16-L28' title='Snippet source file'>snippet source</a> | <a href='#bd99740d-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -257,7 +257,7 @@ Extra Json.NET settings can be made:
 ### Globally
 
 <!-- snippet: ExtraSettingsGlobal -->
-<a id='snippet-extrasettingsglobal'></a>
+<a id='d58b604a'></a>
 ```cs
 VerifierSettings.AddExtraSettings(_ =>
 {
@@ -265,14 +265,14 @@ VerifierSettings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L121-L129' title='File snippet `extrasettingsglobal` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Navigate to start of snippet `extrasettingsglobal`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L121-L129' title='Snippet source file'>snippet source</a> | <a href='#d58b604a' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Instance
 
 <!-- snippet: ExtraSettingsInstance -->
-<a id='snippet-extrasettingsinstance'></a>
+<a id='b259c11b'></a>
 ```cs
 var settings = new VerifySettings();
 settings.AddExtraSettings(_ =>
@@ -281,7 +281,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L131-L140' title='File snippet `extrasettingsinstance` was extracted from'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Navigate to start of snippet `extrasettingsinstance`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L131-L140' title='Snippet source file'>snippet source</a> | <a href='#b259c11b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -290,7 +290,7 @@ settings.AddExtraSettings(_ =>
 One common use case is to register a custom [JsonConverter](https://www.newtonsoft.com/json/help/html/CustomJsonConverter.htm). As only writing is required, to help with this there is `WriteOnlyJsonConverter`, and `WriteOnlyJsonConverter<T>`.
 
 <!-- snippet: CompanyConverter -->
-<a id='snippet-companyconverter'></a>
+<a id='6d8d9fe6'></a>
 ```cs
 class CompanyConverter :
     WriteOnlyJsonConverter<Company>
@@ -304,22 +304,22 @@ class CompanyConverter :
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L166' title='File snippet `companyconverter` was extracted from'>snippet source</a> | <a href='#snippet-companyconverter' title='Navigate to start of snippet `companyconverter`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L166' title='Snippet source file'>snippet source</a> | <a href='#6d8d9fe6' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
-<a id='snippet-jsonconverter'></a>
+<a id='6d174e8b'></a>
 ```cs
 VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L145-L149' title='File snippet `jsonconverter` was extracted from'>snippet source</a> | <a href='#snippet-jsonconverter' title='Navigate to start of snippet `jsonconverter`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L145-L149' title='Snippet source file'>snippet source</a> | <a href='#6d174e8b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Scoped settings
 
 <!-- snippet: ScopedSerializer -->
-<a id='snippet-scopedserializer'></a>
+<a id='c6b54cbf'></a>
 ```cs
 var person = new Person
 {
@@ -333,13 +333,13 @@ settings.ModifySerialization(
 settings.AddExtraSettings(
     _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L916-L930' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L916-L930' title='Snippet source file'>snippet source</a> | <a href='#c6b54cbf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt -->
-<a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'></a>
+<a id='12444c5b'></a>
 ```txt
 {
   GivenNames: 'John',
@@ -347,7 +347,7 @@ Result:
   Dob: '\/Date(970358400000+0000)\/'
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='File snippet `Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt' title='Navigate to start of snippet `Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#12444c5b' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -356,7 +356,7 @@ Result:
 To ignore all members that match a certain type:
 
 <!-- snippet: AddIgnoreType -->
-<a id='snippet-addignoretype'></a>
+<a id='09b7ba9e'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
@@ -374,13 +374,13 @@ var target = new IgnoreTypeTarget
 };
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L602-L620' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L602-L620' title='Snippet source file'>snippet source</a> | <a href='#09b7ba9e' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.IgnoreType.verified.txt -->
-<a id='snippet-SerializationTests.IgnoreType.verified.txt'></a>
+<a id='e0a92f17'></a>
 ```txt
 {
   ToInclude: {
@@ -388,7 +388,7 @@ Result:
   }
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreType.verified.txt#L1-L5' title='File snippet `SerializationTests.IgnoreType.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreType.verified.txt' title='Navigate to start of snippet `SerializationTests.IgnoreType.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreType.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#e0a92f17' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -397,7 +397,7 @@ Result:
 To ignore instances of a type based on delegate:
 
 <!-- snippet: AddIgnoreInstance -->
-<a id='snippet-addignoreinstance'></a>
+<a id='1ecb7de5'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(
@@ -416,13 +416,13 @@ var target = new IgnoreInstanceTarget
 };
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L566-L585' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L566-L585' title='Snippet source file'>snippet source</a> | <a href='#1ecb7de5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.AddIgnoreInstance.verified.txt -->
-<a id='snippet-SerializationTests.AddIgnoreInstance.verified.txt'></a>
+<a id='87c6f505'></a>
 ```txt
 {
   ToInclude: {
@@ -430,7 +430,7 @@ Result:
   }
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.AddIgnoreInstance.verified.txt#L1-L5' title='File snippet `SerializationTests.AddIgnoreInstance.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.AddIgnoreInstance.verified.txt' title='Navigate to start of snippet `SerializationTests.AddIgnoreInstance.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.AddIgnoreInstance.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#87c6f505' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -439,7 +439,7 @@ Result:
 Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
 
 <!-- snippet: WithObsoleteProp -->
-<a id='snippet-withobsoleteprop'></a>
+<a id='e21375bb'></a>
 ```cs
 class WithObsolete
 {
@@ -458,19 +458,19 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L878-L897' title='File snippet `withobsoleteprop` was extracted from'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Navigate to start of snippet `withobsoleteprop`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L878-L897' title='Snippet source file'>snippet source</a> | <a href='#e21375bb' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.WithObsoleteProp.verified.txt -->
-<a id='snippet-SerializationTests.WithObsoleteProp.verified.txt'></a>
+<a id='d00fed72'></a>
 ```txt
 {
   OtherProperty: 'value2'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoleteProp.verified.txt#L1-L3' title='File snippet `SerializationTests.WithObsoleteProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.WithObsoleteProp.verified.txt' title='Navigate to start of snippet `SerializationTests.WithObsoleteProp.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoleteProp.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#d00fed72' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -479,7 +479,7 @@ Result:
 Obsolete members can be included using `IncludeObsoletes`:
 
 <!-- snippet: WithObsoletePropIncluded -->
-<a id='snippet-withobsoletepropincluded'></a>
+<a id='c863e0aa'></a>
 ```cs
 [Fact]
 public Task WithObsoletePropIncluded()
@@ -494,20 +494,20 @@ public Task WithObsoletePropIncluded()
     return Verifier.Verify(target, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L862-L877' title='File snippet `withobsoletepropincluded` was extracted from'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Navigate to start of snippet `withobsoletepropincluded`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L862-L877' title='Snippet source file'>snippet source</a> | <a href='#c863e0aa' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.WithObsoletePropIncluded.verified.txt -->
-<a id='snippet-SerializationTests.WithObsoletePropIncluded.verified.txt'></a>
+<a id='0ecb2822'></a>
 ```txt
 {
   ObsoleteProperty: 'value1',
   OtherProperty: 'value2'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoletePropIncluded.verified.txt#L1-L4' title='File snippet `SerializationTests.WithObsoletePropIncluded.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.WithObsoletePropIncluded.verified.txt' title='Navigate to start of snippet `SerializationTests.WithObsoletePropIncluded.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoletePropIncluded.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#0ecb2822' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -516,7 +516,7 @@ Result:
 To ignore members of a certain type using an expression:
 
 <!-- snippet: IgnoreMemberByExpression -->
-<a id='snippet-ignorememberbyexpression'></a>
+<a id='73fc7cf8'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -535,19 +535,19 @@ var target = new IgnoreExplicitTarget
 };
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L709-L728' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L709-L728' title='Snippet source file'>snippet source</a> | <a href='#73fc7cf8' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.IgnoreMemberByExpression.verified.txt -->
-<a id='snippet-SerializationTests.IgnoreMemberByExpression.verified.txt'></a>
+<a id='78fbba02'></a>
 ```txt
 {
   Include: 'Value'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByExpression.verified.txt#L1-L3' title='File snippet `SerializationTests.IgnoreMemberByExpression.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByExpression.verified.txt' title='Navigate to start of snippet `SerializationTests.IgnoreMemberByExpression.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByExpression.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#78fbba02' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -556,7 +556,7 @@ Result:
 To ignore members of a certain type using type and name:
 
 <!-- snippet: IgnoreMemberByName -->
-<a id='snippet-ignorememberbyname'></a>
+<a id='766cdc69'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ =>
@@ -578,19 +578,19 @@ var target = new IgnoreExplicitTarget
 };
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L734-L756' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L734-L756' title='Snippet source file'>snippet source</a> | <a href='#766cdc69' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.IgnoreMemberByName.verified.txt -->
-<a id='snippet-SerializationTests.IgnoreMemberByName.verified.txt'></a>
+<a id='b7b40caa'></a>
 ```txt
 {
   Include: 'Value'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L3' title='File snippet `SerializationTests.IgnoreMemberByName.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByName.verified.txt' title='Navigate to start of snippet `SerializationTests.IgnoreMemberByName.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#b7b40caa' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -605,7 +605,7 @@ Note that this is global for all members on all types.
 Ignore by exception type:
 
 <!-- snippet: IgnoreMembersThatThrow -->
-<a id='snippet-ignoremembersthatthrow'></a>
+<a id='9cb4fc0d'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
@@ -613,23 +613,23 @@ settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 var target = new WithCustomException();
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L772-L780' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L772-L780' title='Snippet source file'>snippet source</a> | <a href='#9cb4fc0d' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.CustomExceptionProp.verified.txt -->
-<a id='snippet-SerializationTests.CustomExceptionProp.verified.txt'></a>
+<a id='9b44bc43'></a>
 ```txt
 {}
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.CustomExceptionProp.verified.txt#L1-L1' title='File snippet `SerializationTests.CustomExceptionProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.CustomExceptionProp.verified.txt' title='Navigate to start of snippet `SerializationTests.CustomExceptionProp.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.CustomExceptionProp.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#9b44bc43' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Ignore by exception type and expression:
 
 <!-- snippet: IgnoreMembersThatThrowExpression -->
-<a id='snippet-ignoremembersthatthrowexpression'></a>
+<a id='207f2fe5'></a>
 ```cs
 var settings = new VerifySettings();
 settings.ModifySerialization(
@@ -638,17 +638,17 @@ settings.ModifySerialization(
 var target = new WithExceptionIgnoreMessage();
 await Verifier.Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L521-L530' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L521-L530' title='Snippet source file'>snippet source</a> | <a href='#207f2fe5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
 
 <!-- snippet: SerializationTests.ExceptionMessageProp.verified.txt -->
-<a id='snippet-SerializationTests.ExceptionMessageProp.verified.txt'></a>
+<a id='2b71334c'></a>
 ```txt
 {}
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ExceptionMessageProp.verified.txt#L1-L1' title='File snippet `SerializationTests.ExceptionMessageProp.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.ExceptionMessageProp.verified.txt' title='Navigate to start of snippet `SerializationTests.ExceptionMessageProp.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ExceptionMessageProp.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#2b71334c' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -657,44 +657,44 @@ Result:
 By default newlines in json are escaped with `\n`:
 
 <!-- snippet: NewLineEscapedInProperty -->
-<a id='snippet-newlineescapedinproperty'></a>
+<a id='f4b198df'></a>
 ```cs
 return Verifier.Verify(new {Property = "a\r\nb\\nc"});
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L231-L233' title='File snippet `newlineescapedinproperty` was extracted from'>snippet source</a> | <a href='#snippet-newlineescapedinproperty' title='Navigate to start of snippet `newlineescapedinproperty`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L231-L233' title='Snippet source file'>snippet source</a> | <a href='#f4b198df' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: SerializationTests.NewLineEscapedInProperty.verified.txt -->
-<a id='snippet-SerializationTests.NewLineEscapedInProperty.verified.txt'></a>
+<a id='dba66718'></a>
 ```txt
 {
   Property: 'a\nb\nc'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineEscapedInProperty.verified.txt#L1-L3' title='File snippet `SerializationTests.NewLineEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineEscapedInProperty.verified.txt' title='Navigate to start of snippet `SerializationTests.NewLineEscapedInProperty.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineEscapedInProperty.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#dba66718' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This can be disabled:
 
 <!-- snippet: DisableNewLineEscaping -->
-<a id='snippet-disablenewlineescaping'></a>
+<a id='77577450'></a>
 ```cs
 var settings = new VerifySettings();
 settings.DisableNewLineEscaping();
 await Verifier.Verify(new {Property = "a\r\nb\\nc"}, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L239-L243' title='File snippet `disablenewlineescaping` was extracted from'>snippet source</a> | <a href='#snippet-disablenewlineescaping' title='Navigate to start of snippet `disablenewlineescaping`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L239-L243' title='Snippet source file'>snippet source</a> | <a href='#77577450' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt -->
-<a id='snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt'></a>
+<a id='fbb73c2d'></a>
 ```txt
 {
   Property: 'a
 b\nc'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineNotEscapedInProperty.verified.txt#L1-L4' title='File snippet `SerializationTests.NewLineNotEscapedInProperty.verified.txt` was extracted from'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt' title='Navigate to start of snippet `SerializationTests.NewLineNotEscapedInProperty.verified.txt`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineNotEscapedInProperty.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#fbb73c2d' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -705,7 +705,7 @@ Certain types, when passed directly in to Verify, are written directly without g
 The default mapping is:
 
 <!-- snippet: typeToStringMapping -->
-<a id='snippet-typetostringmapping'></a>
+<a id='5121eb28'></a>
 ```cs
 {typeof(string), (target, settings) => (string) target},
 {typeof(bool), (target, settings) => ((bool) target).ToString()},
@@ -754,7 +754,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L60-L109' title='File snippet `typetostringmapping` was extracted from'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Navigate to start of snippet `typetostringmapping`'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L60-L109' title='Snippet source file'>snippet source</a> | <a href='#5121eb28' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.
@@ -762,10 +762,10 @@ This bypasses the Guid and DateTime scrubbing mentioned above.
 Extra types can be added to this mapping:
 
 <!-- snippet: TreatAsString -->
-<a id='snippet-treatasstring'></a>
+<a id='3a666aa5'></a>
 ```cs
 VerifierSettings.TreatAsString<ClassWithToString>(
     (target, settings) => target.Property);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L48-L53' title='File snippet `treatasstring` was extracted from'>snippet source</a> | <a href='#snippet-treatasstring' title='Navigate to start of snippet `treatasstring`'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L48-L53' title='Snippet source file'>snippet source</a> | <a href='#3a666aa5' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

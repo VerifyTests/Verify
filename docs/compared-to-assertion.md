@@ -26,7 +26,7 @@ Given the following method:
 ### Class being tested
 
 <!-- snippet: ClassBeingTested -->
-<a id='classbeingtested'></a>
+<a id='snippet-classbeingtested'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -53,7 +53,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#classbeingtested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -65,7 +65,7 @@ Compare a traditional assertion based test to a verification test.
 #### Traditional assertion test:
 
 <!-- snippet: TraditionalTest -->
-<a id='traditionaltest'></a>
+<a id='snippet-traditionaltest'></a>
 ```cs
 [Fact]
 public void TraditionalTest()
@@ -83,14 +83,14 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='Snippet source file'>snippet source</a> | <a href='#traditionaltest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-traditionaltest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Verification test
 
 <!-- snippet: VerificationTest -->
-<a id='verificationtest'></a>
+<a id='snippet-verificationtest'></a>
 ```cs
 [Fact]
 public Task Simple()
@@ -99,5 +99,5 @@ public Task Simple()
     return Verifier.Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='Snippet source file'>snippet source</a> | <a href='#verificationtest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-verificationtest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

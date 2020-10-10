@@ -16,12 +16,12 @@ To change this file edit the source file and then run MarkdownSnippets.
 Use an [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).
 
 <!-- snippet: AppVeyorArtifacts -->
-<a id='appveyorartifacts'></a>
+<a id='snippet-appveyorartifacts'></a>
 ```yml
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 ```
-<sup><a href='/src/appveyor.yml#L9-L12' title='Snippet source file'>snippet source</a> | <a href='#appveyorartifacts' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/appveyor.yml#L9-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).
@@ -38,7 +38,7 @@ In some scenarios, as part of a build, the test assemblies are copied to a diffe
 For example a possible implementation for [AppVeyor](https://www.appveyor.com/) could be:
 
 <!-- snippet: DeriveTestDirectory -->
-<a id='derivetestdirectory'></a>
+<a id='snippet-derivetestdirectory'></a>
 ```cs
 if (BuildServerDetector.Detected)
 {
@@ -52,5 +52,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L82-L96' title='Snippet source file'>snippet source</a> | <a href='#derivetestdirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L82-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

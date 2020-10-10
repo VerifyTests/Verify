@@ -54,7 +54,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
 Given a class to be tested:
 
 <!-- snippet: ClassBeingTested -->
-<a id='classbeingtested'></a>
+<a id='snippet-classbeingtested'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -81,7 +81,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#classbeingtested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -90,7 +90,7 @@ public static class ClassBeingTested
 Support for [xUnit](https://xunit.net/)
 
 <!-- snippet: SampleTestXunit -->
-<a id='sampletestxunit'></a>
+<a id='snippet-sampletestxunit'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -105,7 +105,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L18' title='Snippet source file'>snippet source</a> | <a href='#sampletestxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
@@ -116,7 +116,7 @@ public class Sample
 Support for [NUnit](https://nunit.org/)
 
 <!-- snippet: SampleTestNUnit -->
-<a id='sampletestnunit'></a>
+<a id='snippet-sampletestnunit'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -131,7 +131,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L4-L17' title='Snippet source file'>snippet source</a> | <a href='#sampletestnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L4-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -140,7 +140,7 @@ public class Sample
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 <!-- snippet: SampleTestMSTest -->
-<a id='sampletestmstest'></a>
+<a id='snippet-sampletestmstest'></a>
 ```cs
 [TestClass]
 public class Sample :
@@ -154,7 +154,7 @@ public class Sample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='Snippet source file'>snippet source</a> | <a href='#sampletestmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -192,7 +192,7 @@ To verify the result:
 This will result in the `Sample.Test.verified.txt` being created:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt -->
-<a id='Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
+<a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
 ```txt
 {
   GivenNames: 'John',
@@ -209,7 +209,7 @@ This will result in the `Sample.Test.verified.txt` being created:
   Id: Guid_1
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -218,7 +218,7 @@ This will result in the `Sample.Test.verified.txt` being created:
 If the implementation of `ClassBeingTested` changes:
 
 <!-- snippet: ClassBeingTestedChanged -->
-<a id='classbeingtestedchanged'></a>
+<a id='snippet-classbeingtestedchanged'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -247,7 +247,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L6-L33' title='Snippet source file'>snippet source</a> | <a href='#classbeingtestedchanged' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L6-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 And the test is re run it will fail with

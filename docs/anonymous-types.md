@@ -13,7 +13,7 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 ## xUnit
 
 <!-- snippet: anonXunit -->
-<a id='ec22c684'></a>
+<a id='anonxunit'></a>
 ```cs
 [Fact]
 public async Task Anon()
@@ -37,14 +37,14 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L65-L87' title='Snippet source file'>snippet source</a> | <a href='#ec22c684' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L65-L87' title='Snippet source file'>snippet source</a> | <a href='#anonxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## NUnit
 
 <!-- snippet: anonNUnit -->
-<a id='7c082449'></a>
+<a id='anonnunit'></a>
 ```cs
 [Test]
 public async Task Anon()
@@ -68,14 +68,14 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='Snippet source file'>snippet source</a> | <a href='#7c082449' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L68-L90' title='Snippet source file'>snippet source</a> | <a href='#anonnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## MSTest
 
 <!-- snippet: anonMSTest -->
-<a id='91d43f07'></a>
+<a id='anonmstest'></a>
 ```cs
 [TestMethod]
 public async Task Anon()
@@ -99,7 +99,7 @@ public async Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='Snippet source file'>snippet source</a> | <a href='#91d43f07' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L67-L89' title='Snippet source file'>snippet source</a> | <a href='#anonmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -108,7 +108,7 @@ public async Task Anon()
 Results in the following:
 
 <!-- snippet: Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt -->
-<a id='2753b441'></a>
+<a id='Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt'></a>
 ```txt
 {
   person1: {
@@ -121,5 +121,5 @@ Results in the following:
   }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#2753b441' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#Verify.Xunit.Tests/VerifyObjectSamples.Anon.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

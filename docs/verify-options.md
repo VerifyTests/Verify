@@ -17,12 +17,12 @@ In some scenarios it makes sense to auto-accept any changes as part of a given t
 This can be done using `AutoVerify()`:
 
 <!-- snippet: AutoVerify -->
-<a id='6d453ed2'></a>
+<a id='autoverify'></a>
 ```cs
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L101-L106' title='Snippet source file'>snippet source</a> | <a href='#6d453ed2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L101-L106' title='Snippet source file'>snippet source</a> | <a href='#autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -35,7 +35,7 @@ Note that auto accepted changes in `.verified.` files remain visible in source c
 `OnVerifyMismatch` is called when a received file does not match the existing verified file.
 
 <!-- snippet: OnHandlers -->
-<a id='baf7438e'></a>
+<a id='onhandlers'></a>
 ```cs
 public async Task OnHandlersSample()
 {
@@ -57,5 +57,5 @@ public async Task OnHandlersSample()
     await Verifier.Verify("value", settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L34' title='Snippet source file'>snippet source</a> | <a href='#baf7438e' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L12-L34' title='Snippet source file'>snippet source</a> | <a href='#onhandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

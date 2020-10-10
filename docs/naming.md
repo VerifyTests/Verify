@@ -28,7 +28,7 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 ### XUnit
 
 <!-- snippet: UniqueForSampleXunit -->
-<a id='uniqueforsamplexunit'></a>
+<a id='snippet-uniqueforsamplexunit'></a>
 ```cs
 using static VerifyXunit.Verifier;
 
@@ -60,14 +60,14 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L36' title='Snippet source file'>snippet source</a> | <a href='#uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### NUnit
 
 <!-- snippet: UniqueForSampleNUnit -->
-<a id='uniqueforsamplenunit'></a>
+<a id='snippet-uniqueforsamplenunit'></a>
 ```cs
 using static VerifyNUnit.Verifier;
 
@@ -99,14 +99,14 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L35' title='Snippet source file'>snippet source</a> | <a href='#uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MSTest
 
 <!-- snippet: UniqueForSampleMSTest -->
-<a id='uniqueforsamplemstest'></a>
+<a id='snippet-uniqueforsamplemstest'></a>
 ```cs
 [TestClass]
 public class UniqueForSample :
@@ -137,7 +137,7 @@ public class UniqueForSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='Snippet source file'>snippet source</a> | <a href='#uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -171,7 +171,7 @@ It can be overridden at two levels:
 Usage:
 
 <!-- snippet: XunitExtensionSample -->
-<a id='xunitextensionsample'></a>
+<a id='snippet-xunitextensionsample'></a>
 ```cs
 [UsesVerify]
 public class ExtensionSample
@@ -211,13 +211,13 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L45' title='Snippet source file'>snippet source</a> | <a href='#xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in two files:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json -->
-<a id='Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'></a>
+<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'></a>
 ```json
 {
     "fruit": "Apple",
@@ -225,11 +225,11 @@ Result in two files:
     "color": "Red"
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
-<a id='Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>
+<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>
 ```xml
 <note>
 <to>Joe</to>
@@ -237,7 +237,7 @@ Result in two files:
 <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -246,10 +246,10 @@ Result in two files:
 To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 
 <!-- snippet: AccessNamerRuntimeAndVersion -->
-<a id='accessnamerruntimeandversion'></a>
+<a id='snippet-accessnamerruntimeandversion'></a>
 ```cs
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='Snippet source file'>snippet source</a> | <a href='#accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

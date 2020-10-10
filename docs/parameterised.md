@@ -26,7 +26,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 ### InlineData
 
 <!-- snippet: xunitInlineData -->
-<a id='xunitinlinedata'></a>
+<a id='snippet-xunitinlinedata'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -38,14 +38,14 @@ public Task InlineDataUsage(string arg)
     return Verifier.Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#xunitinlinedata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MemberData
 
 <!-- snippet: xunitMemberData -->
-<a id='xunitmemberdata'></a>
+<a id='snippet-xunitmemberdata'></a>
 ```cs
 [Theory]
 [MemberData(nameof(GetData))]
@@ -62,7 +62,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#xunitmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -71,7 +71,7 @@ public static IEnumerable<object[]> GetData()
 xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()` on the base class.
 
 <!-- snippet: xunitComplexMemberData -->
-<a id='xunitcomplexmemberdata'></a>
+<a id='snippet-xunitcomplexmemberdata'></a>
 ```cs
 [UsesVerify]
 public class ComplexParametersSample
@@ -109,7 +109,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='Snippet source file'>snippet source</a> | <a href='#xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -121,7 +121,7 @@ public class ComplexParametersSample
 ### TestCase
 
 <!-- snippet: NUnitTestCase -->
-<a id='nunittestcase'></a>
+<a id='snippet-nunittestcase'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
@@ -130,7 +130,7 @@ public Task TestCaseUsage(string arg)
     return Verifier.Verify(arg);
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L8-L15' title='Snippet source file'>snippet source</a> | <a href='#nunittestcase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L8-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -142,7 +142,7 @@ MSTest does not expose the parameter values via its extensibility context. So pa
 ### DataRow
 
 <!-- snippet: MSTestDataRow -->
-<a id='mstestdatarow'></a>
+<a id='snippet-mstestdatarow'></a>
 ```cs
 [DataTestMethod]
 [DataRow("Value1")]
@@ -154,5 +154,5 @@ public Task DataRowUsage(string arg)
     return Verify(arg, settings);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#mstestdatarow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

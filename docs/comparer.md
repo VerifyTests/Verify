@@ -17,7 +17,7 @@ Using a custom comparer can be helpful when a result has changed, but not enough
 For samples purposes an image difference hash algorithm from the [ImageHash project](https://github.com/pgrho/phash) will be used:
 
 <!-- snippet: ImageComparer -->
-<a id='imagecomparer'></a>
+<a id='snippet-imagecomparer'></a>
 ```cs
 static Task<CompareResult> CompareImages(
     VerifySettings settings,
@@ -44,7 +44,7 @@ static Digest HashImage(Stream stream)
     return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L32-L57' title='Snippet source file'>snippet source</a> | <a href='#imagecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L32-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -53,35 +53,35 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 ### Instance comparer
 
 <!-- snippet: InstanceComparer -->
-<a id='instancecomparer'></a>
+<a id='snippet-instancecomparer'></a>
 ```cs
 var settings = new VerifySettings();
 settings.UseComparer(CompareImages);
 settings.UseExtension("png");
 await Verifier.Verify("TheImage.png", settings);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L14-L19' title='Snippet source file'>snippet source</a> | <a href='#instancecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L14-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Static comparer
 
 <!-- snippet: StaticComparer -->
-<a id='staticcomparer'></a>
+<a id='snippet-staticcomparer'></a>
 ```cs
 VerifierSettings.RegisterComparer(
     extension: "png",
     compare: CompareImages);
 await Verifier.VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L29' title='Snippet source file'>snippet source</a> | <a href='#staticcomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Default Comparison
 
 <!-- snippet: DefualtCompare -->
-<a id='defualtcompare'></a>
+<a id='snippet-defualtcompare'></a>
 ```cs
 static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
 {
@@ -131,7 +131,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='Snippet source file'>snippet source</a> | <a href='#defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

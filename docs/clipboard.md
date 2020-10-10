@@ -62,34 +62,34 @@ The clipboard behavior can be disable using the following:
 ### Per Test
 
 <!-- snippet: DisableClipboard -->
-<a id='disableclipboard'></a>
+<a id='snippet-disableclipboard'></a>
 ```cs
 var settings = new VerifySettings();
 settings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L43' title='Snippet source file'>snippet source</a> | <a href='#disableclipboard' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboard' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### For all tests
 
 <!-- snippet: DisableClipboardGlobal -->
-<a id='disableclipboardglobal'></a>
+<a id='snippet-disableclipboardglobal'></a>
 ```cs
 VerifierSettings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L73-L77' title='Snippet source file'>snippet source</a> | <a href='#disableclipboardglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L73-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If clipboard is disabled for all tests, it can be re-enabled at the test level:
 
 <!-- snippet: EnableClipboard -->
-<a id='enableclipboard'></a>
+<a id='snippet-enableclipboard'></a>
 ```cs
 var settings = new VerifySettings();
 settings.EnableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L63-L68' title='Snippet source file'>snippet source</a> | <a href='#enableclipboard' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L63-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-enableclipboard' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -14,30 +14,30 @@ Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.ru
 Given a method that returns a named tuple:
 
 <!-- snippet: MethodWithNamedTuple -->
-<a id='methodwithnamedtuple'></a>
+<a id='snippet-methodwithnamedtuple'></a>
 ```cs
 static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
 {
     return (true, "A", "B");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L359-L366' title='Snippet source file'>snippet source</a> | <a href='#methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L359-L366' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Can be verified:
 
 <!-- snippet: VerifyTuple -->
-<a id='verifytuple'></a>
+<a id='snippet-verifytuple'></a>
 ```cs
 await Verifier.Verify(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L352-L356' title='Snippet source file'>snippet source</a> | <a href='#verifytuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L352-L356' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Resulting in:
 
 <!-- snippet: SerializationTests.NamedTuple.verified.txt -->
-<a id='SerializationTests.NamedTuple.verified.txt'></a>
+<a id='snippet-SerializationTests.NamedTuple.verified.txt'></a>
 ```txt
 {
   Member1: true,
@@ -45,5 +45,5 @@ Resulting in:
   Member3: 'B'
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NamedTuple.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#SerializationTests.NamedTuple.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NamedTuple.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.NamedTuple.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

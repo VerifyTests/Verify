@@ -72,7 +72,7 @@ namespace VerifyTests
             throw new InvalidOperationException();
         }
 
-    public static string GetName(ConstructorInfo constructor)
+        public static string GetName(ConstructorInfo constructor)
         {
             return infoCache.GetOrAdd(constructor, _ =>
             {

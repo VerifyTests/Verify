@@ -110,7 +110,7 @@ public partial class Tests
         await ReVerify(secondTarget, settings, file);
     }
 
-    async Task ReVerify(Func<object> target, VerifySettings settings, FilePair pair)
+    static async Task ReVerify(Func<object> target, VerifySettings settings, FilePair pair)
     {
         var command = BuildCommand(pair);
         ProcessCleanup.Refresh();
@@ -123,7 +123,7 @@ public partial class Tests
         AssertExists(pair.Verified);
     }
 
-    async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, FilePair pair)
+    static async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, FilePair pair)
     {
         if (settings.autoVerify)
         {

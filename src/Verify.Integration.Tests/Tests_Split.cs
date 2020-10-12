@@ -65,7 +65,7 @@ public partial class Tests
         await ReVerifySplit(secondTarget, settings, info, file1, file2);
     }
 
-    async Task ReVerifySplit(TypeToSplit target, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)
+    static async Task ReVerifySplit(TypeToSplit target, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)
     {
         var infoCommand = BuildCommand(info);
         var file1Command = BuildCommand(file1);
@@ -86,7 +86,7 @@ public partial class Tests
         AssertExists(file2.Verified);
     }
 
-    async Task InitialVerifySplit(TypeToSplit target, bool hasMatchingDiffTool, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)
+    static async Task InitialVerifySplit(TypeToSplit target, bool hasMatchingDiffTool, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)
     {
         if (settings.autoVerify)
         {

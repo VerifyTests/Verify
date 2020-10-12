@@ -72,7 +72,7 @@ namespace VerifyTests
         {
             if (canConvert == null)
             {
-                return (target, settings) => target is T;
+                return (target, _) => target is T;
             }
 
             return (target, settings) =>

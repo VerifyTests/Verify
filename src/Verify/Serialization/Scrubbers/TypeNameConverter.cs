@@ -23,7 +23,7 @@ namespace VerifyTests
 
         public static string GetName(ParameterInfo parameter)
         {
-            return infoCache.GetOrAdd(parameter, info =>
+            return infoCache.GetOrAdd(parameter, _ =>
             {
                 var member = GetName(parameter.Member);
                 var declaringType = GetName(parameter.Member.DeclaringType!);
@@ -33,7 +33,7 @@ namespace VerifyTests
 
         public static string GetName(FieldInfo field)
         {
-            return infoCache.GetOrAdd(field, info =>
+            return infoCache.GetOrAdd(field, _ =>
             {
                 if (field.DeclaringType == null)
                 {
@@ -46,7 +46,7 @@ namespace VerifyTests
 
         public static string GetName(PropertyInfo property)
         {
-            return infoCache.GetOrAdd(property, info =>
+            return infoCache.GetOrAdd(property, _ =>
             {
                 if (property.DeclaringType == null)
                 {
@@ -74,7 +74,7 @@ namespace VerifyTests
 
     public static string GetName(ConstructorInfo constructor)
         {
-            return infoCache.GetOrAdd(constructor, info =>
+            return infoCache.GetOrAdd(constructor, _ =>
             {
                 var declaringType = GetName(constructor.DeclaringType!);
                 var builder = new StringBuilder($"{declaringType}");
@@ -96,7 +96,7 @@ namespace VerifyTests
 
         public static string GetName(MethodInfo method)
         {
-            return infoCache.GetOrAdd(method, info =>
+            return infoCache.GetOrAdd(method, _ =>
             {
                 var declaringType = GetName(method.DeclaringType!);
                 var builder = new StringBuilder($"{declaringType}.{method.Name}(");

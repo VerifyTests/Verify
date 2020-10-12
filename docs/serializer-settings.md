@@ -707,30 +707,30 @@ The default mapping is:
 <!-- snippet: typeToStringMapping -->
 <a id='snippet-typetostringmapping'></a>
 ```cs
-{typeof(string), (target, settings) => (string) target},
-{typeof(bool), (target, settings) => ((bool) target).ToString()},
-{typeof(short), (target, settings) => ((short) target).ToString()},
-{typeof(ushort), (target, settings) => ((ushort) target).ToString()},
-{typeof(int), (target, settings) => ((int) target).ToString()},
-{typeof(uint), (target, settings) => ((uint) target).ToString()},
-{typeof(long), (target, settings) => ((long) target).ToString()},
-{typeof(ulong), (target, settings) => ((ulong) target).ToString()},
-{typeof(decimal), (target, settings) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(string), (target, _) => (string) target},
+{typeof(bool), (target, _) => ((bool) target).ToString()},
+{typeof(short), (target, _) => ((short) target).ToString()},
+{typeof(ushort), (target, _) => ((ushort) target).ToString()},
+{typeof(int), (target, _) => ((int) target).ToString()},
+{typeof(uint), (target, _) => ((uint) target).ToString()},
+{typeof(long), (target, _) => ((long) target).ToString()},
+{typeof(ulong), (target, _) => ((ulong) target).ToString()},
+{typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0
 //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
-{typeof(float), (target, settings) => ((float) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(double), (target, settings) => ((double) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(Guid), (target, settings) => ((Guid) target).ToString()},
+{typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(Guid), (target, _) => ((Guid) target).ToString()},
 {
-    typeof(DateTime), (target, settings) =>
+    typeof(DateTime), (target, _) =>
     {
         var dateTime = (DateTime) target;
         return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
     }
 },
 {
-    typeof(DateTimeOffset), (target, settings) =>
+    typeof(DateTimeOffset), (target, _) =>
     {
         var dateTimeOffset = (DateTimeOffset) target;
         return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");

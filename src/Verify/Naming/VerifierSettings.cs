@@ -18,8 +18,8 @@ namespace VerifyTests
             Guard.AgainstNull(func, nameof(func));
             parameterToNameLookup.AddOrUpdate(
                 key: typeof(T),
-                addValueFactory: type => o => func((T) o),
-                updateValueFactory: (type, _) => o => func((T) o));
+                addValueFactory: _ => o => func((T) o),
+                updateValueFactory: (_, _) => o => func((T) o));
         }
 
         internal static string GetNameForParameter(object parameter)

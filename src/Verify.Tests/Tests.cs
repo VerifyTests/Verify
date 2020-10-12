@@ -28,13 +28,13 @@ public class Tests
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         settings.OnFirstVerify(
-            receivedFile =>
+            _ =>
             {
                 onFirstVerifyCalled = true;
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile, message) =>
+            (receivedFile, verifiedFile, _) =>
             {
                 Assert.NotEmpty(receivedFile);
                 Assert.NotNull(receivedFile);
@@ -65,7 +65,7 @@ public class Tests
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile, message) =>
+            (_, _, _) =>
             {
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
@@ -81,7 +81,7 @@ public class Tests
         VerifySettings? fromGlobal = null;
         VerifierSettings.RegisterComparer(
             "SettingsArePassed",
-            (verifySettings, received, verified) =>
+            (verifySettings, _, _) =>
             {
                 fromGlobal = verifySettings;
                 return Task.FromResult(new CompareResult(true));

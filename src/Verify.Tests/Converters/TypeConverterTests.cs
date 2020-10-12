@@ -58,7 +58,7 @@ public class TypeConverterTests
         var filePath = "WithStreamRequiringCleanup.tmp";
         File.WriteAllText(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
-            (instance, _) =>
+            (_, _) =>
             {
                 #region ConversionResultWithCleanup
                 return new ConversionResult(
@@ -115,7 +115,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
-            (inner, settings) => inner.Value == "Valid");
+            (inner, _) => inner.Value == "Valid");
         var target = new CanConvertTarget
         {
             Value = "Invalid"
@@ -132,7 +132,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
-            (inner, settings) => inner.Value == "Valid");
+            (inner, _) => inner.Value == "Valid");
         var target = new CanConvertTarget
         {
             Value = "Valid"

@@ -24,7 +24,7 @@ public partial class Tests :
         BuildServerDetector.Detected = false;
         DiffRunner.Disabled = false;
         DiffTools.AddTool(
-            name:"MyTools",
+            name: "MyTools",
             autoRefresh: true,
             isMdi: false,
             supportsText: true,
@@ -38,12 +38,12 @@ public partial class Tests :
         AllFiles.UseFile(Category.Image, newPath);
 
         VerifierSettings.RegisterFileConverter<TypeToSplit>(
-            (split, settings) => new ConversionResult(
+            (split, _) => new ConversionResult(
                 split.Info,
                 new List<ConversionStream>
                 {
-                 new ConversionStream("txt",   new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
-                     new ConversionStream("txt",   new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
+                    new ConversionStream("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
+                    new ConversionStream("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }

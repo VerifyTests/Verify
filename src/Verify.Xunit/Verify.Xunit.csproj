@@ -9,7 +9,7 @@
     <Content Include="build.targets" PackagePath="build\Verify.Xunit.targets" />
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.Xunit.targets" />
     <PackageReference Include="EmptyFiles" Version="2.0.5" PrivateAssets="None" />
-    <PackageReference Include="Fody" Version="6.2.6" PrivateAssets="all" />
+    <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="All" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />

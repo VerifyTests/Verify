@@ -297,7 +297,8 @@ The same approach can be used to verify the results and the change to `Sample.Te
  * [Verify.ImageSharp](https://github.com/VerifyTests/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
  * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
  * [Verify.Phash](https://github.com/VerifyTests/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
- * [Verify.Selenium](https://github.com/VerifyTests/Verify.Selenium): Verification of Web UIs using [Selenium](https://www.selenium.dev/).
+ * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
+ * [Verify.Selenium](https://github.com/VerifyTests/Verify.Selenium): Verification of Web UIs using [Selenium](https://www.selenium.dev).
  * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
  * [Verify.Uno](https://github.com/VerifyTests/Verify.Uno): Verification to allow verification of [Uno UIs](https://platform.uno/).
  * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.

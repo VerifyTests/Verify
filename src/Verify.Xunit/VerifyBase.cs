@@ -12,8 +12,10 @@ namespace VerifyXunit
 
         public VerifyBase(VerifySettings? settings = null, [CallerFilePath] string sourceFile = "")
         {
-            if ((settings == null) && (sourceFile == ""))
-                throw new InvalidOperationException($"{nameof(VerifyBase)}.ctor must be called explicitly.");
+            if (string.IsNullOrWhiteSpace(sourceFile))
+            {
+                throw new Exception($"{nameof(VerifyBase)}.ctor must be called explicitly.");
+            }
 
             this.settings = settings;
             this.sourceFile = sourceFile;

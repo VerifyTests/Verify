@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using NUnit.Framework;
 using VerifyTests;
 
@@ -12,6 +13,11 @@ namespace VerifyNUnit
 
         public VerifyBase(VerifySettings? settings = null, [CallerFilePath] string sourceFile = "")
         {
+            if (string.IsNullOrWhiteSpace(sourceFile))
+            {
+                throw new Exception($"{nameof(VerifyBase)}.ctor must be called explicitly.");
+            }
+
             this.settings = settings;
             this.sourceFile = sourceFile;
         }

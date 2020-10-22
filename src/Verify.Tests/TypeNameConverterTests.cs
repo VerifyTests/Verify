@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MyNamespace;
@@ -9,6 +10,12 @@ using Xunit;
 [UsesVerify]
 public class TypeNameConverterTests
 {
+    [Fact]
+    public Task WithOneGeneric()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(DictionaryWrapper<string,ConcurrentDictionary<string,string>>)));
+    }
+
     [Fact]
     public Task Simple()
     {

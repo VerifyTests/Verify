@@ -760,7 +760,11 @@ public class SerializationTests
     public async Task IgnoreDictionaryKeyByName()
     {
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => { _.IgnoreMember("Ignore"); });
+        settings.ModifySerialization(_ =>
+        {
+            _.IgnoreMember("Ignore");
+            _.AddExtraSettings(json => json.TypeNameHandling = TypeNameHandling.All);
+        });
 
         var target = new Dictionary<string, string>
         {

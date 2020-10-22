@@ -132,6 +132,11 @@ namespace VerifyTests
                 }
             }
 
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(DictionaryWrapper<,>))
+            {
+                type = type.GetGenericArguments().Last();
+            }
+
             var typeName = GetTypeName(type);
             var reference = new CodeTypeReference(typeName);
             var name = codeDomProvider.GetTypeOutput(reference);

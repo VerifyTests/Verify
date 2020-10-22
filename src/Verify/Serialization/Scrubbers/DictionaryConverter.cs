@@ -23,8 +23,9 @@ class DictionaryConverter :
             return;
         }
 
-        var valueType = value.GetType().GetGenericArguments().Last();
-        var genericType = typeof(DictionaryWrapper<>).MakeGenericType(valueType);
+        var type = value.GetType();
+        var valueType = type.GetGenericArguments().Last();
+        var genericType = typeof(DictionaryWrapper<,>).MakeGenericType(valueType, type);
         var instance = Activator.CreateInstance(genericType, ignoredByNameMembers, value);
         serializer.Serialize(writer, instance);
     }
@@ -47,14 +48,5 @@ class DictionaryConverter :
             }
         }
         return false;
-    }
-}
-
-class DictionaryWrapper<TValue> : Dictionary<string, TValue>
-{
-    public DictionaryWrapper(List<string> ignored, IDictionary<string, TValue> inner) :
-        base(inner.Where(x => !ignored.Contains(x.Key))
-            .ToDictionary(x => x.Key, x => x.Value))
-    {
     }
 }

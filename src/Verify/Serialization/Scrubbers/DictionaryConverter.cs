@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Newtonsoft.Json;
 using VerifyTests;
@@ -37,7 +38,7 @@ class DictionaryConverter :
             if (genericDefinition == typeof(Dictionary<,>) ||
                 genericDefinition == typeof(SortedDictionary<,>) ||
                 genericDefinition == typeof(ConcurrentDictionary<,>) ||
-                genericDefinition == typeof(IReadOnlyDictionary<,>))
+                genericDefinition == typeof(ReadOnlyDictionary<,>))
             {
                 if (objectType.GetGenericArguments().First() == typeof(string))
                 {

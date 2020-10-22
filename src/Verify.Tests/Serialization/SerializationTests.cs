@@ -756,6 +756,20 @@ public class SerializationTests
         #endregion
     }
 
+    [Fact]
+    public async Task IgnoreDictionaryKeyByName()
+    {
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => { _.IgnoreMember("Ignore"); });
+
+        var target = new Dictionary<string, string>
+        {
+            {"Include", "Value1"},
+            {"Ignore", "Value2"},
+        };
+        await Verifier.Verify(target, settings);
+    }
+
     class IgnoreExplicitTarget
     {
         public string Include;

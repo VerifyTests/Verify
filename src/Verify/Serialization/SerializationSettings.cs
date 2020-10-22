@@ -191,6 +191,7 @@ namespace VerifyTests
             converters.Add(new StringEnumConverter());
             converters.Add(new ExpressionConverter());
             converters.Add(new DelegateConverter());
+            converters.Add(new DictionaryConverter(ignoredByNameMembers));
             converters.Add(new TypeJsonConverter());
             converters.Add(new MethodInfoConverter());
             converters.Add(new FieldInfoConverter());

@@ -61,6 +61,7 @@ public class TypeConverterTests
             (_, _) =>
             {
                 #region ConversionResultWithCleanup
+
                 return new ConversionResult(
                     info: info,
                     "txt",
@@ -70,6 +71,7 @@ public class TypeConverterTests
                         File.Delete(filePath);
                         return Task.CompletedTask;
                     });
+
                 #endregion
             });
         var target = new TargetForCleanup
@@ -164,6 +166,7 @@ public class TypeConverterTests
         var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
+
     [Fact]
     public Task WithInfoShouldRespectSettings()
     {

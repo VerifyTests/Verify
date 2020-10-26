@@ -13,8 +13,8 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
             await verifier.Throws(target, settings);
         }
 
@@ -24,8 +24,8 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
             await verifier.Throws(target, settings);
         }
 
@@ -35,8 +35,8 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
             await verifier.ThrowsAsync(target, settings);
         }
 
@@ -46,8 +46,8 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
             await verifier.ThrowsAsync(target, settings);
         }
     }

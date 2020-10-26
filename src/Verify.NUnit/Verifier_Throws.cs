@@ -13,7 +13,7 @@ namespace VerifyNUnit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
+            settings ??= new VerifySettings();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.Throws(target, settings);
         }
@@ -24,7 +24,7 @@ namespace VerifyNUnit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
+            settings ??= new VerifySettings();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.Throws(target, settings);
         }
@@ -35,7 +35,7 @@ namespace VerifyNUnit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
+            settings ??= new VerifySettings();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.ThrowsAsync(target, settings);
         }
@@ -46,7 +46,7 @@ namespace VerifyNUnit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
+            settings ??= new VerifySettings();
             using var verifier = BuildVerifier(sourceFile);
             await verifier.ThrowsAsync(target, settings);
         }

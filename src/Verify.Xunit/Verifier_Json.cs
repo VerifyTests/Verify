@@ -13,8 +13,8 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
             await verifier.Verify(target, settings);
         }
 
@@ -24,8 +24,8 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
             await verifier.Verify(target, settings);
         }
 
@@ -35,8 +35,8 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
             await verifier.Verify(target, settings);
         }
 
@@ -46,8 +46,8 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
             await verifier.Verify(target, settings);
         }
     }

@@ -54,7 +54,7 @@ namespace VerifyTests
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
 
-        private static ConcurrentDictionary<Type, Func<object, VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object, VerifySettings, string>>(
+        static ConcurrentDictionary<Type, Func<object, VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object, VerifySettings, string>>(
             new Dictionary<Type, Func<object, VerifySettings, string>>
             {
                 #region typeToStringMapping

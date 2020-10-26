@@ -58,9 +58,9 @@ class VerifyEngine
         danglingVerified.Remove(item.Verified);
     }
 
-    void AddNotEquals(in FilePair item,string? message)
+    void AddNotEquals(in FilePair item, string? message)
     {
-        notEquals.Add((item,message));
+        notEquals.Add((item, message));
         danglingVerified.Remove(item.Verified);
     }
 
@@ -172,6 +172,7 @@ class VerifyEngine
         {
             return;
         }
+
         foreach (var equal in equals)
         {
             DiffRunner.Kill(equal.Received, equal.Verified);
@@ -184,10 +185,12 @@ class VerifyEngine
         {
             await settings.handleOnVerifyMismatch(item.Received, item.Verified, message);
         }
+
         if (message != null)
         {
             builder.AppendLine($"Comparer result: {message}");
         }
+
         builder.AppendLine($"{Path.GetFileName(item.Received)}");
         if (Extensions.IsText(item.Extension))
         {
@@ -244,6 +247,7 @@ class VerifyEngine
         {
             await settings.handleOnFirstVerify(item.Received);
         }
+
         builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
         if (Extensions.IsText(item.Extension))
         {

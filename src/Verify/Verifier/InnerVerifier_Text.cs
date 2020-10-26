@@ -7,20 +7,20 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        Task VerifyString(string target, VerifySettings settings)
+        Task VerifyString(string target)
         {
             var appenders = VerifierSettings.GetJsonAppenders(settings);
             var builder = new StringBuilder(target);
             builder.FixNewlines();
             if (appenders.Any())
             {
-                return SerializeAndVerify(builder.ToString(), settings, appenders);
+                return SerializeAndVerify(builder.ToString(), appenders);
             }
 
-            return VerifyStringBuilder(builder, settings);
+            return VerifyStringBuilder(builder);
         }
 
-        async Task VerifyStringBuilder(StringBuilder target, VerifySettings settings)
+        async Task VerifyStringBuilder(StringBuilder target)
         {
             var extension = settings.ExtensionOrTxt();
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
@@ -40,7 +40,7 @@ namespace VerifyTests
                         file => GetResult(settings, file, appender));
                 }));
 
-            await HandleResults(settings, builders, engine);
+            await HandleResults(builders, engine);
 
             await engine.ThrowIfRequired();
         }

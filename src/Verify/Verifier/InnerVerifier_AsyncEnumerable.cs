@@ -6,7 +6,7 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public async Task Verify<T>(IAsyncEnumerable<T> target, VerifySettings settings)
+        public async Task Verify<T>(IAsyncEnumerable<T> target)
         {
             Guard.AgainstNull(target, nameof(target));
             var list = new List<T>();
@@ -17,7 +17,7 @@ namespace VerifyTests
 
             try
             {
-                await SerializeAndVerify(list, settings, VerifierSettings.GetJsonAppenders(settings));
+                await SerializeAndVerify(list, VerifierSettings.GetJsonAppenders(settings));
             }
             finally
             {

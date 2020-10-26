@@ -13,9 +13,9 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
-            await verifier.Verify(target, settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
+            await verifier.Verify(target);
         }
 
         public async Task Verify(
@@ -24,9 +24,9 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
-            await verifier.Verify(await target, settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
+            await verifier.Verify(await target);
         }
 
         public async Task VerifyFile(
@@ -35,9 +35,9 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
-            await verifier.VerifyFile(path, settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
+            await verifier.VerifyFile(path);
         }
 
         public async Task VerifyFile(
@@ -46,9 +46,9 @@ namespace VerifyMSTest
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = BuildVerifier(settings);
-            await verifier.VerifyFile(path, settings);
+            settings ??= new VerifySettings();
+            using var verifier = BuildVerifier(settings, sourceFile);
+            await verifier.VerifyFile(path);
         }
     }
 }

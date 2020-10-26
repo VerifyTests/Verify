@@ -5,14 +5,14 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public async Task Verify<T>(Task<T> task, VerifySettings settings)
+        public async Task Verify<T>(Task<T> task)
         {
             Guard.AgainstNull(task, nameof(task));
             var target = await task;
 
             try
             {
-                await Verify(target, settings);
+                await Verify(target);
             }
             finally
             {
@@ -32,14 +32,14 @@ namespace VerifyTests
             }
         }
 
-        public async Task Verify<T>(ValueTask<T> task, VerifySettings settings)
+        public async Task Verify<T>(ValueTask<T> task)
         {
             Guard.AgainstNull(task, nameof(task));
             var target = await task;
 
             try
             {
-                await Verify(target, settings);
+                await Verify(target);
             }
             finally
             {

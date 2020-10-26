@@ -13,9 +13,9 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
-            await verifier.Throws(target, settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
+            await verifier.Throws(target);
         }
 
         public static async Task Throws(
@@ -24,9 +24,9 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
-            await verifier.Throws(target, settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
+            await verifier.Throws(target);
         }
 
         public static async Task ThrowsAsync(
@@ -35,9 +35,9 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
-            await verifier.ThrowsAsync(target, settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
+            await verifier.ThrowsAsync(target);
         }
 
         public static async Task ThrowsAsync(
@@ -46,9 +46,9 @@ namespace VerifyXunit
             [CallerFilePath] string sourceFile = "")
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings = settings.OrDefault(sourceFile);
-            using var verifier = GetVerifier(settings);
-            await verifier.ThrowsAsync(target, settings);
+            settings ??= new VerifySettings();
+            using var verifier = GetVerifier(settings, sourceFile);
+            await verifier.ThrowsAsync(target);
         }
     }
 }

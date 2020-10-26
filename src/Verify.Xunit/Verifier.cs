@@ -6,9 +6,9 @@ namespace VerifyXunit
 {
     public static partial class Verifier
     {
-        static InnerVerifier GetVerifier(VerifySettings settings)
+        static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile)
         {
-            var className = Path.GetFileNameWithoutExtension(settings.SourceFile);
+            var className = Path.GetFileNameWithoutExtension(sourceFile);
             if (!UsesVerifyAttribute.TryGet(out var info))
             {
                 throw new XunitException($"Expected to find a `[UsesVerify]` on `{className}`.");
@@ -17,7 +17,7 @@ namespace VerifyXunit
             var parameters = settings.GetParameters(info);
 
             var name = TestNameBuilder.GetUniqueTestName(className, info, parameters);
-            return new InnerVerifier(name, settings.SourceFile, info.DeclaringType!.Assembly);
+            return new InnerVerifier(name, sourceFile, info.DeclaringType!.Assembly, settings);
         }
     }
 }

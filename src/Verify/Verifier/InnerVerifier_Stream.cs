@@ -9,14 +9,14 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public Task Verify(byte[] target, VerifySettings settings)
+        public Task Verify(byte[] target)
         {
             Guard.AgainstNull(target, nameof(target));
             var stream = new MemoryStream(target);
-            return VerifyStream(settings, stream, settings.extension);
+            return VerifyStream(stream, settings.extension);
         }
 
-        async Task VerifyStream(VerifySettings settings, Stream stream, string? extension)
+        async Task VerifyStream(Stream stream, string? extension)
         {
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
@@ -29,7 +29,7 @@ namespace VerifyTests
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
                         var result = await conversion(stream, settings);
-                        await VerifyBinary(result.Streams, extension, settings, result.Info, result.Cleanup);
+                        await VerifyBinary(result.Streams, extension, result.Info, result.Cleanup);
                         return;
                     }
                 }
@@ -40,11 +40,11 @@ namespace VerifyTests
                 {
                     new ConversionStream(extension, stream)
                 };
-                await VerifyBinary(streams, extension, settings, null, null);
+                await VerifyBinary(streams, extension, null, null);
             }
         }
 
-        async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, VerifySettings settings, object? info, Func<Task>? cleanup)
+        async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, object? info, Func<Task>? cleanup)
         {
             var engine = new VerifyEngine(infoExtension, settings, directory, testName, assembly);
 
@@ -58,9 +58,9 @@ namespace VerifyTests
                 })
                 .ToList();
 
-            await VerifyInfo(engine, settings, info);
+            await VerifyInfo(engine, info);
 
-            await HandleResults(settings, builders, engine);
+            await HandleResults(builders, engine);
 
             if (cleanup != null)
             {
@@ -91,7 +91,7 @@ namespace VerifyTests
             }
         }
 
-        async Task VerifyInfo(VerifyEngine engine, VerifySettings settings, object? info)
+        async Task VerifyInfo(VerifyEngine engine, object? info)
         {
             var appends = VerifierSettings.GetJsonAppenders(settings);
             if (info == null && !appends.Any())

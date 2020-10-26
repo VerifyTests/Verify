@@ -10,7 +10,7 @@ namespace VerifyMSTest
     {
         public TestContext TestContext { get; set; } = null!;
 
-        InnerVerifier BuildVerifier(VerifySettings settings)
+        InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile)
         {
             var type = GetType();
 
@@ -23,7 +23,7 @@ namespace VerifyMSTest
 
             var parameters = settings.GetParameters(methodInfo);
             var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, parameters);
-            return new InnerVerifier(uniqueTestName, settings.SourceFile, type.Assembly);
+            return new InnerVerifier(uniqueTestName, sourceFile, type.Assembly, settings);
         }
     }
 }

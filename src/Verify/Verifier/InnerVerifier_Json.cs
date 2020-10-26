@@ -8,30 +8,30 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public async Task Verify<T>(T target, VerifySettings settings)
+        public async Task Verify<T>(T target)
         {
             if (target == null)
             {
-                await VerifyString("null", settings);
+                await VerifyString("null");
                 return;
             }
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                await VerifyString(toString!(target, settings), settings);
+                await VerifyString(toString!(target, settings));
                 return;
             }
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings);
-                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);
+                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), result.Info, result.Cleanup);
                 return;
             }
 
             if (target is Stream stream)
             {
-                await VerifyStream(settings, stream, settings.extension);
+                await VerifyStream(stream, settings.extension);
                 return;
             }
 
@@ -48,23 +48,23 @@ namespace VerifyTests
 
                         return new ConversionStream(settings.ExtensionOrBin(), x);
                     });
-                await VerifyBinary(streams, settings.ExtensionOrTxt(), settings, null, null);
+                await VerifyBinary(streams, settings.ExtensionOrTxt(), null, null);
                 return;
             }
 
             var appenders = VerifierSettings.GetJsonAppenders(settings);
 
-            await SerializeAndVerify(target, settings, appenders);
+            await SerializeAndVerify(target, appenders);
         }
 
-        Task SerializeAndVerify(object target, VerifySettings settings, List<ToAppend> appends)
+        Task SerializeAndVerify(object target, List<ToAppend> appends)
         {
             var json = JsonFormatter.AsJson(
                 target,
                 settings.serialization.currentSettings,
                 settings.IsNewLineEscapingDisabled,
                 appends);
-            return VerifyStringBuilder(json, settings);
+            return VerifyStringBuilder(json);
         }
     }
 }

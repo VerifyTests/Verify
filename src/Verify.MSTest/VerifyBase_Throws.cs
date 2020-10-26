@@ -15,7 +15,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.Throws(target, settings);
+            await verifier.Throws(target);
         }
 
         public async Task Throws(
@@ -26,7 +26,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.Throws(target, settings);
+            await verifier.Throws(target);
         }
 
         public async Task ThrowsAsync(
@@ -37,7 +37,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.ThrowsAsync(target, settings);
+            await verifier.ThrowsAsync(target);
         }
 
         public async Task ThrowsAsync(
@@ -48,7 +48,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.ThrowsAsync(target, settings);
+            await verifier.ThrowsAsync(target);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.VerifyFile(path, settings);
+            await verifier.VerifyFile(path);
         }
 
         public async Task VerifyFile(
@@ -48,7 +48,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.VerifyFile(path, settings);
+            await verifier.VerifyFile(path);
         }
     }
 }

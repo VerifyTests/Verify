@@ -5,7 +5,7 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public Task Throws(Action target, VerifySettings settings)
+        public Task Throws(Action target)
         {
             try
             {
@@ -13,13 +13,13 @@ namespace VerifyTests
             }
             catch (Exception exception)
             {
-                return Verify(exception, settings);
+                return Verify(exception);
             }
 
             throw new Exception("Did not throw.");
         }
 
-        public Task Throws(Func<object?> target, VerifySettings settings)
+        public Task Throws(Func<object?> target)
         {
             try
             {
@@ -27,13 +27,13 @@ namespace VerifyTests
             }
             catch (Exception exception)
             {
-                return Verify(exception, settings);
+                return Verify(exception);
             }
 
             throw new Exception("Did not throw.");
         }
 
-        public async Task ThrowsAsync(Func<ValueTask> target, VerifySettings settings)
+        public async Task ThrowsAsync(Func<ValueTask> target)
         {
             try
             {
@@ -41,14 +41,14 @@ namespace VerifyTests
             }
             catch (Exception exception)
             {
-                await Verify(exception, settings);
+                await Verify(exception);
                 return;
             }
 
             throw new Exception("Did not throw.");
         }
 
-        public async Task ThrowsAsync(Func<Task> target, VerifySettings settings)
+        public async Task ThrowsAsync(Func<Task> target)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace VerifyTests
             }
             catch (Exception exception)
             {
-                await Verify(exception, settings);
+                await Verify(exception);
                 return;
             }
 

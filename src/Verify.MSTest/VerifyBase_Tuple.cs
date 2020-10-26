@@ -17,7 +17,7 @@ namespace VerifyMSTest
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.Verify(target, settings);
+            await verifier.Verify(target);
         }
     }
 }

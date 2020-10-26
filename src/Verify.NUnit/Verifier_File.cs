@@ -14,7 +14,7 @@ namespace VerifyNUnit
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile);
+            using var verifier = BuildVerifier(sourceFile, settings);
             await verifier.Verify(target, settings);
         }
 
@@ -25,7 +25,7 @@ namespace VerifyNUnit
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile);
+            using var verifier = BuildVerifier(sourceFile, settings);
             await verifier.Verify(await target, settings);
         }
 
@@ -36,8 +36,8 @@ namespace VerifyNUnit
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile);
-            await verifier.VerifyFile(path, settings);
+            using var verifier = BuildVerifier(sourceFile, settings);
+            await verifier.VerifyFile(path);
         }
 
         public static async Task VerifyFile(
@@ -47,8 +47,8 @@ namespace VerifyNUnit
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile);
-            await verifier.VerifyFile(path, settings);
+            using var verifier = BuildVerifier(sourceFile, settings);
+            await verifier.VerifyFile(path);
         }
     }
 }

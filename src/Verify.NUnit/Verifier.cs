@@ -22,7 +22,7 @@ namespace VerifyNUnit
             field = temp;
         }
 
-        static InnerVerifier BuildVerifier(string sourceFile)
+        static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var context = TestContext.CurrentContext;
@@ -31,7 +31,7 @@ namespace VerifyNUnit
 
             var method = test.Method.MethodInfo;
             var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
-            return new InnerVerifier(name, sourceFile, test.TypeInfo.Assembly);
+            return new InnerVerifier(name, sourceFile, test.TypeInfo.Assembly, settings);
         }
     }
 }

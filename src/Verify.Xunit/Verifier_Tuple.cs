@@ -17,7 +17,7 @@ namespace VerifyXunit
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = GetVerifier(settings, sourceFile);
-            await verifier.Verify(expression, settings);
+            await verifier.Verify(expression);
         }
     }
 }

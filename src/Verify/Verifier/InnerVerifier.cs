@@ -14,6 +14,7 @@ namespace VerifyTests
         string directory;
         string testName;
         Assembly assembly;
+        VerifySettings settings;
         internal static Func<string, Exception> exceptionBuilder = null!;
 
         public static void Init(Func<string, Exception> exceptionBuilder)
@@ -21,11 +22,12 @@ namespace VerifyTests
             InnerVerifier.exceptionBuilder = exceptionBuilder;
         }
 
-        public InnerVerifier(string testName, string sourceFile, Assembly assembly)
+        public InnerVerifier(string testName, string sourceFile, Assembly assembly, VerifySettings settings)
         {
             directory = VerifierSettings.DeriveDirectory(sourceFile, assembly);
             this.testName = testName;
             this.assembly = assembly;
+            this.settings = settings;
             CounterContext.Start();
         }
 
@@ -44,7 +46,7 @@ namespace VerifyTests
             CounterContext.Stop();
         }
 
-        async Task HandleResults(VerifySettings settings, List<ResultBuilder> results, VerifyEngine engine)
+        async Task HandleResults(List<ResultBuilder> results, VerifyEngine engine)
         {
             async Task HandleBuilder(ResultBuilder item, FilePair file)
             {

@@ -23,7 +23,7 @@ namespace VerifyMSTest
 
             var parameters = settings.GetParameters(methodInfo);
             var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, parameters);
-            return new InnerVerifier(uniqueTestName, sourceFile, type.Assembly);
+            return new InnerVerifier(uniqueTestName, sourceFile, type.Assembly, settings);
         }
     }
 }

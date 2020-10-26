@@ -8,12 +8,10 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public Task Verify(
-            Expression<Func<ITuple>> target,
-            VerifySettings settings)
+        public Task Verify(Expression<Func<ITuple>> target)
         {
             var dictionary = TupleConverter.ExpressionToDictionary(target);
-            return SerializeAndVerify(dictionary, settings, VerifierSettings.GetJsonAppenders(settings));
+            return SerializeAndVerify(dictionary, VerifierSettings.GetJsonAppenders(settings));
         }
     }
 }

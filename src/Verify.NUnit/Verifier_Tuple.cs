@@ -16,8 +16,8 @@ namespace VerifyNUnit
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile);
-            await verifier.Verify(expression, settings);
+            using var verifier = BuildVerifier(sourceFile, settings);
+            await verifier.Verify(expression);
         }
     }
 }

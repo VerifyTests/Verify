@@ -38,7 +38,7 @@ namespace VerifyXunit
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = GetVerifier(settings, sourceFile);
-            await verifier.VerifyFile(path, settings);
+            await verifier.VerifyFile(path);
         }
 
         public static async Task VerifyFile(
@@ -49,7 +49,7 @@ namespace VerifyXunit
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings ??= new VerifySettings();
             using var verifier = GetVerifier(settings, sourceFile);
-            await verifier.VerifyFile(path, settings);
+            await verifier.VerifyFile(path);
         }
     }
 }

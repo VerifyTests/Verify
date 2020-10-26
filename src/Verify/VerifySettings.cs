@@ -61,6 +61,7 @@ namespace VerifyTests
                 extension = null;
                 return false;
             }
+
             extension = this.extension;
             return true;
         }

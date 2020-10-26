@@ -14,6 +14,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings = settings.OrDefault(sourceFile);
             using var verifier = GetVerifier(settings);
             await verifier.Verify(expression, settings);

@@ -12,6 +12,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings = settings.OrDefault(sourceFile);
             using var verifier = GetVerifier(settings);
             await verifier.Verify(target, settings);
@@ -22,6 +23,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings = settings.OrDefault(sourceFile);
             using var verifier = GetVerifier(settings);
             var bytes = await target;
@@ -33,6 +35,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings = settings.OrDefault(sourceFile);
             using var verifier = GetVerifier(settings);
             await verifier.VerifyFile(path, settings);
@@ -43,6 +46,7 @@ namespace VerifyXunit
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             settings = settings.OrDefault(sourceFile);
             using var verifier = GetVerifier(settings);
             await verifier.VerifyFile(path, settings);

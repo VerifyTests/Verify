@@ -11,13 +11,19 @@ namespace VerifyTests
             VerifySettings settings)
         {
             Guard.FileExists(path, nameof(path));
+            string extension;
             if (!settings.HasExtension())
             {
+                extension = Extensions.GetExtension(path);
                 settings = new VerifySettings(settings);
-                settings.UseExtension(Extensions.GetExtension(path));
+                settings.UseExtension(extension);
+            }
+            else
+            {
+                extension = settings.extension!;
             }
 
-            return VerifyStream(settings, FileHelpers.OpenRead(path));
+            return VerifyStream(settings, FileHelpers.OpenRead(path), extension);
         }
 
         public Task VerifyFile(

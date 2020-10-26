@@ -13,10 +13,10 @@ namespace VerifyTests
         {
             Guard.AgainstNull(target, nameof(target));
             var stream = new MemoryStream(target);
-            return VerifyStream(settings, stream);
+            return VerifyStream(settings, stream, settings.extension);
         }
 
-        async Task VerifyStream(VerifySettings settings, Stream stream)
+        async Task VerifyStream(VerifySettings settings, Stream stream, string? extension)
         {
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
@@ -24,17 +24,18 @@ namespace VerifyTests
             await using (stream)
 #endif
             {
-                if (settings.HasExtension())
+                if (extension != null)
                 {
-                    if (VerifierSettings.TryGetExtensionConverter(settings.extension!, out var conversion))
+                    if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
                         var result = await conversion(stream, settings);
-                        await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);
+                        await VerifyBinary(result.Streams, extension, settings, result.Info, result.Cleanup);
                         return;
                     }
                 }
 
-                var extension = settings.ExtensionOrBin();
+                extension ??= "bin";
+
                 var streams = new List<ConversionStream>
                 {
                     new ConversionStream(extension, stream)

@@ -25,13 +25,13 @@ namespace VerifyTests
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings);
-                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), settings, result.Info, result.Cleanup);
+                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), result.Info, result.Cleanup);
                 return;
             }
 
             if (target is Stream stream)
             {
-                await VerifyStream(settings, stream, settings.extension);
+                await VerifyStream(stream, settings.extension);
                 return;
             }
 
@@ -48,7 +48,7 @@ namespace VerifyTests
 
                         return new ConversionStream(settings.ExtensionOrBin(), x);
                     });
-                await VerifyBinary(streams, settings.ExtensionOrTxt(), settings, null, null);
+                await VerifyBinary(streams, settings.ExtensionOrTxt(), null, null);
                 return;
             }
 

@@ -10,7 +10,7 @@ namespace VerifyTests
         {
             Guard.FileExists(path, nameof(path));
             var extension = settings.extension ?? Extensions.GetExtension(path);
-            return VerifyStream(settings, FileHelpers.OpenRead(path), extension);
+            return VerifyStream(FileHelpers.OpenRead(path), extension);
         }
 
         public Task VerifyFile(FileInfo target)

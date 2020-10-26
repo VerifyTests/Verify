@@ -25,26 +25,18 @@ namespace VerifyTests
             handleOnFirstVerify = settings.handleOnFirstVerify;
             handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
             Namer = new Namer(settings.Namer);
-            foreach (var pair in settings.Data)
+            foreach (var pair in settings.Context)
             {
                 if (pair.Value is ICloneable cloneable)
                 {
-                    Data.Add(pair.Key, cloneable.Clone());
+                    Context.Add(pair.Key, cloneable.Clone());
                 }
                 else
                 {
-                    Data.Add(pair.Key, pair.Value);
+                    Context.Add(pair.Key, pair.Value);
                 }
             }
         }
-
-        /// <summary>
-        /// Allows extensions to Verify to pass config via <see cref="VerifySettings"/>.
-        /// </summary>
-        [ObsoleteEx(
-            ReplacementTypeOrMember = "VerifySettings.Context",
-            RemoveInVersion = "7.0")]
-        public IDictionary<string, object> Data { get => Context; }
 
         /// <summary>
         /// Allows extensions to Verify to pass config via <see cref="VerifySettings"/>.
@@ -84,11 +76,6 @@ namespace VerifyTests
             }
 
             return extension;
-        }
-
-        internal bool HasExtension()
-        {
-            return extension != null;
         }
 
         internal string ExtensionOrBin()

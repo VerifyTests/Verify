@@ -10,7 +10,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(settings, nameof(settings));
             Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
-            settings.Data["Parameters"] = parameters;
+            settings.Context["Parameters"] = parameters;
         }
 
         public static object?[] GetParameters(this VerifySettings settings, MethodInfo methodInfo)
@@ -30,7 +30,7 @@ await Verifier.Verify(target, settings);");
 
         static object?[] ParametersOrDefault(this VerifySettings settings)
         {
-            if (settings.Data.TryGetValue("Parameters", out var data))
+            if (settings.Context.TryGetValue("Parameters", out var data))
             {
                 return (object?[]) data;
             }

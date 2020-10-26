@@ -31,7 +31,7 @@ namespace VerifyTests
 
             if (target is Stream stream)
             {
-                await VerifyStream(settings, stream);
+                await VerifyStream(settings, stream, settings.extension);
                 return;
             }
 

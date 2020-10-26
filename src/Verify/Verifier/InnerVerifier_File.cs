@@ -12,15 +12,13 @@ namespace VerifyTests
         {
             Guard.FileExists(path, nameof(path));
             string extension;
-            if (!settings.HasExtension())
+            if (settings.extension == null)
             {
                 extension = Extensions.GetExtension(path);
-                settings = new VerifySettings(settings);
-                settings.UseExtension(extension);
             }
             else
             {
-                extension = settings.extension!;
+                extension = settings.extension;
             }
 
             return VerifyStream(settings, FileHelpers.OpenRead(path), extension);

@@ -78,11 +78,6 @@ namespace VerifyTests
             return extension;
         }
 
-        internal bool HasExtension()
-        {
-            return extension != null;
-        }
-
         internal string ExtensionOrBin()
         {
             if (extension == null)

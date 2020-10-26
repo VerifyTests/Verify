@@ -1,23 +1,38 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
-public class FileAppenderTests
+public class FileAppenderTests :
+    IDisposable
 {
+    static AsyncLocal<bool> isInThisTest = new AsyncLocal<bool>();
+
     static FileAppenderTests()
     {
         VerifierSettings.RegisterFileAppender(
             settings =>
             {
-                if (!settings.SourceFile.Contains("FileAppenderTests"))
+                if (!isInThisTest.Value)
                 {
                     return null;
                 }
 
                 return new ConversionStream("txt", "data");
             });
+    }
+
+    public FileAppenderTests()
+    {
+        isInThisTest.Value = true;
+    }
+
+    public void Dispose()
+    {
+        isInThisTest.Value = false;
     }
 
     [Fact]
@@ -29,7 +44,7 @@ public class FileAppenderTests
     [Fact]
     public Task NullText()
     {
-        return Verifier.Verify((string)null!);
+        return Verifier.Verify((string) null!);
     }
 
     [Fact]

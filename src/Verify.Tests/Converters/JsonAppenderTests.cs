@@ -1,23 +1,37 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
-public class JsonAppenderTests
+public class JsonAppenderTests : IDisposable
 {
+    static AsyncLocal<bool> isInThisTest = new AsyncLocal<bool>();
+
     static JsonAppenderTests()
     {
         VerifierSettings.RegisterJsonAppender(
             settings =>
             {
-                if (!settings.SourceFile.Contains("JsonAppenderTests"))
+                if (!isInThisTest.Value)
                 {
                     return null;
                 }
 
                 return new ToAppend("theData", "theValue");
             });
+    }
+
+    public JsonAppenderTests()
+    {
+        isInThisTest.Value = true;
+    }
+
+    public void Dispose()
+    {
+        isInThisTest.Value = false;
     }
 
     [Fact]
@@ -29,7 +43,7 @@ public class JsonAppenderTests
     [Fact]
     public Task NullText()
     {
-        return Verifier.Verify((string)null!);
+        return Verifier.Verify((string) null!);
     }
 
     [Fact]

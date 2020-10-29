@@ -2,22 +2,18 @@
 using System;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using VerifyTests;
 
 namespace VerifyMSTest
 {
     public partial class VerifyBase
     {
-        public async Task Verify(
+        public SettingsTask Verify(
             Expression<Func<ITuple>> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.Verify(target);
+            return Verify(settings, sourceFile, _ => _.Verify(target));
         }
     }
 }

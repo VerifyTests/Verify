@@ -7,48 +7,36 @@ namespace VerifyMSTest
 {
     public partial class VerifyBase
     {
-        public async Task Throws(
+        public SettingsTask Throws(
             Action target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.Throws(target);
+            return Verify(settings, sourceFile, _ => _.Throws(target));
         }
 
-        public async Task Throws(
+        public SettingsTask Throws(
             Func<object?> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.Throws(target);
+            return Verify(settings, sourceFile, _ => _.Throws(target));
         }
 
-        public async Task ThrowsAsync(
+        public SettingsTask ThrowsAsync(
             Func<Task> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.ThrowsAsync(target);
+            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
         }
 
-        public async Task ThrowsAsync(
+        public SettingsTask ThrowsAsync(
             Func<ValueTask> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(settings, sourceFile);
-            await verifier.ThrowsAsync(target);
+            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace VerifyNUnit
 {
     public partial class VerifyBase
     {
-        public Task Throws(
+        public SettingsTask Throws(
             Action target,
             VerifySettings? settings = null)
         {
@@ -14,7 +14,7 @@ namespace VerifyNUnit
             return Verifier.Throws(target, settings, sourceFile);
         }
 
-        public Task Throws(
+        public SettingsTask Throws(
             Func<object?> target,
             VerifySettings? settings = null)
         {
@@ -22,7 +22,7 @@ namespace VerifyNUnit
             return Verifier.Throws(target, settings, sourceFile);
         }
 
-        public Task ThrowsAsync(
+        public SettingsTask ThrowsAsync(
             Func<Task> target,
             VerifySettings? settings = null)
         {
@@ -30,7 +30,7 @@ namespace VerifyNUnit
             return Verifier.ThrowsAsync(target, settings, sourceFile);
         }
 
-        public Task ThrowsAsync(
+        public SettingsTask ThrowsAsync(
             Func<ValueTask> target,
             VerifySettings? settings = null)
         {

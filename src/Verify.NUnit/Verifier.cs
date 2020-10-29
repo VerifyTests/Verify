@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using VerifyTests;
@@ -32,6 +33,18 @@ namespace VerifyNUnit
             var method = test.Method.MethodInfo;
             var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
             return new InnerVerifier(name, sourceFile, test.TypeInfo.Assembly, settings);
+        }
+
+        static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
+        {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+            return new SettingsTask(
+                settings,
+                async verifySettings =>
+                {
+                    using var verifier = BuildVerifier(sourceFile, verifySettings);
+                    await verify(verifier);
+                });
         }
     }
 }

@@ -6,7 +6,7 @@ namespace VerifyNUnit
 {
     public partial class VerifyBase
     {
-        public Task Verify(
+        public SettingsTask Verify(
             byte[] target,
             VerifySettings? settings = null)
         {
@@ -14,7 +14,7 @@ namespace VerifyNUnit
             return Verifier.Verify(target, settings, sourceFile);
         }
 
-        public Task Verify(
+        public SettingsTask Verify(
             Task<byte[]> target,
             VerifySettings? settings = null)
         {
@@ -22,7 +22,7 @@ namespace VerifyNUnit
             return Verifier.Verify(target, settings, sourceFile);
         }
 
-        public Task VerifyFile(
+        public SettingsTask VerifyFile(
             string path,
             VerifySettings? settings = null)
         {
@@ -30,7 +30,7 @@ namespace VerifyNUnit
             return Verifier.VerifyFile(path, settings, sourceFile);
         }
 
-        public Task VerifyFile(
+        public SettingsTask VerifyFile(
             FileInfo path,
             VerifySettings? settings = null)
         {

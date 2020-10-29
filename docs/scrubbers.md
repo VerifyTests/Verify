@@ -404,9 +404,9 @@ public class ScrubberLevelsSample :
     [TestMethod]
     public Task Simple()
     {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verify("One Two Three")
+            .BasedOn(classLevelSettings)
+            .AddScrubber(s => s.Replace("Two", "B"));
     }
 
     [AssemblyInitialize]

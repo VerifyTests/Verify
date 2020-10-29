@@ -7,48 +7,43 @@ namespace VerifyNUnit
 {
     public static partial class Verifier
     {
-        public static async Task Verify(
+        public static SettingsTask Verify(
             byte[] target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.Verify(target);
+            return Verify(settings, sourceFile, _ => _.Verify(target));
         }
 
-        public static async Task Verify(
+        public static SettingsTask Verify(
             Task<byte[]> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.Verify(await target);
+            return Verify(
+                settings,
+                sourceFile,
+                async _ =>
+                {
+                    var bytes = await target;
+                    await _.Verify(bytes);
+                });
         }
 
-        public static async Task VerifyFile(
+        public static SettingsTask VerifyFile(
             string path,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.VerifyFile(path);
+            return Verify(settings, sourceFile, _ => _.VerifyFile(path));
         }
 
-        public static async Task VerifyFile(
+        public static SettingsTask VerifyFile(
             FileInfo path,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            settings ??= new VerifySettings();
-            using var verifier = BuildVerifier(sourceFile, settings);
-            await verifier.VerifyFile(path);
+            return Verify(settings, sourceFile, _ => _.VerifyFile(path));
         }
     }
 }

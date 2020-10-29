@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using VerifyTests;
 using Xunit.Sdk;
 
@@ -18,6 +20,18 @@ namespace VerifyXunit
 
             var name = TestNameBuilder.GetUniqueTestName(className, info, parameters);
             return new InnerVerifier(name, sourceFile, info.DeclaringType!.Assembly, settings);
+        }
+
+        static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
+        {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+            return new SettingsTask(
+                settings,
+                async verifySettings =>
+                {
+                    using var verifier = GetVerifier(verifySettings, sourceFile);
+                    await verify(verifier);
+                });
         }
     }
 }

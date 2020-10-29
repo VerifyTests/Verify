@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyTests;
 
@@ -27,6 +28,18 @@ namespace VerifyMSTest
             var parameters = settings.GetParameters(methodInfo);
             var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, parameters);
             return new InnerVerifier(uniqueTestName, sourceFile, type.Assembly, settings);
+        }
+
+        SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
+        {
+            Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+            return new SettingsTask(
+                settings,
+                async verifySettings =>
+                {
+                    using var verifier = BuildVerifier(verifySettings, sourceFile);
+                    await verify(verifier);
+                });
         }
     }
 }

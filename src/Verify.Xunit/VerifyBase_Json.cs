@@ -6,7 +6,7 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        public Task Verify<T>(
+        public SettingsTask Verify<T>(
             Task<T> target,
             VerifySettings? settings = null)
         {
@@ -14,7 +14,7 @@ namespace VerifyXunit
             return Verifier.Verify(target, settings, sourceFile);
         }
 
-        public Task Verify<T>(
+        public SettingsTask Verify<T>(
             ValueTask<T> target,
             VerifySettings? settings = null)
         {
@@ -22,7 +22,7 @@ namespace VerifyXunit
             return Verifier.Verify(target, settings, sourceFile);
         }
 
-        public Task Verify<T>(
+        public SettingsTask Verify<T>(
             IAsyncEnumerable<T> target,
             VerifySettings? settings = null)
         {
@@ -30,7 +30,7 @@ namespace VerifyXunit
             return Verifier.Verify(target, settings, sourceFile);
         }
 
-        public Task Verify<T>(
+        public SettingsTask Verify<T>(
             T target,
             VerifySettings? settings = null)
         {

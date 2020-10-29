@@ -14,7 +14,10 @@ namespace VerifyTests
 
         public SettingsTask(VerifySettings? settings, Func<VerifySettings, Task> buildTask)
         {
-            this.settings = settings;
+            if (settings != null)
+            {
+                this.settings = new VerifySettings(settings);
+            }
             this.buildTask = async verifySettings => { await buildTask(verifySettings); };
         }
 

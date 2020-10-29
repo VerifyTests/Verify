@@ -23,6 +23,7 @@ namespace VerifyTests
             newLineEscapingDisabled = settings.newLineEscapingDisabled;
             handleOnFirstVerify = settings.handleOnFirstVerify;
             handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
+            comparer = settings.comparer;
             Namer = new Namer(settings.Namer);
             foreach (var pair in settings.Context)
             {

@@ -19,8 +19,7 @@ public class ScrubberLevelsSample :
     [TestMethod]
     public Task Simple()
     {
-        return Verify("One Two Three")
-            .BasedOn(classLevelSettings)
+        return Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 

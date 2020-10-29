@@ -187,28 +187,30 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        return Verify(@"<note>
+        return Verify(
+                target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
-</note>")
-            .BasedOn(classLevelSettings)
+</note>",
+                settings: classLevelSettings)
             .UseExtension("xml");
     }
 
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verify(@"{
+        return Verify(
+            target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
     ""color"": ""Red""
-}")
-            .BasedOn(classLevelSettings);
+}",
+            settings: classLevelSettings);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in two files:

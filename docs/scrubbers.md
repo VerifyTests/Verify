@@ -404,8 +404,7 @@ public class ScrubberLevelsSample :
     [TestMethod]
     public Task Simple()
     {
-        return Verify("One Two Three")
-            .BasedOn(classLevelSettings)
+        return Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 
@@ -416,7 +415,7 @@ public class ScrubberLevelsSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

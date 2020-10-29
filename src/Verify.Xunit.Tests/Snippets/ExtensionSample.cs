@@ -20,24 +20,26 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        return Verify(@"<note>
+        return Verify(
+                target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
-</note>")
-            .BasedOn(classLevelSettings)
+</note>",
+                settings: classLevelSettings)
             .UseExtension("xml");
     }
 
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verify(@"{
+        return Verify(
+            target: @"{
     ""fruit"": ""Apple"",
     ""size"": ""Large"",
     ""color"": ""Red""
-}")
-            .BasedOn(classLevelSettings);
+}",
+            settings: classLevelSettings);
     }
 }
 

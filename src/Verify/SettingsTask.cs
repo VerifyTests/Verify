@@ -44,17 +44,6 @@ namespace VerifyTests
             return settings ??= new VerifySettings();
         }
 
-        public SettingsTask BasedOn(VerifySettings settings)
-        {
-            Guard.AgainstNull(settings, nameof(settings));
-            if (this.settings != null)
-            {
-                throw new Exception("BasedOn must be the first extension method called");
-            }
-            this.settings = new VerifySettings(settings);
-            return this;
-        }
-
         Task ToTask()
         {
             return task ??= buildTask(BuildSettings());

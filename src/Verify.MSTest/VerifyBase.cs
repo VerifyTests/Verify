@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyTests;
@@ -14,7 +15,9 @@ namespace VerifyMSTest
         {
             var type = GetType();
 
-            var methodInfo = type.GetMethod(TestContext.TestName, BindingFlags.Instance | BindingFlags.Public);
+            var methodInfo = type
+                .GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                .FirstOrDefault(x => x.Name == TestContext.TestName);
 
             if (methodInfo == null)
             {

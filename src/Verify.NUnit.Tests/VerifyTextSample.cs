@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
-using static VerifyNUnit.Verifier;
+using VerifyNUnit;
 
 [TestFixture]
 public class VerifyTextSample
@@ -8,6 +8,6 @@ public class VerifyTextSample
     [Test]
     public Task Simple()
     {
-        return Verify("Foo");
+        return Verifier.Verify("Foo");
     }
 }

@@ -15,15 +15,14 @@ public class VerifyObjectSamples
     {
         #region ChangeDefaultsPerVerification
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
+        await Verifier.Verify(target)
+            .ModifySerialization(_ =>
         {
             _.DontIgnoreEmptyCollections();
             _.DontScrubGuids();
             _.DontScrubDateTimes();
             _.DontIgnoreFalse();
         });
-        await Verifier.Verify(target, settings);
 
         #endregion
     }

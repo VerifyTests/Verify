@@ -78,14 +78,9 @@ public class Tests
     [Fact]
     public async Task SettingsArePassed()
     {
-        VerifySettings? fromGlobal = null;
         VerifierSettings.RegisterComparer(
             "SettingsArePassed",
-            (verifySettings, _, _) =>
-            {
-                fromGlobal = verifySettings;
-                return Task.FromResult(new CompareResult(true));
-            });
+            (_, _, _) => Task.FromResult(new CompareResult(true)));
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
         await Verifier.Verify(new MemoryStream(new byte[] {1}), settings).UseExtension("SettingsArePassed");

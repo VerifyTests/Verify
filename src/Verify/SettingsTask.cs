@@ -23,131 +23,131 @@ namespace VerifyTests
 
         public SettingsTask AddExtraSettings(Action<JsonSerializerSettings> action)
         {
-            BuildSettings().AddExtraSettings(action);
+            CurrentSettings.AddExtraSettings(action);
             return this;
         }
 
         public SettingsTask AddScrubber(Action<StringBuilder> scrubber)
         {
-            BuildSettings().AddScrubber(scrubber);
+            CurrentSettings.AddScrubber(scrubber);
             return this;
         }
         public SettingsTask OnFirstVerify(FirstVerify firstVerify)
         {
-            BuildSettings().OnFirstVerify(firstVerify);
+            CurrentSettings.OnFirstVerify(firstVerify);
             return this;
         }
 
         public SettingsTask OnVerifyMismatch(VerifyMismatch verifyMismatch)
         {
-            BuildSettings().OnVerifyMismatch(verifyMismatch);
+            CurrentSettings.OnVerifyMismatch(verifyMismatch);
             return this;
         }
 
         public SettingsTask DisableClipboard()
         {
-            BuildSettings().DisableClipboard();
+            CurrentSettings.DisableClipboard();
             return this;
         }
 
         public SettingsTask EnableClipboard()
         {
-            BuildSettings().EnableClipboard();
+            CurrentSettings.EnableClipboard();
             return this;
         }
 
         public SettingsTask UseComparer(Compare compare)
         {
-            BuildSettings().UseComparer(compare);
+            CurrentSettings.UseComparer(compare);
             return this;
         }
 
         public SettingsTask DisableDiff()
         {
-            BuildSettings().DisableDiff();
+            CurrentSettings.DisableDiff();
             return this;
         }
 
         public SettingsTask UniqueForAssemblyConfiguration()
         {
-            BuildSettings().UniqueForAssemblyConfiguration();
+            CurrentSettings.UniqueForAssemblyConfiguration();
             return this;
         }
 
         public SettingsTask UniqueForRuntime()
         {
-            BuildSettings().UniqueForRuntime();
+            CurrentSettings.UniqueForRuntime();
             return this;
         }
 
         public SettingsTask UniqueForRuntimeAndVersion()
         {
-            BuildSettings().UniqueForRuntimeAndVersion();
+            CurrentSettings.UniqueForRuntimeAndVersion();
             return this;
         }
 
         public SettingsTask ScrubMachineName()
         {
-            BuildSettings().ScrubMachineName();
+            CurrentSettings.ScrubMachineName();
             return this;
         }
 
         public SettingsTask DisableNewLineEscaping()
         {
-            BuildSettings().DisableNewLineEscaping();
+            CurrentSettings.DisableNewLineEscaping();
             return this;
         }
 
         public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
         {
-            BuildSettings().ScrubLinesContaining(comparison, stringToMatch);
+            CurrentSettings.ScrubLinesContaining(comparison, stringToMatch);
             return this;
         }
 
         public SettingsTask ScrubLines(Func<string, bool> removeLine)
         {
-            BuildSettings().ScrubLines(removeLine);
+            CurrentSettings.ScrubLines(removeLine);
             return this;
         }
 
         public SettingsTask ScrubLinesWithReplace(Func<string, string> replaceLine)
         {
-            BuildSettings().ScrubLinesWithReplace(replaceLine);
+            CurrentSettings.ScrubLinesWithReplace(replaceLine);
             return this;
         }
 
         public SettingsTask ScrubLinesContaining(params string[] stringToMatch)
         {
-            BuildSettings().ScrubLinesContaining(stringToMatch);
+            CurrentSettings.ScrubLinesContaining(stringToMatch);
             return this;
         }
 
         public SettingsTask ModifySerialization(Action<SerializationSettings> action)
         {
-            BuildSettings().ModifySerialization(action);
+            CurrentSettings.ModifySerialization(action);
             return this;
         }
 
         public SettingsTask AutoVerify()
         {
-            BuildSettings().AutoVerify();
+            CurrentSettings.AutoVerify();
             return this;
         }
 
         public SettingsTask UseExtension(string extension)
         {
-            BuildSettings().UseExtension(extension);
+            CurrentSettings.UseExtension(extension);
             return this;
         }
 
-        VerifySettings BuildSettings()
+        public VerifySettings CurrentSettings
         {
-            return settings ??= new VerifySettings();
+            get => settings ??= new VerifySettings();
         }
 
         Task ToTask()
         {
-            return task ??= buildTask(BuildSettings());
+            return task ??= buildTask(CurrentSettings);
         }
 
         public TaskAwaiter GetAwaiter()

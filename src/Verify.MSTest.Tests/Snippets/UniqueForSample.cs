@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyTests;
 using VerifyMSTest;
 
 #region UniqueForSampleMSTest
@@ -11,25 +10,22 @@ public class UniqueForSample :
     [TestMethod]
     public Task Runtime()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verify("value")
+            .UniqueForRuntime();
     }
 
     [TestMethod]
     public Task RuntimeAndVersion()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verify("value")
+            .UniqueForRuntimeAndVersion();
     }
 
     [TestMethod]
     public Task AssemblyConfiguration()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
+        return Verify("value")
+            .UniqueForAssemblyConfiguration();
     }
 }
 #endregion

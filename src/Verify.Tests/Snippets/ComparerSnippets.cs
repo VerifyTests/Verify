@@ -12,10 +12,11 @@ public class ComparerSnippets
     public async Task InstanceComparer()
     {
         #region InstanceComparer
-        var settings = new VerifySettings();
-        settings.UseComparer(CompareImages);
-        settings.UseExtension("png");
-        await Verifier.Verify("TheImage.png", settings);
+
+        await Verifier.Verify("TheImage.png")
+            .UseComparer(CompareImages)
+            .UseExtension("png");
+
         #endregion
     }
 

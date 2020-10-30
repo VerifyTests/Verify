@@ -65,13 +65,12 @@ public class SerializationTests
     [Fact]
     public Task ScrubberWithBadNewLine()
     {
-        var settings = new VerifySettings();
-        settings.AddScrubber(s =>
+        return Verifier.Verify("a")
+            .AddScrubber(s =>
         {
             s.AppendLine("b");
             s.AppendLine("c");
         });
-        return Verifier.Verify("a", settings);
     }
 
     [Fact]
@@ -122,9 +121,8 @@ public class SerializationTests
             }
         };
 
-        var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
-        return Verifier.Verify(person, settings);
+        return Verifier.Verify(person)
+            .AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
     }
 
     class DateTimeTarget
@@ -148,9 +146,8 @@ public class SerializationTests
     [Fact]
     public async Task VerifyBytes()
     {
-        var settings = new VerifySettings();
-        settings.UseExtension("jpg");
-        await Verifier.Verify(File.ReadAllBytes("sample.jpg"), settings);
+        await Verifier.Verify(File.ReadAllBytes("sample.jpg"))
+            .UseExtension("jpg");
     }
 
     [Fact]
@@ -182,12 +179,11 @@ public class SerializationTests
             }
         };
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.ScrubInlineGuids();
-        });
-        return Verifier.Verify(product, settings);
+        return Verifier.Verify(product)
+            .ModifySerialization(_ =>
+            {
+                _.ScrubInlineGuids();
+            });
     }
 
     void DontIgnoreEmptyCollections()
@@ -237,9 +233,10 @@ public class SerializationTests
     public async Task NewLineNotEscapedInProperty()
     {
         #region DisableNewLineEscaping
-        var settings = new VerifySettings();
-        settings.DisableNewLineEscaping();
-        await Verifier.Verify(new {Property = "a\r\nb\\nc"}, settings);
+
+        await Verifier.Verify(new {Property = "a\r\nb\\nc"})
+            .DisableNewLineEscaping();
+
         #endregion
     }
 
@@ -520,12 +517,10 @@ public class SerializationTests
     {
         #region IgnoreMembersThatThrowExpression
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(
-            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
-
         var target = new WithExceptionIgnoreMessage();
-        await Verifier.Verify(target, settings);
+        await Verifier.Verify(target)
+            .ModifySerialization(
+                _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 
         #endregion
     }
@@ -537,9 +532,8 @@ public class SerializationTests
         var property = Expression.Property(parameter, "Message");
         var convert = Expression.Convert(property, typeof(object));
         var expression = Expression.Lambda<Func<Exception, object>>(convert, parameter);
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verifier.Verify(expression, settings);
+        return Verifier.Verify(expression)
+            .UniqueForRuntime();
     }
 
     class WithExceptionIgnoreMessage
@@ -565,10 +559,6 @@ public class SerializationTests
     {
         #region AddIgnoreInstance
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(
-            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
-
         var target = new IgnoreInstanceTarget
         {
             ToIgnore = new Instance
@@ -580,7 +570,9 @@ public class SerializationTests
                 Property = "Include"
             }
         };
-        await Verifier.Verify(target, settings);
+        await Verifier.Verify(target)
+            .ModifySerialization(
+            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
 
         #endregion
     }
@@ -601,9 +593,6 @@ public class SerializationTests
     {
         #region AddIgnoreType
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
-
         var target = new IgnoreTypeTarget
         {
             ToIgnore = new ToIgnore
@@ -615,7 +604,8 @@ public class SerializationTests
                 Property = "Value"
             }
         };
-        await Verifier.Verify(target, settings);
+        await Verifier.Verify(target)
+            .ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
 
         #endregion
     }
@@ -708,22 +698,20 @@ public class SerializationTests
     {
         #region IgnoreMemberByExpression
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
-        });
-
         var target = new IgnoreExplicitTarget
         {
             Include = "Value",
             Field = "Value",
             Property = "Value"
         };
-        await Verifier.Verify(target, settings);
+        await Verifier.Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+                _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+                _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+                _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+            });
 
         #endregion
     }
@@ -733,8 +721,14 @@ public class SerializationTests
     {
         #region IgnoreMemberByName
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        await Verifier.Verify(target).ModifySerialization(_ =>
         {
             _.IgnoreMember("PropertyByName");
             var type = typeof(IgnoreExplicitTarget);
@@ -744,34 +738,23 @@ public class SerializationTests
             _.IgnoreMember(type, "PropertyThatThrows");
         });
 
-        var target = new IgnoreExplicitTarget
-        {
-            Include = "Value",
-            Field = "Value",
-            Property = "Value",
-            PropertyByName = "Value"
-        };
-        await Verifier.Verify(target, settings);
-
         #endregion
     }
 
     [Fact]
     public async Task IgnoreDictionaryKeyByName()
     {
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.IgnoreMember("Ignore");
-            _.AddExtraSettings(json => json.TypeNameHandling = TypeNameHandling.All);
-        });
-
         var target = new Dictionary<string, string>
         {
             {"Include", "Value1"},
             {"Ignore", "Value2"},
         };
-        await Verifier.Verify(target, settings);
+        await Verifier.Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMember("Ignore");
+                _.AddExtraSettings(json => json.TypeNameHandling = TypeNameHandling.All);
+            });
     }
 
     class IgnoreExplicitTarget
@@ -789,11 +772,9 @@ public class SerializationTests
     {
         #region IgnoreMembersThatThrow
 
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
-
         var target = new WithCustomException();
-        await Verifier.Verify(target, settings);
+        await Verifier.Verify(target)
+            .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
         #endregion
     }
@@ -887,9 +868,8 @@ public class SerializationTests
             ObsoleteProperty = "value1",
             OtherProperty = "value2"
         };
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
-        return Verifier.Verify(target, settings);
+        return Verifier.Verify(target)
+            .ModifySerialization(_ => { _.IncludeObsoletes(); });
     }
 
     #endregion

@@ -149,10 +149,9 @@ MSTest does not expose the parameter values via its extensibility context. So pa
 [DataRow("Value2")]
 public Task DataRowUsage(string arg)
 {
-    var settings = new VerifySettings();
-    settings.UseParameters(arg);
-    return Verify(arg, settings);
+    return Verify(arg)
+        .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

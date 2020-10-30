@@ -13,6 +13,18 @@ namespace VerifyTests
             settings.Context["Parameters"] = parameters;
         }
 
+        public static SettingsTask UseParameters(this SettingsTask settings, params object?[] parameters)
+        {
+            settings.CurrentSettings.UseParameters(parameters);
+            return settings;
+        }
+
+        public static SettingsTask GetParameters(this SettingsTask settings, MethodInfo methodInfo)
+        {
+            settings.CurrentSettings.GetParameters(methodInfo);
+            return settings;
+        }
+
         public static object?[] GetParameters(this VerifySettings settings, MethodInfo methodInfo)
         {
             var settingsParameters = settings.ParametersOrDefault();

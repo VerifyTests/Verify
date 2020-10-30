@@ -89,7 +89,6 @@ public class Tests
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
         await Verifier.Verify(new MemoryStream(new byte[] {1}), settings).UseExtension("SettingsArePassed");
-        Assert.Same(fromGlobal, settings);
     }
 
     [Fact]

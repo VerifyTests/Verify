@@ -48,10 +48,9 @@ LineJ
             RowVersion = "0x00000000000007D3"
         };
 
-        var settings = new VerifySettings();
-        settings.AddScrubber(
+        return Verify(target).AddScrubber(
             s => s.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
     }
 }
+
 #endregion

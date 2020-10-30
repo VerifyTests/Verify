@@ -1,7 +1,6 @@
 ﻿#if !NETSTANDARD2_0
 using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using VerifyTests;
 
@@ -9,7 +8,7 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        public Task Verify(
+        public SettingsTask Verify(
             Expression<Func<ITuple>> target,
             VerifySettings? settings = null)
         {

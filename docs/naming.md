@@ -69,37 +69,32 @@ public class UniqueForSample
 <!-- snippet: UniqueForSampleNUnit -->
 <a id='snippet-uniqueforsamplenunit'></a>
 ```cs
-using static VerifyNUnit.Verifier;
-
 [TestFixture]
 public class UniqueForSample
 {
     [Test]
     public Task Runtime()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verifier.Verify("value")
+            .UniqueForRuntime();
     }
 
     [Test]
     public Task AssemblyConfiguration()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
+        return Verifier.Verify("value")
+            .UniqueForAssemblyConfiguration();
     }
 
     [Test]
     public Task RuntimeAndVersion()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verifier.Verify("value")
+            .UniqueForRuntimeAndVersion();
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -115,29 +110,26 @@ public class UniqueForSample :
     [TestMethod]
     public Task Runtime()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verify("value")
+            .UniqueForRuntime();
     }
 
     [TestMethod]
     public Task RuntimeAndVersion()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verify("value")
+            .UniqueForRuntimeAndVersion();
     }
 
     [TestMethod]
     public Task AssemblyConfiguration()
     {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
+        return Verify("value")
+            .UniqueForAssemblyConfiguration();
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L5-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -187,15 +179,14 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.UseExtension("xml");
         return Verify(
-            target: @"<note>
+                target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
 </note>",
-            settings: settings);
+                settings: classLevelSettings)
+            .UseExtension("xml");
     }
 
     [Fact]
@@ -211,7 +202,7 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in two files:

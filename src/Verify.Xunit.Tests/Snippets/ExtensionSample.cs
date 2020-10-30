@@ -5,6 +5,7 @@ using Xunit;
 using static VerifyXunit.Verifier;
 
 #region XunitExtensionSample
+
 [UsesVerify]
 public class ExtensionSample
 {
@@ -19,15 +20,14 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.UseExtension("xml");
         return Verify(
-            target: @"<note>
+                target: @"<note>
 <to>Joe</to>
 <from>Kim</from>
 <heading>Reminder</heading>
 </note>",
-            settings: settings);
+                settings: classLevelSettings)
+            .UseExtension("xml");
     }
 
     [Fact]
@@ -42,4 +42,5 @@ public class ExtensionSample
             settings: classLevelSettings);
     }
 }
+
 #endregion

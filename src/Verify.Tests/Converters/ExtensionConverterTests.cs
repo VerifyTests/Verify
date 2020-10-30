@@ -18,9 +18,8 @@ public class ExtensionConverterTests
         VerifierSettings.RegisterFileConverter(
             "split",
             (stream, _) => new ConversionResult(null, "txt", stream));
-        var settings = new VerifySettings();
-        settings.UseExtension("txt");
-        return Verifier.Verify(FileHelpers.OpenRead("sample.split"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.split"))
+            .UseExtension("txt");
     }
 
     [Fact]
@@ -33,9 +32,8 @@ public class ExtensionConverterTests
                 var streams = ConvertBmpTpPngStreams(stream);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
             });
-        var settings = new VerifySettings();
-        settings.UseExtension("bmp");
-        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"))
+            .UseExtension("bmp");
     }
 
     [Fact]
@@ -48,9 +46,8 @@ public class ExtensionConverterTests
                 var streams = ConvertBmpTpPngStreams(stream);
                 return Task.FromResult(new ConversionResult(null, streams.Select(x => new ConversionStream("png", x))));
             });
-        var settings = new VerifySettings();
-        settings.UseExtension("bmp");
-        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"))
+            .UseExtension("bmp");
     }
 
     [Fact]
@@ -67,9 +64,8 @@ public class ExtensionConverterTests
                 var streams = ConvertBmpTpPngStreams(stream);
                 return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
-        var settings = new VerifySettings();
-        settings.UseExtension("bmp");
-        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"), settings);
+        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"))
+            .UseExtension("bmp");
     }
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)

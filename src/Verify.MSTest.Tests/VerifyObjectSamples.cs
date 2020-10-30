@@ -15,15 +15,15 @@ public class VerifyObjectSamples :
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.DontIgnoreEmptyCollections();
-            _.DontScrubGuids();
-            _.DontScrubDateTimes();
-            _.DontIgnoreFalse();
-        });
-        await Verify(target, settings);
+
+        await Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.DontIgnoreEmptyCollections();
+                _.DontScrubGuids();
+                _.DontScrubDateTimes();
+                _.DontIgnoreFalse();
+            });
 
         #endregion
     }

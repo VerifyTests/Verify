@@ -18,6 +18,7 @@ namespace VerifyTests
             {
                 this.settings = new VerifySettings(settings);
             }
+
             this.buildTask = async verifySettings => { await buildTask(verifySettings); };
         }
 
@@ -32,6 +33,7 @@ namespace VerifyTests
             CurrentSettings.AddScrubber(scrubber);
             return this;
         }
+
         public SettingsTask OnFirstVerify(FirstVerify firstVerify)
         {
             CurrentSettings.OnFirstVerify(firstVerify);

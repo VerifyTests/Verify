@@ -234,6 +234,7 @@ public class ScrubbersSample :
                 {
                     return "NoMoreLineE";
                 }
+
                 return line;
             });
         settings.ScrubLines(removeLine: line => line.Contains("J"));
@@ -261,14 +262,13 @@ LineJ
             RowVersion = "0x00000000000007D3"
         };
 
-        var settings = new VerifySettings();
-        settings.AddScrubber(
-            input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verify(target)
+            .AddScrubber(
+                input => input.Replace("0x00000000000007D3", "TheRowVersion"));
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

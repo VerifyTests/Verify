@@ -5,6 +5,7 @@ using VerifyTests;
 using VerifyMSTest;
 
 #region ScrubbersSampleMSTest
+
 [TestClass]
 public class ScrubbersSample :
     VerifyBase
@@ -20,6 +21,7 @@ public class ScrubbersSample :
                 {
                     return "NoMoreLineE";
                 }
+
                 return line;
             });
         settings.ScrubLines(removeLine: line => line.Contains("J"));
@@ -47,10 +49,10 @@ LineJ
             RowVersion = "0x00000000000007D3"
         };
 
-        var settings = new VerifySettings();
-        settings.AddScrubber(
-            input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verify(target)
+            .AddScrubber(
+                input => input.Replace("0x00000000000007D3", "TheRowVersion"));
     }
 }
+
 #endregion

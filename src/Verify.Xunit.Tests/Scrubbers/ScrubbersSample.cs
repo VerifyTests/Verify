@@ -5,7 +5,6 @@ using VerifyXunit;
 using Xunit;
 
 #region ScrubbersSampleXunit
-using static VerifyXunit.Verifier;
 
 [UsesVerify]
 public class ScrubbersSample
@@ -21,12 +20,13 @@ public class ScrubbersSample
                 {
                     return "NoMoreLineE";
                 }
+
                 return line;
             });
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
 LineA
@@ -41,17 +41,60 @@ LineJ
     }
 
     [Fact]
-    public Task ScrubberAppliedAfterJsonSerialization()
+    public Task LinesFluent()
+    {
+        return Verifier.Verify(
+                target: @"
+LineA
+LineB
+LineC
+LineD
+LineE
+LineH
+LineI
+LineJ
+")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line == "LineE")
+                    {
+                        return "NoMoreLineE";
+                    }
+
+                    return line;
+                })
+            .ScrubLines(removeLine: line => line.Contains("J"))
+            .ScrubLinesContaining("b", "D")
+            .ScrubLinesContaining(StringComparison.Ordinal, "H");
+    }
+
+    [Fact]
+    public Task AfterSerialization()
     {
         var target = new ToBeScrubbed
         {
-            RowVersion = "0x00000000000007D3"
+            RowVersion = "7D3"
         };
 
         var settings = new VerifySettings();
         settings.AddScrubber(
-            input => input.Replace("0x00000000000007D3", "TheRowVersion"));
-        return Verify(target, settings);
+            input => input.Replace("7D3", "TheRowVersion"));
+        return Verifier.Verify(target, settings);
+    }
+
+    [Fact]
+    public Task AfterSerializationFluent()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "7D3"
+        };
+
+        return Verifier.Verify(target)
+            .AddScrubber(
+                input => input.Replace("7D3", "TheRowVersion"));
     }
 }
+
 #endregion

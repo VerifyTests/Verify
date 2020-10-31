@@ -75,12 +75,28 @@ public class UniqueForSample
     [Test]
     public Task Runtime()
     {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task RuntimeFluent()
+    {
         return Verifier.Verify("value")
             .UniqueForRuntime();
     }
 
     [Test]
     public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task AssemblyConfigurationFluent()
     {
         return Verifier.Verify("value")
             .UniqueForAssemblyConfiguration();
@@ -89,12 +105,20 @@ public class UniqueForSample
     [Test]
     public Task RuntimeAndVersion()
     {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task RuntimeAndVersionFluent()
+    {
         return Verifier.Verify("value")
             .UniqueForRuntimeAndVersion();
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -110,12 +134,28 @@ public class UniqueForSample :
     [TestMethod]
     public Task Runtime()
     {
-        return Verify("value")
-            .UniqueForRuntime();
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
     }
 
     [TestMethod]
+    public Task RuntimeFluent()
+    {
+        return Verify("value")
+            .UniqueForRuntime();
+    }
+    
+    [TestMethod]
     public Task RuntimeAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task RuntimeAndVersionFluent()
     {
         return Verify("value")
             .UniqueForRuntimeAndVersion();
@@ -124,12 +164,20 @@ public class UniqueForSample :
     [TestMethod]
     public Task AssemblyConfiguration()
     {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task AssemblyConfigurationFluent()
+    {
         return Verify("value")
             .UniqueForAssemblyConfiguration();
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L5-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

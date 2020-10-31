@@ -41,15 +41,57 @@ LineJ
     }
 
     [Test]
-    public Task ScrubberAppliedAfterJsonSerialization()
+    public Task LinesFluent()
+    {
+        return Verify(
+                target: @"
+LineA
+LineB
+LineC
+LineD
+LineE
+LineH
+LineI
+LineJ
+").ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line == "LineE")
+                    {
+                        return "NoMoreLineE";
+                    }
+
+                    return line;
+                })
+            .ScrubLines(removeLine: line => line.Contains("J"))
+            .ScrubLinesContaining("b", "D")
+            .ScrubLinesContaining(StringComparison.Ordinal, "H");
+    }
+
+    [Test]
+    public Task AfterSerialization()
     {
         var target = new ToBeScrubbed
         {
-            RowVersion = "0x00000000000007D3"
+            RowVersion = "7D3"
+        };
+
+        var settings = new VerifySettings();
+        settings.AddScrubber(
+            s => s.Replace("7D3", "TheRowVersion"));
+        return Verify(target, settings);
+    }
+
+    [Test]
+    public Task AfterSerializationFluent()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "7D3"
         };
 
         return Verify(target).AddScrubber(
-            s => s.Replace("0x00000000000007D3", "TheRowVersion"));
+            s => s.Replace("7D3", "TheRowVersion"));
     }
 }
 

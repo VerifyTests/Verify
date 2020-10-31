@@ -79,7 +79,7 @@ snippet: ScrubbersSampleMSTest
 
 snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt
 
-snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.ScrubberAppliedAfterJsonSerialization.verified.txt
+snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt
 
 
 ## Scrubber levels

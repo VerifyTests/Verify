@@ -42,16 +42,16 @@ LineJ
     }
 
     [TestMethod]
-    public Task ScrubberAppliedAfterJsonSerialization()
+    public Task AfterSerialization()
     {
         var target = new ToBeScrubbed
         {
-            RowVersion = "0x00000000000007D3"
+            RowVersion = "7D3"
         };
 
         return Verify(target)
             .AddScrubber(
-                input => input.Replace("0x00000000000007D3", "TheRowVersion"));
+                input => input.Replace("7D3", "TheRowVersion"));
     }
 }
 

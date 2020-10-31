@@ -17,12 +17,12 @@ public class VerifyObjectSamples
 
         await Verifier.Verify(target)
             .ModifySerialization(_ =>
-        {
-            _.DontIgnoreEmptyCollections();
-            _.DontScrubGuids();
-            _.DontScrubDateTimes();
-            _.DontIgnoreFalse();
-        });
+            {
+                _.DontIgnoreEmptyCollections();
+                _.DontScrubGuids();
+                _.DontScrubDateTimes();
+                _.DontIgnoreFalse();
+            });
 
         #endregion
     }
@@ -41,6 +41,21 @@ public class VerifyObjectSamples
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
         await Verifier.Verify(person, settings);
+    }
+
+    [Test]
+    public async Task ScopedSerializerFluent()
+    {
+        var person = new Person
+        {
+            GivenNames = "John",
+            FamilyName = "Smith",
+            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+        };
+
+        await Verifier.Verify(person)
+            .ModifySerialization(_ => _.DontScrubDateTimes())
+            .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
     }
 
     async Task Before()
@@ -65,6 +80,7 @@ public class VerifyObjectSamples
     }
 
     #region AnonNUnit
+
     [Test]
     public async Task Anon()
     {
@@ -86,6 +102,7 @@ public class VerifyObjectSamples
                 person2
             });
     }
+
     #endregion
 
     async Task After()

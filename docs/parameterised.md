@@ -143,14 +143,29 @@ MSTest does not expose the parameter values via its extensibility context. So pa
 <!-- snippet: MSTestDataRow -->
 <a id='snippet-mstestdatarow'></a>
 ```cs
-[DataTestMethod]
-[DataRow("Value1")]
-[DataRow("Value2")]
-public Task DataRowUsage(string arg)
+[TestClass]
+public class ParametersSample :
+    VerifyBase
 {
-    return Verify(arg)
-        .UseParameters(arg);
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task DataRowUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verify(arg, settings);
+    }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task DataRowUsageFluent(string arg)
+    {
+        return Verify(arg)
+            .UseParameters(arg);
+    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L10-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L6-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

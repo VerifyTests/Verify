@@ -23,7 +23,7 @@ public class UniqueForSample :
         return Verify("value")
             .UniqueForRuntime();
     }
-    
+
     [TestMethod]
     public Task RuntimeAndVersion()
     {

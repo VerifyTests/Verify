@@ -24,6 +24,13 @@ public class ScrubberLevelsSample
         return Verify("One Two Three", settings);
     }
 
+    [Test]
+    public Task SimpleFluent()
+    {
+        return Verify("One Two Three", classLevelSettings)
+            .AddScrubber(s => s.Replace("Two", "B"));
+    }
+
     [OneTimeSetUp]
     public static void Setup()
     {

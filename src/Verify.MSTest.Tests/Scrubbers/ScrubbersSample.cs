@@ -42,7 +42,50 @@ LineJ
     }
 
     [TestMethod]
+    public Task LinesFluent()
+    {
+        return Verify(
+                target: @"
+LineA
+LineB
+LineC
+LineD
+LineE
+LineH
+LineI
+LineJ
+")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line == "LineE")
+                    {
+                        return "NoMoreLineE";
+                    }
+
+                    return line;
+                })
+            .ScrubLines(removeLine: line => line.Contains("J"))
+            .ScrubLinesContaining("b", "D")
+            .ScrubLinesContaining(StringComparison.Ordinal, "H");
+    }
+
+    [TestMethod]
     public Task AfterSerialization()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "7D3"
+        };
+
+        var settings = new VerifySettings();
+        settings.AddScrubber(
+            input => input.Replace("7D3", "TheRowVersion"));
+        return Verify(target, settings);
+    }
+
+    [TestMethod]
+    public Task AfterSerializationFluent()
     {
         var target = new ToBeScrubbed
         {

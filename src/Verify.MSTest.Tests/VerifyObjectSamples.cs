@@ -16,6 +16,21 @@ public class VerifyObjectSamples :
     {
         #region ChangeDefaultsPerVerification
 
+        var settings = new VerifySettings();
+
+        settings.ModifySerialization(_ =>
+        {
+            _.DontIgnoreEmptyCollections();
+            _.DontScrubGuids();
+            _.DontScrubDateTimes();
+            _.DontIgnoreFalse();
+        });
+        await Verify(target, settings);
+
+        #endregion
+
+        #region ChangeDefaultsPerVerification
+
         await Verify(target)
             .ModifySerialization(_ =>
             {
@@ -65,6 +80,7 @@ public class VerifyObjectSamples :
     }
 
     #region AnonMSTest
+
     [TestMethod]
     public async Task Anon()
     {
@@ -86,6 +102,7 @@ public class VerifyObjectSamples :
                 person2
             });
     }
+
     #endregion
 
     async Task After()

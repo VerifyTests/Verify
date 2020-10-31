@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
+using VerifyNUnit;
 
 #region SampleTestNUnit
-using static VerifyNUnit.Verifier;
 
 [TestFixture]
 public class Sample
@@ -11,7 +11,7 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 #endregion

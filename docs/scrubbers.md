@@ -202,8 +202,6 @@ LineJ
 <!-- snippet: ScrubbersSampleNUnit -->
 <a id='snippet-scrubberssamplenunit'></a>
 ```cs
-using static VerifyNUnit.Verifier;
-
 [TestFixture]
 public class ScrubbersSample
 {
@@ -224,7 +222,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
 LineA
@@ -241,7 +239,7 @@ LineJ
     [Test]
     public Task LinesFluent()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
 LineA
 LineB
@@ -277,7 +275,7 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             s => s.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     [Test]
@@ -288,12 +286,12 @@ LineJ
             RowVersion = "7D3"
         };
 
-        return Verify(target).AddScrubber(
+        return Verifier.Verify(target).AddScrubber(
             s => s.Replace("7D3", "TheRowVersion"));
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L6-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -439,8 +437,6 @@ Global scrubbers should be defined only once at appdomain startup. In this examp
 <!-- snippet: ScrubberLevelsSampleXunit -->
 <a id='snippet-scrubberlevelssamplexunit'></a>
 ```cs
-using static VerifyXunit.Verifier;
-
 [UsesVerify]
 public class ScrubberLevelsSample
 {
@@ -457,7 +453,14 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
+    }
+
+    [Fact]
+    public Task UsageFluent()
+    {
+        return Verifier.Verify("One Two Three", classLevelSettings)
+            .AddScrubber(s => s.Replace("Two", "B"));
     }
 
     static ScrubberLevelsSample()
@@ -467,7 +470,7 @@ public class ScrubberLevelsSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -476,8 +479,6 @@ public class ScrubberLevelsSample
 <!-- snippet: ScrubberLevelsSampleNUnit -->
 <a id='snippet-scrubberlevelssamplenunit'></a>
 ```cs
-using static VerifyNUnit.Verifier;
-
 [TestFixture]
 public class ScrubberLevelsSample
 {
@@ -494,13 +495,13 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     [Test]
     public Task SimpleFluent()
     {
-        return Verify("One Two Three", classLevelSettings)
+        return Verifier.Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 
@@ -511,7 +512,7 @@ public class ScrubberLevelsSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L5-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

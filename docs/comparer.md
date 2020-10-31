@@ -24,27 +24,17 @@ static Task<CompareResult> CompareImages(
     Stream received,
     Stream verified)
 {
-    var hash1 = HashImage(received);
-    var hash2 = HashImage(verified);
-    var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
-    var isEqual = score > .999;
-    if (isEqual)
+    // Fake comparison
+    if (received.Length == verified.Length)
     {
         return Task.FromResult(CompareResult.Equal);
     }
 
-    var message = $"Score greater than .999. Received score: {score}.";
-    var result = CompareResult.NotEqual(message);
+    var result = CompareResult.NotEqual();
     return Task.FromResult(result);
 }
-
-static Digest HashImage(Stream stream)
-{
-    using var bitmap = (Bitmap) Image.FromStream(stream);
-    return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
-}
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L33-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L44-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -55,11 +45,24 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 <!-- snippet: InstanceComparer -->
 <a id='snippet-instancecomparer'></a>
 ```cs
-await Verifier.Verify("TheImage.png")
-    .UseComparer(CompareImages)
-    .UseExtension("png");
+[Fact]
+public Task InstanceComparer()
+{
+    var settings = new VerifySettings();
+    settings.UseComparer(CompareImages);
+    settings.UseExtension("png");
+    return Verifier.VerifyFile("sample.png", settings);
+}
+
+[Fact]
+public Task InstanceComparerFluent()
+{
+    return Verifier.VerifyFile("sample.png")
+        .UseComparer(CompareImages)
+        .UseExtension("png");
+}
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L14-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L11-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -73,7 +76,7 @@ VerifierSettings.RegisterComparer(
     compare: CompareImages);
 await Verifier.VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L25-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L34-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

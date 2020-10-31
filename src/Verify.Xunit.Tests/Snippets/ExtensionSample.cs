@@ -2,7 +2,6 @@
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using static VerifyXunit.Verifier;
 
 #region XunitExtensionSample
 
@@ -20,11 +19,27 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        return Verify(
-                target: @"<note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
+        var settings = new VerifySettings(classLevelSettings);
+        settings.UseExtension("xml");
+        return Verifier.Verify(
+            target: @"
+<note>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
+</note>",
+            settings: settings);
+    }
+
+    [Fact]
+    public Task AtMethodFluent()
+    {
+        return Verifier.Verify(
+                target: @"
+<note>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
 </note>",
                 settings: classLevelSettings)
             .UseExtension("xml");
@@ -33,11 +48,12 @@ public class ExtensionSample
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verify(
-            target: @"{
-    ""fruit"": ""Apple"",
-    ""size"": ""Large"",
-    ""color"": ""Red""
+        return Verifier.Verify(
+            target: @"
+{
+  fruit: 'Apple',
+  size: 'Large',
+  color: 'Red'
 }",
             settings: classLevelSettings);
     }

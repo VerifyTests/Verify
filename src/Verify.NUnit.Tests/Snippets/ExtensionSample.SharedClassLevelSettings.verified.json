@@ -1,6 +1,6 @@
 
 {
-    fruit: 'Apple',
-    size: 'Large',
-    color: 'Red'
+  fruit: 'Apple',
+  size: 'Large',
+  color: 'Red'
 }

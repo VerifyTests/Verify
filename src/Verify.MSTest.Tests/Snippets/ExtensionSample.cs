@@ -25,9 +25,9 @@ public class ExtensionSample :
         return Verify(
             target: @"
 <note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
 </note>",
             settings: settings);
     }
@@ -38,9 +38,9 @@ public class ExtensionSample :
         return Verify(
                 target: @"
 <note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
 </note>",
                 settings: classLevelSettings)
             .UseExtension("xml");
@@ -52,9 +52,9 @@ public class ExtensionSample :
         return Verify(
             target: @"
 {
-    fruit: 'Apple',
-    size: 'Large',
-    color: 'Red'
+  fruit: 'Apple',
+  size: 'Large',
+  color: 'Red'
 }",
             settings: classLevelSettings);
     }

@@ -37,8 +37,17 @@ public Task InlineDataUsage(string arg)
     settings.UseParameters(arg);
     return Verifier.Verify(arg, settings);
 }
+
+[Theory]
+[InlineData("Value1")]
+[InlineData("Value2")]
+public Task InlineDataUsageFluent(string arg)
+{
+    return Verifier.Verify(arg)
+        .UseParameters(arg);
+}
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L10-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -56,13 +65,21 @@ public Task MemberDataUsage(string arg)
     return Verifier.Verify(arg, settings);
 }
 
+[Theory]
+[MemberData(nameof(GetData))]
+public Task MemberDataUsageFluent(string arg)
+{
+    return Verifier.Verify(arg)
+        .UseParameters(arg);
+}
+
 public static IEnumerable<object[]> GetData()
 {
     yield return new object[] {"Value1"};
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L22-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L33-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -86,6 +103,15 @@ public class ComplexParametersSample
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
+    }
+
+    [Theory]
+    [MemberData(nameof(GetComplexMemberData))]
+    public Task ComplexMemberDataFluent(ComplexData arg)
+    {
         return Verifier.Verify(arg)
             .UseParameters(arg);
     }
@@ -108,7 +134,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.

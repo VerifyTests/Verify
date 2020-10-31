@@ -18,6 +18,15 @@ public class ComplexParametersSample
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        return Verifier.Verify(arg, settings);
+    }
+
+    [Theory]
+    [MemberData(nameof(GetComplexMemberData))]
+    public Task ComplexMemberDataFluent(ComplexData arg)
+    {
         return Verifier.Verify(arg)
             .UseParameters(arg);
     }

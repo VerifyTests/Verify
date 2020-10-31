@@ -92,8 +92,6 @@ Support for [xUnit](https://xunit.net/)
 <!-- snippet: SampleTestXunit -->
 <a id='snippet-sampletestxunit'></a>
 ```cs
-using static VerifyXunit.Verifier;
-
 [UsesVerify]
 public class Sample
 {
@@ -101,11 +99,11 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L5-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
@@ -118,8 +116,6 @@ Support for [NUnit](https://nunit.org/)
 <!-- snippet: SampleTestNUnit -->
 <a id='snippet-sampletestnunit'></a>
 ```cs
-using static VerifyNUnit.Verifier;
-
 [TestFixture]
 public class Sample
 {
@@ -127,11 +123,11 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L4-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L5-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

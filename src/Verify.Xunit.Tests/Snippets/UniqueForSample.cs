@@ -4,7 +4,6 @@ using VerifyXunit;
 using Xunit;
 
 #region UniqueForSampleXunit
-using static VerifyXunit.Verifier;
 
 [UsesVerify]
 public class UniqueForSample
@@ -14,7 +13,14 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task RuntimeFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForRuntime();
     }
 
     [Fact]
@@ -22,7 +28,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]
@@ -30,7 +36,15 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task AssemblyConfigurationFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForAssemblyConfiguration();
     }
 }
+
 #endregion

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using VerifyNUnit;
 using VerifyTests;
 
 #region ScrubbersSampleNUnit
-using static VerifyNUnit.Verifier;
 
 [TestFixture]
 public class ScrubbersSample
@@ -26,7 +26,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
 LineA
@@ -43,7 +43,7 @@ LineJ
     [Test]
     public Task LinesFluent()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
 LineA
 LineB
@@ -79,7 +79,7 @@ LineJ
         var settings = new VerifySettings();
         settings.AddScrubber(
             s => s.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     [Test]
@@ -90,7 +90,7 @@ LineJ
             RowVersion = "7D3"
         };
 
-        return Verify(target).AddScrubber(
+        return Verifier.Verify(target).AddScrubber(
             s => s.Replace("7D3", "TheRowVersion"));
     }
 }

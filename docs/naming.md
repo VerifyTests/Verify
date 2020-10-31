@@ -30,8 +30,6 @@ UniqueFor allows for one or more delimiters to be added to the file name.
 <!-- snippet: UniqueForSampleXunit -->
 <a id='snippet-uniqueforsamplexunit'></a>
 ```cs
-using static VerifyXunit.Verifier;
-
 [UsesVerify]
 public class UniqueForSample
 {
@@ -40,7 +38,14 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task RuntimeFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForRuntime();
     }
 
     [Fact]
@@ -48,7 +53,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]
@@ -56,11 +61,18 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task AssemblyConfigurationFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForAssemblyConfiguration();
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -227,11 +239,27 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        return Verify(
-                target: @"<note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
+        var settings = new VerifySettings(classLevelSettings);
+        settings.UseExtension("xml");
+        return Verifier.Verify(
+            target: @"
+<note>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
+</note>",
+            settings: settings);
+    }
+
+    [Fact]
+    public Task AtMethodFluent()
+    {
+        return Verifier.Verify(
+                target: @"
+<note>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
 </note>",
                 settings: classLevelSettings)
             .UseExtension("xml");
@@ -240,17 +268,18 @@ public class ExtensionSample
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verify(
-            target: @"{
-    ""fruit"": ""Apple"",
-    ""size"": ""Large"",
-    ""color"": ""Red""
+        return Verifier.Verify(
+            target: @"
+{
+  fruit: 'Apple',
+  size: 'Large',
+  color: 'Red'
 }",
             settings: classLevelSettings);
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L7-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L6-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in two files:
@@ -258,25 +287,27 @@ Result in two files:
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json -->
 <a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'></a>
 ```json
+
 {
-    "fruit": "Apple",
-    "size": "Large",
-    "color": "Red"
+  fruit: 'Apple',
+  size: 'Large',
+  color: 'Red'
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
 <a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>
 ```xml
+
 <note>
-<to>Joe</to>
-<from>Kim</from>
-<heading>Reminder</heading>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

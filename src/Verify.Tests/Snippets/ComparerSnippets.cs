@@ -1,60 +1,63 @@
 ﻿#if DEBUG
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
-using Shipwreck.Phash;
-using Shipwreck.Phash.Bitmaps;
 using VerifyTests;
 using VerifyXunit;
+using Xunit;
 
+[UsesVerify]
 public class ComparerSnippets
 {
-    public async Task InstanceComparer()
-    {
-        #region InstanceComparer
+    #region InstanceComparer
 
-        await Verifier.Verify("TheImage.png")
+    [Fact]
+    public Task InstanceComparer()
+    {
+        var settings = new VerifySettings();
+        settings.UseComparer(CompareImages);
+        settings.UseExtension("png");
+        return Verifier.VerifyFile("sample.png", settings);
+    }
+
+    [Fact]
+    public Task InstanceComparerFluent()
+    {
+        return Verifier.VerifyFile("sample.png")
             .UseComparer(CompareImages)
             .UseExtension("png");
-
-        #endregion
     }
+
+    #endregion
 
     public async Task StaticComparer()
     {
         #region StaticComparer
+
         VerifierSettings.RegisterComparer(
             extension: "png",
             compare: CompareImages);
         await Verifier.VerifyFile("TheImage.png");
+
         #endregion
     }
 
     #region ImageComparer
+
     static Task<CompareResult> CompareImages(
         VerifySettings settings,
         Stream received,
         Stream verified)
     {
-        var hash1 = HashImage(received);
-        var hash2 = HashImage(verified);
-        var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
-        var isEqual = score > .999;
-        if (isEqual)
+        // Fake comparison
+        if (received.Length == verified.Length)
         {
             return Task.FromResult(CompareResult.Equal);
         }
 
-        var message = $"Score greater than .999. Received score: {score}.";
-        var result = CompareResult.NotEqual(message);
+        var result = CompareResult.NotEqual();
         return Task.FromResult(result);
     }
 
-    static Digest HashImage(Stream stream)
-    {
-        using var bitmap = (Bitmap) Image.FromStream(stream);
-        return ImagePhash.ComputeDigest(bitmap.ToLuminanceImage());
-    }
     #endregion
 }
 #endif

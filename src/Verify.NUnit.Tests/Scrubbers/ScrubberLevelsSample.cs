@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
+using VerifyNUnit;
 using VerifyTests;
 
 #region ScrubberLevelsSampleNUnit
-using static VerifyNUnit.Verifier;
 
 [TestFixture]
 public class ScrubberLevelsSample
@@ -21,13 +21,13 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     [Test]
     public Task SimpleFluent()
     {
-        return Verify("One Two Three", classLevelSettings)
+        return Verifier.Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 

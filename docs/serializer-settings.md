@@ -236,12 +236,12 @@ await Verify(target)
 ```cs
 await Verifier.Verify(target)
     .ModifySerialization(_ =>
-{
-    _.DontIgnoreEmptyCollections();
-    _.DontScrubGuids();
-    _.DontScrubDateTimes();
-    _.DontIgnoreFalse();
-});
+    {
+        _.DontIgnoreEmptyCollections();
+        _.DontScrubGuids();
+        _.DontScrubDateTimes();
+        _.DontIgnoreFalse();
+    });
 ```
 <sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L16-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

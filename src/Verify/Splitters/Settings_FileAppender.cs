@@ -1,11 +1,10 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static ConcurrentBag<FileAppender> fileAppenders = new ConcurrentBag<FileAppender>();
+        static List<FileAppender> fileAppenders = new List<FileAppender>();
 
         internal static IEnumerable<ConversionStream> GetFileAppenders(VerifySettings settings)
         {

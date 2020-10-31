@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -54,61 +53,59 @@ namespace VerifyTests
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
 
-        static ConcurrentDictionary<Type, Func<object, VerifySettings, string>> typeToString = new ConcurrentDictionary<Type, Func<object, VerifySettings, string>>(
-            new Dictionary<Type, Func<object, VerifySettings, string>>
-            {
-                #region typeToStringMapping
+        static Dictionary<Type, Func<object, VerifySettings, string>> typeToString = new Dictionary<Type, Func<object, VerifySettings, string>>
+        {
+            #region typeToStringMapping
 
-                {typeof(string), (target, _) => (string) target},
-                {typeof(bool), (target, _) => ((bool) target).ToString()},
-                {typeof(short), (target, _) => ((short) target).ToString()},
-                {typeof(ushort), (target, _) => ((ushort) target).ToString()},
-                {typeof(int), (target, _) => ((int) target).ToString()},
-                {typeof(uint), (target, _) => ((uint) target).ToString()},
-                {typeof(long), (target, _) => ((long) target).ToString()},
-                {typeof(ulong), (target, _) => ((ulong) target).ToString()},
-                {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(string), (target, _) => (string) target},
+            {typeof(bool), (target, _) => ((bool) target).ToString()},
+            {typeof(short), (target, _) => ((short) target).ToString()},
+            {typeof(ushort), (target, _) => ((ushort) target).ToString()},
+            {typeof(int), (target, _) => ((int) target).ToString()},
+            {typeof(uint), (target, _) => ((uint) target).ToString()},
+            {typeof(long), (target, _) => ((long) target).ToString()},
+            {typeof(ulong), (target, _) => ((ulong) target).ToString()},
+            {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0
              //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
-                {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
-                {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
-                {typeof(Guid), (target, _) => ((Guid) target).ToString()},
+            {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(Guid), (target, _) => ((Guid) target).ToString()},
+            {
+                typeof(DateTime), (target, _) =>
                 {
-                    typeof(DateTime), (target, _) =>
-                    {
-                        var dateTime = (DateTime) target;
-                        return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
-                    }
-                },
-                {
-                    typeof(DateTimeOffset), (target, _) =>
-                    {
-                        var dateTimeOffset = (DateTimeOffset) target;
-                        return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
-                    }
-                },
-                {
-                    typeof(XmlNode), (target, settings) =>
-                    {
-                        var converted = (XmlNode) target;
-                        var document = XDocument.Parse(converted.OuterXml);
-                        settings.UseExtension("xml");
-                        return document.ToString();
-                    }
-                },
-                {
-                    typeof(XDocument), (target, settings) =>
-                    {
-                        var converted = (XDocument) target;
-                        settings.UseExtension("xml");
-                        return converted.ToString();
-                    }
+                    var dateTime = (DateTime) target;
+                    return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
                 }
-
-                #endregion
+            },
+            {
+                typeof(DateTimeOffset), (target, _) =>
+                {
+                    var dateTimeOffset = (DateTimeOffset) target;
+                    return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+                }
+            },
+            {
+                typeof(XmlNode), (target, settings) =>
+                {
+                    var converted = (XmlNode) target;
+                    var document = XDocument.Parse(converted.OuterXml);
+                    settings.UseExtension("xml");
+                    return document.ToString();
+                }
+            },
+            {
+                typeof(XDocument), (target, settings) =>
+                {
+                    var converted = (XDocument) target;
+                    settings.UseExtension("xml");
+                    return converted.ToString();
+                }
             }
-        );
+
+            #endregion
+        };
 
         public static void TreatAsString<T>(Func<T, VerifySettings, string>? toString = null)
         {

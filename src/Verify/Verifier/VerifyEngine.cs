@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
-using EmptyFiles;
 using VerifyTests;
 
 [DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
@@ -192,7 +191,7 @@ class VerifyEngine
         }
 
         builder.AppendLine($"{Path.GetFileName(item.Received)}");
-        if (Extensions.IsText(item.Extension))
+        if (EmptyFiles.Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
             if (File.Exists(item.Verified))
@@ -249,7 +248,7 @@ class VerifyEngine
         }
 
         builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
-        if (Extensions.IsText(item.Extension))
+        if (EmptyFiles.Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{Path.GetFileName(item.Received)}");
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");

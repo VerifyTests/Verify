@@ -888,7 +888,7 @@ The default mapping is:
 {typeof(ulong), (target, _) => ((ulong) target).ToString()},
 {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0
-//   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+ //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
 {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
@@ -925,7 +925,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L60-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L58-L107' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

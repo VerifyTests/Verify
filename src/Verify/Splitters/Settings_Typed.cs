@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static ConcurrentBag<TypeConverter> typedConverters = new ConcurrentBag<TypeConverter>();
+        static List<TypeConverter> typedConverters = new List<TypeConverter>();
 
         internal static bool TryGetTypedConverter<T>(
             T target,

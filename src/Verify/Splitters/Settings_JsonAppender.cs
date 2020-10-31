@@ -1,11 +1,10 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static ConcurrentBag<JsonAppender> jsonAppenders = new ConcurrentBag<JsonAppender>();
+        static List<JsonAppender> jsonAppenders = new List<JsonAppender>();
 
         internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
         {

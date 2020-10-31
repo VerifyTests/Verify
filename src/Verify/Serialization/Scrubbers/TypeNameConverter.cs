@@ -1,6 +1,5 @@
 ﻿using System;
 using System.CodeDom;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,8 +10,8 @@ namespace VerifyTests
 {
     public static class TypeNameConverter
     {
-        static ConcurrentDictionary<Type, string> cacheDictionary = new ConcurrentDictionary<Type, string>();
-        static ConcurrentDictionary<ICustomAttributeProvider, string> infoCache = new ConcurrentDictionary<ICustomAttributeProvider, string>();
+        static Dictionary<Type, string> cacheDictionary = new Dictionary<Type, string>();
+        static Dictionary<ICustomAttributeProvider, string> infoCache = new Dictionary<ICustomAttributeProvider, string>();
 
         static CSharpCodeProvider codeDomProvider = new CSharpCodeProvider();
 

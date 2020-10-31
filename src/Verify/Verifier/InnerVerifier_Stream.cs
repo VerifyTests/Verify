@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EmptyFiles;
 
 namespace VerifyTests
 {
@@ -80,7 +79,7 @@ namespace VerifyTests
 #endif
             {
                 stream.MoveToStart();
-                if (!Extensions.IsText(conversionStream.Extension))
+                if (!EmptyFiles.Extensions.IsText(conversionStream.Extension))
                 {
                     return await Comparer.Streams(settings, stream, file);
                 }

@@ -14,7 +14,7 @@ public class FileAppenderTests :
     static FileAppenderTests()
     {
         VerifierSettings.RegisterFileAppender(
-            settings =>
+            _ =>
             {
                 if (!isInThisTest.Value)
                 {

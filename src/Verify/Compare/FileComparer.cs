@@ -48,7 +48,7 @@ static class FileComparer
             settings,
             received,
             verified,
-            (verifySettings, stream1, stream2) => StreamsAreEqual(stream1, stream2));
+            (_, stream1, stream2) => StreamsAreEqual(stream1, stream2));
     }
 
     static bool FilesAreSameSize(in FilePair file)

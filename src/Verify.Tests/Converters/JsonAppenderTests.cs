@@ -13,7 +13,7 @@ public class JsonAppenderTests : IDisposable
     static JsonAppenderTests()
     {
         VerifierSettings.RegisterJsonAppender(
-            settings =>
+            _ =>
             {
                 if (!isInThisTest.Value)
                 {

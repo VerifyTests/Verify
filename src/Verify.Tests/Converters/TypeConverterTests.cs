@@ -117,7 +117,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
-            (inner, _) => inner.Value == "Valid");
+            (inner, _, _) => inner.Value == "Valid");
         var target = new CanConvertTarget
         {
             Value = "Invalid"
@@ -134,7 +134,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
-            (inner, _) => inner.Value == "Valid");
+            (inner, _, _) => inner.Value == "Valid");
         var target = new CanConvertTarget
         {
             Value = "Valid"
@@ -171,7 +171,7 @@ public class TypeConverterTests
     public Task WithInfoShouldRespectSettings()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, _) => Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, _, _) => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
@@ -192,7 +192,7 @@ public class TypeConverterTests
     public Task TypeConversion()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, _) => Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, _, _) => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);

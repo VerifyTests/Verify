@@ -15,7 +15,7 @@ namespace VerifyTests
             [NotNullWhen(true)] out TypeConverter? converter)
         {
             foreach (var typedConverter in typedConverters
-                .Where(_ => _.CanConvert(target!, settings.Context)))
+                .Where(_ => _.CanConvert(target!,settings.extension, settings.Context)))
             {
                 converter = typedConverter;
                 return true;
@@ -72,14 +72,14 @@ namespace VerifyTests
         {
             if (canConvert == null)
             {
-                return (target, _) => target is T;
+                return (target,_ , _) => target is T;
             }
 
-            return (target, settings) =>
+            return (target, extension, settings) =>
             {
                 if (target is T cast)
                 {
-                    return canConvert(cast, settings);
+                    return canConvert(cast, extension, settings);
                 }
 
                 return false;

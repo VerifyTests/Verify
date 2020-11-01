@@ -27,7 +27,7 @@ namespace VerifyTests
                 {
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
-                        var result = await conversion(stream, settings);
+                        var result = await conversion(stream, settings, settings.Context);
                         await VerifyBinary(result.Streams, extension, result.Info, result.Cleanup);
                         return;
                     }

@@ -21,7 +21,7 @@ namespace VerifyTests
             Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
                 fromExtension,
-                (stream, settings) => Task.FromResult(conversion(stream, settings)));
+                (stream, settings, context) => Task.FromResult(conversion(stream, settings, context)));
         }
 
         public static void RegisterFileConverter(

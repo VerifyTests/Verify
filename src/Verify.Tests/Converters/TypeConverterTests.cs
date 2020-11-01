@@ -16,7 +16,7 @@ public class TypeConverterTests
     public Task Inherited()
     {
         VerifierSettings.RegisterFileConverter<ParentClass>(
-            (instance, _) =>
+            (instance, _, _) =>
             {
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
@@ -58,7 +58,7 @@ public class TypeConverterTests
         var filePath = "WithStreamRequiringCleanup.tmp";
         File.WriteAllText(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
-            (_, _) =>
+            (_, _,_) =>
             {
                 #region ConversionResultWithCleanup
 
@@ -91,7 +91,7 @@ public class TypeConverterTests
     public Task ConvertWithNewline()
     {
         VerifierSettings.RegisterFileConverter<ClassToSplit>(
-            (instance, _) =>
+            (instance, _, _) =>
             {
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
@@ -112,7 +112,7 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Invalid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            (instance, _) =>
+            (instance, _, _) =>
             {
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
@@ -129,7 +129,7 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Valid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            (instance, _) =>
+            (instance, _, _) =>
             {
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
@@ -152,7 +152,7 @@ public class TypeConverterTests
     public Task WithInfo()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            (bitmap1, _) =>
+            (bitmap1, _, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
                 var info = new
@@ -172,7 +172,7 @@ public class TypeConverterTests
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _) => Equals(target.RawFormat, ImageFormat.Bmp),
-            conversion: (bitmap1, _) =>
+            conversion: (bitmap1, _, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
                 var info = new
@@ -193,7 +193,7 @@ public class TypeConverterTests
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _) => Equals(target.RawFormat, ImageFormat.Bmp),
-            conversion: (bitmap1, _) =>
+            conversion: (bitmap1, _, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));

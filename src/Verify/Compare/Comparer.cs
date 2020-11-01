@@ -43,7 +43,7 @@ static class Comparer
         await using var stream2 = MemoryStream(verifiedText);
 #endif
 
-        return await compare!(settings, stream1, stream2, filePair);
+        return await compare!(stream1, stream2, filePair, settings.Context);
     }
 
     static MemoryStream MemoryStream(string text)

@@ -18,13 +18,13 @@ static class FileComparer
             return Equality.NotEqual;
         }
 
-        var compareResult = await FilesEqual(settings, file);
-        if (compareResult.IsEqual)
+        var result = await FilesEqual(settings, file);
+        if (result.IsEqual)
         {
             return Equality.Equal;
         }
 
-        return new EqualityResult(Equality.NotEqual, compareResult.Message);
+        return new EqualityResult(Equality.NotEqual, result.Message);
     }
 
     static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair)
@@ -46,7 +46,7 @@ static class FileComparer
     {
         return DoCompare(
             settings,
-            (_, stream1, stream2, _) => StreamsAreEqual(stream1, stream2),
+            (stream1, stream2, _, _) => StreamsAreEqual(stream1, stream2),
             filePair);
     }
 
@@ -66,7 +66,7 @@ static class FileComparer
         await using var fs1 = FileHelpers.OpenRead(filePair.Received);
         await using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #endif
-        return await compare(settings, fs1, fs2, filePair);
+        return await compare(fs1, fs2, filePair, settings.Context);
     }
 
     #region DefualtCompare

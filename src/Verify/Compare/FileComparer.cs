@@ -46,7 +46,7 @@ static class FileComparer
     {
         return DoCompare(
             settings,
-            (stream1, stream2, _, _) => StreamsAreEqual(stream1, stream2),
+            (stream1, stream2, _) => StreamsAreEqual(stream1, stream2),
             filePair);
     }
 
@@ -66,7 +66,7 @@ static class FileComparer
         await using var fs1 = FileHelpers.OpenRead(filePair.Received);
         await using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #endif
-        return await compare(fs1, fs2, filePair, settings.Context);
+        return await compare(fs1, fs2, settings.Context);
     }
 
     #region DefualtCompare

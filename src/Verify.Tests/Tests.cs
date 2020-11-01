@@ -80,7 +80,7 @@ public class Tests
     {
         VerifierSettings.RegisterComparer(
             "SettingsArePassed",
-            (_, _, _, _) => Task.FromResult(new CompareResult(true)));
+            (_, _, _) => Task.FromResult(new CompareResult(true)));
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
         await Verifier.Verify(new MemoryStream(new byte[] {1}), settings).UseExtension("SettingsArePassed");

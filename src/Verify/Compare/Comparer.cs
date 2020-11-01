@@ -16,7 +16,7 @@ static class Comparer
 
         var verified = await FileHelpers.ReadText(filePair.Verified);
         verified.FixNewlines();
-        var result = await CompareStrings(received, verified, settings, filePair);
+        var result = await CompareStrings(received, verified, settings);
         if (result.IsEqual)
         {
             return Equality.Equal;
@@ -26,7 +26,7 @@ static class Comparer
         return new EqualityResult(Equality.NotEqual, result.Message);
     }
 
-    static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings, FilePair filePair)
+    static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings)
     {
         if (!settings.TryFindComparer(out var compare))
         {
@@ -43,7 +43,7 @@ static class Comparer
         await using var stream2 = MemoryStream(verifiedText);
 #endif
 
-        return await compare!(stream1, stream2, filePair, settings.Context);
+        return await compare!(stream1, stream2, settings.Context);
     }
 
     static MemoryStream MemoryStream(string text)

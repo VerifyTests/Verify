@@ -52,14 +52,14 @@ public class ComparerTests
         await Verifier.Verify("thetext", settings);
     }
 
-    static async Task<CompareResult> Compare(Stream received, Stream verified, FilePair filePair, IReadOnlyDictionary<string, object> context)
+    static async Task<CompareResult> Compare(Stream received, Stream verified, IReadOnlyDictionary<string, object> context)
     {
         var stringOne = await received.ReadString();
         var stringTwo = await verified.ReadString();
         return new CompareResult(string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase));
     }
 
-    static Task<CompareResult> CompareWithMessage(Stream stream, Stream received, FilePair pair, IReadOnlyDictionary<string, object> readOnlyDictionary)
+    static Task<CompareResult> CompareWithMessage(Stream stream, Stream received, IReadOnlyDictionary<string, object> readOnlyDictionary)
     {
         return Task.FromResult(CompareResult.NotEqual("theMessage"));
     }

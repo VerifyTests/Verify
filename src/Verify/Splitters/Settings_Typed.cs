@@ -15,7 +15,7 @@ namespace VerifyTests
             [NotNullWhen(true)] out TypeConverter? converter)
         {
             foreach (var typedConverter in typedConverters
-                .Where(_ => _.CanConvert(target!, settings)))
+                .Where(_ => _.CanConvert(target!, settings.Context)))
             {
                 converter = typedConverter;
                 return true;
@@ -31,7 +31,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
-                (o, settings, context) => Task.FromResult(conversion(o, settings, context)),
+                (o, context) => Task.FromResult(conversion(o, context)),
                 canConvert);
         }
 
@@ -41,7 +41,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             var converter = new TypeConverter(
-                (o, settings, context) => conversion((T) o, settings, context),
+                (o, context) => conversion((T) o, context),
                 DefaultCanConvert(canConvert));
             typedConverters.Add(converter);
         }
@@ -52,7 +52,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
-                (o, settings, context) => Task.FromResult(conversion(o, settings, context)),
+                (o, context) => Task.FromResult(conversion(o, context)),
                 canConvert);
         }
 

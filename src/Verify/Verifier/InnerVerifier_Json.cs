@@ -24,7 +24,7 @@ namespace VerifyTests
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
-                var result = await converter.Conversion(target!, settings, settings.Context);
+                var result = await converter.Conversion(target!, settings.Context);
                 await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), result.Info, result.Cleanup);
                 return;
             }

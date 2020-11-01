@@ -18,37 +18,36 @@ static class FileComparer
             return Equality.NotEqual;
         }
 
-        var compareResult = await FilesEqual(settings, file);
-        if (compareResult.IsEqual)
+        var result = await FilesEqual(settings, file);
+        if (result.IsEqual)
         {
             return Equality.Equal;
         }
 
-        return new EqualityResult(Equality.NotEqual, compareResult.Message);
+        return new EqualityResult(Equality.NotEqual, result.Message);
     }
 
-    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair file)
+    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair)
     {
         if (settings.TryFindComparer(out var compare))
         {
-            return DoCompare(settings, file.Received, file.Verified, compare!);
+            return DoCompare(settings, compare!, filePair);
         }
 
-        if (!FilesAreSameSize(file))
+        if (!FilesAreSameSize(filePair))
         {
             return Task.FromResult(CompareResult.NotEqual());
         }
 
-        return DefaultCompare(settings, file.Received, file.Verified);
+        return DefaultCompare(settings, filePair);
     }
 
-    public static Task<CompareResult> DefaultCompare(VerifySettings settings, string received, string verified)
+    public static Task<CompareResult> DefaultCompare(VerifySettings settings, FilePair filePair)
     {
         return DoCompare(
             settings,
-            received,
-            verified,
-            (_, stream1, stream2) => StreamsAreEqual(stream1, stream2));
+            (stream1, stream2, _, _) => StreamsAreEqual(stream1, stream2),
+            filePair);
     }
 
     static bool FilesAreSameSize(in FilePair file)
@@ -58,16 +57,16 @@ static class FileComparer
         return first.Length == second.Length;
     }
 
-    static async Task<CompareResult> DoCompare(VerifySettings settings, string first, string second, Compare compare)
+    static async Task<CompareResult> DoCompare(VerifySettings settings, Compare compare, FilePair filePair)
     {
 #if NETSTANDARD2_0 || NETFRAMEWORK
-        using var fs1 = FileHelpers.OpenRead(first);
-        using var fs2 = FileHelpers.OpenRead(second);
+        using var fs1 = FileHelpers.OpenRead(filePair.Received);
+        using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #else
-        await using var fs1 = FileHelpers.OpenRead(first);
-        await using var fs2 = FileHelpers.OpenRead(second);
+        await using var fs1 = FileHelpers.OpenRead(filePair.Received);
+        await using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #endif
-        return await compare(settings, fs1, fs2);
+        return await compare(fs1, fs2, filePair, settings.Context);
     }
 
     #region DefualtCompare

@@ -745,7 +745,9 @@ public class SerializationTests
         return Verifier.Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
     }
 
+    // ReSharper disable UnusedParameter.Local
     void MyMethodWithParameters(int x, string y)
+        // ReSharper restore UnusedParameter.Local
     {
     }
 

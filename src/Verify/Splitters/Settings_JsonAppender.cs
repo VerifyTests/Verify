@@ -11,7 +11,7 @@ namespace VerifyTests
             var list = new List<ToAppend>();
             foreach (var appender in jsonAppenders)
             {
-                var data = appender(settings);
+                var data = appender(settings.Context);
                 if (data != null)
                 {
                     list.Add(data.Value);

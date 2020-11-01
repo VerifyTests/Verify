@@ -1,19 +1,22 @@
 ﻿using System.Diagnostics;
 using System.IO;
 
-[DebuggerDisplay("Extension = {Extension} | Name = {Name}")]
-readonly struct FilePair
+namespace VerifyTests
 {
-    public string Extension { get; }
-    public string Received { get; }
-    public string Verified { get; }
-    public string Name { get; }
-
-    public FilePair(string extension, string prefix)
+    [DebuggerDisplay("Extension = {Extension} | Name = {Name}")]
+    public readonly struct FilePair
     {
-        Extension = extension;
-        Name = Path.GetFileName(prefix);
-        Received = $"{prefix}.received.{extension}";
-        Verified = $"{prefix}.verified.{extension}";
+        public string Extension { get; }
+        public string Received { get; }
+        public string Verified { get; }
+        public string Name { get; }
+
+        public FilePair(string extension, string prefix)
+        {
+            Extension = extension;
+            Name = Path.GetFileName(prefix);
+            Received = $"{prefix}.received.{extension}";
+            Verified = $"{prefix}.verified.{extension}";
+        }
     }
 }

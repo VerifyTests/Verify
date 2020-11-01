@@ -21,10 +21,10 @@ public class Snippets
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile, message) =>
+            (filePair, message) =>
             {
-                Debug.WriteLine(receivedFile);
-                Debug.WriteLine(verifiedFile);
+                Debug.WriteLine(filePair.Received);
+                Debug.WriteLine(filePair.Verified);
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });

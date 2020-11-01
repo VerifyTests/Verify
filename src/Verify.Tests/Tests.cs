@@ -34,12 +34,12 @@ public class Tests
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (receivedFile, verifiedFile, _) =>
+            (filePair, _) =>
             {
-                Assert.NotEmpty(receivedFile);
-                Assert.NotNull(receivedFile);
-                Assert.NotEmpty(verifiedFile);
-                Assert.NotNull(verifiedFile);
+                Assert.NotEmpty(filePair.Received);
+                Assert.NotNull(filePair.Received);
+                Assert.NotEmpty(filePair.Verified);
+                Assert.NotNull(filePair.Verified);
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
@@ -57,15 +57,15 @@ public class Tests
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         settings.OnFirstVerify(
-            receivedFile =>
+            filePair =>
             {
-                Assert.NotEmpty(receivedFile);
-                Assert.NotNull(receivedFile);
+                Assert.NotEmpty(filePair.Received);
+                Assert.NotNull(filePair.Received);
                 onFirstVerifyCalled = true;
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (_, _, _) =>
+            (_, _) =>
             {
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;

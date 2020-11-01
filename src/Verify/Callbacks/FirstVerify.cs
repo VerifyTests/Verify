@@ -2,5 +2,5 @@
 
 namespace VerifyTests
 {
-    public delegate Task FirstVerify(string receivedFile);
+    public delegate Task FirstVerify(FilePair filePair);
 }

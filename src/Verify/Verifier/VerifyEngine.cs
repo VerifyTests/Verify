@@ -182,7 +182,7 @@ class VerifyEngine
     {
         if (settings.handleOnVerifyMismatch != null)
         {
-            await settings.handleOnVerifyMismatch(item.Received, item.Verified, message);
+            await settings.handleOnVerifyMismatch(item, message);
         }
 
         if (message != null)
@@ -244,7 +244,7 @@ class VerifyEngine
     {
         if (settings.handleOnFirstVerify != null)
         {
-            await settings.handleOnFirstVerify(item.Received);
+            await settings.handleOnFirstVerify(item);
         }
 
         builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");

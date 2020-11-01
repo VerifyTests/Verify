@@ -31,7 +31,7 @@ static class FileComparer
     {
         if (settings.TryFindComparer(out var compare))
         {
-            return DoCompare(settings, filePair.Received, filePair.Verified, compare!, filePair);
+            return DoCompare(settings, compare!, filePair);
         }
 
         if (!FilesAreSameSize(filePair))
@@ -46,8 +46,6 @@ static class FileComparer
     {
         return DoCompare(
             settings,
-            filePair.Received,
-            filePair.Verified,
             (_, stream1, stream2, _) => StreamsAreEqual(stream1, stream2),
             filePair);
     }
@@ -59,14 +57,14 @@ static class FileComparer
         return first.Length == second.Length;
     }
 
-    static async Task<CompareResult> DoCompare(VerifySettings settings, string first, string second, Compare compare, FilePair filePair)
+    static async Task<CompareResult> DoCompare(VerifySettings settings, Compare compare, FilePair filePair)
     {
 #if NETSTANDARD2_0 || NETFRAMEWORK
-        using var fs1 = FileHelpers.OpenRead(first);
-        using var fs2 = FileHelpers.OpenRead(second);
+        using var fs1 = FileHelpers.OpenRead(filePair.Received);
+        using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #else
-        await using var fs1 = FileHelpers.OpenRead(first);
-        await using var fs2 = FileHelpers.OpenRead(second);
+        await using var fs1 = FileHelpers.OpenRead(filePair.Received);
+        await using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #endif
         return await compare(settings, fs1, fs2, filePair);
     }

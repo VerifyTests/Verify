@@ -33,7 +33,6 @@ namespace VerifyTests
             CurrentSettings.AddScrubber(scrubber);
             return this;
         }
-
         public SettingsTask OnFirstVerify(FirstVerify firstVerify)
         {
             CurrentSettings.OnFirstVerify(firstVerify);
@@ -150,6 +149,11 @@ namespace VerifyTests
         Task ToTask()
         {
             return task ??= buildTask(CurrentSettings);
+        }
+
+        public ConfiguredTaskAwaitable ConfigureAwait(bool continueOnCapturedContext)
+        {
+            return ToTask().ConfigureAwait(continueOnCapturedContext);
         }
 
         public TaskAwaiter GetAwaiter()

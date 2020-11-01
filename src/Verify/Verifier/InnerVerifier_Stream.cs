@@ -69,7 +69,7 @@ namespace VerifyTests
             await engine.ThrowIfRequired();
         }
 
-        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, ConversionStream conversionStream)
+        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, ConversionStream conversionStream)
         {
             var stream = conversionStream.Stream;
 #if NETSTANDARD2_0 || NETFRAMEWORK
@@ -81,12 +81,12 @@ namespace VerifyTests
                 stream.MoveToStart();
                 if (!EmptyFiles.Extensions.IsText(conversionStream.Extension))
                 {
-                    return await Comparer.Streams(settings, stream, file);
+                    return await Comparer.Streams(settings, stream, filePair);
                 }
 
                 var builder = await stream.ReadAsString();
                 ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                return await Comparer.Text(file, builder, settings);
+                return await Comparer.Text(filePair, builder, settings);
             }
         }
 

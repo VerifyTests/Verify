@@ -51,14 +51,14 @@ public class ComparerTests
         await Verifier.Verify("thetext", settings);
     }
 
-    static async Task<CompareResult> Compare(VerifySettings settings, Stream received, Stream verified)
+    static async Task<CompareResult> Compare(VerifySettings settings, Stream received, Stream verified, FilePair filePair)
     {
         var stringOne = await received.ReadString();
         var stringTwo = await verified.ReadString();
         return new CompareResult(string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase));
     }
 
-    static Task<CompareResult> CompareWithMessage(VerifySettings settings, Stream received, Stream verified)
+    static Task<CompareResult> CompareWithMessage(VerifySettings settings, Stream received, Stream verified, FilePair filePair)
     {
         return Task.FromResult(CompareResult.NotEqual("theMessage"));
     }

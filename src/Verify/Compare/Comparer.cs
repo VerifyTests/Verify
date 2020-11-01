@@ -5,28 +5,28 @@ using VerifyTests;
 
 static class Comparer
 {
-    public static async Task<EqualityResult> Text(FilePair file, StringBuilder received, VerifySettings settings)
+    public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings)
     {
-        FileHelpers.DeleteIfEmpty(file.Verified);
-        if (!File.Exists(file.Verified))
+        FileHelpers.DeleteIfEmpty(filePair.Verified);
+        if (!File.Exists(filePair.Verified))
         {
-            await FileHelpers.WriteText(file.Received, received.ToString());
+            await FileHelpers.WriteText(filePair.Received, received.ToString());
             return Equality.MissingVerified;
         }
 
-        var verified = await FileHelpers.ReadText(file.Verified);
+        var verified = await FileHelpers.ReadText(filePair.Verified);
         verified.FixNewlines();
-        var result = await CompareStrings(received, verified, settings);
+        var result = await CompareStrings(received, verified, settings, filePair);
         if (result.IsEqual)
         {
             return Equality.Equal;
         }
 
-        await FileHelpers.WriteText(file.Received, received.ToString());
+        await FileHelpers.WriteText(filePair.Received, received.ToString());
         return new EqualityResult(Equality.NotEqual, result.Message);
     }
 
-    static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings)
+    static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings, FilePair filePair)
     {
         if (!settings.TryFindComparer(out var compare))
         {
@@ -43,7 +43,7 @@ static class Comparer
         await using var stream2 = MemoryStream(verifiedText);
 #endif
 
-        return await compare!(settings, stream1, stream2);
+        return await compare!(settings, stream1, stream2, filePair);
     }
 
     static MemoryStream MemoryStream(string text)

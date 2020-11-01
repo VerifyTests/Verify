@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using VerifyTests;
 
 readonly struct ResultBuilder
 {

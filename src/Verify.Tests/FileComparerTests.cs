@@ -61,7 +61,7 @@ public class FileComparerTests
                     FileAccess.Read,
                     FileShare.Read))
             {
-                var result = await FileComparer.DefaultCompare(new VerifySettings(), new FilePair("bmp", "sample"));
+                var result = await FileComparer.DefaultCompare(new VerifySettings(), new FilePair("txt", "BinaryEquals"));
                 Assert.True(result.IsEqual);
             }
         }

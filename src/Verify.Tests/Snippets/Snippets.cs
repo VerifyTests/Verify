@@ -155,7 +155,11 @@ public class Snippets
     class CompanyConverter :
         WriteOnlyJsonConverter<Company>
     {
-        public override void WriteJson(JsonWriter writer, Company? company, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+        public override void WriteJson(
+            JsonWriter writer,
+            Company? company,
+            JsonSerializer serializer,
+            IReadOnlyDictionary<string, object> context)
         {
             if (company != null)
             {

@@ -104,7 +104,8 @@ namespace VerifyTests
                 info,
                 settings.serialization.currentSettings,
                 settings.IsNewLineEscapingDisabled,
-                appends);
+                appends,
+                settings);
 
             ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 

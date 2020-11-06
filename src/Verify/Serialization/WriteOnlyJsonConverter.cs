@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace VerifyTests
@@ -7,6 +8,14 @@ namespace VerifyTests
         JsonConverter
     {
         public override bool CanRead => false;
+
+        public sealed override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        {
+            var writerEx = (JsonTextWriterEx)writer;
+            WriteJson(writer, value, serializer, writerEx.Context);
+        }
+
+        public abstract void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context);
 
         public sealed override object ReadJson(JsonReader reader, Type type, object? value, JsonSerializer serializer)
         {

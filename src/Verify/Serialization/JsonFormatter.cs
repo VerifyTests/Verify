@@ -8,7 +8,7 @@ static class JsonFormatter
 {
     internal static char QuoteChar = '\'';
 
-    public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, bool newLineEscapingDisabled, List<ToAppend> appends)
+    public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, bool newLineEscapingDisabled, List<ToAppend> appends, VerifySettings verifySettings)
     {
         if (appends.Any())
         {
@@ -30,9 +30,10 @@ static class JsonFormatter
         }
 
         var serializer = JsonSerializer.Create(settings);
+
         var builder = new StringBuilder();
         using var stringWriter = new StringWriterEx(builder, newLineEscapingDisabled);
-        using var writer = new JsonTextWriterEx(stringWriter)
+        using var writer = new JsonTextWriterEx(stringWriter, verifySettings.Context)
         {
             QuoteChar = QuoteChar,
             QuoteName = false

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -154,7 +155,7 @@ public class Snippets
     class CompanyConverter :
         WriteOnlyJsonConverter<Company>
     {
-        public override void WriteJson(JsonWriter writer, Company? company, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Company? company, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
         {
             if (company != null)
             {

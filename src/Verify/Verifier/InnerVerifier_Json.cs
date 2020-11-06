@@ -63,7 +63,8 @@ namespace VerifyTests
                 target,
                 settings.serialization.currentSettings,
                 settings.IsNewLineEscapingDisabled,
-                appends);
+                appends,
+                settings);
             return VerifyStringBuilder(json);
         }
     }

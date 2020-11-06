@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 using VerifyTests;
@@ -6,7 +7,7 @@ using VerifyTests;
 class ParameterInfoConverter :
     WriteOnlyJsonConverter
 {
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
         if (value == null)
         {

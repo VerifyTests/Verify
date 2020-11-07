@@ -23,6 +23,7 @@ namespace VerifyTests
                 {
                     settings.UseExtension(asStringResult.Extension);
                 }
+
                 await VerifyString(asStringResult.Value);
                 return;
             }

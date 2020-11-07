@@ -37,7 +37,6 @@ Serialization settings can be customized at three levels:
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)
-  * [DisableNewLineEscaping](#disablenewlineescaping)
   * [TreatAsString](#treatasstring)<!-- endToc -->
 
 
@@ -109,7 +108,7 @@ var target = new GuidTarget
 
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L408-L421' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L385-L398' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -370,7 +369,7 @@ public Task ScopedSerializerFluent()
             _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1054-L1089' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1031-L1066' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -379,8 +378,8 @@ Result:
 <a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'></a>
 ```txt
 {
-  GivenNames: 'John',
-  FamilyName: 'Smith',
+  GivenNames: John,
+  FamilyName: Smith,
   Dob: '\/Date(970358400000+0000)\/'
 }
 ```
@@ -433,7 +432,7 @@ public async Task IgnoreTypeFluent()
 
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L643-L683' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L620-L660' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -443,7 +442,7 @@ Result:
 ```txt
 {
   ToInclude: {
-    Property: 'Value'
+    Property: Value
   }
 }
 ```
@@ -500,7 +499,7 @@ public async Task AddIgnoreInstanceFluent()
 
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L586-L630' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L563-L607' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -510,7 +509,7 @@ Result:
 ```txt
 {
   ToInclude: {
-    Property: 'Include'
+    Property: Include
   }
 }
 ```
@@ -542,7 +541,7 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1018-L1037' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L995-L1014' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -551,7 +550,7 @@ Result:
 <a id='snippet-SerializationTests.WithObsoleteProp.verified.txt'></a>
 ```txt
 {
-  OtherProperty: 'value2'
+  OtherProperty: value2
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoleteProp.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.WithObsoleteProp.verified.txt' title='Start of snippet'>anchor</a></sup>
@@ -590,7 +589,7 @@ public Task WithObsoletePropIncludedFluent()
         .ModifySerialization(_ => { _.IncludeObsoletes(); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L989-L1016' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L966-L993' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -599,8 +598,8 @@ Result:
 <a id='snippet-SerializationTests.WithObsoletePropIncluded.verified.txt'></a>
 ```txt
 {
-  ObsoleteProperty: 'value1',
-  OtherProperty: 'value2'
+  ObsoleteProperty: value1,
+  OtherProperty: value2
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.WithObsoletePropIncluded.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.WithObsoletePropIncluded.verified.txt' title='Start of snippet'>anchor</a></sup>
@@ -653,7 +652,7 @@ public async Task IgnoreMemberByExpressionFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L771-L812' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L748-L789' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -662,7 +661,7 @@ Result:
 <a id='snippet-SerializationTests.IgnoreMemberByExpression.verified.txt'></a>
 ```txt
 {
-  Include: 'Value'
+  Include: Value
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByExpression.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByExpression.verified.txt' title='Start of snippet'>anchor</a></sup>
@@ -721,7 +720,7 @@ public async Task IgnoreMemberByNameFluent()
 
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L814-L861' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L791-L838' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -730,7 +729,7 @@ Result:
 <a id='snippet-SerializationTests.IgnoreMemberByName.verified.txt'></a>
 ```txt
 {
-  Include: 'Value'
+  Include: Value
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
@@ -767,7 +766,7 @@ public async Task CustomExceptionPropFluent()
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L889-L908' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L866-L885' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -807,7 +806,7 @@ public async Task ExceptionMessagePropFluent()
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L532-L556' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L509-L533' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -818,58 +817,6 @@ Result:
 {}
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ExceptionMessageProp.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ExceptionMessageProp.verified.txt' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-## DisableNewLineEscaping
-
-By default newlines in json are escaped with `\n`:
-
-<!-- snippet: NewLineEscapedInProperty -->
-<a id='snippet-newlineescapedinproperty'></a>
-```cs
-return Verifier.Verify(new {Property = "a\r\nb\\nc"});
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L234-L238' title='Snippet source file'>snippet source</a> | <a href='#snippet-newlineescapedinproperty' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-<!-- snippet: SerializationTests.NewLineEscapedInProperty.verified.txt -->
-<a id='snippet-SerializationTests.NewLineEscapedInProperty.verified.txt'></a>
-```txt
-{
-  Property: 'a\nb\nc'
-}
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineEscapedInProperty.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineEscapedInProperty.verified.txt' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-This can be disabled:
-
-<!-- snippet: DisableNewLineEscaping -->
-<a id='snippet-disablenewlineescaping'></a>
-```cs
-var settings = new VerifySettings();
-settings.DisableNewLineEscaping();
-await Verifier.Verify(new {Property = "a\r\nb\\nc"}, settings);
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L244-L250' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenewlineescaping' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-disablenewlineescaping-1'></a>
-```cs
-await Verifier.Verify(new {Property = "a\r\nb\\nc"})
-    .DisableNewLineEscaping();
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L252-L257' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenewlineescaping-1' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-<!-- snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt -->
-<a id='snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt'></a>
-```txt
-{
-  Property: 'a
-b\nc'
-}
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.NewLineNotEscapedInProperty.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.NewLineNotEscapedInProperty.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

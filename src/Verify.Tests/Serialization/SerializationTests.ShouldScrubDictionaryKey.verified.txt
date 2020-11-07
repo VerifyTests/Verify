@@ -1,14 +1,14 @@
 {
   guid: {
-    Guid_1: 'value'
+    Guid_1: value
   },
   dateTime: {
-    DateTime_1: 'value'
+    DateTime_1: value
   },
   dateTimeOffset: {
-    DateTimeOffset_1: 'value'
+    DateTimeOffset_1: value
   },
   type: {
-    SerializationTests: 'value'
+    SerializationTests: value
   }
 }

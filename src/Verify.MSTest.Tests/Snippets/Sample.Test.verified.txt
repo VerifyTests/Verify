@@ -1,14 +1,14 @@
 {
-  GivenNames: 'John',
-  FamilyName: 'Smith',
-  Spouse: 'Jill',
+  GivenNames: John,
+  FamilyName: Smith,
+  Spouse: Jill,
   Address: {
-    Street: '4 Puddle Lane',
-    Country: 'USA'
+    Street: 4 Puddle Lane,
+    Country: USA
   },
   Children: [
-    'Sam',
-    'Mary'
+    Sam,
+    Mary
   ],
   Id: Guid_1
 }

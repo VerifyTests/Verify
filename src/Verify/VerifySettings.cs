@@ -20,7 +20,6 @@ namespace VerifyTests
             diffEnabled = settings.diffEnabled;
             autoVerify = settings.autoVerify;
             serialization = settings.serialization;
-            newLineEscapingDisabled = settings.newLineEscapingDisabled;
             handleOnFirstVerify = settings.handleOnFirstVerify;
             handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
             comparer = settings.comparer;

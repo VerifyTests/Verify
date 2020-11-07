@@ -13,20 +13,9 @@ namespace VerifyTests
             AddScrubber(Scrubbers.ScrubMachineName);
         }
 
-        internal bool IsNewLineEscapingDisabled
-        {
-            get
-            {
-                return newLineEscapingDisabled ||
-                       VerifierSettings.newLineEscapingDisabled;
-            }
-        }
-
-        internal bool newLineEscapingDisabled;
-
+        [Obsolete("Newline escaping is disabled by default", true)]
         public void DisableNewLineEscaping()
         {
-            newLineEscapingDisabled = true;
         }
 
         public void AddScrubber(Action<StringBuilder> scrubber)

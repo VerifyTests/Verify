@@ -1,4 +1,4 @@
 {
-  $type: 'Dictionary<string, string>',
-  Include: 'Value1'
+  $type: Dictionary<string, string>,
+  Include: Value1
 }

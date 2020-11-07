@@ -1,4 +1,4 @@
 {
-  Type: 'Exception',
-  Message: "Exception of type 'System.Exception' was thrown."
+  Type: Exception,
+  Message: Exception of type 'System.Exception' was thrown.
 }

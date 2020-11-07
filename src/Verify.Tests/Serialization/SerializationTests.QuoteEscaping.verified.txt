@@ -1,5 +1,5 @@
 {
-  singleQuote: "'",
-  doubleQuote: '"',
-  mixed: '"\''
+  singleQuote: ',
+  doubleQuote: ",
+  mixed: "'
 }

@@ -191,16 +191,16 @@ This will result in the `Sample.Test.verified.txt` being created:
 <a id='snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt'></a>
 ```txt
 {
-  GivenNames: 'John',
-  FamilyName: 'Smith',
-  Spouse: 'Jill',
+  GivenNames: John,
+  FamilyName: Smith,
+  Spouse: Jill,
   Address: {
-    Street: '4 Puddle Lane',
-    Country: 'USA'
+    Street: 4 Puddle Lane,
+    Country: USA
   },
   Children: [
-    'Sam',
-    'Mary'
+    Sam,
+    Mary
   ],
   Id: Guid_1
 }

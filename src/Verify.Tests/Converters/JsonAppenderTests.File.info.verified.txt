@@ -1,4 +1,4 @@
 {
-  target: 'null',
-  theData: 'theValue'
+  target: null,
+  theData: theValue
 }

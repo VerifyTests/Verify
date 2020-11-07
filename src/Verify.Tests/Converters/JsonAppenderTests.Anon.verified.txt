@@ -1,6 +1,6 @@
 {
   target: {
-    foo: 'bar'
+    foo: bar
   },
-  theData: 'theValue'
+  theData: theValue
 }

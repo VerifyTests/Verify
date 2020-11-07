@@ -19,7 +19,6 @@ public class Tests
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
 
-
     [Fact]
     public Task TreatAsString()
     {
@@ -97,7 +96,8 @@ public class Tests
             (_, _, _) => Task.FromResult(new CompareResult(true)));
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verifier.Verify(new MemoryStream(new byte[] {1}), settings).UseExtension("SettingsArePassed");
+        await Verifier.Verify(new MemoryStream(new byte[] {1}), settings)
+            .UseExtension("SettingsArePassed");
     }
 
     [Fact]

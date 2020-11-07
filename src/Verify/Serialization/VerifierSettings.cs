@@ -12,7 +12,7 @@ namespace VerifyTests
     {
         internal static SerializationSettings serialization = new SerializationSettings();
 
-        public static bool TryGetToString<T>(T target, out Func<object, VerifySettings, string>? toString)
+        public static bool TryGetToString<T>(T target, out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
         {
             if (target is Type type)
             {
@@ -53,7 +53,7 @@ namespace VerifyTests
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
 
-        static Dictionary<Type, Func<object, VerifySettings, string>> typeToString = new Dictionary<Type, Func<object, VerifySettings, string>>
+        static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>>
         {
             #region typeToStringMapping
 
@@ -91,32 +91,30 @@ namespace VerifyTests
                 {
                     var converted = (XmlNode) target;
                     var document = XDocument.Parse(converted.OuterXml);
-                    settings.UseExtension("xml");
-                    return document.ToString();
+                    return new AsStringResult(document.ToString(), "xml");
                 }
             },
             {
                 typeof(XDocument), (target, settings) =>
                 {
                     var converted = (XDocument) target;
-                    settings.UseExtension("xml");
-                    return converted.ToString();
+                    return new AsStringResult(converted.ToString(), "xml");
                 }
             }
 
             #endregion
         };
 
-        public static void TreatAsString<T>(Func<T, VerifySettings, string>? toString = null)
+        public static void TreatAsString<T>(AsString<T>? toString = null)
         {
             toString ??= (target, _) =>
             {
                 if (target is null)
                 {
-                    return "null";
+                    return new AsStringResult("null");
                 }
 
-                return target.ToString()!;
+                return new AsStringResult(target.ToString()!);
             };
             typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
         }

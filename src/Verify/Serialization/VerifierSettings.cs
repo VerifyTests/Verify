@@ -12,7 +12,7 @@ namespace VerifyTests
     {
         internal static SerializationSettings serialization = new SerializationSettings();
 
-        public static bool TryGetToString<T>(T target, out Func<object, VerifySettings, AsStringResult>? toString)
+        public static bool TryGetToString<T>(T target, out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
         {
             if (target is Type type)
             {
@@ -53,7 +53,7 @@ namespace VerifyTests
             return typeToString.TryGetValue(target!.GetType(), out toString);
         }
 
-        static Dictionary<Type, Func<object, VerifySettings, AsStringResult>> typeToString = new Dictionary<Type, Func<object, VerifySettings, AsStringResult>>
+        static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>>
         {
             #region typeToStringMapping
 

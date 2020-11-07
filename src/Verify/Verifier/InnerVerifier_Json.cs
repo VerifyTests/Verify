@@ -18,7 +18,7 @@ namespace VerifyTests
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                var asStringResult = toString!(target, settings);
+                var asStringResult = toString!(target, settings.Context);
                 if (asStringResult.Extension != null)
                 {
                     settings.UseExtension(asStringResult.Extension);

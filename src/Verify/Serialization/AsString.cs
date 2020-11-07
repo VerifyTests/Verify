@@ -1,4 +1,6 @@
-﻿namespace VerifyTests
+﻿using System.Collections.Generic;
+
+namespace VerifyTests
 {
-    public delegate AsStringResult AsString<in T>(T target, VerifySettings settings);
+    public delegate AsStringResult AsString<in T>(T target, IReadOnlyDictionary<string, object> context);
 }

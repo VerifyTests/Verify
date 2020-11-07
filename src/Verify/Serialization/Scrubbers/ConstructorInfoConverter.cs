@@ -4,7 +4,6 @@ using System.Reflection;
 using Newtonsoft.Json;
 using VerifyTests;
 
-
 class ConstructorInfoConverter :
     WriteOnlyJsonConverter
 {

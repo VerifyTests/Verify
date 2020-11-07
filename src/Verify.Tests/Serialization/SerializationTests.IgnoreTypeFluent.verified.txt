@@ -1,5 +1,5 @@
 {
   ToInclude: {
-    Property: 'Value'
+    Property: Value
   }
 }

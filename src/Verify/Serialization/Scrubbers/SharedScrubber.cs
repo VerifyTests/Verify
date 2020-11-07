@@ -176,7 +176,7 @@ class SharedScrubber
         if (scrubInlineGuids)
         {
             var guids = Regex.Matches(value);
-            if (guids != null && guids.Count > 0)
+            if (guids.Count > 0)
             {
                 result = value;
                 foreach (Match? id in guids)
@@ -188,7 +188,6 @@ class SharedScrubber
                     result = result.Replace(stringGuid, convertedGuid);
                 }
 
-                result = string.Format("{0}{1}{0}", JsonFormatter.QuoteChar, result);
                 return true;
             }
         }

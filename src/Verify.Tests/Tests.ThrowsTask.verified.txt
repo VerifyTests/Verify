@@ -1,4 +1,4 @@
 {
-  Type: 'Exception',
-  Message: 'The Message'
+  Type: Exception,
+  Message: The Message
 }

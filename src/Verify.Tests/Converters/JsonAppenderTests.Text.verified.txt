@@ -1,4 +1,4 @@
 {
-  target: 'Foo',
-  theData: 'theValue'
+  target: Foo,
+  theData: theValue
 }

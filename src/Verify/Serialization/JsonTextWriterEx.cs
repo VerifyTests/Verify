@@ -15,17 +15,6 @@ class JsonTextWriterEx :
 
     public override void WriteValue(string? value)
     {
-        if (value != null)
-        {
-            if (value.Contains("'") && !value.Contains("\""))
-            {
-                QuoteChar = '"';
-                base.WriteValue(value);
-                QuoteChar = JsonFormatter.QuoteChar;
-                return;
-            }
-        }
-
-        base.WriteValue(value);
+        base.WriteRawValue(value);
     }
 }

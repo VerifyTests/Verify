@@ -229,32 +229,9 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task NewLineEscapedInProperty()
+    public Task NewLineNotEscapedInProperty()
     {
-        #region NewLineEscapedInProperty
-
         return Verifier.Verify(new {Property = "a\r\nb\\nc"});
-
-        #endregion
-    }
-
-    [Fact]
-    public async Task NewLineNotEscapedInProperty()
-    {
-        #region DisableNewLineEscaping
-
-        var settings = new VerifySettings();
-        settings.DisableNewLineEscaping();
-        await Verifier.Verify(new {Property = "a\r\nb\\nc"}, settings);
-
-        #endregion
-
-        #region DisableNewLineEscaping
-
-        await Verifier.Verify(new {Property = "a\r\nb\\nc"})
-            .DisableNewLineEscaping();
-
-        #endregion
     }
 
     void List()

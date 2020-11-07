@@ -93,9 +93,9 @@ namespace VerifyTests
             return this;
         }
 
+        [Obsolete("Newline escaping is disabled by default", true)]
         public SettingsTask DisableNewLineEscaping()
         {
-            CurrentSettings.DisableNewLineEscaping();
             return this;
         }
 

@@ -1,6 +1,6 @@
 {
-  Title: 'item Guid_1 - (ID={Guid_1})',
+  Title: item Guid_1 - (ID={Guid_1}),
   Variant: {
-    Id: 'variant id: Guid_1'
+    Id: variant id: Guid_1
   }
 }

@@ -1,14 +1,14 @@
 {
-  Type: 'AggregateException',
+  Type: AggregateException,
   InnerExceptions: [
     {
-      Type: 'Exception',
-      Message: 'The Message1'
+      Type: Exception,
+      Message: The Message1
     },
     {
-      Type: 'Exception',
-      Message: 'The Message2'
+      Type: Exception,
+      Message: The Message2
     }
   ],
-  Message: 'One or more errors occurred.'
+  Message: One or more errors occurred.
 }

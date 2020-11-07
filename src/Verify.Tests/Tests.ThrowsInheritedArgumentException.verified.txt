@@ -1,5 +1,5 @@
 {
-  Type: 'ArgumentNullException',
-  Message: 'The Message',
-  ParamName: 'The parameter'
+  Type: ArgumentNullException,
+  Message: The Message,
+  ParamName: The parameter
 }

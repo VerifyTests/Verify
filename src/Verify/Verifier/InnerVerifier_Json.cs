@@ -62,7 +62,6 @@ namespace VerifyTests
             var json = JsonFormatter.AsJson(
                 target,
                 settings.serialization.currentSettings,
-                settings.IsNewLineEscapingDisabled,
                 appends,
                 settings);
             return VerifyStringBuilder(json);

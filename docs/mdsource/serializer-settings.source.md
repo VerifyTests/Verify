@@ -216,21 +216,6 @@ Result:
 snippet: SerializationTests.ExceptionMessageProp.verified.txt
 
 
-## DisableNewLineEscaping
-
-By default newlines in json are escaped with `\n`:
-
-snippet: NewLineEscapedInProperty
-
-snippet: SerializationTests.NewLineEscapedInProperty.verified.txt
-
-This can be disabled:
-
-snippet: DisableNewLineEscaping
-
-snippet: SerializationTests.NewLineNotEscapedInProperty.verified.txt
-
-
 ## TreatAsString
 
 Certain types, when passed directly in to Verify, are written directly without going through json serialization.

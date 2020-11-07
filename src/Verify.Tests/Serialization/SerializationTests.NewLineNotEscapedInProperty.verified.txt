@@ -1,4 +1,4 @@
 {
-  Property: 'a
-b\nc'
+  Property: a
+b\nc
 }

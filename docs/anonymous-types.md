@@ -112,12 +112,12 @@ Results in the following:
 ```txt
 {
   person1: {
-    GivenNames: 'John',
-    FamilyName: 'Smith'
+    GivenNames: John,
+    FamilyName: Smith
   },
   person2: {
-    GivenNames: 'Marianne',
-    FamilyName: 'Aguirre'
+    GivenNames: Marianne,
+    FamilyName: Aguirre
   }
 }
 ```

@@ -32,8 +32,8 @@ The info file:
 <a id='snippet-ConverterSnippets.Type.info.verified.txt'></a>
 ```txt
 {
-  PixelFormat: 'Format8bppIndexed',
-  Size: '473, 355'
+  PixelFormat: Format8bppIndexed,
+  Size: 473, 355
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.Type.info.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConverterSnippets.Type.info.verified.txt' title='Start of snippet'>anchor</a></sup>

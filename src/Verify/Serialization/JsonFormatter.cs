@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
@@ -8,7 +9,7 @@ static class JsonFormatter
 {
     internal static char QuoteChar = '\'';
 
-    public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, bool newLineEscapingDisabled, List<ToAppend> appends, VerifySettings verifySettings)
+    public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, List<ToAppend> appends, VerifySettings verifySettings)
     {
         if (appends.Any())
         {
@@ -32,7 +33,10 @@ static class JsonFormatter
         var serializer = JsonSerializer.Create(settings);
 
         var builder = new StringBuilder();
-        using var stringWriter = new StringWriterEx(builder, newLineEscapingDisabled);
+        using var stringWriter = new StringWriter(builder)
+        {
+            NewLine = "\n"
+        };
         using var writer = new JsonTextWriterEx(stringWriter, verifySettings.Context)
         {
             QuoteChar = QuoteChar,

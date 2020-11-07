@@ -1,4 +1,4 @@
 ﻿namespace VerifyTests
 {
-    public delegate string AsString<in T>(T target, VerifySettings settings);
+    public delegate AsStringResult AsString<in T>(T target, VerifySettings settings);
 }

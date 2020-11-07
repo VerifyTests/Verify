@@ -18,7 +18,12 @@ namespace VerifyTests
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                await VerifyString(toString!(target, settings));
+                var asStringResult = toString!(target, settings);
+                if (asStringResult.Extension != null)
+                {
+                    settings.UseExtension(asStringResult.Extension);
+                }
+                await VerifyString(asStringResult.Value);
                 return;
             }
 

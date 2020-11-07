@@ -19,6 +19,20 @@ public class Tests
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
 
+
+    [Fact]
+    public Task TreatAsString()
+    {
+        VerifierSettings.TreatAsString<ClassWithToString>(
+            (target, _) => target.Property);
+        return Verifier.Verify(new ClassWithToString {Property = "Foo"});
+    }
+
+    class ClassWithToString
+    {
+        public string Property { get; set; } = null!;
+    }
+
     [Fact]
     public async Task OnVerifyMismatch()
     {

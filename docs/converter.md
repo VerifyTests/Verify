@@ -52,7 +52,7 @@ This sample uses a typed approach. So the converter acts on an in memory instanc
 <a id='snippet-registerfileconvertertype'></a>
 ```cs
 VerifierSettings.RegisterFileConverter<Image>(
-    canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
+    canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
     conversion: (image, settings) =>
     {
         var pages = image.GetFrameCount(FrameDimension.Page);
@@ -64,7 +64,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            streams.Add(new ConversionStream("png",page));
+            streams.Add(new ConversionStream("png", page));
         }
 
         return new ConversionResult(
@@ -85,7 +85,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 using var stream = File.OpenRead("sample.tif");
 await Verifier.Verify(Image.FromStream(stream));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L47-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
@@ -93,9 +93,9 @@ Note that this sample also uses the optional `canConvert` to ensure that only `I
 <!-- snippet: ConverterCanConvert -->
 <a id='snippet-convertercanconvert'></a>
 ```cs
-canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
+canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L19-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L20-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -120,7 +120,7 @@ VerifierSettings.RegisterFileConverter(
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            streams.Add(new ConversionStream("png",page));
+            streams.Add(new ConversionStream("png", page));
         }
 
         return new ConversionResult(
@@ -132,7 +132,7 @@ VerifierSettings.RegisterFileConverter(
             streams);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L56-L83' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L58-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
@@ -140,7 +140,7 @@ VerifierSettings.RegisterFileConverter(
 ```cs
 await Verifier.VerifyFile("sample.tif");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L84-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L88-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

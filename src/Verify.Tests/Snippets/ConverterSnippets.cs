@@ -15,9 +15,10 @@ public class ConverterSnippets
     public async Task Type()
     {
         #region RegisterFileConverterType
+
         VerifierSettings.RegisterFileConverter<Image>(
             #region ConverterCanConvert
-            canConvert: (target, settings) => Equals(target.RawFormat, ImageFormat.Tiff),
+            canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
             #endregion
             conversion: (image, settings) =>
             {
@@ -30,7 +31,7 @@ public class ConverterSnippets
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    streams.Add(new ConversionStream("png",page));
+                    streams.Add(new ConversionStream("png", page));
                 }
 
                 return new ConversionResult(
@@ -41,12 +42,13 @@ public class ConverterSnippets
                     },
                     streams);
             });
-
         #endregion
 
         #region FileConverterTypeVerify
+
         using var stream = File.OpenRead("sample.tif");
         await Verifier.Verify(Image.FromStream(stream));
+
         #endregion
     }
 
@@ -54,6 +56,7 @@ public class ConverterSnippets
     public async Task Extension()
     {
         #region RegisterFileConverterExtension
+
         VerifierSettings.RegisterFileConverter(
             fromExtension: "tif",
             conversion: (stream, settings) =>
@@ -68,7 +71,7 @@ public class ConverterSnippets
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    streams.Add(new ConversionStream("png",page));
+                    streams.Add(new ConversionStream("png", page));
                 }
 
                 return new ConversionResult(
@@ -81,8 +84,11 @@ public class ConverterSnippets
             });
 
         #endregion
+
         #region FileConverterExtensionVerify
+
         await Verifier.VerifyFile("sample.tif");
+
         #endregion
     }
 }

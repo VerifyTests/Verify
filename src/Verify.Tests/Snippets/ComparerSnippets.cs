@@ -1,4 +1,5 @@
 ﻿#if DEBUG
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
@@ -44,9 +45,9 @@ public class ComparerSnippets
     #region ImageComparer
 
     static Task<CompareResult> CompareImages(
-        VerifySettings settings,
         Stream received,
-        Stream verified)
+        Stream verified,
+        IReadOnlyDictionary<string, object> context)
     {
         // Fake comparison
         if (received.Length == verified.Length)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Newtonsoft.Json;
 using VerifyTests;
 
@@ -21,12 +22,13 @@ class GuidConverter :
         }
 
         var guid = (Guid) value;
-        if(scrubber.TryConvert(guid, out var result))
+        if (scrubber.TryConvert(guid, out var result))
         {
             writer.WriteRawValue(result);
             return;
         }
-        writer.WriteValue(guid);
+
+        writer.WriteRawValue(guid.ToString("D", CultureInfo.InvariantCulture));
     }
 
     public override bool CanConvert(Type type)

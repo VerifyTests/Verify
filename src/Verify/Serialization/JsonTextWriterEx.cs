@@ -15,6 +15,11 @@ class JsonTextWriterEx :
 
     public override void WriteValue(string? value)
     {
+        if (value != null && value.Contains("\n"))
+        {
+            base.WriteRawValue($"\n{value}");
+            return;
+        }
         base.WriteRawValue(value);
     }
 }

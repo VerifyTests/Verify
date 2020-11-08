@@ -20,6 +20,12 @@ public class Tests
     }
 
     [Fact]
+    public Task WithNewline()
+    {
+        return Verifier.Verify(new {Property = "F\roo"});
+    }
+
+    [Fact]
     public Task TreatAsString()
     {
         VerifierSettings.TreatAsString<ClassWithToString>(

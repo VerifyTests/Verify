@@ -27,8 +27,7 @@ class StringConverter :
             return;
         }
 
-        var replace = valueAsString.Replace("\r\n", "\n").Replace("\r", "\n");
-        writer.WriteValue(replace);
+        writer.WriteValue(valueAsString);
     }
 
     public override bool CanRead => false;

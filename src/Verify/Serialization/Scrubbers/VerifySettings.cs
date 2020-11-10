@@ -30,6 +30,14 @@ namespace VerifyTests
             instanceScrubbers.Insert(0, s => s.RemoveLinesContaining(comparison, stringToMatch));
         }
 
+        //TODO: should only do this when it is a string.
+        //and instead pass a bool to the json serializer for the object scenario
+        //Same for the static
+        public void ScrubInlineGuids()
+        {
+            instanceScrubbers.Insert(0, GuidScrubber.ReplaceGuids);
+        }
+
         public void ScrubLines(Func<string, bool> removeLine)
         {
             instanceScrubbers.Insert(0, s => s.FilterLines(removeLine));

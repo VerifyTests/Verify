@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 class SharedScrubber
@@ -61,7 +60,7 @@ class SharedScrubber
         return true;
     }
 
-    static string Convert(Guid guid)
+    public static string Convert(Guid guid)
     {
         var next = intOrNextGuid(guid);
         return $"Guid_{next}";
@@ -168,28 +167,12 @@ class SharedScrubber
         return false;
     }
 
-    static readonly string GuidPattern = @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b";
-    static readonly Regex Regex = new Regex(GuidPattern, RegexOptions.IgnoreCase);
 
     public bool TryParsePartialGuids(string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubInlineGuids)
         {
-            var guids = Regex.Matches(value);
-            if (guids.Count > 0)
-            {
-                result = value;
-                foreach (Match? id in guids)
-                {
-                    var stringGuid = id!.Value;
-                    var guid = Guid.Parse(stringGuid);
-                    var convertedGuid = Convert(guid);
-
-                    result = result.Replace(stringGuid, convertedGuid);
-                }
-
-                return true;
-            }
+            return GuidScrubber.TryReplaceGuids(value, Convert, out result);
         }
 
         result = null;

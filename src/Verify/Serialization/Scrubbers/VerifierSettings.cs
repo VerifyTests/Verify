@@ -30,6 +30,11 @@ namespace VerifyTests
             GlobalScrubbers.Insert(0, s => s.FilterLines(removeLine));
         }
 
+        public static void ScrubInlineGuids()
+        {
+            GlobalScrubbers.Insert(0, GuidScrubber.ReplaceGuids);
+        }
+
         public static void ScrubLinesWithReplace(Func<string, string> replaceLine)
         {
             GlobalScrubbers.Insert(0, s => s.ReplaceLines(replaceLine));

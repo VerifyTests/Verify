@@ -167,6 +167,14 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ShouldBeAbleToExcludeInlineGuidsInString()
+    {
+        var id = Guid.NewGuid();
+        return Verifier.Verify($"The string {id} ")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
     public Task ShouldBeAbleToExcludeInlineGuids()
     {
         var id = Guid.NewGuid();
@@ -180,7 +188,7 @@ public class SerializationTests
         };
 
         return Verifier.Verify(product)
-            .ModifySerialization(_ => { _.ScrubInlineGuids(); });
+            .ScrubInlineGuids();
     }
 
     void DontIgnoreEmptyCollections()
@@ -205,7 +213,7 @@ public class SerializationTests
     {
         #region ScrubInlineGuids
 
-        VerifierSettings.ModifySerialization(_ => _.ScrubInlineGuids());
+        VerifierSettings.ScrubInlineGuids();
 
         #endregion
     }

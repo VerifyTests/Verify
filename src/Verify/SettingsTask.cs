@@ -33,6 +33,13 @@ namespace VerifyTests
             CurrentSettings.AddScrubber(scrubber);
             return this;
         }
+
+        public SettingsTask ScrubInlineGuids()
+        {
+            CurrentSettings.ScrubInlineGuids();
+            return this;
+        }
+
         public SettingsTask OnFirstVerify(FirstVerify firstVerify)
         {
             CurrentSettings.OnFirstVerify(firstVerify);

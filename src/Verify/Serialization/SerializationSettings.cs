@@ -228,6 +228,7 @@ namespace VerifyTests
 
         bool scrubInlineGuids;
 
+        [Obsolete("Use VerifySettings.ScrubInlineGuids")]
         public void ScrubInlineGuids()
         {
             scrubInlineGuids = true;

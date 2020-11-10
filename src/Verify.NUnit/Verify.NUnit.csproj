@@ -10,15 +10,13 @@
     <Content Include="buildMultiTargeting.targets" PackagePath="buildMultiTargeting\Verify.NUnit.targets" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="All" />
-    <PackageReference Include="EmptyFiles" Version="2.1.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="2.3.0" PrivateAssets="None" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.47" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces"
-                      Version="5.0.0"
-                      Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,12 @@ toc
 
 ## Not valid json
 
-Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+Note that the output is technically not valid json.
+
+ * Names and values are not quoted.
+ * Newlines are not escaped.
+
+The reason for these is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
 ## Default settings
@@ -19,13 +24,6 @@ Note that the output is technically not valid json. [Single quotes are used](doc
 The default serialization settings are:
 
 snippet: defaultSerialization
-
-
-## Custom quotes handling
-
-[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
-
-If a string being serialized contains single quotes `'`, and does not contain double quotes `"`, then JsonTextWriter.QuoteChar will be double quotes `"`.
 
 
 ## QuoteName is false

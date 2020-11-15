@@ -18,7 +18,6 @@ Serialization settings can be customized at three levels:
 
   * [Not valid json](#not-valid-json)
   * [Default settings](#default-settings)
-  * [Custom quotes handling](#custom-quotes-handling)
   * [QuoteName is false](#quotename-is-false)
   * [Empty collections are ignored](#empty-collections-are-ignored)
   * [Guids are scrubbed](#guids-are-scrubbed)
@@ -42,7 +41,12 @@ Serialization settings can be customized at three levels:
 
 ## Not valid json
 
-Note that the output is technically not valid json. [Single quotes are used](docs/serializer-settings.md#single-quotes-used) and [names are not quoted](docs/serializer-settings.md#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+Note that the output is technically not valid json.
+
+ * Names and values are not quoted.
+ * Newlines are not escaped.
+
+The reason for these is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
 ## Default settings
@@ -61,13 +65,6 @@ var settings = new JsonSerializerSettings
 ```
 <sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L163-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-## Custom quotes handling
-
-[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.
-
-If a string being serialized contains single quotes `'`, and does not contain double quotes `"`, then JsonTextWriter.QuoteChar will be double quotes `"`.
 
 
 ## QuoteName is false

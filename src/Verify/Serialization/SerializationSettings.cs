@@ -69,6 +69,15 @@ namespace VerifyTests
             ignoredByNameMembers.Add(name);
         }
 
+        public void IgnoreMembers(params string[] names)
+        {
+            Guard.AgainstNullOrEmpty(names, nameof(names));
+            foreach (var name in names)
+            {
+                IgnoreMember(name);
+            }
+        }
+
         public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         {
             Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));

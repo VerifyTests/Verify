@@ -9,7 +9,7 @@ using Xunit;
 public class FileAppenderTests :
     IDisposable
 {
-    static AsyncLocal<bool> isInThisTest = new AsyncLocal<bool>();
+    static AsyncLocal<bool> isInThisTest = new();
 
     static FileAppenderTests()
     {

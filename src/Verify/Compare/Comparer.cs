@@ -48,7 +48,7 @@ static class Comparer
 
     static MemoryStream MemoryStream(string text)
     {
-        return new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(text));
+        return new(FileHelpers.Utf8NoBOM.GetBytes(text));
     }
 
     public static async Task<EqualityResult> Streams(

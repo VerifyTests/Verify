@@ -7,7 +7,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new Dictionary<string, AsyncConversion<Stream>>();
+        static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new();
 
         internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter)
         {

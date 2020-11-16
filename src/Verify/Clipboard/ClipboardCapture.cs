@@ -6,8 +6,8 @@ using TextCopy;
 
 static class ClipboardCapture
 {
-    static StringBuilder builder = new StringBuilder();
-    static SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+    static StringBuilder builder = new();
+    static SemaphoreSlim semaphore = new(1, 1);
 
     static string moveCommand;
     static string deleteCommand;

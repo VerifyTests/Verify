@@ -29,7 +29,7 @@ namespace VerifyTests
 
             var builders = new List<ResultBuilder>
             {
-                new ResultBuilder(extension, file => Comparer.Text(file, target, settings))
+                new(extension, file => Comparer.Text(file, target, settings))
             };
 
             builders.AddRange(VerifierSettings.GetFileAppenders(settings)

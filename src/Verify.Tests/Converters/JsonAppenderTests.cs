@@ -8,7 +8,7 @@ using Xunit;
 [UsesVerify]
 public class JsonAppenderTests : IDisposable
 {
-    static AsyncLocal<bool> isInThisTest = new AsyncLocal<bool>();
+    static AsyncLocal<bool> isInThisTest = new();
 
     static JsonAppenderTests()
     {

@@ -22,13 +22,13 @@ namespace VerifyTests
             currentSettings = BuildSettings();
         }
 
-        Dictionary<Type, List<string>> ignoredMembers = new Dictionary<Type, List<string>>();
-        List<string> ignoredByNameMembers = new List<string>();
-        Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new Dictionary<Type, List<Func<object, bool>>>();
+        Dictionary<Type, List<string>> ignoredMembers = new();
+        List<string> ignoredByNameMembers = new();
+        Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
 
         public SerializationSettings Clone()
         {
-            return new SerializationSettings
+            return new()
             {
                 ignoredMembers = ignoredMembers.Clone(),
                 ignoredByNameMembers = ignoredByNameMembers.Clone(),
@@ -104,14 +104,14 @@ namespace VerifyTests
             list.Add(shouldIgnore);
         }
 
-        List<Type> ignoreMembersWithType = new List<Type>();
+        List<Type> ignoreMembersWithType = new();
 
         public void IgnoreMembersWithType<T>()
         {
             ignoreMembersWithType.Add(typeof(T));
         }
 
-        List<Func<Exception, bool>> ignoreMembersThatThrow = new List<Func<Exception, bool>>();
+        List<Func<Exception, bool>> ignoreMembersThatThrow = new();
 
         public void IgnoreMembersThatThrow<T>()
             where T : Exception
@@ -220,7 +220,7 @@ namespace VerifyTests
             ExtraSettings.Add(action);
         }
 
-        List<Action<JsonSerializerSettings>> ExtraSettings = new List<Action<JsonSerializerSettings>>();
+        List<Action<JsonSerializerSettings>> ExtraSettings = new();
         internal JsonSerializerSettings currentSettings;
 
         internal void RegenSettings()

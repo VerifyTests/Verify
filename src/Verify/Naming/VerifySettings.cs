@@ -2,7 +2,7 @@
 {
     public partial class VerifySettings
     {
-        internal Namer Namer = new Namer();
+        internal Namer Namer = new();
 
         public void UniqueForAssemblyConfiguration()
         {

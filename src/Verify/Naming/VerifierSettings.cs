@@ -5,8 +5,8 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        internal static Namer SharedNamer = new Namer();
-        static Dictionary<Type, Func<object, string>> parameterToNameLookup = new Dictionary<Type, Func<object, string>>();
+        internal static Namer SharedNamer = new();
+        static Dictionary<Type, Func<object, string>> parameterToNameLookup = new();
 
         public static void UniqueForRuntime()
         {

@@ -4,7 +4,7 @@ using System.Threading;
 abstract class Counter<T>
     where T : struct
 {
-    ConcurrentDictionary<T, int> cache = new ConcurrentDictionary<T, int>();
+    ConcurrentDictionary<T, int> cache = new();
     int current;
 
     protected abstract T Convert(int i);

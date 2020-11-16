@@ -10,10 +10,10 @@ namespace VerifyTests
 {
     public static class TypeNameConverter
     {
-        static Dictionary<Type, string> cacheDictionary = new Dictionary<Type, string>();
-        static Dictionary<ICustomAttributeProvider, string> infoCache = new Dictionary<ICustomAttributeProvider, string>();
+        static Dictionary<Type, string> cacheDictionary = new();
+        static Dictionary<ICustomAttributeProvider, string> infoCache = new();
 
-        static CSharpCodeProvider codeDomProvider = new CSharpCodeProvider();
+        static CSharpCodeProvider codeDomProvider = new();
 
         public static string GetName(Type type)
         {

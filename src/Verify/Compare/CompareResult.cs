@@ -20,11 +20,11 @@ namespace VerifyTests
             Message = null;
         }
 
-        public static CompareResult Equal = new CompareResult(true);
+        public static CompareResult Equal = new(true);
 
         public static CompareResult NotEqual(in string? message = null)
         {
-            return new CompareResult(false, message);
+            return new(false, message);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static List<JsonAppender> jsonAppenders = new List<JsonAppender>();
+        static List<JsonAppender> jsonAppenders = new();
 
         internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
         {

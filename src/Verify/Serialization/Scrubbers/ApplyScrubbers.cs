@@ -7,7 +7,7 @@ using VerifyTests;
 
 static class ApplyScrubbers
 {
-    static HashSet<string> currentDirectoryReplacements = new HashSet<string>();
+    static HashSet<string> currentDirectoryReplacements = new();
     static string tempPath;
 
     static ApplyScrubbers()

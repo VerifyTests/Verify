@@ -13,7 +13,7 @@
 
         public static implicit operator AsStringResult(string value)
         {
-            return new AsStringResult(value);
+            return new(value);
         }
     }
 }

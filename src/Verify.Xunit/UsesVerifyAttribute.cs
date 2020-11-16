@@ -10,7 +10,7 @@ namespace VerifyXunit
     public class UsesVerifyAttribute :
         BeforeAfterTestAttribute
     {
-        static AsyncLocal<MethodInfo?> local = new AsyncLocal<MethodInfo?>();
+        static AsyncLocal<MethodInfo?> local = new();
 
         public override void Before(MethodInfo info)
         {

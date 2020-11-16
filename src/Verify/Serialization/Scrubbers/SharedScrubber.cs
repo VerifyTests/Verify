@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 
 class SharedScrubber
 {
-    internal static List<string> datetimeFormats = new List<string>();
-    internal static List<string> datetimeOffsetFormats = new List<string>();
+    internal static List<string> datetimeFormats = new();
+    internal static List<string> datetimeOffsetFormats = new();
     bool scrubInlineGuids;
     bool scrubGuids;
     bool scrubDateTimes;

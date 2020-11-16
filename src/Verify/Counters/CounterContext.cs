@@ -4,10 +4,10 @@
 
  class CounterContext
  {
-     static AsyncLocal<CounterContext?> local = new AsyncLocal<CounterContext?>();
-     GuidCounter GuidCounter = new GuidCounter();
-     DateTimeOffsetCounter DateTimeOffsetCounter = new DateTimeOffsetCounter();
-     DateTimeCounter DateTimeCounter = new DateTimeCounter();
+     static AsyncLocal<CounterContext?> local = new();
+     GuidCounter GuidCounter = new();
+     DateTimeOffsetCounter DateTimeOffsetCounter = new();
+     DateTimeCounter DateTimeCounter = new();
 
      public static CounterContext Current
      {

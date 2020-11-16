@@ -5,7 +5,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static Dictionary<string, Compare> comparers = new Dictionary<string, Compare>();
+        static Dictionary<string, Compare> comparers = new();
 
         internal static bool TryGetComparer(string extension, [NotNullWhen(true)] out Compare? comparer)
         {

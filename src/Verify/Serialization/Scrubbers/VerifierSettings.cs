@@ -6,7 +6,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        internal static List<Action<StringBuilder>> GlobalScrubbers = new List<Action<StringBuilder>>();
+        internal static List<Action<StringBuilder>> GlobalScrubbers = new();
 
         public static void AddScrubber(Action<StringBuilder> scrubber)
         {

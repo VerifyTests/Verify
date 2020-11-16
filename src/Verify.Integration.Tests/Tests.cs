@@ -42,8 +42,8 @@ public partial class Tests :
                 split.Info,
                 new List<ConversionStream>
                 {
-                    new ConversionStream("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
-                    new ConversionStream("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
+                    new("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
+                    new("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }

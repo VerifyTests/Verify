@@ -6,7 +6,7 @@ namespace VerifyTests
 {
     public partial class VerifySettings
     {
-        internal List<Action<StringBuilder>> instanceScrubbers = new List<Action<StringBuilder>>();
+        internal List<Action<StringBuilder>> instanceScrubbers = new();
 
         public void ScrubMachineName()
         {

@@ -9,5 +9,5 @@
         Message = message;
     }
 
-    public static implicit operator EqualityResult(Equality equality) => new EqualityResult(equality);
+    public static implicit operator EqualityResult(Equality equality) => new(equality);
 }

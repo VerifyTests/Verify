@@ -37,7 +37,7 @@ namespace VerifyTests
 
                 var streams = new List<ConversionStream>
                 {
-                    new ConversionStream(extension, stream)
+                    new(extension, stream)
                 };
                 await VerifyBinary(streams, extension, null, null);
             }

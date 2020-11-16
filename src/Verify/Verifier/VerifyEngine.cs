@@ -12,9 +12,9 @@ using VerifyTests;
 class VerifyEngine
 {
     VerifySettings settings;
-    List<FilePair> missings = new List<FilePair>();
-    List<(FilePair filePair, string? message)> notEquals = new List<(FilePair, string?)>();
-    List<FilePair> equals = new List<FilePair>();
+    List<FilePair> missings = new();
+    List<(FilePair filePair, string? message)> notEquals = new();
+    List<FilePair> equals = new();
     List<string> danglingVerified;
 
     public VerifyEngine(

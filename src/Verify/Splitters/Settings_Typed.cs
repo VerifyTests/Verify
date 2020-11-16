@@ -7,7 +7,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static List<TypeConverter> typedConverters = new List<TypeConverter>();
+        static List<TypeConverter> typedConverters = new();
 
         internal static bool TryGetTypedConverter<T>(
             T target,

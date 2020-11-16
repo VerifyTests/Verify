@@ -27,7 +27,7 @@ namespace VerifyTests
             Cleanup = cleanup;
             Streams = new List<ConversionStream>
             {
-                new ConversionStream(streamExtension, stream)
+                new(streamExtension, stream)
             };
         }
 
@@ -39,7 +39,7 @@ namespace VerifyTests
             Cleanup = cleanup;
             Streams = new List<ConversionStream>
             {
-                new ConversionStream(streamExtension, data)
+                new(streamExtension, data)
             };
         }
     }

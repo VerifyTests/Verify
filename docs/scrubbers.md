@@ -30,7 +30,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L249-L253' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L311-L315' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -45,7 +45,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L255-L259' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L317-L321' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (StringComparison.OrdinalIgnoreCase).
@@ -57,7 +57,7 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L261-L265' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L323-L327' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -72,7 +72,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L267-L271' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L329-L333' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -85,7 +85,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L273-L277' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L335-L339' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

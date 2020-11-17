@@ -369,9 +369,9 @@ Result:
 <a id='snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt'></a>
 ```txt
 {
+  $type: VerifyObjectSamples.Person,
   GivenNames: John,
-  FamilyName: Smith,
-  Dob: '\/Date(970358400000+0000)\/'
+  FamilyName: Smith
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/VerifyObjectSamples.ScopedSerializer.verified.txt' title='Start of snippet'>anchor</a></sup>

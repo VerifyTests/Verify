@@ -63,6 +63,38 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task DatetimeOffsetScrubbingDisabled()
+    {
+        return Verifier.Verify(new
+            {
+                noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
+                withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
+            })
+            .ModifySerialization(settings => settings.DontScrubDateTimes());
+    }
+
+    [Fact]
+    public Task DatetimeScrubbingDisabled()
+    {
+        return Verifier.Verify(new
+            {
+                noTime = new DateTime(2000, 1, 1),
+                withTime = new DateTime(2000, 1, 1, 1, 1, 1)
+            })
+            .ModifySerialization(settings => settings.DontScrubDateTimes());
+    }
+
+    [Fact]
+    public Task GuidScrubbingDisabled()
+    {
+        return Verifier.Verify(new
+            {
+                value = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e")
+            })
+            .ModifySerialization(settings => settings.DontScrubGuids());
+    }
+
+    [Fact]
     public Task ScrubberWithBadNewLine()
     {
         return Verifier.Verify("a")
@@ -70,6 +102,36 @@ public class SerializationTests
             {
                 s.AppendLine("b");
                 s.AppendLine("c");
+            });
+    }
+
+    [Fact]
+    public Task Uri()
+    {
+        return Verifier.Verify(
+            new
+            {
+                uri = new Uri("http://foo")
+            });
+    }
+
+    [Fact]
+    public Task Timespan()
+    {
+        return Verifier.Verify(
+            new
+            {
+                timespan = TimeSpan.FromDays(1)
+            });
+    }
+
+    [Fact]
+    public Task ByteArray()
+    {
+        return Verifier.Verify(
+            new
+            {
+                bytes = new byte[] {1}
             });
     }
 
@@ -1044,15 +1106,12 @@ public class SerializationTests
         var person = new Person
         {
             GivenNames = "John",
-            FamilyName = "Smith",
-            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+            FamilyName = "Smith"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(
-            _ => _.DontScrubDateTimes());
         settings.AddExtraSettings(
-            _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
-        return Verifier.Verify(person);
+            _ => { _.TypeNameHandling = TypeNameHandling.All; });
+        return Verifier.Verify(person, settings);
     }
 
     [Fact]
@@ -1061,14 +1120,11 @@ public class SerializationTests
         var person = new Person
         {
             GivenNames = "John",
-            FamilyName = "Smith",
-            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+            FamilyName = "Smith"
         };
         return Verifier.Verify(person)
-            .ModifySerialization(
-                _ => _.DontScrubDateTimes())
             .AddExtraSettings(
-                _ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; });
+                _ => { _.TypeNameHandling = TypeNameHandling.All; });
     }
 
     #endregion

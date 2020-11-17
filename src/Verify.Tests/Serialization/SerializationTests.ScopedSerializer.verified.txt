@@ -1,5 +1,5 @@
 {
+  $type: Person,
   GivenNames: John,
-  FamilyName: Smith,
-  Dob: DateTimeOffset_1
+  FamilyName: Smith
 }

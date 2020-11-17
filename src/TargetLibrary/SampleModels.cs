@@ -5,7 +5,7 @@ using System.Collections.Generic;
 #pragma warning disable CS8618
 public class Person
 {
-    public string GivenNames;
+    public string? GivenNames;
     public string FamilyName;
     public string Spouse;
     public Address Address;

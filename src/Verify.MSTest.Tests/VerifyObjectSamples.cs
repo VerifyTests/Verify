@@ -53,8 +53,7 @@ public class VerifyObjectSamples :
             Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.DontScrubDateTimes());
-        settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
+        settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         await Verify(person, settings);
     }
 

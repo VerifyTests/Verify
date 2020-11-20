@@ -12,6 +12,19 @@ snippet: AppVeyorArtifacts
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).
 
+### GitHub Actions
+
+Use a `if: failure()` condition to upload any `*.received` files if the build fails.
+
+```yaml
+- name: Upload Test Results
+  if: failure()
+  uses: actions/upload-artifact@v2
+  with:
+    name: verify-test-results
+    path: |
+      **/*.received.*
+```
 
 ## Custom Test directory
 

@@ -27,7 +27,16 @@ static class TestNameBuilder
 
     public static string GetUniqueTestName(string className, MethodInfo method, IReadOnlyList<object?>? parameterValues)
     {
-        var name = $"{className}.{method.Name}";
+        string name;
+        if (method.DeclaringType!.IsNested)
+        {
+            name = $"{className}.{method.DeclaringType.Name}.{method.Name}";
+        }
+        else
+        {
+            name = $"{className}.{method.Name}";
+        }
+
         if (parameterValues == null || !parameterValues.Any())
         {
             return name;

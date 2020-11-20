@@ -9,16 +9,16 @@ public class NoAttributeTests
     public async Task ShouldThrow()
     {
         var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("Foo"));
-        Assert.Equal("Expected to find a `[UsesVerify]` on `MisNamedTests`.", exception.Message);
+        Assert.Equal("Expected to find a `[UsesVerify]` on test class. File: MisNamedTests.cs.", exception.Message);
     }
-}
 
-[UsesVerify]
-public class WithAttributeTests
-{
-    [Fact]
-    public Task ShouldPass()
+    public class Nested
     {
-        return Verifier.Verify("Foo");
+        [Fact]
+        public async Task ShouldThrow()
+        {
+            var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("Foo"));
+            Assert.Equal("Expected to find a `[UsesVerify]` on test class. File: MisNamedTests.cs.", exception.Message);
+        }
     }
 }

@@ -82,6 +82,21 @@ public class Snippets
     {
         #region DeriveTestDirectory
 
+        VerifierSettings.DeriveTestDirectory(
+            (sourceFile, projectDirectory) =>
+            {
+                var snapshotsDirectory = Path.Combine(projectDirectory, "Snapshots");
+                Directory.CreateDirectory(snapshotsDirectory);
+                return Path.Combine(snapshotsDirectory);
+            });
+
+        #endregion
+    }
+
+    void DeriveTestDirectoryAppVeyor()
+    {
+        #region DeriveTestDirectoryAppVeyor
+
         if (BuildServerDetector.Detected)
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;

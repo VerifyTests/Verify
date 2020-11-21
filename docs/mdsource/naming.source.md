@@ -76,3 +76,17 @@ snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml
 To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 
 snippet: AccessNamerRuntimeAndVersion
+
+
+## DeriveTestDirectory
+
+DeriveTestDirectory allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
+
+ * `sourceFile`: The full path to the file that the test existed in at compile time.
+ * `projectDirectory`: The directory that the project existed in at compile time.
+
+Foe example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
+
+snippet: DeriveTestDirectory
+
+DeriveTestDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)

@@ -30,7 +30,7 @@ Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/re
 
 ## Custom Test directory
 
-In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using [DeriveTestDirectory](naming.source.md#derivetestdirectory).
+In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using [DeriveTestDirectory](naming.md#derivetestdirectory).
 
 For example a possible implementation for [AppVeyor](https://www.appveyor.com/) could be:
 

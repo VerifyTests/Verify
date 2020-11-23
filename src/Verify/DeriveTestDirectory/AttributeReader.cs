@@ -2,7 +2,7 @@
 using System.Reflection;
 using VerifyTests;
 
-static class ProjectDirectoryReader
+static class AttributeReader
 {
     public static string GetProjectDirectory(Assembly assembly)
     {
@@ -15,5 +15,13 @@ static class ProjectDirectoryReader
         }
 
         throw InnerVerifier.exceptionBuilder("Could not find a `AssemblyMetadataAttribute` named `Verify.ProjectDirectory`.");
+    }
+
+    public static bool TryGetSolutionDirectory(Assembly assembly, out string? solutionDirectory)
+    {
+        solutionDirectory = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .SingleOrDefault(x => x.Key == "Verify.SolutionDirectory")
+            ?.Value;
+        return solutionDirectory != null;
     }
 }

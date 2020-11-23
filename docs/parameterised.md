@@ -33,7 +33,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 [InlineData("Value2")]
 public Task InlineDataUsage(string arg)
 {
-    var settings = new VerifySettings();
+    VerifySettings settings = new();
     settings.UseParameters(arg);
     return Verifier.Verify(arg, settings);
 }
@@ -60,7 +60,7 @@ public Task InlineDataUsageFluent(string arg)
 [MemberData(nameof(GetData))]
 public Task MemberDataUsage(string arg)
 {
-    var settings = new VerifySettings();
+    VerifySettings settings = new();
     settings.UseParameters(arg);
     return Verifier.Verify(arg, settings);
 }
@@ -103,7 +103,7 @@ public class ComplexParametersSample
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseParameters(arg);
         return Verifier.Verify(arg, settings);
     }

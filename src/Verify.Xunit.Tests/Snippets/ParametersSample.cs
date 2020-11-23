@@ -14,7 +14,7 @@ public class ParametersSample
     [InlineData("Value2")]
     public Task InlineDataUsage(string arg)
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseParameters(arg);
         return Verifier.Verify(arg, settings);
     }
@@ -36,7 +36,7 @@ public class ParametersSample
     [MemberData(nameof(GetData))]
     public Task MemberDataUsage(string arg)
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseParameters(arg);
         return Verifier.Verify(arg, settings);
     }

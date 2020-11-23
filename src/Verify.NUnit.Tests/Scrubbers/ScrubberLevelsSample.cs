@@ -12,7 +12,7 @@ public class ScrubberLevelsSample
 
     public ScrubberLevelsSample()
     {
-        classLevelSettings = new VerifySettings();
+        classLevelSettings = new();
         classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 

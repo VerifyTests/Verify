@@ -56,7 +56,7 @@ public class ComparerTests
     {
         var stringOne = await received.ReadString();
         var stringTwo = await verified.ReadString();
-        return new CompareResult(string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase));
+        return new(string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase));
     }
 
     static Task<CompareResult> CompareWithMessage(Stream stream, Stream received, IReadOnlyDictionary<string, object> readOnlyDictionary)

@@ -14,7 +14,7 @@ public class VerifyObjectSamples
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerificationXunit
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ModifySerialization(_ =>
         {
             _.DontIgnoreEmptyCollections();
@@ -29,12 +29,12 @@ public class VerifyObjectSamples
     [Fact]
     public async Task ScopedSerializer()
     {
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
         };
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         await Verifier.Verify(person, settings);
     }
@@ -43,12 +43,12 @@ public class VerifyObjectSamples
     {
         #region Before
 
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Address = new Address
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Country = "USA"
@@ -64,12 +64,12 @@ public class VerifyObjectSamples
     [Fact]
     public async Task Anon()
     {
-        var person1 = new Person
+        Person person1 = new()
         {
             GivenNames = "John",
             FamilyName = "Smith"
         };
-        var person2 = new Person
+        Person person2 = new()
         {
             GivenNames = "Marianne",
             FamilyName = "Aguirre"
@@ -88,12 +88,12 @@ public class VerifyObjectSamples
     {
         #region After
 
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Address = new Address
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Suburb = "Gotham",

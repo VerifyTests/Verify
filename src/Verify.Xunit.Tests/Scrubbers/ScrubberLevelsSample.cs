@@ -12,14 +12,14 @@ public class ScrubberLevelsSample
 
     public ScrubberLevelsSample()
     {
-        classLevelSettings = new VerifySettings();
+        classLevelSettings = new();
         classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 
     [Fact]
     public Task Usage()
     {
-        var settings = new VerifySettings(classLevelSettings);
+        VerifySettings settings = new(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
         return Verifier.Verify("One Two Three", settings);
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace VerifyTests
 {
@@ -14,7 +13,7 @@ namespace VerifyTests
                 return;
             }
 
-            instanceScrubbers = new List<Action<StringBuilder>>(settings.instanceScrubbers);
+            instanceScrubbers = new(settings.instanceScrubbers);
             extension = settings.extension;
             clipboardEnabled = settings.clipboardEnabled;
             diffEnabled = settings.diffEnabled;
@@ -23,7 +22,7 @@ namespace VerifyTests
             handleOnFirstVerify = settings.handleOnFirstVerify;
             handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
             comparer = settings.comparer;
-            Namer = new Namer(settings.Namer);
+            Namer = new(settings.Namer);
             foreach (var pair in settings.Context)
             {
                 if (pair.Value is ICloneable cloneable)

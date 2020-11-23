@@ -50,7 +50,7 @@ public class VerifyObjectSamples :
         {
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+            Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
         VerifySettings settings = new();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
@@ -66,7 +66,7 @@ public class VerifyObjectSamples :
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Address = new Address
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Country = "USA"

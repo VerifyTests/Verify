@@ -104,7 +104,7 @@ class CustomContractResolver :
             var type = Type.GetType(value);
             if (type == null)
             {
-                throw new Exception($"Could not load type `{value}`.");
+                throw new($"Could not load type `{value}`.");
             }
 
             return TypeNameConverter.GetName(type);

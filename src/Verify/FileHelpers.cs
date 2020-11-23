@@ -8,7 +8,7 @@ static class FileHelpers
 
     public static void DeleteIfEmpty(string path)
     {
-        var fileInfo = new FileInfo(path);
+        FileInfo fileInfo = new(path);
         if (fileInfo.Exists && fileInfo.Length == 0)
         {
             fileInfo.Delete();

@@ -14,7 +14,7 @@ public class ParametersSample :
     [DataRow("Value2")]
     public Task DataRowUsage(string arg)
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseParameters(arg);
         return Verify(arg, settings);
     }

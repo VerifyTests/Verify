@@ -19,7 +19,7 @@ This can be done using `AutoVerify()`:
 <!-- snippet: AutoVerify -->
 <a id='snippet-autoverify'></a>
 ```cs
-var settings = new VerifySettings();
+VerifySettings settings = new();
 settings.AutoVerify();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
@@ -39,7 +39,7 @@ Note that auto accepted changes in `.verified.` files remain visible in source c
 ```cs
 public async Task OnHandlersSample()
 {
-    var settings = new VerifySettings();
+    VerifySettings settings = new();
     settings.OnFirstVerify(
         receivedFile =>
         {

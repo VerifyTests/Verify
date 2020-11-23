@@ -79,7 +79,7 @@ class VerifyEngine
             return;
         }
 
-        var builder = new StringBuilder("Results do not match.");
+        StringBuilder builder = new("Results do not match.");
         builder.AppendLine();
         if (message != null)
         {

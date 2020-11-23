@@ -17,7 +17,7 @@ public class SimpleTypeTests
     [MemberData(nameof(GetData))]
     public Task Run(object arg)
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseParameters(arg.GetType());
         return Verifier.Verify(arg, settings);
     }
@@ -79,7 +79,7 @@ public class SimpleTypeTests
 <body>
     <node>text</node>
 </body>";
-        var xmlDocument = new XmlDocument();
+        XmlDocument xmlDocument = new();
         xmlDocument.LoadXml(xml);
         yield return new object[] {xmlDocument};
         var xDocument = XDocument.Parse(xml);

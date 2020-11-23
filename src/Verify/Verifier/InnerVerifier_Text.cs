@@ -10,7 +10,7 @@ namespace VerifyTests
         Task VerifyString(string target)
         {
             var appenders = VerifierSettings.GetJsonAppenders(settings);
-            var builder = new StringBuilder(target);
+            StringBuilder builder = new(target);
             builder.FixNewlines();
             if (appenders.Any())
             {
@@ -25,9 +25,9 @@ namespace VerifyTests
             var extension = settings.ExtensionOrTxt();
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
 
-            var engine = new VerifyEngine(extension, settings, directory, testName, assembly);
+            VerifyEngine engine = new(extension, settings, directory, testName, assembly);
 
-            var builders = new List<ResultBuilder>
+            List<ResultBuilder> builders = new()
             {
                 new(extension, file => Comparer.Text(file, target, settings))
             };

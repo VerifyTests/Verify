@@ -11,7 +11,7 @@ namespace VerifyTests
         public Task Verify(byte[] target)
         {
             Guard.AgainstNull(target, nameof(target));
-            var stream = new MemoryStream(target);
+            MemoryStream stream = new(target);
             return VerifyStream(stream, settings.extension);
         }
 
@@ -35,7 +35,7 @@ namespace VerifyTests
 
                 extension ??= "bin";
 
-                var streams = new List<ConversionStream>
+                List<ConversionStream> streams = new()
                 {
                     new(extension, stream)
                 };
@@ -45,7 +45,7 @@ namespace VerifyTests
 
         async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, object? info, Func<Task>? cleanup)
         {
-            var engine = new VerifyEngine(infoExtension, settings, directory, testName, assembly);
+            VerifyEngine engine = new(infoExtension, settings, directory, testName, assembly);
 
             var builders = streams
                 .Concat(VerifierSettings.GetFileAppenders(settings))

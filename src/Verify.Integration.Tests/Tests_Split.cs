@@ -18,9 +18,9 @@ public partial class Tests
         bool hasExistingReceived,
         bool autoVerify)
     {
-        var initialTarget = new TypeToSplit("info1", "value1", "value2");
-        var secondTarget = new TypeToSplit("info2", "value1.1", "value2.1");
-        var settings = new VerifySettings();
+        TypeToSplit initialTarget = new("info1", "value1", "value2");
+        TypeToSplit secondTarget = new("info2", "value1.1", "value2.1");
+        VerifySettings settings = new();
         if (autoVerify)
         {
             settings.AutoVerify();
@@ -30,9 +30,9 @@ public partial class Tests
         settings.UseParameters(hasExistingReceived, autoVerify);
         var prefix = Path.Combine(SourceDirectory, $"{uniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
-        var info = new FilePair("txt", $"{prefix}info");
-        var file1 = new FilePair("txt", $"{prefix}00");
-        var file2 = new FilePair("txt", $"{prefix}01");
+        FilePair info = new("txt", $"{prefix}info");
+        FilePair file1 = new("txt", $"{prefix}00");
+        FilePair file2 = new("txt", $"{prefix}01");
 
         DeleteAll(danglingFile, info.Received, info.Verified, file1.Verified, file1.Received, file2.Verified, file2.Received);
         File.WriteAllText(danglingFile, "");

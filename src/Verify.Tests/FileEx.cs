@@ -16,7 +16,7 @@ public static class FileEx
     {
         try
         {
-            using var stream = new FileStream (file, FileMode.Open, access);
+            using FileStream stream = new(file, FileMode.Open, access);
             stream.Close();
         }
         catch (IOException)

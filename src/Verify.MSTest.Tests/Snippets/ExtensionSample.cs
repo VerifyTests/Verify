@@ -20,7 +20,7 @@ public class ExtensionSample :
     [TestMethod]
     public Task AtMethod()
     {
-        var settings = new VerifySettings(classLevelSettings);
+        VerifySettings settings = new(classLevelSettings);
         settings.UseExtension("xml");
         return Verify(
             target: @"

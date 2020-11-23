@@ -18,7 +18,7 @@ static class LinesScrubber
         Guard.AgainstNull(replaceLine, nameof(replaceLine));
 
         var theString = input.ToString();
-        using var reader = new StringReader(theString);
+        using StringReader reader = new(theString);
         input.Clear();
         string? line;
         while ((line = reader.ReadLine()) != null)
@@ -26,6 +26,7 @@ static class LinesScrubber
             input.Append(replaceLine(line));
             input.Append('\n');
         }
+
         if (!theString.EndsWith("\n"))
         {
             input.Length -= 1;
@@ -38,7 +39,7 @@ static class LinesScrubber
         Guard.AgainstNull(removeLine, nameof(removeLine));
 
         var theString = input.ToString();
-        using var reader = new StringReader(theString);
+        using StringReader reader = new(theString);
         input.Clear();
 
         string? line;
@@ -48,6 +49,7 @@ static class LinesScrubber
             {
                 continue;
             }
+
             input.Append(line);
             input.Append('\n');
         }

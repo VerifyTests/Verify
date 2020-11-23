@@ -70,8 +70,8 @@ public class ExtensionConverterTests
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)
     {
-        var bitmap = new Bitmap(input);
-        var stream = new MemoryStream();
+        Bitmap bitmap = new(input);
+        MemoryStream stream = new();
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }

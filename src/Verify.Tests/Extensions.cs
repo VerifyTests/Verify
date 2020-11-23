@@ -5,7 +5,7 @@ static class Extensions
 {
     public static async Task<string> ReadString(this Stream stream)
     {
-        using var reader = new StreamReader(stream, FileHelpers.Utf8NoBOM);
+        using StreamReader reader = new(stream, FileHelpers.Utf8NoBOM);
         return await reader.ReadToEndAsync();
     }
 }

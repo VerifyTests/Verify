@@ -30,14 +30,14 @@ public class VerifyObjectSamples
     [Test]
     public async Task ScopedSerializer()
     {
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+            Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
 
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
         settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
         await Verifier.Verify(person, settings);
@@ -46,11 +46,11 @@ public class VerifyObjectSamples
     [Test]
     public async Task ScopedSerializerFluent()
     {
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+            Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
 
         await Verifier.Verify(person)
@@ -62,12 +62,12 @@ public class VerifyObjectSamples
     {
         #region Before
 
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Address = new Address
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Country = "USA"
@@ -84,12 +84,12 @@ public class VerifyObjectSamples
     [Test]
     public async Task Anon()
     {
-        var person1 = new Person
+        Person person1 = new()
         {
             GivenNames = "John",
             FamilyName = "Smith"
         };
-        var person2 = new Person
+        Person person2 = new()
         {
             GivenNames = "Marianne",
             FamilyName = "Aguirre"
@@ -109,12 +109,12 @@ public class VerifyObjectSamples
     {
         #region After
 
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Address = new Address
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Suburb = "Gotham",

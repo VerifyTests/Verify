@@ -24,12 +24,12 @@ public class ConverterSnippets
             {
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                var streams = new List<ConversionStream>();
+                List<ConversionStream> streams = new();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
-                    var page = new MemoryStream();
+                    MemoryStream page = new();
                     image.Save(page, ImageFormat.Png);
                     streams.Add(new ConversionStream("png", page));
                 }
@@ -64,12 +64,12 @@ public class ConverterSnippets
                 using var image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                var streams = new List<ConversionStream>();
+                List<ConversionStream> streams = new();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
-                    var page = new MemoryStream();
+                    MemoryStream page = new();
                     image.Save(page, ImageFormat.Png);
                     streams.Add(new ConversionStream("png", page));
                 }

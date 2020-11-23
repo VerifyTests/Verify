@@ -37,7 +37,7 @@ namespace VerifyTests
             var names = string.Join(", ", methodParameters.Select(x => x.Name));
             throw InnerVerifier.exceptionBuilder($@"Method `{methodInfo.DeclaringType!.Name}.{methodInfo.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 
-var settings = new VerifySettings();
+VerifySettings settings = new();
 settings.UseParameters({names});
 await Verifier.Verify(target, settings);
 

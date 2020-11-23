@@ -42,7 +42,7 @@ static class TestNameBuilder
             return name;
         }
 
-        var builder = new StringBuilder();
+        StringBuilder builder = new();
         var parameters = method.GetParameters();
         for (var index = 0; index < parameters.Length; index++)
         {

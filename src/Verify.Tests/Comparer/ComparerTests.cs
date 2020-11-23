@@ -13,7 +13,7 @@ public class ComparerTests
     [Fact]
     public async Task Instance_with_message()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseComparer(CompareWithMessage);
         settings.DisableDiff();
         settings.DisableClipboard();
@@ -24,7 +24,7 @@ public class ComparerTests
     [Fact]
     public async Task Instance()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseComparer(Compare);
         await Verifier.Verify("TheText", settings);
         await Verifier.Verify("thetext", settings);
@@ -34,7 +34,7 @@ public class ComparerTests
     public async Task Static_with_message()
     {
         VerifierSettings.RegisterComparer("staticComparerExtMessage", CompareWithMessage);
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
         settings.DisableClipboard();
@@ -46,7 +46,7 @@ public class ComparerTests
     public async Task Static()
     {
         VerifierSettings.RegisterComparer("staticComparerExt", Compare);
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("staticComparerExt");
         await Verifier.Verify("TheText", settings);
         await Verifier.Verify("thetext", settings);

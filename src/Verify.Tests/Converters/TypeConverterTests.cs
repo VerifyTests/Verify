@@ -22,11 +22,11 @@ public class TypeConverterTests
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             });
 
-        var target = new InheritedClass
+        InheritedClass target = new()
         {
             Value = "line1"
         };
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("txt");
         return Verifier.Verify(target, settings);
     }
@@ -74,7 +74,7 @@ public class TypeConverterTests
 
                 #endregion
             });
-        var target = new TargetForCleanup
+        TargetForCleanup target = new()
         {
             Value = "line1"
         };
@@ -96,7 +96,7 @@ public class TypeConverterTests
                 var streams = ToStream(instance.Value);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             });
-        var target = new ClassToSplit
+        ClassToSplit target = new()
         {
             Value = $"line1{Environment.NewLine}line2"
         };
@@ -118,7 +118,7 @@ public class TypeConverterTests
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
             (inner, _, _) => inner.Value == "Valid");
-        var target = new CanConvertTarget
+        CanConvertTarget target = new()
         {
             Value = "Invalid"
         };
@@ -135,7 +135,7 @@ public class TypeConverterTests
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
             },
             (inner, _, _) => inner.Value == "Valid");
-        var target = new CanConvertTarget
+        CanConvertTarget target = new()
         {
             Value = "Valid"
         };
@@ -161,9 +161,9 @@ public class TypeConverterTests
                 };
                 return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("bmp");
-        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
+        Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
 
@@ -181,10 +181,10 @@ public class TypeConverterTests
                 };
                 return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
             });
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("bmp");
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
-        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
+        Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
 
@@ -198,16 +198,16 @@ public class TypeConverterTests
                 var streams = ConvertBmpTpPngStreams(bitmap1);
                 return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
             });
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("bmp");
-        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
+        Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
 #endif
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
     {
-        var stream = new MemoryStream();
+        MemoryStream stream = new();
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }

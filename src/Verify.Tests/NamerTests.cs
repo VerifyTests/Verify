@@ -11,7 +11,7 @@ public class NamerTests
     [Fact]
     public Task Runtime()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UniqueForRuntime();
         return Verifier.Verify(Namer.Runtime, settings);
     }
@@ -36,7 +36,7 @@ public class NamerTests
     [Fact]
     public Task RuntimeAndVersion()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UniqueForRuntimeAndVersion();
         return Verifier.Verify(Namer.RuntimeAndVersion, settings);
     }
@@ -53,7 +53,7 @@ public class NamerTests
     [Fact]
     public Task AssemblyConfiguration()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("Foo", settings);
     }

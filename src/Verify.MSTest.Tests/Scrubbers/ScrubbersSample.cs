@@ -13,7 +13,7 @@ public class ScrubbersSample :
     [TestMethod]
     public Task Lines()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ScrubLinesWithReplace(
             replaceLine: line =>
             {
@@ -73,12 +73,12 @@ LineJ
     [TestMethod]
     public Task AfterSerialization()
     {
-        var target = new ToBeScrubbed
+        ToBeScrubbed target = new()
         {
             RowVersion = "7D3"
         };
 
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.AddScrubber(
             input => input.Replace("7D3", "TheRowVersion"));
         return Verify(target, settings);
@@ -87,7 +87,7 @@ LineJ
     [TestMethod]
     public Task AfterSerializationFluent()
     {
-        var target = new ToBeScrubbed
+        ToBeScrubbed target = new()
         {
             RowVersion = "7D3"
         };

@@ -98,7 +98,7 @@ namespace VerifyTests
             return infoCache.GetOrAdd(method, _ =>
             {
                 var declaringType = GetName(method.DeclaringType!);
-                var builder = new StringBuilder($"{declaringType}.{method.Name}(");
+                StringBuilder builder = new($"{declaringType}.{method.Name}(");
                 var parameters = method.GetParameters()
                     .Select(x => $"{GetName(x.ParameterType)} {x.Name}");
                 builder.Append(string.Join(", ", parameters));
@@ -137,9 +137,9 @@ namespace VerifyTests
             }
 
             var typeName = GetTypeName(type);
-            var reference = new CodeTypeReference(typeName);
+            CodeTypeReference reference = new(typeName);
             var name = codeDomProvider.GetTypeOutput(reference);
-            var list = new List<string>();
+            List<string> list = new();
             AllGenericArgumentNamespace(type, list);
             foreach (var ns in list.Distinct())
             {

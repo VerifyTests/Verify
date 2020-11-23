@@ -19,20 +19,20 @@ static class FileNameBuilder
 
     static string GetFilePrefix(Namer namer, string directory, string testName, Assembly assembly)
     {
-        var builder = new StringBuilder(Path.Combine(directory, testName));
+        StringBuilder builder = new(Path.Combine(directory, testName));
         return AppendFileParts(namer, builder, assembly);
     }
 
     public static string GetVerifiedPattern(string extension, Namer namer, string testName, Assembly assembly)
     {
-        var builder = new StringBuilder(testName);
+        StringBuilder builder = new(testName);
         var filePrefix = AppendFileParts(namer, builder, assembly);
         return $"{filePrefix}.*.verified.{extension}";
     }
 
     public static string GetReceivedPattern(string extension, Namer namer, string testName, Assembly assembly)
     {
-        var builder = new StringBuilder(testName);
+        StringBuilder builder = new(testName);
         var filePrefix = AppendFileParts(namer, builder, assembly);
         return $"{filePrefix}.*received.{extension}";
     }

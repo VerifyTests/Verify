@@ -181,7 +181,7 @@ namespace VerifyTests
             #endregion
 
             settings.SerializationBinder = new ShortNameBinder();
-            var scrubber = new SharedScrubber(scrubGuids, scrubInlineGuids, scrubDateTimes, settings);
+            SharedScrubber scrubber = new(scrubGuids, scrubInlineGuids, scrubDateTimes, settings);
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,

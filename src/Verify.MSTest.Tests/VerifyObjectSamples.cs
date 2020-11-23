@@ -16,7 +16,7 @@ public class VerifyObjectSamples :
     {
         #region ChangeDefaultsPerVerification
 
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
 
         settings.ModifySerialization(_ =>
         {
@@ -46,13 +46,13 @@ public class VerifyObjectSamples :
     [TestMethod]
     public async Task ScopedSerializer()
     {
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
             Dob = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
         };
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         await Verify(person, settings);
     }
@@ -61,7 +61,7 @@ public class VerifyObjectSamples :
     {
         #region Before
 
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
@@ -83,12 +83,12 @@ public class VerifyObjectSamples :
     [TestMethod]
     public async Task Anon()
     {
-        var person1 = new Person
+        Person person1 = new()
         {
             GivenNames = "John",
             FamilyName = "Smith"
         };
-        var person2 = new Person
+        Person person2 = new()
         {
             GivenNames = "Marianne",
             FamilyName = "Aguirre"
@@ -108,12 +108,12 @@ public class VerifyObjectSamples :
     {
         #region After
 
-        var person = new Person
+        Person person = new()
         {
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Address = new Address
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Suburb = "Gotham",

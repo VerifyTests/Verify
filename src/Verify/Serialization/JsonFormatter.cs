@@ -13,7 +13,7 @@ static class JsonFormatter
     {
         if (appends.Any())
         {
-            var dictionary = new Dictionary<string, object>();
+            Dictionary<string, object> dictionary = new();
             if (input == null)
             {
                 dictionary.Add("target", "null");
@@ -32,8 +32,8 @@ static class JsonFormatter
 
         var serializer = JsonSerializer.Create(settings);
 
-        var builder = new StringBuilder();
-        using var stringWriter = new StringWriter(builder)
+        StringBuilder builder = new();
+        using StringWriter stringWriter = new(builder)
         {
             NewLine = "\n"
         };

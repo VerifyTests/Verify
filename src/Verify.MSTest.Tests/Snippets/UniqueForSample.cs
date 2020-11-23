@@ -12,7 +12,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task Runtime()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UniqueForRuntime();
         return Verify("value", settings);
     }
@@ -27,7 +27,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task RuntimeAndVersion()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UniqueForRuntimeAndVersion();
         return Verify("value", settings);
     }
@@ -42,7 +42,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task AssemblyConfiguration()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UniqueForAssemblyConfiguration();
         return Verify("value", settings);
     }

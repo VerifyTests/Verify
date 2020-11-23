@@ -5,7 +5,7 @@ static class ShallowClone
     public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this Dictionary<TKey, TValue> original)
         where TKey : class
     {
-        var ret = new Dictionary<TKey, TValue>(original.Count, original.Comparer);
+        Dictionary<TKey, TValue> ret = new(original.Count, original.Comparer);
         foreach (var entry in original)
         {
             ret.Add(entry.Key, entry.Value);

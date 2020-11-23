@@ -49,12 +49,12 @@ public async Task Anon()
 [Test]
 public async Task Anon()
 {
-    var person1 = new Person
+    Person person1 = new()
     {
         GivenNames = "John",
         FamilyName = "Smith"
     };
-    var person2 = new Person
+    Person person2 = new()
     {
         GivenNames = "Marianne",
         FamilyName = "Aguirre"
@@ -80,12 +80,12 @@ public async Task Anon()
 [TestMethod]
 public async Task Anon()
 {
-    var person1 = new Person
+    Person person1 = new()
     {
         GivenNames = "John",
         FamilyName = "Smith"
     };
-    var person2 = new Person
+    Person person2 = new()
     {
         GivenNames = "Marianne",
         FamilyName = "Aguirre"

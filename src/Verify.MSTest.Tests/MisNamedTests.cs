@@ -13,7 +13,7 @@
 //    public async Task ShouldThrow()
 //    {
 //        var exception = await Assert.ThrowsExceptionAsync<Exception>(() => Verifier.Verify("Foo"));
-//        var settings = new VerifySettings();
+//        VerifySettings settings = new();
 //        settings.UseTestContext(TestContext);
 //        await Verifier.Verify(exception);
 //    }
@@ -27,7 +27,7 @@
 //    [TestMethod]
 //    public Task ShouldPass()
 //    {
-//        var settings = new VerifySettings();
+//        VerifySettings settings = new();
 //        settings.UseTestContext(TestContext);
 //        return Verifier.Verify("Foo", settings);
 //    }

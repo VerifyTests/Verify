@@ -15,7 +15,7 @@ static class TupleConverter
         var methodCallExpression = (MethodCallExpression) unaryExpression.Operand;
         var method = methodCallExpression.Method;
         var attribute = ReadTupleElementNamesAttribute(method);
-        var dictionary = new Dictionary<string, object?>();
+        Dictionary<string, object?> dictionary = new();
         var result = expression.Compile().Invoke();
         for (var index = 0; index < attribute.TransformNames.Count; index++)
         {

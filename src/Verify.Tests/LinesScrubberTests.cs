@@ -10,7 +10,7 @@ public class LinesScrubberTests
     [Fact]
     public Task ScrubLinesContaining()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ScrubLinesContaining("c", "D", "F");
         return Verifier.Verify(
             settings: settings,
@@ -25,7 +25,7 @@ f");
     [Fact]
     public Task DontScrubTrailingNewline()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ScrubLines(removeLine: x => x.Contains("D"));
         return Verifier.Verify(
             settings: settings,
@@ -36,7 +36,7 @@ f");
     [Fact]
     public Task DontScrubMultiNewline()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ScrubLines(removeLine: x => x.Contains("D"));
         return Verifier.Verify(
             settings: settings,
@@ -48,7 +48,7 @@ c");
     [Fact]
     public Task FilterLines()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ScrubLines(removeLine: x => x.Contains("D"));
         return Verifier.Verify(
             settings: settings,
@@ -63,7 +63,7 @@ f");
     [Fact]
     public Task ScrubLinesContaining_case_sensitive()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.ScrubLinesContaining(StringComparison.Ordinal, "c", "D", "F");
         return Verifier.Verify(
             settings: settings,

@@ -40,7 +40,7 @@ namespace VerifyTests
             CanConvert<T>? canConvert = null)
         {
             Guard.AgainstNull(conversion, nameof(conversion));
-            var converter = new TypeConverter(
+            TypeConverter converter = new(
                 (o, context) => conversion((T) o, context),
                 DefaultCanConvert(canConvert));
             typedConverters.Add(converter);
@@ -62,7 +62,7 @@ namespace VerifyTests
         {
             Guard.AgainstNull(conversion, nameof(conversion));
             Guard.AgainstNull(canConvert, nameof(canConvert));
-            var converter = new TypeConverter(
+            TypeConverter converter = new(
                 conversion,
                 canConvert);
             typedConverters.Add(converter);

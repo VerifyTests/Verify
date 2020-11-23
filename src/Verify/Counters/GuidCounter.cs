@@ -7,6 +7,6 @@ class GuidCounter :
     {
         var bytes = new byte[16];
         BitConverter.GetBytes(i).CopyTo(bytes, 0);
-        return new Guid(bytes);
+        return new(bytes);
     }
 }

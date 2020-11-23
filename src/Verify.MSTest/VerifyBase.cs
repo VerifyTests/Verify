@@ -22,18 +22,18 @@ namespace VerifyMSTest
 
             if (methodInfo == null)
             {
-                throw new Exception($"Could not find method `{type.Name}.{TestContext.TestName}`");
+                throw new($"Could not find method `{type.Name}.{TestContext.TestName}`");
             }
 
             var parameters = settings.GetParameters(methodInfo);
             var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, parameters);
-            return new InnerVerifier(uniqueTestName, sourceFile, type.Assembly, settings);
+            return new(uniqueTestName, sourceFile, type.Assembly, settings);
         }
 
         SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            return new SettingsTask(
+            return new(
                 settings,
                 async verifySettings =>
                 {

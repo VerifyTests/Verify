@@ -148,8 +148,8 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new List<string> {"Sam", "Mary"},
-            Address = new Address
+            Children = new(){"Sam", "Mary"},
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Country = "USA"
@@ -178,8 +178,8 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new List<string> {"Sam", "Mary"},
-            Address = new Address
+            Children = new(){"Sam", "Mary"},
+            Address = new()
             {
                 Street = "1 Puddle Lane",
                 Country = "USA"
@@ -565,10 +565,10 @@ public class SerializationTests
     {
         CollectionTarget target = new()
         {
-            DictionaryProperty = new Dictionary<int, string>(),
+            DictionaryProperty = new(),
             IReadOnlyDictionary = new Dictionary<int, string>(),
             ReadOnlyList = new List<string>(),
-            ListProperty = new List<string>(),
+            ListProperty = new(),
             ReadOnlyCollection = new List<string>(),
             Array = new string[] { }
         };
@@ -625,7 +625,7 @@ public class SerializationTests
 
     class WithExceptionIgnoreMessage
     {
-        public Guid ExceptionMessageProperty => throw new Exception("Ignore");
+        public Guid ExceptionMessageProperty => throw new("Ignore");
     }
 
     [Fact]
@@ -647,11 +647,11 @@ public class SerializationTests
     {
         IgnoreInstanceTarget target = new()
         {
-            ToIgnore = new Instance
+            ToIgnore = new()
             {
                 Property = "Ignore"
             },
-            ToInclude = new Instance
+            ToInclude = new()
             {
                 Property = "Include"
             }
@@ -667,11 +667,11 @@ public class SerializationTests
     {
         IgnoreInstanceTarget target = new()
         {
-            ToIgnore = new Instance
+            ToIgnore = new()
             {
                 Property = "Ignore"
             },
-            ToInclude = new Instance
+            ToInclude = new()
             {
                 Property = "Include"
             }
@@ -701,11 +701,11 @@ public class SerializationTests
     {
         IgnoreTypeTarget target = new()
         {
-            ToIgnore = new ToIgnore
+            ToIgnore = new()
             {
                 Property = "Value"
             },
-            ToInclude = new ToInclude
+            ToInclude = new()
             {
                 Property = "Value"
             }
@@ -720,11 +720,11 @@ public class SerializationTests
     {
         IgnoreTypeTarget target = new()
         {
-            ToIgnore = new ToIgnore
+            ToIgnore = new()
             {
                 Property = "Value"
             },
-            ToInclude = new ToInclude
+            ToInclude = new()
             {
                 Property = "Value"
             }
@@ -936,7 +936,7 @@ public class SerializationTests
         public string Property { get; set; }
         public string PropertyByName { get; set; }
         public string GetOnlyProperty => "asd";
-        public string PropertyThatThrows => throw new Exception();
+        public string PropertyThatThrows => throw new();
         public string Field;
     }
 
@@ -971,7 +971,7 @@ public class SerializationTests
     {
         try
         {
-            throw new Exception();
+            throw new();
         }
         catch (Exception exception)
         {
@@ -992,7 +992,7 @@ public class SerializationTests
 
     class WithException
     {
-        public Guid ExceptionProperty => throw new Exception();
+        public Guid ExceptionProperty => throw new();
     }
 
     [Fact]
@@ -1008,7 +1008,7 @@ public class SerializationTests
 
     class WithExceptionNotIgnoreMessage
     {
-        public Guid ExceptionMessageProperty => throw new Exception("NotIgnore");
+        public Guid ExceptionMessageProperty => throw new("NotIgnore");
     }
 
     [Fact]

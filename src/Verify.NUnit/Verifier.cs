@@ -18,7 +18,7 @@ namespace VerifyNUnit
                 .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
             if (temp == null)
             {
-                throw new Exception("Could not find field `_test` on TestContext.TestAdapter.");
+                throw new("Could not find field `_test` on TestContext.TestAdapter.");
             }
             field = temp;
         }
@@ -32,13 +32,13 @@ namespace VerifyNUnit
 
             var method = test.Method.MethodInfo;
             var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
-            return new InnerVerifier(name, sourceFile, test.TypeInfo.Assembly, settings);
+            return new(name, sourceFile, test.TypeInfo.Assembly, settings);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            return new SettingsTask(
+            return new(
                 settings,
                 async verifySettings =>
                 {

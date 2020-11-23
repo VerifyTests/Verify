@@ -114,7 +114,7 @@ public class Tests
 
     static void MethodThatThrows()
     {
-        throw new Exception("The Message");
+        throw new("The Message");
     }
 
     [Fact]
@@ -160,7 +160,7 @@ public class Tests
 
     static Task TaskMethodThatThrows()
     {
-        throw new Exception("The Message");
+        throw new("The Message");
     }
 
     [Fact]
@@ -171,7 +171,7 @@ public class Tests
 
     static ValueTask ValueTaskMethodThatThrows()
     {
-        throw new Exception("The Message");
+        throw new("The Message");
     }
 
     [Fact]
@@ -316,7 +316,7 @@ public class Tests
 
         public void Dispose()
         {
-            throw new Exception();
+            throw new();
         }
     }
 

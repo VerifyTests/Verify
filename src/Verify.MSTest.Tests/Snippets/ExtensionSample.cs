@@ -13,7 +13,7 @@ public class ExtensionSample :
 
     public ExtensionSample()
     {
-        classLevelSettings = new VerifySettings();
+        classLevelSettings = new();
         classLevelSettings.UseExtension("json");
     }
 

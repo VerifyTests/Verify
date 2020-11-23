@@ -21,13 +21,13 @@ namespace VerifyXunit
             var parameters = settings.GetParameters(info);
 
             var name = TestNameBuilder.GetUniqueTestName(className, info, parameters);
-            return new InnerVerifier(name, sourceFile, info.DeclaringType!.Assembly, settings);
+            return new(name, sourceFile, info.DeclaringType!.Assembly, settings);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
         {
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            return new SettingsTask(
+            return new(
                 settings,
                 async verifySettings =>
                 {

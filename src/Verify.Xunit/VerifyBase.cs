@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using VerifyTests;
 
 namespace VerifyXunit
@@ -14,7 +13,7 @@ namespace VerifyXunit
         {
             if (string.IsNullOrWhiteSpace(sourceFile))
             {
-                throw new Exception($"{nameof(VerifyBase)}.ctor must be called explicitly.");
+                throw new($"{nameof(VerifyBase)}.ctor must be called explicitly.");
             }
 
             this.settings = settings;

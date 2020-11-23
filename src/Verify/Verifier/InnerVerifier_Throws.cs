@@ -16,7 +16,7 @@ namespace VerifyTests
                 return Verify(exception);
             }
 
-            throw new Exception("Did not throw.");
+            throw new("Did not throw.");
         }
 
         public Task Throws(Func<object?> target)
@@ -30,7 +30,7 @@ namespace VerifyTests
                 return Verify(exception);
             }
 
-            throw new Exception("Did not throw.");
+            throw new("Did not throw.");
         }
 
         public async Task ThrowsAsync(Func<ValueTask> target)
@@ -45,7 +45,7 @@ namespace VerifyTests
                 return;
             }
 
-            throw new Exception("Did not throw.");
+            throw new("Did not throw.");
         }
 
         public async Task ThrowsAsync(Func<Task> target)
@@ -60,7 +60,7 @@ namespace VerifyTests
                 return;
             }
 
-            throw new Exception("Did not throw.");
+            throw new("Did not throw.");
         }
     }
 }

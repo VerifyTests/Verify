@@ -390,11 +390,11 @@ public async Task IgnoreType()
 {
     IgnoreTypeTarget target = new()
     {
-        ToIgnore = new ToIgnore
+        ToIgnore = new()
         {
             Property = "Value"
         },
-        ToInclude = new ToInclude
+        ToInclude = new()
         {
             Property = "Value"
         }
@@ -409,11 +409,11 @@ public async Task IgnoreTypeFluent()
 {
     IgnoreTypeTarget target = new()
     {
-        ToIgnore = new ToIgnore
+        ToIgnore = new()
         {
             Property = "Value"
         },
-        ToInclude = new ToInclude
+        ToInclude = new()
         {
             Property = "Value"
         }
@@ -453,11 +453,11 @@ public async Task AddIgnoreInstance()
 {
     IgnoreInstanceTarget target = new()
     {
-        ToIgnore = new Instance
+        ToIgnore = new()
         {
             Property = "Ignore"
         },
-        ToInclude = new Instance
+        ToInclude = new()
         {
             Property = "Include"
         }
@@ -473,11 +473,11 @@ public async Task AddIgnoreInstanceFluent()
 {
     IgnoreInstanceTarget target = new()
     {
-        ToIgnore = new Instance
+        ToIgnore = new()
         {
             Property = "Ignore"
         },
-        ToInclude = new Instance
+        ToInclude = new()
         {
             Property = "Include"
         }

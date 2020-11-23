@@ -56,7 +56,7 @@ The default serialization settings are:
 <!-- snippet: defaultSerialization -->
 <a id='snippet-defaultserialization'></a>
 ```cs
-var settings = new JsonSerializerSettings
+JsonSerializerSettings settings = new()
 {
     Formatting = Formatting.Indented,
     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,

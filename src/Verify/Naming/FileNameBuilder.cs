@@ -50,10 +50,6 @@ static class FileNameBuilder
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
-            if (assembly == null)
-            {
-                throw InnerVerifier.exceptionBuilder("`UniqueForAssemblyConfiguration` requires `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());` to be called at assembly startup.");
-            }
             builder.Append($".{assembly.GetAttributeConfiguration()}");
         }
 

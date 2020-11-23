@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace VerifyTests
 {
@@ -8,20 +6,13 @@ namespace VerifyTests
     {
         internal static DeriveTestDirectory? deriveDirectory;
 
-        internal static string DeriveDirectory(string sourceFile, Assembly assembly)
+        internal static string DeriveDirectory(string sourceFile, string projectDirectory)
         {
             if (deriveDirectory == null)
             {
                 return Path.GetDirectoryName(sourceFile)!;
             }
 
-            var projectDirectory = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-                .SingleOrDefault(x => x.Key == "Verify.ProjectDirectory")
-                ?.Value;
-            if (projectDirectory == null)
-            {
-                throw InnerVerifier.exceptionBuilder("Using `DeriveTestDirectory` requires that the test assembly be initialized at assembly load time. Call `SharedVerifySettings.SetTestAssembly(Assembly.GetExecutingAssembly());`.");
-            }
             var directory = deriveDirectory(sourceFile, projectDirectory);
             if (directory == null)
             {

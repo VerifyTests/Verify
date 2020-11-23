@@ -76,7 +76,7 @@ namespace VerifyTests
             return infoCache.GetOrAdd(constructor, _ =>
             {
                 var declaringType = GetName(constructor.DeclaringType!);
-                var builder = new StringBuilder($"{declaringType}");
+                StringBuilder builder = new($"{declaringType}");
                 if (constructor.IsStatic)
                 {
                     builder.Append(".cctor(");

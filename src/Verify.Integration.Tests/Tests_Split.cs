@@ -25,7 +25,10 @@ public partial class Tests
         {
             settings.AutoVerify();
         }
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName("Tests_Split", Info.OfMethod<Tests>("Split"), new object[] {hasExistingReceived, autoVerify});
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
+            "Tests_Split",
+            Info.OfMethod<Tests>("Split"),
+            new object[] {hasExistingReceived, autoVerify});
 
         settings.UseParameters(hasExistingReceived, autoVerify);
         var prefix = Path.Combine(SourceDirectory, $"{uniqueTestName}.");

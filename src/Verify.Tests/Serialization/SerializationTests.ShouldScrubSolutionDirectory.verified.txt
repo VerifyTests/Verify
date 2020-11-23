@@ -1,0 +1,1 @@
+SolutionDirectory\Foo

@@ -493,6 +493,19 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ShouldScrubSolutionDirectory()
+    {
+        var solutionDirectory = GetSolutionDirectory();
+        var combine = Path.GetFullPath(Path.Combine(solutionDirectory,"Foo"));
+        return Verifier.Verify(combine);
+    }
+
+    string GetSolutionDirectory([CallerFilePath] string file = "")
+    {
+        return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(file)!, "../../"));
+    }
+
+    [Fact]
     public Task ShouldScrubGuid()
     {
         GuidTarget target = new()

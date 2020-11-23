@@ -40,7 +40,7 @@ static class ClipboardCapture
 
     public static void Clear()
     {
-        builder = new StringBuilder();
+        builder = new();
     }
 
     public static string Read()

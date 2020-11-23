@@ -13,6 +13,6 @@ class ShortNameBinder :
 
     public Type BindToType(string? assemblyName, string typeName)
     {
-        throw new Exception();
+        throw new();
     }
 }

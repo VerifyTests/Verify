@@ -9,7 +9,7 @@ namespace VerifyTests
         public async Task Verify<T>(IAsyncEnumerable<T> target)
         {
             Guard.AgainstNull(target, nameof(target));
-            var list = new List<T>();
+            List<T> list = new();
             await foreach (var item in target)
             {
                 list.Add(item);

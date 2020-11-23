@@ -851,14 +851,14 @@ The default mapping is:
     {
         var converted = (XmlNode) target;
         var document = XDocument.Parse(converted.OuterXml);
-        return new AsStringResult(document.ToString(), "xml");
+        return new(document.ToString(), "xml");
     }
 },
 {
     typeof(XDocument), (target, settings) =>
     {
         var converted = (XDocument) target;
-        return new AsStringResult(converted.ToString(), "xml");
+        return new(converted.ToString(), "xml");
     }
 }
 ```

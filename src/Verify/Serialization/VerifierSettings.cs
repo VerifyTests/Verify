@@ -91,14 +91,14 @@ namespace VerifyTests
                 {
                     var converted = (XmlNode) target;
                     var document = XDocument.Parse(converted.OuterXml);
-                    return new AsStringResult(document.ToString(), "xml");
+                    return new(document.ToString(), "xml");
                 }
             },
             {
                 typeof(XDocument), (target, settings) =>
                 {
                     var converted = (XDocument) target;
-                    return new AsStringResult(converted.ToString(), "xml");
+                    return new(converted.ToString(), "xml");
                 }
             }
 
@@ -111,10 +111,10 @@ namespace VerifyTests
             {
                 if (target is null)
                 {
-                    return new AsStringResult("null");
+                    return new("null");
                 }
 
-                return new AsStringResult(target.ToString()!);
+                return new(target.ToString()!);
             };
             typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
         }

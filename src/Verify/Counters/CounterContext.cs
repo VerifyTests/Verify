@@ -24,7 +24,7 @@
 
      public static void Start()
      {
-         local.Value = new CounterContext();
+         local.Value = new();
      }
 
      public int IntOrNext<T>(T input)

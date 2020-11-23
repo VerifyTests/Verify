@@ -57,7 +57,7 @@ namespace VerifyTests
             Guard.AgainstNullOrEmpty(name, nameof(name));
             if (!ignoredMembers.TryGetValue(declaringType, out var list))
             {
-                ignoredMembers[declaringType] = list = new List<string>();
+                ignoredMembers[declaringType] = list = new();
             }
 
             list.Add(name);
@@ -98,7 +98,7 @@ namespace VerifyTests
 
             if (!ignoredInstances.TryGetValue(type, out var list))
             {
-                ignoredInstances[type] = list = new List<Func<object, bool>>();
+                ignoredInstances[type] = list = new();
             }
 
             list.Add(shouldIgnore);

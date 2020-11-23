@@ -8,13 +8,13 @@ static class FileNameBuilder
     public static FilePair GetFileNames(string extension, Namer namer, string directory, string testName, Assembly assembly)
     {
         var filePrefix = GetFilePrefix(namer, directory, testName, assembly);
-        return new FilePair(extension, filePrefix);
+        return new(extension, filePrefix);
     }
 
     public static FilePair GetFileNames(string extension, string suffix, Namer namer, string directory, string testName, Assembly assembly)
     {
         var filePrefix = GetFilePrefix(namer, directory, testName, assembly);
-        return new FilePair(extension, $"{filePrefix}.{suffix}");
+        return new(extension, $"{filePrefix}.{suffix}");
     }
 
     static string GetFilePrefix(Namer namer, string directory, string testName, Assembly assembly)

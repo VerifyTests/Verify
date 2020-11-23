@@ -23,14 +23,14 @@ static class Comparer
         }
 
         await FileHelpers.WriteText(filePair.Received, received.ToString());
-        return new EqualityResult(Equality.NotEqual, result.Message);
+        return new(Equality.NotEqual, result.Message);
     }
 
     static async Task<CompareResult> CompareStrings(StringBuilder received, StringBuilder verified, VerifySettings settings)
     {
         if (!settings.TryFindComparer(out var compare))
         {
-            return new CompareResult(verified.Compare(received));
+            return new(verified.Compare(received));
         }
 
         var receivedText = received.ToString();

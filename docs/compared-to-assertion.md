@@ -32,19 +32,19 @@ public static class ClassBeingTested
 {
     public static Person FindPerson()
     {
-        return new Person
+        return new()
         {
-            Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
+            Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new List<string>
+            Children = new()
             {
                 "Sam",
                 "Mary"
             },
-            Address = new Address
+            Address = new()
             {
                 Street = "4 Puddle Lane",
                 Country = "USA"
@@ -53,7 +53,7 @@ public static class ClassBeingTested
     }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L4-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

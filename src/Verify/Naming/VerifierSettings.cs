@@ -32,7 +32,7 @@ namespace VerifyTests
             var nameForParameter = parameter!.ToString();
             if (nameForParameter == null)
             {
-                throw new Exception($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+                throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
             }
             return nameForParameter;
         }

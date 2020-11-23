@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-#region ClassBeingTested
+﻿#region ClassBeingTested
 public static class ClassBeingTested
 {
     public static Person FindPerson()
     {
-        return new Person
+        return new()
         {
-            Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
+            Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new List<string>
+            Children = new()
             {
                 "Sam",
                 "Mary"
             },
-            Address = new Address
+            Address = new()
             {
                 Street = "4 Puddle Lane",
                 Country = "USA"

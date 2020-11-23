@@ -16,7 +16,7 @@ namespace VerifyTests
         {
             if (settings != null)
             {
-                this.settings = new VerifySettings(settings);
+                this.settings = new(settings);
             }
 
             this.buildTask = async verifySettings => { await buildTask(verifySettings); };
@@ -150,7 +150,7 @@ namespace VerifyTests
 
         public VerifySettings CurrentSettings
         {
-            get => settings ??= new VerifySettings();
+            get => settings ??= new();
         }
 
         Task ToTask()

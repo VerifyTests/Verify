@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using VerifyTests;
@@ -481,8 +482,14 @@ public class SerializationTests
     [Fact]
     public Task ShouldScrubProjectDirectory()
     {
-        var combine = Path.GetFullPath(Path.Combine(GetType().Assembly.Location, "../../../../","Foo"));
+        var projectDirectory = GetProjectDirectory();
+        var combine = Path.GetFullPath(Path.Combine(projectDirectory,"Foo"));
         return Verifier.Verify(combine);
+    }
+
+    string GetProjectDirectory([CallerFilePath] string file = "")
+    {
+        return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(file)!, "../"));
     }
 
     [Fact]

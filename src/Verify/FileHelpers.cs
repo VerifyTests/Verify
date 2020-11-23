@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 static class FileHelpers
 {
-    public static readonly UTF8Encoding Utf8NoBOM = new (false, true);
+    public static readonly UTF8Encoding Utf8NoBOM = new(false, true);
 
     public static void DeleteIfEmpty(string path)
     {

@@ -479,6 +479,13 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ShouldScrubProjectDirectory()
+    {
+        var combine = Path.GetFullPath(Path.Combine(GetType().Assembly.Location, "../../../../","Foo"));
+        return Verifier.Verify(combine);
+    }
+
+    [Fact]
     public Task ShouldScrubGuid()
     {
         GuidTarget target = new()

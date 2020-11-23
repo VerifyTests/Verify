@@ -16,6 +16,7 @@ namespace VerifyTests
         Assembly assembly;
         VerifySettings settings;
         internal static Func<string, Exception> exceptionBuilder = null!;
+        string projectDirectory;
 
         public static void Init(Func<string, Exception> exceptionBuilder)
         {
@@ -24,10 +25,12 @@ namespace VerifyTests
 
         public InnerVerifier(string testName, string sourceFile, Assembly assembly, VerifySettings settings)
         {
-            directory = VerifierSettings.DeriveDirectory(sourceFile, assembly);
+            projectDirectory = ProjectDirectoryReader.GetProjectDirectory(assembly).TrimEnd('/', '\\');
+            directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
             this.testName = testName;
             this.assembly = assembly;
             this.settings = settings;
+            settings.AddScrubber(builder => builder.Replace(projectDirectory, "ProjectDirectory"));
             CounterContext.Start();
         }
 

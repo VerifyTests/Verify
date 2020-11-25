@@ -1,1 +1,4 @@
-SolutionDirectory\Foo
+{
+  combine: SolutionDirectory\Foo,
+  alt: SolutionDirectory/Foo
+}

@@ -483,13 +483,18 @@ public class SerializationTests
     public Task ShouldScrubProjectDirectory()
     {
         var projectDirectory = GetProjectDirectory();
-        var combine = Path.GetFullPath(Path.Combine(projectDirectory,"Foo"));
-        return Verifier.Verify(combine);
+        var combine = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
+        return Verifier.Verify(
+            new
+            {
+                combine,
+                alt = combine.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            });
     }
 
     string GetProjectDirectory([CallerFilePath] string file = "")
     {
-        return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(file)!, "../"));
+        return new FileInfo(file).Directory!.Parent!.FullName;
     }
 
     [Fact]
@@ -497,12 +502,17 @@ public class SerializationTests
     {
         var solutionDirectory = GetSolutionDirectory();
         var combine = Path.GetFullPath(Path.Combine(solutionDirectory,"Foo"));
-        return Verifier.Verify(combine);
+        return Verifier.Verify(
+            new
+            {
+                combine,
+                alt = combine.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            });
     }
 
     string GetSolutionDirectory([CallerFilePath] string file = "")
     {
-        return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(file)!, "../../"));
+        return new FileInfo(file).Directory!.Parent!.Parent!.FullName;
     }
 
     [Fact]

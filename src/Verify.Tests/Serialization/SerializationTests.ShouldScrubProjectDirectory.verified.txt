@@ -1,1 +1,4 @@
-ProjectDirectory\Foo
+{
+  combine: ProjectDirectoryFoo,
+  alt: ProjectDirectoryFoo
+}

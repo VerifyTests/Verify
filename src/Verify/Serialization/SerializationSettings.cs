@@ -23,6 +23,7 @@ namespace VerifyTests
         }
 
         Dictionary<Type, List<string>> ignoredMembers = new();
+        Dictionary<Type, Dictionary<string,Func<object?,object?>>> membersConverters = new();
         List<string> ignoredByNameMembers = new();
         Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
 
@@ -30,6 +31,7 @@ namespace VerifyTests
         {
             return new()
             {
+                membersConverters = membersConverters.Clone(),
                 ignoredMembers = ignoredMembers.Clone(),
                 ignoredByNameMembers = ignoredByNameMembers.Clone(),
                 ignoreEmptyCollections = ignoreEmptyCollections,
@@ -61,6 +63,29 @@ namespace VerifyTests
             }
 
             list.Add(name);
+        }
+
+        public void MemberConverter<TTarget,TMember>(
+            Expression<Func<TTarget, TMember>> expression,
+            Func<TMember, TMember> converter)
+        {
+            Guard.AgainstNull(expression, nameof(expression));
+            Guard.AgainstNull(converter, nameof(converter));
+            var member = expression.FindMember();
+            MemberConverter(member.DeclaringType!, member.Name, o => converter((TMember) o!));
+        }
+
+        public void MemberConverter(Type declaringType, string name, Func<object?, object?> converter)
+        {
+            Guard.AgainstNull(declaringType, nameof(declaringType));
+            Guard.AgainstNull(converter, nameof(converter));
+            Guard.AgainstNullOrEmpty(name, nameof(name));
+            if (!membersConverters.TryGetValue(declaringType, out var list))
+            {
+                membersConverters[declaringType] = list = new();
+            }
+
+            list[name] = converter;
         }
 
         public void IgnoreMember(string name)
@@ -128,15 +153,16 @@ namespace VerifyTests
             where T : Exception
         {
             Guard.AgainstNull(item, nameof(item));
-            ignoreMembersThatThrow.Add(x =>
-            {
-                if (x is T exception)
+            ignoreMembersThatThrow.Add(
+                x =>
                 {
-                    return item(exception);
-                }
+                    if (x is T exception)
+                    {
+                        return item(exception);
+                    }
 
-                return false;
-            });
+                    return false;
+                });
         }
 
         bool ignoreEmptyCollections = true;
@@ -191,7 +217,8 @@ namespace VerifyTests
                 ignoreMembersWithType,
                 ignoreMembersThatThrow,
                 ignoredInstances,
-                scrubber);
+                scrubber,
+                membersConverters);
             var converters = settings.Converters;
             converters.Add(new StringConverter(scrubber));
             converters.Add(new GuidConverter(scrubber));

@@ -885,6 +885,49 @@ public class SerializationTests
 
     #endregion
 
+
+    #region MemberConverterByExpression
+
+    [Fact]
+    public async Task MemberConverterByExpression()
+    {
+        MemberConverterTarget target = new()
+        {
+            Field = "Value",
+            Property = "Value"
+        };
+        VerifySettings settings = new();
+        settings.ModifySerialization(_ =>
+        {
+            _.MemberConverter<MemberConverterTarget, string>(x => x.Property, o => o + "Suffix");
+            _.MemberConverter<MemberConverterTarget, string>(x => x.Field, o => o + "Suffix");
+        });
+        await Verifier.Verify(target, settings);
+    }
+
+    [Fact]
+    public async Task MemberConverterByExpressionFluent()
+    {
+        MemberConverterTarget target = new()
+        {
+            Field = "Value",
+            Property = "Value"
+        };
+        await Verifier.Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.MemberConverter<MemberConverterTarget, string>(x => x.Property, o => o + "Suffix");
+                _.MemberConverter<MemberConverterTarget, string>(x => x.Field, o => o + "Suffix");
+            });
+    }
+
+    #endregion
+    class MemberConverterTarget
+    {
+        public string Property { get; set; }
+        public string Field;
+    }
+
     #region IgnoreMemberByName
 
     [Fact]

@@ -4,7 +4,7 @@ using System.Reflection;
 
 static class ExpressionExtensions
 {
-    public static MemberInfo FindMember<T>(this Expression<Func<T, object?>> expression)
+    public static MemberInfo FindMember<T, TMember>(this Expression<Func<T, TMember>> expression)
     {
         if (expression.Body is UnaryExpression unary)
         {

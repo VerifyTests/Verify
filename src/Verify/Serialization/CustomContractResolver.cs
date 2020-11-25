@@ -18,9 +18,9 @@ class CustomContractResolver :
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
     IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
     SharedScrubber scrubber;
+    IReadOnlyDictionary<Type, Dictionary<string, Func<object?, object?>>> membersConverters;
 
-    public CustomContractResolver(
-        bool ignoreEmptyCollections,
+    public CustomContractResolver(bool ignoreEmptyCollections,
         bool ignoreFalse,
         bool includeObsoletes,
         IReadOnlyDictionary<Type, List<string>> ignoredMembers,
@@ -28,7 +28,8 @@ class CustomContractResolver :
         IReadOnlyList<Type> ignoredTypes,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
         IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances,
-        SharedScrubber scrubber)
+        SharedScrubber scrubber,
+        IReadOnlyDictionary<Type, Dictionary<string, Func<object?, object?>>> membersConverters)
     {
         Guard.AgainstNull(ignoredMembers, nameof(ignoredMembers));
         Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
@@ -42,6 +43,7 @@ class CustomContractResolver :
         this.ignoreMembersThatThrow = ignoreMembersThatThrow;
         this.ignoredInstances = ignoredInstances;
         this.scrubber = scrubber;
+        this.membersConverters = membersConverters;
         IgnoreSerializableInterface = true;
     }
 
@@ -168,11 +170,11 @@ class CustomContractResolver :
             return property;
         }
 
-        foreach (var keyValuePair in ignoredMembers)
+        foreach (var pair in ignoredMembers)
         {
-            if (keyValuePair.Value.Contains(propertyName))
+            if (pair.Value.Contains(propertyName))
             {
-                if (keyValuePair.Key.IsAssignableFrom(property.DeclaringType))
+                if (pair.Key.IsAssignableFrom(property.DeclaringType))
                 {
                     property.Ignored = true;
                     return property;
@@ -191,19 +193,22 @@ class CustomContractResolver :
                     return false;
                 }
 
-                foreach (var func in funcs)
-                {
-                    if (func(instance))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
+                return funcs.All(func => !func(instance));
             };
         }
 
-        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow);
+
+        Func<object?, object?>? membersConverter = null;
+        foreach (var pair in membersConverters)
+        {
+            if (pair.Key.IsAssignableFrom(property.DeclaringType))
+            {
+                pair.Value.TryGetValue(member.Name, out membersConverter);
+                break;
+            }
+        }
+
+        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow, membersConverter);
 
         return property;
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -32,9 +33,19 @@ namespace VerifyTests
             if (AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory))
             {
                 solutionDirectory = solutionDirectory!.TrimEnd('/', '\\');
-                settings.AddScrubber(builder => builder.Replace(solutionDirectory, "SolutionDirectory"));
+                var altSolutionDirectory = solutionDirectory.Replace(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar);
+                settings.AddScrubber(builder =>
+                {
+                    builder.Replace(solutionDirectory, "SolutionDirectory");
+                    builder.Replace(altSolutionDirectory, "SolutionDirectory");
+                });
             }
-            settings.AddScrubber(builder => builder.Replace(projectDirectory, "ProjectDirectory"));
+            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar);
+            settings.AddScrubber(builder =>
+            {
+                builder.Replace(projectDirectory, "ProjectDirectory");
+                builder.Replace(altProjectDirectory, "ProjectDirectory");
+            });
 
             CounterContext.Start();
         }

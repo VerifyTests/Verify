@@ -153,15 +153,16 @@ namespace VerifyTests
             where T : Exception
         {
             Guard.AgainstNull(item, nameof(item));
-            ignoreMembersThatThrow.Add(x =>
-            {
-                if (x is T exception)
+            ignoreMembersThatThrow.Add(
+                x =>
                 {
-                    return item(exception);
-                }
+                    if (x is T exception)
+                    {
+                        return item(exception);
+                    }
 
-                return false;
-            });
+                    return false;
+                });
         }
 
         bool ignoreEmptyCollections = true;

@@ -1,4 +1,4 @@
 {
-  combine: ProjectDirectoryFoo,
-  alt: ProjectDirectoryFoo
+  combine: ProjectDirectory\Foo,
+  alt: ProjectDirectory/Foo
 }

@@ -25,7 +25,7 @@ namespace VerifyTests
 
         public InnerVerifier(string testName, string sourceFile, Assembly assembly, VerifySettings settings)
         {
-            var projectDirectory = AttributeReader.GetProjectDirectory(assembly);
+            var projectDirectory = AttributeReader.GetProjectDirectory(assembly).TrimEnd('/', '\\');
             directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
             this.testName = testName;
             this.assembly = assembly;

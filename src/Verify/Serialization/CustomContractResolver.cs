@@ -113,7 +113,7 @@ class CustomContractResolver :
         return value;
     }
 
-    FieldInfo exceptionMessageField = typeof(Exception).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
+    static FieldInfo exceptionMessageField = typeof(Exception).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization serialization)
     {

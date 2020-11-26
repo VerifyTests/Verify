@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace VerifyTests
 {
@@ -34,20 +35,31 @@ namespace VerifyTests
         static (string runtime, Version Version) GetRuntimeAndVersion()
         {
             var description = RuntimeInformation.FrameworkDescription;
+            if (description == null)
+            {
+                throw new("Null RuntimeInformation.FrameworkDescription");
+            }
+
             if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
             {
                 var version = Version.Parse(description.Replace(".NET Framework ", ""));
                 return ("Net", version);
             }
 
+            var environmentVersion = Environment.Version;
+            if (environmentVersion == null)
+            {
+                throw new("Null Environment.Version");
+            }
+
             if (description.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase))
             {
-                return ("Core", Environment.Version);
+                return ("Core", environmentVersion);
             }
 
             if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
             {
-                return ("DotNet", Environment.Version);
+                return ("DotNet", environmentVersion);
             }
 
             throw InnerVerifier.exceptionBuilder($"Could not resolve runtime for '{description}'.");

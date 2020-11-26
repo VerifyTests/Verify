@@ -915,8 +915,8 @@ public class SerializationTests
         VerifySettings settings = new();
         settings.ModifySerialization(_ =>
         {
-            _.MemberConverter<MemberConverterTarget, string>(x => x.Property, o => o + "Suffix");
-            _.MemberConverter<MemberConverterTarget, string>(x => x.Field, o => o + "Suffix");
+            _.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
+            _.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
         });
         await Verifier.Verify(target, settings);
     }
@@ -932,8 +932,12 @@ public class SerializationTests
         await Verifier.Verify(target)
             .ModifySerialization(_ =>
             {
-                _.MemberConverter<MemberConverterTarget, string>(x => x.Property, o => o + "Suffix");
-                _.MemberConverter<MemberConverterTarget, string>(x => x.Field, o => o + "Suffix");
+                _.MemberConverter<MemberConverterTarget, string>(
+                    x => x.Property,
+                    (target, value) => value + "Suffix");
+                _.MemberConverter<MemberConverterTarget, string>(
+                    x => x.Field,
+                    (target, value) => value + "Suffix");
             });
     }
 

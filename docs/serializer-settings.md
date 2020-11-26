@@ -63,7 +63,7 @@ JsonSerializerSettings settings = new()
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L198-L207' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L205-L214' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -360,7 +360,7 @@ public Task ScopedSerializerFluent()
             _ => { _.TypeNameHandling = TypeNameHandling.All; });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1187-L1216' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1191-L1220' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -529,7 +529,7 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1151-L1170' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1155-L1174' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -577,7 +577,7 @@ public Task WithObsoletePropIncludedFluent()
         .ModifySerialization(_ => { _.IncludeObsoletes(); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1122-L1149' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1126-L1153' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -708,7 +708,7 @@ public async Task IgnoreMemberByNameFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L947-L994' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L951-L998' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -754,7 +754,7 @@ public async Task CustomExceptionPropFluent()
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1022-L1041' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1026-L1045' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

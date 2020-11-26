@@ -33,7 +33,7 @@ class CustomValueProvider :
         if (membersConverter != null)
         {
             var value = inner.GetValue(target);
-            return membersConverter(value);
+            return membersConverter(target, value);
         }
         try
         {

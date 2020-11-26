@@ -8,8 +8,8 @@ using Newtonsoft.Json.Converters;
 
 namespace VerifyTests
 {
-    public delegate TMember ConvertMember<TMember>(TMember memberValue);
-    public delegate object? ConvertMember(object? memberValue);
+    public delegate TMember ConvertMember<in TTarget, TMember>(TTarget target, TMember memberValue);
+    public delegate object? ConvertMember(object? target, object? memberValue);
 
     public class SerializationSettings
     {
@@ -69,14 +69,17 @@ namespace VerifyTests
         }
 
 
-        public void MemberConverter<TTarget,TMember>(
+        public void MemberConverter<TTarget, TMember>(
             Expression<Func<TTarget, TMember>> expression,
-            ConvertMember<TMember> converter)
+            ConvertMember<TTarget, TMember> converter)
         {
             Guard.AgainstNull(expression, nameof(expression));
             Guard.AgainstNull(converter, nameof(converter));
             var member = expression.FindMember();
-            MemberConverter(member.DeclaringType!, member.Name, o => converter((TMember) o!));
+            MemberConverter(
+                member.DeclaringType!,
+                member.Name,
+                (target, memberValue) => converter((TTarget) target!, (TMember) memberValue!));
         }
 
         public void MemberConverter(Type declaringType, string name, ConvertMember converter)

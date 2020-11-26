@@ -16,7 +16,7 @@ namespace VerifyTests
         string testName;
         Assembly assembly;
         VerifySettings settings;
-        internal static Func<string, Exception> exceptionBuilder = null!;
+        internal static Func<string, Exception> exceptionBuilder = message => throw new(message);
 
         public static void Init(Func<string, Exception> exceptionBuilder)
         {

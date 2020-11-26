@@ -34,10 +34,6 @@ namespace VerifyTests
         static (string runtime, Version Version) GetRuntimeAndVersion()
         {
             var description = RuntimeInformation.FrameworkDescription;
-            if (description == null)
-            {
-                throw new("Null RuntimeInformation.FrameworkDescription");
-            }
 
             if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
             {
@@ -46,10 +42,6 @@ namespace VerifyTests
             }
 
             var environmentVersion = Environment.Version;
-            if (environmentVersion == null)
-            {
-                throw new("Null Environment.Version");
-            }
 
             if (description.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase))
             {
@@ -59,6 +51,11 @@ namespace VerifyTests
             if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
             {
                 return ("DotNet", environmentVersion);
+            }
+
+            if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
+            {
+                return ("Mono", environmentVersion);
             }
 
             throw InnerVerifier.exceptionBuilder($"Could not resolve runtime for '{description}'.");

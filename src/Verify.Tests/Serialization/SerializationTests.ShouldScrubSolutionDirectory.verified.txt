@@ -1,4 +1,6 @@
 {
-  combine: SolutionDirectory\Foo,
-  alt: SolutionDirectory/Foo
+  path: {SolutionDirectory}Foo,
+  trimmed: {SolutionDirectory}Foo,
+  altPath: {SolutionDirectory}Foo,
+  altPathTrimmed: {SolutionDirectory}Foo
 }

@@ -25,26 +25,34 @@ namespace VerifyTests
 
         public InnerVerifier(string testName, string sourceFile, Assembly assembly, VerifySettings settings)
         {
-            var projectDirectory = AttributeReader.GetProjectDirectory(assembly).TrimEnd('/', '\\');
+            var projectDirectory = AttributeReader.GetProjectDirectory(assembly);
             directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
             this.testName = testName;
             this.assembly = assembly;
             this.settings = settings;
             if (AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory))
             {
-                solutionDirectory = solutionDirectory!.TrimEnd('/', '\\');
-                var altSolutionDirectory = solutionDirectory.Replace(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar);
+                var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
+                var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
                 settings.AddScrubber(builder =>
                 {
-                    builder.Replace(solutionDirectory, "SolutionDirectory");
-                    builder.Replace(altSolutionDirectory, "SolutionDirectory");
+                    builder.Replace(solutionDirectory, "{SolutionDirectory}");
+                    builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
+                    builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
+                    builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
                 });
             }
-            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar);
+
+            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
+            var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
             settings.AddScrubber(builder =>
             {
-                builder.Replace(projectDirectory, "ProjectDirectory");
-                builder.Replace(altProjectDirectory, "ProjectDirectory");
+                builder.Replace(projectDirectory, "{ProjectDirectory}");
+                builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
             });
 
             CounterContext.Start();

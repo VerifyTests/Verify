@@ -483,12 +483,15 @@ public class SerializationTests
     public Task ShouldScrubProjectDirectory()
     {
         var projectDirectory = GetProjectDirectory();
-        var combine = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
+        var path = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
+        var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verifier.Verify(
             new
             {
-                combine,
-                alt = combine.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                path,
+                trimmed = path.TrimEnd('/', '\\'),
+                altPath,
+                altPathTrimmed = altPath.TrimEnd('/', '\\'),
             });
     }
 
@@ -501,12 +504,15 @@ public class SerializationTests
     public Task ShouldScrubSolutionDirectory()
     {
         var solutionDirectory = GetSolutionDirectory();
-        var combine = Path.GetFullPath(Path.Combine(solutionDirectory,"Foo"));
+        var path = Path.GetFullPath(Path.Combine(solutionDirectory, "Foo"));
+        var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verifier.Verify(
             new
             {
-                combine,
-                alt = combine.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                path,
+                trimmed = path.TrimEnd('/', '\\'),
+                altPath,
+                altPathTrimmed = altPath.TrimEnd('/', '\\'),
             });
     }
 

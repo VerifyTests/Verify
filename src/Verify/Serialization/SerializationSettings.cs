@@ -8,6 +8,9 @@ using Newtonsoft.Json.Converters;
 
 namespace VerifyTests
 {
+    public delegate TMember ConvertMember<TMember>(TMember memberValue);
+    public delegate object? ConvertMember(object? memberValue);
+
     public class SerializationSettings
     {
         public SerializationSettings()
@@ -23,7 +26,7 @@ namespace VerifyTests
         }
 
         Dictionary<Type, List<string>> ignoredMembers = new();
-        Dictionary<Type, Dictionary<string,Func<object?,object?>>> membersConverters = new();
+        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
         List<string> ignoredByNameMembers = new();
         Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
 
@@ -65,9 +68,10 @@ namespace VerifyTests
             list.Add(name);
         }
 
+
         public void MemberConverter<TTarget,TMember>(
             Expression<Func<TTarget, TMember>> expression,
-            Func<TMember, TMember> converter)
+            ConvertMember<TMember> converter)
         {
             Guard.AgainstNull(expression, nameof(expression));
             Guard.AgainstNull(converter, nameof(converter));
@@ -75,7 +79,7 @@ namespace VerifyTests
             MemberConverter(member.DeclaringType!, member.Name, o => converter((TMember) o!));
         }
 
-        public void MemberConverter(Type declaringType, string name, Func<object?, object?> converter)
+        public void MemberConverter(Type declaringType, string name, ConvertMember converter)
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNull(converter, nameof(converter));

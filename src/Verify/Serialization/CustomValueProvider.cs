@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
+using VerifyTests;
 
 class CustomValueProvider :
     IValueProvider
@@ -8,13 +9,13 @@ class CustomValueProvider :
     IValueProvider inner;
     Type propertyType;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-    Func<object?, object?>? membersConverter;
+    ConvertMember? membersConverter;
 
     public CustomValueProvider(
         IValueProvider inner,
         Type propertyType,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-        Func<object?, object?>? membersConverter)
+        ConvertMember? membersConverter)
     {
         this.inner = inner;
         this.propertyType = propertyType;

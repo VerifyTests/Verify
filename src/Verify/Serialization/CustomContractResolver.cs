@@ -18,7 +18,7 @@ class CustomContractResolver :
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
     IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
     SharedScrubber scrubber;
-    IReadOnlyDictionary<Type, Dictionary<string, Func<object?, object?>>> membersConverters;
+    Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
 
     public CustomContractResolver(bool ignoreEmptyCollections,
         bool ignoreFalse,
@@ -29,7 +29,7 @@ class CustomContractResolver :
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
         IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances,
         SharedScrubber scrubber,
-        IReadOnlyDictionary<Type, Dictionary<string, Func<object?, object?>>> membersConverters)
+        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters)
     {
         Guard.AgainstNull(ignoredMembers, nameof(ignoredMembers));
         Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
@@ -198,7 +198,7 @@ class CustomContractResolver :
         }
 
 
-        Func<object?, object?>? membersConverter = null;
+        ConvertMember? membersConverter = null;
         foreach (var pair in membersConverters)
         {
             if (pair.Key.IsAssignableFrom(property.DeclaringType))

@@ -3,6 +3,7 @@ skip_commits:
 image:
 #- macOS
 - Visual Studio 2019
+- Ubuntu
 build_script:
   - dotnet build src --configuration Release
   - dotnet test src --configuration Release --no-build --no-restore

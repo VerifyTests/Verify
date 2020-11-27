@@ -30,12 +30,24 @@ namespace VerifyTests
             this.testName = testName;
             this.assembly = assembly;
             this.settings = settings;
+
+            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
+            var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
+            settings.instanceScrubbers.Add(builder =>
+            {
+                builder.Replace(projectDirectory, "{ProjectDirectory}");
+                builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+            });
+
             if (AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory))
             {
                 var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                 var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
                 var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
-                settings.AddScrubber(builder =>
+                settings.instanceScrubbers.Add(builder =>
                 {
                     builder.Replace(solutionDirectory, "{SolutionDirectory}");
                     builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
@@ -44,16 +56,6 @@ namespace VerifyTests
                 });
             }
 
-            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
-            var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
-            settings.AddScrubber(builder =>
-            {
-                builder.Replace(projectDirectory, "{ProjectDirectory}");
-                builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
-                builder.Replace(altProjectDirectory, "{ProjectDirectory}");
-                builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
-            });
 
             CounterContext.Start();
         }

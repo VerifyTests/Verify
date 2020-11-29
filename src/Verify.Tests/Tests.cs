@@ -155,7 +155,8 @@ public class Tests
     [Fact]
     public Task ThrowsTask()
     {
-        return Verifier.ThrowsAsync(TaskMethodThatThrows);
+        return Verifier.ThrowsAsync(TaskMethodThatThrows)
+            .UniqueForRuntime();
     }
 
     static Task TaskMethodThatThrows()
@@ -166,7 +167,8 @@ public class Tests
     [Fact]
     public Task ThrowsValueTask()
     {
-        return Verifier.ThrowsAsync(ValueTaskMethodThatThrows);
+        return Verifier.ThrowsAsync(ValueTaskMethodThatThrows)
+            .UniqueForRuntime();
     }
 
     static ValueTask ValueTaskMethodThatThrows()

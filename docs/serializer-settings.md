@@ -63,7 +63,7 @@ JsonSerializerSettings settings = new()
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L234-L243' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L205-L214' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

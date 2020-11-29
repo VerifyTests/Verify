@@ -9,6 +9,7 @@ using Newtonsoft.Json.Converters;
 namespace VerifyTests
 {
     public delegate TMember ConvertMember<in TTarget, TMember>(TTarget target, TMember memberValue);
+
     public delegate object? ConvertMember(object? target, object? memberValue);
 
     public class SerializationSettings
@@ -20,7 +21,7 @@ namespace VerifyTests
             IgnoreMember<AggregateException>(x => x.InnerException);
             IgnoreMember<Exception>(x => x.Source);
             IgnoreMember<Exception>(x => x.HResult);
-            IgnoreMember<Exception>(x => x.StackTrace);
+            MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
 
             currentSettings = BuildSettings();
         }
@@ -68,10 +69,9 @@ namespace VerifyTests
             list.Add(name);
         }
 
-
         public void MemberConverter<TTarget, TMember>(
-            Expression<Func<TTarget, TMember>> expression,
-            ConvertMember<TTarget, TMember> converter)
+            Expression<Func<TTarget, TMember?>> expression,
+            ConvertMember<TTarget, TMember?> converter)
         {
             Guard.AgainstNull(expression, nameof(expression));
             Guard.AgainstNull(converter, nameof(converter));
@@ -245,6 +245,7 @@ namespace VerifyTests
             {
                 extraSetting(settings);
             }
+
             return settings;
         }
 

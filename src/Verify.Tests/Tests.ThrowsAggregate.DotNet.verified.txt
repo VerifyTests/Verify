@@ -10,5 +10,8 @@
       Message: The Message2
     }
   ],
-  Message: One or more errors occurred. (The Message1) (The Message2)
+  Message: One or more errors occurred. (The Message1) (The Message2),
+  StackTrace: 
+at Tests.MethodThatThrowsAggregate()
+at VerifyTests.InnerVerifier.Throws(Action target)
 }

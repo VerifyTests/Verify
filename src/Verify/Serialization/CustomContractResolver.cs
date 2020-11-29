@@ -59,6 +59,9 @@ class CustomContractResolver :
         var properties = base.CreateProperties(type, memberSerialization);
         if (type.IsException())
         {
+            var stackTrace = properties.Single(x => x.PropertyName == "StackTrace");
+            properties.Remove(stackTrace);
+            properties.Add(stackTrace);
             properties.Insert(0,
                 new JsonProperty
                 {

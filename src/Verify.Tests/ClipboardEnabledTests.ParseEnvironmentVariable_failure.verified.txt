@@ -1,5 +1,9 @@
 {
   Type: XunitException,
   UserMessage: Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: foo,
-  Message: Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: foo
+  Message: Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: foo,
+  StackTrace: 
+at ClipboardEnabled.ParseEnvironmentVariable(String disabledText)
+at ClipboardEnabledTests.<>c.<ParseEnvironmentVariable_failure>b__1_0()
+at VerifyTests.InnerVerifier.Throws(Func`1 target)
 }

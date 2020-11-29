@@ -1,5 +1,8 @@
 {
   Type: ArgumentNullException,
   Message: The Message,
-  ParamName: The parameter
+  ParamName: The parameter,
+  StackTrace: 
+at Tests.MethodThatThrowsArgumentNullException()
+at VerifyTests.InnerVerifier.Throws(Action target)
 }

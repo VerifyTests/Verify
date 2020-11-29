@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq.Expressions;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -9,6 +11,7 @@ using Newtonsoft.Json.Converters;
 namespace VerifyTests
 {
     public delegate TMember ConvertMember<in TTarget, TMember>(TTarget target, TMember memberValue);
+
     public delegate object? ConvertMember(object? target, object? memberValue);
 
     public class SerializationSettings
@@ -20,9 +23,36 @@ namespace VerifyTests
             IgnoreMember<AggregateException>(x => x.InnerException);
             IgnoreMember<Exception>(x => x.Source);
             IgnoreMember<Exception>(x => x.HResult);
-            IgnoreMember<Exception>(x => x.StackTrace);
+            MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => ScrubStackTrace(value));
 
             currentSettings = BuildSettings();
+        }
+
+        string? ScrubStackTrace(string? stackTrace)
+        {
+            if (stackTrace == null)
+            {
+                return null;
+            }
+
+            StringBuilder builder = new();
+            using StringReader reader = new(stackTrace);
+            string? line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                line = line.TrimStart();
+                var indexOfRight = line.IndexOf(")");
+                if (indexOfRight > -1)
+                {
+                    line = line.Substring(0, indexOfRight + 1);
+                }
+
+                line = line.Replace(" (", "(");
+                builder.Append(line);
+                builder.Append('\n');
+            }
+            builder.TrimEnd();
+            return builder.ToString();
         }
 
         Dictionary<Type, List<string>> ignoredMembers = new();
@@ -68,10 +98,9 @@ namespace VerifyTests
             list.Add(name);
         }
 
-
         public void MemberConverter<TTarget, TMember>(
-            Expression<Func<TTarget, TMember>> expression,
-            ConvertMember<TTarget, TMember> converter)
+            Expression<Func<TTarget, TMember?>> expression,
+            ConvertMember<TTarget, TMember?> converter)
         {
             Guard.AgainstNull(expression, nameof(expression));
             Guard.AgainstNull(converter, nameof(converter));
@@ -245,6 +274,7 @@ namespace VerifyTests
             {
                 extraSetting(settings);
             }
+
             return settings;
         }
 

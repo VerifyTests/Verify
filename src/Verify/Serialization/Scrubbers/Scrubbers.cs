@@ -65,6 +65,7 @@ namespace VerifyTests
                 }
 
                 line = line.Replace(" (", "(");
+                line = line.Replace("+", ".");
                 builder.Append(line);
                 builder.Append('\n');
             }

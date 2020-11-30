@@ -1,0 +1,7 @@
+{
+  Type: Exception,
+  Message: The Message,
+  StackTrace: 
+at Tests.Nested.MethodThatThrows()
+at VerifyTests.InnerVerifier.Throws(Action target)
+}

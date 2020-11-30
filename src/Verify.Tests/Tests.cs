@@ -118,6 +118,20 @@ public class Tests
     }
 
     [Fact]
+    public Task ThrowsNested()
+    {
+        return Verifier.Throws(Nested.MethodThatThrows);
+    }
+
+    public static class Nested
+    {
+        public static void MethodThatThrows()
+        {
+            throw new("The Message");
+        }
+    }
+
+    [Fact]
     public Task ThrowsArgumentException()
     {
         return Verifier.Throws(MethodThatThrowsArgumentException);

@@ -11,7 +11,7 @@ namespace VerifyTests
             builder.Replace(Environment.MachineName, "TheMachineName");
         }
 
-        public static string? ScrubStackTrace(string? stackTrace)
+        public static string? ScrubStackTrace(string? stackTrace, bool removeParams = false)
         {
             if (stackTrace == null)
             {
@@ -30,17 +30,45 @@ namespace VerifyTests
                 {
                     continue;
                 }
+
                 line = line.TrimStart();
-                var indexOfRight = line.IndexOf(")");
-                if (indexOfRight > -1)
+                if (!line.StartsWith("at "))
                 {
-                    line = line.Substring(0, indexOfRight + 1);
+                    builder.Append(line);
+                    builder.Append('\n');
+                    continue;
+                }
+
+                if (removeParams)
+                {
+                    var indexOfLeft = line.IndexOf("(");
+                    if (indexOfLeft > -1)
+                    {
+                        var c = line[indexOfLeft + 1];
+                        if (c == ')')
+                        {
+                            line = line.Substring(0, indexOfLeft + 2);
+                        }
+                        else
+                        {
+                            line = line.Substring(0, indexOfLeft + 1) + "...)";
+                        }
+                    }
+                }
+                else
+                {
+                    var indexOfRight = line.IndexOf(")");
+                    if (indexOfRight > -1)
+                    {
+                        line = line.Substring(0, indexOfRight + 1);
+                    }
                 }
 
                 line = line.Replace(" (", "(");
                 builder.Append(line);
                 builder.Append('\n');
             }
+
             builder.TrimEnd();
             return builder.ToString();
         }

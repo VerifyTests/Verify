@@ -1,0 +1,7 @@
+
+Elmah.TestException: This is a test exception that can be safely ignored.
+at Elmah.ErrorLogPageFactory.FindHandler(String name)
+at Elmah.ErrorLogPageFactory.GetHandler(HttpContext context, String requestType, String url, String pathTranslated)
+at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+at System.Web.HttpApplication.MapHandlerExecutionStep.Execute()
+at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

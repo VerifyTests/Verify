@@ -15,7 +15,7 @@
     <PackageReference Include="DiffEngine" Version="6.4.6" />
     <PackageReference Include="InfoOf.Fody" Version="2.0.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="21.7.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xunit" Version="2.4.1" />

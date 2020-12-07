@@ -233,7 +233,7 @@ snippet: TreatAsString
 
 A JsonAppender allows extra content to be appended to the output. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
 
-Register a JsonAppender
+Register a JsonAppender:
 
 snippet: RegisterJsonAppender
 

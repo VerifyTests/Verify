@@ -254,3 +254,5 @@ Then the appended content will be added to the `*.info.verified.txt` file:
 snippet: JsonAppenderTests.Stream.info.verified.txt
 
 See [Converters](/docs/converter.md) for more information on `*.info.verified.txt` files.
+
+Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording) and  [Recorders in Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording).

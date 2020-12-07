@@ -36,7 +36,8 @@ Serialization settings can be customized at three levels:
   * [Ignore member by expressions](#ignore-member-by-expressions)
   * [Ignore member by name](#ignore-member-by-name)
   * [Members that throw](#members-that-throw)
-  * [TreatAsString](#treatasstring)<!-- endToc -->
+  * [TreatAsString](#treatasstring)
+  * [JsonAppender](#jsonappender)<!-- endToc -->
 
 
 ## Not valid json
@@ -83,7 +84,7 @@ To disable this behavior globally use:
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L262-L266' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontignoreemptycollections' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L263-L267' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontignoreemptycollections' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -105,7 +106,7 @@ GuidTarget target = new()
 
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L459-L472' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L460-L473' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -130,7 +131,7 @@ To disable this behavior globally use:
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L271-L275' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L272-L276' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
@@ -140,7 +141,7 @@ Strings containing inline Guids can also be scrubbed. To enable this behavior, u
 ```cs
 VerifierSettings.ScrubInlineGuids();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L280-L284' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguids' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L281-L285' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguids' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -165,7 +166,7 @@ DateTimeTarget target = new()
 
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L29-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-date' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L30-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-date' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -192,7 +193,7 @@ To disable this behavior globally use:
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L289-L293' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L290-L294' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -207,7 +208,7 @@ To disable this behavior globally use:
 ```cs
 VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L298-L302' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontignorefalse' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L299-L303' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontignorefalse' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -273,7 +274,7 @@ VerifierSettings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L137-L145' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L138-L146' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -289,7 +290,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L147-L156' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L148-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -316,7 +317,7 @@ class CompanyConverter :
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L168-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L169-L187' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
@@ -324,7 +325,7 @@ class CompanyConverter :
 ```cs
 VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L161-L165' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L162-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -360,7 +361,7 @@ public Task ScopedSerializerFluent()
             _ => { _.TypeNameHandling = TypeNameHandling.All; });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1191-L1220' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1192-L1221' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -423,7 +424,7 @@ public async Task IgnoreTypeFluent()
 
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L733-L773' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L734-L774' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -487,7 +488,7 @@ public async Task AddIgnoreInstanceFluent()
             _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L679-L720' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L680-L721' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -529,7 +530,7 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1155-L1174' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1156-L1175' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -577,7 +578,7 @@ public Task WithObsoletePropIncludedFluent()
         .ModifySerialization(_ => { _.IncludeObsoletes(); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1126-L1153' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1127-L1154' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -640,7 +641,7 @@ public async Task IgnoreMemberByExpressionFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L861-L902' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L862-L903' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -708,7 +709,7 @@ public async Task IgnoreMemberByNameFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L951-L998' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L952-L999' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -754,7 +755,7 @@ public async Task CustomExceptionPropFluent()
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1026-L1045' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1027-L1046' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -794,7 +795,7 @@ public async Task ExceptionMessagePropFluent()
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L625-L649' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L626-L650' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -862,7 +863,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L58-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L59-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.
@@ -875,5 +876,85 @@ Extra types can be added to this mapping:
 VerifierSettings.TreatAsString<ClassWithToString>(
     (target, settings) => target.Property);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L49-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-treatasstring' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L50-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-treatasstring' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## JsonAppender
+
+A JsonAppender allows extra content to be appended to the output. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
+
+Register a JsonAppender
+
+<!-- snippet: RegisterJsonAppender -->
+<a id='snippet-registerjsonappender'></a>
+```cs
+VerifierSettings.RegisterJsonAppender(
+    context =>
+    {
+        if (ShouldInclude(context))
+        {
+            return new ToAppend("theData", "theValue");
+        }
+
+        return null;
+    });
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L16-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerjsonappender' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+When when content is verified:
+
+<!-- snippet: JsonAppender -->
+<a id='snippet-jsonappender'></a>
+```cs
+[Fact]
+public Task WithJsonAppender()
+{
+    return Verifier.Verify("TheValue");
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L46-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappender' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The content from RegisterJsonAppender will be included in the output:
+
+<!-- snippet: JsonAppenderTests.WithJsonAppender.verified.txt -->
+<a id='snippet-JsonAppenderTests.WithJsonAppender.verified.txt'></a>
+```txt
+{
+  target: TheValue,
+  theData: theValue
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.WithJsonAppender.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.WithJsonAppender.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+If the target is a stream or binary file:
+
+<!-- snippet: JsonAppenderStream -->
+<a id='snippet-jsonappenderstream'></a>
+```cs
+[Fact]
+public Task Stream()
+{
+    return Verifier.Verify(FileHelpers.OpenRead("sample.txt"));
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L68-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappenderstream' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Then the appended content will be added to the `*.info.verified.txt` file:
+
+<!-- snippet: JsonAppenderTests.Stream.info.verified.txt -->
+<a id='snippet-JsonAppenderTests.Stream.info.verified.txt'></a>
+```txt
+{
+  target: null,
+  theData: theValue
+}
+```
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.info.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.info.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+See [Converters](/docs/converter.md) for more information on `*.info.verified.txt` files.

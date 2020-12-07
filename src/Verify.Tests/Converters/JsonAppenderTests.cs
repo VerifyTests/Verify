@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using VerifyTests;
@@ -12,16 +13,24 @@ public class JsonAppenderTests : IDisposable
 
     static JsonAppenderTests()
     {
+        #region RegisterJsonAppender
         VerifierSettings.RegisterJsonAppender(
-            _ =>
+            context =>
             {
-                if (!isInThisTest.Value)
+                if (ShouldInclude(context))
                 {
-                    return null;
+                    return new ToAppend("theData", "theValue");
                 }
 
-                return new ToAppend("theData", "theValue");
+                return null;
             });
+        #endregion
+    }
+
+    // ReSharper disable once UnusedParameter.Local
+    static bool ShouldInclude(IReadOnlyDictionary<string, object> context)
+    {
+        return isInThisTest.Value;
     }
 
     public JsonAppenderTests()
@@ -34,11 +43,15 @@ public class JsonAppenderTests : IDisposable
         isInThisTest.Value = false;
     }
 
+    #region JsonAppender
+
     [Fact]
-    public Task Text()
+    public Task WithJsonAppender()
     {
-        return Verifier.Verify("Foo");
+        return Verifier.Verify("TheValue");
     }
+
+    #endregion
 
     [Fact]
     public Task NullText()
@@ -52,11 +65,13 @@ public class JsonAppenderTests : IDisposable
         return Verifier.Verify(new {foo = "bar"});
     }
 
+    #region JsonAppenderStream
     [Fact]
     public Task Stream()
     {
         return Verifier.Verify(FileHelpers.OpenRead("sample.txt"));
     }
+    #endregion
 
     [Fact]
     public Task File()

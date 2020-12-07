@@ -345,7 +345,7 @@ VerifierSettings.DeriveTestDirectory(
         return Path.Combine(snapshotsDirectory);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L83-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 DeriveTestDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+// ReSharper disable UnusedParameter.Local
 
 namespace VerifyTests
 {

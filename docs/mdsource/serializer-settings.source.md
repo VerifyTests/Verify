@@ -227,3 +227,30 @@ This bypasses the Guid and DateTime scrubbing mentioned above.
 Extra types can be added to this mapping:
 
 snippet: TreatAsString
+
+
+## JsonAppender
+
+A JsonAppender allows extra content to be appended to the output. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
+
+Register a JsonAppender
+
+snippet: RegisterJsonAppender
+
+When when content is verified:
+
+snippet: JsonAppender
+
+The content from RegisterJsonAppender will be included in the output:
+
+snippet: JsonAppenderTests.WithJsonAppender.verified.txt
+
+If the target is a stream or binary file:
+
+snippet: JsonAppenderStream
+
+Then the appended content will be added to the `*.info.verified.txt` file:
+
+snippet: JsonAppenderTests.Stream.info.verified.txt
+
+See [Converters](/docs/converter.md) for more information on `*.info.verified.txt` files.

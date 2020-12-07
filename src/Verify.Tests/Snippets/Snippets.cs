@@ -7,6 +7,7 @@ using DiffEngine;
 using Newtonsoft.Json;
 using VerifyTests;
 using VerifyXunit;
+// ReSharper disable UnusedParameter.Local
 
 public class Snippets
 {

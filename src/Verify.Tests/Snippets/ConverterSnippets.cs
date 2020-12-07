@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
+// ReSharper disable UnusedParameter.Local
 
 [UsesVerify]
 public class ConverterSnippets

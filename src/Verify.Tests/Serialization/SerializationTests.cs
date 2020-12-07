@@ -10,6 +10,7 @@ using VerifyTests;
 using VerifyXunit;
 using Xunit;
 using Xunit.Sdk;
+// ReSharper disable UnusedParameter.Local
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618

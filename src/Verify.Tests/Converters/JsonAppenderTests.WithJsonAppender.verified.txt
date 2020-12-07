@@ -1,4 +1,4 @@
 {
-  target: Foo,
+  target: TheValue,
   theData: theValue
 }

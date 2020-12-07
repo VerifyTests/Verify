@@ -14,11 +14,7 @@ static class JsonFormatter
         if (appends.Any())
         {
             Dictionary<string, object> dictionary = new();
-            if (input == null)
-            {
-                dictionary.Add("target", "null");
-            }
-            else
+            if (input != null)
             {
                 dictionary.Add("target", input);
             }
@@ -37,7 +33,7 @@ static class JsonFormatter
         {
             NewLine = "\n"
         };
-        using var writer = new JsonTextWriterEx(stringWriter, verifySettings.Context)
+        using JsonTextWriterEx writer = new(stringWriter, verifySettings.Context)
         {
             QuoteChar = QuoteChar,
             QuoteName = false

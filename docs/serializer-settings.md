@@ -884,7 +884,7 @@ VerifierSettings.TreatAsString<ClassWithToString>(
 
 A JsonAppender allows extra content to be appended to the output. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
 
-Register a JsonAppender
+Register a JsonAppender:
 
 <!-- snippet: RegisterJsonAppender -->
 <a id='snippet-registerjsonappender'></a>
@@ -950,11 +950,10 @@ Then the appended content will be added to the `*.info.verified.txt` file:
 <a id='snippet-JsonAppenderTests.Stream.info.verified.txt'></a>
 ```txt
 {
-  target: null,
   theData: theValue
 }
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.info.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.info.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.info.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.info.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 See [Converters](/docs/converter.md) for more information on `*.info.verified.txt` files.

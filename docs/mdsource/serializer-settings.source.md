@@ -231,7 +231,7 @@ snippet: TreatAsString
 
 ## JsonAppender
 
-A JsonAppender allows extra content to be appended to the output. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
+A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.
 
 Register a JsonAppender:
 

@@ -229,6 +229,8 @@ namespace VerifyTests
             var converters = settings.Converters;
             converters.Add(new StringConverter(scrubber));
             converters.Add(new GuidConverter(scrubber));
+            converters.Add(new FileInfoConverter());
+            converters.Add(new DirectoryInfoConverter());
             converters.Add(new DateTimeConverter(scrubber));
             converters.Add(new DateTimeOffsetConverter(scrubber));
             converters.Add(new StringEnumConverter());

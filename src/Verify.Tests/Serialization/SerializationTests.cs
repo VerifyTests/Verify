@@ -47,6 +47,17 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task PathInfos()
+    {
+        return Verifier.Verify(
+            new
+            {
+                file = new FileInfo(@"c:/foo\bar.txt"),
+                directory = new DirectoryInfo(@"c:/foo\bar/")
+            });
+    }
+
+    [Fact]
     public Task ShouldScrubDatetime()
     {
         var dateTime = DateTime.Now;

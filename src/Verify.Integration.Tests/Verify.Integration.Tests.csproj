@@ -8,7 +8,7 @@
     <TargetFrameworks>net48;netcoreapp3.1;net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.4.6" />
+    <PackageReference Include="DiffEngine" Version="6.4.7" />
     <PackageReference Include="InfoOf.Fody" Version="2.0.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
@@ -16,7 +16,7 @@
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.48" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.49" PrivateAssets="All" />
     <PackageReference Include="XunitContext" Version="3.0.0" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

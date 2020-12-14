@@ -6,13 +6,13 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.4.6" />
+    <PackageReference Include="DiffEngine" Version="6.4.7" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
     <PackageReference Include="EmptyFiles" Version="2.3.1" PrivateAssets="None" />
     <PackageReference Include="TextCopy" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.48" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.49" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.0" />
     <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />

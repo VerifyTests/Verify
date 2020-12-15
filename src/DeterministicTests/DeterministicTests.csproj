@@ -18,4 +18,5 @@
   </ItemGroup>
   <Import Project="..\Verify.Xunit\build.props" />
   <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

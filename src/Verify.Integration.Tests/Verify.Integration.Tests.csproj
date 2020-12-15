@@ -22,4 +22,5 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

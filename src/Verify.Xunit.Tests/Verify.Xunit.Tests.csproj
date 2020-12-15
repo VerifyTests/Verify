@@ -22,5 +22,5 @@
 
     <Folder Include="Scrubbers\" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
+  <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />
 </Project>

@@ -18,5 +18,5 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'net48'" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

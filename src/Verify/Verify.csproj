@@ -15,8 +15,8 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.50" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.0" />
-    <Content Include="buildMultiTargeting\Verify.props" PackagePath="buildMultiTargeting\Verify.props" />
-    <Content Include="build\Verify.props" PackagePath="build\Verify.props" />
+    <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
+    <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
   </ItemGroup>
 </Project>

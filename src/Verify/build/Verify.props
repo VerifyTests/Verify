@@ -3,14 +3,6 @@
   <PropertyGroup>
     <AttributesFile>Verify.Attributes$(ProjectExt.Replace('proj', ''))</AttributesFile>
   </PropertyGroup>
-  <ItemGroup>
-    <None Update="**\*.received.*;**\*.verified.*">
-      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
-    </None>
-  </ItemGroup>
-
   <Target Name="WriteVerifyAttributes"
           Condition="'$(Language)'=='VB' or '$(Language)'=='C#'"
           BeforeTargets="BeforeCompile;CoreCompile"

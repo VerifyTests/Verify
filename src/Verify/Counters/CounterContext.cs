@@ -1,6 +1,5 @@
 ﻿ using System;
  using System.Threading;
- using VerifyTests;
 
  class CounterContext
  {
@@ -16,7 +15,7 @@
              var context = local.Value;
              if (context == null)
              {
-                 throw InnerVerifier.exceptionBuilder("No current context");
+                 throw new("No current context");
              }
              return context;
          }
@@ -44,7 +43,7 @@
              return DateTimeOffsetCounter.IntOrNext(dateTimeOffsetInput);
          }
 
-         throw InnerVerifier.exceptionBuilder($"Unknown type {typeof(T).FullName}");
+         throw new($"Unknown type {typeof(T).FullName}");
      }
 
      public static void Stop()

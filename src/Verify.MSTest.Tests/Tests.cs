@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 
@@ -10,7 +11,7 @@ public class Tests :
     [DataRow("Value1")]
     public async Task MissingParameter(string arg)
     {
-        var exception = await Assert.ThrowsExceptionAsync<AssertFailedException>(() => Verify("Foo"));
+        var exception = await Assert.ThrowsExceptionAsync<Exception>(() => Verify("Foo"));
         Assert.IsTrue(exception.Message.Contains("requires parameters"));
     }
 }

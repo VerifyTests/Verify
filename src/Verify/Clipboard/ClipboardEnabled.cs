@@ -22,7 +22,7 @@ static class ClipboardEnabled
             return disabled;
         }
 
-        throw InnerVerifier.exceptionBuilder($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}");
+        throw new($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}");
     }
 
     public static bool IsEnabled(VerifySettings settings)

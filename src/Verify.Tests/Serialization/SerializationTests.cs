@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Sdk;
 // ReSharper disable UnusedParameter.Local
+// ReSharper disable MemberCanBeMadeStatic.Local
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
@@ -507,7 +507,7 @@ public class SerializationTests
             });
     }
 
-    string GetProjectDirectory([CallerFilePath] string file = "")
+    static string GetProjectDirectory([CallerFilePath] string file = "")
     {
         return new FileInfo(file).Directory!.Parent!.FullName;
     }
@@ -528,7 +528,7 @@ public class SerializationTests
             });
     }
 
-    string GetSolutionDirectory([CallerFilePath] string file = "")
+    static string GetSolutionDirectory([CallerFilePath] string file = "")
     {
         return new FileInfo(file).Directory!.Parent!.Parent!.FullName;
     }
@@ -1189,7 +1189,7 @@ public class SerializationTests
     [Fact]
     public async Task Tuple()
     {
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify(() => MethodWithTuple()));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithTuple()));
         await Verifier.Verify(exception.Message);
     }
 

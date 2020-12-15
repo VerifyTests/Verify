@@ -11,7 +11,6 @@ using VerifyTests;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 [UsesVerify]
 public partial class Tests :
@@ -82,7 +81,7 @@ public partial class Tests :
                 message = "Expected command not running";
             }
 
-            throw InnerVerifier.exceptionBuilder($@"{message}
+            throw new($@"{message}
 {command}
 Commands:
 {commands}");
@@ -116,9 +115,9 @@ Commands:
         Assert.False(File.Exists(file));
     }
 
-    static Task<XunitException> Throws(Func<Task> testCode)
+    static Task<Exception> Throws(Func<Task> testCode)
     {
-        return Assert.ThrowsAsync<XunitException>(testCode);
+        return Assert.ThrowsAsync<Exception>(testCode);
     }
 
     public Tests(ITestOutputHelper output) :

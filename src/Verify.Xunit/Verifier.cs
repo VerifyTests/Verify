@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
-using Xunit.Sdk;
 
 namespace VerifyXunit
 {
@@ -13,7 +12,7 @@ namespace VerifyXunit
             if (!UsesVerifyAttribute.TryGet(out var info))
             {
                 var fileName = Path.GetFileName(sourceFile);
-                throw new XunitException($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
+                throw new Exception($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
             }
 
             var className = Path.GetFileNameWithoutExtension(sourceFile);

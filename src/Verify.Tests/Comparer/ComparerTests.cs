@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Sdk;
 
 [UsesVerify]
 public class ComparerTests
@@ -17,7 +16,7 @@ public class ComparerTests
         settings.UseComparer(CompareWithMessage);
         settings.DisableDiff();
         settings.DisableClipboard();
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("NotTheText", settings));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("NotTheText", settings));
         Assert.Contains("theMessage", exception.Message);
     }
 
@@ -38,7 +37,7 @@ public class ComparerTests
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
         settings.DisableClipboard();
-        var exception = await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("TheText", settings));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
         Assert.Contains("theMessage", exception.Message);
     }
 

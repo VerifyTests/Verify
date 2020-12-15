@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Linq;
-using VerifyTests;
 
 static class TupleConverter
 {
@@ -41,7 +40,7 @@ static class TupleConverter
             return attribute;
         }
 
-        throw InnerVerifier.exceptionBuilder("Verify is only to be used on methods that return a tuple.");
+        throw new("Verify is only to be used on methods that return a tuple.");
     }
 }
 #endif

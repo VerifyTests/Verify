@@ -89,13 +89,13 @@ public class TypeNameConverterTests
     [Fact]
     public Task RuntimeEnumerableDynamicWithSelect()
     {
-        return Verifier.Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x => x!=null).GetType()));
+        return Verifier.Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x => x != null).GetType()));
     }
 
     [Fact]
     public Task RuntimeEnumerableDynamicWithInnerSelect()
     {
-        return Verifier.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => new {X=x.ToString()}).GetType()));
+        return Verifier.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => new {X = x.ToString()}).GetType()));
     }
 
     [Fact]
@@ -111,7 +111,7 @@ public class TypeNameConverterTests
 
     static IEnumerable<dynamic> MethodWithYieldDynamic()
     {
-        yield return new {X="1"};
+        yield return new {X = "1"};
     }
 
     [Fact]
@@ -126,7 +126,9 @@ public class TypeNameConverterTests
         return Verifier.Verify(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>[])));
     }
 
-    public class TargetWithNested{}
+    public class TargetWithNested
+    {
+    }
 }
 
 namespace MyNamespace

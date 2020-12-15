@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Sdk;
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
@@ -62,7 +61,7 @@ public class Tests
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value", settings));
         Assert.False(onFirstVerifyCalled);
         Assert.True(onVerifyMismatchCalled);
     }
@@ -89,7 +88,7 @@ public class Tests
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value", settings));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
     }
@@ -248,7 +247,7 @@ public class Tests
         VerifySettings settings = new();
         settings.DisableClipboard();
         settings.DisableDiff();
-        await Assert.ThrowsAsync<XunitException>(() => Verifier.Verify("a", settings));
+        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("a", settings));
     }
 
     [Fact]

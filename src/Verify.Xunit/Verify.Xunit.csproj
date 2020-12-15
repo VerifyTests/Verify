@@ -8,8 +8,6 @@
   <ItemGroup>
     <Content Include="build.props" PackagePath="build\Verify.Xunit.props" />
     <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Verify.Xunit.props" />
-    <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
-    <PackageReference Include="ModuleInit.Fody" Version="2.1.1" PrivateAssets="All" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />

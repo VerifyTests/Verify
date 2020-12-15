@@ -58,7 +58,7 @@ namespace VerifyTests
                 return ("Mono", environmentVersion);
             }
 
-            throw InnerVerifier.exceptionBuilder($"Could not resolve runtime for '{description}'.");
+            throw new($"Could not resolve runtime for '{description}'.");
         }
     }
 }

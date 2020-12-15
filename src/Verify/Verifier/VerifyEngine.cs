@@ -105,7 +105,7 @@ class VerifyEngine
         await ProcessNotEquals(builder);
         if (!settings.autoVerify)
         {
-            throw InnerVerifier.exceptionBuilder(builder.ToString());
+            throw new(builder.ToString());
         }
     }
 

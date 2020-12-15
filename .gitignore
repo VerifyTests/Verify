@@ -14,3 +14,4 @@ src/Verify.Tests/Tests.TextNegative.verified.tmp
 .idea
 .DS_Store
 src/Verify.sln.DotSettings.user
+*.user

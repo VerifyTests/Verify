@@ -82,7 +82,8 @@ public class TypeNameConverterTests
     [Fact]
     public Task RuntimeEnumerableWithSelect()
     {
-        return Verifier.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => x!=null).GetType()));
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+        return Verifier.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => x != null).GetType()));
     }
 
     [Fact]

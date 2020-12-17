@@ -131,13 +131,13 @@ The same approach can be used to verify the results and the change to `Sample.Te
  * **All `*.received.*` files should be excluded from source control.**
 
 
-## Static Config
+## Static settings
 
 Most settings are available at the both global level and at the instance level.
 
 When modifying settings at the both global level it should be done using a Module Initializer:
 
-snippe: StaticConfigUsage
+snippet: StaticConfigUsage
 
 
 ## Videos

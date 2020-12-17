@@ -137,7 +137,7 @@ Most settings are available at the both global level and at the instance level.
 
 When modifying settings at the both global level it should be done using a Module Initializer:
 
-snippet: StaticConfigUsage
+snippet: StaticSettings.cs
 
 
 ## Videos

@@ -33,7 +33,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
   * [Received and Verified](#received-and-verified)
-  * [Static Config](#static-config)
+  * [Static settings](#static-settings)
   * [Videos](#videos)
   * [Extensions](#extensions)
   * [More Documentation](#more-documentation)
@@ -279,13 +279,54 @@ The same approach can be used to verify the results and the change to `Sample.Te
  * **All `*.received.*` files should be excluded from source control.**
 
 
-## Static Config
+## Static settings
 
 Most settings are available at the both global level and at the instance level.
 
 When modifying settings at the both global level it should be done using a Module Initializer:
 
-snippe: StaticConfigUsage
+<!-- snippet: StaticSettings.cs -->
+<a id='snippet-StaticSettings.cs'></a>
+```cs
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using VerifyTests;
+using VerifyXunit;
+using Xunit;
+
+[UsesVerify]
+public class StaticSettingsTest
+{
+    [Fact]
+    public Task Test()
+    {
+        return Verifier.Verify("String to verify");
+    }
+}
+
+public static class StaticSettingsUsage
+{
+    [ModuleInitializer]
+    public static void Initialize()
+    {
+        VerifierSettings.AddScrubber(_ => _.Replace("String to verify", "new value"));
+    }
+}
+
+//Only required if using a legacy version of .net
+#if(!NET5_0)
+namespace System.Runtime.CompilerServices
+{
+    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
+    public sealed class ModuleInitializerAttribute :
+        Attribute
+    {
+    }
+}
+#endif
+```
+<sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Videos

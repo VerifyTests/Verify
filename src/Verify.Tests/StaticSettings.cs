@@ -5,7 +5,7 @@ using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
-public class StaticConfigTest
+public class StaticSettingsTest
 {
     [Fact]
     public Task Test()
@@ -14,7 +14,7 @@ public class StaticConfigTest
     }
 }
 
-public static class StaticConfigUsage
+public static class StaticSettingsUsage
 {
     [ModuleInitializer]
     public static void Initialize()
@@ -23,6 +23,7 @@ public static class StaticConfigUsage
     }
 }
 
+//Only required if using a legacy version of .net
 #if(!NET5_0)
 namespace System.Runtime.CompilerServices
 {

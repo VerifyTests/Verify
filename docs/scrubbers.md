@@ -429,8 +429,6 @@ Scrubbers can be defined at three levels:
  * Class: As a class level 'VerifySettings' field then re-used at the method level.
  * Global: Will run for test methods on all tests.
 
-Global scrubbers should be defined only once at appdomain startup. In this example the scrubber is configured using the [Global Setup](https://github.com/SimonCropp/XunitContext#global-setup) of [XunitContext](https://github.com/SimonCropp/XunitContext). It could also be configured using a [Module Initializer](https://github.com/Fody/ModuleInit).
-
 
 ### xUnit
 

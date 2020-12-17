@@ -33,6 +33,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
     * [Initial Verification](#initial-verification)
     * [Subsequent Verification](#subsequent-verification)
   * [Received and Verified](#received-and-verified)
+  * [Static Config](#static-config)
   * [Videos](#videos)
   * [Extensions](#extensions)
   * [More Documentation](#more-documentation)
@@ -276,6 +277,15 @@ The same approach can be used to verify the results and the change to `Sample.Te
 
  * **All `*.verified.*` files should be committed to source control.**
  * **All `*.received.*` files should be excluded from source control.**
+
+
+## Static Config
+
+Most settings are available at the both global level and at the instance level.
+
+When modifying settings at the both global level it should be done using a Module Initializer:
+
+snippe: StaticConfigUsage
 
 
 ## Videos

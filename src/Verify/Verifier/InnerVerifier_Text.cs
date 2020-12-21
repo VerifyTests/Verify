@@ -16,13 +16,13 @@ namespace VerifyTests
             {
                 return SerializeAndVerify(builder.ToString(), appenders);
             }
-
-            return VerifyStringBuilder(builder);
+            
+            var extension = settings.ExtensionOrTxt();
+            return VerifyStringBuilder(builder,extension);
         }
 
-        async Task VerifyStringBuilder(StringBuilder target)
+        async Task VerifyStringBuilder(StringBuilder target, string extension)
         {
-            var extension = settings.ExtensionOrTxt();
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
 
             VerifyEngine engine = new(extension, settings, directory, testName, assembly);

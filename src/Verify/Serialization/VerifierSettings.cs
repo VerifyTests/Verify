@@ -68,7 +68,7 @@ namespace VerifyTests
             {typeof(ulong), (target, _) => ((ulong) target).ToString()},
             {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0
-             //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+            //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
             {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
             {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
@@ -106,6 +106,7 @@ namespace VerifyTests
             #endregion
         };
 
+
         public static void TreatAsString<T>(AsString<T>? toString = null)
         {
             toString ??= (target, _) =>
@@ -141,5 +142,12 @@ namespace VerifyTests
         {
             SharedScrubber.datetimeOffsetFormats.Add(format);
         }
+
+        public static void UseStrictJson()
+        {
+            StrictJson = true;
+        }
+
+        public static bool StrictJson { get; private set; }
     }
 }

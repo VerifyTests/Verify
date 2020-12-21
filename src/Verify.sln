@@ -42,6 +42,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeterministicTests", "Deter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeDiffTool", "FakeDiffTool\FakeDiffTool.csproj", "{EBA9F929-B9A7-4685-8117-34E5DD6F4AEB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrictJsonTests", "StrictJsonTests\StrictJsonTests.csproj", "{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{EBA9F929-B9A7-4685-8117-34E5DD6F4AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBA9F929-B9A7-4685-8117-34E5DD6F4AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBA9F929-B9A7-4685-8117-34E5DD6F4AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

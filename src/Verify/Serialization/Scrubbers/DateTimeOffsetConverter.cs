@@ -23,7 +23,7 @@ class DateTimeOffsetConverter :
         var dateTime = (DateTimeOffset) value;
         if(scrubber.TryConvert(dateTime, out var result))
         {
-            writer.WriteRawValue(result);
+            writer.WriteValue(result);
             return;
         }
         writer.WriteValue(dateTime);

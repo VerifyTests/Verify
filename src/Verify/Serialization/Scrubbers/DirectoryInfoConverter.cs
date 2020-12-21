@@ -13,6 +13,6 @@ class DirectoryInfoConverter :
             return;
         }
 
-        writer.WriteRawValue(value.ToString().Replace('\\','/'));
+        writer.WriteValue(value.ToString().Replace('\\','/'));
     }
 }

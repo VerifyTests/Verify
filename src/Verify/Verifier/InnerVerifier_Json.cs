@@ -70,7 +70,15 @@ namespace VerifyTests
                 settings.serialization.currentSettings,
                 appends,
                 settings);
-            return VerifyStringBuilder(json);
+
+            var defaultValue = "txt";
+            if (VerifierSettings.StrictJson)
+            {
+                defaultValue = "json";
+            }
+
+            var extension = settings.ExtensionOrTxt(defaultValue);
+            return VerifyStringBuilder(json, extension);
         }
     }
 }

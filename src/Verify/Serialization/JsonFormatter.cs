@@ -7,7 +7,6 @@ using VerifyTests;
 
 static class JsonFormatter
 {
-    internal static char QuoteChar = '\'';
 
     public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, List<ToAppend> appends, VerifySettings verifySettings)
     {
@@ -35,8 +34,6 @@ static class JsonFormatter
         };
         using JsonTextWriterEx writer = new(stringWriter, verifySettings.Context)
         {
-            QuoteChar = QuoteChar,
-            QuoteName = false
         };
         serializer.Serialize(writer, input);
         return builder;

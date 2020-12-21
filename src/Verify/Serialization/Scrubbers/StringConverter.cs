@@ -23,7 +23,7 @@ class StringConverter :
         var valueAsString = (string) value;
         if (sharedScrubber.TryConvertString(valueAsString, out var result))
         {
-            writer.WriteRawValue(result);
+            writer.WriteValue(result);
             return;
         }
 

@@ -24,11 +24,11 @@ class GuidConverter :
         var guid = (Guid) value;
         if (scrubber.TryConvert(guid, out var result))
         {
-            writer.WriteRawValue(result);
+            writer.WriteValue(result);
             return;
         }
 
-        writer.WriteRawValue(guid.ToString("D", CultureInfo.InvariantCulture));
+        writer.WriteValue(guid.ToString("D", CultureInfo.InvariantCulture));
     }
 
     public override bool CanConvert(Type type)

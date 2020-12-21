@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Newtonsoft.Json;
+using VerifyTests;
 
 class JsonTextWriterEx :
     JsonTextWriter
@@ -13,20 +14,31 @@ class JsonTextWriterEx :
         base(writer)
     {
         Context = context;
+        if (!VerifierSettings.StrictJson)
+        {
+            QuoteChar = '\'';
+            QuoteName = false;
+        }
     }
 
     public override void WriteValue(string? value)
     {
-        if (value != null)
+        if (value == null)
         {
-            value = value.Replace("\r\n", "\n").Replace("\r", "\n");
-            if (value.Contains("\n"))
-            {
-                value = $"\n{value}";
-            }
-
-            base.WriteRawValue(value);
+            base.WriteValue(value);
             return;
+        }
+
+        value = value.Replace("\r\n", "\n").Replace("\r", "\n");
+        if (VerifierSettings.StrictJson)
+        {
+            base.WriteValue(value);
+            return;
+        }
+
+        if (value.Contains("\n"))
+        {
+            value = $"\n{value}";
         }
 
         base.WriteRawValue(value);

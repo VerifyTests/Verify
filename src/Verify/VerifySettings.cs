@@ -65,11 +65,11 @@ namespace VerifyTests
             return true;
         }
 
-        internal string ExtensionOrTxt()
+        internal string ExtensionOrTxt(string defaultValue = "txt")
         {
             if (extension == null)
             {
-                return "txt";
+                return defaultValue;
             }
 
             return extension;

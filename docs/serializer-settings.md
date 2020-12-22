@@ -17,6 +17,7 @@ Serialization settings can be customized at three levels:
 ## Contents
 
   * [Not valid json](#not-valid-json)
+    * [UseStrictJson](#usestrictjson)
   * [Default settings](#default-settings)
   * [QuoteName is false](#quotename-is-false)
   * [Empty collections are ignored](#empty-collections-are-ignored)
@@ -50,9 +51,54 @@ Note that the output is technically not valid json.
 The reason for these is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
+### UseStrictJson
+
+To use strict json call `VerifierSettings.UseStrictJson`:
+
+<!-- snippet: UseStrictJson -->
+<a id='snippet-usestrictjson'></a>
+```cs
+VerifierSettings.UseStrictJson();
+```
+<sup><a href='/src/StrictJsonTests/Tests.cs#L11-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Then this result in 
+
+ * The default `.received.` and `.verified.` extensions for serialized verification to be `.json`.
+ * `JsonTextWriter.QuoteChar` to be `"`.
+ * `JsonTextWriter.QuoteName` to be `true`.
+
+Then when an object is verified:
+
+<!-- snippet: UseStrictJsonVerify -->
+<a id='snippet-usestrictjsonverify'></a>
+```cs
+var target = new Target
+{
+    Value = "Foo"
+};
+await Verifier.Verify(target);
+```
+<sup><a href='/src/StrictJsonTests/Tests.cs#L31-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+The resulting file will be:
+
+<!-- snippet: Tests.Object.verified.json -->
+<a id='snippet-Tests.Object.verified.json'></a>
+```json
+{
+  "Value": "Foo"
+}
+```
+<sup><a href='/src/StrictJsonTests/Tests.Object.verified.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.Object.verified.json' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Default settings
 
-The default serialization settings are:
+The default `JsonSerializerSettings` are:
 
 <!-- snippet: defaultSerialization -->
 <a id='snippet-defaultserialization'></a>

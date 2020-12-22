@@ -8,7 +8,9 @@ public class Tests
 {
     static Tests()
     {
+        #region UseStrictJson
         VerifierSettings.UseStrictJson();
+        #endregion
     }
 
     [Fact]
@@ -24,9 +26,15 @@ public class Tests
     }
 
     [Fact]
-    public Task Object()
+    public async Task Object()
     {
-        return Verifier.Verify(new Target {Value = "Foo"});
+        #region UseStrictJsonVerify
+        var target = new Target
+        {
+            Value = "Foo"
+        };
+        await Verifier.Verify(target);
+        #endregion
     }
 }
 

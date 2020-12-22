@@ -19,9 +19,30 @@ Note that the output is technically not valid json.
 The reason for these is that it makes approval files cleaner and easier to read and visualize/understand differences.
 
 
+### UseStrictJson
+
+To use strict json call `VerifierSettings.UseStrictJson`:
+
+snippet: UseStrictJson
+
+Then this result in 
+
+ * The default `.received.` and `.verified.` extensions for serialized verification to be `.json`.
+ * `JsonTextWriter.QuoteChar` to be `"`.
+ * `JsonTextWriter.QuoteName` to be `true`.
+
+Then when an object is verified:
+
+snippet: UseStrictJsonVerify
+
+The resulting file will be:
+
+snippet: Tests.Object.verified.json
+
+
 ## Default settings
 
-The default serialization settings are:
+The default `JsonSerializerSettings` are:
 
 snippet: defaultSerialization
 

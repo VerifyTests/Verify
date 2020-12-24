@@ -5,7 +5,7 @@ image:
 - Visual Studio 2019
 - Ubuntu
 build_script:
-  - dotnet build src --configuration Release --verbosity detailed
+  - dotnet build src --configuration Release --verbosity normal
   - dotnet test src --configuration Release --no-build --no-restore
 # begin-snippet: AppVeyorArtifacts
 on_failure:

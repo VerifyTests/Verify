@@ -16,7 +16,7 @@
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.50" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.51" PrivateAssets="All" />
     <PackageReference Include="XunitContext" Version="3.0.0" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

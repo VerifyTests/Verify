@@ -1,1 +1,4 @@
-TempPath
+{
+  tempPath: {TempPath},
+  altTempPath: {TempPath}
+}

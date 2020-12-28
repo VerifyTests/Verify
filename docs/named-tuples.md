@@ -21,7 +21,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     return (true, "A", "B");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L436-L443' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L444-L451' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Can be verified:
@@ -31,7 +31,7 @@ Can be verified:
 ```cs
 await Verifier.Verify(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L429-L433' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L437-L441' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Resulting in:

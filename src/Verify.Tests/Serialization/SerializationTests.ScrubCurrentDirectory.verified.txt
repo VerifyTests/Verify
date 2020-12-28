@@ -1,1 +1,4 @@
-CurrentDirectory
+{
+  currentDirectory: {CurrentDirectory},
+  altCurrentDirectory: {CurrentDirectory}
+}

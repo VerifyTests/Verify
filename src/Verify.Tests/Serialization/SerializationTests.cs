@@ -161,7 +161,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new(){"Sam", "Mary"},
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -191,7 +191,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new(){"Sam", "Mary"},
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -364,27 +364,35 @@ public class SerializationTests
     [Fact]
     public Task ScrubTempPath()
     {
-        return Verifier.Verify(Path.GetTempPath().TrimEnd('/', '\\'));
+        var tempPath = Path.GetTempPath().TrimEnd('/', '\\');;
+        var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        return Verifier.Verify(new {tempPath, altTempPath});
     }
 
     [Fact]
     public Task ScrubCurrentDirectory()
     {
-        return Verifier.Verify(Environment.CurrentDirectory.TrimEnd('/', '\\'));
+        var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\');;
+        var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        return Verifier.Verify(new {currentDirectory, altCurrentDirectory});
     }
 
 #if !NET5_0
     [Fact]
     public Task ScrubCodeBaseLocation()
     {
-        return Verifier.Verify(CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\'));
+        var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');;
+        var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        return Verifier.Verify(new {codeBaseLocation, altCodeBaseLocation});
     }
 #endif
 
     [Fact]
     public Task ScrubBaseDirectory()
     {
-        return Verifier.Verify(AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\'));
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('/', '\\');
+        var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        return Verifier.Verify(new {baseDirectory, altBaseDirectory});
     }
 
     class TypeTarget
@@ -954,6 +962,7 @@ public class SerializationTests
     }
 
     #endregion
+
     class MemberConverterTarget
     {
         public string Property { get; set; }
@@ -1168,7 +1177,9 @@ public class SerializationTests
 
     class WithObsolete
     {
-        [Obsolete] public string ObsoleteProperty { get; set; }
+        [Obsolete]
+        public string ObsoleteProperty { get; set; }
+
         public string OtherProperty { get; set; }
     }
 

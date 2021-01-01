@@ -101,7 +101,7 @@ Commands:
         {
             var command = $"/c {line}";
             using var process = Process.Start("cmd.exe", command);
-            process.WaitForExit();
+            process!.WaitForExit();
         }
     }
 

@@ -295,7 +295,7 @@ using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
-public class StaticSettingsTest
+public class StaticSettings
 {
     [Fact]
     public Task Test()

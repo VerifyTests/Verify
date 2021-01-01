@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 
 [TestClass]
-public abstract class Base :
+public class Base :
     VerifyBase
 {
     [TestMethod]

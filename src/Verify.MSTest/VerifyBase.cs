@@ -26,7 +26,7 @@ namespace VerifyMSTest
             }
 
             var parameters = settings.GetParameters(methodInfo);
-            var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, parameters);
+            var uniqueTestName = TestNameBuilder.GetUniqueTestName(methodInfo, parameters);
             return new(uniqueTestName, sourceFile, type.Assembly, settings);
         }
 

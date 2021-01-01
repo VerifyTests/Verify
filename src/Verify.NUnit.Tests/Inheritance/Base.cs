@@ -3,7 +3,7 @@ using NUnit.Framework;
 using VerifyNUnit;
 
 [TestFixture]
-public abstract class Base
+public class Base
 {
     [Test]
     public Task TestInBase()

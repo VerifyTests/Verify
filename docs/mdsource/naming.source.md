@@ -25,6 +25,8 @@ snippet: UseNameFluent
 
 Will result in `TheCustomNameFluent.verified.txt`.
 
+`UseName` will combine with any of the below `UniqueFor*`s.
+
 
 ## UniqueFor
 

@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
-using VerifyXunit;
-using Xunit;
+using NUnit.Framework;
+using VerifyNUnit;
 
-[UsesVerify]
-public class Base
+[TestFixture]
+public abstract class Base
 {
-    [Fact]
+    [Test]
     public Task TestInBase()
     {
         return Verifier.Verify("Foo");
     }
 
-    [Fact]
+    [Test]
     public virtual Task TestToOverride()
     {
         return Verifier.Verify("Foo");

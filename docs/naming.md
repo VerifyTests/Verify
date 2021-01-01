@@ -17,7 +17,35 @@ The format is
 
 ## UniqueTestName
 
-The file prefix uses [XunitContext UniqueTestName](https://github.com/SimonCropp/XunitContext#uniquetestname).
+The file prefix uses the test name.
+
+
+### UseName
+
+A custom test name can be used via `UseName`
+
+<!-- snippet: UseName -->
+<a id='snippet-usename'></a>
+```cs
+VerifySettings settings = new();
+settings.UseName("TheCustomName");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-usename' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `TheCustomName.verified.txt`.
+
+<!-- snippet: UseNameFluent -->
+<a id='snippet-usenamefluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseName("TheCustomNameFluent");
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L59-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-usenamefluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `TheCustomNameFluent.verified.txt`.
 
 
 ## UniqueFor
@@ -321,7 +349,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L70-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -6,6 +6,7 @@ namespace VerifyTests
     public class Namer
     {
         internal bool UniqueForRuntime;
+        internal string? Name;
         internal bool UniqueForAssemblyConfiguration;
         internal bool UniqueForRuntimeAndVersion;
 
@@ -26,6 +27,7 @@ namespace VerifyTests
 
         internal Namer(Namer namer)
         {
+            Name = namer.Name;
             UniqueForRuntime = namer.UniqueForRuntime;
             UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
             UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;

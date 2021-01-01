@@ -10,7 +10,20 @@ The format is
 
 ## UniqueTestName
 
-The file prefix uses [XunitContext UniqueTestName](https://github.com/SimonCropp/XunitContext#uniquetestname).
+The file prefix uses the test name.
+
+
+### UseName
+
+A custom test name can be used via `UseName`
+
+snippet: UseName
+
+Will result in `TheCustomName.verified.txt`.
+
+snippet: UseNameFluent
+
+Will result in `TheCustomNameFluent.verified.txt`.
 
 
 ## UniqueFor

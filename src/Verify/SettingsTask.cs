@@ -88,6 +88,12 @@ namespace VerifyTests
             return this;
         }
 
+        public SettingsTask UseName(string name)
+        {
+            CurrentSettings.UseName(name);
+            return this;
+        }
+
         public SettingsTask UniqueForRuntimeAndVersion()
         {
             CurrentSettings.UniqueForRuntimeAndVersion();

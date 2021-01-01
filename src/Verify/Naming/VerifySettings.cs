@@ -14,6 +14,12 @@
             Namer.UniqueForRuntime = true;
         }
 
+        public void UseName(string name)
+        {
+            Guard.AgainstNullOrEmpty(name, nameof(name));
+            Namer.Name = name;
+        }
+
         public void UniqueForRuntimeAndVersion()
         {
             Namer.UniqueForRuntimeAndVersion = true;

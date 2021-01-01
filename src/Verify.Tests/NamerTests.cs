@@ -42,6 +42,29 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseName()
+    {
+        #region UseName
+
+        VerifySettings settings = new();
+        settings.UseName("TheCustomName");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseNameFluent()
+    {
+        #region UseNameFluent
+
+        await Verifier.Verify("value")
+            .UseName("TheCustomNameFluent");
+
+        #endregion
+    }
+
+    [Fact]
     public void AccessNamerRuntimeAndVersion()
     {
         #region AccessNamerRuntimeAndVersion

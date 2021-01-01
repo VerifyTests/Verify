@@ -19,8 +19,9 @@ namespace VerifyXunit
 
             var parameters = settings.GetParameters(info);
 
-            var name = TestNameBuilder.GetUniqueTestName(className, info, parameters);
-            return new(name, sourceFile, info.DeclaringType!.Assembly, settings);
+            var type = info.ReflectedType!;
+            var name = TestNameBuilder.GetUniqueTestName(info, parameters);
+            return new(name, sourceFile, type.Assembly, settings);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

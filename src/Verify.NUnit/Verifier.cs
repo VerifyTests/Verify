@@ -31,7 +31,8 @@ namespace VerifyNUnit
             var test = (Test) field.GetValue(adapter)!;
 
             var method = test.Method.MethodInfo;
-            var name = TestNameBuilder.GetUniqueTestName(Path.GetFileNameWithoutExtension(sourceFile), method, adapter.Arguments);
+            var className = Path.GetFileNameWithoutExtension(sourceFile);
+            var name = TestNameBuilder.GetUniqueTestName(method, adapter.Arguments);
             return new(name, sourceFile, test.TypeInfo.Assembly, settings);
         }
 

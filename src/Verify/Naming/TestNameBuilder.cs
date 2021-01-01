@@ -19,12 +19,6 @@ static class TestNameBuilder
         return name.Substring(indexOf + 1, name.Length - indexOf - 1);
     }
 
-    public static string GetUniqueTestName(Type type, MethodInfo method, IReadOnlyList<object?> parameterValues)
-    {
-        var className = type.ClassName();
-        return GetUniqueTestName(className, method, parameterValues);
-    }
-
     public static string GetUniqueTestName(string className, MethodInfo method, IReadOnlyList<object?>? parameterValues)
     {
         string name;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -26,7 +27,8 @@ namespace VerifyMSTest
             }
 
             var parameters = settings.GetParameters(methodInfo);
-            var uniqueTestName = TestNameBuilder.GetUniqueTestName(type, methodInfo, parameters);
+            var className = Path.GetFileNameWithoutExtension(sourceFile);
+            var uniqueTestName = TestNameBuilder.GetUniqueTestName(className, methodInfo, parameters);
             return new(uniqueTestName, sourceFile, type.Assembly, settings);
         }
 

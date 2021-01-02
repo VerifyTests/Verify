@@ -20,34 +20,34 @@ The format is
 The file prefix uses the test name.
 
 
-### UseName
+### UseMethodName
 
-A custom test name can be used via `UseName`
+A custom test name can be used via `UseMethodName`
 
-<!-- snippet: UseName -->
-<a id='snippet-usename'></a>
+<!-- snippet: UseMethodName -->
+<a id='snippet-usemethodname'></a>
 ```cs
 VerifySettings settings = new();
-settings.UseName("TheCustomName");
+settings.UseMethodName("TheCustomName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-usename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Will result in `TheCustomName.verified.txt`.
+Will result in `TestClass.TheCustomName.verified.txt`.
 
-<!-- snippet: UseNameFluent -->
-<a id='snippet-usenamefluent'></a>
+<!-- snippet: UseMethodNameFluent -->
+<a id='snippet-usemethodnamefluent'></a>
 ```cs
 await Verifier.Verify("value")
-    .UseName("TheCustomNameFluent");
+    .UseMethodName("TheCustomNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L59-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-usenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L59-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Will result in `TheCustomNameFluent.verified.txt`.
+Will result in `TestClass.TheCustomNameFluent.verified.txt`.
 
-`UseName` will combine with any of the below `UniqueFor*`s.
+`UseMethodName` will combine with any of the below `UniqueFor*`s.
 
 
 ## UniqueFor

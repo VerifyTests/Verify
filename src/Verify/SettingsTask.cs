@@ -88,9 +88,9 @@ namespace VerifyTests
             return this;
         }
 
-        public SettingsTask UseName(string name)
+        public SettingsTask UseMethodName(string name)
         {
-            CurrentSettings.UseName(name);
+            CurrentSettings.UseMethodName(name);
             return this;
         }
 

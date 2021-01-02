@@ -14,10 +14,12 @@
             Namer.UniqueForRuntime = true;
         }
 
-        public void UseName(string name)
+        internal string? methodName;
+
+        public void UseMethodName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            Namer.Name = name;
+            methodName = name;
         }
 
         public void UniqueForRuntimeAndVersion()

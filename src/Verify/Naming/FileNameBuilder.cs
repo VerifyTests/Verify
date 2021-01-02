@@ -17,32 +17,22 @@ static class FileNameBuilder
         return new(extension, $"{filePrefix}.{suffix}");
     }
 
-    static string GetName(Namer namer, string testName)
-    {
-        if (namer.Name is null)
-        {
-            return testName;
-        }
-
-        return namer.Name;
-    }
-
     static string GetFilePrefix(Namer namer, string directory, string testName, Assembly assembly)
     {
-        StringBuilder builder = new(Path.Combine(directory, GetName(namer, testName)));
+        StringBuilder builder = new(Path.Combine(directory, testName));
         return AppendFileParts(namer, builder, assembly);
     }
 
     public static string GetVerifiedPattern(string extension, Namer namer, string testName, Assembly assembly)
     {
-        StringBuilder builder = new(GetName(namer, testName));
+        StringBuilder builder = new(testName);
         var filePrefix = AppendFileParts(namer, builder, assembly);
         return $"{filePrefix}.*.verified.{extension}";
     }
 
     public static string GetReceivedPattern(string extension, Namer namer, string testName, Assembly assembly)
     {
-        StringBuilder builder = new(GetName(namer, testName));
+        StringBuilder builder = new(testName);
         var filePrefix = AppendFileParts(namer, builder, assembly);
         return $"{filePrefix}.*received.{extension}";
     }

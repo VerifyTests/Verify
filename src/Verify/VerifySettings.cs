@@ -17,6 +17,7 @@ namespace VerifyTests
             extension = settings.extension;
             clipboardEnabled = settings.clipboardEnabled;
             diffEnabled = settings.diffEnabled;
+            methodName = settings.methodName;
             autoVerify = settings.autoVerify;
             serialization = settings.serialization;
             handleOnFirstVerify = settings.handleOnFirstVerify;

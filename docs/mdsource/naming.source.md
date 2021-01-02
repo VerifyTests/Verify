@@ -13,19 +13,19 @@ The format is
 The file prefix uses the test name.
 
 
-### UseName
+### UseMethodName
 
-A custom test name can be used via `UseName`
+A custom test name can be used via `UseMethodName`
 
-snippet: UseName
+snippet: UseMethodName
 
-Will result in `TheCustomName.verified.txt`.
+Will result in `TestClass.TheCustomName.verified.txt`.
 
-snippet: UseNameFluent
+snippet: UseMethodNameFluent
 
-Will result in `TheCustomNameFluent.verified.txt`.
+Will result in `TestClass.TheCustomNameFluent.verified.txt`.
 
-`UseName` will combine with any of the below `UniqueFor*`s.
+`UseMethodName` will combine with any of the below `UniqueFor*`s.
 
 
 ## UniqueFor

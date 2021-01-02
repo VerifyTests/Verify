@@ -25,11 +25,12 @@ namespace VerifyTests
             }
 
             var nameForParameter = parameter!.ToString();
-            if (nameForParameter == null)
+            if (nameForParameter != null)
             {
-                throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+                return nameForParameter;
             }
-            return nameForParameter;
+
+            throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
         }
 
         public static void UniqueForRuntime()

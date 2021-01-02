@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 static class Guard
 {
@@ -9,6 +10,16 @@ static class Guard
         if (value == null)
         {
             throw new ArgumentNullException(argumentName);
+        }
+    }
+
+    public static void EnsurePathFullyQualified(string path)
+    {
+        if (!path.Any(x =>
+            x == Path.AltDirectorySeparatorChar ||
+            x == Path.DirectorySeparatorChar))
+        {
+            throw new Exception($"Path must be fully qualified. Path: {path}");
         }
     }
 

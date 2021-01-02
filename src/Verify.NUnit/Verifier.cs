@@ -30,8 +30,7 @@ namespace VerifyNUnit
             var test = (Test) field.GetValue(adapter)!;
 
             var method = test.Method.MethodInfo;
-            var name = TestNameBuilder.GetUniqueTestName(method, adapter.Arguments);
-            return new(name, sourceFile, test.TypeInfo.Assembly, settings);
+            return new(sourceFile, test.TypeInfo.Assembly, settings, method, adapter.Arguments);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

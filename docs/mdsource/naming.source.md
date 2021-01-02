@@ -100,7 +100,7 @@ DeriveTestDirectory allows the storage directory of `.verified.` files to be cus
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
 
-Return null to default to the standard behavior for a given file.
+Return null to default to the standard behavior for a given file. The returned path can be relative to the directory sourceFile exists in.
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 

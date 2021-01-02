@@ -18,6 +18,7 @@ namespace VerifyTests
             {
                 return Path.GetDirectoryName(sourceFile)!;
             }
+
             return directory;
         }
 
@@ -38,6 +39,8 @@ namespace VerifyTests
                     var result = deriveTestDirectory(sourceFile, projectDirectory);
                     if (result != null)
                     {
+                        var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+                        result = Path.Combine(sourceFileDirectory, result);
                         Directory.CreateDirectory(result);
                     }
 

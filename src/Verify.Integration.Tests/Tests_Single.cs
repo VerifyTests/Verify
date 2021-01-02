@@ -18,9 +18,9 @@ public partial class Tests
         bool hasExistingReceived,
         bool autoVerify)
     {
+        var method = GetType().GetMethod("Text")!;
         var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            "Tests_Single",
-            Info.OfMethod<Tests>("Text"),
+            method,
             new object[]{hasExistingReceived, autoVerify});
         VerifySettings settings = new();
         settings.UseParameters(hasExistingReceived, autoVerify);
@@ -51,9 +51,8 @@ public partial class Tests
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            "Tests_Single",
-            Info.OfMethod<Tests>("Stream"),
+        var method = GetType().GetMethod("Stream")!;
+        var uniqueTestName = TestNameBuilder.GetUniqueTestName(method,
             new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
         VerifySettings settings = new();
         settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);
@@ -88,11 +87,11 @@ public partial class Tests
         FilePair file = new(extension, prefix);
 
         DeleteAll(danglingFile, file.Verified, file.Received);
-        File.WriteAllText(danglingFile, "");
+        await File.WriteAllTextAsync(danglingFile, "");
 
         if (hasExistingReceived)
         {
-            File.WriteAllText(file.Received, "");
+            await File.WriteAllTextAsync(file.Received, "");
         }
 
         await InitialVerify(initialTarget, hasMatchingDiffTool, settings, file);

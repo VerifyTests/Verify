@@ -15,8 +15,6 @@ namespace VerifyXunit
                 throw new Exception($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
             }
 
-            var className = Path.GetFileNameWithoutExtension(sourceFile);
-
             var parameters = settings.GetParameters(info);
 
             var type = info.ReflectedType!;

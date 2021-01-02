@@ -20,7 +20,7 @@ namespace VerifyTests
             {
                 if (parameterToName.Key.IsInstanceOfType(parameter))
                 {
-                    return parameterToName.Value(parameter!);
+                    return parameterToName.Value(parameter);
                 }
             }
 

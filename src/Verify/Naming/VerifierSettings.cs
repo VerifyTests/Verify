@@ -24,7 +24,7 @@ namespace VerifyTests
                 }
             }
 
-            var nameForParameter = parameter!.ToString();
+            var nameForParameter = parameter.ToString();
             if (nameForParameter != null)
             {
                 return nameForParameter;

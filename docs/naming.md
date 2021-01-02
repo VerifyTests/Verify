@@ -355,9 +355,9 @@ Debug.WriteLine(Namer.RuntimeAndVersion);
 <!-- endSnippet -->
 
 
-## DeriveTestDirectory
+## DeriveDirectory
 
-DeriveTestDirectory allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
+DeriveDirectory allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
 
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
@@ -366,13 +366,13 @@ Return null to default to the standard behavior for a given file. The returned p
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
-<!-- snippet: DeriveTestDirectory -->
-<a id='snippet-derivetestdirectory'></a>
+<!-- snippet: DeriveDirectory -->
+<a id='snippet-derivedirectory'></a>
 ```cs
-VerifierSettings.DeriveTestDirectory(
+VerifierSettings.DeriveDirectory(
     (sourceFile, projectDirectory) => Path.Combine(projectDirectory, "Snapshots"));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-DeriveTestDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)
+DeriveDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)

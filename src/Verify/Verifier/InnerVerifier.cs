@@ -29,14 +29,14 @@ namespace VerifyTests
             CounterContext.Start();
         }
 
-        FilePair GetFileNames(string extension, Namer namer)
+        FilePair GetFileNames(string extension)
         {
-            return FileNameBuilder.GetFileNames(extension, namer, directory, testName, assembly);
+            return FileNameBuilder.GetFileNames(extension, settings.Namer, directory, testName, assembly);
         }
 
-        FilePair GetFileNames(string extension, Namer namer, string suffix)
+        FilePair GetFileNames(string extension, string suffix)
         {
-            return FileNameBuilder.GetFileNames(extension, suffix, namer, directory, testName, assembly);
+            return FileNameBuilder.GetFileNames(extension, suffix, settings.Namer, directory, testName, assembly);
         }
 
         public void Dispose()
@@ -55,7 +55,7 @@ namespace VerifyTests
             if (results.Count == 1)
             {
                 var item = results[0];
-                var file = GetFileNames(item.Extension, settings.Namer);
+                var file = GetFileNames(item.Extension);
                 await HandleBuilder(item, file);
                 return;
             }
@@ -63,7 +63,7 @@ namespace VerifyTests
             for (var index = 0; index < results.Count; index++)
             {
                 var item = results[index];
-                var file = GetFileNames(item.Extension, settings.Namer, $"{index:D2}");
+                var file = GetFileNames(item.Extension, $"{index:D2}");
                 await HandleBuilder(item, file);
             }
         }

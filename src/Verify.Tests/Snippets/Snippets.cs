@@ -84,12 +84,7 @@ public class Snippets
         #region DeriveTestDirectory
 
         VerifierSettings.DeriveTestDirectory(
-            (sourceFile, projectDirectory) =>
-            {
-                var snapshotsDirectory = Path.Combine(projectDirectory, "Snapshots");
-                Directory.CreateDirectory(snapshotsDirectory);
-                return Path.Combine(snapshotsDirectory);
-            });
+            (sourceFile, projectDirectory) => Path.Combine(projectDirectory, "Snapshots"));
 
         #endregion
     }

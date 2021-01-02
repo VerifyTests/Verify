@@ -100,7 +100,9 @@ DeriveTestDirectory allows the storage directory of `.verified.` files to be cus
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
 
-Foe example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
+Return null to default to the standard behavior for a given file.
+
+For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
 snippet: DeriveTestDirectory
 

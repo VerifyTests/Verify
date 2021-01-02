@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeDiffTool", "FakeDiffToo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrictJsonTests", "StrictJsonTests\StrictJsonTests.csproj", "{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.DerivePaths.Tests", "Verify.DerivePaths.Tests\Verify.DerivePaths.Tests.csproj", "{87BA0F09-5389-45F4-B0A5-FF2A88A954FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{558FDE7B-5135-4D21-9AA7-6D22A80AAB61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87BA0F09-5389-45F4-B0A5-FF2A88A954FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BA0F09-5389-45F4-B0A5-FF2A88A954FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BA0F09-5389-45F4-B0A5-FF2A88A954FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BA0F09-5389-45F4-B0A5-FF2A88A954FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

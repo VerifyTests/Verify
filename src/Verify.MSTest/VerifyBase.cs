@@ -26,8 +26,7 @@ namespace VerifyMSTest
             }
 
             var parameters = settings.GetParameters(methodInfo);
-            var uniqueTestName = TestNameBuilder.GetUniqueTestName(methodInfo, parameters);
-            return new(uniqueTestName, sourceFile, type.Assembly, settings);
+            return new(sourceFile, type.Assembly, settings, methodInfo, parameters);
         }
 
         SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

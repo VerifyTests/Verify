@@ -16,11 +16,11 @@ namespace VerifyTests
         Assembly assembly;
         VerifySettings settings;
 
-        public InnerVerifier(string testName, string sourceFile, Assembly assembly, VerifySettings settings)
+        public InnerVerifier(string sourceFile, Assembly assembly, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
         {
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
             directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
-            this.testName = testName;
+            testName = TestNameBuilder.GetUniqueTestName(method, parameters);
             this.assembly = assembly;
             this.settings = settings;
 

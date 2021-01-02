@@ -25,6 +25,7 @@ namespace VerifyTests
             }
 
             var nameForParameter = parameter.ToString();
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (nameForParameter != null)
             {
                 return nameForParameter;

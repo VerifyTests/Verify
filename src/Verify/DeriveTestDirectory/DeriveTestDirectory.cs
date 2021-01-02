@@ -3,7 +3,7 @@
 namespace VerifyTests
 {
     /// <summary>
-    /// Used to use a custom directory to search for `.verified.` files.
+    /// Signature for deriving a custom directory to store `.verified.` files.
     /// </summary>
     /// <param name="sourceFile">The source file derived from <see cref="CallerFilePathAttribute"/>.</param>
     /// <param name="projectDirectory">The directory of the project that the test was compile from.</param>

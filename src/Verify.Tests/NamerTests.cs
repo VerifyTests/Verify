@@ -17,18 +17,18 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task DeriveTestDirectory()
+    public async Task DeriveDirectory()
     {
         string? receivedSourceFile = null;
         string? receivedProjectDirectory = null;
-        VerifierSettings.DeriveTestDirectory(
+        VerifierSettings.DeriveDirectory(
             (sourceFile, projectDirectory) =>
             {
                 receivedSourceFile = sourceFile;
                 receivedProjectDirectory = projectDirectory;
                 return Path.GetDirectoryName(sourceFile);
             });
-        await Verifier.Verify("DeriveTestDirectory");
+        await Verifier.Verify("DeriveDirectory");
         Assert.NotNull(receivedSourceFile);
         Assert.True(Directory.Exists(receivedProjectDirectory));
     }

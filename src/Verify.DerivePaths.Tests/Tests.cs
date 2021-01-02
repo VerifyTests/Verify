@@ -9,7 +9,7 @@ public class Tests
 {
     static Tests()
     {
-        VerifierSettings.DeriveTestDirectory(
+        VerifierSettings.DeriveDirectory(
             (sourceFile, projectDirectory) =>
             {
                 Assert.True(File.Exists(sourceFile));

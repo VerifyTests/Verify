@@ -4,7 +4,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        internal static DeriveTestDirectory? deriveDirectory;
+        internal static DeriveDirectory? deriveDirectory;
 
         internal static string DeriveDirectory(string sourceFile, string projectDirectory)
         {
@@ -29,14 +29,14 @@ namespace VerifyTests
         /// This is sometimes needed on CI systems that move/remove the original source.
         /// To move to this approach, any existing `.verified.` files will need to be moved to the new directory
         /// </remarks>
-        /// <param name="deriveTestDirectory">Custom callback to control the behavior.</param>
-        public static void DeriveTestDirectory(DeriveTestDirectory deriveTestDirectory)
+        /// <param name="deriveDirectory">Custom callback to control the behavior.</param>
+        public static void DeriveDirectory(DeriveDirectory deriveDirectory)
         {
-            Guard.AgainstNull(deriveTestDirectory, nameof(deriveTestDirectory));
-            deriveDirectory =
+            Guard.AgainstNull(deriveDirectory, nameof(deriveDirectory));
+            VerifierSettings.deriveDirectory =
                 (sourceFile, projectDirectory) =>
                 {
-                    var result = deriveTestDirectory(sourceFile, projectDirectory);
+                    var result = deriveDirectory(sourceFile, projectDirectory);
                     if (result != null)
                     {
                         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;

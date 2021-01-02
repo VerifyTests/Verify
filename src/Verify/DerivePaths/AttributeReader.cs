@@ -8,6 +8,7 @@ using System.Text;
 static class AttributeReader
 {
     private static ConcurrentDictionary<Assembly, (string projectDirectory, Action<StringBuilder> replacements)> cache = new();
+
     static string GetProjectDirectory(Assembly assembly)
     {
         var projectDirectory = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()

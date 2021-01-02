@@ -39,7 +39,8 @@ namespace VerifyTests
                     var result = deriveTestDirectory(sourceFile, projectDirectory);
                     if (result != null)
                     {
-                        Guard.EnsurePathFullyQualified(result);
+                        var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+                        result = Path.Combine(sourceFileDirectory, result);
                         Directory.CreateDirectory(result);
                     }
 

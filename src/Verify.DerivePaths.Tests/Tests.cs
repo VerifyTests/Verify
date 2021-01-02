@@ -9,14 +9,15 @@ public class Tests
 {
     static Tests()
     {
-        VerifierSettings.DeriveTestDirectory((sourceFile, projectDirectory) =>
-        {
-            Assert.True(File.Exists(sourceFile));
-            Assert.True(Directory.Exists(projectDirectory));
-            Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
-            Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
-            return Path.Combine(projectDirectory, "Custom");
-        });
+        VerifierSettings.DeriveTestDirectory(
+            (sourceFile, projectDirectory) =>
+            {
+                Assert.True(File.Exists(sourceFile));
+                Assert.True(Directory.Exists(projectDirectory));
+                Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
+                Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
+                return "Custom";
+            });
     }
 
     [Fact]

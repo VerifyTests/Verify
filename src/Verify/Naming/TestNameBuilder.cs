@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -7,18 +6,6 @@ using VerifyTests;
 
 static class TestNameBuilder
 {
-    public static string ClassName(this Type type)
-    {
-        var name = type.Name;
-        var indexOf = name.IndexOf('.');
-        if (indexOf == -1)
-        {
-            return name;
-        }
-
-        return name.Substring(indexOf + 1, name.Length - indexOf - 1);
-    }
-
     public static string GetUniqueTestName(MethodInfo method, IReadOnlyList<object?>? parameterValues)
     {
         string name;

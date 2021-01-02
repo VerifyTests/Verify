@@ -18,6 +18,7 @@ namespace VerifyTests
             {
                 return Path.GetDirectoryName(sourceFile)!;
             }
+
             return directory;
         }
 

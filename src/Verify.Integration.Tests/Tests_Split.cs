@@ -25,9 +25,10 @@ public partial class Tests
         {
             settings.AutoVerify();
         }
+
+        var method = GetType().GetMethod("Split")!;
         var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            "Tests_Split",
-            Info.OfMethod<Tests>("Split"),
+            method,
             new object[] {hasExistingReceived, autoVerify});
 
         settings.UseParameters(hasExistingReceived, autoVerify);

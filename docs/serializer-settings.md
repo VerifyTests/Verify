@@ -320,7 +320,7 @@ VerifierSettings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L138-L146' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L133-L141' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -336,7 +336,7 @@ settings.AddExtraSettings(_ =>
     _.TypeNameHandling = TypeNameHandling.All;
 });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L148-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -363,7 +363,7 @@ class CompanyConverter :
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L169-L187' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L164-L182' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
@@ -371,7 +371,7 @@ class CompanyConverter :
 ```cs
 VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L162-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L157-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

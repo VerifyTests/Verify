@@ -38,7 +38,7 @@ namespace VerifyTests
                     var result = deriveTestDirectory(sourceFile, projectDirectory);
                     if (result != null)
                     {
-                        Guard.DirectoryExists(result, nameof(result));
+                        Directory.CreateDirectory(result);
                     }
 
                     return result;

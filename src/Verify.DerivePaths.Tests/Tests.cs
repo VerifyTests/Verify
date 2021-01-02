@@ -13,8 +13,8 @@ public class Tests
         {
             Assert.True(File.Exists(sourceFile));
             Assert.True(Directory.Exists(directory));
-            Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\","/"));
-            Assert.EndsWith("Verify.DerivePaths.Tests/", directory.Replace(@"\","/"));
+            Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
+            Assert.EndsWith("Verify.DerivePaths.Tests/", directory.Replace(@"\", "/"));
             return Path.Combine(directory, "Custom");
         });
     }

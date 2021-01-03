@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -21,8 +22,15 @@ namespace VerifyTests
         {
             assembly = type.Assembly;
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
-            directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
-            testPrefix = TestPrefixBuilder.GetPrefix(type, method, parameters);
+            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
+            directory = pathInfo.Directory;
+            testPrefix = pathInfo.FilePrefix;
+
+            if (parameters != null && parameters.Any())
+            {
+                testPrefix = $"{testPrefix}_{TestPrefixBuilder.Concat(method, parameters)}";
+            }
+
             filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);
             this.settings = settings;
 

@@ -31,7 +31,7 @@ VerifySettings settings = new();
 settings.UseMethodName("TheCustomName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.TheCustomName.verified.txt`.
@@ -42,7 +42,7 @@ Will result in `TestClass.TheCustomName.verified.txt`.
 await Verifier.Verify("value")
     .UseMethodName("TheCustomNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L59-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.TheCustomNameFluent.verified.txt`.
@@ -351,28 +351,35 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L70-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
-## DeriveDirectory
+## DerivePathInfo
 
-DeriveDirectory allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
+DerivePathInfo allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
 
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
+ * `type`: The class the test method exists in.
+ * `method`: The test method.
 
 Return null to default to the standard behavior for a given file. The returned path can be relative to the directory sourceFile exists in.
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
-<!-- snippet: DeriveDirectory -->
-<a id='snippet-derivedirectory'></a>
+<!-- snippet: DerivePathInfo -->
+<a id='snippet-derivepathinfo'></a>
 ```cs
-VerifierSettings.DeriveDirectory(
-    (sourceFile, projectDirectory) => Path.Combine(projectDirectory, "Snapshots"));
+VerifierSettings.DerivePathInfo(
+    (sourceFile, projectDirectory, type, method) =>
+    {
+        return new PathInfo(
+            directory: Path.Combine(projectDirectory, "Snapshots"),
+            filePrefix: $"{type}.{method}");
+    });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivedirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-DeriveDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)
+DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)

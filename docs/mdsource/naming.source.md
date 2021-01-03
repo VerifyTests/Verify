@@ -93,17 +93,19 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 snippet: AccessNamerRuntimeAndVersion
 
 
-## DeriveDirectory
+## DerivePathInfo
 
-DeriveDirectory allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
+DerivePathInfo allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
 
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
+ * `type`: The class the test method exists in.
+ * `method`: The test method.
 
 Return null to default to the standard behavior for a given file. The returned path can be relative to the directory sourceFile exists in.
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
-snippet: DeriveDirectory
+snippet: DerivePathInfo
 
-DeriveDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)
+DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)

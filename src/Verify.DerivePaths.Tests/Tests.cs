@@ -9,14 +9,16 @@ public class Tests
 {
     static Tests()
     {
-        VerifierSettings.DeriveDirectory(
-            (sourceFile, projectDirectory) =>
+        VerifierSettings.DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) =>
             {
                 Assert.True(File.Exists(sourceFile));
                 Assert.True(Directory.Exists(projectDirectory));
+                Assert.NotNull(method);
+                Assert.NotNull(type);
                 Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
                 Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
-                return "Custom";
+                return new PathInfo("CustomDir", "CustomFile");
             });
     }
 

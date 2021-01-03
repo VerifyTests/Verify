@@ -1,51 +1,48 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        internal static DeriveDirectory? deriveDirectory;
+        internal static DerivePathInfo? derivePathInfo;
 
-        internal static string DeriveDirectory(string sourceFile, string projectDirectory)
+        internal static PathInfo GetPathInfo(string sourceFile, string projectDirectory, Type type, MethodInfo method)
         {
-            if (deriveDirectory == null)
+            if (derivePathInfo != null)
             {
-                return Path.GetDirectoryName(sourceFile)!;
+                var pathInfo = derivePathInfo(sourceFile, projectDirectory, type, method);
+                Directory.CreateDirectory(pathInfo.Directory);
+                return pathInfo;
             }
 
-            var directory = deriveDirectory(sourceFile, projectDirectory);
-            if (directory == null)
+            string name;
+            if (type.IsNested)
             {
-                return Path.GetDirectoryName(sourceFile)!;
+                name = $"{type.ReflectedType!.Name}.{type.Name}.{method.Name}";
+            }
+            else
+            {
+                name = $"{type.Name}.{method.Name}";
             }
 
-            return directory;
+            return new PathInfo(Path.GetDirectoryName(sourceFile)!, name);
+
         }
 
         /// <summary>
-        /// Use a custom directory for `.verified.` files.
+        /// Use custom path information for `.verified.` files.
         /// </summary>
         /// <remarks>
         /// This is sometimes needed on CI systems that move/remove the original source.
         /// To move to this approach, any existing `.verified.` files will need to be moved to the new directory
         /// </remarks>
-        /// <param name="deriveDirectory">Custom callback to control the behavior.</param>
-        public static void DeriveDirectory(DeriveDirectory deriveDirectory)
+        /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
+        public static void DerivePathInfo(DerivePathInfo derivePathInfo)
         {
-            Guard.AgainstNull(deriveDirectory, nameof(deriveDirectory));
-            VerifierSettings.deriveDirectory =
-                (sourceFile, projectDirectory) =>
-                {
-                    var result = deriveDirectory(sourceFile, projectDirectory);
-                    if (result != null)
-                    {
-                        var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-                        result = Path.Combine(sourceFileDirectory, result);
-                        Directory.CreateDirectory(result);
-                    }
-
-                    return result;
-                };
+            Guard.AgainstNull(derivePathInfo, nameof(derivePathInfo));
+            VerifierSettings.derivePathInfo = derivePathInfo;
         }
     }
 }

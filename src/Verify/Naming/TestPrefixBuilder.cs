@@ -1,29 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using VerifyTests;
 
 static class TestPrefixBuilder
 {
-    public static string GetPrefix(Type type, MethodInfo method, IReadOnlyList<object?>? parameterValues)
+    public static string Concat(MethodInfo method, IReadOnlyList<object?> parameterValues)
     {
-        string name;
-        if (type.IsNested)
-        {
-            name = $"{type.ReflectedType!.Name}.{type.Name}.{method.Name}";
-        }
-        else
-        {
-            name = $"{type.Name}.{method.Name}";
-        }
-
-        if (parameterValues == null || !parameterValues.Any())
-        {
-            return name;
-        }
-
         StringBuilder builder = new();
         var parameters = method.GetParameters();
         for (var index = 0; index < parameters.Length; index++)
@@ -42,6 +25,6 @@ static class TestPrefixBuilder
 
         builder.Length -= 1;
 
-        return $"{name}_{builder}";
+        return builder.ToString();
     }
 }

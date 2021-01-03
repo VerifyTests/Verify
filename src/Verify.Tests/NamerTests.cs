@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -14,23 +13,6 @@ public class NamerTests
         VerifySettings settings = new();
         settings.UniqueForRuntime();
         return Verifier.Verify(Namer.Runtime, settings);
-    }
-
-    [Fact]
-    public async Task DeriveDirectory()
-    {
-        string? receivedSourceFile = null;
-        string? receivedProjectDirectory = null;
-        VerifierSettings.DeriveDirectory(
-            (sourceFile, projectDirectory) =>
-            {
-                receivedSourceFile = sourceFile;
-                receivedProjectDirectory = projectDirectory;
-                return Path.GetDirectoryName(sourceFile);
-            });
-        await Verifier.Verify("DeriveDirectory");
-        Assert.NotNull(receivedSourceFile);
-        Assert.True(Directory.Exists(receivedProjectDirectory));
     }
 
     [Fact]

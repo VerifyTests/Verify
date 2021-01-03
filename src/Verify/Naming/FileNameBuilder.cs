@@ -5,30 +5,26 @@ using VerifyTests;
 
 static class FileNameBuilder
 {
-    public static FilePair GetFileNames(string extension, Namer namer, string directory, string testName, Assembly assembly, string? suffix = null)
+    public static string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly)
     {
-        StringBuilder builder = new(Path.Combine(directory, testName));
+        StringBuilder builder = new(Path.Combine(directory, testPrefix));
         AppendFileParts(namer, builder, assembly);
-        if (suffix != null)
-        {
-            builder.Append($".{suffix}");
-        }
-        return new(extension, builder.ToString());
+        return builder.ToString();
     }
 
-    public static string GetVerifiedPattern(string extension, Namer namer, string testName, Assembly assembly)
+    public static string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
     {
-        return GetPattern(extension, namer, testName, assembly, "verified");
+        return GetPattern(extension, namer, testPrefix, assembly, "verified");
     }
 
-    public static string GetReceivedPattern(string extension, Namer namer, string testName, Assembly assembly)
+    public static string GetReceivedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
     {
-        return GetPattern(extension, namer, testName, assembly, "received");
+        return GetPattern(extension, namer, testPrefix, assembly, "received");
     }
 
-    static string GetPattern(string extension, Namer namer, string testName, Assembly assembly, string type)
+    static string GetPattern(string extension, Namer namer, string testPrefix, Assembly assembly, string type)
     {
-        StringBuilder builder = new(testName);
+        StringBuilder builder = new(testPrefix);
         AppendFileParts(namer, builder, assembly);
         builder.Append($".*.{type}.{extension}");
         return builder.ToString();

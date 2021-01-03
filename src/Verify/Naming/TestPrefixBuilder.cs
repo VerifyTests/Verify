@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Text;
 using VerifyTests;
 
-static class TestNameBuilder
+static class TestPrefixBuilder
 {
-    public static string GetUniqueTestName(MethodInfo method, IReadOnlyList<object?>? parameterValues)
+    public static string GetPrefix(MethodInfo method, IReadOnlyList<object?>? parameterValues)
     {
         string name;
         var type = method.ReflectedType!;

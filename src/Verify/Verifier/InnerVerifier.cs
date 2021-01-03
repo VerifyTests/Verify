@@ -12,15 +12,17 @@ namespace VerifyTests
         IDisposable
     {
         string directory;
-        string testName;
+        string testPrefix;
         Assembly assembly;
         VerifySettings settings;
+        string filePathPrefix;
 
         public InnerVerifier(string sourceFile, Assembly assembly, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
         {
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
             directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
-            testName = TestNameBuilder.GetUniqueTestName(method, parameters);
+            testPrefix = TestPrefixBuilder.GetPrefix(method, parameters);
+            filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);
             this.assembly = assembly;
             this.settings = settings;
 
@@ -31,7 +33,17 @@ namespace VerifyTests
 
         FilePair GetFileNames(string extension, string? suffix = null)
         {
-            return FileNameBuilder.GetFileNames(extension, settings.Namer, directory, testName, assembly, suffix);
+            string fullPrefix;
+            if (suffix == null)
+            {
+                fullPrefix = filePathPrefix;
+            }
+            else
+            {
+                fullPrefix = $"{filePathPrefix}.{suffix}";
+            }
+
+            return new(extension, fullPrefix);
         }
 
         public void Dispose()

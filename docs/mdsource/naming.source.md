@@ -122,10 +122,11 @@ DerivePathInfo allows the storage directory of `.verified.` files to be customiz
  * `type`: The class the test method exists in.
  * `method`: The test method.
 
-Return null to default to the standard behavior for a given file. The returned path can be relative to the directory sourceFile exists in.
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
 snippet: DerivePathInfo
+
+Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
 
 DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)

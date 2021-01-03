@@ -88,6 +88,24 @@ namespace VerifyTests
             return this;
         }
 
+        public SettingsTask UseMethodName(string name)
+        {
+            CurrentSettings.UseMethodName(name);
+            return this;
+        }
+
+        public SettingsTask UseDirectory(string directory)
+        {
+            CurrentSettings.UseDirectory(directory);
+            return this;
+        }
+
+        public SettingsTask UseTypeName(string name)
+        {
+            CurrentSettings.UseTypeName(name);
+            return this;
+        }
+
         public SettingsTask UniqueForRuntimeAndVersion()
         {
             CurrentSettings.UniqueForRuntimeAndVersion();

@@ -17,7 +17,87 @@ The format is
 
 ## UniqueTestName
 
-The file prefix uses [XunitContext UniqueTestName](https://github.com/SimonCropp/XunitContext#uniquetestname).
+The file prefix uses the test name.
+
+
+### UseDirectory
+
+A custom directory can be used via `UseDirectory`
+
+<!-- snippet: UseDirectory -->
+<a id='snippet-usedirectory'></a>
+```cs
+VerifySettings settings = new();
+settings.UseDirectory("CustomDirectory");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: UseDirectoryFluent -->
+<a id='snippet-usedirectoryfluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseDirectory("CustomDirectory");
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
+
+
+### UseTypeName
+
+A custom test name can be used via `UseTypeName`
+
+<!-- snippet: UseTypeName -->
+<a id='snippet-usetypename'></a>
+```cs
+VerifySettings settings = new();
+settings.UseTypeName("CustomTypeName");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: UseTypeNameFluent -->
+<a id='snippet-usetypenamefluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseTypeName("CustomTypeName");
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L64-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `CustomTypeName.MethodName.verified.txt`.
+
+
+### UseMethodName
+
+A custom test name can be used via `UseMethodName`
+
+<!-- snippet: UseMethodName -->
+<a id='snippet-usemethodname'></a>
+```cs
+VerifySettings settings = new();
+settings.UseMethodName("CustomMethodName");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L75-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `TestClass.CustomMethodName.verified.txt`.
+
+<!-- snippet: UseMethodNameFluent -->
+<a id='snippet-usemethodnamefluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseMethodName("CustomMethodNameFluent");
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L87-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 
 
 ## UniqueFor
@@ -321,28 +401,37 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L47-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L98-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
-## DeriveTestDirectory
+## DerivePathInfo
 
-DeriveTestDirectory allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
+DerivePathInfo allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
 
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
+ * `type`: The class the test method exists in.
+ * `method`: The test method.
 
-Return null to default to the standard behavior for a given file. The returned path can be relative to the directory sourceFile exists in.
 
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
-<!-- snippet: DeriveTestDirectory -->
-<a id='snippet-derivetestdirectory'></a>
+<!-- snippet: DerivePathInfo -->
+<a id='snippet-derivepathinfo'></a>
 ```cs
-VerifierSettings.DeriveTestDirectory(
-    (sourceFile, projectDirectory) => Path.Combine(projectDirectory, "Snapshots"));
+VerifierSettings.DerivePathInfo(
+    (sourceFile, projectDirectory, type, method) =>
+    {
+        return new PathInfo(
+            directory: Path.Combine(projectDirectory, "Snapshots"),
+            typeName: type.Name,
+            methodName: method.Name);
+    });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-DeriveTestDirectory can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)
+Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
+
+DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)

@@ -29,8 +29,12 @@ namespace VerifyNUnit
             var adapter = context.Test;
             var test = (Test) field.GetValue(adapter)!;
 
-            var method = test.Method.MethodInfo;
-            return new(sourceFile, test.TypeInfo.Assembly, settings, method, adapter.Arguments);
+            return new(
+                sourceFile,
+                test.TypeInfo.Type,
+                settings,
+                test.Method.MethodInfo,
+                adapter.Arguments);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

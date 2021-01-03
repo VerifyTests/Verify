@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -6,10 +7,9 @@ using VerifyTests;
 
 static class TestPrefixBuilder
 {
-    public static string GetPrefix(MethodInfo method, IReadOnlyList<object?>? parameterValues)
+    public static string GetPrefix(Type type, MethodInfo method, IReadOnlyList<object?>? parameterValues)
     {
         string name;
-        var type = method.ReflectedType!;
         if (type.IsNested)
         {
             name = $"{type.ReflectedType!.Name}.{type.Name}.{method.Name}";

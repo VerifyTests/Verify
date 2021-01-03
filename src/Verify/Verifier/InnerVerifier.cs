@@ -22,7 +22,7 @@ namespace VerifyTests
             assembly = type.Assembly;
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
             directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
-            testPrefix = TestPrefixBuilder.GetPrefix(method, parameters);
+            testPrefix = TestPrefixBuilder.GetPrefix(type, method, parameters);
             filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);
             this.settings = settings;
 

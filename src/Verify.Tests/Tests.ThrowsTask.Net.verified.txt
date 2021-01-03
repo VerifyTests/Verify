@@ -3,5 +3,5 @@
   Message: The Message,
   StackTrace: 
 at Tests.TaskMethodThatThrows()
-at VerifyTests.InnerVerifier.<ThrowsAsync>d__26.MoveNext()
+at VerifyTests.InnerVerifier.<ThrowsAsync>d__27.MoveNext()
 }

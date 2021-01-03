@@ -17,13 +17,13 @@ namespace VerifyTests
         VerifySettings settings;
         string filePathPrefix;
 
-        public InnerVerifier(string sourceFile, Assembly assembly, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
+        public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
         {
+            assembly = type.Assembly;
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
             directory = VerifierSettings.DeriveDirectory(sourceFile, projectDirectory);
             testPrefix = TestPrefixBuilder.GetPrefix(method, parameters);
             filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);
-            this.assembly = assembly;
             this.settings = settings;
 
             settings.instanceScrubbers.Add(replacements);

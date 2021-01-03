@@ -16,9 +16,9 @@ namespace VerifyTests
             {
                 return SerializeAndVerify(builder.ToString(), appenders);
             }
-            
+
             var extension = settings.ExtensionOrTxt();
-            return VerifyStringBuilder(builder,extension);
+            return VerifyStringBuilder(builder, extension);
         }
 
         async Task VerifyStringBuilder(StringBuilder target, string extension)

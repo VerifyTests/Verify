@@ -119,4 +119,4 @@ For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` 
 
 snippet: DerivePathInfo
 
-DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)
+DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)

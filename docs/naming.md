@@ -409,4 +409,4 @@ VerifierSettings.DerivePathInfo(
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)
+DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)

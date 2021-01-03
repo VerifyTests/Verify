@@ -107,10 +107,7 @@ public class Snippets
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;
                     var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
-                    return new PathInfo(
-                        directory: Path.Combine(buildDirectory, testDirectorySuffix),
-                        typeName: type.Name,
-                        methodName: method.Name);
+                    return new PathInfo(directory: Path.Combine(buildDirectory, testDirectorySuffix));
                 });
         }
 

@@ -9,7 +9,10 @@ namespace VerifyTests
         public string? TypeName { get; }
         public string? MethodName { get; }
 
-        public PathInfo(string? directory, string? typeName, string? methodName)
+        public PathInfo(
+            string? directory = null,
+            string? typeName = null,
+            string? methodName = null)
         {
             Guard.AgainstEmpty(directory, nameof(directory));
             Guard.AgainstEmpty(typeName, nameof(typeName));

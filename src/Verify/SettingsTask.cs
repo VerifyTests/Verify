@@ -28,6 +28,12 @@ namespace VerifyTests
             return this;
         }
 
+        public SettingsTask UseParameters(params object?[] parameters)
+        {
+            CurrentSettings.UseParameters(parameters);
+            return this;
+        }
+
         public SettingsTask AddScrubber(Action<StringBuilder> scrubber)
         {
             CurrentSettings.AddScrubber(scrubber);

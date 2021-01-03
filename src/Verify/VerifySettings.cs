@@ -25,6 +25,7 @@ namespace VerifyTests
             handleOnFirstVerify = settings.handleOnFirstVerify;
             handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
             comparer = settings.comparer;
+            parameters = settings.parameters;
             Namer = new(settings.Namer);
             foreach (var pair in settings.Context)
             {

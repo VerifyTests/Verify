@@ -4,30 +4,19 @@ using System.Reflection;
 
 namespace VerifyTests
 {
-    public static class ParameterSettings
+    public partial class VerifySettings
     {
-        public static void UseParameters(this VerifySettings settings, params object?[] parameters)
+        object?[]? parameters;
+
+        public void UseParameters(params object?[] parameters)
         {
-            Guard.AgainstNull(settings, nameof(settings));
             Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
-            settings.Context["Parameters"] = parameters;
+            this.parameters = parameters;
         }
 
-        public static SettingsTask UseParameters(this SettingsTask settings, params object?[] parameters)
+        internal object?[] GetParameters(MethodInfo methodInfo)
         {
-            settings.CurrentSettings.UseParameters(parameters);
-            return settings;
-        }
-
-        public static SettingsTask GetParameters(this SettingsTask settings, MethodInfo methodInfo)
-        {
-            settings.CurrentSettings.GetParameters(methodInfo);
-            return settings;
-        }
-
-        public static object?[] GetParameters(this VerifySettings settings, MethodInfo methodInfo)
-        {
-            var settingsParameters = settings.ParametersOrDefault();
+            var settingsParameters = parameters ?? Array.Empty<object?>();
             var methodParameters = methodInfo.GetParameters();
             if (!methodParameters.Any() || settingsParameters.Any())
             {
@@ -45,16 +34,6 @@ or
 
 await Verifier.Verify(target).UseParameters({names});
 ");
-        }
-
-        static object?[] ParametersOrDefault(this VerifySettings settings)
-        {
-            if (settings.Context.TryGetValue("Parameters", out var data))
-            {
-                return (object?[]) data;
-            }
-
-            return Array.Empty<object?>();
         }
     }
 }

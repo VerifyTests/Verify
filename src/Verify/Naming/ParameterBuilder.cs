@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text;
 using VerifyTests;
 
-static class TestPrefixBuilder
+static class ParameterBuilder
 {
     public static string Concat(MethodInfo method, IReadOnlyList<object?> parameterValues)
     {

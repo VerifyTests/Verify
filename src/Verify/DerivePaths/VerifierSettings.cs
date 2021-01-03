@@ -6,7 +6,7 @@ namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        internal static DerivePathInfo? derivePathInfo;
+        static DerivePathInfo? derivePathInfo;
 
         internal static PathInfo GetPathInfo(string sourceFile, string projectDirectory, Type type, MethodInfo method)
         {

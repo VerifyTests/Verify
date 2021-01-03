@@ -28,7 +28,7 @@ namespace VerifyTests
 
             if (parameters != null && parameters.Any())
             {
-                testPrefix = $"{testPrefix}_{TestPrefixBuilder.Concat(method, parameters)}";
+                testPrefix = $"{testPrefix}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
             filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);

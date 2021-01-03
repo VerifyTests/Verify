@@ -15,6 +15,14 @@ namespace VerifyTests
                 return derivePathInfo(sourceFile, projectDirectory, type, method);
             }
 
+            var typeName = GetTypeName(type);
+
+            return new PathInfo(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
+
+        }
+
+        private static string GetTypeName(Type type)
+        {
             string typeName;
             if (type.IsNested)
             {
@@ -25,8 +33,7 @@ namespace VerifyTests
                 typeName = type.Name;
             }
 
-            return new PathInfo(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
-
+            return typeName;
         }
 
         /// <summary>

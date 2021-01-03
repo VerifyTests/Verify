@@ -24,6 +24,29 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseDirectory()
+    {
+        #region UseDirectory
+
+        VerifySettings settings = new();
+        settings.UseDirectory("CustomDirectory");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseDirectoryFluent()
+    {
+        #region UseDirectoryFluent
+
+        await Verifier.Verify("value")
+            .UseDirectory("CustomDirectory");
+
+        #endregion
+    }
+
+    [Fact]
     public async Task UseTypeName()
     {
         #region UseTypeName
@@ -41,7 +64,7 @@ public class NamerTests
         #region UseTypeNameFluent
 
         await Verifier.Verify("value")
-            .UseTypeName("CustomTypeNameFluent");
+            .UseTypeName("CustomTypeName");
 
         #endregion
     }

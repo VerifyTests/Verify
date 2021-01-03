@@ -46,22 +46,36 @@ namespace VerifyTests
         static (string directory, string methodName, string typeName) GetPathInfo(string sourceFile, Type type, VerifySettings settings, MethodInfo method, string projectDirectory)
         {
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
-            var directory = pathInfo.Directory;
 
-            if (settings.directory != null)
-            {
-                directory = settings.directory;
-            }
+            var directory = settings.directory ?? pathInfo.Directory;
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-            directory = Path.Combine(sourceFileDirectory, directory);
-            Directory.CreateDirectory(directory);
+            if (directory != null)
+            {
+                directory = Path.Combine(sourceFileDirectory, directory);
+                Directory.CreateDirectory(directory);
+            }
+            else
+            {
+                directory = sourceFileDirectory;
+            }
 
-            var typeName = settings.typeName ?? pathInfo.TypeName;
-            var methodName = settings.methodName ?? pathInfo.MethodName;
+            var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
+            var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
             return (directory, methodName, typeName);
         }
+
+        static string GetTypeName(Type type)
+        {
+            if (type.IsNested)
+            {
+                return $"{type.ReflectedType!.Name}.{type.Name}";
+            }
+
+            return type.Name;
+        }
+
 
         FilePair GetFileNames(string extension, string? suffix = null)
         {

@@ -20,6 +20,32 @@ The format is
 The file prefix uses the test name.
 
 
+### UseDirectory
+
+A custom directory can be used via `UseDirectory`
+
+<!-- snippet: UseDirectory -->
+<a id='snippet-usedirectory'></a>
+```cs
+VerifySettings settings = new();
+settings.UseDirectory("CustomDirectory");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: UseDirectoryFluent -->
+<a id='snippet-usedirectoryfluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseDirectory("CustomDirectory");
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
+
+
 ### UseTypeName
 
 A custom test name can be used via `UseTypeName`
@@ -31,21 +57,19 @@ VerifySettings settings = new();
 settings.UseTypeName("CustomTypeName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-Will result in `CustomTypeName.MethodName.verified.txt`.
 
 <!-- snippet: UseTypeNameFluent -->
 <a id='snippet-usetypenamefluent'></a>
 ```cs
 await Verifier.Verify("value")
-    .UseTypeName("CustomTypeNameFluent");
+    .UseTypeName("CustomTypeName");
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L64-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Will result in `CustomTypeNameFluent.MethodName.verified.txt`.
+Will result in `CustomTypeName.MethodName.verified.txt`.
 
 
 ### UseMethodName
@@ -59,7 +83,7 @@ VerifySettings settings = new();
 settings.UseMethodName("CustomMethodName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L75-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
@@ -70,7 +94,7 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 await Verifier.Verify("value")
     .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L64-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L87-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
@@ -377,7 +401,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L75-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L98-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

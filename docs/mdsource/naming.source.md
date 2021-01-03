@@ -13,17 +13,26 @@ The format is
 The file prefix uses the test name.
 
 
+### UseDirectory
+
+A custom directory can be used via `UseDirectory`
+
+snippet: UseDirectory
+
+snippet: UseDirectoryFluent
+
+Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
+
+
 ### UseTypeName
 
 A custom test name can be used via `UseTypeName`
 
 snippet: UseTypeName
 
-Will result in `CustomTypeName.MethodName.verified.txt`.
-
 snippet: UseTypeNameFluent
 
-Will result in `CustomTypeNameFluent.MethodName.verified.txt`.
+Will result in `CustomTypeName.MethodName.verified.txt`.
 
 
 ### UseMethodName

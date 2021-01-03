@@ -5,17 +5,13 @@ Naming determines the file name for the `.received.` resulting `.verified.` file
 The format is
 
 ```
-{UniqueTestName}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
+{Directory}/{TestClassName}.{TestMethodName}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
 ```
 
-## UniqueTestName
 
-The file prefix uses the test name.
+## Directory
 
-
-### UseDirectory
-
-A custom directory can be used via `UseDirectory`
+The directory that contains the test. A custom directory can be used via `UseDirectory`:
 
 snippet: UseDirectory
 
@@ -24,9 +20,9 @@ snippet: UseDirectoryFluent
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
 
 
-### UseTypeName
+## TestClassName
 
-A custom test name can be used via `UseTypeName`
+The class name that contains the test. A custom test name can be used via `UseTypeName`:
 
 snippet: UseTypeName
 
@@ -35,9 +31,9 @@ snippet: UseTypeNameFluent
 Will result in `CustomTypeName.MethodName.verified.txt`.
 
 
-### UseMethodName
+## TestMethodName
 
-A custom test name can be used via `UseMethodName`
+The test method name. A custom test name can be used via `UseMethodName`:
 
 snippet: UseMethodName
 

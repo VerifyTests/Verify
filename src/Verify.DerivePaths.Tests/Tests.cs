@@ -18,7 +18,7 @@ public class Tests
                 Assert.NotNull(type);
                 Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
                 Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
-                return new PathInfo("CustomDir", "CustomFile");
+                return new PathInfo("CustomDir", "CustomTypeName", "CustomMethodName");
             });
     }
 

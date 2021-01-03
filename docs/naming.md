@@ -20,6 +20,34 @@ The format is
 The file prefix uses the test name.
 
 
+### UseTypeName
+
+A custom test name can be used via `UseTypeName`
+
+<!-- snippet: UseTypeName -->
+<a id='snippet-usetypename'></a>
+```cs
+VerifySettings settings = new();
+settings.UseTypeName("CustomTypeName");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `CustomTypeName.MethodName.verified.txt`.
+
+<!-- snippet: UseTypeNameFluent -->
+<a id='snippet-usetypenamefluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseTypeName("CustomTypeNameFluent");
+```
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `CustomTypeNameFluent.MethodName.verified.txt`.
+
+
 ### UseMethodName
 
 A custom test name can be used via `UseMethodName`
@@ -28,26 +56,24 @@ A custom test name can be used via `UseMethodName`
 <a id='snippet-usemethodname'></a>
 ```cs
 VerifySettings settings = new();
-settings.UseMethodName("TheCustomName");
+settings.UseMethodName("CustomMethodName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Will result in `TestClass.TheCustomName.verified.txt`.
+Will result in `TestClass.CustomMethodName.verified.txt`.
 
 <!-- snippet: UseMethodNameFluent -->
 <a id='snippet-usemethodnamefluent'></a>
 ```cs
 await Verifier.Verify("value")
-    .UseMethodName("TheCustomNameFluent");
+    .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L64-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Will result in `TestClass.TheCustomNameFluent.verified.txt`.
-
-`UseMethodName` will combine with any of the below `UniqueFor*`s.
+Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 
 
 ## UniqueFor
@@ -351,7 +377,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/NamerTests.cs#L52-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/NamerTests.cs#L75-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -376,10 +402,11 @@ VerifierSettings.DerivePathInfo(
     {
         return new PathInfo(
             directory: Path.Combine(projectDirectory, "Snapshots"),
-            filePrefix: $"{type}.{method}");
+            typeName: type.Name,
+            methodName: method.Name);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L94' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-Test-directory)

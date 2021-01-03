@@ -24,12 +24,35 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseTypeName()
+    {
+        #region UseTypeName
+
+        VerifySettings settings = new();
+        settings.UseTypeName("CustomTypeName");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseTypeNameFluent()
+    {
+        #region UseTypeNameFluent
+
+        await Verifier.Verify("value")
+            .UseTypeName("CustomTypeNameFluent");
+
+        #endregion
+    }
+
+    [Fact]
     public async Task UseMethodName()
     {
         #region UseMethodName
 
         VerifySettings settings = new();
-        settings.UseMethodName("TheCustomName");
+        settings.UseMethodName("CustomMethodName");
         await Verifier.Verify("value", settings);
 
         #endregion
@@ -41,7 +64,7 @@ public class NamerTests
         #region UseMethodNameFluent
 
         await Verifier.Verify("value")
-            .UseMethodName("TheCustomNameFluent");
+            .UseMethodName("CustomMethodNameFluent");
 
         #endregion
     }

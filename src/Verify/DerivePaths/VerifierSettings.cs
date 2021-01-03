@@ -12,22 +12,20 @@ namespace VerifyTests
         {
             if (derivePathInfo != null)
             {
-                var pathInfo = derivePathInfo(sourceFile, projectDirectory, type, method);
-                Directory.CreateDirectory(pathInfo.Directory);
-                return pathInfo;
+                return derivePathInfo(sourceFile, projectDirectory, type, method);
             }
 
-            string name;
+            string typeName;
             if (type.IsNested)
             {
-                name = $"{type.ReflectedType!.Name}.{type.Name}.{method.Name}";
+                typeName = $"{type.ReflectedType!.Name}.{type.Name}";
             }
             else
             {
-                name = $"{type.Name}.{method.Name}";
+                typeName = type.Name;
             }
 
-            return new PathInfo(Path.GetDirectoryName(sourceFile)!, name);
+            return new PathInfo(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
 
         }
 

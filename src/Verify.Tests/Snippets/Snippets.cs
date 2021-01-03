@@ -88,7 +88,8 @@ public class Snippets
             {
                 return new PathInfo(
                     directory: Path.Combine(projectDirectory, "Snapshots"),
-                    filePrefix: $"{type}.{method}");
+                    typeName: type.Name,
+                    methodName: method.Name);
             });
 
         #endregion
@@ -108,7 +109,8 @@ public class Snippets
                     var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
                     return new PathInfo(
                         directory: Path.Combine(buildDirectory, testDirectorySuffix),
-                        filePrefix: $"{type}.{method}");
+                        typeName: type.Name,
+                        methodName: method.Name);
                 });
         }
 

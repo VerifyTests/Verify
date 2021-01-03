@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -22,13 +23,16 @@ namespace VerifyTests
         {
             assembly = type.Assembly;
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
-            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
-            directory = pathInfo.Directory;
-            testPrefix = pathInfo.FilePrefix;
+            var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
 
-            if (parameters != null && parameters.Any())
+            this.directory = directory;
+            if (parameters == null || !parameters.Any())
             {
-                testPrefix = $"{testPrefix}_{ParameterBuilder.Concat(method, parameters)}";
+                testPrefix = $"{typeName}.{methodName}";
+            }
+            else
+            {
+                testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
             filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);
@@ -37,6 +41,26 @@ namespace VerifyTests
             settings.instanceScrubbers.Add(replacements);
 
             CounterContext.Start();
+        }
+
+        static (string directory, string methodName, string typeName) GetPathInfo(string sourceFile, Type type, VerifySettings settings, MethodInfo method, string projectDirectory)
+        {
+            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
+            var directory = pathInfo.Directory;
+
+            if (settings.directory != null)
+            {
+                directory = settings.directory;
+            }
+
+            var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+            directory = Path.Combine(sourceFileDirectory, directory);
+            Directory.CreateDirectory(directory);
+
+            var typeName = settings.typeName ?? pathInfo.TypeName;
+            var methodName = settings.methodName ?? pathInfo.MethodName;
+
+            return (directory, methodName, typeName);
         }
 
         FilePair GetFileNames(string extension, string? suffix = null)

@@ -41,6 +41,8 @@ await Verifier.Verify("value")
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
 
+The path provided can be absolute or relative to the directory that contains the test.
+
 
 ## TestClassName
 

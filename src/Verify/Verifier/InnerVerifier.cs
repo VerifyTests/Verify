@@ -29,14 +29,9 @@ namespace VerifyTests
             CounterContext.Start();
         }
 
-        FilePair GetFileNames(string extension)
+        FilePair GetFileNames(string extension, string? suffix = null)
         {
-            return FileNameBuilder.GetFileNames(extension, settings.Namer, directory, testName, assembly);
-        }
-
-        FilePair GetFileNames(string extension, string suffix)
-        {
-            return FileNameBuilder.GetFileNames(extension, suffix, settings.Namer, directory, testName, assembly);
+            return FileNameBuilder.GetFileNames(extension, settings.Namer, directory, testName, assembly, suffix);
         }
 
         public void Dispose()

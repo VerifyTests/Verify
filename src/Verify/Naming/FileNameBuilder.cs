@@ -5,18 +5,14 @@ using VerifyTests;
 
 static class FileNameBuilder
 {
-    public static FilePair GetFileNames(string extension, Namer namer, string directory, string testName, Assembly assembly)
+    public static FilePair GetFileNames(string extension, Namer namer, string directory, string testName, Assembly assembly, string? suffix = null)
     {
         StringBuilder builder = new(Path.Combine(directory, testName));
         AppendFileParts(namer, builder, assembly);
-        return new(extension, builder.ToString());
-    }
-
-    public static FilePair GetFileNames(string extension, string suffix, Namer namer, string directory, string testName, Assembly assembly)
-    {
-        StringBuilder builder = new(Path.Combine(directory, testName));
-        AppendFileParts(namer, builder, assembly);
-        builder.Append($".{suffix}");
+        if (suffix != null)
+        {
+            builder.Append($".{suffix}");
+        }
         return new(extension, builder.ToString());
     }
 

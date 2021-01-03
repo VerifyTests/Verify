@@ -59,12 +59,9 @@ if (BuildServerDetector.Detected)
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;
             var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
-            return new PathInfo(
-                directory: Path.Combine(buildDirectory, testDirectorySuffix),
-                typeName: type.Name,
-                methodName: method.Name);
+            return new PathInfo(directory: Path.Combine(buildDirectory, testDirectorySuffix));
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L100-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L100-L114' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

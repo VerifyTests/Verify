@@ -5,39 +5,32 @@ using VerifyTests;
 
 static class FileNameBuilder
 {
-    public static FilePair GetFileNames(string extension, Namer namer, string directory, string testName, Assembly assembly)
+    public static string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly)
     {
-        var filePrefix = GetFilePrefix(namer, directory, testName, assembly);
-        return new(extension, filePrefix);
+        StringBuilder builder = new(Path.Combine(directory, testPrefix));
+        AppendFileParts(namer, builder, assembly);
+        return builder.ToString();
     }
 
-    public static FilePair GetFileNames(string extension, string suffix, Namer namer, string directory, string testName, Assembly assembly)
+    public static string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
     {
-        var filePrefix = GetFilePrefix(namer, directory, testName, assembly);
-        return new(extension, $"{filePrefix}.{suffix}");
+        return GetPattern(extension, namer, testPrefix, assembly, "verified");
     }
 
-    static string GetFilePrefix(Namer namer, string directory, string testName, Assembly assembly)
+    public static string GetReceivedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
     {
-        StringBuilder builder = new(Path.Combine(directory, testName));
-        return AppendFileParts(namer, builder, assembly);
+        return GetPattern(extension, namer, testPrefix, assembly, "received");
     }
 
-    public static string GetVerifiedPattern(string extension, Namer namer, string testName, Assembly assembly)
+    static string GetPattern(string extension, Namer namer, string testPrefix, Assembly assembly, string type)
     {
-        StringBuilder builder = new(testName);
-        var filePrefix = AppendFileParts(namer, builder, assembly);
-        return $"{filePrefix}.*.verified.{extension}";
+        StringBuilder builder = new(testPrefix);
+        AppendFileParts(namer, builder, assembly);
+        builder.Append($".*.{type}.{extension}");
+        return builder.ToString();
     }
 
-    public static string GetReceivedPattern(string extension, Namer namer, string testName, Assembly assembly)
-    {
-        StringBuilder builder = new(testName);
-        var filePrefix = AppendFileParts(namer, builder, assembly);
-        return $"{filePrefix}.*received.{extension}";
-    }
-
-    static string AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
+    static void AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
     {
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
@@ -52,7 +45,5 @@ static class FileNameBuilder
         {
             builder.Append($".{assembly.GetAttributeConfiguration()}");
         }
-
-        return builder.ToString();
     }
 }

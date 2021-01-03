@@ -26,7 +26,7 @@ namespace VerifyMSTest
             }
 
             var parameters = settings.GetParameters(methodInfo);
-            return new(sourceFile, type.Assembly, settings, methodInfo, parameters);
+            return new(sourceFile, type, settings, methodInfo, parameters);
         }
 
         SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

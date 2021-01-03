@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -17,28 +16,80 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task DeriveTestDirectory()
-    {
-        string? receivedSourceFile = null;
-        string? receivedProjectDirectory = null;
-        VerifierSettings.DeriveTestDirectory(
-            (sourceFile, projectDirectory) =>
-            {
-                receivedSourceFile = sourceFile;
-                receivedProjectDirectory = projectDirectory;
-                return Path.GetDirectoryName(sourceFile);
-            });
-        await Verifier.Verify("DeriveTestDirectory");
-        Assert.NotNull(receivedSourceFile);
-        Assert.True(Directory.Exists(receivedProjectDirectory));
-    }
-
-    [Fact]
     public Task RuntimeAndVersion()
     {
         VerifySettings settings = new();
         settings.UniqueForRuntimeAndVersion();
         return Verifier.Verify(Namer.RuntimeAndVersion, settings);
+    }
+
+    [Fact]
+    public async Task UseDirectory()
+    {
+        #region UseDirectory
+
+        VerifySettings settings = new();
+        settings.UseDirectory("CustomDirectory");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseDirectoryFluent()
+    {
+        #region UseDirectoryFluent
+
+        await Verifier.Verify("value")
+            .UseDirectory("CustomDirectory");
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseTypeName()
+    {
+        #region UseTypeName
+
+        VerifySettings settings = new();
+        settings.UseTypeName("CustomTypeName");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseTypeNameFluent()
+    {
+        #region UseTypeNameFluent
+
+        await Verifier.Verify("value")
+            .UseTypeName("CustomTypeName");
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseMethodName()
+    {
+        #region UseMethodName
+
+        VerifySettings settings = new();
+        settings.UseMethodName("CustomMethodName");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseMethodNameFluent()
+    {
+        #region UseMethodNameFluent
+
+        await Verifier.Verify("value")
+            .UseMethodName("CustomMethodNameFluent");
+
+        #endregion
     }
 
     [Fact]

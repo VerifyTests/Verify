@@ -79,29 +79,38 @@ public class Snippets
         #endregion
     }
 
-    void DeriveTestDirectory()
+    void DerivePathInfo()
     {
-        #region DeriveTestDirectory
+        #region DerivePathInfo
 
-        VerifierSettings.DeriveTestDirectory(
-            (sourceFile, projectDirectory) => Path.Combine(projectDirectory, "Snapshots"));
+        VerifierSettings.DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) =>
+            {
+                return new PathInfo(
+                    directory: Path.Combine(projectDirectory, "Snapshots"),
+                    typeName: type.Name,
+                    methodName: method.Name);
+            });
 
         #endregion
     }
 
-    void DeriveTestDirectoryAppVeyor()
+    void DerivePathInfoAppVeyor()
     {
-        #region DeriveTestDirectoryAppVeyor
+        #region DerivePathInfoAppVeyor
 
         if (BuildServerDetector.Detected)
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-            VerifierSettings.DeriveTestDirectory(
-                (sourceFile, projectDirectory) =>
+            VerifierSettings.DerivePathInfo(
+                (sourceFile, projectDirectory, type, method) =>
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;
                     var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
-                    return Path.Combine(buildDirectory, testDirectorySuffix);
+                    return new PathInfo(
+                        directory: Path.Combine(buildDirectory, testDirectorySuffix),
+                        typeName: type.Name,
+                        methodName: method.Name);
                 });
         }
 

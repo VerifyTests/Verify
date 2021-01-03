@@ -42,26 +42,29 @@ Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/re
 ```
 
 
-## Custom Test directory
+## Custom directory and file name
 
-In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using [DeriveTestDirectory](naming.md#derivetestdirectory).
+In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using [DerivePathInfo](naming.md#derivepathinfo).
 
 For example a possible implementation for [AppVeyor](https://www.appveyor.com/) could be:
 
-<!-- snippet: DeriveTestDirectoryAppVeyor -->
-<a id='snippet-derivetestdirectoryappveyor'></a>
+<!-- snippet: DerivePathInfoAppVeyor -->
+<a id='snippet-derivepathinfoappveyor'></a>
 ```cs
 if (BuildServerDetector.Detected)
 {
     var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-    VerifierSettings.DeriveTestDirectory(
-        (sourceFile, projectDirectory) =>
+    VerifierSettings.DerivePathInfo(
+        (sourceFile, projectDirectory, type, method) =>
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;
             var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
-            return Path.Combine(buildDirectory, testDirectorySuffix);
+            return new PathInfo(
+                directory: Path.Combine(buildDirectory, testDirectorySuffix),
+                typeName: type.Name,
+                methodName: method.Name);
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L94-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivetestdirectoryappveyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L100-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

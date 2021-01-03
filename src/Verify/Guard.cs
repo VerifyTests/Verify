@@ -37,6 +37,18 @@ static class Guard
             throw new ArgumentNullException(argumentName);
         }
     }
+    public static void AgainstEmpty(string? value, string argumentName)
+    {
+        if (value == null)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new ArgumentNullException(argumentName);
+        }
+    }
 
     public static void AgainstNullOrEmpty(object?[] value, string argumentName)
     {

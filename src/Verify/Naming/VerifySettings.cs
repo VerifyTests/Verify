@@ -22,7 +22,6 @@
             this.directory = directory;
         }
 
-
         internal string? typeName;
 
         public void UseTypeName(string name)
@@ -30,7 +29,6 @@
             Guard.AgainstNullOrEmpty(name, nameof(name));
             typeName = name;
         }
-
 
         internal string? methodName;
 

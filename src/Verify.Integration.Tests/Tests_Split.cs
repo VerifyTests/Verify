@@ -27,9 +27,9 @@ public partial class Tests
         }
 
         var method = GetType().GetMethod("Split")!;
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            method,
-            new object[] {hasExistingReceived, autoVerify});
+
+        var concat = ParameterBuilder.Concat(method, new object[] {hasExistingReceived, autoVerify});
+        var uniqueTestName = $"Tests.Split_{concat}";
 
         settings.UseParameters(hasExistingReceived, autoVerify);
         var prefix = Path.Combine(SourceDirectory, $"{uniqueTestName}.");

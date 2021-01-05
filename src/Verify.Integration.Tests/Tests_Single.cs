@@ -19,9 +19,8 @@ public partial class Tests
         bool autoVerify)
     {
         var method = GetType().GetMethod("Text")!;
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName(
-            method,
-            new object[]{hasExistingReceived, autoVerify});
+        var concat = ParameterBuilder.Concat(method, new object[] {hasExistingReceived, autoVerify});
+        var uniqueTestName = $"Tests.Text_{concat}";
         VerifySettings settings = new();
         settings.UseParameters(hasExistingReceived, autoVerify);
         await RunTest(
@@ -52,8 +51,9 @@ public partial class Tests
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
         var method = GetType().GetMethod("Stream")!;
-        var uniqueTestName = TestNameBuilder.GetUniqueTestName(method,
-            new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
+
+        var concat = ParameterBuilder.Concat(method, new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
+        var uniqueTestName = $"Tests.Stream_{concat}";
         VerifySettings settings = new();
         settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);
         await RunTest(

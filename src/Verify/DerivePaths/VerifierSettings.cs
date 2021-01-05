@@ -18,22 +18,16 @@ namespace VerifyTests
             var typeName = GetTypeName(type);
 
             return new PathInfo(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
-
         }
 
-        private static string GetTypeName(Type type)
+        static string GetTypeName(Type type)
         {
-            string typeName;
             if (type.IsNested)
             {
-                typeName = $"{type.ReflectedType!.Name}.{type.Name}";
-            }
-            else
-            {
-                typeName = type.Name;
+                return $"{type.ReflectedType!.Name}.{type.Name}";
             }
 
-            return typeName;
+            return type.Name;
         }
 
         /// <summary>

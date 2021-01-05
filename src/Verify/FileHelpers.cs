@@ -28,7 +28,8 @@ static class FileHelpers
 
     public static FileStream OpenRead(string path)
     {
-        return new(path,
+        return new(
+            path,
             FileMode.Open,
             FileAccess.Read,
             FileShare.Read,

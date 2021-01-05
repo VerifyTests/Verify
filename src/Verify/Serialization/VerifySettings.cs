@@ -31,6 +31,5 @@ namespace VerifyTests
             serialization.AddExtraSettings(action);
             serialization.RegenSettings();
         }
-
     }
 }

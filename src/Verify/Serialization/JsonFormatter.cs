@@ -7,7 +7,6 @@ using VerifyTests;
 
 static class JsonFormatter
 {
-
     public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, List<ToAppend> appends, VerifySettings verifySettings)
     {
         if (appends.Any())
@@ -32,9 +31,7 @@ static class JsonFormatter
         {
             NewLine = "\n"
         };
-        using JsonTextWriterEx writer = new(stringWriter, verifySettings.Context)
-        {
-        };
+        using JsonTextWriterEx writer = new(stringWriter, verifySettings.Context);
         serializer.Serialize(writer, input);
         return builder;
     }

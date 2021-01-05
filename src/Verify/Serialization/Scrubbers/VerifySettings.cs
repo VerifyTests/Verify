@@ -13,15 +13,9 @@ namespace VerifyTests
             AddScrubber(Scrubbers.ScrubMachineName);
         }
 
-        [Obsolete("Newline escaping is disabled by default", true)]
-        public void DisableNewLineEscaping()
-        {
-        }
-
         public void AddScrubber(Action<StringBuilder> scrubber)
         {
             Guard.AgainstNull(scrubber, nameof(scrubber));
-
             instanceScrubbers.Insert(0, scrubber);
         }
 

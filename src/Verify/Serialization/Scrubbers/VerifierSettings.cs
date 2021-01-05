@@ -15,11 +15,6 @@ namespace VerifyTests
             GlobalScrubbers.Insert(0, scrubber);
         }
 
-        [Obsolete("Newline escaping is disabled by default", true)]
-        public static void DisableNewLineEscaping()
-        {
-        }
-
         public static void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
         {
             GlobalScrubbers.Insert(0, s => s.RemoveLinesContaining(comparison, stringToMatch));

@@ -106,7 +106,6 @@ namespace VerifyTests
             #endregion
         };
 
-
         public static void TreatAsString<T>(AsString<T>? toString = null)
         {
             toString ??= (target, _) =>

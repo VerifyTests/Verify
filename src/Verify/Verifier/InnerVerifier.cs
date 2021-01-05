@@ -76,7 +76,6 @@ namespace VerifyTests
             return type.Name;
         }
 
-
         FilePair GetFileNames(string extension, string? suffix = null)
         {
             string fullPrefix;

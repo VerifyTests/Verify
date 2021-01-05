@@ -124,12 +124,6 @@ namespace VerifyTests
             return this;
         }
 
-        [Obsolete("Newline escaping is disabled by default", true)]
-        public SettingsTask DisableNewLineEscaping()
-        {
-            return this;
-        }
-
         public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
         {
             CurrentSettings.ScrubLinesContaining(comparison, stringToMatch);

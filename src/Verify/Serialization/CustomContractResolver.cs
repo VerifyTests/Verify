@@ -200,7 +200,6 @@ class CustomContractResolver :
             };
         }
 
-
         ConvertMember? membersConverter = null;
         foreach (var pair in membersConverters)
         {

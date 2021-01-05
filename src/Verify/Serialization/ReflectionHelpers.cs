@@ -28,6 +28,7 @@ static class ReflectionHelpers
         {
             return true;
         }
+
         return type.GetInterfaces().Any(IsGenericList);
     }
 
@@ -48,6 +49,7 @@ static class ReflectionHelpers
         {
             return false;
         }
+
         return type.GetGenericArguments()[0] == typeof(Stream);
     }
 

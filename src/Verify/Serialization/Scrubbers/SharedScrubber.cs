@@ -8,7 +8,6 @@ class SharedScrubber
 {
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
-    bool scrubInlineGuids;
     bool scrubGuids;
     bool scrubDateTimes;
     JsonSerializerSettings settings;
@@ -16,10 +15,9 @@ class SharedScrubber
     static Func<DateTime, int> intOrNextDateTime = input => CounterContext.Current.IntOrNext(input);
     static Func<DateTimeOffset, int> intOrNextDateTimeOffset = input => CounterContext.Current.IntOrNext(input);
 
-    public SharedScrubber(bool scrubGuids, bool scrubInlineGuids, bool scrubDateTimes, JsonSerializerSettings settings)
+    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
     {
         this.scrubGuids = scrubGuids;
-        this.scrubInlineGuids = scrubInlineGuids;
         this.scrubDateTimes = scrubDateTimes;
         this.settings = settings;
     }
@@ -95,11 +93,6 @@ class SharedScrubber
             return true;
         }
 
-        if (TryParsePartialGuids(value, out result))
-        {
-            return true;
-        }
-
         result = null;
         return false;
     }
@@ -161,18 +154,6 @@ class SharedScrubber
                 result = Convert(guid);
                 return true;
             }
-        }
-
-        result = null;
-        return false;
-    }
-
-
-    public bool TryParsePartialGuids(string value, [NotNullWhen(true)] out string? result)
-    {
-        if (scrubInlineGuids)
-        {
-            return GuidScrubber.TryReplaceGuids(value, Convert, out result);
         }
 
         result = null;

@@ -214,7 +214,7 @@ namespace VerifyTests
             #endregion
 
             settings.SerializationBinder = new ShortNameBinder();
-            SharedScrubber scrubber = new(scrubGuids, scrubInlineGuids, scrubDateTimes, settings);
+            SharedScrubber scrubber = new(scrubGuids, scrubDateTimes, settings);
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,
@@ -270,14 +270,6 @@ namespace VerifyTests
         public void IncludeObsoletes()
         {
             includeObsoletes = true;
-        }
-
-        bool scrubInlineGuids;
-
-        [Obsolete("Use VerifySettings.ScrubInlineGuids")]
-        public void ScrubInlineGuids()
-        {
-            scrubInlineGuids = true;
         }
     }
 }

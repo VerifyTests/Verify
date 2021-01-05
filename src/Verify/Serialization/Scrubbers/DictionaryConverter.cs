@@ -30,7 +30,6 @@ class DictionaryConverter :
         serializer.Serialize(writer, instance);
     }
 
-
     public override bool CanConvert(Type objectType)
     {
         if (objectType.IsGenericType)

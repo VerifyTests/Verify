@@ -23,6 +23,28 @@ public class Tests
     }
 
     [Fact]
+    public async Task ThrowOnConflict()
+    {
+        static SettingsTask Run()
+        {
+            return Verifier.Verify("Value")
+                .UseMethodName("Conflict")
+                .DisableDiff()
+                .DisableClipboard();
+        }
+
+        try
+        {
+            await Run();
+        }
+        catch
+        {
+        }
+        await Verifier.ThrowsAsync(() => Run())
+            .UseMethodName("ThrowOnConflict");
+    }
+
+    [Fact]
     public async Task Test()
     {
         await Verifier.Verify("Value");

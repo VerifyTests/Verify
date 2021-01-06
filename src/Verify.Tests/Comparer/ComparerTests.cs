@@ -26,6 +26,7 @@ public class ComparerTests
         VerifySettings settings = new();
         settings.UseComparer(Compare);
         await Verifier.Verify("TheText", settings);
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("thetext", settings);
     }
 
@@ -48,6 +49,7 @@ public class ComparerTests
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExt");
         await Verifier.Verify("TheText", settings);
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("thetext", settings);
     }
 

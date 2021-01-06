@@ -196,19 +196,27 @@ public class Tests
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
         await Verifier.Verify("a\r\nb");
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("a\rb");
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("a\nb");
+        FileNameBuilder.ClearPrefixList();
 
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\nb");
         await Verifier.Verify("a\r\nb");
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("a\rb");
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("a\nb");
+        FileNameBuilder.ClearPrefixList();
 
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\rb");
         await Verifier.Verify("a\r\nb");
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("a\rb");
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("a\nb");
     }
 

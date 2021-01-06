@@ -1,6 +1,6 @@
 {
   Type: Exception,
-  Message: The prefix has already been used. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {ProjectDirectory}CustomDir\CustomTypeName.Conflict,
+  Message: The prefix has already been used. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {ProjectDirectory}CustomDir/CustomTypeName.Conflict,
   StackTrace: 
 at FileNameBuilder.GetPrefix(Namer namer, String directory, String testPrefix, Assembly assembly)
 at VerifyTests.InnerVerifier..ctor(String sourceFile, Type type, VerifySettings settings, MethodInfo method, IReadOnlyList`1 parameters)

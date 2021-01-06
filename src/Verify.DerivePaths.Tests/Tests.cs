@@ -40,8 +40,10 @@ public class Tests
         catch
         {
         }
+
         await Verifier.ThrowsAsync(() => Run())
-            .UseMethodName("ThrowOnConflict");
+            .UseMethodName("ThrowOnConflict")
+            .AddScrubber(builder => builder.Replace(@"\", "/"));
     }
 
     [Fact]

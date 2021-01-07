@@ -19,6 +19,7 @@ namespace VerifyNUnit
             {
                 throw new("Could not find field `_test` on TestContext.TestAdapter.");
             }
+
             field = temp;
         }
 
@@ -28,12 +29,16 @@ namespace VerifyNUnit
             var context = TestContext.CurrentContext;
             var adapter = context.Test;
             var test = (Test) field.GetValue(adapter)!;
+            if (test.TypeInfo == null || test.Method == null)
+            {
+                throw new Exception("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
+            }
 
             return new(
                 sourceFile,
-                test.TypeInfo.Type,
+                test.TypeInfo!.Type,
                 settings,
-                test.Method.MethodInfo,
+                test.Method!.MethodInfo,
                 adapter.Arguments);
         }
 

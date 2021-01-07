@@ -454,6 +454,7 @@ public class SerializationTests
     public async Task PartialNamedTuple()
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithPartialNamedTuple()));
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify(exception.Message);
     }
 
@@ -1201,6 +1202,7 @@ public class SerializationTests
     public async Task Tuple()
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithTuple()));
+        FileNameBuilder.ClearPrefixList();
         await Verifier.Verify(exception.Message);
     }
 

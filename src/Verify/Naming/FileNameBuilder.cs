@@ -1,15 +1,31 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Concurrent;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using VerifyTests;
 
 static class FileNameBuilder
 {
+    static ConcurrentBag<string> prefixList= new ();
     public static string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly)
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
         AppendFileParts(namer, builder, assembly);
-        return builder.ToString();
+        var prefix = builder.ToString();
+        if (!prefixList.Contains(prefix))
+        {
+            prefixList.Add(prefix);
+            return prefix;
+        }
+
+        throw new Exception($"The prefix has already been used. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
+    }
+
+    internal static void ClearPrefixList()
+    {
+        prefixList = new ConcurrentBag<string>();
     }
 
     public static string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)

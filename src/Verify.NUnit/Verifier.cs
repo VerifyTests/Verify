@@ -31,7 +31,7 @@ namespace VerifyNUnit
             var test = (Test) field.GetValue(adapter)!;
             if (test.TypeInfo == null || test.Method == null)
             {
-                throw new Exception("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
+                throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
             }
 
             return new(

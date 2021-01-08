@@ -12,7 +12,7 @@ namespace VerifyXunit
             if (!UsesVerifyAttribute.TryGet(out var info))
             {
                 var fileName = Path.GetFileName(sourceFile);
-                throw new Exception($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
+                throw new($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
             }
 
             var parameters = settings.GetParameters(info);

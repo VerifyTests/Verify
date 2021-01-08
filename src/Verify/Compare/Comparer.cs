@@ -15,7 +15,6 @@ static class Comparer
         }
 
         var verified = await FileHelpers.ReadText(filePair.Verified);
-        verified.FixNewlines();
         var result = await CompareStrings(received, verified, settings);
         if (result.IsEqual)
         {

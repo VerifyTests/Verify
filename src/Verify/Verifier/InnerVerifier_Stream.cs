@@ -86,7 +86,7 @@ namespace VerifyTests
 
                 var builder = await stream.ReadAsString();
                 ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                return await Comparer.Text(filePair, builder, settings);
+                return await Comparer.Text(filePair, builder.ToString(), settings);
             }
         }
 
@@ -108,7 +108,7 @@ namespace VerifyTests
 
             ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 
-            var result = await Comparer.Text(file, builder, settings);
+            var result = await Comparer.Text(file, builder.ToString(), settings);
             engine.HandleCompareResult(result, file);
         }
     }

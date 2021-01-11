@@ -34,12 +34,12 @@ static class FileComparer
             return DoCompare(settings, compare!, filePair);
         }
 
-        if (!FilesAreSameSize(filePair))
+        if (FilesAreSameSize(filePair))
         {
-            return Task.FromResult(CompareResult.NotEqual());
+            return DefaultCompare(settings, filePair);
         }
 
-        return DefaultCompare(settings, filePair);
+        return Task.FromResult(CompareResult.NotEqual());
     }
 
     public static Task<CompareResult> DefaultCompare(VerifySettings settings, FilePair filePair)

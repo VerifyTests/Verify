@@ -37,7 +37,7 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly);
+            filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly, method);
             this.settings = settings;
 
             CounterContext.Start();

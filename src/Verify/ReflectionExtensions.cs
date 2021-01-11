@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 static class Extensions
 {
     public static bool IsException(this Type type)
     {
         return typeof(Exception).IsAssignableFrom(type);
+    }
+
+    public static string FullName(this MethodInfo method)
+    {
+        return $"{method.ReflectedType!.Name}.{method.Name}";
     }
 
     public static TValue GetOrAdd<TKey, TValue>(

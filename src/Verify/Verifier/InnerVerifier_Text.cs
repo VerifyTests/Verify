@@ -27,9 +27,10 @@ namespace VerifyTests
 
             VerifyEngine engine = new(extension, settings, directory, testPrefix, assembly);
 
+            var received = target.ToString();
             List<ResultBuilder> builders = new()
             {
-                new(extension, file => Comparer.Text(file, target.ToString(), settings))
+                new(extension, file => Comparer.Text(file, received, settings))
             };
 
             builders.AddRange(

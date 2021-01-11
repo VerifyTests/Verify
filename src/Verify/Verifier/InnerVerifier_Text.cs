@@ -32,13 +32,14 @@ namespace VerifyTests
                 new(extension, file => Comparer.Text(file, target.ToString(), settings))
             };
 
-            builders.AddRange(VerifierSettings.GetFileAppenders(settings)
-                .Select(appender =>
-                {
-                    return new ResultBuilder(
-                        appender.Extension,
-                        file => GetResult(settings, file, appender));
-                }));
+            builders.AddRange(
+                VerifierSettings.GetFileAppenders(settings)
+                    .Select(appender =>
+                    {
+                        return new ResultBuilder(
+                            appender.Extension,
+                            file => GetResult(settings, file, appender));
+                    }));
 
             await HandleResults(builders, engine);
 

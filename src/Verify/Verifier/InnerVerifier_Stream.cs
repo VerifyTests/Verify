@@ -79,14 +79,14 @@ namespace VerifyTests
 #endif
             {
                 stream.MoveToStart();
-                if (!EmptyFiles.Extensions.IsText(conversionStream.Extension))
+                if (EmptyFiles.Extensions.IsText(conversionStream.Extension))
                 {
-                    return await Comparer.Streams(settings, stream, filePair);
+                    var builder = await stream.ReadAsString();
+                    ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+                    return await Comparer.Text(filePair, builder.ToString(), settings);
                 }
 
-                var builder = await stream.ReadAsString();
-                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                return await Comparer.Text(filePair, builder.ToString(), settings);
+                return await Comparer.Streams(settings, stream, filePair);
             }
         }
 

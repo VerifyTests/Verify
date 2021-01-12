@@ -17,9 +17,9 @@ class FileNameBuilder
     string testPrefix;
     string filePathPrefix;
 
-    public FileNameBuilder(Namer namer, MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
+    public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
     {
-        this.namer = namer;
+        namer = settings.Namer;
         this.method = method;
         this.type = type;
 

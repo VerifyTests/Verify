@@ -18,7 +18,7 @@ namespace VerifyTests
         {
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(type.Assembly);
             settings.instanceScrubbers.Add(replacements);
-            fileNameBuilder = new FileNameBuilder(settings.Namer, method, type, projectDirectory, sourceFile, parameters, settings);
+            fileNameBuilder = new FileNameBuilder(method, type, projectDirectory, sourceFile, parameters, settings);
 
             this.settings = settings;
 

@@ -64,6 +64,12 @@ class FileNameBuilder
         return type.Name;
     }
 
+    public FilePair GetInfoFileNames()
+    {
+        var fullPrefix = $"{filePathPrefix}.info";
+
+        return new("txt", fullPrefix);
+    }
     public FilePair GetFileNames(string extension, string? suffix = null)
     {
         string fullPrefix;

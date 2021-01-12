@@ -98,7 +98,7 @@ namespace VerifyTests
                 return;
             }
 
-            var file = fileNameBuilder.GetFileNames("txt", "info");
+            var file = fileNameBuilder.GetInfoFileNames();
 
             var builder = JsonFormatter.AsJson(
                 info,

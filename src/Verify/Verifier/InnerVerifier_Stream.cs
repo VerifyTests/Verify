@@ -52,13 +52,11 @@ namespace VerifyTests
             var appends = VerifierSettings.GetJsonAppenders(settings);
             if (info != null || appends.Any())
             {
-                var defaultValue = "txt";
+                var extension = "txt";
                 if (VerifierSettings.StrictJson)
                 {
-                    defaultValue = "json";
+                    extension = "json";
                 }
-
-                var extension = settings.ExtensionOrTxt(defaultValue);
 
                 var builder = JsonFormatter.AsJson(
                     info,

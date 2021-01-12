@@ -23,7 +23,7 @@ class FileNameBuilder
         this.namer = namer;
         this.method = method;
         this.type = type;
-        var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
+        var (directory, methodName, typeName) = GetPathInfo(sourceFile, settings, projectDirectory);
         this.directory = directory;
         if (parameters == null || !parameters.Any())
         {
@@ -37,7 +37,7 @@ class FileNameBuilder
         filePathPrefix = GetPrefix();
     }
 
-    (string directory, string methodName, string typeName) GetPathInfo(string sourceFile, Type type, VerifySettings settings, MethodInfo method, string projectDirectory)
+    (string directory, string methodName, string typeName) GetPathInfo(string sourceFile, VerifySettings settings, string projectDirectory)
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 

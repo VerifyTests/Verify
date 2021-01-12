@@ -19,7 +19,6 @@ class VerifyEngine
     public VerifyEngine(
         string extension,
         VerifySettings settings,
-        string directory,
         FileNameBuilder fileNameBuilder)
     {
         this.settings = settings;

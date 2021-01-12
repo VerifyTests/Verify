@@ -34,7 +34,7 @@ class FileNameBuilder
             testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
         }
 
-        filePathPrefix = GetPrefix(directory, testPrefix);
+        filePathPrefix = GetPrefix();
     }
 
     (string directory, string methodName, string typeName) GetPathInfo(string sourceFile, Type type, VerifySettings settings, MethodInfo method, string projectDirectory)
@@ -84,7 +84,7 @@ class FileNameBuilder
 
         return new(extension, fullPrefix);
     }
-    public string GetPrefix(string directory, string testPrefix)
+    public string GetPrefix()
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
         AppendFileParts(builder);

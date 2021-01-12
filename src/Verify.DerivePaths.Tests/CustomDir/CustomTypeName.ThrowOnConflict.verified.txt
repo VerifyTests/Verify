@@ -2,7 +2,7 @@
   Type: Exception,
   Message: The prefix has already been used. Existing: Tests.ThrowOnConflict. New: Tests.ThrowOnConflict. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {ProjectDirectory}CustomDir/CustomTypeName.Conflict,
   StackTrace: 
-at FileNameBuilder.GetPrefix(String directory, String testPrefix)
+at FileNameBuilder.GetPrefix()
 at FileNameBuilder..ctor(Namer namer, MethodInfo method, Type type, String projectDirectory, String sourceFile, IReadOnlyList`1 parameters, VerifySettings settings)
 at VerifyTests.InnerVerifier..ctor(String sourceFile, Type type, VerifySettings settings, MethodInfo method, IReadOnlyList`1 parameters)
 at VerifyXunit.Verifier.GetVerifier(VerifySettings settings, String sourceFile)

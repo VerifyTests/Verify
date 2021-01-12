@@ -12,7 +12,6 @@ namespace VerifyTests
     public partial class InnerVerifier :
         IDisposable
     {
-        string directory;
         Assembly assembly;
         VerifySettings settings;
         FileNameBuilder fileNameBuilder;
@@ -25,8 +24,6 @@ namespace VerifyTests
             fileNameBuilder = new FileNameBuilder(settings.Namer, method, type, projectDirectory, sourceFile, parameters, settings);
 
             var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
-
-            this.directory = directory;
 
             this.settings = settings;
 

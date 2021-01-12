@@ -16,7 +16,6 @@ class FileNameBuilder
     string directory { get; }
     string testPrefix;
     string filePathPrefix;
-    string? attributeConfiguration;
 
     public FileNameBuilder(Namer namer, MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
     {
@@ -133,11 +132,7 @@ class FileNameBuilder
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
-            if (attributeConfiguration == null)
-            {
-                attributeConfiguration = type.Assembly.GetAttributeConfiguration();
-            }
-            builder.Append($".{attributeConfiguration}");
+            builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
         }
     }
 }

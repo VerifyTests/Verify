@@ -41,23 +41,23 @@ class FileNameBuilder
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 
-        var directory = settings.directory ?? pathInfo.Directory;
+        var directoryValue = settings.directory ?? pathInfo.Directory;
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-        if (directory == null)
+        if (directoryValue == null)
         {
-            directory = sourceFileDirectory;
+            directoryValue = sourceFileDirectory;
         }
         else
         {
-            directory = Path.Combine(sourceFileDirectory, directory);
-            System.IO.Directory.CreateDirectory(directory);
+            directoryValue = Path.Combine(sourceFileDirectory, directoryValue);
+            Directory.CreateDirectory(directoryValue);
         }
 
         var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
         var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-        return (directory, methodName, typeName);
+        return (directoryValue, methodName, typeName);
     }
 
     static string GetTypeName(Type type)

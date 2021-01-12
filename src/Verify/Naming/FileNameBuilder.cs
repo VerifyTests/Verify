@@ -70,19 +70,13 @@ class FileNameBuilder
 
         return new("txt", fullPrefix);
     }
-    public FilePair GetFileNames(string extension, string? suffix = null)
+    public FilePair GetFileNames(string extension)
     {
-        string fullPrefix;
-        if (suffix == null)
-        {
-            fullPrefix = filePathPrefix;
-        }
-        else
-        {
-            fullPrefix = $"{filePathPrefix}.{suffix}";
-        }
-
-        return new(extension, fullPrefix);
+        return new(extension, filePathPrefix);
+    }
+    public FilePair GetFileNames(string extension, int index)
+    {
+        return new(extension, $"{filePathPrefix}.{index:D2}");
     }
 
     string GetPrefix()

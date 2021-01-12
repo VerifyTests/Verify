@@ -70,10 +70,12 @@ class FileNameBuilder
 
         return new("txt", fullPrefix);
     }
+
     public FilePair GetFileNames(string extension)
     {
         return new(extension, filePathPrefix);
     }
+
     public FilePair GetFileNames(string extension, int index)
     {
         return new(extension, $"{filePathPrefix}.{index:D2}");

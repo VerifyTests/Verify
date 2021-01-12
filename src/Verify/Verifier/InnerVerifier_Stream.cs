@@ -49,7 +49,6 @@ namespace VerifyTests
 
             List<ResultBuilder> builders = new();
 
-
             var appends = VerifierSettings.GetJsonAppenders(settings);
             if (info != null || appends.Any())
             {

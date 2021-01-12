@@ -23,22 +23,7 @@ class FileNameBuilder
         this.namer = namer;
         this.method = method;
         this.type = type;
-        var (directory, methodName, typeName) = GetPathInfo(sourceFile, settings, projectDirectory);
-        this.directory = directory;
-        if (parameters == null || !parameters.Any())
-        {
-            testPrefix = $"{typeName}.{methodName}";
-        }
-        else
-        {
-            testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
-        }
 
-        filePathPrefix = GetPrefix();
-    }
-
-    (string directory, string methodName, string typeName) GetPathInfo(string sourceFile, VerifySettings settings, string projectDirectory)
-    {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 
         var directoryValue = settings.directory ?? pathInfo.Directory;
@@ -57,7 +42,17 @@ class FileNameBuilder
         var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
         var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-        return (directoryValue, methodName, typeName);
+        directory = directoryValue;
+        if (parameters == null || !parameters.Any())
+        {
+            testPrefix = $"{typeName}.{methodName}";
+        }
+        else
+        {
+            testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
+        }
+
+        filePathPrefix = GetPrefix();
     }
 
     static string GetTypeName(Type type)
@@ -84,7 +79,8 @@ class FileNameBuilder
 
         return new(extension, fullPrefix);
     }
-    public string GetPrefix()
+
+    string GetPrefix()
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
         AppendFileParts(builder);

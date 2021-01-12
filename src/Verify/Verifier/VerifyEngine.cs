@@ -23,11 +23,9 @@ class VerifyEngine
         FileNameBuilder fileNameBuilder)
     {
         this.settings = settings;
-        var verifiedPattern = fileNameBuilder.GetVerifiedPattern(extension);
-        danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
+        danglingVerified = fileNameBuilder.GetVerifiedFiles(extension).ToList();
 
-        var receivedPattern = fileNameBuilder.GetReceivedPattern(extension);
-        foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
+        foreach (var file in fileNameBuilder.GetReceivedFiles(extension))
         {
             File.Delete(file);
         }

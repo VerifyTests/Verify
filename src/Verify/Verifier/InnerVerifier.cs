@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -14,7 +13,6 @@ namespace VerifyTests
         IDisposable
     {
         string directory;
-        string testPrefix;
         Assembly assembly;
         VerifySettings settings;
         FileNameBuilder fileNameBuilder;
@@ -29,14 +27,6 @@ namespace VerifyTests
             var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
 
             this.directory = directory;
-            if (parameters == null || !parameters.Any())
-            {
-                testPrefix = $"{typeName}.{methodName}";
-            }
-            else
-            {
-                testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
-            }
 
             this.settings = settings;
 

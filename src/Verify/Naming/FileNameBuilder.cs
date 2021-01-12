@@ -13,10 +13,10 @@ class FileNameBuilder
     MethodInfo method;
     Type type;
     static ConcurrentDictionary<string, MethodInfo> prefixList = new();
-    string directory;
+    string directory { get; }
     string testPrefix;
     string filePathPrefix;
-    string attributeConfiguration;
+    string? attributeConfiguration;
 
     public FileNameBuilder(Namer namer, MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
     {
@@ -24,7 +24,6 @@ class FileNameBuilder
         this.method = method;
         this.type = type;
         var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
-        attributeConfiguration = type.Assembly.GetAttributeConfiguration();
         this.directory = directory;
         if (parameters == null || !parameters.Any())
         {
@@ -52,7 +51,7 @@ class FileNameBuilder
         else
         {
             directory = Path.Combine(sourceFileDirectory, directory);
-            Directory.CreateDirectory(directory);
+            System.IO.Directory.CreateDirectory(directory);
         }
 
         var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
@@ -110,6 +109,17 @@ class FileNameBuilder
         return GetPattern(extension, testPrefix, "verified");
     }
 
+
+    public IEnumerable<string> GetVerifiedFiles(string extension)
+    {
+        var pattern = GetVerifiedPattern(extension);
+        return Directory.EnumerateFiles(directory, pattern);
+    }
+    public IEnumerable<string> GetReceivedFiles(string extension)
+    {
+        var pattern = GetReceivedPattern(extension);
+        return Directory.EnumerateFiles(directory, pattern);
+    }
     public string GetReceivedPattern(string extension)
     {
         return GetPattern(extension, testPrefix, "received");
@@ -136,6 +146,10 @@ class FileNameBuilder
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
+            if (attributeConfiguration == null)
+            {
+                attributeConfiguration = type.Assembly.GetAttributeConfiguration();
+            }
             builder.Append($".{attributeConfiguration}");
         }
     }

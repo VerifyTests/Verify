@@ -17,15 +17,14 @@ namespace VerifyTests
         string testPrefix;
         Assembly assembly;
         VerifySettings settings;
-        string filePathPrefix;
         FileNameBuilder fileNameBuilder;
 
         public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
         {
-            fileNameBuilder = new FileNameBuilder(settings.Namer, method);
             assembly = type.Assembly;
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
             settings.instanceScrubbers.Add(replacements);
+            fileNameBuilder = new FileNameBuilder(settings.Namer, method, type, projectDirectory, sourceFile, parameters, settings);
 
             var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
 
@@ -39,7 +38,6 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            filePathPrefix = fileNameBuilder.GetPrefix(directory, testPrefix);
             this.settings = settings;
 
             CounterContext.Start();
@@ -78,21 +76,6 @@ namespace VerifyTests
             return type.Name;
         }
 
-        FilePair GetFileNames(string extension, string? suffix = null)
-        {
-            string fullPrefix;
-            if (suffix == null)
-            {
-                fullPrefix = filePathPrefix;
-            }
-            else
-            {
-                fullPrefix = $"{filePathPrefix}.{suffix}";
-            }
-
-            return new(extension, fullPrefix);
-        }
-
         public void Dispose()
         {
             CounterContext.Stop();
@@ -102,7 +85,7 @@ namespace VerifyTests
         {
             async Task HandleBuilder(ResultBuilder item, string? suffix = null)
             {
-                var file = GetFileNames(item.Extension, suffix);
+                var file = fileNameBuilder.GetFileNames(item.Extension, suffix);
                 var result = await item.GetResult(file);
 
                 engine.HandleCompareResult(result, file);

@@ -13,9 +13,10 @@ class FileNameBuilder
     MethodInfo method;
     Type type;
     static ConcurrentDictionary<string, MethodInfo> prefixList = new();
-    string directory { get; }
+    string directory;
     string testPrefix;
     string filePathPrefix;
+    string fileParts;
 
     public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
     {
@@ -51,6 +52,7 @@ class FileNameBuilder
             testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
         }
 
+        fileParts = GetFileParts();
         filePathPrefix = GetPrefix();
     }
 
@@ -84,7 +86,7 @@ class FileNameBuilder
     string GetPrefix()
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
-        AppendFileParts(builder);
+        builder.Append(fileParts);
         var prefix = builder.ToString();
         if (prefixList.TryAdd(prefix, method))
         {
@@ -116,13 +118,14 @@ class FileNameBuilder
     string GetPattern(string extension, string testPrefix, string type)
     {
         StringBuilder builder = new(testPrefix);
-        AppendFileParts(builder);
+        builder.Append(fileParts);
         builder.Append($".*.{type}.{extension}");
         return builder.ToString();
     }
 
-    void AppendFileParts(StringBuilder builder)
+    string GetFileParts()
     {
+        StringBuilder builder = new();
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
             builder.Append($".{Namer.RuntimeAndVersion}");
@@ -136,5 +139,7 @@ class FileNameBuilder
         {
             builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
         }
+
+        return builder.ToString();
     }
 }

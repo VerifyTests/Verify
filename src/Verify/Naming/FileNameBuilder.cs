@@ -68,9 +68,7 @@ class FileNameBuilder
 
     public FilePair GetInfoFileNames()
     {
-        var fullPrefix = $"{filePathPrefix}.info";
-
-        return new("txt", fullPrefix);
+        return new("txt", $"{filePathPrefix}.info");
     }
 
     public FilePair GetFileNames(string extension)
@@ -105,17 +103,17 @@ class FileNameBuilder
 
     public IEnumerable<string> GetVerifiedFiles(string extension)
     {
-        var pattern = GetPattern(extension, testPrefix, "verified");
+        var pattern = GetPattern(extension, "verified");
         return Directory.EnumerateFiles(directory, pattern);
     }
 
     public IEnumerable<string> GetReceivedFiles(string extension)
     {
-        var pattern = GetPattern(extension, testPrefix, "received");
+        var pattern = GetPattern(extension, "received");
         return Directory.EnumerateFiles(directory, pattern);
     }
 
-    string GetPattern(string extension, string testPrefix, string type)
+    string GetPattern(string extension, string type)
     {
         StringBuilder builder = new(testPrefix);
         builder.Append(fileParts);

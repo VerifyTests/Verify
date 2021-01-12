@@ -4,11 +4,11 @@ using System.Reflection;
 using System.Text;
 using VerifyTests;
 
-static class FileNameBuilder
+class FileNameBuilder
 {
     static ConcurrentDictionary<string, MethodInfo> prefixList = new();
 
-    public static string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly, MethodInfo method)
+    public string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly, MethodInfo method)
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
         AppendFileParts(namer, builder, assembly);
@@ -28,17 +28,17 @@ static class FileNameBuilder
         prefixList = new();
     }
 
-    public static string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
+    public string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
     {
         return GetPattern(extension, namer, testPrefix, assembly, "verified");
     }
 
-    public static string GetReceivedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
+    public string GetReceivedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
     {
         return GetPattern(extension, namer, testPrefix, assembly, "received");
     }
 
-    static string GetPattern(string extension, Namer namer, string testPrefix, Assembly assembly, string type)
+    string GetPattern(string extension, Namer namer, string testPrefix, Assembly assembly, string type)
     {
         StringBuilder builder = new(testPrefix);
         AppendFileParts(namer, builder, assembly);
@@ -46,7 +46,7 @@ static class FileNameBuilder
         return builder.ToString();
     }
 
-    static void AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
+    void AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
     {
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {

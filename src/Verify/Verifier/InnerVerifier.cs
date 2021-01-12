@@ -18,9 +18,11 @@ namespace VerifyTests
         Assembly assembly;
         VerifySettings settings;
         string filePathPrefix;
+        FileNameBuilder fileNameBuilder;
 
         public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
         {
+            fileNameBuilder = new FileNameBuilder();
             assembly = type.Assembly;
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(assembly);
             settings.instanceScrubbers.Add(replacements);
@@ -37,7 +39,7 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            filePathPrefix = FileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly, method);
+            filePathPrefix = fileNameBuilder.GetPrefix(settings.Namer, directory, testPrefix, assembly, method);
             this.settings = settings;
 
             CounterContext.Start();

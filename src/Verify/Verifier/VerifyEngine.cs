@@ -22,13 +22,14 @@ class VerifyEngine
         VerifySettings settings,
         string directory,
         string testName,
-        Assembly assembly)
+        Assembly assembly,
+        FileNameBuilder fileNameBuilder)
     {
         this.settings = settings;
-        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testName, assembly);
+        var verifiedPattern = fileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testName, assembly);
         danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
 
-        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testName, assembly);
+        var receivedPattern = fileNameBuilder.GetReceivedPattern(extension, settings.Namer, testName, assembly);
         foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
         {
             File.Delete(file);

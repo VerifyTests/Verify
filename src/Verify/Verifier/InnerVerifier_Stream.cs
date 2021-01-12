@@ -47,17 +47,42 @@ namespace VerifyTests
         {
             VerifyEngine engine = new(settings, fileNameBuilder);
 
-            var builders = streams
-                .Concat(VerifierSettings.GetFileAppenders(settings))
-                .Select(appender =>
-                {
-                    return new ResultBuilder(
-                        appender.Extension,
-                        file => GetResult(settings, file, appender));
-                })
-                .ToList();
+            List<ResultBuilder> builders = new();
 
-            await VerifyInfo(engine, info);
+
+            var appends = VerifierSettings.GetJsonAppenders(settings);
+            if (info != null || appends.Any())
+            {
+                var defaultValue = "txt";
+                if (VerifierSettings.StrictJson)
+                {
+                    defaultValue = "json";
+                }
+
+                var extension = settings.ExtensionOrTxt(defaultValue);
+
+                var builder = JsonFormatter.AsJson(
+                    info,
+                    settings.serialization.currentSettings,
+                    appends,
+                    settings);
+
+                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+
+                var received = builder.ToString();
+                builders.Add(new(extension, file => Comparer.Text(file, received, settings)));
+            }
+
+            streams = streams.Concat(VerifierSettings.GetFileAppenders(settings));
+
+            builders.AddRange(
+                streams
+                    .Select(appender =>
+                    {
+                        return new ResultBuilder(
+                            appender.Extension,
+                            file => GetResult(settings, file, appender));
+                    }));
 
             await engine.HandleResults(builders);
 
@@ -88,28 +113,6 @@ namespace VerifyTests
 
                 return await Comparer.Streams(settings, stream, filePair);
             }
-        }
-
-        async Task VerifyInfo(VerifyEngine engine, object? info)
-        {
-            var appends = VerifierSettings.GetJsonAppenders(settings);
-            if (info == null && !appends.Any())
-            {
-                return;
-            }
-
-            var file = fileNameBuilder.GetInfoFileNames();
-
-            var builder = JsonFormatter.AsJson(
-                info,
-                settings.serialization.currentSettings,
-                appends,
-                settings);
-
-            ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-
-            var result = await Comparer.Text(file, builder.ToString(), settings);
-            engine.HandleCompareResult(result, file);
         }
     }
 }

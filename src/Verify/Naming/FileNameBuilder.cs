@@ -6,12 +6,20 @@ using VerifyTests;
 
 class FileNameBuilder
 {
+    Namer namer;
+    MethodInfo method;
     static ConcurrentDictionary<string, MethodInfo> prefixList = new();
 
-    public string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly, MethodInfo method)
+    public FileNameBuilder(Namer namer, MethodInfo method)
+    {
+        this.namer = namer;
+        this.method = method;
+    }
+
+    public string GetPrefix(string directory, string testPrefix)
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
-        AppendFileParts(namer, builder, assembly);
+        AppendFileParts(builder, method.ReflectedType!.Assembly);
         var prefix = builder.ToString();
         if (prefixList.TryAdd(prefix, method))
         {
@@ -28,25 +36,25 @@ class FileNameBuilder
         prefixList = new();
     }
 
-    public string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
+    public string GetVerifiedPattern(string extension, string testPrefix, Assembly assembly)
     {
-        return GetPattern(extension, namer, testPrefix, assembly, "verified");
+        return GetPattern(extension, testPrefix, assembly, "verified");
     }
 
-    public string GetReceivedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
+    public string GetReceivedPattern(string extension, string testPrefix, Assembly assembly)
     {
-        return GetPattern(extension, namer, testPrefix, assembly, "received");
+        return GetPattern(extension, testPrefix, assembly, "received");
     }
 
-    string GetPattern(string extension, Namer namer, string testPrefix, Assembly assembly, string type)
+    string GetPattern(string extension, string testPrefix, Assembly assembly, string type)
     {
         StringBuilder builder = new(testPrefix);
-        AppendFileParts(namer, builder, assembly);
+        AppendFileParts(builder, assembly);
         builder.Append($".*.{type}.{extension}");
         return builder.ToString();
     }
 
-    void AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
+    void AppendFileParts(StringBuilder builder, Assembly assembly)
     {
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {

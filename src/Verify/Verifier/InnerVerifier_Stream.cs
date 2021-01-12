@@ -59,7 +59,7 @@ namespace VerifyTests
 
             await VerifyInfo(engine, info);
 
-            await HandleResults(builders, engine);
+            await engine.HandleResults(builders);
 
             if (cleanup != null)
             {

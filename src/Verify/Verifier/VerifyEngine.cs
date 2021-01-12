@@ -11,6 +11,7 @@ using VerifyTests;
 class VerifyEngine
 {
     VerifySettings settings;
+    private readonly FileNameBuilder fileNameBuilder;
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
@@ -22,11 +23,32 @@ class VerifyEngine
         FileNameBuilder fileNameBuilder)
     {
         this.settings = settings;
+        this.fileNameBuilder = fileNameBuilder;
         danglingVerified = fileNameBuilder.GetVerifiedFiles(extension).ToList();
 
         foreach (var file in fileNameBuilder.GetReceivedFiles(extension))
         {
             File.Delete(file);
+        }
+    }
+
+    public async Task HandleResults(List<ResultBuilder> results)
+    {
+        if (results.Count == 1)
+        {
+            var item = results[0];
+            var file = fileNameBuilder.GetFileNames(item.Extension);
+            var result = await item.GetResult(file);
+            HandleCompareResult(result, file);
+            return;
+        }
+
+        for (var index = 0; index < results.Count; index++)
+        {
+            var item = results[index];
+            var file = fileNameBuilder.GetFileNames(item.Extension, index);
+            var result = await item.GetResult(file);
+            HandleCompareResult(result, file);
         }
     }
 

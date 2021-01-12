@@ -42,7 +42,7 @@ namespace VerifyTests
                             file => GetResult(settings, file, appender));
                     }));
 
-            await HandleResults(builders, engine);
+            await engine.HandleResults(builders);
 
             await engine.ThrowIfRequired();
         }

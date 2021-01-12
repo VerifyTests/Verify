@@ -6,7 +6,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.5.3" />
+    <PackageReference Include="DiffEngine" Version="6.5.4" />
     <PackageReference Include="EmptyFiles" Version="2.4.0" PrivateAssets="None" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
     <PackageReference Include="TextCopy" Version="4.2.1" />

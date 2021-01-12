@@ -16,6 +16,7 @@ class FileNameBuilder
     string directory;
     string testPrefix;
     string filePathPrefix;
+    string attributeConfiguration;
 
     public FileNameBuilder(Namer namer, MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
     {
@@ -23,7 +24,7 @@ class FileNameBuilder
         this.method = method;
         this.type = type;
         var (directory, methodName, typeName) = GetPathInfo(sourceFile, type, settings, method, projectDirectory);
-
+        attributeConfiguration = type.Assembly.GetAttributeConfiguration();
         this.directory = directory;
         if (parameters == null || !parameters.Any())
         {
@@ -87,7 +88,7 @@ class FileNameBuilder
     public string GetPrefix(string directory, string testPrefix)
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
-        AppendFileParts(builder, type.Assembly);
+        AppendFileParts(builder);
         var prefix = builder.ToString();
         if (prefixList.TryAdd(prefix, method))
         {
@@ -104,25 +105,25 @@ class FileNameBuilder
         prefixList = new();
     }
 
-    public string GetVerifiedPattern(string extension, Assembly assembly)
+    public string GetVerifiedPattern(string extension)
     {
-        return GetPattern(extension, testPrefix, assembly, "verified");
+        return GetPattern(extension, testPrefix, "verified");
     }
 
-    public string GetReceivedPattern(string extension, Assembly assembly)
+    public string GetReceivedPattern(string extension)
     {
-        return GetPattern(extension, testPrefix, assembly, "received");
+        return GetPattern(extension, testPrefix, "received");
     }
 
-    string GetPattern(string extension, string testPrefix, Assembly assembly, string type)
+    string GetPattern(string extension, string testPrefix, string type)
     {
         StringBuilder builder = new(testPrefix);
-        AppendFileParts(builder, assembly);
+        AppendFileParts(builder);
         builder.Append($".*.{type}.{extension}");
         return builder.ToString();
     }
 
-    void AppendFileParts(StringBuilder builder, Assembly assembly)
+    void AppendFileParts(StringBuilder builder)
     {
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
@@ -135,7 +136,7 @@ class FileNameBuilder
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
-            builder.Append($".{assembly.GetAttributeConfiguration()}");
+            builder.Append($".{attributeConfiguration}");
         }
     }
 }

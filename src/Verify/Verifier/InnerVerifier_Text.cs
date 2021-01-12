@@ -25,7 +25,7 @@ namespace VerifyTests
         {
             ApplyScrubbers.Apply(target, settings.instanceScrubbers);
 
-            VerifyEngine engine = new(extension, settings, directory, testPrefix, assembly, fileNameBuilder);
+            VerifyEngine engine = new(extension, settings, directory, fileNameBuilder);
 
             var received = target.ToString();
             List<ResultBuilder> builders = new()

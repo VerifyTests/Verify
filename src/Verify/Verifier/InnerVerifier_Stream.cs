@@ -45,7 +45,7 @@ namespace VerifyTests
 
         async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, object? info, Func<Task>? cleanup)
         {
-            VerifyEngine engine = new(infoExtension, settings, directory, testPrefix, assembly, fileNameBuilder);
+            VerifyEngine engine = new(infoExtension, settings, directory, fileNameBuilder);
 
             var builders = streams
                 .Concat(VerifierSettings.GetFileAppenders(settings))

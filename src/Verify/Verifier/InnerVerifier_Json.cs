@@ -58,9 +58,7 @@ namespace VerifyTests
                 return;
             }
 
-            var appenders = VerifierSettings.GetJsonAppenders(settings);
-
-            await SerializeAndVerify(target, appenders);
+            await VerifyBinary(Enumerable.Empty<ConversionStream>(), target, null);
         }
 
         Task SerializeAndVerify(object target, List<ToAppend> appends)

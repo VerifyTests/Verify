@@ -43,14 +43,14 @@ namespace VerifyTests
             }
         }
 
-        async Task VerifyBinary(IEnumerable<ConversionStream> streams, object? info, Func<Task>? cleanup)
+        async Task VerifyBinary(IEnumerable<ConversionStream> streams, object? target, Func<Task>? cleanup)
         {
             VerifyEngine engine = new(settings, fileNameBuilder);
 
             List<ResultBuilder> builders = new();
 
             var appends = VerifierSettings.GetJsonAppenders(settings);
-            if (info != null || appends.Any())
+            if (target != null || appends.Any())
             {
                 var extension = "txt";
                 if (VerifierSettings.StrictJson)
@@ -59,7 +59,7 @@ namespace VerifyTests
                 }
 
                 var builder = JsonFormatter.AsJson(
-                    info,
+                    target,
                     settings.serialization.currentSettings,
                     appends,
                     settings);

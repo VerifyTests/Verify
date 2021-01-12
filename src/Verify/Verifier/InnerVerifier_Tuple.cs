@@ -1,5 +1,6 @@
 ﻿#if !NETSTANDARD2_0
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace VerifyTests
         public Task Verify(Expression<Func<ITuple>> target)
         {
             var dictionary = TupleConverter.ExpressionToDictionary(target);
-            return SerializeAndVerify(dictionary, VerifierSettings.GetJsonAppenders(settings));
+            return VerifyBinary(Enumerable.Empty<ConversionStream>(), dictionary, null);
         }
     }
 }

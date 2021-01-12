@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -17,7 +18,7 @@ namespace VerifyTests
 
             try
             {
-                await SerializeAndVerify(list, VerifierSettings.GetJsonAppenders(settings));
+                await VerifyBinary(Enumerable.Empty<ConversionStream>(), list, null);
             }
             finally
             {

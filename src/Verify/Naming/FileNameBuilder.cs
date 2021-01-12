@@ -106,23 +106,23 @@ class FileNameBuilder
         prefixList = new();
     }
 
-    public IEnumerable<string> GetVerifiedFiles(string extension)
+    public IEnumerable<string> GetVerifiedFiles()
     {
-        var pattern = GetPattern(extension, "verified");
+        var pattern = GetPattern("verified");
         return Directory.EnumerateFiles(directory, pattern);
     }
 
-    public IEnumerable<string> GetReceivedFiles(string extension)
+    public IEnumerable<string> GetReceivedFiles()
     {
-        var pattern = GetPattern(extension, "received");
+        var pattern = GetPattern("received");
         return Directory.EnumerateFiles(directory, pattern);
     }
 
-    string GetPattern(string extension, string type)
+    string GetPattern(string type)
     {
         StringBuilder builder = new(testPrefix);
         builder.Append(fileParts);
-        builder.Append($".*.{type}.{extension}");
+        builder.Append($".*.{type}.*");
         return builder.ToString();
     }
 

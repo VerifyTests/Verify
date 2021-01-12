@@ -28,7 +28,7 @@ namespace VerifyTests
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
                         var result = await conversion(stream, settings.Context);
-                        await VerifyBinary(result.Streams, extension, result.Info, result.Cleanup);
+                        await VerifyBinary(result.Streams, result.Info, result.Cleanup);
                         return;
                     }
                 }
@@ -39,13 +39,13 @@ namespace VerifyTests
                 {
                     new(extension, stream)
                 };
-                await VerifyBinary(streams, extension, null, null);
+                await VerifyBinary(streams, null, null);
             }
         }
 
-        async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, object? info, Func<Task>? cleanup)
+        async Task VerifyBinary(IEnumerable<ConversionStream> streams, object? info, Func<Task>? cleanup)
         {
-            VerifyEngine engine = new(infoExtension, settings, fileNameBuilder);
+            VerifyEngine engine = new(settings, fileNameBuilder);
 
             var builders = streams
                 .Concat(VerifierSettings.GetFileAppenders(settings))

@@ -31,7 +31,7 @@ namespace VerifyTests
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings.Context);
-                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), result.Info, result.Cleanup);
+                await VerifyBinary(result.Streams, result.Info, result.Cleanup);
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace VerifyTests
 
                         return new ConversionStream(settings.ExtensionOrBin(), x);
                     });
-                await VerifyBinary(streams, settings.ExtensionOrTxt(), null, null);
+                await VerifyBinary(streams, null, null);
                 return;
             }
 

@@ -11,22 +11,21 @@ using VerifyTests;
 class VerifyEngine
 {
     VerifySettings settings;
-    private readonly FileNameBuilder fileNameBuilder;
+    FileNameBuilder fileNameBuilder;
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
     List<string> danglingVerified;
 
     public VerifyEngine(
-        string extension,
         VerifySettings settings,
         FileNameBuilder fileNameBuilder)
     {
         this.settings = settings;
         this.fileNameBuilder = fileNameBuilder;
-        danglingVerified = fileNameBuilder.GetVerifiedFiles(extension).ToList();
+        danglingVerified = fileNameBuilder.GetVerifiedFiles().ToList();
 
-        foreach (var file in fileNameBuilder.GetReceivedFiles(extension))
+        foreach (var file in fileNameBuilder.GetReceivedFiles())
         {
             File.Delete(file);
         }

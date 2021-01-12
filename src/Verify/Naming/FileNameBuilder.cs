@@ -68,7 +68,12 @@ class FileNameBuilder
 
     public FilePair GetInfoFileNames()
     {
-        return new("txt", $"{filePathPrefix}.info");
+        var prefix = $"{filePathPrefix}.info";
+        if (VerifierSettings.StrictJson)
+        {
+            return new("json", prefix);
+        }
+        return new("txt", prefix);
     }
 
     public FilePair GetFileNames(string extension)

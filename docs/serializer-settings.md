@@ -60,7 +60,7 @@ To use strict json call `VerifierSettings.UseStrictJson`:
 ```cs
 VerifierSettings.UseStrictJson();
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L16-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/Tests.cs#L16-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then this result in 
@@ -80,7 +80,7 @@ var target = new Target
 };
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L36-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/Tests.cs#L38-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The resulting file will be:

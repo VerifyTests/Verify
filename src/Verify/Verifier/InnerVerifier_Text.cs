@@ -9,16 +9,7 @@ namespace VerifyTests
     {
         Task VerifyString(string target)
         {
-            var appenders = VerifierSettings.GetJsonAppenders(settings);
-            StringBuilder builder = new(target);
-            builder.FixNewlines();
-            if (appenders.Any())
-            {
-                return SerializeAndVerify(builder.ToString(), appenders);
-            }
-
-            var extension = settings.ExtensionOrTxt();
-            return VerifyStringBuilder(builder, extension);
+            return VerifyBinary(Enumerable.Empty<ConversionStream>(),target, null);
         }
 
         async Task VerifyStringBuilder(StringBuilder target, string extension)

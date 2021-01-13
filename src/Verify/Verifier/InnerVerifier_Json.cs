@@ -12,7 +12,7 @@ namespace VerifyTests
         {
             if (target == null)
             {
-                await VerifyString("null");
+                await VerifyBinary(Enumerable.Empty<ConversionStream>(),null,null);
                 return;
             }
 

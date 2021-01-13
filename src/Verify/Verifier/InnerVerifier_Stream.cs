@@ -51,14 +51,8 @@ namespace VerifyTests
 
             var streamsList = streams.ToList();
 
-            if (TryGetTargetBuilder(target, out var builder))
+            if (TryGetTargetBuilder(target, out var builder, out var extension))
             {
-                var extension = "txt";
-                if (VerifierSettings.StrictJson)
-                {
-                    extension = "json";
-                }
-
                 ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 
                 var received = builder.ToString();
@@ -87,16 +81,25 @@ namespace VerifyTests
             await engine.ThrowIfRequired();
         }
 
-        bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder)
+        bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, [NotNullWhen(true)] out string? extension)
         {
             var appends = VerifierSettings.GetJsonAppenders(settings);
 
+            var hasAppends = appends.Any();
+
             if (target == null)
             {
-                if (!appends.Any())
+                if (!hasAppends)
                 {
                     builder = null;
+                    extension = null;
                     return false;
+                }
+
+                extension = "txt";
+                if (VerifierSettings.StrictJson)
+                {
+                    extension = "json";
                 }
 
                 builder = JsonFormatter.AsJson(
@@ -107,10 +110,19 @@ namespace VerifyTests
                 return true;
             }
 
-            if (target is string stringTarget)
+            if (!hasAppends && target is string stringTarget)
             {
                 builder = new StringBuilder(stringTarget);
+                builder.FixNewlines();
+                extension = settings.ExtensionOrTxt();
                 return true;
+            }
+
+            extension = "txt";
+
+            if (VerifierSettings.StrictJson)
+            {
+                extension = "json";
             }
 
             builder = JsonFormatter.AsJson(

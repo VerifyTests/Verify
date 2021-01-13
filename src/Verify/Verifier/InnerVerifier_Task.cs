@@ -43,6 +43,7 @@ namespace VerifyTests
                 }
             }
         }
+
         static async Task DoDispose<T>(T target)
         {
             if (target is IAsyncDisposable asyncDisposable)

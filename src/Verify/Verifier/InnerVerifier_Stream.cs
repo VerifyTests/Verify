@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -49,8 +51,7 @@ namespace VerifyTests
 
             var streamsList = streams.ToList();
 
-            var appends = VerifierSettings.GetJsonAppenders(settings);
-            if (target != null || appends.Any())
+            if (TryGetTargetBuilder(target, out var builder))
             {
                 var extension = "txt";
                 if (VerifierSettings.StrictJson)
@@ -58,16 +59,11 @@ namespace VerifyTests
                     extension = "json";
                 }
 
-                var builder = JsonFormatter.AsJson(
-                    target,
-                    settings.serialization.currentSettings,
-                    appends,
-                    settings);
-
                 ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 
                 var received = builder.ToString();
-                streamsList.Insert(0, new ConversionStream(extension, received));
+                var stream = new ConversionStream(extension, received);
+                streamsList.Insert(0, stream);
             }
 
             streamsList.AddRange(VerifierSettings.GetFileAppenders(settings));
@@ -89,6 +85,41 @@ namespace VerifyTests
             }
 
             await engine.ThrowIfRequired();
+        }
+
+        bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder)
+        {
+            var appends = VerifierSettings.GetJsonAppenders(settings);
+
+            if (target == null)
+            {
+                if (!appends.Any())
+                {
+                    builder = null;
+                    return false;
+                }
+
+                builder = JsonFormatter.AsJson(
+                    null,
+                    settings.serialization.currentSettings,
+                    appends,
+                    settings);
+                return true;
+            }
+
+            if (target is string stringTarget)
+            {
+                builder = new StringBuilder(stringTarget);
+                return true;
+            }
+
+            builder = JsonFormatter.AsJson(
+                target,
+                settings.serialization.currentSettings,
+                appends,
+                settings);
+
+            return true;
         }
 
         static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, ConversionStream conversionStream)

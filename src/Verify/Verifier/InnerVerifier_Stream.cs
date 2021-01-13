@@ -47,7 +47,7 @@ namespace VerifyTests
         {
             VerifyEngine engine = new(settings, fileNameBuilder);
 
-            List<ResultBuilder> builders = new();
+            var streamsList = streams.ToList();
 
             var appends = VerifierSettings.GetJsonAppenders(settings);
             if (target != null || appends.Any())
@@ -67,19 +67,19 @@ namespace VerifyTests
                 ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
 
                 var received = builder.ToString();
-                builders.Add(new(extension, file => Comparer.Text(file, received, settings)));
+                streamsList.Insert(0, new ConversionStream(extension, received));
             }
 
-            streams = streams.Concat(VerifierSettings.GetFileAppenders(settings));
-
-            builders.AddRange(
-                streams
-                    .Select(appender =>
+            streamsList.AddRange(VerifierSettings.GetFileAppenders(settings));
+            var builders = streamsList
+                .Select(
+                    appender =>
                     {
                         return new ResultBuilder(
                             appender.Extension,
                             file => GetResult(settings, file, appender));
-                    }));
+                    })
+                .ToList();
 
             await engine.HandleResults(builders);
 

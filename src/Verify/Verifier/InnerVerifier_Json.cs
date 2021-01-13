@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,24 +58,6 @@ namespace VerifyTests
             }
 
             await VerifyBinary(Enumerable.Empty<ConversionStream>(), target, null);
-        }
-
-        Task SerializeAndVerify(object target, List<ToAppend> appends)
-        {
-            var json = JsonFormatter.AsJson(
-                target,
-                settings.serialization.currentSettings,
-                appends,
-                settings);
-
-            var defaultValue = "txt";
-            if (VerifierSettings.StrictJson)
-            {
-                defaultValue = "json";
-            }
-
-            var extension = settings.ExtensionOrTxt(defaultValue);
-            return VerifyStringBuilder(json, extension);
         }
     }
 }

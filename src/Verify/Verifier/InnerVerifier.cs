@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace VerifyTests
 {
@@ -27,6 +29,11 @@ namespace VerifyTests
         public void Dispose()
         {
             CounterContext.Stop();
+        }
+
+        Task VerifyString(string target)
+        {
+            return VerifyBinary(Enumerable.Empty<ConversionStream>(),target, null);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,14 +23,7 @@ namespace VerifyTests
             {
                 foreach (var item in list)
                 {
-                    if (item is IAsyncDisposable asyncDisposable)
-                    {
-                        await asyncDisposable.DisposeAsync();
-                    }
-                    else if (item is IDisposable disposable)
-                    {
-                        disposable.Dispose();
-                    }
+                    await DoDispose(item);
                 }
             }
         }

@@ -17,13 +17,13 @@ namespace VerifyTests
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                var asStringResult = toString(target, settings.Context);
-                if (asStringResult.Extension != null)
+                var stringResult = toString(target, settings.Context);
+                if (stringResult.Extension != null)
                 {
-                    settings.UseExtension(asStringResult.Extension);
+                    settings.UseExtension(stringResult.Extension);
                 }
 
-                await VerifyString(asStringResult.Value);
+                await VerifyString(stringResult.Value);
                 return;
             }
 

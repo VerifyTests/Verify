@@ -30,7 +30,7 @@ namespace VerifyTests
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
                         var result = await conversion(stream, settings.Context);
-                        await VerifyBinary(result.Streams, result.Info, result.Cleanup);
+                        await VerifyInner(result.Info, result.Cleanup, result.Streams);
                         return;
                     }
                 }
@@ -41,11 +41,11 @@ namespace VerifyTests
                 {
                     new(extension, stream)
                 };
-                await VerifyBinary(streams, null, null);
+                await VerifyInner(null, null, streams);
             }
         }
 
-        async Task VerifyBinary(IEnumerable<ConversionStream> streams, object? target, Func<Task>? cleanup)
+        async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<ConversionStream> streams)
         {
             VerifyEngine engine = new(settings, fileNameBuilder);
 

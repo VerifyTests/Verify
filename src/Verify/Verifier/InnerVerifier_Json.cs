@@ -11,7 +11,7 @@ namespace VerifyTests
         {
             if (target == null)
             {
-                await VerifyBinary(Enumerable.Empty<ConversionStream>(), null, null);
+                await VerifyInner(null, null, Enumerable.Empty<ConversionStream>());
                 return;
             }
 
@@ -23,14 +23,14 @@ namespace VerifyTests
                     settings.UseExtension(stringResult.Extension);
                 }
 
-                await VerifyString(stringResult.Value);
+                await VerifyInner(stringResult.Value, null, Enumerable.Empty<ConversionStream>());
                 return;
             }
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings.Context);
-                await VerifyBinary(result.Streams, result.Info, result.Cleanup);
+                await VerifyInner(result.Info, result.Cleanup, result.Streams);
                 return;
             }
 
@@ -53,11 +53,11 @@ namespace VerifyTests
 
                         return new ConversionStream(settings.ExtensionOrBin(), x);
                     });
-                await VerifyBinary(streams, null, null);
+                await VerifyInner(null, null, streams);
                 return;
             }
 
-            await VerifyBinary(Enumerable.Empty<ConversionStream>(), target, null);
+            await VerifyInner(target, null, Enumerable.Empty<ConversionStream>());
         }
     }
 }

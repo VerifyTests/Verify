@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Xml;
@@ -13,7 +14,9 @@ namespace VerifyTests
     {
         internal static SerializationSettings serialization = new();
 
-        public static bool TryGetToString<T>(T target, out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
+        public static bool TryGetToString<T>(
+            T target,
+            [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
         {
             if (target is Type type)
             {

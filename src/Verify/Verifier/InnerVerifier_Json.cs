@@ -11,13 +11,13 @@ namespace VerifyTests
         {
             if (target == null)
             {
-                await VerifyBinary(Enumerable.Empty<ConversionStream>(),null,null);
+                await VerifyBinary(Enumerable.Empty<ConversionStream>(), null, null);
                 return;
             }
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                var asStringResult = toString!(target, settings.Context);
+                var asStringResult = toString(target, settings.Context);
                 if (asStringResult.Extension != null)
                 {
                     settings.UseExtension(asStringResult.Extension);

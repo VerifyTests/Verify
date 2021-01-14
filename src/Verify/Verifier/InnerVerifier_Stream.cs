@@ -14,11 +14,12 @@ namespace VerifyTests
         {
             Guard.AgainstNull(target, nameof(target));
             MemoryStream stream = new(target);
-            return VerifyStream(stream, settings.extension);
+            return VerifyStream(stream);
         }
 
-        async Task VerifyStream(Stream stream, string? extension)
+        async Task VerifyStream(Stream stream)
         {
+            var extension = settings.extension;
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
 #else

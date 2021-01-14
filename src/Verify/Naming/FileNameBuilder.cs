@@ -66,16 +66,6 @@ class FileNameBuilder
         return type.Name;
     }
 
-    public FilePair GetInfoFileNames()
-    {
-        var prefix = $"{filePathPrefix}.info";
-        if (VerifierSettings.StrictJson)
-        {
-            return new("json", prefix);
-        }
-        return new("txt", prefix);
-    }
-
     public FilePair GetFileNames(string extension)
     {
         return new(extension, filePathPrefix);
@@ -108,22 +98,16 @@ class FileNameBuilder
 
     public IEnumerable<string> GetVerifiedFiles()
     {
-        var pattern = GetPattern("verified");
-        return Directory.EnumerateFiles(directory, pattern);
+        var pattern1 = $"{testPrefix}{fileParts}.*.verified.*";
+        var pattern2 = $"{testPrefix}{fileParts}.verified.*";
+        return Directory.EnumerateFiles(directory, pattern1).Concat(Directory.EnumerateFiles(directory, pattern2));
     }
 
     public IEnumerable<string> GetReceivedFiles()
     {
-        var pattern = GetPattern("received");
-        return Directory.EnumerateFiles(directory, pattern);
-    }
-
-    string GetPattern(string type)
-    {
-        StringBuilder builder = new(testPrefix);
-        builder.Append(fileParts);
-        builder.Append($".*.{type}.*");
-        return builder.ToString();
+        var pattern1 = $"{testPrefix}{fileParts}.*.received.*";
+        var pattern2 = $"{testPrefix}{fileParts}.received.*";
+        return Directory.EnumerateFiles(directory, pattern1).Concat(Directory.EnumerateFiles(directory, pattern2));
     }
 
     string GetFileParts()

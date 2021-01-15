@@ -12,15 +12,15 @@ static class ParameterBuilder
         for (var index = 0; index < parameters.Length; index++)
         {
             var parameter = parameters[index];
-            var parameterValue = parameterValues[index];
+            var value = parameterValues[index];
             builder.Append($"{parameter.Name}=");
-            if (parameterValue == null)
+            if (value == null)
             {
                 builder.Append("null_");
                 continue;
             }
 
-            builder.Append($"{VerifierSettings.GetNameForParameter(parameterValue)}_");
+            builder.Append($"{VerifierSettings.GetNameForParameter(value)}_");
         }
 
         builder.Length -= 1;

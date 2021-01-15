@@ -3,5 +3,4 @@
   Message: The Message,
   StackTrace: 
 at Tests.ValueTaskMethodThatThrows()
-at VerifyTests.InnerVerifier.ThrowsAsync(Func`1 target)
 }

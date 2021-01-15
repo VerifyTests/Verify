@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,32 +11,32 @@ namespace VerifyTests
         {
             if (target == null)
             {
-                await VerifyString("null");
+                await VerifyInner(null, null, Enumerable.Empty<ConversionStream>());
                 return;
             }
 
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
-                var asStringResult = toString!(target, settings.Context);
-                if (asStringResult.Extension != null)
+                var stringResult = toString(target, settings.Context);
+                if (stringResult.Extension != null)
                 {
-                    settings.UseExtension(asStringResult.Extension);
+                    settings.UseExtension(stringResult.Extension);
                 }
 
-                await VerifyString(asStringResult.Value);
+                await VerifyInner(stringResult.Value, null, Enumerable.Empty<ConversionStream>());
                 return;
             }
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings.Context);
-                await VerifyBinary(result.Streams, settings.ExtensionOrTxt(), result.Info, result.Cleanup);
+                await VerifyInner(result.Info, result.Cleanup, result.Streams);
                 return;
             }
 
             if (target is Stream stream)
             {
-                await VerifyStream(stream, settings.extension);
+                await VerifyStream(stream);
                 return;
             }
 
@@ -54,31 +53,11 @@ namespace VerifyTests
 
                         return new ConversionStream(settings.ExtensionOrBin(), x);
                     });
-                await VerifyBinary(streams, settings.ExtensionOrTxt(), null, null);
+                await VerifyInner(null, null, streams);
                 return;
             }
 
-            var appenders = VerifierSettings.GetJsonAppenders(settings);
-
-            await SerializeAndVerify(target, appenders);
-        }
-
-        Task SerializeAndVerify(object target, List<ToAppend> appends)
-        {
-            var json = JsonFormatter.AsJson(
-                target,
-                settings.serialization.currentSettings,
-                appends,
-                settings);
-
-            var defaultValue = "txt";
-            if (VerifierSettings.StrictJson)
-            {
-                defaultValue = "json";
-            }
-
-            var extension = settings.ExtensionOrTxt(defaultValue);
-            return VerifyStringBuilder(json, extension);
+            await VerifyInner(target, null, Enumerable.Empty<ConversionStream>());
         }
     }
 }

@@ -60,7 +60,7 @@ To use strict json call `VerifierSettings.UseStrictJson`:
 ```cs
 VerifierSettings.UseStrictJson();
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L11-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/Tests.cs#L12-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then this result in 
@@ -80,7 +80,7 @@ var target = new Target
 };
 await Verifier.Verify(target);
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L31-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/Tests.cs#L34-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The resulting file will be:
@@ -911,7 +911,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L59-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L62-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.
@@ -992,18 +992,19 @@ public Task Stream()
 <sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L68-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappenderstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Then the appended content will be added to the `*.info.verified.txt` file:
+Then the appended content will be added to the `*.00.verified.txt` file:
 
-<!-- snippet: JsonAppenderTests.Stream.info.verified.txt -->
-<a id='snippet-JsonAppenderTests.Stream.info.verified.txt'></a>
+<!-- snippet: JsonAppenderTests.Stream.00.verified.txt -->
+<a id='snippet-JsonAppenderTests.Stream.00.verified.txt'></a>
 ```txt
 {
+  target: null,
   theData: theValue
 }
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.info.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.info.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.00.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.00.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-See [Converters](/docs/converter.md) for more information on `*.info.verified.txt` files.
+See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.
 
 Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording) and  [Recorders in Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording).

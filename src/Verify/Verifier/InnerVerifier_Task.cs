@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -17,6 +19,28 @@ namespace VerifyTests
             finally
             {
                 await DoDispose(target);
+            }
+        }
+
+        public async Task Verify<T>(IAsyncEnumerable<T> target)
+        {
+            Guard.AgainstNull(target, nameof(target));
+            List<T> list = new();
+            await foreach (var item in target)
+            {
+                list.Add(item);
+            }
+
+            try
+            {
+                await VerifyInner(list, null, Enumerable.Empty<ConversionStream>());
+            }
+            finally
+            {
+                foreach (var item in list)
+                {
+                    await DoDispose(item);
+                }
             }
         }
 

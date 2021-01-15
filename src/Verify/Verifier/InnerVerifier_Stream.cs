@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -12,11 +10,12 @@ namespace VerifyTests
         {
             Guard.AgainstNull(target, nameof(target));
             MemoryStream stream = new(target);
-            return VerifyStream(stream, settings.extension);
+            return VerifyStream(stream);
         }
 
-        async Task VerifyStream(Stream stream, string? extension)
+        async Task VerifyStream(Stream stream)
         {
+            var extension = settings.extension;
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
 #else
@@ -28,7 +27,7 @@ namespace VerifyTests
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
                         var result = await conversion(stream, settings.Context);
-                        await VerifyBinary(result.Streams, extension, result.Info, result.Cleanup);
+                        await VerifyInner(result.Info, result.Cleanup, result.Streams);
                         return;
                     }
                 }
@@ -39,77 +38,8 @@ namespace VerifyTests
                 {
                     new(extension, stream)
                 };
-                await VerifyBinary(streams, extension, null, null);
+                await VerifyInner(null, null, streams);
             }
-        }
-
-        async Task VerifyBinary(IEnumerable<ConversionStream> streams, string infoExtension, object? info, Func<Task>? cleanup)
-        {
-            VerifyEngine engine = new(infoExtension, settings, directory, testPrefix, assembly);
-
-            var builders = streams
-                .Concat(VerifierSettings.GetFileAppenders(settings))
-                .Select(appender =>
-                {
-                    return new ResultBuilder(
-                        appender.Extension,
-                        file => GetResult(settings, file, appender));
-                })
-                .ToList();
-
-            await VerifyInfo(engine, info);
-
-            await HandleResults(builders, engine);
-
-            if (cleanup != null)
-            {
-                await cleanup.Invoke();
-            }
-
-            await engine.ThrowIfRequired();
-        }
-
-        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, ConversionStream conversionStream)
-        {
-            var stream = conversionStream.Stream;
-#if NETSTANDARD2_0 || NETFRAMEWORK
-            using (stream)
-#else
-            await using (stream)
-#endif
-            {
-                stream.MoveToStart();
-                if (EmptyFiles.Extensions.IsText(conversionStream.Extension))
-                {
-                    var builder = await stream.ReadAsString();
-                    ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                    return await Comparer.Text(filePair, builder.ToString(), settings);
-                }
-
-                return await Comparer.Streams(settings, stream, filePair);
-            }
-        }
-
-        async Task VerifyInfo(VerifyEngine engine, object? info)
-        {
-            var appends = VerifierSettings.GetJsonAppenders(settings);
-            if (info == null && !appends.Any())
-            {
-                return;
-            }
-
-            var file = GetFileNames("txt", "info");
-
-            var builder = JsonFormatter.AsJson(
-                info,
-                settings.serialization.currentSettings,
-                appends,
-                settings);
-
-            ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-
-            var result = await Comparer.Text(file, builder.ToString(), settings);
-            engine.HandleCompareResult(result, file);
         }
     }
 }

@@ -1,17 +1,85 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using VerifyTests;
 
-static class FileNameBuilder
+class FileNameBuilder
 {
+    Namer namer;
+    MethodInfo method;
+    Type type;
     static ConcurrentDictionary<string, MethodInfo> prefixList = new();
+    string directory;
+    string testPrefix;
+    string filePathPrefix;
+    string fileParts;
 
-    public static string GetPrefix(Namer namer, string directory, string testPrefix, Assembly assembly, MethodInfo method)
+    public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
+    {
+        namer = settings.Namer;
+        this.method = method;
+        this.type = type;
+
+        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
+
+        var directoryValue = settings.directory ?? pathInfo.Directory;
+
+        var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+        if (directoryValue == null)
+        {
+            directoryValue = sourceFileDirectory;
+        }
+        else
+        {
+            directoryValue = Path.Combine(sourceFileDirectory, directoryValue);
+            Directory.CreateDirectory(directoryValue);
+        }
+
+        var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
+        var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
+
+        directory = directoryValue;
+        if (parameters == null || !parameters.Any())
+        {
+            testPrefix = $"{typeName}.{methodName}";
+        }
+        else
+        {
+            testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
+        }
+
+        fileParts = GetFileParts();
+        filePathPrefix = GetPrefix();
+    }
+
+    static string GetTypeName(Type type)
+    {
+        if (type.IsNested)
+        {
+            return $"{type.ReflectedType!.Name}.{type.Name}";
+        }
+
+        return type.Name;
+    }
+
+    public FilePair GetFileNames(string extension)
+    {
+        return new(extension, filePathPrefix);
+    }
+
+    public FilePair GetFileNames(string extension, int index)
+    {
+        return new(extension, $"{filePathPrefix}.{index:D2}");
+    }
+
+    string GetPrefix()
     {
         StringBuilder builder = new(Path.Combine(directory, testPrefix));
-        AppendFileParts(namer, builder, assembly);
+        builder.Append(fileParts);
         var prefix = builder.ToString();
         if (prefixList.TryAdd(prefix, method))
         {
@@ -28,26 +96,23 @@ static class FileNameBuilder
         prefixList = new();
     }
 
-    public static string GetVerifiedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
+    public IEnumerable<string> GetVerifiedFiles()
     {
-        return GetPattern(extension, namer, testPrefix, assembly, "verified");
+        var pattern1 = $"{testPrefix}{fileParts}.*.verified.*";
+        var pattern2 = $"{testPrefix}{fileParts}.verified.*";
+        return Directory.EnumerateFiles(directory, pattern1).Concat(Directory.EnumerateFiles(directory, pattern2));
     }
 
-    public static string GetReceivedPattern(string extension, Namer namer, string testPrefix, Assembly assembly)
+    public IEnumerable<string> GetReceivedFiles()
     {
-        return GetPattern(extension, namer, testPrefix, assembly, "received");
+        var pattern1 = $"{testPrefix}{fileParts}.*.received.*";
+        var pattern2 = $"{testPrefix}{fileParts}.received.*";
+        return Directory.EnumerateFiles(directory, pattern1).Concat(Directory.EnumerateFiles(directory, pattern2));
     }
 
-    static string GetPattern(string extension, Namer namer, string testPrefix, Assembly assembly, string type)
+    string GetFileParts()
     {
-        StringBuilder builder = new(testPrefix);
-        AppendFileParts(namer, builder, assembly);
-        builder.Append($".*.{type}.{extension}");
-        return builder.ToString();
-    }
-
-    static void AppendFileParts(Namer namer, StringBuilder builder, Assembly assembly)
-    {
+        StringBuilder builder = new();
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
             builder.Append($".{Namer.RuntimeAndVersion}");
@@ -59,7 +124,9 @@ static class FileNameBuilder
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
-            builder.Append($".{assembly.GetAttributeConfiguration()}");
+            builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
         }
+
+        return builder.ToString();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -9,7 +10,9 @@ public class Tests
     static Tests()
     {
         #region UseStrictJson
+
         VerifierSettings.UseStrictJson();
+
         #endregion
     }
 
@@ -29,12 +32,31 @@ public class Tests
     public async Task Object()
     {
         #region UseStrictJsonVerify
+
         var target = new Target
         {
             Value = "Foo"
         };
         await Verifier.Verify(target);
+
         #endregion
+    }
+
+    [Fact]
+    public Task WithInfo()
+    {
+        VerifierSettings.RegisterFileConverter(
+            "foo",
+            (_, _) =>
+            {
+                var info = new
+                {
+                    Property = "Value"
+                };
+                return new ConversionResult(info, new[] {new ConversionStream("txt", "content")});
+            });
+        return Verifier.Verify(new MemoryStream())
+            .UseExtension("foo");
     }
 }
 

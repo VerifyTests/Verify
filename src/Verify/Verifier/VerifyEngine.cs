@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
@@ -12,26 +11,43 @@ using VerifyTests;
 class VerifyEngine
 {
     VerifySettings settings;
+    FileNameBuilder fileNameBuilder;
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
     List<string> danglingVerified;
 
     public VerifyEngine(
-        string extension,
         VerifySettings settings,
-        string directory,
-        string testName,
-        Assembly assembly)
+        FileNameBuilder fileNameBuilder)
     {
         this.settings = settings;
-        var verifiedPattern = FileNameBuilder.GetVerifiedPattern(extension, settings.Namer, testName, assembly);
-        danglingVerified = Directory.EnumerateFiles(directory, verifiedPattern).ToList();
+        this.fileNameBuilder = fileNameBuilder;
+        danglingVerified = fileNameBuilder.GetVerifiedFiles().ToList();
 
-        var receivedPattern = FileNameBuilder.GetReceivedPattern(extension, settings.Namer, testName, assembly);
-        foreach (var file in Directory.EnumerateFiles(directory, receivedPattern))
+        foreach (var file in fileNameBuilder.GetReceivedFiles())
         {
             File.Delete(file);
+        }
+    }
+
+    public async Task HandleResults(List<ResultBuilder> results)
+    {
+        if (results.Count == 1)
+        {
+            var item = results[0];
+            var file = fileNameBuilder.GetFileNames(item.Extension);
+            var result = await item.GetResult(file);
+            HandleCompareResult(result, file);
+            return;
+        }
+
+        for (var index = 0; index < results.Count; index++)
+        {
+            var item = results[index];
+            var file = fileNameBuilder.GetFileNames(item.Extension, index);
+            var result = await item.GetResult(file);
+            HandleCompareResult(result, file);
         }
     }
 

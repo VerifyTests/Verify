@@ -1,0 +1,22 @@
+{
+  fileNames: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.received.txt,
+    Verified: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.verified.txt,
+    Name: Tests.CustomMethod.DotNet5_0
+  },
+  fileNamesWithIndex: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.02.received.txt,
+    Verified: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.02.verified.txt,
+    Name: Tests.CustomMethod.DotNet5_0.02
+  },
+  receivedFiles: [
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.02.received.txt,
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.received.txt
+  ],
+  verifiedFiles: [
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.02.verified.txt,
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.DotNet5_0.verified.txt
+  ]
+}

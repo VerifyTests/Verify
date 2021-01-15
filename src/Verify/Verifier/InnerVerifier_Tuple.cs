@@ -11,7 +11,7 @@ namespace VerifyTests
         public Task Verify(Expression<Func<ITuple>> target)
         {
             var dictionary = TupleConverter.ExpressionToDictionary(target);
-            return SerializeAndVerify(dictionary, VerifierSettings.GetJsonAppenders(settings));
+            return Verify(dictionary);
         }
     }
 }

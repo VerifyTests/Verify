@@ -38,6 +38,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Naming\CustomDirectory\" />
+  </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
 </Project>

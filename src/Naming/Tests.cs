@@ -17,11 +17,16 @@ public class Tests
         bool config,
         bool configG,
         bool runVersion,
-        bool runVersionG)
+        bool runVersionG,
+        bool method,
+        bool type,
+        bool dir)
     {
-        VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration = false;
-        VerifierSettings.SharedNamer.UniqueForRuntime = false;
-        VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion = false;
+        var sharedNamer = VerifierSettings.SharedNamer;
+        sharedNamer.UniqueForAssemblyConfiguration = false;
+        sharedNamer.UniqueForRuntime = false;
+        sharedNamer.UniqueForRuntimeAndVersion = false;
+
         var directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
         if (Directory.Exists(directory))
         {
@@ -61,6 +66,21 @@ public class Tests
             VerifierSettings.UniqueForRuntimeAndVersion();
         }
 
+        if (method)
+        {
+            settings.UseMethodName("CustomMethod");
+        }
+
+        if (type)
+        {
+            settings.UseMethodName("CustomType");
+        }
+
+        if (dir)
+        {
+            settings.UseDirectory("customDir");
+        }
+
         var builder = new FileNameBuilder(
             GetType().GetMethod("TheMethod")!,
             typeof(Tests),
@@ -74,6 +94,7 @@ public class Tests
         File.WriteAllText(fileNames.Verified,"");
         File.WriteAllText(fileNamesWithIndex.Received,"");
         File.WriteAllText(fileNamesWithIndex.Verified,"");
+
         var receivedFiles = builder.GetReceivedFiles();
         var verifiedFiles = builder.GetVerifiedFiles();
         FileNameBuilder.ClearPrefixList();
@@ -90,7 +111,10 @@ public class Tests
                 config,
                 configG,
                 runVersion,
-                runVersionG)
+                runVersionG,
+                method,
+                type,
+                dir)
             .UseMethodName("_")
             .UseTypeName("_")
             .AddScrubber(_ => _.Replace('/','\\'));
@@ -119,14 +143,27 @@ public class Tests
                             {
                                 foreach (var runtimeVersionStatic in bools)
                                 {
-
-                                    yield return new object[] {
-                                        runtime,
-                                        runtimeStatic,
-                                        config,
-                                        configStatic,
-                                        runtimeVersion,
-                                        runtimeVersionStatic};
+                                    foreach (var method in bools)
+                                    {
+                                        foreach (var type in bools)
+                                        {
+                                            foreach (var dir in bools)
+                                            {
+                                                yield return new object[]
+                                                {
+                                                    runtime,
+                                                    runtimeStatic,
+                                                    config,
+                                                    configStatic,
+                                                    runtimeVersion,
+                                                    runtimeVersionStatic,
+                                                    method,
+                                                    type,
+                                                    dir
+                                                };
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

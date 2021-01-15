@@ -1,0 +1,14 @@
+{
+  fileNames: {
+    Extension: txt,
+    Received: {CurrentDirectory}\Tests.TheMethod.DotNet5_0.Debug.received.txt,
+    Verified: {CurrentDirectory}\Tests.TheMethod.DotNet5_0.Debug.verified.txt,
+    Name: Tests.TheMethod.DotNet5_0.Debug
+  },
+  fileNamesWithIndex: {
+    Extension: txt,
+    Received: {CurrentDirectory}\Tests.TheMethod.DotNet5_0.Debug.02.received.txt,
+    Verified: {CurrentDirectory}\Tests.TheMethod.DotNet5_0.Debug.02.verified.txt,
+    Name: Tests.TheMethod.DotNet5_0.Debug.02
+  }
+}

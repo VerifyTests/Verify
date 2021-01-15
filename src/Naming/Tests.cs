@@ -92,7 +92,8 @@ public class Tests
                 runVersion,
                 runVersionG)
             .UseMethodName("_")
-            .UseTypeName("_");
+            .UseTypeName("_")
+            .AddScrubber(_ => _.Replace('/','\\'));
     }
 
 #pragma warning disable xUnit1013

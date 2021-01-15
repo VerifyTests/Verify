@@ -126,7 +126,8 @@ public class Tests
     {
 
     }
-    public class TestData : IEnumerable<object[]>
+
+    class TestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

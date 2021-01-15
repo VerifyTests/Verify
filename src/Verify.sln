@@ -46,7 +46,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrictJsonTests", "StrictJs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.DerivePaths.Tests", "Verify.DerivePaths.Tests\Verify.DerivePaths.Tests.csproj", "{87BA0F09-5389-45F4-B0A5-FF2A88A954FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NamingTests", "NamingTests\NamingTests.csproj", "{E39DAFA5-5BEF-44AA-BC40-EFAB817256F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Naming", "Naming\NamingTests.csproj", "{E39DAFA5-5BEF-44AA-BC40-EFAB817256F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -50,26 +46,17 @@ public class Tests
     public Task WithInfo()
     {
         VerifierSettings.RegisterFileConverter(
-            "bmp",
-            (stream, _) =>
+            "foo",
+            (_, _) =>
             {
                 var info = new
                 {
                     Property = "Value"
                 };
-                var streams = ConvertBmpTpPngStreams(stream);
-                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
+                return new ConversionResult(info, new[] {new ConversionStream("txt", "content")});
             });
-        return Verifier.Verify(FileHelpers.OpenRead("sample.bmp"))
-            .UseExtension("bmp");
-    }
-
-    static IEnumerable<Stream> ConvertBmpTpPngStreams(Stream input)
-    {
-        Bitmap bitmap = new(input);
-        MemoryStream stream = new();
-        bitmap.Save(stream, ImageFormat.Png);
-        yield return stream;
+        return Verifier.Verify(new MemoryStream())
+            .UseExtension("foo");
     }
 }
 

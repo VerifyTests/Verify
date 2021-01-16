@@ -39,7 +39,7 @@ static class FileHelpers
 
     static Task<StringBuilder> ReadText(FileStream stream)
     {
-        return stream.ReadAsString();
+        return stream.ReadAsStringBuilder();
     }
 
 #if NETSTANDARD2_1 || NET5_0

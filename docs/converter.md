@@ -153,7 +153,7 @@ If cleanup needs to occur after verification a callback can be passes to `Conver
 ```cs
 return new ConversionResult(
     info: info,
-    "txt",
+    "bin",
     stream: File.OpenRead(filePath),
     cleanup: () =>
     {
@@ -161,7 +161,7 @@ return new ConversionResult(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L63-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L53-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

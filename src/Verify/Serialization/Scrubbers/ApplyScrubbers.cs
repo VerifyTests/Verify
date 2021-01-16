@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using VerifyTests;
 
@@ -54,10 +53,7 @@ static class ApplyScrubbers
             scrubber(target);
         }
 
-        if (scrubbers.Any() || VerifierSettings.GlobalScrubbers.Any())
-        {
-            target.FixNewlines();
-        }
+        target.FixNewlines();
     }
 
     static string CleanPath(string directory)

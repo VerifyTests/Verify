@@ -12,10 +12,15 @@ static class StreamExtensions
         }
     }
 
-    public static async Task<StringBuilder> ReadAsString(this Stream stream)
+    public static async Task<string> ReadAsString(this Stream stream)
     {
         using StreamReader reader = new(stream, FileHelpers.Utf8NoBOM);
-        StringBuilder builder = new(await reader.ReadToEndAsync());
+        return await reader.ReadToEndAsync();
+    }
+
+    public static async Task<StringBuilder> ReadAsStringBuilder(this Stream stream)
+    {
+        StringBuilder builder = new(await ReadAsString(stream));
         builder.FixNewlines();
         return builder;
     }

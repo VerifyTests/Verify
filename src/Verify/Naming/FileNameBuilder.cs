@@ -98,16 +98,14 @@ class FileNameBuilder
 
     public IEnumerable<string> GetVerifiedFiles()
     {
-        var pattern1 = $"{testPrefix}{fileParts}.*.verified.*";
-        var pattern2 = $"{testPrefix}{fileParts}.verified.*";
-        return Directory.EnumerateFiles(directory, pattern1).Concat(Directory.EnumerateFiles(directory, pattern2));
+        var pattern = $"{testPrefix}{fileParts}.*verified.*";
+        return Directory.EnumerateFiles(directory, pattern);
     }
 
     public IEnumerable<string> GetReceivedFiles()
     {
-        var pattern1 = $"{testPrefix}{fileParts}.*.received.*";
-        var pattern2 = $"{testPrefix}{fileParts}.received.*";
-        return Directory.EnumerateFiles(directory, pattern1).Concat(Directory.EnumerateFiles(directory, pattern2));
+        var pattern = $"{testPrefix}{fileParts}.*received.*";
+        return Directory.EnumerateFiles(directory, pattern);
     }
 
     string GetFileParts()

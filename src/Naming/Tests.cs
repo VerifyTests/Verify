@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -91,8 +92,8 @@ public class Tests
         FileNameBuilder.ClearPrefixList();
         builder = Builder(directory, settings);
 
-        var receivedFiles = builder.ReceivedFiles;
-        var verifiedFiles = builder.VerifiedFiles;
+        var receivedFiles = builder.ReceivedFiles.OrderBy(x=>x);
+        var verifiedFiles = builder.VerifiedFiles.OrderBy(x=>x);
         FileNameBuilder.ClearPrefixList();
         return Verifier.Verify(new
             {

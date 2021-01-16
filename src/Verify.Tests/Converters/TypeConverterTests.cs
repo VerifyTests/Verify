@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-#if NET5_0
+#if DEBUG
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;

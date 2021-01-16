@@ -23,9 +23,9 @@ class VerifyEngine
     {
         this.settings = settings;
         this.fileNameBuilder = fileNameBuilder;
-        danglingVerified = fileNameBuilder.GetVerifiedFiles().ToList();
+        danglingVerified = fileNameBuilder.VerifiedFiles;
 
-        foreach (var file in fileNameBuilder.GetReceivedFiles())
+        foreach (var file in fileNameBuilder.ReceivedFiles)
         {
             File.Delete(file);
         }

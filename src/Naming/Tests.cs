@@ -81,22 +81,18 @@ public class Tests
             settings.UseDirectory("customDir");
         }
 
-        var builder = new FileNameBuilder(
-            GetType().GetMethod("TheMethod")!,
-            typeof(Tests),
-            directory,
-            Path.Combine(directory, "NamingTests.cs"),
-            null,
-            settings);
+        var builder = Builder(directory, settings);
         var fileNames = builder.GetFileNames("txt");
         var fileNamesWithIndex = builder.GetFileNames("txt", 2);
         File.WriteAllText(fileNames.Received,"");
         File.WriteAllText(fileNames.Verified,"");
         File.WriteAllText(fileNamesWithIndex.Received,"");
         File.WriteAllText(fileNamesWithIndex.Verified,"");
+        FileNameBuilder.ClearPrefixList();
+        builder = Builder(directory, settings);
 
-        var receivedFiles = builder.GetReceivedFiles();
-        var verifiedFiles = builder.GetVerifiedFiles();
+        var receivedFiles = builder.ReceivedFiles;
+        var verifiedFiles = builder.VerifiedFiles;
         FileNameBuilder.ClearPrefixList();
         return Verifier.Verify(new
             {
@@ -118,6 +114,17 @@ public class Tests
             .UseMethodName("_")
             .UseTypeName("_")
             .AddScrubber(_ => _.Replace('/','\\'));
+    }
+
+    private FileNameBuilder Builder(string directory, VerifySettings settings)
+    {
+        return new FileNameBuilder(
+            GetType().GetMethod("TheMethod")!,
+            typeof(Tests),
+            directory,
+            Path.Combine(directory, "NamingTests.cs"),
+            null,
+            settings);
     }
 
 #pragma warning disable xUnit1013

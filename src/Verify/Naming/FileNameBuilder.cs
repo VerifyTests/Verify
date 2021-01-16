@@ -54,7 +54,16 @@ class FileNameBuilder
 
         fileParts = GetFileParts();
         filePathPrefix = GetPrefix();
+
+        var pattern = $"{testPrefix}{fileParts}.*.*";
+        var files = Directory.EnumerateFiles(directory, pattern).ToList();
+        VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
+        ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
     }
+
+    public List<string> VerifiedFiles { get; }
+
+    public List<string> ReceivedFiles { get; }
 
     static string GetTypeName(Type type)
     {
@@ -94,18 +103,6 @@ class FileNameBuilder
     internal static void ClearPrefixList()
     {
         prefixList = new();
-    }
-
-    public IEnumerable<string> GetVerifiedFiles()
-    {
-        var pattern = $"{testPrefix}{fileParts}.*verified.*";
-        return Directory.EnumerateFiles(directory, pattern);
-    }
-
-    public IEnumerable<string> GetReceivedFiles()
-    {
-        var pattern = $"{testPrefix}{fileParts}.*received.*";
-        return Directory.EnumerateFiles(directory, pattern);
     }
 
     string GetFileParts()

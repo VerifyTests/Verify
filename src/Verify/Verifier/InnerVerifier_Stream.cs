@@ -34,10 +34,24 @@ namespace VerifyTests
 
                 extension ??= "bin";
 
-                List<ConversionStream> streams = new()
+                List<ConversionStream> streams;
+                if (EmptyFiles.Extensions.IsText(extension))
                 {
-                    new(extension, stream)
-                };
+                    streams = new()
+                    {
+                        new(extension, await stream.ReadAsString())
+                    };
+                    await VerifyInner(null, null, streams);
+                }
+                else
+                {
+
+                    streams = new()
+                    {
+                        new(extension, stream)
+                    };
+                }
+
                 await VerifyInner(null, null, streams);
             }
         }

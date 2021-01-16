@@ -27,11 +27,11 @@ namespace VerifyTests
             streamsList.AddRange(VerifierSettings.GetFileAppenders(settings));
             var builders = streamsList
                 .Select(
-                    appender =>
+                    stream =>
                     {
                         return new ResultBuilder(
-                            appender.Extension,
-                            file => GetResult(settings, file, appender));
+                            stream.Extension,
+                            file => GetResult(settings, file, stream));
                     })
                 .ToList();
 
@@ -100,6 +100,13 @@ namespace VerifyTests
 
         static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, ConversionStream conversionStream)
         {
+            if (conversionStream.IsData)
+            {
+                var builder = new StringBuilder(conversionStream.Data);
+                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+                return await Comparer.Text(filePair, builder.ToString(), settings);
+            }
+
             var stream = conversionStream.Stream;
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
@@ -108,13 +115,6 @@ namespace VerifyTests
 #endif
             {
                 stream.MoveToStart();
-                if (EmptyFiles.Extensions.IsText(conversionStream.Extension))
-                {
-                    var builder = await stream.ReadAsString();
-                    ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
-                    return await Comparer.Text(filePair, builder.ToString(), settings);
-                }
-
                 return await Comparer.Streams(settings, stream, filePair);
             }
         }

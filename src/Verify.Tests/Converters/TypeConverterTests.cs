@@ -16,11 +16,7 @@ public class TypeConverterTests
     public Task Inherited()
     {
         VerifierSettings.RegisterFileConverter<ParentClass>(
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
-            });
+            (instance, _) => new(null, "txt", instance.Value));
 
         InheritedClass target = new()
         {
@@ -29,12 +25,6 @@ public class TypeConverterTests
         VerifySettings settings = new();
         settings.UseExtension("txt");
         return Verifier.Verify(target, settings);
-    }
-
-    static List<Stream> ToStream(string splitValue)
-    {
-        var bytes = FileHelpers.Utf8NoBOM.GetBytes(splitValue);
-        return new List<Stream> {new MemoryStream(bytes)};
     }
 
     public class ClassToSplit3
@@ -64,7 +54,7 @@ public class TypeConverterTests
 
                 return new ConversionResult(
                     info: info,
-                    "txt",
+                    "bin",
                     stream: File.OpenRead(filePath),
                     cleanup: () =>
                     {
@@ -91,11 +81,7 @@ public class TypeConverterTests
     public Task ConvertWithNewline()
     {
         VerifierSettings.RegisterFileConverter<ClassToSplit>(
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
-            });
+            (instance, _) => new(null, "txt", instance.Value));
         ClassToSplit target = new()
         {
             Value = $"line1{Environment.NewLine}line2"
@@ -112,11 +98,7 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Invalid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
-            },
+            (instance, _) => new(null, "txt", instance.Value),
             (inner, _, _) => inner.Value == "Valid");
         CanConvertTarget target = new()
         {
@@ -129,11 +111,7 @@ public class TypeConverterTests
     public Task ConvertWithCanConvert_Valid()
     {
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
-            (instance, _) =>
-            {
-                var streams = ToStream(instance.Value);
-                return new ConversionResult(null, streams.Select(x => new ConversionStream("txt", x)));
-            },
+            (instance, _) => new(null, "txt", instance.Value),
             (inner, _, _) => inner.Value == "Valid");
         CanConvertTarget target = new()
         {
@@ -147,7 +125,7 @@ public class TypeConverterTests
         public string Value { get; set; } = null!;
     }
 
-#if NET5_0
+#if DEBUG
     [Fact]
     public Task WithInfo()
     {
@@ -203,7 +181,6 @@ public class TypeConverterTests
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
-#endif
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
     {
@@ -211,4 +188,5 @@ public class TypeConverterTests
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }
+#endif
 }

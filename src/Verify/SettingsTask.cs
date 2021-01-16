@@ -19,7 +19,7 @@ namespace VerifyTests
                 this.settings = new(settings);
             }
 
-            this.buildTask = async verifySettings => { await buildTask(verifySettings); };
+            this.buildTask = buildTask;
         }
 
         public SettingsTask AddExtraSettings(Action<JsonSerializerSettings> action)

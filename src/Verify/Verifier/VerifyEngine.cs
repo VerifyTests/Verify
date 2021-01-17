@@ -139,32 +139,31 @@ class VerifyEngine
         }
     }
 
-    async Task ProcessDangling(StringBuilder builder, string item)
+    Task ProcessDangling(StringBuilder builder, string item)
     {
         builder.AppendLine($"  {Path.GetFileName(item)}");
         if (settings.autoVerify)
         {
             File.Delete(item);
-            return;
+            return Task.CompletedTask;
         }
 
         if (BuildServerDetector.Detected)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (DiffEngineTray.IsRunning)
         {
-            await DiffEngineTray.AddDeleteAsync(item);
-            return;
+            return DiffEngineTray.AddDeleteAsync(item);
         }
 
-        if (!ClipboardEnabled.IsEnabled(settings))
+        if (ClipboardEnabled.IsEnabled(settings))
         {
-            return;
+            return ClipboardCapture.AppendDelete(item);
         }
 
-        await ClipboardCapture.AppendDelete(item);
+        return Task.CompletedTask;
     }
 
     async Task ProcessNotEquals(StringBuilder builder)

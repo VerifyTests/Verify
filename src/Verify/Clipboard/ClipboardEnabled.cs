@@ -32,6 +32,11 @@ static class ClipboardEnabled
             return false;
         }
 
+        if (DiffEngine.BuildServerDetector.Detected)
+        {
+            return false;
+        }
+
         if (settings.clipboardEnabled == null)
         {
             return !VerifierSettings.clipboardDisabled;

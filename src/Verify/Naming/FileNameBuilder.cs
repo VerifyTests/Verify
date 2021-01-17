@@ -75,13 +75,13 @@ class FileNameBuilder
         return type.Name;
     }
 
-    public FilePair GetFileNames(string extension)
+    public FilePair GetFileNames(string extension, int index = 0)
     {
-        return new(extension, filePathPrefix);
-    }
+        if (index == 0)
+        {
+            return new(extension, filePathPrefix);
+        }
 
-    public FilePair GetFileNames(string extension, int index)
-    {
         return new(extension, $"{filePathPrefix}.{index:D2}");
     }
 

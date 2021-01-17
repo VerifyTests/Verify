@@ -270,10 +270,10 @@ If the target is a stream or binary file:
 
 snippet: JsonAppenderStream
 
-Then the appended content will be added to the `*.verified.txt` file:
+Then the appended content will be added to the `*.00.verified.txt` file:
 
-snippet: JsonAppenderTests.Stream.verified.txt
+snippet: JsonAppenderTests.Stream.00.verified.txt
 
-See [Converters](/docs/converter.md) for more information on `*.verified.txt` files.
+See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.
 
 Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording) and  [Recorders in Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording).

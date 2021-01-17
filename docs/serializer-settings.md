@@ -992,19 +992,19 @@ public Task Stream()
 <sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L68-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappenderstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Then the appended content will be added to the `*.verified.txt` file:
+Then the appended content will be added to the `*.00.verified.txt` file:
 
-<!-- snippet: JsonAppenderTests.Stream.verified.txt -->
-<a id='snippet-JsonAppenderTests.Stream.verified.txt'></a>
+<!-- snippet: JsonAppenderTests.Stream.00.verified.txt -->
+<a id='snippet-JsonAppenderTests.Stream.00.verified.txt'></a>
 ```txt
 {
   target: null,
   theData: theValue
 }
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.Stream.00.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonAppenderTests.Stream.00.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-See [Converters](/docs/converter.md) for more information on `*.verified.txt` files.
+See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.
 
 Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording) and  [Recorders in Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording).

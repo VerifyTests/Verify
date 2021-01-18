@@ -119,7 +119,7 @@ public class Tests
 
     private FileNameBuilder Builder(string directory, VerifySettings settings)
     {
-        return new FileNameBuilder(
+        return new(
             GetType().GetMethod("TheMethod")!,
             typeof(Tests),
             directory,

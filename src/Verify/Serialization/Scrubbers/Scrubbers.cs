@@ -41,7 +41,7 @@ namespace VerifyTests
 
                 if (removeParams)
                 {
-                    var indexOfLeft = line.IndexOf("(");
+                    var indexOfLeft = line.IndexOf('(');
                     if (indexOfLeft > -1)
                     {
                         var c = line[indexOfLeft + 1];
@@ -57,7 +57,7 @@ namespace VerifyTests
                 }
                 else
                 {
-                    var indexOfRight = line.IndexOf(")");
+                    var indexOfRight = line.IndexOf(')');
                     if (indexOfRight > -1)
                     {
                         line = line.Substring(0, indexOfRight + 1);
@@ -65,7 +65,7 @@ namespace VerifyTests
                 }
 
                 line = line.Replace(" (", "(");
-                line = line.Replace("+", ".");
+                line = line.Replace('+', '.');
                 builder.Append(line);
                 builder.Append('\n');
             }

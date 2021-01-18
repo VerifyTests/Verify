@@ -29,7 +29,7 @@ class JsonTextWriterEx :
             return;
         }
 
-        value = value.Replace("\r\n", "\n").Replace("\r", "\n");
+        value = value.Replace("\r\n", "\n").Replace('\r', '\n');
         if (VerifierSettings.StrictJson)
         {
             base.WriteValue(value);

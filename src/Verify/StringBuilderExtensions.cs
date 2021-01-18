@@ -5,7 +5,7 @@ static class StringBuilderExtensions
     public static void FixNewlines(this StringBuilder builder)
     {
         builder.Replace("\r\n", "\n");
-        builder.Replace("\r", "\n");
+        builder.Replace('\r', '\n');
     }
 
     public static void TrimEnd(this StringBuilder builder)

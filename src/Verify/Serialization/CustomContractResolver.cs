@@ -151,38 +151,10 @@ class CustomContractResolver :
 
         property.ConfigureIfBool(member, ignoreFalse);
 
-        if (!includeObsoletes)
-        {
-            if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
-            {
-                property.Ignored = true;
-                return property;
-            }
-        }
-
-        if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
+        if (ShouldIgnore(member, propertyType, property))
         {
             property.Ignored = true;
             return property;
-        }
-
-        var propertyName = property.PropertyName!;
-        if (ignoredByNameMembers.Contains(propertyName))
-        {
-            property.Ignored = true;
-            return property;
-        }
-
-        foreach (var pair in ignoredMembers)
-        {
-            if (pair.Value.Contains(propertyName))
-            {
-                if (pair.Key.IsAssignableFrom(property.DeclaringType))
-                {
-                    property.Ignored = true;
-                    return property;
-                }
-            }
         }
 
         if (ignoredInstances.TryGetValue(propertyType, out var funcs))
@@ -213,5 +185,43 @@ class CustomContractResolver :
         property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow, membersConverter);
 
         return property;
+    }
+
+    bool ShouldIgnore(MemberInfo member, Type propertyType, JsonProperty property)
+    {
+        if (!includeObsoletes)
+        {
+            if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
+            {
+                return true;
+            }
+        }
+
+        if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
+        {
+            return true;
+        }
+
+        var propertyName = property.UnderlyingName;
+        if (propertyName != null)
+        {
+            if (ignoredByNameMembers.Contains(propertyName))
+            {
+                return true;
+            }
+
+            foreach (var pair in ignoredMembers)
+            {
+                if (pair.Value.Contains(propertyName))
+                {
+                    if (pair.Key.IsAssignableFrom(property.DeclaringType))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

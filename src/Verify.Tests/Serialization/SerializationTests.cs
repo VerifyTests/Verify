@@ -888,12 +888,14 @@ public class SerializationTests
         {
             Include = "Value",
             Field = "Value",
-            Property = "Value"
+            Property = "Value",
+            PropertyWithPropertyName = "Value"
         };
         VerifySettings settings = new();
         settings.ModifySerialization(_ =>
         {
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
@@ -1039,6 +1041,8 @@ public class SerializationTests
     {
         public string Include;
         public string Property { get; set; }
+        [JsonProperty(PropertyName = "_Custom")]
+        public string PropertyWithPropertyName { get; set; }
         public string PropertyByName { get; set; }
         public string GetOnlyProperty => "asd";
         public string PropertyThatThrows => throw new();

@@ -57,6 +57,12 @@ namespace VerifyTests
             IgnoreMember(member.DeclaringType!, member.Name);
         }
 
+        public void IgnoreMember<T>(string name)
+        {
+            Guard.AgainstNullOrEmpty(name, nameof(name));
+            IgnoreMember(typeof(T), name);
+        }
+
         public void IgnoreMember(Type declaringType, string name)
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));

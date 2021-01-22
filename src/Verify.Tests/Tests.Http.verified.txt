@@ -1,0 +1,62 @@
+{
+  target: {
+    Version: 1.1,
+    Content: {
+      Headers: {
+        Content-Type: text/html; charset=utf-8
+      }
+    },
+    StatusCode: OK,
+    ReasonPhrase: OK,
+    Headers: {
+      Access-Control-Allow-Origin: *,
+      Access-Control-Expose-Headers: Link, Content-Range, Location, WWW-Authenticate, Proxy-Authenticate, Retry-After,Request-Context,
+      Cache-Control: private,
+      CF-Cache-Status: DYNAMIC,
+      cf-request-id: Guid_1,
+      Connection: keep-alive,
+      Date: DateTimeOffset_1,
+      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct",
+      Request-Context: appId=cid-v1:7585021b-2db7-4da6-abff-2cf23005f0a9,
+      Server: cloudflare,
+      Transfer-Encoding: chunked,
+      Vary: Accept-Encoding,
+      X-AspNet-Version: 4.0.30319,
+      X-AspNetMvc-Version: 5.1,
+      X-Powered-By: ASP.NET
+    },
+    TrailingHeaders: {},
+    RequestMessage: {
+      Version: 1.1,
+      Method: {
+        Method: GET
+      },
+      RequestUri: https://httpstat.us/,
+      Headers: {}
+    },
+    IsSuccessStatusCode: true
+  },
+  http: [
+    {
+      Status: RanToCompletion,
+      ResponseHeaders: {
+        Access-Control-Allow-Origin: *,
+        Access-Control-Expose-Headers: Link, Content-Range, Location, WWW-Authenticate, Proxy-Authenticate, Retry-After,Request-Context,
+        Cache-Control: private,
+        CF-Cache-Status: DYNAMIC,
+        cf-request-id: Guid_1,
+        Connection: keep-alive,
+        Date: DateTimeOffset_1,
+        Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct",
+        Request-Context: appId=cid-v1:7585021b-2db7-4da6-abff-2cf23005f0a9,
+        Server: cloudflare,
+        Transfer-Encoding: chunked,
+        Vary: Accept-Encoding,
+        X-AspNet-Version: 4.0.30319,
+        X-AspNetMvc-Version: 5.1,
+        X-Powered-By: ASP.NET
+      },
+      RequestHeaders: {}
+    }
+  ]
+}

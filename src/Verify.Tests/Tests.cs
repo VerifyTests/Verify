@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -17,6 +18,20 @@ public class Tests
         VerifierSettings.AddExtraDatetimeFormat("F");
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
+
+#if NET5_0
+    [Fact]
+    public async Task Http()
+    {
+        HttpRecording.StartRecording();
+
+        using var client = new HttpClient();
+
+        var result = await client.GetAsync("https://httpstat.us/");
+        await Verifier.Verify(result)
+            .ScrubLinesContaining("Report-To", "CF-RAY", "NEL");
+    }
+#endif
 
     [Fact]
     public Task WithNewline()

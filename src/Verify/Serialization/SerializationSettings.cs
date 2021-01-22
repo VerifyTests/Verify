@@ -14,6 +14,20 @@ namespace VerifyTests
 
     public class SerializationSettings
     {
+        static JsonConverter fileInfoConverter = new FileInfoConverter();
+        static JsonConverter httpHeadersConverter = new HttpHeadersConverter();
+        static JsonConverter directoryInfoConverter = new DirectoryInfoConverter();
+        static JsonConverter stringEnumConverter = new StringEnumConverter();
+        static JsonConverter delegateConverter = new DelegateConverter();
+        static JsonConverter expressionConverter = new ExpressionConverter();
+        static JsonConverter typeJsonConverter = new TypeJsonConverter();
+        static JsonConverter methodInfoConverter = new MethodInfoConverter();
+        static JsonConverter fieldInfoConverter = new FieldInfoConverter();
+        static JsonConverter constructorInfoConverter = new ConstructorInfoConverter();
+        static JsonConverter parameterInfoConverter = new ParameterInfoConverter();
+        static JsonConverter versionConverter = new VersionConverter();
+        static JsonConverter propertyInfoConverter = new PropertyInfoConverter();
+
         public SerializationSettings()
         {
             IgnoreMembersThatThrow<NotImplementedException>();
@@ -235,20 +249,22 @@ namespace VerifyTests
             var converters = settings.Converters;
             converters.Add(new StringConverter(scrubber));
             converters.Add(new GuidConverter(scrubber));
-            converters.Add(new FileInfoConverter());
-            converters.Add(new DirectoryInfoConverter());
             converters.Add(new DateTimeConverter(scrubber));
             converters.Add(new DateTimeOffsetConverter(scrubber));
-            converters.Add(new StringEnumConverter());
-            converters.Add(new ExpressionConverter());
-            converters.Add(new DelegateConverter());
+            converters.Add(fileInfoConverter);
+            converters.Add(httpHeadersConverter);
+            converters.Add(directoryInfoConverter);
+            converters.Add(stringEnumConverter);
+            converters.Add(expressionConverter);
+            converters.Add(delegateConverter);
+            converters.Add(versionConverter);
+            converters.Add(typeJsonConverter);
+            converters.Add(methodInfoConverter);
+            converters.Add(fieldInfoConverter);
+            converters.Add(constructorInfoConverter);
+            converters.Add(propertyInfoConverter);
+            converters.Add(parameterInfoConverter);
             converters.Add(new DictionaryConverter(ignoredByNameMembers));
-            converters.Add(new TypeJsonConverter());
-            converters.Add(new MethodInfoConverter());
-            converters.Add(new FieldInfoConverter());
-            converters.Add(new ConstructorInfoConverter());
-            converters.Add(new PropertyInfoConverter());
-            converters.Add(new ParameterInfoConverter());
             foreach (var extraSetting in ExtraSettings)
             {
                 extraSetting(settings);

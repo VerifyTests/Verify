@@ -6,15 +6,19 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="build.props" PackagePath="build\Verify.NUnit.props" />
-    <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Verify.NUnit.props" />
+    <Content Include="build.props"
+             PackagePath="build\Verify.NUnit.props" />
+    <Content Include="buildMultiTargeting.props"
+             PackagePath="buildMultiTargeting\Verify.NUnit.props" />
     <PackageReference Include="NUnit" Version="3.13.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.53" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.4.0" PrivateAssets="None" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"
+                      Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0"
+                      Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
   </ItemGroup>
 </Project>

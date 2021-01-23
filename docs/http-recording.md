@@ -85,7 +85,7 @@ The requests/response pairs will be appended to the verified file.
 
 ## Explicit Usage
 
-The above usage results in the http calls being automatically added snapshot file. Calls can also be explicitly read and recorded. This enables:
+The above usage results in the http calls being automatically added snapshot file. Calls can also be explicitly read and recorded using `HttpRecording.FinishRecording()`. This enables:
 
  * Filtering what http calls are included in the snapshot.
  * Only verifying a subset of information for each http call.

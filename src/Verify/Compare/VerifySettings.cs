@@ -2,23 +2,41 @@
 {
     public partial class VerifySettings
     {
-        Compare? comparer;
+        StreamCompare? streamComparer;
+        StringCompare? stringComparer;
 
-        public void UseComparer(Compare compare)
+        public void UseStreamComparer(StreamCompare compare)
         {
             Guard.AgainstNull(compare, nameof(compare));
-            comparer = compare;
+            streamComparer = compare;
         }
 
-        internal bool TryFindComparer(out Compare? compare)
+        public void UseStringComparer(StringCompare compare)
         {
-            if (comparer != null)
+            Guard.AgainstNull(compare, nameof(compare));
+            stringComparer = compare;
+        }
+
+        internal bool TryFindStreamComparer(out StreamCompare? compare)
+        {
+            if (streamComparer != null)
             {
-                compare = comparer;
+                compare = streamComparer;
                 return true;
             }
 
-            return VerifierSettings.TryGetComparer(ExtensionOrTxt(), out compare);
+            return VerifierSettings.TryGetStreamComparer(ExtensionOrBin(), out compare);
+        }
+
+        internal bool TryFindStringComparer(out StringCompare? compare)
+        {
+            if (stringComparer != null)
+            {
+                compare = stringComparer;
+                return true;
+            }
+
+            return VerifierSettings.TryGetStringComparer(ExtensionOrTxt(), out compare);
         }
     }
 }

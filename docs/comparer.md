@@ -49,7 +49,7 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 public Task InstanceComparer()
 {
     VerifySettings settings = new();
-    settings.UseComparer(CompareImages);
+    settings.UseStreamComparer(CompareImages);
     settings.UseExtension("png");
     return Verifier.VerifyFile("sample.png", settings);
 }
@@ -58,7 +58,7 @@ public Task InstanceComparer()
 public Task InstanceComparerFluent()
 {
     return Verifier.VerifyFile("sample.png")
-        .UseComparer(CompareImages)
+        .UseStreamComparer(CompareImages)
         .UseExtension("png");
 }
 ```
@@ -71,7 +71,7 @@ public Task InstanceComparerFluent()
 <!-- snippet: StaticComparer -->
 <a id='snippet-staticcomparer'></a>
 ```cs
-VerifierSettings.RegisterComparer(
+VerifierSettings.RegisterStreamComparer(
     extension: "png",
     compare: CompareImages);
 await Verifier.VerifyFile("TheImage.png");

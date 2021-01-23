@@ -32,7 +32,7 @@ public async Task TestHttpRecording()
                 sizeOfResponse,
             })
         //scrub some headers that are not consistent between test runs
-        .ScrubLinesContaining("AGE", "Server", "Date", "Etag");
+        .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
 }
 
 static async Task<int> MethodThatDoesHttpCalls()
@@ -56,7 +56,7 @@ The requests/response pairs will be appended to the verified file.
   target: {
     sizeOfResponse: 10847
   },
-  httpRequests: [
+  httpCalls: [
     {
       Uri: https://example.net/,
       Status: RanToCompletion,

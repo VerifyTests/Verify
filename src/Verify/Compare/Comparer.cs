@@ -24,23 +24,14 @@ static class Comparer
         return new(Equality.NotEqual, result.Message);
     }
 
-    static async Task<CompareResult> CompareStrings(string received, string verified, VerifySettings settings)
+    static Task<CompareResult> CompareStrings(string received, string verified, VerifySettings settings)
     {
-        //TODO: implement string comparer
-        if (!settings.TryFindComparer(out var compare))
+        if (settings.TryFindStringComparer(out var compare))
         {
-            return new(verified == received);
+            return compare!(received, verified, settings.Context);
         }
 
-#if NETSTANDARD2_0 || NETFRAMEWORK
-        using var stream1 = MemoryStream(received);
-        using var stream2 = MemoryStream(verified);
-#else
-        await using var stream1 = MemoryStream(received);
-        await using var stream2 = MemoryStream(verified);
-#endif
-
-        return await compare!(stream1, stream2, settings.Context);
+        return Task.FromResult(new CompareResult(verified == received));
     }
 
     static MemoryStream MemoryStream(string text)

@@ -29,7 +29,7 @@ static class FileComparer
 
     static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair)
     {
-        if (settings.TryFindComparer(out var compare))
+        if (settings.TryFindStreamComparer(out var compare))
         {
             return DoCompare(settings, compare!, filePair);
         }
@@ -57,7 +57,7 @@ static class FileComparer
         return first.Length == second.Length;
     }
 
-    static async Task<CompareResult> DoCompare(VerifySettings settings, Compare compare, FilePair filePair)
+    static async Task<CompareResult> DoCompare(VerifySettings settings, StreamCompare compare, FilePair filePair)
     {
 #if NETSTANDARD2_0 || NETFRAMEWORK
         using var fs1 = FileHelpers.OpenRead(filePair.Received);

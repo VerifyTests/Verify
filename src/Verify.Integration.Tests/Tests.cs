@@ -41,8 +41,8 @@ public partial class Tests :
                 split.Info,
                 new List<ConversionStream>
                 {
-                    new("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property1))),
-                    new("txt", new MemoryStream(FileHelpers.Utf8NoBOM.GetBytes(split.Property2)))
+                    new("txt", split.Property1),
+                    new("txt", split.Property2)
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }
@@ -123,6 +123,7 @@ Commands:
     public Tests(ITestOutputHelper output) :
         base(output)
     {
+        FileNameBuilder.ClearPrefixList();
         ClipboardCapture.Clear();
     }
 }

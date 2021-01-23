@@ -94,6 +94,7 @@ public partial class Tests
             await File.WriteAllTextAsync(file.Received, "");
         }
 
+        FileNameBuilder.ClearPrefixList();
         await InitialVerify(initialTarget, hasMatchingDiffTool, settings, file);
 
         if (!autoVerify)
@@ -103,8 +104,10 @@ public partial class Tests
 
         AssertNotExists(danglingFile);
 
+        FileNameBuilder.ClearPrefixList();
         await ReVerify(initialTarget, settings, file);
 
+        FileNameBuilder.ClearPrefixList();
         await InitialVerify(secondTarget, hasMatchingDiffTool, settings, file);
 
         if (!autoVerify)
@@ -112,6 +115,7 @@ public partial class Tests
             RunClipboardCommand();
         }
 
+        FileNameBuilder.ClearPrefixList();
         await ReVerify(secondTarget, settings, file);
     }
 

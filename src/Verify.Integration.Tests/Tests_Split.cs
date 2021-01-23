@@ -34,21 +34,22 @@ public partial class Tests
         settings.UseParameters(hasExistingReceived, autoVerify);
         var prefix = Path.Combine(SourceDirectory, $"{uniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
-        FilePair info = new("txt", $"{prefix}info");
-        FilePair file1 = new("txt", $"{prefix}00");
-        FilePair file2 = new("txt", $"{prefix}01");
+        FilePair file0 = new("txt", $"{prefix}00");
+        FilePair file1 = new("txt", $"{prefix}01");
+        FilePair file2 = new("txt", $"{prefix}02");
 
-        DeleteAll(danglingFile, info.Received, info.Verified, file1.Verified, file1.Received, file2.Verified, file2.Received);
-        File.WriteAllText(danglingFile, "");
+        DeleteAll(danglingFile, file0.Received, file0.Verified, file1.Verified, file1.Received, file2.Verified, file2.Received);
+        await File.WriteAllTextAsync(danglingFile, "");
 
         if (hasExistingReceived)
         {
-            File.WriteAllText(info.Received, "");
-            File.WriteAllText(file1.Received, "");
-            File.WriteAllText(file2.Received, "");
+            await File.WriteAllTextAsync(file0.Received, "");
+            await File.WriteAllTextAsync(file1.Received, "");
+            await File.WriteAllTextAsync(file2.Received, "");
         }
 
-        await InitialVerifySplit(initialTarget, true, settings, info, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await InitialVerifySplit(initialTarget, true, settings, file0, file1, file2);
 
         if (!autoVerify)
         {
@@ -57,16 +58,19 @@ public partial class Tests
 
         AssertNotExists(danglingFile);
 
-        await ReVerifySplit(initialTarget, settings, info, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await ReVerifySplit(initialTarget, settings, file0, file1, file2);
 
-        await InitialVerifySplit(secondTarget, true, settings, info, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await InitialVerifySplit(secondTarget, true, settings, file0, file1, file2);
 
         if (!autoVerify)
         {
             RunClipboardCommand();
         }
 
-        await ReVerifySplit(secondTarget, settings, info, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await ReVerifySplit(secondTarget, settings, file0, file1, file2);
     }
 
     static async Task ReVerifySplit(TypeToSplit target, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)

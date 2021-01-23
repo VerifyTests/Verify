@@ -2,7 +2,7 @@
   target: {
     sizeOfResponse: 10847
   },
-  httpRequests: [
+  httpCalls: [
     {
       Uri: https://example.net/,
       Status: RanToCompletion,

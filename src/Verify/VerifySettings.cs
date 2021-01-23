@@ -24,7 +24,8 @@ namespace VerifyTests
             serialization = settings.serialization;
             handleOnFirstVerify = settings.handleOnFirstVerify;
             handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
-            comparer = settings.comparer;
+            stringComparer = settings.stringComparer;
+            streamComparer = settings.streamComparer;
             parameters = settings.parameters;
             Namer = new(settings.Namer);
             foreach (var pair in settings.Context)

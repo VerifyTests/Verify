@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -13,7 +12,7 @@ public class ComparerTests
     public async Task Instance_with_message()
     {
         VerifySettings settings = new();
-        settings.UseComparer(CompareWithMessage);
+        settings.UseStringComparer(CompareWithMessage);
         settings.DisableDiff();
         settings.DisableClipboard();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("NotTheText", settings));
@@ -24,7 +23,7 @@ public class ComparerTests
     public async Task Instance()
     {
         VerifySettings settings = new();
-        settings.UseComparer(Compare);
+        settings.UseStringComparer(Compare);
         await Verifier.Verify("TheText", settings);
         FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("thetext", settings);
@@ -33,7 +32,7 @@ public class ComparerTests
     [Fact]
     public async Task Static_with_message()
     {
-        VerifierSettings.RegisterComparer("staticComparerExtMessage", CompareWithMessage);
+        VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
@@ -45,7 +44,7 @@ public class ComparerTests
     [Fact]
     public async Task Static()
     {
-        VerifierSettings.RegisterComparer("staticComparerExt", Compare);
+        VerifierSettings.RegisterStringComparer("staticComparerExt", Compare);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExt");
         await Verifier.Verify("TheText", settings);
@@ -53,14 +52,12 @@ public class ComparerTests
         await Verifier.Verify("thetext", settings);
     }
 
-    static async Task<CompareResult> Compare(Stream received, Stream verified, IReadOnlyDictionary<string, object> context)
+    static Task<CompareResult> Compare(string received, string verified, IReadOnlyDictionary<string, object> context)
     {
-        var stringOne = await received.ReadString();
-        var stringTwo = await verified.ReadString();
-        return new(string.Equals(stringOne, stringTwo, StringComparison.OrdinalIgnoreCase));
+        return Task.FromResult(new CompareResult(string.Equals(received, received, StringComparison.OrdinalIgnoreCase)));
     }
 
-    static Task<CompareResult> CompareWithMessage(Stream stream, Stream received, IReadOnlyDictionary<string, object> readOnlyDictionary)
+    static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary)
     {
         return Task.FromResult(CompareResult.NotEqual("theMessage"));
     }

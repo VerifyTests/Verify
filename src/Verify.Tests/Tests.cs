@@ -39,7 +39,7 @@ public class Tests
                     sizeOfResponse,
                 })
             //scrub some headers that are not consistent between test runs
-            .ScrubLinesContaining("AGE", "Server", "Date", "Etag");
+            .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
     }
 
     static async Task<int> MethodThatDoesHttpCalls()
@@ -162,7 +162,7 @@ public class Tests
     [Fact]
     public async Task SettingsArePassed()
     {
-        VerifierSettings.RegisterComparer(
+        VerifierSettings.RegisterStreamComparer(
             "SettingsArePassed",
             (_, _, _) => Task.FromResult(new CompareResult(true)));
         VerifySettings settings = new();

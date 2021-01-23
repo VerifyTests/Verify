@@ -70,9 +70,15 @@ namespace VerifyTests
             return this;
         }
 
-        public SettingsTask UseComparer(Compare compare)
+        public SettingsTask UseStreamComparer(StreamCompare compare)
         {
-            CurrentSettings.UseComparer(compare);
+            CurrentSettings.UseStreamComparer(compare);
+            return this;
+        }
+
+        public SettingsTask UseStringComparer(StringCompare compare)
+        {
+            CurrentSettings.UseStringComparer(compare);
             return this;
         }
 

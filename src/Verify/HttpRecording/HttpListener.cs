@@ -72,18 +72,18 @@ class HttpListener :
     {
         local.Value!.Add(new(request, response, requestTaskStatus));
     }
-    
-    [DiagnosticName("System.Net.Http.Request")]
-    public virtual void OnRequest(HttpRequestMessage request)
-    {
-        Console.WriteLine("OnRequest");
-    }
 
-    [DiagnosticName("System.Net.Http.Response")]
-    public virtual void OnResponse(HttpResponseMessage response)
-    {
-        Console.WriteLine("OnResponse");
-    }
+    //[DiagnosticName("System.Net.Http.Request")]
+    //public virtual void OnRequest(HttpRequestMessage request)
+    //{
+    //    Console.WriteLine("OnRequest");
+    //}
+
+    //[DiagnosticName("System.Net.Http.Response")]
+    //public virtual void OnResponse(HttpResponseMessage response)
+    //{
+    //    Console.WriteLine("OnResponse");
+    //}
 
     void Clear()
     {

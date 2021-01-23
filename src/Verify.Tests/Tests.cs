@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
+#if NET5_0
+using System.Net.Http;
+#endif
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
@@ -20,17 +22,31 @@ public class Tests
     }
 
 #if NET5_0
+    #region HttpRecording
     [Fact]
-    public async Task Http()
+    public async Task TestHttpRecording()
     {
         HttpRecording.StartRecording();
 
+        var sizeOfResponse = await MethodThatDoesHttpCalls();
+
+        await Verifier.Verify(
+                new
+                {
+                    sizeOfResponse,
+                })
+            .ScrubLinesContaining("AGE", "Server", "Etag");
+    }
+
+    static async Task<int> MethodThatDoesHttpCalls()
+    {
         using var client = new HttpClient();
 
-        var result = await client.GetAsync("https://httpstat.us/");
-        await Verifier.Verify(result)
-            .ScrubLinesContaining("Report-To", "CF-RAY", "NEL");
+        var exampleResult = await client.GetStringAsync("https://example.net/");
+        var httpBinResult = await client.GetStringAsync("https://httpbin.org/");
+        return exampleResult.Length + httpBinResult.Length;
     }
+    #endregion
 #endif
 
     [Fact]

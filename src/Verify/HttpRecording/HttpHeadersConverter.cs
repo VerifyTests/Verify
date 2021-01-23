@@ -20,8 +20,8 @@ class HttpHeadersConverter :
         }
 
         var value = headers
-            .OrderBy(x=>x.Key.ToLowerInvariant())
-            .Where(x=>
+            .OrderBy(x => x.Key.ToLowerInvariant())
+            .Where(x =>
             {
                 var key = x.Key.ToLowerInvariant();
                 return key != "traceparent" &&
@@ -31,15 +31,17 @@ class HttpHeadersConverter :
             {
                 var values = x.Value.ToList();
                 var key = x.Key.ToLowerInvariant();
-                if (key == "date")
+                if (key == "date" ||
+                    key == "expires" ||
+                    key == "last-modified")
                 {
-                    if (DateTimeOffset.TryParse(values.First(), out var date))
+                    if (DateTime.TryParse(values.First(), out var date))
                     {
                         return date;
                     }
                 }
 
-                return (object)string.Join(",", values);
+                return (object) string.Join(",", values);
             });
         serializer.Serialize(writer, value);
     }

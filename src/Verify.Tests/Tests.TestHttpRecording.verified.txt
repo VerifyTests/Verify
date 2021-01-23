@@ -1,0 +1,28 @@
+{
+  target: {
+    sizeOfResponse: 10847
+  },
+  httpRequests: [
+    {
+      Uri: https://example.net/,
+      Status: RanToCompletion,
+      RequestHeaders: {},
+      ResponseHeaders: {
+        Date: DateTime_1,
+        Vary: Accept-Encoding,
+        X-Cache: HIT
+      }
+    },
+    {
+      Uri: https://httpbin.org/,
+      Status: RanToCompletion,
+      RequestHeaders: {},
+      ResponseHeaders: {
+        Access-Control-Allow-Credentials: true,
+        Access-Control-Allow-Origin: *,
+        Connection: keep-alive,
+        Date: DateTime_2,
+      }
+    }
+  ]
+}

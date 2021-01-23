@@ -19,7 +19,7 @@ namespace VerifyTests
                     return null;
                 }
 
-                return new("http", entries!);
+                return new("httpRequests", entries!);
             });
         }
 

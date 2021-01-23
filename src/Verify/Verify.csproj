@@ -5,7 +5,7 @@
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5.0</TargetFrameworks>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework) != 'net5.0'" >
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" >
     <Compile Remove="HttpRecording\HttpListener.cs" />
     <Compile Remove="HttpRecording\HttpRecording.cs" />
     <Compile Remove="HttpRecording\LogEntry.cs" />

@@ -38,7 +38,7 @@ public class Tests
                 {
                     sizeOfResponse,
                 })
-            //scrub some headers that are no consistent between test runs
+            //scrub some headers that are not consistent between test runs
             .ScrubLinesContaining("AGE", "Server", "Date", "Etag");
     }
 

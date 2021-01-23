@@ -31,7 +31,8 @@ public async Task TestHttpRecording()
             {
                 sizeOfResponse,
             })
-        .ScrubLinesContaining("AGE", "Server", "Etag");
+        //scrub some headers that are no consistent between test runs
+        .ScrubLinesContaining("AGE", "Server", "Date", "Etag");
 }
 
 static async Task<int> MethodThatDoesHttpCalls()
@@ -43,7 +44,7 @@ static async Task<int> MethodThatDoesHttpCalls()
     return exampleResult.Length + httpBinResult.Length;
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L25-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L25-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The requests/response pairs will be appended to the verified file.
@@ -74,7 +75,7 @@ The requests/response pairs will be appended to the verified file.
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
-        Date: DateTime_2,
+        Date: DateTime_1,
       }
     }
   ]

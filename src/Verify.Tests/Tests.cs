@@ -23,6 +23,7 @@ public class Tests
 
 #if NET5_0
     #region HttpRecording
+
     [Fact]
     public async Task TestHttpRecording()
     {
@@ -35,7 +36,8 @@ public class Tests
                 {
                     sizeOfResponse,
                 })
-            .ScrubLinesContaining("AGE", "Server", "Etag");
+            //scrub some headers that are no consistent between test runs
+            .ScrubLinesContaining("AGE", "Server", "Date", "Etag");
     }
 
     static async Task<int> MethodThatDoesHttpCalls()
@@ -46,6 +48,7 @@ public class Tests
         var httpBinResult = await client.GetStringAsync("https://httpbin.org/");
         return exampleResult.Length + httpBinResult.Length;
     }
+
     #endregion
 #endif
 

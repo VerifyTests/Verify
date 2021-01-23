@@ -6,6 +6,7 @@ using VerifyTests;
 using VerifyXunit;
 using Xunit;
 #if NET5_0
+using System.Linq;
 using System.Net.Http;
 #endif
 
@@ -22,6 +23,7 @@ public class Tests
     }
 
 #if NET5_0
+
     #region HttpRecording
 
     [Fact]
@@ -50,6 +52,36 @@ public class Tests
     }
 
     #endregion
+
+    #region HttpRecordingExplicit
+
+    [Fact]
+    public async Task TestHttpRecordingExplicit()
+    {
+        HttpRecording.StartRecording();
+
+        var sizeOfResponse = await MethodThatDoesHttpCalls();
+
+        var httpCalls = HttpRecording.FinishRecording().ToList();
+
+        // Ensure all calls finished in under 2 seconds
+        var threshold = TimeSpan.FromSeconds(2);
+        foreach (var call in httpCalls)
+        {
+            Assert.True(call.Duration < threshold);
+        }
+
+        await Verifier.Verify(
+                new
+                {
+                    sizeOfResponse,
+                    // Only use the Uri in the snapshot
+                    httpCalls = httpCalls.Select(_ => _.Uri)
+                });
+    }
+
+    #endregion
+
 #endif
 
     [Fact]
@@ -402,7 +434,7 @@ public class Tests
         }
     }
 
-    #if !NETFRAMEWORK
+#if !NETFRAMEWORK
     [Fact]
     public async Task VerifyBytesAsync()
     {
@@ -410,7 +442,7 @@ public class Tests
         settings.UseExtension("jpg");
         await Verifier.Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
-    #endif
+#endif
 
     [Fact]
     public async Task VerifyFilePath()

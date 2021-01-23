@@ -19,7 +19,7 @@ namespace VerifyTests
                     return null;
                 }
 
-                return new("httpRequests", entries!);
+                return new("httpCalls", entries!);
             });
         }
 
@@ -28,12 +28,12 @@ namespace VerifyTests
             listener.Start();
         }
 
-        public static IEnumerable<LogEntry> FinishRecording()
+        public static IEnumerable<HttpCall> FinishRecording()
         {
             return listener.Finish();
         }
 
-        public static bool TryFinishRecording(out IEnumerable<LogEntry>? entries)
+        public static bool TryFinishRecording(out IEnumerable<HttpCall>? entries)
         {
             return listener.TryFinish(out entries);
         }

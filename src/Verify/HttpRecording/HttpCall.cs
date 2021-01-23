@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 
 namespace VerifyTests
 {
-    public class LogEntry
+    public class HttpCall
     {
-        public LogEntry(HttpRequestMessage request, HttpResponseMessage response, TaskStatus status)
+        public HttpCall(HttpRequestMessage request, HttpResponseMessage response, TaskStatus status)
         {
             Uri = request.RequestUri!;
             RequestHeaders = request.Headers;

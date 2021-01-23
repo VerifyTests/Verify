@@ -44,7 +44,7 @@ static async Task<int> MethodThatDoesHttpCalls()
     return exampleResult.Length + httpBinResult.Length;
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L25-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L27-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The requests/response pairs will be appended to the verified file.
@@ -62,7 +62,6 @@ The requests/response pairs will be appended to the verified file.
       Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
-        Date: DateTime_1,
         Vary: Accept-Encoding,
         X-Cache: HIT
       }
@@ -75,11 +74,68 @@ The requests/response pairs will be appended to the verified file.
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
-        Date: DateTime_1,
       }
     }
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Explicit Usage
+
+The above usage results in the http calls being automatically added snapshot file. Calls can also be explicitly read and recorded. This enables:
+
+ * Filtering what http calls are included in the snapshot.
+ * Only verifying a subset of information for each http call.
+ * Performing additional asserts on http calls.
+
+For example:
+
+<!-- snippet: HttpRecordingExplicit -->
+<a id='snippet-httprecordingexplicit'></a>
+```cs
+[Fact]
+public async Task TestHttpRecordingExplicit()
+{
+    HttpRecording.StartRecording();
+
+    var sizeOfResponse = await MethodThatDoesHttpCalls();
+
+    var httpCalls = HttpRecording.FinishRecording().ToList();
+
+    // Ensure all calls finished in under 2 seconds
+    var threshold = TimeSpan.FromSeconds(2);
+    foreach (var call in httpCalls)
+    {
+        Assert.True(call.Duration < threshold);
+    }
+
+    await Verifier.Verify(
+            new
+            {
+                sizeOfResponse,
+                // Only use the Uri in the snapshot
+                httpCalls = httpCalls.Select(_ => _.Uri)
+            });
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L56-L83' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecordingexplicit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in the following:
+
+<!-- snippet: Tests.TestHttpRecordingExplicit.verified.txt -->
+<a id='snippet-Tests.TestHttpRecordingExplicit.verified.txt'></a>
+```txt
+{
+  sizeOfResponse: 10847,
+  httpCalls: [
+    https://example.net/,
+    https://httpbin.org/
+  ]
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.TestHttpRecordingExplicit.verified.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecordingExplicit.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -13,14 +13,14 @@ class HttpListener :
     IDisposable
 {
     ConcurrentQueue<IDisposable> subscriptions = new();
-    AsyncLocal<List<LogEntry>?> local = new();
+    AsyncLocal<List<HttpCall>?> local = new();
 
     public void Start()
     {
         local.Value = new();
     }
 
-    public bool TryFinish(out IEnumerable<LogEntry>? entries)
+    public bool TryFinish(out IEnumerable<HttpCall>? entries)
     {
         entries = local.Value;
 
@@ -33,7 +33,7 @@ class HttpListener :
         return true;
     }
 
-    public IEnumerable<LogEntry> Finish()
+    public IEnumerable<HttpCall> Finish()
     {
         var localValue = local.Value;
 

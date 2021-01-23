@@ -62,7 +62,6 @@ The requests/response pairs will be appended to the verified file.
       Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
-        Date: DateTime_1,
         Vary: Accept-Encoding,
         X-Cache: HIT
       }
@@ -75,11 +74,10 @@ The requests/response pairs will be appended to the verified file.
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
-        Date: DateTime_1,
       }
     }
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

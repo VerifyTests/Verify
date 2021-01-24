@@ -3,5 +3,4 @@
   Message: The Message,
   StackTrace: 
 at Tests.ValueTaskMethodThatThrowsGeneric()
-at VerifyTests.InnerVerifier.ThrowsValueTask[T](Func`1 target)
 }

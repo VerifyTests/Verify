@@ -4,5 +4,4 @@
   ParamName: The parameter,
   StackTrace: 
 at Tests.MethodThatThrowsArgumentNullException()
-at VerifyTests.InnerVerifier.Throws(Action target)
 }

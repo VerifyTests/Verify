@@ -3,5 +3,4 @@
   Message: The Message,
   StackTrace: 
 at Tests.MethodThatThrows()
-at VerifyTests.InnerVerifier.Throws(Action target)
 }

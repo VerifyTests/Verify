@@ -7,6 +7,7 @@ namespace VerifyTests
     {
         public Task Throws(Action target)
         {
+            ScrubInnerVerifier();
             try
             {
                 target();
@@ -19,8 +20,14 @@ namespace VerifyTests
             throw new("Did not throw.");
         }
 
+        void ScrubInnerVerifier()
+        {
+            settings.ScrubLinesContaining("VerifyTests.InnerVerifier");
+        }
+
         public Task Throws(Func<object?> target)
         {
+            ScrubInnerVerifier();
             try
             {
                 target();
@@ -35,6 +42,7 @@ namespace VerifyTests
 
         public async Task ThrowsValueTask(Func<ValueTask> target)
         {
+            ScrubInnerVerifier();
             try
             {
                 await target();
@@ -50,6 +58,7 @@ namespace VerifyTests
 
         public async Task ThrowsValueTask<T>(Func<ValueTask<T>> target)
         {
+            ScrubInnerVerifier();
             try
             {
                 await target();
@@ -65,6 +74,7 @@ namespace VerifyTests
 
         public async Task ThrowsTask(Func<Task> target)
         {
+            ScrubInnerVerifier();
             try
             {
                 await target();
@@ -80,6 +90,7 @@ namespace VerifyTests
 
         public async Task ThrowsTask<T>(Func<Task<T>> target)
         {
+            ScrubInnerVerifier();
             try
             {
                 await target();

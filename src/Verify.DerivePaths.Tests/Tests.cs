@@ -25,7 +25,7 @@ public class Tests
     [Fact]
     public async Task ThrowOnConflict()
     {
-        static SettingsTask Run()
+        static Task Run()
         {
             return Verifier.Verify("Value")
                 .UseMethodName("Conflict")
@@ -41,7 +41,7 @@ public class Tests
         {
         }
 
-        await Verifier.ThrowsAsync(() => Run())
+        await Verifier.ThrowsTask(Run)
             .UseMethodName("ThrowOnConflict")
             .AddScrubber(builder => builder.Replace(@"\", "/"));
     }

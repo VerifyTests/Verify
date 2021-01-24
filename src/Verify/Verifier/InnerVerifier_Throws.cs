@@ -48,7 +48,37 @@ namespace VerifyTests
             throw new("Did not throw.");
         }
 
+        public async Task ThrowsAsync<T>(Func<ValueTask<T>> target)
+        {
+            try
+            {
+                await target();
+            }
+            catch (Exception exception)
+            {
+                await Verify(exception);
+                return;
+            }
+
+            throw new("Did not throw.");
+        }
+
         public async Task ThrowsAsync(Func<Task> target)
+        {
+            try
+            {
+                await target();
+            }
+            catch (Exception exception)
+            {
+                await Verify(exception);
+                return;
+            }
+
+            throw new("Did not throw.");
+        }
+
+        public async Task ThrowsAsync<T>(Func<Task<T>> target)
         {
             try
             {

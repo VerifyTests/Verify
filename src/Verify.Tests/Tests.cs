@@ -245,6 +245,19 @@ public class Tests
     }
 
     [Fact]
+    public Task ThrowsTaskGeneric()
+    {
+        return Verifier.ThrowsAsync(TaskMethodThatThrowsGeneric)
+            .UniqueForRuntime()
+            .ScrubLinesContaining("ThrowsAsync");
+    }
+
+    static Task<string> TaskMethodThatThrowsGeneric()
+    {
+        throw new("The Message");
+    }
+
+    [Fact]
     public Task ThrowsValueTask()
     {
         return Verifier.ThrowsAsync(ValueTaskMethodThatThrows)
@@ -253,6 +266,19 @@ public class Tests
     }
 
     static ValueTask ValueTaskMethodThatThrows()
+    {
+        throw new("The Message");
+    }
+
+    [Fact]
+    public Task ThrowsValueTaskGeneric()
+    {
+        return Verifier.ThrowsAsync(ValueTaskMethodThatThrowsGeneric)
+            .UniqueForRuntime()
+            .ScrubLinesContaining("ThrowsAsync");
+    }
+
+    static ValueTask<string> ValueTaskMethodThatThrowsGeneric()
     {
         throw new("The Message");
     }

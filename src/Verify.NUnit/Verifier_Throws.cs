@@ -31,8 +31,24 @@ namespace VerifyNUnit
             return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
         }
 
+        public static SettingsTask ThrowsAsync<T>(
+            Func<Task<T>> target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
+        }
+
         public static SettingsTask ThrowsAsync(
             Func<ValueTask> target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
+        }
+
+        public static SettingsTask ThrowsAsync<T>(
+            Func<ValueTask<T>> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {

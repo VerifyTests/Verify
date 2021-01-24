@@ -23,36 +23,36 @@ namespace VerifyMSTest
             return Verify(settings, sourceFile, _ => _.Throws(target));
         }
 
-        public SettingsTask ThrowsAsync(
+        public SettingsTask ThrowsTask(
             Func<Task> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
+            return Verify(settings, sourceFile, _ => _.ThrowsTask(target));
         }
 
-        public SettingsTask ThrowsAsync<T>(
+        public SettingsTask ThrowsTask<T>(
             Func<Task<T>> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
+            return Verify(settings, sourceFile, _ => _.ThrowsTask(target));
         }
 
-        public SettingsTask ThrowsAsync(
+        public SettingsTask ThrowsValueTask(
             Func<ValueTask> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
+            return Verify(settings, sourceFile, _ => _.ThrowsValueTask(target));
         }
 
-        public SettingsTask ThrowsAsync<T>(
+        public SettingsTask ThrowsValueTask<T>(
             Func<ValueTask<T>> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, _ => _.ThrowsAsync(target));
+            return Verify(settings, sourceFile, _ => _.ThrowsValueTask(target));
         }
     }
 }

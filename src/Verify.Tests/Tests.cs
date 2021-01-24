@@ -234,7 +234,7 @@ public class Tests
     [Fact]
     public Task ThrowsTask()
     {
-        return Verifier.ThrowsAsync(TaskMethodThatThrows)
+        return Verifier.ThrowsTask(TaskMethodThatThrows)
             .UniqueForRuntime()
             .ScrubLinesContaining("ThrowsAsync");
     }
@@ -247,7 +247,7 @@ public class Tests
     [Fact]
     public Task ThrowsTaskGeneric()
     {
-        return Verifier.ThrowsAsync(TaskMethodThatThrowsGeneric)
+        return Verifier.ThrowsTask(TaskMethodThatThrowsGeneric)
             .UniqueForRuntime()
             .ScrubLinesContaining("ThrowsAsync");
     }
@@ -260,7 +260,7 @@ public class Tests
     [Fact]
     public Task ThrowsValueTask()
     {
-        return Verifier.ThrowsAsync(ValueTaskMethodThatThrows)
+        return Verifier.ThrowsValueTask(ValueTaskMethodThatThrows)
             .UniqueForRuntime()
             .ScrubLinesContaining("ThrowsAsync");
     }
@@ -273,7 +273,7 @@ public class Tests
     [Fact]
     public Task ThrowsValueTaskGeneric()
     {
-        return Verifier.ThrowsAsync(ValueTaskMethodThatThrowsGeneric)
+        return Verifier.ThrowsValueTask(ValueTaskMethodThatThrowsGeneric)
             .UniqueForRuntime()
             .ScrubLinesContaining("ThrowsAsync");
     }

@@ -22,36 +22,36 @@ namespace VerifyNUnit
             return Verifier.Throws(target, settings, sourceFile);
         }
 
-        public SettingsTask ThrowsAsync(
+        public SettingsTask ThrowsTask(
             Func<Task> target,
             VerifySettings? settings = null)
         {
             settings ??= this.settings;
-            return Verifier.ThrowsAsync(target, settings, sourceFile);
+            return Verifier.ThrowsTask(target, settings, sourceFile);
         }
 
-        public SettingsTask ThrowsAsync<T>(
+        public SettingsTask ThrowsValueTask<T>(
             Func<Task<T>> target,
             VerifySettings? settings = null)
         {
             settings ??= this.settings;
-            return Verifier.ThrowsAsync(target, settings, sourceFile);
+            return Verifier.ThrowsTask(target, settings, sourceFile);
         }
 
-        public SettingsTask ThrowsAsync(
+        public SettingsTask ThrowsValueTask(
             Func<ValueTask> target,
             VerifySettings? settings = null)
         {
             settings ??= this.settings;
-            return Verifier.ThrowsAsync(target, settings, sourceFile);
+            return Verifier.ThrowsValueTask(target, settings, sourceFile);
         }
 
-        public SettingsTask ThrowsAsync<T>(
+        public SettingsTask ThrowsValueTask<T>(
             Func<ValueTask<T>> target,
             VerifySettings? settings = null)
         {
             settings ??= this.settings;
-            return Verifier.ThrowsAsync(target, settings, sourceFile);
+            return Verifier.ThrowsValueTask(target, settings, sourceFile);
         }
     }
 }

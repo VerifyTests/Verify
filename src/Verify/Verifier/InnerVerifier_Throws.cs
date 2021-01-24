@@ -33,7 +33,7 @@ namespace VerifyTests
             throw new("Did not throw.");
         }
 
-        public async Task ThrowsAsync(Func<ValueTask> target)
+        public async Task ThrowsValueTask(Func<ValueTask> target)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace VerifyTests
             throw new("Did not throw.");
         }
 
-        public async Task ThrowsAsync<T>(Func<ValueTask<T>> target)
+        public async Task ThrowsValueTask<T>(Func<ValueTask<T>> target)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace VerifyTests
             throw new("Did not throw.");
         }
 
-        public async Task ThrowsAsync(Func<Task> target)
+        public async Task ThrowsTask(Func<Task> target)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace VerifyTests
             throw new("Did not throw.");
         }
 
-        public async Task ThrowsAsync<T>(Func<Task<T>> target)
+        public async Task ThrowsTask<T>(Func<Task<T>> target)
         {
             try
             {

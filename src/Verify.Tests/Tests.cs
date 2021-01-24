@@ -22,7 +22,7 @@ public class Tests
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
 
-#if NET5_0
+#if NET5_0 && DEBUG
 
     #region HttpRecording
 

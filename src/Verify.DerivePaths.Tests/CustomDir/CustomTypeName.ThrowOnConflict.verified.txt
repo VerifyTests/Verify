@@ -8,5 +8,5 @@ at VerifyTests.InnerVerifier..ctor(String sourceFile, Type type, VerifySettings 
 at VerifyXunit.Verifier.GetVerifier(VerifySettings settings, String sourceFile)
 at VerifyXunit.Verifier.<>c__DisplayClass1_0.<<Verify>b__0>d.MoveNext()
 --- End of stack trace from previous location ---
-at VerifyTests.InnerVerifier.ThrowsAsync(Func`1 target)
+at VerifyTests.InnerVerifier.ThrowsTask(Func`1 target)
 }

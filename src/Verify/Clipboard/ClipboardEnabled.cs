@@ -1,4 +1,5 @@
-﻿using VerifyTests;
+﻿using DiffEngine;
+using VerifyTests;
 
 static class ClipboardEnabled
 {
@@ -32,7 +33,12 @@ static class ClipboardEnabled
             return false;
         }
 
-        if (DiffEngine.BuildServerDetector.Detected)
+        if (BuildServerDetector.Detected)
+        {
+            return false;
+        }
+
+        if (ContinuousTestingDetector.Detected)
         {
             return false;
         }

@@ -45,8 +45,8 @@ Differences:
 Received: ComparerTests.Static_with_message.received.staticComparerExtMessage
 Verified: ComparerTests.Static_with_message.verified.staticComparerExtMessage
 Compare Result:
-theMessage",
-            exception.Message.Trim());
+theMessage".Replace("\r\n", "\n"),
+            exception.Message.Trim().Replace("\r\n", "\n"));
     }
 
     [Fact]

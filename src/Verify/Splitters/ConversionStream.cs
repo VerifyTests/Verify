@@ -4,59 +4,73 @@ namespace VerifyTests
 {
     public readonly struct ConversionStream
     {
-        readonly string? data;
-        readonly Stream? stream;
+        readonly string? stringData;
+        readonly Stream? streamData;
         public string Extension { get; }
 
-        public Stream Stream
+        public Stream StreamData
         {
             get
             {
-                if (stream == null)
+                if (streamData == null)
                 {
-                    throw new("Use Data.");
+                    throw new("Use StringData.");
                 }
-                return stream;
+
+                return streamData;
             }
         }
-        public bool IsStream { get => stream != null; }
 
-        public string Data
+        public bool IsStream
+        {
+            get => streamData != null;
+        }
+
+        public string StringData
         {
             get
             {
-                if (data == null)
+                if (stringData == null)
                 {
-                    throw new("Use Stream.");
+                    throw new("Use StreamData.");
                 }
 
-                return data;
+                return stringData;
             }
         }
-        public bool IsData { get => data != null; }
 
-        public ConversionStream(string extension, Stream stream)
+        public bool IsString
+        {
+            get => stringData != null;
+        }
+
+        public ConversionStream(string extension, Stream streamData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
-            Guard.AgainstNull(stream, nameof(stream));
+            Guard.AgainstNull(streamData, nameof(streamData));
 
             if (EmptyFiles.Extensions.IsText(extension))
             {
-                throw new("Dont pass a stream for text. Instead use the `ConversionStream(string extension, string data)`.");
+                throw new("Dont pass a stream for text. Instead use the `ConversionStream(string extension, string stringData)`.");
             }
 
             Extension = extension;
-            this.stream = stream;
-            data = null;
+            this.streamData = streamData;
+            stringData = null;
         }
 
-        public ConversionStream(string extension, string data)
+        public ConversionStream(string extension, string stringData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
-            Guard.AgainstNull(data, nameof(data));
+            Guard.AgainstNull(stringData, nameof(stringData));
+            if (!EmptyFiles.Extensions.IsText(extension))
+            {
+                throw new("Dont pass a stream for text. Instead use the `ConversionStream(string extension, Stream streamData)`.");
+            }
+
             Extension = extension;
-            this.data = data;
-            stream = null;
+            this.stringData = stringData;
+            streamData = null;
         }
     }
 }

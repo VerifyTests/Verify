@@ -100,14 +100,14 @@ namespace VerifyTests
 
         static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, ConversionStream conversionStream)
         {
-            if (conversionStream.IsData)
+            if (conversionStream.IsString)
             {
-                var builder = new StringBuilder(conversionStream.Data);
+                var builder = new StringBuilder(conversionStream.StringData);
                 ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
                 return await Comparer.Text(filePair, builder.ToString(), settings);
             }
 
-            var stream = conversionStream.Stream;
+            var stream = conversionStream.StreamData;
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
 #else

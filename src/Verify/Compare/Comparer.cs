@@ -26,12 +26,15 @@ static class Comparer
 
     static Task<CompareResult> CompareStrings(string received, string verified, VerifySettings settings)
     {
-        if (settings.TryFindStringComparer(out var compare))
+        var isEqual = verified == received;
+
+        if (!isEqual &&
+            settings.TryFindStringComparer(out var compare))
         {
             return compare!(received, verified, settings.Context);
         }
 
-        return Task.FromResult(new CompareResult(verified == received));
+        return Task.FromResult(new CompareResult(isEqual));
     }
 
     public static async Task<EqualityResult> Streams(

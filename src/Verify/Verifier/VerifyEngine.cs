@@ -200,21 +200,25 @@ class VerifyEngine
             await settings.handleOnVerifyMismatch(item, message);
         }
 
-        if (message != null)
+        builder.AppendLine($"Received: {Path.GetFileName(item.Received)}");
+        builder.AppendLine($"Verified: {Path.GetFileName(item.Verified)}");
+        if (message == null)
         {
-            builder.AppendLine($"Comparer result: {message}");
-        }
-
-        builder.AppendLine($"{Path.GetFileName(item.Received)}");
-        if (EmptyFiles.Extensions.IsText(item.Extension))
-        {
-            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-            if (File.Exists(item.Verified))
+            if (EmptyFiles.Extensions.IsText(item.Extension))
             {
-                builder.AppendLine($"{Path.GetFileName(item.Verified)}");
+                builder.AppendLine($"Received Content:");
+                builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
+                builder.AppendLine($"Verified Content:");
                 builder.AppendLine($"{await FileHelpers.ReadText(item.Verified)}");
             }
         }
+        else
+        {
+            builder.AppendLine("Compare Result:");
+            builder.AppendLine(message);
+        }
+
+        builder.AppendLine();
 
         if (BuildServerDetector.Detected)
         {

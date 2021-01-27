@@ -39,7 +39,14 @@ public class ComparerTests
         settings.DisableDiff();
         settings.DisableClipboard();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
-        Assert.Contains("theMessage", exception.Message);
+        Assert.Equal(
+            @"Results do not match.
+Differences:
+Received: ComparerTests.Static_with_message.received.staticComparerExtMessage
+Verified: ComparerTests.Static_with_message.verified.staticComparerExtMessage
+Compare Result:
+theMessage",
+            exception.Message.Trim());
     }
 
     [Fact]

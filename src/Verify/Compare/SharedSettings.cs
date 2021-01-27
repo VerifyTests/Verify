@@ -7,6 +7,7 @@ namespace VerifyTests
     {
         static Dictionary<string, StringCompare> stringComparers = new();
         static Dictionary<string, StreamCompare> streamComparers = new();
+        static StringCompare? defaultStringComparer;
 
         internal static bool TryGetStreamComparer(string extension, [NotNullWhen(true)] out StreamCompare? comparer)
         {
@@ -15,7 +16,18 @@ namespace VerifyTests
 
         internal static bool TryGetStringComparer(string extension, [NotNullWhen(true)] out StringCompare? comparer)
         {
-            return stringComparers.TryGetValue(extension, out comparer);
+            if (stringComparers.TryGetValue(extension, out comparer))
+            {
+                return true;
+            }
+
+            if (defaultStringComparer != null)
+            {
+                comparer = defaultStringComparer;
+                return true;
+            }
+
+            return false;
         }
 
         public static void RegisterStreamComparer(string extension, StreamCompare compare)
@@ -30,6 +42,12 @@ namespace VerifyTests
             Guard.AgainstNull(compare, nameof(compare));
             Guard.AgainstBadExtension(extension, nameof(extension));
             stringComparers[extension] = compare;
+        }
+
+        public static void SetDefaultStringComparer(StringCompare compare)
+        {
+            Guard.AgainstNull(compare, nameof(compare));
+            defaultStringComparer=compare;
         }
     }
 }

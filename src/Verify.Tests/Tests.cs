@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-#if NET5_0
+#if NET5_0 && DEBUG
 using System.Linq;
 using System.Net.Http;
 #endif

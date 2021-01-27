@@ -32,6 +32,7 @@ public class ComparerTests
     [Fact]
     public async Task Static_with_message()
     {
+        EmptyFiles.Extensions.AddTextExtension("staticComparerExtMessage");
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
@@ -44,6 +45,7 @@ public class ComparerTests
     [Fact]
     public async Task Static()
     {
+        EmptyFiles.Extensions.AddTextExtension("staticComparerExt");
         VerifierSettings.RegisterStringComparer("staticComparerExt", Compare);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExt");

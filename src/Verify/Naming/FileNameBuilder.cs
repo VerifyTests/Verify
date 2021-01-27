@@ -5,123 +5,128 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using VerifyTests;
 
-class FileNameBuilder
+namespace VerifyTests
 {
-    Namer namer;
-    MethodInfo method;
-    Type type;
-    static ConcurrentDictionary<string, MethodInfo> prefixList = new();
-    string directory;
-    string testPrefix;
-    string filePathPrefix;
-    string fileParts;
-
-    public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
+    /// <summary>
+    /// Not for public use.
+    /// </summary>
+    public class FileNameBuilder
     {
-        namer = settings.Namer;
-        this.method = method;
-        this.type = type;
+        Namer namer;
+        MethodInfo method;
+        Type type;
+        static ConcurrentDictionary<string, MethodInfo> prefixList = new();
+        string directory;
+        string testPrefix;
+        string filePathPrefix;
+        string fileParts;
 
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
-
-        var directoryValue = settings.directory ?? pathInfo.Directory;
-
-        var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-        if (directoryValue == null)
+        public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
         {
-            directoryValue = sourceFileDirectory;
-        }
-        else
-        {
-            directoryValue = Path.Combine(sourceFileDirectory, directoryValue);
-            Directory.CreateDirectory(directoryValue);
-        }
+            namer = settings.Namer;
+            this.method = method;
+            this.type = type;
 
-        var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
-        var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
+            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 
-        directory = directoryValue;
-        if (parameters == null || !parameters.Any())
-        {
-            testPrefix = $"{typeName}.{methodName}";
-        }
-        else
-        {
-            testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
-        }
+            var directoryValue = settings.directory ?? pathInfo.Directory;
 
-        fileParts = GetFileParts();
-        filePathPrefix = GetPrefix();
+            var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+            if (directoryValue == null)
+            {
+                directoryValue = sourceFileDirectory;
+            }
+            else
+            {
+                directoryValue = Path.Combine(sourceFileDirectory, directoryValue);
+                Directory.CreateDirectory(directoryValue);
+            }
 
-        var pattern = $"{testPrefix}{fileParts}.*.*";
-        var files = Directory.EnumerateFiles(directory, pattern).ToList();
-        VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
-        ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
-    }
+            var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
+            var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-    public List<string> VerifiedFiles { get; }
+            directory = directoryValue;
+            if (parameters == null || !parameters.Any())
+            {
+                testPrefix = $"{typeName}.{methodName}";
+            }
+            else
+            {
+                testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
+            }
 
-    public List<string> ReceivedFiles { get; }
+            fileParts = GetFileParts();
+            filePathPrefix = GetPrefix();
 
-    static string GetTypeName(Type type)
-    {
-        if (type.IsNested)
-        {
-            return $"{type.ReflectedType!.Name}.{type.Name}";
-        }
-
-        return type.Name;
-    }
-
-    public FilePair GetFileNames(string extension)
-    {
-        return new(extension, filePathPrefix);
-    }
-
-    public FilePair GetFileNames(string extension, int index)
-    {
-        return new(extension, $"{filePathPrefix}.{index:D2}");
-    }
-
-    string GetPrefix()
-    {
-        StringBuilder builder = new(Path.Combine(directory, testPrefix));
-        builder.Append(fileParts);
-        var prefix = builder.ToString();
-        if (prefixList.TryAdd(prefix, method))
-        {
-            return prefix;
+            var pattern = $"{testPrefix}{fileParts}.*.*";
+            var files = Directory.EnumerateFiles(directory, pattern).ToList();
+            VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
+            ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
         }
 
-        var existing = prefixList[prefix];
+        public List<string> VerifiedFiles { get; }
 
-        throw new($"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
-    }
+        public List<string> ReceivedFiles { get; }
 
-    internal static void ClearPrefixList()
-    {
-        prefixList = new();
-    }
-
-    string GetFileParts()
-    {
-        StringBuilder builder = new();
-        if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
+        static string GetTypeName(Type type)
         {
-            builder.Append($".{Namer.RuntimeAndVersion}");
-        }
-        else if (namer.UniqueForRuntime || VerifierSettings.SharedNamer.UniqueForRuntime)
-        {
-            builder.Append($".{Namer.Runtime}");
+            if (type.IsNested)
+            {
+                return $"{type.ReflectedType!.Name}.{type.Name}";
+            }
+
+            return type.Name;
         }
 
-        if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
+        public FilePair GetFileNames(string extension)
         {
-            builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
+            return new(extension, filePathPrefix);
         }
 
-        return builder.ToString();
+        public FilePair GetFileNames(string extension, int index)
+        {
+            return new(extension, $"{filePathPrefix}.{index:D2}");
+        }
+
+        string GetPrefix()
+        {
+            StringBuilder builder = new(Path.Combine(directory, testPrefix));
+            builder.Append(fileParts);
+            var prefix = builder.ToString();
+            if (prefixList.TryAdd(prefix, method))
+            {
+                return prefix;
+            }
+
+            var existing = prefixList[prefix];
+
+            throw new($"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
+        }
+
+        internal static void ClearPrefixList()
+        {
+            prefixList = new();
+        }
+
+        string GetFileParts()
+        {
+            StringBuilder builder = new();
+            if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
+            {
+                builder.Append($".{Namer.RuntimeAndVersion}");
+            }
+            else if (namer.UniqueForRuntime || VerifierSettings.SharedNamer.UniqueForRuntime)
+            {
+                builder.Append($".{Namer.Runtime}");
+            }
+
+            if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
+            {
+                builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
+            }
+
+            return builder.ToString();
+        }
     }
 }

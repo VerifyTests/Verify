@@ -34,11 +34,6 @@ static class Comparer
         return Task.FromResult(new CompareResult(verified == received));
     }
 
-    static MemoryStream MemoryStream(string text)
-    {
-        return new(FileHelpers.Utf8NoBOM.GetBytes(text));
-    }
-
     public static async Task<EqualityResult> Streams(
         VerifySettings settings,
         Stream stream,

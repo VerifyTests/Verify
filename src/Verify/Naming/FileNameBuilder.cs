@@ -104,7 +104,7 @@ namespace VerifyTests
             throw new($"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
         }
 
-        internal static void ClearPrefixList()
+        public static void ClearPrefixList()
         {
             prefixList = new();
         }

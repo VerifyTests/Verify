@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -12,9 +13,17 @@ namespace VerifyTests
         public HttpCall(HttpRequestMessage request, HttpResponseMessage response, TaskStatus status)
         {
             Uri = request.RequestUri!;
-            RequestHeaders = request.Headers;
+            if (request.Headers.Any())
+            {
+                RequestHeaders = request.Headers;
+            }
+            RequestContentHeaders = request.Content?.Headers;
             ResponseHeaders = response.Headers;
-            Status = status;
+            ResponseContentHeaders = response.Content.Headers;
+            if (status != TaskStatus.RanToCompletion)
+            {
+                Status = status;
+            }
             Duration = Activity.Current!.Duration;
         }
 
@@ -23,10 +32,12 @@ namespace VerifyTests
 
         public Uri Uri { get; }
 
-        public TaskStatus Status { get; }
+        public TaskStatus? Status { get; }
 
-        public HttpRequestHeaders RequestHeaders { get; }
+        public HttpRequestHeaders? RequestHeaders { get; }
+        public HttpContentHeaders? RequestContentHeaders { get; }
 
         public HttpResponseHeaders ResponseHeaders { get; }
+        public HttpContentHeaders ResponseContentHeaders { get; }
     }
 }

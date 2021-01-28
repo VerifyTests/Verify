@@ -5,21 +5,27 @@
   httpCalls: [
     {
       Uri: https://example.net/,
-      Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
         Vary: Accept-Encoding,
         X-Cache: HIT
+      },
+      ResponseContentHeaders: {
+        Content-Length: 1256,
+        Content-Type: text/html; charset=utf-8,
       }
     },
     {
       Uri: https://httpbin.org/,
-      Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
+      },
+      ResponseContentHeaders: {
+        Content-Length: 9593,
+        Content-Type: text/html; charset=utf-8
       }
     }
   ]

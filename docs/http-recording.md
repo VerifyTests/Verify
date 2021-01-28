@@ -59,27 +59,33 @@ The requests/response pairs will be appended to the verified file.
   httpCalls: [
     {
       Uri: https://example.net/,
-      Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
         Vary: Accept-Encoding,
         X-Cache: HIT
+      },
+      ResponseContentHeaders: {
+        Content-Length: 1256,
+        Content-Type: text/html; charset=utf-8,
       }
     },
     {
       Uri: https://httpbin.org/,
-      Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
+      },
+      ResponseContentHeaders: {
+        Content-Length: 9593,
+        Content-Type: text/html; charset=utf-8
       }
     }
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

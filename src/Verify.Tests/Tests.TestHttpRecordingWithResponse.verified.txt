@@ -50,11 +50,14 @@
   httpCalls: [
     {
       Uri: https://example.net/,
-      Status: RanToCompletion,
       RequestHeaders: {},
       ResponseHeaders: {
         Vary: Accept-Encoding,
         X-Cache: HIT
+      },
+      ResponseContentHeaders: {
+        Content-Length: 1256,
+        Content-Type: text/html; charset=utf-8,
       }
     }
   ]

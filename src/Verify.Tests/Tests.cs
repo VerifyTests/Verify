@@ -34,7 +34,6 @@ public class Tests
         var exampleResult = await client.GetStringAsync("https://example.net/");
 
         await Verifier.Verify(exampleResult)
-            //scrub some headers that are not consistent between test runs
             .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
     }
 

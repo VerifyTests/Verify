@@ -24,6 +24,20 @@ public class Tests
 
 #if NET5_0 && DEBUG
 
+    [Fact]
+    public async Task TestHttpRecordingWithResponse()
+    {
+        HttpRecording.StartRecording();
+
+        using var client = new HttpClient();
+
+        var exampleResult = await client.GetStringAsync("https://example.net/");
+
+        await Verifier.Verify(exampleResult)
+            //scrub some headers that are not consistent between test runs
+            .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
+    }
+
     #region HttpRecording
 
     [Fact]

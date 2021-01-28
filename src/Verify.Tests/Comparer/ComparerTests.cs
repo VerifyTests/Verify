@@ -46,7 +46,7 @@ Received: ComparerTests.Static_with_message.received.staticComparerExtMessage
 Verified: ComparerTests.Static_with_message.verified.staticComparerExtMessage
 Compare Result:
 theMessage".Replace("\r\n", "\n"),
-            exception.Message.Trim().Replace("\r\n", "\n"));
+            exception.Message.Trim().Replace("\r\n", "\n").Replace("Use DiffEngineTray to verify files.\n",""));
     }
 
     [Fact]

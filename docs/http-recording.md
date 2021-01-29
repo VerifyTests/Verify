@@ -32,7 +32,11 @@ public async Task TestHttpRecording()
                 sizeOfResponse,
             })
         //scrub some headers that are not consistent between test runs
-        .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
+        .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range")
+        //ignore the ResponseContent
+        .ModifySerialization(settings =>
+            settings.IgnoreMember<HttpCall>(call =>
+                call.ResponseContentString));
 }
 
 static async Task<int> MethodThatDoesHttpCalls()
@@ -44,7 +48,7 @@ static async Task<int> MethodThatDoesHttpCalls()
     return exampleResult.Length + httpBinResult.Length;
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L40-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L40-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The requests/response pairs will be appended to the verified file.
@@ -127,7 +131,7 @@ public async Task TestHttpRecordingExplicit()
             });
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L69-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecordingexplicit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L73-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecordingexplicit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:

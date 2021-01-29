@@ -17,14 +17,48 @@ namespace VerifyTests
             {
                 RequestHeaders = request.Headers;
             }
-            RequestContentHeaders = request.Content?.Headers;
+
+            if (request.Content != null)
+            {
+                RequestContentHeaders = request.Content.Headers;
+                RequestContentString = TryReadStringContent(request.Content);
+            }
+
             ResponseHeaders = response.Headers;
             ResponseContentHeaders = response.Content.Headers;
+            ResponseContentString = TryReadStringContent(response.Content);
+
             if (status != TaskStatus.RanToCompletion)
             {
                 Status = status;
             }
+
             Duration = Activity.Current!.Duration;
+        }
+
+        string? TryReadStringContent(HttpContent content)
+        {
+            if (!IsStringContent(content))
+            {
+                return null;
+            }
+
+            return content.ReadAsStringAsync().GetAwaiter().GetResult();
+        }
+
+        static bool IsStringContent(HttpContent httpContent)
+        {
+            var type = httpContent.Headers.ContentType?.MediaType;
+            if (type == null)
+            {
+                return false;
+            }
+
+            return type.StartsWith("text") ||
+                   type.EndsWith("graphql") ||
+                   type.EndsWith("javascript") ||
+                   type.EndsWith("json") ||
+                   type.EndsWith("xml");
         }
 
         [JsonIgnore]
@@ -36,8 +70,10 @@ namespace VerifyTests
 
         public HttpRequestHeaders? RequestHeaders { get; }
         public HttpContentHeaders? RequestContentHeaders { get; }
+        public string? RequestContentString { get; }
 
         public HttpResponseHeaders ResponseHeaders { get; }
         public HttpContentHeaders ResponseContentHeaders { get; }
+        public string? ResponseContentString { get; }
     }
 }

@@ -25,15 +25,28 @@ public class Tests
 #if NET5_0 && DEBUG
 
     [Fact]
+    public async Task JsonGet()
+    {
+        HttpRecording.StartRecording();
+
+        using var client = new HttpClient();
+
+        var result = await client.GetStringAsync("https://httpbin.org/get");
+
+        await Verifier.Verify(result)
+            .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id");
+    }
+
+    [Fact]
     public async Task TestHttpRecordingWithResponse()
     {
         HttpRecording.StartRecording();
 
         using var client = new HttpClient();
 
-        var exampleResult = await client.GetStringAsync("https://example.net/");
+        var result = await client.GetStringAsync("https://example.net/");
 
-        await Verifier.Verify(exampleResult)
+        await Verifier.Verify(result)
             .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
     }
 

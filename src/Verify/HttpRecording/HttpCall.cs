@@ -51,11 +51,11 @@ namespace VerifyTests
                 return (null, null);
             }
 
-            if (!type.StartsWith("text") ||
-                type.EndsWith("graphql") ||
-                type.EndsWith("javascript") ||
-                type.EndsWith("json") ||
-                type.EndsWith("xml"))
+            if (!type.StartsWith("text") &&
+                !type.EndsWith("graphql") &&
+                !type.EndsWith("javascript") &&
+                !type.EndsWith("json") &&
+                !type.EndsWith("xml"))
             {
                 return (null, null);
             }

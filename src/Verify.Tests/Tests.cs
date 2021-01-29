@@ -51,8 +51,10 @@ public class Tests
                 {
                     sizeOfResponse,
                 })
+
             //scrub some headers that are not consistent between test runs
             .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range")
+
             //ignore the ResponseContent
             .ModifySerialization(settings =>
                 settings.IgnoreMember<HttpCall>(call =>

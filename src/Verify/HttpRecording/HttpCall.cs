@@ -70,7 +70,6 @@ namespace VerifyTests
                 }
                 catch
                 {
-                    prettyContent = stringContent;
                 }
             }
             else if (type.EndsWith("xml"))
@@ -81,7 +80,6 @@ namespace VerifyTests
                 }
                 catch
                 {
-                    prettyContent = stringContent;
                 }
             }
 

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace VerifyTests
 {
@@ -13,6 +15,7 @@ namespace VerifyTests
         public HttpCall(HttpRequestMessage request, HttpResponseMessage response, TaskStatus status)
         {
             Uri = request.RequestUri!;
+
             if (request.Headers.Any())
             {
                 RequestHeaders = request.Headers;
@@ -21,12 +24,16 @@ namespace VerifyTests
             if (request.Content != null)
             {
                 RequestContentHeaders = request.Content.Headers;
-                RequestContentString = TryReadStringContent(request.Content);
+                var requestStringContent = TryReadStringContent(request.Content);
+                RequestContentString = requestStringContent.prettyContent;
+                RequestContentStringRaw = requestStringContent.content;
             }
 
             ResponseHeaders = response.Headers;
             ResponseContentHeaders = response.Content.Headers;
-            ResponseContentString = TryReadStringContent(response.Content);
+            var responseStringContent = TryReadStringContent(response.Content);
+            ResponseContentString = responseStringContent.prettyContent;
+            ResponseContentStringRaw = responseStringContent.content;
 
             if (status != TaskStatus.RanToCompletion)
             {
@@ -36,29 +43,49 @@ namespace VerifyTests
             Duration = Activity.Current!.Duration;
         }
 
-        string? TryReadStringContent(HttpContent content)
+        (string? content, string? prettyContent) TryReadStringContent(HttpContent content)
         {
-            if (!IsStringContent(content))
-            {
-                return null;
-            }
-
-            return content.ReadAsStringAsync().GetAwaiter().GetResult();
-        }
-
-        static bool IsStringContent(HttpContent httpContent)
-        {
-            var type = httpContent.Headers.ContentType?.MediaType;
+            var type = content.Headers.ContentType?.MediaType;
             if (type == null)
             {
-                return false;
+                return (null, null);
             }
 
-            return type.StartsWith("text") ||
-                   type.EndsWith("graphql") ||
-                   type.EndsWith("javascript") ||
-                   type.EndsWith("json") ||
-                   type.EndsWith("xml");
+            if (!type.StartsWith("text") ||
+                type.EndsWith("graphql") ||
+                type.EndsWith("javascript") ||
+                type.EndsWith("json") ||
+                type.EndsWith("xml"))
+            {
+                return (null, null);
+            }
+
+            var stringContent = content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var prettyContent = stringContent;
+            if (type.EndsWith("json"))
+            {
+                try
+                {
+                    prettyContent = JToken.Parse(stringContent).ToString();
+                }
+                catch
+                {
+                    prettyContent = stringContent;
+                }
+            }
+            else if (type.EndsWith("xml"))
+            {
+                try
+                {
+                    prettyContent = XDocument.Parse(stringContent).ToString();
+                }
+                catch
+                {
+                    prettyContent = stringContent;
+                }
+            }
+
+            return (stringContent, prettyContent);
         }
 
         [JsonIgnore]
@@ -71,9 +98,13 @@ namespace VerifyTests
         public HttpRequestHeaders? RequestHeaders { get; }
         public HttpContentHeaders? RequestContentHeaders { get; }
         public string? RequestContentString { get; }
+        [JsonIgnore]
+        public string? RequestContentStringRaw { get; }
 
         public HttpResponseHeaders ResponseHeaders { get; }
         public HttpContentHeaders ResponseContentHeaders { get; }
         public string? ResponseContentString { get; }
+        [JsonIgnore]
+        public string? ResponseContentStringRaw { get; }
     }
 }

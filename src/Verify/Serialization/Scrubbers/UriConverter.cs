@@ -21,21 +21,7 @@ class UriConverter :
             return;
         }
 
-        string path;
-        var scheme = value.Scheme;
-        var port = value.Port;
-        if (scheme == "http" && port == 80)
-        {
-            path = $"http://{value.Host}{value.AbsolutePath}";
-        }
-        else if (scheme == "https" && port == 443)
-        {
-            path = $"https://{value.Host}{value.AbsolutePath}";
-        }
-        else
-        {
-            path = $"{scheme}://{value.Host}:{port}{value.AbsolutePath}";
-        }
+        var path = GetPath(value);
 
         serializer.Serialize(writer,
             new UriWrapper
@@ -43,6 +29,23 @@ class UriConverter :
                 Path = path,
                 Query = HttpUtility.ParseQueryString(value.Query)
             });
+    }
+
+    static string GetPath(Uri value)
+    {
+        var scheme = value.Scheme;
+        var port = value.Port;
+        if (scheme == "http" && port == 80)
+        {
+            return $"http://{value.Host}{value.AbsolutePath}";
+        }
+
+        if (scheme == "https" && port == 443)
+        {
+            return $"https://{value.Host}{value.AbsolutePath}";
+        }
+
+        return $"{scheme}://{value.Host}:{port}{value.AbsolutePath}";
     }
 
     class UriWrapper

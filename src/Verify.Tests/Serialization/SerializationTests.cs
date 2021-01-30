@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -129,7 +130,26 @@ public class SerializationTests
             {
                 uri1 = new Uri("http://127.0.0.1:57754/admin/databases"),
                 uri2 = new Uri("http://127.0.0.1:57754/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483"),
-                uri3 = new Uri("http://127.0.0.1/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483")
+                uri3 = new Uri("http://127.0.0.1/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483"),
+                uri4 = new Uri("http://127.0.0.1/?name"),
+                uri5 = new Uri("http://127.0.0.1/?name=")
+            });
+    }
+
+    [Fact]
+    public Task NameValueCollection()
+    {
+        return Verifier.Verify(
+            new
+            {
+                item1 = new NameValueCollection {{null, null}},
+                item2 = new NameValueCollection {{"key", null}},
+                item3 = new NameValueCollection {{null, "value"}},
+                item4 = new NameValueCollection {{"key", "value"}},
+                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
+                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
+                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
+                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}},
             });
     }
 

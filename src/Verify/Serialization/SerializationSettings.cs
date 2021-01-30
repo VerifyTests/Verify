@@ -267,6 +267,7 @@ namespace VerifyTests
             converters.Add(propertyInfoConverter);
             converters.Add(parameterInfoConverter);
             converters.Add(new DictionaryConverter(ignoredByNameMembers));
+            converters.Add(new NameValueCollectionConverter(ignoredByNameMembers));
             foreach (var extraSetting in ExtraSettings)
             {
                 extraSetting(settings);

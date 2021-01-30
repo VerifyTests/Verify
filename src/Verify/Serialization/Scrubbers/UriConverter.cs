@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.Specialized;
 using System.Web;
 using Newtonsoft.Json;
 using VerifyTests;
@@ -42,25 +41,13 @@ class UriConverter :
             new UriWrapper
             {
                 Path = path,
-                Query = ParseQueryString(value.Query)
+                Query = HttpUtility.ParseQueryString(value.Query)
             });
     }
 
     class UriWrapper
     {
         public string Path { get; set; } = null!;
-        public Dictionary<string, string?> Query { get; set; }= null!;
-    }
-
-    static Dictionary<string, string?> ParseQueryString(string queryString)
-    {
-        var dictionary = new Dictionary<string,string?>();
-        var collection = HttpUtility.ParseQueryString(queryString);
-        foreach (string key in collection)
-        {
-            dictionary[key] = collection[key];
-        }
-
-        return dictionary;
+        public NameValueCollection Query { get; set; }= null!;
     }
 }

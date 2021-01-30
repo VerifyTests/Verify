@@ -15,5 +15,17 @@
       replicationFactor: 1,
       raft-request-id: Guid_1
     }
+  },
+  uri4: {
+    Path: http://127.0.0.1/,
+    Query: {
+      null: name
+    }
+  },
+  uri5: {
+    Path: http://127.0.0.1/,
+    Query: {
+      name: 
+    }
   }
 }

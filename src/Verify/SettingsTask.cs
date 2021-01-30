@@ -112,6 +112,12 @@ namespace VerifyTests
             return this;
         }
 
+        public SettingsTask UseFileName(string directory)
+        {
+            CurrentSettings.UseFileName(directory);
+            return this;
+        }
+
         public SettingsTask UseTypeName(string name)
         {
             CurrentSettings.UseTypeName(name);

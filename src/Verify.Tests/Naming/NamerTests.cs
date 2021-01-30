@@ -24,6 +24,29 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseFileName()
+    {
+        #region UseFileName
+
+        VerifySettings settings = new();
+        settings.UseFileName("CustomFileName");
+        await Verifier.Verify("value", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseFileNameFluent()
+    {
+        #region UseFileNameFluent
+
+        await Verifier.Verify("value")
+            .UseFileName("CustomFileNameFluent");
+
+        #endregion
+    }
+
+    [Fact]
     public async Task UseDirectory()
     {
         #region UseDirectory

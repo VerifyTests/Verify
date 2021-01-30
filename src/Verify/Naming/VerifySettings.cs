@@ -8,13 +8,13 @@ namespace VerifyTests
 
         public void UniqueForAssemblyConfiguration()
         {
-            CheckUseFilePrefix();
+            CheckUseFileName();
             Namer.UniqueForAssemblyConfiguration = true;
         }
 
         public void UniqueForRuntime()
         {
-            CheckUseFilePrefix();
+            CheckUseFileName();
             Namer.UniqueForRuntime = true;
         }
 
@@ -31,7 +31,7 @@ namespace VerifyTests
         public void UseTypeName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            CheckUseFilePrefix();
+            CheckUseFileName();
 
             typeName = name;
         }

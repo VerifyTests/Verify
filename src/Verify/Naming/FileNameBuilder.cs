@@ -47,6 +47,11 @@ namespace VerifyTests
 
         static string GetFileNamePrefix(MethodInfo method, Type type, IReadOnlyList<object?>? parameters, VerifySettings settings, PathInfo pathInfo, Namer namer)
         {
+            if (settings.fileName != null)
+            {
+                return settings.fileName;
+            }
+
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 

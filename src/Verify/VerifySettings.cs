@@ -27,6 +27,7 @@ namespace VerifyTests
             stringComparer = settings.stringComparer;
             streamComparer = settings.streamComparer;
             parameters = settings.parameters;
+            fileName = settings.fileName;
             Namer = new(settings.Namer);
             foreach (var pair in settings.Context)
             {

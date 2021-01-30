@@ -11,11 +11,16 @@ namespace VerifyTests
         public void UseParameters(params object?[] parameters)
         {
             Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
+            CheckUseFileName();
             this.parameters = parameters;
         }
 
         internal object?[] GetParameters(MethodInfo methodInfo)
         {
+            if (fileName != null)
+            {
+                return Array.Empty<object?>();
+            }
             var settingsParameters = parameters ?? Array.Empty<object?>();
             var methodParameters = methodInfo.GetParameters();
             if (!methodParameters.Any() || settingsParameters.Any())

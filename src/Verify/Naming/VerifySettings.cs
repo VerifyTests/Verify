@@ -1,4 +1,6 @@
-﻿namespace VerifyTests
+﻿using System.Runtime.CompilerServices;
+
+namespace VerifyTests
 {
     public partial class VerifySettings
     {
@@ -6,11 +8,13 @@
 
         public void UniqueForAssemblyConfiguration()
         {
+            CheckUseFilePrefix();
             Namer.UniqueForAssemblyConfiguration = true;
         }
 
         public void UniqueForRuntime()
         {
+            CheckUseFilePrefix();
             Namer.UniqueForRuntime = true;
         }
 
@@ -27,6 +31,8 @@
         public void UseTypeName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
+            CheckUseFilePrefix();
+
             typeName = name;
         }
 
@@ -35,11 +41,36 @@
         public void UseMethodName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
+          CheckUseFileName();
+
             methodName = name;
+        }
+
+        internal string? fileName;
+
+        public void UseFileName(string fileName)
+        {
+            Guard.AgainstNullOrEmpty(fileName, nameof(fileName));
+            CheckUseFileName();
+
+            this.fileName = fileName;
+        }
+
+        void CheckUseFileName([CallerMemberName] string caller = "")
+        {
+            if (methodName != null ||
+                typeName != null ||
+                Namer.UniqueForRuntimeAndVersion ||
+                Namer.UniqueForRuntime ||
+                Namer.UniqueForAssemblyConfiguration)
+            {
+                throw new($"{caller} is not compatible with UseMethodName or UseTypeName.");
+            }
         }
 
         public void UniqueForRuntimeAndVersion()
         {
+            CheckUseFileName();
             Namer.UniqueForRuntimeAndVersion = true;
         }
     }

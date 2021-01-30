@@ -14,36 +14,30 @@ namespace VerifyTests
     public class FileNameBuilder
     {
         Namer namer;
-        MethodInfo method;
         Type type;
         static ConcurrentDictionary<string, MethodInfo> prefixList = new();
-        string directory;
-        string testPrefix;
         string filePathPrefix;
-        string fileParts;
 
         public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
         {
+            string testPrefix;
             namer = settings.Namer;
-            this.method = method;
             this.type = type;
 
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 
-            var directoryValue = settings.directory ?? pathInfo.Directory;
+            var directory = settings.directory ?? pathInfo.Directory;
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-            if (directoryValue == null)
+            if (directory == null)
             {
-                directoryValue = sourceFileDirectory;
+                directory = sourceFileDirectory;
             }
             else
             {
-                directoryValue = Path.Combine(sourceFileDirectory, directoryValue);
-                Directory.CreateDirectory(directoryValue);
+                directory = Path.Combine(sourceFileDirectory, directory);
+                Directory.CreateDirectory(directory);
             }
-
-            directory = directoryValue;
 
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
@@ -57,10 +51,12 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            fileParts = GetFileParts();
-            filePathPrefix = GetPrefix();
+            var uniquenessParts = GetUniquenessParts();
+            var fileNamePrefix = $"{testPrefix}{uniquenessParts}";
+            filePathPrefix = Path.Combine(directory, fileNamePrefix);
+            CheckPrefixIsUnique(filePathPrefix, method);
 
-            var pattern = $"{testPrefix}{fileParts}.*.*";
+            var pattern = $"{fileNamePrefix}.*.*";
             var files = Directory.EnumerateFiles(directory, pattern).ToList();
             VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
             ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
@@ -90,17 +86,13 @@ namespace VerifyTests
             return new(extension, $"{filePathPrefix}.{index:D2}");
         }
 
-        string GetPrefix()
+        static void CheckPrefixIsUnique(string prefix, MethodInfo method)
         {
-            StringBuilder builder = new(Path.Combine(directory, testPrefix));
-            builder.Append(fileParts);
-            var prefix = builder.ToString();
-            if (prefixList.TryAdd(prefix, method))
+            if (!prefixList.TryGetValue(prefix, out var existing))
             {
-                return prefix;
+                prefixList[prefix] = method;
+                return;
             }
-
-            var existing = prefixList[prefix];
 
             throw new($"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
         }
@@ -110,7 +102,7 @@ namespace VerifyTests
             prefixList = new();
         }
 
-        string GetFileParts()
+        string GetUniquenessParts()
         {
             StringBuilder builder = new();
             if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)

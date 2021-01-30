@@ -44,18 +44,6 @@ class JsonTextWriterEx :
         base.WriteRawValue(value);
     }
 
-    public override void WriteValue(Uri? value)
-    {
-        if (value == null)
-        {
-            WriteNull();
-        }
-        else
-        {
-            WriteValue(value.OriginalString);
-        }
-    }
-
     public override void WriteValue(byte[]? value)
     {
         if (value == null)

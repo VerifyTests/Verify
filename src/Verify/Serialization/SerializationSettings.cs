@@ -15,6 +15,7 @@ namespace VerifyTests
     public class SerializationSettings
     {
         static JsonConverter fileInfoConverter = new FileInfoConverter();
+        static JsonConverter uriConverter = new UriConverter();
         static JsonConverter httpHeadersConverter = new HttpHeadersConverter();
         static JsonConverter directoryInfoConverter = new DirectoryInfoConverter();
         static JsonConverter stringEnumConverter = new StringEnumConverter();
@@ -252,6 +253,7 @@ namespace VerifyTests
             converters.Add(new DateTimeConverter(scrubber));
             converters.Add(new DateTimeOffsetConverter(scrubber));
             converters.Add(fileInfoConverter);
+            converters.Add(uriConverter);
             converters.Add(httpHeadersConverter);
             converters.Add(directoryInfoConverter);
             converters.Add(stringEnumConverter);

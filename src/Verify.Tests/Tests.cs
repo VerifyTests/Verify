@@ -34,7 +34,7 @@ public class Tests
         var result = await client.GetStringAsync("https://httpbin.org/get");
 
         await Verifier.Verify(result)
-            .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id");
+            .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id", "origin", "Content-Length");
     }
 
     [Fact]

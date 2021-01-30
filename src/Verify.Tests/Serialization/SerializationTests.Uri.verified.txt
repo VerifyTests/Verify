@@ -1,3 +1,19 @@
 {
-  uri: http://foo
+  uri1: http://127.0.0.1:57754/admin/databases,
+  uri2: {
+    Path: http://127.0.0.1:57754/admin/databases,
+    Query: {
+      name: HttpRecordingTest,
+      replicationFactor: 1,
+      raft-request-id: Guid_1
+    }
+  },
+  uri3: {
+    Path: http://127.0.0.1/admin/databases,
+    Query: {
+      name: HttpRecordingTest,
+      replicationFactor: 1,
+      raft-request-id: Guid_1
+    }
+  }
 }

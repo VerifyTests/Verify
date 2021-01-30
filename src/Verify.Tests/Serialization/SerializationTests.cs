@@ -127,7 +127,9 @@ public class SerializationTests
         return Verifier.Verify(
             new
             {
-                uri = new Uri("http://foo")
+                uri1 = new Uri("http://127.0.0.1:57754/admin/databases"),
+                uri2 = new Uri("http://127.0.0.1:57754/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483"),
+                uri3 = new Uri("http://127.0.0.1/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483")
             });
     }
 

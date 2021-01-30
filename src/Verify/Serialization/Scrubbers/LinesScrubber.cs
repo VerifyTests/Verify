@@ -54,7 +54,8 @@ static class LinesScrubber
             input.Append('\n');
         }
 
-        if (!theString.EndsWith("\n"))
+        if (input.Length > 0 &&
+            !theString.EndsWith("\n"))
         {
             input.Length -= 1;
         }

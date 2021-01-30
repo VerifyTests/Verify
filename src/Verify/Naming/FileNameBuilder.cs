@@ -13,41 +13,44 @@ namespace VerifyTests
     /// </summary>
     public class FileNameBuilder
     {
-        Namer namer;
-        MethodInfo method;
-        Type type;
         static ConcurrentDictionary<string, MethodInfo> prefixList = new();
-        string directory;
-        string testPrefix;
         string filePathPrefix;
-        string fileParts;
 
         public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
         {
-            namer = settings.Namer;
-            this.method = method;
-            this.type = type;
+            var namer = settings.Namer;
 
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 
-            var directoryValue = settings.directory ?? pathInfo.Directory;
+            var directory = settings.directory ?? pathInfo.Directory;
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-            if (directoryValue == null)
+            if (directory == null)
             {
-                directoryValue = sourceFileDirectory;
+                directory = sourceFileDirectory;
             }
             else
             {
-                directoryValue = Path.Combine(sourceFileDirectory, directoryValue);
-                Directory.CreateDirectory(directoryValue);
+                directory = Path.Combine(sourceFileDirectory, directory);
+                Directory.CreateDirectory(directory);
             }
 
-            directory = directoryValue;
+            var fileNamePrefix = GetFileNamePrefix(method, type, parameters, settings, pathInfo, namer);
+            filePathPrefix = Path.Combine(directory, fileNamePrefix);
+            CheckPrefixIsUnique(filePathPrefix, method);
 
+            var pattern = $"{fileNamePrefix}.*.*";
+            var files = Directory.EnumerateFiles(directory, pattern).ToList();
+            VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
+            ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
+        }
+
+        static string GetFileNamePrefix(MethodInfo method, Type type, IReadOnlyList<object?>? parameters, VerifySettings settings, PathInfo pathInfo, Namer namer)
+        {
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
+            string testPrefix;
             if (parameters == null || !parameters.Any())
             {
                 testPrefix = $"{typeName}.{methodName}";
@@ -57,13 +60,8 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            fileParts = GetFileParts();
-            filePathPrefix = GetPrefix();
-
-            var pattern = $"{testPrefix}{fileParts}.*.*";
-            var files = Directory.EnumerateFiles(directory, pattern).ToList();
-            VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
-            ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
+            var uniquenessParts = GetUniquenessParts(namer, type);
+            return $"{testPrefix}{uniquenessParts}";
         }
 
         public List<string> VerifiedFiles { get; }
@@ -90,17 +88,13 @@ namespace VerifyTests
             return new(extension, $"{filePathPrefix}.{index:D2}");
         }
 
-        string GetPrefix()
+        static void CheckPrefixIsUnique(string prefix, MethodInfo method)
         {
-            StringBuilder builder = new(Path.Combine(directory, testPrefix));
-            builder.Append(fileParts);
-            var prefix = builder.ToString();
-            if (prefixList.TryAdd(prefix, method))
+            if (!prefixList.TryGetValue(prefix, out var existing))
             {
-                return prefix;
+                prefixList[prefix] = method;
+                return;
             }
-
-            var existing = prefixList[prefix];
 
             throw new($"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
         }
@@ -110,7 +104,7 @@ namespace VerifyTests
             prefixList = new();
         }
 
-        string GetFileParts()
+        static string GetUniquenessParts(Namer namer, Type type)
         {
             StringBuilder builder = new();
             if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)

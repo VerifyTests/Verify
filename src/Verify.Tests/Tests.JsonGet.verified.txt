@@ -11,7 +11,8 @@
   httpCalls: [
     {
       Uri: https://httpbin.org/get,
-      RequestHeaders: {},
+      RequestHeaders: {
+      },
       ResponseHeaders: {
         Access-Control-Allow-Credentials: true,
         Connection: keep-alive,

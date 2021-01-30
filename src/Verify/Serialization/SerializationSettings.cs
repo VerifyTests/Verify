@@ -16,7 +16,6 @@ namespace VerifyTests
     {
         static JsonConverter fileInfoConverter = new FileInfoConverter();
         static JsonConverter uriConverter = new UriConverter();
-        static JsonConverter httpHeadersConverter = new HttpHeadersConverter();
         static JsonConverter directoryInfoConverter = new DirectoryInfoConverter();
         static JsonConverter stringEnumConverter = new StringEnumConverter();
         static JsonConverter delegateConverter = new DelegateConverter();
@@ -254,7 +253,6 @@ namespace VerifyTests
             converters.Add(new DateTimeOffsetConverter(scrubber));
             converters.Add(fileInfoConverter);
             converters.Add(uriConverter);
-            converters.Add(httpHeadersConverter);
             converters.Add(directoryInfoConverter);
             converters.Add(stringEnumConverter);
             converters.Add(expressionConverter);
@@ -266,6 +264,7 @@ namespace VerifyTests
             converters.Add(constructorInfoConverter);
             converters.Add(propertyInfoConverter);
             converters.Add(parameterInfoConverter);
+            converters.Add(new HttpHeadersConverter(ignoredByNameMembers));
             converters.Add(new DictionaryConverter(ignoredByNameMembers));
             converters.Add(new NameValueCollectionConverter(ignoredByNameMembers));
             foreach (var extraSetting in ExtraSettings)

@@ -8,6 +8,13 @@ using VerifyTests;
 class HttpHeadersConverter :
     WriteOnlyJsonConverter<HttpHeaders>
 {
+    List<string> ignoredByNameMembers;
+
+    public HttpHeadersConverter(List<string> ignoredByNameMembers)
+    {
+        this.ignoredByNameMembers = ignoredByNameMembers;
+    }
+
     public override void WriteJson(
         JsonWriter writer,
         HttpHeaders? headers,
@@ -23,9 +30,7 @@ class HttpHeadersConverter :
             .OrderBy(x => x.Key.ToLowerInvariant())
             .Where(x =>
             {
-                var key = x.Key.ToLowerInvariant();
-                return key != "traceparent" &&
-                       key != "set-cookie";
+                return !ignoredByNameMembers.Contains(x.Key);
             })
             .ToDictionary(x => x.Key, x =>
             {

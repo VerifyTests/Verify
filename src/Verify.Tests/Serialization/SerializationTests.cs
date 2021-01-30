@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -161,6 +163,35 @@ public class SerializationTests
             {
                 timespan = TimeSpan.FromDays(1)
             });
+    }
+
+    [Fact]
+    public Task EmptyDictionaryProperty()
+    {
+        return Verifier.Verify(new
+        {
+            property = new Dictionary<string, string>()
+        });
+    }
+
+    [Fact]
+    public Task HttpRequestHeaders()
+    {
+        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { }, null)!;
+        var instance = (HttpRequestHeaders) constructor.Invoke(null);
+        instance.Add("key", "value");
+        return Verifier.Verify(instance);
+    }
+
+    [Fact]
+    public Task HttpRequestHeadersWithIgnored()
+    {
+        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { }, null)!;
+        var instance = (HttpRequestHeaders) constructor.Invoke(null);
+        instance.Add("key1", "value");
+        instance.Add("key2", "value");
+        return Verifier.Verify(instance)
+            .ModifySerialization(settings => settings.IgnoreMember("key1"));
     }
 
     [Fact]

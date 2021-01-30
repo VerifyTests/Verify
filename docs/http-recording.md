@@ -9,6 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Http Recording allows, when a method is being tested, for any http requests made as part of that method call to be recorded and verified.
 
+**Supported in netstandard2.1 and up**
 
 ## Usage
 
@@ -31,26 +32,23 @@ public async Task TestHttpRecording()
             {
                 sizeOfResponse,
             })
-
-        //scrub some headers that are not consistent between test runs
-        .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range")
-
-        //ignore the ResponseContent
         .ModifySerialization(settings =>
-            settings.IgnoreMember<HttpCall>(call =>
-                call.ResponseContentString));
+        {
+            //scrub some headers that are not consistent between test runs
+            settings.IgnoreMembers("traceparent");
+        });
 }
 
 static async Task<int> MethodThatDoesHttpCalls()
 {
     using var client = new HttpClient();
 
-    var exampleResult = await client.GetStringAsync("https://example.net/");
-    var httpBinResult = await client.GetStringAsync("https://httpbin.org/");
-    return exampleResult.Length + httpBinResult.Length;
+    var jsonResult = await client.GetStringAsync("https://httpbin.org/json");
+    var xmlResult = await client.GetStringAsync("https://httpbin.org/xml");
+    return jsonResult.Length + xmlResult.Length;
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L53-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L56-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The requests/response pairs will be appended to the verified file.
@@ -60,38 +58,80 @@ The requests/response pairs will be appended to the verified file.
 ```txt
 {
   target: {
-    sizeOfResponse: 10847
+    sizeOfResponse: 951
   },
   httpCalls: [
     {
-      Uri: https://example.net/,
-      RequestHeaders: {},
-      ResponseHeaders: {
-        Vary: Accept-Encoding,
-        X-Cache: HIT
-      },
-      ResponseContentHeaders: {
-        Content-Length: 1256,
-        Content-Type: text/html; charset=utf-8,
-      }
-    },
-    {
-      Uri: https://httpbin.org/,
+      Uri: https://httpbin.org/json,
       RequestHeaders: {},
       ResponseHeaders: {
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
+        Date: DateTime_1,
+        Server: gunicorn/19.9.0
       },
       ResponseContentHeaders: {
-        Content-Length: 9593,
-        Content-Type: text/html; charset=utf-8
+        Content-Length: 429,
+        Content-Type: application/json
+      },
+      ResponseContentString: 
+{
+  "slideshow": {
+    "author": "Yours Truly",
+    "date": "date of publication",
+    "slides": [
+      {
+        "title": "Wake up to WonderWidgets!",
+        "type": "all"
+      },
+      {
+        "items": [
+          "Why <em>WonderWidgets</em> are great",
+          "Who <em>buys</em> WonderWidgets"
+        ],
+        "title": "Overview",
+        "type": "all"
       }
+    ],
+    "title": "Sample Slide Show"
+  }
+}
+    },
+    {
+      Uri: https://httpbin.org/xml,
+      RequestHeaders: {},
+      ResponseHeaders: {
+        Access-Control-Allow-Credentials: true,
+        Access-Control-Allow-Origin: *,
+        Connection: keep-alive,
+        Date: DateTime_1,
+        Server: gunicorn/19.9.0
+      },
+      ResponseContentHeaders: {
+        Content-Length: 522,
+        Content-Type: application/xml
+      },
+      ResponseContentString: 
+<!--  A SAMPLE set of slides  -->
+<slideshow title="Sample Slide Show" date="Date of publication" author="Yours Truly">
+  <!-- TITLE SLIDE -->
+  <slide type="all">
+    <title>Wake up to WonderWidgets!</title>
+  </slide>
+  <!-- OVERVIEW -->
+  <slide type="all">
+    <title>Overview</title>
+    <item>Why <em>WonderWidgets</em> are great</item>
+    <item />
+    <item>Who <em>buys</em> WonderWidgets</item>
+  </slide>
+</slideshow>
     }
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -142,10 +182,10 @@ Results in the following:
 <a id='snippet-Tests.TestHttpRecordingExplicit.verified.txt'></a>
 ```txt
 {
-  sizeOfResponse: 10847,
+  sizeOfResponse: 951,
   httpCalls: [
-    https://example.net/,
-    https://httpbin.org/
+    https://httpbin.org/json,
+    https://httpbin.org/xml
   ]
 }
 ```

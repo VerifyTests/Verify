@@ -23,14 +23,21 @@ namespace VerifyTests
 
             if (request.Content != null)
             {
-                RequestContentHeaders = request.Content.Headers;
+                if (request.Content.Headers.Any())
+                {
+                    RequestContentHeaders = request.Content.Headers;
+                }
+
                 var requestStringContent = TryReadStringContent(request.Content);
                 RequestContentString = requestStringContent.prettyContent;
                 RequestContentStringRaw = requestStringContent.content;
             }
 
             ResponseHeaders = response.Headers;
-            ResponseContentHeaders = response.Content.Headers;
+            if (response.Content.Headers.Any())
+            {
+                ResponseContentHeaders = response.Content.Headers;
+            }
             var responseStringContent = TryReadStringContent(response.Content);
             ResponseContentString = responseStringContent.prettyContent;
             ResponseContentStringRaw = responseStringContent.content;
@@ -100,7 +107,7 @@ namespace VerifyTests
         public string? RequestContentStringRaw { get; }
 
         public HttpResponseHeaders ResponseHeaders { get; }
-        public HttpContentHeaders ResponseContentHeaders { get; }
+        public HttpContentHeaders? ResponseContentHeaders { get; }
         public string? ResponseContentString { get; }
         [JsonIgnore]
         public string? ResponseContentStringRaw { get; }

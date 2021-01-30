@@ -1,32 +1,74 @@
 {
   target: {
-    sizeOfResponse: 10847
+    sizeOfResponse: 951
   },
   httpCalls: [
     {
-      Uri: https://example.net/,
-      RequestHeaders: {},
-      ResponseHeaders: {
-        Vary: Accept-Encoding,
-        X-Cache: HIT
-      },
-      ResponseContentHeaders: {
-        Content-Length: 1256,
-        Content-Type: text/html; charset=utf-8,
-      }
-    },
-    {
-      Uri: https://httpbin.org/,
+      Uri: https://httpbin.org/json,
       RequestHeaders: {},
       ResponseHeaders: {
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
+        Date: DateTime_1,
+        Server: gunicorn/19.9.0
       },
       ResponseContentHeaders: {
-        Content-Length: 9593,
-        Content-Type: text/html; charset=utf-8
+        Content-Length: 429,
+        Content-Type: application/json
+      },
+      ResponseContentString: 
+{
+  "slideshow": {
+    "author": "Yours Truly",
+    "date": "date of publication",
+    "slides": [
+      {
+        "title": "Wake up to WonderWidgets!",
+        "type": "all"
+      },
+      {
+        "items": [
+          "Why <em>WonderWidgets</em> are great",
+          "Who <em>buys</em> WonderWidgets"
+        ],
+        "title": "Overview",
+        "type": "all"
       }
+    ],
+    "title": "Sample Slide Show"
+  }
+}
+    },
+    {
+      Uri: https://httpbin.org/xml,
+      RequestHeaders: {},
+      ResponseHeaders: {
+        Access-Control-Allow-Credentials: true,
+        Access-Control-Allow-Origin: *,
+        Connection: keep-alive,
+        Date: DateTime_1,
+        Server: gunicorn/19.9.0
+      },
+      ResponseContentHeaders: {
+        Content-Length: 522,
+        Content-Type: application/xml
+      },
+      ResponseContentString: 
+<!--  A SAMPLE set of slides  -->
+<slideshow title="Sample Slide Show" date="Date of publication" author="Yours Truly">
+  <!-- TITLE SLIDE -->
+  <slide type="all">
+    <title>Wake up to WonderWidgets!</title>
+  </slide>
+  <!-- OVERVIEW -->
+  <slide type="all">
+    <title>Overview</title>
+    <item>Why <em>WonderWidgets</em> are great</item>
+    <item />
+    <item>Who <em>buys</em> WonderWidgets</item>
+  </slide>
+</slideshow>
     }
   ]
 }

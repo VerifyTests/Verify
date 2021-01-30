@@ -44,10 +44,13 @@ public class Tests
 
         using var client = new HttpClient();
 
-        var result = await client.GetStringAsync("https://example.net/");
+        var result = await client.GetStringAsync("https://httpbin.org/json");
 
         await Verifier.Verify(result)
-            .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range");
+            .ModifySerialization(settings =>
+            {
+                settings.IgnoreMembers("traceparent");
+            });
     }
 
     #region HttpRecording
@@ -64,23 +67,20 @@ public class Tests
                 {
                     sizeOfResponse,
                 })
-
-            //scrub some headers that are not consistent between test runs
-            .ScrubLinesContaining("AGE", "Server", "Date", "Etag", "Accept-Range")
-
-            //ignore the ResponseContent
             .ModifySerialization(settings =>
-                settings.IgnoreMember<HttpCall>(call =>
-                    call.ResponseContentString));
+            {
+                //scrub some headers that are not consistent between test runs
+                settings.IgnoreMembers("traceparent");
+            });
     }
 
     static async Task<int> MethodThatDoesHttpCalls()
     {
         using var client = new HttpClient();
 
-        var exampleResult = await client.GetStringAsync("https://example.net/");
-        var httpBinResult = await client.GetStringAsync("https://httpbin.org/");
-        return exampleResult.Length + httpBinResult.Length;
+        var jsonResult = await client.GetStringAsync("https://httpbin.org/json");
+        var xmlResult = await client.GetStringAsync("https://httpbin.org/xml");
+        return jsonResult.Length + xmlResult.Length;
     }
 
     #endregion

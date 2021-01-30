@@ -2,6 +2,7 @@
 
 Http Recording allows, when a method is being tested, for any http requests made as part of that method call to be recorded and verified.
 
+**Supported in netstandard2.1 and up**
 
 ## Usage
 

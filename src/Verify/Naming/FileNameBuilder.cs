@@ -13,16 +13,13 @@ namespace VerifyTests
     /// </summary>
     public class FileNameBuilder
     {
-        Namer namer;
-        Type type;
         static ConcurrentDictionary<string, MethodInfo> prefixList = new();
         string filePathPrefix;
 
         public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
         {
             string testPrefix;
-            namer = settings.Namer;
-            this.type = type;
+            var namer = settings.Namer;
 
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
 
@@ -51,7 +48,7 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            var uniquenessParts = GetUniquenessParts();
+            var uniquenessParts = GetUniquenessParts(namer,type);
             var fileNamePrefix = $"{testPrefix}{uniquenessParts}";
             filePathPrefix = Path.Combine(directory, fileNamePrefix);
             CheckPrefixIsUnique(filePathPrefix, method);
@@ -102,7 +99,7 @@ namespace VerifyTests
             prefixList = new();
         }
 
-        string GetUniquenessParts()
+        static string GetUniquenessParts(Namer namer, Type type)
         {
             StringBuilder builder = new();
             if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)

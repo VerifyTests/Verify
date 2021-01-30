@@ -12,7 +12,7 @@ Naming determines the file name for the `.received.` resulting `.verified.` file
 The format is
 
 ```
-{Directory}/{TestClassName}.{TestMethodName}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
+{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
 ```
 
 
@@ -27,7 +27,7 @@ VerifySettings settings = new();
 settings.UseDirectory("CustomDirectory");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L52-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L61-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: UseDirectoryFluent -->
@@ -36,7 +36,7 @@ await Verifier.Verify("value", settings);
 await Verifier.Verify("value")
     .UseDirectory("CustomDirectory");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L64-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L73-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
@@ -55,7 +55,7 @@ VerifySettings settings = new();
 settings.UseTypeName("CustomTypeName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L75-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L84-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: UseTypeNameFluent -->
@@ -64,7 +64,7 @@ await Verifier.Verify("value", settings);
 await Verifier.Verify("value")
     .UseTypeName("CustomTypeName");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L87-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L96-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomTypeName.MethodName.verified.txt`.
@@ -81,7 +81,7 @@ VerifySettings settings = new();
 settings.UseMethodName("CustomMethodName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L98-L104' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L107-L113' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
@@ -92,15 +92,53 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 await Verifier.Verify("value")
     .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L110-L115' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L119-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 
 
+## UseFileName
+
+To fully control the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file use `UseFileName`:
+
+<!-- snippet: UseFileName -->
+<a id='snippet-usefilename'></a>
+```cs
+VerifySettings settings = new();
+settings.UseFileName("CustomFileName");
+await Verifier.Verify("value", settings);
+```
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L29-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `CustomFileName.verified.txt`.
+
+<!-- snippet: UseFileNameFluent -->
+<a id='snippet-usefilenamefluent'></a>
+```cs
+await Verifier.Verify("value")
+    .UseFileName("CustomFileNameFluent");
+```
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L50-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Will result in `UseFileNameFluent.verified.txt`.
+
+Compatibility:
+
+ * Not compatible with `UseTypeName`, `UseMethodName`, or `UseParameters`. An exception will be thrown if they are combined.
+ * Can be used in combination with `UseDirectory`.
+ * Can be used in combination with `UniqueFor*`.
+
+## Parameters
+
+See [Parameterised Tests](parameterised.md).
+
+
 ## UniqueFor
 
-UniqueFor allows for one or more delimiters to be added to the file name.
+`UniqueFor*` allows for one or more delimiters to be added to the file name.
 
 
 ### XUnit
@@ -399,7 +437,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L121-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L130-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

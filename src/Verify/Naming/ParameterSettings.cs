@@ -11,7 +11,7 @@ namespace VerifyTests
         public void UseParameters(params object?[] parameters)
         {
             Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
-            CheckUseFileName();
+            ThrowIfFileNameDefined();
             this.parameters = parameters;
         }
 

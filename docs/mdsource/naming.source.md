@@ -5,7 +5,7 @@ Naming determines the file name for the `.received.` resulting `.verified.` file
 The format is
 
 ```
-{Directory}/{TestClassName}.{TestMethodName}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
+{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
 ```
 
 
@@ -46,9 +46,32 @@ snippet: UseMethodNameFluent
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 
 
+## UseFileName
+
+To fully control the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file use `UseFileName`:
+
+snippet: UseFileName
+
+Will result in `CustomFileName.verified.txt`.
+
+snippet: UseFileNameFluent
+
+Will result in `UseFileNameFluent.verified.txt`.
+
+Compatibility:
+
+ * Not compatible with `UseTypeName`, `UseMethodName`, or `UseParameters`. An exception will be thrown if they are combined.
+ * Can be used in combination with `UseDirectory`.
+ * Can be used in combination with `UniqueFor*`.
+
+## Parameters
+
+See [Parameterised Tests](parameterised.md).
+
+
 ## UniqueFor
 
-UniqueFor allows for one or more delimiters to be added to the file name.
+`UniqueFor*` allows for one or more delimiters to be added to the file name.
 
 
 ### XUnit

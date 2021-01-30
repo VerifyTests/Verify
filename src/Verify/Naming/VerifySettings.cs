@@ -8,13 +8,11 @@ namespace VerifyTests
 
         public void UniqueForAssemblyConfiguration()
         {
-            CheckUseFileName();
             Namer.UniqueForAssemblyConfiguration = true;
         }
 
         public void UniqueForRuntime()
         {
-            CheckUseFileName();
             Namer.UniqueForRuntime = true;
         }
 
@@ -31,7 +29,7 @@ namespace VerifyTests
         public void UseTypeName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            CheckUseFileName();
+            ThrowIfFileNameDefined();
 
             typeName = name;
         }
@@ -41,7 +39,7 @@ namespace VerifyTests
         public void UseMethodName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
-          CheckUseFileName();
+            ThrowIfFileNameDefined();
 
             methodName = name;
         }
@@ -51,26 +49,31 @@ namespace VerifyTests
         public void UseFileName(string fileName)
         {
             Guard.AgainstNullOrEmpty(fileName, nameof(fileName));
-            CheckUseFileName();
+            ThrowIfMethodOrTypeNameDefined();
 
             this.fileName = fileName;
         }
 
-        void CheckUseFileName([CallerMemberName] string caller = "")
+        void ThrowIfMethodOrTypeNameDefined()
         {
             if (methodName != null ||
-                typeName != null ||
-                Namer.UniqueForRuntimeAndVersion ||
-                Namer.UniqueForRuntime ||
-                Namer.UniqueForAssemblyConfiguration)
+                typeName != null)
             {
-                throw new($"{caller} is not compatible with UseMethodName or UseTypeName.");
+                throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");
+            }
+        }
+
+
+        void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
+        {
+            if (fileName != null)
+            {
+                throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
             }
         }
 
         public void UniqueForRuntimeAndVersion()
         {
-            CheckUseFileName();
             Namer.UniqueForRuntimeAndVersion = true;
         }
     }

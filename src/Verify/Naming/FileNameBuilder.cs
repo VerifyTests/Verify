@@ -41,15 +41,16 @@ namespace VerifyTests
 
             var pattern = $"{fileNamePrefix}.*.*";
             var files = Directory.EnumerateFiles(directory, pattern).ToList();
-            VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
-            ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
+            VerifiedFiles = files.Where(x => x.Contains($"{fileNamePrefix}.verified.")).ToList();
+            ReceivedFiles = files.Where(x => x.Contains($"{fileNamePrefix}.received.")).ToList();
         }
 
         static string GetFileNamePrefix(MethodInfo method, Type type, IReadOnlyList<object?>? parameters, VerifySettings settings, PathInfo pathInfo, Namer namer)
         {
+            var uniquenessParts = GetUniquenessParts(namer, type);
             if (settings.fileName != null)
             {
-                return settings.fileName;
+                return settings.fileName + uniquenessParts;
             }
 
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
@@ -65,7 +66,6 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            var uniquenessParts = GetUniquenessParts(namer, type);
             return $"{testPrefix}{uniquenessParts}";
         }
 

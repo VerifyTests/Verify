@@ -70,7 +70,7 @@ public class Tests
             .ModifySerialization(settings =>
             {
                 //scrub some headers that are not consistent between test runs
-                settings.IgnoreMembers("traceparent");
+                settings.IgnoreMembers("traceparent", "Date");
             });
     }
 

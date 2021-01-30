@@ -35,7 +35,7 @@ public async Task TestHttpRecording()
         .ModifySerialization(settings =>
         {
             //scrub some headers that are not consistent between test runs
-            settings.IgnoreMembers("traceparent");
+            settings.IgnoreMembers("traceparent", "Date");
         });
 }
 
@@ -68,7 +68,6 @@ The requests/response pairs will be appended to the verified file.
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
-        Date: DateTime_1,
         Server: gunicorn/19.9.0
       },
       ResponseContentHeaders: {
@@ -105,7 +104,6 @@ The requests/response pairs will be appended to the verified file.
         Access-Control-Allow-Credentials: true,
         Access-Control-Allow-Origin: *,
         Connection: keep-alive,
-        Date: DateTime_1,
         Server: gunicorn/19.9.0
       },
       ResponseContentHeaders: {
@@ -131,7 +129,7 @@ The requests/response pairs will be appended to the verified file.
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.TestHttpRecording.verified.txt#L1-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.TestHttpRecording.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

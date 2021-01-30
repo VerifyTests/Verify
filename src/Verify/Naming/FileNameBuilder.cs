@@ -18,7 +18,6 @@ namespace VerifyTests
 
         public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
         {
-            string testPrefix;
             var namer = settings.Namer;
 
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
@@ -36,9 +35,22 @@ namespace VerifyTests
                 Directory.CreateDirectory(directory);
             }
 
+            var fileNamePrefix = GetFileNamePrefix(method, type, parameters, settings, pathInfo, namer);
+            filePathPrefix = Path.Combine(directory, fileNamePrefix);
+            CheckPrefixIsUnique(filePathPrefix, method);
+
+            var pattern = $"{fileNamePrefix}.*.*";
+            var files = Directory.EnumerateFiles(directory, pattern).ToList();
+            VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
+            ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
+        }
+
+        static string GetFileNamePrefix(MethodInfo method, Type type, IReadOnlyList<object?>? parameters, VerifySettings settings, PathInfo pathInfo, Namer namer)
+        {
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
+            string testPrefix;
             if (parameters == null || !parameters.Any())
             {
                 testPrefix = $"{typeName}.{methodName}";
@@ -48,15 +60,8 @@ namespace VerifyTests
                 testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
             }
 
-            var uniquenessParts = GetUniquenessParts(namer,type);
-            var fileNamePrefix = $"{testPrefix}{uniquenessParts}";
-            filePathPrefix = Path.Combine(directory, fileNamePrefix);
-            CheckPrefixIsUnique(filePathPrefix, method);
-
-            var pattern = $"{fileNamePrefix}.*.*";
-            var files = Directory.EnumerateFiles(directory, pattern).ToList();
-            VerifiedFiles = files.Where(x => x.Contains(".verified.")).ToList();
-            ReceivedFiles = files.Where(x => x.Contains(".received.")).ToList();
+            var uniquenessParts = GetUniquenessParts(namer, type);
+            return $"{testPrefix}{uniquenessParts}";
         }
 
         public List<string> VerifiedFiles { get; }

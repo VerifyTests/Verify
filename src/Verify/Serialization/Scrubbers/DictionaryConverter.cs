@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,11 +35,11 @@ class DictionaryConverter :
     {
         if (objectType.IsGenericType)
         {
-            var genericDefinition = objectType.GetGenericTypeDefinition();
-            if (genericDefinition == typeof(Dictionary<,>) ||
-                genericDefinition == typeof(SortedDictionary<,>) ||
-                genericDefinition == typeof(ConcurrentDictionary<,>) ||
-                genericDefinition == typeof(ReadOnlyDictionary<,>))
+            var definition = objectType.GetGenericTypeDefinition();
+            if (definition == typeof(Dictionary<,>) ||
+                definition == typeof(SortedDictionary<,>) ||
+                definition == typeof(ConcurrentDictionary<,>) ||
+                definition == typeof(ReadOnlyDictionary<,>))
             {
                 if (objectType.GetGenericArguments().First() == typeof(string))
                 {

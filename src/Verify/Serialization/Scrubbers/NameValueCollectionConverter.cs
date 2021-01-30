@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Web;
 using Newtonsoft.Json;
 using VerifyTests;
 
@@ -16,6 +12,7 @@ class NameValueCollectionConverter :
     {
         this.ignoredByNameMembers = ignoredByNameMembers;
     }
+
     public override void WriteJson(JsonWriter writer, NameValueCollection? collection, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
         if (collection is null)

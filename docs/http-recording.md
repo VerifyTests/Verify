@@ -117,8 +117,8 @@ public async Task TestHttpRecordingExplicit()
 
     var httpCalls = HttpRecording.FinishRecording().ToList();
 
-    // Ensure all calls finished in under 2 seconds
-    var threshold = TimeSpan.FromSeconds(2);
+    // Ensure all calls finished in under 5 seconds
+    var threshold = TimeSpan.FromSeconds(5);
     foreach (var call in httpCalls)
     {
         Assert.True(call.Duration < threshold);

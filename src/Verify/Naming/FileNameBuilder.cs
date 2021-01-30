@@ -43,10 +43,11 @@ namespace VerifyTests
                 Directory.CreateDirectory(directoryValue);
             }
 
+            directory = directoryValue;
+
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-            directory = directoryValue;
             if (parameters == null || !parameters.Any())
             {
                 testPrefix = $"{typeName}.{methodName}";

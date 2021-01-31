@@ -32,6 +32,7 @@ The format is
   * [NamerRuntimeAndVersion](#namerruntimeandversion)
   * [DerivePathInfo](#derivepathinfo)<!-- endToc -->
 
+
 ## Directory
 
 The directory that contains the test. A custom directory can be used via `UseDirectory`:
@@ -459,7 +460,7 @@ Debug.WriteLine(Namer.RuntimeAndVersion);
 
 ## DerivePathInfo
 
-DerivePathInfo allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
+`DerivePathInfo` allows the storage directory of `.verified.` files to be customized based on the current context. The contextual parameters are parameters passed are as follows:
 
  * `sourceFile`: The full path to the file that the test existed in at compile time.
  * `projectDirectory`: The directory that the project existed in at compile time.
@@ -486,6 +487,6 @@ VerifierSettings.DerivePathInfo(
 
 Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
 
-DerivePathInfo can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
+`DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
 
-A DerivePathInfo convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.
+A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -40,7 +41,7 @@ namespace VerifyTests
         }
 
         /// <summary>
-        /// Modify the resulting test using custom code.
+        /// Modify the resulting test content using custom code.
         /// </summary>
         public SettingsTask AddScrubber(Action<StringBuilder> scrubber)
         {
@@ -50,6 +51,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Replace inline <see cref="Guid"/>s with a placeholder.
+        /// Uses a <see cref="Regex"/> to find <see cref="Guid"/>s inside strings.
         /// </summary>
         public SettingsTask ScrubInlineGuids()
         {
@@ -202,6 +204,10 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Scrub lines with an optional replace.
+        /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
+        /// </summary>
         public SettingsTask ScrubLinesWithReplace(Func<string, string> replaceLine)
         {
             CurrentSettings.ScrubLinesWithReplace(replaceLine);

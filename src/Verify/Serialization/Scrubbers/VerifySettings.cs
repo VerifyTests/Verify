@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VerifyTests
 {
@@ -17,7 +18,7 @@ namespace VerifyTests
         }
 
         /// <summary>
-        /// Modify the resulting test using custom code.
+        /// Modify the resulting test content using custom code.
         /// </summary>
         public void AddScrubber(Action<StringBuilder> scrubber)
         {
@@ -38,6 +39,7 @@ namespace VerifyTests
         //Same for the static
         /// <summary>
         /// Replace inline <see cref="Guid"/>s with a placeholder.
+        /// Uses a <see cref="Regex"/> to find <see cref="Guid"/>s inside strings.
         /// </summary>
         public void ScrubInlineGuids()
         {
@@ -52,6 +54,10 @@ namespace VerifyTests
             instanceScrubbers.Insert(0, s => s.FilterLines(removeLine));
         }
 
+        /// <summary>
+        /// Scrub lines with an optional replace.
+        /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
+        /// </summary>
         public void ScrubLinesWithReplace(Func<string, string> replaceLine)
         {
             instanceScrubbers.Insert(0, s => s.ReplaceLines(replaceLine));

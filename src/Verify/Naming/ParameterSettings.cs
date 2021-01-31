@@ -8,6 +8,11 @@ namespace VerifyTests
     {
         object?[]? parameters;
 
+        /// <summary>
+        /// Define the parameter values being used by a parameterised (aka data drive) test.
+        /// In most scenarios the parameter parameter values can be automatically resolved.
+        /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
+        /// </summary>
         public void UseParameters(params object?[] parameters)
         {
             Guard.AgainstNullOrEmpty(parameters, nameof(parameters));

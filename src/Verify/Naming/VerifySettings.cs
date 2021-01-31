@@ -6,11 +6,19 @@ namespace VerifyTests
     {
         internal Namer Namer = new();
 
+        /// <summary>
+        /// Use the current assembly configuration (debug/release) to make the test results unique.
+        /// Used when a test produces different results based on assembly configuration.
+        /// </summary>
         public void UniqueForAssemblyConfiguration()
         {
             Namer.UniqueForAssemblyConfiguration = true;
         }
 
+        /// <summary>
+        /// Use the current runtime to make the test results unique.
+        /// Used when a test produces different results based on runtime.
+        /// </summary>
         public void UniqueForRuntime()
         {
             Namer.UniqueForRuntime = true;
@@ -91,6 +99,10 @@ namespace VerifyTests
             }
         }
 
+        /// <summary>
+        /// Use the current runtime and runtime version to make the test results unique.
+        /// Used when a test produces different results based on runtime and runtime version.
+        /// </summary>
         public void UniqueForRuntimeAndVersion()
         {
             Namer.UniqueForRuntimeAndVersion = true;

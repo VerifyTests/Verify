@@ -53,6 +53,10 @@ namespace VerifyTests
 
         internal string? extension;
 
+        /// <summary>
+        /// Use a custom file extension for the test results.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
         public void UseExtension(string extension)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
@@ -93,6 +97,9 @@ namespace VerifyTests
 
         internal bool autoVerify;
 
+        /// <summary>
+        /// Automatically accept the results of the current tes.
+        /// </summary>
         public void AutoVerify()
         {
             autoVerify = true;

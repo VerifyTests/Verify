@@ -28,18 +28,29 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Define the parameter values being used by a parameterised (aka data drive) test.
+        /// In most scenarios the parameter parameter values can be automatically resolved.
+        /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
+        /// </summary>
         public SettingsTask UseParameters(params object?[] parameters)
         {
             CurrentSettings.UseParameters(parameters);
             return this;
         }
 
+        /// <summary>
+        /// Modify the resulting test using custom code.
+        /// </summary>
         public SettingsTask AddScrubber(Action<StringBuilder> scrubber)
         {
             CurrentSettings.AddScrubber(scrubber);
             return this;
         }
 
+        /// <summary>
+        /// Replace inline <see cref="Guid"/>s with a placeholder.
+        /// </summary>
         public SettingsTask ScrubInlineGuids()
         {
             CurrentSettings.ScrubInlineGuids();
@@ -82,18 +93,29 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Disable using a diff toll for this test
+        /// </summary>
         public SettingsTask DisableDiff()
         {
             CurrentSettings.DisableDiff();
             return this;
         }
 
+        /// <summary>
+        /// Use the current assembly configuration (debug/release) to make the test results unique.
+        /// Used when a test produces different results based on assembly configuration.
+        /// </summary>
         public SettingsTask UniqueForAssemblyConfiguration()
         {
             CurrentSettings.UniqueForAssemblyConfiguration();
             return this;
         }
 
+        /// <summary>
+        /// Use the current runtime to make the test results unique.
+        /// Used when a test produces different results based on runtime.
+        /// </summary>
         public SettingsTask UniqueForRuntime()
         {
             CurrentSettings.UniqueForRuntime();
@@ -112,7 +134,7 @@ namespace VerifyTests
         }
 
         /// <summary>
-        /// Use a custom directory for the test.
+        /// Use a custom directory for the test results.
         /// </summary>
         public SettingsTask UseDirectory(string directory)
         {
@@ -143,24 +165,37 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Use the current runtime and runtime version to make the test results unique.
+        /// Used when a test produces different results based on runtime and runtime version.
+        /// </summary>
         public SettingsTask UniqueForRuntimeAndVersion()
         {
             CurrentSettings.UniqueForRuntimeAndVersion();
             return this;
         }
 
+        /// <summary>
+        /// Remove the <see cref="Environment.MachineName"/> from the test results.
+        /// </summary>
         public SettingsTask ScrubMachineName()
         {
             CurrentSettings.ScrubMachineName();
             return this;
         }
 
+        /// <summary>
+        /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+        /// </summary>
         public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
         {
             CurrentSettings.ScrubLinesContaining(comparison, stringToMatch);
             return this;
         }
 
+        /// <summary>
+        /// Remove any lines containing matching <paramref name="removeLine"/> from the test results.
+        /// </summary>
         public SettingsTask ScrubLines(Func<string, bool> removeLine)
         {
             CurrentSettings.ScrubLines(removeLine);
@@ -173,6 +208,9 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+        /// </summary>
         public SettingsTask ScrubLinesContaining(params string[] stringToMatch)
         {
             CurrentSettings.ScrubLinesContaining(stringToMatch);
@@ -185,12 +223,19 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Automatically accept the results of the current tes.
+        /// </summary>
         public SettingsTask AutoVerify()
         {
             CurrentSettings.AutoVerify();
             return this;
         }
 
+        /// <summary>
+        /// Use a custom file extension for the test results.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
         public SettingsTask UseExtension(string extension)
         {
             CurrentSettings.UseExtension(extension);

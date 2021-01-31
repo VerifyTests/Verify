@@ -18,6 +18,9 @@ namespace VerifyTests
 
         internal string? directory;
 
+        /// <summary>
+        /// Use a custom directory for the test results.
+        /// </summary>
         public void UseDirectory(string directory)
         {
             Guard.AgainstNullOrEmpty(directory, nameof(directory));
@@ -26,6 +29,11 @@ namespace VerifyTests
 
         internal string? typeName;
 
+        /// <summary>
+        /// Use a custom class name for the test results.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public void UseTypeName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
@@ -36,6 +44,11 @@ namespace VerifyTests
 
         internal string? methodName;
 
+        /// <summary>
+        /// Use a custom method name for the test results.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public void UseMethodName(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
@@ -46,6 +59,12 @@ namespace VerifyTests
 
         internal string? fileName;
 
+        /// <summary>
+        /// Use a file name for the test results.
+        /// Overrides the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file naming.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
         public void UseFileName(string fileName)
         {
             Guard.AgainstNullOrEmpty(fileName, nameof(fileName));

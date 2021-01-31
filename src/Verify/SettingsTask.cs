@@ -100,24 +100,43 @@ namespace VerifyTests
             return this;
         }
 
+        /// <summary>
+        /// Use a custom method name for the test results.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public SettingsTask UseMethodName(string name)
         {
             CurrentSettings.UseMethodName(name);
             return this;
         }
 
+        /// <summary>
+        /// Use a custom directory for the test.
+        /// </summary>
         public SettingsTask UseDirectory(string directory)
         {
             CurrentSettings.UseDirectory(directory);
             return this;
         }
 
-        public SettingsTask UseFileName(string directory)
+        /// <summary>
+        /// Use a file name for the test results.
+        /// Overrides the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file naming.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
+        public SettingsTask UseFileName(string fileName)
         {
-            CurrentSettings.UseFileName(directory);
+            CurrentSettings.UseFileName(fileName);
             return this;
         }
 
+        /// <summary>
+        /// Use a custom class name for the test results.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public SettingsTask UseTypeName(string name)
         {
             CurrentSettings.UseTypeName(name);

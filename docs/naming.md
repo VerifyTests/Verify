@@ -12,7 +12,7 @@ Naming determines the file name for the `.received.` resulting `.verified.` file
 The format is
 
 ```
-{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`
+{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}
 ```
 
 <!-- toc -->

@@ -4,6 +4,8 @@
     <TargetFrameworks>net5.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="*.verified.txt" />
+    <None Remove="*.received.txt" />
     <PackageReference Include="DiffEngine" Version="6.5.5" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />

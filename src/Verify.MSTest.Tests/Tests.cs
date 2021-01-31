@@ -14,4 +14,12 @@ public class Tests :
         var exception = await Assert.ThrowsExceptionAsync<Exception>(() => Verify("Foo"));
         Assert.IsTrue(exception.Message.Contains("requires parameters"));
     }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public Task UseFileNameWithParam(string arg)
+    {
+        return Verify(arg)
+            .UseFileName("UseFileNameWithParam");
+    }
 }

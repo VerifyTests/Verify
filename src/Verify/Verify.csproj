@@ -5,14 +5,14 @@
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5.0</TargetFrameworks>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" >
+  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'">
     <Compile Remove="HttpRecording\HttpListener.cs" />
     <Compile Remove="HttpRecording\HttpRecording.cs" />
     <Compile Remove="HttpRecording\HttpCall.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="6.5.5" />
-    <PackageReference Include="EmptyFiles" Version="2.4.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="2.6.0" PrivateAssets="None" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="3.1.11" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.1" />

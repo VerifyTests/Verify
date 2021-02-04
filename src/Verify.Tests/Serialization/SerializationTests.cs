@@ -103,29 +103,31 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task SettingsIsCloned()
+    public void SettingsIsCloned()
     {
-        var target = new
-        {
-            Property1 = "Value1",
-            Property2 = "Value2"
-        };
-        var verifySettings = new VerifySettings();
+        var settings = new SerializationSettings();
 
-        var task1 = Verifier.Verify(target, verifySettings)
-            .ModifySerialization(settings => settings.IgnoreMember("Property1"))
-            .UseMethodName("SettingsIsCloned1");
+        var ignoredMemberList = new List<string>();
+        settings.ignoredMembers.Add(GetType(), ignoredMemberList);
 
-        var task2 = Verifier.Verify(target, verifySettings)
-            .ModifySerialization(settings => settings.IgnoreMember("Property2"))
-            .UseMethodName("SettingsIsCloned2");
-        
-        Assert.NotSame(task1.CurrentSettings, verifySettings);
-        Assert.NotSame(task2.CurrentSettings, verifySettings);
-        Assert.NotSame(task2.CurrentSettings, task1.CurrentSettings);
+        var ignoredInstances = new List<Func<object, bool>>();
+        settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
-        await task1;
-        await task2;
+        var memberConverterList = new Dictionary<string, ConvertMember>();
+        settings.membersConverters.Add(GetType(), memberConverterList);
+
+        settings.ignoredByNameMembers.Add("ignored");
+
+        var clone = settings.Clone();
+
+        Assert.NotSame(settings, clone);
+        Assert.NotSame(settings.ignoredMembers, clone.ignoredMembers);
+        Assert.NotSame(settings.ignoredMembers.First().Value, clone.ignoredMembers.First().Value);
+        Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
+        Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
+        Assert.NotSame(settings.ignoredByNameMembers, clone.ignoredByNameMembers);
+        Assert.NotSame(settings.membersConverters, clone.membersConverters);
+        Assert.NotSame(settings.membersConverters.First().Value, clone.membersConverters.First().Value);
     }
 
     public class SettingsIsClonedTarget

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -40,24 +41,32 @@ namespace VerifyTests
             currentSettings = BuildSettings();
         }
 
-        Dictionary<Type, List<string>> ignoredMembers = new();
-        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
-        List<string> ignoredByNameMembers = new();
-        Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
+        internal Dictionary<Type, List<string>> ignoredMembers = new();
+        internal Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
+        internal List<string> ignoredByNameMembers = new();
+        internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
 
         public SerializationSettings Clone()
         {
             return new()
             {
-                membersConverters = membersConverters.Clone(),
-                ignoredMembers = ignoredMembers.Clone(),
+                membersConverters = membersConverters
+                    .ToDictionary(
+                        x => x.Key,
+                        x => x.Value.ToDictionary(y => y.Key, y => y.Value)),
+                ignoredMembers = ignoredMembers.ToDictionary(
+                    x => x.Key,
+                    x => x.Value.Clone()),
                 ignoredByNameMembers = ignoredByNameMembers.Clone(),
                 ignoreEmptyCollections = ignoreEmptyCollections,
                 ExtraSettings = ExtraSettings.Clone(),
                 ignoreFalse = ignoreFalse,
                 ignoreMembersThatThrow = ignoreMembersThatThrow.Clone(),
                 ignoreMembersWithType = ignoreMembersWithType.Clone(),
-                ignoredInstances = ignoredInstances.Clone(),
+                ignoredInstances = ignoredInstances
+                    .ToDictionary(
+                        x => x.Key,
+                        x => x.Value.Clone()),
                 scrubDateTimes = scrubDateTimes,
                 scrubGuids = scrubGuids,
                 includeObsoletes = includeObsoletes,

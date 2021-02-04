@@ -48,6 +48,12 @@ public class FileAppenderTests :
     }
 
     [Fact]
+    public Task EmptyString()
+    {
+        return Verifier.Verify(string.Empty);
+    }
+
+    [Fact]
     public Task Anon()
     {
         return Verifier.Verify(new {foo = "bar"});

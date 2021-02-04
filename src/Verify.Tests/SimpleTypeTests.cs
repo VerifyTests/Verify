@@ -36,9 +36,21 @@ public class SimpleTypeTests
     }
 
     [Fact]
+    public Task StringEmptyWrappedInTask()
+    {
+        return Verifier.Verify(Task.FromResult<object?>(string.Empty));
+    }
+
+    [Fact]
     public Task Null()
     {
-        return Verifier.Verify((object?)null);
+        return Verifier.Verify((string)null!);
+    }
+
+    [Fact]
+    public Task StringEmpty()
+    {
+        return Verifier.Verify(string.Empty);
     }
 
 #if NET5_0

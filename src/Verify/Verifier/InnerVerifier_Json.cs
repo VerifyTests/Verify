@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,11 +8,13 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
+        static IEnumerable<ConversionStream> emptyStreams = Enumerable.Empty<ConversionStream>();
+
         public async Task Verify<T>(T target)
         {
             if (target == null)
             {
-                await VerifyInner(null, null, Enumerable.Empty<ConversionStream>());
+                await VerifyInner("null", null, emptyStreams);
                 return;
             }
 
@@ -23,7 +26,14 @@ namespace VerifyTests
                     settings.UseExtension(stringResult.Extension);
                 }
 
-                await VerifyInner(stringResult.Value, null, Enumerable.Empty<ConversionStream>());
+                var value = stringResult.Value;
+                if (value == string.Empty)
+                {
+                    await VerifyInner("empty", null, emptyStreams);
+                    return;
+                }
+
+                await VerifyInner(value, null, emptyStreams);
                 return;
             }
 
@@ -57,7 +67,7 @@ namespace VerifyTests
                 return;
             }
 
-            await VerifyInner(target, null, Enumerable.Empty<ConversionStream>());
+            await VerifyInner(target, null, emptyStreams);
         }
     }
 }

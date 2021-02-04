@@ -29,7 +29,7 @@ namespace VerifyTests
                 var value = stringResult.Value;
                 if (value == string.Empty)
                 {
-                    await VerifyInner("empty", null, emptyStreams);
+                    await VerifyInner("emptyString", null, emptyStreams);
                     return;
                 }
 

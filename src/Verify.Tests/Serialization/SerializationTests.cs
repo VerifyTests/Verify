@@ -103,6 +103,38 @@ public class SerializationTests
     }
 
     [Fact]
+    public async Task SettingsIsCloned()
+    {
+        var target = new
+        {
+            Property1 = "Value1",
+            Property2 = "Value2"
+        };
+        var verifySettings = new VerifySettings();
+
+        var task1 = Verifier.Verify(target, verifySettings)
+            .ModifySerialization(settings => settings.IgnoreMember("Property1"))
+            .UseMethodName("SettingsIsCloned1");
+
+        var task2 = Verifier.Verify(target, verifySettings)
+            .ModifySerialization(settings => settings.IgnoreMember("Property2"))
+            .UseMethodName("SettingsIsCloned2");
+        
+        Assert.NotSame(task1.CurrentSettings, verifySettings);
+        Assert.NotSame(task2.CurrentSettings, verifySettings);
+        Assert.NotSame(task2.CurrentSettings, task1.CurrentSettings);
+
+        await task1;
+        await task2;
+    }
+
+    public class SettingsIsClonedTarget
+    {
+        public string Property1 { get; set; } = null!;
+        public string Property2 { get; set; } = null!;
+    }
+
+    [Fact]
     public Task GuidScrubbingDisabled()
     {
         return Verifier.Verify(

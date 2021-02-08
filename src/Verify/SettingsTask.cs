@@ -215,6 +215,15 @@ namespace VerifyTests
         }
 
         /// <summary>
+        /// Remove any lines containing only whitespace from the test results.
+        /// </summary>
+        public SettingsTask ScrubEmptyLines()
+        {
+            CurrentSettings.ScrubEmptyLines();
+            return this;
+        }
+
+        /// <summary>
         /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
         /// </summary>
         public SettingsTask ScrubLinesContaining(params string[] stringToMatch)

@@ -212,9 +212,21 @@ public class ScrubbersSample
                     return line.ToLower();
                 });
     }
+
+    [Fact]
+    public Task EmptyLines()
+    {
+        return Verifier.Verify(
+                target: @"
+                        LineA
+                        
+                        LineC
+                        ")
+            .ScrubEmptyLines();
+    }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -333,9 +345,21 @@ public class ScrubbersSample
                     return line.ToLower();
                 });
     }
+
+    [TestMethod]
+    public Task EmptyLines()
+    {
+        return Verify(
+                target: @"
+                        LineA
+                        
+                        LineC
+                        ")
+            .ScrubEmptyLines();
+    }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -455,9 +479,21 @@ public class ScrubbersSample :
                     return line.ToLower();
                 });
     }
+
+    [TestMethod]
+    public Task EmptyLines()
+    {
+        return Verify(
+                target: @"
+                        LineA
+                        
+                        LineC
+                        ")
+            .ScrubEmptyLines();
+    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L134' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

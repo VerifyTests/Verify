@@ -117,6 +117,18 @@ public class ScrubbersSample :
                     return line.ToLower();
                 });
     }
+
+    [TestMethod]
+    public Task EmptyLines()
+    {
+        return Verify(
+                target: @"
+                        LineA
+                        
+                        LineC
+                        ")
+            .ScrubEmptyLines();
+    }
 }
 
 #endregion

@@ -36,6 +36,14 @@ namespace VerifyTests
         }
 
         /// <summary>
+        /// Remove any lines containing only whitespace from the test results.
+        /// </summary>
+        public static void ScrubEmptyLines()
+        {
+            GlobalScrubbers.Insert(0, s => s.FilterLines(string.IsNullOrWhiteSpace));
+        }
+
+        /// <summary>
         /// Replace inline <see cref="Guid"/>s with a placeholder.
         /// Uses a <see cref="Regex"/> to find <see cref="Guid"/>s inside strings.
         /// </summary>

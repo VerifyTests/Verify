@@ -64,6 +64,14 @@ namespace VerifyTests
         }
 
         /// <summary>
+        /// Remove any lines containing only whitespace from the test results.
+        /// </summary>
+        public void ScrubEmptyLines()
+        {
+            instanceScrubbers.Insert(0, s => s.FilterLines(string.IsNullOrWhiteSpace));
+        }
+
+        /// <summary>
         /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
         /// </summary>
         public void ScrubLinesContaining(params string[] stringToMatch)

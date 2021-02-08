@@ -112,7 +112,7 @@ public class ScrubbersSample
         settings.ScrubLinesWithReplace(
             replaceLine: line =>
             {
-                if (line == "LineE")
+                if (line.Contains("LineE"))
                 {
                     return "NoMoreLineE";
                 }
@@ -125,15 +125,15 @@ public class ScrubbersSample
         return Verifier.Verify(
             settings: settings,
             target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-");
+                    LineA
+                    LineB
+                    LineC
+                    LineD
+                    LineE
+                    LineH
+                    LineI
+                    LineJ
+                    ");
     }
 
     [Fact]
@@ -141,19 +141,19 @@ LineJ
     {
         return Verifier.Verify(
                 target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-")
+                        LineA
+                        LineB
+                        LineC
+                        LineD
+                        LineE
+                        LineH
+                        LineI
+                        LineJ
+                        ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
-                    if (line == "LineE")
+                    if (line.Contains("LineE"))
                     {
                         return "NoMoreLineE";
                     }
@@ -191,9 +191,30 @@ LineJ
             .AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
     }
+
+    [Fact]
+    public Task RemoveOrReplace()
+    {
+        return Verifier.Verify(
+                target: @"
+                        LineA
+                        LineB
+                        LineC
+                        ")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineB"))
+                    {
+                        return null;
+                    }
+
+                    return line.ToLower();
+                });
+    }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L7-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -212,7 +233,7 @@ public class ScrubbersSample
         settings.ScrubLinesWithReplace(
             replaceLine: line =>
             {
-                if (line == "LineE")
+                if (line.Contains("LineE"))
                 {
                     return "NoMoreLineE";
                 }
@@ -225,15 +246,15 @@ public class ScrubbersSample
         return Verifier.Verify(
             settings: settings,
             target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-");
+                    LineA
+                    LineB
+                    LineC
+                    LineD
+                    LineE
+                    LineH
+                    LineI
+                    LineJ
+                    ");
     }
 
     [Test]
@@ -241,18 +262,19 @@ LineJ
     {
         return Verifier.Verify(
                 target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-").ScrubLinesWithReplace(
+                        LineA
+                        LineB
+                        LineC
+                        LineD
+                        LineE
+                        LineH
+                        LineI
+                        LineJ
+                        ")
+            .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
-                    if (line == "LineE")
+                    if (line.Contains("LineE"))
                     {
                         return "NoMoreLineE";
                     }
@@ -286,12 +308,34 @@ LineJ
             RowVersion = "7D3"
         };
 
-        return Verifier.Verify(target).AddScrubber(
-            s => s.Replace("7D3", "TheRowVersion"));
+        return Verifier.Verify(target)
+            .AddScrubber(
+                s => s.Replace("7D3", "TheRowVersion"));
+    }
+
+    [Test]
+    public Task RemoveOrReplace()
+    {
+        return Verifier.Verify(
+                target: @"
+                        LineA
+                        LineB
+                        LineC
+                        ")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineB"))
+                    {
+                        return null;
+                    }
+
+                    return line.ToLower();
+                });
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L7-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -311,7 +355,7 @@ public class ScrubbersSample :
         settings.ScrubLinesWithReplace(
             replaceLine: line =>
             {
-                if (line == "LineE")
+                if (line.Contains("LineE"))
                 {
                     return "NoMoreLineE";
                 }
@@ -324,15 +368,15 @@ public class ScrubbersSample :
         return Verify(
             settings: settings,
             target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-");
+                    LineA
+                    LineB
+                    LineC
+                    LineD
+                    LineE
+                    LineH
+                    LineI
+                    LineJ
+                    ");
     }
 
     [TestMethod]
@@ -340,19 +384,19 @@ LineJ
     {
         return Verify(
                 target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-")
+                        LineA
+                        LineB
+                        LineC
+                        LineD
+                        LineE
+                        LineH
+                        LineI
+                        LineJ
+                        ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
-                    if (line == "LineE")
+                    if (line.Contains("LineE"))
                     {
                         return "NoMoreLineE";
                     }
@@ -390,9 +434,30 @@ LineJ
             .AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
     }
+
+    [TestMethod]
+    public Task RemoveOrReplace()
+    {
+        return Verify(
+                target: @"
+                        LineA
+                        LineB
+                        LineC
+                        ")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineB"))
+                    {
+                        return null;
+                    }
+
+                    return line.ToLower();
+                });
+    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -402,12 +467,13 @@ LineJ
 <a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'></a>
 ```txt
 
-LineA
-LineC
+                    LineA
+                    LineC
 NoMoreLineE
-LineI
+                    LineI
+                    
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt -->

@@ -12,7 +12,7 @@ static class LinesScrubber
         FilterLines(input, s => s.LineContains(stringToMatch, comparison));
     }
 
-    public static void ReplaceLines(this StringBuilder input, Func<string, string> replaceLine)
+    public static void ReplaceLines(this StringBuilder input, Func<string, string?> replaceLine)
     {
         Guard.AgainstNull(input, nameof(input));
         Guard.AgainstNull(replaceLine, nameof(replaceLine));
@@ -23,8 +23,12 @@ static class LinesScrubber
         string? line;
         while ((line = reader.ReadLine()) != null)
         {
-            input.Append(replaceLine(line));
-            input.Append('\n');
+            var value = replaceLine(line);
+            if (value != null)
+            {
+                input.Append(value);
+                input.Append('\n');
+            }
         }
 
         if (!theString.EndsWith("\n"))

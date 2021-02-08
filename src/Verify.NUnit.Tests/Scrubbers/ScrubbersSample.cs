@@ -16,7 +16,7 @@ public class ScrubbersSample
         settings.ScrubLinesWithReplace(
             replaceLine: line =>
             {
-                if (line == "LineE")
+                if (line.Contains("LineE"))
                 {
                     return "NoMoreLineE";
                 }
@@ -29,15 +29,15 @@ public class ScrubbersSample
         return Verifier.Verify(
             settings: settings,
             target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-");
+                    LineA
+                    LineB
+                    LineC
+                    LineD
+                    LineE
+                    LineH
+                    LineI
+                    LineJ
+                    ");
     }
 
     [Test]
@@ -45,18 +45,19 @@ LineJ
     {
         return Verifier.Verify(
                 target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-").ScrubLinesWithReplace(
+                        LineA
+                        LineB
+                        LineC
+                        LineD
+                        LineE
+                        LineH
+                        LineI
+                        LineJ
+                        ")
+            .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
-                    if (line == "LineE")
+                    if (line.Contains("LineE"))
                     {
                         return "NoMoreLineE";
                     }
@@ -90,8 +91,30 @@ LineJ
             RowVersion = "7D3"
         };
 
-        return Verifier.Verify(target).AddScrubber(
-            s => s.Replace("7D3", "TheRowVersion"));
+        return Verifier.Verify(target)
+            .AddScrubber(
+                s => s.Replace("7D3", "TheRowVersion"));
+    }
+
+    [Test]
+    public Task RemoveOrReplace()
+    {
+        return Verifier.Verify(
+                target: @"
+                        LineA
+                        LineB
+                        LineC
+                        ")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineB"))
+                    {
+                        return null;
+                    }
+
+                    return line.ToLower();
+                });
     }
 }
 

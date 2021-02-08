@@ -16,7 +16,7 @@ public class ScrubbersSample
         settings.ScrubLinesWithReplace(
             replaceLine: line =>
             {
-                if (line == "LineE")
+                if (line.Contains("LineE"))
                 {
                     return "NoMoreLineE";
                 }
@@ -29,15 +29,15 @@ public class ScrubbersSample
         return Verifier.Verify(
             settings: settings,
             target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-");
+                    LineA
+                    LineB
+                    LineC
+                    LineD
+                    LineE
+                    LineH
+                    LineI
+                    LineJ
+                    ");
     }
 
     [Fact]
@@ -45,19 +45,19 @@ LineJ
     {
         return Verifier.Verify(
                 target: @"
-LineA
-LineB
-LineC
-LineD
-LineE
-LineH
-LineI
-LineJ
-")
+                        LineA
+                        LineB
+                        LineC
+                        LineD
+                        LineE
+                        LineH
+                        LineI
+                        LineJ
+                        ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
-                    if (line == "LineE")
+                    if (line.Contains("LineE"))
                     {
                         return "NoMoreLineE";
                     }
@@ -94,6 +94,27 @@ LineJ
         return Verifier.Verify(target)
             .AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
+    }
+
+    [Fact]
+    public Task RemoveOrReplace()
+    {
+        return Verifier.Verify(
+                target: @"
+                        LineA
+                        LineB
+                        LineC
+                        ")
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineB"))
+                    {
+                        return null;
+                    }
+
+                    return line.ToLower();
+                });
     }
 }
 

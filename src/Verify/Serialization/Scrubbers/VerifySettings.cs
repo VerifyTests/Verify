@@ -58,7 +58,7 @@ namespace VerifyTests
         /// Scrub lines with an optional replace.
         /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
         /// </summary>
-        public void ScrubLinesWithReplace(Func<string, string> replaceLine)
+        public void ScrubLinesWithReplace(Func<string, string?> replaceLine)
         {
             instanceScrubbers.Insert(0, s => s.ReplaceLines(replaceLine));
         }

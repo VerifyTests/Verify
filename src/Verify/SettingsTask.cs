@@ -208,7 +208,7 @@ namespace VerifyTests
         /// Scrub lines with an optional replace.
         /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
         /// </summary>
-        public SettingsTask ScrubLinesWithReplace(Func<string, string> replaceLine)
+        public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
         {
             CurrentSettings.ScrubLinesWithReplace(replaceLine);
             return this;

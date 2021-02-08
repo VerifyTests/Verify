@@ -50,7 +50,7 @@ namespace VerifyTests
             Duration = Activity.Current!.Duration;
         }
 
-        (string? content, string? prettyContent) TryReadStringContent(HttpContent content)
+        static (string? content, string? prettyContent) TryReadStringContent(HttpContent content)
         {
             var type = content.Headers.ContentType?.MediaType;
             if (type == null)

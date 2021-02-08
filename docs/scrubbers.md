@@ -346,10 +346,10 @@ public class ScrubbersSample
                 });
     }
 
-    [TestMethod]
+    [Test]
     public Task EmptyLines()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         

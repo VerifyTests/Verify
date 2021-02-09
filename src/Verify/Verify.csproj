@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.53" PrivateAssets="All" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
     <Content Include="buildMultiTargeting\Verify.props" PackagePath="buildMultiTargeting\Verify.props" />
     <Content Include="build\Verify.props" PackagePath="build\Verify.props" />
     <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />

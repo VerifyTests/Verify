@@ -1,0 +1,6 @@
+{
+  ProjectDirectory: {ProjectDirectory},
+  ProjectDirectoryInferred: {ProjectDirectory},
+  SolutionDirectory: {SolutionDirectory},
+  SolutionDirectoryInferred: {SolutionDirectory}
+}

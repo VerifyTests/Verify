@@ -1,75 +1,116 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-static class AttributeReader
+namespace VerifyTests
 {
-    private static ConcurrentDictionary<Assembly, (string projectDirectory, Action<StringBuilder> replacements)> cache = new();
-
-    static string GetProjectDirectory(Assembly assembly)
+    public static class AttributeReader
     {
-        var projectDirectory = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .SingleOrDefault(x => x.Key == "Verify.ProjectDirectory")
-            ?.Value;
-        if (projectDirectory != null)
+        static ConcurrentDictionary<Assembly, (string projectDirectory, Action<StringBuilder> replacements)> cache = new();
+
+        public static string GetProjectDirectory()
         {
-            return projectDirectory;
+            return GetProjectDirectory(Assembly.GetCallingAssembly());
         }
 
-        throw new("Could not find a `AssemblyMetadataAttribute` named `Verify.ProjectDirectory`.");
-    }
-
-    static bool TryGetSolutionDirectory(Assembly assembly, out string? solutionDirectory)
-    {
-        solutionDirectory = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .SingleOrDefault(x => x.Key == "Verify.SolutionDirectory")
-            ?.Value;
-        return solutionDirectory != null;
-    }
-
-    public static (string projectDirectory, Action<StringBuilder> replacements) GetAssemblyInfo(Assembly assembly)
-    {
-        return cache.GetOrAdd(assembly, _ =>
+        public static string GetProjectDirectory(Assembly assembly)
         {
-            var projectDirectory = GetProjectDirectory(_);
-            return (projectDirectory, GetReplacements(_, projectDirectory));
-        });
-    }
+            return GetValue(assembly, "Verify.ProjectDirectory");
+        }
 
-    static Action<StringBuilder> GetReplacements(Assembly assembly, string projectDirectory)
-    {
-        var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
-        var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
-
-        if (TryGetSolutionDirectory(assembly, out var solutionDirectory))
+        public static bool TryGetProjectDirectory([NotNullWhen(true)] out string? projectDirectory)
         {
-            var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
-            var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
+            return TryGetProjectDirectory(Assembly.GetCallingAssembly(), out projectDirectory);
+        }
+
+        public static bool TryGetProjectDirectory(Assembly assembly, [NotNullWhen(true)] out string? projectDirectory)
+        {
+            return TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory);
+        }
+
+        public static string GetSolutionDirectory()
+        {
+            return GetSolutionDirectory(Assembly.GetCallingAssembly());
+        }
+
+        public static string GetSolutionDirectory(Assembly assembly)
+        {
+            return GetValue(assembly, "Verify.SolutionDirectory");
+        }
+
+        public static bool TryGetSolutionDirectory([NotNullWhen(true)] out string? solutionDirectory)
+        {
+            return TryGetSolutionDirectory(Assembly.GetCallingAssembly(), out solutionDirectory);
+        }
+
+        public static bool TryGetSolutionDirectory(Assembly assembly, [NotNullWhen(true)] out string? solutionDirectory)
+        {
+            return TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory);
+        }
+
+        static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value)
+        {
+            value = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+                .SingleOrDefault(x => x.Key == key)
+                ?.Value;
+            return value != null;
+        }
+
+        static string GetValue(Assembly assembly, string key)
+        {
+            if (TryGetValue(assembly, key, out var value))
+            {
+                return value;
+            }
+
+            throw new($"Could not find a `AssemblyMetadataAttribute` named `{key}`.");
+        }
+
+        internal static (string projectDirectory, Action<StringBuilder> replacements) GetAssemblyInfo(Assembly assembly)
+        {
+            return cache.GetOrAdd(assembly, _ =>
+            {
+                var projectDirectory = GetProjectDirectory(_);
+                return (projectDirectory, GetReplacements(_, projectDirectory));
+            });
+        }
+
+        static Action<StringBuilder> GetReplacements(Assembly assembly, string projectDirectory)
+        {
+            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
+            var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
+
+            if (TryGetSolutionDirectory(assembly, out var solutionDirectory))
+            {
+                var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
+                var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
+                return builder =>
+                {
+                    builder.Replace(projectDirectory, "{ProjectDirectory}");
+                    builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
+                    builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                    builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+
+                    builder.Replace(solutionDirectory, "{SolutionDirectory}");
+                    builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
+                    builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
+                    builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
+                };
+            }
+
             return builder =>
             {
                 builder.Replace(projectDirectory, "{ProjectDirectory}");
                 builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
                 builder.Replace(altProjectDirectory, "{ProjectDirectory}");
                 builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
-
-                builder.Replace(solutionDirectory, "{SolutionDirectory}");
-                builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
-                builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
-                builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
             };
         }
-
-        return builder =>
-        {
-            builder.Replace(projectDirectory, "{ProjectDirectory}");
-            builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
-            builder.Replace(altProjectDirectory, "{ProjectDirectory}");
-            builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
-        };
     }
 }

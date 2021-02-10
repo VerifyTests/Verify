@@ -32,10 +32,10 @@ The solution and project directory replacement functionality is achieved by addi
 
 This information can be useful to consumers when writing tests, so it is exposed via `AttributeReader`:
 
- * Get the project directory for an assembly: `AttributeReader.GetProjectDirectory(assembly)`
- * Get the project directory for an the current executing assembly: `AttributeReader.GetProjectDirectory()`
- * Get the solution directory for an assembly: `AttributeReader.GetSolutionDirectory(assembly)`
- * Get the solution directory for an the current executing assembly: `AttributeReader.GetSolutionDirectory()`
+ * Project directory for an assembly: `AttributeReader.GetProjectDirectory(assembly)`
+ * Project directory for the current executing assembly: `AttributeReader.GetProjectDirectory()`
+ * Solution directory for an assembly: `AttributeReader.GetSolutionDirectory(assembly)`
+ * Solution directory for the current executing assembly: `AttributeReader.GetSolutionDirectory()`
 
 
 ### ScrubLines

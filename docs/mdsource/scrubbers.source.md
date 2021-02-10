@@ -12,6 +12,32 @@ Scrubber are executed in reveres order. So the most recent added method scrubber
 Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.
 
 
+### Directory Scrubbers
+
+ * The current solution directory will be replaced with `{SolutionDirectory}`.
+ * The current project directory will be replaced with `{ProjectDirectory}`.
+ * The `AppDomain.CurrentDomain.BaseDirectory` will be replaced with `{CurrentDirectory}`.
+ * The `Assembly.CodeBase` will be replaced with `{CurrentDirectory}`.
+ * The `Path.GetTempPath()` will be replaced with `{TempPath}`.
+
+
+#### Attribute data
+
+The solution and project directory replacement functionality is achieved by adding attribute to the target assembly at compile time. For any project that references Verify, the following attributes will be added:
+
+```
+[assembly: AssemblyMetadata("Verify.ProjectDirectory", "C:\Code\TheSolution\Project\")]
+[assembly: AssemblyMetadata("Verify.SolutionDirectory", "C:\Code\TheSolution\")]
+```
+
+This information can be useful to consumers when writing tests, so it is exposed via `AttributeReader`:
+
+ * Get the project directory for an assembly: `AttributeReader.GetProjectDirectory(assembly)`
+ * Get the project directory for an the current executing assembly: `AttributeReader.GetProjectDirectory()`
+ * Get the solution directory for an assembly: `AttributeReader.GetSolutionDirectory(assembly)`
+ * Get the solution directory for an the current executing assembly: `AttributeReader.GetSolutionDirectory()`
+
+
 ### ScrubLines
 
 Allows lines to be selectively removed using a `Func`.
@@ -109,3 +135,4 @@ snippet: ScrubberLevelsSampleMSTest
 ### Result
 
 snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt
+

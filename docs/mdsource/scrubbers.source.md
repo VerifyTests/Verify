@@ -23,7 +23,7 @@ Scrubbers can be added to an instance of `VerifySettings` or globally on `Verifi
 
 #### Attribute data
 
-The solution and project directory replacement functionality is achieved by adding attribute to the target assembly at compile time. For any project that references Verify, the following attributes will be added:
+The solution and project directory replacement functionality is achieved by adding attributes to the target assembly at compile time. For any project that references Verify, the following attributes will be added:
 
 ```
 [assembly: AssemblyMetadata("Verify.ProjectDirectory", "C:\Code\TheSolution\Project\")]

@@ -8,6 +8,7 @@ namespace VerifyTests
     public partial class VerifySettings
     {
         internal List<Action<StringBuilder>> instanceScrubbers = new();
+        internal Dictionary<string, List<Action<StringBuilder>>> extensionMappedInstanceScrubbers = new();
 
         /// <summary>
         /// Remove the <see cref="Environment.MachineName"/> from the test results.
@@ -24,6 +25,20 @@ namespace VerifyTests
         {
             Guard.AgainstNull(scrubber, nameof(scrubber));
             instanceScrubbers.Insert(0, scrubber);
+        }
+
+        /// <summary>
+        /// Modify the resulting test content using custom code.
+        /// </summary>
+        public void AddScrubber(string extension, Action<StringBuilder> scrubber)
+        {
+            Guard.AgainstNull(scrubber, nameof(scrubber));
+            if (!extensionMappedInstanceScrubbers.TryGetValue(extension, out var values))
+            {
+                extensionMappedInstanceScrubbers[extension] = values = new List<Action<StringBuilder>>();
+            }
+
+            values.Add(scrubber);
         }
 
         /// <summary>

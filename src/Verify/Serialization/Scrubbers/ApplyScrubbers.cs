@@ -33,7 +33,7 @@ static class ApplyScrubbers
         altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
-    public static void Apply(StringBuilder target, List<Action<StringBuilder>> scrubbers)
+    public static void Apply(string extension, StringBuilder target, VerifySettings settings)
     {
         foreach (var replace in currentDirectoryReplacements)
         {
@@ -43,14 +43,30 @@ static class ApplyScrubbers
         target.Replace(tempPath, "{TempPath}");
         target.Replace(altTempPath, "{TempPath}");
 
-        foreach (var scrubber in scrubbers)
+        foreach (var scrubber in settings.instanceScrubbers)
         {
             scrubber(target);
+        }
+
+        if (VerifierSettings.ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var extensionBasedScrubbers))
+        {
+            foreach (var scrubber in extensionBasedScrubbers)
+            {
+                scrubber(target);
+            }
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
         {
             scrubber(target);
+        }
+
+        if (VerifierSettings.ExtensionMappedGlobalScrubbers.TryGetValue(extension, out extensionBasedScrubbers))
+        {
+            foreach (var scrubber in extensionBasedScrubbers)
+            {
+                scrubber(target);
+            }
         }
 
         target.FixNewlines();

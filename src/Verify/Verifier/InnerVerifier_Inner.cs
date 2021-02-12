@@ -17,7 +17,7 @@ namespace VerifyTests
 
             if (TryGetTargetBuilder(target, out var builder, out var extension))
             {
-                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+                ApplyScrubbers.Apply(extension, builder, settings);
 
                 var received = builder.ToString();
                 var stream = new ConversionStream(extension, received);
@@ -103,7 +103,7 @@ namespace VerifyTests
             if (conversionStream.IsString)
             {
                 var builder = new StringBuilder(conversionStream.StringData);
-                ApplyScrubbers.Apply(builder, settings.instanceScrubbers);
+                ApplyScrubbers.Apply(settings.ExtensionOrTxt(), builder, settings);
                 return await Comparer.Text(filePair, builder.ToString(), settings);
             }
 

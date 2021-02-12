@@ -103,7 +103,7 @@ namespace VerifyTests
             if (conversionStream.IsString)
             {
                 var builder = new StringBuilder(conversionStream.StringData);
-                ApplyScrubbers.Apply(settings.ExtensionOrTxt(), builder, settings);
+                ApplyScrubbers.Apply(conversionStream.Extension, builder, settings);
                 return await Comparer.Text(filePair, builder.ToString(), settings);
             }
 

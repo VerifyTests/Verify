@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;xUnit1026</NoWarn>
-    <Version>10.7.0</Version>
+    <Version>10.7.1</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>

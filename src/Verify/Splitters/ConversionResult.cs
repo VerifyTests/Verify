@@ -10,24 +10,9 @@ namespace VerifyTests
     {
         public object? Info { get; }
 
-        [Obsolete("Use Targets")]
-        public IEnumerable<Target> Streams
-        {
-            get { return Targets; }
-        }
-
         public IEnumerable<Target> Targets { get; }
 
         public Func<Task>? Cleanup { get; }
-
-        [Obsolete("Use ConversionResult(object? info, IEnumerable<Target> streams, Func<Task>? cleanup = null)")]
-        public ConversionResult(object? info, IEnumerable<ConversionStream> streams, Func<Task>? cleanup = null)
-        {
-            Guard.AgainstNull(streams, nameof(streams));
-            Info = info;
-            Targets = streams.Select(stream => (Target) stream);
-            Cleanup = cleanup;
-        }
 
         public ConversionResult(object? info, IEnumerable<Target> streams, Func<Task>? cleanup = null)
         {

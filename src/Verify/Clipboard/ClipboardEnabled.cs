@@ -26,7 +26,7 @@ static class ClipboardEnabled
         throw new($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}");
     }
 
-    public static bool IsEnabled(VerifySettings settings)
+    public static bool IsEnabled()
     {
         if (clipboardDisabled)
         {

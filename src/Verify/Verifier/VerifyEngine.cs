@@ -108,7 +108,7 @@ class VerifyEngine
             {
                 builder.AppendLine("Use DiffEngineTray to verify files.");
             }
-            else if (ClipboardEnabled.IsEnabled(settings))
+            else if (ClipboardEnabled.IsEnabled())
             {
                 builder.AppendLine("Verify command placed in clipboard.");
             }
@@ -158,7 +158,7 @@ class VerifyEngine
             return DiffEngineTray.AddDeleteAsync(item);
         }
 
-        if (ClipboardEnabled.IsEnabled(settings))
+        if (ClipboardEnabled.IsEnabled())
         {
             return ClipboardCapture.AppendDelete(item);
         }
@@ -232,7 +232,7 @@ class VerifyEngine
         }
 
         if (!DiffEngineTray.IsRunning &&
-            ClipboardEnabled.IsEnabled(settings))
+            ClipboardEnabled.IsEnabled())
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
@@ -285,7 +285,7 @@ class VerifyEngine
         }
 
         if (!DiffEngineTray.IsRunning &&
-            ClipboardEnabled.IsEnabled(settings))
+            ClipboardEnabled.IsEnabled())
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }

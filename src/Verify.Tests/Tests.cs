@@ -143,13 +143,13 @@ public class Tests
         settings.DisableClipboard();
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
-        settings.OnFirstVerify(
+        VerifierSettings.OnFirstVerify(
             _ =>
             {
                 onFirstVerifyCalled = true;
                 return Task.CompletedTask;
             });
-        settings.OnVerifyMismatch(
+        VerifierSettings.OnVerifyMismatch(
             (filePair, _) =>
             {
                 Assert.NotEmpty(filePair.Received);
@@ -172,7 +172,7 @@ public class Tests
         settings.DisableClipboard();
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
-        settings.OnFirstVerify(
+        VerifierSettings.OnFirstVerify(
             filePair =>
             {
                 Assert.NotEmpty(filePair.Received);
@@ -180,7 +180,7 @@ public class Tests
                 onFirstVerifyCalled = true;
                 return Task.CompletedTask;
             });
-        settings.OnVerifyMismatch(
+        VerifierSettings.OnVerifyMismatch(
             (_, _) =>
             {
                 onVerifyMismatchCalled = true;

@@ -68,18 +68,6 @@ namespace VerifyTests
             return this;
         }
 
-        public SettingsTask OnFirstVerify(FirstVerify firstVerify)
-        {
-            CurrentSettings.OnFirstVerify(firstVerify);
-            return this;
-        }
-
-        public SettingsTask OnVerifyMismatch(VerifyMismatch verifyMismatch)
-        {
-            CurrentSettings.OnVerifyMismatch(verifyMismatch);
-            return this;
-        }
-
         public SettingsTask DisableClipboard()
         {
             CurrentSettings.DisableClipboard();

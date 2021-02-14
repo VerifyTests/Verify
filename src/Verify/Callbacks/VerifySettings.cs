@@ -1,18 +1,18 @@
 ﻿namespace VerifyTests
 {
-    public partial class VerifySettings
+    public static partial class VerifierSettings
     {
-        internal FirstVerify? handleOnFirstVerify;
+        internal static FirstVerify? handleOnFirstVerify;
 
-        public void OnFirstVerify(FirstVerify firstVerify)
+        public static void OnFirstVerify(FirstVerify firstVerify)
         {
             Guard.AgainstNull(firstVerify, nameof(firstVerify));
             handleOnFirstVerify = firstVerify;
         }
 
-        internal VerifyMismatch? handleOnVerifyMismatch;
+        internal static VerifyMismatch? handleOnVerifyMismatch;
 
-        public void OnVerifyMismatch(VerifyMismatch verifyMismatch)
+        public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
         {
             Guard.AgainstNull(verifyMismatch, nameof(verifyMismatch));
             handleOnVerifyMismatch = verifyMismatch;

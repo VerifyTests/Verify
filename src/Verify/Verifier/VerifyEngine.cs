@@ -195,9 +195,9 @@ class VerifyEngine
 
     async Task ProcessNotEquals(StringBuilder builder, FilePair item, string? message)
     {
-        if (settings.handleOnVerifyMismatch != null)
+        if (VerifierSettings.handleOnVerifyMismatch != null)
         {
-            await settings.handleOnVerifyMismatch(item, message);
+            await VerifierSettings.handleOnVerifyMismatch(item, message);
         }
 
         builder.AppendLine($"Received: {Path.GetFileName(item.Received)}");
@@ -261,9 +261,9 @@ class VerifyEngine
 
     async Task ProcessMissing(StringBuilder builder, FilePair item)
     {
-        if (settings.handleOnFirstVerify != null)
+        if (VerifierSettings.handleOnFirstVerify != null)
         {
-            await settings.handleOnFirstVerify(item);
+            await VerifierSettings.handleOnFirstVerify(item);
         }
 
         builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");

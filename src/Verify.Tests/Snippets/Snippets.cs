@@ -15,14 +15,13 @@ public class Snippets
 
     public async Task OnHandlersSample()
     {
-        VerifySettings settings = new();
-        settings.OnFirstVerify(
+        VerifierSettings.OnFirstVerify(
             receivedFile =>
             {
                 Debug.WriteLine(receivedFile);
                 return Task.CompletedTask;
             });
-        settings.OnVerifyMismatch(
+        VerifierSettings.OnVerifyMismatch(
             (filePair, message) =>
             {
                 Debug.WriteLine(filePair.Received);
@@ -30,7 +29,7 @@ public class Snippets
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });
-        await Verifier.Verify("value", settings);
+        await Verifier.Verify("value");
     }
 
     #endregion

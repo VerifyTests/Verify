@@ -22,7 +22,7 @@ This can be done using `AutoVerify()`:
 VerifySettings settings = new();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L119-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L118-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -39,14 +39,13 @@ Note that auto accepted changes in `.verified.` files remain visible in source c
 ```cs
 public async Task OnHandlersSample()
 {
-    VerifySettings settings = new();
-    settings.OnFirstVerify(
+    VerifierSettings.OnFirstVerify(
         receivedFile =>
         {
             Debug.WriteLine(receivedFile);
             return Task.CompletedTask;
         });
-    settings.OnVerifyMismatch(
+    VerifierSettings.OnVerifyMismatch(
         (filePair, message) =>
         {
             Debug.WriteLine(filePair.Received);
@@ -54,8 +53,8 @@ public async Task OnHandlersSample()
             Debug.WriteLine(message);
             return Task.CompletedTask;
         });
-    await Verifier.Verify("value", settings);
+    await Verifier.Verify("value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L14-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L14-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

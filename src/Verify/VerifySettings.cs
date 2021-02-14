@@ -22,8 +22,6 @@ namespace VerifyTests
             directory = settings.directory;
             autoVerify = settings.autoVerify;
             serialization = settings.serialization;
-            handleOnFirstVerify = settings.handleOnFirstVerify;
-            handleOnVerifyMismatch = settings.handleOnVerifyMismatch;
             stringComparer = settings.stringComparer;
             streamComparer = settings.streamComparer;
             parameters = settings.parameters;

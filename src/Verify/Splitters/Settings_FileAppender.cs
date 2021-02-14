@@ -6,14 +6,14 @@ namespace VerifyTests
     {
         static List<FileAppender> fileAppenders = new();
 
-        internal static IEnumerable<ConversionStream> GetFileAppenders(VerifySettings settings)
+        internal static IEnumerable<Target> GetFileAppenders(VerifySettings settings)
         {
             foreach (var appender in fileAppenders)
             {
                 var stream = appender(settings.Context);
                 if (stream != null)
                 {
-                    yield return (ConversionStream)stream;
+                    yield return (Target)stream;
                 }
             }
         }

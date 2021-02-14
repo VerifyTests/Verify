@@ -27,32 +27,31 @@ namespace VerifyTests
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {
                         var result = await conversion(stream, settings.Context);
-                        await VerifyInner(result.Info, result.Cleanup, result.Streams);
+                        await VerifyInner(result.Info, result.Cleanup, result.Targets);
                         return;
                     }
                 }
 
                 extension ??= "bin";
 
-                List<ConversionStream> streams;
+                List<Target> targets;
                 if (EmptyFiles.Extensions.IsText(extension))
                 {
-                    streams = new()
+                    targets = new()
                     {
                         new(extension, await stream.ReadAsString())
                     };
-                    await VerifyInner(null, null, streams);
+                    await VerifyInner(null, null, targets);
                 }
                 else
                 {
-
-                    streams = new()
+                    targets = new()
                     {
                         new(extension, stream)
                     };
                 }
 
-                await VerifyInner(null, null, streams);
+                await VerifyInner(null, null, targets);
             }
         }
     }

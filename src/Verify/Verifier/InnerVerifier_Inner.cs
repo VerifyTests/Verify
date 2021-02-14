@@ -9,23 +9,23 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<ConversionStream> streams)
+        async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
         {
             VerifyEngine engine = new(settings, fileNameBuilder);
 
-            var streamsList = streams.ToList();
+            var targetList = targets.ToList();
 
             if (TryGetTargetBuilder(target, out var builder, out var extension))
             {
                 ApplyScrubbers.Apply(extension, builder, settings);
 
                 var received = builder.ToString();
-                var stream = new ConversionStream(extension, received);
-                streamsList.Insert(0, stream);
+                var stream = new Target(extension, received);
+                targetList.Insert(0, stream);
             }
 
-            streamsList.AddRange(VerifierSettings.GetFileAppenders(settings));
-            var builders = streamsList
+            targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
+            var builders = targetList
                 .Select(
                     stream =>
                     {
@@ -98,7 +98,7 @@ namespace VerifyTests
             return true;
         }
 
-        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, ConversionStream conversionStream)
+        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target conversionStream)
         {
             if (conversionStream.IsString)
             {

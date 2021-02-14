@@ -2,5 +2,5 @@
 
 namespace VerifyTests
 {
-    public delegate ConversionStream? FileAppender(IReadOnlyDictionary<string, object> context);
+    public delegate Target? FileAppender(IReadOnlyDictionary<string, object> context);
 }

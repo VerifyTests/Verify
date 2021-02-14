@@ -33,7 +33,7 @@ namespace VerifyTests
 
             try
             {
-                await VerifyInner(list, null, emptyStreams);
+                await VerifyInner(list, null, emptyTargets);
             }
             finally
             {

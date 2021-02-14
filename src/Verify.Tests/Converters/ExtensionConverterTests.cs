@@ -24,7 +24,7 @@ public class ExtensionConverterTests
             "ExtensionConversion",
             (_, _) =>
             {
-                return new ConversionResult(null, new[] {new ConversionStream("txt", "Foo")});
+                return new ConversionResult(null, new[] {new Target("txt", "Foo")});
             });
         return Verifier.Verify(new MemoryStream())
             .UseExtension("ExtensionConversion");
@@ -37,7 +37,7 @@ public class ExtensionConverterTests
             "AsyncExtensionConversion",
             (_, _) =>
             {
-                return Task.FromResult(new ConversionResult(null,  new []{new ConversionStream("txt", "Foo")}));
+                return Task.FromResult(new ConversionResult(null,  new []{new Target("txt", "Foo")}));
             });
         return Verifier.Verify(new MemoryStream())
             .UseExtension("AsyncExtensionConversion");
@@ -54,7 +54,7 @@ public class ExtensionConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, new []{new ConversionStream("txt", "Foo")});
+                return new ConversionResult(info, new []{new Target("txt", "Foo")});
             });
         return Verifier.Verify(new MemoryStream())
             .UseExtension("WithInfo");

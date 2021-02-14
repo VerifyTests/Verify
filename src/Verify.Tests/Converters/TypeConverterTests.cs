@@ -134,12 +134,12 @@ public class TypeConverterTests
         VerifierSettings.RegisterFileConverter<Bitmap>(
             (bitmap1, _) =>
             {
-                var streams = ConvertBmpTpPngStreams(bitmap1);
+                var targets = ConvertBmpTpPngStreams(bitmap1);
                 var info = new
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
+                return new ConversionResult(info, targets.Select(x => new Target("png", x)));
             });
         VerifySettings settings = new();
         settings.UseExtension("bmp");
@@ -154,12 +154,12 @@ public class TypeConverterTests
             canConvert: (target, _, _) => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
-                var streams = ConvertBmpTpPngStreams(bitmap1);
+                var targets = ConvertBmpTpPngStreams(bitmap1);
                 var info = new
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, streams.Select(x => new ConversionStream("png", x)));
+                return new ConversionResult(info, targets.Select(x => new Target("png", x)));
             });
         VerifySettings settings = new();
         settings.UseExtension("bmp");
@@ -175,8 +175,8 @@ public class TypeConverterTests
             canConvert: (target, _, _) => Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
-                var streams = ConvertBmpTpPngStreams(bitmap1);
-                return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
+                var targets = ConvertBmpTpPngStreams(bitmap1);
+                return new ConversionResult(null, targets.Select(x => new Target("png", x)));
             });
         VerifySettings settings = new();
         settings.UseExtension("bmp");

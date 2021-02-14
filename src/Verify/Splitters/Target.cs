@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace VerifyTests
 {
-    [Obsolete("Use Target")]
-    public readonly struct ConversionStream
+    public readonly struct Target
     {
         readonly string? stringData;
         readonly Stream? streamData;
@@ -23,10 +21,7 @@ namespace VerifyTests
             }
         }
 
-        public bool IsStream
-        {
-            get => streamData != null;
-        }
+        public bool IsStream { get => streamData != null; }
 
         public string StringData
         {
@@ -41,19 +36,16 @@ namespace VerifyTests
             }
         }
 
-        public bool IsString
-        {
-            get => stringData != null;
-        }
+        public bool IsString { get => stringData != null; }
 
-        public ConversionStream(string extension, Stream streamData)
+        public Target(string extension, Stream streamData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(streamData, nameof(streamData));
 
             if (EmptyFiles.Extensions.IsText(extension))
             {
-                throw new("Dont pass a stream for text. Instead use the `ConversionStream(string extension, string stringData)`.");
+                throw new("Dont pass a stream for text. Instead use the `Target(string extension, string stringData)`.");
             }
 
             Extension = extension;
@@ -61,13 +53,13 @@ namespace VerifyTests
             stringData = null;
         }
 
-        public ConversionStream(string extension, string stringData)
+        public Target(string extension, string stringData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(stringData, nameof(stringData));
             if (!EmptyFiles.Extensions.IsText(extension))
             {
-                throw new("Dont pass a stream for text. Instead use the `ConversionStream(string extension, Stream streamData)`.");
+                throw new("Dont pass a stream for text. Instead use the `Target(string extension, Stream streamData)`.");
             }
 
             Extension = extension;
@@ -75,9 +67,11 @@ namespace VerifyTests
             streamData = null;
         }
 
-        public static implicit operator Target(ConversionStream stream)
+        internal Target(string extension, string? stringData, Stream? streamData)
         {
-            return new(stream.Extension, stream.stringData, stream.streamData);
+            Extension = extension;
+            this.stringData = stringData;
+            this.streamData = streamData;
         }
     }
 }

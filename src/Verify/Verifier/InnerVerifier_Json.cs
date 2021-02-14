@@ -8,13 +8,13 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        static IEnumerable<ConversionStream> emptyStreams = Enumerable.Empty<ConversionStream>();
+        static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
 
         public async Task Verify<T>(T target)
         {
             if (target == null)
             {
-                await VerifyInner("null", null, emptyStreams);
+                await VerifyInner("null", null, emptyTargets);
                 return;
             }
 
@@ -29,18 +29,18 @@ namespace VerifyTests
                 var value = stringResult.Value;
                 if (value == string.Empty)
                 {
-                    await VerifyInner("emptyString", null, emptyStreams);
+                    await VerifyInner("emptyString", null, emptyTargets);
                     return;
                 }
 
-                await VerifyInner(value, null, emptyStreams);
+                await VerifyInner(value, null, emptyTargets);
                 return;
             }
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                 var result = await converter.Conversion(target!, settings.Context);
-                await VerifyInner(result.Info, result.Cleanup, result.Streams);
+                await VerifyInner(result.Info, result.Cleanup, result.Targets);
                 return;
             }
 
@@ -58,16 +58,16 @@ namespace VerifyTests
                     {
                         if (x == null)
                         {
-                            return new ConversionStream(settings.ExtensionOrTxt(), "null");
+                            return new Target(settings.ExtensionOrTxt(), "null");
                         }
 
-                        return new ConversionStream(settings.ExtensionOrBin(), x);
+                        return new Target(settings.ExtensionOrBin(), x);
                     });
                 await VerifyInner(null, null, streams);
                 return;
             }
 
-            await VerifyInner(target, null, emptyStreams);
+            await VerifyInner(target, null, emptyTargets);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -8,14 +9,31 @@ namespace VerifyTests
     public readonly struct ConversionResult
     {
         public object? Info { get; }
-        public IEnumerable<ConversionStream> Streams { get; }
+
+        [Obsolete("Use Targets")]
+        public IEnumerable<Target> Streams
+        {
+            get { return Targets; }
+        }
+
+        public IEnumerable<Target> Targets { get; }
+
         public Func<Task>? Cleanup { get; }
 
+        [Obsolete("Use ConversionResult(object? info, IEnumerable<Target> streams, Func<Task>? cleanup = null)")]
         public ConversionResult(object? info, IEnumerable<ConversionStream> streams, Func<Task>? cleanup = null)
         {
             Guard.AgainstNull(streams, nameof(streams));
             Info = info;
-            Streams = streams;
+            Targets = streams.Select(stream => (Target) stream);
+            Cleanup = cleanup;
+        }
+
+        public ConversionResult(object? info, IEnumerable<Target> streams, Func<Task>? cleanup = null)
+        {
+            Guard.AgainstNull(streams, nameof(streams));
+            Info = info;
+            Targets = streams;
             Cleanup = cleanup;
         }
 
@@ -25,7 +43,7 @@ namespace VerifyTests
             Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
             Info = info;
             Cleanup = cleanup;
-            Streams = new List<ConversionStream>
+            Targets = new List<Target>
             {
                 new(streamExtension, stream)
             };
@@ -37,7 +55,7 @@ namespace VerifyTests
             Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
             Info = info;
             Cleanup = cleanup;
-            Streams = new List<ConversionStream>
+            Targets = new List<Target>
             {
                 new(streamExtension, data)
             };

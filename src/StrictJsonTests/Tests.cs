@@ -33,7 +33,7 @@ public class Tests
     {
         #region UseStrictJsonVerify
 
-        var target = new Target
+        var target = new TheTarget
         {
             Value = "Foo"
         };
@@ -53,14 +53,14 @@ public class Tests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, new[] {new ConversionStream("txt", "content")});
+                return new ConversionResult(info, new[] {new Target("txt", "content")});
             });
         return Verifier.Verify(new MemoryStream())
             .UseExtension("foo");
     }
 }
 
-public class Target
+public class TheTarget
 {
     public string? Value { get; set; }
 }

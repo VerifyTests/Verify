@@ -57,14 +57,14 @@ VerifierSettings.RegisterFileConverter<Image>(
     {
         var pages = image.GetFrameCount(FrameDimension.Page);
 
-        List<ConversionStream> streams = new();
+        List<Target> targets = new();
         for (var index = 0; index < pages; index++)
         {
             image.SelectActiveFrame(FrameDimension.Page, index);
 
             MemoryStream page = new();
             image.Save(page, ImageFormat.Png);
-            streams.Add(new ConversionStream("png", page));
+            targets.Add(new Target("png", page));
         }
 
         return new ConversionResult(
@@ -73,7 +73,7 @@ VerifierSettings.RegisterFileConverter<Image>(
                 image.PixelFormat,
                 image.Size
             },
-            streams);
+            targets);
     });
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L18-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Start of snippet'>anchor</a></sup>
@@ -113,14 +113,14 @@ VerifierSettings.RegisterFileConverter(
         using var image = Image.FromStream(stream);
         var pages = image.GetFrameCount(FrameDimension.Page);
 
-        List<ConversionStream> streams = new();
+        List<Target> targets = new();
         for (var index = 0; index < pages; index++)
         {
             image.SelectActiveFrame(FrameDimension.Page, index);
 
             MemoryStream page = new();
             image.Save(page, ImageFormat.Png);
-            streams.Add(new ConversionStream("png", page));
+            targets.Add(new Target("png", page));
         }
 
         return new ConversionResult(
@@ -129,7 +129,7 @@ VerifierSettings.RegisterFileConverter(
                 image.PixelFormat,
                 image.Size
             },
-            streams);
+            targets);
     });
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L59-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Start of snippet'>anchor</a></sup>

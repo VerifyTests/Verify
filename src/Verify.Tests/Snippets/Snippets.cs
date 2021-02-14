@@ -162,7 +162,11 @@ public class Snippets
     {
         #region JsonConverter
 
-        VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
+        VerifierSettings.AddExtraSettings(
+            _ =>
+            {
+                _.Converters.Add(new CompanyConverter());
+            });
 
         #endregion
     }

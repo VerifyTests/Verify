@@ -21,7 +21,7 @@ public class FileAppenderTests :
                     return null;
                 }
 
-                return new ConversionStream("txt", "data");
+                return new Target("txt", "data");
             });
     }
 

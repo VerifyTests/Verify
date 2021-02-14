@@ -74,7 +74,7 @@ Then when an object is verified:
 <!-- snippet: UseStrictJsonVerify -->
 <a id='snippet-usestrictjsonverify'></a>
 ```cs
-var target = new Target
+var target = new TheTarget
 {
     Value = "Foo"
 };

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using DiffEngine;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -138,8 +139,7 @@ public class Tests
     [Fact]
     public async Task OnVerifyMismatch()
     {
-        VerifySettings settings = new();
-        settings.DisableDiff();
+        DiffRunner.Disabled = true;
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
@@ -158,7 +158,9 @@ public class Tests
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value"));
+
+        DiffRunner.Disabled = false;
         Assert.False(onFirstVerifyCalled);
         Assert.True(onVerifyMismatchCalled);
     }
@@ -166,8 +168,7 @@ public class Tests
     [Fact]
     public async Task OnFirstVerify()
     {
-        VerifySettings settings = new();
-        settings.DisableDiff();
+        DiffRunner.Disabled = true;
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
@@ -184,9 +185,10 @@ public class Tests
                 onVerifyMismatchCalled = true;
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value"));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
+        DiffRunner.Disabled = false;
     }
 
     [Fact]
@@ -376,9 +378,9 @@ public class Tests
     public async Task ShouldNotIgnoreCase()
     {
         await Verifier.Verify("A");
-        VerifySettings settings = new();
-        settings.DisableDiff();
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("a", settings));
+        DiffRunner.Disabled = true;
+        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("a"));
+        DiffRunner.Disabled = false;
     }
 
     [Fact]

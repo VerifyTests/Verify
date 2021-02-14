@@ -30,4 +30,7 @@
     <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DiffTool\" />
+  </ItemGroup>
 </Project>

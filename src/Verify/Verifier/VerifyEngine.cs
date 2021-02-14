@@ -237,11 +237,6 @@ class VerifyEngine
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
 
-        if (!settings.diffEnabled)
-        {
-            return;
-        }
-
         await DiffRunner.LaunchAsync(item.Received, item.Verified);
     }
 
@@ -288,11 +283,6 @@ class VerifyEngine
             ClipboardEnabled.IsEnabled())
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
-        }
-
-        if (!settings.diffEnabled)
-        {
-            return;
         }
 
         await DiffRunner.LaunchAsync(item.Received, item.Verified);

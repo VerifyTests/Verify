@@ -103,16 +103,6 @@ public class Snippets
         #endregion
     }
 
-    void DisableDiff()
-    {
-        #region DisableDiff
-
-        VerifySettings settings = new();
-        settings.DisableDiff();
-
-        #endregion
-    }
-
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettingsGlobal

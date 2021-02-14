@@ -15,7 +15,6 @@ namespace VerifyTests
 
             instanceScrubbers = new(settings.instanceScrubbers);
             extension = settings.extension;
-            diffEnabled = settings.diffEnabled;
             methodName = settings.methodName;
             typeName = settings.typeName;
             directory = settings.directory;

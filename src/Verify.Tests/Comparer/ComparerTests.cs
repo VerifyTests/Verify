@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DiffEngine;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -11,11 +12,12 @@ public class ComparerTests
     [Fact]
     public async Task Instance_with_message()
     {
+        DiffRunner.Disabled = true;
         VerifySettings settings = new();
         settings.UseStringComparer(CompareWithMessage);
-        settings.DisableDiff();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("NotTheText", settings));
         Assert.Contains("theMessage", exception.Message);
+        DiffRunner.Disabled = false;
     }
 
     [Fact]
@@ -31,11 +33,11 @@ public class ComparerTests
     [Fact]
     public async Task Static_with_message()
     {
+        DiffRunner.Disabled = true;
         EmptyFiles.Extensions.AddTextExtension("staticComparerExtMessage");
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
-        settings.DisableDiff();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
         Assert.Equal(
             @"Results do not match.
@@ -45,6 +47,7 @@ Verified: ComparerTests.Static_with_message.verified.staticComparerExtMessage
 Compare Result:
 theMessage".Replace("\r\n", "\n"),
             exception.Message.Trim().Replace("\r\n", "\n").Replace("Use DiffEngineTray to verify files.\n",""));
+        DiffRunner.Disabled = false;
     }
 
     [Fact]

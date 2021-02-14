@@ -140,7 +140,6 @@ public class Tests
     {
         VerifySettings settings = new();
         settings.DisableDiff();
-        settings.DisableClipboard();
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
@@ -169,7 +168,6 @@ public class Tests
     {
         VerifySettings settings = new();
         settings.DisableDiff();
-        settings.DisableClipboard();
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
@@ -379,7 +377,6 @@ public class Tests
     {
         await Verifier.Verify("A");
         VerifySettings settings = new();
-        settings.DisableClipboard();
         settings.DisableDiff();
         await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("a", settings));
     }

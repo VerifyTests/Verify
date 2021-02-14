@@ -34,16 +34,6 @@ public class Snippets
 
     #endregion
 
-    void DisableClipboard()
-    {
-        #region DisableClipboard
-
-        VerifySettings settings = new();
-        settings.DisableClipboard();
-
-        #endregion
-    }
-
     void TreatAsString()
     {
         #region TreatAsString
@@ -57,16 +47,6 @@ public class Snippets
     class ClassWithToString
     {
         public string Property { get; set; } = null!;
-    }
-
-    void EnableClipboard()
-    {
-        #region EnableClipboard
-
-        VerifySettings settings = new();
-        settings.EnableClipboard();
-
-        #endregion
     }
 
     void DisableClipboardGlobal()

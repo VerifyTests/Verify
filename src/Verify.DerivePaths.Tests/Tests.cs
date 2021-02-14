@@ -29,8 +29,7 @@ public class Tests
         {
             return Verifier.Verify("Value")
                 .UseMethodName("Conflict")
-                .DisableDiff()
-                .DisableClipboard();
+                .DisableDiff();
         }
 
         try

@@ -43,11 +43,6 @@ static class ClipboardEnabled
             return false;
         }
 
-        if (settings.clipboardEnabled == null)
-        {
-            return !VerifierSettings.clipboardDisabled;
-        }
-
-        return settings.clipboardEnabled.Value;
+        return !VerifierSettings.clipboardDisabled;
     }
 }

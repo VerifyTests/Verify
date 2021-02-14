@@ -15,7 +15,6 @@ namespace VerifyTests
 
             instanceScrubbers = new(settings.instanceScrubbers);
             extension = settings.extension;
-            clipboardEnabled = settings.clipboardEnabled;
             diffEnabled = settings.diffEnabled;
             methodName = settings.methodName;
             typeName = settings.typeName;

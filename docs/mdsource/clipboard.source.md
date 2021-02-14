@@ -51,19 +51,7 @@ Add a variable named `Verify.DeleteCommand` where `{0}` will be replaced with th
 
 The clipboard behavior can be disable using the following:
 
-
-### Per Test
-
-snippet: DisableClipboard
-
-
-### For all tests
-
 snippet: DisableClipboardGlobal
-
-If clipboard is disabled for all tests, it can be re-enabled at the test level:
-
-snippet: EnableClipboard
 
 
 ### For a machine

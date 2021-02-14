@@ -14,7 +14,6 @@ public class ComparerTests
         VerifySettings settings = new();
         settings.UseStringComparer(CompareWithMessage);
         settings.DisableDiff();
-        settings.DisableClipboard();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("NotTheText", settings));
         Assert.Contains("theMessage", exception.Message);
     }
@@ -37,7 +36,6 @@ public class ComparerTests
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
-        settings.DisableClipboard();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
         Assert.Equal(
             @"Results do not match.

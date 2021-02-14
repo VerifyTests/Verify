@@ -68,18 +68,6 @@ namespace VerifyTests
             return this;
         }
 
-        public SettingsTask DisableClipboard()
-        {
-            CurrentSettings.DisableClipboard();
-            return this;
-        }
-
-        public SettingsTask EnableClipboard()
-        {
-            CurrentSettings.EnableClipboard();
-            return this;
-        }
-
         public SettingsTask UseStreamComparer(StreamCompare compare)
         {
             CurrentSettings.UseStreamComparer(compare);

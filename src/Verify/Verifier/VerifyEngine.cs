@@ -51,7 +51,7 @@ class VerifyEngine
         }
     }
 
-    public void HandleCompareResult(EqualityResult compareResult, in FilePair file)
+    void HandleCompareResult(EqualityResult compareResult, in FilePair file)
     {
         switch (compareResult.Equality)
         {

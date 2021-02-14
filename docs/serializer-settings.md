@@ -363,15 +363,19 @@ class CompanyConverter :
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L170-L188' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L174-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
 <a id='snippet-jsonconverter'></a>
 ```cs
-VerifierSettings.AddExtraSettings(_ => { _.Converters.Add(new CompanyConverter()); });
+VerifierSettings.AddExtraSettings(
+    _ =>
+    {
+        _.Converters.Add(new CompanyConverter());
+    });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L163-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L163-L171' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

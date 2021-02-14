@@ -11,8 +11,6 @@ namespace VerifyTests
     {
         async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
         {
-            VerifyEngine engine = new(settings, fileNameBuilder);
-
             var targetList = targets.ToList();
 
             if (TryGetTargetBuilder(target, out var builder, out var extension))
@@ -35,11 +33,13 @@ namespace VerifyTests
                     })
                 .ToList();
 
+            VerifyEngine engine = new(settings, fileNameBuilder);
+
             await engine.HandleResults(builders);
 
             if (cleanup != null)
             {
-                await cleanup.Invoke();
+                await cleanup();
             }
 
             await engine.ThrowIfRequired();

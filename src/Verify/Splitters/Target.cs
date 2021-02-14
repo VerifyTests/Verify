@@ -66,12 +66,5 @@ namespace VerifyTests
             this.stringData = stringData;
             streamData = null;
         }
-
-        internal Target(string extension, string? stringData, Stream? streamData)
-        {
-            Extension = extension;
-            this.stringData = stringData;
-            this.streamData = streamData;
-        }
     }
 }

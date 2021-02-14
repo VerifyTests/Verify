@@ -14,11 +14,11 @@ namespace VerifyTests
 
         public Func<Task>? Cleanup { get; }
 
-        public ConversionResult(object? info, IEnumerable<Target> streams, Func<Task>? cleanup = null)
+        public ConversionResult(object? info, IEnumerable<Target> targets, Func<Task>? cleanup = null)
         {
-            Guard.AgainstNull(streams, nameof(streams));
+            Guard.AgainstNull(targets, nameof(targets));
             Info = info;
-            Targets = streams;
+            Targets = targets;
             Cleanup = cleanup;
         }
 

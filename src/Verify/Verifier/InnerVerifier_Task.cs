@@ -33,7 +33,7 @@ namespace VerifyTests
 
             try
             {
-                await VerifyInner(list, null, Enumerable.Empty<ConversionStream>());
+                await VerifyInner(list, null, emptyStreams);
             }
             finally
             {

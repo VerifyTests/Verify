@@ -58,38 +58,12 @@ Add a variable named `Verify.DeleteCommand` where `{0}` will be replaced with th
 
 The clipboard behavior can be disable using the following:
 
-
-### Per Test
-
-<!-- snippet: DisableClipboard -->
-<a id='snippet-disableclipboard'></a>
-```cs
-VerifySettings settings = new();
-settings.DisableClipboard();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L39-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboard' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### For all tests
-
 <!-- snippet: DisableClipboardGlobal -->
 <a id='snippet-disableclipboardglobal'></a>
 ```cs
 VerifierSettings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L74-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-If clipboard is disabled for all tests, it can be re-enabled at the test level:
-
-<!-- snippet: EnableClipboard -->
-<a id='snippet-enableclipboard'></a>
-```cs
-VerifySettings settings = new();
-settings.EnableClipboard();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L64-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-enableclipboard' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L54-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

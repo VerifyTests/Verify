@@ -9,10 +9,8 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
+        Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
         {
-            VerifyEngine engine = new(settings, fileNameBuilder);
-
             var targetList = targets.ToList();
 
             if (TryGetTargetBuilder(target, out var builder, out var extension))
@@ -25,6 +23,16 @@ namespace VerifyTests
             }
 
             targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
+            return VerifyTargets(cleanup, targetList);
+        }
+
+        public Task VerifyTargets(IEnumerable<Target> targetList)
+        {
+            return VerifyTargets(null, targetList);
+        }
+
+        async Task VerifyTargets(Func<Task>? cleanup, IEnumerable<Target> targetList)
+        {
             var builders = targetList
                 .Select(
                     stream =>
@@ -34,6 +42,8 @@ namespace VerifyTests
                             file => GetResult(settings, file, stream));
                     })
                 .ToList();
+
+            VerifyEngine engine = new(settings, fileNameBuilder);
 
             await engine.HandleResults(builders);
 

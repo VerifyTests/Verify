@@ -98,16 +98,16 @@ namespace VerifyTests
             return true;
         }
 
-        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target conversionStream)
+        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target)
         {
-            if (conversionStream.IsString)
+            if (target.IsString)
             {
-                var builder = new StringBuilder(conversionStream.StringData);
-                ApplyScrubbers.Apply(conversionStream.Extension, builder, settings);
+                var builder = new StringBuilder(target.StringData);
+                ApplyScrubbers.Apply(target.Extension, builder, settings);
                 return await Comparer.Text(filePair, builder.ToString(), settings);
             }
 
-            var stream = conversionStream.StreamData;
+            var stream = target.StreamData;
 #if NETSTANDARD2_0 || NETFRAMEWORK
             using (stream)
 #else

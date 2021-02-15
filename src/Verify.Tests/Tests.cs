@@ -139,28 +139,34 @@ public class Tests
     [Fact]
     public async Task OnVerifyMismatch()
     {
-        DiffRunner.Disabled = true;
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
-            _ =>
+            filePair =>
             {
-                onFirstVerifyCalled = true;
+                if (filePair.Name.Contains("OnVerifyMismatch"))
+                {
+                    onFirstVerifyCalled = true;
+                }
                 return Task.CompletedTask;
             });
         VerifierSettings.OnVerifyMismatch(
             (filePair, _) =>
             {
-                Assert.NotEmpty(filePair.Received);
-                Assert.NotNull(filePair.Received);
-                Assert.NotEmpty(filePair.Verified);
-                Assert.NotNull(filePair.Verified);
-                onVerifyMismatchCalled = true;
+                if (filePair.Name.Contains("OnVerifyMismatch"))
+                {
+                    Assert.NotEmpty(filePair.Received);
+                    Assert.NotNull(filePair.Received);
+                    Assert.NotEmpty(filePair.Verified);
+                    Assert.NotNull(filePair.Verified);
+                    onVerifyMismatchCalled = true;
+                }
                 return Task.CompletedTask;
             });
+        DiffRunner.Disabled = true;
         await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value"));
-
         DiffRunner.Disabled = false;
+
         Assert.False(onFirstVerifyCalled);
         Assert.True(onVerifyMismatchCalled);
     }
@@ -174,15 +180,23 @@ public class Tests
         VerifierSettings.OnFirstVerify(
             filePair =>
             {
-                Assert.NotEmpty(filePair.Received);
-                Assert.NotNull(filePair.Received);
-                onFirstVerifyCalled = true;
+                if (filePair.Name.Contains("OnFirstVerify"))
+                {
+                    Assert.NotEmpty(filePair.Received);
+                    Assert.NotNull(filePair.Received);
+                    onFirstVerifyCalled = true;
+                }
+
                 return Task.CompletedTask;
             });
         VerifierSettings.OnVerifyMismatch(
-            (_, _) =>
+            (filePair, _) =>
             {
-                onVerifyMismatchCalled = true;
+                if (filePair.Name.Contains("OnFirstVerify"))
+                {
+                    onVerifyMismatchCalled = true;
+                }
+
                 return Task.CompletedTask;
             });
         await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value"));

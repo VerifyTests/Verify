@@ -29,7 +29,7 @@ public class ComparerTests
         FileNameBuilder.ClearPrefixList();
         await Verifier.Verify("thetext", settings);
     }
-
+#if(Release)
     [Fact]
     public async Task Static_with_message()
     {
@@ -37,8 +37,12 @@ public class ComparerTests
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
-        DiffRunner.Disabled = true;
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
+        var exception = await Assert.ThrowsAsync<Exception>(
+            async () =>
+            {
+                DiffRunner.Disabled = true;
+                await Verifier.Verify("TheText", settings);
+            });
         DiffRunner.Disabled = false;
         Assert.Equal(
             @"Results do not match.
@@ -49,6 +53,7 @@ Compare Result:
 theMessage".Replace("\r\n", "\n"),
             exception.Message.Trim().Replace("\r\n", "\n").Replace("Use DiffEngineTray to verify files.\n",""));
     }
+#endif
 
     [Fact]
     public async Task Static()

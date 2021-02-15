@@ -14,7 +14,7 @@ static class Comparer
         }
 
         var verified = await FileHelpers.ReadText(filePair.Verified);
-        var result = await CompareStrings(received, verified.ToString(), settings);
+        var result = await CompareStrings(filePair.Extension, received, verified.ToString(), settings);
         if (result.IsEqual)
         {
             return Equality.Equal;
@@ -24,12 +24,12 @@ static class Comparer
         return new(Equality.NotEqual, result.Message);
     }
 
-    static Task<CompareResult> CompareStrings(string received, string verified, VerifySettings settings)
+    static Task<CompareResult> CompareStrings(string extension, string received, string verified, VerifySettings settings)
     {
         var isEqual = verified == received;
 
         if (!isEqual &&
-            settings.TryFindStringComparer(out var compare))
+            settings.TryFindStringComparer(extension, out var compare))
         {
             return compare!(received, verified, settings.Context);
         }

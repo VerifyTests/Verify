@@ -17,7 +17,9 @@
             stringComparer = compare;
         }
 
-        internal bool TryFindStreamComparer(out StreamCompare? compare)
+        // Dont use this.extension since a converter may have
+        // changed the extension for the current compare operation
+        internal bool TryFindStreamComparer(string extension, out StreamCompare? compare)
         {
             if (streamComparer != null)
             {
@@ -25,10 +27,10 @@
                 return true;
             }
 
-            return VerifierSettings.TryGetStreamComparer(ExtensionOrBin(), out compare);
+            return VerifierSettings.TryGetStreamComparer(extension, out compare);
         }
 
-        internal bool TryFindStringComparer(out StringCompare? compare)
+        internal bool TryFindStringComparer(string extension, out StringCompare? compare)
         {
             if (stringComparer != null)
             {
@@ -36,7 +38,7 @@
                 return true;
             }
 
-            return VerifierSettings.TryGetStringComparer(ExtensionOrTxt(), out compare);
+            return VerifierSettings.TryGetStringComparer(extension, out compare);
         }
     }
 }

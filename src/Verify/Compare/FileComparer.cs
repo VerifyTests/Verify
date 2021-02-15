@@ -29,7 +29,7 @@ static class FileComparer
 
     static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair)
     {
-        if (settings.TryFindStreamComparer(out var compare))
+        if (settings.TryFindStreamComparer(filePair.Extension, out var compare))
         {
             return DoCompare(settings, compare!, filePair);
         }

@@ -148,6 +148,7 @@ public class Tests
                 {
                     onFirstVerifyCalled = true;
                 }
+
                 return Task.CompletedTask;
             });
         VerifierSettings.OnVerifyMismatch(
@@ -161,10 +162,15 @@ public class Tests
                     Assert.NotNull(filePair.Verified);
                     onVerifyMismatchCalled = true;
                 }
+
                 return Task.CompletedTask;
             });
-        DiffRunner.Disabled = true;
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value"));
+        await Assert.ThrowsAsync<Exception>(
+            async () =>
+            {
+                DiffRunner.Disabled = true;
+                await Verifier.Verify("value");
+            });
         DiffRunner.Disabled = false;
 
         Assert.False(onFirstVerifyCalled);
@@ -174,7 +180,6 @@ public class Tests
     [Fact]
     public async Task OnFirstVerify()
     {
-        DiffRunner.Disabled = true;
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
@@ -199,10 +204,15 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value"));
+        await Assert.ThrowsAsync<Exception>(
+            async () =>
+            {
+                DiffRunner.Disabled = true;
+                await Verifier.Verify("value");
+            });
+        DiffRunner.Disabled = false;
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
-        DiffRunner.Disabled = false;
     }
 
     [Fact]

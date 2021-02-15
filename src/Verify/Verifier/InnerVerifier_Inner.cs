@@ -33,7 +33,7 @@ namespace VerifyTests
                     })
                 .ToList();
 
-            VerifyEngine engine = new(settings, fileNameBuilder);
+            VerifyEngine engine = new(fileNameBuilder, settings.autoVerify);
 
             await engine.HandleResults(builders);
 

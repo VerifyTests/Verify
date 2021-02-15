@@ -10,19 +10,17 @@ using VerifyTests;
 [DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
 class VerifyEngine
 {
-    VerifySettings settings;
     FileNameBuilder fileNameBuilder;
+    bool autoVerify;
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
     List<string> danglingVerified;
 
-    public VerifyEngine(
-        VerifySettings settings,
-        FileNameBuilder fileNameBuilder)
+    public VerifyEngine(FileNameBuilder fileNameBuilder, bool autoVerify)
     {
-        this.settings = settings;
         this.fileNameBuilder = fileNameBuilder;
+        this.autoVerify = autoVerify;
         danglingVerified = fileNameBuilder.VerifiedFiles;
 
         foreach (var file in fileNameBuilder.ReceivedFiles)
@@ -102,7 +100,7 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        if (!settings.autoVerify)
+        if (!autoVerify)
         {
             if (DiffEngineTray.IsRunning)
             {
@@ -119,7 +117,7 @@ class VerifyEngine
         await ProcessMissing(builder);
 
         await ProcessNotEquals(builder);
-        if (!settings.autoVerify)
+        if (!autoVerify)
         {
             throw new(builder.ToString());
         }
@@ -142,7 +140,7 @@ class VerifyEngine
     Task ProcessDangling(StringBuilder builder, string item)
     {
         builder.AppendLine($"  {Path.GetFileName(item)}");
-        if (settings.autoVerify)
+        if (autoVerify)
         {
             File.Delete(item);
             return Task.CompletedTask;
@@ -225,7 +223,7 @@ class VerifyEngine
             return;
         }
 
-        if (settings.autoVerify)
+        if (autoVerify)
         {
             AcceptChanges(item);
             return;
@@ -278,7 +276,7 @@ class VerifyEngine
             return;
         }
 
-        if (settings.autoVerify)
+        if (autoVerify)
         {
             AcceptChanges(item);
             return;

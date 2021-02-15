@@ -1,7 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace VerifyTests
 {
+    [Obsolete("Use Target")]
+    public readonly struct ConversionStream
+    {
+    }
+
     public readonly struct Target
     {
         readonly string? stringData;

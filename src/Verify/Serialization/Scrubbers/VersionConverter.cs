@@ -6,13 +6,8 @@ using VerifyTests;
 class VersionConverter :
     WriteOnlyJsonConverter<Version>
 {
-    public override void WriteJson(JsonWriter writer, Version? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, Version value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
         writer.WriteValue(value.ToString());
     }
 }

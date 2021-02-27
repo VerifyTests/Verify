@@ -8,13 +8,8 @@ using VerifyTests;
 class UriConverter :
     WriteOnlyJsonConverter<Uri>
 {
-    public override void WriteJson(JsonWriter writer, Uri? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, Uri value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value is null)
-        {
-            return;
-        }
-
         if (string.IsNullOrWhiteSpace(value.Query))
         {
             writer.WriteValue(value.OriginalString);

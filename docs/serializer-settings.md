@@ -352,18 +352,15 @@ class CompanyConverter :
 {
     public override void WriteJson(
         JsonWriter writer,
-        Company? company,
+        Company company,
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if (company != null)
-        {
-            serializer.Serialize(writer, company.Name);
-        }
+        serializer.Serialize(writer, company.Name);
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->

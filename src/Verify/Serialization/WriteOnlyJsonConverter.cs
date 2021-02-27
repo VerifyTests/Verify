@@ -11,11 +11,17 @@ namespace VerifyTests
 
         public sealed override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
+            if (value == null)
+            {
+                return;
+            }
+
             var writerEx = (JsonTextWriterEx)writer;
+
             WriteJson(writer, value, serializer, writerEx.Context);
         }
 
-        public abstract void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context);
+        public abstract void WriteJson(JsonWriter writer, object value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context);
 
         public sealed override object ReadJson(JsonReader reader, Type type, object? value, JsonSerializer serializer)
         {

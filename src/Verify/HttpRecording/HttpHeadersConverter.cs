@@ -17,15 +17,10 @@ class HttpHeadersConverter :
 
     public override void WriteJson(
         JsonWriter writer,
-        HttpHeaders? headers,
+        HttpHeaders headers,
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if (headers == null)
-        {
-            return;
-        }
-
         var value = headers
             .OrderBy(x => x.Key.ToLowerInvariant())
             .Where(x =>

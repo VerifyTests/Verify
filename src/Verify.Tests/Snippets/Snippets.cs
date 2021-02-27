@@ -147,14 +147,11 @@ public class Snippets
     {
         public override void WriteJson(
             JsonWriter writer,
-            Company? company,
+            Company company,
             JsonSerializer serializer,
             IReadOnlyDictionary<string, object> context)
         {
-            if (company != null)
-            {
-                serializer.Serialize(writer, company.Name);
-            }
+            serializer.Serialize(writer, company.Name);
         }
     }
 

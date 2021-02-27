@@ -6,11 +6,16 @@ namespace VerifyTests
 {
     public abstract class WriteOnlyJsonConverter<T> :
         WriteOnlyJsonConverter
-        where T: class
     {
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
         {
-            WriteJson(writer, (T?) value, serializer, context);
+            if (value == null)
+            {
+                WriteJson(writer, null, serializer, context);
+                return;
+            }
+
+            WriteJson(writer, (T) value, serializer, context);
         }
 
         public abstract void WriteJson(JsonWriter writer, T? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context);

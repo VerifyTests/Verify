@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
 using VerifyTests;
@@ -374,6 +376,22 @@ public class Tests
     public Task Stream()
     {
         return Verifier.Verify(new MemoryStream(new byte[] {1}));
+    }
+
+    [Fact]
+    public Task StreamNotAtStart()
+    {
+        var stream = new MemoryStream(new byte[] {1,2,3,4});
+        stream.Position = 2;
+        return Verifier.Verify(stream);
+    }
+
+    [Fact]
+    public Task StreamNotAtStartAsText()
+    {
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
+        stream.Position = 2;
+        return Verifier.Verify(stream).UseExtension("txt");
     }
 
     [Fact]

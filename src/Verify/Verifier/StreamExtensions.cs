@@ -14,6 +14,7 @@ static class StreamExtensions
 
     public static async Task<string> ReadAsString(this Stream stream)
     {
+        stream.MoveToStart();
         using StreamReader reader = new(stream, FileHelpers.Utf8NoBOM);
         return await reader.ReadToEndAsync();
     }

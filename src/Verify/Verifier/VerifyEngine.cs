@@ -204,9 +204,9 @@ class VerifyEngine
         {
             if (EmptyFiles.Extensions.IsText(item.Extension))
             {
-                builder.AppendLine($"Received Content:");
+                builder.AppendLine("Received Content:");
                 builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-                builder.AppendLine($"Verified Content:");
+                builder.AppendLine("Verified Content:");
                 builder.AppendLine($"{await FileHelpers.ReadText(item.Verified)}");
             }
         }

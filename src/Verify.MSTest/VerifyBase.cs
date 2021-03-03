@@ -16,16 +16,20 @@ namespace VerifyMSTest
         {
             var type = GetType();
 
-            var methods = type
-                .GetMethods(BindingFlags.Instance | BindingFlags.Public);
             var testName = TestContext.TestName;
-            testName = testName.Substring(0, testName.IndexOf('('));
-            var methodInfo = methods
+            var indexOf = testName.IndexOf('(');
+            if (indexOf > 0)
+            {
+                testName = testName.Substring(0, indexOf);
+            }
+
+            var methodInfo = type
+                .GetMethods(BindingFlags.Instance | BindingFlags.Public)
                 .FirstOrDefault(x => x.Name == testName);
 
             if (methodInfo == null)
             {
-                throw new($"Could not find method `{type.Name}.{testName}`");
+                throw new($"Could not find method `{type.Name}.{testName}`. TestName:{TestContext.TestName}, ManagedMethod:{TestContext.ManagedMethod}");
             }
 
             var parameters = settings.GetParameters(methodInfo);

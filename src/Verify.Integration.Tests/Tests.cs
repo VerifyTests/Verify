@@ -39,7 +39,7 @@ public partial class Tests :
         VerifierSettings.RegisterFileConverter<TypeToSplit>(
             (split, _) => new ConversionResult(
                 split.Info,
-                new List<ConversionStream>
+                new List<Target>
                 {
                     new("txt", split.Property1),
                     new("txt", split.Property2)

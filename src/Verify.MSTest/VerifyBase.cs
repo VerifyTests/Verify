@@ -29,7 +29,7 @@ namespace VerifyMSTest
 
             if (methodInfo == null)
             {
-                throw new($"Could not find method `{type.Name}.{testName}`. TestName:{TestContext.TestName}, ManagedMethod:{TestContext.ManagedMethod}");
+                throw new($"Could not find method `{type.Name}.{testName}`.");
             }
 
             var parameters = settings.GetParameters(methodInfo);

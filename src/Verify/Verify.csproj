@@ -11,7 +11,7 @@
     <Compile Remove="HttpRecording\HttpCall.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.5.6" />
+    <PackageReference Include="DiffEngine" Version="6.5.7" />
     <PackageReference Include="EmptyFiles" Version="2.6.0" PrivateAssets="None" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="3.1.12" />

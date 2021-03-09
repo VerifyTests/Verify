@@ -187,7 +187,6 @@ public class TypeConverterTests
             });
         VerifySettings settings = new();
         settings.Context["name"] = nameof(TypeConversion);
-        settings.UseExtension("bmp");
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }

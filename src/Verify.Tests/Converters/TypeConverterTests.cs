@@ -167,7 +167,6 @@ public class TypeConverterTests
                 return new ConversionResult(info, targets.Select(x => new Target("png", x)));
             });
         VerifySettings settings = new();
-        settings.UseExtension("bmp");
         settings.Context["name"] = nameof(WithInfoShouldRespectSettings);
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));

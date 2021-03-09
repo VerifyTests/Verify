@@ -144,7 +144,6 @@ public class TypeConverterTests
             },
             (_, _, context) => (string)context["name"] == nameof(WithInfo) );
         VerifySettings settings = new();
-        settings.UseExtension("bmp");
         settings.Context["name"] = nameof(WithInfo);
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);

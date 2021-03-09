@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using VerifyTests;
 using VerifyXunit;
 using Xunit;
 #if NET5_0 && DEBUG
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Net.Http;
 #endif
@@ -429,6 +429,23 @@ public class Tests
     public Task Newlines()
     {
         return Verifier.Verify("a\r\nb\nc\rd\r\n");
+    }
+
+    class Element
+    {
+        public string? Id { get; set; }
+    }
+
+    [Fact]
+    public Task ShouldThrowForExtensionOnSerialization()
+    {
+        var settings = new VerifySettings();
+        settings.UseExtension("json");
+        settings.UseMethodName("Foo");
+
+        var element = new Element();
+        DiffRunner.Disabled = true;
+        return Verifier.ThrowsTask(() => Verifier.Verify(element, settings));
     }
 
     [Fact]

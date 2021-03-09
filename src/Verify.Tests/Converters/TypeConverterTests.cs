@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+
 #endif
 
 [UsesVerify]
@@ -140,9 +141,11 @@ public class TypeConverterTests
                     Property = "Value"
                 };
                 return new ConversionResult(info, targets.Select(x => new Target("png", x)));
-            });
+            },
+            (_, _, context) => (string)context["name"] == nameof(WithInfo) );
         VerifySettings settings = new();
         settings.UseExtension("bmp");
+        settings.Context["name"] = nameof(WithInfo);
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
@@ -151,7 +154,9 @@ public class TypeConverterTests
     public Task WithInfoShouldRespectSettings()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, _, _) => Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, _, context) =>
+                (string) context["name"] == nameof(WithInfoShouldRespectSettings) &&
+                Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var targets = ConvertBmpTpPngStreams(bitmap1);
@@ -163,6 +168,7 @@ public class TypeConverterTests
             });
         VerifySettings settings = new();
         settings.UseExtension("bmp");
+        settings.Context["name"] = nameof(WithInfoShouldRespectSettings);
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
@@ -172,13 +178,16 @@ public class TypeConverterTests
     public Task TypeConversion()
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, _, _) => Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, _, context) =>
+                (string)context["name"] == nameof(TypeConversion) &&
+                Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {
                 var targets = ConvertBmpTpPngStreams(bitmap1);
                 return new ConversionResult(null, targets.Select(x => new Target("png", x)));
             });
         VerifySettings settings = new();
+        settings.Context["name"] = nameof(TypeConversion);
         settings.UseExtension("bmp");
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);

@@ -432,6 +432,16 @@ public class Tests
     }
 
     [Fact]
+    public Task StringExtension()
+    {
+        var settings = new VerifySettings();
+        settings.UseExtension("xml");
+
+        return Verifier
+            .Verify("<a>b</a>", settings);
+    }
+
+    [Fact]
     public Task TaskResult()
     {
         var target = Task.FromResult("value");

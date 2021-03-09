@@ -4,10 +4,13 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
+#if DEBUG
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+
+#endif
 
 [UsesVerify]
 public class TypeConverterTests
@@ -125,6 +128,7 @@ public class TypeConverterTests
         public string Value { get; set; } = null!;
     }
 
+#if DEBUG
     [Fact]
     public Task WithInfo()
     {
@@ -192,4 +196,5 @@ public class TypeConverterTests
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }
+#endif
 }

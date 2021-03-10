@@ -8,7 +8,6 @@ using VerifyTests;
 using VerifyXunit;
 using Xunit;
 #if NET5_0 && DEBUG
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Net.Http;
 #endif
@@ -442,10 +441,12 @@ public class Tests
         var settings = new VerifySettings();
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
+        settings.ModifySerialization(_ => _.IgnoreMember("StackTrace"));
 
         var element = new Element();
         DiffRunner.Disabled = true;
-        return Verifier.ThrowsTask(() => Verifier.Verify(element, settings));
+        return Verifier.ThrowsTask(() => Verifier.Verify(element, settings))
+            .ModifySerialization(_ => _.IgnoreMember("StackTrace"));
     }
 
     [Fact]

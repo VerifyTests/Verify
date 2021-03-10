@@ -3,9 +3,5 @@
   Message: 
 VerifySettings.UseExtension() should only be used for text, for streams, or for converter discovery.
 When serializing an instance the default is txt.
-To use json as an extension when serializing use VerifierSettings.UseStrictJson().,
-  StackTrace: 
-at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-at VerifyXunit.Verifier.<>c__DisplayClass1_0.<<Verify>b__0>d.MoveNext()
-at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+To use json as an extension when serializing use VerifierSettings.UseStrictJson().
 }

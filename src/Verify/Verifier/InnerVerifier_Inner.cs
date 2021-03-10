@@ -82,7 +82,7 @@ namespace VerifyTests
                 return true;
             }
 
-            extension = "txt";
+            extension = settings.ExtensionOrTxt();
 
             if (VerifierSettings.StrictJson)
             {

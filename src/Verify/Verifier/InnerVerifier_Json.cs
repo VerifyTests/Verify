@@ -14,6 +14,7 @@ namespace VerifyTests
         {
             if (target == null)
             {
+                AssertExtensionIsNull();
                 await VerifyInner("null", null, emptyTargets);
                 return;
             }
@@ -39,6 +40,7 @@ namespace VerifyTests
 
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
+               // AssertExtensionIsNull();
                 var result = await converter.Conversion(target!, settings.Context);
                 await VerifyInner(result.Info, result.Cleanup, result.Targets);
                 return;
@@ -67,7 +69,20 @@ namespace VerifyTests
                 return;
             }
 
+            AssertExtensionIsNull();
             await VerifyInner(target, null, emptyTargets);
+        }
+
+        void AssertExtensionIsNull()
+        {
+            if (settings.extension == null)
+            {
+                return;
+            }
+
+            throw new($@"{nameof(VerifySettings)}.{nameof(VerifySettings.UseExtension)}() should only be used for text, for streams, or for converter discovery.
+When serializing an instance the default is txt.
+To use json as an extension when serializing use {nameof(VerifierSettings)}.{nameof(VerifierSettings.UseStrictJson)}().");
         }
     }
 }

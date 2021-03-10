@@ -80,7 +80,9 @@ namespace VerifyTests
                 return;
             }
 
-            throw new($"{nameof(VerifySettings)}.{nameof(VerifySettings.UseExtension)}() should only be used for text, for streams, or for types when connecting to a converter. When serializing an instance the default is txt. To use json as an extension call {nameof(VerifierSettings)}.{nameof(VerifierSettings.UseStrictJson)}().");
+            throw new($@"{nameof(VerifySettings)}.{nameof(VerifySettings.UseExtension)}() should only be used for text, for streams, or for converter discovery.
+When serializing an instance the default is txt.
+To use json as an extension when serializing use {nameof(VerifierSettings)}.{nameof(VerifierSettings.UseStrictJson)}().");
         }
     }
 }

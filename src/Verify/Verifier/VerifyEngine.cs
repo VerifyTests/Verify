@@ -119,7 +119,7 @@ class VerifyEngine
         await ProcessNotEquals(builder);
         if (!autoVerify)
         {
-            throw new(builder.ToString());
+            throw new VerifyException(builder.ToString());
         }
     }
 

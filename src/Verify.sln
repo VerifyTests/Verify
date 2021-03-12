@@ -48,6 +48,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.DerivePaths.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NamingTests", "Naming\NamingTests.csproj", "{E39DAFA5-5BEF-44AA-BC40-EFAB817256F9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DisableClipboard", "DisableClipboard\DisableClipboard.csproj", "{6D2E5DA3-F22B-4D9A-B354-F4D346FCA7C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,10 @@ Global
 		{E39DAFA5-5BEF-44AA-BC40-EFAB817256F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E39DAFA5-5BEF-44AA-BC40-EFAB817256F9}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{E39DAFA5-5BEF-44AA-BC40-EFAB817256F9}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6D2E5DA3-F22B-4D9A-B354-F4D346FCA7C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2E5DA3-F22B-4D9A-B354-F4D346FCA7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D2E5DA3-F22B-4D9A-B354-F4D346FCA7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D2E5DA3-F22B-4D9A-B354-F4D346FCA7C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

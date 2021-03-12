@@ -6,7 +6,7 @@
 
         public static void DisableClipboard()
         {
-            clipboardDisabled = false;
+            clipboardDisabled = true;
         }
     }
 }

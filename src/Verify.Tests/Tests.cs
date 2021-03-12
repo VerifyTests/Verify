@@ -166,7 +166,7 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(
+        await Assert.ThrowsAsync<VerifyException>(
             async () =>
             {
                 DiffRunner.Disabled = true;
@@ -205,7 +205,7 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(
+        await Assert.ThrowsAsync<VerifyException>(
             async () =>
             {
                 DiffRunner.Disabled = true;

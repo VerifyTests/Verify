@@ -15,7 +15,7 @@ public class ComparerTests
         VerifySettings settings = new();
         settings.UseStringComparer(CompareWithMessage);
         DiffRunner.Disabled = true;
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("NotTheText", settings));
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("NotTheText", settings));
         DiffRunner.Disabled = false;
         Assert.Contains("theMessage", exception.Message);
     }

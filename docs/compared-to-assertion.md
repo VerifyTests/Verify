@@ -71,7 +71,7 @@ Compare a traditional assertion based test to a verification test.
 public void TraditionalTest()
 {
     var person = ClassBeingTested.FindPerson();
-    Assert.Equal(new("ebced679-45d3-4653-8791-3d969c4a986c"), person.Id);
+    Assert.Equal(new Guid("ebced679-45d3-4653-8791-3d969c4a986c"), person.Id);
     Assert.Equal(Title.Mr, person.Title);
     Assert.Equal("John", person.GivenNames);
     Assert.Equal("Smith", person.FamilyName);
@@ -83,7 +83,7 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L8-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-traditionaltest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L9-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-traditionaltest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -99,5 +99,5 @@ public Task Simple()
     return Verifier.Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L26-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-verificationtest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L27-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-verificationtest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

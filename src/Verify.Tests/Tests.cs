@@ -167,7 +167,7 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("value", settings));
         Assert.False(onFirstVerifyCalled);
         Assert.True(onVerifyMismatchCalled);
     }
@@ -201,7 +201,7 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("value", settings));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
     }

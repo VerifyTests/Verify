@@ -288,7 +288,7 @@ class VerifyEngine
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
 
-        if (!diffEnabled)
+        if (diffEnabled)
         {
             await DiffRunner.LaunchAsync(item.Received, item.Verified);
         }

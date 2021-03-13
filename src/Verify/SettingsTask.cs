@@ -242,6 +242,30 @@ namespace VerifyTests
             return this;
         }
 
+        [Obsolete("Use VerifierSettings.DisableClipboard()")]
+        public SettingsTask DisableClipboard()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Clipboard can only be disabled globally")]
+        public SettingsTask EnableClipboard()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Use VerifierSettings.OnFirstVerify()")]
+        public SettingsTask OnFirstVerify(FirstVerify firstVerify)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Obsolete("Use VerifierSettings.OnVerifyMismatch()")]
+        public SettingsTask OnVerifyMismatch(VerifyMismatch verifyMismatch)
+        {
+            throw new NotImplementedException();
+        }
+
         public VerifySettings CurrentSettings
         {
             get => settings ??= new();

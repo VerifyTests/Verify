@@ -432,9 +432,9 @@ public class Tests
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
         settings.ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+        settings.DisableDiff();
 
         var element = new Element();
-        DiffRunner.Disabled = true;
         return Verifier.ThrowsTask(() => Verifier.Verify(element, settings))
             .ModifySerialization(_ => _.IgnoreMember("StackTrace"));
     }

@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiffEngine;
 
 namespace VerifyTests
 {
@@ -33,7 +34,11 @@ namespace VerifyTests
                     })
                 .ToList();
 
-            VerifyEngine engine = new(fileNameBuilder, settings.autoVerify);
+            VerifyEngine engine = new(
+                fileNameBuilder,
+                settings.autoVerify,
+                diffEnabled: !DiffRunner.Disabled && settings.diffEnabled,
+                clipboardEnabled: !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled());
 
             await engine.HandleResults(builders);
 

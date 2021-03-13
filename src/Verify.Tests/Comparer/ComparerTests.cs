@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DiffEngine;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -14,9 +13,8 @@ public class ComparerTests
     {
         VerifySettings settings = new();
         settings.UseStringComparer(CompareWithMessage);
-        DiffRunner.Disabled = true;
+        settings.DisableDiff();
         var exception = await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("NotTheText", settings));
-        DiffRunner.Disabled = false;
         Assert.Contains("theMessage", exception.Message);
     }
 
@@ -37,13 +35,8 @@ public class ComparerTests
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
         VerifySettings settings = new();
         settings.UseExtension("staticComparerExtMessage");
-        var exception = await Assert.ThrowsAsync<Exception>(
-            async () =>
-            {
-                DiffRunner.Disabled = true;
-                await Verifier.Verify("TheText", settings);
-            });
-        DiffRunner.Disabled = false;
+        settings.DisableDiff();
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
         Assert.Equal(
             @"Results do not match.
 Differences:

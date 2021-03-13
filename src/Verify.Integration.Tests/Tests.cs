@@ -115,9 +115,9 @@ Commands:
         Assert.False(File.Exists(file));
     }
 
-    static Task<Exception> Throws(Func<Task> testCode)
+    static Task<VerifyException> Throws(Func<Task> testCode)
     {
-        return Assert.ThrowsAsync<Exception>(testCode);
+        return Assert.ThrowsAsync<VerifyException>(testCode);
     }
 
     public Tests(ITestOutputHelper output) :

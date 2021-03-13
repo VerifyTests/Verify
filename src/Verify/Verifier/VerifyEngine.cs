@@ -12,15 +12,19 @@ class VerifyEngine
 {
     FileNameBuilder fileNameBuilder;
     bool autoVerify;
+    bool diffEnabled;
+    bool clipboardEnabled;
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
     List<string> danglingVerified;
 
-    public VerifyEngine(FileNameBuilder fileNameBuilder, bool autoVerify)
+    public VerifyEngine(FileNameBuilder fileNameBuilder, bool autoVerify, bool diffEnabled, bool clipboardEnabled)
     {
         this.fileNameBuilder = fileNameBuilder;
         this.autoVerify = autoVerify;
+        this.diffEnabled = diffEnabled;
+        this.clipboardEnabled = clipboardEnabled;
         danglingVerified = fileNameBuilder.VerifiedFiles;
 
         foreach (var file in fileNameBuilder.ReceivedFiles)
@@ -229,18 +233,15 @@ class VerifyEngine
             return;
         }
 
-        if (!DiffEngineTray.IsRunning &&
-            ClipboardEnabled.IsEnabled())
+        if (clipboardEnabled)
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
 
-        if (DiffRunner.Disabled)
+        if (diffEnabled)
         {
-            return;
+            await DiffRunner.LaunchAsync(item.Received, item.Verified);
         }
-
-        await DiffRunner.LaunchAsync(item.Received, item.Verified);
     }
 
     async Task ProcessMissing(StringBuilder builder)
@@ -282,18 +283,15 @@ class VerifyEngine
             return;
         }
 
-        if (!DiffEngineTray.IsRunning &&
-            ClipboardEnabled.IsEnabled())
+        if (clipboardEnabled)
         {
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
 
-        if (DiffRunner.Disabled)
+        if (diffEnabled)
         {
-            return;
+            await DiffRunner.LaunchAsync(item.Received, item.Verified);
         }
-
-        await DiffRunner.LaunchAsync(item.Received, item.Verified);
     }
 
     static void AcceptChanges(in FilePair item)

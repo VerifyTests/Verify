@@ -81,6 +81,15 @@ namespace VerifyTests
         }
 
         /// <summary>
+        /// Disable using a diff toll for this test
+        /// </summary>
+        public SettingsTask DisableDiff()
+        {
+            CurrentSettings.DisableDiff();
+            return this;
+        }
+
+        /// <summary>
         /// Use the current assembly configuration (debug/release) to make the test results unique.
         /// Used when a test produces different results based on assembly configuration.
         /// </summary>

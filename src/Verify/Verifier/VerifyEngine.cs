@@ -235,7 +235,7 @@ class VerifyEngine
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
 
-        if (DiffRunner.Disabled)
+        if (DiffRunner.Disabled || !settings.diffEnabled)
         {
             return;
         }
@@ -288,7 +288,7 @@ class VerifyEngine
             await ClipboardCapture.AppendMove(item.Received, item.Verified);
         }
 
-        if (DiffRunner.Disabled)
+        if (DiffRunner.Disabled || !settings.diffEnabled)
         {
             return;
         }

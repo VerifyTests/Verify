@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using DiffEngine;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -26,12 +25,11 @@ public class Tests
     [Fact]
     public async Task ThrowOnConflict()
     {
-        DiffRunner.Disabled = true;
-
         static Task Run()
         {
             return Verifier.Verify("Value")
-                .UseMethodName("Conflict");
+                .UseMethodName("Conflict")
+                .DisableDiff();
         }
 
         try
@@ -42,7 +40,6 @@ public class Tests
         {
         }
 
-        DiffRunner.Disabled = false;
         await Verifier.ThrowsTask(Run)
             .UseMethodName("ThrowOnConflict")
             .AddScrubber(builder => builder.Replace(@"\", "/"));

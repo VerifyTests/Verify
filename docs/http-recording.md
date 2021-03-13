@@ -41,7 +41,7 @@ public async Task TestHttpRecording()
 
 static async Task<int> MethodThatDoesHttpCalls()
 {
-    using var client = new HttpClient();
+    using HttpClient client = new();
 
     var jsonResult = await client.GetStringAsync("https://httpbin.org/json");
     var xmlResult = await client.GetStringAsync("https://httpbin.org/xml");

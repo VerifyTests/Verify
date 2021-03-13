@@ -476,7 +476,7 @@ For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` 
 VerifierSettings.DerivePathInfo(
     (sourceFile, projectDirectory, type, method) =>
     {
-        return new PathInfo(
+        return new(
             directory: Path.Combine(projectDirectory, "Snapshots"),
             typeName: type.Name,
             methodName: method.Name);

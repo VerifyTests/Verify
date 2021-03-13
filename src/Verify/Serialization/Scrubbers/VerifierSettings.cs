@@ -28,7 +28,7 @@ namespace VerifyTests
             Guard.AgainstNull(scrubber, nameof(scrubber));
             if (!ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var values))
             {
-                ExtensionMappedGlobalScrubbers[extension] = values = new List<Action<StringBuilder>>();
+                ExtensionMappedGlobalScrubbers[extension] = values = new();
             }
 
             values.Add(scrubber);

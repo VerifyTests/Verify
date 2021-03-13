@@ -30,7 +30,7 @@ public class Tests
     {
         HttpRecording.StartRecording();
 
-        using var client = new HttpClient();
+        using HttpClient client = new();
 
         var result = await client.GetStringAsync("https://httpbin.org/get");
 
@@ -43,7 +43,7 @@ public class Tests
     {
         HttpRecording.StartRecording();
 
-        using var client = new HttpClient();
+        using HttpClient client = new();
 
         var result = await client.GetStringAsync("https://httpbin.org/json");
 
@@ -77,7 +77,7 @@ public class Tests
 
     static async Task<int> MethodThatDoesHttpCalls()
     {
-        using var client = new HttpClient();
+        using HttpClient client = new();
 
         var jsonResult = await client.GetStringAsync("https://httpbin.org/json");
         var xmlResult = await client.GetStringAsync("https://httpbin.org/xml");
@@ -370,7 +370,7 @@ public class Tests
     [Fact]
     public Task StreamNotAtStart()
     {
-        var stream = new MemoryStream(new byte[] {1,2,3,4});
+        MemoryStream stream = new(new byte[] {1,2,3,4});
         stream.Position = 2;
         return Verifier.Verify(stream);
     }
@@ -378,7 +378,7 @@ public class Tests
     [Fact]
     public Task StreamNotAtStartAsText()
     {
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
+        MemoryStream stream = new(Encoding.UTF8.GetBytes("foo"));
         stream.Position = 2;
         return Verifier.Verify(stream).UseExtension("txt");
     }
@@ -428,13 +428,13 @@ public class Tests
     [Fact]
     public Task ShouldThrowForExtensionOnSerialization()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
         settings.ModifySerialization(_ => _.IgnoreMember("StackTrace"));
         settings.DisableDiff();
 
-        var element = new Element();
+        Element element = new();
         return Verifier.ThrowsTask(() => Verifier.Verify(element, settings))
             .ModifySerialization(_ => _.IgnoreMember("StackTrace"));
     }
@@ -442,7 +442,7 @@ public class Tests
     [Fact]
     public Task StringExtension()
     {
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
         settings.UseExtension("xml");
 
         return Verifier
@@ -519,7 +519,7 @@ public class Tests
         public ValueTask DisposeAsync()
         {
             AsyncDisposed = true;
-            return new ValueTask();
+            return new();
         }
 
         public void Dispose()

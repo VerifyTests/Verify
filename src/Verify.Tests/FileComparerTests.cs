@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using VerifyTests;
 using Xunit;
 
 public class FileComparerTests
@@ -11,7 +10,7 @@ public class FileComparerTests
         File.Copy("sample.bmp", "sample.tmp", true);
         try
         {
-            var result = await FileComparer.DefaultCompare(new VerifySettings(), new FilePair("txt", "BinaryEquals"));
+            var result = await FileComparer.DefaultCompare(new(), new("txt", "BinaryEquals"));
             Assert.True(result.IsEqual);
         }
         finally
@@ -32,7 +31,7 @@ public class FileComparerTests
 
         try
         {
-            var result = await FileComparer.DefaultCompare(new VerifySettings(), new FilePair("txt", "BinaryNotEqualsSameLength"));
+            var result = await FileComparer.DefaultCompare(new(), new("txt", "BinaryNotEqualsSameLength"));
             Assert.False(result.IsEqual);
         }
         finally
@@ -44,7 +43,7 @@ public class FileComparerTests
     [Fact]
     public async Task BinaryNotEquals()
     {
-        var result = await FileComparer.DefaultCompare(new VerifySettings(), new FilePair("txt", "BinaryNotEquals"));
+        var result = await FileComparer.DefaultCompare(new(), new("txt", "BinaryNotEquals"));
         Assert.False(result.IsEqual);
     }
 
@@ -61,7 +60,7 @@ public class FileComparerTests
                     FileAccess.Read,
                     FileShare.Read))
             {
-                var result = await FileComparer.DefaultCompare(new VerifySettings(), new FilePair("txt", "BinaryEquals"));
+                var result = await FileComparer.DefaultCompare(new(), new("txt", "BinaryEquals"));
                 Assert.True(result.IsEqual);
             }
         }

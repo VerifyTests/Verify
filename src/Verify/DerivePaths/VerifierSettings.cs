@@ -17,7 +17,7 @@ namespace VerifyTests
 
             var typeName = GetTypeName(type);
 
-            return new PathInfo(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
+            return new(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
         }
 
         static string GetTypeName(Type type)

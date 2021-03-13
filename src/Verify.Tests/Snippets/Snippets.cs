@@ -65,7 +65,7 @@ public class Snippets
         VerifierSettings.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) =>
             {
-                return new PathInfo(
+                return new(
                     directory: Path.Combine(projectDirectory, "Snapshots"),
                     typeName: type.Name,
                     methodName: method.Name);
@@ -86,7 +86,7 @@ public class Snippets
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;
                     var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
-                    return new PathInfo(directory: Path.Combine(buildDirectory, testDirectorySuffix));
+                    return new(directory: Path.Combine(buildDirectory, testDirectorySuffix));
                 });
         }
 

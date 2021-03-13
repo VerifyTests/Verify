@@ -35,7 +35,7 @@ public class Tests
         }
         Directory.CreateDirectory(directory);
 
-        var settings = new VerifySettings();
+        VerifySettings settings = new();
 
         if (run)
         {

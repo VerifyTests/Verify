@@ -37,7 +37,7 @@ public partial class Tests :
         AllFiles.UseFile(Category.Image, newPath);
 
         VerifierSettings.RegisterFileConverter<TypeToSplit>(
-            (split, _) => new ConversionResult(
+            (split, _) => new(
                 split.Info,
                 new List<Target>
                 {

@@ -19,7 +19,7 @@ namespace VerifyTests
                 ApplyScrubbers.Apply(extension, builder, settings);
 
                 var received = builder.ToString();
-                var stream = new Target(extension, received);
+                Target stream = new(extension, received);
                 targetList.Insert(0, stream);
             }
 
@@ -81,7 +81,7 @@ namespace VerifyTests
 
             if (!hasAppends && target is string stringTarget)
             {
-                builder = new StringBuilder(stringTarget);
+                builder = new(stringTarget);
                 builder.FixNewlines();
                 extension = settings.ExtensionOrTxt();
                 return true;
@@ -107,7 +107,7 @@ namespace VerifyTests
         {
             if (target.IsString)
             {
-                var builder = new StringBuilder(target.StringData);
+                StringBuilder builder = new(target.StringData);
                 ApplyScrubbers.Apply(target.Extension, builder, settings);
                 return await Comparer.Text(filePair, builder.ToString(), settings);
             }

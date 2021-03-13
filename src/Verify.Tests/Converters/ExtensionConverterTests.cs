@@ -12,7 +12,7 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "split",
-            (stream, _) => new ConversionResult(null, "txt", stream));
+            (stream, _) => new(null, "txt", stream));
         return Verifier.Verify(FileHelpers.OpenRead("sample.split"))
             .UseExtension("txt");
     }

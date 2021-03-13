@@ -21,7 +21,7 @@ public class FileAppenderTests :
                     return null;
                 }
 
-                return new Target("txt", "data");
+                return new("txt", "data");
             });
     }
 

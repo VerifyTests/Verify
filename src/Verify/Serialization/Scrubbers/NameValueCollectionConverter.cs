@@ -20,7 +20,7 @@ class NameValueCollectionConverter :
             return;
         }
 
-        var dictionary = new Dictionary<string,string?>();
+        Dictionary<string,string?> dictionary = new();
         foreach (string? key in collection)
         {
             var value = collection.Get(key);

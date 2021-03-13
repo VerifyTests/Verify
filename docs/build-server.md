@@ -59,7 +59,7 @@ if (BuildServerDetector.Detected)
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;
             var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);
-            return new PathInfo(directory: Path.Combine(buildDirectory, testDirectorySuffix));
+            return new(directory: Path.Combine(buildDirectory, testDirectorySuffix));
         });
 }
 ```

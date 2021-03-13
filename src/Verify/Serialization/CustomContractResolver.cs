@@ -63,7 +63,7 @@ class CustomContractResolver :
             properties.Remove(stackTrace);
             properties.Add(stackTrace);
             properties.Insert(0,
-                new JsonProperty
+                new()
                 {
                     PropertyName = "Type",
                     PropertyType = typeof(string),

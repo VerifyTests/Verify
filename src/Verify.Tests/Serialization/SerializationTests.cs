@@ -105,15 +105,15 @@ public class SerializationTests
     [Fact]
     public void SettingsIsCloned()
     {
-        var settings = new SerializationSettings();
+        SerializationSettings settings = new();
 
-        var ignoredMemberList = new List<string>();
+        List<string> ignoredMemberList = new();
         settings.ignoredMembers.Add(GetType(), ignoredMemberList);
 
-        var ignoredInstances = new List<Func<object, bool>>();
+        List<Func<object, bool>> ignoredInstances = new();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
-        var memberConverterList = new Dictionary<string, ConvertMember>();
+        Dictionary<string, ConvertMember> memberConverterList = new();
         settings.membersConverters.Add(GetType(), memberConverterList);
 
         settings.ignoredByNameMembers.Add("ignored");

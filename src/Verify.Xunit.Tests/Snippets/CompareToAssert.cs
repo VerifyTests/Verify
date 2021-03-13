@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 
@@ -11,7 +10,7 @@ public class CompareToAssert
     public void TraditionalTest()
     {
         var person = ClassBeingTested.FindPerson();
-        Assert.Equal(new Guid("ebced679-45d3-4653-8791-3d969c4a986c"), person.Id);
+        Assert.Equal(new("ebced679-45d3-4653-8791-3d969c4a986c"), person.Id);
         Assert.Equal(Title.Mr, person.Title);
         Assert.Equal("John", person.GivenNames);
         Assert.Equal("Smith", person.FamilyName);

@@ -48,6 +48,14 @@ static class ApplyScrubbers
             scrubber(target);
         }
 
+        if (settings.extensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
+        {
+            foreach (var scrubber in extensionBasedInstanceScrubbers)
+            {
+                scrubber(target);
+            }
+        }
+
         if (VerifierSettings.ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var extensionBasedScrubbers))
         {
             foreach (var scrubber in extensionBasedScrubbers)

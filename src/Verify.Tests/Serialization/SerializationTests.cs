@@ -159,6 +159,15 @@ public class SerializationTests
     }
 
     [Fact]
+    public async Task ExtensionAwareScrubbers()
+    {
+        var settings = new VerifySettings();
+        settings.UseExtension("html");
+        settings.AddScrubber("html", builder => builder.Replace("a", "b"));
+        await Verifier.Verify("a", settings);
+    }
+
+    [Fact]
     public Task Uri()
     {
         return Verifier.Verify(

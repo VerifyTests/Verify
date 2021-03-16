@@ -23,6 +23,12 @@ namespace VerifyMSTest
                 testName = testName.Substring(0, indexOf);
             }
 
+            indexOf = testName.IndexOf('.');
+            if (indexOf > 0)
+            {
+                testName = testName.Substring(indexOf);
+            }
+
             var methodInfo = type
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public)
                 .FirstOrDefault(x => x.Name == testName);

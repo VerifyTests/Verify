@@ -26,7 +26,7 @@ namespace VerifyMSTest
             indexOf = testName.IndexOf('.');
             if (indexOf > 0)
             {
-                testName = testName.Substring(indexOf);
+                testName = testName.Substring(indexOf + 1);
             }
 
             var methodInfo = type

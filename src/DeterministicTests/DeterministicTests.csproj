@@ -6,7 +6,7 @@
     <IsPackageProject>false</IsPackageProject>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="6.5.7" />
+    <PackageReference Include="DiffEngine" Version="6.6.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

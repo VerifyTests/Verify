@@ -6,6 +6,14 @@ Verify is heavily influenced by [ApprovalTests](https://github.com/approvals/App
 ## Differences to ApprovalTests
 
 
+### Multiple files
+
+
+ApprovalTests supports producing a single file from a test.
+
+Verify support multiple files from a test. For example a snapshot of a webpage can result in both the png and the html being output files.
+
+
 ### Object Serialization
 
 Verify supports verification of any object through the use of Json.net

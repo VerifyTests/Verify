@@ -19,9 +19,9 @@ ApprovalTests extensibility model is primarily based on wrapping the top level a
 
 Verify is designed with extensibility in mind with many APIS to plug into. For example:
 
- * [comparer](comparer.md).
+ * [Comparers](comparer.md).
  * [File naming](naming.md).
- * [Converter](converter.md).
+ * [Converters](converter.md).
 
 This results in a simpler process for creating [Custom extensions for Verify](/#extensions)
 

@@ -15,23 +15,6 @@ The format is
 {Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}
 ```
 
-<!-- toc -->
-## Contents
-
-  * [Directory](#directory)
-  * [TestClassName](#testclassname)
-  * [TestMethodName](#testmethodname)
-  * [UseFileName](#usefilename)
-  * [Parameters](#parameters)
-  * [UniqueFor](#uniquefor)
-    * [XUnit](#xunit)
-    * [NUnit](#nunit)
-    * [MSTest](#mstest)
-    * [Result](#result)
-  * [Extension](#extension)
-  * [NamerRuntimeAndVersion](#namerruntimeandversion)
-  * [DerivePathInfo](#derivepathinfo)<!-- endToc -->
-
 
 ## Directory
 

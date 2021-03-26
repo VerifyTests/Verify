@@ -6,7 +6,6 @@ Serialization settings can be customized at three levels:
  * Class: Will run for all verifications in all test methods for a test class.
  * Global: Will run for test methods on all tests.
 
-toc
 
 
 ## Not valid json

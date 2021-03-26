@@ -15,8 +15,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 <a href='https://dotnetfoundation.org' alt='Part of the .NET Foundation'><img src='/docs/dotNetFoundation.svg' height='30px'></a><br>
 Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
 
-toc
-
 
 ## NuGet packages
 

@@ -8,8 +8,6 @@ The format is
 {Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}
 ```
 
-toc
-
 
 ## Directory
 

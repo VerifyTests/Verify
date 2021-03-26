@@ -22,24 +22,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 <a href='https://dotnetfoundation.org' alt='Part of the .NET Foundation'><img src='/docs/dotNetFoundation.svg' height='30px'></a><br>
 Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
 
-<!-- toc -->
-## Contents
-
-  * [Usage](#usage)
-    * [Class being tested](#class-being-tested)
-    * [xUnit](#xunit)
-    * [NUnit](#nunit)
-    * [MSTest](#mstest)
-    * [Initial Verification](#initial-verification)
-    * [Subsequent Verification](#subsequent-verification)
-  * [Received and Verified](#received-and-verified)
-  * [Static settings](#static-settings)
-  * [Videos](#videos)
-  * [Extensions](#extensions)
-  * [More Documentation](#more-documentation)
-  * [Alternatives](#alternatives)
-  * [Security contact information](#security-contact-information)<!-- endToc -->
-
 
 ## NuGet packages
 

@@ -13,32 +13,6 @@ Serialization settings can be customized at three levels:
  * Class: Will run for all verifications in all test methods for a test class.
  * Global: Will run for test methods on all tests.
 
-<!-- toc -->
-## Contents
-
-  * [Not valid json](#not-valid-json)
-    * [UseStrictJson](#usestrictjson)
-  * [Default settings](#default-settings)
-  * [QuoteName is false](#quotename-is-false)
-  * [Empty collections are ignored](#empty-collections-are-ignored)
-  * [Guids are scrubbed](#guids-are-scrubbed)
-  * [Dates are scrubbed](#dates-are-scrubbed)
-  * [Default Booleans are ignored](#default-booleans-are-ignored)
-  * [Change defaults at the verification level](#change-defaults-at-the-verification-level)
-  * [Changing Json.NET settings](#changing-jsonnet-settings)
-    * [Globally](#globally)
-    * [Instance](#instance)
-    * [Json.NET Converter](#jsonnet-converter)
-  * [Scoped settings](#scoped-settings)
-  * [Ignoring a type](#ignoring-a-type)
-  * [Ignoring a instance](#ignoring-a-instance)
-  * [Obsolete members ignored](#obsolete-members-ignored)
-    * [Including Obsolete members](#including-obsolete-members)
-  * [Ignore member by expressions](#ignore-member-by-expressions)
-  * [Ignore member by name](#ignore-member-by-name)
-  * [Members that throw](#members-that-throw)
-  * [TreatAsString](#treatasstring)
-  * [JsonAppender](#jsonappender)<!-- endToc -->
 
 
 ## Not valid json

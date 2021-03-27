@@ -16,7 +16,7 @@ using Xunit.Abstractions;
 public partial class Tests :
     XunitContextBase
 {
-    static string diffToolPath = Path.GetFullPath(Path.Combine(AttributeReader.GetSolutionDirectory(), "FakeDiffTool/bin/FakeDiffTool.exe"));
+    static string toolPath = Path.GetFullPath(Path.Combine(AttributeReader.GetSolutionDirectory(), "FakeDiffTool/bin/FakeDiffTool.exe"));
 
     static Tests()
     {
@@ -29,7 +29,7 @@ public partial class Tests :
             supportsText: true,
             requiresTarget: true,
             arguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
-            exePath: diffToolPath,
+            exePath: toolPath,
             binaryExtensions: new[] {"knownBin"});
         var binPath = AllFiles.Files["jpg"];
         var newPath = Path.ChangeExtension(binPath.Path, "knownBin");
@@ -90,7 +90,7 @@ Commands:
 
     static string BuildCommand(FilePair pair)
     {
-        return $"\"{diffToolPath}\" \"{pair.Received}\" \"{pair.Verified}\"";
+        return $"\"{toolPath}\" \"{pair.Received}\" \"{pair.Verified}\"";
     }
 
     static void RunClipboardCommand()

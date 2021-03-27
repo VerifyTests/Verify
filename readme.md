@@ -370,6 +370,7 @@ Projects/tools that may be a better alternative to Verify
  * [ApprovalTests](https://github.com/approvals/ApprovalTests.Net)
  * [Snapshooter](https://github.com/SwissLife-OSS/Snapshooter)
  * [Snapper](https://github.com/theramis/Snapper)
+ * [Polaroider](https://github.com/WickedFlame/Polaroider)
 
 
 ## Security contact information

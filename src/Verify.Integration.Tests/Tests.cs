@@ -16,7 +16,7 @@ using Xunit.Abstractions;
 public partial class Tests :
     XunitContextBase
 {
-    static string diffToolPath = Path.GetFullPath(Path.Combine(AssemblyLocation.CurrentDirectory, "../../../../FakeDiffTool/bin/FakeDiffTool.exe"));
+    static string diffToolPath = Path.GetFullPath(Path.Combine(AttributeReader.GetSolutionDirectory(), "FakeDiffTool/bin/FakeDiffTool.exe"));
 
     static Tests()
     {

@@ -32,7 +32,7 @@ public partial class Tests
         var uniqueTestName = $"Tests.Split_{concat}";
 
         settings.UseParameters(hasExistingReceived, autoVerify);
-        var prefix = Path.Combine(SourceDirectory, $"{uniqueTestName}.");
+        var prefix = Path.Combine(AttributeReader.GetSolutionDirectory(), $"{uniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
         FilePair file0 = new("txt", $"{prefix}00");
         FilePair file1 = new("txt", $"{prefix}01");

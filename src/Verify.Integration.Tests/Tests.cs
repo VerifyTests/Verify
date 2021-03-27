@@ -10,11 +10,9 @@ using EmptyFiles;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 [UsesVerify]
-public partial class Tests :
-    XunitContextBase
+public partial class Tests
 {
     static string toolPath = Path.GetFullPath(Path.Combine(AttributeReader.GetSolutionDirectory(), "FakeDiffTool/bin/FakeDiffTool.exe"));
 
@@ -120,8 +118,7 @@ Commands:
         return Assert.ThrowsAsync<VerifyException>(testCode);
     }
 
-    public Tests(ITestOutputHelper output) :
-        base(output)
+    public Tests()
     {
         FileNameBuilder.ClearPrefixList();
         ClipboardCapture.Clear();

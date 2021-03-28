@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
 using VerifyTests;
@@ -25,7 +26,7 @@ public partial class Tests
                 new List<Target>
                 {
                     new("txt", split.Property1),
-                    new("txt", split.Property2)
+                    new("knownBin",new MemoryStream(Encoding.UTF8.GetBytes( split.Property2)))
                 }));
 
         TypeToSplitOneFail initialTarget = new("info1", "value1", "value2");
@@ -46,7 +47,7 @@ public partial class Tests
         var danglingFile = $"{prefix}03.verified.txt";
         FilePair file0 = new("txt", $"{prefix}00");
         FilePair file1 = new("txt", $"{prefix}01");
-        FilePair file2 = new("txt", $"{prefix}02");
+        FilePair file2 = new("knownBin", $"{prefix}02");
 
         DeleteAll(danglingFile, file0.Received, file0.Verified, file1.Verified, file1.Received, file2.Verified, file2.Received);
         await File.WriteAllTextAsync(danglingFile, "");

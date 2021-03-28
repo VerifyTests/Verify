@@ -83,9 +83,9 @@ public partial class Tests
             settings.AutoVerify();
         }
 
-        var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        var prefix = Path.Combine(solutionDirectory, uniqueTestName);
-        var danglingFile = Path.Combine(solutionDirectory, $"{prefix}.01.verified.{extension}");
+        var projectDirectory = AttributeReader.GetProjectDirectory();
+        var prefix = Path.Combine(projectDirectory, uniqueTestName);
+        var danglingFile = Path.Combine(projectDirectory, $"{prefix}.01.verified.{extension}");
         FilePair file = new(extension, prefix);
 
         DeleteAll(danglingFile, file.Verified, file.Received);

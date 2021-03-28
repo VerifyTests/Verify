@@ -67,7 +67,7 @@ public partial class Tests
             uniqueTestName);
     }
 
-    async Task RunTest(
+    static async Task RunTest(
         string extension,
         Func<object> initialTarget,
         Func<object> secondTarget,

@@ -10,8 +10,8 @@ using VerifyTests;
 [DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
 class VerifyEngine
 {
+    VerifySettings settings;
     FileNameBuilder fileNameBuilder;
-    bool autoVerify;
     bool diffEnabled;
     bool clipboardEnabled;
     List<FilePair> missings = new();
@@ -19,12 +19,12 @@ class VerifyEngine
     List<FilePair> equals = new();
     List<string> danglingVerified;
 
-    public VerifyEngine(FileNameBuilder fileNameBuilder, bool autoVerify, bool diffEnabled, bool clipboardEnabled)
+    public VerifyEngine(VerifySettings settings, FileNameBuilder fileNameBuilder)
     {
+        this.settings = settings;
         this.fileNameBuilder = fileNameBuilder;
-        this.autoVerify = autoVerify;
-        this.diffEnabled = diffEnabled;
-        this.clipboardEnabled = clipboardEnabled;
+        diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
+        clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
         danglingVerified = fileNameBuilder.VerifiedFiles;
 
         foreach (var file in fileNameBuilder.ReceivedFiles)
@@ -33,22 +33,50 @@ class VerifyEngine
         }
     }
 
-    public async Task HandleResults(List<ResultBuilder> results)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextHasFailed)
     {
-        if (results.Count == 1)
+        if (target.IsString)
         {
-            var item = results[0];
-            var file = fileNameBuilder.GetFileNames(item.Extension);
-            var result = await item.GetResult(file);
+            StringBuilder builder = new(target.StringData);
+            ApplyScrubbers.Apply(target.Extension, builder, settings);
+            return await Comparer.Text(filePair, builder.ToString(), settings);
+        }
+
+        var stream = target.StreamData;
+#if NETSTANDARD2_0 || NETFRAMEWORK
+            using (stream)
+#else
+        await using (stream)
+#endif
+        {
+            stream.MoveToStart();
+            return await Comparer.Streams(settings, stream, filePair, previousTextHasFailed);
+        }
+    }
+
+    public async Task HandleResults(List<Target> targetList)
+    {
+        if (targetList.Count == 1)
+        {
+            var target = targetList.Single();
+            var file = fileNameBuilder.GetFileNames(target.Extension);
+            var result = await GetResult(settings, file, target, false);
             HandleCompareResult(result, file);
             return;
         }
 
-        for (var index = 0; index < results.Count; index++)
+        var textHasFailed = false;
+        for (var index = 0; index < targetList.Count; index++)
         {
-            var item = results[index];
-            var file = fileNameBuilder.GetFileNames(item.Extension, index);
-            var result = await item.GetResult(file);
+            var target = targetList[index];
+            var file = fileNameBuilder.GetFileNames(target.Extension, index);
+            var result = await GetResult(settings, file, target, textHasFailed);
+            if (EmptyFiles.Extensions.IsText(target.Extension) &&
+                result.Equality == Equality.NotEqual)
+            {
+                textHasFailed = true;
+            }
+
             HandleCompareResult(result, file);
         }
     }
@@ -104,7 +132,7 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        if (!autoVerify)
+        if (!settings.autoVerify)
         {
             if (DiffEngineTray.IsRunning)
             {
@@ -121,7 +149,7 @@ class VerifyEngine
         await ProcessMissing(builder);
 
         await ProcessNotEquals(builder);
-        if (!autoVerify)
+        if (!settings.autoVerify)
         {
             throw new VerifyException(builder.ToString());
         }
@@ -144,7 +172,7 @@ class VerifyEngine
     Task ProcessDangling(StringBuilder builder, string item)
     {
         builder.AppendLine($"  {Path.GetFileName(item)}");
-        if (autoVerify)
+        if (settings.autoVerify)
         {
             File.Delete(item);
             return Task.CompletedTask;
@@ -227,7 +255,7 @@ class VerifyEngine
             return;
         }
 
-        if (autoVerify)
+        if (settings.autoVerify)
         {
             AcceptChanges(item);
             return;
@@ -277,7 +305,7 @@ class VerifyEngine
             return;
         }
 
-        if (autoVerify)
+        if (settings.autoVerify)
         {
             AcceptChanges(item);
             return;

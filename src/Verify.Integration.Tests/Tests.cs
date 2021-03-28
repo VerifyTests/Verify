@@ -28,7 +28,7 @@ public partial class Tests
             requiresTarget: true,
             arguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             exePath: toolPath,
-            binaryExtensions: new[] {"knownBin"});
+            binaryExtensions: new[] {"knownBin","AlwaysPassBin"});
         var binPath = AllFiles.Files["jpg"];
         var newPath = Path.ChangeExtension(binPath.Path, "knownBin");
         File.Copy(binPath.Path, newPath, true);

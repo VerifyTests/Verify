@@ -39,6 +39,8 @@ static Task<CompareResult> CompareImages(
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
 
+**If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
+
 
 ### Instance comparer
 

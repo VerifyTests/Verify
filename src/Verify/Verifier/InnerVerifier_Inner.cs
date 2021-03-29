@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DiffEngine;
 
 namespace VerifyTests
 {
@@ -24,23 +23,10 @@ namespace VerifyTests
             }
 
             targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
-            var builders = targetList
-                .Select(
-                    stream =>
-                    {
-                        return new ResultBuilder(
-                            stream.Extension,
-                            file => GetResult(settings, file, stream));
-                    })
-                .ToList();
 
-            VerifyEngine engine = new(
-                fileNameBuilder,
-                settings.autoVerify,
-                diffEnabled: !DiffRunner.Disabled && settings.diffEnabled,
-                clipboardEnabled: !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled());
+            VerifyEngine engine = new(settings, fileNameBuilder);
 
-            await engine.HandleResults(builders);
+            await engine.HandleResults(targetList);
 
             if (cleanup != null)
             {
@@ -101,27 +87,6 @@ namespace VerifyTests
                 settings);
 
             return true;
-        }
-
-        static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target)
-        {
-            if (target.IsString)
-            {
-                StringBuilder builder = new(target.StringData);
-                ApplyScrubbers.Apply(target.Extension, builder, settings);
-                return await Comparer.Text(filePair, builder.ToString(), settings);
-            }
-
-            var stream = target.StreamData;
-#if NETSTANDARD2_0 || NETFRAMEWORK
-            using (stream)
-#else
-            await using (stream)
-#endif
-            {
-                stream.MoveToStart();
-                return await Comparer.Streams(settings, stream, filePair);
-            }
         }
     }
 }

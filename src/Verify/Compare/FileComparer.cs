@@ -6,7 +6,7 @@ using VerifyTests;
 
 static class FileComparer
 {
-    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file)
+    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextHasFailed)
     {
         if (!File.Exists(file.Verified))
         {
@@ -18,7 +18,7 @@ static class FileComparer
             return Equality.NotEqual;
         }
 
-        var result = await FilesEqual(settings, file);
+        var result = await FilesEqual(settings, file, previousTextHasFailed);
         if (result.IsEqual)
         {
             return Equality.Equal;
@@ -27,9 +27,10 @@ static class FileComparer
         return new(Equality.NotEqual, result.Message);
     }
 
-    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair)
+    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair, bool previousTextHasFailed)
     {
-        if (settings.TryFindStreamComparer(filePair.Extension, out var compare))
+        if (!previousTextHasFailed &&
+            settings.TryFindStreamComparer(filePair.Extension, out var compare))
         {
             return DoCompare(settings, compare!, filePair);
         }

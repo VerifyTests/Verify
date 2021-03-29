@@ -28,11 +28,14 @@ public partial class Tests
             requiresTarget: true,
             arguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
             exePath: toolPath,
-            binaryExtensions: new[] {"knownBin"});
+            binaryExtensions: new[] {"knownBin","AlwaysPassBin"});
         var binPath = AllFiles.Files["jpg"];
-        var newPath = Path.ChangeExtension(binPath.Path, "knownBin");
-        File.Copy(binPath.Path, newPath, true);
-        AllFiles.UseFile(Category.Image, newPath);
+        var knownBinPath = Path.ChangeExtension(binPath.Path, "knownBin");
+        File.Copy(binPath.Path, knownBinPath, true);
+        AllFiles.UseFile(Category.Image, knownBinPath);
+        var alwaysPassBinPath = Path.ChangeExtension(binPath.Path, "AlwaysPassBin");
+        File.Copy(binPath.Path, alwaysPassBinPath, true);
+        AllFiles.UseFile(Category.Image, alwaysPassBinPath);
 
         VerifierSettings.RegisterFileConverter<TypeToSplit>(
             (split, _) => new(
@@ -68,7 +71,10 @@ public partial class Tests
                 continue;
             }
 
-            var commands = string.Join(Environment.NewLine, ProcessCleanup.Commands.Select(x => x.Command));
+            var verifiedCommands = ProcessCleanup.Commands
+                .Where(x => x.Command.Contains("verified"))
+                .Select(x => x.Command);
+            var commands = string.Join(Environment.NewLine, verifiedCommands);
             string message;
             if (isRunning)
             {

@@ -40,11 +40,12 @@ static class Comparer
     public static async Task<EqualityResult> Streams(
         VerifySettings settings,
         Stream stream,
-        FilePair file)
+        FilePair file,
+        bool previousTextHasFailed)
     {
         await FileHelpers.WriteStream(file.Received, stream);
 
-        var result = await FileComparer.DoCompare(settings, file);
+        var result = await FileComparer.DoCompare(settings, file, previousTextHasFailed);
 
         if (result.Equality == Equality.Equal)
         {

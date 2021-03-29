@@ -39,6 +39,8 @@ static Task<CompareResult> CompareImages(
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
 
+**If an input is split into multiple files, and a text file fails, then all subsequent binary comparisons will revert to the default comparison.**
+
 
 ### Instance comparer
 
@@ -133,7 +135,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L72-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

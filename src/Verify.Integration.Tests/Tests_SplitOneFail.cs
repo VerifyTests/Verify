@@ -65,26 +65,26 @@ public partial class Tests
         FileNameBuilder.ClearPrefixList();
         await InitialVerifySplit(initialTarget, true, settings, file0, file1, file2);
 
-        //if (!autoVerify)
-        //{
-        //    RunClipboardCommand();
-        //}
+        if (!autoVerify)
+        {
+            RunClipboardCommand();
+        }
 
-        //AssertNotExists(danglingFile);
+        AssertNotExists(danglingFile);
 
-        //FileNameBuilder.ClearPrefixList();
-        //await ReVerifySplit(initialTarget, settings, file0, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await ReVerifySplit(initialTarget, settings, file0, file1, file2);
 
-        //FileNameBuilder.ClearPrefixList();
-        //await InitialVerifySplit(secondTarget, true, settings, file0, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await InitialVerifySplit(secondTarget, true, settings, file0, file1, file2);
 
-        //if (!autoVerify)
-        //{
-        //    RunClipboardCommand();
-        //}
+        if (!autoVerify)
+        {
+            RunClipboardCommand();
+        }
 
-        //FileNameBuilder.ClearPrefixList();
-        //await ReVerifySplit(secondTarget, settings, file0, file1, file2);
+        FileNameBuilder.ClearPrefixList();
+        await ReVerifySplit(secondTarget, settings, file0, file1, file2);
     }
 
     static async Task InitialVerifySplit(TypeToSplitOneFail target, bool hasMatchingDiffTool, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)

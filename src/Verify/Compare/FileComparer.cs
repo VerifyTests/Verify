@@ -43,7 +43,7 @@ static class FileComparer
         return Task.FromResult(CompareResult.NotEqual());
     }
 
-    static Task<CompareResult> DefaultCompare(VerifySettings settings, FilePair filePair)
+    public static Task<CompareResult> DefaultCompare(VerifySettings settings, FilePair filePair)
     {
         return DoCompare(
             settings,

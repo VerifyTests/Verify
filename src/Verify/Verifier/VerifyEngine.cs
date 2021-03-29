@@ -72,7 +72,7 @@ class VerifyEngine
             var file = fileNameBuilder.GetFileNames(target.Extension, index);
             var result = await GetResult(settings, file, target, textHasFailed);
             if (EmptyFiles.Extensions.IsText(target.Extension) &&
-                result.Equality == Equality.NotEqual)
+                result.Equality != Equality.Equal)
             {
                 textHasFailed = true;
             }

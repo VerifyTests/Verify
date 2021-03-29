@@ -68,7 +68,10 @@ public partial class Tests
                 continue;
             }
 
-            var commands = string.Join(Environment.NewLine, ProcessCleanup.Commands.Select(x => x.Command));
+            var verifiedCommands = ProcessCleanup.Commands
+                .Where(x => x.Command.Contains("verified"))
+                .Select(x => x.Command);
+            var commands = string.Join(Environment.NewLine, verifiedCommands);
             string message;
             if (isRunning)
             {

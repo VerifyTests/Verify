@@ -844,6 +844,7 @@ The default mapping is:
 <a id='snippet-typetostringmapping'></a>
 ```cs
 {typeof(string), (target, _) => (string) target},
+{typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
 {typeof(bool), (target, _) => ((bool) target).ToString()},
 {typeof(short), (target, _) => ((short) target).ToString()},
 {typeof(ushort), (target, _) => ((ushort) target).ToString()},
@@ -888,7 +889,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L62-L109' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L63-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

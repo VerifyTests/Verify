@@ -331,6 +331,12 @@ public class Tests
     }
 
     [Fact]
+    public Task StringBuilder()
+    {
+        return Verifier.Verify(new StringBuilder("value"));
+    }
+
+    [Fact]
     public async Task StringWithDifferingNewline()
     {
         var fullPath = Path.GetFullPath("../../../Tests.StringWithDifferingNewline.verified.txt");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
@@ -62,6 +63,7 @@ namespace VerifyTests
             #region typeToStringMapping
 
             {typeof(string), (target, _) => (string) target},
+            {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
             {typeof(bool), (target, _) => ((bool) target).ToString()},
             {typeof(short), (target, _) => ((short) target).ToString()},
             {typeof(ushort), (target, _) => ((ushort) target).ToString()},

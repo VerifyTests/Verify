@@ -35,6 +35,13 @@ class VerifyEngine
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextHasFailed)
     {
+        if (target.IsStringBuilder)
+        {
+            var builder = target.StringBuilderData;
+            ApplyScrubbers.Apply(target.Extension, builder, settings);
+            return await Comparer.Text(filePair, builder.ToString(), settings);
+        }
+
         if (target.IsString)
         {
             StringBuilder builder = new(target.StringData);

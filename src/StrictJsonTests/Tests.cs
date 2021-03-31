@@ -53,7 +53,7 @@ public class Tests
                 {
                     Property = "Value"
                 };
-                return new(info, new[] {new Target("txt", "content")});
+                return new(info, "txt", "content");
             });
         return Verifier.Verify(new MemoryStream())
             .UseExtension("foo");

@@ -417,7 +417,8 @@ public class Tests
         await Verifier.Verify("A");
         VerifySettings settings = new();
         settings.DisableDiff();
-        await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("a", settings));
+        FileNameBuilder.ClearPrefixList();
+        await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("a", settings));
     }
 
     [Fact]

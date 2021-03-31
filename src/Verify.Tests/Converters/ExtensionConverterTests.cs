@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -18,14 +19,21 @@ public class ExtensionConverterTests
     }
 
     [Fact]
+    public Task ExtensionConversionStringBuilder()
+    {
+        VerifierSettings.RegisterFileConverter(
+            "ExtensionConversionStringBuilder",
+            (_, _) => new ConversionResult(null, "txt", new StringBuilder("Foo")));
+        return Verifier.Verify(new MemoryStream())
+            .UseExtension("ExtensionConversionStringBuilder");
+    }
+
+    [Fact]
     public Task ExtensionConversion()
     {
         VerifierSettings.RegisterFileConverter(
             "ExtensionConversion",
-            (_, _) =>
-            {
-                return new ConversionResult(null, new[] {new Target("txt", "Foo")});
-            });
+            (_, _) => new ConversionResult(null, "txt", "Foo"));
         return Verifier.Verify(new MemoryStream())
             .UseExtension("ExtensionConversion");
     }
@@ -35,10 +43,7 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "AsyncExtensionConversion",
-            (_, _) =>
-            {
-                return Task.FromResult(new ConversionResult(null,  new []{new Target("txt", "Foo")}));
-            });
+            (_, _) => Task.FromResult(new ConversionResult(null, "txt", "Foo")));
         return Verifier.Verify(new MemoryStream())
             .UseExtension("AsyncExtensionConversion");
     }
@@ -54,7 +59,7 @@ public class ExtensionConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, new []{new Target("txt", "Foo")});
+                return new ConversionResult(info, "txt", "Foo");
             });
         return Verifier.Verify(new MemoryStream())
             .UseExtension("WithInfo");

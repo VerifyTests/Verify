@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace VerifyTests
@@ -21,27 +22,39 @@ namespace VerifyTests
             Cleanup = cleanup;
         }
 
-        public ConversionResult(object? info, string streamExtension, Stream stream, Func<Task>? cleanup = null)
+        public ConversionResult(object? info, string extension, Stream stream, Func<Task>? cleanup = null)
         {
             Guard.AgainstNull(stream, nameof(stream));
-            Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Info = info;
             Cleanup = cleanup;
             Targets = new List<Target>
             {
-                new(streamExtension, stream)
+                new(extension, stream)
             };
         }
 
-        public ConversionResult(object? info, string streamExtension, string data, Func<Task>? cleanup = null)
+        public ConversionResult(object? info, string extension, string data, Func<Task>? cleanup = null)
         {
             Guard.AgainstNull(data, nameof(data));
-            Guard.AgainstNullOrEmpty(streamExtension, nameof(streamExtension));
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Info = info;
             Cleanup = cleanup;
             Targets = new List<Target>
             {
-                new(streamExtension, data)
+                new(extension, data)
+            };
+        }
+
+        public ConversionResult(object? info, string extension, StringBuilder data, Func<Task>? cleanup = null)
+        {
+            Guard.AgainstNull(data, nameof(data));
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
+            Info = info;
+            Cleanup = cleanup;
+            Targets = new List<Target>
+            {
+                new(extension, data)
             };
         }
     }

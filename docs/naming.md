@@ -403,7 +403,6 @@ Result in two files:
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json -->
 <a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'></a>
 ```json
-
 {
   fruit: 'Apple',
   size: 'Large',
@@ -416,7 +415,6 @@ Result in two files:
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
 <a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>
 ```xml
-
 <note>
   <to>Joe</to>
   <from>Kim</from>

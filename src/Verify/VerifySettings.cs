@@ -96,7 +96,7 @@ namespace VerifyTests
         internal bool autoVerify;
 
         /// <summary>
-        /// Automatically accept the results of the current tes.
+        /// Automatically accept the results of the current test.
         /// </summary>
         public void AutoVerify()
         {

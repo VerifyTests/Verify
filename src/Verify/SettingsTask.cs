@@ -224,7 +224,7 @@ namespace VerifyTests
         }
 
         /// <summary>
-        /// Automatically accept the results of the current tes.
+        /// Automatically accept the results of the current test.
         /// </summary>
         public SettingsTask AutoVerify()
         {

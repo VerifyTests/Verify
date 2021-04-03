@@ -34,8 +34,12 @@ namespace VerifyTests
 
         internal void AddEntry<TState>(LogLevel? level, string? category, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
-            if (level != null && !(level >= this.level)) return;
-            var entry = new LogItem(level, category, eventId, exception, formatter.Invoke(state,exception));
+            if (level != null && !(level >= this.level))
+            {
+                return;
+            }
+
+            var entry = new LogItem(level, category, eventId, exception, formatter.Invoke(state, exception));
             entries.Enqueue(entry);
         }
 

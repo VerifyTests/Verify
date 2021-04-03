@@ -1,0 +1,23 @@
+{
+  target: result,
+  logs: [
+    {
+      Level: Warning,
+      Category: ClassThatUsesTypedLogging,
+      Message: The log entry
+    },
+    {
+      Category: ClassThatUsesTypedLogging,
+      Message: BeginScope: The scope
+    },
+    {
+      Level: Warning,
+      Category: ClassThatUsesTypedLogging,
+      Message: Entry in scope
+    },
+    {
+      Category: ClassThatUsesTypedLogging,
+      Message: EndScope
+    }
+  ]
+}

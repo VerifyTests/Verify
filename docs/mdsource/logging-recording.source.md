@@ -14,3 +14,14 @@ snippet: LoggerRecording
 Results in:
 
 snippet: Tests.Logging.verified.txt
+
+
+### Typed
+
+A common pattern is to use a type logger (`Logger<T>`). `LoggerProvider` provides a builder method to construct a `Logger<T>`:
+
+snippet: LoggerRecordingTyped
+
+Results in:
+
+snippet: Tests.LoggingTyped.verified.txt

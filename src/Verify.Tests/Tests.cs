@@ -123,7 +123,46 @@ public class Tests
     {
         return Verifier.Verify(new {Property = "F\roo"});
     }
+
+    #region LoggerRecordingTyped
+
+    [Fact]
+    public Task LoggingTyped()
+    {
+        var provider = LoggerRecording.Start();
+        var logger = provider.CreateLogger<ClassThatUsesTypedLogging>();
+        var target = new ClassThatUsesTypedLogging(logger);
+
+        var result = target.Method();
+
+        return Verifier.Verify(result);
+    }
+
+    class ClassThatUsesTypedLogging
+    {
+        ILogger<ClassThatUsesTypedLogging> logger;
+
+        public ClassThatUsesTypedLogging(ILogger<ClassThatUsesTypedLogging> logger)
+        {
+            this.logger = logger;
+        }
+
+        public string Method()
+        {
+            logger.LogWarning("The log entry");
+            using (logger.BeginScope("The scope"))
+            {
+                logger.LogWarning("Entry in scope");
+            }
+
+            return "result";
+        }
+    }
+
+    #endregion
+
     #region LoggerRecording
+
     [Fact]
     public Task Logging()
     {
@@ -155,6 +194,7 @@ public class Tests
             return "result";
         }
     }
+
     #endregion
 
     [Fact]
@@ -410,7 +450,7 @@ public class Tests
     [Fact]
     public Task StreamNotAtStart()
     {
-        MemoryStream stream = new(new byte[] {1,2,3,4});
+        MemoryStream stream = new(new byte[] {1, 2, 3, 4});
         stream.Position = 2;
         return Verifier.Verify(stream);
     }

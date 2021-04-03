@@ -51,7 +51,7 @@ class ClassThatUsesLogging
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L126-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L164-L198' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -80,4 +80,80 @@ Results in:
 }
 ```
 <sup><a href='/src/Verify.Tests/Tests.Logging.verified.txt#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.Logging.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Typed
+
+A common pattern is to use a type logger (`Logger<T>`). `LoggerProvider` provides a builder method to construct a `Logger<T>`:
+
+<!-- snippet: LoggerRecordingTyped -->
+<a id='snippet-loggerrecordingtyped'></a>
+```cs
+[Fact]
+public Task LoggingTyped()
+{
+    var provider = LoggerRecording.Start();
+    var logger = provider.CreateLogger<ClassThatUsesTypedLogging>();
+    var target = new ClassThatUsesTypedLogging(logger);
+
+    var result = target.Method();
+
+    return Verifier.Verify(result);
+}
+
+class ClassThatUsesTypedLogging
+{
+    ILogger<ClassThatUsesTypedLogging> logger;
+
+    public ClassThatUsesTypedLogging(ILogger<ClassThatUsesTypedLogging> logger)
+    {
+        this.logger = logger;
+    }
+
+    public string Method()
+    {
+        logger.LogWarning("The log entry");
+        using (logger.BeginScope("The scope"))
+        {
+            logger.LogWarning("Entry in scope");
+        }
+
+        return "result";
+    }
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L127-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecordingtyped' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in:
+
+<!-- snippet: Tests.LoggingTyped.verified.txt -->
+<a id='snippet-Tests.LoggingTyped.verified.txt'></a>
+```txt
+{
+  target: result,
+  logs: [
+    {
+      Level: Warning,
+      Category: ClassThatUsesTypedLogging,
+      Message: The log entry
+    },
+    {
+      Category: ClassThatUsesTypedLogging,
+      Message: BeginScope: The scope
+    },
+    {
+      Level: Warning,
+      Category: ClassThatUsesTypedLogging,
+      Message: Entry in scope
+    },
+    {
+      Category: ClassThatUsesTypedLogging,
+      Message: EndScope
+    }
+  ]
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.LoggingTyped.verified.txt#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.LoggingTyped.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

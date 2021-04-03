@@ -85,7 +85,7 @@ Results in:
 
 ### Typed
 
-A common pattern is to use a type logger (`Logger<T>`). `LoggerProvider` provides a builder method to construct a `Logger<T>`:
+A common pattern is to use a type logger (`Logger<T>`). `LoggerProvider` provides a builder method `CreateLogger<T>` to construct a `Logger<T>`:
 
 <!-- snippet: LoggerRecordingTyped -->
 <a id='snippet-loggerrecordingtyped'></a>
@@ -133,22 +133,9 @@ Results in:
       Level: Warning,
       Category: ClassThatUsesTypedLogging,
       Message: The log entry
-    },
-    {
-      Category: ClassThatUsesTypedLogging,
-      Message: BeginScope: The scope
-    },
-    {
-      Level: Warning,
-      Category: ClassThatUsesTypedLogging,
-      Message: Entry in scope
-    },
-    {
-      Category: ClassThatUsesTypedLogging,
-      Message: EndScope
     }
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.LoggingTyped.verified.txt#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.LoggingTyped.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.LoggingTyped.verified.txt#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.LoggingTyped.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

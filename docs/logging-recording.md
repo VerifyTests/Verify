@@ -60,18 +60,18 @@ Results in:
 <a id='snippet-Tests.Logging.verified.txt'></a>
 ```txt
 {
-  target: Foo,
+  target: result,
   logs: [
     {
       Level: Warning,
-      Message: theMessage
+      Message: The log entry
     },
     {
-      Message: BeginScope: scopeState
+      Message: BeginScope: The scope
     },
     {
       Level: Warning,
-      Message: theMessageInScope
+      Message: Entry in scope
     },
     {
       Message: EndScope

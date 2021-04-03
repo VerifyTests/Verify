@@ -1,0 +1,19 @@
+{
+  target: Foo,
+  logs: [
+    {
+      Level: Warning,
+      Message: theMessage
+    },
+    {
+      Message: BeginScope: scopeState
+    },
+    {
+      Level: Warning,
+      Message: theMessageInScope
+    },
+    {
+      Message: EndScope
+    }
+  ]
+}

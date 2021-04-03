@@ -294,20 +294,8 @@ public static class StaticSettingsUsage
         VerifierSettings.AddScrubber(_ => _.Replace("String to verify", "new value"));
     }
 }
-
-//Only required if using a legacy version of .net
-#if(!NET5_0)
-namespace System.Runtime.CompilerServices
-{
-    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-    public sealed class ModuleInitializerAttribute :
-        Attribute
-    {
-    }
-}
-#endif
 ```
-<sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -357,6 +345,7 @@ namespace System.Runtime.CompilerServices
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
   * [Http Recording](/docs/http-recording.md)
+  * [Logging Recording](/docs/logging-recording.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)

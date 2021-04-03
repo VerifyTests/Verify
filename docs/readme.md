@@ -22,6 +22,7 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
   * [Http Recording](/docs/http-recording.md)
+  * [Logging Recording](/docs/logging-recording.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)

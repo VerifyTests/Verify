@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -122,6 +123,39 @@ public class Tests
     {
         return Verifier.Verify(new {Property = "F\roo"});
     }
+    #region LoggerRecording
+    [Fact]
+    public Task Logging()
+    {
+        var provider = LoggerRecording.Start();
+        var target = new ClassThatUsesLogging(provider);
+
+        var result = target.Method();
+
+        return Verifier.Verify(result);
+    }
+
+    class ClassThatUsesLogging
+    {
+        ILogger logger;
+
+        public ClassThatUsesLogging(ILogger logger)
+        {
+            this.logger = logger;
+        }
+
+        public string Method()
+        {
+            logger.LogWarning("The log entry");
+            using (logger.BeginScope("The scope"))
+            {
+                logger.LogWarning("Entry in scope");
+            }
+
+            return "result";
+        }
+    }
+    #endregion
 
     [Fact]
     public Task TreatAsString()

@@ -150,11 +150,6 @@ public class Tests
         public string Method()
         {
             logger.LogWarning("The log entry");
-            using (logger.BeginScope("The scope"))
-            {
-                logger.LogWarning("Entry in scope");
-            }
-
             return "result";
         }
     }

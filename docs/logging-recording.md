@@ -51,7 +51,7 @@ class ClassThatUsesLogging
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L164-L198' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L159-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -114,16 +114,11 @@ class ClassThatUsesTypedLogging
     public string Method()
     {
         logger.LogWarning("The log entry");
-        using (logger.BeginScope("The scope"))
-        {
-            logger.LogWarning("Entry in scope");
-        }
-
         return "result";
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L127-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecordingtyped' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L127-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecordingtyped' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

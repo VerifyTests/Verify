@@ -18,7 +18,7 @@ snippet: Tests.Logging.verified.txt
 
 ### Typed
 
-A common pattern is to use a type logger (`Logger<T>`). `LoggerProvider` provides a builder method to construct a `Logger<T>`:
+A common pattern is to use a type logger (`Logger<T>`). `LoggerProvider` provides a builder method `CreateLogger<T>` to construct a `Logger<T>`:
 
 snippet: LoggerRecordingTyped
 

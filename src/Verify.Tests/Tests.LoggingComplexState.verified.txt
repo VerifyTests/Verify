@@ -1,0 +1,28 @@
+{
+  target: Foo,
+  logs: [
+    {
+      Level: Warning,
+      Message: The Message,
+      State: {
+        Property: Value1
+      }
+    },
+    {
+      Message: StartScope,
+      State: {
+        Property: Value2
+      }
+    },
+    {
+      Level: Warning,
+      Message: Entry in scope,
+      State: {
+        Property: Value3
+      }
+    },
+    {
+      Message: EndScope
+    }
+  ]
+}

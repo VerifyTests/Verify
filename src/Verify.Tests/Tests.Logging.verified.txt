@@ -6,7 +6,8 @@
       Message: The log entry
     },
     {
-      Message: BeginScope: The scope
+      Message: StartScope,
+      State: The scope
     },
     {
       Level: Warning,

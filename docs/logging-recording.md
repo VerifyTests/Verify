@@ -51,7 +51,7 @@ class ClassThatUsesLogging
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L159-L193' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L182-L216' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -67,7 +67,8 @@ Results in:
       Message: The log entry
     },
     {
-      Message: BeginScope: The scope
+      Message: StartScope,
+      State: The scope
     },
     {
       Level: Warning,
@@ -79,7 +80,7 @@ Results in:
   ]
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.Logging.verified.txt#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.Logging.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.Logging.verified.txt#L1-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.Logging.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

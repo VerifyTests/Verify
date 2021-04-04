@@ -16,7 +16,7 @@ class Logger :
         this.provider = provider;
     }
 
-    public void Log<TState>(LogLevel level, EventId eventId, TState state, Exception exception, Func<TState, Exception?, string> formatter)
+    public void Log<TState>(LogLevel level, EventId eventId, TState state, Exception? exception, Func<TState?, Exception?, string> formatter)
     {
         provider.AddEntry(level, category, eventId, state, exception, formatter);
     }
@@ -28,8 +28,8 @@ class Logger :
 
     public IDisposable BeginScope<TState>(TState state)
     {
-        provider.AddEntry(null, category, default, state, null, (_, _) => $"BeginScope: {state}");
-        return new LoggerScope(() => provider.AddEntry(null, category, default, state, null, (_, _) => "EndScope"));
+        provider.StartScope(state);
+        return new LoggerScope(() => provider.EndScope());
     }
 }
 

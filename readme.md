@@ -320,7 +320,6 @@ public static class StaticSettingsUsage
  * [Verify.Phash](https://github.com/VerifyTests/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
  * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
  * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
- * [Verify.Uno](https://github.com/VerifyTests/Verify.Uno): Verification to allow verification of [Uno UIs](https://platform.uno/).
  * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
  * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
  * [Verify.Xamarin](https://github.com/VerifyTests/Verify.Xamarin): Verification of Xamarin UIs.

@@ -23,7 +23,7 @@ The pass in the `LoggerProvider` instance to a class/method that write log entri
 public Task Logging()
 {
     var provider = LoggerRecording.Start();
-    var target = new ClassThatUsesLogging(provider);
+    ClassThatUsesLogging target = new(provider);
 
     var result = target.Method();
 
@@ -96,7 +96,7 @@ public Task LoggingTyped()
 {
     var provider = LoggerRecording.Start();
     var logger = provider.CreateLogger<ClassThatUsesTypedLogging>();
-    var target = new ClassThatUsesTypedLogging(logger);
+    ClassThatUsesTypedLogging target = new(logger);
 
     var result = target.Method();
 

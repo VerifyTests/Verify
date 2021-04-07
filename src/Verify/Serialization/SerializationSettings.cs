@@ -15,19 +15,19 @@ namespace VerifyTests
 
     public class SerializationSettings
     {
-        static JsonConverter fileInfoConverter = new FileInfoConverter();
-        static JsonConverter uriConverter = new UriConverter();
-        static JsonConverter directoryInfoConverter = new DirectoryInfoConverter();
-        static JsonConverter stringEnumConverter = new StringEnumConverter();
-        static JsonConverter delegateConverter = new DelegateConverter();
-        static JsonConverter expressionConverter = new ExpressionConverter();
-        static JsonConverter typeJsonConverter = new TypeJsonConverter();
-        static JsonConverter methodInfoConverter = new MethodInfoConverter();
-        static JsonConverter fieldInfoConverter = new FieldInfoConverter();
-        static JsonConverter constructorInfoConverter = new ConstructorInfoConverter();
-        static JsonConverter parameterInfoConverter = new ParameterInfoConverter();
-        static JsonConverter versionConverter = new VersionConverter();
-        static JsonConverter propertyInfoConverter = new PropertyInfoConverter();
+        static FileInfoConverter fileInfoConverter = new();
+        static UriConverter uriConverter = new();
+        static DirectoryInfoConverter directoryInfoConverter = new();
+        static StringEnumConverter stringEnumConverter = new();
+        static DelegateConverter delegateConverter = new();
+        static ExpressionConverter expressionConverter = new();
+        static TypeJsonConverter typeJsonConverter = new();
+        static MethodInfoConverter methodInfoConverter = new();
+        static FieldInfoConverter fieldInfoConverter = new();
+        static ConstructorInfoConverter constructorInfoConverter = new();
+        static ParameterInfoConverter parameterInfoConverter = new();
+        static VersionConverter versionConverter = new();
+        static PropertyInfoConverter propertyInfoConverter = new();
 
         public SerializationSettings()
         {

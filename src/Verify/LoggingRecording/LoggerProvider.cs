@@ -17,7 +17,7 @@ namespace VerifyTests
         public LoggerProvider(LogLevel level)
         {
             this.level = level;
-            defaultLogger = new Logger(null, level, this);
+            defaultLogger = new(null, level, this);
         }
 
         public void Dispose()
@@ -45,11 +45,11 @@ namespace VerifyTests
             if (state is IReadOnlyList<KeyValuePair<string, object>> {Count: 1} dictionary &&
                 dictionary.First().Key == "{OriginalFormat}")
             {
-                var entry1 = new LogItem(level, category, eventId, exception, message, null);
+                LogItem entry1 = new(level, category, eventId, exception, message, null);
                 entries.Enqueue(entry1);
                 return;
             }
-            var entry = new LogItem(level, category, eventId, exception, message, state);
+            LogItem entry = new(level, category, eventId, exception, message, state);
             entries.Enqueue(entry);
         }
 

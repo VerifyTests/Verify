@@ -131,7 +131,7 @@ public class Tests
     {
         var provider = LoggerRecording.Start();
         var logger = provider.CreateLogger<ClassThatUsesTypedLogging>();
-        var target = new ClassThatUsesTypedLogging(logger);
+        ClassThatUsesTypedLogging target = new(logger);
 
         var result = target.Method();
 
@@ -185,7 +185,7 @@ public class Tests
     public Task Logging()
     {
         var provider = LoggerRecording.Start();
-        var target = new ClassThatUsesLogging(provider);
+        ClassThatUsesLogging target = new(provider);
 
         var result = target.Method();
 

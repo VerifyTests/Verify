@@ -12,6 +12,15 @@ namespace VerifyTests
         internal List<string> ignoredByNameMembers = new();
         internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
 
+        public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
+        {
+            Guard.AgainstNull(expressions, nameof(expressions));
+            foreach (var expression in expressions)
+            {
+                IgnoreMember(expression);
+            }
+        }
+
         public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
         {
             Guard.AgainstNull(expression, nameof(expression));
@@ -19,10 +28,28 @@ namespace VerifyTests
             IgnoreMember(member.DeclaringType!, member.Name);
         }
 
+        public void IgnoreMembers<T>(params string[] names)
+        {
+            Guard.AgainstNullOrEmpty(names, nameof(names));
+            foreach (var name in names)
+            {
+                IgnoreMember(typeof(T), name);
+            }
+        }
+
         public void IgnoreMember<T>(string name)
         {
             Guard.AgainstNullOrEmpty(name, nameof(name));
             IgnoreMember(typeof(T), name);
+        }
+
+        public void IgnoreMember(Type declaringType, params string[] names)
+        {
+            Guard.AgainstNull(names, nameof(names));
+            foreach (var name in names)
+            {
+                IgnoreMember(declaringType, name);
+            }
         }
 
         public void IgnoreMember(Type declaringType, string name)

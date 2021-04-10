@@ -43,7 +43,7 @@ namespace VerifyTests
             IgnoreMember(typeof(T), name);
         }
 
-        public void IgnoreMember(Type declaringType, params string[] names)
+        public void IgnoreMembers(Type declaringType, params string[] names)
         {
             Guard.AgainstNull(names, nameof(names));
             foreach (var name in names)

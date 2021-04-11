@@ -1,4 +1,6 @@
 {
-  $type: Dictionary<string, string>,
-  Include: Value1
+  Include: {
+    Key1: Value2
+  },
+  Key2: Value4
 }

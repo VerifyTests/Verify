@@ -248,6 +248,13 @@ The clipboard will again contain the following:
 See also: [Clipboard](/docs/clipboard.md)
 
 
+#### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
+
+![SecondDiff](/docs/SecondDiff.png)
+
+The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
+
+
 ### VerifyJson
 
 `VerifyJson` performs the following actions
@@ -298,13 +305,6 @@ Results in:
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.VerifyJsonString.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.VerifyJsonString.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-#### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
-
-![SecondDiff](/docs/SecondDiff.png)
-
-The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
 ## Received and Verified

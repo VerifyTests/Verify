@@ -887,9 +887,16 @@ The default mapping is:
         var converted = (XDocument) target;
         return new(converted.ToString(), "xml");
     }
+},
+{
+    typeof(XElement), (target, settings) =>
+    {
+        var converted = (XElement) target;
+        return new(converted.ToString(), "xml");
+    }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L63-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L63-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

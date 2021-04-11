@@ -106,6 +106,13 @@ namespace VerifyTests
                     var converted = (XDocument) target;
                     return new(converted.ToString(), "xml");
                 }
+            },
+            {
+                typeof(XElement), (target, settings) =>
+                {
+                    var converted = (XElement) target;
+                    return new(converted.ToString(), "xml");
+                }
             }
 
             #endregion

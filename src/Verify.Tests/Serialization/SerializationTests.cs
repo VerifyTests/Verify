@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -1116,6 +1117,29 @@ public class SerializationTests
     }
 
     #endregion
+
+    [Fact]
+    public async Task IgnoreJTokenByName()
+    {
+        var json = @"{
+  'short': {
+    'key': {
+      'code': 0,
+      'msg': 'No action taken'
+    },
+    'Ignore1': {
+      'code': 2,
+      'msg': 'ignore this'
+    }
+  }
+}";
+        var target = JToken.Parse(json);
+        await Verifier.Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMember("Ignore1");
+            });
+    }
 
     [Fact]
     public async Task IgnoreDictionaryKeyByName()

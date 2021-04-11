@@ -83,9 +83,24 @@ public class SimpleTypeTests
         yield return new object[] {xmlDocument};
 
         var xDocument = XDocument.Parse(xml);
+
         yield return new object[] {xDocument};
 
         yield return new object[] {xDocument.Root!};
+
+        var json = @"{
+  'short': {
+    'original': 'http://www.foo.com/',
+    'short': 'foo',
+    'error': {
+      'code': 0,
+      'msg': 'No action taken'
+    }
+  }
+}";
+        var jToken = JToken.Parse(json);
+
+        yield return new object[] {jToken};
 
         yield return new object[] {"theString"};
         yield return new object[] {true};

@@ -1140,16 +1140,22 @@ public class SerializationTests
     [Fact]
     public async Task IgnoreDictionaryKeyByName()
     {
-        Dictionary<string, string> target = new()
+        Dictionary<string, object> target = new()
         {
-            {"Include", "Value1"},
-            {"Ignore", "Value2"},
+            {
+                "Include", new Dictionary<string, string>
+                {
+                    {"Ignore", "Value1"},
+                    {"Key1", "Value2"}
+                }
+            },
+            {"Ignore", "Value3"},
+            {"Key2", "Value4"},
         };
         await Verifier.Verify(target)
             .ModifySerialization(_ =>
             {
                 _.IgnoreMember("Ignore");
-                _.AddExtraSettings(json => json.TypeNameHandling = TypeNameHandling.All);
             });
     }
 

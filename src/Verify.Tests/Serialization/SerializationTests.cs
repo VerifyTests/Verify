@@ -1118,6 +1118,26 @@ public class SerializationTests
     #endregion
 
     [Fact]
+    public async Task IgnoreJTokenByName()
+    {
+        var json = @"{
+  'short': {
+    'original': 'http://www.foo.com/',
+    'Ignore2': 'foo',
+    'Ignore1': {
+      'code': 0,
+      'msg': 'No action taken'
+    }
+  }
+}";
+        var target = JToken.Parse(json);
+        await Verifier.Verify(target.ToObject<Dictionary<string, object>>())
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembers("short","Ignore2");
+            });
+    }
+    [Fact]
     public async Task IgnoreDictionaryKeyByName()
     {
         Dictionary<string, string> target = new()

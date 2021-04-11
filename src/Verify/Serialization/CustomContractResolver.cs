@@ -20,7 +20,8 @@ class CustomContractResolver :
     SharedScrubber scrubber;
     Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
 
-    public CustomContractResolver(bool ignoreEmptyCollections,
+    public CustomContractResolver(
+        bool ignoreEmptyCollections,
         bool ignoreFalse,
         bool includeObsoletes,
         IReadOnlyDictionary<Type, List<string>> ignoredMembers,

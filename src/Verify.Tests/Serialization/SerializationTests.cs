@@ -1119,7 +1119,7 @@ public class SerializationTests
     #endregion
 
     [Fact]
-    public async Task IgnoreJTokenByName()
+    public Task IgnoreJTokenByName()
     {
         var json = @"{
   'short': {
@@ -1134,11 +1134,56 @@ public class SerializationTests
   }
 }";
         var target = JToken.Parse(json);
-        await Verifier.Verify(target)
+        return Verifier.Verify(target)
             .ModifySerialization(_ =>
             {
                 _.IgnoreMember("Ignore1");
             });
+    }
+
+    [Fact]
+    public Task VerifyJsonString()
+    {
+        var json = @"{
+  'short': {
+    'key': {
+      'code': 0,
+      'msg': 'No action taken'
+    }
+  }
+}";
+        var target = JToken.Parse(json);
+        return Verifier.VerifyJson(target);
+    }
+
+    [Fact]
+    public Task VerifyJsonStream()
+    {
+        var json = @"{
+  'short': {
+    'key': {
+      'code': 0,
+      'msg': 'No action taken'
+    }
+  }
+}";
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+        return Verifier.VerifyJson(stream);
+    }
+
+    [Fact]
+    public Task VerifyJsonJToken()
+    {
+        var json = @"{
+  'short': {
+    'key': {
+      'code': 0,
+      'msg': 'No action taken'
+    }
+  }
+}";
+        var target = JToken.Parse(json);
+        return Verifier.VerifyJson(target);
     }
 
     [Fact]

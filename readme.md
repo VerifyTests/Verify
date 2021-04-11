@@ -248,6 +248,58 @@ The clipboard will again contain the following:
 See also: [Clipboard](/docs/clipboard.md)
 
 
+### VerifyJson
+
+`VerifyJson` performs the following actions
+
+ * Convert to `JToken` (if necessary).
+ * Apply [ignore member by name](serializer-settings.md#ignore-member-by-name) for keys.
+ * PrettyPrint the resulting text.
+
+<!-- snippet: VerifyJson -->
+<a id='snippet-verifyjson'></a>
+```cs
+[Fact]
+public Task VerifyJsonString()
+{
+    var json = @"{'key': {'msg': 'No action taken'}}";
+    return Verifier.VerifyJson(json);
+}
+
+[Fact]
+public Task VerifyJsonStream()
+{
+    var json = @"{'key': {'msg': 'No action taken'}}";
+    var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+    return Verifier.VerifyJson(stream);
+}
+
+[Fact]
+public Task VerifyJsonJToken()
+{
+    var json = @"{'key': {'msg': 'No action taken'}}";
+    var target = JToken.Parse(json);
+    return Verifier.VerifyJson(target);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1145-L1170' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in:
+
+<!-- snippet: SerializationTests.VerifyJsonString.verified.txt -->
+<a id='snippet-SerializationTests.VerifyJsonString.verified.txt'></a>
+```txt
+{
+  key: {
+    msg: No action taken
+  }
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.VerifyJsonString.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.VerifyJsonString.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)

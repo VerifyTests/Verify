@@ -116,6 +116,21 @@ The clipboard will again contain the following:
 See also: [Clipboard](/docs/clipboard.md)
 
 
+### VerifyJson
+
+`VerifyJson` performs the following actions
+
+ * Convert to `JToken` (if necessary).
+ * Apply [ignore member by name](serializer-settings.md#ignore-member-by-name) for keys.
+ * PrettyPrint the resulting text.
+
+snippet: VerifyJson
+
+Results in:
+
+snippet: SerializationTests.VerifyJsonString.verified.txt
+
+
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) is will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)

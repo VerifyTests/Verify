@@ -3,12 +3,46 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace VerifyTests
 {
     partial class InnerVerifier
     {
         static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
+
+        public Task VerifyJson(string? target)
+        {
+            if (target == null)
+            {
+                AssertExtensionIsNull();
+                return VerifyInner("null", null, emptyTargets);
+            }
+
+            return VerifyJson(JObject.Parse(target));
+        }
+
+        public async Task VerifyJson(Stream? target)
+        {
+            if (target == null)
+            {
+                AssertExtensionIsNull();
+                await VerifyInner("null", null, emptyTargets);
+                return;
+            }
+
+            using StreamReader reader = new (target);
+            using JsonTextReader textReader = new(reader);
+            var json = await JToken.LoadAsync(textReader);
+            await VerifyJson(json);
+        }
+
+        public Task VerifyJson(JToken? target)
+        {
+            AssertExtensionIsNull();
+            return VerifyInner(target, null, emptyTargets);
+        }
 
         public async Task Verify<T>(T target)
         {

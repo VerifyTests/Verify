@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using VerifyTests;
 
 namespace VerifyNUnit
@@ -37,6 +39,30 @@ namespace VerifyNUnit
             [CallerFilePath] string sourceFile = "")
         {
             return Verify(settings, sourceFile, _ => _.Verify(target));
+        }
+
+        public static SettingsTask VerifyJson(
+            string target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            return Verify(settings, sourceFile, _ => _.VerifyJson(target));
+        }
+
+        public static SettingsTask VerifyJson(
+            JToken target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            return Verify(settings, sourceFile, _ => _.VerifyJson(target));
+        }
+
+        public static SettingsTask VerifyJson(
+            Stream target,
+            VerifySettings? settings = null,
+            [CallerFilePath] string sourceFile = "")
+        {
+            return Verify(settings, sourceFile, _ => _.VerifyJson(target));
         }
     }
 }

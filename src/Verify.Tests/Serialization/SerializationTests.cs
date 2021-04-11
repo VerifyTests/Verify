@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -1119,7 +1120,7 @@ public class SerializationTests
     #endregion
 
     [Fact]
-    public async Task IgnoreJTokenByName()
+    public Task IgnoreJTokenByName()
     {
         var json = @"{
   'short': {
@@ -1134,12 +1135,39 @@ public class SerializationTests
   }
 }";
         var target = JToken.Parse(json);
-        await Verifier.Verify(target)
+        return Verifier.Verify(target)
             .ModifySerialization(_ =>
             {
                 _.IgnoreMember("Ignore1");
             });
     }
+
+    #region VerifyJson
+
+    [Fact]
+    public Task VerifyJsonString()
+    {
+        var json = @"{'key': {'msg': 'No action taken'}}";
+        return Verifier.VerifyJson(json);
+    }
+
+    [Fact]
+    public Task VerifyJsonStream()
+    {
+        var json = @"{'key': {'msg': 'No action taken'}}";
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+        return Verifier.VerifyJson(stream);
+    }
+
+    [Fact]
+    public Task VerifyJsonJToken()
+    {
+        var json = @"{'key': {'msg': 'No action taken'}}";
+        var target = JToken.Parse(json);
+        return Verifier.VerifyJson(target);
+    }
+
+    #endregion
 
     [Fact]
     public async Task IgnoreDictionaryKeyByName()

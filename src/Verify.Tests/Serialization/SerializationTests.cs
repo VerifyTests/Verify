@@ -1142,32 +1142,19 @@ public class SerializationTests
             });
     }
 
+    #region VerifyJson
+
     [Fact]
     public Task VerifyJsonString()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    }
-  }
-}";
-        var target = JToken.Parse(json);
-        return Verifier.VerifyJson(target);
+        var json = @"{'key': {'msg': 'No action taken'}}";
+        return Verifier.VerifyJson(json);
     }
 
     [Fact]
     public Task VerifyJsonStream()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    }
-  }
-}";
+        var json = @"{'key': {'msg': 'No action taken'}}";
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
         return Verifier.VerifyJson(stream);
     }
@@ -1175,17 +1162,12 @@ public class SerializationTests
     [Fact]
     public Task VerifyJsonJToken()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    }
-  }
-}";
+        var json = @"{'key': {'msg': 'No action taken'}}";
         var target = JToken.Parse(json);
         return Verifier.VerifyJson(target);
     }
+
+    #endregion
 
     [Fact]
     public async Task IgnoreDictionaryKeyByName()

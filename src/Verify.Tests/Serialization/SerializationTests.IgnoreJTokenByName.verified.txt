@@ -1,0 +1,8 @@
+{
+  short: {
+    key: {
+      code: 0,
+      msg: No action taken
+    }
+  }
+}

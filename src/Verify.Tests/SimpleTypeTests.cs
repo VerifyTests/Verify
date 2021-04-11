@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 using VerifyXunit;
 using Xunit;
 #if NET5_0

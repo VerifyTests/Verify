@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -1122,21 +1123,24 @@ public class SerializationTests
     {
         var json = @"{
   'short': {
-    'original': 'http://www.foo.com/',
-    'Ignore2': 'foo',
-    'Ignore1': {
+    'key': {
       'code': 0,
       'msg': 'No action taken'
+    },
+    'Ignore1': {
+      'code': 2,
+      'msg': 'ignore this'
     }
   }
 }";
         var target = JToken.Parse(json);
-        await Verifier.Verify(target.ToObject<Dictionary<string, object>>())
+        await Verifier.Verify(target)
             .ModifySerialization(_ =>
             {
-                _.IgnoreMembers("short","Ignore2");
+                _.IgnoreMember("Ignore1");
             });
     }
+
     [Fact]
     public async Task IgnoreDictionaryKeyByName()
     {

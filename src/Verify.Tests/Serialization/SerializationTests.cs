@@ -1152,7 +1152,7 @@ public class SerializationTests
     [Fact]
     public Task VerifyJsonDateTime()
     {
-        var json = $"{{'key': '{DateTime.Now:yyyy-MM-ddTHH:mm:ss.FFFFFFFz}'}}";
+        var json = $"{{'key': '{DateTime.Now:yyyy-MM-ddTHH:mm:ss}'}}";
         return Verifier.VerifyJson(json);
     }
 

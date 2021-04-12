@@ -152,7 +152,8 @@ namespace VerifyTests
             converters.Add(parameterInfoConverter);
             converters.Add(new HttpHeadersConverter(ignoredByNameMembers));
             converters.Add(new DictionaryConverter(ignoredByNameMembers));
-            converters.Add(new JTokenConverter(ignoredByNameMembers));
+            converters.Add(new JArrayConverter());
+            converters.Add(new JObjectConverter(ignoredByNameMembers));
             converters.Add(new NameValueCollectionConverter(ignoredByNameMembers));
             foreach (var extraSetting in ExtraSettings)
             {

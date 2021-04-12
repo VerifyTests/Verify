@@ -1142,19 +1142,41 @@ public class SerializationTests
             });
     }
 
-    #region VerifyJson
+    //[Fact]
+    //public Task VerifyJsonGuid()
+    //{
+    //    var json = "{'key': {'msg': 'c572ff75-e1a2-49bd-99b9-4550697946c3'}}";
+    //    return Verifier.VerifyJson(json);
+    //}
 
     [Fact]
+    public Task VerifyJsonWithArray()
+    {
+        var json = @"{
+    commitments: [
+      {
+        id: '9585dadf-551a-43eb-960c-18b935993cc3',
+        title: 'Commitment1'
+      }
+    ]
+    }";
+        return Verifier.VerifyJson(json);
+    }
+
+
+    #region VerifyJson
+
+[Fact]
     public Task VerifyJsonString()
     {
-        var json = @"{'key': {'msg': 'No action taken'}}";
+        var json = "{'key': {'msg': 'No action taken'}}";
         return Verifier.VerifyJson(json);
     }
 
     [Fact]
     public Task VerifyJsonStream()
     {
-        var json = @"{'key': {'msg': 'No action taken'}}";
+        var json = "{'key': {'msg': 'No action taken'}}";
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
         return Verifier.VerifyJson(stream);
     }
@@ -1162,7 +1184,7 @@ public class SerializationTests
     [Fact]
     public Task VerifyJsonJToken()
     {
-        var json = @"{'key': {'msg': 'No action taken'}}";
+        var json = "{'key': {'msg': 'No action taken'}}";
         var target = JToken.Parse(json);
         return Verifier.VerifyJson(target);
     }

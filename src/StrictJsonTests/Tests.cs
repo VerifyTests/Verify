@@ -25,7 +25,7 @@ public class Tests
     [Fact]
     public Task VerifyJsonString()
     {
-        var json = @"{'key': {'msg': 'No action taken'}}";
+        var json = "{'key': {'msg': 'No action taken'}}";
         return Verifier.VerifyJson(json);
     }
 

@@ -3,17 +3,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VerifyTests;
 
-class JTokenConverter :
-    WriteOnlyJsonConverter<JToken>
+class JObjectConverter :
+    WriteOnlyJsonConverter<JObject>
 {
     List<string> ignoredByNameMembers;
 
-    public JTokenConverter(List<string> ignoredByNameMembers)
+    public JObjectConverter(List<string> ignoredByNameMembers)
     {
         this.ignoredByNameMembers = ignoredByNameMembers;
     }
 
-    public override void WriteJson(JsonWriter writer, JToken? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, JObject? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
         if (value is null)
         {

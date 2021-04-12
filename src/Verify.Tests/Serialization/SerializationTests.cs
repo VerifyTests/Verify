@@ -1142,12 +1142,19 @@ public class SerializationTests
             });
     }
 
-    //[Fact]
-    //public Task VerifyJsonGuid()
-    //{
-    //    var json = "{'key': {'msg': 'c572ff75-e1a2-49bd-99b9-4550697946c3'}}";
-    //    return Verifier.VerifyJson(json);
-    //}
+    [Fact]
+    public Task VerifyJsonGuid()
+    {
+        var json = "{'key': 'c572ff75-e1a2-49bd-99b9-4550697946c3'}";
+        return Verifier.VerifyJson(json);
+    }
+
+    [Fact]
+    public Task VerifyJsonDateTime()
+    {
+        var json = $"{{'key': '{DateTime.Now:yyyy-MM-ddTHH:mm:ss.FFFFFFFz}'}}";
+        return Verifier.VerifyJson(json);
+    }
 
     [Fact]
     public Task VerifyJsonWithArray()

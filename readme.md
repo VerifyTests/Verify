@@ -289,7 +289,7 @@ The same approach can be used to verify the results and the change to `Sample.Te
         return Verifier.VerifyJson(target);
     }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1167-L1192' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1174-L1199' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

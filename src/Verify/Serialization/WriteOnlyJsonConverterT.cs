@@ -14,7 +14,7 @@ namespace VerifyTests
 
         public abstract void WriteJson(JsonWriter writer, T value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context);
 
-        public override bool CanConvert(Type type)
+        public sealed override bool CanConvert(Type type)
         {
             return typeof(T).IsAssignableFrom(type);
         }

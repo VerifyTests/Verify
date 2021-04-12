@@ -26,6 +26,7 @@ namespace VerifyTests
             {
                 return Array.Empty<object?>();
             }
+
             var settingsParameters = parameters ?? Array.Empty<object?>();
             var methodParameters = methodInfo.GetParameters();
             if (!methodParameters.Any() || settingsParameters.Any())

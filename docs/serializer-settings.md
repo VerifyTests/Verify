@@ -382,7 +382,7 @@ public Task ScopedSerializerFluent()
             _ => { _.TypeNameHandling = TypeNameHandling.All; });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1403-L1432' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1402-L1431' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -408,7 +408,7 @@ To ignore all members that match a certain type:
 <a id='snippet-addignoretype'></a>
 ```cs
 [Fact]
-public async Task IgnoreType()
+public Task IgnoreType()
 {
     IgnoreTypeTarget target = new()
     {
@@ -423,11 +423,11 @@ public async Task IgnoreType()
     };
     VerifySettings settings = new();
     settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
-    await Verifier.Verify(target, settings);
+    return Verifier.Verify(target, settings);
 }
 
 [Fact]
-public async Task IgnoreTypeFluent()
+public Task IgnoreTypeFluent()
 {
     IgnoreTypeTarget target = new()
     {
@@ -440,7 +440,7 @@ public async Task IgnoreTypeFluent()
             Property = "Value"
         }
     };
-    await Verifier.Verify(target)
+    return Verifier.Verify(target)
         .ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
 
 }
@@ -471,7 +471,7 @@ To ignore instances of a type based on delegate:
 <a id='snippet-addignoreinstance'></a>
 ```cs
 [Fact]
-public async Task AddIgnoreInstance()
+public Task AddIgnoreInstance()
 {
     IgnoreInstanceTarget target = new()
     {
@@ -487,11 +487,11 @@ public async Task AddIgnoreInstance()
     VerifySettings settings = new();
     settings.ModifySerialization(
         _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
-    await Verifier.Verify(target, settings);
+    return Verifier.Verify(target, settings);
 }
 
 [Fact]
-public async Task AddIgnoreInstanceFluent()
+public Task AddIgnoreInstanceFluent()
 {
     IgnoreInstanceTarget target = new()
     {
@@ -504,7 +504,7 @@ public async Task AddIgnoreInstanceFluent()
             Property = "Include"
         }
     };
-    await Verifier.Verify(target)
+    return Verifier.Verify(target)
         .ModifySerialization(
             _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
 }
@@ -553,7 +553,7 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1364-L1385' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1363-L1384' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -601,7 +601,7 @@ public Task WithObsoletePropIncludedFluent()
         .ModifySerialization(_ => { _.IncludeObsoletes(); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1335-L1362' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1334-L1361' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -626,7 +626,7 @@ To ignore members of a certain type using an expression:
 <a id='snippet-ignorememberbyexpression'></a>
 ```cs
 [Fact]
-public async Task IgnoreMemberByExpression()
+public Task IgnoreMemberByExpression()
 {
     IgnoreExplicitTarget target = new()
     {
@@ -644,11 +644,11 @@ public async Task IgnoreMemberByExpression()
         _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
         _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
     });
-    await Verifier.Verify(target, settings);
+    return Verifier.Verify(target, settings);
 }
 
 [Fact]
-public async Task IgnoreMemberByExpressionFluent()
+public Task IgnoreMemberByExpressionFluent()
 {
     IgnoreExplicitTarget target = new()
     {
@@ -656,7 +656,7 @@ public async Task IgnoreMemberByExpressionFluent()
         Field = "Value",
         Property = "Value"
     };
-    await Verifier.Verify(target)
+    return Verifier.Verify(target)
         .ModifySerialization(_ =>
         {
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
@@ -690,7 +690,7 @@ To ignore members of a certain type using type and name:
 <a id='snippet-ignorememberbyname'></a>
 ```cs
 [Fact]
-public async Task IgnoreMemberByName()
+public Task IgnoreMemberByName()
 {
     IgnoreExplicitTarget target = new()
     {
@@ -709,11 +709,11 @@ public async Task IgnoreMemberByName()
         _.IgnoreMember(type, "GetOnlyProperty");
         _.IgnoreMember(type, "PropertyThatThrows");
     });
-    await Verifier.Verify(target, settings);
+    return Verifier.Verify(target, settings);
 }
 
 [Fact]
-public async Task IgnoreMemberByNameFluent()
+public Task IgnoreMemberByNameFluent()
 {
     IgnoreExplicitTarget target = new()
     {
@@ -722,7 +722,7 @@ public async Task IgnoreMemberByNameFluent()
         Property = "Value",
         PropertyByName = "Value"
     };
-    await Verifier.Verify(target)
+    return Verifier.Verify(target)
         .ModifySerialization(_ =>
         {
             _.IgnoreMember("PropertyByName");
@@ -764,23 +764,23 @@ Ignore by exception type:
 <a id='snippet-ignoremembersthatthrow'></a>
 ```cs
 [Fact]
-public async Task CustomExceptionProp()
+public Task CustomExceptionProp()
 {
     WithCustomException target = new();
     VerifySettings settings = new();
     settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
-    await Verifier.Verify(target, settings);
+    return Verifier.Verify(target, settings);
 }
 
 [Fact]
-public async Task CustomExceptionPropFluent()
+public Task CustomExceptionPropFluent()
 {
     WithCustomException target = new();
-    await Verifier.Verify(target)
+    return Verifier.Verify(target)
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1235-L1254' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1234-L1253' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -799,23 +799,23 @@ Ignore by exception type and expression:
 <a id='snippet-ignoremembersthatthrowexpression'></a>
 ```cs
 [Fact]
-public async Task ExceptionMessageProp()
+public Task ExceptionMessageProp()
 {
     WithExceptionIgnoreMessage target = new();
 
     VerifySettings settings = new();
     settings.ModifySerialization(
         _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
-    await Verifier.Verify(target, settings);
+    return Verifier.Verify(target, settings);
 
 }
 
 [Fact]
-public async Task ExceptionMessagePropFluent()
+public Task ExceptionMessagePropFluent()
 {
     WithExceptionIgnoreMessage target = new();
 
-    await Verifier.Verify(target)
+    return Verifier.Verify(target)
         .ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 }

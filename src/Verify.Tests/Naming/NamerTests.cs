@@ -36,12 +36,12 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task UseFileNameWithUnique()
+    public Task UseFileNameWithUnique()
     {
         VerifySettings settings = new();
         settings.UseFileName("CustomFileName");
         settings.UniqueForRuntime();
-        await Verifier.Verify("value", settings);
+        return Verifier.Verify("value", settings);
     }
 
     [Fact]

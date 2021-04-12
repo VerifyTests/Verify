@@ -13,7 +13,7 @@ public class Snippets
 {
     #region OnHandlers
 
-    public async Task OnHandlersSample()
+    public Task OnHandlersSample()
     {
         VerifierSettings.OnFirstVerify(
             receivedFile =>
@@ -29,7 +29,7 @@ public class Snippets
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });
-        await Verifier.Verify("value");
+        return Verifier.Verify("value");
     }
 
     #endregion

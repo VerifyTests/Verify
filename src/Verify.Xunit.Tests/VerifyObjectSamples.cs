@@ -27,7 +27,7 @@ public class VerifyObjectSamples
     }
 
     [Fact]
-    public async Task ScopedSerializer()
+    public Task ScopedSerializer()
     {
         Person person = new()
         {
@@ -36,7 +36,7 @@ public class VerifyObjectSamples
         };
         VerifySettings settings = new();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
-        await Verifier.Verify(person, settings);
+        return Verifier.Verify(person, settings);
     }
 
     async Task Before()
@@ -62,7 +62,7 @@ public class VerifyObjectSamples
 
     #region AnonXunit
     [Fact]
-    public async Task Anon()
+    public Task Anon()
     {
         Person person1 = new()
         {
@@ -75,7 +75,7 @@ public class VerifyObjectSamples
             FamilyName = "Aguirre"
         };
 
-        await Verifier.Verify(
+        return Verifier.Verify(
             new
             {
                 person1,

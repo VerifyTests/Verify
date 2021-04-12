@@ -16,7 +16,7 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 <a id='snippet-anonxunit'></a>
 ```cs
 [Fact]
-public async Task Anon()
+public Task Anon()
 {
     Person person1 = new()
     {
@@ -29,7 +29,7 @@ public async Task Anon()
         FamilyName = "Aguirre"
     };
 
-    await Verifier.Verify(
+    return Verifier.Verify(
         new
         {
             person1,

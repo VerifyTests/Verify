@@ -37,7 +37,7 @@ Note that auto accepted changes in `.verified.` files remain visible in source c
 <!-- snippet: OnHandlers -->
 <a id='snippet-onhandlers'></a>
 ```cs
-public async Task OnHandlersSample()
+public Task OnHandlersSample()
 {
     VerifierSettings.OnFirstVerify(
         receivedFile =>
@@ -53,7 +53,7 @@ public async Task OnHandlersSample()
             Debug.WriteLine(message);
             return Task.CompletedTask;
         });
-    await Verifier.Verify("value");
+    return Verifier.Verify("value");
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L14-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>

@@ -138,8 +138,8 @@ public partial class Tests
         await EnsureUtf8(pair);
     }
 
-
     static byte[] preamble = Encoding.UTF8.GetPreamble();
+
     static async Task EnsureUtf8(FilePair pair)
     {
         if (pair.Extension != "txt")

@@ -7,6 +7,5 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
 at VerifyTests.FileNameBuilder.CheckPrefixIsUnique(String prefix, MethodInfo method)
 at VerifyTests.FileNameBuilder..ctor(MethodInfo method, Type type, String projectDirectory, String sourceFile, IReadOnlyList`1 parameters, VerifySettings settings)
 at VerifyXunit.Verifier.GetVerifier(VerifySettings settings, String sourceFile)
-at VerifyXunit.Verifier.<>c__DisplayClass1_0.<<Verify>b__0>d.MoveNext()
 --- End of stack trace from previous location ---
 }

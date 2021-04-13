@@ -24,6 +24,7 @@ namespace VerifyTests
             while ((line = reader.ReadLine()) != null)
             {
                 if (
+                    line.Contains("<>") && line.Contains(".MoveNext()") ||
                     line.Contains("System.Runtime.CompilerServices.TaskAwaiter") ||
                     line.Contains("End of stack trace from previous location where exception was thrown")
                 )

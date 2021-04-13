@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -12,8 +13,8 @@ using Xunit;
 [UsesVerify]
 public class ConverterSnippets
 {
-    [Fact]
-    public async Task Type()
+    [ModuleInitializer]
+    public static void RegisterFileConverterType()
     {
         #region RegisterFileConverterType
 
@@ -44,7 +45,11 @@ public class ConverterSnippets
                     targets);
             });
         #endregion
+    }
 
+    [Fact]
+    public async Task Type()
+    {
         #region FileConverterTypeVerify
 
         using var stream = File.OpenRead("sample.tif");

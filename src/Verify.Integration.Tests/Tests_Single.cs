@@ -1,6 +1,8 @@
 ﻿#if DEBUG
 using System;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DiffEngine;
 using VerifyTests;
@@ -132,6 +134,36 @@ public partial class Tests
 
         AssertNotExists(pair.Received);
         AssertExists(pair.Verified);
+
+        await EnsureUtf8(pair);
+    }
+
+
+    static byte[] preamble = Encoding.UTF8.GetPreamble();
+    static async Task EnsureUtf8(FilePair pair)
+    {
+        if (pair.Extension != "txt")
+        {
+            return;
+        }
+
+        static async Task Ensure(string path)
+        {
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            var bytes = await File.ReadAllBytesAsync(path);
+            if (bytes.Length < preamble.Length ||
+                preamble.Where((p, i) => p != bytes[i]).Any())
+            {
+                throw new ArgumentException("Not utf8-BOM");
+            }
+        }
+
+        await Ensure(pair.Verified);
+        await Ensure(pair.Received);
     }
 
     static async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, FilePair pair)
@@ -153,6 +185,8 @@ public partial class Tests
 
             AssertExists(pair.Received);
         }
+
+        await EnsureUtf8(pair);
     }
 }
 #endif

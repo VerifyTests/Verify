@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 static class FileHelpers
 {
-    public static readonly UTF8Encoding Utf8NoBOM = new(false, true);
+    public static readonly UTF8Encoding Utf8 = new(true, true);
 
     public static void DeleteIfEmpty(string path)
     {
@@ -45,7 +45,7 @@ static class FileHelpers
 #if NETSTANDARD2_1 || NET5_0
     public static Task WriteText(string filePath, string text)
     {
-        return File.WriteAllTextAsync(filePath, text);
+        return File.WriteAllTextAsync(filePath, text, Utf8);
     }
 
     public static async Task<StringBuilder> ReadText(string filePath)
@@ -62,7 +62,7 @@ static class FileHelpers
 #else
     public static async Task WriteText(string filePath, string text)
     {
-        var encodedText = Utf8NoBOM.GetBytes(text);
+        var encodedText = Utf8.GetBytes(text);
 
         using var fileStream = OpenWrite(filePath);
         await fileStream.WriteAsync(encodedText, 0, encodedText.Length);

@@ -271,7 +271,7 @@ namespace VerifyTests
             get => settings ??= new();
         }
 
-        Task ToTask()
+        public Task ToTask()
         {
             return task ??= buildTask(CurrentSettings);
         }

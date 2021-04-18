@@ -480,7 +480,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubTempPath()
     {
-        var tempPath = Path.GetTempPath().TrimEnd('/', '\\');;
+        var tempPath = Path.GetTempPath().TrimEnd('/', '\\');
         var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verifier.Verify(new {tempPath, altTempPath});
     }
@@ -488,7 +488,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubCurrentDirectory()
     {
-        var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\');;
+        var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\');
         var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verifier.Verify(new {currentDirectory, altCurrentDirectory});
     }
@@ -497,7 +497,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubCodeBaseLocation()
     {
-        var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');;
+        var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verifier.Verify(new {codeBaseLocation, altCodeBaseLocation});
     }

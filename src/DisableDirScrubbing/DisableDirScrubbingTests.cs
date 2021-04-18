@@ -11,13 +11,13 @@ public class DisableDirScrubbingTests
         VerifierSettings.DontScrubSolutionDirectory();
         VerifierSettings.DontScrubProjectDirectory();
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        VerifierSettings.AddScrubber(s => s.Replace(solutionDirectory,"CustomReplace\\"));
+        VerifierSettings.AddScrubber(s => s.Replace(solutionDirectory, "CustomReplace\\"));
     }
 
     [Fact]
     public Task ProjectDirectory()
     {
-        return Verifier.Verify(AttributeReader.GetProjectDirectory().TrimEnd('\\','/'));
+        return Verifier.Verify(AttributeReader.GetProjectDirectory().TrimEnd('\\', '/'));
     }
 
     [Fact]

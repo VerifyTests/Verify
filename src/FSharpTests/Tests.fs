@@ -5,7 +5,6 @@ open VerifyTests
 open VerifyXunit
 open System.Threading
 open Newtonsoft.Json
-open System.Reflection
 
 VerifierSettings.ModifySerialization(fun t ->
     t.DontScrubDateTimes()
@@ -37,8 +36,5 @@ module Tests =
     let ``None`` () =
         let invalidInt = None
         verify invalidInt
-
-// it automatically replaces anything that looks like the value with {ProjectDirectory},
-// which we also never want.
 
 do ()

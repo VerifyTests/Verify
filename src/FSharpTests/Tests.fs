@@ -1,12 +1,10 @@
 module Tests
 
-open System
 open Xunit
 open VerifyXunit
 open System.Threading
 open Newtonsoft.Json
 open System.Reflection
-
 
 let verify (anything:'T) =
     // Verify doesn't return a Task, exactly, it returns an awaitable.

@@ -38,8 +38,7 @@ module Tests =
         let invalidInt = None
         verify invalidInt
 
-// without this, attribute Verify refuses to work.
-// Also, it automatically replaces anything that looks like the value with {ProjectDirectory},
+// it automatically replaces anything that looks like the value with {ProjectDirectory},
 // which we also never want.
-[<AssemblyMetadataAttribute("Verify.ProjectDirectory", "anything that is unlikely to show up in values")>]
+
 do ()

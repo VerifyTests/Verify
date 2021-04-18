@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <None Update="**\*.received.*;**\*.verified.*">
-      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
+      <ParentExtension>$(MSBuildProjectExtension.Replace('proj', ''))</ParentExtension>
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
     </None>

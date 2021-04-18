@@ -17,7 +17,7 @@ public class DisableDirScrubbingTests
     [Fact]
     public Task ProjectDirectory()
     {
-        return Verifier.Verify(AttributeReader.GetProjectDirectory());
+        return Verifier.Verify(AttributeReader.GetProjectDirectory().TrimEnd('\\','/'));
     }
 
     [Fact]

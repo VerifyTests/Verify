@@ -385,6 +385,24 @@ public class SerializationTests
         #endregion
     }
 
+    void DontScrubProjectDirectory()
+    {
+        #region DontScrubProjectDirectory
+
+        VerifierSettings.DontScrubProjectDirectory();
+
+        #endregion
+    }
+
+    void DontScrubSolutionDirectory()
+    {
+        #region DontScrubSolutionDirectory
+
+        VerifierSettings.DontScrubSolutionDirectory();
+
+        #endregion
+    }
+
     void ScrubInlineGuids()
     {
         #region ScrubInlineGuids

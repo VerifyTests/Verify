@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DiffEngine" Version="6.7.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.54" PrivateAssets="All" />
+    <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
+    <ProjectReference Include="..\Verify\Verify.csproj" />
+  </ItemGroup>
+  <Import Project="..\Verify.Xunit\build.props" />
+  <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\build\Verify.targets" />
+</Project>

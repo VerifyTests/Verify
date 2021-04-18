@@ -81,35 +81,42 @@ namespace VerifyTests
 
         static Action<StringBuilder> GetReplacements(Assembly assembly, string projectDirectory)
         {
+            if (!VerifierSettings.scrubProjectDirectory &&
+                !VerifierSettings.scrubSolutionDirectory)
+            {
+                return _ => { };
+            }
+
             var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
             var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
 
-            if (TryGetSolutionDirectory(assembly, out var solutionDirectory))
+            if (!VerifierSettings.scrubSolutionDirectory ||
+                !TryGetSolutionDirectory(assembly, out var solutionDirectory))
             {
-                var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
-                var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
                 return builder =>
                 {
                     builder.Replace(projectDirectory, "{ProjectDirectory}");
                     builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
                     builder.Replace(altProjectDirectory, "{ProjectDirectory}");
                     builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
-
-                    builder.Replace(solutionDirectory, "{SolutionDirectory}");
-                    builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
-                    builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
-                    builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
                 };
             }
 
+            var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
+            var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
             return builder =>
             {
                 builder.Replace(projectDirectory, "{ProjectDirectory}");
                 builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
                 builder.Replace(altProjectDirectory, "{ProjectDirectory}");
                 builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+
+                builder.Replace(solutionDirectory, "{SolutionDirectory}");
+                builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
+                builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
+                builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
             };
         }
     }

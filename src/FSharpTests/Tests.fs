@@ -5,7 +5,6 @@ open VerifyTests
 open VerifyXunit
 open System.Threading
 open Newtonsoft.Json
-open System.Reflection
 
 VerifierSettings.ModifySerialization(fun t ->
     t.DontScrubDateTimes()
@@ -18,9 +17,7 @@ let verify (anything:'T) =
     // Verify doesn't return a Task, exactly, it returns an awaitable.
     // But xunit requires a Task back. In C# you can just await it.
     // I couldn't find a less heavy-handed way of doing the same in F#.
-    let awaiter = Verifier.Verify<'T>(anything)
-                    .UseDirectory("Verified")
-                    .GetAwaiter()
+    let awaiter = Verifier.Verify<'T>(anything).GetAwaiter()
     async {
         use handle = new SemaphoreSlim(0)
         awaiter.OnCompleted(fun () -> ignore (handle.Release()))
@@ -37,8 +34,5 @@ module Tests =
     let ``None`` () =
         let invalidInt = None
         verify invalidInt
-
-// it automatically replaces anything that looks like the value with {ProjectDirectory},
-// which we also never want.
 
 do ()

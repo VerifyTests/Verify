@@ -160,5 +160,19 @@ namespace VerifyTests
         }
 
         public static bool StrictJson { get; private set; }
+
+        internal static bool scrubProjectDirectory = true;
+
+        public static void DontScrubProjectDirectory()
+        {
+            scrubProjectDirectory = false;
+        }
+
+        internal static bool scrubSolutionDirectory = true;
+
+        public static void DontScrubSolutionDirectory()
+        {
+            scrubSolutionDirectory = false;
+        }
     }
 }

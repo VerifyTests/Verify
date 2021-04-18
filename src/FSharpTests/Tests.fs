@@ -1,10 +1,18 @@
 module Tests
 
 open Xunit
+open VerifyTests
 open VerifyXunit
 open System.Threading
 open Newtonsoft.Json
 open System.Reflection
+
+VerifierSettings.ModifySerialization(fun t ->
+    t.DontScrubDateTimes()
+    t.DontIgnoreEmptyCollections()
+    t.DontIgnoreFalse())
+VerifierSettings.AddExtraSettings(fun t ->
+    t.NullValueHandling <- NullValueHandling.Include)
 
 let verify (anything:'T) =
     // Verify doesn't return a Task, exactly, it returns an awaitable.
@@ -12,12 +20,6 @@ let verify (anything:'T) =
     // I couldn't find a less heavy-handed way of doing the same in F#.
     let awaiter = Verifier.Verify<'T>(anything)
                     .UseDirectory("Verified")
-                    .ModifySerialization(fun t ->
-                        t.DontScrubDateTimes()
-                        t.DontIgnoreEmptyCollections()
-                        t.DontIgnoreFalse())
-                    .AddExtraSettings(fun t ->
-                        t.NullValueHandling <- NullValueHandling.Include)
                     .GetAwaiter()
     async {
         use handle = new SemaphoreSlim(0)
@@ -31,6 +33,10 @@ module Tests =
     [<Fact>]
     let ``My test`` () =
         verify 15
+    [<Fact>]
+    let ``None`` () =
+        let invalidInt = None
+        verify invalidInt
 
 // without this, attribute Verify refuses to work.
 // Also, it automatically replaces anything that looks like the value with {ProjectDirectory},

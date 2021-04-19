@@ -23,7 +23,8 @@ using Xunit;
 [UsesVerify]
 public class SerializationTests
 {
-    static SerializationTests()
+    [ModuleInitializer]
+    public static void Initialize()
     {
         VerifierSettings.AddExtraDatetimeFormat("F");
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");

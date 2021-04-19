@@ -14,10 +14,16 @@ VerifierSettings.AddExtraSettings(fun settings ->
 module Tests =
 // begin-snippet: FsTest
     [<Fact>]
-    let ``My test`` () =
+    let ``MyTest`` () =
         async {
-            let settings = Verifier.Verify 15
-            do! settings.ToTask() |> Async.AwaitTask
+            do! (Verifier.Verify 15).ToTask() |> Async.AwaitTask
+        }
+// end-snippet
+// begin-snippet: WithFluentSetting
+    [<Fact>]
+    let ``WithFluentSetting`` () =
+        async {
+            do! (Verifier.Verify 15).UseMethodName("customName").ToTask() |> Async.AwaitTask
         }
 // end-snippet
 do ()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using VerifyTests;
@@ -11,7 +12,8 @@ public class JsonAppenderTests : IDisposable
 {
     static AsyncLocal<bool> isInThisTest = new();
 
-    static JsonAppenderTests()
+    [ModuleInitializer]
+    public static void Initialize()
     {
         #region RegisterJsonAppender
         VerifierSettings.RegisterJsonAppender(

@@ -30,13 +30,12 @@ F# does not respect implicit operator conversion. `SettingsTask` uses implicit o
 <a id='snippet-fstest'></a>
 ```fs
 [<Fact>]
-let ``My test`` () =
+let ``MyTest`` () =
     async {
-        let settings = Verifier.Verify 15
-        do! settings.ToTask() |> Async.AwaitTask
+        do! (Verifier.Verify 15).ToTask() |> Async.AwaitTask
     }
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L15-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L15-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -58,12 +57,16 @@ VerifierSettings.AddExtraSettings(fun settings ->
 [<UsesVerify>]
 module Tests =
     [<Fact>]
-    let ``My test`` () =
+    let ``MyTest`` () =
         async {
-            let settings = Verifier.Verify 15
-            do! settings.ToTask() |> Async.AwaitTask
+            do! (Verifier.Verify 15).ToTask() |> Async.AwaitTask
+        }
+    [<Fact>]
+    let ``WithFluentSetting`` () =
+        async {
+            do! (Verifier.Verify 15).UseMethodName("customName").ToTask() |> Async.AwaitTask
         }
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

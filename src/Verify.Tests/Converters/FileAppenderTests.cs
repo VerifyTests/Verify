@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using VerifyTests;
@@ -11,7 +12,8 @@ public class FileAppenderTests :
 {
     static AsyncLocal<bool> isInThisTest = new();
 
-    static FileAppenderTests()
+    [ModuleInitializer]
+    public static void Initialize()
     {
         VerifierSettings.RegisterFileAppender(
             _ =>

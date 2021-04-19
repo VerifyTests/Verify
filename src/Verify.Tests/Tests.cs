@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -18,7 +19,8 @@ using System.Net.Http;
 [UsesVerify]
 public class Tests
 {
-    static Tests()
+    [ModuleInitializer]
+    public static void Initialize()
     {
         VerifierSettings.AddExtraDatetimeFormat("F");
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
@@ -215,11 +217,16 @@ public class Tests
 
     #endregion
 
-    [Fact]
-    public Task TreatAsString()
+    [ModuleInitializer]
+    public static void TreatAsStringInit()
     {
         VerifierSettings.TreatAsString<ClassWithToString>(
             (target, _) => target.Property);
+    }
+
+    [Fact]
+    public Task TreatAsString()
+    {
         return Verifier.Verify(new ClassWithToString {Property = "Foo"});
     }
 
@@ -298,12 +305,17 @@ public class Tests
         Assert.False(onVerifyMismatchCalled);
     }
 
-    [Fact]
-    public async Task SettingsArePassed()
+    [ModuleInitializer]
+    public static void SettingsArePassedInit()
     {
         VerifierSettings.RegisterStreamComparer(
             "SettingsArePassed",
             (_, _, _) => Task.FromResult(new CompareResult(true)));
+    }
+
+    [Fact]
+    public async Task SettingsArePassed()
+    {
         VerifySettings settings = new();
         settings.UseExtension("SettingsArePassed");
         await Verifier.Verify(new MemoryStream(new byte[] {1}), settings)

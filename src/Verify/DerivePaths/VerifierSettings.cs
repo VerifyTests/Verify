@@ -15,19 +15,7 @@ namespace VerifyTests
                 return derivePathInfo(sourceFile, projectDirectory, type, method);
             }
 
-            var typeName = GetTypeName(type);
-
-            return new(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
-        }
-
-        static string GetTypeName(Type type)
-        {
-            if (type.IsNested)
-            {
-                return $"{type.ReflectedType!.Name}.{type.Name}";
-            }
-
-            return type.Name;
+            return new(Path.GetDirectoryName(sourceFile)!, type.Name, method.Name);
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default
 VerifierSettings.AddExtraSettings(fun settings ->
   settings.NullValueHandling <- NullValueHandling.Include)
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L8-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L9-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -36,7 +36,7 @@ let MyTest () =
       |> Async.AwaitTask
   }
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L15-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -45,6 +45,7 @@ let MyTest () =
 <!-- snippet: Tests.fs -->
 <a id='snippet-Tests.fs'></a>
 ```fs
+[<VerifyXunit.UsesVerify>]
 module Tests
 
 open Xunit
@@ -55,22 +56,20 @@ open Newtonsoft.Json
 VerifierSettings.AddExtraSettings(fun settings ->
   settings.NullValueHandling <- NullValueHandling.Include)
 
-[<UsesVerify>]
-module Tests =
-  [<Fact>]
-  let MyTest () =
-    async {
-      do! (Verifier.Verify 15).ToTask()
-        |> Async.AwaitTask
-    }
-  [<Fact>]
-  let WithFluentSetting () =
-    async {
-      let settings = Verifier.Verify 15
-      settings.UseMethodName("customName") |> ignore
-      do! settings.ToTask() |> Async.AwaitTask
-    }
+[<Fact>]
+let MyTest () =
+  async {
+    do! (Verifier.Verify 15).ToTask()
+      |> Async.AwaitTask
+  }
+[<Fact>]
+let WithFluentSetting () =
+  async {
+    let settings = Verifier.Verify 15
+    settings.UseMethodName("customName") |> ignore
+    do! settings.ToTask() |> Async.AwaitTask
+  }
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

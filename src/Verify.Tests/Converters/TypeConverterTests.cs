@@ -162,7 +162,11 @@ public class TypeConverterTests
                 };
                 return new ConversionResult(info, targets.Select(x => new Target("png", x)));
             },
-            (_, _, context) => (string)context["name"] == nameof(WithInfo) );
+            (_, _, context) =>
+            {
+                return context.ContainsKey("name") &&
+                       (string) context["name"] == nameof(WithInfo);
+            });
     }
 
     [Fact]
@@ -179,6 +183,7 @@ public class TypeConverterTests
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _, context) =>
+                context.ContainsKey("name") &&
                 (string) context["name"] == nameof(WithInfoShouldRespectSettings) &&
                 Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
@@ -191,6 +196,7 @@ public class TypeConverterTests
                 return new ConversionResult(info, targets.Select(x => new Target("png", x)));
             });
     }
+
     [Fact]
     public Task WithInfoShouldRespectSettings()
     {
@@ -206,7 +212,8 @@ public class TypeConverterTests
     {
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _, context) =>
-                (string)context["name"] == nameof(TypeConversion) &&
+                context.ContainsKey("name") &&
+                (string) context["name"] == nameof(TypeConversion) &&
                 Equals(target.RawFormat, ImageFormat.Bmp),
             conversion: (bitmap1, _) =>
             {

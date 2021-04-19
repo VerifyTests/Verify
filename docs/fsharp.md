@@ -16,7 +16,7 @@ By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default
 <a id='snippet-nullvaluehandling'></a>
 ```fs
 VerifierSettings.AddExtraSettings(fun settings ->
-    settings.NullValueHandling <- NullValueHandling.Include)
+  settings.NullValueHandling <- NullValueHandling.Include)
 ```
 <sup><a href='/src/FSharpTests/Tests.fs#L8-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -31,11 +31,12 @@ F# does not respect implicit operator conversion. `SettingsTask` uses implicit o
 ```fs
 [<Fact>]
 let ``MyTest`` () =
-    async {
-        do! (Verifier.Verify 15).ToTask() |> Async.AwaitTask
-    }
+  async {
+    do! (Verifier.Verify 15).ToTask()
+      |> Async.AwaitTask
+  }
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L15-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L15-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -52,21 +53,24 @@ open VerifyXunit
 open Newtonsoft.Json
 
 VerifierSettings.AddExtraSettings(fun settings ->
-    settings.NullValueHandling <- NullValueHandling.Include)
+  settings.NullValueHandling <- NullValueHandling.Include)
 
 [<UsesVerify>]
 module Tests =
-    [<Fact>]
-    let ``MyTest`` () =
-        async {
-            do! (Verifier.Verify 15).ToTask() |> Async.AwaitTask
-        }
-    [<Fact>]
-    let ``WithFluentSetting`` () =
-        async {
-            do! (Verifier.Verify 15).UseMethodName("customName").ToTask() |> Async.AwaitTask
-        }
+  [<Fact>]
+  let ``MyTest`` () =
+    async {
+      do! (Verifier.Verify 15).ToTask()
+        |> Async.AwaitTask
+    }
+  [<Fact>]
+  let ``WithFluentSetting`` () =
+    async {
+      let settings = (Verifier.Verify 15)
+      settings.UseMethodName("customName") |> ignore
+      do! settings.ToTask() |> Async.AwaitTask
+    }
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

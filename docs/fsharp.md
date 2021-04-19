@@ -62,6 +62,7 @@ let MyTest () =
     do! (Verifier.Verify 15).ToTask()
       |> Async.AwaitTask
   }
+
 [<Fact>]
 let WithFluentSetting () =
   async {
@@ -71,5 +72,5 @@ let WithFluentSetting () =
   }
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

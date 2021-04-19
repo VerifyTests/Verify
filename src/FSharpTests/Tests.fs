@@ -19,6 +19,7 @@ let MyTest () =
       |> Async.AwaitTask
   }
 // end-snippet
+
 // begin-snippet: WithFluentSetting
 [<Fact>]
 let WithFluentSetting () =

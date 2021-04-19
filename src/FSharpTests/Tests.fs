@@ -24,7 +24,7 @@ module Tests =
   [<Fact>]
   let WithFluentSetting () =
     async {
-      let settings = (Verifier.Verify 15)
+      let settings = Verifier.Verify 15
       settings.UseMethodName("customName") |> ignore
       do! settings.ToTask() |> Async.AwaitTask
     }

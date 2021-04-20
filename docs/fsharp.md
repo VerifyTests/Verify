@@ -32,8 +32,8 @@ F# does not respect implicit operator conversion. `SettingsTask` uses implicit o
 [<Fact>]
 let MyTest () =
   async {
-    do! (Verifier.Verify 15).ToTask()
-      |> Async.AwaitTask
+    do! Verifier.Verify(15)
+          .ToTask() |> Async.AwaitTask
   }
 ```
 <sup><a href='/src/FSharpTests/Tests.fs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
@@ -59,16 +59,16 @@ VerifierSettings.AddExtraSettings(fun settings ->
 [<Fact>]
 let MyTest () =
   async {
-    do! (Verifier.Verify 15).ToTask()
-      |> Async.AwaitTask
+    do! Verifier.Verify(15)
+          .ToTask() |> Async.AwaitTask
   }
 
 [<Fact>]
 let WithFluentSetting () =
   async {
-    let settings = Verifier.Verify 15
-    settings.UseMethodName("customName") |> ignore
-    do! settings.ToTask() |> Async.AwaitTask
+    do! Verifier.Verify(15)
+          .UseMethodName("customName")
+          .ToTask() |> Async.AwaitTask
   }
 do ()
 ```

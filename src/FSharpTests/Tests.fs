@@ -15,18 +15,18 @@ VerifierSettings.AddExtraSettings(fun settings ->
 [<Fact>]
 let MyTest () =
   async {
-    do! (Verifier.Verify 15).ToTask()
-      |> Async.AwaitTask
+    do! Verifier.Verify(15)
+          .ToTask() |> Async.AwaitTask
   }
 // end-snippet
 
-// begin-snippet: WithFluentSetting
+// begin-snippet: WithSettings
 [<Fact>]
 let WithFluentSetting () =
   async {
-    let settings = Verifier.Verify 15
-    settings.UseMethodName("customName") |> ignore
-    do! settings.ToTask() |> Async.AwaitTask
+    do! Verifier.Verify(15)
+          .UseMethodName("customName")
+          .ToTask() |> Async.AwaitTask
   }
 // end-snippet
 do ()

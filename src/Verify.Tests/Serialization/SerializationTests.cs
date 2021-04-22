@@ -1202,7 +1202,7 @@ public class SerializationTests
     public Task VerifyJsonStream()
     {
         var json = "{'key': {'msg': 'No action taken'}}";
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+        MemoryStream stream = new(Encoding.UTF8.GetBytes(json));
         return Verifier.VerifyJson(stream);
     }
 

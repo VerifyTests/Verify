@@ -21,7 +21,7 @@ class JObjectConverter :
         }
 
         var dictionary = value.ToObject<Dictionary<string, object>>()!;
-        var wrapper = new DictionaryWrapper<object, IDictionary<string, object>>(ignoredByNameMembers, dictionary);
+        DictionaryWrapper<object, IDictionary<string, object>> wrapper = new(ignoredByNameMembers, dictionary);
         serializer.Serialize(writer, wrapper);
     }
 }

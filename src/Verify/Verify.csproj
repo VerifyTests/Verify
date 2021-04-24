@@ -5,11 +5,6 @@
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5.0</TargetFrameworks>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'">
-    <Compile Remove="HttpRecording\HttpListener.cs" />
-    <Compile Remove="HttpRecording\HttpRecording.cs" />
-    <Compile Remove="HttpRecording\HttpCall.cs" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="6.7.0" />
     <PackageReference Include="EmptyFiles" Version="2.7.0" PrivateAssets="None" />

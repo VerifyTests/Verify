@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if NET5_0
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace VerifyTests
@@ -39,3 +40,4 @@ namespace VerifyTests
         }
     }
 }
+#endif

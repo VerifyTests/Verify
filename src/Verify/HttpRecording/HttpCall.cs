@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET5_0
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -113,3 +114,4 @@ namespace VerifyTests
         public string? ResponseContentStringRaw { get; }
     }
 }
+#endif

@@ -23,10 +23,7 @@ class HttpHeadersConverter :
     {
         var value = headers
             .OrderBy(x => x.Key.ToLowerInvariant())
-            .Where(x =>
-            {
-                return !ignoredByNameMembers.Contains(x.Key);
-            })
+            .Where(x => !ignoredByNameMembers.Contains(x.Key))
             .ToDictionary(x => x.Key, x =>
             {
                 var values = x.Value.ToList();

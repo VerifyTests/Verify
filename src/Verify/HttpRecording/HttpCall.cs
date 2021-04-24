@@ -53,20 +53,12 @@ namespace VerifyTests
 
         static (string? content, string? prettyContent) TryReadStringContent(HttpContent content)
         {
-            var type = content.Headers.ContentType?.MediaType;
-            if (type == null)
+            if (!content.IsText())
             {
                 return (null, null);
             }
 
-            if (!type.StartsWith("text") &&
-                !type.EndsWith("graphql") &&
-                !type.EndsWith("javascript") &&
-                !type.EndsWith("json") &&
-                !type.EndsWith("xml"))
-            {
-                return (null, null);
-            }
+            var type = content.Headers.ContentType?.MediaType!;
 
             var stringContent = content.ReadAsStringAsync().GetAwaiter().GetResult();
             var prettyContent = stringContent;

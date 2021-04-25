@@ -53,16 +53,14 @@ namespace VerifyTests
 
         static (string? content, string? prettyContent) TryReadStringContent(HttpContent content)
         {
-            if (!content.IsText())
+            if (!content.IsText(out var subType))
             {
                 return (null, null);
             }
 
-            var type = content.Headers.ContentType?.MediaType!;
-
             var stringContent = content.ReadAsStringAsync().GetAwaiter().GetResult();
             var prettyContent = stringContent;
-            if (type.EndsWith("json"))
+            if (subType == "json")
             {
                 try
                 {
@@ -72,7 +70,7 @@ namespace VerifyTests
                 {
                 }
             }
-            else if (type.EndsWith("xml"))
+            else if (subType == "xml")
             {
                 try
                 {

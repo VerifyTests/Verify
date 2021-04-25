@@ -22,24 +22,26 @@ class HttpHeadersConverter :
         IReadOnlyDictionary<string, object> context)
     {
         var value = headers
-            .OrderBy(x => x.Key.ToLowerInvariant())
             .Where(x => !ignoredByNameMembers.Contains(x.Key))
-            .ToDictionary(x => x.Key, x =>
-            {
-                var values = x.Value.ToList();
-                var key = x.Key.ToLowerInvariant();
-                if (key == "date" ||
-                    key == "expires" ||
-                    key == "last-modified")
+            .OrderBy(x => x.Key.ToLowerInvariant())
+            .ToDictionary(
+                x => x.Key,
+                x =>
                 {
-                    if (DateTime.TryParse(values.First(), out var date))
+                    var values = x.Value.ToList();
+                    var key = x.Key.ToLowerInvariant();
+                    if (key == "date" ||
+                        key == "expires" ||
+                        key == "last-modified")
                     {
-                        return date;
+                        if (DateTime.TryParse(values.First(), out var date))
+                        {
+                            return date;
+                        }
                     }
-                }
 
-                return (object) string.Join(",", values);
-            });
+                    return (object) string.Join(",", values);
+                });
         serializer.Serialize(writer, value);
     }
 }

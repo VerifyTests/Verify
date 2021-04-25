@@ -51,7 +51,7 @@ class ClassThatUsesLogging
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L184-L218' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L195-L229' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -119,7 +119,7 @@ class ClassThatUsesTypedLogging
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L129-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecordingtyped' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L140-L170' title='Snippet source file'>snippet source</a> | <a href='#snippet-loggerrecordingtyped' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

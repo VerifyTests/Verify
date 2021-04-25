@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using VerifyXunit;
 using Xunit;
 #if NET5_0 && DEBUG
 using System.Linq;
-using System.Net.Http;
 #endif
 
 // Non-nullable field is uninitialized.
@@ -24,6 +24,17 @@ public class Tests
     {
         VerifierSettings.AddExtraDatetimeFormat("F");
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
+    }
+
+    [Fact]
+    public async Task HttpResponse()
+    {
+        using HttpClient client = new();
+
+        var result = await client.GetAsync("https://httpbin.org/get");
+
+        await Verifier.Verify(result)
+            .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id", "origin", "Content-Length", "TrailingHeaders");
     }
 
 #if NET5_0 && DEBUG

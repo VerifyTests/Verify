@@ -11,6 +11,8 @@ namespace VerifyTests
 {
     public partial class SerializationSettings
     {
+        static HttpContentConverter httpContentConverter = new();
+        static JArrayConverter jArrayConverter = new();
         static FileInfoConverter fileInfoConverter = new();
         static UriConverter uriConverter = new();
         static DirectoryInfoConverter directoryInfoConverter = new();
@@ -151,8 +153,9 @@ namespace VerifyTests
             converters.Add(propertyInfoConverter);
             converters.Add(parameterInfoConverter);
             converters.Add(new HttpHeadersConverter(ignoredByNameMembers));
+            converters.Add(httpContentConverter);
             converters.Add(new DictionaryConverter(ignoredByNameMembers));
-            converters.Add(new JArrayConverter());
+            converters.Add(jArrayConverter);
             converters.Add(new JObjectConverter(ignoredByNameMembers));
             converters.Add(new NameValueCollectionConverter(ignoredByNameMembers));
             foreach (var extraSetting in ExtraSettings)

@@ -37,8 +37,6 @@
     <None Update="BinaryNotEqualsSameLength.*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Naming\CustomDirectory\" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />

@@ -5,17 +5,10 @@ using Newtonsoft.Json;
 using VerifyTests;
 
 class DelegateConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<Delegate>
 {
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, Delegate @delegate, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value is null)
-        {
-            return;
-        }
-
-        var @delegate = (Delegate) value;
-
         writer.WriteStartObject();
         writer.WritePropertyName("Type");
         writer.WriteValue(TypeNameConverter.GetName(@delegate.GetType()));
@@ -43,10 +36,5 @@ class DelegateConverter :
         }
 
         return name;
-    }
-
-    public override bool CanConvert(Type objectType)
-    {
-        return typeof(Delegate).IsAssignableFrom(objectType);
     }
 }

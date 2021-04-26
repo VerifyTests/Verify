@@ -38,6 +38,17 @@ public class Tests
     }
 
     [Fact]
+    public async Task ImageHttpResponse()
+    {
+        using HttpClient client = new();
+
+        var result = await client.GetAsync("https://httpbin.org/image/png");
+
+        await Verifier.Verify(result)
+            .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id", "origin", "Content-Length", "TrailingHeaders");
+    }
+
+    [Fact]
     public async Task HttpResponse()
     {
         using HttpClient client = new();

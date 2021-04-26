@@ -31,13 +31,13 @@ static class HttpResponseSplitterResult
             {
                 instance.Version,
                 instance.StatusCode,
+                instance.IsSuccessStatusCode,
                 instance.ReasonPhrase,
                 instance.Headers,
 #if NET5_0 || NETSTANDARD2_1
                 instance.TrailingHeaders,
 #endif
-                instance.RequestMessage,
-                instance.IsSuccessStatusCode
+                instance.RequestMessage
             },
             targets);
     }

@@ -4,21 +4,10 @@ using Newtonsoft.Json;
 using VerifyTests;
 
 class TypeJsonConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<Type>
 {
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, Type value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var type = (Type) value;
-        writer.WriteValue(TypeNameConverter.GetName(type));
-    }
-
-    public override bool CanConvert(Type type)
-    {
-        return typeof(Type).IsAssignableFrom(type);
+        writer.WriteValue(TypeNameConverter.GetName(value));
     }
 }

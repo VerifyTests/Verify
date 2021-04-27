@@ -7,7 +7,7 @@ namespace VerifyTests
     public abstract class WriteOnlyJsonConverter :
         JsonConverter
     {
-        public override bool CanRead => false;
+        public sealed override bool CanRead => false;
 
         public sealed override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {

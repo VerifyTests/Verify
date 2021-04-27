@@ -1,29 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using VerifyTests;
 
 class ExpressionConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<Expression>
 {
     public override void WriteJson(
         JsonWriter writer,
-        object? value,
+        Expression value,
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var expression = (Expression) value;
-        writer.WriteValue(expression.ToString());
-    }
-
-    public override bool CanConvert(Type type)
-    {
-        return typeof(Expression).IsAssignableFrom(type);
+        writer.WriteValue(value.ToString());
     }
 }

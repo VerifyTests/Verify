@@ -1,25 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 using VerifyTests;
 
 class PropertyInfoConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<PropertyInfo>
 {
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, PropertyInfo value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var property = (PropertyInfo) value;
-        writer.WriteValue(TypeNameConverter.GetName(property));
-    }
-
-    public override bool CanConvert(Type type)
-    {
-        return typeof(PropertyInfo).IsAssignableFrom(type);
+        writer.WriteValue(TypeNameConverter.GetName(value));
     }
 }

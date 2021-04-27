@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using VerifyTests;
 
 class StringConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<string>
 {
     SharedScrubber sharedScrubber;
 
@@ -13,27 +12,14 @@ class StringConverter :
         this.sharedScrubber = sharedScrubber;
     }
 
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, string value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var valueAsString = (string) value;
-        if (sharedScrubber.TryConvertString(valueAsString, out var result))
+        if (sharedScrubber.TryConvertString(value, out var result))
         {
             writer.WriteValue(result);
             return;
         }
 
-        writer.WriteValue(valueAsString);
-    }
-
-    public override bool CanRead => false;
-
-    public override bool CanConvert(Type type)
-    {
-        return type == typeof(string);
+        writer.WriteValue(value);
     }
 }

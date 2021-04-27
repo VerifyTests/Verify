@@ -1,25 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 using VerifyTests;
 
 class ParameterInfoConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<ParameterInfo>
 {
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(JsonWriter writer, ParameterInfo value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var parameter = (ParameterInfo) value;
-        writer.WriteValue(TypeNameConverter.GetName(parameter));
-    }
-
-    public override bool CanConvert(Type type)
-    {
-        return typeof(ParameterInfo).IsAssignableFrom(type);
+        writer.WriteValue(TypeNameConverter.GetName(value));
     }
 }

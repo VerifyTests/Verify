@@ -126,7 +126,7 @@ public class TypeNameConverterTests
         return Verifier.Verify(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>[])));
     }
 
-    public class TargetWithNested
+    class TargetWithNested
     {
     }
 }

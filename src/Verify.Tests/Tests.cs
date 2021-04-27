@@ -204,7 +204,7 @@ public class Tests
         return Verifier.Verify("Foo");
     }
 
-    public class StateObject
+    class StateObject
     {
         public string Property { get; }
 
@@ -372,7 +372,7 @@ public class Tests
         return Verifier.Throws(Nested.MethodThatThrows);
     }
 
-    public static class Nested
+    static class Nested
     {
         public static void MethodThatThrows()
         {

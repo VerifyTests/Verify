@@ -133,12 +133,6 @@ public class SerializationTests
         Assert.NotSame(settings.membersConverters.First().Value, clone.membersConverters.First().Value);
     }
 
-    public class SettingsIsClonedTarget
-    {
-        public string Property1 { get; set; } = null!;
-        public string Property2 { get; set; } = null!;
-    }
-
     [Fact]
     public Task GuidScrubbingDisabled()
     {
@@ -671,7 +665,7 @@ public class SerializationTests
         return Verifier.Verify(target);
     }
 
-    public class GuidTarget
+    class GuidTarget
     {
         public Guid Guid;
         public Guid? GuidNullable;
@@ -689,7 +683,7 @@ public class SerializationTests
         return Verifier.Verify(target);
     }
 
-    public class EscapeTarget
+    class EscapeTarget
     {
         public string Property;
     }
@@ -704,7 +698,7 @@ public class SerializationTests
         return Verifier.Verify(target);
     }
 
-    public class NotDatesTarget
+    class NotDatesTarget
     {
         public string NotDate;
     }
@@ -749,7 +743,7 @@ public class SerializationTests
         return Verifier.Verify(target);
     }
 
-    public class CollectionTarget
+    class CollectionTarget
     {
         public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;

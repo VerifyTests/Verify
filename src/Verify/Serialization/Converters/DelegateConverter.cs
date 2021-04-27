@@ -25,7 +25,7 @@ class DelegateConverter :
         writer.WriteEndObject();
     }
 
-    public static string CleanMethodName(string name)
+    static string CleanMethodName(string name)
     {
         var split = name.Split('<', '>', '(');
         if (split.Length > 2)

@@ -35,17 +35,12 @@ public class TypeConverterTests
         return Verifier.Verify(target, settings);
     }
 
-    public class ClassToSplit3
+    class ParentClass
     {
         public string Value { get; set; } = null!;
     }
 
-    public class ParentClass
-    {
-        public string Value { get; set; } = null!;
-    }
-
-    public class InheritedClass : ParentClass
+    class InheritedClass : ParentClass
     {
     }
 
@@ -80,7 +75,7 @@ public class TypeConverterTests
         Assert.False(File.Exists(filePath));
     }
 
-    public class TargetForCleanup
+    class TargetForCleanup
     {
         public string Value { get; set; } = null!;
     }
@@ -143,7 +138,7 @@ public class TypeConverterTests
         return Verifier.Verify(target);
     }
 
-    public class CanConvertTarget
+    class CanConvertTarget
     {
         public string Value { get; set; } = null!;
     }

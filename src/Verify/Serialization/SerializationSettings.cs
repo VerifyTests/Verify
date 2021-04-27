@@ -136,6 +136,8 @@ namespace VerifyTests
                 membersConverters);
             var converters = settings.Converters;
             converters.Add(new StringConverter(scrubber));
+            converters.Add(new StringBuilderConverter(scrubber));
+            converters.Add(new TextWriterConverter(scrubber));
             converters.Add(new GuidConverter(scrubber));
             converters.Add(new DateTimeConverter(scrubber));
             converters.Add(new DateTimeOffsetConverter(scrubber));

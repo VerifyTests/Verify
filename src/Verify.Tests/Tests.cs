@@ -474,6 +474,28 @@ public class Tests
     }
 
     [Fact]
+    public Task NestedStringBuilder()
+    {
+        return Verifier.Verify(new {StringBuilder = new StringBuilder("value")});
+    }
+
+    [Fact]
+    public Task TextWriter()
+    {
+        StringWriter target = new();
+        target.Write("content");
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task NestedTextWriter()
+    {
+        StringWriter target = new();
+        target.Write("content");
+        return Verifier.Verify(new {target});
+    }
+
+    [Fact]
     public async Task StringWithDifferingNewline()
     {
         var fullPath = Path.GetFullPath("../../../Tests.StringWithDifferingNewline.verified.txt");

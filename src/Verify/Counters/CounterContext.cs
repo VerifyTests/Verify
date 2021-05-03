@@ -28,6 +28,7 @@
      }
 
      public int IntOrNext<T>(T input)
+         where T : struct
      {
          if (input is Guid guidInput)
          {

@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -578,6 +579,30 @@ public class SerializationTests
     public Task NamedTupleWithNull()
     {
         return Verifier.Verify(() => MethodWithNamedTupleWithNull());
+    }
+
+    [Fact]
+    public Task Claim()
+    {
+        return Verifier.Verify(new Claim("TheType", "TheValue"));
+    }
+
+    [Fact]
+    public Task ClaimsPrincipal()
+    {
+        ClaimsIdentity claimsIdentity = new();
+        claimsIdentity.AddClaim(new Claim("TheType", "TheValue"));
+        ClaimsPrincipal claimsPrincipal = new();
+        claimsPrincipal.AddIdentity(claimsIdentity);
+        return Verifier.Verify(claimsPrincipal);
+    }
+
+    [Fact]
+    public Task ClaimsIdentity()
+    {
+        ClaimsIdentity claimsIdentity = new();
+        claimsIdentity.AddClaim(new Claim("TheType", "TheValue"));
+        return Verifier.Verify(claimsIdentity);
     }
 
     static (string Member1, string? Member2) MethodWithNamedTupleWithNull()

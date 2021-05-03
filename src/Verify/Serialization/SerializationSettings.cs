@@ -26,6 +26,9 @@ namespace VerifyTests
         static ParameterInfoConverter parameterInfoConverter = new();
         static VersionConverter versionConverter = new();
         static PropertyInfoConverter propertyInfoConverter = new();
+        static ClaimConverter claimConverter = new();
+        static ClaimsPrincipalConverter claimsPrincipalConverter = new();
+        static ClaimsIdentityConverter claimsIdentityConverter = new();
 
         public SerializationSettings()
         {
@@ -154,6 +157,9 @@ namespace VerifyTests
             converters.Add(constructorInfoConverter);
             converters.Add(propertyInfoConverter);
             converters.Add(parameterInfoConverter);
+            converters.Add(claimConverter);
+            converters.Add(claimsIdentityConverter);
+            converters.Add(claimsPrincipalConverter);
             converters.Add(new HttpHeadersConverter(ignoredByNameMembers));
             converters.Add(httpContentConverter);
             converters.Add(new DictionaryConverter(ignoredByNameMembers));

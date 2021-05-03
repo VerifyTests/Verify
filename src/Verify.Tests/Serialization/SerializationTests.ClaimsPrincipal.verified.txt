@@ -1,0 +1,10 @@
+[
+  {
+    Claims: [
+      {
+        TheType: TheValue,
+        Subject: null
+      }
+    ]
+  }
+]

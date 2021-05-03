@@ -4,9 +4,9 @@
  class CounterContext
  {
      static AsyncLocal<CounterContext?> local = new();
-     GuidCounter GuidCounter = new();
-     DateTimeOffsetCounter DateTimeOffsetCounter = new();
-     DateTimeCounter DateTimeCounter = new();
+     Counter<Guid> GuidCounter = new();
+     Counter<DateTimeOffset> DateTimeOffsetCounter = new();
+     Counter<DateTime> DateTimeCounter = new();
 
      public static CounterContext Current
      {
@@ -17,6 +17,7 @@
              {
                  throw new("No current context");
              }
+
              return context;
          }
      }

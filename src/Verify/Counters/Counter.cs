@@ -1,18 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Threading;
 
-abstract class Counter<T>
+class Counter<T>
     where T : struct
 {
     ConcurrentDictionary<T, int> cache = new();
     int current;
-
-    protected abstract T Convert(int i);
-
-    public T Current
-    {
-        get => Convert(current);
-    }
 
     public int IntOrNext(T input)
     {
@@ -24,14 +17,5 @@ abstract class Counter<T>
         var increment = Interlocked.Increment(ref current);
         cache[input] = increment;
         return increment;
-    }
-
-    public T Next()
-    {
-        var increment = Interlocked.Increment(ref current);
-
-        var convert = Convert(increment);
-        cache[convert] = increment;
-        return convert;
     }
 }

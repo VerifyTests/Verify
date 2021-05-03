@@ -9,13 +9,6 @@ class Counter<T>
 
     public int IntOrNext(T input)
     {
-        if (cache.TryGetValue(input, out var cached))
-        {
-            return cached;
-        }
-
-        var increment = Interlocked.Increment(ref current);
-        cache[input] = increment;
-        return increment;
+        return cache.GetOrAdd(input, _ => Interlocked.Increment(ref current));
     }
 }

@@ -588,6 +588,12 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ClaimWithClaimType()
+    {
+        return Verifier.Verify(new Claim(ClaimTypes.Email, "TheValue"));
+    }
+
+    [Fact]
     public Task ClaimsPrincipal()
     {
         ClaimsIdentity claimsIdentity = new();

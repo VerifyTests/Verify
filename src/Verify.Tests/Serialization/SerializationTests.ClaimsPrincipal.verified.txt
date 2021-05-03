@@ -1,9 +1,8 @@
-[
+﻿[
   {
     Claims: [
       {
-        TheType: TheValue,
-        Subject: null
+        TheType: TheValue
       }
     ]
   }

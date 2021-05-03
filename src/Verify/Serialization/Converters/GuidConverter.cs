@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using VerifyTests;
 
 class GuidConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<Guid>
 {
     SharedScrubber scrubber;
 
@@ -16,28 +16,16 @@ class GuidConverter :
 
     public override void WriteJson(
         JsonWriter writer,
-        object? value,
+        Guid value,
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var guid = (Guid) value;
-        if (scrubber.TryConvert(guid, out var result))
+        if (scrubber.TryConvert(value, out var result))
         {
             writer.WriteValue(result);
             return;
         }
 
-        writer.WriteValue(guid.ToString("D", CultureInfo.InvariantCulture));
-    }
-
-    public override bool CanConvert(Type type)
-    {
-        return type == typeof(Guid) ||
-               type == typeof(Guid?);
+        writer.WriteValue(value.ToString("D", CultureInfo.InvariantCulture));
     }
 }

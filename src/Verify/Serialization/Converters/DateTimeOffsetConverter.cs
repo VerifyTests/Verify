@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using VerifyTests;
 
 class DateTimeOffsetConverter :
-    WriteOnlyJsonConverter
+    WriteOnlyJsonConverter<DateTimeOffset>
 {
     SharedScrubber scrubber;
 
@@ -15,27 +15,16 @@ class DateTimeOffsetConverter :
 
     public override void WriteJson(
         JsonWriter writer,
-        object? value,
+        DateTimeOffset value,
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if (value == null)
-        {
-            return;
-        }
-
-        var dateTime = (DateTimeOffset) value;
-        if(scrubber.TryConvert(dateTime, out var result))
+        if (scrubber.TryConvert(value, out var result))
         {
             writer.WriteValue(result);
             return;
         }
-        writer.WriteValue(dateTime);
-    }
 
-    public override bool CanConvert(Type type)
-    {
-        return type == typeof(DateTimeOffset) ||
-               type == typeof(DateTimeOffset?);
+        writer.WriteValue(value);
     }
 }

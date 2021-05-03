@@ -16,7 +16,11 @@ class DictionaryConverter :
         this.ignoredByNameMembers = ignoredByNameMembers;
     }
 
-    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(
+        JsonWriter writer,
+        object? value,
+        JsonSerializer serializer,
+        IReadOnlyDictionary<string, object> context)
     {
         if (value is null)
         {

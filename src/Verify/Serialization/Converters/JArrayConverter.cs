@@ -6,13 +6,12 @@ using VerifyTests;
 class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
-    public override void WriteJson(JsonWriter writer, JArray? value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(
+        JsonWriter writer,
+        JArray value,
+        JsonSerializer serializer,
+        IReadOnlyDictionary<string, object> context)
     {
-        if (value is null)
-        {
-            return;
-        }
-
         var list = value.ToObject<List<object>>()!;
         serializer.Serialize(writer, list);
     }

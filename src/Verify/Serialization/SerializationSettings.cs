@@ -29,6 +29,9 @@ namespace VerifyTests
         static ClaimConverter claimConverter = new();
         static ClaimsPrincipalConverter claimsPrincipalConverter = new();
         static ClaimsIdentityConverter claimsIdentityConverter = new();
+        static HttpHeadersConverter httpHeadersConverter = new();
+        static JObjectConverter jObjectConverter = new();
+        static NameValueCollectionConverter nameValueCollectionConverter = new();
 
         public SerializationSettings()
         {
@@ -160,12 +163,12 @@ namespace VerifyTests
             converters.Add(claimConverter);
             converters.Add(claimsIdentityConverter);
             converters.Add(claimsPrincipalConverter);
-            converters.Add(new HttpHeadersConverter(ignoredByNameMembers));
+            converters.Add(httpHeadersConverter);
             converters.Add(httpContentConverter);
             converters.Add(new DictionaryConverter(ignoredByNameMembers));
             converters.Add(jArrayConverter);
-            converters.Add(new JObjectConverter(ignoredByNameMembers));
-            converters.Add(new NameValueCollectionConverter(ignoredByNameMembers));
+            converters.Add(jObjectConverter);
+            converters.Add(nameValueCollectionConverter);
             foreach (var extraSetting in ExtraSettings)
             {
                 extraSetting(settings);

@@ -13,7 +13,11 @@ class StringBuilderConverter :
         this.sharedScrubber = sharedScrubber;
     }
 
-    public override void WriteJson(JsonWriter writer, StringBuilder value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(
+        JsonWriter writer,
+        StringBuilder value,
+        JsonSerializer serializer,
+        IReadOnlyDictionary<string, object> context)
     {
         var stringValue = value.ToString();
         if (sharedScrubber.TryConvertString(stringValue, out var result))

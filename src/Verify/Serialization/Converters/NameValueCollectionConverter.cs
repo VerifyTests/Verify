@@ -6,20 +6,12 @@ using VerifyTests;
 class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
-    List<string> ignoredByNameMembers;
-
-    public NameValueCollectionConverter(List<string> ignoredByNameMembers)
+    public override void WriteJson(
+        JsonWriter writer,
+        NameValueCollection collection,
+        JsonSerializer serializer,
+        IReadOnlyDictionary<string, object> context)
     {
-        this.ignoredByNameMembers = ignoredByNameMembers;
-    }
-
-    public override void WriteJson(JsonWriter writer, NameValueCollection? collection, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
-    {
-        if (collection is null)
-        {
-            return;
-        }
-
         Dictionary<string,string?> dictionary = new();
         foreach (string? key in collection)
         {
@@ -32,11 +24,6 @@ class NameValueCollectionConverter :
             }
             else
             {
-                if (ignoredByNameMembers.Contains(key))
-                {
-                    continue;
-                }
-
                 notNullKey = key;
             }
 

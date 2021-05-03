@@ -8,13 +8,6 @@ using VerifyTests;
 class HttpHeadersConverter :
     WriteOnlyJsonConverter<HttpHeaders>
 {
-    List<string> ignoredByNameMembers;
-
-    public HttpHeadersConverter(List<string> ignoredByNameMembers)
-    {
-        this.ignoredByNameMembers = ignoredByNameMembers;
-    }
-
     public override void WriteJson(
         JsonWriter writer,
         HttpHeaders headers,
@@ -22,7 +15,6 @@ class HttpHeadersConverter :
         IReadOnlyDictionary<string, object> context)
     {
         var value = headers
-            .Where(x => !ignoredByNameMembers.Contains(x.Key))
             .OrderBy(x => x.Key.ToLowerInvariant())
             .ToDictionary(
                 x => x.Key,

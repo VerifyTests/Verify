@@ -7,7 +7,11 @@ using VerifyTests;
 class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
-    public override void WriteJson(JsonWriter writer, Delegate @delegate, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void WriteJson(
+        JsonWriter writer,
+        Delegate @delegate,
+        JsonSerializer serializer,
+        IReadOnlyDictionary<string, object> context)
     {
         writer.WriteStartObject();
         writer.WritePropertyName("Type");

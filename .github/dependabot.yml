@@ -5,10 +5,3 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: DiffEngine
-    versions:
-    - 6.5.9
-  - dependency-name: MSTest.TestAdapter
-    versions:
-    - 2.2.2

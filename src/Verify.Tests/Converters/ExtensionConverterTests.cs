@@ -16,6 +16,7 @@ public class ExtensionConverterTests
             "split",
             (stream, _) => new(null, "txt", stream));
     }
+
     [Fact]
     public Task TextSplit()
     {
@@ -37,7 +38,7 @@ public class ExtensionConverterTests
         return Verifier.Verify(new MemoryStream())
             .UseExtension("ExtensionConversionStringBuilder");
     }
-    
+
     [ModuleInitializer]
     public static void ExtensionConversionInit()
     {
@@ -82,6 +83,7 @@ public class ExtensionConverterTests
                 return new ConversionResult(info, "txt", "Foo");
             });
     }
+
     [Fact]
     public Task WithInfo()
     {

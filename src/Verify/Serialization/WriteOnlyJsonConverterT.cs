@@ -36,6 +36,7 @@ namespace VerifyTests
                 var genericType = nullableType.MakeGenericType(typeof(T));
                 return genericType.IsAssignableFrom(type);
             }
+
             return false;
         }
     }

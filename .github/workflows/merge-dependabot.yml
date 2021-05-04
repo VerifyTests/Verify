@@ -1,0 +1,12 @@
+name: merge-dependabot
+
+on:
+  - pull_request_target
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tjenkinson/gh-action-auto-merge-dependency-updates@v1
+        with:
+          allowed-actors: dependabot-preview[bot], dependabot[bot]

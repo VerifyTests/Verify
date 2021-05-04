@@ -90,17 +90,13 @@ namespace VerifyTests
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-            string testPrefix;
-            if (parameters == null || !parameters.Any())
+            if (parameters == null ||
+                !parameters.Any())
             {
-                testPrefix = $"{typeName}.{methodName}";
-            }
-            else
-            {
-                testPrefix = $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}";
+                return $"{typeName}.{methodName}{uniquenessParts}";
             }
 
-            return $"{testPrefix}{uniquenessParts}";
+            return $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}{uniquenessParts}";
         }
 
         public List<string> VerifiedFiles { get; }

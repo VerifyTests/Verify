@@ -51,7 +51,7 @@ class VerifyEngine
 
         var stream = target.StreamData;
 #if NETSTANDARD2_0 || NETFRAMEWORK
-            using (stream)
+        using (stream)
 #else
         await using (stream)
 #endif

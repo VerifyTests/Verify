@@ -129,14 +129,13 @@ namespace VerifyTests
 
         static void CheckPrefixIsUnique(string prefix, MethodInfo method)
         {
-            if (!prefixList.TryGetValue(prefix, out var existing))
+            if (prefixList.TryGetValue(prefix, out var existing))
             {
-                prefixList[prefix] = method;
-                return;
+                throw new($@"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}.
+This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
             }
 
-            throw new($@"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}.
-This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
+            prefixList[prefix] = method;
         }
 
         public static void ClearPrefixList()

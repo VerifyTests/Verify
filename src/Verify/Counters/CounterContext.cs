@@ -35,7 +35,7 @@
      [ModuleInitializer]
      public static void Init()
      {
-         VerifierSettings.AddTestCallback(Start, Stop);
+         VerifierSettings.OnVerify(Start, Stop);
      }
 
      public static CounterContext Current

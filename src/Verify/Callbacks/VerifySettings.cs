@@ -1,8 +1,11 @@
-﻿namespace VerifyTests
+﻿using System;
+using System.Threading.Tasks;
+
+namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        internal static FirstVerify? handleOnFirstVerify;
+        static FirstVerify? handleOnFirstVerify;
 
         public static void OnFirstVerify(FirstVerify firstVerify)
         {
@@ -10,12 +13,51 @@
             handleOnFirstVerify += firstVerify;
         }
 
-        internal static VerifyMismatch? handleOnVerifyMismatch;
+        internal static Task RunOnFirstVerify(FilePair item)
+        {
+            if (handleOnFirstVerify != null)
+            {
+                return handleOnFirstVerify(item);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        static VerifyMismatch? handleOnVerifyMismatch;
+        internal static Task RunOnVerifyMismatch(FilePair item, string? message)
+        {
+            if (handleOnVerifyMismatch != null)
+            {
+                return handleOnVerifyMismatch(item, message);
+            }
+            return Task.CompletedTask;
+        }
 
         public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
         {
             Guard.AgainstNull(verifyMismatch, nameof(verifyMismatch));
             handleOnVerifyMismatch += verifyMismatch;
+        }
+
+        static Action? beforeVerify;
+        static Action? afterVerify;
+
+        internal static void RunBeforeCallbacks()
+        {
+            beforeVerify?.Invoke();
+        }
+
+        public static void OnVerify(Action before, Action after)
+        {
+            Guard.AgainstNull(before, nameof(before));
+            Guard.AgainstNull(after, nameof(after));
+            beforeVerify += before;
+            afterVerify += after;
+        }
+
+        internal static void RunAfterCallbacks()
+        {
+            afterVerify?.Invoke();
         }
     }
 }

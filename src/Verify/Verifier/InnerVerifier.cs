@@ -21,12 +21,12 @@ namespace VerifyTests
 
             this.settings = settings;
 
-            VerifierSettings.RunStartCallbacks();
+            VerifierSettings.RunBeforeCallbacks();
         }
 
         public void Dispose()
         {
-            VerifierSettings.RunStopCallbacks();
+            VerifierSettings.RunAfterCallbacks();
         }
     }
 }

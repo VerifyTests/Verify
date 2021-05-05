@@ -11,9 +11,9 @@ class SharedScrubber
     bool scrubGuids;
     bool scrubDateTimes;
     JsonSerializerSettings settings;
-    static Func<Guid, int> intOrNextGuid = input => CounterContext.Current.IntOrNext(input);
-    static Func<DateTime, int> intOrNextDateTime = input => CounterContext.Current.IntOrNext(input);
-    static Func<DateTimeOffset, int> intOrNextDateTimeOffset = input => CounterContext.Current.IntOrNext(input);
+    static Func<Guid, int> intOrNextGuid = input => CounterContext.Current.NextGuid(input);
+    static Func<DateTime, int> intOrNextDateTime = input => CounterContext.Current.NextDateTime(input);
+    static Func<DateTimeOffset, int> intOrNextDateTimeOffset = input => CounterContext.Current.NextDateTimeOffset(input);
 
     public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
     {

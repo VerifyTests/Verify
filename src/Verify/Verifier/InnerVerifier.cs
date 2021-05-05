@@ -10,6 +10,7 @@ namespace VerifyTests
     public partial class InnerVerifier :
         IDisposable
     {
+        static List<(Action start, Action stop)> testCallbacks = new();
         VerifySettings settings;
         FileNameBuilder fileNameBuilder;
 
@@ -21,12 +22,23 @@ namespace VerifyTests
 
             this.settings = settings;
 
-            CounterContext.Start();
+            foreach (var (start, _) in testCallbacks)
+            {
+                start();
+            }
+        }
+
+        public static void AddTestCallback(Action start, Action stop)
+        {
+            testCallbacks.Add((start, stop));
         }
 
         public void Dispose()
         {
-            CounterContext.Stop();
+            foreach (var (_, stop) in testCallbacks)
+            {
+                stop();
+            }
         }
     }
 }

@@ -1,12 +1,42 @@
 ﻿ using System;
+ using System.Collections.Concurrent;
+ using System.Runtime.CompilerServices;
  using System.Threading;
+ using VerifyTests;
 
  class CounterContext
  {
      static AsyncLocal<CounterContext?> local = new();
-     Counter<Guid> GuidCounter = new();
-     Counter<DateTimeOffset> DateTimeOffsetCounter = new();
-     Counter<DateTime> DateTimeCounter = new();
+
+     ConcurrentDictionary<Guid, int> guidCache = new();
+     int currentGuid;
+
+     public int NextGuid(Guid input)
+     {
+         return guidCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentGuid));
+     }
+
+     ConcurrentDictionary<DateTimeOffset, int> dateTimeOffsetCache = new();
+     int currentDateTimeOffset;
+
+     public int NextDateTimeOffset(DateTimeOffset input)
+     {
+         return dateTimeOffsetCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDateTimeOffset));
+     }
+
+     ConcurrentDictionary<DateTime, int> dateTimeCache = new();
+     int currentDateTime;
+
+     public int NextDateTime(DateTime input)
+     {
+         return dateTimeCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDateTime));
+     }
+
+     [ModuleInitializer]
+     public static void Init()
+     {
+         InnerVerifier.AddTestCallback(Start, Stop);
+     }
 
      public static CounterContext Current
      {
@@ -22,33 +52,12 @@
          }
      }
 
-     public static void Start()
+     static void Start()
      {
          local.Value = new();
      }
 
-     public int IntOrNext<T>(T input)
-         where T : struct
-     {
-         if (input is Guid guidInput)
-         {
-             return GuidCounter.IntOrNext(guidInput);
-         }
-
-         if (input is DateTime dateTimeInput)
-         {
-             return DateTimeCounter.IntOrNext(dateTimeInput);
-         }
-
-         if (input is DateTimeOffset dateTimeOffsetInput)
-         {
-             return DateTimeOffsetCounter.IntOrNext(dateTimeOffsetInput);
-         }
-
-         throw new($"Unknown type {typeof(T).FullName}");
-     }
-
-     public static void Stop()
+     static void Stop()
      {
          local.Value = null;
      }

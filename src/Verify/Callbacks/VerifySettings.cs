@@ -41,14 +41,6 @@ namespace VerifyTests
             handleOnVerifyMismatch += verifyMismatch;
         }
 
-        static Action? beforeVerify;
-        static Action? afterVerify;
-
-        internal static void RunBeforeCallbacks()
-        {
-            beforeVerify?.Invoke();
-        }
-
         public static void OnVerify(Action before, Action after)
         {
             Guard.AgainstNull(before, nameof(before));
@@ -56,6 +48,15 @@ namespace VerifyTests
             beforeVerify += before;
             afterVerify += after;
         }
+
+        static Action? beforeVerify;
+
+        internal static void RunBeforeCallbacks()
+        {
+            beforeVerify?.Invoke();
+        }
+
+        static Action? afterVerify;
 
         internal static void RunAfterCallbacks()
         {

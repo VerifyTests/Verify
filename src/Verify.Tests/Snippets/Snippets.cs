@@ -15,6 +15,9 @@ public class Snippets
 
     public Task OnHandlersSample()
     {
+        VerifierSettings.OnVerify(
+            before: () => { Debug.WriteLine("before"); },
+            after: () => { Debug.WriteLine("after"); });
         VerifierSettings.OnFirstVerify(
             receivedFile =>
             {

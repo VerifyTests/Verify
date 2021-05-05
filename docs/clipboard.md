@@ -63,7 +63,7 @@ The clipboard behavior can be disable using the following:
 ```cs
 VerifierSettings.DisableClipboard();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L54-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L57-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-disableclipboardglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

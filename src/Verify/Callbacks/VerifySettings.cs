@@ -15,22 +15,24 @@ namespace VerifyTests
 
         internal static Task RunOnFirstVerify(FilePair item)
         {
-            if (handleOnFirstVerify != null)
+            if (handleOnFirstVerify == null)
             {
-                return handleOnFirstVerify(item);
+                return Task.CompletedTask;
             }
 
-            return Task.CompletedTask;
+            return handleOnFirstVerify(item);
         }
 
         static VerifyMismatch? handleOnVerifyMismatch;
+
         internal static Task RunOnVerifyMismatch(FilePair item, string? message)
         {
-            if (handleOnVerifyMismatch != null)
+            if (handleOnVerifyMismatch == null)
             {
-                return handleOnVerifyMismatch(item, message);
+                return Task.CompletedTask;
             }
-            return Task.CompletedTask;
+
+            return handleOnVerifyMismatch(item, message);
         }
 
         public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)

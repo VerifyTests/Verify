@@ -19,11 +19,12 @@ class DateTimeConverter :
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if(scrubber.TryConvert(value, out var result))
+        if (scrubber.TryConvert(value, out var result))
         {
             writer.WriteValue(result);
             return;
         }
+
         writer.WriteValue(value);
     }
 }

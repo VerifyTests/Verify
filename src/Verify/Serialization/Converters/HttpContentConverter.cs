@@ -20,7 +20,7 @@ class HttpContentConverter :
         if (content.IsText(out var subType))
         {
             writer.WritePropertyName("Value");
-            var result = content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var result = content.ReadAsString();
 
             if (subType == "json")
             {

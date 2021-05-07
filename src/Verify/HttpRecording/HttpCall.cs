@@ -58,7 +58,7 @@ namespace VerifyTests
                 return (null, null);
             }
 
-            var stringContent = content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var stringContent = content.ReadAsString();
             var prettyContent = stringContent;
             if (subType == "json")
             {

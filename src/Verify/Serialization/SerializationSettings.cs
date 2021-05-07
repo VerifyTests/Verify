@@ -136,11 +136,12 @@ namespace VerifyTests
             #endregion
 
             settings.SerializationBinder = new ShortNameBinder();
-            SharedScrubber scrubber = new(scrubGuids, scrubDateTimes, scrubNumericIds, settings);
+            SharedScrubber scrubber = new(scrubGuids, scrubDateTimes, settings);
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollections,
                 ignoreFalse,
                 includeObsoletes,
+                scrubNumericIds,
                 ignoredMembers,
                 ignoredByNameMembers,
                 ignoreMembersWithType,

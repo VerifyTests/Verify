@@ -8,6 +8,14 @@
  {
      static AsyncLocal<CounterContext?> local = new();
 
+     ConcurrentDictionary<object, int> idCache = new();
+     int currentId;
+
+     public int NextId(object input)
+     {
+         return idCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentId));
+     }
+
      ConcurrentDictionary<Guid, int> guidCache = new();
      int currentGuid;
 

@@ -106,30 +106,52 @@ public class SerializationTests
             .ModifySerialization(settings => settings.DontScrubDateTimes());
     }
 
-    [Fact]
-    public Task NumericIdScrubbing()
-    {
-        return Verifier.Verify(
-                new
-                {
-                    Id = 1,
-                    OtherId = 1,
-                    YetAnotherId = 2
-                });
-    }
-
+    #region DisableNumericIdGlobal
     [Fact]
     public Task NumericIdScrubbingDisabled()
     {
+        var target = new
+        {
+            Id = 5,
+            OtherId = 5,
+            YetAnotherId = 4
+        };
+        return Verifier.Verify(target)
+            .ModifySerialization(settings => settings.DontScrubNumericIds());
+    }
+    #endregion
+
+    #region DisableNumericIdGlobal
+    [Fact]
+    public Task NumericIdScrubbingDisabledGlobal()
+    {
+        VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
         return Verifier.Verify(
                 new
                 {
-                    Id = 1,
-                    OtherId = 1,
-                    YetAnotherId = 2
-                })
-            .ModifySerialization(settings => settings.DontScrubNumericIds());
+                    Id = 5,
+                    OtherId = 5,
+                    YetAnotherId = 4
+                });
     }
+    #endregion
+
+    #region NumericId
+
+    [Fact]
+    public Task NumericIdScrubbing()
+    {
+        var target = new
+        {
+            Id = 5,
+            OtherId = 5,
+            YetAnotherId = 4
+        };
+
+        return Verifier.Verify(target);
+    }
+
+    #endregion
 
     [Fact]
     public void SettingsIsCloned()

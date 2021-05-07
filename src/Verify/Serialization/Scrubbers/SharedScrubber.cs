@@ -9,15 +9,13 @@ class SharedScrubber
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
     bool scrubGuids;
-    bool scrubNumericIds;
     bool scrubDateTimes;
     JsonSerializerSettings settings;
 
-    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, bool scrubNumericIds, JsonSerializerSettings settings)
+    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
     {
         this.scrubGuids = scrubGuids;
         this.scrubDateTimes = scrubDateTimes;
-        this.scrubNumericIds = scrubNumericIds;
         this.settings = settings;
     }
 

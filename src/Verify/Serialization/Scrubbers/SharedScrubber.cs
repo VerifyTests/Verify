@@ -9,16 +9,18 @@ class SharedScrubber
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
     bool scrubGuids;
+    bool scrubNumericIds;
     bool scrubDateTimes;
     JsonSerializerSettings settings;
     static Func<Guid, int> intOrNextGuid = input => CounterContext.Current.NextGuid(input);
     static Func<DateTime, int> intOrNextDateTime = input => CounterContext.Current.NextDateTime(input);
     static Func<DateTimeOffset, int> intOrNextDateTimeOffset = input => CounterContext.Current.NextDateTimeOffset(input);
 
-    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
+    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, bool scrubNumericIds, JsonSerializerSettings settings)
     {
         this.scrubGuids = scrubGuids;
         this.scrubDateTimes = scrubDateTimes;
+        this.scrubNumericIds = scrubNumericIds;
         this.settings = settings;
     }
 

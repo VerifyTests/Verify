@@ -107,6 +107,31 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task NumericIdScrubbing()
+    {
+        return Verifier.Verify(
+                new
+                {
+                    Id = 1,
+                    OtherId = 1,
+                    YetAnotherId = 2
+                });
+    }
+
+    [Fact]
+    public Task NumericIdScrubbingDisabled()
+    {
+        return Verifier.Verify(
+                new
+                {
+                    Id = 1,
+                    OtherId = 1,
+                    YetAnotherId = 2
+                })
+            .ModifySerialization(settings => settings.DontScrubNumericIds());
+    }
+
+    [Fact]
     public void SettingsIsCloned()
     {
         SerializationSettings settings = new();

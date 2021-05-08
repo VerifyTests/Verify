@@ -12,6 +12,7 @@ class CustomContractResolver :
     bool ignoreEmptyCollections;
     bool ignoreFalse;
     bool includeObsoletes;
+    bool scrubNumericIds;
     IReadOnlyDictionary<Type, List<string>> ignoredMembers;
     IReadOnlyList<string> ignoredByNameMembers;
     IReadOnlyList<Type> ignoredTypes;
@@ -24,6 +25,7 @@ class CustomContractResolver :
         bool ignoreEmptyCollections,
         bool ignoreFalse,
         bool includeObsoletes,
+        bool scrubNumericIds,
         IReadOnlyDictionary<Type, List<string>> ignoredMembers,
         IReadOnlyList<string> ignoredByNameMembers,
         IReadOnlyList<Type> ignoredTypes,
@@ -38,6 +40,7 @@ class CustomContractResolver :
         this.ignoreEmptyCollections = ignoreEmptyCollections;
         this.ignoreFalse = ignoreFalse;
         this.includeObsoletes = includeObsoletes;
+        this.scrubNumericIds = scrubNumericIds;
         this.ignoredMembers = ignoredMembers;
         this.ignoredByNameMembers = ignoredByNameMembers;
         this.ignoredTypes = ignoredTypes;
@@ -158,6 +161,20 @@ class CustomContractResolver :
             return property;
         }
 
+        if (scrubNumericIds && member.Name.EndsWith("Id"))
+        {
+            if (
+                propertyType == typeof(int) ||
+                propertyType == typeof(long) ||
+                propertyType == typeof(uint) ||
+                propertyType == typeof(ulong)
+                )
+            {
+                property.Converter = new IdConverter();
+                return property;
+            }
+
+        }
         if (ignoredInstances.TryGetValue(propertyType, out var funcs))
         {
             property.ShouldSerialize = declaringInstance =>

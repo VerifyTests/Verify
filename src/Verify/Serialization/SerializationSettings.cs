@@ -69,6 +69,7 @@ namespace VerifyTests
                         x => x.Key,
                         x => x.Value.Clone()),
                 scrubDateTimes = scrubDateTimes,
+                scrubNumericIds = scrubNumericIds,
                 scrubGuids = scrubGuids,
                 includeObsoletes = includeObsoletes,
             };
@@ -114,6 +115,13 @@ namespace VerifyTests
             scrubDateTimes = false;
         }
 
+        bool scrubNumericIds= true;
+
+        public void DontScrubNumericIds()
+        {
+            scrubNumericIds = false;
+        }
+
         public JsonSerializerSettings BuildSettings()
         {
             #region defaultSerialization
@@ -133,6 +141,7 @@ namespace VerifyTests
                 ignoreEmptyCollections,
                 ignoreFalse,
                 includeObsoletes,
+                scrubNumericIds,
                 ignoredMembers,
                 ignoredByNameMembers,
                 ignoreMembersWithType,

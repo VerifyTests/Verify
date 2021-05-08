@@ -94,6 +94,25 @@ To disable this behavior globally use:
 snippet: DontScrubDateTimes
 
 
+## Numeric Ids are scrubbed
+
+By default numeric properties (`int`, `uint`, `long`, and `ulong`) suffixed with `Id` are sanitized during verification. This is done by finding each id and taking a counter based that that specific id. That counter is then used replace the id values. This allows for repeatable tests when id are bing generated.
+
+snippet: NumericId
+
+Results in the following:
+
+snippet: SerializationTests.NumericIdScrubbing.verified.txt
+
+To disable this globally use:
+
+snippet: DisableNumericIdGlobal
+
+To disable this behavior globally use:
+
+snippet: DisableNumericIdGlobal
+
+
 ## Default Booleans are ignored
 
 By default values of `bool` and `bool?` are ignored during verification. So properties that equate to 'false' will not be written,

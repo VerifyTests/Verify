@@ -163,15 +163,12 @@ class CustomContractResolver :
 
         if (scrubNumericIds && member.Name.EndsWith("Id"))
         {
+            var underlyingType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
             if (
-                propertyType == typeof(int) ||
-                propertyType == typeof(long) ||
-                propertyType == typeof(uint) ||
-                propertyType == typeof(ulong) ||
-                propertyType == typeof(int?) ||
-                propertyType == typeof(long?) ||
-                propertyType == typeof(uint?) ||
-                propertyType == typeof(ulong?)
+                underlyingType == typeof(int) ||
+                underlyingType == typeof(long) ||
+                underlyingType == typeof(uint) ||
+                underlyingType == typeof(ulong)
                 )
             {
                 property.Converter = new IdConverter();

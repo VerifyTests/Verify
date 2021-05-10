@@ -1,5 +1,6 @@
 ﻿{
   Id: 5,
   OtherId: 5,
-  YetAnotherId: 4
+  YetAnotherId: 4,
+  PossibleNullId: 5
 }

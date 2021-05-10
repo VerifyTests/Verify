@@ -114,7 +114,9 @@ public class SerializationTests
         {
             Id = 5,
             OtherId = 5,
-            YetAnotherId = 4
+            YetAnotherId = 4,
+            PossibleNullId = (int?)5,
+            ActualNullId = (int?)null
         };
         return Verifier.Verify(target)
             .ModifySerialization(settings => settings.DontScrubNumericIds());
@@ -131,7 +133,9 @@ public class SerializationTests
                 {
                     Id = 5,
                     OtherId = 5,
-                    YetAnotherId = 4
+                    YetAnotherId = 4,
+                    PossibleNullId = (int?)5,
+                    ActualNullId = (int?)null
                 });
     }
     #endregion
@@ -145,7 +149,9 @@ public class SerializationTests
         {
             Id = 5,
             OtherId = 5,
-            YetAnotherId = 4
+            YetAnotherId = 4,
+            PossibleNullId = (int?)5,
+            ActualNullId = (int?)null
         };
 
         return Verifier.Verify(target);

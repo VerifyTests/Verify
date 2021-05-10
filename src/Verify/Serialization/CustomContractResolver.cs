@@ -167,7 +167,11 @@ class CustomContractResolver :
                 propertyType == typeof(int) ||
                 propertyType == typeof(long) ||
                 propertyType == typeof(uint) ||
-                propertyType == typeof(ulong)
+                propertyType == typeof(ulong) ||
+                propertyType == typeof(int?) ||
+                propertyType == typeof(long?) ||
+                propertyType == typeof(uint?) ||
+                propertyType == typeof(ulong?)
                 )
             {
                 property.Converter = new IdConverter();

@@ -12,7 +12,7 @@ Naming determines the file name for the `.received.` resulting `.verified.` file
 The format is
 
 ```
-{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}
+{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}
 ```
 
 
@@ -100,7 +100,7 @@ Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 
 ## UseFileName
 
-To fully control the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file use `UseFileName`:
+To fully control the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file use `UseFileName`:
 
 <!-- snippet: UseFileName -->
 <a id='snippet-usefilename'></a>

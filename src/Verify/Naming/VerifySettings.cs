@@ -39,7 +39,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a custom class name for the test results.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
         /// </summary>
         /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public void UseTypeName(string name)
@@ -54,7 +54,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a custom method name for the test results.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
         /// </summary>
         /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public void UseMethodName(string name)
@@ -69,8 +69,8 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a file name for the test results.
-        /// Overrides the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file naming.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
         /// </summary>
         /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
         public void UseFileName(string fileName)
@@ -89,7 +89,6 @@ namespace VerifyTests
                 throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");
             }
         }
-
 
         void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
         {

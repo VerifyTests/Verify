@@ -111,7 +111,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a custom method name for the test results.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
         /// </summary>
         /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public SettingsTask UseMethodName(string name)
@@ -131,8 +131,8 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a file name for the test results.
-        /// Overrides the `{TestClassName}.{TestMethodName}.{Parameters}` parts of the file naming.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
         /// </summary>
         /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
         public SettingsTask UseFileName(string fileName)
@@ -143,7 +143,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a custom class name for the test results.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
         /// </summary>
         /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public SettingsTask UseTypeName(string name)
@@ -234,7 +234,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a custom file extension for the test results.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
         /// </summary>
         public SettingsTask UseExtension(string extension)
         {

@@ -53,7 +53,7 @@ namespace VerifyTests
 
         /// <summary>
         /// Use a custom file extension for the test results.
-        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}.{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
         /// </summary>
         public void UseExtension(string extension)
         {

@@ -195,3 +195,44 @@ public class ParametersSample :
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L6-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Overriding text used for parameters
+
+`UseTextForParameters()` can be used to override the text used for `{Parameters}`.
+
+```
+{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}
+```
+
+<!-- snippet: UseTextForParameters -->
+<a id='snippet-usetextforparameters'></a>
+```cs
+[Theory]
+[InlineData("Value1")]
+[InlineData("Value2")]
+public Task UseTextForParameters(string arg)
+{
+    VerifySettings settings = new();
+    settings.UseTextForParameters(arg);
+    return Verifier.Verify(arg, settings);
+}
+
+[Theory]
+[InlineData("Value1")]
+[InlineData("Value2")]
+public Task UseTextForParametersFluent(string arg)
+{
+    return Verifier.Verify(arg)
+        .UseTextForParameters(arg);
+}
+```
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L146-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in:
+
+ * TheTest.UseTextForParameters_Value1.verified.txt
+ * TheTest.UseTextForParameters_Value2.verified.txt
+ * TheTest.UseTextForParametersFluent_Value1.verified.txt
+ * TheTest.UseTextForParametersFluent_Value2.verified.txt

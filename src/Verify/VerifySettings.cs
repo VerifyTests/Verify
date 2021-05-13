@@ -25,6 +25,7 @@ namespace VerifyTests
             stringComparer = settings.stringComparer;
             streamComparer = settings.streamComparer;
             parameters = settings.parameters;
+            parametersText = settings.parametersText;
             fileName = settings.fileName;
             Namer = new(settings.Namer);
             foreach (var pair in settings.Context)
@@ -47,6 +48,25 @@ namespace VerifyTests
 
         public VerifySettings()
         {
+        }
+
+        internal string? parametersText;
+
+        /// <summary>
+        /// Use a custom text for the `Parameters` part of the file name.
+        /// Not compatible with <see cref="UseParameters"/>.
+        /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
+        /// </summary>
+        public void UseTextForParameters(string parametersText)
+        {
+            Guard.AgainstBadExtension(parametersText, nameof(parametersText));
+
+            if (parameters != null)
+            {
+                throw new($"{nameof(UseTextForParameters)} is not compatible with {nameof(UseParameters)}.");
+            }
+
+            this.parametersText = parametersText;
         }
 
         internal string? extension;

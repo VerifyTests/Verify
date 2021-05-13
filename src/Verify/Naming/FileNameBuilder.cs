@@ -16,7 +16,12 @@ namespace VerifyTests
         static ConcurrentDictionary<string, MethodInfo> prefixList = new();
         string filePathPrefix;
 
-        public FileNameBuilder(MethodInfo method, Type type, string projectDirectory, string sourceFile, IReadOnlyList<object?>? parameters, VerifySettings settings)
+        public FileNameBuilder(
+            MethodInfo method,
+            Type type,
+            string projectDirectory,
+            string sourceFile,
+            VerifySettings settings)
         {
             var namer = settings.Namer;
 
@@ -35,7 +40,7 @@ namespace VerifyTests
                 Directory.CreateDirectory(directory);
             }
 
-            var fileNamePrefix = GetFileNamePrefix(method, type, parameters, settings, pathInfo, namer);
+            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, namer);
             filePathPrefix = Path.Combine(directory, fileNamePrefix);
             CheckPrefixIsUnique(filePathPrefix, method);
 
@@ -79,7 +84,7 @@ namespace VerifyTests
             }
         }
 
-        static string GetFileNamePrefix(MethodInfo method, Type type, IReadOnlyList<object?>? parameters, VerifySettings settings, PathInfo pathInfo, Namer namer)
+        static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, Namer namer)
         {
             var uniquenessParts = GetUniquenessParts(namer, type);
             if (settings.fileName != null)
@@ -90,13 +95,40 @@ namespace VerifyTests
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
             var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-            if (parameters == null ||
-                !parameters.Any())
+            var parameterText = GetParameterText(method, settings);
+
+            return $"{typeName}.{methodName}{parameterText}{uniquenessParts}";
+        }
+
+        static string GetParameterText(MethodInfo method, VerifySettings settings)
+        {
+            var methodParameters = method.GetParameters();
+            if (methodParameters.Any())
             {
-                return $"{typeName}.{methodName}{uniquenessParts}";
+                if (settings.parameters != null)
+                {
+                    return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
+                }
+
+                if (settings.parametersText != null)
+                {
+                    return $"_{settings.parametersText}";
+                }
+
+                var names = string.Join(", ", methodParameters.Select(x => x.Name));
+                throw new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
+
+VerifySettings settings = new();
+settings.UseParameters({names});
+await Verifier.Verify(target, settings);
+
+or
+
+await Verifier.Verify(target).UseParameters({names});
+");
             }
 
-            return $"{typeName}.{methodName}_{ParameterBuilder.Concat(method, parameters)}{uniquenessParts}";
+            return "";
         }
 
         public List<string> VerifiedFiles { get; }

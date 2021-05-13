@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace VerifyTests
@@ -13,11 +12,11 @@ namespace VerifyTests
         VerifySettings settings;
         FileNameBuilder fileNameBuilder;
 
-        public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method, IReadOnlyList<object?>? parameters)
+        public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method)
         {
             var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(type.Assembly);
             settings.instanceScrubbers.Add(replacements);
-            fileNameBuilder = new(method, type, projectDirectory, sourceFile, parameters, settings);
+            fileNameBuilder = new(method, type, projectDirectory, sourceFile, settings);
 
             this.settings = settings;
 

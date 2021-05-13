@@ -131,6 +131,7 @@ Compatibility:
  * Can be used in combination with `UseDirectory`.
  * Can be used in combination with `UniqueFor*`.
 
+
 ## Parameters
 
 See [Parameterised Tests](parameterised.md).
@@ -435,7 +436,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L130-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L130-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

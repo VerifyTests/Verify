@@ -51,3 +51,21 @@ MSTest does not expose the parameter values via its extensibility context. So pa
 ### DataRow
 
 snippet: MSTestDataRow
+
+
+## Overriding text used for parameters
+
+`UseTextForParameters()` can be used to override the text used for `{Parameters}`.
+
+```
+{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}
+```
+
+snippet: UseTextForParameters
+
+Results in:
+
+ * TheTest.UseTextForParameters_Value1.verified.txt
+ * TheTest.UseTextForParameters_Value2.verified.txt
+ * TheTest.UseTextForParametersFluent_Value1.verified.txt
+ * TheTest.UseTextForParametersFluent_Value2.verified.txt

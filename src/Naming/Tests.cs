@@ -124,7 +124,6 @@ public class Tests
             typeof(Tests),
             directory,
             Path.Combine(directory, "NamingTests.cs"),
-            null,
             settings);
     }
 

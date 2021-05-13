@@ -60,8 +60,7 @@ public class SimpleTypeTests
     {
         return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
-
-
+    
     //[Fact]
     //public Task Half()
     //{

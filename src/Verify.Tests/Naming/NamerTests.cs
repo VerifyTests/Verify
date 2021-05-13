@@ -128,8 +128,10 @@ public class NamerTests
     public void AccessNamerRuntimeAndVersion()
     {
         #region AccessNamerRuntimeAndVersion
+
         Debug.WriteLine(Namer.Runtime);
         Debug.WriteLine(Namer.RuntimeAndVersion);
+
         #endregion
     }
 
@@ -140,4 +142,27 @@ public class NamerTests
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("Foo", settings);
     }
+
+    #region UseTextForParameters
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParameters(string arg)
+    {
+        VerifySettings settings = new();
+        settings.UseTextForParameters(arg);
+        return Verifier.Verify(arg, settings);
+    }
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseTextForParametersFluent(string arg)
+    {
+        return Verifier.Verify(arg)
+            .UseTextForParameters(arg);
+    }
+
+    #endregion
 }

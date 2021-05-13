@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -34,12 +35,15 @@ namespace VerifyNUnit
                 throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
             }
 
+            if (adapter.Arguments.Any())
+            {
+                settings.parameters = adapter.Arguments;
+            }
             return new(
                 sourceFile,
                 test.TypeInfo!.Type,
                 settings,
-                test.Method!.MethodInfo,
-                adapter.Arguments);
+                test.Method!.MethodInfo);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

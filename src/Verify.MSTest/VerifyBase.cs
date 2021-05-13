@@ -38,8 +38,7 @@ namespace VerifyMSTest
                 throw new($"Could not find method `{type.Name}.{testName}`.");
             }
 
-            var parameters = settings.GetParameters(methodInfo);
-            return new(sourceFile, type, settings, methodInfo, parameters);
+            return new(sourceFile, type, settings, methodInfo);
         }
 
         SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

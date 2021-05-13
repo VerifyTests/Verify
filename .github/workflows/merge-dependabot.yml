@@ -1,13 +1,21 @@
 name: merge-dependabot
 
 on:
-  - pull_request_target
-  - workflow_dispatch
+  push:
+    branches:
+      - dependabot*
+
+  pull_request:
+    branches:
+      - dependabot*
 
 jobs:
-  run:
+  automerge:
     runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
     steps:
-      - uses: tjenkinson/gh-action-auto-merge-dependency-updates@v1.0.2
-        with:
-          allowed-actors: dependabot-preview[bot], dependabot[bot]
+      - name: Automerge Dependecies
+        uses: "pascalgn/automerge-action@v0.14.1"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "dependencies"

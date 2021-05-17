@@ -27,9 +27,9 @@ namespace VerifyTests
             {"application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx"},
             {"application/vnd.openxmlformats-officedocument.presentationml.template", "potx"},
             {"application/vnd.openxmlformats-officedocument.presentationml.slideshow", "ppsx"},
-            { "application/vnd.ms-powerpoint.addin.macroEnabled.12","ppam"},
-            {"application/vnd.ms-powerpoint.presentation.macroEnabled.12","pptm"},
-            {"application/vnd.ms-powerpoint.template.macroEnabled.12","potm"},
+            {"application/vnd.ms-powerpoint.addin.macroEnabled.12", "ppam"},
+            {"application/vnd.ms-powerpoint.presentation.macroEnabled.12", "pptm"},
+            {"application/vnd.ms-powerpoint.template.macroEnabled.12", "potm"},
             {"application/vnd.ms-powerpoint.slideshow.macroEnabled.12", "ppsm"},
 
             {"application/fsharp-script", "fsx"},
@@ -124,7 +124,7 @@ namespace VerifyTests
             return TryGetMediaTypeExtension(mediaType, out extension);
         }
 
-        public static bool TryGetMediaTypeExtension(string mediaType, [NotNullWhen(true)]  out string? extension)
+        public static bool TryGetMediaTypeExtension(string mediaType, [NotNullWhen(true)] out string? extension)
         {
             return mappings.TryGetValue(mediaType, out extension);
         }
@@ -154,7 +154,7 @@ namespace VerifyTests
             return IsTextMediaType(mediaType, out subType);
         }
 
-        public static bool IsTextMediaType(string mediaType, [NotNullWhen(true)]out string? subType )
+        public static bool IsTextMediaType(string mediaType, [NotNullWhen(true)] out string? subType)
         {
             var split = mediaType.Split('/');
             subType = split[1];

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace VerifyTests
 {
-    public static class HttpContentExtensions
+    public static class HttpExtensions
     {
         // From https://github.com/samuelneff/MimeTypeMap/blob/master/MimeTypeMap.cs
         static Dictionary<string, string> mappings = new(StringComparer.OrdinalIgnoreCase)
@@ -13,6 +14,23 @@ namespace VerifyTests
             //extra
             {"application/graphql", "gql"},
             {"application/json", "json"},
+            {"application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"},
+            {"application/vnd.openxmlformats-officedocument.wordprocessingml.template", "dotx"},
+            {"application/vnd.ms-word.document.macroEnabled.12", "docm"},
+            {"application/vnd.ms-word.template.macroEnabled.12", "dotm"},
+            {"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"},
+            {"application/vnd.openxmlformats-officedocument.spreadsheetml.template", "xltx"},
+            {"application/vnd.ms-excel.sheet.macroEnabled.12", "xlsm"},
+            {"application/vnd.ms-excel.template.macroEnabled.12", "xltm"},
+            {"application/vnd.ms-excel.addin.macroEnabled.12", "xlam"},
+            {"application/vnd.ms-excel.sheet.binary.macroEnabled.12", "xlsb"},
+            {"application/vnd.openxmlformats-officedocument.presentationml.presentation", "pptx"},
+            {"application/vnd.openxmlformats-officedocument.presentationml.template", "potx"},
+            {"application/vnd.openxmlformats-officedocument.presentationml.slideshow", "ppsx"},
+            { "application/vnd.ms-powerpoint.addin.macroEnabled.12","ppam"},
+            {"application/vnd.ms-powerpoint.presentation.macroEnabled.12","pptm"},
+            {"application/vnd.ms-powerpoint.template.macroEnabled.12","potm"},
+            {"application/vnd.ms-powerpoint.slideshow.macroEnabled.12", "ppsm"},
 
             {"application/fsharp-script", "fsx"},
             {"application/msaccess", "adp"},
@@ -84,26 +102,60 @@ namespace VerifyTests
         public static bool TryGetExtension(this HttpContent content, [NotNullWhen(true)] out string? extension)
         {
             Guard.AgainstNull(content, nameof(content));
-            var mediaType = content.Headers.ContentType?.MediaType;
+            var contentType = content.Headers.ContentType;
+            if (contentType == null)
+            {
+                extension = null;
+                return false;
+            }
+
+            return TryGetExtension(contentType, out extension);
+        }
+
+        public static bool TryGetExtension(this MediaTypeHeaderValue contentType, [NotNullWhen(true)] out string? extension)
+        {
+            var mediaType = contentType.MediaType;
             if (mediaType == null)
             {
                 extension = null;
                 return false;
             }
 
+            return TryGetMediaTypeExtension(mediaType, out extension);
+        }
+
+        public static bool TryGetMediaTypeExtension(string mediaType, [NotNullWhen(true)]  out string? extension)
+        {
             return mappings.TryGetValue(mediaType, out extension);
         }
 
         public static bool IsText(this HttpContent content, [NotNullWhen(true)] out string? subType)
         {
             Guard.AgainstNull(content, nameof(content));
-            var mediaType = content.Headers.ContentType?.MediaType;
+            var contentType = content.Headers.ContentType;
+            if (contentType == null)
+            {
+                subType = null;
+                return false;
+            }
+
+            return IsText(contentType, out subType);
+        }
+
+        public static bool IsText(MediaTypeHeaderValue contentType, [NotNullWhen(true)] out string? subType)
+        {
+            var mediaType = contentType.MediaType;
             if (mediaType == null)
             {
                 subType = null;
                 return false;
             }
 
+            return IsTextMediaType(mediaType, out subType);
+        }
+
+        public static bool IsTextMediaType(string mediaType, [NotNullWhen(true)]out string? subType )
+        {
             var split = mediaType.Split('/');
             subType = split[1];
             if (mappings.TryGetValue(mediaType, out var extension))

@@ -8,7 +8,6 @@ namespace VerifyTests
 {
     public static class HttpExtensions
     {
-        // From https://github.com/samuelneff/MimeTypeMap/blob/master/MimeTypeMap.cs
         static Dictionary<string, string> mappings = new(StringComparer.OrdinalIgnoreCase)
         {
             //extra
@@ -61,10 +60,13 @@ namespace VerifyTests
             {"audio/x-pn-realaudio", "ra"},
             {"audio/x-smd", "smd"},
             {"image/bmp", "bmp"},
+            {"image/heic", ".heic"},
+            {"image/heic-sequence", "heics"},
             {"image/jpeg", "jpg"},
             {"image/pict", "pic"},
             {"image/png", "png"},
             {"image/x-png", "png"},
+            {"image/svg+xml", "svg"},
             {"image/tiff", "tiff"},
             {"image/x-macpaint", "mac"},
             {"image/x-quicktime", "qti"},
@@ -74,6 +76,7 @@ namespace VerifyTests
             {"text/plain", "txt"},
             {"text/scriptlet", "wsc"},
             {"text/xml", "xml"},
+            {"text/csv", "csv"},
             {"video/3gpp", "3gp"},
             {"video/3gpp2", "3gp2"},
             {"video/mp4", "mp4"},

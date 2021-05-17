@@ -5,7 +5,7 @@
         internal object?[]? parameters;
 
         /// <summary>
-        /// Define the parameter values being used by a parameterised (aka data drive) test.
+        /// Define the parameter values being used by a parameterised (aka data driven) test.
         /// In most cases the parameter values can be automatically resolved.
         /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
         /// Not compatible with <see cref="UseTextForParameters"/>.

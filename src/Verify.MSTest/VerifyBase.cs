@@ -20,13 +20,13 @@ namespace VerifyMSTest
             var indexOf = testName.IndexOf('(');
             if (indexOf > 0)
             {
-                testName = testName.Substring(0, indexOf);
+                testName = testName[..indexOf];
             }
 
             indexOf = testName.IndexOf('.');
             if (indexOf > 0)
             {
-                testName = testName.Substring(indexOf + 1);
+                testName = testName[(indexOf + 1)..];
             }
 
             var methodInfo = type

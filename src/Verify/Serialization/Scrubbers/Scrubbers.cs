@@ -48,11 +48,11 @@ namespace VerifyTests
                         var c = line[indexOfLeft + 1];
                         if (c == ')')
                         {
-                            line = line.Substring(0, indexOfLeft + 2);
+                            line = line[..(indexOfLeft + 2)];
                         }
                         else
                         {
-                            line = line.Substring(0, indexOfLeft + 1) + "...)";
+                            line = line[..(indexOfLeft + 1)] + "...)";
                         }
                     }
                 }
@@ -61,7 +61,7 @@ namespace VerifyTests
                     var indexOfRight = line.IndexOf(')');
                     if (indexOfRight > -1)
                     {
-                        line = line.Substring(0, indexOfRight + 1);
+                        line = line[..(indexOfRight + 1)];
                     }
                 }
 

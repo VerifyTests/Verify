@@ -6,7 +6,7 @@ static class FileToTypeFinder
 {
     public static bool FindTypeFromFile(this List<Type> types, string file, out Type? type)
     {
-        var withoutExtension = file.Substring(0, file.LastIndexOf('.'));
+        var withoutExtension = file[..file.LastIndexOf('.')];
         var withDots = withoutExtension
             .Replace(Path.DirectorySeparatorChar, '.')
             .Replace(Path.AltDirectorySeparatorChar, '.');

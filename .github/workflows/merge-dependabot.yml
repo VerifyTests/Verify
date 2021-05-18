@@ -1,14 +1,13 @@
 name: merge-dependabot
-
-on:
+on: 
   push:
     branches:
       - dependabot*
-
+      - master
   pull_request:
     branches:
       - dependabot*
-
+      - master
 jobs:
   automerge:
     runs-on: ubuntu-latest

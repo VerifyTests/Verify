@@ -4,11 +4,6 @@ using System.Text;
 
 namespace VerifyTests
 {
-    [Obsolete("Use Target")]
-    public readonly struct ConversionStream
-    {
-    }
-
     public readonly struct Target
     {
         readonly string? stringData;

@@ -122,29 +122,5 @@ namespace VerifyTests
         {
             autoVerify = true;
         }
-
-        [Obsolete("Use VerifierSettings.DisableClipboard()")]
-        public void DisableClipboard()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Obsolete("Clipboard can only be disabled globally")]
-        public void EnableClipboard()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Obsolete("Use VerifierSettings.OnFirstVerify()")]
-        public void OnFirstVerify(FirstVerify firstVerify)
-        {
-            throw new NotImplementedException();
-        }
-
-        [Obsolete("Use VerifierSettings.OnVerifyMismatch()")]
-        public void OnVerifyMismatch(VerifyMismatch verifyMismatch)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

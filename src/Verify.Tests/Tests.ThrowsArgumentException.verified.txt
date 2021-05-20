@@ -1,7 +1,7 @@
-{
+﻿{
   Type: ArgumentException,
   Message: The Message,
   ParamName: The parameter,
-  StackTrace: 
+  StackTrace:
 at Tests.MethodThatThrowsArgumentException()
 }

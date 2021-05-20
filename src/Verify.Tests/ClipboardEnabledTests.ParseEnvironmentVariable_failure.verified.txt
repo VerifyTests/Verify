@@ -1,7 +1,7 @@
-{
+﻿{
   Type: Exception,
   Message: Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: foo,
-  StackTrace: 
+  StackTrace:
 at ClipboardEnabled.ParseEnvironmentVariable(String disabledText)
 at ClipboardEnabledTests.<>c.<ParseEnvironmentVariable_failure>b__1_0()
 }

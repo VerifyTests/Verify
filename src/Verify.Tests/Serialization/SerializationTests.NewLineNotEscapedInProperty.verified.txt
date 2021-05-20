@@ -1,5 +1,5 @@
-{
-  Property: 
+﻿{
+  Property:
 a
 b\nc
 }

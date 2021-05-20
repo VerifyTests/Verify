@@ -11,6 +11,6 @@
     }
   ],
   Message: One or more errors occurred.,
-  StackTrace: 
+  StackTrace:
 at Tests.MethodThatThrowsAggregate()
 }

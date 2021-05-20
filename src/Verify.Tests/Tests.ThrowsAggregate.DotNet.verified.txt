@@ -1,4 +1,4 @@
-{
+﻿{
   Type: AggregateException,
   InnerExceptions: [
     {
@@ -11,6 +11,6 @@
     }
   ],
   Message: One or more errors occurred. (The Message1) (The Message2),
-  StackTrace: 
+  StackTrace:
 at Tests.MethodThatThrowsAggregate()
 }

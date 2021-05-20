@@ -74,7 +74,7 @@ The requests/response pairs will be appended to the verified file.
         Content-Length: 429,
         Content-Type: application/json
       },
-      ResponseContentString: 
+      ResponseContentString:
 {
   "slideshow": {
     "author": "Yours Truly",
@@ -110,7 +110,7 @@ The requests/response pairs will be appended to the verified file.
         Content-Length: 522,
         Content-Type: application/xml
       },
-      ResponseContentString: 
+      ResponseContentString:
 <!--  A SAMPLE set of slides  -->
 <slideshow title="Sample Slide Show" date="Date of publication" author="Yours Truly">
   <!-- TITLE SLIDE -->

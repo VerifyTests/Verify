@@ -357,7 +357,7 @@ public class UniqueForSample :
 
 ### Result
 
-For a project executed on both x64 and x86 that targets
+For a project that targets
 
 ```
 <TargetFrameworks>netcoreapp3.0;net48</TargetFrameworks>
@@ -370,8 +370,6 @@ UniqueForSample.Runtime.Core.verified.txt
 UniqueForSample.Runtime.Net.verified.txt
 UniqueForSample.RuntimeAndVersion.Core3_0.verified.txt
 UniqueForSample.RuntimeAndVersion.Net4_8.verified.txt
-UniqueForSample.Architecture.X86.verified.txt
-UniqueForSample.Architecture.X64.verified.txt
 ```
 
 

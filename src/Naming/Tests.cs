@@ -33,6 +33,7 @@ public class Tests
         {
             Directory.Delete(directory, true);
         }
+
         Directory.CreateDirectory(directory);
 
         VerifySettings settings = new();
@@ -85,15 +86,15 @@ public class Tests
         var builder = Builder(directory, settings);
         var fileNames = builder.GetFileNames("txt");
         var fileNamesWithIndex = builder.GetFileNames("txt", 2);
-        File.WriteAllText(fileNames.Received,"");
-        File.WriteAllText(fileNames.Verified,"");
-        File.WriteAllText(fileNamesWithIndex.Received,"");
-        File.WriteAllText(fileNamesWithIndex.Verified,"");
+        File.WriteAllText(fileNames.Received, "");
+        File.WriteAllText(fileNames.Verified, "");
+        File.WriteAllText(fileNamesWithIndex.Received, "");
+        File.WriteAllText(fileNamesWithIndex.Verified, "");
         FileNameBuilder.ClearPrefixList();
         builder = Builder(directory, settings);
 
-        var receivedFiles = builder.ReceivedFiles.OrderBy(x=>x);
-        var verifiedFiles = builder.VerifiedFiles.OrderBy(x=>x);
+        var receivedFiles = builder.ReceivedFiles.OrderBy(x => x);
+        var verifiedFiles = builder.VerifiedFiles.OrderBy(x => x);
         FileNameBuilder.ClearPrefixList();
         return Verifier.Verify(new
             {
@@ -114,7 +115,7 @@ public class Tests
                 dir)
             .UseMethodName("_")
             .UseTypeName("_")
-            .AddScrubber(_ => _.Replace('/','\\'));
+            .AddScrubber(_ => _.Replace('/', '\\'));
     }
 
     private FileNameBuilder Builder(string directory, VerifySettings settings)
@@ -136,9 +137,10 @@ public class Tests
 
     class TestData : IEnumerable<object[]>
     {
+        static bool[] bools = {true, false};
+
         public IEnumerator<object[]> GetEnumerator()
         {
-            var bools = new[]{true,false};
             foreach (var runtime in bools)
             {
                 foreach (var runtimeStatic in bools)

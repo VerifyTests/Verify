@@ -542,7 +542,7 @@ public class SerializationTests
         return Verifier.Verify(new {currentDirectory, altCurrentDirectory});
     }
 
-#if !NET5_0
+#if !NET5_0_OR_GREATER
     [Fact]
     public Task ScrubCodeBaseLocation()
     {

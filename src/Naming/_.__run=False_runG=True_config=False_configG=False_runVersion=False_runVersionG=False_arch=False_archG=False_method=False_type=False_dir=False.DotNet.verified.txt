@@ -1,0 +1,22 @@
+﻿{
+  fileNames: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.received.txt,
+    Verified: {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.verified.txt,
+    Name: Tests.TheMethod.DotNet
+  },
+  fileNamesWithIndex: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.02.received.txt,
+    Verified: {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.02.verified.txt,
+    Name: Tests.TheMethod.DotNet.02
+  },
+  receivedFiles: [
+    {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.02.received.txt,
+    {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.received.txt
+  ],
+  verifiedFiles: [
+    {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.02.verified.txt,
+    {TempPath}\VerifyNamer\Tests.TheMethod.DotNet.verified.txt
+  ]
+}

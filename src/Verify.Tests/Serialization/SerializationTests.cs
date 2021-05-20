@@ -271,7 +271,7 @@ public class SerializationTests
     [Fact]
     public Task HttpRequestHeaders()
     {
-        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { }, null)!;
+        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
         var instance = (HttpRequestHeaders) constructor.Invoke(null);
         instance.Add("key", "value");
         return Verifier.Verify(instance);
@@ -280,7 +280,7 @@ public class SerializationTests
     [Fact]
     public Task HttpRequestHeadersWithIgnored()
     {
-        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { }, null)!;
+        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
         var instance = (HttpRequestHeaders) constructor.Invoke(null);
         instance.Add("key1", "value");
         instance.Add("key2", "value");
@@ -822,7 +822,7 @@ public class SerializationTests
             ReadOnlyList = new List<string>(),
             ListProperty = new(),
             ReadOnlyCollection = new List<string>(),
-            Array = new string[] { }
+            Array = Array.Empty<string>()
         };
         return Verifier.Verify(target);
     }

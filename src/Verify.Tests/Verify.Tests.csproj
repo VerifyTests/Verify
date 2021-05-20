@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6</TargetFrameworks>
+    <TargetFrameworks>net5;net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <TargetFrameworks>net48;net5.0;net6</TargetFrameworks>
+    <TargetFrameworks>net48;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
     <Compile Remove="Converters\TypeConverterTests.cs" />

@@ -42,7 +42,7 @@ static class FileHelpers
         return stream.ReadAsStringBuilder();
     }
 
-#if NETSTANDARD2_1 || NET5_0
+#if NETSTANDARD2_1 || NET5_0_OR_GREATER
     public static Task WriteText(string filePath, string text)
     {
         return File.WriteAllTextAsync(filePath, text, Utf8);

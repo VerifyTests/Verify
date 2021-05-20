@@ -187,9 +187,24 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForAssemblyConfiguration();
     }
+
+    [Fact]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task ArchitectureFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -245,9 +260,24 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForRuntimeAndVersion();
     }
+
+    [Test]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task ArchitectureFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -304,9 +334,24 @@ public class UniqueForSample :
         return Verify("value")
             .UniqueForAssemblyConfiguration();
     }
+
+    [TestMethod]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task ArchitectureFluent()
+    {
+        return Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

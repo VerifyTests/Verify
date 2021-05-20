@@ -45,6 +45,21 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForAssemblyConfiguration();
     }
+
+    [Fact]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task ArchitectureFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 
 #endregion

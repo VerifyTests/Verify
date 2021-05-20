@@ -48,5 +48,10 @@ namespace VerifyTests
         {
             SharedNamer.UniqueForRuntimeAndVersion = true;
         }
+
+        public static void UniqueForArchitecture()
+        {
+            SharedNamer.UniqueForArchitecture = true;
+        }
     }
 }

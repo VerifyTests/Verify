@@ -73,7 +73,7 @@ namespace VerifyTests
             {typeof(ulong), (target, _) => ((ulong) target).ToString()},
             {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
-            //   {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
             {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
             {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},

@@ -4,6 +4,8 @@ image:
 - macOS
 - Visual Studio 2019
 - Ubuntu
+platform:
+- x64
 build_script:
 # https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script
 - pwsh: |

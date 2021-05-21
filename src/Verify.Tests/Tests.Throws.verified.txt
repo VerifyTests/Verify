@@ -1,6 +1,6 @@
-{
+﻿{
   Type: Exception,
   Message: The Message,
-  StackTrace: 
+  StackTrace:
 at Tests.MethodThatThrows()
 }

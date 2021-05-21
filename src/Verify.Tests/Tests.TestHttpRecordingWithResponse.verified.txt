@@ -1,5 +1,5 @@
-{
-  target: 
+﻿{
+  target:
 {
   "slideshow": {
     "author": "Yours Truly", 
@@ -37,7 +37,7 @@
         Content-Length: 429,
         Content-Type: application/json
       },
-      ResponseContentString: 
+      ResponseContentString:
 {
   "slideshow": {
     "author": "Yours Truly",

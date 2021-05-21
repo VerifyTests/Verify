@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using Newtonsoft.Json;
 using VerifyTests;
 
 class JsonTextWriterEx :
     JsonTextWriter
 {
+    StringBuilder builder;
     public Dictionary<string, object> Context { get; }
 
-    public JsonTextWriterEx(TextWriter writer, Dictionary<string, object> context) :
+    public JsonTextWriterEx(StringWriter writer, StringBuilder builder, Dictionary<string, object> context) :
         base(writer)
     {
+        this.builder = builder;
         Context = context;
         if (!VerifierSettings.StrictJson)
         {
@@ -38,10 +41,18 @@ class JsonTextWriterEx :
 
         if (value.Contains("\n"))
         {
+            base.Flush();
+            var builderLength = builder.Length;
             value = $"\n{value}";
+            base.WriteRawValue(value);
+            base.Flush();
+            builder.Remove(builderLength, 1);
+        }
+        else
+        {
+            base.WriteRawValue(value);
         }
 
-        base.WriteRawValue(value);
     }
 
     public override void WriteValue(byte[]? value)

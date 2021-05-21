@@ -1,22 +1,22 @@
-{
+﻿{
   fileNames: {
     Extension: txt,
-    Received: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.received.txt,
-    Verified: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.verified.txt,
-    Name: Tests.TheMethod.DotNet5_0.Debug
+    Received: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.received.txt,
+    Verified: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.verified.txt,
+    Name: Tests.TheMethod.DotNet6_0.Debug
   },
   fileNamesWithIndex: {
     Extension: txt,
-    Received: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.02.received.txt,
-    Verified: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.02.verified.txt,
-    Name: Tests.TheMethod.DotNet5_0.Debug.02
+    Received: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.02.received.txt,
+    Verified: {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.02.verified.txt,
+    Name: Tests.TheMethod.DotNet6_0.Debug.02
   },
   receivedFiles: [
-    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.02.received.txt,
-    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.received.txt
+    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.02.received.txt,
+    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.received.txt
   ],
   verifiedFiles: [
-    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.02.verified.txt,
-    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet5_0.Debug.verified.txt
+    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.02.verified.txt,
+    {TempPath}\VerifyNamer\customDir\Tests.TheMethod.DotNet6_0.Debug.verified.txt
   ]
 }

@@ -6,14 +6,14 @@ using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using VerifyXunit;
 using Xunit;
-#if NET5_0
+#if NET5_0_OR_GREATER
 using VerifyTests;
 #endif
 
 [UsesVerify]
 public class SimpleTypeTests
 {
-    #if NET5_0
+    #if NET5_0_OR_GREATER
     [Theory]
     [MemberData(nameof(GetData))]
     public Task Run(object arg)
@@ -54,13 +54,13 @@ public class SimpleTypeTests
         return Verifier.Verify(string.Empty);
     }
 
-#if NET5_0
+#if NET5_0_OR_GREATER
     [Fact]
     public Task DateTimeWrappedInTask()
     {
         return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
-    
+
     //[Fact]
     //public Task Half()
     //{

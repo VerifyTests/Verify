@@ -2,6 +2,7 @@
 * text=auto eol=crlf
 *.xml     -text 
 *.targets -text
+*.json -text
 *.txt -text
 
 # Custom for Visual Studio

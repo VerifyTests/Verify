@@ -20,7 +20,7 @@ static class ApplyScrubbers
         var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         currentDirectoryReplacements.Add(currentDirectory);
         currentDirectoryReplacements.Add(altCurrentDirectory);
-#if !NET5_0
+#if !NET5_0_OR_GREATER
         if (CodeBaseLocation.CurrentDirectory != null)
         {
             var codeBaseLocation = CleanPath(CodeBaseLocation.CurrentDirectory);

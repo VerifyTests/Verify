@@ -94,7 +94,7 @@ namespace VerifyTests
             return content.ReadAsStringAsync().GetAwaiter().GetResult();
         }
 
-#if(!NET5_0)
+#if(!NET5_0_OR_GREATER)
         internal static System.IO.Stream ReadAsStream(this HttpContent content)
         {
             Guard.AgainstNull(content, nameof(content));

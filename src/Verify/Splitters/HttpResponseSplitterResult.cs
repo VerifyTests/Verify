@@ -34,7 +34,7 @@ static class HttpResponseSplitterResult
                 instance.IsSuccessStatusCode,
                 instance.ReasonPhrase,
                 instance.Headers,
-#if NET5_0 || NETSTANDARD2_1
+#if NET5_0_OR_GREATER || NETSTANDARD2_1
                 instance.TrailingHeaders,
 #endif
                 instance.RequestMessage

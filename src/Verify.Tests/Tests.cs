@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-#if NET5_0 && DEBUG
+#if NET5_0_OR_GREATER && DEBUG
 using System.Linq;
 #endif
 
@@ -59,7 +59,7 @@ public class Tests
             .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id", "origin", "Content-Length", "TrailingHeaders");
     }
 
-#if NET5_0 && DEBUG
+#if NET5_0_OR_GREATER && DEBUG
 
     [Fact]
     public async Task JsonGet()

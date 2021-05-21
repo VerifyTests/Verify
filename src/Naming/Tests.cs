@@ -19,6 +19,8 @@ public class Tests
         bool configG,
         bool runVersion,
         bool runVersionG,
+        bool arch,
+        bool archG,
         bool method,
         bool type,
         bool dir)
@@ -27,6 +29,7 @@ public class Tests
         sharedNamer.UniqueForAssemblyConfiguration = false;
         sharedNamer.UniqueForRuntime = false;
         sharedNamer.UniqueForRuntimeAndVersion = false;
+        sharedNamer.UniqueForArchitecture = false;
 
         var directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
         if (Directory.Exists(directory))
@@ -66,6 +69,16 @@ public class Tests
         if (runVersionG)
         {
             VerifierSettings.UniqueForRuntimeAndVersion();
+        }
+
+        if (arch)
+        {
+            settings.UniqueForArchitecture();
+        }
+
+        if (archG)
+        {
+            VerifierSettings.UniqueForArchitecture();
         }
 
         if (method)
@@ -110,6 +123,8 @@ public class Tests
                 configG,
                 runVersion,
                 runVersionG,
+                arch,
+                archG,
                 method,
                 type,
                 dir)
@@ -159,18 +174,26 @@ public class Tests
                                         {
                                             foreach (var dir in bools)
                                             {
-                                                yield return new object[]
+                                                foreach (var arch in bools)
                                                 {
-                                                    runtime,
-                                                    runtimeStatic,
-                                                    config,
-                                                    configStatic,
-                                                    runtimeVersion,
-                                                    runtimeVersionStatic,
-                                                    method,
-                                                    type,
-                                                    dir
-                                                };
+                                                    foreach (var archStatic in bools)
+                                                    {
+                                                        yield return new object[]
+                                                        {
+                                                            runtime,
+                                                            runtimeStatic,
+                                                            config,
+                                                            configStatic,
+                                                            runtimeVersion,
+                                                            runtimeVersionStatic,
+                                                            arch,
+                                                            archStatic,
+                                                            method,
+                                                            type,
+                                                            dir
+                                                        };
+                                                    }
+                                                }
                                             }
                                         }
                                     }

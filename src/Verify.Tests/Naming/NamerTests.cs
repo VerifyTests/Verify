@@ -165,4 +165,22 @@ public class NamerTests
     }
 
     #endregion
+
+    [Fact]
+    public void AccessNamerArchitecture()
+    {
+        #region AccessNamerArchitecture
+
+        Debug.WriteLine(Namer.Architecture);
+
+        #endregion
+    }
+
+    [Fact]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verifier.Verify("Foo", settings);
+    }
 }

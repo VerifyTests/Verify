@@ -106,5 +106,14 @@ namespace VerifyTests
         {
             Namer.UniqueForRuntimeAndVersion = true;
         }
+
+        /// <summary>
+        /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
+        /// Used when a test produces different results based on processor architecture.
+        /// </summary>
+        public void UniqueForArchitecture()
+        {
+            Namer.UniqueForArchitecture = true;
+        }
     }
 }

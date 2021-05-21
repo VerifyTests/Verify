@@ -188,6 +188,10 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
                 builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
             }
 
+            if (namer.UniqueForArchitecture || VerifierSettings.SharedNamer.UniqueForArchitecture)
+            {
+                builder.Append($".{Namer.Architecture}");
+            }
             return builder.ToString();
         }
     }

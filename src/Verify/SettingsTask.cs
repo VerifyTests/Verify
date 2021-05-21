@@ -164,6 +164,16 @@ namespace VerifyTests
         }
 
         /// <summary>
+        /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
+        /// Used when a test produces different results based on processor architecture.
+        /// </summary>
+        public SettingsTask UniqueForArchitecture()
+        {
+            CurrentSettings.UniqueForArchitecture();
+            return this;
+        }
+
+        /// <summary>
         /// Remove the <see cref="Environment.MachineName"/> from the test results.
         /// </summary>
         public SettingsTask ScrubMachineName()

@@ -1,8 +1,8 @@
 skip_commits:
   message: /docs|Merge pull request.*/
 image:
-- macOS
 - Visual Studio 2019
+- macOS
 - Ubuntu
 platform:
 - x64

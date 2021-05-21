@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5;net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>net5;net6;net48</TargetFrameworks>

@@ -351,6 +351,18 @@ public static class StaticSettingsUsage
 <!-- endSnippet -->
 
 
+## Versioning
+
+Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:
+
+ * Updates all `Verify.*`packages in isolation
+ * Re-run all tests.
+ * If there are changes, ensure they look correct given the release notes. If the changes do not look correct, raise an issue.
+ * Accept those changes.
+
+Snapshot changes do not trigger a major version change to avoid causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
+
+
 ## Videos
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)

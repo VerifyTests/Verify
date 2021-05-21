@@ -8,17 +8,21 @@ namespace VerifyTests
         internal bool UniqueForRuntime;
         internal bool UniqueForAssemblyConfiguration;
         internal bool UniqueForRuntimeAndVersion;
+        internal bool UniqueForArchitecture;
 
         static Namer()
         {
             var (runtime, version) = GetRuntimeAndVersion();
             Runtime = runtime;
             RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
+            Architecture = RuntimeInformation.ProcessArchitecture.ToString().ToLower();
         }
 
         public static string Runtime { get; }
 
         public static string RuntimeAndVersion { get; }
+
+        public static string Architecture { get; }
 
         internal Namer()
         {
@@ -29,6 +33,7 @@ namespace VerifyTests
             UniqueForRuntime = namer.UniqueForRuntime;
             UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
             UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
+            UniqueForArchitecture = namer.UniqueForArchitecture;
         }
 
         static (string runtime, Version Version) GetRuntimeAndVersion()

@@ -1,0 +1,22 @@
+﻿{
+  fileNames: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\Tests.CustomType.received.txt,
+    Verified: {TempPath}\VerifyNamer\Tests.CustomType.verified.txt,
+    Name: Tests.CustomType
+  },
+  fileNamesWithIndex: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\Tests.CustomType.02.received.txt,
+    Verified: {TempPath}\VerifyNamer\Tests.CustomType.02.verified.txt,
+    Name: Tests.CustomType.02
+  },
+  receivedFiles: [
+    {TempPath}\VerifyNamer\Tests.CustomType.02.received.txt,
+    {TempPath}\VerifyNamer\Tests.CustomType.received.txt
+  ],
+  verifiedFiles: [
+    {TempPath}\VerifyNamer\Tests.CustomType.02.verified.txt,
+    {TempPath}\VerifyNamer\Tests.CustomType.verified.txt
+  ]
+}

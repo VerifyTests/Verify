@@ -187,9 +187,24 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForAssemblyConfiguration();
     }
+
+    [Fact]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task ArchitectureFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -245,9 +260,24 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForRuntimeAndVersion();
     }
+
+    [Test]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task ArchitectureFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -304,15 +334,30 @@ public class UniqueForSample :
         return Verify("value")
             .UniqueForAssemblyConfiguration();
     }
+
+    [TestMethod]
+    public Task Architecture()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForArchitecture();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task ArchitectureFluent()
+    {
+        return Verify("value")
+            .UniqueForArchitecture();
+    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Result
 
-For a project that targets
+For a project executed on both x64 and x86 that targets
 
 ```
 <TargetFrameworks>netcoreapp3.0;net48</TargetFrameworks>
@@ -325,6 +370,8 @@ UniqueForSample.Runtime.Core.verified.txt
 UniqueForSample.Runtime.Net.verified.txt
 UniqueForSample.RuntimeAndVersion.Core3_0.verified.txt
 UniqueForSample.RuntimeAndVersion.Net4_8.verified.txt
+UniqueForSample.Architecture.X86.verified.txt
+UniqueForSample.Architecture.X64.verified.txt
 ```
 
 

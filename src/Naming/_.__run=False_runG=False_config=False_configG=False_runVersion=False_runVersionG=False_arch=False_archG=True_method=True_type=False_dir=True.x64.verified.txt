@@ -1,0 +1,22 @@
+﻿{
+  fileNames: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.received.txt,
+    Verified: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.verified.txt,
+    Name: Tests.CustomMethod.x64
+  },
+  fileNamesWithIndex: {
+    Extension: txt,
+    Received: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.02.received.txt,
+    Verified: {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.02.verified.txt,
+    Name: Tests.CustomMethod.x64.02
+  },
+  receivedFiles: [
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.02.received.txt,
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.received.txt
+  ],
+  verifiedFiles: [
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.02.verified.txt,
+    {TempPath}\VerifyNamer\customDir\Tests.CustomMethod.x64.verified.txt
+  ]
+}

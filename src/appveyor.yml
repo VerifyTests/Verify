@@ -10,18 +10,22 @@ build_script:
     if ($isWindows) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
       ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+      'C:\Program Files\dotnet\dotnet.exe' build src --configuration Release
+      'C:\Program Files\dotnet\dotnet.exe' test src --configuration Release --no-build --no-restore
     }
     else {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       if ($isMacOS) {
-        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64  --install-dir '/usr/local/share/dotnet'
+        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
+        dotnet build src --configuration Release
+        dotnet test src --configuration Release --no-build --no-restore
       } else {
-        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64  --install-dir '/usr/share/dotnet'
+        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
+        dotnet build src --configuration Release
+        dotnet test src --configuration Release --no-build --no-restore
       }
     }
-- dotnet build src --configuration Release
-- dotnet test src --configuration Release --no-build --no-restore
 # begin-snippet: AppVeyorArtifacts
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿#if DEBUG
+using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -63,3 +64,4 @@ public class UniqueForSample
 }
 
 #endregion
+#endif

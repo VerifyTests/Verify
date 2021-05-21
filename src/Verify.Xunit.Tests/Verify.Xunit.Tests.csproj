@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5;net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>net5;net6;net48</TargetFrameworks>
@@ -20,7 +19,6 @@
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'net48'" />
-
     <Folder Include="Scrubbers\" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\build\Verify.props" />

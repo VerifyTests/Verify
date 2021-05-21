@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net5;net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">

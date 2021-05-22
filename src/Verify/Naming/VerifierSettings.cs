@@ -34,24 +34,24 @@ namespace VerifyTests
 
             var nameForParameter = parameter.ToString();
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (nameForParameter != null)
+            if (nameForParameter == null)
             {
-                StringBuilder builder = new();
-                foreach (var ch in nameForParameter)
-                {
-                    if (invalidPathChars.Contains(ch))
-                    {
-                        builder.Append('-');
-                    }
-                    else
-                    {
-                        builder.Append(ch);
-                    }
-                }
-                return builder.ToString();
+                throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
             }
 
-            throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+            StringBuilder builder = new();
+            foreach (var ch in nameForParameter)
+            {
+                if (invalidPathChars.Contains(ch))
+                {
+                    builder.Append('-');
+                }
+                else
+                {
+                    builder.Append(ch);
+                }
+            }
+            return builder.ToString();
         }
 
         public static void UniqueForRuntime()

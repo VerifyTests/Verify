@@ -8,6 +8,30 @@ using Xunit;
 public class NamerTests
 {
     [Fact]
+    public async Task ThrowOnConflict()
+    {
+        static Task Run()
+        {
+            return Verifier.Verify("Value")
+                .UseMethodName("Conflict")
+                .DisableDiff();
+        }
+
+        try
+        {
+            await Run();
+        }
+        catch
+        {
+        }
+
+        await Verifier.ThrowsTask(Run)
+            .UseMethodName("ThrowOnConflict")
+            .AddScrubber(builder => builder.Replace(@"\", "/"))
+            .ScrubLinesContaining("ExceptionDispatchInfo", "End of stack trace from previous location");
+    }
+
+    [Fact]
     public Task Runtime()
     {
         VerifySettings settings = new();

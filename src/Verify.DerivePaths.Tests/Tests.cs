@@ -7,7 +7,8 @@ using Xunit;
 [UsesVerify]
 public class Tests
 {
-    static Tests()
+    [Fact]
+    public async Task Test()
     {
         VerifierSettings.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) =>
@@ -20,34 +21,6 @@ public class Tests
                 Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
-    }
-
-    [Fact]
-    public async Task ThrowOnConflict()
-    {
-        static Task Run()
-        {
-            return Verifier.Verify("Value")
-                .UseMethodName("Conflict")
-                .DisableDiff();
-        }
-
-        try
-        {
-            await Run();
-        }
-        catch
-        {
-        }
-
-        await Verifier.ThrowsTask(Run)
-            .UseMethodName("ThrowOnConflict")
-            .AddScrubber(builder => builder.Replace(@"\", "/"));
-    }
-
-    [Fact]
-    public async Task Test()
-    {
         await Verifier.Verify("Value");
     }
 }

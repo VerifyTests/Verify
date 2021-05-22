@@ -1,0 +1,10 @@
+{
+  Type: Exception,
+  Message:
+The prefix has already been used. Existing: NamerTests.ThrowOnConflict. New: NamerTests.ThrowOnConflict.
+This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {ProjectDirectory}Naming/NamerTests.Conflict,
+  StackTrace:
+at VerifyTests.FileNameBuilder.CheckPrefixIsUnique(String prefix, MethodInfo method)
+at VerifyTests.FileNameBuilder..ctor(MethodInfo method, Type type, String projectDirectory, String sourceFile, VerifySettings settings)
+at VerifyXunit.Verifier.GetVerifier(VerifySettings settings, String sourceFile)
+}

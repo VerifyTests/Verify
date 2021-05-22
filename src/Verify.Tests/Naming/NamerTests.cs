@@ -7,6 +7,7 @@ using Xunit;
 [UsesVerify]
 public class NamerTests
 {
+#if NET6_0
     [Fact]
     public async Task ThrowOnConflict()
     {
@@ -30,6 +31,7 @@ public class NamerTests
             .AddScrubber(builder => builder.Replace(@"\", "/"))
             .ScrubLinesContaining("ExceptionDispatchInfo", "End of stack trace from previous location");
     }
+#endif
 
     [Fact]
     public Task Runtime()

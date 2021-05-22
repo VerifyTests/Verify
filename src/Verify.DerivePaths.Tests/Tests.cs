@@ -35,21 +35,21 @@ public class Tests
     [Fact]
     public Task InvalidMethod()
     {
-        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null, null, "|"));
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null, null, "\""));
         return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
     }
 
     [Fact]
     public Task InvalidType()
     {
-        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null, "|"));
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null, "\""));
         return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
     }
 
     [Fact]
     public Task InvalidDirectory()
     {
-        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo("|"));
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo("\""));
         return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
     }
 }

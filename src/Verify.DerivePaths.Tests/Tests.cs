@@ -8,7 +8,7 @@ using Xunit;
 public class Tests
 {
     [Fact]
-    public async Task Test()
+    public Task Test()
     {
         VerifierSettings.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) =>
@@ -21,6 +21,6 @@ public class Tests
                 Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
-        await Verifier.Verify("Value");
+        return Verifier.Verify("Value");
     }
 }

@@ -23,4 +23,11 @@ public class Tests
             });
         return Verifier.Verify("Value");
     }
+
+    [Fact]
+    public Task ReturnNulls()
+    {
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null,null,null));
+        return Verifier.Verify("Value");
+    }
 }

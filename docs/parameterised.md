@@ -20,6 +20,11 @@ A test with two parameters `param1` + `param2`, and called twice with the values
   * `MyTest.MyMethod_param1=value1b_param2=value2b.verified.txt`
 
 
+### Invalid characters
+
+Characters that cannot be used for a file name will be replaced with a dash (`-`).
+
+
 ## xUnit
 
 

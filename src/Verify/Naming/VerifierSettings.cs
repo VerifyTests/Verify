@@ -51,6 +51,7 @@ namespace VerifyTests
                     builder.Append(ch);
                 }
             }
+
             return builder.ToString();
         }
 

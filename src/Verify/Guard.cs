@@ -21,15 +21,6 @@ static class Guard
         }
     }
 
-    public static void DirectoryExists(string path, string argumentName)
-    {
-        AgainstNullOrEmpty(argumentName, path);
-        if (!Directory.Exists(path))
-        {
-            throw new ArgumentException($"Directory not found. Path: {path}");
-        }
-    }
-
     public static void AgainstNullOrEmpty(string value, string argumentName)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -37,6 +28,7 @@ static class Guard
             throw new ArgumentNullException(argumentName);
         }
     }
+
     public static void AgainstEmpty(string? value, string argumentName)
     {
         if (value == null)

@@ -28,8 +28,7 @@ public class NamerTests
 
         await Verifier.ThrowsTask(Run)
             .UseMethodName("ThrowOnConflict")
-            .AddScrubber(builder => builder.Replace(@"\", "/"))
-            .ScrubLinesContaining("ExceptionDispatchInfo", "End of stack trace from previous location");
+            .AddScrubber(builder => builder.Replace(@"\", "/"));
     }
 #endif
 

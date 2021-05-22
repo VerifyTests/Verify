@@ -50,7 +50,7 @@ static class Guard
     }
 
     static char[] invalidPathChars = Path.GetInvalidPathChars()
-        .Concat(invalidFileChars.Except(new []{'/','\\'}))
+        .Concat(invalidFileChars.Except(new []{'/','\\', ':'}))
         .ToArray();
 
     public static void BadDirectoryName(string? name, string argumentName)

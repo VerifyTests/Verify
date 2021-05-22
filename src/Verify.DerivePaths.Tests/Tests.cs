@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -29,5 +30,26 @@ public class Tests
     {
         VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null));
         return Verifier.Verify("Value");
+    }
+
+    [Fact]
+    public Task InvalidMethod()
+    {
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null, null, "|"));
+        return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
+    }
+
+    [Fact]
+    public Task InvalidType()
+    {
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null, "|"));
+        return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
+    }
+
+    [Fact]
+    public Task InvalidDirectory()
+    {
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo("|"));
+        return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
     }
 }

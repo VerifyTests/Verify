@@ -14,9 +14,9 @@ namespace VerifyTests
             string? typeName = null,
             string? methodName = null)
         {
-            Guard.AgainstEmpty(directory, nameof(directory));
-            Guard.AgainstEmpty(typeName, nameof(typeName));
-            Guard.AgainstEmpty(methodName, nameof(methodName));
+            Guard.BadDirectoryName(directory, nameof(directory));
+            Guard.BadFileNameNullable(typeName, nameof(typeName));
+            Guard.BadFileNameNullable(methodName, nameof(methodName));
             TypeName = typeName;
             MethodName = methodName;
             Directory = directory;

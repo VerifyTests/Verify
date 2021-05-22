@@ -14,10 +14,57 @@ static class Guard
 
     public static void FileExists(string path, string argumentName)
     {
-        AgainstNullOrEmpty(argumentName, path);
+        AgainstNullOrEmpty(path, argumentName);
         if (!File.Exists(path))
         {
-            throw new ArgumentException($"File not found. Path: {path}");
+            throw new ArgumentException($"File not found. Path: {path}", argumentName);
+        }
+    }
+
+    static char[] invalidFileChars = Path.GetInvalidFileNameChars();
+
+    public static void BadFileNameNullable(string? name, string argumentName)
+    {
+        if (name == null)
+        {
+            return;
+        }
+
+        BadFileName(name, argumentName);
+    }
+
+    public static void BadFileName(string name, string argumentName)
+    {
+        AgainstNullOrEmpty(name, argumentName);
+        foreach (var invalidChar in invalidFileChars)
+        {
+            if (name.IndexOf(invalidChar) == -1)
+            {
+                continue;
+            }
+
+            throw new ArgumentException($"Invalid character for file name. Value: {name}. Char:{invalidChar}", argumentName);
+        }
+    }
+
+    static char[] invalidPathChars = Path.GetInvalidPathChars();
+
+    public static void BadDirectoryName(string? name, string argumentName)
+    {
+        if (name == null)
+        {
+            return;
+        }
+
+        AgainstEmpty(name, argumentName);
+        foreach (var invalidChar in invalidPathChars)
+        {
+            if (name.IndexOf(invalidChar) == -1)
+            {
+                continue;
+            }
+
+            throw new ArgumentException($"Invalid character for directory. Value: {name}. Char:{invalidChar}", argumentName);
         }
     }
 

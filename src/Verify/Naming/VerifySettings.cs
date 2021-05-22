@@ -31,7 +31,7 @@ namespace VerifyTests
         /// </summary>
         public void UseDirectory(string directory)
         {
-            Guard.AgainstNullOrEmpty(directory, nameof(directory));
+            Guard.BadDirectoryName(directory, nameof(directory));
             this.directory = directory;
         }
 
@@ -44,7 +44,7 @@ namespace VerifyTests
         /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public void UseTypeName(string name)
         {
-            Guard.AgainstNullOrEmpty(name, nameof(name));
+            Guard.BadFileName(name, nameof(name));
             ThrowIfFileNameDefined();
 
             typeName = name;
@@ -59,7 +59,7 @@ namespace VerifyTests
         /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
         public void UseMethodName(string name)
         {
-            Guard.AgainstNullOrEmpty(name, nameof(name));
+            Guard.BadFileName(name, nameof(name));
             ThrowIfFileNameDefined();
 
             methodName = name;
@@ -75,7 +75,7 @@ namespace VerifyTests
         /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
         public void UseFileName(string fileName)
         {
-            Guard.AgainstNullOrEmpty(fileName, nameof(fileName));
+            Guard.BadFileName(fileName, nameof(fileName));
             ThrowIfMethodOrTypeNameDefined();
 
             this.fileName = fileName;

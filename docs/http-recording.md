@@ -48,7 +48,7 @@ static async Task<int> MethodThatDoesHttpCalls()
     return jsonResult.Length + xmlResult.Length;
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L101-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L99-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The requests/response pairs will be appended to the verified file.
@@ -171,7 +171,7 @@ public async Task TestHttpRecordingExplicit()
             });
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L133-L160' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecordingexplicit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L131-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-httprecordingexplicit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:

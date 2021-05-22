@@ -26,6 +26,14 @@ public class Tests
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
     }
 
+    [Theory]
+    [InlineData("a\"b")]
+    public Task Run(string value)
+    {
+        return Verifier.Verify("foo")
+            .UseParameters(value);
+    }
+
     [Fact]
     public async Task HttpResponseNested()
     {

@@ -27,7 +27,7 @@ public class Tests
     [Fact]
     public Task ReturnNulls()
     {
-        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null,null,null));
+        VerifierSettings.DerivePathInfo((_, _, _, _) => new PathInfo(null));
         return Verifier.Verify("Value");
     }
 }

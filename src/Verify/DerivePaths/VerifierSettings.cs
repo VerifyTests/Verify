@@ -1,34 +1,36 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+// ReSharper disable UnusedParameter.Local
 
 namespace VerifyTests
 {
     public static partial class VerifierSettings
     {
-        static DerivePathInfo? derivePathInfo;
-
-        internal static PathInfo GetPathInfo(string sourceFile, string projectDirectory, Type type, MethodInfo method)
+        #region defaultDerivePathInfo
+        static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
         {
-            if (derivePathInfo != null)
+            static string GetTypeName(Type type)
             {
-                return derivePathInfo(sourceFile, projectDirectory, type, method);
+                if (type.IsNested)
+                {
+                    return $"{type.ReflectedType!.Name}.{type.Name}";
+                }
+
+                return type.Name;
             }
 
             var typeName = GetTypeName(type);
 
             return new(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
-        }
+        };
+        #endregion
 
-        static string GetTypeName(Type type)
+        internal static PathInfo GetPathInfo(string sourceFile, string projectDirectory, Type type, MethodInfo method)
         {
-            if (type.IsNested)
-            {
-                return $"{type.ReflectedType!.Name}.{type.Name}";
-            }
-
-            return type.Name;
+            return derivePathInfo(sourceFile, projectDirectory, type, method);
         }
+
 
         /// <summary>
         /// Use custom path information for `.verified.` files.

@@ -156,3 +156,8 @@ Return null to any of the values to use the standard behavior. The returned path
 `DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
 
 A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.
+
+
+### Default DerivePathInfo
+
+snippet: defaultDerivePathInfo

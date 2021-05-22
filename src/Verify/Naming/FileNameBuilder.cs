@@ -192,6 +192,7 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
             {
                 builder.Append($".{Namer.Architecture}");
             }
+
             return builder.ToString();
         }
     }

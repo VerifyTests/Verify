@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,9 +10,6 @@ using Microsoft.Extensions.Logging;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-#if NET5_0_OR_GREATER && DEBUG
-using System.Linq;
-#endif
 
 // Non-nullable field is uninitialized.
 #pragma warning disable CS8618
@@ -24,6 +22,14 @@ public class Tests
     {
         VerifierSettings.AddExtraDatetimeFormat("F");
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
+    }
+
+    [Theory]
+    [InlineData("a")]
+    public Task ReplaceInvalidParamChar(string value)
+    {
+        return Verifier.Verify("foo")
+            .UseParameters(Path.GetInvalidPathChars().First());
     }
 
     [Fact]

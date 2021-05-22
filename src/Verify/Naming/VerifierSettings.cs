@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace VerifyTests
 {
@@ -14,6 +17,11 @@ namespace VerifyTests
             parameterToNameLookup.Add(typeof(T), o => func((T) o));
         }
 
+        static char[] invalidPathChars = Path.GetInvalidPathChars()
+            .Concat(Path.GetInvalidFileNameChars())
+            .Distinct()
+            .ToArray();
+
         internal static string GetNameForParameter(object parameter)
         {
             foreach (var parameterToName in parameterToNameLookup)
@@ -26,12 +34,25 @@ namespace VerifyTests
 
             var nameForParameter = parameter.ToString();
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (nameForParameter != null)
+            if (nameForParameter == null)
             {
-                return nameForParameter;
+                throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
             }
 
-            throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+            StringBuilder builder = new();
+            foreach (var ch in nameForParameter)
+            {
+                if (invalidPathChars.Contains(ch))
+                {
+                    builder.Append('-');
+                }
+                else
+                {
+                    builder.Append(ch);
+                }
+            }
+
+            return builder.ToString();
         }
 
         public static void UniqueForRuntime()

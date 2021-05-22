@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 static class Guard
 {
@@ -47,7 +49,9 @@ static class Guard
         }
     }
 
-    static char[] invalidPathChars = Path.GetInvalidPathChars();
+    static char[] invalidPathChars = Path.GetInvalidPathChars()
+        .Concat(invalidFileChars.Except(new []{'/','\\'}))
+        .ToArray();
 
     public static void BadDirectoryName(string? name, string argumentName)
     {

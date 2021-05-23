@@ -31,7 +31,6 @@ namespace VerifyTests
             return derivePathInfo(sourceFile, projectDirectory, type, method);
         }
 
-
         /// <summary>
         /// Use custom path information for `.verified.` files.
         /// </summary>

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 class SharedScrubber
 {
+    internal static List<string> dateFormats = new();
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
     bool scrubGuids;
@@ -43,6 +44,28 @@ class SharedScrubber
         return true;
     }
 
+#if NET6_0_OR_GREATER
+
+    public bool TryConvert(DateOnly value, [NotNullWhen(true)] out string? result)
+    {
+        if (!scrubDateTimes)
+        {
+            result = null;
+            return false;
+        }
+
+        result = Convert(value);
+        return true;
+    }
+
+    static string Convert(DateOnly date)
+    {
+        var next = CounterContext.Current.Next(date);
+        return $"Date_{next}";
+    }
+
+#endif
+
     public bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
@@ -57,19 +80,19 @@ class SharedScrubber
 
     public static string Convert(Guid guid)
     {
-        var next = CounterContext.Current.NextGuid(guid);
+        var next = CounterContext.Current.Next(guid);
         return $"Guid_{next}";
     }
 
     static string Convert(DateTime dateTime)
     {
-        var next = CounterContext.Current.NextDateTime(dateTime);
+        var next = CounterContext.Current.Next(dateTime);
         return $"DateTime_{next}";
     }
 
     static string Convert(DateTimeOffset dateTime)
     {
-        var next = CounterContext.Current.NextDateTimeOffset(dateTime);
+        var next = CounterContext.Current.Next(dateTime);
         return $"DateTimeOffset_{next}";
     }
 

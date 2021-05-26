@@ -75,6 +75,22 @@ namespace VerifyTests
 #if NET5_0_OR_GREATER
             {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
+#if NET6_0_OR_GREATER
+            {
+                typeof(DateOnly), (target, _) =>
+                {
+                    var date = (DateOnly) target;
+                    return date.ToString("yyyy-MM-dd");
+                }
+            },
+            {
+                typeof(TimeOnly), (target, _) =>
+                {
+                    var time = (TimeOnly) target;
+                    return time.ToString();
+                }
+            },
+#endif
             {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
             {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
             {typeof(Guid), (target, _) => ((Guid) target).ToString()},
@@ -142,6 +158,11 @@ namespace VerifyTests
         {
             action(serialization);
             serialization.RegenSettings();
+        }
+
+        public static void AddExtraDateFormat(string format)
+        {
+            SharedScrubber.dateFormats.Add(format);
         }
 
         public static void AddExtraDatetimeFormat(string format)

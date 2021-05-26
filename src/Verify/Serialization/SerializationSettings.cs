@@ -15,6 +15,9 @@ namespace VerifyTests
         static JArrayConverter jArrayConverter = new();
         static FileInfoConverter fileInfoConverter = new();
         static UriConverter uriConverter = new();
+        #if NET6_0_OR_GREATER
+        static TimeConverter timeConverter = new();
+        #endif
         static DirectoryInfoConverter directoryInfoConverter = new();
         static StringEnumConverter stringEnumConverter = new();
         static DelegateConverter delegateConverter = new();
@@ -157,6 +160,7 @@ namespace VerifyTests
             converters.Add(new DateTimeConverter(scrubber));
 #if NET6_0_OR_GREATER
             converters.Add(new DateConverter(scrubber));
+            converters.Add(timeConverter);
 #endif
             converters.Add(new DateTimeOffsetConverter(scrubber));
             converters.Add(fileInfoConverter);

@@ -312,6 +312,11 @@ public class SerializationTests
 
 #if NET6_0_OR_GREATER
 
+    [Fact]
+    public Task TimeOnlyNested()
+    {
+        return Verifier.Verify(new {value = new TimeOnly(10, 10)});
+    }
 
     [Fact]
     public Task ShouldIgnoreDatetimeDefaults()
@@ -332,6 +337,8 @@ public class SerializationTests
         {
             DateTime = dateTime,
             DateOnly = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
+            DateOnlyNullable = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
+            DateOnlyString = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day).ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -357,10 +364,9 @@ public class SerializationTests
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
-            TimeOnly = new(20, 10),
-            TimeOnlyNullable = new(21, 10),
             DateOnly = new DateOnly(2020, 10, 10),
-            DateOnlyNullable = new DateOnly(2020, 10, 12)
+            DateOnlyNullable = new DateOnly(2020, 10, 12),
+            DateOnlyString = new DateOnly(2020, 10, 12).ToString()
         };
 
         return Verifier.Verify(target);
@@ -372,13 +378,10 @@ public class SerializationTests
         public DateTime? DateTimeNullable;
         public DateOnly DateOnly;
         public DateOnly? DateOnlyNullable;
-        public TimeOnly TimeOnly;
-        public TimeOnly? TimeOnlyNullable;
         public DateTimeOffset DateTimeOffset;
         public DateTimeOffset? DateTimeOffsetNullable;
         public string DateTimeString;
         public string DateTimeOffsetString;
-        public string TimeOnlyString;
         public string DateOnlyString;
     }
 

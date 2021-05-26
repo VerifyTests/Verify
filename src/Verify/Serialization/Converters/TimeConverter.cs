@@ -14,7 +14,7 @@ class TimeConverter :
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        writer.WriteValue(value.ToString());
+        writer.WriteValue(value.ToString("h:mm tt"));
     }
 }
 #endif

@@ -997,7 +997,7 @@ The default mapping is:
     typeof(TimeOnly), (target, _) =>
     {
         var time = (TimeOnly) target;
-        return time.ToString();
+        return time.ToString("h:mm tt");
     }
 },
 #endif

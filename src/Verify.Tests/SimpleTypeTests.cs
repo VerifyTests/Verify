@@ -61,11 +61,6 @@ public class SimpleTypeTests
         return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
 
-    //[Fact]
-    //public Task Half()
-    //{
-    //    return Verifier.Verify((Half)10);
-    //}
 #endif
 
     [Fact]
@@ -115,5 +110,10 @@ public class SimpleTypeTests
         yield return new object[] {new Guid("ebced679-45d3-4653-8791-3d969c4a986c")};
         yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()};
         yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};
+        #if NET6_0_OR_GREATER
+        yield return new object[] {(Half)10};
+        yield return new object[] {new DateOnly(2000, 1, 1)};
+        yield return new object[] {new TimeOnly(1, 1)};
+        #endif
     }
 }

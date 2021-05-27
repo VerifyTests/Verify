@@ -32,28 +32,6 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task ShouldReUseDatetime()
-    {
-        #region Date
-
-        var dateTime = DateTime.Now;
-        var dateTimeOffset = DateTimeOffset.Now;
-        DateTimeTarget target = new()
-        {
-            DateTime = dateTime,
-            DateTimeNullable = dateTime,
-            DateTimeString = dateTime.ToString("F"),
-            DateTimeOffset = dateTimeOffset,
-            DateTimeOffsetNullable = dateTimeOffset,
-            DateTimeOffsetString = dateTimeOffset.ToString("F"),
-        };
-
-        await Verifier.Verify(target);
-
-        #endregion
-    }
-
-    [Fact]
     public Task PathInfos()
     {
         return Verifier.Verify(
@@ -62,24 +40,6 @@ public class SerializationTests
                 file = new FileInfo(@"c:/foo\bar.txt"),
                 directory = new DirectoryInfo(@"c:/foo\bar/")
             });
-    }
-
-    [Fact]
-    public Task ShouldScrubDatetime()
-    {
-        var dateTime = DateTime.Now;
-        var dateTimeOffset = DateTimeOffset.Now;
-        DateTimeTarget target = new()
-        {
-            DateTime = dateTime,
-            DateTimeNullable = dateTime.AddDays(1),
-            DateTimeString = dateTime.AddDays(2).ToString("F"),
-            DateTimeOffset = dateTimeOffset,
-            DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
-            DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
-        };
-
-        return Verifier.Verify(target);
     }
 
     [Fact]
@@ -350,14 +310,12 @@ public class SerializationTests
             .AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
     }
 
-    class DateTimeTarget
+#if NET6_0_OR_GREATER
+
+    [Fact]
+    public Task TimeOnlyNested()
     {
-        public DateTime DateTime;
-        public DateTime? DateTimeNullable;
-        public DateTimeOffset DateTimeOffset;
-        public DateTimeOffset? DateTimeOffsetNullable;
-        public string DateTimeString;
-        public string DateTimeOffsetString;
+        return Verifier.Verify(new {value = new TimeOnly(10, 10)});
     }
 
     [Fact]
@@ -367,6 +325,67 @@ public class SerializationTests
 
         return Verifier.Verify(target);
     }
+
+    [Fact]
+    public async Task ShouldReUseDatetime()
+    {
+        #region Date
+
+        var dateTime = DateTime.Now;
+        var dateTimeOffset = DateTimeOffset.Now;
+        DateTimeTarget target = new()
+        {
+            DateTime = dateTime,
+            DateOnly = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
+            DateOnlyNullable = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
+            DateOnlyString = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day).ToString(),
+            DateTimeNullable = dateTime,
+            DateTimeString = dateTime.ToString("F"),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset,
+            DateTimeOffsetString = dateTimeOffset.ToString("F"),
+        };
+
+        await Verifier.Verify(target);
+
+        #endregion
+    }
+
+    [Fact]
+    public Task ShouldScrubDatetime()
+    {
+        var dateTime = DateTime.Now;
+        var dateTimeOffset = DateTimeOffset.Now;
+        DateTimeTarget target = new()
+        {
+            DateTime = dateTime,
+            DateTimeNullable = dateTime.AddDays(1),
+            DateTimeString = dateTime.AddDays(2).ToString("F"),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
+            DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
+            DateOnly = new DateOnly(2020, 10, 10),
+            DateOnlyNullable = new DateOnly(2020, 10, 12),
+            DateOnlyString = new DateOnly(2020, 10, 12).ToString()
+        };
+
+        return Verifier.Verify(target);
+    }
+
+    class DateTimeTarget
+    {
+        public DateTime DateTime;
+        public DateTime? DateTimeNullable;
+        public DateOnly DateOnly;
+        public DateOnly? DateOnlyNullable;
+        public DateTimeOffset DateTimeOffset;
+        public DateTimeOffset? DateTimeOffsetNullable;
+        public string DateTimeString;
+        public string DateTimeOffsetString;
+        public string DateOnlyString;
+    }
+
+#endif
 
     [Fact]
     public Task VerifyBytes()

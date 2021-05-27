@@ -19,7 +19,7 @@
      ConcurrentDictionary<Guid, int> guidCache = new();
      int currentGuid;
 
-     public int NextGuid(Guid input)
+     public int Next(Guid input)
      {
          return guidCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentGuid));
      }
@@ -27,7 +27,7 @@
      ConcurrentDictionary<DateTimeOffset, int> dateTimeOffsetCache = new();
      int currentDateTimeOffset;
 
-     public int NextDateTimeOffset(DateTimeOffset input)
+     public int Next(DateTimeOffset input)
      {
          return dateTimeOffsetCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDateTimeOffset));
      }
@@ -35,10 +35,22 @@
      ConcurrentDictionary<DateTime, int> dateTimeCache = new();
      int currentDateTime;
 
-     public int NextDateTime(DateTime input)
+     public int Next(DateTime input)
      {
          return dateTimeCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDateTime));
      }
+
+     #if NET6_0_OR_GREATER
+
+     ConcurrentDictionary<DateOnly, int> dateCache = new();
+     int currentDate;
+
+     public int Next(DateOnly input)
+     {
+         return dateCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDate));
+     }
+
+     #endif
 
      [ModuleInitializer]
      public static void Init()

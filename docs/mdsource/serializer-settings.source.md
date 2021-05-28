@@ -70,13 +70,20 @@ Results in the following:
 
 snippet: SerializationTests.ShouldReUseGuid.verified.txt
 
-To disable this behavior globally use:
-
-snippet: DontScrubGuids
-
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
 snippet: ScrubInlineGuids
+
+
+### Disable
+
+To disable this behavior use:
+
+snippet: DontScrubGuids
+
+To disable this behavior globally use:
+
+snippet: DontScrubGuidsGlobal
 
 
 ## Dates are scrubbed

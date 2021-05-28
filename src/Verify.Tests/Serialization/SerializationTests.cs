@@ -148,14 +148,26 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task GuidScrubbingDisabled()
+    public async Task GuidScrubbingDisabled()
+    {
+        var target = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e");
+
+        #region DontScrubGuids
+
+        await Verifier.Verify(target)
+            .ModifySerialization(_ => _.DontScrubGuids());
+        #endregion
+    }
+
+    [Fact]
+    public Task GuidScrubbingDisabledNested()
     {
         return Verifier.Verify(
                 new
                 {
                     value = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e")
                 })
-            .ModifySerialization(settings => settings.DontScrubGuids());
+            .ModifySerialization(_ => _.DontScrubGuids());
     }
 
     [Fact]
@@ -446,7 +458,7 @@ public class SerializationTests
 
     void DontScrubGuids()
     {
-        #region DontScrubGuids
+        #region DontScrubGuidsGlobal
 
         VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
 

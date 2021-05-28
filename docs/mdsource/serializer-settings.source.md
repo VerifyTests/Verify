@@ -81,6 +81,10 @@ To disable this behavior use:
 
 snippet: DontScrubGuids
 
+Or with the fluent api:
+
+snippet: DontScrubGuidsFluent
+
 To disable this behavior globally use:
 
 snippet: DontScrubGuidsGlobal

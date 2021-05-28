@@ -154,6 +154,19 @@ public class SerializationTests
 
         #region DontScrubGuids
 
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.DontScrubGuids());
+        await Verifier.Verify(target, settings);
+        #endregion
+    }
+
+    [Fact]
+    public async Task GuidScrubbingDisabledFluent()
+    {
+        var target = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e");
+
+        #region DontScrubGuidsFluent
+
         await Verifier.Verify(target)
             .ModifySerialization(_ => _.DontScrubGuids());
         #endregion

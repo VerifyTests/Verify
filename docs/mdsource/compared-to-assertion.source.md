@@ -35,6 +35,6 @@ snippet: TraditionalTest
 
 snippet: SnapshotTest
 
-Produces:
+Produces a snapshot file `SnapshotTest.verified.txt`:
 
 snippet: CompareToAssert.SnapshotTest.verified.txt

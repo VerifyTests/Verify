@@ -102,7 +102,7 @@ public Task SnapshotTest()
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L28-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-snapshottest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Produces:
+Produces a snapshot file `SnapshotTest.verified.txt`:
 
 <!-- snippet: CompareToAssert.SnapshotTest.verified.txt -->
 <a id='snippet-CompareToAssert.SnapshotTest.verified.txt'></a>

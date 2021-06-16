@@ -6,6 +6,7 @@ using Xunit;
 public class CompareToAssert
 {
     #region TraditionalTest
+
     [Fact]
     public void TraditionalTest()
     {
@@ -21,14 +22,17 @@ public class CompareToAssert
         Assert.Equal("4 Puddle Lane", person.Address.Street);
         Assert.Equal("USA", person.Address.Country);
     }
+
     #endregion
 
-    #region VerificationTest
+    #region SnapshotTest
+
     [Fact]
-    public Task Simple()
+    public Task SnapshotTest()
     {
         var person = ClassBeingTested.FindPerson();
         return Verifier.Verify(person);
     }
+
     #endregion
 }

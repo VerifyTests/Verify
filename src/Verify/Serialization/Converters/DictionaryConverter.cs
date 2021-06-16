@@ -18,15 +18,10 @@ class DictionaryConverter :
 
     public override void WriteJson(
         JsonWriter writer,
-        object? value,
+        object value,
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        if (value is null)
-        {
-            return;
-        }
-
         var type = value.GetType();
         var valueType = type.GetGenericArguments().Last();
         var genericType = typeof(DictionaryWrapper<,>).MakeGenericType(valueType, type);

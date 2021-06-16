@@ -1,4 +1,4 @@
-{
+﻿{
   uri1: http://127.0.0.1:57754/admin/databases,
   uri2: {
     Path: http://127.0.0.1:57754/admin/databases,
@@ -27,5 +27,10 @@
     Query: {
       name: 
     }
-  }
+  },
+  uri6: /admin/databases,
+  uri7: /admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483,
+  uri8: /admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483,
+  uri9: /?name,
+  uri10: /?name=
 }

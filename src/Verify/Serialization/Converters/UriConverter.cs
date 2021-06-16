@@ -14,6 +14,12 @@ class UriConverter :
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
+        if (value.IsAbsoluteUri == false)
+        {
+            writer.WriteValue(value.OriginalString);
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(value.Query))
         {
             writer.WriteValue(value.OriginalString);

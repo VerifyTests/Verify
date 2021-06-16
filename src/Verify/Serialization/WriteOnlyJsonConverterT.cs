@@ -22,7 +22,15 @@ namespace VerifyTests
             JsonSerializer serializer,
             IReadOnlyDictionary<string, object> context);
 
-        static Type nullableType = typeof(Nullable<>);
+        static Type? nullableType;
+
+        static WriteOnlyJsonConverter()
+        {
+            if (typeof(T).IsValueType)
+            {
+                nullableType = typeof(Nullable<>).MakeGenericType(typeof(T));
+            }
+        }
 
         public sealed override bool CanConvert(Type type)
         {
@@ -31,13 +39,8 @@ namespace VerifyTests
                 return true;
             }
 
-            if (typeof(T).IsValueType)
-            {
-                var genericType = nullableType.MakeGenericType(typeof(T));
-                return genericType.IsAssignableFrom(type);
-            }
-
-            return false;
+            return nullableType != null &&
+                   nullableType == type;
         }
     }
 }

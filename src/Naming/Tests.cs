@@ -13,7 +13,8 @@ public class Tests
     [Fact]
     public Task Test()
     {
-        return Verifier.Verify(BuildData());
+        return Verifier.Verify(BuildData())
+            .AddScrubber(builder => builder.Replace('/', '\\'));
     }
 
     public Result Run(

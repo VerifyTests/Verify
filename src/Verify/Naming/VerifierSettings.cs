@@ -18,6 +18,7 @@ namespace VerifyTests
 
         static char[] invalidPathChars =
         {
+            '"',
             '\\',
             '<',
             '>',

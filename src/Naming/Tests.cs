@@ -10,9 +10,13 @@ using Xunit;
 [UsesVerify]
 public class Tests
 {
-    [Theory]
-    [ClassData(typeof(TestData))]
-    public Task Test(
+    [Fact]
+    public Task Test()
+    {
+        return Verifier.Verify(BuildData());
+    }
+
+    public Result Run(
         bool run,
         bool runG,
         bool config,
@@ -109,31 +113,16 @@ public class Tests
         var receivedFiles = builder.ReceivedFiles.OrderBy(x => x);
         var verifiedFiles = builder.VerifiedFiles.OrderBy(x => x);
         FileNameBuilder.ClearPrefixList();
-        return Verifier.Verify(new
-            {
-                fileNames,
-                fileNamesWithIndex,
-                receivedFiles,
-                verifiedFiles
-            })
-            .UseParameters(
-                run,
-                runG,
-                config,
-                configG,
-                runVersion,
-                runVersionG,
-                arch,
-                archG,
-                method,
-                type,
-                dir)
-            .UseMethodName("_")
-            .UseTypeName("_")
-            .AddScrubber(_ => _.Replace('/', '\\'));
+        return new()
+        {
+            FileNames = fileNames,
+            FileNamesWithIndex = fileNamesWithIndex,
+            ReceivedFiles = receivedFiles,
+            VerifiedFiles = verifiedFiles
+        };
     }
 
-    private FileNameBuilder Builder(string directory, VerifySettings settings)
+    FileNameBuilder Builder(string directory, VerifySettings settings)
     {
         return new(
             GetType().GetMethod("TheMethod")!,
@@ -150,49 +139,45 @@ public class Tests
 
     }
 
-    class TestData : IEnumerable<object[]>
-    {
-        static bool[] bools = {true, false};
+    static bool[] bools = { true, false };
 
-        public IEnumerator<object[]> GetEnumerator()
+    public IEnumerable<Result> BuildData()
+    {
+        foreach (var runtime in bools)
         {
-            foreach (var runtime in bools)
+            foreach (var runtimeStatic in bools)
             {
-                foreach (var runtimeStatic in bools)
+                foreach (var config in bools)
                 {
-                    foreach (var config in bools)
+                    foreach (var configStatic in bools)
                     {
-                        foreach (var configStatic in bools)
+                        foreach (var runtimeVersion in bools)
                         {
-                            foreach (var runtimeVersion in bools)
+                            foreach (var runtimeVersionStatic in bools)
                             {
-                                foreach (var runtimeVersionStatic in bools)
+                                foreach (var method in bools)
                                 {
-                                    foreach (var method in bools)
+                                    foreach (var type in bools)
                                     {
-                                        foreach (var type in bools)
+                                        foreach (var dir in bools)
                                         {
-                                            foreach (var dir in bools)
+                                            foreach (var arch in bools)
                                             {
-                                                foreach (var arch in bools)
+                                                foreach (var archStatic in bools)
                                                 {
-                                                    foreach (var archStatic in bools)
-                                                    {
-                                                        yield return new object[]
-                                                        {
-                                                            runtime,
-                                                            runtimeStatic,
-                                                            config,
-                                                            configStatic,
-                                                            runtimeVersion,
-                                                            runtimeVersionStatic,
-                                                            arch,
-                                                            archStatic,
-                                                            method,
-                                                            type,
-                                                            dir
-                                                        };
-                                                    }
+                                                    yield return Run(
+                                                        runtime,
+                                                        runtimeStatic,
+                                                        config,
+                                                        configStatic,
+                                                        runtimeVersion,
+                                                        runtimeVersionStatic,
+                                                        arch,
+                                                        archStatic,
+                                                        method,
+                                                        type,
+                                                        dir
+                                                    );
                                                 }
                                             }
                                         }
@@ -204,7 +189,13 @@ public class Tests
                 }
             }
         }
+    }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public class Result
+    {
+        public FilePair FileNames { get; set; }
+        public FilePair FileNamesWithIndex { get; set; }
+        public IOrderedEnumerable<string> ReceivedFiles { get; set; } = null!;
+        public IOrderedEnumerable<string> VerifiedFiles { get; set; } = null!;
     }
 }

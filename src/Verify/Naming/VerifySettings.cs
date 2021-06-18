@@ -115,5 +115,14 @@ namespace VerifyTests
         {
             Namer.UniqueForArchitecture = true;
         }
+        
+        /// <summary>
+        /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
+        /// Used when a test produces different results based on operating system family.
+        /// </summary>
+        public void UniqueForOSPlatform()
+        {
+            Namer.UniqueForOSPlatform = true;
+        }
     }
 }

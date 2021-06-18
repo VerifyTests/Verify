@@ -74,5 +74,10 @@ namespace VerifyTests
         {
             SharedNamer.UniqueForArchitecture = true;
         }
+        
+        public static void UniqueForOSPlatform()
+        {
+            SharedNamer.UniqueForOSPlatform = true;
+        }
     }
 }

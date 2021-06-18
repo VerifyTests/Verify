@@ -9,6 +9,7 @@ namespace VerifyTests
         internal bool UniqueForAssemblyConfiguration;
         internal bool UniqueForRuntimeAndVersion;
         internal bool UniqueForArchitecture;
+        internal bool UniqueForOSPlatform;
 
         static Namer()
         {
@@ -16,6 +17,26 @@ namespace VerifyTests
             Runtime = runtime;
             RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
             Architecture = RuntimeInformation.ProcessArchitecture.ToString().ToLower();
+            OperatingSystemPlatform = GetOSPlatform();
+        }
+
+        private static string GetOSPlatform()
+        {
+            string osPlatform;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                osPlatform = "Linux";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                osPlatform = "Windows";
+            }
+            else
+            {
+                osPlatform = "OSX";
+            }
+
+            return osPlatform;
         }
 
         public static string Runtime { get; }
@@ -23,6 +44,8 @@ namespace VerifyTests
         public static string RuntimeAndVersion { get; }
 
         public static string Architecture { get; }
+        
+        public static string OperatingSystemPlatform { get; }
 
         internal Namer()
         {
@@ -34,6 +57,7 @@ namespace VerifyTests
             UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
             UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
             UniqueForArchitecture = namer.UniqueForArchitecture;
+            UniqueForOSPlatform = namer.UniqueForOSPlatform;
         }
 
         static (string runtime, Version Version) GetRuntimeAndVersion()

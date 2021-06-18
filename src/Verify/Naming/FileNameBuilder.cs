@@ -192,6 +192,11 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
             {
                 builder.Append($".{Namer.Architecture}");
             }
+            
+            if (namer.UniqueForOSPlatform || VerifierSettings.SharedNamer.UniqueForOSPlatform)
+            {
+                builder.Append($".{Namer.OperatingSystemPlatform}");
+            }
 
             return builder.ToString();
         }

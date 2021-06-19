@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +25,8 @@ public class Tests
         bool runVersionG,
         bool arch,
         bool archG,
+        bool os,
+        bool osG,
         bool method,
         bool type,
         bool dir)
@@ -35,6 +36,7 @@ public class Tests
         sharedNamer.UniqueForRuntime = false;
         sharedNamer.UniqueForRuntimeAndVersion = false;
         sharedNamer.UniqueForArchitecture = false;
+        sharedNamer.UniqueForOSPlatform = false;
 
         var directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
         if (Directory.Exists(directory))
@@ -84,6 +86,16 @@ public class Tests
         if (archG)
         {
             VerifierSettings.UniqueForArchitecture();
+        }
+
+        if (os)
+        {
+            settings.UniqueForOSPlatform();
+        }
+
+        if (osG)
+        {
+            VerifierSettings.UniqueForOSPlatform();
         }
 
         if (method)
@@ -166,19 +178,27 @@ public class Tests
                                             {
                                                 foreach (var archStatic in bools)
                                                 {
-                                                    yield return Run(
-                                                        runtime,
-                                                        runtimeStatic,
-                                                        config,
-                                                        configStatic,
-                                                        runtimeVersion,
-                                                        runtimeVersionStatic,
-                                                        arch,
-                                                        archStatic,
-                                                        method,
-                                                        type,
-                                                        dir
-                                                    );
+                                                    foreach (var os in bools)
+                                                    {
+                                                        foreach (var osStatic in bools)
+                                                        {
+                                                            yield return Run(
+                                                                runtime,
+                                                                runtimeStatic,
+                                                                config,
+                                                                configStatic,
+                                                                runtimeVersion,
+                                                                runtimeVersionStatic,
+                                                                arch,
+                                                                archStatic,
+                                                                os,
+                                                                osStatic,
+                                                                method,
+                                                                type,
+                                                                dir
+                                                            );
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }

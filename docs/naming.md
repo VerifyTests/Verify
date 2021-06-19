@@ -202,9 +202,24 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForArchitecture();
     }
+
+    [Fact]
+    public Task ForOSPlatform()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForOSPlatform();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Fact]
+    public Task ForOSPlatformFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForOSPlatform();
+    }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L6-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -275,9 +290,24 @@ public class UniqueForSample
         return Verifier.Verify("value")
             .UniqueForArchitecture();
     }
+
+    [Test]
+    public Task OSPlatform()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForOSPlatform();
+        return Verifier.Verify("value", settings);
+    }
+
+    [Test]
+    public Task OSPlatformFluent()
+    {
+        return Verifier.Verify("value")
+            .UniqueForOSPlatform();
+    }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L6-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -349,9 +379,24 @@ public class UniqueForSample :
         return Verify("value")
             .UniqueForArchitecture();
     }
+
+    [TestMethod]
+    public Task OSPlatform()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForOSPlatform();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task OSPlatformFluent()
+    {
+        return Verify("value")
+            .UniqueForOSPlatform();
+    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L6-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

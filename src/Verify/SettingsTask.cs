@@ -174,6 +174,16 @@ namespace VerifyTests
         }
 
         /// <summary>
+        /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
+        /// Used when a test produces different results based on operating system family.
+        /// </summary>
+        public SettingsTask UniqueForOSPlatform()
+        {
+            CurrentSettings.UniqueForOSPlatform();
+            return this;
+        }
+
+        /// <summary>
         /// Remove the <see cref="Environment.MachineName"/> from the test results.
         /// </summary>
         public SettingsTask ScrubMachineName()

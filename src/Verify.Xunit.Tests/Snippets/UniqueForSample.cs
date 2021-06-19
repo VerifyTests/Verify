@@ -62,7 +62,7 @@ public class UniqueForSample
     }
 
     [Fact]
-    public Task ForOSPlatform()
+    public Task OSPlatform()
     {
         VerifySettings settings = new();
         settings.UniqueForOSPlatform();
@@ -70,7 +70,7 @@ public class UniqueForSample
     }
 
     [Fact]
-    public Task ForOSPlatformFluent()
+    public Task OSPlatformFluent()
     {
         return Verifier.Verify("value")
             .UniqueForOSPlatform();

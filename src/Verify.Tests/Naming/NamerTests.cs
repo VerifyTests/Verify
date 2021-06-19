@@ -208,4 +208,12 @@ public class NamerTests
         settings.UniqueForArchitecture();
         return Verifier.Verify("Foo", settings);
     }
+
+    [Fact]
+    public Task OSPlatform()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForOSPlatform();
+        return Verifier.Verify("Foo", settings);
+    }
 }

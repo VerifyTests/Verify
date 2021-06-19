@@ -68,6 +68,21 @@ public class UniqueForSample :
         return Verify("value")
             .UniqueForArchitecture();
     }
+
+    [TestMethod]
+    public Task OSPlatform()
+    {
+        VerifySettings settings = new();
+        settings.UniqueForOSPlatform();
+        return Verify("value", settings);
+    }
+
+    [TestMethod]
+    public Task OSPlatformFluent()
+    {
+        return Verify("value")
+            .UniqueForOSPlatform();
+    }
 }
 
 #endregion

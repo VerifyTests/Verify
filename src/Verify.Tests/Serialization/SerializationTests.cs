@@ -66,7 +66,46 @@ public class SerializationTests
             .ModifySerialization(settings => settings.DontScrubDateTimes());
     }
 
+    #region AddExtraSettings
+
+    [Fact]
+    public Task AddExtraSettings()
+    {
+        var verifySettings = new VerifySettings();
+        verifySettings.ModifySerialization(settings =>
+            settings.AddExtraSettings(serializerSettings =>
+                serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
+        return Verifier.Verify(new DateTime(2000, 1, 1), verifySettings);
+    }
+
+    #endregion
+
+    #region AddExtraSettingsFluent
+
+    [Fact]
+    public Task AddExtraSettingsFluent()
+    {
+        return Verifier.Verify(new DateTime(2000, 1, 1))
+            .ModifySerialization(settings =>
+                settings.AddExtraSettings(serializerSettings =>
+                    serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
+    }
+
+    #endregion
+
+    void AddExtraSettingsGlobal()
+    {
+        #region AddExtraSettingsGlobal
+
+        VerifierSettings.ModifySerialization(settings =>
+            settings.AddExtraSettings(serializerSettings =>
+                serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
+
+        #endregion
+    }
+
     #region DisableNumericIdGlobal
+
     [Fact]
     public Task NumericIdScrubbingDisabled()
     {
@@ -81,23 +120,26 @@ public class SerializationTests
         return Verifier.Verify(target)
             .ModifySerialization(settings => settings.DontScrubNumericIds());
     }
+
     #endregion
 
     #region DisableNumericIdGlobal
+
     [Fact]
     public Task NumericIdScrubbingDisabledGlobal()
     {
         VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
         return Verifier.Verify(
-                new
-                {
-                    Id = 5,
-                    OtherId = 5,
-                    YetAnotherId = 4,
-                    PossibleNullId = (int?)5,
-                    ActualNullId = (int?)null
-                });
+            new
+            {
+                Id = 5,
+                OtherId = 5,
+                YetAnotherId = 4,
+                PossibleNullId = (int?)5,
+                ActualNullId = (int?)null
+            });
     }
+
     #endregion
 
     #region NumericId
@@ -157,6 +199,7 @@ public class SerializationTests
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.DontScrubGuids());
         await Verifier.Verify(target, settings);
+
         #endregion
     }
 
@@ -169,6 +212,7 @@ public class SerializationTests
 
         await Verifier.Verify(target)
             .ModifySerialization(_ => _.DontScrubGuids());
+
         #endregion
     }
 
@@ -228,14 +272,14 @@ public class SerializationTests
         return Verifier.Verify(
             new
             {
-                item1 = new NameValueCollection {{null, null}},
-                item2 = new NameValueCollection {{"key", null}},
-                item3 = new NameValueCollection {{null, "value"}},
-                item4 = new NameValueCollection {{"key", "value"}},
-                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
-                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
-                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
-                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}},
+                item1 = new NameValueCollection { { null, null } },
+                item2 = new NameValueCollection { { "key", null } },
+                item3 = new NameValueCollection { { null, "value" } },
+                item4 = new NameValueCollection { { "key", "value" } },
+                item5 = new NameValueCollection { { "key", "value1" }, { "key", "value2" } },
+                item6 = new NameValueCollection { { "key", null }, { "key", "value2" } },
+                item7 = new NameValueCollection { { "key", "value1" }, { "key", null } },
+                item8 = new NameValueCollection { { "key1", "value1" }, { "key2", "value2" } },
             });
     }
 
@@ -262,7 +306,7 @@ public class SerializationTests
     public Task HttpRequestHeaders()
     {
         var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
-        var instance = (HttpRequestHeaders) constructor.Invoke(null);
+        var instance = (HttpRequestHeaders)constructor.Invoke(null);
         instance.Add("key", "value");
         return Verifier.Verify(instance);
     }
@@ -271,7 +315,7 @@ public class SerializationTests
     public Task HttpRequestHeadersWithIgnored()
     {
         var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
-        var instance = (HttpRequestHeaders) constructor.Invoke(null);
+        var instance = (HttpRequestHeaders)constructor.Invoke(null);
         instance.Add("key1", "value");
         instance.Add("key2", "value");
         return Verifier.Verify(instance)
@@ -284,7 +328,7 @@ public class SerializationTests
         return Verifier.Verify(
             new
             {
-                bytes = new byte[] {1}
+                bytes = new byte[] { 1 }
             });
     }
 
@@ -298,7 +342,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new() { "Sam", "Mary" },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -328,7 +372,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new() { "Sam", "Mary" },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -531,7 +575,7 @@ public class SerializationTests
     [Fact]
     public Task NewLineNotEscapedInProperty()
     {
-        return Verifier.Verify(new {Property = "a\r\nb\\nc"});
+        return Verifier.Verify(new { Property = "a\r\nb\\nc" });
     }
 
     void List()
@@ -580,7 +624,7 @@ public class SerializationTests
     {
         var tempPath = Path.GetTempPath().TrimEnd('/', '\\');
         var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {tempPath, altTempPath});
+        return Verifier.Verify(new { tempPath, altTempPath });
     }
 
     [Fact]
@@ -588,7 +632,7 @@ public class SerializationTests
     {
         var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\');
         var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {currentDirectory, altCurrentDirectory});
+        return Verifier.Verify(new { currentDirectory, altCurrentDirectory });
     }
 
 #if !NET5_0_OR_GREATER
@@ -597,7 +641,7 @@ public class SerializationTests
     {
         var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {codeBaseLocation, altCodeBaseLocation});
+        return Verifier.Verify(new { codeBaseLocation, altCodeBaseLocation });
     }
 #endif
 
@@ -606,7 +650,7 @@ public class SerializationTests
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {baseDirectory, altBaseDirectory});
+        return Verifier.Verify(new { baseDirectory, altBaseDirectory });
     }
 
     class TypeTarget
@@ -632,7 +676,7 @@ public class SerializationTests
     {
         #region type
 
-        var foo = new {x = 1};
+        var foo = new { x = 1 };
         TypeTarget target = new()
         {
             Type = GetType(),
@@ -844,19 +888,19 @@ public class SerializationTests
             {
                 guid = new Dictionary<Guid, string>
                 {
-                    {Guid.NewGuid(), "value"}
+                    { Guid.NewGuid(), "value" }
                 },
                 dateTime = new Dictionary<DateTime, string>
                 {
-                    {DateTime.Now, "value"}
+                    { DateTime.Now, "value" }
                 },
                 dateTimeOffset = new Dictionary<DateTimeOffset, string>
                 {
-                    {DateTimeOffset.Now, "value"}
+                    { DateTimeOffset.Now, "value" }
                 },
                 type = new Dictionary<Type, string>
                 {
-                    {typeof(SerializationTests), "value"}
+                    { typeof(SerializationTests), "value" }
                 }
             });
     }
@@ -1282,10 +1326,7 @@ public class SerializationTests
 }";
         var target = JToken.Parse(json);
         return Verifier.Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.IgnoreMember("Ignore1");
-            });
+            .ModifySerialization(_ => { _.IgnoreMember("Ignore1"); });
     }
 
     [Fact]
@@ -1351,26 +1392,25 @@ public class SerializationTests
             {
                 "Include", new Dictionary<string, string>
                 {
-                    {"Ignore", "Value1"},
-                    {"Key1", "Value2"}
+                    { "Ignore", "Value1" },
+                    { "Key1", "Value2" }
                 }
             },
-            {"Ignore", "Value3"},
-            {"Key2", "Value4"},
+            { "Ignore", "Value3" },
+            { "Key2", "Value4" },
         };
         return Verifier.Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.IgnoreMember("Ignore");
-            });
+            .ModifySerialization(_ => { _.IgnoreMember("Ignore"); });
     }
 
     class IgnoreExplicitTarget
     {
         public string Include;
         public string Property { get; set; }
+
         [JsonProperty(PropertyName = "_Custom")]
         public string PropertyWithPropertyName { get; set; }
+
         public string PropertyByName { get; set; }
         public string GetOnlyProperty => "asd";
         public string PropertyThatThrows => throw new();

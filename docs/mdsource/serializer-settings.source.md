@@ -46,6 +46,24 @@ The default `JsonSerializerSettings` are:
 snippet: defaultSerialization
 
 
+### Modify Defaults
+
+
+#### Globally
+
+snippet: AddExtraSettingsGlobal
+
+
+#### On Settings
+
+snippet: AddExtraSettings
+
+
+#### On Settings Fluent
+
+snippet: AddExtraSettingsFluent
+
+
 ## QuoteName is false
 
 [JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences.

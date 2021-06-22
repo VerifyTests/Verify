@@ -7,8 +7,6 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="build.props" PackagePath="build\Verify.Xunit.props" />
-    <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Verify.Xunit.props" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />

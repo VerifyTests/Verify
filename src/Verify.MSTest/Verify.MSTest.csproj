@@ -7,8 +7,6 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="buildMultiTargeting.props" PackagePath="buildMultiTargeting\Verify.MSTest.props" />
-    <Content Include="build.props" PackagePath="build\Verify.MSTest.props" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ProjectDefaults" Version="1.0.54" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.7.0" PrivateAssets="None" />

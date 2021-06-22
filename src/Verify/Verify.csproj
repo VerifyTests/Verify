@@ -22,9 +22,7 @@
     <PackageReference Include="IndexRange" Version="1.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
-    <Content Include="buildMultiTargeting\Verify.props" PackagePath="buildMultiTargeting\Verify.props" />
-    <Content Include="build\Verify.props" PackagePath="build\Verify.props" />
-    <Content Include="buildMultiTargeting\Verify.targets" PackagePath="buildMultiTargeting\Verify.targets" />
-    <Content Include="build\Verify.targets" PackagePath="build\Verify.targets" />
+    <Content Include="buildTransitive\Verify.props" PackagePath="buildTransitive\Verify.props" />
+    <Content Include="buildTransitive\Verify.targets" PackagePath="buildTransitive\Verify.targets" />
   </ItemGroup>
 </Project>

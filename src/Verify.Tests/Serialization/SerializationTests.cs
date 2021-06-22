@@ -71,11 +71,12 @@ public class SerializationTests
     [Fact]
     public Task AddExtraSettings()
     {
+        var target = new DateOnly(2000, 1, 1);
+
         var verifySettings = new VerifySettings();
         verifySettings.ModifySerialization(settings =>
             settings.AddExtraSettings(serializerSettings =>
                 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
-        var target = new DateOnly(2000, 1, 1);
         return Verifier.Verify(target, verifySettings);
     }
 
@@ -87,6 +88,7 @@ public class SerializationTests
     public Task AddExtraSettingsFluent()
     {
         var target = new DateOnly(2000, 1, 1);
+
         return Verifier.Verify(target)
             .ModifySerialization(settings =>
                 settings.AddExtraSettings(serializerSettings =>

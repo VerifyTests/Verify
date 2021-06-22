@@ -65,8 +65,7 @@ public class SerializationTests
                 })
             .ModifySerialization(settings => settings.DontScrubDateTimes());
     }
-    #if Debug
-
+    #if NET6_0_OR_GREATER
     #region AddExtraSettings
 
     [Fact]
@@ -76,7 +75,8 @@ public class SerializationTests
         verifySettings.ModifySerialization(settings =>
             settings.AddExtraSettings(serializerSettings =>
                 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
-        return Verifier.Verify(new DateTime(2000, 1, 1), verifySettings);
+        var target = new DateOnly(2000, 1, 1);
+        return Verifier.Verify(target, verifySettings);
     }
 
     #endregion
@@ -86,7 +86,8 @@ public class SerializationTests
     [Fact]
     public Task AddExtraSettingsFluent()
     {
-        return Verifier.Verify(new DateTime(2000, 1, 1))
+        var target = new DateOnly(2000, 1, 1);
+        return Verifier.Verify(target)
             .ModifySerialization(settings =>
                 settings.AddExtraSettings(serializerSettings =>
                     serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));

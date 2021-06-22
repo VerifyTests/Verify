@@ -22,9 +22,7 @@ class HttpHeadersConverter :
                 {
                     var values = x.Value.ToList();
                     var key = x.Key.ToLowerInvariant();
-                    if (key == "date" ||
-                        key == "expires" ||
-                        key == "last-modified")
+                    if (key is "date" or "expires" or "last-modified")
                     {
                         if (DateTime.TryParse(values.First(), out var date))
                         {

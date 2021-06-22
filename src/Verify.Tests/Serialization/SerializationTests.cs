@@ -65,6 +65,7 @@ public class SerializationTests
                 })
             .ModifySerialization(settings => settings.DontScrubDateTimes());
     }
+    #if Debug
 
     #region AddExtraSettings
 
@@ -92,6 +93,8 @@ public class SerializationTests
     }
 
     #endregion
+
+    #endif
 
     void AddExtraSettingsGlobal()
     {

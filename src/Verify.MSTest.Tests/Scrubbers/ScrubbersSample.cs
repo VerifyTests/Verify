@@ -4,32 +4,34 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyTests;
 using VerifyMSTest;
 
-#region ScrubbersSampleMSTest
-
-[TestClass]
-public class ScrubbersSample :
-    VerifyBase
+namespace TheTests
 {
-    [TestMethod]
-    public Task Lines()
-    {
-        VerifySettings settings = new();
-        settings.ScrubLinesWithReplace(
-            replaceLine: line =>
-            {
-                if (line.Contains("LineE"))
-                {
-                    return "NoMoreLineE";
-                }
+    #region ScrubbersSampleMSTest
 
-                return line;
-            });
-        settings.ScrubLines(removeLine: line => line.Contains("J"));
-        settings.ScrubLinesContaining("b", "D");
-        settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
-            settings: settings,
-            target: @"
+    [TestClass]
+    public class ScrubbersSample :
+        VerifyBase
+    {
+        [TestMethod]
+        public Task Lines()
+        {
+            VerifySettings settings = new();
+            settings.ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineE"))
+                    {
+                        return "NoMoreLineE";
+                    }
+
+                    return line;
+                });
+            settings.ScrubLines(removeLine: line => line.Contains("J"));
+            settings.ScrubLinesContaining("b", "D");
+            settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
+            return Verify(
+                settings: settings,
+                target: @"
                     LineA
                     LineB
                     LineC
@@ -39,13 +41,13 @@ public class ScrubbersSample :
                     LineI
                     LineJ
                     ");
-    }
+        }
 
-    [TestMethod]
-    public Task LinesFluent()
-    {
-        return Verify(
-                target: @"
+        [TestMethod]
+        public Task LinesFluent()
+        {
+            return Verify(
+                    target: @"
                         LineA
                         LineB
                         LineC
@@ -55,80 +57,81 @@ public class ScrubbersSample :
                         LineI
                         LineJ
                         ")
-            .ScrubLinesWithReplace(
-                replaceLine: line =>
-                {
-                    if (line.Contains("LineE"))
+                .ScrubLinesWithReplace(
+                    replaceLine: line =>
                     {
-                        return "NoMoreLineE";
-                    }
+                        if (line.Contains("LineE"))
+                        {
+                            return "NoMoreLineE";
+                        }
 
-                    return line;
-                })
-            .ScrubLines(removeLine: line => line.Contains("J"))
-            .ScrubLinesContaining("b", "D")
-            .ScrubLinesContaining(StringComparison.Ordinal, "H");
-    }
+                        return line;
+                    })
+                .ScrubLines(removeLine: line => line.Contains("J"))
+                .ScrubLinesContaining("b", "D")
+                .ScrubLinesContaining(StringComparison.Ordinal, "H");
+        }
 
-    [TestMethod]
-    public Task AfterSerialization()
-    {
-        ToBeScrubbed target = new()
+        [TestMethod]
+        public Task AfterSerialization()
         {
-            RowVersion = "7D3"
-        };
+            ToBeScrubbed target = new()
+            {
+                RowVersion = "7D3"
+            };
 
-        VerifySettings settings = new();
-        settings.AddScrubber(
-            input => input.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
-    }
-
-    [TestMethod]
-    public Task AfterSerializationFluent()
-    {
-        ToBeScrubbed target = new()
-        {
-            RowVersion = "7D3"
-        };
-
-        return Verify(target)
-            .AddScrubber(
+            VerifySettings settings = new();
+            settings.AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
-    }
+            return Verify(target, settings);
+        }
 
-    [TestMethod]
-    public Task RemoveOrReplace()
-    {
-        return Verify(
-                target: @"
+        [TestMethod]
+        public Task AfterSerializationFluent()
+        {
+            ToBeScrubbed target = new()
+            {
+                RowVersion = "7D3"
+            };
+
+            return Verify(target)
+                .AddScrubber(
+                    input => input.Replace("7D3", "TheRowVersion"));
+        }
+
+        [TestMethod]
+        public Task RemoveOrReplace()
+        {
+            return Verify(
+                    target: @"
                         LineA
                         LineB
                         LineC
                         ")
-            .ScrubLinesWithReplace(
-                replaceLine: line =>
-                {
-                    if (line.Contains("LineB"))
+                .ScrubLinesWithReplace(
+                    replaceLine: line =>
                     {
-                        return null;
-                    }
+                        if (line.Contains("LineB"))
+                        {
+                            return null;
+                        }
 
-                    return line.ToLower();
-                });
-    }
+                        return line.ToLower();
+                    });
+        }
 
-    [TestMethod]
-    public Task EmptyLines()
-    {
-        return Verify(
-                target: @"
+        [TestMethod]
+        public Task EmptyLines()
+        {
+            return Verify(
+                    target: @"
                         LineA
                         
                         LineC
                         ")
-            .ScrubEmptyLines();
+                .ScrubEmptyLines();
+        }
     }
-}
 
-#endregion
+    #endregion
+}

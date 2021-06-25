@@ -198,7 +198,7 @@ public class ParametersSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L6-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L8-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

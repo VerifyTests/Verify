@@ -2,19 +2,22 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 
-[TestClass]
-public class Base :
-    VerifyBase
+namespace TheTests
 {
-    [TestMethod]
-    public Task TestInBase()
+    [TestClass]
+    public class Base :
+        VerifyBase
     {
-        return Verify("Foo");
-    }
+        [TestMethod]
+        public Task TestInBase()
+        {
+            return Verify("Foo");
+        }
 
-    [TestMethod]
-    public virtual Task TestToOverride()
-    {
-        return Verify("Foo");
+        [TestMethod]
+        public virtual Task TestToOverride()
+        {
+            return Verify("Foo");
+        }
     }
 }

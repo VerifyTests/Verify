@@ -22,4 +22,12 @@ public class Tests :
         return Verify(arg)
             .UseFileName("UseFileNameWithParam");
     }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public Task UseTextForParameters(string arg)
+    {
+        return Verify(arg)
+            .UseTextForParameters("TextForParameter");
+    }
 }

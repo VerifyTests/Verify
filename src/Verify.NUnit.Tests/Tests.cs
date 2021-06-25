@@ -11,4 +11,11 @@ public class Tests
         return Verifier.Verify(arg)
             .UseFileName("UseFileNameWithParam");
     }
+
+    [TestCase("Value1")]
+    public Task UseTextForParameters(string arg)
+    {
+        return Verifier.Verify(arg)
+            .UseTextForParameters("TextForParameter");
+    }
 }

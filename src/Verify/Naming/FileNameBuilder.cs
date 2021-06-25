@@ -105,14 +105,14 @@ namespace VerifyTests
             var methodParameters = method.GetParameters();
             if (methodParameters.Any())
             {
-                if (settings.parameters != null)
-                {
-                    return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
-                }
-
                 if (settings.parametersText != null)
                 {
                     return $"_{settings.parametersText}";
+                }
+
+                if (settings.parameters != null)
+                {
+                    return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
                 }
 
                 var names = string.Join(", ", methodParameters.Select(x => x.Name));

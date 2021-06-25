@@ -125,14 +125,14 @@ public class Sample :
     VerifyBase
 {
     [TestMethod]
-    public Task Test ()
+    public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
         return Verify(person);
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L5-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L7-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

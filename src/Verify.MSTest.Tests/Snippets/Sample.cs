@@ -2,16 +2,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 
-#region SampleTestMSTest
-[TestClass]
-public class Sample :
-    VerifyBase
+namespace TheTests
 {
-    [TestMethod]
-    public Task Test ()
+    #region SampleTestMSTest
+
+    [TestClass]
+    public class Sample :
+        VerifyBase
     {
-        var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        [TestMethod]
+        public Task Test()
+        {
+            var person = ClassBeingTested.FindPerson();
+            return Verify(person);
+        }
     }
+
+    #endregion
 }
-#endregion

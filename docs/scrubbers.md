@@ -418,6 +418,22 @@ public class ScrubbersSample :
         return Verify(
             settings: settings,
             target: @"
+                LineA
+                LineB
+                LineC
+                LineD
+                LineE
+                LineH
+                LineI
+                LineJ
+                ");
+    }
+
+    [TestMethod]
+    public Task LinesFluent()
+    {
+        return Verify(
+                target: @"
                     LineA
                     LineB
                     LineC
@@ -426,23 +442,7 @@ public class ScrubbersSample :
                     LineH
                     LineI
                     LineJ
-                    ");
-    }
-
-    [TestMethod]
-    public Task LinesFluent()
-    {
-        return Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        LineD
-                        LineE
-                        LineH
-                        LineI
-                        LineJ
-                        ")
+                    ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -490,10 +490,10 @@ public class ScrubbersSample :
     {
         return Verify(
                 target: @"
-                        LineA
-                        LineB
-                        LineC
-                        ")
+                    LineA
+                    LineB
+                    LineC
+                    ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -511,15 +511,15 @@ public class ScrubbersSample :
     {
         return Verify(
                 target: @"
-                        LineA
-                        
-                        LineC
-                        ")
+                    LineA
+                    
+                    LineC
+                    ")
             .ScrubEmptyLines();
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L7-L134' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L9-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -679,7 +679,7 @@ public class ScrubberLevelsSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L8-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

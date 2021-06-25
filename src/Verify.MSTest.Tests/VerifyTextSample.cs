@@ -2,13 +2,16 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VerifyMSTest;
 
-[TestClass]
-public class VerifyTextSample :
-    VerifyBase
+namespace TheTests
 {
-    [TestMethod]
-    public Task Simple()
+    [TestClass]
+    public class VerifyTextSample :
+        VerifyBase
     {
-        return Verify("Foo");
+        [TestMethod]
+        public Task Simple()
+        {
+            return Verify("Foo");
+        }
     }
 }

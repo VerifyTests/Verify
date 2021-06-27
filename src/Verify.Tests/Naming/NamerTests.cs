@@ -192,6 +192,13 @@ public class NamerTests
     #endregion
 
     [Fact]
+    public Task UseTextForParametersNoParam()
+    {
+        return Verifier.Verify("Value")
+            .UseTextForParameters("Suffix");
+    }
+
+    [Fact]
     public void AccessNamerArchitecture()
     {
         #region AccessNamerArchitecture

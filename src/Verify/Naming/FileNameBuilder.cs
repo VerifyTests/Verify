@@ -102,21 +102,24 @@ namespace VerifyTests
 
         static string GetParameterText(MethodInfo method, VerifySettings settings)
         {
-            var methodParameters = method.GetParameters();
-            if (methodParameters.Any())
+            if (settings.parametersText != null)
             {
-                if (settings.parametersText != null)
-                {
-                    return $"_{settings.parametersText}";
-                }
+                return $"_{settings.parametersText}";
+            }
 
-                if (settings.parameters != null)
-                {
-                    return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
-                }
+            if (settings.parameters != null)
+            {
+                return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
+            }
 
-                var names = string.Join(", ", methodParameters.Select(x => x.Name));
-                throw new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
+            var methodParameters = method.GetParameters();
+            if (!methodParameters.Any())
+            {
+                return "";
+            }
+
+            var names = string.Join(", ", methodParameters.Select(x => x.Name));
+            throw new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 
 VerifySettings settings = new();
 settings.UseParameters({names});
@@ -126,9 +129,6 @@ or
 
 await Verifier.Verify(target).UseParameters({names});
 ");
-            }
-
-            return "";
         }
 
         public List<string> VerifiedFiles { get; }

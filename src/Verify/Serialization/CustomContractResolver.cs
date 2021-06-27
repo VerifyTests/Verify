@@ -174,8 +174,8 @@ class CustomContractResolver :
                 property.Converter = new IdConverter();
                 return property;
             }
-
         }
+
         if (ignoredInstances.TryGetValue(propertyType, out var funcs))
         {
             property.ShouldSerialize = declaringInstance =>

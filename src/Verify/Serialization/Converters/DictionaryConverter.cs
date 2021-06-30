@@ -24,7 +24,7 @@ class DictionaryConverter :
     {
         var type = value.GetType();
         var valueType = type.GetGenericArguments().Last();
-        var genericType = typeof(DictionaryWrapper<,>).MakeGenericType(valueType, type);
+        var genericType = typeof(StringDictionaryWrapper<,>).MakeGenericType(valueType, type);
         var instance = Activator.CreateInstance(genericType, ignoredByNameMembers, value);
         serializer.Serialize(writer, instance);
     }

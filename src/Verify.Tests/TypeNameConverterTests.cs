@@ -13,7 +13,7 @@ public class TypeNameConverterTests
     [Fact]
     public Task WithOneGeneric()
     {
-        return Verifier.Verify(TypeNameConverter.GetName(typeof(DictionaryWrapper<string, ConcurrentDictionary<string, string>>)));
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(StringDictionaryWrapper<string, ConcurrentDictionary<string, string>>)));
     }
 
     [Fact]

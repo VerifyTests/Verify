@@ -133,7 +133,7 @@ namespace VerifyTests
             }
 
             if (type.IsGenericType &&
-                type.GetGenericTypeDefinition() == typeof(DictionaryWrapper<,>))
+                type.GetGenericTypeDefinition() == typeof(StringDictionaryWrapper<,>))
             {
                 type = type.GetGenericArguments().Last();
             }

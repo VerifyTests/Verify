@@ -10,9 +10,9 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ## Additions to file name
 
-Every parameterised case has a unique file name the arguments are appended to the [file name](/docs/naming.md).
+Every parameterised case has a unique [file name](/docs/naming.md) with the parameters appended to the file name.
 
-The appending format is `_ArgName=ArgValue` repeated for each arg. 
+The appending format is `_ParamName=ParamValue` repeated for each parameter. 
 
 A test with two parameters `param1` + `param2`, and called twice with the values `value1a`+ `value2a` and `value1b`+ `value2b` would have the following file names:
 

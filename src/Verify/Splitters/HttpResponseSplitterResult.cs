@@ -6,7 +6,7 @@ using VerifyTests;
 static class HttpResponseSplitterResult
 {
     [ModuleInitializer]
-    public static void Init()
+    public static void Initialize()
     {
         VerifierSettings.RegisterFileConverter<HttpResponseMessage>(
             (instance, _) => Convert(instance));

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -8,9 +9,9 @@ using Xunit;
 [UsesVerify]
 public class ComplexParametersSample
 {
-    static ComplexParametersSample()
+    [ModuleInitializer]
+    public static void Initialize()
     {
-        //TODO: this should be in the appdomain startup code
         VerifierSettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 

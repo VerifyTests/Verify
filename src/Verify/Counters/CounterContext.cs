@@ -53,7 +53,7 @@
      #endif
 
      [ModuleInitializer]
-     public static void Init()
+     public static void Initialize()
      {
          VerifierSettings.OnVerify(Start, Stop);
      }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -31,10 +32,11 @@ public class ScrubberLevelsSample
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 
-    static ScrubberLevelsSample()
+    [ModuleInitializer]
+    public static void Initialize()
     {
-        // Should be dont at appdomain startup
         VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
+
 #endregion

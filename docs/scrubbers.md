@@ -587,14 +587,14 @@ public class ScrubberLevelsSample
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 
-    static ScrubberLevelsSample()
+    [ModuleInitializer]
+    public static void Initialize()
     {
-        // Should be dont at appdomain startup
         VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L6-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L7-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

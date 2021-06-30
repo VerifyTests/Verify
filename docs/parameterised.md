@@ -98,9 +98,9 @@ xUnit only exposes parameter information when the types certain types. For unkno
 [UsesVerify]
 public class ComplexParametersSample
 {
-    static ComplexParametersSample()
+    [ModuleInitializer]
+    public static void Initialize()
     {
-        //TODO: this should be in the appdomain startup code
         VerifierSettings.NameForParameter<ComplexData>(_ => _.Value);
     }
 
@@ -139,7 +139,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L7-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L8-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.

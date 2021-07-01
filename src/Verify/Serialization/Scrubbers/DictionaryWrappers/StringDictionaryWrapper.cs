@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-class StringDictionaryWrapper<TValue, TInner> : Dictionary<string, TValue>
+class StringDictionaryWrapper<TValue, TInner> :
+    Dictionary<string, TValue>,
+    IDictionaryWrapper
     where TInner : IDictionary<string, TValue>
 {
     public StringDictionaryWrapper(List<string> ignored, TInner inner) :

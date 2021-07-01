@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Newtonsoft.Json;
@@ -16,35 +18,63 @@ class DictionaryConverter :
         this.ignoredByNameMembers = ignoredByNameMembers;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        object value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override bool CanConvert(Type type)
     {
-        var type = value.GetType();
-        var valueType = type.GetGenericArguments().Last();
-        var genericType = typeof(StringDictionaryWrapper<,>).MakeGenericType(valueType, type);
-        var instance = Activator.CreateInstance(genericType, ignoredByNameMembers, value);
-        serializer.Serialize(writer, instance);
+        if (!type.IsGenericType)
+        {
+            return false;
+        }
+
+        if (!typeof(IDictionary).IsAssignableFrom(type))
+        {
+            return false;
+        }
+
+        var definition = type.GetGenericTypeDefinition();
+        return definition == typeof(Dictionary<,>) ||
+               definition == typeof(ImmutableDictionary<,>) ||
+               definition == typeof(SortedDictionary<,>) ||
+               definition == typeof(ImmutableSortedDictionary<,>) ||
+               definition == typeof(ConcurrentDictionary<,>) ||
+               definition == typeof(ReadOnlyDictionary<,>);
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
     {
-        if (objectType.IsGenericType)
+        var type = value.GetType();
+
+        var genericArguments = type.GetGenericArguments();
+        var valueType = genericArguments.Last();
+        var keyType = genericArguments.First();
+        var definition = type.GetGenericTypeDefinition();
+        if (definition == typeof(SortedDictionary<,>) ||
+            definition == typeof(ImmutableSortedDictionary<,>) )
         {
-            var definition = objectType.GetGenericTypeDefinition();
-            if (definition == typeof(Dictionary<,>) ||
-                definition == typeof(SortedDictionary<,>) ||
-                definition == typeof(ConcurrentDictionary<,>) ||
-                definition == typeof(ReadOnlyDictionary<,>))
+            if (keyType == typeof(string))
             {
-                if (objectType.GetGenericArguments().First() == typeof(string))
-                {
-                    return true;
-                }
+                var genericType = typeof(StringDictionaryWrapper<,>).MakeGenericType(valueType, type);
+                value = Activator.CreateInstance(genericType, ignoredByNameMembers, value)!;
+            }
+            else
+            {
+                var genericType = typeof(DictionaryWrapper<,,>).MakeGenericType(keyType, valueType, type);
+                value = Activator.CreateInstance(genericType, value)!;
             }
         }
-        return false;
+        else
+        {
+            if (keyType == typeof(string))
+            {
+                var genericType = typeof(OrderedStringDictionaryWrapper<,>).MakeGenericType(valueType, type);
+                value = Activator.CreateInstance(genericType, ignoredByNameMembers, value)!;
+            }
+            else
+            {
+                var genericType = typeof(OrderedDictionaryWrapper<,,>).MakeGenericType(keyType, valueType, type);
+                value = Activator.CreateInstance(genericType, value)!;
+            }
+        }
+
+        serializer.Serialize(writer, value);
     }
 }

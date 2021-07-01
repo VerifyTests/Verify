@@ -42,6 +42,86 @@ public class SerializationTests
             });
     }
 
+    class DescendingComparer<T> :
+        IComparer<T>
+        where T : IComparable<T>
+    {
+#pragma warning disable 8767
+        public int Compare(T x, T y)
+#pragma warning restore 8767
+        {
+            return y.CompareTo(x);
+        }
+    }
+
+    [Fact]
+    public Task SortedDictionaryInt()
+    {
+        var dictionary = new SortedDictionary<int, string>(new DescendingComparer<int>())
+        {
+            { 1, "1234" },
+            { 2, "5678" }
+        };
+
+        return Verifier.Verify(dictionary);
+    }
+
+    [Fact]
+    public Task SortedDictionaryOrder()
+    {
+        var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())
+        {
+            { "Entry_1", "1234" },
+            { "ignored", "1234" },
+            { "Entry_2", "5678" }
+        };
+
+        return Verifier.Verify(dictionary)
+            .ModifySerialization(_ => _.IgnoreMember("ignored"));
+    }
+
+    [Fact]
+    public Task DictionaryOrderInt()
+    {
+        var dictionary = new Dictionary<int, string>();
+
+        if (DateTime.UtcNow.Ticks % 2 == 0)
+        {
+            dictionary.Add(1, "1234");
+            dictionary.Add(2, "5678");
+        }
+        else
+        {
+            dictionary.Add(2, "5678");
+            dictionary.Add(1, "1234");
+        }
+
+        return Verifier.Verify(dictionary);
+    }
+
+    [Fact]
+    public Task DictionaryOrderString()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            { "ignored", "1234" }
+        };
+
+        if (DateTime.UtcNow.Ticks % 2 == 0)
+        {
+            dictionary.Add("Entry_1", "1234");
+            dictionary.Add("Entry_2", "5678");
+        }
+        else
+        {
+            dictionary.Add("Entry_2", "5678");
+            dictionary.Add("Entry_1", "1234");
+        }
+
+        return Verifier.Verify(dictionary)
+            .ModifySerialization(_ => _.IgnoreMember("ignored"));
+    }
+
     [Fact]
     public Task DatetimeOffsetScrubbingDisabled()
     {

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Newtonsoft.Json;
@@ -31,7 +32,9 @@ class DictionaryConverter :
 
         var definition = type.GetGenericTypeDefinition();
         return definition == typeof(Dictionary<,>) ||
+               definition == typeof(ImmutableDictionary<,>) ||
                definition == typeof(SortedDictionary<,>) ||
+               definition == typeof(ImmutableSortedDictionary<,>) ||
                definition == typeof(ConcurrentDictionary<,>) ||
                definition == typeof(ReadOnlyDictionary<,>);
     }
@@ -44,7 +47,8 @@ class DictionaryConverter :
         var valueType = genericArguments.Last();
         var keyType = genericArguments.First();
         var definition = type.GetGenericTypeDefinition();
-        if (definition == typeof(SortedDictionary<,>))
+        if (definition == typeof(SortedDictionary<,>) ||
+            definition == typeof(ImmutableSortedDictionary<,>) )
         {
             if (keyType == typeof(string))
             {

@@ -99,6 +99,38 @@ public class SerializationTests
         return Verifier.Verify(dictionary);
     }
 
+    public class NonComparableKey
+    {
+        string member;
+
+        public NonComparableKey(string member)
+        {
+            this.member = member;
+        }
+
+        public override string ToString()
+        {
+            return member;
+        }
+
+        public override int GetHashCode()
+        {
+            return member.GetHashCode();
+        }
+    }
+
+    [Fact]
+    public Task DictionaryOrderNonComparable()
+    {
+        var dictionary = new Dictionary<NonComparableKey, string>
+        {
+            [new ("Foo1")] = "Bar",
+            [new ("Foo2")] = "Bar"
+        };
+
+        return Verifier.Verify(dictionary);
+    }
+
     [Fact]
     public Task DictionaryOrderString()
     {

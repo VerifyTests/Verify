@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 class OrderedDictionaryWrapper<TKey, TValue, TInner> :
@@ -8,11 +9,23 @@ class OrderedDictionaryWrapper<TKey, TValue, TInner> :
     where TInner : IDictionary<TKey, TValue>
 {
     static Comparer<TKey> compare = Comparer<TKey>.Default;
+    static bool isComparable = typeof(IComparable).IsAssignableFrom(typeof(TKey));
 
     public OrderedDictionaryWrapper(TInner inner) :
-        base(inner
-            .OrderBy(pair => pair.Key, compare)
-            .ToDictionary(x => x.Key, x => x.Value))
+        base(Wrap(inner))
     {
+    }
+
+    static IDictionary<TKey, TValue> Wrap(TInner inner)
+    {
+        if (!isComparable)
+        {
+            return inner;
+        }
+
+        return inner
+            .OrderBy(pair => pair.Key, compare)
+            .ToDictionary(x => x.Key, x => x.Value);
+
     }
 }

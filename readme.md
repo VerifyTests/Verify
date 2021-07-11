@@ -258,7 +258,7 @@ The same approach can be used to verify the results and the change to `Sample.Te
 `VerifyJson` performs the following actions
 
  * Convert to `JToken` (if necessary).
- * Apply [ignore member by name](serializer-settings.md#ignore-member-by-name) for keys.
+ * Apply [ignore member by name](/docs/serializer-settings.md#ignore-member-by-name) for keys.
  * PrettyPrint the resulting text.
 
 <!-- snippet: VerifyJson -->

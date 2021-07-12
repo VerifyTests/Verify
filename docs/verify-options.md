@@ -19,7 +19,7 @@ This can be done using `AutoVerify()`:
 <!-- snippet: AutoVerify -->
 <a id='snippet-autoverify'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.AutoVerify();
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L101-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>

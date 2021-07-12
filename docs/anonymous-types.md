@@ -18,12 +18,12 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 [Fact]
 public Task Anon()
 {
-    Person person1 = new()
+    var person1 = new Person
     {
         GivenNames = "John",
         FamilyName = "Smith"
     };
-    Person person2 = new()
+    var person2 = new Person
     {
         GivenNames = "Marianne",
         FamilyName = "Aguirre"
@@ -49,12 +49,12 @@ public Task Anon()
 [Test]
 public async Task Anon()
 {
-    Person person1 = new()
+    var person1 = new Person
     {
         GivenNames = "John",
         FamilyName = "Smith"
     };
-    Person person2 = new()
+    var person2 = new Person
     {
         GivenNames = "Marianne",
         FamilyName = "Aguirre"
@@ -80,12 +80,12 @@ public async Task Anon()
 [TestMethod]
 public async Task Anon()
 {
-    Person person1 = new()
+    var person1 = new Person
     {
         GivenNames = "John",
         FamilyName = "Smith"
     };
-    Person person2 = new()
+    var person2 = new Person
     {
         GivenNames = "Marianne",
         FamilyName = "Aguirre"

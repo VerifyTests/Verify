@@ -14,7 +14,7 @@ public class VerifyObjectSamples
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerificationXunit
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
             _.DontIgnoreEmptyCollections();
@@ -29,12 +29,12 @@ public class VerifyObjectSamples
     [Fact]
     public Task ScopedSerializer()
     {
-        Person person = new()
+        var person = new Person
         {
             GivenNames = "John",
             FamilyName = "Smith",
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verifier.Verify(person, settings);
     }
@@ -43,7 +43,7 @@ public class VerifyObjectSamples
     {
         #region Before
 
-        Person person = new()
+        var person = new Person
         {
             GivenNames = "John",
             FamilyName = "Smith",
@@ -64,12 +64,12 @@ public class VerifyObjectSamples
     [Fact]
     public Task Anon()
     {
-        Person person1 = new()
+        var person1 = new Person
         {
             GivenNames = "John",
             FamilyName = "Smith"
         };
-        Person person2 = new()
+        var person2 = new Person
         {
             GivenNames = "Marianne",
             FamilyName = "Aguirre"
@@ -88,7 +88,7 @@ public class VerifyObjectSamples
     {
         #region After
 
-        Person person = new()
+        var person = new Person
         {
             GivenNames = "John",
             FamilyName = "Smith",

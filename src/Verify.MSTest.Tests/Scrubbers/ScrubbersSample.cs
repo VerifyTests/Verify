@@ -15,7 +15,7 @@ namespace TheTests
         [TestMethod]
         public Task Lines()
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -75,12 +75,12 @@ namespace TheTests
         [TestMethod]
         public Task AfterSerialization()
         {
-            ToBeScrubbed target = new()
+            var target = new ToBeScrubbed
             {
                 RowVersion = "7D3"
             };
 
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
             return Verify(target, settings);
@@ -89,7 +89,7 @@ namespace TheTests
         [TestMethod]
         public Task AfterSerializationFluent()
         {
-            ToBeScrubbed target = new()
+            var target = new ToBeScrubbed
             {
                 RowVersion = "7D3"
             };

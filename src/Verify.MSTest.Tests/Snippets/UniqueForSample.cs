@@ -14,7 +14,7 @@ namespace TheTests
         [TestMethod]
         public Task Runtime()
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.UniqueForRuntime();
             return Verify("value", settings);
         }
@@ -29,7 +29,7 @@ namespace TheTests
         [TestMethod]
         public Task RuntimeAndVersion()
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.UniqueForRuntimeAndVersion();
             return Verify("value", settings);
         }
@@ -44,7 +44,7 @@ namespace TheTests
         [TestMethod]
         public Task AssemblyConfiguration()
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.UniqueForAssemblyConfiguration();
             return Verify("value", settings);
         }
@@ -59,7 +59,7 @@ namespace TheTests
         [TestMethod]
         public Task Architecture()
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.UniqueForArchitecture();
             return Verify("value", settings);
         }
@@ -74,7 +74,7 @@ namespace TheTests
         [TestMethod]
         public Task OSPlatform()
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.UniqueForOSPlatform();
             return Verify("value", settings);
         }

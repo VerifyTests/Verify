@@ -24,7 +24,7 @@ namespace VerifyTests
         public async Task Verify<T>(IAsyncEnumerable<T> target)
         {
             Guard.AgainstNull(target, nameof(target));
-            List<T> list = new();
+            var list = new List<T>();
             await foreach (var item in target)
             {
                 list.Add(item);

@@ -11,7 +11,7 @@ public class ComparerTests
     [Fact]
     public async Task Instance_with_message()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseStringComparer(CompareWithMessage);
         settings.DisableDiff();
         var exception = await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("NotTheText", settings));
@@ -21,7 +21,7 @@ public class ComparerTests
     [Fact]
     public async Task Instance()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseStringComparer(Compare);
         await Verifier.Verify("TheText", settings);
         FileNameBuilder.ClearPrefixList();
@@ -33,7 +33,7 @@ public class ComparerTests
     {
         EmptyFiles.Extensions.AddTextExtension("staticComparerExtMessage");
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
         var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
@@ -53,7 +53,7 @@ theMessage".Replace("\r\n", "\n"),
     {
         EmptyFiles.Extensions.AddTextExtension("staticComparerExt");
         VerifierSettings.RegisterStringComparer("staticComparerExt", Compare);
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("staticComparerExt");
         await Verifier.Verify("TheText", settings);
         FileNameBuilder.ClearPrefixList();

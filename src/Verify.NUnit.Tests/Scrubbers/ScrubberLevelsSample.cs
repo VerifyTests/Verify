@@ -19,7 +19,7 @@ public class ScrubberLevelsSample
     [Test]
     public Task Simple()
     {
-        VerifySettings settings = new(classLevelSettings);
+        var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
         return Verifier.Verify("One Two Three", settings);
     }

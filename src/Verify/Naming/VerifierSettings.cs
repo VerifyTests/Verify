@@ -78,7 +78,7 @@ namespace VerifyTests
                 throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
             }
 
-            StringBuilder builder = new();
+            var builder = new StringBuilder();
             foreach (var ch in nameForParameter)
             {
                 if (invalidPathChars.Contains(ch))

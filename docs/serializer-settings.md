@@ -48,7 +48,7 @@ Then when an object is verified:
 <!-- snippet: UseStrictJsonVerify -->
 <a id='snippet-usestrictjsonverify'></a>
 ```cs
-TheTarget target = new()
+var target = new TheTarget
 {
     Value = "Foo"
 };
@@ -77,7 +77,7 @@ The default `JsonSerializerSettings` are:
 <!-- snippet: defaultSerialization -->
 <a id='snippet-defaultserialization'></a>
 ```cs
-JsonSerializerSettings settings = new()
+var settings = new JsonSerializerSettings
 {
     Formatting = Formatting.Indented,
     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
@@ -173,7 +173,7 @@ By default guids are sanitized during verification. This is done by finding each
 <a id='snippet-guid'></a>
 ```cs
 var guid = Guid.NewGuid();
-GuidTarget target = new()
+var target = new GuidTarget
 {
     Guid = guid,
     GuidNullable = guid,
@@ -257,11 +257,11 @@ By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verifica
 ```cs
 var dateTime = DateTime.Now;
 var dateTimeOffset = DateTimeOffset.Now;
-DateTimeTarget target = new()
+var target = new DateTimeTarget
 {
     DateTime = dateTime,
-    DateOnly = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
-    DateOnlyNullable = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
+    DateOnly = new(dateTime.Year,dateTime.Month,dateTime.Day),
+    DateOnlyNullable = new(dateTime.Year,dateTime.Month,dateTime.Day),
     DateOnlyString = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day).ToString(),
     DateTimeNullable = dateTime,
     DateTimeString = dateTime.ToString("F"),
@@ -451,7 +451,7 @@ VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 <!-- snippet: ChangeDefaultsPerVerification -->
 <a id='snippet-changedefaultsperverification'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 
 settings.ModifySerialization(_ =>
 {
@@ -515,7 +515,7 @@ VerifierSettings.AddExtraSettings(_ =>
 <!-- snippet: ExtraSettingsInstance -->
 <a id='snippet-extrasettingsinstance'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.AddExtraSettings(_ =>
 {
     _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
@@ -570,12 +570,12 @@ VerifierSettings.AddExtraSettings(
 [Fact]
 public Task ScopedSerializer()
 {
-    Person person = new()
+    var person = new Person
     {
         GivenNames = "John",
         FamilyName = "Smith"
     };
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.AddExtraSettings(
         _ => { _.TypeNameHandling = TypeNameHandling.All; });
     return Verifier.Verify(person, settings);
@@ -584,7 +584,7 @@ public Task ScopedSerializer()
 [Fact]
 public Task ScopedSerializerFluent()
 {
-    Person person = new()
+    var person = new Person
     {
         GivenNames = "John",
         FamilyName = "Smith"
@@ -622,7 +622,7 @@ To ignore all members that match a certain type:
 [Fact]
 public Task IgnoreType()
 {
-    IgnoreTypeTarget target = new()
+    var target = new IgnoreTypeTarget
     {
         ToIgnore = new()
         {
@@ -633,7 +633,7 @@ public Task IgnoreType()
             Property = "Value"
         }
     };
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
     return Verifier.Verify(target, settings);
 }
@@ -641,7 +641,7 @@ public Task IgnoreType()
 [Fact]
 public Task IgnoreTypeFluent()
 {
-    IgnoreTypeTarget target = new()
+    var target = new IgnoreTypeTarget
     {
         ToIgnore = new()
         {
@@ -685,7 +685,7 @@ To ignore instances of a type based on delegate:
 [Fact]
 public Task AddIgnoreInstance()
 {
-    IgnoreInstanceTarget target = new()
+    var target = new IgnoreInstanceTarget
     {
         ToIgnore = new()
         {
@@ -696,7 +696,7 @@ public Task AddIgnoreInstance()
             Property = "Include"
         }
     };
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.ModifySerialization(
         _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
     return Verifier.Verify(target, settings);
@@ -705,7 +705,7 @@ public Task AddIgnoreInstance()
 [Fact]
 public Task AddIgnoreInstanceFluent()
 {
-    IgnoreInstanceTarget target = new()
+    var target = new IgnoreInstanceTarget
     {
         ToIgnore = new()
         {
@@ -757,7 +757,7 @@ class WithObsolete
 [Fact]
 public Task WithObsoleteProp()
 {
-    WithObsolete target = new()
+    var target = new WithObsolete
     {
         ObsoleteProperty = "value1",
         OtherProperty = "value2"
@@ -791,12 +791,12 @@ Obsolete members can be included using `IncludeObsoletes`:
 [Fact]
 public Task WithObsoletePropIncluded()
 {
-    WithObsolete target = new()
+    var target = new WithObsolete
     {
         ObsoleteProperty = "value1",
         OtherProperty = "value2"
     };
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
     return Verifier.Verify(target, settings);
 }
@@ -804,7 +804,7 @@ public Task WithObsoletePropIncluded()
 [Fact]
 public Task WithObsoletePropIncludedFluent()
 {
-    WithObsolete target = new()
+    var target = new WithObsolete
     {
         ObsoleteProperty = "value1",
         OtherProperty = "value2"
@@ -840,14 +840,14 @@ To ignore members of a certain type using an expression:
 [Fact]
 public Task IgnoreMemberByExpression()
 {
-    IgnoreExplicitTarget target = new()
+    var target = new IgnoreExplicitTarget
     {
         Include = "Value",
         Field = "Value",
         Property = "Value",
         PropertyWithPropertyName = "Value"
     };
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.ModifySerialization(_ =>
     {
         _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
@@ -862,7 +862,7 @@ public Task IgnoreMemberByExpression()
 [Fact]
 public Task IgnoreMemberByExpressionFluent()
 {
-    IgnoreExplicitTarget target = new()
+    var target = new IgnoreExplicitTarget
     {
         Include = "Value",
         Field = "Value",
@@ -904,14 +904,14 @@ To ignore members of a certain type using type and name:
 [Fact]
 public Task IgnoreMemberByName()
 {
-    IgnoreExplicitTarget target = new()
+    var target = new IgnoreExplicitTarget
     {
         Include = "Value",
         Field = "Value",
         Property = "Value",
         PropertyByName = "Value"
     };
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.ModifySerialization(_ =>
     {
         _.IgnoreMember("PropertyByName");
@@ -927,7 +927,7 @@ public Task IgnoreMemberByName()
 [Fact]
 public Task IgnoreMemberByNameFluent()
 {
-    IgnoreExplicitTarget target = new()
+    var target = new IgnoreExplicitTarget
     {
         Include = "Value",
         Field = "Value",
@@ -978,8 +978,8 @@ Ignore by exception type:
 [Fact]
 public Task CustomExceptionProp()
 {
-    WithCustomException target = new();
-    VerifySettings settings = new();
+    var target = new WithCustomException();
+    var settings = new VerifySettings();
     settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
     return Verifier.Verify(target, settings);
 }
@@ -987,7 +987,7 @@ public Task CustomExceptionProp()
 [Fact]
 public Task CustomExceptionPropFluent()
 {
-    WithCustomException target = new();
+    var target = new WithCustomException();
     return Verifier.Verify(target)
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
@@ -1013,9 +1013,9 @@ Ignore by exception type and expression:
 [Fact]
 public Task ExceptionMessageProp()
 {
-    WithExceptionIgnoreMessage target = new();
+    var target = new WithExceptionIgnoreMessage();
 
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.ModifySerialization(
         _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
     return Verifier.Verify(target, settings);
@@ -1025,7 +1025,7 @@ public Task ExceptionMessageProp()
 [Fact]
 public Task ExceptionMessagePropFluent()
 {
-    WithExceptionIgnoreMessage target = new();
+    var target = new WithExceptionIgnoreMessage();
 
     return Verifier.Verify(target)
         .ModifySerialization(

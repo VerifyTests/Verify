@@ -18,7 +18,7 @@ public class SimpleTypeTests
     [MemberData(nameof(GetData))]
     public Task Run(object arg)
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseParameters(arg.GetType());
         return Verifier.Verify(arg, settings);
     }
@@ -72,7 +72,7 @@ public class SimpleTypeTests
     public static IEnumerable<object[]> GetData()
     {
         var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
-        XmlDocument xmlDocument = new();
+        var xmlDocument = new XmlDocument();
         xmlDocument.LoadXml(xml);
 
         yield return new object[] {xmlDocument};

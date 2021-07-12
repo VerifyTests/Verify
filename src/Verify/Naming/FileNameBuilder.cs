@@ -121,7 +121,7 @@ namespace VerifyTests
             var names = string.Join(", ", methodParameters.Select(x => x.Name));
             throw new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.UseParameters({names});
 await Verifier.Verify(target, settings);
 
@@ -173,7 +173,7 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
 
         static string GetUniquenessParts(Namer namer, Type type)
         {
-            StringBuilder builder = new();
+            var builder = new StringBuilder();
             if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
             {
                 builder.Append($".{Namer.RuntimeAndVersion}");

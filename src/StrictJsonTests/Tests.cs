@@ -40,7 +40,7 @@ public class Tests
     {
         #region UseStrictJsonVerify
 
-        TheTarget target = new()
+        var target = new TheTarget
         {
             Value = "Foo"
         };

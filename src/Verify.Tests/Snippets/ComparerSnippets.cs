@@ -14,7 +14,7 @@ public class ComparerSnippets
     [Fact]
     public Task InstanceComparer()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseStreamComparer(CompareImages);
         settings.UseExtension("png");
         return Verifier.VerifyFile("sample.png", settings);

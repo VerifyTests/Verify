@@ -22,7 +22,7 @@ namespace TheTests
         [TestMethod]
         public Task AtMethod()
         {
-            VerifySettings settings = new(classLevelSettings);
+            var settings = new VerifySettings(classLevelSettings);
             settings.UseExtension("xml");
             return Verify(
                 target: @"

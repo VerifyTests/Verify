@@ -140,7 +140,7 @@ namespace VerifyTests
             var typeName = GetTypeName(type);
             CodeTypeReference reference = new(typeName);
             var name = codeDomProvider.GetTypeOutput(reference);
-            List<string> list = new();
+            var list = new List<string>();
             AllGenericArgumentNamespace(type, list);
             foreach (var ns in list.Distinct())
             {

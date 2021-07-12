@@ -8,7 +8,7 @@ namespace VerifyTests
 
         internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
         {
-            List<ToAppend> list = new();
+            var list = new List<ToAppend>();
             foreach (var appender in jsonAppenders)
             {
                 var data = appender(settings.Context);

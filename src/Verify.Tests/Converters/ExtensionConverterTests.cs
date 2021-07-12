@@ -80,7 +80,7 @@ public class ExtensionConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, "txt", "Foo");
+                return new(info, "txt", "Foo");
             });
     }
 

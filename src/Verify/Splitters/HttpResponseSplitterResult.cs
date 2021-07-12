@@ -20,10 +20,10 @@ static class HttpResponseSplitterResult
         {
             if (EmptyFiles.Extensions.IsText(extension))
             {
-                return new ConversionResult(instance, targets);
+                return new(instance, targets);
             }
 
-            targets.Add(new Target(extension, content.ReadAsStream()));
+            targets.Add(new(extension, content.ReadAsStream()));
         }
 
         return new ConversionResult(

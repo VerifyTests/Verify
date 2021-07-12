@@ -106,7 +106,7 @@ public class TypeNameConverterTests
 
     static IEnumerable<TargetWithNamespace> MethodWithYield()
     {
-        yield return new TargetWithNamespace();
+        yield return new();
     }
 
     static IEnumerable<dynamic> MethodWithYieldDynamic()

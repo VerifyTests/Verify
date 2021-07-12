@@ -19,7 +19,7 @@ public class ComplexParametersSample
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseParameters(arg);
         return Verifier.Verify(arg, settings);
     }

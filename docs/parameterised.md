@@ -38,7 +38,7 @@ Characters that cannot be used for a file name will be replaced with a dash (`-`
 [InlineData("Value2")]
 public Task InlineDataUsage(string arg)
 {
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.UseParameters(arg);
     return Verifier.Verify(arg, settings);
 }
@@ -65,7 +65,7 @@ public Task InlineDataUsageFluent(string arg)
 [MemberData(nameof(GetData))]
 public Task MemberDataUsage(string arg)
 {
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.UseParameters(arg);
     return Verifier.Verify(arg, settings);
 }
@@ -108,7 +108,7 @@ public class ComplexParametersSample
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberData(ComplexData arg)
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseParameters(arg);
         return Verifier.Verify(arg, settings);
     }
@@ -183,7 +183,7 @@ public class ParametersSample :
     [DataRow("Value2")]
     public Task DataRowUsage(string arg)
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseParameters(arg);
         return Verify(arg, settings);
     }
@@ -218,7 +218,7 @@ public class ParametersSample :
 [InlineData("Value2")]
 public Task UseTextForParameters(string arg)
 {
-    VerifySettings settings = new();
+    var settings = new VerifySettings();
     settings.UseTextForParameters(arg);
     return Verifier.Verify(arg, settings);
 }

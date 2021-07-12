@@ -12,7 +12,7 @@ class NameValueCollectionConverter :
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        Dictionary<string,string?> dictionary = new();
+        var dictionary = new Dictionary<string,string?>();
         foreach (string? key in collection)
         {
             var value = collection.Get(key);

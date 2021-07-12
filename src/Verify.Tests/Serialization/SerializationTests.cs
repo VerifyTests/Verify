@@ -124,8 +124,8 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<NonComparableKey, string>
         {
-            [new ("Foo1")] = "Bar",
-            [new ("Foo2")] = "Bar"
+            [new("Foo1")] = "Bar",
+            [new("Foo2")] = "Bar"
         };
 
         return Verifier.Verify(dictionary);
@@ -282,15 +282,15 @@ public class SerializationTests
     [Fact]
     public void SettingsIsCloned()
     {
-        SerializationSettings settings = new();
+        var settings = new SerializationSettings();
 
-        List<string> ignoredMemberList = new();
+        var ignoredMemberList = new List<string>();
         settings.ignoredMembers.Add(GetType(), ignoredMemberList);
 
-        List<Func<object, bool>> ignoredInstances = new();
+        var ignoredInstances = new List<Func<object, bool>>();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
-        Dictionary<string, ConvertMember> memberConverterList = new();
+        var memberConverterList = new Dictionary<string, ConvertMember>();
         settings.membersConverters.Add(GetType(), memberConverterList);
 
         settings.ignoredByNameMembers.Add("ignored");
@@ -453,9 +453,9 @@ public class SerializationTests
     [Fact]
     public Task ExampleNonDefaults()
     {
-        Person person = new()
+        var person = new Person
         {
-            Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
+            Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
             GivenNames = "John",
             FamilyName = "Smith",
@@ -468,7 +468,7 @@ public class SerializationTests
             }
         };
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
             _.DontScrubDateTimes();
@@ -483,7 +483,7 @@ public class SerializationTests
     [Fact]
     public Task TypeNameHandlingAll()
     {
-        Person person = new()
+        var person = new Person
         {
             Id = Guid.NewGuid(),
             Title = Title.Mr,
@@ -513,7 +513,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldIgnoreDatetimeDefaults()
     {
-        DateTimeTarget target = new();
+        var target = new DateTimeTarget();
 
         return Verifier.Verify(target);
     }
@@ -525,11 +525,11 @@ public class SerializationTests
 
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
-        DateTimeTarget target = new()
+        var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
-            DateOnlyNullable = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day),
+            DateOnly = new(dateTime.Year,dateTime.Month,dateTime.Day),
+            DateOnlyNullable = new(dateTime.Year,dateTime.Month,dateTime.Day),
             DateOnlyString = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day).ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
@@ -548,7 +548,7 @@ public class SerializationTests
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
-        DateTimeTarget target = new()
+        var target = new DateTimeTarget
         {
             DateTime = dateTime,
             DateTimeNullable = dateTime.AddDays(1),
@@ -556,8 +556,8 @@ public class SerializationTests
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
-            DateOnly = new DateOnly(2020, 10, 10),
-            DateOnlyNullable = new DateOnly(2020, 10, 12),
+            DateOnly = new(2020, 10, 10),
+            DateOnlyNullable = new(2020, 10, 12),
             DateOnlyString = new DateOnly(2020, 10, 12).ToString()
         };
 
@@ -698,7 +698,7 @@ public class SerializationTests
 
     void List()
     {
-        VerifySettings verifySettings = new();
+        var verifySettings = new VerifySettings();
 
         #region ScrubLines
 
@@ -795,7 +795,7 @@ public class SerializationTests
         #region type
 
         var foo = new { x = 1 };
-        TypeTarget target = new()
+        var target = new TypeTarget
         {
             Type = GetType(),
             Dynamic = foo.GetType(),
@@ -860,9 +860,9 @@ public class SerializationTests
     [Fact]
     public Task ClaimsPrincipal()
     {
-        ClaimsIdentity claimsIdentity = new();
-        claimsIdentity.AddClaim(new Claim("TheType", "TheValue"));
-        ClaimsPrincipal claimsPrincipal = new();
+        var claimsIdentity = new ClaimsIdentity();
+        claimsIdentity.AddClaim(new("TheType", "TheValue"));
+        var claimsPrincipal = new ClaimsPrincipal();
         claimsPrincipal.AddIdentity(claimsIdentity);
         return Verifier.Verify(claimsPrincipal);
     }
@@ -870,8 +870,8 @@ public class SerializationTests
     [Fact]
     public Task ClaimsIdentity()
     {
-        ClaimsIdentity claimsIdentity = new();
-        claimsIdentity.AddClaim(new Claim("TheType", "TheValue"));
+        var claimsIdentity = new ClaimsIdentity();
+        claimsIdentity.AddClaim(new("TheType", "TheValue"));
         return Verifier.Verify(claimsIdentity);
     }
 
@@ -886,7 +886,7 @@ public class SerializationTests
         #region guid
 
         var guid = Guid.NewGuid();
-        GuidTarget target = new()
+        var target = new GuidTarget
         {
             Guid = guid,
             GuidNullable = guid,
@@ -902,7 +902,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldIgnoreGuidDefaults()
     {
-        GuidTarget target = new();
+        var target = new GuidTarget();
         return Verifier.Verify(target);
     }
 
@@ -951,7 +951,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldScrubGuid()
     {
-        GuidTarget target = new()
+        var target = new GuidTarget
         {
             Guid = Guid.NewGuid(),
             GuidNullable = Guid.NewGuid(),
@@ -971,7 +971,7 @@ public class SerializationTests
     [Fact]
     public Task Escaping()
     {
-        EscapeTarget target = new()
+        var target = new EscapeTarget
         {
             Property = @"\"
         };
@@ -986,7 +986,7 @@ public class SerializationTests
     [Fact]
     public Task OnlySpecificDates()
     {
-        NotDatesTarget target = new()
+        var target = new NotDatesTarget
         {
             NotDate = "1.2.3"
         };
@@ -1026,7 +1026,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldIgnoreEmptyList()
     {
-        CollectionTarget target = new()
+        var target = new CollectionTarget
         {
             DictionaryProperty = new(),
             IReadOnlyDictionary = new Dictionary<int, string>(),
@@ -1054,9 +1054,9 @@ public class SerializationTests
     [Fact]
     public Task ExceptionMessageProp()
     {
-        WithExceptionIgnoreMessage target = new();
+        var target = new WithExceptionIgnoreMessage();
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         return Verifier.Verify(target, settings);
@@ -1066,7 +1066,7 @@ public class SerializationTests
     [Fact]
     public Task ExceptionMessagePropFluent()
     {
-        WithExceptionIgnoreMessage target = new();
+        var target = new WithExceptionIgnoreMessage();
 
         return Verifier.Verify(target)
             .ModifySerialization(
@@ -1094,7 +1094,7 @@ public class SerializationTests
     [Fact]
     public Task NotImplementedExceptionProp()
     {
-        WithNotImplementedException target = new();
+        var target = new WithNotImplementedException();
         return Verifier.Verify(target);
     }
 
@@ -1108,7 +1108,7 @@ public class SerializationTests
     [Fact]
     public Task AddIgnoreInstance()
     {
-        IgnoreInstanceTarget target = new()
+        var target = new IgnoreInstanceTarget
         {
             ToIgnore = new()
             {
@@ -1119,7 +1119,7 @@ public class SerializationTests
                 Property = "Include"
             }
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(
             _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
         return Verifier.Verify(target, settings);
@@ -1128,7 +1128,7 @@ public class SerializationTests
     [Fact]
     public Task AddIgnoreInstanceFluent()
     {
-        IgnoreInstanceTarget target = new()
+        var target = new IgnoreInstanceTarget
         {
             ToIgnore = new()
             {
@@ -1162,7 +1162,7 @@ public class SerializationTests
     [Fact]
     public Task IgnoreType()
     {
-        IgnoreTypeTarget target = new()
+        var target = new IgnoreTypeTarget
         {
             ToIgnore = new()
             {
@@ -1173,7 +1173,7 @@ public class SerializationTests
                 Property = "Value"
             }
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
         return Verifier.Verify(target, settings);
     }
@@ -1181,7 +1181,7 @@ public class SerializationTests
     [Fact]
     public Task IgnoreTypeFluent()
     {
-        IgnoreTypeTarget target = new()
+        var target = new IgnoreTypeTarget
         {
             ToIgnore = new()
             {
@@ -1290,14 +1290,14 @@ public class SerializationTests
     [Fact]
     public Task IgnoreMemberByExpression()
     {
-        IgnoreExplicitTarget target = new()
+        var target = new IgnoreExplicitTarget
         {
             Include = "Value",
             Field = "Value",
             Property = "Value",
             PropertyWithPropertyName = "Value"
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
@@ -1312,7 +1312,7 @@ public class SerializationTests
     [Fact]
     public Task IgnoreMemberByExpressionFluent()
     {
-        IgnoreExplicitTarget target = new()
+        var target = new IgnoreExplicitTarget
         {
             Include = "Value",
             Field = "Value",
@@ -1336,12 +1336,12 @@ public class SerializationTests
     [Fact]
     public Task MemberConverterByExpression()
     {
-        MemberConverterTarget target = new()
+        var target = new MemberConverterTarget
         {
             Field = "Value",
             Property = "Value"
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
             _.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
@@ -1353,7 +1353,7 @@ public class SerializationTests
     [Fact]
     public Task MemberConverterByExpressionFluent()
     {
-        MemberConverterTarget target = new()
+        var target = new MemberConverterTarget
         {
             Field = "Value",
             Property = "Value"
@@ -1383,14 +1383,14 @@ public class SerializationTests
     [Fact]
     public Task IgnoreMemberByName()
     {
-        IgnoreExplicitTarget target = new()
+        var target = new IgnoreExplicitTarget
         {
             Include = "Value",
             Field = "Value",
             Property = "Value",
             PropertyByName = "Value"
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
             _.IgnoreMember("PropertyByName");
@@ -1406,7 +1406,7 @@ public class SerializationTests
     [Fact]
     public Task IgnoreMemberByNameFluent()
     {
-        IgnoreExplicitTarget target = new()
+        var target = new IgnoreExplicitTarget
         {
             Include = "Value",
             Field = "Value",
@@ -1505,7 +1505,7 @@ public class SerializationTests
     [Fact]
     public Task IgnoreDictionaryKeyByName()
     {
-        Dictionary<string, object> target = new()
+        var target = new Dictionary<string, object>
         {
             {
                 "Include", new Dictionary<string, string>
@@ -1540,8 +1540,8 @@ public class SerializationTests
     [Fact]
     public Task CustomExceptionProp()
     {
-        WithCustomException target = new();
-        VerifySettings settings = new();
+        var target = new WithCustomException();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
         return Verifier.Verify(target, settings);
     }
@@ -1549,7 +1549,7 @@ public class SerializationTests
     [Fact]
     public Task CustomExceptionPropFluent()
     {
-        WithCustomException target = new();
+        var target = new WithCustomException();
         return Verifier.Verify(target)
             .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
     }
@@ -1577,10 +1577,10 @@ public class SerializationTests
     [Fact]
     public Task ExceptionProp()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 
-        WithException target = new();
+        var target = new WithException();
 
         return Assert.ThrowsAsync<JsonSerializationException>(() => Verifier.Verify(target, settings));
     }
@@ -1593,10 +1593,10 @@ public class SerializationTests
     [Fact]
     public Task ExceptionNotIgnoreMessageProp()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
-        WithExceptionNotIgnoreMessage target = new();
+        var target = new WithExceptionNotIgnoreMessage();
 
         return Assert.ThrowsAsync<JsonSerializationException>(() => Verifier.Verify(target, settings));
     }
@@ -1609,7 +1609,7 @@ public class SerializationTests
     [Fact]
     public Task DelegateProp()
     {
-        WithDelegate target = new();
+        var target = new WithDelegate();
         return Verifier.Verify(target);
     }
 
@@ -1626,7 +1626,7 @@ public class SerializationTests
     [Fact]
     public Task NotSupportedExceptionProp()
     {
-        WithNotSupportedException target = new();
+        var target = new WithNotSupportedException();
         return Verifier.Verify(target);
     }
 
@@ -1640,12 +1640,12 @@ public class SerializationTests
     [Fact]
     public Task WithObsoletePropIncluded()
     {
-        WithObsolete target = new()
+        var target = new WithObsolete
         {
             ObsoleteProperty = "value1",
             OtherProperty = "value2"
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
         return Verifier.Verify(target, settings);
     }
@@ -1653,7 +1653,7 @@ public class SerializationTests
     [Fact]
     public Task WithObsoletePropIncludedFluent()
     {
-        WithObsolete target = new()
+        var target = new WithObsolete
         {
             ObsoleteProperty = "value1",
             OtherProperty = "value2"
@@ -1677,7 +1677,7 @@ public class SerializationTests
     [Fact]
     public Task WithObsoleteProp()
     {
-        WithObsolete target = new()
+        var target = new WithObsolete
         {
             ObsoleteProperty = "value1",
             OtherProperty = "value2"
@@ -1708,12 +1708,12 @@ public class SerializationTests
     [Fact]
     public Task ScopedSerializer()
     {
-        Person person = new()
+        var person = new Person
         {
             GivenNames = "John",
             FamilyName = "Smith"
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.AddExtraSettings(
             _ => { _.TypeNameHandling = TypeNameHandling.All; });
         return Verifier.Verify(person, settings);
@@ -1722,7 +1722,7 @@ public class SerializationTests
     [Fact]
     public Task ScopedSerializerFluent()
     {
-        Person person = new()
+        var person = new Person
         {
             GivenNames = "John",
             FamilyName = "Smith"

@@ -8,9 +8,9 @@ public class VerifySettingsTests
     [Fact]
     public void ContextIsCloned()
     {
-        VerifySettings originalSettings = new();
+        var originalSettings = new VerifySettings();
         originalSettings.Context.Add("cloneable", new MyCloneable());
-        VerifySettings newSettings = new(originalSettings);
+        var newSettings = new VerifySettings(originalSettings);
         Assert.NotSame(originalSettings.Context.Single().Value, newSettings.Context.Single().Value);
     }
 

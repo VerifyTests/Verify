@@ -34,7 +34,7 @@ public partial class Tests
 
         TypeToSplitOneFail initialTarget = new("info1", "value1", "value2");
         TypeToSplitOneFail secondTarget = new("info2", "value1.1", "value2.1");
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         if (autoVerify)
         {
             settings.AutoVerify();

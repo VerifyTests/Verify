@@ -16,7 +16,7 @@ namespace TheTests
         [DataRow("Value2")]
         public Task DataRowUsage(string arg)
         {
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.UseParameters(arg);
             return Verify(arg, settings);
         }

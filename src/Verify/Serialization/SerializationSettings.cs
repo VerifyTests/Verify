@@ -129,7 +129,7 @@ namespace VerifyTests
         {
             #region defaultSerialization
 
-            JsonSerializerSettings settings = new()
+            var settings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,

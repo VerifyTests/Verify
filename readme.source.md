@@ -126,7 +126,7 @@ The same approach can be used to verify the results and the change to `Sample.Te
 `VerifyJson` performs the following actions
 
  * Convert to `JToken` (if necessary).
- * Apply [ignore member by name](serializer-settings.md#ignore-member-by-name) for keys.
+ * Apply [ignore member by name](/docs/serializer-settings.md#ignore-member-by-name) for keys.
  * PrettyPrint the resulting text.
 
 snippet: VerifyJson
@@ -180,7 +180,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
  * [Verify.ICSharpCode.Decompiler](https://github.com/VerifyTests/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
  * [Verify.ImageMagick](https://github.com/VerifyTests/Verify.ImageMagick): Verification and comparison of images via [Magick.NET](https://github.com/dlemstra/Magick.NET).
  * [Verify.ImageSharp](https://github.com/VerifyTests/Verify.ImageSharp): Verification of images via [ImageSharp](https://github.com/SixLabors/ImageSharp).
- * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
+ * [Verify.NServiceBus](https://github.com/VerifyTests/Verify.NServiceBus): Verify NServiceBus Test Contexts.
  * [Verify.NodaTime](https://github.com/VerifyTests/Verify.NodaTime): Support for [NodaTime](https://nodatime.org/).
  * [Verify.Phash](https://github.com/VerifyTests/Verify.Phash): Comparison of documents via [Phash](https://github.com/pgrho/phash).
  * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.

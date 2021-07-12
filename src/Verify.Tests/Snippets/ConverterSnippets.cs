@@ -26,17 +26,17 @@ public class ConverterSnippets
             {
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                List<Target> targets = new();
+                var targets = new List<Target>();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
-                    MemoryStream page = new();
+                    var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
                     targets.Add(new Target("png", page));
                 }
 
-                return new ConversionResult(
+                return new(
                     info: new
                     {
                         image.PixelFormat,
@@ -70,17 +70,17 @@ public class ConverterSnippets
                 using var image = Image.FromStream(stream);
                 var pages = image.GetFrameCount(FrameDimension.Page);
 
-                List<Target> targets = new();
+                var targets = new List<Target>();
                 for (var index = 0; index < pages; index++)
                 {
                     image.SelectActiveFrame(FrameDimension.Page, index);
 
-                    MemoryStream page = new();
+                    var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
                     targets.Add(new Target("png", page));
                 }
 
-                return new ConversionResult(
+                return new(
                     info: new
                     {
                         image.PixelFormat,

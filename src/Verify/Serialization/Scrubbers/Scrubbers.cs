@@ -18,7 +18,7 @@ namespace VerifyTests
                 return null;
             }
 
-            StringBuilder builder = new();
+            var builder = new StringBuilder();
             using StringReader reader = new(stackTrace);
             string? line;
             while ((line = reader.ReadLine()) != null)

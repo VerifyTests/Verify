@@ -35,7 +35,7 @@ public class Tests
     [Fact]
     public async Task HttpResponseNested()
     {
-        using HttpClient client = new();
+        using var client = new HttpClient();
 
         var result = await client.GetAsync("https://httpbin.org/get");
 
@@ -46,7 +46,7 @@ public class Tests
     [Fact]
     public async Task ImageHttpResponse()
     {
-        using HttpClient client = new();
+        using var client = new HttpClient();
 
         var result = await client.GetAsync("https://httpbin.org/image/png");
 
@@ -57,7 +57,7 @@ public class Tests
     [Fact]
     public async Task HttpResponse()
     {
-        using HttpClient client = new();
+        using var client = new HttpClient();
 
         var result = await client.GetAsync("https://httpbin.org/get");
 
@@ -72,7 +72,7 @@ public class Tests
     {
         HttpRecording.StartRecording();
 
-        using HttpClient client = new();
+        using var client = new HttpClient();
 
         var result = await client.GetStringAsync("https://httpbin.org/get");
 
@@ -85,7 +85,7 @@ public class Tests
     {
         HttpRecording.StartRecording();
 
-        using HttpClient client = new();
+        using var client = new HttpClient();
 
         var result = await client.GetStringAsync("https://httpbin.org/json");
 
@@ -119,7 +119,7 @@ public class Tests
 
     static async Task<int> MethodThatDoesHttpCalls()
     {
-        using HttpClient client = new();
+        using var client = new HttpClient();
 
         var jsonResult = await client.GetStringAsync("https://httpbin.org/json");
         var xmlResult = await client.GetStringAsync("https://httpbin.org/xml");
@@ -277,7 +277,7 @@ public class Tests
     [Fact]
     public async Task OnVerifyMismatch()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.DisableDiff();
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
@@ -313,7 +313,7 @@ public class Tests
     [Fact]
     public async Task OnFirstVerify()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.DisableDiff();
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
@@ -355,7 +355,7 @@ public class Tests
     [Fact]
     public async Task SettingsArePassed()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
         await Verifier.Verify(new MemoryStream(new byte[] {1}), settings)
             .UseExtension("SettingsArePassed");
@@ -411,7 +411,7 @@ public class Tests
     [Fact]
     public Task ThrowsAggregate()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verifier.Throws(MethodThatThrowsAggregate, settings);
     }
@@ -488,7 +488,7 @@ public class Tests
     [Fact]
     public Task TextWriter()
     {
-        StringWriter target = new();
+        var target = new StringWriter();
         target.Write("content");
         return Verifier.Verify(target);
     }
@@ -496,7 +496,7 @@ public class Tests
     [Fact]
     public Task NestedTextWriter()
     {
-        StringWriter target = new();
+        var target = new StringWriter();
         target.Write("content");
         return Verifier.Verify(new {target});
     }
@@ -580,7 +580,7 @@ public class Tests
     public async Task ShouldNotIgnoreCase()
     {
         await Verifier.Verify("A");
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.DisableDiff();
         FileNameBuilder.ClearPrefixList();
         await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("a", settings));
@@ -600,13 +600,13 @@ public class Tests
     [Fact]
     public Task ShouldThrowForExtensionOnSerialization()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
         settings.ModifySerialization(_ => _.IgnoreMember("StackTrace"));
         settings.DisableDiff();
 
-        Element element = new();
+        var element = new Element();
         return Verifier.ThrowsTask(() => Verifier.Verify(element, settings))
             .ModifySerialization(_ => _.IgnoreMember("StackTrace"));
     }
@@ -614,7 +614,7 @@ public class Tests
     [Fact]
     public Task StringExtension()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("xml");
 
         return Verifier
@@ -651,7 +651,7 @@ public class Tests
     [Fact]
     public async Task AsyncEnumerableDisposable()
     {
-        DisposableTarget target = new();
+        var target = new DisposableTarget();
         await Verifier.Verify(AsyncEnumerableDisposableMethod(target));
         Assert.True(target.Disposed);
     }
@@ -665,7 +665,7 @@ public class Tests
     [Fact]
     public async Task AsyncEnumerableAsyncDisposable()
     {
-        AsyncDisposableTarget target = new();
+        var target = new AsyncDisposableTarget();
         await Verifier.Verify(AsyncEnumerableAsyncDisposableMethod(target));
         Assert.True(target.AsyncDisposed);
     }
@@ -673,7 +673,7 @@ public class Tests
     [Fact]
     public async Task TaskResultAsyncDisposable()
     {
-        AsyncDisposableTarget disposableTarget = new();
+        var disposableTarget = new AsyncDisposableTarget();
         var target = Task.FromResult(disposableTarget);
         await Verifier.Verify(target);
         Assert.True(disposableTarget.AsyncDisposed);
@@ -703,7 +703,7 @@ public class Tests
     [Fact]
     public async Task TaskResultDisposable()
     {
-        DisposableTarget disposableTarget = new();
+        var disposableTarget = new DisposableTarget();
         var target = Task.FromResult(disposableTarget);
         await Verifier.Verify(target);
         Assert.True(disposableTarget.Disposed);
@@ -727,7 +727,7 @@ public class Tests
     [Fact]
     public async Task VerifyBytesAsync()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("jpg");
         await Verifier.Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }

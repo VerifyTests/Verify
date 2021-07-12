@@ -35,7 +35,7 @@ public class NamerTests
     [Fact]
     public Task Runtime()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verifier.Verify(Namer.Runtime, settings);
     }
@@ -43,7 +43,7 @@ public class NamerTests
     [Fact]
     public Task RuntimeAndVersion()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
         return Verifier.Verify(Namer.RuntimeAndVersion, settings);
     }
@@ -53,7 +53,7 @@ public class NamerTests
     {
         #region UseFileName
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseFileName("CustomFileName");
         await Verifier.Verify("value", settings);
 
@@ -63,7 +63,7 @@ public class NamerTests
     [Fact]
     public Task UseFileNameWithUnique()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseFileName("CustomFileName");
         settings.UniqueForRuntime();
         return Verifier.Verify("value", settings);
@@ -85,7 +85,7 @@ public class NamerTests
     {
         #region UseDirectory
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseDirectory("CustomDirectory");
         await Verifier.Verify("value", settings);
 
@@ -108,7 +108,7 @@ public class NamerTests
     {
         #region UseTypeName
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseTypeName("CustomTypeName");
         await Verifier.Verify("value", settings);
 
@@ -131,7 +131,7 @@ public class NamerTests
     {
         #region UseMethodName
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseMethodName("CustomMethodName");
         await Verifier.Verify("value", settings);
 
@@ -163,7 +163,7 @@ public class NamerTests
     [Fact]
     public Task AssemblyConfiguration()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("Foo", settings);
     }
@@ -175,7 +175,7 @@ public class NamerTests
     [InlineData("Value2")]
     public Task UseTextForParameters(string arg)
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseTextForParameters(arg);
         return Verifier.Verify(arg, settings);
     }
@@ -211,7 +211,7 @@ public class NamerTests
     [Fact]
     public Task Architecture()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForArchitecture();
         return Verifier.Verify("Foo", settings);
     }
@@ -219,7 +219,7 @@ public class NamerTests
     [Fact]
     public Task OSPlatform()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
         return Verifier.Verify("Foo", settings);
     }

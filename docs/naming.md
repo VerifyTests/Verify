@@ -23,7 +23,7 @@ The directory that contains the test. A custom directory can be used via `UseDir
 <!-- snippet: UseDirectory -->
 <a id='snippet-usedirectory'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.UseDirectory("CustomDirectory");
 await Verifier.Verify("value", settings);
 ```
@@ -51,7 +51,7 @@ The class name that contains the test. A custom test name can be used via `UseTy
 <!-- snippet: UseTypeName -->
 <a id='snippet-usetypename'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
 await Verifier.Verify("value", settings);
 ```
@@ -77,7 +77,7 @@ The test method name. A custom test name can be used via `UseMethodName`:
 <!-- snippet: UseMethodName -->
 <a id='snippet-usemethodname'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
 await Verifier.Verify("value", settings);
 ```
@@ -105,7 +105,7 @@ To fully control the `{TestClassName}.{TestMethodName}_{Parameters}` parts of th
 <!-- snippet: UseFileName -->
 <a id='snippet-usefilename'></a>
 ```cs
-VerifySettings settings = new();
+var settings = new VerifySettings();
 settings.UseFileName("CustomFileName");
 await Verifier.Verify("value", settings);
 ```
@@ -153,7 +153,7 @@ public class UniqueForSample
     [Fact]
     public Task Runtime()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verifier.Verify("value", settings);
     }
@@ -168,7 +168,7 @@ public class UniqueForSample
     [Fact]
     public Task RuntimeAndVersion()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
         return Verifier.Verify("value", settings);
     }
@@ -176,7 +176,7 @@ public class UniqueForSample
     [Fact]
     public Task AssemblyConfiguration()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("value", settings);
     }
@@ -191,7 +191,7 @@ public class UniqueForSample
     [Fact]
     public Task Architecture()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForArchitecture();
         return Verifier.Verify("value", settings);
     }
@@ -206,7 +206,7 @@ public class UniqueForSample
     [Fact]
     public Task OSPlatform()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
         return Verifier.Verify("value", settings);
     }
@@ -234,7 +234,7 @@ public class UniqueForSample
     [Test]
     public Task Runtime()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verifier.Verify("value", settings);
     }
@@ -249,7 +249,7 @@ public class UniqueForSample
     [Test]
     public Task AssemblyConfiguration()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("value", settings);
     }
@@ -264,7 +264,7 @@ public class UniqueForSample
     [Test]
     public Task RuntimeAndVersion()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
         return Verifier.Verify("value", settings);
     }
@@ -279,7 +279,7 @@ public class UniqueForSample
     [Test]
     public Task Architecture()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForArchitecture();
         return Verifier.Verify("value", settings);
     }
@@ -294,7 +294,7 @@ public class UniqueForSample
     [Test]
     public Task OSPlatform()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
         return Verifier.Verify("value", settings);
     }
@@ -323,7 +323,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task Runtime()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verify("value", settings);
     }
@@ -338,7 +338,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task RuntimeAndVersion()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
         return Verify("value", settings);
     }
@@ -353,7 +353,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task AssemblyConfiguration()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
         return Verify("value", settings);
     }
@@ -368,7 +368,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task Architecture()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForArchitecture();
         return Verify("value", settings);
     }
@@ -383,7 +383,7 @@ public class UniqueForSample :
     [TestMethod]
     public Task OSPlatform()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
         return Verify("value", settings);
     }
@@ -448,7 +448,7 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod()
     {
-        VerifySettings settings = new(classLevelSettings);
+        var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
         return Verifier.Verify(
             target: @"

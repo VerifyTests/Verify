@@ -100,7 +100,7 @@ public class Snippets
     {
         #region AutoVerify
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.AutoVerify();
 
         #endregion
@@ -110,7 +110,7 @@ public class Snippets
     {
         #region DisableDiff
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.DisableDiff();
 
         #endregion
@@ -130,7 +130,7 @@ public class Snippets
 
         #region ExtraSettingsInstance
 
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.AddExtraSettings(_ =>
         {
             _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;

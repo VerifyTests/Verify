@@ -20,7 +20,7 @@ public partial class Tests
     {
         TypeToSplit initialTarget = new("info1", "value1", "value2");
         TypeToSplit secondTarget = new("info2", "value1.1", "value2.1");
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         if (autoVerify)
         {
             settings.AutoVerify();

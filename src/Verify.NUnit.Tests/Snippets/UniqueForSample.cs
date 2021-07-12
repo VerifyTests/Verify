@@ -11,7 +11,7 @@ public class UniqueForSample
     [Test]
     public Task Runtime()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntime();
         return Verifier.Verify("value", settings);
     }
@@ -26,7 +26,7 @@ public class UniqueForSample
     [Test]
     public Task AssemblyConfiguration()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("value", settings);
     }
@@ -41,7 +41,7 @@ public class UniqueForSample
     [Test]
     public Task RuntimeAndVersion()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
         return Verifier.Verify("value", settings);
     }
@@ -56,7 +56,7 @@ public class UniqueForSample
     [Test]
     public Task Architecture()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForArchitecture();
         return Verifier.Verify("value", settings);
     }
@@ -71,7 +71,7 @@ public class UniqueForSample
     [Test]
     public Task OSPlatform()
     {
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
         return Verifier.Verify("value", settings);
     }

@@ -18,7 +18,7 @@ namespace TheTests
         {
             #region ChangeDefaultsPerVerification
 
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
 
             settings.ModifySerialization(_ =>
             {
@@ -48,13 +48,13 @@ namespace TheTests
         [TestMethod]
         public async Task ScopedSerializer()
         {
-            Person person = new()
+            var person = new Person
             {
                 GivenNames = "John",
                 FamilyName = "Smith",
                 Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
             };
-            VerifySettings settings = new();
+            var settings = new VerifySettings();
             settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
             await Verify(person, settings);
         }
@@ -63,7 +63,7 @@ namespace TheTests
         {
             #region Before
 
-            Person person = new()
+            var person = new Person
             {
                 GivenNames = "John",
                 FamilyName = "Smith",
@@ -85,12 +85,12 @@ namespace TheTests
         [TestMethod]
         public async Task Anon()
         {
-            Person person1 = new()
+            var person1 = new Person
             {
                 GivenNames = "John",
                 FamilyName = "Smith"
             };
-            Person person2 = new()
+            var person2 = new Person
             {
                 GivenNames = "Marianne",
                 FamilyName = "Aguirre"
@@ -110,7 +110,7 @@ namespace TheTests
         {
             #region After
 
-            Person person = new()
+            var person = new Person
             {
                 GivenNames = "John",
                 FamilyName = "Smith",

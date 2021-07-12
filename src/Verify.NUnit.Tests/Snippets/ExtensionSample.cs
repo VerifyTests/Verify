@@ -17,7 +17,7 @@ public class ExtensionSample
     [Test]
     public async Task AtMethod()
     {
-        VerifySettings settings = new(classLevelSettings);
+        var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
         await Verifier.Verify(
             target: @"

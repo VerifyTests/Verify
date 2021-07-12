@@ -7,7 +7,7 @@ static class ParameterBuilder
 {
     public static string Concat(MethodInfo method, IReadOnlyList<object?> parameterValues)
     {
-        StringBuilder builder = new();
+        var builder = new StringBuilder();
         var parameters = method.GetParameters();
         for (var index = 0; index < parameters.Length; index++)
         {

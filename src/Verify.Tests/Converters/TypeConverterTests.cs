@@ -26,11 +26,11 @@ public class TypeConverterTests
     [Fact]
     public Task Inherited()
     {
-        InheritedClass target = new()
+        var target = new InheritedClass
         {
             Value = "line1"
         };
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseExtension("txt");
         return Verifier.Verify(target, settings);
     }
@@ -55,7 +55,7 @@ public class TypeConverterTests
             {
                 #region ConversionResultWithCleanup
 
-                return new ConversionResult(
+                return new(
                     info: info,
                     "bin",
                     stream: File.OpenRead(filePath),
@@ -67,7 +67,7 @@ public class TypeConverterTests
 
                 #endregion
             });
-        TargetForCleanup target = new()
+        var target = new TargetForCleanup
         {
             Value = "line1"
         };
@@ -90,7 +90,7 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithNewline()
     {
-        ClassToSplit target = new()
+        var target = new ClassToSplit
         {
             Value = $"line1{Environment.NewLine}line2"
         };
@@ -113,7 +113,7 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithCanConvert_Invalid()
     {
-        CanConvertTarget target = new()
+        var target = new CanConvertTarget
         {
             Value = "Invalid"
         };
@@ -131,7 +131,7 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithCanConvert_Valid()
     {
-        CanConvertTarget target = new()
+        var target = new CanConvertTarget
         {
             Value = "Valid"
         };
@@ -155,7 +155,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(x => new Target("png", x)));
             },
             (_, _, context) =>
             {
@@ -167,8 +167,13 @@ public class TypeConverterTests
     [Fact]
     public Task WithInfo()
     {
-        VerifySettings settings = new();
-        settings.Context["name"] = nameof(WithInfo);
+        var settings = new VerifySettings
+        {
+            Context =
+            {
+                ["name"] = nameof(WithInfo)
+            }
+        };
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
@@ -188,15 +193,20 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new ConversionResult(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(x => new Target("png", x)));
             });
     }
 
     [Fact]
     public Task WithInfoShouldRespectSettings()
     {
-        VerifySettings settings = new();
-        settings.Context["name"] = nameof(WithInfoShouldRespectSettings);
+        var settings = new VerifySettings
+        {
+            Context =
+            {
+                ["name"] = nameof(WithInfoShouldRespectSettings)
+            }
+        };
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
@@ -220,15 +230,20 @@ public class TypeConverterTests
     [Fact]
     public Task TypeConversion()
     {
-        VerifySettings settings = new();
-        settings.Context["name"] = nameof(TypeConversion);
+        var settings = new VerifySettings
+        {
+            Context =
+            {
+                ["name"] = nameof(TypeConversion)
+            }
+        };
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
         return Verifier.Verify(bitmap, settings);
     }
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)
     {
-        MemoryStream stream = new();
+        var stream = new MemoryStream();
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }

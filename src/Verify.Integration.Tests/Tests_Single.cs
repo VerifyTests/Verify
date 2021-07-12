@@ -23,7 +23,7 @@ public partial class Tests
         var method = GetType().GetMethod("Text")!;
         var concat = ParameterBuilder.Concat(method, new object[] {hasExistingReceived, autoVerify});
         var uniqueTestName = $"Tests.Text_{concat}";
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseParameters(hasExistingReceived, autoVerify);
         await RunTest(
             "txt",
@@ -56,7 +56,7 @@ public partial class Tests
 
         var concat = ParameterBuilder.Concat(method, new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
         var uniqueTestName = $"Tests.Stream_{concat}";
-        VerifySettings settings = new();
+        var settings = new VerifySettings();
         settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);
         await RunTest(
             extension: extension,

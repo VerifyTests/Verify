@@ -57,17 +57,17 @@ VerifierSettings.RegisterFileConverter<Image>(
     {
         var pages = image.GetFrameCount(FrameDimension.Page);
 
-        List<Target> targets = new();
+        var targets = new List<Target>();
         for (var index = 0; index < pages; index++)
         {
             image.SelectActiveFrame(FrameDimension.Page, index);
 
-            MemoryStream page = new();
+            var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
             targets.Add(new Target("png", page));
         }
 
-        return new ConversionResult(
+        return new(
             info: new
             {
                 image.PixelFormat,
@@ -113,17 +113,17 @@ VerifierSettings.RegisterFileConverter(
         using var image = Image.FromStream(stream);
         var pages = image.GetFrameCount(FrameDimension.Page);
 
-        List<Target> targets = new();
+        var targets = new List<Target>();
         for (var index = 0; index < pages; index++)
         {
             image.SelectActiveFrame(FrameDimension.Page, index);
 
-            MemoryStream page = new();
+            var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
             targets.Add(new Target("png", page));
         }
 
-        return new ConversionResult(
+        return new(
             info: new
             {
                 image.PixelFormat,
@@ -151,7 +151,7 @@ If cleanup needs to occur after verification a callback can be passes to `Conver
 <!-- snippet: ConversionResultWithCleanup -->
 <a id='snippet-conversionresultwithcleanup'></a>
 ```cs
-return new ConversionResult(
+return new(
     info: info,
     "bin",
     stream: File.OpenRead(filePath),

@@ -9,7 +9,6 @@ namespace VerifyTests
 
         public static void OnFirstVerify(FirstVerify firstVerify)
         {
-            Guard.AgainstNull(firstVerify, nameof(firstVerify));
             handleOnFirstVerify += firstVerify;
         }
 
@@ -37,14 +36,11 @@ namespace VerifyTests
 
         public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
         {
-            Guard.AgainstNull(verifyMismatch, nameof(verifyMismatch));
             handleOnVerifyMismatch += verifyMismatch;
         }
 
         public static void OnVerify(Action before, Action after)
         {
-            Guard.AgainstNull(before, nameof(before));
-            Guard.AgainstNull(after, nameof(after));
             beforeVerify += before;
             afterVerify += after;
         }

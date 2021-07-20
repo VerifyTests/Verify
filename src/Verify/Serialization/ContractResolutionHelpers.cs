@@ -9,9 +9,6 @@ namespace VerifyTests
     {
         public static void ConfigureIfBool(this JsonProperty property, MemberInfo member, bool ignoreFalse)
         {
-            Guard.AgainstNull(property, nameof(property));
-            Guard.AgainstNull(member, nameof(member));
-
             if (ignoreFalse)
             {
                 return;
@@ -36,8 +33,6 @@ namespace VerifyTests
 
         public static void SkipEmptyCollections(this JsonProperty property, MemberInfo member)
         {
-            Guard.AgainstNull(property, nameof(property));
-            Guard.AgainstNull(member, nameof(member));
             var type = property.PropertyType;
             if (type == null)
             {

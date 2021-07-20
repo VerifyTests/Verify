@@ -97,14 +97,12 @@ namespace VerifyTests
 #if(!NET5_0_OR_GREATER)
         internal static System.IO.Stream ReadAsStream(this HttpContent content)
         {
-            Guard.AgainstNull(content, nameof(content));
             return content.ReadAsStreamAsync().GetAwaiter().GetResult();
         }
 #endif
 
         public static bool TryGetExtension(this HttpContent content, [NotNullWhen(true)] out string? extension)
         {
-            Guard.AgainstNull(content, nameof(content));
             var contentType = content.Headers.ContentType;
             if (contentType == null)
             {
@@ -134,7 +132,6 @@ namespace VerifyTests
 
         public static bool IsText(this HttpContent content, [NotNullWhen(true)] out string? subType)
         {
-            Guard.AgainstNull(content, nameof(content));
             var contentType = content.Headers.ContentType;
             if (contentType == null)
             {

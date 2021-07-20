@@ -14,7 +14,6 @@ namespace VerifyTests
 
         public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         {
-            Guard.AgainstNull(expressions, nameof(expressions));
             foreach (var expression in expressions)
             {
                 IgnoreMember(expression);
@@ -23,7 +22,6 @@ namespace VerifyTests
 
         public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
         {
-            Guard.AgainstNull(expression, nameof(expression));
             var member = expression.FindMember();
             IgnoreMember(member.DeclaringType!, member.Name);
         }
@@ -45,7 +43,6 @@ namespace VerifyTests
 
         public void IgnoreMembers(Type declaringType, params string[] names)
         {
-            Guard.AgainstNull(names, nameof(names));
             foreach (var name in names)
             {
                 IgnoreMember(declaringType, name);
@@ -54,7 +51,6 @@ namespace VerifyTests
 
         public void IgnoreMember(Type declaringType, string name)
         {
-            Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNullOrEmpty(name, nameof(name));
             if (!ignoredMembers.TryGetValue(declaringType, out var list))
             {
@@ -81,7 +77,6 @@ namespace VerifyTests
 
         public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         {
-            Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
             var type = typeof(T);
             IgnoreInstance(
                 type,
@@ -94,9 +89,6 @@ namespace VerifyTests
 
         public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
         {
-            Guard.AgainstNull(type, nameof(type));
-            Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
-
             if (!ignoredInstances.TryGetValue(type, out var list))
             {
                 ignoredInstances[type] = list = new();
@@ -128,7 +120,6 @@ namespace VerifyTests
         public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
             where T : Exception
         {
-            Guard.AgainstNull(item, nameof(item));
             ignoreMembersThatThrow.Add(
                 x =>
                 {

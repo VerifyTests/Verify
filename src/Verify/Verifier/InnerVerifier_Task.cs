@@ -8,7 +8,6 @@ namespace VerifyTests
     {
         public async Task Verify<T>(Task<T> task)
         {
-            Guard.AgainstNull(task, nameof(task));
             var target = await task;
 
             try
@@ -23,7 +22,6 @@ namespace VerifyTests
 
         public async Task Verify<T>(IAsyncEnumerable<T> target)
         {
-            Guard.AgainstNull(target, nameof(target));
             var list = new List<T>();
             await foreach (var item in target)
             {
@@ -57,7 +55,6 @@ namespace VerifyTests
 
         public async Task Verify<T>(ValueTask<T> task)
         {
-            Guard.AgainstNull(task, nameof(task));
             var target = await task;
 
             try

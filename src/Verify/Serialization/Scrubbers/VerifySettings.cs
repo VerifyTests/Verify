@@ -23,7 +23,6 @@ namespace VerifyTests
         /// </summary>
         public void AddScrubber(Action<StringBuilder> scrubber)
         {
-            Guard.AgainstNull(scrubber, nameof(scrubber));
             instanceScrubbers.Insert(0, scrubber);
         }
 
@@ -32,7 +31,6 @@ namespace VerifyTests
         /// </summary>
         public void AddScrubber(string extension, Action<StringBuilder> scrubber)
         {
-            Guard.AgainstNull(scrubber, nameof(scrubber));
             if (!extensionMappedInstanceScrubbers.TryGetValue(extension, out var values))
             {
                 extensionMappedInstanceScrubbers[extension] = values = new();

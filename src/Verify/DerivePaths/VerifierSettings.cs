@@ -41,7 +41,6 @@ namespace VerifyTests
         /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
         public static void DerivePathInfo(DerivePathInfo derivePathInfo)
         {
-            Guard.AgainstNull(derivePathInfo, nameof(derivePathInfo));
             VerifierSettings.derivePathInfo = derivePathInfo;
         }
     }

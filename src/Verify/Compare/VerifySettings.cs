@@ -7,13 +7,11 @@
 
         public void UseStreamComparer(StreamCompare compare)
         {
-            Guard.AgainstNull(compare, nameof(compare));
             streamComparer = compare;
         }
 
         public void UseStringComparer(StringCompare compare)
         {
-            Guard.AgainstNull(compare, nameof(compare));
             stringComparer = compare;
         }
 

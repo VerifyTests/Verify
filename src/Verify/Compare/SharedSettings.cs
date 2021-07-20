@@ -32,21 +32,18 @@ namespace VerifyTests
 
         public static void RegisterStreamComparer(string extension, StreamCompare compare)
         {
-            Guard.AgainstNull(compare, nameof(compare));
             Guard.AgainstBadExtension(extension, nameof(extension));
             streamComparers[extension] = compare;
         }
 
         public static void RegisterStringComparer(string extension, StringCompare compare)
         {
-            Guard.AgainstNull(compare, nameof(compare));
             Guard.AgainstBadExtension(extension, nameof(extension));
             stringComparers[extension] = compare;
         }
 
         public static void SetDefaultStringComparer(StringCompare compare)
         {
-            Guard.AgainstNull(compare, nameof(compare));
             defaultStringComparer=compare;
         }
     }

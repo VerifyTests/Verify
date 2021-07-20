@@ -16,7 +16,6 @@ namespace VerifyTests
 
         public ConversionResult(object? info, IEnumerable<Target> targets, Func<Task>? cleanup = null)
         {
-            Guard.AgainstNull(targets, nameof(targets));
             Info = info;
             Targets = targets;
             Cleanup = cleanup;
@@ -24,7 +23,6 @@ namespace VerifyTests
 
         public ConversionResult(object? info, string extension, Stream stream, Func<Task>? cleanup = null)
         {
-            Guard.AgainstNull(stream, nameof(stream));
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Info = info;
             Cleanup = cleanup;
@@ -36,7 +34,6 @@ namespace VerifyTests
 
         public ConversionResult(object? info, string extension, string data, Func<Task>? cleanup = null)
         {
-            Guard.AgainstNull(data, nameof(data));
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Info = info;
             Cleanup = cleanup;
@@ -48,7 +45,6 @@ namespace VerifyTests
 
         public ConversionResult(object? info, string extension, StringBuilder data, Func<Task>? cleanup = null)
         {
-            Guard.AgainstNull(data, nameof(data));
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             Info = info;
             Cleanup = cleanup;

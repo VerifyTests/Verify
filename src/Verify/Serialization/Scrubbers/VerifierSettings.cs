@@ -15,8 +15,6 @@ namespace VerifyTests
         /// </summary>
         public static void AddScrubber(Action<StringBuilder> scrubber)
         {
-            Guard.AgainstNull(scrubber, nameof(scrubber));
-
             GlobalScrubbers.Insert(0, scrubber);
         }
 
@@ -25,7 +23,6 @@ namespace VerifyTests
         /// </summary>
         public static void AddScrubber(string extension, Action<StringBuilder> scrubber)
         {
-            Guard.AgainstNull(scrubber, nameof(scrubber));
             if (!ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var values))
             {
                 ExtensionMappedGlobalScrubbers[extension] = values = new();

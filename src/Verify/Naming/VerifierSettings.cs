@@ -12,7 +12,6 @@ namespace VerifyTests
 
         public static void NameForParameter<T>(ParameterToName<T> func)
         {
-            Guard.AgainstNull(func, nameof(func));
             parameterToNameLookup.Add(typeof(T), o => func((T)o));
         }
 

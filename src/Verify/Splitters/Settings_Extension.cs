@@ -18,7 +18,6 @@ namespace VerifyTests
             string fromExtension,
             Conversion<Stream> conversion)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
                 fromExtension,
                 (stream, context) => Task.FromResult(conversion(stream, context)));
@@ -28,7 +27,6 @@ namespace VerifyTests
             string fromExtension,
             AsyncConversion<Stream> conversion)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
             Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
             extensionConverters[fromExtension] = conversion;
         }

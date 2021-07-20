@@ -20,7 +20,6 @@ namespace VerifyTests
 
         public static void RegisterFileAppender(FileAppender appender)
         {
-            Guard.AgainstNull(appender, nameof(appender));
             fileAppenders.Add(appender);
         }
     }

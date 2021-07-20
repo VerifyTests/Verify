@@ -34,9 +34,6 @@ class CustomContractResolver :
         SharedScrubber scrubber,
         Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters)
     {
-        Guard.AgainstNull(ignoredMembers, nameof(ignoredMembers));
-        Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
-        Guard.AgainstNull(ignoreMembersThatThrow, nameof(ignoreMembersThatThrow));
         this.ignoreEmptyCollections = ignoreEmptyCollections;
         this.ignoreFalse = ignoreFalse;
         this.includeObsoletes = includeObsoletes;

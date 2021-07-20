@@ -58,7 +58,6 @@ namespace VerifyTests
         public Target(string extension, Stream streamData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
-            Guard.AgainstNull(streamData, nameof(streamData));
 
             if (EmptyFiles.Extensions.IsText(extension))
             {
@@ -74,7 +73,6 @@ namespace VerifyTests
         public Target(string extension, StringBuilder stringBuilderData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
-            Guard.AgainstNull(stringBuilderData, nameof(stringBuilderData));
             if (!EmptyFiles.Extensions.IsText(extension))
             {
                 throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");
@@ -89,7 +87,6 @@ namespace VerifyTests
         public Target(string extension, string stringData)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
-            Guard.AgainstNull(stringData, nameof(stringData));
             if (!EmptyFiles.Extensions.IsText(extension))
             {
                 throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");

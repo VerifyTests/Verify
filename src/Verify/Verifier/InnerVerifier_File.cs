@@ -14,7 +14,6 @@ namespace VerifyTests
 
         public Task VerifyFile(FileInfo target)
         {
-            Guard.AgainstNull(target, nameof(target));
             return VerifyFile(target.FullName);
         }
     }

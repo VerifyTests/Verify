@@ -8,7 +8,6 @@ namespace VerifyTests
     {
         public Task Verify(byte[] target)
         {
-            Guard.AgainstNull(target, nameof(target));
             MemoryStream stream = new(target);
             return VerifyStream(stream);
         }

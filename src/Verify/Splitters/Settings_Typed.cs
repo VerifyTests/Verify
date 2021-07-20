@@ -29,7 +29,6 @@ namespace VerifyTests
             Conversion<T> conversion,
             CanConvert<T>? canConvert = null)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
                 (o, context) => Task.FromResult(conversion(o, context)),
                 canConvert);
@@ -39,7 +38,6 @@ namespace VerifyTests
             AsyncConversion<T> conversion,
             CanConvert<T>? canConvert = null)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
             TypeConverter converter = new(
                 (o, context) => conversion((T) o, context),
                 DefaultCanConvert(canConvert));
@@ -50,7 +48,6 @@ namespace VerifyTests
             Conversion conversion,
             CanConvert canConvert)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
             RegisterFileConverter(
                 (o, context) => Task.FromResult(conversion(o, context)),
                 canConvert);
@@ -60,8 +57,6 @@ namespace VerifyTests
             AsyncConversion conversion,
             CanConvert canConvert)
         {
-            Guard.AgainstNull(conversion, nameof(conversion));
-            Guard.AgainstNull(canConvert, nameof(canConvert));
             TypeConverter converter = new(
                 conversion,
                 canConvert);

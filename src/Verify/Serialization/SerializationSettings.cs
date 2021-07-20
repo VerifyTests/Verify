@@ -82,8 +82,6 @@ namespace VerifyTests
             Expression<Func<TTarget, TMember?>> expression,
             ConvertMember<TTarget, TMember?> converter)
         {
-            Guard.AgainstNull(expression, nameof(expression));
-            Guard.AgainstNull(converter, nameof(converter));
             var member = expression.FindMember();
             MemberConverter(
                 member.DeclaringType!,
@@ -93,8 +91,6 @@ namespace VerifyTests
 
         public void MemberConverter(Type declaringType, string name, ConvertMember converter)
         {
-            Guard.AgainstNull(declaringType, nameof(declaringType));
-            Guard.AgainstNull(converter, nameof(converter));
             Guard.AgainstNullOrEmpty(name, nameof(name));
             if (!membersConverters.TryGetValue(declaringType, out var list))
             {
@@ -195,7 +191,6 @@ namespace VerifyTests
 
         public void AddExtraSettings(Action<JsonSerializerSettings> action)
         {
-            Guard.AgainstNull(action, nameof(action));
             ExtraSettings.Add(action);
         }
 

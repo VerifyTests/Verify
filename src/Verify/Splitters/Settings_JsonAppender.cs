@@ -23,7 +23,6 @@ namespace VerifyTests
 
         public static void RegisterJsonAppender(JsonAppender appender)
         {
-            Guard.AgainstNull(appender, nameof(appender));
             jsonAppenders.Add(appender);
         }
     }

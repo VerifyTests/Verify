@@ -64,7 +64,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            targets.Add(new Target("png", page));
+            targets.Add(new("png", page));
         }
 
         return new(
@@ -120,7 +120,7 @@ VerifierSettings.RegisterFileConverter(
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            targets.Add(new Target("png", page));
+            targets.Add(new("png", page));
         }
 
         return new(

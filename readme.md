@@ -28,6 +28,14 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
  * https://nuget.org/packages/Verify.MSTest/
 
 
+## Snapshot management
+
+ * [ReSharper test runner support](https://plugins.jetbrains.com/plugin/17241-verify-support)
+ * [Rider test runner support](https://plugins.jetbrains.com/plugin/17240-verify-support)
+ * In the Windows Tray via [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)
+ * [Via the clipboard](/docs/clipboard.md).
+
+
 ## Usage
 
 

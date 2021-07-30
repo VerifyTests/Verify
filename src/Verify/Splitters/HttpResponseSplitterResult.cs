@@ -26,7 +26,7 @@ static class HttpResponseSplitterResult
             targets.Add(new(extension, content.ReadAsStream()));
         }
 
-        return new ConversionResult(
+        return new(
             new
             {
                 instance.Version,

@@ -89,22 +89,23 @@ namespace VerifyTests
             if (typeof(T).ImplementsStreamEnumerable())
             {
                 var enumerable = (IEnumerable) target;
-                var streams = enumerable.Cast<Stream>()
-                    .Select(x =>
-                    {
-                        if (x == null)
-                        {
-                            return new Target(settings.ExtensionOrTxt(), "null");
-                        }
-
-                        return new Target(settings.ExtensionOrBin(), x);
-                    });
+                var streams = enumerable.Cast<Stream>().Select(ToTarget);
                 await VerifyInner(null, null, streams);
                 return;
             }
 
             AssertExtensionIsNull();
             await VerifyInner(target, null, emptyTargets);
+        }
+
+        Target ToTarget(Stream? stream)
+        {
+            if (stream == null)
+            {
+                return new(settings.ExtensionOrTxt(), "null");
+            }
+
+            return new(settings.ExtensionOrBin(), stream);
         }
 
         void AssertExtensionIsNull()

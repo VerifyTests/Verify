@@ -33,7 +33,7 @@ public class ConverterSnippets
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    targets.Add(new Target("png", page));
+                    targets.Add(new("png", page));
                 }
 
                 return new(
@@ -77,7 +77,7 @@ public class ConverterSnippets
 
                     var page = new MemoryStream();
                     image.Save(page, ImageFormat.Png);
-                    targets.Add(new Target("png", page));
+                    targets.Add(new("png", page));
                 }
 
                 return new(

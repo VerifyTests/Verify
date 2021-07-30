@@ -29,7 +29,7 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "ExtensionConversionStringBuilder",
-            (_, _) => new ConversionResult(null, "txt", new StringBuilder("Foo")));
+            (_, _) => new(null, "txt", new StringBuilder("Foo")));
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class ExtensionConverterTests
     {
         VerifierSettings.RegisterFileConverter(
             "ExtensionConversion",
-            (_, _) => new ConversionResult(null, "txt", "Foo"));
+            (_, _) => new(null, "txt", "Foo"));
     }
 
     [Fact]

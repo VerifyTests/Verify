@@ -1,4 +1,5 @@
-﻿using DiffEngine;
+﻿using System;
+using DiffEngine;
 using VerifyTests;
 
 static class ClipboardEnabled
@@ -7,7 +8,7 @@ static class ClipboardEnabled
 
     static ClipboardEnabled()
     {
-        var disabledText = EnvironmentEx.GetEnvironmentVariable("Verify_DisableClipboard");
+        var disabledText = Environment.GetEnvironmentVariable("Verify_DisableClipboard");
         clipboardDisabled = ParseEnvironmentVariable(disabledText);
     }
 

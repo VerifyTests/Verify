@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,13 +26,13 @@ static class ClipboardCapture
             deleteCommand = "rm -f \"{0}\"";
         }
 
-        var envMoveCommand = EnvironmentEx.GetEnvironmentVariable("Verify_MoveCommand");
+        var envMoveCommand = Environment.GetEnvironmentVariable("Verify_MoveCommand");
         if (envMoveCommand != null)
         {
             moveCommand = envMoveCommand;
         }
 
-        var envDeleteCommand = EnvironmentEx.GetEnvironmentVariable("Verify_DeleteCommand");
+        var envDeleteCommand = Environment.GetEnvironmentVariable("Verify_DeleteCommand");
         if (envDeleteCommand != null)
         {
             deleteCommand = envDeleteCommand;

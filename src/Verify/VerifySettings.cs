@@ -95,22 +95,12 @@ namespace VerifyTests
 
         internal string ExtensionOrTxt(string defaultValue = "txt")
         {
-            if (extension == null)
-            {
-                return defaultValue;
-            }
-
-            return extension;
+            return extension ?? defaultValue;
         }
 
         internal string ExtensionOrBin()
         {
-            if (extension == null)
-            {
-                return "bin";
-            }
-
-            return extension;
+            return extension ?? "bin";
         }
 
         internal bool autoVerify;

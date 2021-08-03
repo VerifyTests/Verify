@@ -25,12 +25,7 @@ namespace VerifyXunit
         internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
         {
             info = local.Value;
-            if (info == null)
-            {
-                return false;
-            }
-
-            return true;
+            return info != null;
         }
     }
 }

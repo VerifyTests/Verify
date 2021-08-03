@@ -254,6 +254,25 @@ class VerifyEngine
 
         builder.AppendLine();
 
+        await RunClipboardDiffAutoCheck(item);
+    }
+
+    async Task ProcessMissing(StringBuilder builder, FilePair item)
+    {
+        await VerifierSettings.RunOnFirstVerify(item);
+
+        builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
+        if (EmptyFiles.Extensions.IsText(item.Extension))
+        {
+            builder.AppendLine($"{Path.GetFileName(item.Received)}");
+            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
+        }
+
+        await RunClipboardDiffAutoCheck(item);
+    }
+
+    async Task RunClipboardDiffAutoCheck(FilePair item)
+    {
         if (BuildServerDetector.Detected)
         {
             return;
@@ -290,38 +309,6 @@ class VerifyEngine
         }
     }
 
-    async Task ProcessMissing(StringBuilder builder, FilePair item)
-    {
-        await VerifierSettings.RunOnFirstVerify(item);
-
-        builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
-        if (EmptyFiles.Extensions.IsText(item.Extension))
-        {
-            builder.AppendLine($"{Path.GetFileName(item.Received)}");
-            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-        }
-
-        if (BuildServerDetector.Detected)
-        {
-            return;
-        }
-
-        if (settings.autoVerify)
-        {
-            AcceptChanges(item);
-            return;
-        }
-
-        if (clipboardEnabled)
-        {
-            await ClipboardCapture.AppendMove(item.Received, item.Verified);
-        }
-
-        if (diffEnabled)
-        {
-            await DiffRunner.LaunchAsync(item.Received, item.Verified);
-        }
-    }
 
     static void AcceptChanges(in FilePair item)
     {

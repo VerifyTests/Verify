@@ -157,13 +157,11 @@ await Verifier.Verify(target).UseParameters({names});
 
         static void CheckPrefixIsUnique(string prefix, MethodInfo method)
         {
-            if (prefixList.TryGetValue(prefix, out var existing))
-            {
-                throw new($@"The prefix has already been used. Existing: {existing.FullName()}. New: {method.FullName()}.
-This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
-            }
-
-            prefixList[prefix] = method;
+            prefixList.AddOrUpdate(
+                prefix,
+                _ => method,
+                (_, info) => throw new($@"The prefix has already been used. Existing: {info.FullName()}. New: {method.FullName()}.
+This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}"));
         }
 
         public static void ClearPrefixList()

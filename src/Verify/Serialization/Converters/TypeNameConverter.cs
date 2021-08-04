@@ -14,6 +14,8 @@ namespace VerifyTests
         static ConcurrentDictionary<Type, string> cacheDictionary = new(
             new List<KeyValuePair<Type, string>>
             {
+                new(typeof(char), "Char"),
+                new(typeof(char?), "Nullable<Char>"),
                 new(typeof(string), "String"),
                 new(typeof(sbyte), "SByte"),
                 new(typeof(sbyte?), "Nullable<SByte>"),

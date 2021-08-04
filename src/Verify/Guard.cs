@@ -17,7 +17,7 @@ static class Guard
 
     public static void BadFileNameNullable(string? name, string argumentName)
     {
-        if (name == null)
+        if (name is null)
         {
             return;
         }
@@ -46,7 +46,7 @@ static class Guard
 
     public static void BadDirectoryName(string? name, string argumentName)
     {
-        if (name == null)
+        if (name is null)
         {
             return;
         }
@@ -73,7 +73,7 @@ static class Guard
 
     public static void AgainstEmpty(string? value, string argumentName)
     {
-        if (value == null)
+        if (value is null)
         {
             return;
         }
@@ -86,7 +86,7 @@ static class Guard
 
     public static void AgainstNullOrEmpty(object?[] value, string argumentName)
     {
-        if (value == null)
+        if (value is null)
         {
             throw new ArgumentNullException(argumentName);
         }
@@ -99,7 +99,7 @@ static class Guard
 
     public static void AgainstNullOrEmpty<T>(T[] value, string argumentName)
     {
-        if (value == null)
+        if (value is null)
         {
             throw new ArgumentNullException(argumentName);
         }

@@ -12,7 +12,7 @@ namespace VerifyTests
             foreach (var appender in jsonAppenders)
             {
                 var data = appender(settings.Context);
-                if (data != null)
+                if (data is not null)
                 {
                     list.Add(data.Value);
                 }

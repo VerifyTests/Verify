@@ -30,7 +30,7 @@ namespace VerifyTests
             var directory = settings.directory ?? pathInfo.Directory;
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-            if (directory == null)
+            if (directory is null)
             {
                 directory = sourceFileDirectory;
             }
@@ -87,7 +87,7 @@ namespace VerifyTests
         static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, Namer namer)
         {
             var uniquenessParts = GetUniquenessParts(namer, type);
-            if (settings.fileName != null)
+            if (settings.fileName is not null)
             {
                 return settings.fileName + uniquenessParts;
             }
@@ -102,12 +102,12 @@ namespace VerifyTests
 
         static string GetParameterText(MethodInfo method, VerifySettings settings)
         {
-            if (settings.parametersText != null)
+            if (settings.parametersText is not null)
             {
                 return $"_{settings.parametersText}";
             }
 
-            if (settings.parameters != null)
+            if (settings.parameters is not null)
             {
                 return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
             }

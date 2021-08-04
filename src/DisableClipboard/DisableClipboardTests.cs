@@ -31,7 +31,7 @@ public class DisableClipboardTests
     static async Task AssertClipboardNotEffected()
     {
         var text = await ClipboardService.GetTextAsync();
-        if (text == null)
+        if (text is null)
         {
             return;
         }

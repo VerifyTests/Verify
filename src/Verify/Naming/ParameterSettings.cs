@@ -14,7 +14,7 @@
         {
             Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
             ThrowIfFileNameDefined();
-            if (parametersText != null)
+            if (parametersText is not null)
             {
                 throw new($"{nameof(UseParameters)} is not compatible with {nameof(UseTextForParameters)}.");
             }

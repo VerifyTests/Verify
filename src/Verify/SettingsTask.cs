@@ -15,7 +15,7 @@ namespace VerifyTests
 
         public SettingsTask(VerifySettings? settings, Func<VerifySettings, Task> buildTask)
         {
-            if (settings != null)
+            if (settings is not null)
             {
                 this.settings = new(settings);
             }

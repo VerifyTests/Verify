@@ -16,7 +16,7 @@ namespace VerifyNUnit
         {
             var temp = typeof(TestContext.TestAdapter)
                 .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (temp == null)
+            if (temp is null)
             {
                 throw new("Could not find field `_test` on TestContext.TestAdapter.");
             }
@@ -30,7 +30,7 @@ namespace VerifyNUnit
             var context = TestContext.CurrentContext;
             var adapter = context.Test;
             var test = (Test) field.GetValue(adapter)!;
-            if (test.TypeInfo == null || test.Method == null)
+            if (test.TypeInfo == null || test.Method is null)
             {
                 throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
             }

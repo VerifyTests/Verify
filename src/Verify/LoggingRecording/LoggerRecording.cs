@@ -17,7 +17,7 @@ namespace VerifyTests
         {
             var provider = local.Value;
 
-            if (provider == null)
+            if (provider is null)
             {
                 local.Value = null;
                 entries = null;

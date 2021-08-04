@@ -14,7 +14,7 @@ static class ParameterBuilder
             var parameter = parameters[index];
             var value = parameterValues[index];
             builder.Append($"{parameter.Name}=");
-            if (value == null)
+            if (value is null)
             {
                 builder.Append("null_");
                 continue;

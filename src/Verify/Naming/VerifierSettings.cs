@@ -72,7 +72,7 @@ namespace VerifyTests
 
             var nameForParameter = parameter.ToString();
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (nameForParameter == null)
+            if (nameForParameter is null)
             {
                 throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
             }

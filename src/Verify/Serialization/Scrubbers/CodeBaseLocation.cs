@@ -9,7 +9,7 @@ static class CodeBaseLocation
     {
         var assembly = typeof(CodeBaseLocation).Assembly;
 
-        if (assembly.CodeBase != null)
+        if (assembly.CodeBase is not null)
         {
             UriBuilder uri = new(assembly.CodeBase);
             var path = Uri.UnescapeDataString(uri.Path);

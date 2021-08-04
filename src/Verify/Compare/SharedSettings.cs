@@ -21,7 +21,7 @@ namespace VerifyTests
                 return true;
             }
 
-            if (defaultStringComparer != null)
+            if (defaultStringComparer is not null)
             {
                 comparer = defaultStringComparer;
                 return true;

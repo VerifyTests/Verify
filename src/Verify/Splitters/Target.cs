@@ -14,7 +14,7 @@ namespace VerifyTests
         {
             get
             {
-                if (streamData == null)
+                if (streamData is null)
                 {
                     throw new("Use StringData or StringBuilderData.");
                 }
@@ -29,7 +29,7 @@ namespace VerifyTests
         {
             get
             {
-                if (stringData == null)
+                if (stringData is null)
                 {
                     throw new("Use StreamData or StringBuilderData.");
                 }
@@ -44,7 +44,7 @@ namespace VerifyTests
         {
             get
             {
-                if (stringBuilderData == null)
+                if (stringBuilderData is null)
                 {
                     throw new("Use StreamData or StringData.");
                 }

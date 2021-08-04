@@ -34,7 +34,7 @@ namespace VerifyTests
         public static void SkipEmptyCollections(this JsonProperty property, MemberInfo member)
         {
             var type = property.PropertyType;
-            if (type == null)
+            if (type is null)
             {
                 return;
             }
@@ -58,7 +58,7 @@ namespace VerifyTests
 
         static bool HasMembers(IEnumerable? collection)
         {
-            if (collection == null)
+            if (collection is null)
             {
                 // if the list is null, we defer the decision to NullValueHandling
                 return true;

@@ -134,7 +134,7 @@ class VerifyEngine
 
         StringBuilder builder = new("Results do not match.");
         builder.AppendLine();
-        if (message != null)
+        if (message is not null)
         {
             builder.AppendLine(message);
         }
@@ -236,7 +236,7 @@ class VerifyEngine
 
         builder.AppendLine($"Received: {Path.GetFileName(item.Received)}");
         builder.AppendLine($"Verified: {Path.GetFileName(item.Verified)}");
-        if (message == null)
+        if (message is null)
         {
             if (EmptyFiles.Extensions.IsText(item.Extension))
             {

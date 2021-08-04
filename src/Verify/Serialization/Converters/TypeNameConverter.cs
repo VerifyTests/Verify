@@ -35,7 +35,7 @@ namespace VerifyTests
         {
             return infoCache.GetOrAdd(field, _ =>
             {
-                if (field.DeclaringType == null)
+                if (field.DeclaringType is null)
                 {
                     return $"Module.{field.Name}";
                 }
@@ -48,7 +48,7 @@ namespace VerifyTests
         {
             return infoCache.GetOrAdd(property, _ =>
             {
-                if (property.DeclaringType == null)
+                if (property.DeclaringType is null)
                 {
                     return $"Module.{property.Name}";
                 }
@@ -122,7 +122,7 @@ namespace VerifyTests
                     .SingleOrDefault(x =>
                         x.IsGenericType &&
                         x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-                if (singleOrDefault != null)
+                if (singleOrDefault is not null)
                 {
                     if (singleOrDefault.GetGenericArguments().Single().IsAnonType())
                     {
@@ -153,7 +153,7 @@ namespace VerifyTests
 
         static string GetTypeName(Type type)
         {
-            if (type.FullName == null)
+            if (type.FullName is null)
             {
                 return type.Name;
             }
@@ -167,14 +167,14 @@ namespace VerifyTests
 
         static void AllGenericArgumentNamespace(Type type, List<string> list)
         {
-            if (type.Namespace != null)
+            if (type.Namespace is not null)
             {
                 list.Add(type.Namespace);
             }
 
             var elementType = type.GetElementType();
 
-            if (elementType != null)
+            if (elementType is not null)
             {
                 AllGenericArgumentNamespace(elementType,list);
             }

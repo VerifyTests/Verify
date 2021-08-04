@@ -27,13 +27,13 @@ static class ClipboardCapture
         }
 
         var envMoveCommand = Environment.GetEnvironmentVariable("Verify_MoveCommand");
-        if (envMoveCommand != null)
+        if (envMoveCommand is not null)
         {
             moveCommand = envMoveCommand;
         }
 
         var envDeleteCommand = Environment.GetEnvironmentVariable("Verify_DeleteCommand");
-        if (envDeleteCommand != null)
+        if (envDeleteCommand is not null)
         {
             deleteCommand = envDeleteCommand;
         }

@@ -26,7 +26,7 @@ class JsonTextWriterEx :
 
     public override void WriteValue(string? value)
     {
-        if (value == null)
+        if (value is null)
         {
             base.WriteValue(value);
             return;
@@ -57,7 +57,7 @@ class JsonTextWriterEx :
 
     public override void WriteValue(byte[]? value)
     {
-        if (value == null)
+        if (value is null)
         {
             WriteNull();
         }

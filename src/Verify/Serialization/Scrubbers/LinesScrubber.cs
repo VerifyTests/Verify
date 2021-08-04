@@ -17,10 +17,10 @@ static class LinesScrubber
         using StringReader reader = new(theString);
         input.Clear();
         string? line;
-        while ((line = reader.ReadLine()) != null)
+        while ((line = reader.ReadLine()) is not null)
         {
             var value = replaceLine(line);
-            if (value != null)
+            if (value is not null)
             {
                 input.Append(value);
                 input.Append('\n');
@@ -40,7 +40,7 @@ static class LinesScrubber
         input.Clear();
 
         string? line;
-        while ((line = reader.ReadLine()) != null)
+        while ((line = reader.ReadLine()) is not null)
         {
             if (removeLine(line))
             {

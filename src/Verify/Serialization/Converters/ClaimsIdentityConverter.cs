@@ -17,19 +17,19 @@ class ClaimsIdentityConverter :
         writer.WritePropertyName("Claims");
         serializer.Serialize(writer, identity.Claims);
 
-        if (identity.Actor != null)
+        if (identity.Actor is not null)
         {
             writer.WritePropertyName("Actor");
             serializer.Serialize(writer, identity.Actor);
         }
 
-        if (identity.Actor != null)
+        if (identity.Actor is not null)
         {
             writer.WritePropertyName("AuthenticationType");
             writer.WriteRawValue(identity.AuthenticationType);
         }
 
-        if (identity.Label != null)
+        if (identity.Label is not null)
         {
             writer.WritePropertyName("Label");
             writer.WriteRawValue(identity.Label);

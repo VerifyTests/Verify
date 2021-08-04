@@ -30,7 +30,7 @@ class CustomValueProvider :
 
     public object? GetValue(object target)
     {
-        if (membersConverter != null)
+        if (membersConverter is not null)
         {
             var value = inner.GetValue(target);
             return membersConverter(target, value);
@@ -42,7 +42,7 @@ class CustomValueProvider :
         catch (Exception exception)
         {
             var innerException = exception.InnerException;
-            if (innerException == null)
+            if (innerException is null)
             {
                 throw;
             }

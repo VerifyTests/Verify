@@ -84,7 +84,7 @@ namespace VerifyTests
         void ThrowIfMethodOrTypeNameDefined()
         {
             if (methodName != null ||
-                typeName != null)
+                typeName is not null)
             {
                 throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");
             }
@@ -92,7 +92,7 @@ namespace VerifyTests
 
         void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
         {
-            if (fileName != null)
+            if (fileName is not null)
             {
                 throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
             }

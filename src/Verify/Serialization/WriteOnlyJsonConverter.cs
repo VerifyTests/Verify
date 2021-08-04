@@ -14,7 +14,7 @@ namespace VerifyTests
             object? value,
             JsonSerializer serializer)
         {
-            if (value == null)
+            if (value is null)
             {
                 return;
             }

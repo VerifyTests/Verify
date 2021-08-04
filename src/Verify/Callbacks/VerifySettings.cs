@@ -14,7 +14,7 @@ namespace VerifyTests
 
         internal static Task RunOnFirstVerify(FilePair item)
         {
-            if (handleOnFirstVerify == null)
+            if (handleOnFirstVerify is null)
             {
                 return Task.CompletedTask;
             }
@@ -26,7 +26,7 @@ namespace VerifyTests
 
         internal static Task RunOnVerifyMismatch(FilePair item, string? message)
         {
-            if (handleOnVerifyMismatch == null)
+            if (handleOnVerifyMismatch is null)
             {
                 return Task.CompletedTask;
             }

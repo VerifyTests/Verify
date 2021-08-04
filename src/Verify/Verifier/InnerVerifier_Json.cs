@@ -14,7 +14,7 @@ namespace VerifyTests
 
         public Task VerifyJson(string? target)
         {
-            if (target == null)
+            if (target is null)
             {
                 AssertExtensionIsNull();
                 return VerifyInner("null", null, emptyTargets);
@@ -25,7 +25,7 @@ namespace VerifyTests
 
         public async Task VerifyJson(Stream? target)
         {
-            if (target == null)
+            if (target is null)
             {
                 AssertExtensionIsNull();
                 await VerifyInner("null", null, emptyTargets);
@@ -46,7 +46,7 @@ namespace VerifyTests
 
         public async Task Verify<T>(T target)
         {
-            if (target == null)
+            if (target is null)
             {
                 AssertExtensionIsNull();
                 await VerifyInner("null", null, emptyTargets);
@@ -56,7 +56,7 @@ namespace VerifyTests
             if (VerifierSettings.TryGetToString(target, out var toString))
             {
                 var stringResult = toString(target, settings.Context);
-                if (stringResult.Extension != null)
+                if (stringResult.Extension is not null)
                 {
                     settings.UseExtension(stringResult.Extension);
                 }
@@ -100,7 +100,7 @@ namespace VerifyTests
 
         Target ToTarget(Stream? stream)
         {
-            if (stream == null)
+            if (stream is null)
             {
                 return new(settings.ExtensionOrTxt(), "null");
             }
@@ -110,7 +110,7 @@ namespace VerifyTests
 
         void AssertExtensionIsNull()
         {
-            if (settings.extension == null)
+            if (settings.extension is null)
             {
                 return;
             }

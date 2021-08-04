@@ -21,7 +21,7 @@ namespace VerifyTests
             await using (stream)
 #endif
             {
-                if (extension != null)
+                if (extension is not null)
                 {
                     if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                     {

@@ -19,7 +19,7 @@ static class TupleConverter
         for (var index = 0; index < attribute.TransformNames.Count; index++)
         {
             var transformName = attribute.TransformNames[index];
-            if (transformName == null)
+            if (transformName is null)
             {
                 throw new("Only tuples with all parts are named can be used.");
             }
@@ -35,7 +35,7 @@ static class TupleConverter
         var attribute = (TupleElementNamesAttribute?) method.ReturnTypeCustomAttributes
             .GetCustomAttributes(typeof(TupleElementNamesAttribute), false)
             .SingleOrDefault();
-        if (attribute != null)
+        if (attribute is not null)
         {
             return attribute;
         }

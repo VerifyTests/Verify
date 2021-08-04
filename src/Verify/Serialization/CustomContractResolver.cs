@@ -108,7 +108,7 @@ class CustomContractResolver :
         if (keyType == typeof(Type))
         {
             var type = Type.GetType(value);
-            if (type == null)
+            if (type is null)
             {
                 throw new($"Could not load type `{value}`.");
             }
@@ -127,7 +127,7 @@ class CustomContractResolver :
 
         var valueProvider = property.ValueProvider;
         var propertyType = property.PropertyType;
-        if (propertyType == null || valueProvider == null)
+        if (propertyType == null || valueProvider is null)
         {
             return property;
         }
@@ -179,7 +179,7 @@ class CustomContractResolver :
             {
                 var instance = valueProvider.GetValue(declaringInstance);
 
-                if (instance == null)
+                if (instance is null)
                 {
                     return false;
                 }
@@ -207,7 +207,7 @@ class CustomContractResolver :
     {
         if (!includeObsoletes)
         {
-            if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
+            if (member.GetCustomAttribute<ObsoleteAttribute>(true) is not null)
             {
                 return true;
             }
@@ -219,7 +219,7 @@ class CustomContractResolver :
         }
 
         var propertyName = property.UnderlyingName;
-        if (propertyName != null)
+        if (propertyName is not null)
         {
             if (ignoredByNameMembers.Contains(propertyName))
             {

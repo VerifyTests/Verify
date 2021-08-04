@@ -104,7 +104,7 @@ namespace VerifyTests
         public static bool TryGetExtension(this HttpContent content, [NotNullWhen(true)] out string? extension)
         {
             var contentType = content.Headers.ContentType;
-            if (contentType == null)
+            if (contentType is null)
             {
                 extension = null;
                 return false;
@@ -116,7 +116,7 @@ namespace VerifyTests
         public static bool TryGetExtension(this MediaTypeHeaderValue contentType, [NotNullWhen(true)] out string? extension)
         {
             var mediaType = contentType.MediaType;
-            if (mediaType == null)
+            if (mediaType is null)
             {
                 extension = null;
                 return false;
@@ -133,7 +133,7 @@ namespace VerifyTests
         public static bool IsText(this HttpContent content, [NotNullWhen(true)] out string? subType)
         {
             var contentType = content.Headers.ContentType;
-            if (contentType == null)
+            if (contentType is null)
             {
                 subType = null;
                 return false;
@@ -145,7 +145,7 @@ namespace VerifyTests
         public static bool IsText(MediaTypeHeaderValue contentType, [NotNullWhen(true)] out string? subType)
         {
             var mediaType = contentType.MediaType;
-            if (mediaType == null)
+            if (mediaType is null)
             {
                 subType = null;
                 return false;

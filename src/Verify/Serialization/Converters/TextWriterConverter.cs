@@ -21,7 +21,7 @@ class TextWriterConverter :
     {
         var stringValue = value.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-        if (stringValue == null)
+        if (stringValue is null)
         {
             return;
         }

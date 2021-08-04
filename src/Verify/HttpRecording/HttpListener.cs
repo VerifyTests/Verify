@@ -25,7 +25,7 @@ class HttpListener :
     {
         entries = local.Value;
 
-        if (entries == null)
+        if (entries is null)
         {
             return false;
         }
@@ -38,7 +38,7 @@ class HttpListener :
     {
         var localValue = local.Value;
 
-        if (localValue == null)
+        if (localValue is null)
         {
             throw new("HttpRecording.StartRecording must be called prior to FinishRecording.");
         }
@@ -54,7 +54,7 @@ class HttpListener :
             return;
         }
 
-        subscriptions.Enqueue(value.SubscribeWithAdapter(this, _ => local.Value != null));
+        subscriptions.Enqueue(value.SubscribeWithAdapter(this, _ => local.Value is not null));
     }
 
     [DiagnosticName("System.Net.Http.HttpRequestOut")]

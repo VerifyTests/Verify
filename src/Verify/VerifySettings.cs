@@ -8,7 +8,7 @@ namespace VerifyTests
     {
         public VerifySettings(VerifySettings? settings)
         {
-            if (settings == null)
+            if (settings is null)
             {
                 return;
             }
@@ -61,7 +61,7 @@ namespace VerifyTests
         {
             Guard.AgainstBadExtension(parametersText, nameof(parametersText));
 
-            if (parameters != null)
+            if (parameters is not null)
             {
                 throw new($"{nameof(UseTextForParameters)} is not compatible with {nameof(UseParameters)}.");
             }
@@ -83,7 +83,7 @@ namespace VerifyTests
 
         public bool TryGetExtension([NotNullWhen(true)] out string? extension)
         {
-            if (this.extension == null)
+            if (this.extension is null)
             {
                 extension = null;
                 return false;

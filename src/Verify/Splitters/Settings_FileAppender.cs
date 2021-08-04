@@ -11,7 +11,7 @@ namespace VerifyTests
             foreach (var appender in fileAppenders)
             {
                 var stream = appender(settings.Context);
-                if (stream != null)
+                if (stream is not null)
                 {
                     yield return (Target)stream;
                 }

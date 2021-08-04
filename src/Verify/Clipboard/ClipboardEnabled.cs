@@ -14,7 +14,7 @@ static class ClipboardEnabled
 
     public static bool ParseEnvironmentVariable(string? disabledText)
     {
-        if (disabledText == null)
+        if (disabledText is null)
         {
             return false;
         }

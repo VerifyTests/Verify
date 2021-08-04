@@ -65,7 +65,7 @@ namespace VerifyTests
 
         static CanConvert DefaultCanConvert<T>(CanConvert<T>? canConvert)
         {
-            if (canConvert == null)
+            if (canConvert is null)
             {
                 return (target,_ , _) =>
                 {

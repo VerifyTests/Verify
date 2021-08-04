@@ -33,7 +33,7 @@ namespace VerifyMSTest
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public)
                 .FirstOrDefault(x => x.Name == testName);
 
-            if (methodInfo == null)
+            if (methodInfo is null)
             {
                 throw new($"Could not find method `{type.Name}.{testName}`.");
             }

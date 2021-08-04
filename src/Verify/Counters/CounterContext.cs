@@ -63,7 +63,7 @@
          get
          {
              var context = local.Value;
-             if (context == null)
+             if (context is null)
              {
                  throw new("No current context");
              }

@@ -13,7 +13,7 @@ namespace VerifyTests
 
         public static string? ScrubStackTrace(string? stackTrace, bool removeParams = false)
         {
-            if (stackTrace == null)
+            if (stackTrace is null)
             {
                 return null;
             }
@@ -21,7 +21,7 @@ namespace VerifyTests
             var builder = new StringBuilder();
             using StringReader reader = new(stackTrace);
             string? line;
-            while ((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()) is not null)
             {
                 if (
                     line.Contains("<>") && line.Contains(".MoveNext()") ||

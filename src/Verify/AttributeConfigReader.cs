@@ -5,7 +5,7 @@ static class AttributeConfigReader
     public static string GetAttributeConfiguration(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
-        if (attribute != null)
+        if (attribute is not null)
         {
             return attribute.Configuration;
         }

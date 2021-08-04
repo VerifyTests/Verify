@@ -22,7 +22,7 @@ namespace VerifyTests
                 RequestHeaders = request.Headers;
             }
 
-            if (request.Content != null)
+            if (request.Content is not null)
             {
                 if (request.Content.Headers.Any())
                 {

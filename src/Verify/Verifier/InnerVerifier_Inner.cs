@@ -28,7 +28,7 @@ namespace VerifyTests
 
             await engine.HandleResults(targetList);
 
-            if (cleanup != null)
+            if (cleanup is not null)
             {
                 await cleanup();
             }
@@ -42,7 +42,7 @@ namespace VerifyTests
 
             var hasAppends = appends.Any();
 
-            if (target == null)
+            if (target is null)
             {
                 if (!hasAppends)
                 {

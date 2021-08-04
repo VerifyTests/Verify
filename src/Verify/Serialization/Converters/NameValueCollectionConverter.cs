@@ -18,7 +18,7 @@ class NameValueCollectionConverter :
             var value = collection.Get(key);
 
             string? notNullKey;
-            if (key == null)
+            if (key is null)
             {
                 notNullKey = "null";
             }

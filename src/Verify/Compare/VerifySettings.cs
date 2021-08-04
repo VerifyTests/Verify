@@ -19,7 +19,7 @@
         // changed the extension for the current compare operation
         internal bool TryFindStreamComparer(string extension, out StreamCompare? compare)
         {
-            if (streamComparer != null)
+            if (streamComparer is not null)
             {
                 compare = streamComparer;
                 return true;
@@ -30,7 +30,7 @@
 
         internal bool TryFindStringComparer(string extension, out StringCompare? compare)
         {
-            if (stringComparer != null)
+            if (stringComparer is not null)
             {
                 compare = stringComparer;
                 return true;

@@ -12,7 +12,7 @@ static class JsonFormatter
         if (appends.Any())
         {
             var dictionary = new DictionaryWrapper<string, object>();
-            if (input == null)
+            if (input is null)
             {
                 dictionary.Add("target", "null");
             }

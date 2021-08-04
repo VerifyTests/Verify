@@ -11,7 +11,56 @@ namespace VerifyTests
 {
     public static class TypeNameConverter
     {
-        static ConcurrentDictionary<Type, string> cacheDictionary = new();
+        static ConcurrentDictionary<Type, string> cacheDictionary = new(
+            new List<KeyValuePair<Type, string>>
+            {
+                new(typeof(string), "String"),
+                new(typeof(sbyte), "SByte"),
+                new(typeof(sbyte?), "Nullable<SByte>"),
+                new(typeof(byte), "Byte"),
+                new(typeof(byte?), "Nullable<Byte>"),
+                new(typeof(bool), "Boolean"),
+                new(typeof(bool?), "Nullable<Boolean>"),
+                new(typeof(short), "Int16"),
+                new(typeof(short?), "Nullable<Int16>"),
+                new(typeof(ushort), "UInt16"),
+                new(typeof(ushort?), "Nullable<UInt16>"),
+                new(typeof(int), "Int32"),
+                new(typeof(int?), "Nullable<Int32>"),
+                new(typeof(uint), "UInt32"),
+                new(typeof(uint?), "Nullable<UInt32>"),
+                new(typeof(long), "Int64"),
+                new(typeof(long?), "Nullable<Int64>"),
+                new(typeof(nint), "IntPtr"),
+                new(typeof(nint?), "Nullable<IntPtr>"),
+                new(typeof(nuint), "UIntPtr"),
+                new(typeof(nuint?), "Nullable<UIntPtr>"),
+                new(typeof(decimal), "Decimal"),
+                new(typeof(decimal?), "Nullable<Decimal>"),
+                new(typeof(float), "Single"),
+                new(typeof(float?), "Nullable<Single>"),
+                new(typeof(double), "Double"),
+                new(typeof(double?), "Nullable<Double>"),
+                new(typeof(Guid), "Guid"),
+                new(typeof(Guid?), "Nullable<Guid>"),
+                new(typeof(DateTime), "DateTime"),
+                new(typeof(DateTime?), "Nullable<DateTime>"),
+                new(typeof(DateTimeOffset), "DateTimeOffset"),
+                new(typeof(DateTimeOffset?), "Nullable<DateTimeOffset>"),
+                new(typeof(TimeSpan), "TimeSpan"),
+                new(typeof(TimeSpan?), "Nullable<TimeSpan>"),
+#if NET5_0_OR_GREATER
+                new(typeof(Half), "Half"),
+                new(typeof(Half?), "Nullable<Half>"),
+#endif
+#if NET6_0_OR_GREATER
+                new(typeof(DateOnly), "DateOnly"),
+                new(typeof(DateOnly?), "Nullable<DateOnly>"),
+                new(typeof(TimeOnly), "TimeOnly"),
+                new(typeof(TimeOnly?), "Nullable<TimeOnly>"),
+#endif
+            });
+
         static ConcurrentDictionary<ICustomAttributeProvider, string> infoCache = new();
 
         static CSharpCodeProvider codeDomProvider = new();

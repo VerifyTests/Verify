@@ -26,7 +26,8 @@ public partial class Tests
             isMdi: false,
             supportsText: true,
             requiresTarget: true,
-            arguments: (path1, path2) => $"\"{path1}\" \"{path2}\"",
+            targetLeftArguments: (tempFile, targetFile) => $"\"{targetFile}\" \"{tempFile}\"",
+            targetRightArguments: (tempFile, targetFile) => $"\"{tempFile}\" \"{targetFile}\"",
             exePath: toolPath,
             binaryExtensions: new[] {"knownBin","AlwaysPassBin"});
         var binPath = AllFiles.Files["jpg"];
@@ -105,7 +106,7 @@ Commands:
         {
             var command = $"/c {line}";
             using var process = Process.Start("cmd.exe", command);
-            process!.WaitForExit();
+            process.WaitForExit();
         }
     }
 

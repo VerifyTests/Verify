@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using VerifyTests;
@@ -32,10 +34,20 @@ public class Tests
             .UseParameters(Path.GetInvalidPathChars().First());
     }
 
+    [Theory]
+    [InlineData(1000.9999d)]
+    public Task LocalizedParamChar(decimal value)
+    {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+        return Verifier.Verify(value)
+            .UseParameters(value);
+    }
+
     [Fact]
     public Task Localized()
     {
-        return Verifier.Verify(new decimal(1000.9999));
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+        return Verifier.Verify(1000.9999d);
     }
 
     [Fact]

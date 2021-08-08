@@ -33,6 +33,12 @@ public class Tests
     }
 
     [Fact]
+    public Task Localized()
+    {
+        return Verifier.Verify(new decimal(1000.9999));
+    }
+
+    [Fact]
     public async Task HttpResponseNested()
     {
         using var client = new HttpClient();

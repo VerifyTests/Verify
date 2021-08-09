@@ -64,13 +64,13 @@ namespace VerifyTests
 
             {typeof(string), (target, _) => (string) target},
             {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
-            {typeof(bool), (target, _) => ((bool) target).ToString()},
-            {typeof(short), (target, _) => ((short) target).ToString()},
-            {typeof(ushort), (target, _) => ((ushort) target).ToString()},
-            {typeof(int), (target, _) => ((int) target).ToString()},
-            {typeof(uint), (target, _) => ((uint) target).ToString()},
-            {typeof(long), (target, _) => ((long) target).ToString()},
-            {typeof(ulong), (target, _) => ((ulong) target).ToString()},
+            {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
+            {typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
             {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
             {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
@@ -80,14 +80,14 @@ namespace VerifyTests
                 typeof(DateOnly), (target, _) =>
                 {
                     var date = (DateOnly) target;
-                    return date.ToString("yyyy-MM-dd");
+                    return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 }
             },
             {
                 typeof(TimeOnly), (target, _) =>
                 {
                     var time = (TimeOnly) target;
-                    return time.ToString("h:mm tt");
+                    return time.ToString("h:mm tt", CultureInfo.InvariantCulture);
                 }
             },
 #endif
@@ -105,7 +105,7 @@ namespace VerifyTests
                 typeof(DateTimeOffset), (target, _) =>
                 {
                     var dateTimeOffset = (DateTimeOffset) target;
-                    return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+                    return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz", CultureInfo.InvariantCulture);
                 }
             },
             {

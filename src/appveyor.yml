@@ -22,6 +22,12 @@ build_script:
     }
 - dotnet build src --configuration Release
 - dotnet test src --configuration Release --no-build --no-restore
+
+- pwsh: |
+    if ($isWindows) {
+      Set-Culture -CultureInfo de-DE
+      dotnet test src --configuration Release --no-build --no-restore
+    }
 # begin-snippet: AppVeyorArtifacts
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }

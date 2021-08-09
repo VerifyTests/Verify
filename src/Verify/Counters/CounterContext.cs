@@ -72,12 +72,12 @@
          }
      }
 
-     static void Start()
+     internal static void Start()
      {
          local.Value = new();
      }
 
-     static void Stop()
+     internal static void Stop()
      {
          local.Value = null;
      }

@@ -81,10 +81,11 @@ var settings = new JsonSerializerSettings
 {
     Formatting = Formatting.Indented,
     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-    DefaultValueHandling = DefaultValueHandling.Ignore
+    DefaultValueHandling = DefaultValueHandling.Ignore,
+    Culture = CultureInfo.InvariantCulture
 };
 ```
-<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L126-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/SerializationSettings.cs#L127-L137' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultserialization' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1057,13 +1058,13 @@ The default mapping is:
 ```cs
 {typeof(string), (target, _) => (string) target},
 {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
-{typeof(bool), (target, _) => ((bool) target).ToString()},
-{typeof(short), (target, _) => ((short) target).ToString()},
-{typeof(ushort), (target, _) => ((ushort) target).ToString()},
-{typeof(int), (target, _) => ((int) target).ToString()},
-{typeof(uint), (target, _) => ((uint) target).ToString()},
-{typeof(long), (target, _) => ((long) target).ToString()},
-{typeof(ulong), (target, _) => ((ulong) target).ToString()},
+{typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
 {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},

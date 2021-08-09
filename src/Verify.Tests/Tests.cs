@@ -36,18 +36,19 @@ public class Tests
 
     [Theory]
     [InlineData(1000.9999d)]
-    public Task LocalizedParamChar(decimal value)
+    public async Task LocalizedParam(decimal value)
     {
+        var culture = Thread.CurrentThread.CurrentCulture;
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
-        return Verifier.Verify(value)
-            .UseParameters(value);
-    }
-
-    [Fact]
-    public Task Localized()
-    {
-        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
-        return Verifier.Verify(1000.9999d);
+        try
+        {
+            await Verifier.Verify(value)
+                .UseParameters(value);
+        }
+        finally
+        {
+            Thread.CurrentThread.CurrentCulture = culture;
+        }
     }
 
     [Fact]

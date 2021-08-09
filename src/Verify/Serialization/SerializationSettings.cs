@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
@@ -121,7 +122,7 @@ namespace VerifyTests
             scrubNumericIds = false;
         }
 
-        public JsonSerializerSettings BuildSettings()
+        JsonSerializerSettings BuildSettings()
         {
             #region defaultSerialization
 
@@ -129,7 +130,8 @@ namespace VerifyTests
             {
                 Formatting = Formatting.Indented,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Ignore
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                Culture = CultureInfo.InvariantCulture
             };
 
             #endregion

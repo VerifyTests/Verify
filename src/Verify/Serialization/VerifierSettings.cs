@@ -80,14 +80,14 @@ namespace VerifyTests
                 typeof(DateOnly), (target, _) =>
                 {
                     var date = (DateOnly) target;
-                    return date.ToString("yyyy-MM-dd");
+                    return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 }
             },
             {
                 typeof(TimeOnly), (target, _) =>
                 {
                     var time = (TimeOnly) target;
-                    return time.ToString("h:mm tt");
+                    return time.ToString("h:mm tt", CultureInfo.InvariantCulture);
                 }
             },
 #endif
@@ -105,7 +105,7 @@ namespace VerifyTests
                 typeof(DateTimeOffset), (target, _) =>
                 {
                     var dateTimeOffset = (DateTimeOffset) target;
-                    return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
+                    return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz", CultureInfo.InvariantCulture);
                 }
             },
             {

@@ -27,6 +27,11 @@ static class ParameterBuilder
         var builder = new StringBuilder();
         var parameters = method.GetParameters();
 
+        if (parameters.Length != parameterValues.Count)
+        {
+            throw new($"The number of passed in parameters ({parameterValues.Count}) must match the number of parameters for the method ({parameters.Length}).");
+        }
+
         for (var index = 0; index < parameters.Length; index++)
         {
             var parameter = parameters[index];

@@ -35,6 +35,22 @@ public class Tests
     }
 
     [Theory]
+    [InlineData(1, 2)]
+    public async Task IncorrectParameterCount_TooFew(int one, int two)
+    {
+        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verifier.Verify("Value").UseParameters(1));
+        Assert.Equal("The number of passed in parameters (1) must match the number of parameters for the method (2).", exception.Message);
+    }
+
+    [Theory]
+    [InlineData(1, 2)]
+    public async Task IncorrectParameterCount_TooMany(int one, int two)
+    {
+        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verifier.Verify("Value").UseParameters(1,2,3));
+        Assert.Equal("The number of passed in parameters (3) must match the number of parameters for the method (2).", exception.Message);
+    }
+
+    [Theory]
     [InlineData(1000.9999d)]
     public async Task LocalizedParam(decimal value)
     {

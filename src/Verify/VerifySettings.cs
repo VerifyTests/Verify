@@ -81,6 +81,9 @@ namespace VerifyTests
             this.extension = extension;
         }
 
+        /// <summary>
+        /// Retrieves the value passed into <see cref="UseExtension"/>, if it exists.
+        /// </summary>
         public bool TryGetExtension([NotNullWhen(true)] out string? extension)
         {
             if (this.extension is null)

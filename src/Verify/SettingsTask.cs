@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,6 +28,14 @@ namespace VerifyTests
         {
             CurrentSettings.AddExtraSettings(action);
             return this;
+        }
+        
+        /// <summary>
+        /// Retrieves the value passed into <see cref="UseExtension"/>, if it exists.
+        /// </summary>
+        public bool TryGetExtension([NotNullWhen(true)] out string? extension)
+        {
+            return CurrentSettings.TryGetExtension(out extension);
         }
 
         /// <summary>

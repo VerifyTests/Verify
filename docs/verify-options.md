@@ -30,7 +30,7 @@ Note that auto accepted changes in `.verified.` files remain visible in source c
 
 ### OnHandlers
 
- * `OnVerify` takes two actiosn that are called before and after each verification.
+ * `OnVerify` takes two actions that are called before and after each verification.
  * `OnFirstVerify` is called when there is no verified file.
  * `OnVerifyMismatch` is called when a received file does not match the existing verified file.
 

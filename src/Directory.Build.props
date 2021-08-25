@@ -3,7 +3,9 @@
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013</NoWarn>
     <Version>11.24.0</Version>
+    <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>
   </PropertyGroup>

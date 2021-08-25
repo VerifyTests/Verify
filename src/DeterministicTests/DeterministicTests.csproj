@@ -4,6 +4,7 @@
     <TargetFrameworks>net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <IsPackageProject>false</IsPackageProject>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="7.0.0" />

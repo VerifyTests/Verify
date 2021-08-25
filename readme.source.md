@@ -183,6 +183,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
  * [Verify.Blazor](https://github.com/VerifyTests/Verify.Blazor): Verification of [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) via [bunit](https://bunit.egilhansen.com) or via raw Blazor rendering.
  * [Verify.Cosmos](https://github.com/VerifyTests/Verify.Cosmos): Verification of [Azure CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/).
  * [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex): Comparison of text via [DiffPlex](https://github.com/mmanela/diffplex).
+ * [Verify.DocNet](https://github.com/VerifyTests/Verify.DocNet): Verification pdfs via [DocNet](https://github.com/GowenGit/docnet).
  * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework): Verification of EntityFramework bits.
  * [Verify.HeadlessBrowsers](https://github.com/VerifyTests/Verify.HeadlessBrowsers): Verification of Web UIs using [Playwright](https://github.com/microsoft/playwright-sharp), [Puppeteer Sharp](https://github.com/hardkoded/puppeteer-sharp), or [Selenium](https://www.selenium.dev).
  * [Verify.ICSharpCode.Decompiler](https://github.com/VerifyTests/Verify.ICSharpCode.Decompiler): Comparison of assemblies and types via [ICSharpCode.Decompiler](https://github.com/icsharpcode/ILSpy/wiki/Getting-Started-With-ICSharpCode.Decompiler).
@@ -215,7 +216,6 @@ Projects/tools that may be a better alternative to Verify
  * [Snapshooter](https://github.com/SwissLife-OSS/Snapshooter)
  * [Snapper](https://github.com/theramis/Snapper)
  * [Polaroider](https://github.com/WickedFlame/Polaroider)
-
 
 
 ## Icon

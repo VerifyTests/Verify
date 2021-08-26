@@ -775,6 +775,44 @@ public class Tests
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
 
+
+    #region GetFilePath
+
+    string GetFilePath([CallerFilePath] string sourceFile = "")
+    {
+        return sourceFile;
+    }
+    #endregion
+
+    #region RawUsage
+    
+    [Fact]
+    public async Task RawUsage()
+    {
+        var type = GetType();
+        var method = type.GetMethod("RawUsage")!;
+        var file = GetFilePath();
+        var settings = new VerifySettings();
+        using var verifier = new InnerVerifier(file, type, settings, method);
+        await verifier.Verify("Some value");
+    }
+    #endregion
+
+    [Theory]
+    [InlineData("TheData1", "TheData2")]
+    #region RawUsageWithParams
+    public async Task RawUsageWithParams(string param1, string param2)
+    {
+        var type = GetType();
+        var method = type.GetMethod("RawUsageWithParams")!;
+        var file = GetFilePath();
+        var settings = new VerifySettings();
+        settings.UseParameters(param1, param2);
+        using var verifier = new InnerVerifier(file, type, settings, method);
+        await verifier.Verify("Some value");
+    }
+    #endregion
+
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()
     //{

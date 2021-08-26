@@ -84,6 +84,8 @@ public async Task RawUsageWithParams(string param1, string param2)
 
 ## Existing extensions
 
+It can be helpful to review the existing extension to test frameworks.
+
 
 ### Xunit
 

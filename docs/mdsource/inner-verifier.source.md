@@ -1,11 +1,16 @@
 # InnerVerifier
 
-InnerVerifier provides low level access to the verification engine. It is exposed publicly for allowing test frameworks to consume Verify, in a similar way to the bundled extensions for MsTest, nUnit and xUnit. It is not intended for top level consumption of people writing tests.
+`InnerVerifier` provides low level access to the verification engine. It is exposed publicly for allowing test frameworks to consume Verify, in a similar way to the bundled extensions for MsTest, nUnit and xUnit. It is not intended for top level consumption of people writing tests.
+
+
+## Scoping
+
+`InnerVerifier` is short-lived. An instance of `InnerVerifier` should be constructed and disposed per test method run.
 
 
 ## Required information
 
-InnerVerifier requires the following information to run a snapshot test.
+`InnerVerifier` requires the following information to run a snapshot test.
 
 
 ### Method and type

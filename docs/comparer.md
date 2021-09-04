@@ -95,10 +95,7 @@ static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
 
     while (true)
     {
-        var t1 = ReadBufferAsync(stream1, buffer1);
-        await ReadBufferAsync(stream2, buffer2);
-
-        var count = await t1;
+        var count = await ReadBufferAsync(stream1, buffer1);
 
         //no need to compare size here since only enter on files being same size
 
@@ -106,6 +103,8 @@ static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
         {
             return CompareResult.Equal;
         }
+
+        await ReadBufferAsync(stream2, buffer2);
 
         for (var i = 0; i < count; i+= sizeof(long))
         {
@@ -135,7 +134,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -1331,7 +1331,7 @@ public class SerializationTests
     #endregion
 
 
-    #region MemberConverterByExpression
+    #region MemberConverter
 
     [Fact]
     public Task MemberConverterByExpression()
@@ -1371,6 +1371,23 @@ public class SerializationTests
     }
 
     #endregion
+
+    void MemberConverterGlobal()
+    {
+        #region MemberConverterGlobal
+
+        VerifierSettings.ModifySerialization(_ =>
+        {
+            _.MemberConverter<MemberConverterTarget, string>(
+                x => x.Property,
+                (target, value) => value + "Suffix");
+            _.MemberConverter<MemberConverterTarget, string>(
+                x => x.Field,
+                (target, value) => value + "Suffix");
+        });
+
+        #endregion
+    }
 
     class MemberConverterTarget
     {

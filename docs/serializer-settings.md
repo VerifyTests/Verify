@@ -595,7 +595,7 @@ public Task ScopedSerializerFluent()
             _ => { _.TypeNameHandling = TypeNameHandling.All; });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1706-L1735' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1723-L1752' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -766,7 +766,7 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1667-L1688' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1684-L1705' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -814,7 +814,7 @@ public Task WithObsoletePropIncludedFluent()
         .ModifySerialization(_ => { _.IncludeObsoletes(); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1638-L1665' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1655-L1682' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -947,7 +947,7 @@ public Task IgnoreMemberByNameFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1381-L1428' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1398-L1445' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -993,7 +993,7 @@ public Task CustomExceptionPropFluent()
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1538-L1557' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1555-L1574' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1139,6 +1139,72 @@ VerifierSettings.TreatAsString<ClassWithToString>(
     (target, settings) => target.Property);
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L42-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-treatasstring' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Converting a member
+
+The value of a member can be mutated before serialization:
+
+<!-- snippet: MemberConverter -->
+<a id='snippet-memberconverter'></a>
+```cs
+[Fact]
+public Task MemberConverterByExpression()
+{
+    var target = new MemberConverterTarget
+    {
+        Field = "Value",
+        Property = "Value"
+    };
+    var settings = new VerifySettings();
+    settings.ModifySerialization(_ =>
+    {
+        _.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
+        _.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
+    });
+    return Verifier.Verify(target, settings);
+}
+
+[Fact]
+public Task MemberConverterByExpressionFluent()
+{
+    var target = new MemberConverterTarget
+    {
+        Field = "Value",
+        Property = "Value"
+    };
+    return Verifier.Verify(target)
+        .ModifySerialization(_ =>
+        {
+            _.MemberConverter<MemberConverterTarget, string>(
+                x => x.Property,
+                (target, value) => value + "Suffix");
+            _.MemberConverter<MemberConverterTarget, string>(
+                x => x.Field,
+                (target, value) => value + "Suffix");
+        });
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1334-L1373' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverter' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+This can also be configured globally:
+
+<!-- snippet: MemberConverterGlobal -->
+<a id='snippet-memberconverterglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(_ =>
+{
+    _.MemberConverter<MemberConverterTarget, string>(
+        x => x.Property,
+        (target, value) => value + "Suffix");
+    _.MemberConverter<MemberConverterTarget, string>(
+        x => x.Field,
+        (target, value) => value + "Suffix");
+});
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1377-L1389' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverterglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -297,6 +297,17 @@ Extra types can be added to this mapping:
 snippet: TreatAsString
 
 
+## Converting a member
+
+The value of a member can be mutated before serialization:
+
+snippet: MemberConverter
+
+This can also be configured globally:
+
+snippet: MemberConverterGlobal
+
+
 ## JsonAppender
 
 A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.

@@ -75,8 +75,8 @@ namespace VerifyTests
             if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
             {
                // AssertExtensionIsNull();
-                var result = await converter.Conversion(target!, settings.Context);
-                await VerifyInner(result.Info, result.Cleanup, result.Targets);
+                var result = await converter.Conversion(target, settings.Context);
+                await VerifyInner(result.Info, result.Cleanup, result.Targets); 
                 return;
             }
 

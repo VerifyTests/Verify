@@ -44,7 +44,7 @@ namespace VerifyTests
 
         public static void SetDefaultStringComparer(StringCompare compare)
         {
-            defaultStringComparer=compare;
+            defaultStringComparer = compare;
         }
     }
 }

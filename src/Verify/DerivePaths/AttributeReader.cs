@@ -103,7 +103,7 @@ namespace VerifyTests
                 };
             }
 
-            var altSolutionDirectory = solutionDirectory!.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altSolutionDirectory = solutionDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
             var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
             return builder =>

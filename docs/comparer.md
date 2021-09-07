@@ -106,7 +106,7 @@ static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
 
         await ReadBufferAsync(stream2, buffer2);
 
-        for (var i = 0; i < count; i+= sizeof(long))
+        for (var i = 0; i < count; i += sizeof(long))
         {
             if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
             {
@@ -134,7 +134,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/FileComparer.cs#L73-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

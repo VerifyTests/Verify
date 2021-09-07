@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Converters are used to split a target into its component parts, then verify each of those parts.
 
-When a target is split the result the result is:
+When a target is split the result is:
 
  * An info file (containing the metadata of the target) serialized as json. File name: `{TestType}.{TestMethod}.info.verified.txt`
  * Zero or more documents of a specified extension. File name: `{TestType}.{TestMethod}.{Index}.verified.{Extension}`

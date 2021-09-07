@@ -71,6 +71,7 @@ static class FileComparer
     }
 
     #region DefualtCompare
+
     static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
     {
         const int bufferSize = 1024 * sizeof(long);
@@ -90,7 +91,7 @@ static class FileComparer
 
             await ReadBufferAsync(stream2, buffer2);
 
-            for (var i = 0; i < count; i+= sizeof(long))
+            for (var i = 0; i < count; i += sizeof(long))
             {
                 if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
                 {
@@ -117,5 +118,6 @@ static class FileComparer
 
         return bytesRead;
     }
+
     #endregion
 }

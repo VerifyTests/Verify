@@ -76,6 +76,7 @@ namespace VerifyTests
                 scrubNumericIds = scrubNumericIds,
                 scrubGuids = scrubGuids,
                 includeObsoletes = includeObsoletes,
+                sortPropertiesAlphabetically = sortPropertiesAlphabetically,
             };
         }
 
@@ -143,6 +144,7 @@ namespace VerifyTests
                 ignoreFalse,
                 includeObsoletes,
                 scrubNumericIds,
+                sortPropertiesAlphabetically,
                 ignoredMembers,
                 ignoredByNameMembers,
                 ignoreMembersWithType,
@@ -209,6 +211,13 @@ namespace VerifyTests
         public void IncludeObsoletes()
         {
             includeObsoletes = true;
+        }
+
+        bool sortPropertiesAlphabetically;
+
+        public void SortPropertiesAlphabetically()
+        {
+            sortPropertiesAlphabetically = true;
         }
     }
 }

@@ -1,14 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
+#region SortProperties
+static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init()
+    {
+        VerifierSettings.SortPropertiesAlphabetically();
+    }
+}
+#endregion
+
 [UsesVerify]
 public class SortedPropertiesTests
 {
+    #region SortPropertiesUsage
     [Fact]
     public Task Alphabetically()
     {
@@ -27,9 +40,9 @@ public class SortedPropertiesTests
             }
         };
 
-        VerifierSettings.SortPropertiesAlphabetically();
         return Verifier.Verify(person);
     }
+    #endregion
 
     [Fact]
     public Task DoesNotAffectTypeName()
@@ -49,7 +62,6 @@ public class SortedPropertiesTests
             }
         };
 
-        VerifierSettings.SortPropertiesAlphabetically();
         return Verifier.Verify(person)
             .AddExtraSettings(
                 _ => { _.TypeNameHandling = TypeNameHandling.All; });

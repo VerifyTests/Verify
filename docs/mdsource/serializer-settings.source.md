@@ -336,6 +336,13 @@ This can also be configured globally:
 snippet: MemberConverterGlobal
 
 
+## SortPropertiesAlphabetically
+
+Serialized properties can optionally be sorted alphabetically, ie ignoring the order they are defined when using reflection.
+
+snippet: SortProperties
+
+
 ## JsonAppender
 
 A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.

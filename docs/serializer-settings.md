@@ -1295,6 +1295,26 @@ VerifierSettings.ModifySerialization(_ =>
 <!-- endSnippet -->
 
 
+## SortPropertiesAlphabetically
+
+Serialized properties can optionally be sorted alphabetically, ie ignoring the order they are defined when using reflection.
+
+<!-- snippet: SortProperties -->
+<a id='snippet-sortproperties'></a>
+```cs
+static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init()
+    {
+        VerifierSettings.SortPropertiesAlphabetically();
+    }
+}
+```
+<sup><a href='/src/SortedPropertiesTests/SortedPropertiesTests.cs#L10-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-sortproperties' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## JsonAppender
 
 A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.

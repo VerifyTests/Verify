@@ -1,0 +1,14 @@
+﻿{
+  Address: {
+    Country: USA,
+    Street: 1 Puddle Lane
+  },
+  Children: [
+    Sam,
+    Mary
+  ],
+  FamilyName: Smith,
+  GivenNames: John,
+  Id: Guid_1,
+  Spouse: Jill
+}

@@ -22,7 +22,7 @@ using Xunit;
 #pragma warning disable CS8618
 
 [UsesVerify]
-public class SerializationTests : IDisposable
+public class SerializationTests
 {
     [ModuleInitializer]
     public static void Initialize()
@@ -1815,55 +1815,4 @@ void CustomExceptionPropGlobal()
     }
 
     #endregion
-
-    [Fact]
-    public Task SortsPropertiesAlphabetically()
-    {
-        var person = new Person
-        {
-            Id = Guid.NewGuid(),
-            Title = Title.Mr,
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Country = "USA"
-            }
-        };
-
-        VerifierSettings.SortPropertiesAlphabetically();
-        return Verifier.Verify(person);
-    }
-
-    [Fact]
-    public Task SortingPropertiesAlphabeticallyDoesNotAffectTypeName()
-    {
-        var person = new Person
-        {
-            Id = Guid.NewGuid(),
-            Title = Title.Mr,
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Country = "USA"
-            }
-        };
-
-        VerifierSettings.SortPropertiesAlphabetically();
-        return Verifier.Verify(person)
-            .AddExtraSettings(
-                _ => { _.TypeNameHandling = TypeNameHandling.All; });
-    }
-
-    public void Dispose()
-    {
-        VerifierSettings.DontSortPropertiesAlphabetically();
-    }
 }

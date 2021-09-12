@@ -202,10 +202,5 @@ namespace VerifyTests
         {
             sortPropertiesAlphabetically = true;
         }
-
-        public static void DontSortPropertiesAlphabetically()
-        {
-            sortPropertiesAlphabetically = false;
-        }
     }
 }

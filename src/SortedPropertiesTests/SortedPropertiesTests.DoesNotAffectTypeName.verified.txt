@@ -1,0 +1,19 @@
+﻿{
+  $type: Person,
+  Address: {
+    $type: Address,
+    Country: USA,
+    Street: 1 Puddle Lane
+  },
+  Children: {
+    $type: List<string>,
+    $values: [
+      Sam,
+      Mary
+    ]
+  },
+  FamilyName: Smith,
+  GivenNames: John,
+  Id: Guid_1,
+  Spouse: Jill
+}

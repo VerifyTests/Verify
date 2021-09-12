@@ -595,7 +595,7 @@ public Task ScopedSerializerFluent()
             _ => { _.TypeNameHandling = TypeNameHandling.All; });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1723-L1752' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1788-L1817' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -658,7 +658,18 @@ public Task IgnoreTypeFluent()
 
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1160-L1200' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1184-L1224' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: AddIgnoreTypeGlobal -->
+<a id='snippet-addignoretypeglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(
+    _ => _.IgnoreMembersWithType<ToIgnore>());
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1176-L1181' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretypeglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -722,7 +733,18 @@ public Task AddIgnoreInstanceFluent()
             _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1106-L1147' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1120-L1161' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: AddIgnoreInstanceGlobal -->
+<a id='snippet-addignoreinstanceglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(
+    _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1114-L1117' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstanceglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -766,7 +788,7 @@ public Task WithObsoleteProp()
     return Verifier.Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1684-L1705' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1749-L1770' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -814,7 +836,17 @@ public Task WithObsoletePropIncludedFluent()
         .ModifySerialization(_ => { _.IncludeObsoletes(); });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1655-L1682' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1720-L1747' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: WithObsoletePropIncludedGlobally -->
+<a id='snippet-withobsoletepropincludedglobally'></a>
+```cs
+VerifierSettings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1715-L1717' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincludedglobally' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -879,7 +911,24 @@ public Task IgnoreMemberByExpressionFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1288-L1331' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1324-L1367' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally
+
+<!-- snippet: IgnoreMemberByExpressionGlobal -->
+<a id='snippet-ignorememberbyexpressionglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(_ =>
+{
+    _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+    _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
+    _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+    _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+    _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+});
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1313-L1322' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpressionglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -947,7 +996,25 @@ public Task IgnoreMemberByNameFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1398-L1445' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1448-L1495' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: IgnoreMemberByNameGlobal -->
+<a id='snippet-ignorememberbynameglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(_ =>
+{
+    _.IgnoreMember("PropertyByName");
+    var type = typeof(IgnoreExplicitTarget);
+    _.IgnoreMember(type, "Property");
+    _.IgnoreMember(type, "Field");
+    _.IgnoreMember(type, "GetOnlyProperty");
+    _.IgnoreMember(type, "PropertyThatThrows");
+});
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1436-L1446' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbynameglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -993,7 +1060,17 @@ public Task CustomExceptionPropFluent()
         .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1555-L1574' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1612-L1631' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: IgnoreMembersThatThrowGlobal -->
+<a id='snippet-ignoremembersthatthrowglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1607-L1609' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1020,7 +1097,6 @@ public Task ExceptionMessageProp()
     settings.ModifySerialization(
         _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
     return Verifier.Verify(target, settings);
-
 }
 
 [Fact]
@@ -1033,7 +1109,18 @@ public Task ExceptionMessagePropFluent()
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1052-L1076' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1059-L1082' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: IgnoreMembersThatThrowExpressionGlobal -->
+<a id='snippet-ignoremembersthatthrowexpressionglobal'></a>
+```cs
+VerifierSettings.ModifySerialization(
+    _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1054-L1057' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpressionglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1056,16 +1143,16 @@ The default mapping is:
 <!-- snippet: typeToStringMapping -->
 <a id='snippet-typetostringmapping'></a>
 ```cs
-{typeof(string), (target, _) => (string) target},
-{typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
-{typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+{ typeof(string), (target, _) => (string)target },
+{ typeof(StringBuilder), (target, _) => ((StringBuilder)target).ToString() },
+{ typeof(bool), (target, _) => ((bool)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(short), (target, _) => ((short)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(ushort), (target, _) => ((ushort)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(int), (target, _) => ((int)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(uint), (target, _) => ((uint)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(long), (target, _) => ((long)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(ulong), (target, _) => ((ulong)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(decimal), (target, _) => ((decimal)target).ToString(CultureInfo.InvariantCulture) },
 #if NET5_0_OR_GREATER
 {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
@@ -1085,27 +1172,27 @@ The default mapping is:
     }
 },
 #endif
-{typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
-{typeof(Guid), (target, _) => ((Guid) target).ToString()},
+{ typeof(float), (target, _) => ((float)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(double), (target, _) => ((double)target).ToString(CultureInfo.InvariantCulture) },
+{ typeof(Guid), (target, _) => ((Guid)target).ToString() },
 {
     typeof(DateTime), (target, _) =>
     {
-        var dateTime = (DateTime) target;
+        var dateTime = (DateTime)target;
         return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
     }
 },
 {
     typeof(DateTimeOffset), (target, _) =>
     {
-        var dateTimeOffset = (DateTimeOffset) target;
+        var dateTimeOffset = (DateTimeOffset)target;
         return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz", CultureInfo.InvariantCulture);
     }
 },
 {
     typeof(XmlNode), (target, settings) =>
     {
-        var converted = (XmlNode) target;
+        var converted = (XmlNode)target;
         var document = XDocument.Parse(converted.OuterXml);
         return new(document.ToString(), "xml");
     }
@@ -1113,14 +1200,14 @@ The default mapping is:
 {
     typeof(XDocument), (target, settings) =>
     {
-        var converted = (XDocument) target;
+        var converted = (XDocument)target;
         return new(converted.ToString(), "xml");
     }
 },
 {
     typeof(XElement), (target, settings) =>
     {
-        var converted = (XElement) target;
+        var converted = (XElement)target;
         return new(converted.ToString(), "xml");
     }
 }
@@ -1186,7 +1273,7 @@ public Task MemberConverterByExpressionFluent()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1334-L1373' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1370-L1409' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This can also be configured globally:
@@ -1204,7 +1291,7 @@ VerifierSettings.ModifySerialization(_ =>
         (target, value) => value + "Suffix");
 });
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1377-L1389' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverterglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1413-L1425' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverterglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

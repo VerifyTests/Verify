@@ -197,6 +197,10 @@ To ignore all members that match a certain type:
 
 snippet: AddIgnoreType
 
+Or globally:
+
+snippet: AddIgnoreTypeGlobal
+
 Result:
 
 snippet: SerializationTests.IgnoreType.verified.txt
@@ -207,6 +211,10 @@ snippet: SerializationTests.IgnoreType.verified.txt
 To ignore instances of a type based on delegate:
 
 snippet: AddIgnoreInstance
+
+Or globally:
+
+snippet: AddIgnoreInstanceGlobal
 
 Result:
 
@@ -230,6 +238,10 @@ Obsolete members can be included using `IncludeObsoletes`:
 
 snippet: WithObsoletePropIncluded
 
+Or globally:
+
+snippet: WithObsoletePropIncludedGlobally
+
 Result:
 
 snippet: SerializationTests.WithObsoletePropIncluded.verified.txt
@@ -241,6 +253,10 @@ To ignore members of a certain type using an expression:
 
 snippet: IgnoreMemberByExpression
 
+Or globally
+
+snippet: IgnoreMemberByExpressionGlobal
+
 Result:
 
 snippet: SerializationTests.IgnoreMemberByExpression.verified.txt
@@ -251,6 +267,10 @@ snippet: SerializationTests.IgnoreMemberByExpression.verified.txt
 To ignore members of a certain type using type and name:
 
 snippet: IgnoreMemberByName
+
+Or globally:
+
+snippet: IgnoreMemberByNameGlobal
 
 Result:
 
@@ -269,6 +289,10 @@ Ignore by exception type:
 
 snippet: IgnoreMembersThatThrow
 
+Or globally:
+
+snippet: IgnoreMembersThatThrowGlobal
+
 Result:
 
 snippet: SerializationTests.CustomExceptionProp.verified.txt
@@ -276,6 +300,10 @@ snippet: SerializationTests.CustomExceptionProp.verified.txt
 Ignore by exception type and expression:
 
 snippet: IgnoreMembersThatThrowExpression
+
+Or globally:
+
+snippet: IgnoreMembersThatThrowExpressionGlobal
 
 Result:
 

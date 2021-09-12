@@ -28,6 +28,13 @@ public class Tests
         var json = "{'key': {'msg': 'No action taken'}}";
         return Verifier.VerifyJson(json);
     }
+    
+    [Fact]
+    public Task VerifyJsonArrayString()
+    {
+        var json = "[{'key': {'msg': 'This is a proper json string'}}, {'key': {'msg': 'Foo'}}]";
+        return Verifier.VerifyJson(json);
+    }
 
     [Fact]
     public Task Dynamic()

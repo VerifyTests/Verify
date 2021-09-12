@@ -195,5 +195,17 @@ namespace VerifyTests
         {
             scrubSolutionDirectory = false;
         }
+
+        internal static bool sortPropertiesAlphabetically;
+
+        public static void SortPropertiesAlphabetically()
+        {
+            sortPropertiesAlphabetically = true;
+        }
+
+        public static void DontSortPropertiesAlphabetically()
+        {
+            sortPropertiesAlphabetically = false;
+        }
     }
 }

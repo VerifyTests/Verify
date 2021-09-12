@@ -22,7 +22,7 @@ using Xunit;
 #pragma warning disable CS8618
 
 [UsesVerify]
-public class SerializationTests
+public class SerializationTests : IDisposable
 {
     [ModuleInitializer]
     public static void Initialize()
@@ -1833,8 +1833,9 @@ void CustomExceptionPropGlobal()
                 Country = "USA"
             }
         };
-        return Verifier.Verify(person)
-            .ModifySerialization(s => s.SortPropertiesAlphabetically());
+
+        VerifierSettings.SortPropertiesAlphabetically();
+        return Verifier.Verify(person);
     }
 
     [Fact]
@@ -1854,9 +1855,15 @@ void CustomExceptionPropGlobal()
                 Country = "USA"
             }
         };
+
+        VerifierSettings.SortPropertiesAlphabetically();
         return Verifier.Verify(person)
-            .ModifySerialization(s => s.SortPropertiesAlphabetically())
             .AddExtraSettings(
                 _ => { _.TypeNameHandling = TypeNameHandling.All; });
+    }
+
+    public void Dispose()
+    {
+        VerifierSettings.DontSortPropertiesAlphabetically();
     }
 }

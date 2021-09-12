@@ -13,7 +13,6 @@ class CustomContractResolver :
     bool ignoreFalse;
     bool includeObsoletes;
     bool scrubNumericIds;
-    bool sortPropertiesAlphabetically;
     IReadOnlyDictionary<Type, List<string>> ignoredMembers;
     IReadOnlyList<string> ignoredByNameMembers;
     IReadOnlyList<Type> ignoredTypes;
@@ -27,7 +26,6 @@ class CustomContractResolver :
         bool ignoreFalse,
         bool includeObsoletes,
         bool scrubNumericIds,
-        bool sortPropertiesAlphabetically,
         IReadOnlyDictionary<Type, List<string>> ignoredMembers,
         IReadOnlyList<string> ignoredByNameMembers,
         IReadOnlyList<Type> ignoredTypes,
@@ -40,7 +38,6 @@ class CustomContractResolver :
         this.ignoreFalse = ignoreFalse;
         this.includeObsoletes = includeObsoletes;
         this.scrubNumericIds = scrubNumericIds;
-        this.sortPropertiesAlphabetically = sortPropertiesAlphabetically;
         this.ignoredMembers = ignoredMembers;
         this.ignoredByNameMembers = ignoredByNameMembers;
         this.ignoredTypes = ignoredTypes;
@@ -78,7 +75,7 @@ class CustomContractResolver :
                 });
         }
         
-        if (sortPropertiesAlphabetically)
+        if (VerifierSettings.sortPropertiesAlphabetically)
         {
             properties = properties
                 .OrderBy(p => p.Order ?? -1) // Still honor explicit ordering

@@ -74,7 +74,15 @@ class CustomContractResolver :
                     Writable = false,
                 });
         }
-
+        
+        if (VerifierSettings.sortPropertiesAlphabetically)
+        {
+            properties = properties
+                .OrderBy(p => p.Order ?? -1) // Still honor explicit ordering
+                .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
+                .ToList();
+        }
+        
         return properties;
     }
 

@@ -20,7 +20,7 @@ namespace VerifyTests
                 return VerifyInner("null", null, emptyTargets);
             }
 
-            return VerifyJson(JObject.Parse(target));
+            return VerifyJson(JToken.Parse(target));
         }
 
         public async Task VerifyJson(Stream? target)

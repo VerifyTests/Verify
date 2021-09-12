@@ -90,5 +90,6 @@ public class Address
 
 public enum Title
 {
-    Mr, Mrs
+    Mr,
+    Mrs
 }

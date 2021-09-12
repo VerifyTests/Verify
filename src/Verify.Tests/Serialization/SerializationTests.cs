@@ -1049,6 +1049,13 @@ public class SerializationTests
     }
 #pragma warning disable 612
 
+    void ExceptionMessagePropGlobal()
+    {
+        #region IgnoreMembersThatThrowExpressionGlobal
+        VerifierSettings.ModifySerialization(
+            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        #endregion
+    }
     #region IgnoreMembersThatThrowExpression
 
     [Fact]
@@ -1060,7 +1067,6 @@ public class SerializationTests
         settings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
         return Verifier.Verify(target, settings);
-
     }
 
     [Fact]
@@ -1101,6 +1107,14 @@ public class SerializationTests
     class WithNotImplementedException
     {
         public Guid NotImplementedExceptionProperty => throw new NotImplementedException();
+    }
+
+    void AddIgnoreInstanceGlobal()
+    {
+        #region AddIgnoreInstanceGlobal
+        VerifierSettings.ModifySerialization(
+            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+        #endregion
     }
 
     #region AddIgnoreInstance
@@ -1155,6 +1169,16 @@ public class SerializationTests
     class Instance
     {
         public string Property;
+    }
+
+    void AddIgnoreTypeGlobal()
+    {
+        #region AddIgnoreTypeGlobal
+
+        VerifierSettings.ModifySerialization(
+            _ => _.IgnoreMembersWithType<ToIgnore>());
+
+        #endregion
     }
 
     #region AddIgnoreType
@@ -1284,7 +1308,19 @@ public class SerializationTests
         public string Property;
     }
 
-
+    void IgnoreMemberByExpressionGlobal()
+    {
+        #region IgnoreMemberByExpressionGlobal
+        VerifierSettings.ModifySerialization(_ =>
+        {
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        });
+        #endregion
+    }
     #region IgnoreMemberByExpression
 
     [Fact]
@@ -1395,6 +1431,20 @@ public class SerializationTests
         public string Field;
     }
 
+    void IgnoreMemberByNameGlobal()
+    {
+        #region IgnoreMemberByNameGlobal
+        VerifierSettings.ModifySerialization(_ =>
+        {
+            _.IgnoreMember("PropertyByName");
+            var type = typeof(IgnoreExplicitTarget);
+            _.IgnoreMember(type, "Property");
+            _.IgnoreMember(type, "Field");
+            _.IgnoreMember(type, "GetOnlyProperty");
+            _.IgnoreMember(type, "PropertyThatThrows");
+        });
+        #endregion
+    }
     #region IgnoreMemberByName
 
     [Fact]
@@ -1552,6 +1602,13 @@ public class SerializationTests
         public string Field;
     }
 
+void CustomExceptionPropGlobal()
+    {
+        #region IgnoreMembersThatThrowGlobal
+        VerifierSettings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+        #endregion
+    }
+
     #region IgnoreMembersThatThrow
 
     [Fact]
@@ -1650,6 +1707,14 @@ public class SerializationTests
     class WithNotSupportedException
     {
         public Guid NotImplementedExceptionProperty => throw new NotSupportedException();
+    }
+
+
+    void WithObsoletePropIncludedGlobally()
+    {
+        #region WithObsoletePropIncludedGlobally
+        VerifierSettings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+        #endregion
     }
 
     #region WithObsoletePropIncluded

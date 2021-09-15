@@ -812,7 +812,7 @@ public class SerializationTests
     {
         #region VerifyTuple
 
-        await Verifier.Verify(() => MethodWithNamedTuple());
+        await Verifier.VerifyTuple(() => MethodWithNamedTuple());
 
         #endregion
     }
@@ -829,7 +829,7 @@ public class SerializationTests
     [Fact]
     public async Task PartialNamedTuple()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithPartialNamedTuple()));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.VerifyTuple(() => MethodWithPartialNamedTuple()));
         FileNameBuilder.ClearPrefixList();
         await Verifier.Verify(exception.Message);
     }
@@ -842,7 +842,7 @@ public class SerializationTests
     [Fact]
     public Task NamedTupleWithNull()
     {
-        return Verifier.Verify(() => MethodWithNamedTupleWithNull());
+        return Verifier.VerifyTuple(() => MethodWithNamedTupleWithNull());
     }
 
     [Fact]
@@ -1773,7 +1773,7 @@ void CustomExceptionPropGlobal()
     [Fact]
     public async Task Tuple()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify(() => MethodWithTuple()));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.VerifyTuple(() => MethodWithTuple()));
         FileNameBuilder.ClearPrefixList();
         await Verifier.Verify(exception.Message);
     }

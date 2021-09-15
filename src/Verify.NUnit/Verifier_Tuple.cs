@@ -8,12 +8,12 @@ namespace VerifyNUnit
 {
     public static partial class Verifier
     {
-        public static SettingsTask Verify(
+        public static SettingsTask VerifyTuple(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, _ => _.Verify(expression));
+            return Verify(settings, sourceFile, _ => _.VerifyTuple(expression));
         }
     }
 }

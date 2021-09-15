@@ -29,7 +29,7 @@ Can be verified:
 <!-- snippet: VerifyTuple -->
 <a id='snippet-verifytuple'></a>
 ```cs
-await Verifier.Verify(() => MethodWithNamedTuple());
+await Verifier.VerifyTuple(() => MethodWithNamedTuple());
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L813-L817' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

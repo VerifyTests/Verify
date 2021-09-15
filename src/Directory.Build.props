@@ -9,4 +9,11 @@
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>
   </PropertyGroup>
+  <!--Work around: https://github.com/dotnet/sdk/issues/21006-->
+  <Target Name="DisableAnalyzers" 
+          BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
 </Project>

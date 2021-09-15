@@ -8,7 +8,7 @@ namespace VerifyTests
 {
     partial class InnerVerifier
     {
-        public Task Verify(Expression<Func<ITuple>> target)
+        public Task VerifyTuple(Expression<Func<ITuple>> target)
         {
             var dictionary = TupleConverter.ExpressionToDictionary(target);
             return Verify(dictionary);

@@ -1,10 +1,6 @@
 ﻿#if DEBUG
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;

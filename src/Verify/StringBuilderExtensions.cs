@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-static class StringBuilderExtensions
+﻿static class StringBuilderExtensions
 {
     public static void FixNewlines(this StringBuilder builder)
     {

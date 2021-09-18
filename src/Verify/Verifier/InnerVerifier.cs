@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     /// <summary>
     /// Not for public use.

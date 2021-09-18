@@ -1,5 +1,4 @@
-﻿using System;
-using DiffEngine;
+﻿using DiffEngine;
 using VerifyTests;
 
 static class ClipboardEnabled

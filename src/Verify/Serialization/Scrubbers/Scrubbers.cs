@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Text;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     public static class Scrubbers
     {

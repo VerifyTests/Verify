@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-static class FileToTypeFinder
+﻿static class FileToTypeFinder
 {
     public static bool FindTypeFromFile(this List<Type> types, string file, out Type? type)
     {

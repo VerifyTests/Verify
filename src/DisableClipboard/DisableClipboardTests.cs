@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DiffEngine;
+﻿using DiffEngine;
 using TextCopy;
 using VerifyTests;
 using VerifyXunit;

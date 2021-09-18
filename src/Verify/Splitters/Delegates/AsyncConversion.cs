@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     public delegate Task<ConversionResult> AsyncConversion<in T>(T target, IReadOnlyDictionary<string, object> context);
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-// ReSharper disable UnusedParameter.Local
+﻿// ReSharper disable UnusedParameter.Local
 
 namespace VerifyTests
 {

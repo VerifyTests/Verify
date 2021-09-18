@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using VerifyXunit;
+﻿using VerifyXunit;
 
 [UsesVerify]
 public class Inherited : Base

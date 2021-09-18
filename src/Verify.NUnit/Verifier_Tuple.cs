@@ -1,7 +1,5 @@
 ﻿#if !NETSTANDARD2_0
-using System;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using VerifyTests;
 
 namespace VerifyNUnit

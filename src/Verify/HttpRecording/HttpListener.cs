@@ -1,11 +1,6 @@
 ﻿#if NET5_0_OR_GREATER
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DiagnosticAdapter;
 using VerifyTests;
 

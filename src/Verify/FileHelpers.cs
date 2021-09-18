@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-
-static class FileHelpers
+﻿static class FileHelpers
 {
     public static readonly UTF8Encoding Utf8 = new(true, true);
 

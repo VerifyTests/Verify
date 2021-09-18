@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
+﻿using System.Net.Http;
 using VerifyTests;
 
 static class HttpResponseSplitterResult

@@ -1,7 +1,4 @@
 ﻿#if DEBUG
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;

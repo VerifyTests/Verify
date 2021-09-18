@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     public static partial class VerifierSettings
     {

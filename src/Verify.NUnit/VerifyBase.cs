@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using VerifyTests;
 
 namespace VerifyNUnit

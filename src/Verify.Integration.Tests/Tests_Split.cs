@@ -1,7 +1,5 @@
 ﻿#if DEBUG
 
-using System.IO;
-using System.Threading.Tasks;
 using DiffEngine;
 using VerifyTests;
 using VerifyXunit;

@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-
-static class StreamExtensions
+﻿static class StreamExtensions
 {
     public static void MoveToStart(this Stream stream)
     {

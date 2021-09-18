@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using VerifyTests;
+﻿using VerifyTests;
 using VerifyXunit;
 using Xunit;
 

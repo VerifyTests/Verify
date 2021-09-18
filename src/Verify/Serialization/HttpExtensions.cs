@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -95,7 +93,7 @@ namespace VerifyTests
         }
 
 #if(!NET5_0_OR_GREATER)
-        internal static System.IO.Stream ReadAsStream(this HttpContent content)
+        internal static Stream ReadAsStream(this HttpContent content)
         {
             return content.ReadAsStreamAsync().GetAwaiter().GetResult();
         }

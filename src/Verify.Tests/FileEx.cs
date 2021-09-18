@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-public static class FileEx
+﻿public static class FileEx
 {
     public static bool IsFileLocked(string file)
     {

@@ -1,8 +1,4 @@
-﻿ using System;
- using System.Collections.Concurrent;
- using System.Runtime.CompilerServices;
- using System.Threading;
- using VerifyTests;
+﻿ using VerifyTests;
 
  class CounterContext
  {

@@ -39,7 +39,7 @@ string GetFilePath([CallerFilePath] string sourceFile = "")
     return sourceFile;
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L779-L785' title='Snippet source file'>snippet source</a> | <a href='#snippet-getfilepath' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L772-L778' title='Snippet source file'>snippet source</a> | <a href='#snippet-getfilepath' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This path would normally be passed in on each of the Verify method overloads. For example [the Verify file overload in Xunit](https://github.com/VerifyTests/Verify/blob/main/src/Verify.Xunit/Verifier_File.cs).
@@ -66,7 +66,7 @@ public async Task RawUsage()
     await verifier.Verify("Some value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L787-L799' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L780-L792' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RawUsageWithParams -->
@@ -83,7 +83,7 @@ public async Task RawUsageWithParams(string param1, string param2)
     await verifier.Verify("Some value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L803-L814' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusagewithparams' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L796-L807' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusagewithparams' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

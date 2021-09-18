@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 class DictionaryWrapper<TKey, TValue, TInner> :
     Dictionary<TKey, TValue>,

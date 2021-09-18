@@ -1,6 +1,4 @@
-﻿using System;
-
-class LoggerScope :
+﻿class LoggerScope :
     IDisposable
 {
     Action log;

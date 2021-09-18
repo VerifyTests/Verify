@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using VerifyTests;
+﻿using VerifyTests;
 
 namespace VerifyXunit
 {

@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     public partial class VerifySettings
     {

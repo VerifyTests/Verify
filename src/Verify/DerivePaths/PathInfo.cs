@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     [DebuggerDisplay("Directory = {Directory} | TypeName = {TypeName} | MethodName = {MethodName}")]
     public readonly struct PathInfo

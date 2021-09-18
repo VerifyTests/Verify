@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     public delegate ConversionResult Conversion<in T>(T target, IReadOnlyDictionary<string, object> context);
 

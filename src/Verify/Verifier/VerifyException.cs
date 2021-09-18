@@ -1,6 +1,4 @@
-﻿using System;
-
-class VerifyException :
+﻿class VerifyException :
     Exception
 {
     public VerifyException(string message) :

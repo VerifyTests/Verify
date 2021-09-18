@@ -178,6 +178,8 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 ## Videos
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
+ * [OSS Power-Ups: Verify](https://www.youtube.com/watch?v=ZD5-51iCmU0)
+
 
 
 ## Extensions

@@ -1,6 +1,4 @@
-﻿using System;
-
-class ExceptionWrapper
+﻿class ExceptionWrapper
 {
     public ExceptionWrapper(Exception exception)
     {

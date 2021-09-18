@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     /// <summary>
     /// Signature for deriving a custom path information for `.verified.` files.

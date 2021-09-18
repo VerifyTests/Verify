@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Threading;
+﻿using System.Diagnostics.CodeAnalysis;
 using Xunit.Sdk;
 
 namespace VerifyXunit

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-static class Extensions
+﻿static class Extensions
 {
     public static bool IsException(this Type type)
     {

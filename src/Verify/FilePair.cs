@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
-
-namespace VerifyTests
+﻿namespace VerifyTests
 {
     [DebuggerDisplay("Extension = {Extension} | Name = {Name}")]
     public readonly struct FilePair

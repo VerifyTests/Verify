@@ -4,9 +4,9 @@
 The prefix has already been used. Existing: NamerTests.ThrowOnConflict. New: NamerTests.ThrowOnConflict.
 This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {ProjectDirectory}Naming/NamerTests.Conflict,
   StackTrace:
-at VerifyTests.FileNameBuilder.<>c__DisplayClass15_0.<CheckPrefixIsUnique>b__1(String _, MethodInfo info)
+at PrefixUnique.<>c__DisplayClass1_0.<CheckPrefixIsUnique>b__1(String _, MethodInfo info)
 at System.Collections.Concurrent.ConcurrentDictionary`2.AddOrUpdate(TKey key, Func`2 addValueFactory, Func`3 updateValueFactory)
-at VerifyTests.FileNameBuilder.CheckPrefixIsUnique(String prefix, MethodInfo method)
+at PrefixUnique.CheckPrefixIsUnique(String prefix, MethodInfo method)
 at VerifyTests.FileNameBuilder..ctor(MethodInfo method, Type type, String projectDirectory, String sourceFile, VerifySettings settings)
 at VerifyXunit.Verifier.GetVerifier(VerifySettings settings, String sourceFile)
 --- End of stack trace from previous location ---

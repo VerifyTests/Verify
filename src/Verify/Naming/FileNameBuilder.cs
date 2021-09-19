@@ -40,42 +40,8 @@ namespace VerifyTests
 
             var pattern = $"{fileNamePrefix}.*.*";
             var files = Directory.EnumerateFiles(directory, pattern).ToList();
-            VerifiedFiles = FindMatchingFiles(files, fileNamePrefix, ".verified").ToList();
-            ReceivedFiles = FindMatchingFiles(files, fileNamePrefix, ".received").ToList();
-        }
-
-        static IEnumerable<string> FindMatchingFiles(List<string> files, string fileNamePrefix, string suffix)
-        {
-            foreach (var file in files)
-            {
-                var name = Path.GetFileNameWithoutExtension(file);
-                if (!name.StartsWith(fileNamePrefix))
-                {
-                    continue;
-                }
-
-                if (!name.EndsWith(suffix))
-                {
-                    continue;
-                }
-
-                var nameLength = name.Length - fileNamePrefix.Length;
-                var prefixRemoved = name
-                    .Substring(fileNamePrefix.Length, nameLength);
-                if (prefixRemoved == suffix)
-                {
-                    yield return file;
-                    continue;
-                }
-
-                var numberPart = prefixRemoved
-                    .Substring(1, prefixRemoved.Length - suffix.Length - 1);
-
-                if (int.TryParse(numberPart, out _))
-                {
-                    yield return file;
-                }
-            }
+            VerifiedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".verified").ToList();
+            ReceivedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".received").ToList();
         }
 
         static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, Namer namer)

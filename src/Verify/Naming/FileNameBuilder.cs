@@ -7,7 +7,6 @@ namespace VerifyTests
     /// </summary>
     public class FileNameBuilder
     {
-        static ConcurrentDictionary<string, MethodInfo> prefixList = new();
         string filePathPrefix;
 
         public FileNameBuilder(
@@ -36,51 +35,17 @@ namespace VerifyTests
 
             var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, namer);
             filePathPrefix = Path.Combine(directory, fileNamePrefix);
-            CheckPrefixIsUnique(filePathPrefix, method);
+            PrefixUnique.CheckPrefixIsUnique(filePathPrefix);
 
             var pattern = $"{fileNamePrefix}.*.*";
             var files = Directory.EnumerateFiles(directory, pattern).ToList();
-            VerifiedFiles = FindMatchingFiles(files, fileNamePrefix, ".verified").ToList();
-            ReceivedFiles = FindMatchingFiles(files, fileNamePrefix, ".received").ToList();
-        }
-
-        static IEnumerable<string> FindMatchingFiles(List<string> files, string fileNamePrefix, string suffix)
-        {
-            foreach (var file in files)
-            {
-                var name = Path.GetFileNameWithoutExtension(file);
-                if (!name.StartsWith(fileNamePrefix))
-                {
-                    continue;
-                }
-
-                if (!name.EndsWith(suffix))
-                {
-                    continue;
-                }
-
-                var nameLength = name.Length - fileNamePrefix.Length;
-                var prefixRemoved = name
-                    .Substring(fileNamePrefix.Length, nameLength);
-                if (prefixRemoved == suffix)
-                {
-                    yield return file;
-                    continue;
-                }
-
-                var numberPart = prefixRemoved
-                    .Substring(1, prefixRemoved.Length - suffix.Length - 1);
-
-                if (int.TryParse(numberPart, out _))
-                {
-                    yield return file;
-                }
-            }
+            VerifiedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".verified").ToList();
+            ReceivedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".received").ToList();
         }
 
         static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, Namer namer)
         {
-            var uniquenessParts = GetUniquenessParts(namer, type);
+            var uniquenessParts = PrefixUnique.GetUniquenessParts(namer, type.Assembly);
             if (settings.fileName is not null)
             {
                 return settings.fileName + uniquenessParts;
@@ -147,50 +112,6 @@ await Verifier.Verify(target).UseParameters({names});
         public FilePair GetFileNames(string extension, int index)
         {
             return new(extension, $"{filePathPrefix}.{index:D2}");
-        }
-
-        static void CheckPrefixIsUnique(string prefix, MethodInfo method)
-        {
-            prefixList.AddOrUpdate(
-                prefix,
-                _ => method,
-                (_, info) => throw new($@"The prefix has already been used. Existing: {info.FullName()}. New: {method.FullName()}.
-This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}"));
-        }
-
-        public static void ClearPrefixList()
-        {
-            prefixList = new();
-        }
-
-        static string GetUniquenessParts(Namer namer, Type type)
-        {
-            var builder = new StringBuilder();
-            if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
-            {
-                builder.Append($".{Namer.RuntimeAndVersion}");
-            }
-            else if (namer.UniqueForRuntime || VerifierSettings.SharedNamer.UniqueForRuntime)
-            {
-                builder.Append($".{Namer.Runtime}");
-            }
-
-            if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
-            {
-                builder.Append($".{type.Assembly.GetAttributeConfiguration()}");
-            }
-
-            if (namer.UniqueForArchitecture || VerifierSettings.SharedNamer.UniqueForArchitecture)
-            {
-                builder.Append($".{Namer.Architecture}");
-            }
-
-            if (namer.UniqueForOSPlatform || VerifierSettings.SharedNamer.UniqueForOSPlatform)
-            {
-                builder.Append($".{Namer.OperatingSystemPlatform}");
-            }
-
-            return builder.ToString();
         }
     }
 }

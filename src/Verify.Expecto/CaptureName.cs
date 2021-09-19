@@ -13,9 +13,9 @@ class CaptureName :
         return name != null;
     }
 
-    public Task BeforeEach(string value)
+    public Task BeforeEach(string name)
     {
-        local.Value = value;
+        local.Value = name;
         return Task.CompletedTask;
     }
 
@@ -24,34 +24,34 @@ class CaptureName :
         return Task.CompletedTask;
     }
 
-    public Task Exn(string value1, Exception value2, TimeSpan value3)
+    public Task Exn(string name, Exception exception, TimeSpan elapsed)
     {
         return Task.CompletedTask;
     }
 
-    public Task Failed(string value1, string value2, TimeSpan value3)
-    {
-        local.Value = null;
-        return Task.CompletedTask;
-    }
-
-    public Task Ignored(string value1, string value2)
-    {
-        return Task.CompletedTask;
-    }
-
-    public Task Info(string value)
-    {
-        return Task.CompletedTask;
-    }
-
-    public Task Passed(string value1, TimeSpan value2)
+    public Task Failed(string name, string stackTrace, TimeSpan elapsed)
     {
         local.Value = null;
         return Task.CompletedTask;
     }
 
-    public Task Summary(Impl.ExpectoConfig value1, Impl.TestRunSummary value2)
+    public Task Ignored(string name, string stackTrace)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task Info(string name)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task Passed(string name, TimeSpan elapsed)
+    {
+        local.Value = null;
+        return Task.CompletedTask;
+    }
+
+    public Task Summary(Impl.ExpectoConfig config, Impl.TestRunSummary summary)
     {
         return Task.CompletedTask;
     }

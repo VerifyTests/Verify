@@ -1,5 +1,5 @@
 ﻿using Expecto.CSharp;
-using Verify;
+using VerifyExpecto;
 
 var config =
     Runner.DefaultConfig

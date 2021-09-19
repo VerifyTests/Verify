@@ -8,4 +8,7 @@
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
+  </ItemGroup>
 </Project>

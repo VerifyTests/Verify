@@ -1,7 +1,7 @@
 ﻿using Expecto.CSharp;
+using Verify;
+
 var config =
     Runner.DefaultConfig
-        .AddPrinter(new CSharpPrinter())
-        .AddNUnitSummary("bin/Expecto.Tests.CSharp.TestResults.xml")
-        .AddJUnitSummary("bin/Expecto.Tests.CSharp.TestResults.junit.xml");
+        .UseVerify();
 return Runner.RunTestsInAssembly(config, args);

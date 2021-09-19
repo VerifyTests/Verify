@@ -536,27 +536,27 @@ public class Tests
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
         await Verifier.Verify("a\r\nb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("a\rb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("a\nb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
 
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\nb");
         await Verifier.Verify("a\r\nb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("a\rb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("a\nb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
 
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\rb");
         await Verifier.Verify("a\r\nb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("a\rb");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("a\nb");
     }
 
@@ -610,7 +610,7 @@ public class Tests
         await Verifier.Verify("A");
         var settings = new VerifySettings();
         settings.DisableDiff();
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("a", settings));
     }
 

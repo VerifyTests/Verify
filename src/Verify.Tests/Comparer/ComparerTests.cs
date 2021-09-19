@@ -21,7 +21,7 @@ public class ComparerTests
         var settings = new VerifySettings();
         settings.UseStringComparer(Compare);
         await Verifier.Verify("TheText", settings);
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("thetext", settings);
     }
 #if(Release)
@@ -53,7 +53,7 @@ theMessage".Replace("\r\n", "\n"),
         var settings = new VerifySettings();
         settings.UseExtension("staticComparerExt");
         await Verifier.Verify("TheText", settings);
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         await Verifier.Verify("thetext", settings);
     }
 

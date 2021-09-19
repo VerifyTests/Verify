@@ -16,10 +16,9 @@ namespace VerifyTests
             string sourceFile,
             VerifySettings settings)
         {
-            var namer = settings.Namer;
-
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
-
+            
+            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo);
             var directory = settings.directory ?? pathInfo.Directory;
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
@@ -33,7 +32,6 @@ namespace VerifyTests
                 Directory.CreateDirectory(directory);
             }
 
-            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, namer);
             filePathPrefix = Path.Combine(directory, fileNamePrefix);
             PrefixUnique.CheckPrefixIsUnique(filePathPrefix);
 
@@ -43,9 +41,9 @@ namespace VerifyTests
             ReceivedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".received").ToList();
         }
 
-        static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, Namer namer)
+        static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
         {
-            var uniquenessParts = PrefixUnique.GetUniquenessParts(namer, type.Assembly);
+            var uniquenessParts = PrefixUnique.GetUniquenessParts(settings.Namer, type.Assembly);
             if (settings.fileName is not null)
             {
                 return settings.fileName + uniquenessParts;

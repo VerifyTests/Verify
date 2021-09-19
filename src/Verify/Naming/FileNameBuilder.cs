@@ -35,7 +35,7 @@ namespace VerifyTests
 
             var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, namer);
             filePathPrefix = Path.Combine(directory, fileNamePrefix);
-            PrefixUnique.CheckPrefixIsUnique(filePathPrefix, method);
+            PrefixUnique.CheckPrefixIsUnique(filePathPrefix);
 
             var pattern = $"{fileNamePrefix}.*.*";
             var files = Directory.EnumerateFiles(directory, pattern).ToList();

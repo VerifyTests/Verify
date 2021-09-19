@@ -1,16 +1,19 @@
-﻿using VerifyTests;
+﻿using System.Linq;
+using VerifyTests;
 
 static class PrefixUnique
 {
-    static ConcurrentDictionary<string, MethodInfo> prefixList = new();
+    static ConcurrentBag<string> prefixList = new();
 
-    public static void CheckPrefixIsUnique(string prefix, MethodInfo method)
+    public static void CheckPrefixIsUnique(string prefix)
     {
-        prefixList.AddOrUpdate(
-            prefix,
-            _ => method,
-            (_, info) => throw new($@"The prefix has already been used. Existing: {info.FullName()}. New: {method.FullName()}.
-This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}"));
+        if (prefixList.Contains(prefix))
+        {
+            throw new($@"The prefix has already been used: Existing: {prefix}.
+This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
+        }
+
+        prefixList.Add(prefix);
     }
 
     public static void Clear()

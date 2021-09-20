@@ -49,23 +49,22 @@ namespace VerifyTests
                 return "";
             }
 
-            if (settings.parameters is null)
+            var settingsParameters = settings.parameters;
+            if (settingsParameters is null)
             {
-                throw BuildException(method, methodParameters);
+                throw BuildMissingParametersException(method, methodParameters);
             }
 
-            var parameters = method.GetParameters();
-
-            if (parameters.Length != ((IReadOnlyList<object?>)settings.parameters).Count)
+            if (methodParameters.Length != settingsParameters.Length)
             {
-                throw new($"The number of passed in parameters ({((IReadOnlyList<object?>)settings.parameters).Count}) must match the number of parameters for the method ({parameters.Length}).");
+                throw new($"The number of passed in parameters ({settingsParameters.Length}) must match the number of parameters for the method ({methodParameters.Length}).");
             }
 
-            Dictionary<string, object?> dictionary = new Dictionary<string, object?>();
-            for (var index = 0; index < parameters.Length; index++)
+            var dictionary = new Dictionary<string, object?>();
+            for (var index = 0; index < methodParameters.Length; index++)
             {
-                var parameter = parameters[index];
-                var value = ((IReadOnlyList<object?>)settings.parameters)[index];
+                var parameter = methodParameters[index];
+                var value = ((IReadOnlyList<object?>)settingsParameters)[index];
                 dictionary[parameter.Name!] = value;
             }
 
@@ -73,9 +72,9 @@ namespace VerifyTests
             return $"_{concat}";
         }
 
-        static Exception BuildException(MethodInfo method, ParameterInfo[] methodParameters)
+        static Exception BuildMissingParametersException(MethodInfo method, ParameterInfo[] parameters)
         {
-            var names = string.Join(", ", methodParameters.Select(x => x.Name));
+            var names = string.Join(", ", parameters.Select(x => x.Name));
             return new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 
 var settings = new VerifySettings();

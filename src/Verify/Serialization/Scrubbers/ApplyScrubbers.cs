@@ -5,6 +5,7 @@ static class ApplyScrubbers
     static HashSet<string> currentDirectoryReplacements = new();
     static string tempPath;
     static string altTempPath;
+    static Action<StringBuilder> sharedReplacements = null!;
 
     static ApplyScrubbers()
     {
@@ -29,6 +30,53 @@ static class ApplyScrubbers
         altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
+    
+
+    public static void UseAssembly(string? solutionDirectory, string projectDirectory)
+    {
+        sharedReplacements = GetReplacements(solutionDirectory, projectDirectory);
+    }
+
+     static Action<StringBuilder> GetReplacements(string? solutionDirectory, string projectDirectory)
+        {
+            if (!VerifierSettings.scrubProjectDirectory &&
+                !VerifierSettings.scrubSolutionDirectory)
+            {
+                return _ => { };
+            }
+
+            var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
+            var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
+
+            if (!VerifierSettings.scrubSolutionDirectory ||
+                (solutionDirectory == null))
+            {
+                return builder =>
+                {
+                    builder.Replace(projectDirectory, "{ProjectDirectory}");
+                    builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
+                    builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                    builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+                };
+            }
+
+            var altSolutionDirectory = solutionDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
+            var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
+            return builder =>
+            {
+                builder.Replace(projectDirectory, "{ProjectDirectory}");
+                builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+
+                builder.Replace(solutionDirectory, "{SolutionDirectory}");
+                builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
+                builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
+                builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
+            };
+        }
     public static void Apply(string extension, StringBuilder target, VerifySettings settings)
     {
         foreach (var replace in currentDirectoryReplacements)
@@ -39,10 +87,12 @@ static class ApplyScrubbers
         target.Replace(tempPath, "{TempPath}");
         target.Replace(altTempPath, "{TempPath}");
 
-        foreach (var scrubber in settings.instanceScrubbers)
+        foreach (var scrubber in settings.InstanceScrubbers)
         {
             scrubber(target);
         }
+
+        sharedReplacements(target);
 
         if (settings.extensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {

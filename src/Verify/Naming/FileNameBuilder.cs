@@ -12,11 +12,10 @@ namespace VerifyTests
         public FileNameBuilder(
             MethodInfo method,
             Type type,
-            string projectDirectory,
             string sourceFile,
             VerifySettings settings)
         {
-            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, projectDirectory, type, method);
+            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
             
             var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo);
             var directory = settings.directory ?? pathInfo.Directory;

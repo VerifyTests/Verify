@@ -11,9 +11,7 @@
 
         public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method)
         {
-            var (projectDirectory, replacements) = AttributeReader.GetAssemblyInfo(type.Assembly);
-            settings.instanceScrubbers.Add(replacements);
-            fileNameBuilder = new(method, type, projectDirectory, sourceFile, settings);
+            fileNameBuilder = new(method, type, sourceFile, settings);
 
             this.settings = settings;
 

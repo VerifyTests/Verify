@@ -9,7 +9,7 @@ namespace VerifyXunit
             if (UsesVerifyAttribute.TryGet(out var info))
             {
                 var type = info.ReflectedType!;
-                Namer.UseAssemblyForConfig(type.Assembly);
+                TargetAssembly.Assign(type.Assembly);
                 return new(sourceFile, type, settings, info);
             }
 

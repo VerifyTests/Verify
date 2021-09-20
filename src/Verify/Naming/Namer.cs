@@ -18,12 +18,8 @@ namespace VerifyTests
             }
         }
 
-        internal static void UseAssemblyForConfig(Assembly assembly)
+        internal static void UseAssembly(Assembly assembly)
         {
-            if (assemblyConfig != null)
-            {
-                return;
-            }
             assemblyConfig = assembly.GetAttributeConfiguration();
         }
 

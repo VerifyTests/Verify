@@ -21,21 +21,22 @@ namespace VerifyTests
 
         static string GetOSPlatform()
         {
-            string osPlatform;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                osPlatform = "Linux";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                osPlatform = "Windows";
-            }
-            else
-            {
-                osPlatform = "OSX";
+                return "Linux";
             }
 
-            return osPlatform;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "Windows";
+            }
+           
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "OSX";
+            }
+
+            throw new("Unknown OS");
         }
 
         public static string Runtime { get; }

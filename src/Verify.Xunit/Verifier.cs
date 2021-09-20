@@ -8,7 +8,9 @@ namespace VerifyXunit
         {
             if (UsesVerifyAttribute.TryGet(out var info))
             {
-                return new(sourceFile, info.ReflectedType!, settings, info);
+                var type = info.ReflectedType!;
+                Namer.UseAssemblyForConfig(type.Assembly);
+                return new(sourceFile, type, settings, info);
             }
 
             var fileName = Path.GetFileName(sourceFile);

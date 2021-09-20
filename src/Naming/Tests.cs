@@ -117,12 +117,12 @@ public class Tests
         File.WriteAllText(fileNames.Verified, "");
         File.WriteAllText(fileNamesWithIndex.Received, "");
         File.WriteAllText(fileNamesWithIndex.Verified, "");
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         builder = Builder(directory, settings);
 
         var receivedFiles = builder.ReceivedFiles.OrderBy(x => x);
         var verifiedFiles = builder.VerifiedFiles.OrderBy(x => x);
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         return new()
         {
             FileNames = fileNames,

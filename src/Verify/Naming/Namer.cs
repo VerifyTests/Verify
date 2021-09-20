@@ -4,6 +4,29 @@ namespace VerifyTests
 {
     public class Namer
     {
+        static string? assemblyConfig;
+        public static string AssemblyConfig
+        {
+            get
+            {
+                if (assemblyConfig != null)
+                {
+                    return assemblyConfig;
+                }
+                
+                throw new("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
+            }
+        }
+
+        internal static void UseAssemblyForConfig(Assembly assembly)
+        {
+            if (assemblyConfig != null)
+            {
+                return;
+            }
+            assemblyConfig = assembly.GetAttributeConfiguration();
+        }
+
         internal bool UniqueForRuntime;
         internal bool UniqueForAssemblyConfiguration;
         internal bool UniqueForRuntimeAndVersion;
@@ -21,21 +44,22 @@ namespace VerifyTests
 
         static string GetOSPlatform()
         {
-            string osPlatform;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                osPlatform = "Linux";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                osPlatform = "Windows";
-            }
-            else
-            {
-                osPlatform = "OSX";
+                return "Linux";
             }
 
-            return osPlatform;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "Windows";
+            }
+           
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return "OSX";
+            }
+
+            throw new("Unknown OS");
         }
 
         public static string Runtime { get; }
@@ -45,6 +69,7 @@ namespace VerifyTests
         public static string Architecture { get; }
 
         public static string OperatingSystemPlatform { get; }
+
 
         internal Namer()
         {

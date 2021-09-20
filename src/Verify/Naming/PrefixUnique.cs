@@ -35,7 +35,7 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
         {
-            builder.Append($".{assembly.GetAttributeConfiguration()}");
+            builder.Append($".{Namer.AssemblyConfig}");
         }
 
         if (namer.UniqueForArchitecture || VerifierSettings.SharedNamer.UniqueForArchitecture)

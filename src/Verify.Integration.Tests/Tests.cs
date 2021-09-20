@@ -122,7 +122,7 @@ Commands:
 
     public Tests()
     {
-        FileNameBuilder.ClearPrefixList();
+        PrefixUnique.Clear();
         ClipboardCapture.Clear();
     }
 }

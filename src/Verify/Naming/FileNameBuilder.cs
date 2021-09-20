@@ -7,7 +7,7 @@ namespace VerifyTests
     /// </summary>
     public class FileNameBuilder
     {
-        string filePathPrefix;
+        public string FilePathPrefix;
 
         public FileNameBuilder(
             MethodInfo method,
@@ -15,10 +15,7 @@ namespace VerifyTests
             string sourceFile,
             VerifySettings settings)
         {
-            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
-            
-            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo);
-            var directory = settings.directory ?? pathInfo.Directory;
+            var (fileNamePrefix, directory) = FileNamePrefix(method, type, sourceFile, settings);
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
             if (directory is null)
@@ -31,13 +28,22 @@ namespace VerifyTests
                 Directory.CreateDirectory(directory);
             }
 
-            filePathPrefix = Path.Combine(directory, fileNamePrefix);
-            PrefixUnique.CheckPrefixIsUnique(filePathPrefix);
+            FilePathPrefix = Path.Combine(directory, fileNamePrefix);
+            PrefixUnique.CheckPrefixIsUnique(FilePathPrefix);
 
             var pattern = $"{fileNamePrefix}.*.*";
             var files = Directory.EnumerateFiles(directory, pattern).ToList();
             VerifiedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".verified").ToList();
             ReceivedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".received").ToList();
+        }
+
+        public static (string fileNamePrefix, string? directory) FileNamePrefix(MethodInfo method, Type type, string sourceFile, VerifySettings settings)
+        {
+            var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
+
+            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo);
+            var directory = settings.directory ?? pathInfo.Directory;
+            return (fileNamePrefix, directory);
         }
 
         static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
@@ -99,16 +105,6 @@ await Verifier.Verify(target).UseParameters({names});
             }
 
             return type.Name;
-        }
-
-        public FilePair GetFileNames(string extension)
-        {
-            return new(extension, filePathPrefix);
-        }
-
-        public FilePair GetFileNames(string extension, int index)
-        {
-            return new(extension, $"{filePathPrefix}.{index:D2}");
         }
     }
 }

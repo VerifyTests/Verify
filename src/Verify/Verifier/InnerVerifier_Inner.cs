@@ -20,7 +20,7 @@ namespace VerifyTests
 
             targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-            VerifyEngine engine = new(settings, fileNameBuilder.VerifiedFiles, fileNameBuilder.GetFileNames, fileNameBuilder.GetFileNames);
+            VerifyEngine engine = new(settings, VerifiedFiles, GetFileNames, GetIndexedFileNames);
 
             await engine.HandleResults(targetList);
 

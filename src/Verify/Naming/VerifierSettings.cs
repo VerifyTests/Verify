@@ -57,8 +57,13 @@ namespace VerifyTests
             '/'
         };
 
-        internal static string GetNameForParameter(object parameter)
+        internal static string GetNameForParameter(object? parameter)
         {
+            if (parameter is null)
+            {
+                return "null";
+            }
+
             foreach (var parameterToName in parameterToNameLookup)
             {
                 if (parameterToName.Key.IsInstanceOfType(parameter))

@@ -32,14 +32,7 @@ static class ParameterBuilder
         {
             var parameter = parameters[index];
             var value = parameterValues[index];
-            builder.Append($"{parameter.Name}=");
-            if (value is null)
-            {
-                builder.Append("null_");
-                continue;
-            }
-
-            builder.Append($"{VerifierSettings.GetNameForParameter(value)}_");
+            builder.Append($"{parameter.Name}={VerifierSettings.GetNameForParameter(value)}_");
         }
 
         builder.Length -= 1;

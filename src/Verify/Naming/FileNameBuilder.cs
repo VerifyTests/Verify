@@ -49,12 +49,26 @@ namespace VerifyTests
                 return "";
             }
 
-            if (settings.parameters is null)
+            var settingsParameters = settings.parameters;
+            if (settingsParameters is null)
             {
                 throw BuildException(method, methodParameters);
             }
 
-            var concat = ParameterBuilder.Concat(method, settings.parameters);
+            if (methodParameters.Length != settingsParameters.Length)
+            {
+                throw new($"The number of passed in parameters ({settingsParameters.Length}) must match the number of parameters for the method ({methodParameters.Length}).");
+            }
+
+            var dictionary = new Dictionary<string, object?>();
+            for (var index = 0; index < methodParameters.Length; index++)
+            {
+                var parameter = methodParameters[index];
+                var value = ((IReadOnlyList<object?>)settingsParameters)[index];
+                dictionary[parameter.Name!] = value;
+            }
+
+            var concat = ParameterBuilder.Concat(dictionary);
             return $"_{concat}";
         }
 

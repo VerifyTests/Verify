@@ -54,7 +54,22 @@ namespace VerifyTests
                 throw BuildException(method, methodParameters);
             }
 
-            var concat = ParameterBuilder.Concat(method, settings.parameters);
+            var parameters = method.GetParameters();
+
+            if (parameters.Length != ((IReadOnlyList<object?>)settings.parameters).Count)
+            {
+                throw new($"The number of passed in parameters ({((IReadOnlyList<object?>)settings.parameters).Count}) must match the number of parameters for the method ({parameters.Length}).");
+            }
+
+            Dictionary<string, object?> dictionary = new Dictionary<string, object?>();
+            for (var index = 0; index < parameters.Length; index++)
+            {
+                var parameter = parameters[index];
+                var value = ((IReadOnlyList<object?>)settings.parameters)[index];
+                dictionary[parameter.Name!] = value;
+            }
+
+            var concat = ParameterBuilder.Concat(dictionary);
             return $"_{concat}";
         }
 

@@ -57,8 +57,8 @@ public partial class Tests
             await File.WriteAllTextAsync(file1.Received, "");
             await File.WriteAllTextAsync(file2.Received, "");
         }
-
-        FileNameBuilder.ClearPrefixList();
+        
+        PrefixUnique.Clear();
         await InitialVerifySplit(initialTarget, true, settings, file0, file1, file2);
 
         if (!autoVerify)
@@ -67,19 +67,19 @@ public partial class Tests
         }
 
         AssertNotExists(danglingFile);
-
-        FileNameBuilder.ClearPrefixList();
+        
+        PrefixUnique.Clear();
         await ReVerifySplit(initialTarget, settings, file0, file1, file2);
-
-        FileNameBuilder.ClearPrefixList();
+        
+        PrefixUnique.Clear();
         await InitialVerifySplit(secondTarget, true, settings, file0, file1, file2);
 
         if (!autoVerify)
         {
             RunClipboardCommand();
         }
-
-        FileNameBuilder.ClearPrefixList();
+        
+        PrefixUnique.Clear();
         await ReVerifySplit(secondTarget, settings, file0, file1, file2);
     }
 

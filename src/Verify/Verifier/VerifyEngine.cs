@@ -8,7 +8,7 @@ class VerifyEngine
     VerifySettings settings;
     FileNameBuilder fileNameBuilder;
     bool diffEnabled;
-    bool clipboardEnabled;
+    static bool clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
@@ -19,7 +19,6 @@ class VerifyEngine
         this.settings = settings;
         this.fileNameBuilder = fileNameBuilder;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
         danglingVerified = fileNameBuilder.VerifiedFiles;
 
         foreach (var file in fileNameBuilder.ReceivedFiles)

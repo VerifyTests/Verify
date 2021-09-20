@@ -4,6 +4,29 @@ namespace VerifyTests
 {
     public class Namer
     {
+        static string? assemblyConfig;
+        public static string AssemblyConfig
+        {
+            get
+            {
+                if (assemblyConfig != null)
+                {
+                    return assemblyConfig;
+                }
+                
+                throw new("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
+            }
+        }
+
+        internal static void UseAssemblyForConfig(Assembly assembly)
+        {
+            if (assemblyConfig != null)
+            {
+                return;
+            }
+            assemblyConfig = assembly.GetAttributeConfiguration();
+        }
+
         internal bool UniqueForRuntime;
         internal bool UniqueForAssemblyConfiguration;
         internal bool UniqueForRuntimeAndVersion;
@@ -46,6 +69,7 @@ namespace VerifyTests
         public static string Architecture { get; }
 
         public static string OperatingSystemPlatform { get; }
+
 
         internal Namer()
         {

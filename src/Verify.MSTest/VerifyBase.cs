@@ -25,7 +25,8 @@ namespace VerifyMSTest
             {
                 testName = testName[(indexOf + 1)..];
             }
-
+            
+            Namer.UseAssemblyForConfig(type.Assembly);
             var methodInfo = type
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public)
                 .FirstOrDefault(x => x.Name == testName);

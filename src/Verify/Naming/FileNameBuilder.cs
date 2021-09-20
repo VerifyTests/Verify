@@ -43,7 +43,7 @@ namespace VerifyTests
 
         static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
         {
-            var uniquenessParts = PrefixUnique.GetUniquenessParts(settings.Namer, type.Assembly);
+            var uniquenessParts = PrefixUnique.GetUniquenessParts(settings.Namer);
             if (settings.fileName is not null)
             {
                 return settings.fileName + uniquenessParts;

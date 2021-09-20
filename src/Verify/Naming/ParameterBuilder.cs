@@ -28,11 +28,17 @@ static class ParameterBuilder
             throw new($"The number of passed in parameters ({parameterValues.Count}) must match the number of parameters for the method ({parameters.Length}).");
         }
 
+        Dictionary<string, object?> dictionary = new Dictionary<string, object?>();
         for (var index = 0; index < parameters.Length; index++)
         {
             var parameter = parameters[index];
             var value = parameterValues[index];
-            builder.Append($"{parameter.Name}={VerifierSettings.GetNameForParameter(value)}_");
+            dictionary[parameter.Name!] = value;
+        }
+
+        foreach (var item in dictionary)
+        {
+            builder.Append($"{item.Key}={VerifierSettings.GetNameForParameter(item.Value)}_");
         }
 
         builder.Length -= 1;

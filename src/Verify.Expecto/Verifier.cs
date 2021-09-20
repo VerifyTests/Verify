@@ -6,9 +6,13 @@ namespace VerifyExpecto
     {
         static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile)
         {
-            if (CaptureName.TryGet(out var info))
+            if (CaptureName.TryGet(out var name))
             {
-                return new(sourceFile, settings, null!);
+                return new(sourceFile, settings, uniqueness =>
+                {
+                    var directory = settings.Directory ?? Path.GetDirectoryName(sourceFile)!;
+                    return ($"{name}_{uniqueness}", directory);
+                });
             }
 
             var fileName = Path.GetFileName(sourceFile);

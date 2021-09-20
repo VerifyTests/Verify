@@ -2,11 +2,6 @@
 
 namespace VerifyTests
 {
-    /// <summary>
-    /// Not for public use.
-    /// </summary>
-    public  delegate (string fileNamePrefix, string? directory) GetFileConvention(string uniquenessParts);
-    
     public partial class InnerVerifier :
         IDisposable
     {

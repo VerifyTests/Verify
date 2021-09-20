@@ -17,7 +17,7 @@ namespace VerifyTests
             diffEnabled = settings.diffEnabled;
             methodName = settings.methodName;
             typeName = settings.typeName;
-            directory = settings.directory;
+            Directory = settings.Directory;
             autoVerify = settings.autoVerify;
             serialization = settings.serialization;
             stringComparer = settings.stringComparer;

@@ -17,7 +17,7 @@ namespace VerifyTests
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
 
             var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, uniquenessParts);
-            var directory = settings.directory ?? pathInfo.Directory;
+            var directory = settings.Directory ?? pathInfo.Directory;
             return (fileNamePrefix, directory);
         }
 

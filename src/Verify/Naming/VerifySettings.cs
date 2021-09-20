@@ -22,7 +22,7 @@
             Namer.UniqueForRuntime = true;
         }
 
-        internal string? directory;
+        public string? Directory { get; internal set; }
 
         /// <summary>
         /// Use a custom directory for the test results.
@@ -30,7 +30,7 @@
         public void UseDirectory(string directory)
         {
             Guard.BadDirectoryName(directory, nameof(directory));
-            this.directory = directory;
+            Directory = directory;
         }
 
         internal string? typeName;

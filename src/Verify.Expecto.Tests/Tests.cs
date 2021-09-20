@@ -1,21 +1,11 @@
 ﻿using Expecto;
 using Expecto.CSharp;
+using VerifyExpecto;
 
 public class Tests
 {
     [Tests] 
-    public static Test test1 = Runner.TestCase("standard",
-        () =>
-        {
-            Console.Write("standard");
-        });
-}
-public class Tests2
-{
-    [Tests] 
-    public static Test test2 = Runner.TestCase("standard2",
-        () =>
-        {
-            Expect.equal(1,2,"a");
-        });
+    public static Test tests = Runner.TestCase(
+        "standard",
+        () => Verifier.Verify("value"));
 }

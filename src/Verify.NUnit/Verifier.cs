@@ -37,7 +37,7 @@ namespace VerifyNUnit
                 settings.parameters = adapter.Arguments;
             }
             var type = test.TypeInfo!.Type;
-            Namer.UseAssemblyForConfig(type.Assembly);
+            TargetAssembly.Assign(type.Assembly);
             return new(
                 sourceFile,
                 type,

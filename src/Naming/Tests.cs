@@ -137,7 +137,6 @@ public class Tests
         return new(
             GetType().GetMethod("TheMethod")!,
             typeof(Tests),
-            directory,
             Path.Combine(directory, "NamingTests.cs"),
             settings);
     }

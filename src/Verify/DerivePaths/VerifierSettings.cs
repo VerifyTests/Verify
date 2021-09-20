@@ -23,9 +23,9 @@ namespace VerifyTests
         };
         #endregion
 
-        internal static PathInfo GetPathInfo(string sourceFile, string projectDirectory, Type type, MethodInfo method)
+        internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method)
         {
-            return derivePathInfo(sourceFile, projectDirectory, type, method);
+            return derivePathInfo(sourceFile, TargetAssembly.ProjectDirectory, type, method);
         }
 
         /// <summary>

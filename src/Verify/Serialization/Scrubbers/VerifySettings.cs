@@ -4,8 +4,16 @@ namespace VerifyTests
 {
     public partial class VerifySettings
     {
-        internal List<Action<StringBuilder>> instanceScrubbers = new();
+        List<Action<StringBuilder>> instanceScrubbers = new();
         internal Dictionary<string, List<Action<StringBuilder>>> extensionMappedInstanceScrubbers = new();
+
+        public IReadOnlyList<Action<StringBuilder>> InstanceScrubbers
+        {
+            get
+            {
+                return instanceScrubbers;
+            }
+        }
 
         /// <summary>
         /// Remove the <see cref="Environment.MachineName"/> from the test results.

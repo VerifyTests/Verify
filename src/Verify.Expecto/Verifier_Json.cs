@@ -5,7 +5,7 @@ namespace VerifyExpecto
 {
     public static partial class Verifier
     {
-        public static SettingsTask Verify<T>(
+        public static Task Verify<T>(
             Task<T> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -13,7 +13,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.Verify(target));
         }
 
-        public static SettingsTask Verify<T>(
+        public static Task Verify<T>(
             ValueTask<T> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -21,7 +21,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.Verify(target));
         }
 
-        public static SettingsTask Verify<T>(
+        public static Task Verify<T>(
             IAsyncEnumerable<T> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -29,7 +29,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.Verify(target));
         }
 
-        public static SettingsTask Verify<T>(
+        public static Task Verify<T>(
             T target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -37,7 +37,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.Verify(target));
         }
 
-        public static SettingsTask VerifyJson(
+        public static Task VerifyJson(
             string target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -45,7 +45,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.VerifyJson(target));
         }
 
-        public static SettingsTask VerifyJson(
+        public static Task VerifyJson(
             JToken target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -53,7 +53,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.VerifyJson(target));
         }
 
-        public static SettingsTask VerifyJson(
+        public static Task VerifyJson(
             Stream target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")

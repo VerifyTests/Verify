@@ -4,7 +4,7 @@ namespace VerifyExpecto
 {
     public static partial class Verifier
     {
-        public static SettingsTask Verify(
+        public static Task Verify(
             byte[] target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -12,7 +12,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.Verify(target));
         }
 
-        public static SettingsTask Verify(
+        public static Task Verify(
             Task<byte[]> target,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -27,7 +27,7 @@ namespace VerifyExpecto
             });
         }
 
-        public static SettingsTask VerifyFile(
+        public static Task VerifyFile(
             string path,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
@@ -35,7 +35,7 @@ namespace VerifyExpecto
             return Verify(settings, sourceFile, _ => _.VerifyFile(path));
         }
 
-        public static SettingsTask VerifyFile(
+        public static Task VerifyFile(
             FileInfo path,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")

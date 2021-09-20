@@ -19,16 +19,12 @@ namespace VerifyExpecto
             throw new($"Expected to find a name. Ensure the following is called Runner.DefaultConfig.UseVerify(). File: {fileName}.");
         }
 
-        static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
+        static async Task Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
         {
+            settings ??= new();
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
-            return new(
-                settings,
-                async verifySettings =>
-                {
-                    using var verifier = GetVerifier(verifySettings, sourceFile);
-                    await verify(verifier);
-                });
+            using var verifier = GetVerifier(settings, sourceFile);
+            await verify(verifier);
         }
     }
 }

@@ -21,7 +21,7 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
         prefixList = new();
     }
 
-    public static string GetUniquenessParts(Namer namer, Assembly assembly)
+    public static string GetUniquenessParts(Namer namer)
     {
         var builder = new StringBuilder();
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)

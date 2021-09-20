@@ -9,14 +9,15 @@ namespace VerifyTests
         IDisposable
     {
         VerifySettings settings;
-        internal GetFileNames GetFileNames{ get; }
-        internal GetIndexedFileNames GetIndexedFileNames{ get; }
+        internal GetFileNames GetFileNames { get; }
+        internal GetIndexedFileNames GetIndexedFileNames { get; }
         internal List<string> VerifiedFiles { get; }
         internal List<string> ReceivedFiles { get; }
 
         public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method)
         {
-            var (fileNamePrefix, directory) = FileNameBuilder.FileNamePrefix(method, type, sourceFile, settings);
+            var uniquenessParts = PrefixUnique.GetUniquenessParts(settings.Namer);
+            var (fileNamePrefix, directory) = FileNameBuilder.FileNamePrefix(method, type, sourceFile, settings,uniquenessParts);
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
             if (directory is null)

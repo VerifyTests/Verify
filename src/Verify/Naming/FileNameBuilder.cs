@@ -43,19 +43,25 @@ namespace VerifyTests
                 return $"_{settings.parametersText}";
             }
 
-            if (settings.parameters is not null)
-            {
-                return $"_{ParameterBuilder.Concat(method, settings.parameters)}";
-            }
-
             var methodParameters = method.GetParameters();
             if (methodParameters.IsEmpty())
             {
                 return "";
             }
 
+            if (settings.parameters is null)
+            {
+                throw BuildException(method, methodParameters);
+            }
+
+            var concat = ParameterBuilder.Concat(method, settings.parameters);
+            return $"_{concat}";
+        }
+
+        static Exception BuildException(MethodInfo method, ParameterInfo[] methodParameters)
+        {
             var names = string.Join(", ", methodParameters.Select(x => x.Name));
-            throw new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
+            return new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 
 var settings = new VerifySettings();
 settings.UseParameters({names});

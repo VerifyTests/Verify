@@ -5,22 +5,6 @@ static class ParameterBuilder
 {
     public static string Concat(MethodInfo method, IReadOnlyList<object?> parameterValues)
     {
-        var thread = Thread.CurrentThread;
-        var culture = thread.CurrentCulture;
-        thread.CurrentCulture = CultureInfo.InvariantCulture;
-        try
-        {
-            return Inner(method, parameterValues);
-        }
-        finally
-        {
-            thread.CurrentCulture = culture;
-        }
-    }
-
-    static string Inner(MethodInfo method, IReadOnlyList<object?> parameterValues)
-    {
-        var builder = new StringBuilder();
         var parameters = method.GetParameters();
 
         if (parameters.Length != parameterValues.Count)
@@ -36,6 +20,27 @@ static class ParameterBuilder
             dictionary[parameter.Name!] = value;
         }
 
+        return Concat(dictionary);
+    }
+
+    private static string Concat(Dictionary<string, object?> dictionary)
+    {
+        var thread = Thread.CurrentThread;
+        var culture = thread.CurrentCulture;
+        thread.CurrentCulture = CultureInfo.InvariantCulture;
+        try
+        {
+            return Inner(dictionary);
+        }
+        finally
+        {
+            thread.CurrentCulture = culture;
+        }
+    }
+
+    public static string Inner(IReadOnlyDictionary<string, object?> dictionary)
+    {
+        var builder = new StringBuilder();
         foreach (var item in dictionary)
         {
             builder.Append($"{item.Key}={VerifierSettings.GetNameForParameter(item.Value)}_");

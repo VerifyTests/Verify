@@ -12,6 +12,11 @@
         public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method)
         {
             fileNameBuilder = new(method, type, sourceFile, settings);
+            
+            foreach (var file in fileNameBuilder.ReceivedFiles)
+            {
+                File.Delete(file);
+            }
 
             this.settings = settings;
 

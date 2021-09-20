@@ -7,6 +7,10 @@ namespace VerifyTests
     {
         async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
         {
+            foreach (var file in fileNameBuilder.ReceivedFiles)
+            {
+                File.Delete(file);
+            }
             var targetList = targets.ToList();
 
             if (TryGetTargetBuilder(target, out var builder, out var extension))
@@ -20,7 +24,7 @@ namespace VerifyTests
 
             targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-            VerifyEngine engine = new(settings, fileNameBuilder);
+            VerifyEngine engine = new(settings, fileNameBuilder.VerifiedFiles, fileNameBuilder.GetFileNames, fileNameBuilder.GetFileNames);
 
             await engine.HandleResults(targetList);
 

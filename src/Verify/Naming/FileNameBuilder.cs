@@ -72,9 +72,9 @@ namespace VerifyTests
             return $"_{concat}";
         }
 
-        static Exception BuildException(MethodInfo method, ParameterInfo[] methodParameters)
+        static Exception BuildException(MethodInfo method, ParameterInfo[] parameters)
         {
-            var names = string.Join(", ", methodParameters.Select(x => x.Name));
+            var names = string.Join(", ", parameters.Select(x => x.Name));
             return new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
 
 var settings = new VerifySettings();

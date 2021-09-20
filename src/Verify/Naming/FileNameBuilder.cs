@@ -69,7 +69,7 @@ namespace VerifyTests
             }
 
             var methodParameters = method.GetParameters();
-            if (!methodParameters.Any())
+            if (methodParameters.IsEmpty())
             {
                 return "";
             }

@@ -158,7 +158,7 @@ class VerifyEngine
 
     async Task ProcessDangling(StringBuilder builder)
     {
-        if (!danglingVerified.Any())
+        if (danglingVerified.IsEmpty())
         {
             return;
         }
@@ -199,7 +199,7 @@ class VerifyEngine
 
     async Task ProcessNotEquals(StringBuilder builder)
     {
-        if (!notEquals.Any())
+        if (notEquals.IsEmpty())
         {
             return;
         }
@@ -291,7 +291,7 @@ class VerifyEngine
 
     async Task ProcessMissing(StringBuilder builder)
     {
-        if (!missings.Any())
+        if (missings.IsEmpty())
         {
             return;
         }
@@ -302,8 +302,7 @@ class VerifyEngine
             await ProcessMissing(builder, item);
         }
     }
-
-
+    
     static void AcceptChanges(in FilePair item)
     {
         File.Delete(item.Verified);

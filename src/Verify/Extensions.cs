@@ -1,4 +1,6 @@
-﻿static class Extensions
+﻿using System.Linq;
+
+static class Extensions
 {
     public static bool IsException(this Type type)
     {
@@ -8,6 +10,11 @@
     public static string FullName(this MethodInfo method)
     {
         return $"{method.ReflectedType!.Name}.{method.Name}";
+    }
+
+    public static bool IsEmpty<T>(this ICollection<T> target)
+    {
+        return !target.Any();
     }
 
     public static TValue GetOrAdd<TKey, TValue>(

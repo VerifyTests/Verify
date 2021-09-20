@@ -24,9 +24,11 @@ public partial class Tests
             settings.AutoVerify();
         }
 
-        var method = GetType().GetMethod("Split")!;
-
-        var concat = ParameterBuilder.Concat(method, new object[] {hasExistingReceived, autoVerify});
+        var concat = ParameterBuilder.Concat(new()
+        {
+            {"hasExistingReceived", hasExistingReceived},
+            {"autoVerify", autoVerify},
+        });
         var uniqueTestName = $"Tests.Split_{concat}";
 
         settings.UseParameters(hasExistingReceived, autoVerify);

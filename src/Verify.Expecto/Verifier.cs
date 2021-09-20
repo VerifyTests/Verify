@@ -8,7 +8,7 @@ namespace VerifyExpecto
         {
             if (CaptureName.TryGet(out var info))
             {
-                return new(sourceFile, null!, settings, null!);
+                return new(sourceFile, settings, null!);
             }
 
             var fileName = Path.GetFileName(sourceFile);

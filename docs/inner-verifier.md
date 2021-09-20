@@ -62,11 +62,13 @@ public async Task RawUsage()
     var method = type.GetMethod("RawUsage")!;
     var file = GetFilePath();
     var settings = new VerifySettings();
-    using var verifier = new InnerVerifier(file, type, settings, method);
+    
+    GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(method, type, file, settings, uniqueness);
+    using var verifier = new InnerVerifier(file, settings, fileConvention);
     await verifier.Verify("Some value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L780-L792' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L780-L794' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RawUsageWithParams -->
@@ -79,11 +81,12 @@ public async Task RawUsageWithParams(string param1, string param2)
     var file = GetFilePath();
     var settings = new VerifySettings();
     settings.UseParameters(param1, param2);
-    using var verifier = new InnerVerifier(file, type, settings, method);
+    GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(method, type, file, settings, uniqueness);
+    using var verifier = new InnerVerifier(file, settings, fileConvention);
     await verifier.Verify("Some value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L796-L807' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusagewithparams' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L798-L810' title='Snippet source file'>snippet source</a> | <a href='#snippet-rawusagewithparams' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

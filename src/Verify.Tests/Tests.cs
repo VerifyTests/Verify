@@ -786,7 +786,9 @@ public class Tests
         var method = type.GetMethod("RawUsage")!;
         var file = GetFilePath();
         var settings = new VerifySettings();
-        using var verifier = new InnerVerifier(file, type, settings, method);
+        
+        GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(method, type, file, settings, uniqueness);
+        using var verifier = new InnerVerifier(file, settings, fileConvention);
         await verifier.Verify("Some value");
     }
     #endregion
@@ -801,7 +803,8 @@ public class Tests
         var file = GetFilePath();
         var settings = new VerifySettings();
         settings.UseParameters(param1, param2);
-        using var verifier = new InnerVerifier(file, type, settings, method);
+        GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(method, type, file, settings, uniqueness);
+        using var verifier = new InnerVerifier(file, settings, fileConvention);
         await verifier.Verify("Some value");
     }
     #endregion

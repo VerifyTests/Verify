@@ -35,8 +35,9 @@ namespace VerifyMSTest
             {
                 throw new($"Could not find method `{type.Name}.{testName}`.");
             }
-
-            return new(sourceFile, type, settings, methodInfo);
+            
+            GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(methodInfo, type, sourceFile, settings, uniqueness);
+            return new(sourceFile, settings, fileConvention);
         }
 
         SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

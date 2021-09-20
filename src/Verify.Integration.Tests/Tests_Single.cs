@@ -16,8 +16,11 @@ public partial class Tests
         bool hasExistingReceived,
         bool autoVerify)
     {
-        var method = GetType().GetMethod("Text")!;
-        var concat = ParameterBuilder.Concat(method, new object[] {hasExistingReceived, autoVerify});
+        var concat = ParameterBuilder.Concat(new()
+        {
+            {"hasExistingReceived", hasExistingReceived},
+            {"autoVerify", autoVerify},
+        });
         var uniqueTestName = $"Tests.Text_{concat}";
         var settings = new VerifySettings();
         settings.UseParameters(hasExistingReceived, autoVerify);
@@ -48,9 +51,12 @@ public partial class Tests
     {
         var extension = hasMatchingDiffTool ? "knownBin" : "unknownBin";
 
-        var method = GetType().GetMethod("Stream")!;
-
-        var concat = ParameterBuilder.Concat(method, new object[] {hasMatchingDiffTool, hasExistingReceived, autoVerify});
+        var concat = ParameterBuilder.Concat(new()
+        {
+            {"hasMatchingDiffTool", hasMatchingDiffTool},
+            {"hasExistingReceived", hasExistingReceived},
+            {"autoVerify", autoVerify},
+        });
         var uniqueTestName = $"Tests.Stream_{concat}";
         var settings = new VerifySettings();
         settings.UseParameters(hasMatchingDiffTool, hasExistingReceived, autoVerify);

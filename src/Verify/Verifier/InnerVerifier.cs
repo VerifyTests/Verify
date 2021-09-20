@@ -5,6 +5,8 @@ namespace VerifyTests
     /// <summary>
     /// Not for public use.
     /// </summary>
+    public  delegate (string fileNamePrefix, string? directory) GetFileConvention(string uniquenessParts);
+    
     public partial class InnerVerifier :
         IDisposable
     {
@@ -14,10 +16,12 @@ namespace VerifyTests
         internal List<string> VerifiedFiles { get; }
         internal List<string> ReceivedFiles { get; }
 
-        public InnerVerifier(string sourceFile, Type type, VerifySettings settings, MethodInfo method)
+        public InnerVerifier(string sourceFile, VerifySettings settings, GetFileConvention fileConvention)
         {
+            this.settings = settings;
+
             var uniquenessParts = PrefixUnique.GetUniquenessParts(settings.Namer);
-            var (fileNamePrefix, directory) = FileNameBuilder.FileNamePrefix(method, type, sourceFile, settings,uniquenessParts);
+            (string fileNamePrefix, var directory) = fileConvention( uniquenessParts);
 
             var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
             if (directory is null)
@@ -46,7 +50,6 @@ namespace VerifyTests
                 File.Delete(file);
             }
 
-            this.settings = settings;
 
             VerifierSettings.RunBeforeCallbacks();
         }

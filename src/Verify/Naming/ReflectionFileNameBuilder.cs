@@ -5,7 +5,7 @@ namespace VerifyTests
     /// <summary>
     /// Not for public use.
     /// </summary>
-    public class FileNameBuilder
+    public class ReflectionFileNameBuilder
     {
         public static (string fileNamePrefix, string? directory) FileNamePrefix(
             MethodInfo method, 

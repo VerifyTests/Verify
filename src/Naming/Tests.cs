@@ -134,11 +134,11 @@ public class Tests
 
     InnerVerifier Builder(string directory, VerifySettings settings)
     {
-        return new InnerVerifier(
-            Path.Combine(directory, "NamingTests.cs"),
-            typeof(Tests),
-            settings,
-            GetType().GetMethod("TheMethod")!);
+        var methodInfo = GetType().GetMethod("TheMethod")!;
+        var type = typeof(Tests);
+        var sourceFile = Path.Combine(directory, "NamingTests.cs");
+        GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(methodInfo, type, sourceFile, settings, uniqueness);
+        return new(sourceFile, settings, fileConvention);
     }
 
 #pragma warning disable xUnit1013

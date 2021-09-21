@@ -1365,7 +1365,7 @@ public class SerializationTests
     [Fact]
     public Task MemberConverterByExpression()
     {
-        var target = new MemberConverterTarget
+        var input = new MemberConverterTarget
         {
             Field = "Value",
             Property = "Value"
@@ -1376,18 +1376,18 @@ public class SerializationTests
             _.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
             _.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
         });
-        return Verifier.Verify(target, settings);
+        return Verifier.Verify(input, settings);
     }
 
     [Fact]
     public Task MemberConverterByExpressionFluent()
     {
-        var target = new MemberConverterTarget
+        var input = new MemberConverterTarget
         {
             Field = "Value",
             Property = "Value"
         };
-        return Verifier.Verify(target)
+        return Verifier.Verify(input)
             .ModifySerialization(_ =>
             {
                 _.MemberConverter<MemberConverterTarget, string>(

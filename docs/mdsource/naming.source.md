@@ -85,6 +85,11 @@ snippet: UniqueForSampleXunit
 snippet: UniqueForSampleNUnit
 
 
+### Expecto
+
+snippet: UniqueForSampleExpecto
+
+
 ### MSTest
 
 snippet: UniqueForSampleMSTest

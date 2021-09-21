@@ -135,6 +135,7 @@ Support for [Expecto](https://github.com/haf/expecto)
 <a id='snippet-sampletestexpecto'></a>
 ```fs
 open Expecto
+open VerifyTests
 open VerifyExpecto
 
 [<Tests>]
@@ -148,7 +149,7 @@ let tests =
     }
   ]
 ```
-<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

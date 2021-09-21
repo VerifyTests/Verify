@@ -6,25 +6,22 @@ using VerifyTests;
 class VerifyEngine
 {
     VerifySettings settings;
-    FileNameBuilder fileNameBuilder;
     bool diffEnabled;
     static bool clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
     List<FilePair> missings = new();
     List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equals = new();
     List<string> danglingVerified;
+    GetFileNames getFileNames;
+    GetIndexedFileNames getIndexedFileNames;
 
-    public VerifyEngine(VerifySettings settings, FileNameBuilder fileNameBuilder)
+    public VerifyEngine(VerifySettings settings, List<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
     {
         this.settings = settings;
-        this.fileNameBuilder = fileNameBuilder;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        danglingVerified = fileNameBuilder.VerifiedFiles;
-
-        foreach (var file in fileNameBuilder.ReceivedFiles)
-        {
-            File.Delete(file);
-        }
+        danglingVerified = verifiedFiles;
+        this.getFileNames = getFileNames;
+        this.getIndexedFileNames = getIndexedFileNames;
     }
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextHasFailed)
@@ -60,7 +57,7 @@ class VerifyEngine
         if (targetList.Count == 1)
         {
             var target = targetList.Single();
-            var file = fileNameBuilder.GetFileNames(target.Extension);
+            var file = getFileNames(target.Extension);
             var result = await GetResult(settings, file, target, false);
             HandleCompareResult(result, file);
             return;
@@ -70,7 +67,7 @@ class VerifyEngine
         for (var index = 0; index < targetList.Count; index++)
         {
             var target = targetList[index];
-            var file = fileNameBuilder.GetFileNames(target.Extension, index);
+            var file = getIndexedFileNames(target.Extension, index);
             var result = await GetResult(settings, file, target, textHasFailed);
             if (EmptyFiles.Extensions.IsText(target.Extension) &&
                 result.Equality != Equality.Equal)

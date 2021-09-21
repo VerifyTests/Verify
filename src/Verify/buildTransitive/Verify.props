@@ -29,7 +29,8 @@
     <WriteCodeFragment AssemblyAttributes="@(Attributes)"
                        Language="$(Language)"
                        OutputFile="$(AttributesFilePath)">
-      <Output TaskParameter="OutputFile" ItemName="Compile" />
+      <Output TaskParameter="OutputFile" ItemName="Compile" Condition="'$(Language)' != 'F#'" />
+      <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="'$(Language)' == 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>
   </Target>

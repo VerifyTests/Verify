@@ -26,7 +26,7 @@ namespace VerifyNUnit
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             var context = TestContext.CurrentContext;
             var adapter = context.Test;
-            var test = (Test) field.GetValue(adapter)!;
+            var test = (Test)field.GetValue(adapter)!;
             if (test.TypeInfo == null || test.Method is null)
             {
                 throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
@@ -36,13 +36,13 @@ namespace VerifyNUnit
             {
                 settings.parameters = adapter.Arguments;
             }
+
             var type = test.TypeInfo!.Type;
             TargetAssembly.Assign(type.Assembly);
-            return new(
-                sourceFile,
-                type,
-                settings,
-                test.Method!.MethodInfo);
+
+            var method = test.Method!.MethodInfo;
+            GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniqueness);
+            return new(sourceFile, settings, fileConvention);
         }
 
         static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)

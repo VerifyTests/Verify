@@ -10,7 +10,10 @@ namespace VerifyXunit
             {
                 var type = info.ReflectedType!;
                 TargetAssembly.Assign(type.Assembly);
-                return new(sourceFile, type, settings, info);
+
+                GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(info, type, sourceFile, settings, uniqueness);
+
+                return new(sourceFile, settings, fileConvention);
             }
 
             var fileName = Path.GetFileName(sourceFile);

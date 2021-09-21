@@ -3,14 +3,14 @@ using VerifyTests;
 
 static class ParameterBuilder
 {
-    public static string Concat(MethodInfo method, IReadOnlyList<object?> parameterValues)
+    public static string Concat(Dictionary<string, object?> dictionary)
     {
         var thread = Thread.CurrentThread;
         var culture = thread.CurrentCulture;
         thread.CurrentCulture = CultureInfo.InvariantCulture;
         try
         {
-            return Inner(method, parameterValues);
+            return Inner(dictionary);
         }
         finally
         {
@@ -18,28 +18,12 @@ static class ParameterBuilder
         }
     }
 
-    static string Inner(MethodInfo method, IReadOnlyList<object?> parameterValues)
+    public static string Inner(IReadOnlyDictionary<string, object?> dictionary)
     {
         var builder = new StringBuilder();
-        var parameters = method.GetParameters();
-
-        if (parameters.Length != parameterValues.Count)
+        foreach (var item in dictionary)
         {
-            throw new($"The number of passed in parameters ({parameterValues.Count}) must match the number of parameters for the method ({parameters.Length}).");
-        }
-
-        for (var index = 0; index < parameters.Length; index++)
-        {
-            var parameter = parameters[index];
-            var value = parameterValues[index];
-            builder.Append($"{parameter.Name}=");
-            if (value is null)
-            {
-                builder.Append("null_");
-                continue;
-            }
-
-            builder.Append($"{VerifierSettings.GetNameForParameter(value)}_");
+            builder.Append($"{item.Key}={VerifierSettings.GetNameForParameter(item.Value)}_");
         }
 
         builder.Length -= 1;

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+    <SignAssembly>False</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Expecto" Version="9.0.4" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
+    <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
+  </ItemGroup>
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
+</Project>

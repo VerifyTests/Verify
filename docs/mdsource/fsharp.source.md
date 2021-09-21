@@ -17,4 +17,4 @@ snippet: FsTest
 
 ## Full tests
 
-snippet: Tests.fs
+snippet: FSharpTests/Tests.fs

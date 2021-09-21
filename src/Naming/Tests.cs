@@ -112,7 +112,7 @@ public class Tests
 
         var builder = Builder(directory, settings);
         var fileNames = builder.GetFileNames("txt");
-        var fileNamesWithIndex = builder.GetFileNames("txt", 2);
+        var fileNamesWithIndex = builder.GetIndexedFileNames("txt", 2);
         File.WriteAllText(fileNames.Received, "");
         File.WriteAllText(fileNames.Verified, "");
         File.WriteAllText(fileNamesWithIndex.Received, "");
@@ -132,13 +132,13 @@ public class Tests
         };
     }
 
-    FileNameBuilder Builder(string directory, VerifySettings settings)
+    InnerVerifier Builder(string directory, VerifySettings settings)
     {
-        return new(
-            GetType().GetMethod("TheMethod")!,
-            typeof(Tests),
-            Path.Combine(directory, "NamingTests.cs"),
-            settings);
+        var methodInfo = GetType().GetMethod("TheMethod")!;
+        var type = typeof(Tests);
+        var sourceFile = Path.Combine(directory, "NamingTests.cs");
+        GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(methodInfo, type, sourceFile, settings, uniqueness);
+        return new(sourceFile, settings, fileConvention);
     }
 
 #pragma warning disable xUnit1013

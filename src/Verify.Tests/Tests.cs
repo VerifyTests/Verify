@@ -39,7 +39,7 @@ public class Tests
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooMany(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verifier.Verify("Value").UseParameters(1,2,3));
+        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verifier.Verify("Value").UseParameters(1, 2, 3));
         Assert.Equal("The number of passed in parameters (3) must match the number of parameters for the method (2).", exception.Message);
     }
 
@@ -67,7 +67,7 @@ public class Tests
 
         var result = await client.GetAsync("https://httpbin.org/get");
 
-        await Verifier.Verify(new{result})
+        await Verifier.Verify(new { result })
             .ScrubLinesContaining("Traceparent", "X-Amzn-Trace-Id", "origin", "Content-Length", "TrailingHeaders");
     }
 
@@ -190,7 +190,7 @@ public class Tests
     [Fact]
     public Task WithNewline()
     {
-        return Verifier.Verify(new {Property = "F\roo"});
+        return Verifier.Verify(new { Property = "F\roo" });
     }
 
     #region LoggerRecordingTyped
@@ -294,7 +294,7 @@ public class Tests
     [Fact]
     public Task TreatAsString()
     {
-        return Verifier.Verify(new ClassWithToString {Property = "Foo"});
+        return Verifier.Verify(new ClassWithToString { Property = "Foo" });
     }
 
     class ClassWithToString
@@ -385,7 +385,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verifier.Verify(new MemoryStream(new byte[] {1}), settings)
+        await Verifier.Verify(new MemoryStream(new byte[] { 1 }), settings)
             .UseExtension("SettingsArePassed");
     }
 
@@ -510,7 +510,7 @@ public class Tests
     [Fact]
     public Task NestedStringBuilder()
     {
-        return Verifier.Verify(new {StringBuilder = new StringBuilder("value")});
+        return Verifier.Verify(new { StringBuilder = new StringBuilder("value") });
     }
 
     [Fact]
@@ -526,7 +526,7 @@ public class Tests
     {
         var target = new StringWriter();
         target.Write("content");
-        return Verifier.Verify(new {target});
+        return Verifier.Verify(new { target });
     }
 
     [Fact]
@@ -563,13 +563,13 @@ public class Tests
     [Fact]
     public Task Stream()
     {
-        return Verifier.Verify(new MemoryStream(new byte[] {1}));
+        return Verifier.Verify(new MemoryStream(new byte[] { 1 }));
     }
 
     [Fact]
     public Task StreamNotAtStart()
     {
-        MemoryStream stream = new(new byte[] {1, 2, 3, 4});
+        MemoryStream stream = new(new byte[] { 1, 2, 3, 4 });
         stream.Position = 2;
         return Verifier.Verify(stream);
     }
@@ -588,8 +588,8 @@ public class Tests
         return Verifier.Verify(
             new List<Stream>
             {
-                new MemoryStream(new byte[] {1}),
-                new MemoryStream(new byte[] {2})
+                new MemoryStream(new byte[] { 1 }),
+                new MemoryStream(new byte[] { 2 })
             });
     }
 
@@ -599,7 +599,7 @@ public class Tests
         return Verifier.Verify(
             new List<Stream?>
             {
-                new MemoryStream(new byte[] {1}),
+                new MemoryStream(new byte[] { 1 }),
                 null
             });
     }
@@ -775,35 +775,7 @@ public class Tests
     {
         return sourceFile;
     }
-    #endregion
 
-    #region RawUsage
-    
-    [Fact]
-    public async Task RawUsage()
-    {
-        var type = GetType();
-        var method = type.GetMethod("RawUsage")!;
-        var file = GetFilePath();
-        var settings = new VerifySettings();
-        using var verifier = new InnerVerifier(file, type, settings, method);
-        await verifier.Verify("Some value");
-    }
-    #endregion
-
-    [Theory]
-    [InlineData("TheData1", "TheData2")]
-    #region RawUsageWithParams
-    public async Task RawUsageWithParams(string param1, string param2)
-    {
-        var type = GetType();
-        var method = type.GetMethod("RawUsageWithParams")!;
-        var file = GetFilePath();
-        var settings = new VerifySettings();
-        settings.UseParameters(param1, param2);
-        using var verifier = new InnerVerifier(file, type, settings, method);
-        await verifier.Verify("Some value");
-    }
     #endregion
 
     //[Fact(Skip = "explicit")]

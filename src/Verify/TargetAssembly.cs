@@ -1,26 +1,23 @@
-﻿namespace VerifyTests
-{
-    /// <summary>
-    /// Not for public use.
-    /// </summary>
-    public static class TargetAssembly
-    {
-        static Assembly? assembly;
-        public static string ProjectDirectory { get; private set; } = null!;
-        public static string? SolutionDirectory { get; private set; }
+﻿using VerifyTests;
 
-        internal static void Assign(Assembly assembly)
+static class TargetAssembly
+{
+    static Assembly? assembly;
+    public static string ProjectDirectory { get; private set; } = null!;
+    public static string? SolutionDirectory { get; private set; }
+
+    public static void Assign(Assembly assembly)
+    {
+        if (TargetAssembly.assembly != null)
         {
-            if (TargetAssembly.assembly != null)
-            {
-                return;
-            }
-            Namer.UseAssembly(assembly);
-            ProjectDirectory = AttributeReader.GetProjectDirectory(assembly);
-            AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory);
-            SolutionDirectory = solutionDirectory;
-            ApplyScrubbers.UseAssembly(solutionDirectory, ProjectDirectory);
-            TargetAssembly.assembly = assembly;
+            return;
         }
+
+        Namer.UseAssembly(assembly);
+        ProjectDirectory = AttributeReader.GetProjectDirectory(assembly);
+        AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory);
+        SolutionDirectory = solutionDirectory;
+        ApplyScrubbers.UseAssembly(solutionDirectory, ProjectDirectory);
+        TargetAssembly.assembly = assembly;
     }
 }

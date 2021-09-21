@@ -1,0 +1,1 @@
+﻿internal delegate (string fileNamePrefix, string? directory) GetFileConvention(string uniqueness);

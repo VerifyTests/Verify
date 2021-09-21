@@ -140,16 +140,12 @@ open VerifyExpecto
 
 [<Tests>]
 let tests =
-  testList "samples" [
-    testAsync "firstTest" {
-      do! Verifier.Verify("samples_firstTest", "value1") |> Async.AwaitTask
-    }
-    testAsync "secondTest" {
-      do! Verifier.Verify("samples_secondTest", "value2") |> Async.AwaitTask
-    }
-  ]
+  testAsync "findPersonTest" {
+    let person = ClassBeingTested.FindPerson();
+    do! Verifier.Verify("findPersonTest", person) |> Async.AwaitTask
+  }
 ```
-<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

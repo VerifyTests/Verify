@@ -6,23 +6,19 @@ open VerifyExpecto
 
 [<Tests>]
 let tests =
-  testList "samples" [
-    testAsync "firstTest" {
-      do! Verifier.Verify("samples_firstTest", "value1") |> Async.AwaitTask
-    }
-    testAsync "secondTest" {
-      do! Verifier.Verify("samples_secondTest", "value2") |> Async.AwaitTask
-    }
-  ]
+  testAsync "findPersonTest" {
+    let person = ClassBeingTested.FindPerson();
+    do! Verifier.Verify("findPersonTest", person) |> Async.AwaitTask
+  }
 // end-snippet
 
 
 // begin-snippet: UniqueForSampleExpecto
 [<Tests>]
 let uniqueTests =
-    testAsync "uniqueTests" {
-      let settings = new VerifySettings()
-      settings.UniqueForRuntime()
-      do! Verifier.Verify("uniqueTests", "value1", settings) |> Async.AwaitTask
-    }
+  testAsync "uniqueTests" {
+    let settings = new VerifySettings()
+    settings.UniqueForRuntime()
+     do! Verifier.Verify("uniqueTests", "value1", settings) |> Async.AwaitTask
+  }
 // end-snippet

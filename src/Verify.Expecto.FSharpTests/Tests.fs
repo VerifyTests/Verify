@@ -6,10 +6,10 @@ open VerifyExpecto
 [<Tests>]
 let tests =
   testList "samples" [
-    testAsync "first" {
-      do! Verifier.Verify<string>("theName", "value") |> Async.AwaitTask
+    testAsync "firstTest" {
+      do! Verifier.Verify<string>("samples_firstTest", "value1") |> Async.AwaitTask
     }
-    testAsync "second" {
-      do! Verifier.Verify<string>("theName2", "value2") |> Async.AwaitTask
+    testAsync "secondTest" {
+      do! Verifier.Verify<string>("samples_secondTest", "value2") |> Async.AwaitTask
     }
   ]

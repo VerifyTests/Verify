@@ -6,7 +6,7 @@
     <AttributesFile>Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</AttributesFile>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"
-          Condition="'$(Language)'=='VB' or '$(Language)'=='C#' or '$(Language)'=='F#'"
+          Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#'"
           BeforeTargets="BeforeCompile;CoreCompile"
           Inputs="$(MSBuildAllProjects)"
           Outputs="$(IntermediateOutputPath)$(AttributesFile)">
@@ -29,8 +29,8 @@
     <WriteCodeFragment AssemblyAttributes="@(Attributes)"
                        Language="$(Language)"
                        OutputFile="$(AttributesFilePath)">
-      <Output TaskParameter="OutputFile" ItemName="Compile" Condition="'$(Language)' != 'F#'" />
-      <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="'$(Language)' == 'F#'" />
+      <Output TaskParameter="OutputFile" ItemName="Compile" Condition="$(Language) != 'F#'" />
+      <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="$(Language) == 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>
   </Target>

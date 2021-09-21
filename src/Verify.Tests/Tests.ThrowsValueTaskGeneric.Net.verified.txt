@@ -1,7 +1,5 @@
 {
   Type: Exception,
   Message: The Message,
-  StackTrace:
-at Tests.ValueTaskMethodThatThrowsGeneric()
-at InnerVerifier.<ThrowsValueTask>d__36`1.MoveNext()
+  StackTrace: at Tests.ValueTaskMethodThatThrowsGeneric()
 }

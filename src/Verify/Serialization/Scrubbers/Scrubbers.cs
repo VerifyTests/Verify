@@ -36,6 +36,12 @@
                     continue;
                 }
 
+                if (line.StartsWith("at InnerVerifier.Throws") ||
+                    line.StartsWith("at InnerVerifier.<Throws"))
+                {
+                    continue;
+                }
+
                 if (removeParams)
                 {
                     var indexOfLeft = line.IndexOf('(');

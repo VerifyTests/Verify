@@ -1,7 +1,5 @@
 {
   Type: Exception,
   Message: The Message,
-  StackTrace:
-at Tests.MethodThatThrows()
-at InnerVerifier.Throws(Action target)
+  StackTrace: at Tests.MethodThatThrows()
 }

@@ -11,7 +11,5 @@
     }
   ],
   Message: One or more errors occurred. (The Message1) (The Message2),
-  StackTrace:
-at Tests.MethodThatThrowsAggregate()
-at InnerVerifier.Throws(Action target)
+  StackTrace: at Tests.MethodThatThrowsAggregate()
 }

@@ -4,7 +4,6 @@
     <TargetFramework>net6</TargetFramework>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <Compile Include="Main.fs" />
@@ -15,4 +14,6 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <PackageReference Update="FSharp.Core" Version="5.0.2" />
   </ItemGroup>
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
 </Project>

@@ -12,20 +12,20 @@ namespace VerifyTests
             Type type, 
             string sourceFile, 
             VerifySettings settings,
-            string uniquenessParts)
+            string uniqueness)
         {
             var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
 
-            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, uniquenessParts);
+            var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
             var directory = settings.Directory ?? pathInfo.Directory;
             return (fileNamePrefix, directory);
         }
 
-        static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniquenessParts)
+        static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
         {
             if (settings.fileName is not null)
             {
-                return settings.fileName + uniquenessParts;
+                return settings.fileName + uniqueness;
             }
 
             var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
@@ -33,7 +33,7 @@ namespace VerifyTests
 
             var parameterText = GetParameterText(method, settings);
 
-            return $"{typeName}.{methodName}{parameterText}{uniquenessParts}";
+            return $"{typeName}.{methodName}{parameterText}{uniqueness}";
         }
 
         static string GetParameterText(MethodInfo method, VerifySettings settings)

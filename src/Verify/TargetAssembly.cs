@@ -9,7 +9,7 @@
         public static string ProjectDirectory { get; private set; } = null!;
         public static string? SolutionDirectory { get; private set; }
 
-        internal static void Assign(Assembly assembly)
+        public static void Assign(Assembly assembly)
         {
             if (TargetAssembly.assembly != null)
             {

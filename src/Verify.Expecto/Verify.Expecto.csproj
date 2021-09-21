@@ -9,8 +9,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Verify\Guard.cs" Link="Guard.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />

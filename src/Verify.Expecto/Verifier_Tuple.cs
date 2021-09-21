@@ -7,11 +7,12 @@ namespace VerifyExpecto
     public static partial class Verifier
     {
         public static Task VerifyTuple(
+            string name,
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, _ => _.VerifyTuple(expression));
+            return Verify(settings, sourceFile, name, _ => _.VerifyTuple(expression));
         }
     }
 }

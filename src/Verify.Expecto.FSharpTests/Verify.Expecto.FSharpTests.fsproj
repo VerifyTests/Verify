@@ -7,8 +7,6 @@
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <Compile Include="Main.fs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Expecto" Version="9.0.4" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

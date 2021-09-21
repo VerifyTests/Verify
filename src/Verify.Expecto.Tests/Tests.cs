@@ -6,6 +6,6 @@ public class Tests
 {
     [Tests] 
     public static Test tests = Runner.TestCase(
-        "standard",
-        () => Verifier.Verify("value"));
+        "myTest",
+        () => Verifier.Verify("myTest", "value"));
 }

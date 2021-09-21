@@ -42,8 +42,8 @@ let MyTest () =
 
 ## Full tests
 
-<!-- snippet: Tests.fs -->
-<a id='snippet-Tests.fs'></a>
+<!-- snippet: FSharpTests/Tests.fs -->
+<a id='snippet-FSharpTests/Tests.fs'></a>
 ```fs
 [<VerifyXunit.UsesVerify>]
 module Tests
@@ -72,5 +72,5 @@ let WithFluentSetting () =
   }
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-FSharpTests/Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

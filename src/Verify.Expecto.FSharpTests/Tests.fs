@@ -1,5 +1,5 @@
 ﻿module Tests
-
+// begin-snippet: SampleTestExpecto
 open Expecto
 open VerifyExpecto
 
@@ -13,3 +13,4 @@ let tests =
       do! Verifier.Verify<string>("samples_secondTest", "value2") |> Async.AwaitTask
     }
   ]
+ // end-snippet

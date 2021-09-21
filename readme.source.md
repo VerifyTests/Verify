@@ -4,6 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
 
 Verify is a snapshot tool that simplifies the assertion of complex data models and documents.
@@ -18,6 +19,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
 
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/
+ * https://nuget.org/packages/Verify.Expecto/
  * https://nuget.org/packages/Verify.MSTest/
 
 
@@ -57,6 +59,13 @@ snippet: SampleTestXunit
 Support for [NUnit](https://nunit.org/)
 
 snippet: SampleTestNUnit
+
+
+### Expecto
+
+Support for [Expecto](https://github.com/haf/expecto)
+
+snippet: SampleTestExpecto
 
 
 ### MSTest
@@ -179,7 +188,6 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
  * [OSS Power-Ups: Verify](https://www.youtube.com/watch?v=ZD5-51iCmU0)
-
 
 
 ## Extensions

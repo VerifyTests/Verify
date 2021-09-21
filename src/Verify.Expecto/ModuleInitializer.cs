@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-static class ModuleInitializer
+﻿static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init()

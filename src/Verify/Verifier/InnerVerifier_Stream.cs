@@ -1,53 +1,52 @@
-﻿namespace VerifyTests
+﻿using VerifyTests;
+
+partial class InnerVerifier
 {
-    partial class InnerVerifier
+    public Task Verify(byte[] target)
     {
-        public Task Verify(byte[] target)
-        {
-            MemoryStream stream = new(target);
-            return VerifyStream(stream);
-        }
+        MemoryStream stream = new(target);
+        return VerifyStream(stream);
+    }
 
-        async Task VerifyStream(Stream stream)
-        {
-            var extension = settings.extension;
+    async Task VerifyStream(Stream stream)
+    {
+        var extension = settings.extension;
 #if NETSTANDARD2_0 || NETFRAMEWORK
-            using (stream)
+        using (stream)
 #else
-            await using (stream)
+        await using (stream)
 #endif
+        {
+            if (extension is not null)
             {
-                if (extension is not null)
+                if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                 {
-                    if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
-                    {
-                        var result = await conversion(stream, settings.Context);
-                        await VerifyInner(result.Info, result.Cleanup, result.Targets);
-                        return;
-                    }
+                    var result = await conversion(stream, settings.Context);
+                    await VerifyInner(result.Info, result.Cleanup, result.Targets);
+                    return;
                 }
+            }
 
-                extension ??= "bin";
+            extension ??= "bin";
 
-                List<Target> targets;
-                if (EmptyFiles.Extensions.IsText(extension))
+            List<Target> targets;
+            if (EmptyFiles.Extensions.IsText(extension))
+            {
+                targets = new()
                 {
-                    targets = new()
-                    {
-                        new(extension, await stream.ReadAsString())
-                    };
-                    await VerifyInner(null, null, targets);
-                }
-                else
-                {
-                    targets = new()
-                    {
-                        new(extension, stream)
-                    };
-                }
-
+                    new(extension, await stream.ReadAsString())
+                };
                 await VerifyInner(null, null, targets);
             }
+            else
+            {
+                targets = new()
+                {
+                    new(extension, stream)
+                };
+            }
+
+            await VerifyInner(null, null, targets);
         }
     }
 }

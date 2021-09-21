@@ -1,66 +1,63 @@
-﻿namespace VerifyTests
+﻿partial class InnerVerifier
 {
-    partial class InnerVerifier
+    public async Task Verify<T>(Task<T> task)
     {
-        public async Task Verify<T>(Task<T> task)
-        {
-            var target = await task;
+        var target = await task;
 
-            try
-            {
-                await Verify(target);
-            }
-            finally
-            {
-                await DoDispose(target);
-            }
+        try
+        {
+            await Verify(target);
+        }
+        finally
+        {
+            await DoDispose(target);
+        }
+    }
+
+    public async Task Verify<T>(IAsyncEnumerable<T> target)
+    {
+        var list = new List<T>();
+        await foreach (var item in target)
+        {
+            list.Add(item);
         }
 
-        public async Task Verify<T>(IAsyncEnumerable<T> target)
+        try
         {
-            var list = new List<T>();
-            await foreach (var item in target)
+            await VerifyInner(list, null, emptyTargets);
+        }
+        finally
+        {
+            foreach (var item in list)
             {
-                list.Add(item);
-            }
-
-            try
-            {
-                await VerifyInner(list, null, emptyTargets);
-            }
-            finally
-            {
-                foreach (var item in list)
-                {
-                    await DoDispose(item);
-                }
+                await DoDispose(item);
             }
         }
+    }
 
-        static async Task DoDispose<T>(T target)
+    static async Task DoDispose<T>(T target)
+    {
+        if (target is IAsyncDisposable asyncDisposable)
         {
-            if (target is IAsyncDisposable asyncDisposable)
-            {
-                await asyncDisposable.DisposeAsync();
-            }
-            else if (target is IDisposable disposable)
-            {
-                disposable.Dispose();
-            }
+            await asyncDisposable.DisposeAsync();
         }
-
-        public async Task Verify<T>(ValueTask<T> task)
+        else if (target is IDisposable disposable)
         {
-            var target = await task;
+            disposable.Dispose();
+        }
+    }
 
-            try
-            {
-                await Verify(target);
-            }
-            finally
-            {
-                await DoDispose(target);
-            }
+    public async Task Verify<T>(ValueTask<T> task)
+    {
+        var target = await task;
+
+        try
+        {
+            await Verify(target);
+        }
+        finally
+        {
+            await DoDispose(target);
         }
     }
 }

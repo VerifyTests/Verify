@@ -70,7 +70,7 @@ snippet: SampleTestExpecto
 
 #### Caveats
 
-Due to the nature of the Expecto implementation, the following APIs are not supported.
+Due to the nature of the Expecto implementation, the following APIs in Verify are not supported.
 
  * `settings.UseTypeName()`
  * `settings.UseMethodName()`

@@ -149,6 +149,18 @@ let tests =
 <!-- endSnippet -->
 
 
+#### Caveats
+
+Due to the nature of the Expecto implementation, the following APIs are not supported.
+
+ * `settings.UseTypeName()`
+ * `settings.UseMethodName()`
+ * `settings.UseParameters()`
+ * `settings.UseTextForParameters()`
+
+Instead use a custom `name` parameter.
+
+
 ### MSTest
 
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)

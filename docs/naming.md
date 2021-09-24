@@ -318,10 +318,10 @@ public class UniqueForSample
 ```fs
 [<Tests>]
 let uniqueTests =
-  testAsync "unique" {
+  testTask "unique" {
     let settings = new VerifySettings()
     settings.UniqueForRuntime()
-    do! Verifier.Verify("unique", "value1", settings) |> Async.AwaitTask
+    do! Verifier.Verify("unique", "value1", settings)
   }
 ```
 <sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsampleexpecto' title='Start of snippet'>anchor</a></sup>

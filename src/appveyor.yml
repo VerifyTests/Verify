@@ -5,7 +5,6 @@ image:
 - macOS
 - Ubuntu
 build_script:
-# https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script
 - pwsh: |
     if ($isWindows) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"

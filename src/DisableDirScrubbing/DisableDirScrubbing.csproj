@@ -4,7 +4,7 @@
     <TargetFramework>net6</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="7.3.0" />
+    <PackageReference Include="DiffEngine" Version="8.0.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

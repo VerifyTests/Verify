@@ -6,7 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Expecto" Version="9.0.4" />
+    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.12.8" />
     <PackageReference Include="ProjectDefaults" Version="1.0.59-beta.5" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

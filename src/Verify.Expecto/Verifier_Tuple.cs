@@ -12,7 +12,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.VerifyTuple(expression));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.VerifyTuple(expression));
         }
     }
 }

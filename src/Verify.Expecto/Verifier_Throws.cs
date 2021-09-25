@@ -10,7 +10,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Throws(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Throws(target));
         }
 
         public static Task Throws(
@@ -19,7 +20,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Throws(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Throws(target));
         }
 
         public static Task ThrowsTask(
@@ -28,7 +30,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.ThrowsTask(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsTask(target));
         }
 
         public static Task ThrowsTask<T>(
@@ -37,7 +40,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.ThrowsTask(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsTask(target));
         }
 
         public static Task ThrowsValueTask(
@@ -46,7 +50,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.ThrowsValueTask(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsValueTask(target));
         }
 
         public static Task ThrowsValueTask<T>(
@@ -55,7 +60,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.ThrowsValueTask(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.ThrowsValueTask(target));
         }
     }
 }

@@ -10,7 +10,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Verify(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
         }
 
         public static Task Verify(
@@ -19,8 +20,10 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
+            var assembly = Assembly.GetCallingAssembly()!;
             return Verify(
                 settings,
+                assembly,
                 sourceFile,
                 name,
                 async _ =>
@@ -36,7 +39,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.VerifyFile(path));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path));
         }
 
         public static Task VerifyFile(
@@ -45,7 +49,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.VerifyFile(path));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path));
         }
     }
 }

@@ -11,7 +11,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Verify(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
         }
 
         public static Task Verify<T>(
@@ -20,7 +21,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Verify(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
         }
 
         public static Task Verify<T>(
@@ -29,7 +31,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Verify(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
         }
 
         public static Task Verify<T>(
@@ -38,7 +41,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.Verify(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
         }
 
         public static Task VerifyJson(
@@ -47,7 +51,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.VerifyJson(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
         }
 
         public static Task VerifyJson(
@@ -56,7 +61,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.VerifyJson(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
         }
 
         public static Task VerifyJson(
@@ -65,7 +71,8 @@ namespace VerifyExpecto
             VerifySettings? settings = null,
             [CallerFilePath] string sourceFile = "")
         {
-            return Verify(settings, sourceFile, name, _ => _.VerifyJson(target));
+            var assembly = Assembly.GetCallingAssembly()!;
+            return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
         }
     }
 }

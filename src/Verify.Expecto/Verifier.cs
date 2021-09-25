@@ -42,8 +42,9 @@ namespace VerifyExpecto
             throw new($"Expect does not support `{api}()`. Change the `name` parameter instead.");
         }
 
-        static async Task Verify(VerifySettings? settings, string sourceFile, string name, Func<InnerVerifier, Task> verify)
+        static async Task Verify(VerifySettings? settings, Assembly assembly, string sourceFile, string name, Func<InnerVerifier, Task> verify)
         {
+            TargetAssembly.Assign(assembly);
             settings ??= new();
             Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
             using var verifier = GetVerifier(settings, sourceFile, name);

@@ -602,6 +602,35 @@ public class SerializationTests
         return Verifier.Verify($"The string {id} ")
             .ScrubInlineGuids();
     }
+    
+    [Fact]
+    public Task ShouldBeAbleToExcludeInlineGuidsWrappedInSymbols()
+    {
+        var id = Guid.NewGuid();
+        return Verifier.Verify($"({id})")
+            .ScrubInlineGuids();
+    }
+    
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsWrappedInDash()
+    {
+        return Verifier.Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
+            .ScrubInlineGuids();
+    }
+    
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsWrappedInLetters()
+    {
+        return Verifier.Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsWrappedInNumber()
+    {
+        return Verifier.Verify("1087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    }
 
     [Fact]
     public Task ShouldBeAbleToExcludeInlineGuids()

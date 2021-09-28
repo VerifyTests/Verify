@@ -96,6 +96,11 @@ class SharedScrubber
 
     public static string Convert(Guid guid)
     {
+        if (guid == Guid.Empty)
+        {
+            return "Guid_Empty";
+        }
+
         var next = CounterContext.Current.Next(guid);
         return $"Guid_{next}";
     }

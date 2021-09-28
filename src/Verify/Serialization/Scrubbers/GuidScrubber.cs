@@ -19,6 +19,12 @@ static class GuidScrubber
 
     public static bool TryReplaceGuids(string value, Func<Guid, string> guidToString, [NotNullWhen(true)] out string? result)
     {
+        if (Guid.TryParseExact(value, "D", out var fullGuid))
+        {
+            result = guidToString(fullGuid);
+            return true;
+        }
+
         var guids = Regex.Matches(value);
         if (guids.Count > 0)
         {
@@ -26,7 +32,7 @@ static class GuidScrubber
             foreach (Match? id in guids)
             {
                 var stringGuid = id!.Value;
-                var guid = Guid.Parse(stringGuid);
+                var guid = Guid.ParseExact(stringGuid, "D");
                 var convertedGuid = guidToString(guid);
 
                 result = result.Replace(stringGuid, convertedGuid);

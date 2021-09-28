@@ -18,18 +18,6 @@ class SharedScrubber
         this.settings = settings;
     }
 
-    public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
-    {
-        if (!scrubGuids)
-        {
-            result = null;
-            return false;
-        }
-
-        result = Convert(value);
-        return true;
-    }
-
     public bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
@@ -93,9 +81,26 @@ class SharedScrubber
         result = Convert(value);
         return true;
     }
+    
+    public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
+    {
+        if (!scrubGuids)
+        {
+            result = null;
+            return false;
+        }
+
+        result = Convert(value);
+        return true;
+    }
 
     public static string Convert(Guid guid)
     {
+        if (guid == Guid.Empty)
+        {
+            return $"Guid_Empty";
+        }
+
         var next = CounterContext.Current.Next(guid);
         return $"Guid_{next}";
     }

@@ -54,6 +54,16 @@ partial class SharedScrubber
 
     static string Convert(DateOnly date)
     {
+        if (date == DateOnly.MaxValue)
+        {
+            return "Date_MaxValue";
+        }
+
+        if (date == DateOnly.MinValue)
+        {
+            return "Date_MinValue";
+        }
+
         var next = CounterContext.Current.Next(date);
         return $"Date_{next}";
     }
@@ -72,15 +82,35 @@ partial class SharedScrubber
         return true;
     }
   
-    static string Convert(DateTime dateTime)
+    static string Convert(DateTime date)
     {
-        var next = CounterContext.Current.Next(dateTime);
+        if (date == DateTime.MaxValue)
+        {
+            return "DateTime_MaxValue";
+        }
+
+        if (date == DateTime.MinValue)
+        {
+            return "DateTime_MinValue";
+        }
+
+        var next = CounterContext.Current.Next(date);
         return $"DateTime_{next}";
     }
 
-    static string Convert(DateTimeOffset dateTime)
+    static string Convert(DateTimeOffset date)
     {
-        var next = CounterContext.Current.Next(dateTime);
+        if (date == DateTimeOffset.MaxValue)
+        {
+            return "DateTimeOffset_MaxValue";
+        }
+
+        if (date == DateTimeOffset.MinValue)
+        {
+            return "DateTimeOffset_MinValue";
+        }
+
+        var next = CounterContext.Current.Next(date);
         return $"DateTimeOffset_{next}";
     }
 

@@ -170,7 +170,8 @@ public class SerializationTests
                 })
             .ModifySerialization(settings => settings.DontScrubDateTimes());
     }
-    #if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
+
     #region AddExtraSettings
 
     [Fact]
@@ -202,7 +203,7 @@ public class SerializationTests
 
     #endregion
 
-    #endif
+#endif
 
     void AddExtraSettingsGlobal()
     {
@@ -500,7 +501,7 @@ public class SerializationTests
     [Fact]
     public Task TimeOnlyNested()
     {
-        return Verifier.Verify(new {value = new TimeOnly(10, 10)});
+        return Verifier.Verify(new { value = new TimeOnly(10, 10) });
     }
 
     [Fact]
@@ -521,9 +522,9 @@ public class SerializationTests
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = new(dateTime.Year,dateTime.Month,dateTime.Day),
-            DateOnlyNullable = new(dateTime.Year,dateTime.Month,dateTime.Day),
-            DateOnlyString = new DateOnly(dateTime.Year,dateTime.Month,dateTime.Day).ToString(),
+            DateOnly = new(dateTime.Year, dateTime.Month, dateTime.Day),
+            DateOnlyNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
+            DateOnlyString = new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -534,6 +535,48 @@ public class SerializationTests
         await Verifier.Verify(target);
 
         #endregion
+    }
+
+    [Fact]
+    public async Task DatetimeMin()
+    {
+        var dateTime = DateTime.MinValue;
+        var dateTimeOffset = DateTimeOffset.MinValue;
+        var target = new DateTimeTarget
+        {
+            DateTime = dateTime,
+            DateOnly = DateOnly.MinValue,
+            DateOnlyNullable = DateOnly.MinValue,
+            DateOnlyString = DateOnly.MinValue.ToString(),
+            DateTimeNullable = dateTime,
+            DateTimeString = dateTime.ToString("F"),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset,
+            DateTimeOffsetString = dateTimeOffset.ToString("F"),
+        };
+
+        await Verifier.Verify(target);
+    }
+
+    [Fact]
+    public async Task DatetimeMax()
+    {
+        var dateTime = DateTime.MaxValue;
+        var dateTimeOffset = DateTimeOffset.MaxValue;
+        var target = new DateTimeTarget
+        {
+            DateTime = dateTime,
+            DateOnly = DateOnly.MaxValue,
+            DateOnlyNullable = DateOnly.MaxValue,
+            DateOnlyString = DateOnly.MaxValue.ToString(),
+            DateTimeNullable = dateTime,
+            DateTimeString = dateTime.ToString("F"),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset,
+            DateTimeOffsetString = dateTimeOffset.ToString("F"),
+        };
+
+        await Verifier.Verify(target);
     }
 
     [Fact]
@@ -602,7 +645,7 @@ public class SerializationTests
         return Verifier.Verify($"The string {id} ")
             .ScrubInlineGuids();
     }
-    
+
     [Fact]
     public Task ShouldBeAbleToExcludeInlineGuidsWrappedInSymbols()
     {
@@ -610,14 +653,14 @@ public class SerializationTests
         return Verifier.Verify($"({id})")
             .ScrubInlineGuids();
     }
-    
+
     [Fact]
     public Task ShouldNotExcludeInlineGuidsWrappedInDash()
     {
         return Verifier.Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
             .ScrubInlineGuids();
     }
-    
+
     [Fact]
     public Task ShouldNotExcludeInlineGuidsWrappedInLetters()
     {
@@ -1089,10 +1132,13 @@ public class SerializationTests
     void ExceptionMessagePropGlobal()
     {
         #region IgnoreMembersThatThrowExpressionGlobal
+
         VerifierSettings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+
         #endregion
     }
+
     #region IgnoreMembersThatThrowExpression
 
     [Fact]
@@ -1149,8 +1195,10 @@ public class SerializationTests
     void AddIgnoreInstanceGlobal()
     {
         #region AddIgnoreInstanceGlobal
+
         VerifierSettings.ModifySerialization(
             _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+
         #endregion
     }
 
@@ -1348,6 +1396,7 @@ public class SerializationTests
     void IgnoreMemberByExpressionGlobal()
     {
         #region IgnoreMemberByExpressionGlobal
+
         VerifierSettings.ModifySerialization(_ =>
         {
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
@@ -1356,8 +1405,10 @@ public class SerializationTests
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
             _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
         });
+
         #endregion
     }
+
     #region IgnoreMemberByExpression
 
     [Fact]
@@ -1471,6 +1522,7 @@ public class SerializationTests
     void IgnoreMemberByNameGlobal()
     {
         #region IgnoreMemberByNameGlobal
+
         VerifierSettings.ModifySerialization(_ =>
         {
             _.IgnoreMember("PropertyByName");
@@ -1480,8 +1532,10 @@ public class SerializationTests
             _.IgnoreMember(type, "GetOnlyProperty");
             _.IgnoreMember(type, "PropertyThatThrows");
         });
+
         #endregion
     }
+
     #region IgnoreMemberByName
 
     [Fact]
@@ -1639,10 +1693,12 @@ public class SerializationTests
         public string Field;
     }
 
-void CustomExceptionPropGlobal()
+    void CustomExceptionPropGlobal()
     {
         #region IgnoreMembersThatThrowGlobal
+
         VerifierSettings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+
         #endregion
     }
 
@@ -1750,7 +1806,9 @@ void CustomExceptionPropGlobal()
     void WithObsoletePropIncludedGlobally()
     {
         #region WithObsoletePropIncludedGlobally
+
         VerifierSettings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+
         #endregion
     }
 

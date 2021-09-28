@@ -2,7 +2,7 @@ skip_commits:
   message: /docs|Merge pull request.*/
 image:
 - Visual Studio 2019
-#- macOS
+- macOS
 - Ubuntu
 build_script:
 - pwsh: |

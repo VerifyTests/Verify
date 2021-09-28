@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 static class GuidScrubber
 {
-    static readonly string GuidPattern = @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b";
+    static readonly string GuidPattern = @"(?<=[^a-zA-Z0-9])[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}(?=[^a-zA-Z0-9])";
     static readonly Regex Regex = new(GuidPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     public static void ReplaceGuids(StringBuilder builder)

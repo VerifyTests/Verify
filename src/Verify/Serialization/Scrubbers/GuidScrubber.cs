@@ -17,7 +17,7 @@ static class GuidScrubber
         builder.Append(result);
     }
 
-    public static bool TryReplaceGuids(string value, Func<Guid, string> guidToString, [NotNullWhen(true)] out string? result)
+    static bool TryReplaceGuids(string value, Func<Guid, string> guidToString, [NotNullWhen(true)] out string? result)
     {
         if (Guid.TryParseExact(value, "D", out var fullGuid))
         {

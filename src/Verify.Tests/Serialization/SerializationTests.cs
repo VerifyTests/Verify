@@ -922,6 +922,21 @@ public class SerializationTests
     }
 
     [Fact]
+    public async Task ShouldRespectEmptyGuid()
+    {
+        var guid = Guid.Empty;
+        var target = new GuidTarget
+        {
+            Guid = guid,
+            GuidNullable = guid,
+            GuidString = guid.ToString(),
+            OtherGuid = Guid.NewGuid(),
+        };
+
+        await Verifier.Verify(target);
+    }
+
+    [Fact]
     public Task ShouldIgnoreGuidDefaults()
     {
         var target = new GuidTarget();

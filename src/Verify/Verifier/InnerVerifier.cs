@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using VerifyTests;
+﻿using VerifyTests;
 
 partial class InnerVerifier :
     IDisposable
@@ -15,7 +14,7 @@ partial class InnerVerifier :
         this.settings = settings;
 
         var uniqueness = PrefixUnique.GetUniqueness(settings.Namer);
-        (string fileNamePrefix, var directory) = fileConvention(uniqueness);
+        var (fileNamePrefix, directory) = fileConvention(uniqueness);
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
         if (directory is null)

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-class StringDictionaryWrapper<TValue, TInner> :
+﻿class StringDictionaryWrapper<TValue, TInner> :
     Dictionary<string, TValue>,
     IDictionaryWrapper
     where TInner : IDictionary<string, TValue>

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-static class Extensions
+﻿static class Extensions
 {
     public static bool IsException(this Type type)
     {

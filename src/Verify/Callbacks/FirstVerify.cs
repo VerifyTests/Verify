@@ -1,4 +1,3 @@
-﻿namespace VerifyTests
-{
-    public delegate Task FirstVerify(FilePair filePair);
-}
+﻿namespace VerifyTests;
+
+public delegate Task FirstVerify(FilePair filePair);

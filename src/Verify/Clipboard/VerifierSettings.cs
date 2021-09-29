@@ -1,12 +1,11 @@
-﻿namespace VerifyTests
-{
-    public static partial class VerifierSettings
-    {
-        internal static bool clipboardDisabled;
+﻿namespace VerifyTests;
 
-        public static void DisableClipboard()
-        {
-            clipboardDisabled = true;
-        }
+public static partial class VerifierSettings
+{
+    internal static bool clipboardDisabled;
+
+    public static void DisableClipboard()
+    {
+        clipboardDisabled = true;
     }
 }

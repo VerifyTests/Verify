@@ -1,15 +1,14 @@
-﻿namespace VerifyTests
-{
-    public readonly struct ToAppend
-    {
-        public string Name { get; }
-        public object Data { get; }
+﻿namespace VerifyTests;
 
-        public ToAppend(string name, object data)
-        {
-            Guard.AgainstBadExtension(name, nameof(name));
-            Name = name;
-            Data = data;
-        }
+public readonly struct ToAppend
+{
+    public string Name { get; }
+    public object Data { get; }
+
+    public ToAppend(string name, object data)
+    {
+        Guard.AgainstBadExtension(name, nameof(name));
+        Name = name;
+        Data = data;
     }
 }

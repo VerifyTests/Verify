@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-static class ReflectionHelpers
+﻿static class ReflectionHelpers
 {
     public static bool IsDictionary(this Type type)
     {

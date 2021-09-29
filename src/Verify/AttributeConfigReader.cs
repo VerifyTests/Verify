@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-static class AttributeConfigReader
+﻿static class AttributeConfigReader
 {
     public static string? GetAttributeConfiguration(this Assembly assembly)
     {

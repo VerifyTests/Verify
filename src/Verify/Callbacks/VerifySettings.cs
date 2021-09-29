@@ -1,59 +1,58 @@
-﻿namespace VerifyTests
+﻿namespace VerifyTests;
+
+public static partial class VerifierSettings
 {
-    public static partial class VerifierSettings
+    static FirstVerify? handleOnFirstVerify;
+
+    public static void OnFirstVerify(FirstVerify firstVerify)
     {
-        static FirstVerify? handleOnFirstVerify;
+        handleOnFirstVerify += firstVerify;
+    }
 
-        public static void OnFirstVerify(FirstVerify firstVerify)
+    internal static Task RunOnFirstVerify(FilePair item)
+    {
+        if (handleOnFirstVerify is null)
         {
-            handleOnFirstVerify += firstVerify;
+            return Task.CompletedTask;
         }
 
-        internal static Task RunOnFirstVerify(FilePair item)
-        {
-            if (handleOnFirstVerify is null)
-            {
-                return Task.CompletedTask;
-            }
+        return handleOnFirstVerify(item);
+    }
 
-            return handleOnFirstVerify(item);
+    static VerifyMismatch? handleOnVerifyMismatch;
+
+    internal static Task RunOnVerifyMismatch(FilePair item, string? message)
+    {
+        if (handleOnVerifyMismatch is null)
+        {
+            return Task.CompletedTask;
         }
 
-        static VerifyMismatch? handleOnVerifyMismatch;
+        return handleOnVerifyMismatch(item, message);
+    }
 
-        internal static Task RunOnVerifyMismatch(FilePair item, string? message)
-        {
-            if (handleOnVerifyMismatch is null)
-            {
-                return Task.CompletedTask;
-            }
+    public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
+    {
+        handleOnVerifyMismatch += verifyMismatch;
+    }
 
-            return handleOnVerifyMismatch(item, message);
-        }
+    public static void OnVerify(Action before, Action after)
+    {
+        beforeVerify += before;
+        afterVerify += after;
+    }
 
-        public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
-        {
-            handleOnVerifyMismatch += verifyMismatch;
-        }
+    static Action? beforeVerify;
 
-        public static void OnVerify(Action before, Action after)
-        {
-            beforeVerify += before;
-            afterVerify += after;
-        }
+    internal static void RunBeforeCallbacks()
+    {
+        beforeVerify?.Invoke();
+    }
 
-        static Action? beforeVerify;
+    static Action? afterVerify;
 
-        internal static void RunBeforeCallbacks()
-        {
-            beforeVerify?.Invoke();
-        }
-
-        static Action? afterVerify;
-
-        internal static void RunAfterCallbacks()
-        {
-            afterVerify?.Invoke();
-        }
+    internal static void RunAfterCallbacks()
+    {
+        afterVerify?.Invoke();
     }
 }

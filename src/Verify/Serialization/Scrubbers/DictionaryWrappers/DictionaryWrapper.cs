@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-class DictionaryWrapper<TKey, TValue, TInner> :
+﻿class DictionaryWrapper<TKey, TValue, TInner> :
     Dictionary<TKey, TValue>,
     IDictionaryWrapper
     where TKey : notnull

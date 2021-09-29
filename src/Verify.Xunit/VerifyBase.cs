@@ -1,22 +1,21 @@
 ﻿using VerifyTests;
 
-namespace VerifyXunit
+namespace VerifyXunit;
+
+[UsesVerify]
+public abstract partial class VerifyBase
 {
-    [UsesVerify]
-    public abstract partial class VerifyBase
+    VerifySettings? settings;
+    string sourceFile;
+
+    public VerifyBase(VerifySettings? settings = null, [CallerFilePath] string sourceFile = "")
     {
-        VerifySettings? settings;
-        string sourceFile;
-
-        public VerifyBase(VerifySettings? settings = null, [CallerFilePath] string sourceFile = "")
+        if (string.IsNullOrWhiteSpace(sourceFile))
         {
-            if (string.IsNullOrWhiteSpace(sourceFile))
-            {
-                throw new($"{nameof(VerifyBase)}.ctor must be called explicitly.");
-            }
-
-            this.settings = settings;
-            this.sourceFile = sourceFile;
+            throw new($"{nameof(VerifyBase)}.ctor must be called explicitly.");
         }
+
+        this.settings = settings;
+        this.sourceFile = sourceFile;
     }
 }

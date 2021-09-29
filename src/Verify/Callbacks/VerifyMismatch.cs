@@ -1,4 +1,3 @@
-﻿namespace VerifyTests
-{
-    public delegate Task VerifyMismatch(FilePair filePair, string? message);
-}
+﻿namespace VerifyTests;
+
+public delegate Task VerifyMismatch(FilePair filePair, string? message);

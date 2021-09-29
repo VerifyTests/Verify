@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using MyNamespace;
+﻿using MyNamespace;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;

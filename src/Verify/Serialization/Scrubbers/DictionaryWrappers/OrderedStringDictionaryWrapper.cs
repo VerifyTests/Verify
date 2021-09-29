@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-class OrderedStringDictionaryWrapper<TValue, TInner> :
+﻿class OrderedStringDictionaryWrapper<TValue, TInner> :
     Dictionary<string, TValue>,
     IDictionaryWrapper
     where TInner : IDictionary<string, TValue>

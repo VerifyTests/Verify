@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using VerifyTests;

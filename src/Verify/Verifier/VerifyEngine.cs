@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using DiffEngine;
+﻿using DiffEngine;
 using VerifyTests;
 
 [DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]

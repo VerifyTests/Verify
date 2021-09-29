@@ -1,4 +1,3 @@
-﻿namespace VerifyTests
-{
-    public delegate AsStringResult AsString<in T>(T target, IReadOnlyDictionary<string, object> context);
-}
+﻿namespace VerifyTests;
+
+public delegate AsStringResult AsString<in T>(T target, IReadOnlyDictionary<string, object> context);

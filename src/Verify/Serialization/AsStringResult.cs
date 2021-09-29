@@ -1,19 +1,18 @@
-﻿namespace VerifyTests
+﻿namespace VerifyTests;
+
+public readonly struct AsStringResult
 {
-    public readonly struct AsStringResult
+    public string Value { get; }
+    public string? Extension { get; }
+
+    public AsStringResult(string value, string? extension = null)
     {
-        public string Value { get; }
-        public string? Extension { get; }
+        Value = value;
+        Extension = extension;
+    }
 
-        public AsStringResult(string value, string? extension = null)
-        {
-            Value = value;
-            Extension = extension;
-        }
-
-        public static implicit operator AsStringResult(string value)
-        {
-            return new(value);
-        }
+    public static implicit operator AsStringResult(string value)
+    {
+        return new(value);
     }
 }

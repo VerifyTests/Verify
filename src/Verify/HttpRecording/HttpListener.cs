@@ -1,5 +1,4 @@
 ﻿#if NET5_0_OR_GREATER
-using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.Extensions.DiagnosticAdapter;
 using VerifyTests;

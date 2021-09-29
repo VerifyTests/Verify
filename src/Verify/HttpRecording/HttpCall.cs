@@ -1,5 +1,4 @@
 ﻿#if NET5_0_OR_GREATER
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml.Linq;

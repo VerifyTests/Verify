@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-static class LinesScrubber
+﻿static class LinesScrubber
 {
     public static void RemoveLinesContaining(this StringBuilder input, StringComparison comparison, params string[] stringToMatch)
     {

@@ -1,123 +1,120 @@
-﻿using System.Linq;
+﻿namespace VerifyTests;
 
-namespace VerifyTests
+public static partial class VerifierSettings
 {
-    public static partial class VerifierSettings
+    internal static Namer SharedNamer = new();
+    static Dictionary<Type, Func<object, string>> parameterToNameLookup = new();
+
+    public static void NameForParameter<T>(ParameterToName<T> func)
     {
-        internal static Namer SharedNamer = new();
-        static Dictionary<Type, Func<object, string>> parameterToNameLookup = new();
+        parameterToNameLookup.Add(typeof(T), o => func((T)o));
+    }
 
-        public static void NameForParameter<T>(ParameterToName<T> func)
+    static char[] invalidPathChars =
+    {
+        '"',
+        '\\',
+        '<',
+        '>',
+        '|',
+        '\u0000',
+        '\u0001',
+        '\u0002',
+        '\u0003',
+        '\u0004',
+        '\u0005',
+        '\u0006',
+        '\u0007',
+        '\b',
+        '\t',
+        '\n',
+        '\u000b',
+        '\f',
+        '\r',
+        '\u000e',
+        '\u000f',
+        '\u0010',
+        '\u0011',
+        '\u0012',
+        '\u0013',
+        '\u0014',
+        '\u0015',
+        '\u0016',
+        '\u0017',
+        '\u0018',
+        '\u0019',
+        '\u001a',
+        '\u001b',
+        '\u001c',
+        '\u001d',
+        '\u001e',
+        '\u001f',
+        ':',
+        '*',
+        '?',
+        '/'
+    };
+
+    internal static string GetNameForParameter(object? parameter)
+    {
+        if (parameter is null)
         {
-            parameterToNameLookup.Add(typeof(T), o => func((T)o));
+            return "null";
         }
 
-        static char[] invalidPathChars =
+        foreach (var parameterToName in parameterToNameLookup)
         {
-            '"',
-            '\\',
-            '<',
-            '>',
-            '|',
-            '\u0000',
-            '\u0001',
-            '\u0002',
-            '\u0003',
-            '\u0004',
-            '\u0005',
-            '\u0006',
-            '\u0007',
-            '\b',
-            '\t',
-            '\n',
-            '\u000b',
-            '\f',
-            '\r',
-            '\u000e',
-            '\u000f',
-            '\u0010',
-            '\u0011',
-            '\u0012',
-            '\u0013',
-            '\u0014',
-            '\u0015',
-            '\u0016',
-            '\u0017',
-            '\u0018',
-            '\u0019',
-            '\u001a',
-            '\u001b',
-            '\u001c',
-            '\u001d',
-            '\u001e',
-            '\u001f',
-            ':',
-            '*',
-            '?',
-            '/'
-        };
-
-        internal static string GetNameForParameter(object? parameter)
-        {
-            if (parameter is null)
+            if (parameterToName.Key.IsInstanceOfType(parameter))
             {
-                return "null";
+                return parameterToName.Value(parameter);
             }
+        }
 
-            foreach (var parameterToName in parameterToNameLookup)
+        var nameForParameter = parameter.ToString();
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+        if (nameForParameter is null)
+        {
+            throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+        }
+
+        var builder = new StringBuilder();
+        foreach (var ch in nameForParameter)
+        {
+            if (invalidPathChars.Contains(ch))
             {
-                if (parameterToName.Key.IsInstanceOfType(parameter))
-                {
-                    return parameterToName.Value(parameter);
-                }
+                builder.Append('-');
             }
-
-            var nameForParameter = parameter.ToString();
-            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-            if (nameForParameter is null)
+            else
             {
-                throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+                builder.Append(ch);
             }
-
-            var builder = new StringBuilder();
-            foreach (var ch in nameForParameter)
-            {
-                if (invalidPathChars.Contains(ch))
-                {
-                    builder.Append('-');
-                }
-                else
-                {
-                    builder.Append(ch);
-                }
-            }
-
-            return builder.ToString();
         }
 
-        public static void UniqueForRuntime()
-        {
-            SharedNamer.UniqueForRuntime = true;
-        }
+        return builder.ToString();
+    }
 
-        public static void UniqueForAssemblyConfiguration()
-        {
-            SharedNamer.UniqueForAssemblyConfiguration = true;
-        }
+    public static void UniqueForRuntime()
+    {
+        SharedNamer.UniqueForRuntime = true;
+    }
 
-        public static void UniqueForRuntimeAndVersion()
-        {
-            SharedNamer.UniqueForRuntimeAndVersion = true;
-        }
+    public static void UniqueForAssemblyConfiguration()
+    {
+        SharedNamer.UniqueForAssemblyConfiguration = true;
+    }
 
-        public static void UniqueForArchitecture()
-        {
-            SharedNamer.UniqueForArchitecture = true;
-        }
+    public static void UniqueForRuntimeAndVersion()
+    {
+        SharedNamer.UniqueForRuntimeAndVersion = true;
+    }
 
-        public static void UniqueForOSPlatform()
-        {
-            SharedNamer.UniqueForOSPlatform = true;
-        }
+    public static void UniqueForArchitecture()
+    {
+        SharedNamer.UniqueForArchitecture = true;
+    }
+
+    public static void UniqueForOSPlatform()
+    {
+        SharedNamer.UniqueForOSPlatform = true;
     }
 }

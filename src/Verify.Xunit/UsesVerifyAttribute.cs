@@ -1,28 +1,27 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Xunit.Sdk;
 
-namespace VerifyXunit
+namespace VerifyXunit;
+
+[AttributeUsage(AttributeTargets.Class)]
+public class UsesVerifyAttribute :
+    BeforeAfterTestAttribute
 {
-    [AttributeUsage(AttributeTargets.Class)]
-    public class UsesVerifyAttribute :
-        BeforeAfterTestAttribute
+    static AsyncLocal<MethodInfo?> local = new();
+
+    public override void Before(MethodInfo info)
     {
-        static AsyncLocal<MethodInfo?> local = new();
+        local.Value = info;
+    }
 
-        public override void Before(MethodInfo info)
-        {
-            local.Value = info;
-        }
+    public override void After(MethodInfo info)
+    {
+        local.Value = null;
+    }
 
-        public override void After(MethodInfo info)
-        {
-            local.Value = null;
-        }
-
-        internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
-        {
-            info = local.Value;
-            return info != null;
-        }
+    internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
+    {
+        info = local.Value;
+        return info != null;
     }
 }

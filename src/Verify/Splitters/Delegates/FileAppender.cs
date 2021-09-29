@@ -1,4 +1,3 @@
-﻿namespace VerifyTests
-{
-    public delegate Target? FileAppender(IReadOnlyDictionary<string, object> context);
-}
+﻿namespace VerifyTests;
+
+public delegate Target? FileAppender(IReadOnlyDictionary<string, object> context);

@@ -2,146 +2,145 @@
 
 // ReSharper disable UseObjectOrCollectionInitializer
 
-namespace VerifyTests
+namespace VerifyTests;
+
+public partial class SerializationSettings
 {
-    public partial class SerializationSettings
+    internal Dictionary<Type, List<string>> ignoredMembers = new();
+    internal List<string> ignoredByNameMembers = new();
+    internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
+
+    public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
     {
-        internal Dictionary<Type, List<string>> ignoredMembers = new();
-        internal List<string> ignoredByNameMembers = new();
-        internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
-
-        public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
+        foreach (var expression in expressions)
         {
-            foreach (var expression in expressions)
-            {
-                IgnoreMember(expression);
-            }
+            IgnoreMember(expression);
         }
+    }
 
-        public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
-        {
-            var member = expression.FindMember();
-            IgnoreMember(member.DeclaringType!, member.Name);
-        }
+    public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
+    {
+        var member = expression.FindMember();
+        IgnoreMember(member.DeclaringType!, member.Name);
+    }
 
-        public void IgnoreMembers<T>(params string[] names)
+    public void IgnoreMembers<T>(params string[] names)
+    {
+        Guard.AgainstNullOrEmpty(names, nameof(names));
+        foreach (var name in names)
         {
-            Guard.AgainstNullOrEmpty(names, nameof(names));
-            foreach (var name in names)
-            {
-                IgnoreMember(typeof(T), name);
-            }
-        }
-
-        public void IgnoreMember<T>(string name)
-        {
-            Guard.AgainstNullOrEmpty(name, nameof(name));
             IgnoreMember(typeof(T), name);
         }
+    }
 
-        public void IgnoreMembers(Type declaringType, params string[] names)
+    public void IgnoreMember<T>(string name)
+    {
+        Guard.AgainstNullOrEmpty(name, nameof(name));
+        IgnoreMember(typeof(T), name);
+    }
+
+    public void IgnoreMembers(Type declaringType, params string[] names)
+    {
+        foreach (var name in names)
         {
-            foreach (var name in names)
+            IgnoreMember(declaringType, name);
+        }
+    }
+
+    public void IgnoreMember(Type declaringType, string name)
+    {
+        Guard.AgainstNullOrEmpty(name, nameof(name));
+        if (!ignoredMembers.TryGetValue(declaringType, out var list))
+        {
+            ignoredMembers[declaringType] = list = new();
+        }
+
+        list.Add(name);
+    }
+
+    public void IgnoreMember(string name)
+    {
+        Guard.AgainstNullOrEmpty(name, nameof(name));
+        ignoredByNameMembers.Add(name);
+    }
+
+    public void IgnoreMembers(params string[] names)
+    {
+        Guard.AgainstNullOrEmpty(names, nameof(names));
+        foreach (var name in names)
+        {
+            IgnoreMember(name);
+        }
+    }
+
+    public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
+    {
+        var type = typeof(T);
+        IgnoreInstance(
+            type,
+            target =>
             {
-                IgnoreMember(declaringType, name);
-            }
+                var arg = (T) target;
+                return shouldIgnore(arg);
+            });
+    }
+
+    public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
+    {
+        if (!ignoredInstances.TryGetValue(type, out var list))
+        {
+            ignoredInstances[type] = list = new();
         }
 
-        public void IgnoreMember(Type declaringType, string name)
-        {
-            Guard.AgainstNullOrEmpty(name, nameof(name));
-            if (!ignoredMembers.TryGetValue(declaringType, out var list))
+        list.Add(shouldIgnore);
+    }
+
+    List<Type> ignoreMembersWithType = new();
+
+    public void IgnoreMembersWithType<T>()
+    {
+        ignoreMembersWithType.Add(typeof(T));
+    }
+
+    List<Func<Exception, bool>> ignoreMembersThatThrow = new();
+
+    public void IgnoreMembersThatThrow<T>()
+        where T : Exception
+    {
+        ignoreMembersThatThrow.Add(x => x is T);
+    }
+
+    public void IgnoreMembersThatThrow(Func<Exception, bool> item)
+    {
+        IgnoreMembersThatThrow<Exception>(item);
+    }
+
+    public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
+        where T : Exception
+    {
+        ignoreMembersThatThrow.Add(
+            x =>
             {
-                ignoredMembers[declaringType] = list = new();
-            }
-
-            list.Add(name);
-        }
-
-        public void IgnoreMember(string name)
-        {
-            Guard.AgainstNullOrEmpty(name, nameof(name));
-            ignoredByNameMembers.Add(name);
-        }
-
-        public void IgnoreMembers(params string[] names)
-        {
-            Guard.AgainstNullOrEmpty(names, nameof(names));
-            foreach (var name in names)
-            {
-                IgnoreMember(name);
-            }
-        }
-
-        public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
-        {
-            var type = typeof(T);
-            IgnoreInstance(
-                type,
-                target =>
+                if (x is T exception)
                 {
-                    var arg = (T) target;
-                    return shouldIgnore(arg);
-                });
-        }
+                    return item(exception);
+                }
 
-        public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
-        {
-            if (!ignoredInstances.TryGetValue(type, out var list))
-            {
-                ignoredInstances[type] = list = new();
-            }
+                return false;
+            });
+    }
 
-            list.Add(shouldIgnore);
-        }
+    bool ignoreEmptyCollections = true;
 
-        List<Type> ignoreMembersWithType = new();
+    public void DontIgnoreEmptyCollections()
+    {
+        ignoreEmptyCollections = false;
+    }
 
-        public void IgnoreMembersWithType<T>()
-        {
-            ignoreMembersWithType.Add(typeof(T));
-        }
+    bool ignoreFalse = true;
 
-        List<Func<Exception, bool>> ignoreMembersThatThrow = new();
-
-        public void IgnoreMembersThatThrow<T>()
-            where T : Exception
-        {
-            ignoreMembersThatThrow.Add(x => x is T);
-        }
-
-        public void IgnoreMembersThatThrow(Func<Exception, bool> item)
-        {
-            IgnoreMembersThatThrow<Exception>(item);
-        }
-
-        public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
-            where T : Exception
-        {
-            ignoreMembersThatThrow.Add(
-                x =>
-                {
-                    if (x is T exception)
-                    {
-                        return item(exception);
-                    }
-
-                    return false;
-                });
-        }
-
-        bool ignoreEmptyCollections = true;
-
-        public void DontIgnoreEmptyCollections()
-        {
-            ignoreEmptyCollections = false;
-        }
-
-        bool ignoreFalse = true;
-
-        public void DontIgnoreFalse()
-        {
-            ignoreFalse = false;
-        }
+    public void DontIgnoreFalse()
+    {
+        ignoreFalse = false;
     }
 }

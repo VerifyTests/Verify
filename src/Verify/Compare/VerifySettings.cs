@@ -1,42 +1,41 @@
-﻿namespace VerifyTests
+﻿namespace VerifyTests;
+
+public partial class VerifySettings
 {
-    public partial class VerifySettings
+    StreamCompare? streamComparer;
+    StringCompare? stringComparer;
+
+    public void UseStreamComparer(StreamCompare compare)
     {
-        StreamCompare? streamComparer;
-        StringCompare? stringComparer;
+        streamComparer = compare;
+    }
 
-        public void UseStreamComparer(StreamCompare compare)
+    public void UseStringComparer(StringCompare compare)
+    {
+        stringComparer = compare;
+    }
+
+    // Dont use this.extension since a converter may have
+    // changed the extension for the current compare operation
+    internal bool TryFindStreamComparer(string extension, out StreamCompare? compare)
+    {
+        if (streamComparer is not null)
         {
-            streamComparer = compare;
+            compare = streamComparer;
+            return true;
         }
 
-        public void UseStringComparer(StringCompare compare)
+        return VerifierSettings.TryGetStreamComparer(extension, out compare);
+    }
+
+    internal bool TryFindStringComparer(string extension, out StringCompare? compare)
+    {
+        if (stringComparer is not null)
         {
-            stringComparer = compare;
+            compare = stringComparer;
+            return true;
         }
 
-        // Dont use this.extension since a converter may have
-        // changed the extension for the current compare operation
-        internal bool TryFindStreamComparer(string extension, out StreamCompare? compare)
-        {
-            if (streamComparer is not null)
-            {
-                compare = streamComparer;
-                return true;
-            }
-
-            return VerifierSettings.TryGetStreamComparer(extension, out compare);
-        }
-
-        internal bool TryFindStringComparer(string extension, out StringCompare? compare)
-        {
-            if (stringComparer is not null)
-            {
-                compare = stringComparer;
-                return true;
-            }
-
-            return VerifierSettings.TryGetStringComparer(extension, out compare);
-        }
+        return VerifierSettings.TryGetStringComparer(extension, out compare);
     }
 }

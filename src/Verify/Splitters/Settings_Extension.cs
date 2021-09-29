@@ -1,31 +1,30 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace VerifyTests
+namespace VerifyTests;
+
+public static partial class VerifierSettings
 {
-    public static partial class VerifierSettings
+    static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new();
+
+    internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter)
     {
-        static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new();
+        return extensionConverters.TryGetValue(extension, out converter);
+    }
 
-        internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter)
-        {
-            return extensionConverters.TryGetValue(extension, out converter);
-        }
+    public static void RegisterFileConverter(
+        string fromExtension,
+        Conversion<Stream> conversion)
+    {
+        RegisterFileConverter(
+            fromExtension,
+            (stream, context) => Task.FromResult(conversion(stream, context)));
+    }
 
-        public static void RegisterFileConverter(
-            string fromExtension,
-            Conversion<Stream> conversion)
-        {
-            RegisterFileConverter(
-                fromExtension,
-                (stream, context) => Task.FromResult(conversion(stream, context)));
-        }
-
-        public static void RegisterFileConverter(
-            string fromExtension,
-            AsyncConversion<Stream> conversion)
-        {
-            Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
-            extensionConverters[fromExtension] = conversion;
-        }
+    public static void RegisterFileConverter(
+        string fromExtension,
+        AsyncConversion<Stream> conversion)
+    {
+        Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
+        extensionConverters[fromExtension] = conversion;
     }
 }

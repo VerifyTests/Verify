@@ -1,25 +1,24 @@
-﻿namespace VerifyTests
+﻿namespace VerifyTests;
+
+public partial class VerifySettings
 {
-    public partial class VerifySettings
+    internal object?[]? parameters;
+
+    /// <summary>
+    /// Define the parameter values being used by a parameterised (aka data driven) test.
+    /// In most cases the parameter values can be automatically resolved.
+    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
+    /// Not compatible with <see cref="UseTextForParameters"/>.
+    /// </summary>
+    public void UseParameters(params object?[] parameters)
     {
-        internal object?[]? parameters;
-
-        /// <summary>
-        /// Define the parameter values being used by a parameterised (aka data driven) test.
-        /// In most cases the parameter values can be automatically resolved.
-        /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
-        /// Not compatible with <see cref="UseTextForParameters"/>.
-        /// </summary>
-        public void UseParameters(params object?[] parameters)
+        Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
+        ThrowIfFileNameDefined();
+        if (parametersText is not null)
         {
-            Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
-            ThrowIfFileNameDefined();
-            if (parametersText is not null)
-            {
-                throw new($"{nameof(UseParameters)} is not compatible with {nameof(UseTextForParameters)}.");
-            }
-
-            this.parameters = parameters;
+            throw new($"{nameof(UseParameters)} is not compatible with {nameof(UseTextForParameters)}.");
         }
+
+        this.parameters = parameters;
     }
 }

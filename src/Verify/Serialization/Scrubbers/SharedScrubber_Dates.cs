@@ -86,12 +86,12 @@ partial class SharedScrubber
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
-            return "DateTime_MaxValue";
+            return "Date_MaxValue";
         }
 
         if (date == DateTime.MinValue)
         {
-            return "DateTime_MinValue";
+            return "Date_MinValue";
         }
         
         var next = CounterContext.Current.Next(date);
@@ -102,12 +102,12 @@ partial class SharedScrubber
     {
         if (date.Date == DateTimeOffset.MaxValue.Date)
         {
-            return "DateTimeOffset_MaxValue";
+            return "Date_MaxValue";
         }
-
+        
         if (date == DateTimeOffset.MinValue)
         {
-            return "DateTimeOffset_MinValue";
+            return "Date_MinValue";
         }
 
         var next = CounterContext.Current.Next(date);

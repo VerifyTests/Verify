@@ -1,8 +1,8 @@
 ﻿{
-  DateTimeNullable: DateTime_MinValue,
+  DateTimeNullable: Date_MinValue,
   DateOnlyNullable: Date_MinValue,
-  DateTimeOffsetNullable: DateTimeOffset_MinValue,
-  DateTimeString: DateTime_MinValue,
-  DateTimeOffsetString: DateTime_MinValue,
+  DateTimeOffsetNullable: Date_MinValue,
+  DateTimeString: Date_MinValue,
+  DateTimeOffsetString: Date_MinValue,
   DateOnlyString: Date_MinValue
 }

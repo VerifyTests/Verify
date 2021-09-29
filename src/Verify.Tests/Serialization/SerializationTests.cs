@@ -570,10 +570,10 @@ public class SerializationTests
             DateOnlyNullable = DateOnly.MaxValue,
             DateOnlyString = DateOnly.MaxValue.ToString(),
             DateTimeNullable = dateTime,
-            DateTimeString = dateTime.ToString("F"),
+            DateTimeString = dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset,
-            DateTimeOffsetString = dateTimeOffset.ToString("F"),
+            DateTimeOffsetString = dateTimeOffset.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
         };
 
         await Verifier.Verify(target);

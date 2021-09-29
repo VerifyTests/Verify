@@ -93,7 +93,7 @@ partial class SharedScrubber
         {
             return "DateTime_MinValue";
         }
-
+        
         var next = CounterContext.Current.Next(date);
         return $"DateTime_{next}";
     }

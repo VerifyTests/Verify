@@ -88,8 +88,8 @@ partial class SharedScrubber
         {
             return "Date_MaxValue";
         }
-
-        if (date == DateTime.MinValue)
+        
+        if (date.Date == DateTime.MinValue.Date)
         {
             return "Date_MinValue";
         }
@@ -105,7 +105,7 @@ partial class SharedScrubber
             return "Date_MaxValue";
         }
         
-        if (date == DateTimeOffset.MinValue)
+        if (date.Date == DateTimeOffset.MinValue.Date)
         {
             return "Date_MinValue";
         }

@@ -5,7 +5,7 @@
   DateOnlyNullable: Date_MaxValue,
   DateTimeOffset: DateTimeOffset_MaxValue,
   DateTimeOffsetNullable: DateTimeOffset_MaxValue,
-  DateTimeString: DateTimeOffset_1,
+  DateTimeString: DateTimeOffset_MaxValue,
   DateTimeOffsetString: DateTimeOffset_MaxValue,
   DateOnlyString: Date_MaxValue
 }

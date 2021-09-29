@@ -84,7 +84,7 @@ partial class SharedScrubber
   
     static string Convert(DateTime date)
     {
-        if (date == DateTime.MaxValue)
+        if (date.Date == DateTime.MaxValue.Date)
         {
             return "DateTime_MaxValue";
         }
@@ -100,7 +100,7 @@ partial class SharedScrubber
 
     static string Convert(DateTimeOffset date)
     {
-        if (date == DateTimeOffset.MaxValue)
+        if (date.Date == DateTimeOffset.MaxValue.Date)
         {
             return "DateTimeOffset_MaxValue";
         }

@@ -28,6 +28,7 @@ partial class SharedScrubber
         {
             return true;
         }
+
 #if NET6_0_OR_GREATER
         if (TryParseConvertDate(value, out result))
         {
@@ -38,5 +39,4 @@ partial class SharedScrubber
         result = null;
         return false;
     }
-    
 }

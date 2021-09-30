@@ -15,7 +15,7 @@ public static class Scrubbers
         }
 
         var builder = new StringBuilder();
-        using StringReader reader = new(stackTrace);
+        using var reader = new StringReader(stackTrace);
         string? line;
         while ((line = reader.ReadLine()) is not null)
         {

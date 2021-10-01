@@ -335,7 +335,7 @@ public Task VerifyJsonJToken()
     return Verifier.VerifyJson(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1635-L1660' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1615-L1640' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -456,7 +456,6 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
   * [Custom Diff Tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
-  * [Http Recording](/docs/http-recording.md)
   * [Logging Recording](/docs/logging-recording.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)

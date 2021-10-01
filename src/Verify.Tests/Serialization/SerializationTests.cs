@@ -1,6 +1,5 @@
 ﻿using System.Collections.Specialized;
 using System.Linq.Expressions;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -413,25 +412,6 @@ public class SerializationTests
         });
     }
 
-    [Fact]
-    public Task HttpRequestHeaders()
-    {
-        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
-        var instance = (HttpRequestHeaders)constructor.Invoke(null);
-        instance.Add("key", "value");
-        return Verifier.Verify(instance);
-    }
-
-    [Fact]
-    public Task HttpRequestHeadersWithIgnored()
-    {
-        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
-        var instance = (HttpRequestHeaders)constructor.Invoke(null);
-        instance.Add("key1", "value");
-        instance.Add("key2", "value");
-        return Verifier.Verify(instance)
-            .ModifySerialization(settings => settings.IgnoreMember("key1"));
-    }
 
     [Fact]
     public Task ByteArray()

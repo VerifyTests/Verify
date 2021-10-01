@@ -207,7 +207,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Remove any lines containing matching <paramref name="removeLine"/> from the test results.
+    /// Remove any lines matching <paramref name="removeLine"/> from the test results.
     /// </summary>
     public SettingsTask ScrubLines(Func<string, bool> removeLine)
     {

@@ -37,7 +37,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Remove any lines containing matching <paramref name="removeLine"/> from the test results.
+    /// Remove any lines matching <paramref name="removeLine"/> from the test results.
     /// </summary>
     public static void ScrubLines(Func<string, bool> removeLine)
     {

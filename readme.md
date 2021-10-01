@@ -335,7 +335,7 @@ public Task VerifyJsonJToken()
     return Verifier.VerifyJson(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1635-L1660' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1596-L1621' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -433,7 +433,8 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
  * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
  * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
  * [Verify.SourceGenerators](https://github.com/VerifyTests/Verify.SourceGenerators): Verification of C# Source Generators.
- * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
+ * [Verify.Http](https://github.com/VerifyTests/Verify.Http): Verification of Http bits.
+ * [Verify.AspNetCore](https://github.com/VerifyTests/Verify.AspNetCore): Verification of AspNetCore bits.
  * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
  * [Verify.Xamarin](https://github.com/VerifyTests/Verify.Xamarin): Verification of Xamarin UIs.
  * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.
@@ -456,7 +457,6 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
   * [Custom Diff Tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
-  * [Http Recording](/docs/http-recording.md)
   * [Logging Recording](/docs/logging-recording.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)

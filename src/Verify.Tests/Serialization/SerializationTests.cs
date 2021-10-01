@@ -1,6 +1,5 @@
 ﻿using System.Collections.Specialized;
 using System.Linq.Expressions;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -357,26 +356,7 @@ public class SerializationTests
         settings.AddScrubber("html", builder => builder.Replace("a", "b"));
         return Verifier.Verify("a", settings);
     }
-
-    [Fact]
-    public Task Uri()
-    {
-        return Verifier.Verify(
-            new
-            {
-                uri1 = new Uri("http://127.0.0.1:57754/admin/databases"),
-                uri2 = new Uri("http://127.0.0.1:57754/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483"),
-                uri3 = new Uri("http://127.0.0.1/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483"),
-                uri4 = new Uri("http://127.0.0.1/?name"),
-                uri5 = new Uri("http://127.0.0.1/?name="),
-                uri6 = new Uri("/admin/databases", UriKind.Relative),
-                uri7 = new Uri("/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483", UriKind.Relative),
-                uri8 = new Uri("/admin/databases?name=HttpRecordingTest&replicationFactor=1&raft-request-id=1331f44c-02de-4d00-a645-28bc1b639483", UriKind.Relative),
-                uri9 = new Uri("/?name", UriKind.Relative),
-                uri10 = new Uri("/?name=", UriKind.Relative)
-            });
-    }
-
+    
     [Fact]
     public Task NameValueCollection()
     {
@@ -413,25 +393,6 @@ public class SerializationTests
         });
     }
 
-    [Fact]
-    public Task HttpRequestHeaders()
-    {
-        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
-        var instance = (HttpRequestHeaders)constructor.Invoke(null);
-        instance.Add("key", "value");
-        return Verifier.Verify(instance);
-    }
-
-    [Fact]
-    public Task HttpRequestHeadersWithIgnored()
-    {
-        var constructor = typeof(HttpRequestHeaders).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Array.Empty<Type>(), null)!;
-        var instance = (HttpRequestHeaders)constructor.Invoke(null);
-        instance.Add("key1", "value");
-        instance.Add("key2", "value");
-        return Verifier.Verify(instance)
-            .ModifySerialization(settings => settings.IgnoreMember("key1"));
-    }
 
     [Fact]
     public Task ByteArray()

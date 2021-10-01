@@ -457,7 +457,6 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
   * [Custom Diff Tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.custom.md)
   * [Using anonymous types](/docs/anonymous-types.md)
   * [Verifying binary data](/docs/binary.md)
-  * [Logging Recording](/docs/logging-recording.md)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)

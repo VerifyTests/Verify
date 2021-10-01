@@ -9,10 +9,8 @@ namespace VerifyTests;
 
 public partial class SerializationSettings
 {
-    static HttpContentConverter httpContentConverter = new();
     static JArrayConverter jArrayConverter = new();
     static FileInfoConverter fileInfoConverter = new();
-    static UriConverter uriConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
 #endif
@@ -30,7 +28,6 @@ public partial class SerializationSettings
     static ClaimConverter claimConverter = new();
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
-    static HttpHeadersConverter httpHeadersConverter = new();
     static JObjectConverter jObjectConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
 
@@ -159,7 +156,6 @@ public partial class SerializationSettings
 #endif
         converters.Add(new DateTimeOffsetConverter(scrubber));
         converters.Add(fileInfoConverter);
-        converters.Add(uriConverter);
         converters.Add(directoryInfoConverter);
         converters.Add(stringEnumConverter);
         converters.Add(expressionConverter);
@@ -174,8 +170,6 @@ public partial class SerializationSettings
         converters.Add(claimConverter);
         converters.Add(claimsIdentityConverter);
         converters.Add(claimsPrincipalConverter);
-        converters.Add(httpHeadersConverter);
-        converters.Add(httpContentConverter);
         converters.Add(new DictionaryConverter(ignoredByNameMembers));
         converters.Add(jArrayConverter);
         converters.Add(jObjectConverter);

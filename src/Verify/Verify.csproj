@@ -13,8 +13,6 @@
     <PackageReference Include="Microsoft.Extensions.DiagnosticAdapter" Version="3.1.19" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'netstandard2.1' OR $(TargetFramework) == 'net472'" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.1" />
-    <Reference Include="System.Web" Version="4.0.0" Condition="$(TargetFramework) == 'net472'" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" Condition="$(TargetFramework) == 'net472'" />
     <PackageReference Include="TextCopy" Version="4.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

@@ -13,7 +13,7 @@
     <Compile Remove="Converters\TypeConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="8.0.1" />
+    <PackageReference Include="DiffEngine" Version="8.0.2" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.0" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

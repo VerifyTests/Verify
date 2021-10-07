@@ -39,6 +39,13 @@ public class NamerTests
     }
 
     [Fact]
+    public Task RuntimeFluent()
+    {
+        return Verifier.Verify(Namer.Runtime)
+            .UniqueForRuntime();
+    }
+
+    [Fact]
     public Task RuntimeAndVersion()
     {
         var settings = new VerifySettings();
@@ -46,6 +53,12 @@ public class NamerTests
         return Verifier.Verify(Namer.RuntimeAndVersion, settings);
     }
 
+    [Fact]
+    public Task RuntimeAndVersionFluent()
+    {
+        return Verifier.Verify(Namer.RuntimeAndVersion)
+            .UniqueForRuntimeAndVersion();
+    }
     [Fact]
     public async Task UseFileName()
     {
@@ -166,6 +179,13 @@ public class NamerTests
         return Verifier.Verify("Foo", settings);
     }
 
+    [Fact]
+    public Task AssemblyConfigurationFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForAssemblyConfiguration();
+    }
+
     #region UseTextForParameters
 
     [Theory]
@@ -215,10 +235,24 @@ public class NamerTests
     }
 
     [Fact]
+    public Task ArchitectureFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForArchitecture();
+    }
+
+    [Fact]
     public Task OSPlatform()
     {
         var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
         return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task OSPlatformFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForOSPlatform();
     }
 }

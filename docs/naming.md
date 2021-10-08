@@ -558,7 +558,6 @@ Debug.WriteLine(Namer.RuntimeAndVersion);
  * `type`: The class the test method exists in.
  * `method`: The test method.
 
-
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
 <!-- snippet: DerivePathInfo -->

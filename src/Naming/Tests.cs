@@ -7,6 +7,9 @@ using Xunit;
 public class Tests
 {
     string directory;
+    MethodInfo methodInfo;
+    Type type;
+    string sourceFile;
 
     public Tests()
     {
@@ -17,9 +20,12 @@ public class Tests
         }
 
         Directory.CreateDirectory(directory);
+        methodInfo = GetType().GetMethod("TheMethod")!;
+        type = typeof(Tests);
+        sourceFile = Path.Combine(directory, "NamingTests.cs");
     }
 
-        [Fact]
+    [Fact]
     public Task Test()
     {
         return Verifier.Verify(BuildData())
@@ -147,9 +153,6 @@ public class Tests
 
     InnerVerifier Builder(string directory, VerifySettings settings)
     {
-        var methodInfo = GetType().GetMethod("TheMethod")!;
-        var type = typeof(Tests);
-        var sourceFile = Path.Combine(directory, "NamingTests.cs");
         GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(methodInfo, type, sourceFile, settings, uniqueness);
         return new(sourceFile, settings, fileConvention);
     }

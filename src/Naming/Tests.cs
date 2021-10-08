@@ -53,15 +53,6 @@ public class Tests
         sharedNamer.UniqueForRuntimeAndVersion = false;
         sharedNamer.UniqueForArchitecture = false;
         sharedNamer.UniqueForOSPlatform = false;
-
-        var directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
-        if (Directory.Exists(directory))
-        {
-            Directory.Delete(directory, true);
-        }
-
-        Directory.CreateDirectory(directory);
-
         var settings = new VerifySettings();
 
         if (run)
@@ -129,7 +120,7 @@ public class Tests
             settings.UseDirectory("customDir");
         }
 
-        var builder = Builder(directory, settings);
+        var builder = Builder(settings);
         var fileNames = builder.GetFileNames("txt");
         var fileNamesWithIndex = builder.GetIndexedFileNames("txt", 2);
         File.WriteAllText(fileNames.Received, "");
@@ -137,7 +128,7 @@ public class Tests
         File.WriteAllText(fileNamesWithIndex.Received, "");
         File.WriteAllText(fileNamesWithIndex.Verified, "");
         PrefixUnique.Clear();
-        builder = Builder(directory, settings);
+        builder = Builder(settings);
 
         var receivedFiles = builder.ReceivedFiles.OrderBy(x => x);
         var verifiedFiles = builder.VerifiedFiles.OrderBy(x => x);
@@ -151,7 +142,7 @@ public class Tests
         };
     }
 
-    InnerVerifier Builder(string directory, VerifySettings settings)
+    InnerVerifier Builder(VerifySettings settings)
     {
         GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(methodInfo, type, sourceFile, settings, uniqueness);
         return new(sourceFile, settings, fileConvention);

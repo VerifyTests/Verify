@@ -1,19 +1,17 @@
-﻿using System.Linq;
-using VerifyTests;
+﻿using VerifyTests;
 using VerifyXunit;
 using Xunit;
 
 [UsesVerify]
 public class Tests
 {
-    string directory;
     MethodInfo methodInfo;
     Type type;
     string sourceFile;
 
     public Tests()
     {
-        directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
+        var directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
         if (Directory.Exists(directory))
         {
             Directory.Delete(directory, true);
@@ -45,7 +43,11 @@ public class Tests
         bool osG,
         bool method,
         bool type,
-        bool dir)
+        bool dir,
+        bool fw,
+        bool fwG,
+        bool fwVersion,
+        bool fwVersionG)
     {
         var sharedNamer = VerifierSettings.SharedNamer;
         sharedNamer.UniqueForAssemblyConfiguration = false;
@@ -53,6 +55,9 @@ public class Tests
         sharedNamer.UniqueForRuntimeAndVersion = false;
         sharedNamer.UniqueForArchitecture = false;
         sharedNamer.UniqueForOSPlatform = false;
+        sharedNamer.UniqueForTargetFramework = false;
+        sharedNamer.UniqueForTargetFrameworkAndVersion = false;
+        
         var settings = new VerifySettings();
 
         if (run)
@@ -63,6 +68,15 @@ public class Tests
         if (runG)
         {
             VerifierSettings.UniqueForRuntime();
+        }
+        if (fw)
+        {
+            settings.UniqueForTargetFramework();
+        }
+
+        if (fwG)
+        {
+            VerifierSettings.UniqueForTargetFramework();
         }
 
         if (config)
@@ -83,6 +97,16 @@ public class Tests
         if (runVersionG)
         {
             VerifierSettings.UniqueForRuntimeAndVersion();
+        }
+
+        if (fwVersion)
+        {
+            settings.UniqueForTargetFrameworkAndVersion();
+        }
+
+        if (fwVersionG)
+        {
+            VerifierSettings.UniqueForTargetFrameworkAndVersion();
         }
 
         if (arch)
@@ -163,43 +187,59 @@ public class Tests
         {
             foreach (var runtimeStatic in bools)
             {
-                foreach (var config in bools)
+                foreach (var fw in bools)
                 {
-                    foreach (var configStatic in bools)
+                    foreach (var fwStatic in bools)
                     {
-                        foreach (var runtimeVersion in bools)
+                        foreach (var config in bools)
                         {
-                            foreach (var runtimeVersionStatic in bools)
+                            foreach (var configStatic in bools)
                             {
-                                foreach (var method in bools)
+                                foreach (var runtimeVersion in bools)
                                 {
-                                    foreach (var type in bools)
+                                    foreach (var runtimeVersionStatic in bools)
                                     {
-                                        foreach (var dir in bools)
+                                        foreach (var fwVersion in bools)
                                         {
-                                            foreach (var arch in bools)
+                                            foreach (var fwVersionStatic in bools)
                                             {
-                                                foreach (var archStatic in bools)
+                                                foreach (var method in bools)
                                                 {
-                                                    foreach (var os in bools)
+                                                    foreach (var type in bools)
                                                     {
-                                                        foreach (var osStatic in bools)
+                                                        foreach (var dir in bools)
                                                         {
-                                                            yield return Run(
-                                                                runtime,
-                                                                runtimeStatic,
-                                                                config,
-                                                                configStatic,
-                                                                runtimeVersion,
-                                                                runtimeVersionStatic,
-                                                                arch,
-                                                                archStatic,
-                                                                os,
-                                                                osStatic,
-                                                                method,
-                                                                type,
-                                                                dir
-                                                            );
+                                                            foreach (var arch in bools)
+                                                            {
+                                                                foreach (var archStatic in bools)
+                                                                {
+                                                                    foreach (var os in bools)
+                                                                    {
+                                                                        foreach (var osStatic in bools)
+                                                                        {
+                                                                            yield return Run(
+                                                                                runtime,
+                                                                                runtimeStatic,
+                                                                                config,
+                                                                                configStatic,
+                                                                                runtimeVersion,
+                                                                                runtimeVersionStatic,
+                                                                                arch,
+                                                                                archStatic,
+                                                                                os,
+                                                                                osStatic,
+                                                                                method,
+                                                                                type,
+                                                                                dir,
+                                                                                fw,
+                                                                                fwStatic,
+                                                                                fwVersion,
+                                                                                fwVersionStatic
+                                                                            );
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }

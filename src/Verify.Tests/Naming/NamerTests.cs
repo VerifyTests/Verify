@@ -59,6 +59,67 @@ public class NamerTests
         return Verifier.Verify(Namer.RuntimeAndVersion)
             .UniqueForRuntimeAndVersion();
     }
+
+    [Fact]
+    public Task TargetFramework()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForTargetFramework();
+        return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task TargetFrameworkWithAssembly()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForTargetFramework(typeof(ClassBeingTested).Assembly);
+        return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task TargetFrameworkFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForTargetFramework();
+    }
+
+    [Fact]
+    public Task TargetFrameworkFluentWithAssembly()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForTargetFramework(typeof(ClassBeingTested).Assembly);
+    }
+
+    [Fact]
+    public Task TargetFrameworkAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForTargetFrameworkAndVersion();
+        return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task TargetFrameworkAndVersionWithAssembly()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForTargetFrameworkAndVersion(typeof(ClassBeingTested).Assembly);
+        return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task TargetFrameworkAndVersionFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForTargetFrameworkAndVersion();
+    }
+
+    [Fact]
+    public Task TargetFrameworkAndVersionFluentWithAssembly()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForTargetFrameworkAndVersion(typeof(ClassBeingTested).Assembly);
+    }
+
     [Fact]
     public async Task UseFileName()
     {
@@ -178,12 +239,25 @@ public class NamerTests
         settings.UniqueForAssemblyConfiguration();
         return Verifier.Verify("Foo", settings);
     }
-
+    [Fact]
+    public Task AssemblyConfigurationWithAssembly()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
+        return Verifier.Verify("Foo", settings);
+    }
     [Fact]
     public Task AssemblyConfigurationFluent()
     {
         return Verifier.Verify("Foo")
             .UniqueForAssemblyConfiguration();
+    }
+
+    [Fact]
+    public Task AssemblyConfigurationFluentWithAssembly()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
     }
 
     #region UseTextForParameters

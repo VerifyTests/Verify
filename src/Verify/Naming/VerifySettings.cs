@@ -3,9 +3,36 @@
 public partial class VerifySettings
 {
     internal Namer Namer = new();
+    
+    /// <summary>
+    /// Use the current runtime to make the test results unique.
+    /// Used when a test produces different results based on runtime.
+    /// </summary>
+    public void UniqueForRuntime()
+    {
+        Namer.UniqueForRuntime = true;
+    }
 
     /// <summary>
-    /// Use the current assembly configuration (debug/release) to make the test results unique.
+    /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework.
+    /// </summary>
+    public void UniqueForTargetFramework()
+    {
+        Namer.UniqueForTargetFramework = true;
+    }
+
+    /// <summary>
+    /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
+    /// </summary>
+    public void UniqueForTargetFrameworkAndVersion()
+    {
+        Namer.UniqueForTargetFrameworkAndVersion = true;
+    }
+
+    /// <summary>
+    /// Use the current test assembly configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
     public void UniqueForAssemblyConfiguration()
@@ -14,12 +41,33 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Use the current runtime to make the test results unique.
-    /// Used when a test produces different results based on runtime.
+    /// Use <paramref name="assembly"/> TargetFrameworkAttribute to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework.
     /// </summary>
-    public void UniqueForRuntime()
+    public void UniqueForTargetFramework(Assembly assembly)
     {
-        Namer.UniqueForRuntime = true;
+        Namer.UniqueForTargetFramework = true;
+        Namer.UniqueForTargetFrameworkAssembly = assembly;
+    }
+
+    /// <summary>
+    /// Use the <paramref name="assembly"/> TargetFrameworkAttribute name and version to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
+    /// </summary>
+    public void UniqueForTargetFrameworkAndVersion(Assembly assembly)
+    {
+        Namer.UniqueForTargetFrameworkAndVersion = true;
+        Namer.UniqueForTargetFrameworkAssembly = assembly;
+    }
+
+    /// <summary>
+    /// Use the <paramref name="assembly"/> configuration (debug/release) to make the test results unique.
+    /// Used when a test produces different results based on assembly configuration.
+    /// </summary>
+    public void UniqueForAssemblyConfiguration(Assembly assembly)
+    {
+        Namer.UniqueForAssemblyConfiguration = true;
+        Namer.UniqueForAssemblyConfigurationAssembly = assembly;
     }
 
     public string? Directory { get; internal set; }

@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 namespace VerifyTests;
 
@@ -20,14 +21,76 @@ public class Namer
 
     internal static void UseAssembly(Assembly assembly)
     {
-        assemblyConfig = assembly.GetAttributeConfiguration();
+        assemblyConfig = assembly.Configuration();
+
+        var frameworkName = assembly.FrameworkName();
+
+        if (frameworkName != null)
+        {
+            targetFrameworkName = GetSimpleFrameworkName(frameworkName);
+            targetFrameworkNameAndVersion = $"{targetFrameworkName}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
+        }
+    }
+
+    public static string GetSimpleFrameworkName(FrameworkName name)
+    {
+        var identifier = name.Identifier;
+
+        if (identifier.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Net";
+        }
+
+        if (identifier.StartsWith("NETCore", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Core";
+        }
+
+        if (identifier.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
+        {
+            return "DotNet";
+        }
+        
+        throw new($"Could not resolve runtime for '{identifier}'.");
     }
 
     internal bool UniqueForRuntime;
+    internal bool UniqueForTargetFramework;
+    internal Assembly? UniqueForTargetFrameworkAssembly;
     internal bool UniqueForAssemblyConfiguration;
+    internal Assembly? UniqueForAssemblyConfigurationAssembly;
     internal bool UniqueForRuntimeAndVersion;
+    internal bool UniqueForTargetFrameworkAndVersion;
     internal bool UniqueForArchitecture;
     internal bool UniqueForOSPlatform;
+    static string? targetFrameworkName;
+    static string? targetFrameworkNameAndVersion;
+
+    public static string TargetFrameworkNameAndVersion
+    {
+        get
+        {
+            if (targetFrameworkNameAndVersion != null)
+            {
+                return targetFrameworkNameAndVersion;
+            }
+                
+            throw new("UniqueForTargetFrameworkAndVersion or UniqueForTargetFramework used but no `TargetFrameworkAttribute` found.");
+        }
+    }
+
+    public static string TargetFrameworkName
+    {
+        get
+        {
+            if (targetFrameworkName != null)
+            {
+                return targetFrameworkName;
+            }
+                
+            throw new("UniqueForTargetFrameworkAndVersion or UniqueForTargetFramework used but no `TargetFrameworkAttribute` found.");
+        }
+    }
 
     static Namer()
     {
@@ -66,7 +129,6 @@ public class Namer
 
     public static string OperatingSystemPlatform { get; }
 
-
     internal Namer()
     {
     }
@@ -74,8 +136,12 @@ public class Namer
     internal Namer(Namer namer)
     {
         UniqueForRuntime = namer.UniqueForRuntime;
+        UniqueForTargetFramework = namer.UniqueForTargetFramework;
+        UniqueForTargetFrameworkAssembly = namer.UniqueForTargetFrameworkAssembly;
         UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
+        UniqueForAssemblyConfigurationAssembly = namer.UniqueForAssemblyConfigurationAssembly;
         UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
+        UniqueForTargetFrameworkAndVersion = namer.UniqueForTargetFrameworkAndVersion;
         UniqueForArchitecture = namer.UniqueForArchitecture;
         UniqueForOSPlatform = namer.UniqueForOSPlatform;
     }

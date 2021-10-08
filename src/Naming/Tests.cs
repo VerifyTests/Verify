@@ -6,7 +6,20 @@ using Xunit;
 [UsesVerify]
 public class Tests
 {
-    [Fact]
+    string directory;
+
+    public Tests()
+    {
+        directory = Path.Combine(Path.GetTempPath(), "VerifyNamer");
+        if (Directory.Exists(directory))
+        {
+            Directory.Delete(directory, true);
+        }
+
+        Directory.CreateDirectory(directory);
+    }
+
+        [Fact]
     public Task Test()
     {
         return Verifier.Verify(BuildData())

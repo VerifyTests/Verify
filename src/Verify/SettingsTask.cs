@@ -25,7 +25,7 @@ public class SettingsTask
         CurrentSettings.AddExtraSettings(action);
         return this;
     }
-        
+
     /// <summary>
     /// Retrieves the value passed into <see cref="UseExtension"/>, if it exists.
     /// </summary>
@@ -116,6 +116,16 @@ public class SettingsTask
     }
 
     /// <summary>
+    /// Use the current assembly's TargetFrameworkAttribute to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework.
+    /// </summary>
+    public SettingsTask UniqueForTargetFramework()
+    {
+        CurrentSettings.UniqueForTargetFramework();
+        return this;
+    }
+
+    /// <summary>
     /// Use a custom method name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
     /// </summary>
@@ -165,6 +175,16 @@ public class SettingsTask
     public SettingsTask UniqueForRuntimeAndVersion()
     {
         CurrentSettings.UniqueForRuntimeAndVersion();
+        return this;
+    }
+
+    /// <summary>
+    /// Use the current assemblies TargetFrameworkAttribute and TargetFrameworkAttribute version to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
+    /// </summary>
+    public SettingsTask UniqueForTargetFrameworkAndVersion()
+    {
+        CurrentSettings.UniqueForTargetFrameworkAndVersion();
         return this;
     }
 

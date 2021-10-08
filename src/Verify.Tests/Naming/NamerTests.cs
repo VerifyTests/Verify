@@ -59,6 +59,37 @@ public class NamerTests
         return Verifier.Verify(Namer.RuntimeAndVersion)
             .UniqueForRuntimeAndVersion();
     }
+
+    [Fact]
+    public Task TargetFramework()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForTargetFramework();
+        return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task TargetFrameworkFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForTargetFramework();
+    }
+
+    [Fact]
+    public Task TargetFrameworkAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForTargetFrameworkAndVersion();
+        return Verifier.Verify("Foo", settings);
+    }
+
+    [Fact]
+    public Task TargetFrameworkAndVersionFluent()
+    {
+        return Verifier.Verify("Foo")
+            .UniqueForTargetFrameworkAndVersion();
+    }
+
     [Fact]
     public async Task UseFileName()
     {

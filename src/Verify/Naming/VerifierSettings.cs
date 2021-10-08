@@ -98,6 +98,11 @@ public static partial class VerifierSettings
         SharedNamer.UniqueForRuntime = true;
     }
 
+    public static void UniqueForTargetFramework()
+    {
+        SharedNamer.UniqueForTargetFramework = true;
+    }
+
     public static void UniqueForAssemblyConfiguration()
     {
         SharedNamer.UniqueForAssemblyConfiguration = true;
@@ -106,6 +111,10 @@ public static partial class VerifierSettings
     public static void UniqueForRuntimeAndVersion()
     {
         SharedNamer.UniqueForRuntimeAndVersion = true;
+    }
+    public static void UniqueForTargetFrameworkAndVersion()
+    {
+        SharedNamer.UniqueForTargetFrameworkAndVersion = true;
     }
 
     public static void UniqueForArchitecture()

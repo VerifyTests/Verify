@@ -22,6 +22,15 @@ public partial class VerifySettings
         Namer.UniqueForRuntime = true;
     }
 
+    /// <summary>
+    /// Use the current assembly's TargetFrameworkAttribute to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework.
+    /// </summary>
+    public void UniqueForTargetFramework()
+    {
+        Namer.UniqueForTargetFramework = true;
+    }
+
     public string? Directory { get; internal set; }
 
     /// <summary>
@@ -103,6 +112,15 @@ public partial class VerifySettings
     public void UniqueForRuntimeAndVersion()
     {
         Namer.UniqueForRuntimeAndVersion = true;
+    }
+
+    /// <summary>
+    /// Use the current assemblies TargetFrameworkAttribute and TargetFrameworkAttribute version to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
+    /// </summary>
+    public void UniqueForTargetFrameworkAndVersion()
+    {
+        Namer.UniqueForTargetFrameworkAndVersion = true;
     }
 
     /// <summary>

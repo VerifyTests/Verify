@@ -23,6 +23,7 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
     public static string GetUniqueness(Namer namer)
     {
         var builder = new StringBuilder();
+
         if (namer.UniqueForRuntimeAndVersion || VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
             builder.Append($".{Namer.RuntimeAndVersion}");
@@ -30,6 +31,15 @@ This is mostly caused by a conflicting combination of `VerifierSettings.DerivePa
         else if (namer.UniqueForRuntime || VerifierSettings.SharedNamer.UniqueForRuntime)
         {
             builder.Append($".{Namer.Runtime}");
+        }
+
+        if (namer.UniqueForTargetFrameworkAndVersion || VerifierSettings.SharedNamer.UniqueForTargetFrameworkAndVersion)
+        {
+            builder.Append($".{Namer.TargetFrameworkNameAndVersion}");
+        }
+        else if (namer.UniqueForTargetFramework || VerifierSettings.SharedNamer.UniqueForTargetFramework)
+        {
+            builder.Append($".{Namer.TargetFrameworkName}");
         }
 
         if (namer.UniqueForAssemblyConfiguration || VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)

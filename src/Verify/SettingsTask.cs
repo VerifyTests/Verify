@@ -96,16 +96,6 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Use the current assembly configuration (debug/release) to make the test results unique.
-    /// Used when a test produces different results based on assembly configuration.
-    /// </summary>
-    public SettingsTask UniqueForAssemblyConfiguration()
-    {
-        CurrentSettings.UniqueForAssemblyConfiguration();
-        return this;
-    }
-
-    /// <summary>
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
@@ -116,7 +106,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Use the current assembly's TargetFrameworkAttribute to make the test results unique.
+    /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
     public SettingsTask UniqueForTargetFramework()
@@ -125,6 +115,55 @@ public class SettingsTask
         return this;
     }
 
+    /// <summary>
+    /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
+    /// </summary>
+    public SettingsTask UniqueForTargetFrameworkAndVersion()
+    {
+        CurrentSettings.UniqueForTargetFrameworkAndVersion();
+        return this;
+    }
+
+    /// <summary>
+    /// Use the current test assembly configuration (debug/release) to make the test results unique.
+    /// Used when a test produces different results based on assembly configuration.
+    /// </summary>
+    public SettingsTask UniqueForAssemblyConfiguration()
+    {
+        CurrentSettings.UniqueForAssemblyConfiguration();
+        return this;
+    }
+    
+    /// <summary>
+    /// Use <paramref name="assembly"/> TargetFrameworkAttribute to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework.
+    /// </summary>
+    public SettingsTask UniqueForTargetFramework(Assembly assembly)
+    {
+        CurrentSettings.UniqueForTargetFramework(assembly);
+        return this;
+    }
+
+    /// <summary>
+    /// Use the <paramref name="assembly"/> TargetFrameworkAttribute name and version to make the test results unique.
+    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
+    /// </summary>
+    public SettingsTask UniqueForTargetFrameworkAndVersion(Assembly assembly)
+    {
+        CurrentSettings.UniqueForTargetFrameworkAndVersion(assembly);
+        return this;
+    }
+
+    /// <summary>
+    /// Use the <paramref name="assembly"/> configuration (debug/release) to make the test results unique.
+    /// Used when a test produces different results based on assembly configuration.
+    /// </summary>
+    public SettingsTask UniqueForAssemblyConfiguration(Assembly assembly)
+    {
+        CurrentSettings.UniqueForAssemblyConfiguration(assembly);
+        return this;
+    }
     /// <summary>
     /// Use a custom method name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
@@ -175,16 +214,6 @@ public class SettingsTask
     public SettingsTask UniqueForRuntimeAndVersion()
     {
         CurrentSettings.UniqueForRuntimeAndVersion();
-        return this;
-    }
-
-    /// <summary>
-    /// Use the current assemblies TargetFrameworkAttribute and TargetFrameworkAttribute version to make the test results unique.
-    /// Used when a test produces different results based on TargetFramework and TargetFramework version.
-    /// </summary>
-    public SettingsTask UniqueForTargetFrameworkAndVersion()
-    {
-        CurrentSettings.UniqueForTargetFrameworkAndVersion();
         return this;
     }
 

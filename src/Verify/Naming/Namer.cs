@@ -21,18 +21,18 @@ public class Namer
 
     internal static void UseAssembly(Assembly assembly)
     {
-        var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
-        assemblyConfig = attribute?.Configuration;
-        var targetFrameworkAttribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
-        if (targetFrameworkAttribute != null)
+        assemblyConfig = assembly.Configuration();
+
+        var frameworkName = assembly.FrameworkName();
+
+        if (frameworkName != null)
         {
-            var frameworkName = new FrameworkName(targetFrameworkAttribute.FrameworkName);
             targetFrameworkName = GetSimpleFrameworkName(frameworkName);
             targetFrameworkNameAndVersion = $"{targetFrameworkName}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
         }
     }
 
-    static string GetSimpleFrameworkName(FrameworkName name)
+    public static string GetSimpleFrameworkName(FrameworkName name)
     {
         var identifier = name.Identifier;
 
@@ -56,13 +56,16 @@ public class Namer
 
     internal bool UniqueForRuntime;
     internal bool UniqueForTargetFramework;
+    internal Assembly? UniqueForTargetFrameworkAssembly;
     internal bool UniqueForAssemblyConfiguration;
+    internal Assembly? UniqueForAssemblyConfigurationAssembly;
     internal bool UniqueForRuntimeAndVersion;
     internal bool UniqueForTargetFrameworkAndVersion;
     internal bool UniqueForArchitecture;
     internal bool UniqueForOSPlatform;
     static string? targetFrameworkName;
     static string? targetFrameworkNameAndVersion;
+
     public static string TargetFrameworkNameAndVersion
     {
         get
@@ -134,7 +137,9 @@ public class Namer
     {
         UniqueForRuntime = namer.UniqueForRuntime;
         UniqueForTargetFramework = namer.UniqueForTargetFramework;
+        UniqueForTargetFrameworkAssembly = namer.UniqueForTargetFrameworkAssembly;
         UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
+        UniqueForAssemblyConfigurationAssembly = namer.UniqueForAssemblyConfigurationAssembly;
         UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
         UniqueForTargetFrameworkAndVersion = namer.UniqueForTargetFrameworkAndVersion;
         UniqueForArchitecture = namer.UniqueForArchitecture;

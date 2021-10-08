@@ -1,5 +1,24 @@
-﻿static class Extensions
+﻿using System.Runtime.Versioning;
+
+static class Extensions
 {
+    public static string? Configuration(this Assembly assembly)
+    {
+        var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
+        return attribute?.Configuration;
+    }
+
+    public static FrameworkName? FrameworkName(this Assembly assembly)
+    {
+        var targetFrameworkAttribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
+        if (targetFrameworkAttribute == null)
+        {
+            return null;
+        }
+
+        return new(targetFrameworkAttribute.FrameworkName);
+    }
+
     public static bool IsException(this Type type)
     {
         return typeof(Exception).IsAssignableFrom(type);

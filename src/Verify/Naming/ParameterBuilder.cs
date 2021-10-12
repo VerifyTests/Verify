@@ -18,7 +18,7 @@ static class ParameterBuilder
         }
     }
 
-    public static string Inner(IReadOnlyDictionary<string, object?> dictionary)
+    static string Inner(IReadOnlyDictionary<string, object?> dictionary)
     {
         var builder = new StringBuilder();
         foreach (var item in dictionary)

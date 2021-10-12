@@ -59,7 +59,7 @@ class ReflectionFileNameBuilder
         for (var index = 0; index < methodParameters.Length; index++)
         {
             var parameter = methodParameters[index];
-            var value = ((IReadOnlyList<object?>)settingsParameters)[index];
+            var value = settingsParameters[index];
             dictionary[parameter.Name!] = value;
         }
 

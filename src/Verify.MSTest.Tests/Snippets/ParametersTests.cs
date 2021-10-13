@@ -17,7 +17,7 @@ public class ParametersTests :
 
     [DataTestMethod]
     [DataRow((float) 1.1)]
-    public async Task Decimal(float arg)
+    public async Task Float(float arg)
     {
         await Verify(arg)
             .UseParameters(arg);

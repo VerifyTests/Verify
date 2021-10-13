@@ -15,7 +15,7 @@ public class ParametersSample
 
     [Theory]
     [InlineData((float)1.1)]
-    public async Task Decimal(float arg)
+    public async Task Float(float arg)
     {
         await Verifier.Verify(arg)
             .UseParameters(arg);

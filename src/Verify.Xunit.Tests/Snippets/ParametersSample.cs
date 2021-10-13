@@ -5,6 +5,30 @@ using Xunit;
 [UsesVerify]
 public class ParametersSample
 {
+    [Theory]
+    [InlineData("1.1")]
+    public async Task Decimal(decimal arg)
+    {
+        await Verifier.Verify(arg)
+            .UseParameters(arg);
+    }
+
+    [Theory]
+    [InlineData((float)1.1)]
+    public async Task Decimal(float arg)
+    {
+        await Verifier.Verify(arg)
+            .UseParameters(arg);
+    }
+
+    [Theory]
+    [InlineData(1.1d)]
+    public async Task Double(double arg)
+    {
+        await Verifier.Verify(arg)
+            .UseParameters(arg);
+    }
+
     #region xunitInlineData
 
     [Theory]

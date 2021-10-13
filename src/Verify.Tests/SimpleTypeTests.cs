@@ -52,6 +52,7 @@ public class SimpleTypeTests
     }
 
 #if NET5_0_OR_GREATER
+
     [Fact]
     public Task DateTimeWrappedInTask()
     {
@@ -102,8 +103,8 @@ public class SimpleTypeTests
         yield return new object[] {(uint) 1};
         yield return new object[] {(ulong) 1};
         yield return new object[] {(ushort) 1};
-        yield return new object[] {(decimal) 1};
-        yield return new object[] {(float) 1};
+        yield return new object[] {(decimal) 1.1};
+        yield return new object[] {(float) 1.1};
         yield return new object[] {new Guid("ebced679-45d3-4653-8791-3d969c4a986c")};
         yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()};
         yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};

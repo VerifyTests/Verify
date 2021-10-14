@@ -164,6 +164,16 @@ public class SettingsTask
         CurrentSettings.UniqueForAssemblyConfiguration(assembly);
         return this;
     }
+
+    /// <summary>
+    /// Allow multiple tests to map to the same snapshot file prefix.
+    /// </summary>
+    public SettingsTask DisableRequireUniquePrefix()
+    {
+        CurrentSettings.DisableRequireUniquePrefix();
+        return this;
+    }
+
     /// <summary>
     /// Use a custom method name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.

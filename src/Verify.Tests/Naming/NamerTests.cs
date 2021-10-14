@@ -28,6 +28,30 @@ public class NamerTests
             .UseMethodName("ThrowOnConflict")
             .AddScrubber(builder => builder.Replace(@"\", "/"));
     }
+
+    [Fact]
+    public async Task DoesntThrowOnConflict()
+    {
+        static Task Run()
+        {
+            return Verifier.Verify("Value")
+                .UseMethodName("Conflict")
+                .DisableRequireUniquePrefix()
+                .DisableDiff();
+        }
+
+        try
+        {
+            await Run();
+        }
+        catch
+        {
+        }
+
+        await Verifier.Verify("Value")
+            .UseMethodName("DoesntThrowOnConflict")
+            .AddScrubber(builder => builder.Replace(@"\", "/"));
+    }
 #endif
 
     [Fact]

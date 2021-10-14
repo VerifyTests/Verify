@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.59" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.60" PrivateAssets="All" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.NUnit\Verify.NUnit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

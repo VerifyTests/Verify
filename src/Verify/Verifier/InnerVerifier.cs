@@ -28,7 +28,10 @@ partial class InnerVerifier :
         }
 
         var filePathPrefix = Path.Combine(directory, fileNamePrefix);
-        PrefixUnique.CheckPrefixIsUnique(filePathPrefix);
+        if (settings.RequireUniquePrefix && VerifierSettings.RequireUniquePrefix)
+        {
+            PrefixUnique.CheckPrefixIsUnique(filePathPrefix);
+        }
 
         var pattern = $"{fileNamePrefix}.*.*";
         var files = Directory.EnumerateFiles(directory, pattern).ToList();

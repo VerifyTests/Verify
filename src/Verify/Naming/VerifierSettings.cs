@@ -185,4 +185,14 @@ public static partial class VerifierSettings
     {
         SharedNamer.UniqueForOSPlatform = true;
     }
+
+    internal static bool RequireUniquePrefix = true;
+
+    /// <summary>
+    /// Allow multiple tests to map to the same snapshot file prefix.
+    /// </summary>
+    public static void DisableRequireUniquePrefix()
+    {
+        RequireUniquePrefix = false;
+    }
 }

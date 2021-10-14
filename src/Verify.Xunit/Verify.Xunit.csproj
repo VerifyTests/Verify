@@ -11,7 +11,7 @@
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.60" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="Nullable" Version="1.3.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" PrivateAssets="all" />
     <PackageReference Include="IndexRange" Version="1.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net472'" PrivateAssets="all" />

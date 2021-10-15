@@ -63,29 +63,6 @@ public class SortedPropertiesTests
             .AddExtraSettings(
                 _ => { _.TypeNameHandling = TypeNameHandling.All; });
     }
-
-    [Fact]
-    public Task SymbolOrdering()
-    {
-        var target = new Dictionary<string, int>
-        {
-            {"#", 1},
-            {"@", 1},
-        };
-
-        return Verifier.Verify(target);
-    }
-
-    [Fact]
-    public Task JObject()
-    {
-        var obj = new JObject(
-            new JProperty("@xmlns", "foo"),
-            new JProperty("#text", "bar")
-        );
-
-        return Verifier.Verify(obj);
-    }
 }
 
 #pragma warning disable CS8618

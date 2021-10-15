@@ -1,4 +1,0 @@
-﻿{
-  @xmlns: foo,
-  #text: bar
-}

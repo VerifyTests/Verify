@@ -58,6 +58,52 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task SymbolOrdering1()
+    {
+        var target = new Dictionary<string, int>
+        {
+            {"#", 1},
+            {"@", 2},
+        };
+
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task SymbolOrdering2()
+    {
+        var target = new Dictionary<string, int>
+        {
+            {"@", 2},
+            {"#", 1},
+        };
+
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task JObjectOrdering1()
+    {
+        var obj = new JObject(
+            new JProperty("@xmlns", 2),
+            new JProperty("#text", 1)
+        );
+
+        return Verifier.Verify(obj);
+    }
+
+    [Fact]
+    public Task JObjectOrdering2()
+    {
+        var obj = new JObject(
+            new JProperty("#text", 1),
+            new JProperty("@xmlns", 2)
+        );
+
+        return Verifier.Verify(obj);
+    }
+
+    [Fact]
     public Task SortedDictionaryOrder()
     {
         var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())

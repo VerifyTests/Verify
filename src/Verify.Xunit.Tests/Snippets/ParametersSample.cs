@@ -5,8 +5,13 @@ using Xunit;
 [UsesVerify]
 public class ParametersSample
 {
+
+    public static IEnumerable<object[]> GetDecimalData()
+    {
+        yield return new object[] { (decimal)1.1 };
+    }
     [Theory]
-    [InlineData("1.1")]
+    [MemberData(nameof(GetDecimalData))]
     public async Task Decimal(decimal arg)
     {
         await Verifier.Verify(arg)

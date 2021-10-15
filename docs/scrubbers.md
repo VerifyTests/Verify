@@ -418,22 +418,6 @@ public class ScrubbersSample :
         return Verify(
             settings: settings,
             target: @"
-                LineA
-                LineB
-                LineC
-                LineD
-                LineE
-                LineH
-                LineI
-                LineJ
-                ");
-    }
-
-    [TestMethod]
-    public Task LinesFluent()
-    {
-        return Verify(
-                target: @"
                     LineA
                     LineB
                     LineC
@@ -442,7 +426,23 @@ public class ScrubbersSample :
                     LineH
                     LineI
                     LineJ
-                    ")
+                    ");
+    }
+
+    [TestMethod]
+    public Task LinesFluent()
+    {
+        return Verify(
+                target: @"
+                        LineA
+                        LineB
+                        LineC
+                        LineD
+                        LineE
+                        LineH
+                        LineI
+                        LineJ
+                        ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -490,10 +490,10 @@ public class ScrubbersSample :
     {
         return Verify(
                 target: @"
-                    LineA
-                    LineB
-                    LineC
-                    ")
+                        LineA
+                        LineB
+                        LineC
+                        ")
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -511,10 +511,10 @@ public class ScrubbersSample :
     {
         return Verify(
                 target: @"
-                    LineA
-                    
-                    LineC
-                    ")
+                        LineA
+                        
+                        LineC
+                        ")
             .ScrubEmptyLines();
     }
 }

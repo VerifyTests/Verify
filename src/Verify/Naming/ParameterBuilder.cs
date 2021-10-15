@@ -1,24 +1,8 @@
-﻿using System.Globalization;
-using VerifyTests;
+﻿using VerifyTests;
 
 static class ParameterBuilder
 {
     public static string Concat(Dictionary<string, object?> dictionary)
-    {
-        var thread = Thread.CurrentThread;
-        var culture = thread.CurrentCulture;
-        thread.CurrentCulture = CultureInfo.InvariantCulture;
-        try
-        {
-            return Inner(dictionary);
-        }
-        finally
-        {
-            thread.CurrentCulture = culture;
-        }
-    }
-
-    static string Inner(IReadOnlyDictionary<string, object?> dictionary)
     {
         var builder = new StringBuilder();
         foreach (var item in dictionary)

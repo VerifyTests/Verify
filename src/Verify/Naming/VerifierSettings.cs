@@ -1,13 +1,63 @@
-﻿namespace VerifyTests;
+﻿using System.Globalization;
+
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
     internal static Namer SharedNamer = new();
-    static Dictionary<Type, Func<object, string>> parameterToNameLookup = new();
+
+    static Dictionary<Type, Func<object, string>> parameterToNameLookup = new()
+    {
+        {typeof(bool), target => ((bool) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(short), target => ((short) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(ushort), target => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(int), target => ((int) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(uint), target => ((uint) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(long), target => ((long) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(ulong), target => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(decimal), target => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+#if NET5_0_OR_GREATER
+        {typeof(Half), target => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+#endif
+#if NET6_0_OR_GREATER
+        {
+            typeof(DateOnly), target =>
+            {
+                var date = (DateOnly) target;
+                return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+        },
+        {
+            typeof(TimeOnly), target =>
+            {
+                var time = (TimeOnly) target;
+                return time.ToString("h-mm-tt", CultureInfo.InvariantCulture);
+            }
+        },
+#endif
+        {typeof(float), target => ((float) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(double), target => ((double) target).ToString(CultureInfo.InvariantCulture)},
+        {
+            typeof(DateTime),
+            target =>
+            {
+                var dateTime = (DateTime) target;
+                return dateTime.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFFz");
+            }
+        },
+        {
+            typeof(DateTimeOffset),
+            target =>
+            {
+                var dateTimeOffset = (DateTimeOffset) target;
+                return dateTimeOffset.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFFz", CultureInfo.InvariantCulture);
+            }
+        }
+    };
 
     public static void NameForParameter<T>(ParameterToName<T> func)
     {
-        parameterToNameLookup.Add(typeof(T), o => func((T)o));
+        parameterToNameLookup[typeof(T)] = o => func((T) o);
     }
 
     static char[] invalidPathChars =

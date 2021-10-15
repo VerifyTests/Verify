@@ -10,7 +10,7 @@ public class ParametersSample
     public async Task Decimal(decimal arg)
     {
         await Verifier.Verify(arg)
-            .UseParameters(arg);
+            .UseParameters((decimal)1.1);
     }
 
     [Theory]

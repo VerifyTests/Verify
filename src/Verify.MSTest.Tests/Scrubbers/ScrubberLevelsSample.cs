@@ -2,43 +2,42 @@
 using VerifyTests;
 using VerifyMSTest;
 
-namespace TheTests
+namespace TheTests;
+
+#region ScrubberLevelsSampleMSTest
+
+[TestClass]
+public class ScrubberLevelsSample :
+    VerifyBase
 {
-    #region ScrubberLevelsSampleMSTest
+    VerifySettings classLevelSettings;
 
-    [TestClass]
-    public class ScrubberLevelsSample :
-        VerifyBase
+    public ScrubberLevelsSample()
     {
-        VerifySettings classLevelSettings;
-
-        public ScrubberLevelsSample()
-        {
-            classLevelSettings = new();
-            classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
-        }
-
-        [TestMethod]
-        public Task Simple()
-        {
-            var settings = new VerifySettings(classLevelSettings);
-            settings.AddScrubber(s => s.Replace("Two", "B"));
-            return Verify("One Two Three", settings);
-        }
-
-        [TestMethod]
-        public Task SimpleFluent()
-        {
-            return Verify("One Two Three", classLevelSettings)
-                .AddScrubber(s => s.Replace("Two", "B"));
-        }
-
-        [AssemblyInitialize]
-        public static void Setup(TestContext testContext)
-        {
-            VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
-        }
+        classLevelSettings = new();
+        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
     }
 
-    #endregion
+    [TestMethod]
+    public Task Simple()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(s => s.Replace("Two", "B"));
+        return Verify("One Two Three", settings);
+    }
+
+    [TestMethod]
+    public Task SimpleFluent()
+    {
+        return Verify("One Two Three", classLevelSettings)
+            .AddScrubber(s => s.Replace("Two", "B"));
+    }
+
+    [AssemblyInitialize]
+    public static void Setup(TestContext testContext)
+    {
+        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
+    }
 }
+
+#endregion

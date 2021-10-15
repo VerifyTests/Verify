@@ -2,64 +2,63 @@
 using VerifyTests;
 using VerifyMSTest;
 
-namespace TheTests
+namespace TheTests;
+
+#region MSTestExtensionSample
+
+[TestClass]
+public class ExtensionSample :
+    VerifyBase
 {
-    #region MSTestExtensionSample
+    VerifySettings classLevelSettings;
 
-    [TestClass]
-    public class ExtensionSample :
-        VerifyBase
+    public ExtensionSample()
     {
-        VerifySettings classLevelSettings;
+        classLevelSettings = new();
+        classLevelSettings.UseExtension("json");
+    }
 
-        public ExtensionSample()
-        {
-            classLevelSettings = new();
-            classLevelSettings.UseExtension("json");
-        }
+    [TestMethod]
+    public Task AtMethod()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.UseExtension("xml");
+        return Verify(
+            target: @"
+<note>
+  <to>Joe</to>
+  <from>Kim</from>
+  <heading>Reminder</heading>
+</note>",
+            settings: settings);
+    }
 
-        [TestMethod]
-        public Task AtMethod()
-        {
-            var settings = new VerifySettings(classLevelSettings);
-            settings.UseExtension("xml");
-            return Verify(
+    [TestMethod]
+    public Task AtMethodFluent()
+    {
+        return Verify(
                 target: @"
 <note>
   <to>Joe</to>
   <from>Kim</from>
   <heading>Reminder</heading>
 </note>",
-                settings: settings);
-        }
+                settings: classLevelSettings)
+            .UseExtension("xml");
+    }
 
-        [TestMethod]
-        public Task AtMethodFluent()
-        {
-            return Verify(
-                    target: @"
-<note>
-  <to>Joe</to>
-  <from>Kim</from>
-  <heading>Reminder</heading>
-</note>",
-                    settings: classLevelSettings)
-                .UseExtension("xml");
-        }
-
-        [TestMethod]
-        public Task SharedClassLevelSettings()
-        {
-            return Verify(
-                target: @"
+    [TestMethod]
+    public Task SharedClassLevelSettings()
+    {
+        return Verify(
+            target: @"
 {
   fruit: 'Apple',
   size: 'Large',
   color: 'Red'
 }",
-                settings: classLevelSettings);
-        }
+            settings: classLevelSettings);
     }
-
-    #endregion
 }
+
+#endregion

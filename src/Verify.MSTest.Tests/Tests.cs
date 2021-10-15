@@ -2,34 +2,33 @@
 using VerifyMSTest;
 
 // remove namespace when https://github.com/microsoft/testfx/issues/889
-namespace TheTests
+namespace TheTests;
+
+[TestClass]
+public class Tests :
+    VerifyBase
 {
-    [TestClass]
-    public class Tests :
-        VerifyBase
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public async Task MissingParameter(string arg)
     {
-        [DataTestMethod]
-        [DataRow("Value1")]
-        public async Task MissingParameter(string arg)
-        {
-            var exception = await Assert.ThrowsExceptionAsync<Exception>(() => Verify("Foo"));
-            Assert.IsTrue(exception.Message.Contains("requires parameters"));
-        }
+        var exception = await Assert.ThrowsExceptionAsync<Exception>(() => Verify("Foo"));
+        Assert.IsTrue(exception.Message.Contains("requires parameters"));
+    }
 
-        [DataTestMethod]
-        [DataRow("Value1")]
-        public Task UseFileNameWithParam(string arg)
-        {
-            return Verify(arg)
-                .UseFileName("UseFileNameWithParam");
-        }
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public Task UseFileNameWithParam(string arg)
+    {
+        return Verify(arg)
+            .UseFileName("UseFileNameWithParam");
+    }
 
-        [DataTestMethod]
-        [DataRow("Value1")]
-        public Task UseTextForParameters(string arg)
-        {
-            return Verify(arg)
-                .UseTextForParameters("TextForParameter");
-        }
+    [DataTestMethod]
+    [DataRow("Value1")]
+    public Task UseTextForParameters(string arg)
+    {
+        return Verify(arg)
+            .UseTextForParameters("TextForParameter");
     }
 }

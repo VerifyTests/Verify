@@ -1,15 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TheTests
+namespace TheTests;
+
+[TestClass]
+public class Inherited : Base
 {
-    [TestClass]
-    public class Inherited : Base
+    [TestMethod]
+    public override Task TestToOverride()
     {
-        [TestMethod]
-        public override Task TestToOverride()
-        {
-            Trace.WriteLine("");
-            return base.TestToOverride();
-        }
+        Trace.WriteLine("");
+        return base.TestToOverride();
     }
 }

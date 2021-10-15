@@ -1,23 +1,22 @@
 ﻿using NUnit.Framework;
 using VerifyTests;
 
-namespace VerifyNUnit
+namespace VerifyNUnit;
+
+[TestFixture]
+public abstract partial class VerifyBase
 {
-    [TestFixture]
-    public abstract partial class VerifyBase
+    VerifySettings? settings;
+    string sourceFile;
+
+    public VerifyBase(VerifySettings? settings = null, [CallerFilePath] string sourceFile = "")
     {
-        VerifySettings? settings;
-        string sourceFile;
-
-        public VerifyBase(VerifySettings? settings = null, [CallerFilePath] string sourceFile = "")
+        if (string.IsNullOrWhiteSpace(sourceFile))
         {
-            if (string.IsNullOrWhiteSpace(sourceFile))
-            {
-                throw new($"{nameof(VerifyBase)}.ctor must be called explicitly.");
-            }
-
-            this.settings = settings;
-            this.sourceFile = sourceFile;
+            throw new($"{nameof(VerifyBase)}.ctor must be called explicitly.");
         }
+
+        this.settings = settings;
+        this.sourceFile = sourceFile;
     }
 }

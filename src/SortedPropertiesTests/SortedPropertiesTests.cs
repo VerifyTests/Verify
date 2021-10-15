@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
@@ -61,6 +62,18 @@ public class SortedPropertiesTests
         return Verifier.Verify(person)
             .AddExtraSettings(
                 _ => { _.TypeNameHandling = TypeNameHandling.All; });
+    }
+
+    [Fact]
+    public Task JObject()
+    {
+        var obj = new JObject(
+            new JProperty("@xmlns", "foo"),
+            new JProperty("#text", "bar")
+        );
+
+        VerifierSettings.SortPropertiesAlphabetically();
+        return Verifier.Verify(obj);
     }
 }
 

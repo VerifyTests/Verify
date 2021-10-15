@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_0
+﻿#if !NETSTANDARD2_0 && !NET461
 using System.Linq.Expressions;
 
 partial class InnerVerifier
@@ -9,6 +9,4 @@ partial class InnerVerifier
         return Verify(dictionary);
     }
 }
-
-
 #endif

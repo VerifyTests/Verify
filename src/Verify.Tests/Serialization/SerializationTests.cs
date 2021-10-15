@@ -877,7 +877,7 @@ public class SerializationTests
         #endregion
     }
 
-#if(!NETSTANDARD2_0)
+#if(!NETSTANDARD2_0 && !NET461)
     [Fact]
     public async Task NamedTuple()
     {
@@ -896,7 +896,7 @@ public class SerializationTests
     }
 
     #endregion
-
+#if !NET461
     [Fact]
     public async Task PartialNamedTuple()
     {
@@ -904,6 +904,7 @@ public class SerializationTests
         PrefixUnique.Clear();
         await Verifier.Verify(exception.Message);
     }
+#endif
 
     static (bool, string Member2, string Member3) MethodWithPartialNamedTuple()
     {

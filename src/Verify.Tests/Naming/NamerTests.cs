@@ -5,7 +5,7 @@ using Xunit;
 [UsesVerify]
 public class NamerTests
 {
-#if NET6_0
+#if NET6_0 && DEBUG
     [Fact]
     public async Task ThrowOnConflict()
     {

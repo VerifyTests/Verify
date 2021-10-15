@@ -5,6 +5,7 @@ The prefix has already been used: Existing: {ProjectDirectory}Naming/NamerTests.
 This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {ProjectDirectory}Naming/NamerTests.Conflict,
   StackTrace:
 at PrefixUnique.CheckPrefixIsUnique(String prefix)
+at InnerVerifier.ValidatePrefix(VerifySettings settings, String filePathPrefix)
 at InnerVerifier..ctor(String sourceFile, VerifySettings settings, GetFileConvention fileConvention)
 at VerifyXunit.Verifier.GetVerifier(VerifySettings settings, String sourceFile)
 --- End of stack trace from previous location ---

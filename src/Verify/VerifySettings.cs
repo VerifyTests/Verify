@@ -25,7 +25,7 @@ public partial class VerifySettings
         parameters = settings.parameters;
         parametersText = settings.parametersText;
         fileName = settings.fileName;
-        RequireUniquePrefix = settings.RequireUniquePrefix;
+        UniquePrefixDisabled = settings.UniquePrefixDisabled;
         Namer = new(settings.Namer);
         foreach (var pair in settings.Context)
         {

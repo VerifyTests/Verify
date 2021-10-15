@@ -232,7 +232,7 @@ public Task UseTextForParametersFluent(string arg)
         .UseTextForParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L287-L308' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L288-L309' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

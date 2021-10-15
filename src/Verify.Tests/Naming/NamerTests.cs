@@ -25,6 +25,7 @@ public class NamerTests
         }
 
         await Verifier.ThrowsTask(Run)
+            .ScrubLinesContaining("InnerVerifier.ValidatePrefix")
             .UseMethodName("ThrowOnConflict")
             .AddScrubber(builder => builder.Replace(@"\", "/"));
     }

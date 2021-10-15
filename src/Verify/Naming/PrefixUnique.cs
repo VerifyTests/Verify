@@ -8,7 +8,7 @@ static class PrefixUnique
     {
         if (prefixList.Contains(prefix))
         {
-            throw new($@"The prefix has already been used: Existing: {prefix}.
+            throw new($@"The prefix has already been used: {prefix}.
 This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. Prefix: {prefix}");
         }
 

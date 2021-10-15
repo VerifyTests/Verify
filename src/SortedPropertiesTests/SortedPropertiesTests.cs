@@ -65,6 +65,18 @@ public class SortedPropertiesTests
     }
 
     [Fact]
+    public Task SymbolOrdering()
+    {
+        var target = new Dictionary<string, int>
+        {
+            {"#", 1},
+            {"@", 1},
+        };
+
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
     public Task JObject()
     {
         var obj = new JObject(
@@ -72,7 +84,6 @@ public class SortedPropertiesTests
             new JProperty("#text", "bar")
         );
 
-        VerifierSettings.SortPropertiesAlphabetically();
         return Verifier.Verify(obj);
     }
 }

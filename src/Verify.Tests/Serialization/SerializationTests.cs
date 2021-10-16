@@ -1,11 +1,13 @@
 ﻿using System.Collections.Specialized;
-using System.Linq.Expressions;
-using System.Security.Claims;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
+#if !NET461
+using System.Linq.Expressions;
+using System.Security.Claims;
+#endif
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBeMadeStatic.Local
 

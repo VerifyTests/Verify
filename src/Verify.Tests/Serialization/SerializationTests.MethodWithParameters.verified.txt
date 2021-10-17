@@ -1,1 +1,1 @@
-SerializationTests.MyMethodWithParameters(Int32 x, String y)
+﻿SerializationTests.MyMethodWithParameters(int x, string y)

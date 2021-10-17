@@ -9,13 +9,19 @@ public class TypeNameConverterTests
     [Fact]
     public Task WithOneGeneric()
     {
-        return Verifier.Verify(TypeNameConverter.GetName(typeof(StringDictionaryWrapper<string, ConcurrentDictionary<string, string>>)));
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(Dictionary<string, ConcurrentDictionary<string, string>>)));
     }
 
     [Fact]
     public Task Simple()
     {
         return Verifier.Verify(TypeNameConverter.GetName(typeof(string)));
+    }
+
+    [Fact]
+    public Task GenericTypeDefinition()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(IEnumerable<>)));
     }
 
     [Fact]
@@ -46,6 +52,18 @@ public class TypeNameConverterTests
     }
 
     [Fact]
+    public Task ArrayMulti()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(int[,])));
+    }
+
+    [Fact]
+    public Task ArrayNullable()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(int?[])));
+    }
+
+    [Fact]
     public Task List()
     {
         return Verifier.Verify(TypeNameConverter.GetName(typeof(List<TargetWithNamespace>)));
@@ -55,6 +73,23 @@ public class TypeNameConverterTests
     public Task Enumerable()
     {
         return Verifier.Verify(TypeNameConverter.GetName(typeof(IEnumerable<TargetWithNamespace>)));
+    }
+
+    [Fact]
+    public Task Dictionary()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(Dictionary<string,int>)));
+    }
+    [Fact]
+    public Task Dictionary2()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(Dictionary<IEnumerable<TargetWithNamespace>,IEnumerable<TargetWithNamespace>>)));
+    }
+
+    [Fact]
+    public Task DictionaryWrapper()
+    {
+        return Verifier.Verify(typeof(DictionaryWrapper<IEnumerable<TargetWithNamespace>,IEnumerable<TargetWithNamespace>>));
     }
 
     [Fact]

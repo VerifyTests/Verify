@@ -1,1 +1,1 @@
-SerializationTests.set_MyProperty(String value)
+﻿SerializationTests.set_MyProperty(string value)

@@ -118,7 +118,7 @@ public static class TypeNameConverter
         return infoCache.GetOrAdd(constructor, _ =>
         {
             var declaringType = GetName(constructor.DeclaringType!);
-            StringBuilder builder = new($"{declaringType}");
+            var builder = new StringBuilder($"{declaringType}");
             if (constructor.IsStatic)
             {
                 builder.Append(".cctor(");
@@ -188,25 +188,15 @@ public static class TypeNameConverter
         {
             return type.Name;
         }
+
         if (type.IsArray)
         {
             var elementType = type.GetElementType()!;
-            return $"{GetName(elementType)}[]";
+            var rank = type.GetArrayRank();
+
+            return $"{GetName(elementType)}[{new string(',',rank-1)}]";
         }
 
-        //if (type.IsGenericTypeDefinition)
-        //{
-        //    var builder = new StringBuilder(GetName(type.GetGenericTypeDefinition()));
-        //    builder.Append("<");
-        //    foreach (var argument in type.GetGenericArguments())
-        //    {
-        //        builder.Append(GetName(argument) + ", ");
-        //    }
-
-        //    builder.Length -= 2;
-        //    builder.Append(">");
-        //    return builder.ToString();
-        //}
         var typeName = type.Name;
         if (type.IsGenericType)
         {
@@ -225,7 +215,7 @@ public static class TypeNameConverter
         
         if (type.IsNested)
         {
-            return $"{GetName(type.DeclaringType!)}+{typeName}";
+            return $"{GetName(type.DeclaringType!)}.{typeName}";
         }
 
         return typeName;

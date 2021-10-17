@@ -76,6 +76,23 @@ public class TypeNameConverterTests
     }
 
     [Fact]
+    public Task Dictionary()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(Dictionary<string,int>)));
+    }
+    [Fact]
+    public Task Dictionary2()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(Dictionary<IEnumerable<TargetWithNamespace>,IEnumerable<TargetWithNamespace>>)));
+    }
+
+    [Fact]
+    public Task DictionaryWrapper()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(DictionaryWrapper<IEnumerable<TargetWithNamespace>,IEnumerable<TargetWithNamespace>>)));
+    }
+
+    [Fact]
     public Task Dynamic()
     {
         return Verifier.Verify(TypeNameConverter.GetName(new {Name = "foo"}.GetType()));

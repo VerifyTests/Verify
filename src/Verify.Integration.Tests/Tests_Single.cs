@@ -1,5 +1,4 @@
 ﻿#if DEBUG
-using System.Linq;
 using DiffEngine;
 using VerifyTests;
 using VerifyXunit;

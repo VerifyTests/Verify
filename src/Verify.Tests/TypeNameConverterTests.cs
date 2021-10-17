@@ -19,6 +19,12 @@ public class TypeNameConverterTests
     }
 
     [Fact]
+    public Task GenericTypeDefinition()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(IEnumerable<>)));
+    }
+
+    [Fact]
     public Task GenericArguments()
     {
         var type = typeof(IEnumerable<>)
@@ -43,6 +49,18 @@ public class TypeNameConverterTests
     public Task Array()
     {
         return Verifier.Verify(TypeNameConverter.GetName(typeof(int[])));
+    }
+
+    [Fact]
+    public Task ArrayMulti()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(int[,])));
+    }
+
+    [Fact]
+    public Task ArrayNullable()
+    {
+        return Verifier.Verify(TypeNameConverter.GetName(typeof(int?[])));
     }
 
     [Fact]

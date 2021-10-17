@@ -175,8 +175,7 @@ public static class TypeNameConverter
 
         if (typeof(IDictionaryWrapper).IsAssignableFrom(type))
         {
-            //TODO: Should recurse here
-            type = type.GetGenericArguments().Last();
+            return GetName(type.GetGenericArguments().Last());
         }
 
         return InnerGetName(type);

@@ -1,1 +1,1 @@
-﻿TypeNameConverterTests+TargetWithNested
+TypeNameConverterTests.TargetWithNested

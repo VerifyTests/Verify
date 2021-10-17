@@ -1,1 +1,1 @@
-﻿
+IEnumerable<TargetWithNamespace>

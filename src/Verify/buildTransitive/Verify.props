@@ -19,7 +19,7 @@
         <_Parameter2>$(ProjectDir)</_Parameter2>
       </Attributes>
       <Attributes Include="System.Reflection.AssemblyMetadata"
-                  Condition="$(SolutionDir) != '' And $(SolutionDir) != '*Undefined*'">
+                  Condition="'$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*'">
         <_Parameter1>Verify.SolutionDirectory</_Parameter1>
         <_Parameter2>$(SolutionDir)</_Parameter2>
       </Attributes>

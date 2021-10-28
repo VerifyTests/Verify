@@ -745,9 +745,24 @@ public class SerializationTests
 #endregion
     }
 
-    void DontScrubDateTimes()
+    Task DontScrubDateTimes()
     {
-#region DontScrubDateTimes
+        #region DontScrubDateTimes
+
+        var taregt = new
+        {
+            Date = DateTime.Now
+        };
+
+        return Verifier.Verify(taregt)
+            .ModifySerialization(_ => _.DontScrubDateTimes());
+
+        #endregion
+    }
+
+    void DontScrubDateTimesGlobal()
+    {
+        #region DontScrubDateTimesGlobal
 
         VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
 

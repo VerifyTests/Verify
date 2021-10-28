@@ -52,8 +52,8 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<int, string>(new DescendingComparer<int>())
         {
-            { 1, "1234" },
-            { 2, "5678" }
+            {1, "1234"},
+            {2, "5678"}
         };
 
         return Verifier.Verify(dictionary);
@@ -110,9 +110,9 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())
         {
-            { "Entry_1", "1234" },
-            { "ignored", "1234" },
-            { "Entry_2", "5678" }
+            {"Entry_1", "1234"},
+            {"ignored", "1234"},
+            {"Entry_2", "5678"}
         };
 
         return Verifier.Verify(dictionary)
@@ -175,7 +175,7 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            { "ignored", "1234" }
+            {"ignored", "1234"}
         };
 
         if (DateTime.UtcNow.Ticks % 2 == 0)
@@ -253,16 +253,16 @@ public class SerializationTests
 
     void AddExtraSettingsGlobal()
     {
-#region AddExtraSettingsGlobal
+        #region AddExtraSettingsGlobal
 
         VerifierSettings.ModifySerialization(settings =>
             settings.AddExtraSettings(serializerSettings =>
                 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
 
-#endregion
+        #endregion
     }
 
-#region DisableNumericIdGlobal
+    #region DisableNumericIdGlobal
 
     [Fact]
     public Task NumericIdScrubbingDisabled()
@@ -272,16 +272,16 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            PossibleNullId = (int?) 5,
+            ActualNullId = (int?) null
         };
         return Verifier.Verify(target)
             .ModifySerialization(settings => settings.DontScrubNumericIds());
     }
 
-#endregion
+    #endregion
 
-#region DisableNumericIdGlobal
+    #region DisableNumericIdGlobal
 
     [Fact]
     public Task NumericIdScrubbingDisabledGlobal()
@@ -293,14 +293,14 @@ public class SerializationTests
                 Id = 5,
                 OtherId = 5,
                 YetAnotherId = 4,
-                PossibleNullId = (int?)5,
-                ActualNullId = (int?)null
+                PossibleNullId = (int?) 5,
+                ActualNullId = (int?) null
             });
     }
 
-#endregion
+    #endregion
 
-#region NumericId
+    #region NumericId
 
     [Fact]
     public Task NumericIdScrubbing()
@@ -310,14 +310,14 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            PossibleNullId = (int?) 5,
+            ActualNullId = (int?) null
         };
 
         return Verifier.Verify(target);
     }
 
-#endregion
+    #endregion
 
     [Fact]
     public void SettingsIsCloned()
@@ -352,13 +352,13 @@ public class SerializationTests
     {
         var target = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e");
 
-#region DontScrubGuids
+        #region DontScrubGuids
 
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.DontScrubGuids());
         await Verifier.Verify(target, settings);
 
-#endregion
+        #endregion
     }
 
     [Fact]
@@ -366,12 +366,12 @@ public class SerializationTests
     {
         var target = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e");
 
-#region DontScrubGuidsFluent
+        #region DontScrubGuidsFluent
 
         await Verifier.Verify(target)
             .ModifySerialization(_ => _.DontScrubGuids());
 
-#endregion
+        #endregion
     }
 
     [Fact]
@@ -404,21 +404,21 @@ public class SerializationTests
         settings.AddScrubber("html", builder => builder.Replace("a", "b"));
         return Verifier.Verify("a", settings);
     }
-    
+
     [Fact]
     public Task NameValueCollection()
     {
         return Verifier.Verify(
             new
             {
-                item1 = new NameValueCollection { { null, null } },
-                item2 = new NameValueCollection { { "key", null } },
-                item3 = new NameValueCollection { { null, "value" } },
-                item4 = new NameValueCollection { { "key", "value" } },
-                item5 = new NameValueCollection { { "key", "value1" }, { "key", "value2" } },
-                item6 = new NameValueCollection { { "key", null }, { "key", "value2" } },
-                item7 = new NameValueCollection { { "key", "value1" }, { "key", null } },
-                item8 = new NameValueCollection { { "key1", "value1" }, { "key2", "value2" } },
+                item1 = new NameValueCollection {{null, null}},
+                item2 = new NameValueCollection {{"key", null}},
+                item3 = new NameValueCollection {{null, "value"}},
+                item4 = new NameValueCollection {{"key", "value"}},
+                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
+                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
+                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
+                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}},
             });
     }
 
@@ -448,7 +448,7 @@ public class SerializationTests
         return Verifier.Verify(
             new
             {
-                bytes = new byte[] { 1 }
+                bytes = new byte[] {1}
             });
     }
 
@@ -462,7 +462,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -492,7 +492,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -702,59 +702,76 @@ public class SerializationTests
 
     void DontIgnoreEmptyCollections()
     {
-#region DontIgnoreEmptyCollections
+        #region DontIgnoreEmptyCollections
 
         VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
 
-#endregion
+        #endregion
     }
 
     void DontScrubGuids()
     {
-#region DontScrubGuidsGlobal
+        #region DontScrubGuidsGlobal
 
         VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
 
-#endregion
+        #endregion
     }
 
     void DontScrubProjectDirectory()
     {
-#region DontScrubProjectDirectory
+        #region DontScrubProjectDirectory
 
         VerifierSettings.DontScrubProjectDirectory();
 
-#endregion
+        #endregion
     }
 
     void DontScrubSolutionDirectory()
     {
-#region DontScrubSolutionDirectory
+        #region DontScrubSolutionDirectory
 
         VerifierSettings.DontScrubSolutionDirectory();
 
-#endregion
+        #endregion
     }
 
     void ScrubInlineGuids()
     {
-#region ScrubInlineGuids
+        #region ScrubInlineGuids
 
         VerifierSettings.ScrubInlineGuids();
 
-#endregion
+        #endregion
     }
 
     Task DontScrubDateTimes()
     {
         #region DontScrubDateTimes
 
-        var taregt = new
+        var target = new
         {
             Date = DateTime.Now
         };
 
-        return Verifier.Verify(taregt)
+        var settings = new VerifySettings();
+        settings.ModifySerialization(_ => _.DontScrubDateTimes());
+
+        return Verifier.Verify(target, settings);
+
+        #endregion
+    }
+
+    Task DontScrubDateTimesFluent()
+    {
+        #region DontScrubDateTimesFluent
+
+        var target = new
+        {
+            Date = DateTime.Now
+        };
+
+        return Verifier.Verify(target)
             .ModifySerialization(_ => _.DontScrubDateTimes());
 
         #endregion
@@ -766,63 +783,63 @@ public class SerializationTests
 
         VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
 
-#endregion
+        #endregion
     }
 
     void DontIgnoreFalse()
     {
-#region DontIgnoreFalse
+        #region DontIgnoreFalse
 
         VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
 
-#endregion
+        #endregion
     }
 
     [Fact]
     public Task NewLineNotEscapedInProperty()
     {
-        return Verifier.Verify(new { Property = "a\r\nb\\nc" });
+        return Verifier.Verify(new {Property = "a\r\nb\\nc"});
     }
 
     void List()
     {
         var verifySettings = new VerifySettings();
 
-#region ScrubLines
+        #region ScrubLines
 
         verifySettings.ScrubLines(line => line.Contains("text"));
 
-#endregion
+        #endregion
 
-#region ScrubLinesContaining
+        #region ScrubLinesContaining
 
         verifySettings.ScrubLinesContaining("text1", "text2");
 
-#endregion
+        #endregion
 
-#region ScrubLinesContainingOrdinal
+        #region ScrubLinesContainingOrdinal
 
         verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 
-#endregion
+        #endregion
 
-#region ScrubLinesWithReplace
+        #region ScrubLinesWithReplace
 
         verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 
-#endregion
+        #endregion
 
-#region ScrubMachineName
+        #region ScrubMachineName
 
         verifySettings.ScrubMachineName();
 
-#endregion
+        #endregion
 
-#region AddScrubber
+        #region AddScrubber
 
         verifySettings.AddScrubber(fullText => fullText.Remove(0, 100));
 
-#endregion
+        #endregion
     }
 
     [Fact]
@@ -830,7 +847,7 @@ public class SerializationTests
     {
         var tempPath = Path.GetTempPath().TrimEnd('/', '\\');
         var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new { tempPath, altTempPath });
+        return Verifier.Verify(new {tempPath, altTempPath});
     }
 
     [Fact]
@@ -838,7 +855,7 @@ public class SerializationTests
     {
         var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\');
         var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new { currentDirectory, altCurrentDirectory });
+        return Verifier.Verify(new {currentDirectory, altCurrentDirectory});
     }
 
 #if !NET5_0_OR_GREATER
@@ -847,7 +864,7 @@ public class SerializationTests
     {
         var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new { codeBaseLocation, altCodeBaseLocation });
+        return Verifier.Verify(new {codeBaseLocation, altCodeBaseLocation});
     }
 #endif
 
@@ -856,7 +873,7 @@ public class SerializationTests
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new { baseDirectory, altBaseDirectory });
+        return Verifier.Verify(new {baseDirectory, altBaseDirectory});
     }
 
     class TypeTarget
@@ -880,9 +897,9 @@ public class SerializationTests
     [Fact]
     public async Task ShouldUseShortTypeName()
     {
-#region type
+        #region type
 
-        var foo = new { x = 1 };
+        var foo = new {x = 1};
         var target = new TypeTarget
         {
             Type = GetType(),
@@ -891,7 +908,7 @@ public class SerializationTests
 
         await Verifier.Verify(target);
 
-#endregion
+        #endregion
     }
 
 #if (!NETSTANDARD2_0 && !NET461)
@@ -1904,7 +1921,7 @@ public class SerializationTests
 
 #endif
 
-#region ScopedSerializer
+    #region ScopedSerializer
 
     [Fact]
     public Task ScopedSerializer()
@@ -1933,5 +1950,5 @@ public class SerializationTests
                 _ => { _.TypeNameHandling = TypeNameHandling.All; });
     }
 
-#endregion
+    #endregion
 }

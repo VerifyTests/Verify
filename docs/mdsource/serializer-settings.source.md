@@ -121,6 +121,10 @@ To disable this behavior use:
 
 snippet: DontScrubDateTimes
 
+Or using the fluent api use:
+
+snippet: DontScrubDateTimesFluent
+
 Or globally use:
 
 snippet: DontScrubDateTimesGlobal

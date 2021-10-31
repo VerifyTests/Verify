@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using DiffEngine;
 
 namespace VerifyTests;
 
@@ -110,8 +111,18 @@ public partial class VerifySettings
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public void AutoVerify()
+    public void AutoVerify(bool includeBuildServer = true)
     {
-        autoVerify = true;
+        if (includeBuildServer)
+        {
+             autoVerify = true;
+        }
+        else
+        {
+            if (!BuildServerDetector.Detected)
+            {
+                autoVerify = true;
+            }
+        }
     }
 }

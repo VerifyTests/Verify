@@ -111,11 +111,18 @@ public partial class VerifySettings
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public void AutoVerify()
+    public void AutoVerify(bool includeBuildServer = true)
     {
-        if (!BuildServerDetector.Detected)
+        if (includeBuildServer)
         {
-            autoVerify = true;
+             autoVerify = true;
+        }
+        else
+        {
+            if (!BuildServerDetector.Detected)
+            {
+                autoVerify = true;
+            }
         }
     }
 }

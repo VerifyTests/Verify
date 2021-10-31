@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleInfoName;
 using VerifyTests;
 
 class DelegateConverter :
@@ -12,12 +13,12 @@ class DelegateConverter :
     {
         writer.WriteStartObject();
         writer.WritePropertyName("Type");
-        writer.WriteValue(TypeNameConverter.GetName(@delegate.GetType()));
+        writer.WriteValue(@delegate.GetType().SimpleName());
         var declaringType = @delegate.Method.DeclaringType;
         if (declaringType is not null)
         {
             writer.WritePropertyName("Target");
-            writer.WriteValue(TypeNameConverter.GetName(declaringType));
+            writer.WriteValue(declaringType.SimpleName());
         }
 
         writer.WritePropertyName("Method");

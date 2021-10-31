@@ -3,6 +3,8 @@ using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using SimpleInfoName;
+
 // ReSharper disable UnusedParameter.Local
 
 namespace VerifyTests;
@@ -17,37 +19,37 @@ public static partial class VerifierSettings
     {
         if (target is Type type)
         {
-            toString = (_, _) => TypeNameConverter.GetName(type);
+            toString = (_, _) => type.SimpleName();
             return true;
         }
 
         if (target is FieldInfo field)
         {
-            toString = (_, _) => TypeNameConverter.GetName(field);
+            toString = (_, _) => field.SimpleName();
             return true;
         }
 
         if (target is PropertyInfo property)
         {
-            toString = (_, _) => TypeNameConverter.GetName(property);
+            toString = (_, _) => property.SimpleName();
             return true;
         }
 
         if (target is MethodInfo method)
         {
-            toString = (_, _) => TypeNameConverter.GetName(method);
+            toString = (_, _) => method.SimpleName();
             return true;
         }
 
         if (target is ConstructorInfo constructor)
         {
-            toString = (_, _) => TypeNameConverter.GetName(constructor);
+            toString = (_, _) => constructor.SimpleName();
             return true;
         }
 
         if (target is ParameterInfo parameter)
         {
-            toString = (_, _) => TypeNameConverter.GetName(parameter);
+            toString = (_, _) => parameter.SimpleName();
             return true;
         }
 

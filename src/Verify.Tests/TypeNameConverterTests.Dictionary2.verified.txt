@@ -1,1 +1,0 @@
-Dictionary<IEnumerable<TargetWithNamespace>, IEnumerable<TargetWithNamespace>>

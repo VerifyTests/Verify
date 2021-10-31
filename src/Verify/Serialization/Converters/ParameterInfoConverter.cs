@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleInfoName;
 using VerifyTests;
 
 class ParameterInfoConverter :
@@ -10,6 +11,6 @@ class ParameterInfoConverter :
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        writer.WriteValue(TypeNameConverter.GetName(value));
+        writer.WriteValue(value.SimpleName());
     }
 }

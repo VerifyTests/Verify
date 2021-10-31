@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SimpleInfoName;
 using VerifyTests;
 
 class CustomContractResolver :
@@ -117,7 +118,7 @@ class CustomContractResolver :
                 throw new($"Could not load type `{value}`.");
             }
 
-            return TypeNameConverter.GetName(type);
+            return type.SimpleName();
         }
 
         return value;

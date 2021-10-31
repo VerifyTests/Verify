@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SimpleInfoName;
 using VerifyTests;
 
 class PropertyInfoConverter :
@@ -10,6 +11,6 @@ class PropertyInfoConverter :
         JsonSerializer serializer,
         IReadOnlyDictionary<string, object> context)
     {
-        writer.WriteValue(TypeNameConverter.GetName(value));
+        writer.WriteValue(value.SimpleName());
     }
 }

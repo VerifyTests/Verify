@@ -1,8 +1,14 @@
 ﻿using Newtonsoft.Json;
+using SimpleInfoName;
 using VerifyTests;
 
 static class JsonFormatter
 {
+    static JsonFormatter()
+    {
+        TypeNameConverter.AddRedirect(typeof(IDictionaryWrapper), _ => _.GetGenericArguments().Last());
+    }
+
     public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, List<ToAppend> appends, VerifySettings verifySettings)
     {
         if (appends.Any())

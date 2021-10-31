@@ -311,9 +311,9 @@ public class SettingsTask
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    public SettingsTask AutoVerify()
+    public SettingsTask AutoVerify(bool includeBuildServer = true)
     {
-        CurrentSettings.AutoVerify();
+        CurrentSettings.AutoVerify(includeBuildServer);
         return this;
     }
 

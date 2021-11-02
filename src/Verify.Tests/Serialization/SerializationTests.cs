@@ -262,7 +262,7 @@ public class SerializationTests
         #endregion
     }
 
-    #region DisableNumericIdGlobal
+    #region DisableNumericId
 
     [Fact]
     public Task NumericIdScrubbingDisabled()
@@ -272,8 +272,8 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?) 5,
-            ActualNullId = (int?) null
+            PossibleNullId = (int?)5,
+            ActualNullId = (int?)null
         };
         return Verifier.Verify(target)
             .ModifySerialization(settings => settings.DontScrubNumericIds());

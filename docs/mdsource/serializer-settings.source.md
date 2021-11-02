@@ -142,7 +142,7 @@ snippet: SerializationTests.NumericIdScrubbing.verified.txt
 
 To disable this globally use:
 
-snippet: DisableNumericIdGlobal
+snippet: DisableNumericId
 
 To disable this behavior globally use:
 

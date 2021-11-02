@@ -262,24 +262,44 @@ public class SerializationTests
         #endregion
     }
 
-    #region DisableNumericId
+    #region TreatAsNumericId
 
     [Fact]
-    public Task NumericIdScrubbingDisabled()
+    public Task TreatAsNumericId()
     {
-        var target = new
+        var target = new IdConventionTarget
         {
-            Id = 5,
-            OtherId = 5,
-            YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            TheProperty = 5
         };
         return Verifier.Verify(target)
-            .ModifySerialization(settings => settings.DontScrubNumericIds());
+            .ModifySerialization(
+                settings => settings.TreatAsNumericId(
+                    member => member.Name == "TheProperty"));
     }
 
     #endregion
+
+    #region TreatAsNumericIdGlobal
+
+    [Fact]
+    public Task TreatAsNumericIdGlobal()
+    {
+        VerifierSettings.ModifySerialization(
+            settings => settings.TreatAsNumericId(
+                member => member.Name == "TheProperty"));
+        var target = new IdConventionTarget
+        {
+            TheProperty = 5
+        };
+        return Verifier.Verify(target);
+    }
+
+    #endregion
+
+    public class IdConventionTarget
+    {
+        public int TheProperty { get; set; }
+    }
 
     #region DisableNumericIdGlobal
 
@@ -296,6 +316,24 @@ public class SerializationTests
                 PossibleNullId = (int?) 5,
                 ActualNullId = (int?) null
             });
+    }
+
+    #endregion
+    #region DisableNumericId
+
+    [Fact]
+    public Task NumericIdScrubbingDisabled()
+    {
+        var target = new
+        {
+            Id = 5,
+            OtherId = 5,
+            YetAnotherId = 4,
+            PossibleNullId = (int?)5,
+            ActualNullId = (int?)null
+        };
+        return Verifier.Verify(target)
+            .ModifySerialization(settings => settings.DontScrubNumericIds());
     }
 
     #endregion

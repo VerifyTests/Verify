@@ -109,7 +109,14 @@ public partial class SerializationSettings
         scrubDateTimes = false;
     }
 
-    bool scrubNumericIds= true;
+    bool scrubNumericIds = true;
+
+    private IsNumericId isNumericId = member => member.Name.EndsWith("Id");
+
+    public void TreatAsNumericId(IsNumericId isNumericId)
+    {
+        this.isNumericId = isNumericId;
+    }
 
     public void DontScrubNumericIds()
     {
@@ -137,12 +144,13 @@ public partial class SerializationSettings
             ignoreFalse,
             includeObsoletes,
             scrubNumericIds,
+            isNumericId,
             ignoredMembers,
             ignoredByNameMembers,
             ignoreMembersWithType,
             ignoreMembersThatThrow,
             ignoredInstances,
-            scrubber,
+            scrubber, 
             membersConverters);
         var converters = settings.Converters;
         converters.Add(new StringConverter(scrubber));

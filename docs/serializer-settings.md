@@ -382,8 +382,8 @@ Results in the following:
 
 To disable this globally use:
 
-<!-- snippet: DisableNumericIdGlobal -->
-<a id='snippet-disablenumericidglobal'></a>
+<!-- snippet: DisableNumericId -->
+<a id='snippet-disablenumericid'></a>
 ```cs
 [Fact]
 public Task NumericIdScrubbingDisabled()
@@ -393,32 +393,14 @@ public Task NumericIdScrubbingDisabled()
         Id = 5,
         OtherId = 5,
         YetAnotherId = 4,
-        PossibleNullId = (int?) 5,
-        ActualNullId = (int?) null
+        PossibleNullId = (int?)5,
+        ActualNullId = (int?)null
     };
     return Verifier.Verify(target)
         .ModifySerialization(settings => settings.DontScrubNumericIds());
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L265-L282' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenumericidglobal' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-disablenumericidglobal-1'></a>
-```cs
-[Fact]
-public Task NumericIdScrubbingDisabledGlobal()
-{
-    VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
-    return Verifier.Verify(
-        new
-        {
-            Id = 5,
-            OtherId = 5,
-            YetAnotherId = 4,
-            PossibleNullId = (int?) 5,
-            ActualNullId = (int?) null
-        });
-}
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L284-L301' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenumericidglobal-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L265-L282' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenumericid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To disable this behavior globally use:
@@ -427,24 +409,6 @@ To disable this behavior globally use:
 <a id='snippet-disablenumericidglobal'></a>
 ```cs
 [Fact]
-public Task NumericIdScrubbingDisabled()
-{
-    var target = new
-    {
-        Id = 5,
-        OtherId = 5,
-        YetAnotherId = 4,
-        PossibleNullId = (int?) 5,
-        ActualNullId = (int?) null
-    };
-    return Verifier.Verify(target)
-        .ModifySerialization(settings => settings.DontScrubNumericIds());
-}
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L265-L282' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenumericidglobal' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-disablenumericidglobal-1'></a>
-```cs
-[Fact]
 public Task NumericIdScrubbingDisabledGlobal()
 {
     VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
@@ -459,7 +423,7 @@ public Task NumericIdScrubbingDisabledGlobal()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L284-L301' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenumericidglobal-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L284-L301' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablenumericidglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

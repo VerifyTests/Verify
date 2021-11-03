@@ -143,7 +143,7 @@ snippet: SerializationTests.NumericIdScrubbing.verified.txt
 
 ### Convention
 
-A custom "is member a numeric a numeric Id" convention is supported.
+A custom "is member a numeric Id" convention is supported.
 
 To define a convention use:
 

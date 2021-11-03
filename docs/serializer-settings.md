@@ -383,7 +383,7 @@ Results in the following:
 
 ### Convention
 
-A custom "is member a numeric a numeric Id" convention is supported.
+A custom "is member a numeric Id" convention is supported.
 
 To define a convention use:
 

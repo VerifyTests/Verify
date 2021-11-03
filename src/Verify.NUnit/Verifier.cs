@@ -22,7 +22,7 @@ public static partial class Verifier
 
     static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings)
     {
-        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+        Guard.AgainstBadSourceFile(sourceFile);
         var context = TestContext.CurrentContext;
         var adapter = context.Test;
         var test = (Test)field.GetValue(adapter)!;
@@ -46,7 +46,7 @@ public static partial class Verifier
 
     static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
     {
-        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+        Guard.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
             async verifySettings =>

@@ -41,7 +41,7 @@ public abstract partial class VerifyBase
 
     SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
     {
-        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+        Guard.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
             async verifySettings =>

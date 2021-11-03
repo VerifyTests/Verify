@@ -46,7 +46,7 @@ public static partial class Verifier
     {
         TargetAssembly.Assign(assembly);
         settings ??= new();
-        Guard.AgainstNullOrEmpty(sourceFile, nameof(sourceFile));
+        Guard.AgainstBadSourceFile(sourceFile);
         using var verifier = GetVerifier(settings, sourceFile, name);
         await verify(verifier);
     }

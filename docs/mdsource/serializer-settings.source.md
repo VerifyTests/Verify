@@ -140,6 +140,22 @@ Results in the following:
 
 snippet: SerializationTests.NumericIdScrubbing.verified.txt
 
+
+### Convention
+
+A custom "is member a numeric Id" convention is supported.
+
+To define a convention use:
+
+snippet: TreatAsNumericId
+
+To define a convention globally use:
+
+snippet: TreatAsNumericIdGlobal
+
+
+### Disable
+
 To disable this globally use:
 
 snippet: DisableNumericId

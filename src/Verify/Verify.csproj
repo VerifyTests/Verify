@@ -6,7 +6,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="8.2.0" />
+    <PackageReference Include="DiffEngine" Version="8.3.0" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.1.1" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'netstandard2.1' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472'" />

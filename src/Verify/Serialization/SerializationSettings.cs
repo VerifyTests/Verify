@@ -150,7 +150,7 @@ public partial class SerializationSettings
             ignoreMembersWithType,
             ignoreMembersThatThrow,
             ignoredInstances,
-            scrubber, 
+            scrubber,
             membersConverters);
         var converters = settings.Converters;
         converters.Add(new StringConverter(scrubber));

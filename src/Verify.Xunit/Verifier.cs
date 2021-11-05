@@ -11,9 +11,10 @@ public static partial class Verifier
             var type = info.ReflectedType!;
             TargetAssembly.Assign(type.Assembly);
 
-            GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(info, type, sourceFile, settings, uniqueness);
-
-            return new(sourceFile, settings, fileConvention);
+            return new(
+                sourceFile, 
+                settings, 
+                uniqueness => ReflectionFileNameBuilder.FileNamePrefix(info, type, sourceFile, settings, uniqueness));
         }
 
         var fileName = Path.GetFileName(sourceFile);

@@ -1,4 +1,6 @@
 {
   currentDirectory: {CurrentDirectory},
-  altCurrentDirectory: {CurrentDirectory}
+  altCurrentDirectory: {CurrentDirectory},
+  currentDirectoryTrailing: {CurrentDirectory},
+  altCurrentDirectoryTrailing: {CurrentDirectory}
 }

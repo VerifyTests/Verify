@@ -3,18 +3,22 @@
 static class ApplyScrubbers
 {
     static HashSet<string> currentDirectoryReplacements = new();
-    static string tempPath;
-    static string altTempPath;
+    static HashSet<string> tempDirectoryReplacements = new();
     static Action<StringBuilder> sharedReplacements = null!;
 
     static ApplyScrubbers()
     {
         var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory);
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        currentDirectoryReplacements.Add(baseDirectory + Path.DirectorySeparatorChar);
+        currentDirectoryReplacements.Add(altBaseDirectory + Path.AltDirectorySeparatorChar);
         currentDirectoryReplacements.Add(baseDirectory);
         currentDirectoryReplacements.Add(altBaseDirectory);
+
         var currentDirectory = CleanPath(Environment.CurrentDirectory);
         var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        currentDirectoryReplacements.Add(currentDirectory + Path.DirectorySeparatorChar);
+        currentDirectoryReplacements.Add(altCurrentDirectory + Path.AltDirectorySeparatorChar);
         currentDirectoryReplacements.Add(currentDirectory);
         currentDirectoryReplacements.Add(altCurrentDirectory);
 #if !NET5_0_OR_GREATER
@@ -22,12 +26,18 @@ static class ApplyScrubbers
         {
             var codeBaseLocation = CleanPath(CodeBaseLocation.CurrentDirectory);
             var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            currentDirectoryReplacements.Add(codeBaseLocation + Path.DirectorySeparatorChar);
+            currentDirectoryReplacements.Add(altCodeBaseLocation + Path.AltDirectorySeparatorChar);
             currentDirectoryReplacements.Add(codeBaseLocation);
             currentDirectoryReplacements.Add(altCodeBaseLocation);
         }
 #endif
-        tempPath = CleanPath(Path.GetTempPath());
-        altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        var tempPath = CleanPath(Path.GetTempPath());
+        var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        tempDirectoryReplacements.Add(altTempPath + Path.AltDirectorySeparatorChar);
+        tempDirectoryReplacements.Add(tempPath + Path.DirectorySeparatorChar);
+        tempDirectoryReplacements.Add(tempPath);
+        tempDirectoryReplacements.Add(altTempPath);
     }
 
     public static void UseAssembly(string? solutionDirectory, string projectDirectory)
@@ -83,8 +93,10 @@ static class ApplyScrubbers
             target.Replace(replace, "{CurrentDirectory}");
         }
 
-        target.Replace(tempPath, "{TempPath}");
-        target.Replace(altTempPath, "{TempPath}");
+        foreach (var replace in tempDirectoryReplacements)
+        {
+            target.Replace(replace, "{TempPath}");
+        }
 
         foreach (var scrubber in settings.InstanceScrubbers)
         {

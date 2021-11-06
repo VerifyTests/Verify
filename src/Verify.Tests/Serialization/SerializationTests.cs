@@ -885,7 +885,13 @@ public class SerializationTests
     {
         var tempPath = Path.GetTempPath().TrimEnd('/', '\\');
         var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {tempPath, altTempPath});
+        return Verifier.Verify(new
+        {
+            tempPath,
+            altTempPath,
+            tempPathTrailing = tempPath + Path.DirectorySeparatorChar,
+            altTempPathTrailing = altTempPath + Path.AltDirectorySeparatorChar
+        });
     }
 
     [Fact]
@@ -893,7 +899,13 @@ public class SerializationTests
     {
         var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\');
         var altCurrentDirectory = currentDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {currentDirectory, altCurrentDirectory});
+        return Verifier.Verify(new
+        {
+            currentDirectory,
+            altCurrentDirectory,
+            currentDirectoryTrailing = currentDirectory + Path.DirectorySeparatorChar,
+            altCurrentDirectoryTrailing = altCurrentDirectory + Path.AltDirectorySeparatorChar
+        });
     }
 
 #if !NET5_0_OR_GREATER

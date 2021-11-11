@@ -606,3 +606,8 @@ static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, meth
 ```
 <sup><a href='/src/Verify/DerivePaths/VerifierSettings.cs#L7-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## DisableRequireUniquePrefix
+
+Snapshot file names have to be unique. If a duplicate name is used, then an exception will be throw. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation

@@ -148,6 +148,7 @@ class VerifyEngine
         await ProcessNotEquals(builder);
         if (!settings.autoVerify)
         {
+            builder.TrimEnd();
             throw new VerifyException(builder.ToString());
         }
     }

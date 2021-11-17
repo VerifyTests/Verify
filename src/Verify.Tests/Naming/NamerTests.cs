@@ -55,6 +55,17 @@ public class NamerTests
     }
 #endif
 
+#region MultipleCalls
+    [Fact]
+    public async Task MultipleCalls()
+    {
+        await Verifier.Verify("Value1")
+            .UseMethodName("MultipleCalls_1");
+        await Verifier.Verify("Value1")
+            .UseMethodName("MultipleCalls_2");
+    }
+#endregion
+
     [Fact]
     public Task Runtime()
     {

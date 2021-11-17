@@ -27,7 +27,7 @@ var settings = new VerifySettings();
 settings.UseDirectory("CustomDirectory");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L183-L189' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L194-L200' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: UseDirectoryFluent -->
@@ -36,7 +36,7 @@ await Verifier.Verify("value", settings);
 await Verifier.Verify("value")
     .UseDirectory("CustomDirectory");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L195-L200' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L206-L211' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
@@ -55,7 +55,7 @@ var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L206-L212' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L217-L223' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: UseTypeNameFluent -->
@@ -64,7 +64,7 @@ await Verifier.Verify("value", settings);
 await Verifier.Verify("value")
     .UseTypeName("CustomTypeName");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L218-L223' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L229-L234' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomTypeName.MethodName.verified.txt`.
@@ -81,7 +81,7 @@ var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L229-L235' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L240-L246' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
@@ -92,10 +92,31 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 await Verifier.Verify("value")
     .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L241-L246' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L252-L257' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
+
+
+
+### Multiple calls to Verify
+
+`UseMethodName` can also be used to allow multiple calls to Verify in the same method:
+
+<!-- snippet: MultipleCalls -->
+<a id='snippet-multiplecalls'></a>
+```cs
+[Fact]
+public async Task MultipleCalls()
+{
+    await Verifier.Verify("Value1")
+        .UseMethodName("MultipleCalls_1");
+    await Verifier.Verify("Value1")
+        .UseMethodName("MultipleCalls_2");
+}
+```
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L58-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-multiplecalls' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## UseFileName
@@ -109,7 +130,7 @@ var settings = new VerifySettings();
 settings.UseFileName("CustomFileName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L151-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L162-L168' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomFileName.verified.txt`.
@@ -120,7 +141,7 @@ Will result in `CustomFileName.verified.txt`.
 await Verifier.Verify("value")
     .UseFileName("CustomFileNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L172-L177' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L183-L188' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `UseFileNameFluent.verified.txt`.
@@ -545,7 +566,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L252-L257' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L263-L268' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -611,3 +632,4 @@ static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, meth
 ## DisableRequireUniquePrefix
 
 Snapshot file names have to be unique. If a duplicate name is used, then an exception will be throw. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation
+

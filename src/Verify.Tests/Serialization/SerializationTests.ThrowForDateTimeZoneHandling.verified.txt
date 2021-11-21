@@ -1,0 +1,4 @@
+{
+  Type: Exception,
+  Message: Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.
+}

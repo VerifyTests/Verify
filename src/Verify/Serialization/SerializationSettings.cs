@@ -187,6 +187,21 @@ public partial class SerializationSettings
             extraSetting(settings);
         }
 
+        if (settings.DateFormatHandling != DateFormatHandling.IsoDateFormat)
+        {
+            throw new("Custom DateFormatHandling is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
+        }
+
+        if (settings.DateFormatString != "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK")
+        {
+            throw new("Custom DateFormatString is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
+        }
+
+        if (settings.DateTimeZoneHandling != DateTimeZoneHandling.RoundtripKind)
+        {
+            throw new("Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
+        }
+
         return settings;
     }
 

@@ -1,5 +1,7 @@
-{
+﻿{
   GivenNames: John,
   FamilyName: Smith,
+  Spouse: null,
+  Address: null,
   Dob: 2000-10-01+00:00
 }

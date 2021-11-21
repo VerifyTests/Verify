@@ -228,7 +228,7 @@ public class SerializationTests
         var verifySettings = new VerifySettings();
         verifySettings.ModifySerialization(settings =>
             settings.AddExtraSettings(serializerSettings =>
-                serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
+                serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
         return Verifier.Verify(target, verifySettings);
     }
 
@@ -244,7 +244,7 @@ public class SerializationTests
         return Verifier.Verify(target)
             .ModifySerialization(settings =>
                 settings.AddExtraSettings(serializerSettings =>
-                    serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
+                    serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
     }
 
 #endregion
@@ -781,6 +781,34 @@ public class SerializationTests
         VerifierSettings.ScrubInlineGuids();
 
         #endregion
+    }
+
+    [Fact]
+    public Task ThrowForDateFormatHandling()
+    {
+        return Verifier.ThrowsTask(
+                () => Verifier.Verify("foo")
+                    .AddExtraSettings(_ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; }))
+            .ModifySerialization(_ => _.IgnoreMember<Exception>(_ => _.StackTrace));
+    }
+
+
+    [Fact]
+    public Task ThrowForDateTimeZoneHandling()
+    {
+        return Verifier.ThrowsTask(
+                () => Verifier.Verify("foo")
+                    .AddExtraSettings(_ => { _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified; }))
+            .ModifySerialization(_ => _.IgnoreMember<Exception>(_ => _.StackTrace));
+    }
+
+    [Fact]
+    public Task ThrowForDateFormatString()
+    {
+        return Verifier.ThrowsTask(
+                () => Verifier.Verify("foo")
+                    .AddExtraSettings(_ => { _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"; }))
+            .ModifySerialization(_ => _.IgnoreMember<Exception>(_ => _.StackTrace));
     }
 
     Task DontScrubDateTimes()

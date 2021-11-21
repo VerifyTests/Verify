@@ -37,7 +37,7 @@ public class VerifyObjectSamples
 
         var settings = new VerifySettings();
         settings.ModifySerialization(_ => _.DontScrubDateTimes());
-        settings.AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
+        settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
         await Verifier.Verify(person, settings);
     }
 
@@ -53,7 +53,7 @@ public class VerifyObjectSamples
 
         await Verifier.Verify(person)
             .ModifySerialization(_ => _.DontScrubDateTimes())
-            .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat);
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
     async Task Before()

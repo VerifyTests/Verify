@@ -1190,16 +1190,16 @@ The default mapping is:
 <!-- snippet: typeToStringMapping -->
 <a id='snippet-typetostringmapping'></a>
 ```cs
-{ typeof(string), (target, _) => (string)target },
-{ typeof(StringBuilder), (target, _) => ((StringBuilder)target).ToString() },
-{ typeof(bool), (target, _) => ((bool)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(short), (target, _) => ((short)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(ushort), (target, _) => ((ushort)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(int), (target, _) => ((int)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(uint), (target, _) => ((uint)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(long), (target, _) => ((long)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(ulong), (target, _) => ((ulong)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(decimal), (target, _) => ((decimal)target).ToString(CultureInfo.InvariantCulture) },
+{typeof(string), (target, _) => (string) target},
+{typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
+{typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
 {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
@@ -1219,27 +1219,27 @@ The default mapping is:
     }
 },
 #endif
-{ typeof(float), (target, _) => ((float)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(double), (target, _) => ((double)target).ToString(CultureInfo.InvariantCulture) },
-{ typeof(Guid), (target, _) => ((Guid)target).ToString() },
+{typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(Guid), (target, _) => ((Guid) target).ToString()},
 {
     typeof(DateTime), (target, _) =>
     {
-        var dateTime = (DateTime)target;
+        var dateTime = (DateTime) target;
         return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
     }
 },
 {
     typeof(DateTimeOffset), (target, _) =>
     {
-        var dateTimeOffset = (DateTimeOffset)target;
+        var dateTimeOffset = (DateTimeOffset) target;
         return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz", CultureInfo.InvariantCulture);
     }
 },
 {
     typeof(XmlNode), (target, settings) =>
     {
-        var converted = (XmlNode)target;
+        var converted = (XmlNode) target;
         var document = XDocument.Parse(converted.OuterXml);
         return new(document.ToString(), "xml");
     }
@@ -1247,14 +1247,14 @@ The default mapping is:
 {
     typeof(XDocument), (target, settings) =>
     {
-        var converted = (XDocument)target;
+        var converted = (XDocument) target;
         return new(converted.ToString(), "xml");
     }
 },
 {
     typeof(XElement), (target, settings) =>
     {
-        var converted = (XElement)target;
+        var converted = (XElement) target;
         return new(converted.ToString(), "xml");
     }
 }

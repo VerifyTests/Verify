@@ -308,6 +308,12 @@ public class SettingsTask
         return this;
     }
 
+    public SettingsTask IgnoreStackTrack()
+    {
+        CurrentSettings.IgnoreStackTrack();
+        return this;
+    }
+
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>

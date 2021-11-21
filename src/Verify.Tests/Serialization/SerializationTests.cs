@@ -789,9 +789,8 @@ public class SerializationTests
         return Verifier.ThrowsTask(
                 () => Verifier.Verify("foo")
                     .AddExtraSettings(_ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; }))
-            .ModifySerialization(_ => _.IgnoreMember<Exception>(_ => _.StackTrace));
+            .IgnoreStackTrack();
     }
-
 
     [Fact]
     public Task ThrowForDateTimeZoneHandling()
@@ -799,7 +798,7 @@ public class SerializationTests
         return Verifier.ThrowsTask(
                 () => Verifier.Verify("foo")
                     .AddExtraSettings(_ => { _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified; }))
-            .ModifySerialization(_ => _.IgnoreMember<Exception>(_ => _.StackTrace));
+            .IgnoreStackTrack();
     }
 
     [Fact]
@@ -808,7 +807,7 @@ public class SerializationTests
         return Verifier.ThrowsTask(
                 () => Verifier.Verify("foo")
                     .AddExtraSettings(_ => { _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"; }))
-            .ModifySerialization(_ => _.IgnoreMember<Exception>(_ => _.StackTrace));
+            .IgnoreStackTrack();
     }
 
     Task DontScrubDateTimes()

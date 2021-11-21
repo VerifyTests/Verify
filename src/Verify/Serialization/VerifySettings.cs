@@ -18,6 +18,11 @@ public partial class VerifySettings
         action(serialization);
         serialization.RegenSettings();
     }
+    
+    public void IgnoreStackTrack()
+    {
+        ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+    }
 
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {

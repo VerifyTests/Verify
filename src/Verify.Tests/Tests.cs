@@ -410,12 +410,12 @@ public class Tests
         var settings = new VerifySettings();
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
-        settings.ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+        settings.IgnoreStackTrack();
         settings.DisableDiff();
 
         var element = new Element();
         return Verifier.ThrowsTask(() => Verifier.Verify(element, settings))
-            .ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+            .IgnoreStackTrack();
     }
 
     [Fact]

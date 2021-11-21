@@ -158,6 +158,11 @@ public static partial class VerifierSettings
         serialization.RegenSettings();
     }
 
+    public static void IgnoreStackTrack()
+    {
+        ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+    }
+
     public static void AddExtraDateFormat(string format)
     {
         SharedScrubber.dateFormats.Add(format);

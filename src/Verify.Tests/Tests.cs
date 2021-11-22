@@ -547,6 +547,12 @@ public class Tests
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
 
+    [Fact]
+    public async Task VerifyFileWithAppend()
+    {
+        await Verifier.VerifyFile("sample.txt")
+            .AppendValue("key", "value");
+    }
 
     #region GetFilePath
 

@@ -1423,7 +1423,7 @@ public Task Stream()
     return Verifier.Verify(FileHelpers.OpenRead("sample.txt"));
 }
 ```
-<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L65-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappenderstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L76-L82' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappenderstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then the appended content will be added to the `*.00.verified.txt` file:

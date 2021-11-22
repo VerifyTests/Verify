@@ -33,6 +33,12 @@ public class SettingsTask
     {
         return CurrentSettings.TryGetExtension(out extension);
     }
+    
+    public SettingsTask AppendValue(string name, object data)
+    {
+        CurrentSettings.AppendValue(name, data);
+        return this;
+    }
 
     /// <summary>
     /// Define the parameter values being used by a parameterised (aka data drive) test.

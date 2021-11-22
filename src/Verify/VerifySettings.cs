@@ -28,6 +28,17 @@ public partial class VerifySettings
         fileName = settings.fileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
         Namer = new(settings.Namer);
+        foreach (var append in settings.Appends)
+        {
+            if (append.Data is ICloneable cloneable)
+            {
+                Context.Add(append.Name, cloneable.Clone());
+            }
+            else
+            {
+                Context.Add(append.Name, append.Data);
+            }
+        }
         foreach (var pair in settings.Context)
         {
             if (pair.Value is ICloneable cloneable)

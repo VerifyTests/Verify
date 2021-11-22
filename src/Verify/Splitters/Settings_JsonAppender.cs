@@ -16,6 +16,8 @@ public static partial class VerifierSettings
             }
         }
 
+        list.AddRange(settings.Appends);
+
         return list;
     }
 

@@ -50,6 +50,17 @@ public class JsonAppenderTests : IDisposable
 
     #endregion
 
+    #region JsonLocalAppender
+
+    [Fact]
+    public Task WithLocalJsonAppender()
+    {
+        return Verifier.Verify("TheValue")
+            .AppendValue("name", "value");
+    }
+
+    #endregion
+
     [Fact]
     public Task NullText()
     {

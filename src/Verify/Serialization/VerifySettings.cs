@@ -18,7 +18,14 @@ public partial class VerifySettings
         action(serialization);
         serialization.RegenSettings();
     }
-    
+
+    internal List<ToAppend> Appends = new();
+
+    public void AppendValue(string name, object data)
+    {
+        Appends.Add(new(name, data));
+    }
+
     public void IgnoreStackTrack()
     {
         ModifySerialization(_ => _.IgnoreMember("StackTrace"));

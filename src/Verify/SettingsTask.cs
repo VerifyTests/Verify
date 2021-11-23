@@ -33,10 +33,31 @@ public class SettingsTask
     {
         return CurrentSettings.TryGetExtension(out extension);
     }
-    
+
+    /// <summary>
+    /// Append a key-value pair to the serialized target.
+    /// </summary>
     public SettingsTask AppendValue(string name, object data)
     {
         CurrentSettings.AppendValue(name, data);
+        return this;
+    }
+
+    /// <summary>
+    /// Append key-value pairs to the serialized target.
+    /// </summary>
+    public SettingsTask AppendValues(IEnumerable<KeyValuePair<string, object>> values)
+    {
+        CurrentSettings.AppendValues(values);
+        return this;
+    }
+
+    /// <summary>
+    /// Append key-value pairs to the serialized target.
+    /// </summary>
+    public SettingsTask AppendValues(params KeyValuePair<string, object>[] values)
+    {
+        CurrentSettings.AppendValues(values);
         return this;
     }
 

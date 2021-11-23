@@ -21,9 +21,34 @@ public partial class VerifySettings
 
     internal List<ToAppend> Appends = new();
 
+    /// <summary>
+    /// Append a key-value pair to the serialized target.
+    /// </summary>
     public void AppendValue(string name, object data)
     {
         Appends.Add(new(name, data));
+    }
+
+    /// <summary>
+    /// Append key-value pairs to the serialized target.
+    /// </summary>
+    public void AppendValues(IEnumerable<KeyValuePair<string, object>> values)
+    {
+        foreach (var pair in values)
+        {
+            AppendValue(pair.Key, pair.Value);
+        }
+    }
+
+    /// <summary>
+    /// Append key-value pairs to the serialized target.
+    /// </summary>
+    public void AppendValues(params KeyValuePair<string, object>[] values)
+    {
+        foreach (var pair in values)
+        {
+            AppendValue(pair.Key, pair.Value);
+        }
     }
 
     public void IgnoreStackTrack()

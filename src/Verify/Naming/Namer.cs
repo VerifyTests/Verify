@@ -41,6 +41,14 @@ public class Namer
             return "Net";
         }
 
+        if (string.Equals(identifier, ".NETCoreApp", StringComparison.OrdinalIgnoreCase))
+        {
+            if (name.Version.Major < 5)
+            {
+                return "Core";
+            }
+        }
+
         if (identifier.StartsWith("NETCore", StringComparison.OrdinalIgnoreCase))
         {
             return "Core";

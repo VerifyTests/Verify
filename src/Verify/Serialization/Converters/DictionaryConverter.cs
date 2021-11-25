@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using VerifyTests;
 
@@ -43,7 +42,7 @@ class DictionaryConverter :
         var keyType = genericArguments.First();
         var definition = type.GetGenericTypeDefinition();
         if (definition == typeof(SortedDictionary<,>) ||
-            definition == typeof(ImmutableSortedDictionary<,>) )
+            definition.Name == "ImmutableSortedDictionary`2")
         {
             if (keyType == typeof(string))
             {

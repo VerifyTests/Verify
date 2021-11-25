@@ -46,7 +46,7 @@ public class TypeConverterTests
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (_, _) =>
             {
-                #region ConversionResultWithCleanup
+#region ConversionResultWithCleanup
 
                 return new(
                     info: info,
@@ -58,7 +58,7 @@ public class TypeConverterTests
                         return Task.CompletedTask;
                     });
 
-                #endregion
+#endregion
             });
         var target = new TargetForCleanup
         {

@@ -7,7 +7,7 @@
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <Compile Include="Main.fs" />
-    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.12.12" />
+    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.12.13" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />

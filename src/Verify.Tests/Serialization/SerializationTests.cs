@@ -948,7 +948,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubBaseDirectory()
     {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('/', '\\');
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verifier.Verify(new {baseDirectory, altBaseDirectory});
     }

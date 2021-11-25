@@ -1,0 +1,5 @@
+﻿{
+  Type: Exception,
+  Message: The Message,
+  StackTrace: at Tests.ValueTaskMethodThatThrowsGeneric()
+}

@@ -27,9 +27,9 @@ class DictionaryConverter :
 
         var definition = type.GetGenericTypeDefinition();
         return definition == typeof(Dictionary<,>) ||
-               definition == typeof(ImmutableDictionary<,>) ||
+               definition.Name == "ImmutableDictionary`2" ||
                definition == typeof(SortedDictionary<,>) ||
-               definition == typeof(ImmutableSortedDictionary<,>) ||
+               definition.Name == "ImmutableSortedDictionary`2" ||
                definition == typeof(ConcurrentDictionary<,>) ||
                definition == typeof(ReadOnlyDictionary<,>);
     }

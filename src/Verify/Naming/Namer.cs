@@ -160,6 +160,10 @@ public class Namer
         return ("Core", new Version(2, 1));
 #elif NETCOREAPP2_2
         return ("Core", new Version(2, 2));
+#elif NETCOREAPP3_0
+        return ("Core", new Version(3, 0));
+#elif NETCOREAPP3_1
+        return ("Core", new Version(3, 1));
 #else
         var description = RuntimeInformation.FrameworkDescription;
 

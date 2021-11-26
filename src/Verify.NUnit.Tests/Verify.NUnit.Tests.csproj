@@ -12,7 +12,6 @@
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />

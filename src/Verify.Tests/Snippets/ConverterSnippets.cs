@@ -1,4 +1,4 @@
-﻿#if DEBUG
+﻿#if NET6_0 && DEBUG
 using System.Drawing;
 using System.Drawing.Imaging;
 using VerifyTests;
@@ -12,12 +12,12 @@ public class ConverterSnippets
     [ModuleInitializer]
     public static void RegisterFileConverterType()
     {
-        #region RegisterFileConverterType
+#region RegisterFileConverterType
 
         VerifierSettings.RegisterFileConverter<Image>(
-            #region ConverterCanConvert
+#region ConverterCanConvert
             canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
-            #endregion
+#endregion
             conversion: (image, settings) =>
             {
                 var pages = image.GetFrameCount(FrameDimension.Page);
@@ -40,24 +40,24 @@ public class ConverterSnippets
                     },
                     targets);
             });
-        #endregion
+#endregion
     }
 
     [Fact]
     public async Task Type()
     {
-        #region FileConverterTypeVerify
+#region FileConverterTypeVerify
 
         using var stream = File.OpenRead("sample.tif");
         await Verifier.Verify(Image.FromStream(stream));
 
-        #endregion
+#endregion
     }
 
     [Fact]
     public async Task Extension()
     {
-        #region RegisterFileConverterExtension
+#region RegisterFileConverterExtension
 
         VerifierSettings.RegisterFileConverter(
             fromExtension: "tif",
@@ -85,13 +85,13 @@ public class ConverterSnippets
                     targets);
             });
 
-        #endregion
+#endregion
 
-        #region FileConverterExtensionVerify
+#region FileConverterExtensionVerify
 
         await Verifier.VerifyFile("sample.tif");
 
-        #endregion
+#endregion
     }
 }
 #endif

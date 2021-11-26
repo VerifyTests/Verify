@@ -173,21 +173,14 @@ public class Namer
             return ("Net", version);
         }
 
-        var environmentVersion = Environment.Version;
-
-        if (description.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase))
-        {
-            return ("Core", environmentVersion);
-        }
-
         if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
         {
-            return ("DotNet", environmentVersion);
+            return ("DotNet", Environment.Version);
         }
 
         if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
         {
-            return ("Mono", environmentVersion);
+            return ("Mono", Environment.Version);
         }
 
         throw new($"Could not resolve runtime for '{description}'.");

@@ -40,7 +40,7 @@ class VerifyEngine
         }
 
         var stream = target.StreamData;
-#if NETSTANDARD2_0 || NETFRAMEWORK
+#if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
         using (stream)
 #else
         await using (stream)

@@ -156,6 +156,11 @@ public class Namer
 
     static (string runtime, Version Version) GetRuntimeAndVersion()
     {
+#if NETCOREAPP2_1
+        return ("Core", new Version(2, 1));
+#elif NETCOREAPP2_2
+        return ("Core", new Version(2, 2));
+#else
         var description = RuntimeInformation.FrameworkDescription;
 
         if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
@@ -182,5 +187,6 @@ public class Namer
         }
 
         throw new($"Could not resolve runtime for '{description}'.");
+#endif
     }
 }

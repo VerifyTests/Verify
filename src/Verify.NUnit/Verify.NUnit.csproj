@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;net5;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;net461;net472;net5;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net461;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
-    <PackageReference Include="IndexRange" Version="1.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472'" PrivateAssets="all" />
+    <PackageReference Include="IndexRange"
+                      Version="1.0.0"
+                      Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
   </ItemGroup>

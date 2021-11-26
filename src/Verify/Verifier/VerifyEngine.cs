@@ -40,11 +40,7 @@ class VerifyEngine
         }
 
         var stream = target.StreamData;
-#if NETSTANDARD2_0 || NETFRAMEWORK
         using (stream)
-#else
-        await using (stream)
-#endif
         {
             stream.MoveToStart();
             return await Comparer.Streams(settings, stream, filePair, previousTextHasFailed);

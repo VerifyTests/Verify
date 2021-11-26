@@ -11,11 +11,7 @@ partial class InnerVerifier
     async Task VerifyStream(Stream stream)
     {
         var extension = settings.extension;
-#if NETSTANDARD2_0 || NETFRAMEWORK
         using (stream)
-#else
-        await using (stream)
-#endif
         {
             if (extension is not null)
             {

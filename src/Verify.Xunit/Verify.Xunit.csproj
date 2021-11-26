@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net5;net6</TargetFrameworks>
-    <NoWarn>$(NoWarn);CS0436</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net472;net5;net6</TargetFrameworks>

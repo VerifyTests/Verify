@@ -8,7 +8,7 @@ static class ApplyScrubbers
 
     static ApplyScrubbers()
     {
-        var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory);
+        var baseDirectory = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         currentDirectoryReplacements.Add(baseDirectory + Path.DirectorySeparatorChar);
         currentDirectoryReplacements.Add(altBaseDirectory + Path.AltDirectorySeparatorChar);

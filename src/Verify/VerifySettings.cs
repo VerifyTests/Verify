@@ -32,11 +32,11 @@ public partial class VerifySettings
         {
             if (append.Data is ICloneable cloneable)
             {
-                Context.Add(append.Name, cloneable.Clone());
+                AppendValue(append.Name, cloneable.Clone());
             }
             else
             {
-                Context.Add(append.Name, append.Data);
+                AppendValue(append.Name, append.Data);
             }
         }
         foreach (var pair in settings.Context)

@@ -9,17 +9,14 @@
     <TargetFrameworks>net6;net48</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" Condition="$(TargetFramework) == 'net48'" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

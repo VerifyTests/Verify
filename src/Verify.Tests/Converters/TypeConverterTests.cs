@@ -1,10 +1,9 @@
-﻿using VerifyTests;
+﻿#if NET6_0 && DEBUG
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
-#if DEBUG
 using System.Drawing;
 using System.Drawing.Imaging;
-#endif
 
 [UsesVerify]
 public class TypeConverterTests
@@ -46,7 +45,7 @@ public class TypeConverterTests
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (_, _) =>
             {
-                #region ConversionResultWithCleanup
+#region ConversionResultWithCleanup
 
                 return new(
                     info: info,
@@ -58,7 +57,7 @@ public class TypeConverterTests
                         return Task.CompletedTask;
                     });
 
-                #endregion
+#endregion
             });
         var target = new TargetForCleanup
         {
@@ -136,7 +135,6 @@ public class TypeConverterTests
         public string Value { get; set; } = null!;
     }
 
-#if DEBUG
     [ModuleInitializer]
     public static void WithInfoInit()
     {
@@ -240,5 +238,5 @@ public class TypeConverterTests
         bitmap.Save(stream, ImageFormat.Png);
         yield return stream;
     }
-#endif
 }
+#endif

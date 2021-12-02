@@ -57,7 +57,7 @@ static class FileComparer
 
     static async Task<CompareResult> DoCompare(VerifySettings settings, StreamCompare compare, FilePair filePair)
     {
-#if NETSTANDARD2_0 || NETFRAMEWORK
+#if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
         using var fs1 = FileHelpers.OpenRead(filePair.Received);
         using var fs2 = FileHelpers.OpenRead(filePair.Verified);
 #else

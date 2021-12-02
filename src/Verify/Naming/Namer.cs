@@ -156,6 +156,15 @@ public class Namer
 
     static (string runtime, Version Version) GetRuntimeAndVersion()
     {
+#if NETCOREAPP2_1
+        return ("Core", new Version(2, 1));
+#elif NETCOREAPP2_2
+        return ("Core", new Version(2, 2));
+#elif NETCOREAPP3_0
+        return ("Core", new Version(3, 0));
+#elif NETCOREAPP3_1
+        return ("Core", new Version(3, 1));
+#else
         var description = RuntimeInformation.FrameworkDescription;
 
         if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
@@ -164,23 +173,17 @@ public class Namer
             return ("Net", version);
         }
 
-        var environmentVersion = Environment.Version;
-
-        if (description.StartsWith(".NET Core", StringComparison.OrdinalIgnoreCase))
-        {
-            return ("Core", environmentVersion);
-        }
-
         if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
         {
-            return ("DotNet", environmentVersion);
+            return ("DotNet", Environment.Version);
         }
 
         if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
         {
-            return ("Mono", environmentVersion);
+            return ("Mono", Environment.Version);
         }
 
         throw new($"Could not resolve runtime for '{description}'.");
+#endif
     }
 }

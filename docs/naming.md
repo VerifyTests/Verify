@@ -27,7 +27,7 @@ var settings = new VerifySettings();
 settings.UseDirectory("CustomDirectory");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L197-L203' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L193-L199' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: UseDirectoryFluent -->
@@ -36,7 +36,7 @@ await Verifier.Verify("value", settings);
 await Verifier.Verify("value")
     .UseDirectory("CustomDirectory");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L209-L214' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L205-L210' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
@@ -55,7 +55,7 @@ var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L220-L226' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L216-L222' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: UseTypeNameFluent -->
@@ -64,7 +64,7 @@ await Verifier.Verify("value", settings);
 await Verifier.Verify("value")
     .UseTypeName("CustomTypeName");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L232-L237' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L228-L233' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomTypeName.MethodName.verified.txt`.
@@ -81,7 +81,7 @@ var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L243-L249' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L239-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
@@ -92,7 +92,7 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 await Verifier.Verify("value")
     .UseMethodName("CustomMethodNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L255-L260' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L251-L256' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
@@ -116,7 +116,7 @@ public async Task MultipleCalls()
             .UseMethodName("MultipleCalls_2"));
 }
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L58-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-multiplecalls' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L54-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-multiplecalls' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -131,7 +131,7 @@ var settings = new VerifySettings();
 settings.UseFileName("CustomFileName");
 await Verifier.Verify("value", settings);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L165-L171' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L161-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `CustomFileName.verified.txt`.
@@ -142,7 +142,7 @@ Will result in `CustomFileName.verified.txt`.
 await Verifier.Verify("value")
     .UseFileName("CustomFileNameFluent");
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L186-L191' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L182-L187' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in `UseFileNameFluent.verified.txt`.
@@ -241,7 +241,7 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L5-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -329,7 +329,7 @@ public class UniqueForSample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L5-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L1-L82' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -435,7 +435,7 @@ public class UniqueForSample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L7-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L3-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -527,7 +527,7 @@ public class ExtensionSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L5-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in two files:
@@ -567,7 +567,7 @@ To access the current Namer `Runtime` or `RuntimeAndVersion` strings use:
 Debug.WriteLine(Namer.Runtime);
 Debug.WriteLine(Namer.RuntimeAndVersion);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L266-L271' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L262-L267' title='Snippet source file'>snippet source</a> | <a href='#snippet-accessnamerruntimeandversion' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -594,7 +594,7 @@ VerifierSettings.DerivePathInfo(
             methodName: method.Name);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L61-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L59-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.

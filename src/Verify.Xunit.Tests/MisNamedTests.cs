@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-
-public class NoAttributeTests
+﻿public class NoAttributeTests
 {
     [Fact]
     public async Task ShouldThrow()

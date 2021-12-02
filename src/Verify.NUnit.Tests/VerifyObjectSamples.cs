@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NUnit.Framework;
-using VerifyTests;
-using VerifyNUnit;
 
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618

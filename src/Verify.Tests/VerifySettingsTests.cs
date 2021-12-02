@@ -1,7 +1,4 @@
-﻿using VerifyTests;
-using Xunit;
-
-public class VerifySettingsTests
+﻿public class VerifySettingsTests
 {
     [Fact]
     public void ContextIsCloned()

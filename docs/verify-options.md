@@ -22,7 +22,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L96-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L94-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -59,5 +59,5 @@ public Task OnHandlersSample()
     return Verifier.Verify("value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L9-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L7-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

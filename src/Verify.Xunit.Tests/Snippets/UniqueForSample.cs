@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-#region UniqueForSampleXunit
+﻿#region UniqueForSampleXunit
 
 [UsesVerify]
 public class UniqueForSample

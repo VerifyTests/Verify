@@ -1,8 +1,4 @@
-﻿using Expecto;
-using Expecto.CSharp;
-using VerifyExpecto;
-
-public class Tests
+﻿public class Tests
 {
     [Tests] 
     public static Test tests = Runner.TestCase(

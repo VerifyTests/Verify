@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-public class FileComparerTests
+﻿public class FileComparerTests
 {
     [Fact]
     public async Task BinaryEquals()

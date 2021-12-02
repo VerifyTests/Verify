@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-#region ScrubbersSampleXunit
+﻿#region ScrubbersSampleXunit
 
 [UsesVerify]
 public class ScrubbersSample

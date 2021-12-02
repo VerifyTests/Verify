@@ -1,8 +1,4 @@
-﻿using NUnit.Framework;
-using VerifyNUnit;
-using VerifyTests;
-
-#region UniqueForSampleNUnit
+﻿#region UniqueForSampleNUnit
 
 [TestFixture]
 public class UniqueForSample

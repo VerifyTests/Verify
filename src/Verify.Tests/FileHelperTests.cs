@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-public class FileHelperTests
+﻿public class FileHelperTests
 {
     [Fact]
     public void ShouldNotLock()

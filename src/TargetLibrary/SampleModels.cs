@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-// Non-nullable field is uninitialized.
+﻿// Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 public class Person
 {

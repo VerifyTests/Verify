@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using VerifyNUnit;
-
-[TestFixture]
+﻿[TestFixture]
 public class ParametersSample
 {
     [TestCase("1.1")]

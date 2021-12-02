@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using VerifyNUnit;
-
-#region SampleTestNUnit
+﻿#region SampleTestNUnit
 
 [TestFixture]
 public class Sample

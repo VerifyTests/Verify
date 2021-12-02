@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyMSTest;
-
-namespace TheTests;
+﻿namespace TheTests;
 
 [TestClass]
 public class ParametersTests :

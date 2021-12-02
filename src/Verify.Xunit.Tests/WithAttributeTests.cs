@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class WithAttributeTests
 {
     [Fact]

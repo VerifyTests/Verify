@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyMSTest;
-using VerifyTests;
-
-namespace TheTests;
+﻿namespace TheTests;
 
 #region UniqueForSampleMSTest
 

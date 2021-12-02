@@ -1,7 +1,4 @@
 ﻿#if DEBUG
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class ComparerSnippets

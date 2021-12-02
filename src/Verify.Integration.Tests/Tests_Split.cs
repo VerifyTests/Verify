@@ -1,9 +1,6 @@
 ﻿#if DEBUG
 
 using DiffEngine;
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 
 public partial class Tests
 {

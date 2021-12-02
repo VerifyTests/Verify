@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class JsonAppenderTests : IDisposable
 {
     static AsyncLocal<bool> isInThisTest = new();

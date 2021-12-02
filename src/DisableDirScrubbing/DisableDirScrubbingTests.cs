@@ -1,5 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
+﻿using VerifyXunit;
 using Xunit;
 
 [UsesVerify]

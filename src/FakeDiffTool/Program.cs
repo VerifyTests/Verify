@@ -1,3 +1,1 @@
-﻿using System.Threading;
-
-Thread.Sleep(5000);
+﻿Thread.Sleep(5000);

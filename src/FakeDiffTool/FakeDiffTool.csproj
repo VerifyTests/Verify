@@ -4,6 +4,5 @@
     <TargetFrameworks>net6</TargetFrameworks>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin</OutputPath>
-    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 </Project>

@@ -1,9 +1,6 @@
 ﻿#if DEBUG && NET6_0
 using System.Drawing;
 using System.Drawing.Imaging;
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 // ReSharper disable UnusedParameter.Local
 
 [UsesVerify]

@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-
-#region SampleTestXunit
+﻿#region SampleTestXunit
 
 [UsesVerify]
 public class Sample

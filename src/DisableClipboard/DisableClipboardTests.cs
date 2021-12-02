@@ -1,8 +1,5 @@
 ﻿using DiffEngine;
 using TextCopy;
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public class DisableClipboardTests

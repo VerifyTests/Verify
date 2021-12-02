@@ -1,7 +1,4 @@
 ﻿#if NET6_0 && DEBUG
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 using System.Drawing;
 using System.Drawing.Imaging;
 

@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-public class Inherited : Base
+﻿public class Inherited : Base
 {
     [Test]
     public override Task TestToOverride()

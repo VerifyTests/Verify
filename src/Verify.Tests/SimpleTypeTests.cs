@@ -1,11 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
-using VerifyXunit;
-using Xunit;
-#if NET5_0_OR_GREATER
-using VerifyTests;
-#endif
 
 [UsesVerify]
 public class SimpleTypeTests

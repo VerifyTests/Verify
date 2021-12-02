@@ -6,13 +6,14 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net461;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Using Remove="System.Net.Http" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.61" PrivateAssets="All" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
-    <PackageReference Include="IndexRange"
-                      Version="1.0.0"
-                      Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
+    <PackageReference Include="IndexRange" Version="1.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
+    <Content Include="buildTransitive\Verify.Expecto.props" PackagePath="buildTransitive\Verify.Expecto.props" />
+    <Content Include="buildTransitive\Verify.Expecto.props" PackagePath="build\Verify.Expecto.props" />
   </ItemGroup>
 </Project>

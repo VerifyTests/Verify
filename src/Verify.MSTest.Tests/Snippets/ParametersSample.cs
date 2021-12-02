@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyTests;
-using VerifyMSTest;
-
-namespace TheTests;
+﻿namespace TheTests;
 
 #region MSTestDataRow
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace TheTests;
+﻿namespace TheTests;
 
 [TestClass]
 public class Inherited : Base

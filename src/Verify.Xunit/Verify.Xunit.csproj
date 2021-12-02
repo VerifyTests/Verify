@@ -6,6 +6,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net461;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Using Remove="System.Net.Http" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
@@ -14,5 +15,7 @@
     <PackageReference Include="IndexRange" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
+    <Content Include="buildTransitive\Verify.Xunit.props" PackagePath="buildTransitive\Verify.Xunit.props" />
+    <Content Include="buildTransitive\Verify.Xunit.props" PackagePath="build\Verify.Xunit.props" />
   </ItemGroup>
 </Project>

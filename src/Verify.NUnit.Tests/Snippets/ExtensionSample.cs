@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using VerifyNUnit;
-using VerifyTests;
-#region NUnitExtensionSample
+﻿#region NUnitExtensionSample
 [TestFixture]
 public class ExtensionSample
 {

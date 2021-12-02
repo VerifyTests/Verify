@@ -1,7 +1,4 @@
-﻿using VerifyXunit;
-using Xunit;
-
-namespace TheNamespace.Bar;
+﻿namespace TheNamespace.Bar;
 
 [UsesVerify]
 public class NamerInNamespaceTests

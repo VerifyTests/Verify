@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class ParametersSample
 {
     public static IEnumerable<object[]> GetDecimalData()

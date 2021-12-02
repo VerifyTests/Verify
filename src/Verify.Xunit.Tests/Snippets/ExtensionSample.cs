@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-#region XunitExtensionSample
+﻿#region XunitExtensionSample
 
 [UsesVerify]
 public class ExtensionSample

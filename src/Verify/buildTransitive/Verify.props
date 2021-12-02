@@ -34,4 +34,7 @@
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>
   </Target>
+  <ItemGroup Condition="'$(ImplicitUsings)' == 'enable'">
+    <Using Include="VerifyTests" />
+  </ItemGroup>
 </Project>

@@ -1,8 +1,4 @@
-﻿using NUnit.Framework;
-using VerifyNUnit;
-using VerifyTests;
-
-#region ScrubberLevelsSampleNUnit
+﻿#region ScrubberLevelsSampleNUnit
 
 [TestFixture]
 public class ScrubberLevelsSample

@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-#region xunitComplexMemberData
+﻿#region xunitComplexMemberData
 [UsesVerify]
 public class ComplexParametersSample
 {

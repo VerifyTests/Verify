@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyXunit;
-using Xunit;
-
-#region ScrubberLevelsSampleXunit
+﻿#region ScrubberLevelsSampleXunit
 
 [UsesVerify]
 public class ScrubberLevelsSample

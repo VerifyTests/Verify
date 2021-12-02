@@ -1,3 +1,1 @@
-﻿using Expecto.CSharp;
-
-return Runner.RunTestsInAssembly(Runner.DefaultConfig, args);
+﻿return Runner.RunTestsInAssembly(Runner.DefaultConfig, args);

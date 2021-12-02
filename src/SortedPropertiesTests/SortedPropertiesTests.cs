@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 
 #region SortProperties
 static class ModuleInitializer

@@ -1,9 +1,6 @@
 ﻿#if DEBUG
 using DiffEngine;
 using EmptyFiles;
-using VerifyTests;
-using VerifyXunit;
-using Xunit;
 
 [UsesVerify]
 public partial class Tests

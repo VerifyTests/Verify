@@ -38,7 +38,7 @@ public static class ContractResolutionHelpers
                 property.ShouldSerialize = instance =>
                 {
                     var value = member.GetValue<bool?>(instance);
-                    return value.GetValueOrDefault(false);
+                    return value != null;
                 };
             }
         }

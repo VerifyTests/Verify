@@ -9,23 +9,38 @@ public static class ContractResolutionHelpers
     {
         if (ignoreFalse)
         {
-            return;
-        }
-
-        if (property.PropertyType == typeof(bool))
-        {
-            property.DefaultValueHandling = DefaultValueHandling.Include;
-            return;
-        }
-
-        if (property.PropertyType == typeof(bool?))
-        {
-            property.DefaultValueHandling = DefaultValueHandling.Include;
-            property.ShouldSerialize = instance =>
+            if (property.PropertyType == typeof(bool))
             {
-                var value = member.GetValue<bool?>(instance);
-                return value.GetValueOrDefault(false);
-            };
+                property.DefaultValueHandling = DefaultValueHandling.Ignore;
+                return;
+            }
+
+            if (property.PropertyType == typeof(bool?))
+            {
+                property.ShouldSerialize = instance =>
+                {
+                    var value = member.GetValue<bool?>(instance);
+                    return value.GetValueOrDefault(false);
+                };
+            }
+        }
+        else
+        {
+            if (property.PropertyType == typeof(bool))
+            {
+                property.DefaultValueHandling = DefaultValueHandling.Include;
+                return;
+            }
+
+            if (property.PropertyType == typeof(bool?))
+            {
+                property.DefaultValueHandling = DefaultValueHandling.Include;
+                property.ShouldSerialize = instance =>
+                {
+                    var value = member.GetValue<bool?>(instance);
+                    return value != null;
+                };
+            }
         }
     }
 

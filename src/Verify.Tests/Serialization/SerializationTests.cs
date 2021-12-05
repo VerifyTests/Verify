@@ -49,8 +49,8 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<int, string>(new DescendingComparer<int>())
         {
-            {1, "1234"},
-            {2, "5678"}
+            { 1, "1234" },
+            { 2, "5678" }
         };
 
         return Verifier.Verify(dictionary);
@@ -61,8 +61,8 @@ public class SerializationTests
     {
         var target = new Dictionary<string, int>
         {
-            {"#", 1},
-            {"@", 2},
+            { "#", 1 },
+            { "@", 2 },
         };
 
         return Verifier.Verify(target);
@@ -73,8 +73,8 @@ public class SerializationTests
     {
         var target = new Dictionary<string, int>
         {
-            {"@", 2},
-            {"#", 1},
+            { "@", 2 },
+            { "#", 1 },
         };
 
         return Verifier.Verify(target);
@@ -107,9 +107,9 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())
         {
-            {"Entry_1", "1234"},
-            {"ignored", "1234"},
-            {"Entry_2", "5678"}
+            { "Entry_1", "1234" },
+            { "ignored", "1234" },
+            { "Entry_2", "5678" }
         };
 
         return Verifier.Verify(dictionary)
@@ -172,7 +172,7 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            {"ignored", "1234"}
+            { "ignored", "1234" }
         };
 
         if (DateTime.UtcNow.Ticks % 2 == 0)
@@ -310,12 +310,13 @@ public class SerializationTests
                 Id = 5,
                 OtherId = 5,
                 YetAnotherId = 4,
-                PossibleNullId = (int?) 5,
-                ActualNullId = (int?) null
+                PossibleNullId = (int?)5,
+                ActualNullId = (int?)null
             });
     }
 
     #endregion
+
     #region DisableNumericId
 
     [Fact]
@@ -345,8 +346,8 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?) 5,
-            ActualNullId = (int?) null
+            PossibleNullId = (int?)5,
+            ActualNullId = (int?)null
         };
 
         return Verifier.Verify(target);
@@ -446,14 +447,14 @@ public class SerializationTests
         return Verifier.Verify(
             new
             {
-                item1 = new NameValueCollection {{null, null}},
-                item2 = new NameValueCollection {{"key", null}},
-                item3 = new NameValueCollection {{null, "value"}},
-                item4 = new NameValueCollection {{"key", "value"}},
-                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
-                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
-                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
-                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}},
+                item1 = new NameValueCollection { { null, null } },
+                item2 = new NameValueCollection { { "key", null } },
+                item3 = new NameValueCollection { { null, "value" } },
+                item4 = new NameValueCollection { { "key", "value" } },
+                item5 = new NameValueCollection { { "key", "value1" }, { "key", "value2" } },
+                item6 = new NameValueCollection { { "key", null }, { "key", "value2" } },
+                item7 = new NameValueCollection { { "key", "value1" }, { "key", null } },
+                item8 = new NameValueCollection { { "key1", "value1" }, { "key2", "value2" } },
             });
     }
 
@@ -483,7 +484,7 @@ public class SerializationTests
         return Verifier.Verify(
             new
             {
-                bytes = new byte[] {1}
+                bytes = new byte[] { 1 }
             });
     }
 
@@ -497,7 +498,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new() { "Sam", "Mary" },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -518,6 +519,73 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task Bools_True_DontIgnoreFalse()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = true,
+            NullableBoolMember = true
+        };
+        return Verifier.Verify(target)
+            .ModifySerialization(x => x.DontIgnoreFalse());
+    }
+
+    [Fact]
+    public Task Bools_Null_DontIgnoreFalse()
+    {
+        var target = new BoolModel();
+        return Verifier.Verify(target)
+            .ModifySerialization(x => x.DontIgnoreFalse());
+    }
+
+    [Fact]
+    public Task Bools_False_DontIgnoreFalse()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = false
+        };
+        return Verifier.Verify(target)
+            .ModifySerialization(x => x.DontIgnoreFalse());
+    }
+
+    [Fact]
+    public Task Bools_True()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = true,
+            NullableBoolMember = true
+        };
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task Bools_Null()
+    {
+        var target = new BoolModel();
+        return Verifier.Verify(target);
+    }
+
+    [Fact]
+    public Task Bools_False()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = false
+        };
+        return Verifier.Verify(target);
+    }
+
+    public class BoolModel
+    {
+        public bool BoolMember;
+        public bool? NullableBoolMember;
+    }
+
+    [Fact]
     public Task TypeNameHandlingAll()
     {
         var person = new Person
@@ -527,7 +595,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new() { "Sam", "Mary" },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -848,7 +916,7 @@ public class SerializationTests
         #endregion
     }
 
-    void DontIgnoreFalse()
+    void DontIgnoreFalseGlobal()
     {
         #region DontIgnoreFalse
 
@@ -860,7 +928,7 @@ public class SerializationTests
     [Fact]
     public Task NewLineNotEscapedInProperty()
     {
-        return Verifier.Verify(new {Property = "a\r\nb\\nc"});
+        return Verifier.Verify(new { Property = "a\r\nb\\nc" });
     }
 
     void List()
@@ -938,7 +1006,7 @@ public class SerializationTests
     {
         var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {codeBaseLocation, altCodeBaseLocation});
+        return Verifier.Verify(new { codeBaseLocation, altCodeBaseLocation });
     }
 #endif
 
@@ -947,7 +1015,7 @@ public class SerializationTests
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verifier.Verify(new {baseDirectory, altBaseDirectory});
+        return Verifier.Verify(new { baseDirectory, altBaseDirectory });
     }
 
     class TypeTarget
@@ -973,7 +1041,7 @@ public class SerializationTests
     {
         #region type
 
-        var foo = new {x = 1};
+        var foo = new { x = 1 };
         var target = new TypeTarget
         {
             Type = GetType(),

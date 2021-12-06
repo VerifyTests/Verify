@@ -1,0 +1,4 @@
+﻿Results do not match.
+Differences:
+Received: OmitContentFromExceptionTests.String.received.txt
+Verified: OmitContentFromExceptionTests.String.verified.txt

@@ -229,7 +229,8 @@ class VerifyEngine
         builder.AppendLine($"Verified: {Path.GetFileName(item.Verified)}");
         if (message is null)
         {
-            if (EmptyFiles.Extensions.IsText(item.Extension))
+            if (!VerifierSettings.omitContentFromException &&
+                EmptyFiles.Extensions.IsText(item.Extension))
             {
                 builder.AppendLine("Received Content:");
                 builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
@@ -253,7 +254,8 @@ class VerifyEngine
         await VerifierSettings.RunOnFirstVerify(item);
 
         builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
-        if (EmptyFiles.Extensions.IsText(item.Extension))
+        if (!VerifierSettings.omitContentFromException &&
+            EmptyFiles.Extensions.IsText(item.Extension))
         {
             builder.AppendLine($"{Path.GetFileName(item.Received)}");
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");

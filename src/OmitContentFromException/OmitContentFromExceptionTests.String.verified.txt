@@ -1,0 +1,5 @@
+﻿Results do not match.
+Use DiffEngineTray to verify files.
+Differences:
+Received: OmitContentFromExceptionTests.String.received.txt
+Verified: OmitContentFromExceptionTests.String.verified.txt

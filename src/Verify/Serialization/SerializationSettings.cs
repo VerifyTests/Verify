@@ -59,7 +59,7 @@ public partial class SerializationSettings
             ignoredByNameMembers = ignoredByNameMembers.Clone(),
             ignoreEmptyCollections = ignoreEmptyCollections,
             ExtraSettings = ExtraSettings.Clone(),
-            ignoreFalse = ignoreFalse,
+            dontIgnoreFalse = dontIgnoreFalse,
             ignoreMembersThatThrow = ignoreMembersThatThrow.Clone(),
             ignoreMembersWithType = ignoreMembersWithType.Clone(),
             ignoredInstances = ignoredInstances
@@ -141,7 +141,7 @@ public partial class SerializationSettings
         SharedScrubber scrubber = new(scrubGuids, scrubDateTimes, settings);
         settings.ContractResolver = new CustomContractResolver(
             ignoreEmptyCollections,
-            ignoreFalse,
+            dontIgnoreFalse,
             includeObsoletes,
             scrubNumericIds,
             isNumericId,

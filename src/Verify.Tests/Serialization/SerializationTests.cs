@@ -518,68 +518,55 @@ public class SerializationTests
         return Verifier.Verify(person, settings);
     }
 
-    [Fact]
-    public Task Bools_True_DontIgnoreFalse()
+    [Theory]
+    [MemberData(nameof(GetBoolData))]
+    public Task Bools(bool boolean, bool? nullableBoolean, bool dontIgnoreFalse, bool includeDefault)
     {
         var target = new BoolModel
         {
-            BoolMember = true,
-            NullableBoolMember = true
+            BoolMember = boolean,
+            NullableBoolMember = nullableBoolean
         };
-        return Verifier.Verify(target)
-            .ModifySerialization(x => x.DontIgnoreFalse());
-    }
 
-    [Fact]
-    public Task Bools_Null_DontIgnoreFalse()
-    {
-        var target = new BoolModel();
-        return Verifier.Verify(target)
-            .ModifySerialization(x => x.DontIgnoreFalse());
-    }
-
-    [Fact]
-    public Task Bools_False_DontIgnoreFalse()
-    {
-        var target = new BoolModel
+        var settings = new VerifySettings();
+        settings.UseParameters(boolean, nullableBoolean, dontIgnoreFalse, includeDefault);
+        settings.ModifySerialization(serialization =>
         {
-            BoolMember = false,
-            NullableBoolMember = false
-        };
-        return Verifier.Verify(target)
-            .ModifySerialization(x => x.DontIgnoreFalse());
+            if (dontIgnoreFalse)
+            {
+                serialization.DontIgnoreFalse();
+            }
+
+            if (includeDefault)
+            {
+                serialization.AddExtraSettings(serializerSettings =>
+                {
+                    serializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+                });
+            }
+        });
+
+        return Verifier.Verify(target, settings);
     }
 
-    [Fact]
-    public Task Bools_True()
+    public static IEnumerable<object?[]> GetBoolData()
     {
-        var target = new BoolModel
+        foreach (var boolean in new[] { true, false })
+        foreach (var nullableBoolean in new bool?[] { true, false , null})
+        foreach (var dontIgnoreFalse in new[] { true, false })
+        foreach (var includeDefault in new[] { true, false })
         {
-            BoolMember = true,
-            NullableBoolMember = true
-        };
-        return Verifier.Verify(target);
+            yield return new object?[]
+            {
+                boolean,
+                nullableBoolean,
+                dontIgnoreFalse,
+                includeDefault
+            };
+        }
     }
 
-    [Fact]
-    public Task Bools_Null()
-    {
-        var target = new BoolModel();
-        return Verifier.Verify(target);
-    }
-
-    [Fact]
-    public Task Bools_False()
-    {
-        var target = new BoolModel
-        {
-            BoolMember = false,
-            NullableBoolMember = false
-        };
-        return Verifier.Verify(target);
-    }
-
-    public class BoolModel
+    class BoolModel
     {
         public bool BoolMember;
         public bool? NullableBoolMember;

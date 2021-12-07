@@ -1,0 +1,4 @@
+{
+  BoolMember: false,
+  NullableBoolMember: true
+}

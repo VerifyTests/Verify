@@ -137,10 +137,10 @@ public partial class SerializationSettings
         ignoreEmptyCollections = false;
     }
 
-    bool ignoreFalse = true;
+    bool dontIgnoreFalse;
 
     public void DontIgnoreFalse()
     {
-        ignoreFalse = false;
+        dontIgnoreFalse = true;
     }
 }

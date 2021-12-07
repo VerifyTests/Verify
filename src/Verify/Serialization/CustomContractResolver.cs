@@ -7,7 +7,7 @@ class CustomContractResolver :
     DefaultContractResolver
 {
     bool ignoreEmptyCollections;
-    bool ignoreFalse;
+    bool dontIgnoreFalse;
     bool includeObsoletes;
     bool scrubNumericIds;
     IsNumericId isNumericId;
@@ -21,7 +21,7 @@ class CustomContractResolver :
 
     public CustomContractResolver(
         bool ignoreEmptyCollections,
-        bool ignoreFalse,
+        bool dontIgnoreFalse,
         bool includeObsoletes,
         bool scrubNumericIds,
         IsNumericId isNumericId,
@@ -34,7 +34,7 @@ class CustomContractResolver :
         Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters)
     {
         this.ignoreEmptyCollections = ignoreEmptyCollections;
-        this.ignoreFalse = ignoreFalse;
+        this.dontIgnoreFalse = dontIgnoreFalse;
         this.includeObsoletes = includeObsoletes;
         this.scrubNumericIds = scrubNumericIds;
         this.isNumericId = isNumericId;
@@ -158,7 +158,7 @@ class CustomContractResolver :
             property.SkipEmptyCollections(member);
         }
 
-        property.ConfigureIfBool(member, ignoreFalse);
+        property.ConfigureIfBool(member, dontIgnoreFalse);
 
         if (ShouldIgnore(member, propertyType, property))
         {

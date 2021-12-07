@@ -254,7 +254,7 @@ public class SerializationTests
 
         VerifierSettings.ModifySerialization(settings =>
             settings.AddExtraSettings(serializerSettings =>
-                serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat));
+                serializerSettings.TypeNameHandling = TypeNameHandling.All));
 
         #endregion
     }

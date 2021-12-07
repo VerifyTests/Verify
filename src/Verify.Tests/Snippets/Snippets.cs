@@ -115,7 +115,6 @@ public class Snippets
 
         VerifierSettings.AddExtraSettings(_ =>
         {
-            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
             _.TypeNameHandling = TypeNameHandling.All;
         });
 
@@ -126,7 +125,6 @@ public class Snippets
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ =>
         {
-            _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
             _.TypeNameHandling = TypeNameHandling.All;
         });
 

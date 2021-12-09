@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
-    <PackageReference Include="DiffEngine" Version="8.4.5" />
+    <PackageReference Include="DiffEngine" Version="8.5.0" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.1.1" />
     <PackageReference Include="TextCopy" Version="4.3.1" />

@@ -990,7 +990,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubUserProfile()
     {
-        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath");
+        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\','/');
         return Verifier.Verify(target);
     }
     

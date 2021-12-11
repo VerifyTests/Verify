@@ -5,10 +5,16 @@ namespace VerifyTests;
 public static partial class VerifierSettings
 {
     static string profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+    private static string altProfileDirectory = profileDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
     internal static List<Action<StringBuilder>> GlobalScrubbers = new()
     {
-        builder => { builder.Replace(profileDirectory, "{UserProfile}"); }
+        builder =>
+        {
+            builder
+                .Replace(profileDirectory, "{UserProfile}")
+                .Replace(altProfileDirectory, "{UserProfile}");
+        }
     };
 
     internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();

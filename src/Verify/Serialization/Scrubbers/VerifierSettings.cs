@@ -4,7 +4,13 @@ namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder>> GlobalScrubbers = new();
+    static string profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+    internal static List<Action<StringBuilder>> GlobalScrubbers = new()
+    {
+        builder => { builder.Replace(profileDirectory, "{UserProfile}"); }
+    };
+
     internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();
 
     /// <summary>

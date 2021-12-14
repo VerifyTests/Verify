@@ -39,6 +39,19 @@ let MyTest () =
 <sup><a href='/src/FSharpTests/Tests.fs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Tasks can also be used directly via a `task` computation expression builder, such as the ones included in [Ply](https://github.com/crowded/ply), [TaskBuilder.fs](https://github.com/rspeele/TaskBuilder.fs), or (starting with F# 6.0) FSharp.Core:
+
+<!-- snippet: FsTestTask -->
+<a id='snippet-fstesttask'></a>
+```fs
+[<Fact>]
+let MyTaskTest () =
+  task {
+    do! Verifier.Verify(15)
+  }
+```
+<sup><a href='/src/FSharpTests/Tests.fs#L23-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstesttask' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 ## Full tests
 
@@ -64,6 +77,12 @@ let MyTest () =
   }
 
 [<Fact>]
+let MyTaskTest () =
+  task {
+    do! Verifier.Verify(15)
+  }
+
+[<Fact>]
 let WithFluentSetting () =
   async {
     do! Verifier.Verify(15)
@@ -72,5 +91,5 @@ let WithFluentSetting () =
   }
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-FSharpTests/Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-FSharpTests/Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

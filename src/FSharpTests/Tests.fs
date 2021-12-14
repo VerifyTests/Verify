@@ -20,6 +20,14 @@ let MyTest () =
   }
 // end-snippet
 
+// begin-snippet: FsTestTask
+[<Fact>]
+let MyTaskTest () =
+  task {
+    do! Verifier.Verify(15)
+  }
+// end-snippet
+
 // begin-snippet: WithSettings
 [<Fact>]
 let WithFluentSetting () =

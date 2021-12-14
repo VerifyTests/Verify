@@ -33,7 +33,7 @@ public class SortedPropertiesTests
             }
         };
 
-        return Verifier.Verify(person);
+        return Verify(person);
     }
     #endregion
 
@@ -55,7 +55,7 @@ public class SortedPropertiesTests
             }
         };
 
-        return Verifier.Verify(person)
+        return Verify(person)
             .AddExtraSettings(
                 _ => { _.TypeNameHandling = TypeNameHandling.All; });
     }

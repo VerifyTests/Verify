@@ -15,7 +15,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        await Verifier.Verify(
+        await Verify(
             target: @"
 <note>
   <to>Joe</to>
@@ -28,7 +28,7 @@ public class ExtensionSample
     [Test]
     public async Task AtMethodFluent()
     {
-        await Verifier.Verify(
+        await Verify(
                 target: @"
 <note>
   <to>Joe</to>
@@ -42,7 +42,7 @@ public class ExtensionSample
     [Test]
     public async Task SharedClassLevelSettings()
     {
-        await Verifier.Verify(
+        await Verify(
             target: @"
 {
   fruit: 'Apple',

@@ -11,13 +11,13 @@ public class ComparerSnippets
         var settings = new VerifySettings();
         settings.UseStreamComparer(CompareImages);
         settings.UseExtension("png");
-        return Verifier.VerifyFile("sample.png", settings);
+        return VerifyFile("sample.png", settings);
     }
 
     [Fact]
     public Task InstanceComparerFluent()
     {
-        return Verifier.VerifyFile("sample.png")
+        return VerifyFile("sample.png")
             .UseStreamComparer(CompareImages)
             .UseExtension("png");
     }
@@ -31,7 +31,7 @@ public class ComparerSnippets
         VerifierSettings.RegisterStreamComparer(
             extension: "png",
             compare: CompareImages);
-        await Verifier.VerifyFile("TheImage.png");
+        await VerifyFile("TheImage.png");
 
         #endregion
     }

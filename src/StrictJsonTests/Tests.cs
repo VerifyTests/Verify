@@ -13,27 +13,27 @@ public class Tests
     [Fact]
     public Task String()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 
     [Fact]
     public Task VerifyJsonString()
     {
         var json = "{'key': {'msg': 'No action taken'}}";
-        return Verifier.VerifyJson(json);
+        return VerifyJson(json);
     }
     
     [Fact]
     public Task VerifyJsonArrayString()
     {
         var json = "[{'key': {'msg': 'This is a proper json string'}}, {'key': {'msg': 'Foo'}}]";
-        return Verifier.VerifyJson(json);
+        return VerifyJson(json);
     }
 
     [Fact]
     public Task Dynamic()
     {
-        return Verifier.Verify(new {value = "Foo"});
+        return Verify(new {value = "Foo"});
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class Tests
         {
             Value = "Foo"
         };
-        await Verifier.Verify(target);
+        await Verify(target);
 
         #endregion
     }
@@ -63,7 +63,7 @@ public class Tests
                 };
                 return new(info, "txt", "content");
             });
-        return Verifier.Verify(new MemoryStream())
+        return Verify(new MemoryStream())
             .UseExtension("foo");
     }
 }

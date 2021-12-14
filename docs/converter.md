@@ -83,7 +83,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 <a id='snippet-fileconvertertypeverify'></a>
 ```cs
 using var stream = File.OpenRead("sample.tif");
-await Verifier.Verify(Image.FromStream(stream));
+await Verify(Image.FromStream(stream));
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L46-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -138,7 +138,7 @@ VerifierSettings.RegisterFileConverter(
 <!-- snippet: FileConverterExtensionVerify -->
 <a id='snippet-fileconverterextensionverify'></a>
 ```cs
-await Verifier.VerifyFile("sample.tif");
+await VerifyFile("sample.tif");
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L87-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

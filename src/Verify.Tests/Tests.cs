@@ -16,7 +16,7 @@ public class Tests
     [InlineData("a")]
     public Task ReplaceInvalidParamChar(string value)
     {
-        return Verifier.Verify("foo")
+        return Verify("foo")
             .UseParameters(Path.GetInvalidPathChars().First());
     }
 
@@ -24,7 +24,7 @@ public class Tests
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooFew(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verifier.Verify("Value").UseParameters(1));
+        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify("Value").UseParameters(1));
         Assert.Equal("The number of passed in parameters (1) must match the number of parameters for the method (2).", exception.Message);
     }
 
@@ -32,7 +32,7 @@ public class Tests
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooMany(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verifier.Verify("Value").UseParameters(1, 2, 3));
+        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify("Value").UseParameters(1, 2, 3));
         Assert.Equal("The number of passed in parameters (3) must match the number of parameters for the method (2).", exception.Message);
     }
 
@@ -44,7 +44,7 @@ public class Tests
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
         try
         {
-            await Verifier.Verify(value)
+            await Verify(value)
                 .UseParameters(value);
         }
         finally
@@ -56,7 +56,7 @@ public class Tests
     [Fact]
     public Task WithNewline()
     {
-        return Verifier.Verify(new { Property = "F\roo" });
+        return Verify(new { Property = "F\roo" });
     }
 
     [ModuleInitializer]
@@ -69,7 +69,7 @@ public class Tests
     [Fact]
     public Task TreatAsString()
     {
-        return Verifier.Verify(new ClassWithToString { Property = "Foo" });
+        return Verify(new ClassWithToString { Property = "Foo" });
     }
 
     class ClassWithToString
@@ -108,7 +108,7 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
         Assert.False(onFirstVerifyCalled);
         Assert.True(onVerifyMismatchCalled);
     }
@@ -142,7 +142,7 @@ public class Tests
 
                 return Task.CompletedTask;
             });
-        await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("value", settings));
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
     }
@@ -160,7 +160,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verifier.Verify(new MemoryStream(new byte[] { 1 }), settings)
+        await Verify(new MemoryStream(new byte[] { 1 }), settings)
             .UseExtension("SettingsArePassed");
     }
 
@@ -279,13 +279,13 @@ public class Tests
     [Fact]
     public Task StringBuilder()
     {
-        return Verifier.Verify(new StringBuilder("value"));
+        return Verify(new StringBuilder("value"));
     }
 
     [Fact]
     public Task NestedStringBuilder()
     {
-        return Verifier.Verify(new { StringBuilder = new StringBuilder("value") });
+        return Verify(new { StringBuilder = new StringBuilder("value") });
     }
 
     [Fact]
@@ -293,7 +293,7 @@ public class Tests
     {
         var target = new StringWriter();
         target.Write("content");
-        return Verifier.Verify(target);
+        return Verify(target);
     }
 
     [Fact]
@@ -301,7 +301,7 @@ public class Tests
     {
         var target = new StringWriter();
         target.Write("content");
-        return Verifier.Verify(new { target });
+        return Verify(new { target });
     }
 
     [Fact]
@@ -310,35 +310,35 @@ public class Tests
         var fullPath = Path.GetFullPath("../../../Tests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
-        await Verifier.Verify("a\r\nb");
+        await Verify("a\r\nb");
         PrefixUnique.Clear();
-        await Verifier.Verify("a\rb");
+        await Verify("a\rb");
         PrefixUnique.Clear();
-        await Verifier.Verify("a\nb");
+        await Verify("a\nb");
         PrefixUnique.Clear();
 
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\nb");
-        await Verifier.Verify("a\r\nb");
+        await Verify("a\r\nb");
         PrefixUnique.Clear();
-        await Verifier.Verify("a\rb");
+        await Verify("a\rb");
         PrefixUnique.Clear();
-        await Verifier.Verify("a\nb");
+        await Verify("a\nb");
         PrefixUnique.Clear();
 
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\rb");
-        await Verifier.Verify("a\r\nb");
+        await Verify("a\r\nb");
         PrefixUnique.Clear();
-        await Verifier.Verify("a\rb");
+        await Verify("a\rb");
         PrefixUnique.Clear();
-        await Verifier.Verify("a\nb");
+        await Verify("a\nb");
     }
 
     [Fact]
     public Task Stream()
     {
-        return Verifier.Verify(new MemoryStream(new byte[] { 1 }));
+        return Verify(new MemoryStream(new byte[] { 1 }));
     }
 
     [Fact]
@@ -346,7 +346,7 @@ public class Tests
     {
         MemoryStream stream = new(new byte[] { 1, 2, 3, 4 });
         stream.Position = 2;
-        return Verifier.Verify(stream);
+        return Verify(stream);
     }
 
     [Fact]
@@ -354,13 +354,13 @@ public class Tests
     {
         MemoryStream stream = new(Encoding.UTF8.GetBytes("foo"));
         stream.Position = 2;
-        return Verifier.Verify(stream).UseExtension("txt");
+        return Verify(stream).UseExtension("txt");
     }
 
     [Fact]
     public Task Streams()
     {
-        return Verifier.Verify(
+        return Verify(
             new List<Stream>
             {
                 new MemoryStream(new byte[] { 1 }),
@@ -371,7 +371,7 @@ public class Tests
     [Fact]
     public Task StreamsWithNull()
     {
-        return Verifier.Verify(
+        return Verify(
             new List<Stream?>
             {
                 new MemoryStream(new byte[] { 1 }),
@@ -382,17 +382,17 @@ public class Tests
     [Fact]
     public async Task ShouldNotIgnoreCase()
     {
-        await Verifier.Verify("A");
+        await Verify("A");
         var settings = new VerifySettings();
         settings.DisableDiff();
         PrefixUnique.Clear();
-        await Assert.ThrowsAsync<VerifyException>(() => Verifier.Verify("a", settings));
+        await Assert.ThrowsAsync<VerifyException>(() => Verify("a", settings));
     }
 
     [Fact]
     public Task Newlines()
     {
-        return Verifier.Verify("a\r\nb\nc\rd\r\n");
+        return Verify("a\r\nb\nc\rd\r\n");
     }
 
     class Element
@@ -410,7 +410,7 @@ public class Tests
         settings.DisableDiff();
 
         var element = new Element();
-        return Verifier.ThrowsTask(() => Verifier.Verify(element, settings))
+        return Verifier.ThrowsTask(() => Verify(element, settings))
             .IgnoreStackTrack();
     }
 
@@ -420,15 +420,14 @@ public class Tests
         var settings = new VerifySettings();
         settings.UseExtension("xml");
 
-        return Verifier
-            .Verify("<a>b</a>", settings);
+        return Verify("<a>b</a>", settings);
     }
 
     [Fact]
     public Task TaskResult()
     {
         var target = Task.FromResult("value");
-        return Verifier.Verify(target);
+        return Verify(target);
     }
 
     static async IAsyncEnumerable<string> AsyncEnumerableMethod()
@@ -442,7 +441,7 @@ public class Tests
     [Fact]
     public Task AsyncEnumerable()
     {
-        return Verifier.Verify(AsyncEnumerableMethod());
+        return Verify(AsyncEnumerableMethod());
     }
 
     static async IAsyncEnumerable<DisposableTarget> AsyncEnumerableDisposableMethod(DisposableTarget target)
@@ -455,7 +454,7 @@ public class Tests
     public async Task AsyncEnumerableDisposable()
     {
         var target = new DisposableTarget();
-        await Verifier.Verify(AsyncEnumerableDisposableMethod(target));
+        await Verify(AsyncEnumerableDisposableMethod(target));
         Assert.True(target.Disposed);
     }
 
@@ -469,7 +468,7 @@ public class Tests
     public async Task AsyncEnumerableAsyncDisposable()
     {
         var target = new AsyncDisposableTarget();
-        await Verifier.Verify(AsyncEnumerableAsyncDisposableMethod(target));
+        await Verify(AsyncEnumerableAsyncDisposableMethod(target));
         Assert.True(target.AsyncDisposed);
     }
 
@@ -478,7 +477,7 @@ public class Tests
     {
         var disposableTarget = new AsyncDisposableTarget();
         var target = Task.FromResult(disposableTarget);
-        await Verifier.Verify(target);
+        await Verify(target);
         Assert.True(disposableTarget.AsyncDisposed);
     }
 
@@ -508,7 +507,7 @@ public class Tests
     {
         var disposableTarget = new DisposableTarget();
         var target = Task.FromResult(disposableTarget);
-        await Verifier.Verify(target);
+        await Verify(target);
         Assert.True(disposableTarget.Disposed);
     }
 
@@ -532,21 +531,21 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.UseExtension("jpg");
-        await Verifier.Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
+        await Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
 #endif
 
     [Fact]
     public async Task VerifyFilePath()
     {
-        await Verifier.VerifyFile("sample.txt");
+        await VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
 
     [Fact]
     public async Task VerifyFileWithAppend()
     {
-        await Verifier.VerifyFile("sample.txt")
+        await VerifyFile("sample.txt")
             .AppendValue("key", "value");
     }
 

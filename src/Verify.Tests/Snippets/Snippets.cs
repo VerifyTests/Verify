@@ -25,7 +25,7 @@ public class Snippets
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });
-        return Verifier.Verify("value");
+        return Verify("value");
     }
 
     #endregion

@@ -14,14 +14,14 @@ public class ComplexParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verifier.Verify(arg, settings);
+        return Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberDataFluent(ComplexData arg)
     {
-        return Verifier.Verify(arg)
+        return Verify(arg)
             .UseParameters(arg);
     }
 

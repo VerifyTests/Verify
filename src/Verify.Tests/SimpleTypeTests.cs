@@ -12,38 +12,38 @@ public class SimpleTypeTests
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg.GetType());
-        return Verifier.Verify(arg, settings);
+        return Verify(arg, settings);
     }
     #endif
 
     [Fact]
     public Task StringWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult("theString"));
+        return Verify(Task.FromResult("theString"));
     }
 
     [Fact]
     public Task NullWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult<object?>(null));
+        return Verify(Task.FromResult<object?>(null));
     }
 
     [Fact]
     public Task StringEmptyWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult<object?>(string.Empty));
+        return Verify(Task.FromResult<object?>(string.Empty));
     }
 
     [Fact]
     public Task Null()
     {
-        return Verifier.Verify((string)null!);
+        return Verify((string)null!);
     }
 
     [Fact]
     public Task StringEmpty()
     {
-        return Verifier.Verify(string.Empty);
+        return Verify(string.Empty);
     }
 
 #if NET5_0_OR_GREATER
@@ -51,7 +51,7 @@ public class SimpleTypeTests
     [Fact]
     public Task DateTimeWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
+        return Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
     }
 
 #endif
@@ -59,7 +59,7 @@ public class SimpleTypeTests
     [Fact]
     public Task GuidWrappedInTask()
     {
-        return Verifier.Verify(Task.FromResult(new Guid("ebced679-45d3-4653-8791-3d969c4a986c")));
+        return Verify(Task.FromResult(new Guid("ebced679-45d3-4653-8791-3d969c4a986c")));
     }
 
     public static IEnumerable<object[]> GetData()

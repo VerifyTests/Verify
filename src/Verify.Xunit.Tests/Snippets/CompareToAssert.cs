@@ -27,7 +27,7 @@ public class CompareToAssert
     public Task SnapshotTest()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verifier.Verify(person);
+        return Verify(person);
     }
 
     #endregion

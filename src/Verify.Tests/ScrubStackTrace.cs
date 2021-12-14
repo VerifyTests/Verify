@@ -11,7 +11,7 @@ public class ScrubStackTrace
                 at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
                 at System.Web.HttpApplication.MapHandlerExecutionStep.Execute()
                 at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)");
-        return Verifier.Verify(scrubbed);
+        return Verify(scrubbed);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class ScrubStackTrace
                 at System.Web.HttpApplication.MapHandlerExecutionStep.Execute()
                 at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)",
             removeParams: true);
-        return Verifier.Verify(scrubbed);
+        return Verify(scrubbed);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class ScrubStackTrace
                 at System.Web.Mvc.MvcHandler.BeginProcessRequest (System.Web.HttpContext httpContext, System.AsyncCallback callback, System.Object state) [0x00000] in <filename unknown>:0
                 at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest (System.Web.HttpContext context, System.AsyncCallback cb, System.Object extraData) [0x00000] in <filename unknown>:0
                 at System.Web.HttpApplication+<Pipeline>c__Iterator3.MoveNext () [0x00000] in <filename unknown>:0");
-        return Verifier.Verify(scrubbed);
+        return Verify(scrubbed);
     }
 
     [Fact]
@@ -56,6 +56,6 @@ public class ScrubStackTrace
                 at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest (System.Web.HttpContext context, System.AsyncCallback cb, System.Object extraData) [0x00000] in <filename unknown>:0
                 at System.Web.HttpApplication+<Pipeline>c__Iterator3.MoveNext () [0x00000] in <filename unknown>:0",
             removeParams: true);
-        return Verifier.Verify(scrubbed);
+        return Verify(scrubbed);
     }
 }

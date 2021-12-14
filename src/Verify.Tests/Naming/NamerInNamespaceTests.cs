@@ -6,6 +6,6 @@ public class NamerInNamespaceTests
     [Fact]
     public Task Run()
     {
-        return Verifier.Verify("value");
+        return Verify("value");
     }
 }

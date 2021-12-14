@@ -15,7 +15,7 @@ public class DisableClipboardTests
     {
         try
         {
-            await Verifier.Verify("Foo");
+            await Verify("Foo");
         }
         catch
         {

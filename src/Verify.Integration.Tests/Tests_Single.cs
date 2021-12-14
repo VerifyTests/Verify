@@ -125,7 +125,7 @@ public partial class Tests
     {
         var command = BuildCommand(pair);
         ProcessCleanup.Refresh();
-        await Verifier.Verify(target(), settings);
+        await Verify(target(), settings);
         await Task.Delay(300);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(command);
@@ -168,12 +168,12 @@ public partial class Tests
     {
         if (settings.autoVerify)
         {
-            await Verifier.Verify(target(), settings);
+            await Verify(target(), settings);
             AssertExists(pair.Verified);
         }
         else
         {
-            await Throws(() => Verifier.Verify(target(), settings));
+            await Throws(() => Verify(target(), settings));
             ProcessCleanup.Refresh();
             AssertProcess(hasMatchingDiffTool, pair);
             if (hasMatchingDiffTool)

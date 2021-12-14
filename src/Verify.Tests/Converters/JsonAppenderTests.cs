@@ -41,7 +41,7 @@ public class JsonAppenderTests : IDisposable
     [Fact]
     public Task WithJsonAppender()
     {
-        return Verifier.Verify("TheValue");
+        return Verify("TheValue");
     }
 
     #endregion
@@ -51,7 +51,7 @@ public class JsonAppenderTests : IDisposable
     [Fact]
     public Task WithLocalJsonAppender()
     {
-        return Verifier.Verify("TheValue")
+        return Verify("TheValue")
             .AppendValue("name", "value");
     }
 
@@ -60,26 +60,26 @@ public class JsonAppenderTests : IDisposable
     [Fact]
     public Task NullText()
     {
-        return Verifier.Verify((string) null!);
+        return Verify((string) null!);
     }
 
     [Fact]
     public Task Anon()
     {
-        return Verifier.Verify(new {foo = "bar"});
+        return Verify(new {foo = "bar"});
     }
 
     #region JsonAppenderStream
     [Fact]
     public Task Stream()
     {
-        return Verifier.Verify(FileHelpers.OpenRead("sample.txt"));
+        return Verify(FileHelpers.OpenRead("sample.txt"));
     }
     #endregion
 
     [Fact]
     public Task File()
     {
-        return Verifier.VerifyFile("sample.txt");
+        return VerifyFile("sample.txt");
     }
 }

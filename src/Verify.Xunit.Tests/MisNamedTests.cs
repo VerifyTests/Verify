@@ -3,7 +3,7 @@
     [Fact]
     public async Task ShouldThrow()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("Foo"));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Foo"));
         Assert.Equal("Expected to find a `[UsesVerify]` on test class. File: MisNamedTests.cs.", exception.Message);
     }
 
@@ -12,7 +12,7 @@
         [Fact]
         public async Task ShouldThrow()
         {
-            var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("Foo"));
+            var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Foo"));
             Assert.Equal("Expected to find a `[UsesVerify]` on test class. File: MisNamedTests.cs.", exception.Message);
         }
     }

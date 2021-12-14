@@ -76,7 +76,7 @@ public partial class Tests
         var file1Command = BuildCommand(file1);
         var file2Command = BuildCommand(file2);
         ProcessCleanup.Refresh();
-        await Verifier.Verify(target, settings);
+        await Verify(target, settings);
         await Task.Delay(300);
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(infoCommand);
@@ -95,14 +95,14 @@ public partial class Tests
     {
         if (settings.autoVerify)
         {
-            await Verifier.Verify(target, settings);
+            await Verify(target, settings);
             AssertExists(info.Verified);
             AssertExists(file1.Verified);
             AssertExists(file2.Verified);
         }
         else
         {
-            await Throws(() => Verifier.Verify(target, settings));
+            await Throws(() => Verify(target, settings));
             ProcessCleanup.Refresh();
             AssertProcess(hasMatchingDiffTool, info, file1, file2);
             if (hasMatchingDiffTool)

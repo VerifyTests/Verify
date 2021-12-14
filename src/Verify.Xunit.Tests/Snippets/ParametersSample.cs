@@ -10,7 +10,7 @@ public class ParametersSample
     [MemberData(nameof(GetDecimalData))]
     public async Task Decimal(decimal arg)
     {
-        await Verifier.Verify(arg)
+        await Verify(arg)
             .UseParameters(arg);
     }
 
@@ -18,7 +18,7 @@ public class ParametersSample
     [InlineData((float) 1.1)]
     public async Task Float(float arg)
     {
-        await Verifier.Verify(arg)
+        await Verify(arg)
             .UseParameters(arg);
     }
 
@@ -26,7 +26,7 @@ public class ParametersSample
     [InlineData(1.1d)]
     public async Task Double(double arg)
     {
-        await Verifier.Verify(arg)
+        await Verify(arg)
             .UseParameters(arg);
     }
 
@@ -39,7 +39,7 @@ public class ParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verifier.Verify(arg, settings);
+        return Verify(arg, settings);
     }
 
     [Theory]
@@ -47,7 +47,7 @@ public class ParametersSample
     [InlineData("Value2")]
     public Task InlineDataUsageFluent(string arg)
     {
-        return Verifier.Verify(arg)
+        return Verify(arg)
             .UseParameters(arg);
     }
 
@@ -61,14 +61,14 @@ public class ParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verifier.Verify(arg, settings);
+        return Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetData))]
     public Task MemberDataUsageFluent(string arg)
     {
-        return Verifier.Verify(arg)
+        return Verify(arg)
             .UseParameters(arg);
     }
 

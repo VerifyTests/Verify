@@ -16,7 +16,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verifier.Verify(
+        return Verify(
             target: @"
 <note>
   <to>Joe</to>
@@ -29,7 +29,7 @@ public class ExtensionSample
     [Fact]
     public Task AtMethodFluent()
     {
-        return Verifier.Verify(
+        return Verify(
                 target: @"
 <note>
   <to>Joe</to>
@@ -43,7 +43,7 @@ public class ExtensionSample
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verifier.Verify(
+        return Verify(
             target: @"
 {
   fruit: 'Apple',

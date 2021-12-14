@@ -4,12 +4,12 @@ public class Base
     [Fact]
     public Task TestInBase()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 
     [Fact]
     public virtual Task TestToOverride()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 }

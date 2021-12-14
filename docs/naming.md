@@ -25,7 +25,7 @@ The directory that contains the test. A custom directory can be used via `UseDir
 ```cs
 var settings = new VerifySettings();
 settings.UseDirectory("CustomDirectory");
-await Verifier.Verify("value", settings);
+await Verify("value", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L193-L199' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -33,7 +33,7 @@ await Verifier.Verify("value", settings);
 <!-- snippet: UseDirectoryFluent -->
 <a id='snippet-usedirectoryfluent'></a>
 ```cs
-await Verifier.Verify("value")
+await Verify("value")
     .UseDirectory("CustomDirectory");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L205-L210' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
@@ -53,7 +53,7 @@ The class name that contains the test. A custom test name can be used via `UseTy
 ```cs
 var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
-await Verifier.Verify("value", settings);
+await Verify("value", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L216-L222' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -61,7 +61,7 @@ await Verifier.Verify("value", settings);
 <!-- snippet: UseTypeNameFluent -->
 <a id='snippet-usetypenamefluent'></a>
 ```cs
-await Verifier.Verify("value")
+await Verify("value")
     .UseTypeName("CustomTypeName");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L228-L233' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
@@ -79,7 +79,7 @@ The test method name. A custom test name can be used via `UseMethodName`:
 ```cs
 var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
-await Verifier.Verify("value", settings);
+await Verify("value", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L239-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -89,7 +89,7 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 <!-- snippet: UseMethodNameFluent -->
 <a id='snippet-usemethodnamefluent'></a>
 ```cs
-await Verifier.Verify("value")
+await Verify("value")
     .UseMethodName("CustomMethodNameFluent");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L251-L256' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
@@ -110,9 +110,9 @@ Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 public async Task MultipleCalls()
 {
     await Task.WhenAll(
-        Verifier.Verify("Value1")
+        Verify("Value1")
             .UseMethodName("MultipleCalls_1"),
-        Verifier.Verify("Value1")
+        Verify("Value1")
             .UseMethodName("MultipleCalls_2"));
 }
 ```
@@ -129,7 +129,7 @@ To fully control the `{TestClassName}.{TestMethodName}_{Parameters}` parts of th
 ```cs
 var settings = new VerifySettings();
 settings.UseFileName("CustomFileName");
-await Verifier.Verify("value", settings);
+await Verify("value", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L161-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -139,7 +139,7 @@ Will result in `CustomFileName.verified.txt`.
 <!-- snippet: UseFileNameFluent -->
 <a id='snippet-usefilenamefluent'></a>
 ```cs
-await Verifier.Verify("value")
+await Verify("value")
     .UseFileName("CustomFileNameFluent");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L182-L187' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>
@@ -177,13 +177,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
     public Task RuntimeFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForRuntime();
     }
 
@@ -192,7 +192,7 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
@@ -200,13 +200,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
     public Task AssemblyConfigurationFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForAssemblyConfiguration();
     }
 
@@ -215,13 +215,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForArchitecture();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
     public Task ArchitectureFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForArchitecture();
     }
 
@@ -230,13 +230,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Fact]
     public Task OSPlatformFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForOSPlatform();
     }
 }
@@ -258,13 +258,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntime();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
     public Task RuntimeFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForRuntime();
     }
 
@@ -273,13 +273,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
     public Task AssemblyConfigurationFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForAssemblyConfiguration();
     }
 
@@ -288,13 +288,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForRuntimeAndVersion();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
     public Task RuntimeAndVersionFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForRuntimeAndVersion();
     }
 
@@ -303,13 +303,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForArchitecture();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
     public Task ArchitectureFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForArchitecture();
     }
 
@@ -318,13 +318,13 @@ public class UniqueForSample
     {
         var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
-        return Verifier.Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Test]
     public Task OSPlatformFluent()
     {
-        return Verifier.Verify("value")
+        return Verify("value")
             .UniqueForOSPlatform();
     }
 }
@@ -489,7 +489,7 @@ public class ExtensionSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.UseExtension("xml");
-        return Verifier.Verify(
+        return Verify(
             target: @"
 <note>
   <to>Joe</to>
@@ -502,7 +502,7 @@ public class ExtensionSample
     [Fact]
     public Task AtMethodFluent()
     {
-        return Verifier.Verify(
+        return Verify(
                 target: @"
 <note>
   <to>Joe</to>
@@ -516,7 +516,7 @@ public class ExtensionSample
     [Fact]
     public Task SharedClassLevelSettings()
     {
-        return Verifier.Verify(
+        return Verify(
             target: @"
 {
   fruit: 'Apple',

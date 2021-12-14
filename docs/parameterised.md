@@ -40,7 +40,7 @@ public Task InlineDataUsage(string arg)
 {
     var settings = new VerifySettings();
     settings.UseParameters(arg);
-    return Verifier.Verify(arg, settings);
+    return Verify(arg, settings);
 }
 
 [Theory]
@@ -48,7 +48,7 @@ public Task InlineDataUsage(string arg)
 [InlineData("Value2")]
 public Task InlineDataUsageFluent(string arg)
 {
-    return Verifier.Verify(arg)
+    return Verify(arg)
         .UseParameters(arg);
 }
 ```
@@ -67,14 +67,14 @@ public Task MemberDataUsage(string arg)
 {
     var settings = new VerifySettings();
     settings.UseParameters(arg);
-    return Verifier.Verify(arg, settings);
+    return Verify(arg, settings);
 }
 
 [Theory]
 [MemberData(nameof(GetData))]
 public Task MemberDataUsageFluent(string arg)
 {
-    return Verifier.Verify(arg)
+    return Verify(arg)
         .UseParameters(arg);
 }
 
@@ -110,14 +110,14 @@ public class ComplexParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verifier.Verify(arg, settings);
+        return Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberDataFluent(ComplexData arg)
     {
-        return Verifier.Verify(arg)
+        return Verify(arg)
             .UseParameters(arg);
     }
 
@@ -157,7 +157,7 @@ public class ComplexParametersSample
 [TestCase("Value2")]
 public Task TestCaseUsage(string arg)
 {
-    return Verifier.Verify(arg);
+    return Verify(arg);
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
@@ -220,7 +220,7 @@ public Task UseTextForParameters(string arg)
 {
     var settings = new VerifySettings();
     settings.UseTextForParameters(arg);
-    return Verifier.Verify(arg, settings);
+    return Verify(arg, settings);
 }
 
 [Theory]
@@ -228,7 +228,7 @@ public Task UseTextForParameters(string arg)
 [InlineData("Value2")]
 public Task UseTextForParametersFluent(string arg)
 {
-    return Verifier.Verify(arg)
+    return Verify(arg)
         .UseTextForParameters(arg);
 }
 ```

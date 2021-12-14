@@ -1,4 +1,5 @@
-﻿[UsesVerify]
+﻿
+[UsesVerify]
 public class Tests
 {
     [Fact]
@@ -15,34 +16,34 @@ public class Tests
                 Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
-        return Verifier.Verify("Value");
+        return Verify("Value");
     }
 
     [Fact]
     public Task ReturnNulls()
     {
         VerifierSettings.DerivePathInfo((_, _, _, _) => new(null));
-        return Verifier.Verify("Value");
+        return Verify("Value");
     }
 
     [Fact]
     public Task InvalidMethod()
     {
         VerifierSettings.DerivePathInfo((_, _, _, _) => new(null, null, Path.GetInvalidFileNameChars().First().ToString()));
-        return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
+        return Assert.ThrowsAsync<ArgumentException>(() =>  Verify("Value"));
     }
 
     [Fact]
     public Task InvalidType()
     {
         VerifierSettings.DerivePathInfo((_, _, _, _) => new(null, Path.GetInvalidFileNameChars().First().ToString()));
-        return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
+        return Assert.ThrowsAsync<ArgumentException>(() =>  Verify("Value"));
     }
 
     [Fact]
     public Task InvalidDirectory()
     {
         VerifierSettings.DerivePathInfo((_, _, _, _) => new(Path.GetInvalidPathChars().First().ToString()));
-        return Assert.ThrowsAsync<ArgumentException>(() =>  Verifier.Verify("Value"));
+        return Assert.ThrowsAsync<ArgumentException>(() =>  Verify("Value"));
     }
 }

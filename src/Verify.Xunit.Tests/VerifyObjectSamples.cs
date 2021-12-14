@@ -17,7 +17,7 @@ public class VerifyObjectSamples
             _.DontScrubDateTimes();
             _.DontIgnoreFalse();
         });
-        await Verifier.Verify(target, settings);
+        await Verify(target, settings);
         #endregion
     }
 
@@ -31,7 +31,7 @@ public class VerifyObjectSamples
         };
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
-        return Verifier.Verify(person, settings);
+        return Verify(person, settings);
     }
 
     async Task Before()
@@ -50,7 +50,7 @@ public class VerifyObjectSamples
             }
         };
 
-        await Verifier.Verify(person);
+        await Verify(person);
 
         #endregion
     }
@@ -70,7 +70,7 @@ public class VerifyObjectSamples
             FamilyName = "Aguirre"
         };
 
-        return Verifier.Verify(
+        return Verify(
             new
             {
                 person1,
@@ -96,7 +96,7 @@ public class VerifyObjectSamples
             }
         };
 
-        await Verifier.Verify(person);
+        await Verify(person);
 
         #endregion
     }

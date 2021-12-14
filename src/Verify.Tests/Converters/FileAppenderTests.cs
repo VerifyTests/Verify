@@ -32,36 +32,36 @@ public class FileAppenderTests :
     [Fact]
     public Task Text()
     {
-        return Verifier.Verify("Foo");
+        return Verify("Foo");
     }
 
     [Fact]
     public Task NullText()
     {
-        return Verifier.Verify((string) null!);
+        return Verify((string) null!);
     }
 
     [Fact]
     public Task EmptyString()
     {
-        return Verifier.Verify(string.Empty);
+        return Verify(string.Empty);
     }
 
     [Fact]
     public Task Anon()
     {
-        return Verifier.Verify(new {foo = "bar"});
+        return Verify(new {foo = "bar"});
     }
 
     [Fact]
     public Task Stream()
     {
-        return Verifier.Verify(FileHelpers.OpenRead("sample.txt"));
+        return Verify(FileHelpers.OpenRead("sample.txt"));
     }
 
     [Fact]
     public Task File()
     {
-        return Verifier.VerifyFile("sample.txt");
+        return VerifyFile("sample.txt");
     }
 }

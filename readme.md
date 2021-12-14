@@ -95,7 +95,7 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verifier.Verify(person);
+        return Verify(person);
     }
 }
 ```
@@ -119,7 +119,7 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verifier.Verify(person);
+        return Verify(person);
     }
 }
 ```
@@ -316,7 +316,7 @@ The same approach can be used to verify the results and the change to `Sample.Te
 public Task VerifyJsonString()
 {
     var json = "{'key': {'msg': 'No action taken'}}";
-    return Verifier.VerifyJson(json);
+    return VerifyJson(json);
 }
 
 [Fact]
@@ -324,7 +324,7 @@ public Task VerifyJsonStream()
 {
     var json = "{'key': {'msg': 'No action taken'}}";
     MemoryStream stream = new(Encoding.UTF8.GetBytes(json));
-    return Verifier.VerifyJson(stream);
+    return VerifyJson(stream);
 }
 
 [Fact]
@@ -332,7 +332,7 @@ public Task VerifyJsonJToken()
 {
     var json = "{'key': {'msg': 'No action taken'}}";
     var target = JToken.Parse(json);
-    return Verifier.VerifyJson(target);
+    return VerifyJson(target);
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1813-L1838' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
@@ -374,7 +374,7 @@ public class StaticSettings
     [Fact]
     public Task Test()
     {
-        return Verifier.Verify("String to verify");
+        return Verify("String to verify");
     }
 }
 

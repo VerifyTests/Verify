@@ -5,7 +5,7 @@ public class AttributeReaderTests
     public Task Simple()
     {
         var assembly = typeof(AttributeReaderTests).Assembly;
-        return Verifier.Verify(
+        return Verify(
             new
             {
                 ProjectDirectory = AttributeReader.GetProjectDirectory(assembly),

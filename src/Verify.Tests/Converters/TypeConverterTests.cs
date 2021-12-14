@@ -21,7 +21,7 @@ public class TypeConverterTests
         };
         var settings = new VerifySettings();
         settings.UseExtension("txt");
-        return Verifier.Verify(target, settings);
+        return Verify(target, settings);
     }
 
     class ParentClass
@@ -60,7 +60,7 @@ public class TypeConverterTests
         {
             Value = "line1"
         };
-        await Verifier.Verify(target);
+        await Verify(target);
         Assert.False(File.Exists(filePath));
     }
 
@@ -83,7 +83,7 @@ public class TypeConverterTests
         {
             Value = $"line1{Environment.NewLine}line2"
         };
-        return Verifier.Verify(target);
+        return Verify(target);
     }
 
     public class ClassToSplit
@@ -106,7 +106,7 @@ public class TypeConverterTests
         {
             Value = "Invalid"
         };
-        return Verifier.Verify(target);
+        return Verify(target);
     }
 
     [ModuleInitializer]
@@ -124,7 +124,7 @@ public class TypeConverterTests
         {
             Value = "Valid"
         };
-        return Verifier.Verify(target);
+        return Verify(target);
     }
 
     class CanConvertTarget
@@ -163,7 +163,7 @@ public class TypeConverterTests
             }
         };
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
-        return Verifier.Verify(bitmap, settings);
+        return Verify(bitmap, settings);
     }
 
     [ModuleInitializer]
@@ -197,7 +197,7 @@ public class TypeConverterTests
         };
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
-        return Verifier.Verify(bitmap, settings);
+        return Verify(bitmap, settings);
     }
 
     [ModuleInitializer]
@@ -226,7 +226,7 @@ public class TypeConverterTests
             }
         };
         Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
-        return Verifier.Verify(bitmap, settings);
+        return Verify(bitmap, settings);
     }
 
     static IEnumerable<Stream> ConvertBmpTpPngStreams(Bitmap bitmap)

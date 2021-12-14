@@ -12,11 +12,11 @@ public class OmitContentFromExceptionTests
     {
         try
         {
-            await Verifier.Verify("Foo").DisableDiff();
+            await Verify("Foo").DisableDiff();
         }
         catch (Exception exception)
         {
-            await Verifier.Verify(exception.Message).ScrubLinesContaining("DiffEngineTray");
+            await Verify(exception.Message).ScrubLinesContaining("DiffEngineTray");
         }
     }
 }

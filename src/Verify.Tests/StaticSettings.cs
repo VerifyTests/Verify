@@ -4,7 +4,7 @@ public class StaticSettings
     [Fact]
     public Task Test()
     {
-        return Verifier.Verify("String to verify");
+        return Verify("String to verify");
     }
 }
 

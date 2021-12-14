@@ -53,13 +53,13 @@ public Task InstanceComparer()
     var settings = new VerifySettings();
     settings.UseStreamComparer(CompareImages);
     settings.UseExtension("png");
-    return Verifier.VerifyFile("sample.png", settings);
+    return VerifyFile("sample.png", settings);
 }
 
 [Fact]
 public Task InstanceComparerFluent()
 {
-    return Verifier.VerifyFile("sample.png")
+    return VerifyFile("sample.png")
         .UseStreamComparer(CompareImages)
         .UseExtension("png");
 }
@@ -76,7 +76,7 @@ public Task InstanceComparerFluent()
 VerifierSettings.RegisterStreamComparer(
     extension: "png",
     compare: CompareImages);
-await Verifier.VerifyFile("TheImage.png");
+await VerifyFile("TheImage.png");
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L29-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

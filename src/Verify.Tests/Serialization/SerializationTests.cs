@@ -991,7 +991,7 @@ public class SerializationTests
     public Task ScrubUserProfile()
     {
         var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\','/');
-        return Verify(target);
+        return Verify(target).UniqueForOSPlatform();
     }
     
 #if !NET5_0_OR_GREATER

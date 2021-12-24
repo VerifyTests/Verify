@@ -13,7 +13,7 @@ public class Approvals
     public static void Verify(FileInfo receivedFilePath)
     {
     }
-    
+
     [Obsolete("See https://github.com/VerifyTests/Verify/blob/main/docs/naming.md", true)]
     public static void RegisterDefaultNamerCreation(Func<IApprovalNamer> creator)
     {
@@ -31,14 +31,14 @@ public class Approvals
 
     [Obsolete(@"Use Verifier.Verify(text)
 .AddScrubber(scrubber)", true)]
-    public static void Verify(string text, Func<string, string> scrubber = null)
+    public static void Verify(string text, Func<string, string>? scrubber = null)
     {
     }
 
     [Obsolete(@"Use Verifier.Verify(text)
 .UseExtension(fileExtensionWithDot)
 .AddScrubber(scrubber)", true)]
-    public static void VerifyWithExtension(string text, string fileExtensionWithDot, Func<string, string> scrubber = null)
+    public static void VerifyWithExtension(string text, string fileExtensionWithDot, Func<string, string>? scrubber = null)
     {
     }
 
@@ -97,7 +97,7 @@ public class Approvals
     {
         VerifyAll(dictionary.OrderBy(p => p.Key), p => formatter(p.Key, p.Value));
     }
-        
+
     [Obsolete("Use Verifier.Verify(byte[]).UseExtension(\"ext\")", true)]
     public static void VerifyBinaryFile(byte[] bytes, string fileExtensionWithDot)
     {

@@ -62,7 +62,7 @@ In ApprovalTests both these features are opt-in through attributes.
 
 ## Migrating from ApprovalTests
 
-This is a work-in-progress, feel free to contribute more information via a Pull Request.
+This is a work-in-progress, to contribute more information submit a Pull Request.
 
   * Choose an [approach to snapshot management](/#snapshot-management).
   * Remove all ApprovalTests* NuGets.

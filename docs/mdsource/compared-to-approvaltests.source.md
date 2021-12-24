@@ -62,12 +62,14 @@ In ApprovalTests both these features are opt-in through attributes.
 
 ## Migrating from ApprovalTests
 
+This is a work-in-progress, feel free to contribute more information via a Pull Request.
+
   * Choose an [approach to snapshot management](/#snapshot-management).
   * Remove all ApprovalTests* NuGets.
   * Add a reference to the specific test framework variant of Verify ([Verify.Xunit](https://www.nuget.org/packages/Verify.Xunit/)/[Verify.NUnit](https://www.nuget.org/packages/Verify.NUnit/)/[Verify.Expecto](https://www.nuget.org/packages/Verify.Expecto/)/[Verify.MSTest](https://www.nuget.org/packages/Verify.MSTest/)).
   * Add the [Verify.ApprovalTestsTransition](https://www.nuget.org/packages/Verify.ApprovalTestsTransition/) NuGet. This NuGet contains signatures for the commonly used ApprocalTests APIs. These APIs a attributed with `[Obsolete]` that point to the alternative APIs and/or documentation. This NuGet is a work-in-progress, submit a PR is more APIs are required.
-  * Fix all obsoletes
-  * Remove the Verify.ApprovalTestsTransition NuGet 
+  * Fix all obsoletes.
+  * Remove the Verify.ApprovalTestsTransition NuGet.
   * Delete all `*.approved.*` files.
   * Run all tests.
   * Accept all `*.verified.*` files.

@@ -198,10 +198,13 @@ Verify follows [Semantic Versioning](https://semver.org/). The same applies for 
 Snapshot changes do not trigger a major version change to avoid causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
 
 
-## Videos
+## Media
 
  * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
  * [OSS Power-Ups: Verify](https://www.youtube.com/watch?v=ZD5-51iCmU0)
+ * [Unhandled Exception podcast: Snapshot Testing](https://unhandledexceptionpodcast.com/posts/0029-snapshottesting/)
+ * [Testing an incremental generator with snapshot testing](https://andrewlock.net/creating-a-source-generator-part-2-testing-an-incremental-generator-with-snapshot-testing/)
+ * [5 helpful Nuget package for Unit Testing in .NET](https://medium.com/@niteshsinghal85/5-helpful-nuget-package-for-unit-testing-in-net-87c2e087c6d)
 
 
 ## Extensions

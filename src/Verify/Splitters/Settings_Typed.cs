@@ -35,9 +35,7 @@ public static partial class VerifierSettings
         AsyncConversion<T> conversion,
         CanConvert<T>? canConvert = null)
     {
-        TypeConverter converter = new(
-            (o, context) => conversion((T) o, context),
-            DefaultCanConvert(canConvert));
+        var converter = new TypeConverter((o, context) => conversion((T) o, context), DefaultCanConvert(canConvert));
         typedConverters.Add(converter);
     }
 
@@ -54,9 +52,7 @@ public static partial class VerifierSettings
         AsyncConversion conversion,
         CanConvert canConvert)
     {
-        TypeConverter converter = new(
-            conversion,
-            canConvert);
+        var converter = new TypeConverter(conversion, canConvert);
         typedConverters.Add(converter);
     }
 

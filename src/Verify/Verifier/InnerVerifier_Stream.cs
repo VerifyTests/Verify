@@ -4,7 +4,7 @@ partial class InnerVerifier
 {
     public Task Verify(byte[] target)
     {
-        MemoryStream stream = new(target);
+        var stream = new MemoryStream(target);
         return VerifyStream(stream);
     }
 

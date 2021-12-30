@@ -162,7 +162,7 @@ public class TypeConverterTests
                 ["name"] = nameof(WithInfo)
             }
         };
-        Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 
@@ -196,7 +196,7 @@ public class TypeConverterTests
             }
         };
         settings.ModifySerialization(_ => { _.IgnoreMember("Property"); });
-        Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 
@@ -225,7 +225,7 @@ public class TypeConverterTests
                 ["name"] = nameof(TypeConversion)
             }
         };
-        Bitmap bitmap = new(FileHelpers.OpenRead("sample.bmp"));
+        var bitmap = new Bitmap(FileHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 

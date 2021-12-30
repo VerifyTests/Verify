@@ -325,7 +325,7 @@ public Task VerifyJsonString()
 public Task VerifyJsonStream()
 {
     var json = "{'key': {'msg': 'No action taken'}}";
-    MemoryStream stream = new(Encoding.UTF8.GetBytes(json));
+    var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
     return VerifyJson(stream);
 }
 

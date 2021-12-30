@@ -9,7 +9,7 @@
     public static void ReplaceLines(this StringBuilder input, Func<string, string?> replaceLine)
     {
         var theString = input.ToString();
-        using StringReader reader = new(theString);
+        using var reader = new StringReader(theString);
         input.Clear();
         string? line;
         while ((line = reader.ReadLine()) is not null)
@@ -31,7 +31,7 @@
     public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine)
     {
         var theString = input.ToString();
-        using StringReader reader = new(theString);
+        using var reader = new StringReader(theString);
         input.Clear();
 
         string? line;

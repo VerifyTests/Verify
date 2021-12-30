@@ -8,7 +8,7 @@ static class CodeBaseLocation
 
         if (assembly.CodeBase is not null)
         {
-            UriBuilder uri = new(assembly.CodeBase);
+            var uri = new UriBuilder(assembly.CodeBase);
             var path = Uri.UnescapeDataString(uri.Path);
 
             CurrentDirectory = Path.GetDirectoryName(path);

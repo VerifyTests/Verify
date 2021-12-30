@@ -11,13 +11,13 @@
     public static async Task<string> ReadAsString(this Stream stream)
     {
         stream.MoveToStart();
-        using StreamReader reader = new(stream);
+        using var reader = new StreamReader(stream);
         return await reader.ReadToEndAsync();
     }
 
     public static async Task<StringBuilder> ReadAsStringBuilder(this Stream stream)
     {
-        StringBuilder builder = new(await ReadAsString(stream));
+        var builder = new StringBuilder(await ReadAsString(stream));
         builder.FixNewlines();
         return builder;
     }

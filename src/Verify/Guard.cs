@@ -71,7 +71,7 @@
         if (string.IsNullOrWhiteSpace(value))
         {
             throw new ArgumentNullException(
-                "sourceFile", 
+                "sourceFile",
                 "This can be caused by using Verify<dynamic>, which is not supported by c#. Instead call use Verify<object>.");
         }
     }

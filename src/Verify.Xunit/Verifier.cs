@@ -12,8 +12,8 @@ public static partial class Verifier
             TargetAssembly.Assign(type.Assembly);
 
             return new(
-                sourceFile, 
-                settings, 
+                sourceFile,
+                settings,
                 uniqueness => ReflectionFileNameBuilder.FileNamePrefix(info, type, sourceFile, settings, uniqueness));
         }
 

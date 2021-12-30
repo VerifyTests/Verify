@@ -161,7 +161,7 @@ public class SettingsTask
         CurrentSettings.UniqueForAssemblyConfiguration();
         return this;
     }
-    
+
     /// <summary>
     /// Use <paramref name="assembly"/> TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.

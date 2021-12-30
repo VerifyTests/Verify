@@ -3,7 +3,7 @@
 public partial class VerifySettings
 {
     internal Namer Namer = new();
-    
+
     /// <summary>
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.

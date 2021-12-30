@@ -3,7 +3,7 @@
 partial class SharedScrubber
 {
     bool scrubGuids;
-    
+
     public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubGuids)

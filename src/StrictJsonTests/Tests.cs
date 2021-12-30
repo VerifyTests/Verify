@@ -22,7 +22,7 @@ public class Tests
         var json = "{'key': {'msg': 'No action taken'}}";
         return VerifyJson(json);
     }
-    
+
     [Fact]
     public Task VerifyJsonArrayString()
     {

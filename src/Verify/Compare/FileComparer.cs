@@ -50,8 +50,8 @@ static class FileComparer
 
     static bool FilesAreSameSize(in FilePair file)
     {
-        FileInfo first = new(file.Received);
-        FileInfo second = new(file.Verified);
+        var first = new FileInfo(file.Received);
+        var second = new FileInfo(file.Verified);
         return first.Length == second.Length;
     }
 

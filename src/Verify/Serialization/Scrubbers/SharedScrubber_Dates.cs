@@ -3,7 +3,7 @@ using System.Globalization;
 
 partial class SharedScrubber
 {
-    internal static List<string> dateFormats = new(){"d"};
+    internal static List<string> dateFormats = new() {"d"};
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
     bool scrubDateTimes;
@@ -81,19 +81,19 @@ partial class SharedScrubber
         result = Convert(value);
         return true;
     }
-  
+
     static string Convert(DateTime date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
             return "Date_MaxValue";
         }
-        
+
         if (date.Date == DateTime.MinValue.Date)
         {
             return "Date_MinValue";
         }
-        
+
         var next = CounterContext.Current.Next(date);
         return $"DateTime_{next}";
     }
@@ -104,7 +104,7 @@ partial class SharedScrubber
         {
             return "Date_MaxValue";
         }
-        
+
         if (date.Date == DateTime.MinValue.Date)
         {
             return "Date_MinValue";

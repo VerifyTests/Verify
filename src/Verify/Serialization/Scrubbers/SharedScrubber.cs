@@ -11,7 +11,7 @@ partial class SharedScrubber
         this.scrubDateTimes = scrubDateTimes;
         this.settings = settings;
     }
-    
+
     public bool TryConvertString(string value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(value, out result))

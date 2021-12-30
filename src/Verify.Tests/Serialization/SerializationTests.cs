@@ -723,7 +723,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldNotScrubInlineGuidsByDefault()
     {
-        Guid id = new("ebced679-45d3-4653-8791-3d969c4a986c");
+        var id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c");
         var product = new
         {
             Title = $"item {id} - (ID={{{id}}})",
@@ -993,7 +993,7 @@ public class SerializationTests
         var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\','/');
         return Verify(target).UniqueForOSPlatform();
     }
-    
+
 #if !NET5_0_OR_GREATER
     [Fact]
     public Task ScrubCodeBaseLocation()
@@ -1823,7 +1823,7 @@ public class SerializationTests
     public Task VerifyJsonStream()
     {
         var json = "{'key': {'msg': 'No action taken'}}";
-        MemoryStream stream = new(Encoding.UTF8.GetBytes(json));
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
         return VerifyJson(stream);
     }
 

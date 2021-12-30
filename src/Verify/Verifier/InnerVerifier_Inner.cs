@@ -12,7 +12,7 @@ partial class InnerVerifier
             ApplyScrubbers.Apply(extension, builder, settings);
 
             var received = builder.ToString();
-            Target stream = new(extension, received);
+            var stream = new Target(extension, received);
             targetList.Insert(0, stream);
         }
 

@@ -138,7 +138,7 @@ public partial class SerializationSettings
         #endregion
 
         settings.SerializationBinder = new ShortNameBinder();
-        SharedScrubber scrubber = new(scrubGuids, scrubDateTimes, settings);
+        var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes, settings);
         settings.ContractResolver = new CustomContractResolver(
             ignoreEmptyCollections,
             dontIgnoreFalse,

@@ -74,7 +74,7 @@ class CustomContractResolver :
                     Writable = false,
                 });
         }
-        
+
         if (VerifierSettings.sortPropertiesAlphabetically)
         {
             properties = properties
@@ -82,7 +82,7 @@ class CustomContractResolver :
                 .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
                 .ToList();
         }
-        
+
         return properties;
     }
 

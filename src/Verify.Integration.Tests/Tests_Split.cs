@@ -13,8 +13,8 @@ public partial class Tests
         bool hasExistingReceived,
         bool autoVerify)
     {
-        TypeToSplit initialTarget = new("info1", "value1", "value2");
-        TypeToSplit secondTarget = new("info2", "value1.1", "value2.1");
+        var initialTarget = new TypeToSplit("info1", "value1", "value2");
+        var secondTarget = new TypeToSplit("info2", "value1.1", "value2.1");
         var settings = new VerifySettings();
         if (autoVerify)
         {
@@ -31,9 +31,9 @@ public partial class Tests
         settings.UseParameters(hasExistingReceived, autoVerify);
         var prefix = Path.Combine(AttributeReader.GetProjectDirectory(),$"{uniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
-        FilePair file0 = new("txt", $"{prefix}00");
-        FilePair file1 = new("txt", $"{prefix}01");
-        FilePair file2 = new("txt", $"{prefix}02");
+        var file0 = new FilePair("txt", $"{prefix}00");
+        var file1 = new FilePair("txt", $"{prefix}01");
+        var file2 = new FilePair("txt", $"{prefix}02");
 
         DeleteAll(danglingFile, file0.Received, file0.Verified, file1.Verified, file1.Received, file2.Verified, file2.Received);
         await File.WriteAllTextAsync(danglingFile, "");
@@ -54,10 +54,10 @@ public partial class Tests
         }
 
         AssertNotExists(danglingFile);
-        
+
         PrefixUnique.Clear();
         await ReVerifySplit(initialTarget, settings, file0, file1, file2);
-        
+
         PrefixUnique.Clear();
         await InitialVerifySplit(secondTarget, true, settings, file0, file1, file2);
 
@@ -65,7 +65,7 @@ public partial class Tests
         {
             RunClipboardCommand();
         }
-        
+
         PrefixUnique.Clear();
         await ReVerifySplit(secondTarget, settings, file0, file1, file2);
     }

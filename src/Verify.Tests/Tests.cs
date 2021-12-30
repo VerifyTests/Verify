@@ -344,7 +344,7 @@ public class Tests
     [Fact]
     public Task StreamNotAtStart()
     {
-        MemoryStream stream = new(new byte[] { 1, 2, 3, 4 });
+        var stream = new MemoryStream(new byte[] {1, 2, 3, 4});
         stream.Position = 2;
         return Verify(stream);
     }
@@ -352,7 +352,7 @@ public class Tests
     [Fact]
     public Task StreamNotAtStartAsText()
     {
-        MemoryStream stream = new(Encoding.UTF8.GetBytes("foo"));
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
         stream.Position = 2;
         return Verify(stream).UseExtension("txt");
     }

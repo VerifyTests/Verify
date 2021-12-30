@@ -4,7 +4,7 @@
 
     public static void DeleteIfEmpty(string path)
     {
-        FileInfo fileInfo = new(path);
+        var fileInfo = new FileInfo(path);
         if (fileInfo.Exists && fileInfo.Length == 0)
         {
             fileInfo.Delete();

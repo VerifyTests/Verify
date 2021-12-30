@@ -34,7 +34,7 @@ class VerifyEngine
 
         if (target.IsString)
         {
-            StringBuilder builder = new(target.StringData);
+            var builder = new StringBuilder(target.StringData);
             ApplyScrubbers.Apply(target.Extension, builder, settings);
             return await Comparer.Text(filePair, builder.ToString(), settings);
         }
@@ -301,7 +301,7 @@ class VerifyEngine
             await ProcessMissing(builder, item);
         }
     }
-    
+
     static void AcceptChanges(in FilePair item)
     {
         File.Delete(item.Verified);

@@ -86,7 +86,7 @@ public partial class Tests
         var projectDirectory = AttributeReader.GetProjectDirectory();
         var prefix = Path.Combine(projectDirectory, uniqueTestName);
         var danglingFile = Path.Combine(projectDirectory, $"{prefix}.01.verified.{extension}");
-        FilePair file = new(extension, prefix);
+        var file = new FilePair(extension, prefix);
 
         DeleteAll(danglingFile, file.Verified, file.Received);
         await File.WriteAllTextAsync(danglingFile, "");
@@ -95,7 +95,7 @@ public partial class Tests
         {
             await File.WriteAllTextAsync(file.Received, "");
         }
-        
+
         PrefixUnique.Clear();
         await InitialVerify(initialTarget, hasMatchingDiffTool, settings, file);
 
@@ -105,10 +105,10 @@ public partial class Tests
         }
 
         AssertNotExists(danglingFile);
-        
+
         PrefixUnique.Clear();
         await ReVerify(initialTarget, settings, file);
-        
+
         PrefixUnique.Clear();
         await InitialVerify(secondTarget, hasMatchingDiffTool, settings, file);
 
@@ -116,7 +116,7 @@ public partial class Tests
         {
             RunClipboardCommand();
         }
-        
+
         PrefixUnique.Clear();
         await ReVerify(secondTarget, settings, file);
     }

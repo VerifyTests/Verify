@@ -14,7 +14,7 @@ public class Namer
             {
                 return assemblyConfig;
             }
-                
+
             throw new("UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found.");
         }
     }
@@ -58,7 +58,7 @@ public class Namer
         {
             return "DotNet";
         }
-        
+
         throw new($"Could not resolve runtime for '{identifier}'.");
     }
 
@@ -82,7 +82,7 @@ public class Namer
             {
                 return targetFrameworkNameAndVersion;
             }
-                
+
             throw new("UniqueForTargetFrameworkAndVersion or UniqueForTargetFramework used but no `TargetFrameworkAttribute` found.");
         }
     }
@@ -95,7 +95,7 @@ public class Namer
             {
                 return targetFrameworkName;
             }
-                
+
             throw new("UniqueForTargetFrameworkAndVersion or UniqueForTargetFramework used but no `TargetFrameworkAttribute` found.");
         }
     }
@@ -120,7 +120,7 @@ public class Namer
         {
             return "Windows";
         }
-           
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             return "OSX";

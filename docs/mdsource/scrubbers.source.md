@@ -4,7 +4,7 @@ Scrubbers run on the final string before doing the verification action.
 
 Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
-Scrubber are executed in reveres order. So the most recent added method scrubber through to earliest added global scrubber.
+Scrubbers are executed in reverse order. So the most recent added method scrubber through to earliest added global scrubber.
 
 
 ## Available Scrubbers

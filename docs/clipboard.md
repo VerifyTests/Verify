@@ -29,7 +29,7 @@ On Linux or OS:
 
 ## Cleanup dangling converter files
 
-When a the number of files outputted from a [converter](converter.mc) reduces, a command to delete the extra files is added to the clipboard:
+When the number of files outputted from a [converter](converter.mc) reduces, a command to delete the extra files is added to the clipboard:
 
 On Windows:
 
@@ -57,7 +57,7 @@ Add a variable named `Verify.DeleteCommand` where `{0}` will be replaced with th
 
 ## Disable Clipboard
 
-The clipboard behavior can be disable using the following:
+The clipboard behavior can be disabled using the following:
 
 <!-- snippet: DisableClipboardGlobal -->
 <a id='snippet-disableclipboardglobal'></a>

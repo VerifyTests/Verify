@@ -1,5 +1,4 @@
 ﻿Results do not match.
-Verify command placed in clipboard.
 Differences:
 Received: OmitContentFromExceptionTests.String.received.txt
 Verified: OmitContentFromExceptionTests.String.verified.txt

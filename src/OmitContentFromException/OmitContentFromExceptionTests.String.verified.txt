@@ -1,4 +1,8 @@
 ﻿Results do not match.
+Verify command placed in clipboard.
 Differences:
 Received: OmitContentFromExceptionTests.String.received.txt
 Verified: OmitContentFromExceptionTests.String.verified.txt
+
+Received full path: {ProjectDirectory}OmitContentFromExceptionTests.String.received.txt
+Verified full path: {ProjectDirectory}OmitContentFromExceptionTests.String.verified.txt

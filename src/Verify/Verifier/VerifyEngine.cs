@@ -245,6 +245,9 @@ class VerifyEngine
         }
 
         builder.AppendLine();
+        builder.AppendLine($"Received full path: {item.Received}");
+        builder.AppendLine($"Verified full path: {item.Verified}");
+        builder.AppendLine();
 
         await RunClipboardDiffAutoCheck(item);
     }
@@ -261,6 +264,9 @@ class VerifyEngine
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
         }
 
+        builder.AppendLine();
+        builder.AppendLine($"Received full path: {item.Received}");
+        builder.AppendLine($"Verified full path: {item.Verified}");
         await RunClipboardDiffAutoCheck(item);
     }
 

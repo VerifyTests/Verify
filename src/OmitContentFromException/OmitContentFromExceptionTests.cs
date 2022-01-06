@@ -17,7 +17,7 @@ public class OmitContentFromExceptionTests
         catch (Exception exception)
         {
             await Verify(exception.Message)
-                .ScrubLinesContaining("DiffEngineTray","clipboard");
+                .ScrubLinesContaining("DiffEngineTray", "clipboard");
         }
     }
 }

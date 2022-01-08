@@ -5,6 +5,7 @@
     <Version>14.13.1</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>10</LangVersion>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>

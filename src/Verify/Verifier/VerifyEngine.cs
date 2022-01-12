@@ -225,8 +225,8 @@ class VerifyEngine
     {
         await VerifierSettings.RunOnVerifyMismatch(item, message);
 
-        builder.AppendLine($"Received: {Path.GetFileName(item.Received)}");
-        builder.AppendLine($"Verified: {Path.GetFileName(item.Verified)}");
+        builder.AppendLine($"Received: {item.Received}");
+        builder.AppendLine($"Verified: {item.Verified}");
         if (message is null)
         {
             if (!VerifierSettings.omitContentFromException &&
@@ -244,11 +244,6 @@ class VerifyEngine
             builder.AppendLine(message);
         }
 
-        builder.AppendLine();
-        builder.AppendLine($"Received path: {item.Received}");
-        builder.AppendLine($"Verified path: {item.Verified}");
-        builder.AppendLine();
-
         await RunClipboardDiffAutoCheck(item);
     }
 
@@ -256,7 +251,9 @@ class VerifyEngine
     {
         await VerifierSettings.RunOnFirstVerify(item);
 
-        builder.AppendLine($"{Path.GetFileName(item.Verified)}: Empty or does not exist");
+        builder.AppendLine("Verified file empty or does not exist");
+        builder.AppendLine($"Received: {item.Received}");
+        builder.AppendLine($"Verified: {item.Verified}");
         if (!VerifierSettings.omitContentFromException &&
             EmptyFiles.Extensions.IsText(item.Extension))
         {
@@ -264,9 +261,6 @@ class VerifyEngine
             builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
         }
 
-        builder.AppendLine();
-        builder.AppendLine($"Received path: {item.Received}");
-        builder.AppendLine($"Verified path: {item.Verified}");
         await RunClipboardDiffAutoCheck(item);
     }
 

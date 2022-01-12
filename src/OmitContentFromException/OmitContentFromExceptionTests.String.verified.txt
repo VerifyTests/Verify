@@ -1,7 +1,4 @@
 ﻿Results do not match.
 Differences:
-Received: OmitContentFromExceptionTests.String.received.txt
-Verified: OmitContentFromExceptionTests.String.verified.txt
-
-Received path: {ProjectDirectory}OmitContentFromExceptionTests.String.received.txt
-Verified path: {ProjectDirectory}OmitContentFromExceptionTests.String.verified.txt
+Received: {ProjectDirectory}OmitContentFromExceptionTests.String.received.txt
+Verified: {ProjectDirectory}OmitContentFromExceptionTests.String.verified.txt

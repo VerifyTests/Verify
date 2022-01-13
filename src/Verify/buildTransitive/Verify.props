@@ -34,7 +34,7 @@
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>
   </Target>
-  <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or '$(ImplicitUsings)' == 'true'">
+  <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or $(ImplicitUsings) == 'true')">
     <Using Include="VerifyTests" />
   </ItemGroup>
 </Project>

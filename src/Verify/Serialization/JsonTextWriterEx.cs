@@ -48,7 +48,6 @@ class JsonTextWriterEx :
         {
             base.WriteRawValue(value);
         }
-
     }
 
     public override void WriteValue(byte[]? value)

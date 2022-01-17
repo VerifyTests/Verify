@@ -2087,4 +2087,35 @@ public class SerializationTests
     }
 
     #endregion
+
+    [Fact]
+    public Task WithConverter()
+    {
+        return Verify(new ConverterTarget {Name = "The name"})
+            .AddExtraSettings(
+                _ => { _.Converters.Add(new Converter()); });
+    }
+
+    class Converter :
+        WriteOnlyJsonConverter<ConverterTarget>
+    {
+        public override void WriteJson(
+            JsonWriter writer,
+            ConverterTarget target,
+            JsonSerializer serializer,
+            IReadOnlyDictionary<string, object> context)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("Name");
+            writer.WriteValue(target.Name);
+            writer.WritePropertyName("Custom");
+            writer.WriteValue("CustomValue");
+            writer.WriteEnd();
+        }
+    }
+
+    class ConverterTarget
+    {
+        public string Name { get; set; } = null!;
+    }
 }

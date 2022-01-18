@@ -6,10 +6,9 @@ class PropertyInfoConverter :
     WriteOnlyJsonConverter<PropertyInfo>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         PropertyInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

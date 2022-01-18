@@ -6,10 +6,9 @@ class ClaimsIdentityConverter :
     WriteOnlyJsonConverter<ClaimsIdentity>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         ClaimsIdentity identity,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteStartObject();
 

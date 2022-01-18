@@ -6,10 +6,9 @@ class MethodInfoConverter :
     WriteOnlyJsonConverter<MethodInfo>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         MethodInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

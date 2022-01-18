@@ -6,10 +6,9 @@ class ExpressionConverter :
     WriteOnlyJsonConverter<Expression>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         Expression value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString());
     }

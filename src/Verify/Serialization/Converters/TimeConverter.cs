@@ -7,10 +7,9 @@ class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         TimeOnly value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString("h:mm tt", serializer.Culture));
     }

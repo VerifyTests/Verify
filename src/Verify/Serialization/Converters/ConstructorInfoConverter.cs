@@ -6,9 +6,9 @@ class ConstructorInfoConverter :
     WriteOnlyJsonConverter<ConstructorInfo>
 {
     public override void WriteJson(
-        JsonWriter writer, ConstructorInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        VerifyJsonTextWriter writer,
+        ConstructorInfo value,
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

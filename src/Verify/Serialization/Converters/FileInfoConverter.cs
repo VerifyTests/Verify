@@ -5,10 +5,9 @@ class FileInfoConverter :
     WriteOnlyJsonConverter<FileInfo>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         FileInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString().Replace('\\','/'));
     }

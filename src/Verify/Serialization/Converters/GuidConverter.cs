@@ -13,10 +13,9 @@ class GuidConverter :
     }
 
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         Guid value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         if (scrubber.TryConvert(value, out var result))
         {

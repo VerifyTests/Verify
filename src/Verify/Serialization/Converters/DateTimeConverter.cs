@@ -12,10 +12,9 @@ class DateTimeConverter :
     }
 
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         DateTime value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         if (scrubber.TryConvert(value, out var result))
         {

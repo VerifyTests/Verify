@@ -6,10 +6,9 @@ class ClaimsPrincipalConverter :
     WriteOnlyJsonConverter<ClaimsPrincipal>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         ClaimsPrincipal principal,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         serializer.Serialize(writer, principal.Identities);
     }

@@ -10,10 +10,9 @@ class IdConverter :
     }
 
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         object value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var id = CounterContext.Current.NextId(value);
         writer.WriteValue($"Id_{id}");

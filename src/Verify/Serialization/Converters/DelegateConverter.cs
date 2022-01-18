@@ -6,10 +6,9 @@ class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         Delegate @delegate,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteStartObject();
         writer.WritePropertyName("Type");

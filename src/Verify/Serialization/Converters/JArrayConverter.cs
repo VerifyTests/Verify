@@ -6,10 +6,9 @@ class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         JArray value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var list = value.ToObject<List<object>>()!;
         serializer.Serialize(writer, list);

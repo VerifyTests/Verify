@@ -6,10 +6,9 @@ class JObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         JObject value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var dictionary = value.ToObject<Dictionary<string, object>>()!;
         serializer.Serialize(writer, dictionary);

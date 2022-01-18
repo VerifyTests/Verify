@@ -12,10 +12,9 @@ class StringConverter :
     }
 
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         string value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         if (sharedScrubber.TryConvertString(value, out var result))
         {

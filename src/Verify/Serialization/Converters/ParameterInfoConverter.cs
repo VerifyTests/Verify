@@ -6,10 +6,9 @@ class ParameterInfoConverter :
     WriteOnlyJsonConverter<ParameterInfo>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         ParameterInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

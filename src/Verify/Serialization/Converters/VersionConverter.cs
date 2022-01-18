@@ -5,10 +5,9 @@ class VersionConverter :
     WriteOnlyJsonConverter<Version>
 {
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         Version value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString());
     }

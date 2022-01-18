@@ -12,10 +12,9 @@ class TextWriterConverter :
     }
 
     public override void WriteJson(
-        JsonWriter writer,
+        VerifyJsonTextWriter writer,
         TextWriter value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var stringValue = value.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse

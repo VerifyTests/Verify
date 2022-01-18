@@ -7,7 +7,7 @@ class PropertyIgnorer
     IReadOnlyDictionary<Type, List<string>> ignoredMembers;
     IReadOnlyList<string> ignoredByNameMembers;
     IReadOnlyList<Type> ignoredTypes;
-    Dictionary<Type, List<Func<object, bool>>> ignoredInstances;
+    IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
 
     public PropertyIgnorer(
         bool ignoreEmptyCollections,
@@ -15,7 +15,7 @@ class PropertyIgnorer
         IReadOnlyDictionary<Type, List<string>> ignoredMembers,
         IReadOnlyList<string> ignoredByNameMembers,
         IReadOnlyList<Type> ignoredTypes,
-        Dictionary<Type, List<Func<object, bool>>> ignoredInstances)
+        IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances)
     {
         this.ignoreEmptyCollections = ignoreEmptyCollections;
         this.includeObsoletes = includeObsoletes;

@@ -11,7 +11,7 @@ class CustomContractResolver :
     IsNumericId isNumericId;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
     SharedScrubber scrubber;
-    Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
+    IReadOnlyDictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
     PropertyIgnorer propertyIgnorer;
 
     public CustomContractResolver(
@@ -20,7 +20,7 @@ class CustomContractResolver :
         IsNumericId isNumericId,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
         SharedScrubber scrubber,
-        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters,
+        IReadOnlyDictionary<Type, Dictionary<string, ConvertMember>> membersConverters,
         PropertyIgnorer propertyIgnorer)
     {
         this.dontIgnoreFalse = dontIgnoreFalse;

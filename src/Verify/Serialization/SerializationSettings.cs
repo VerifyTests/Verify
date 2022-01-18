@@ -139,8 +139,15 @@ public partial class SerializationSettings
 
         settings.SerializationBinder = new ShortNameBinder();
         var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes, settings);
-        var propertyIgnorer = new PropertyIgnorer(ignoreEmptyCollections, includeObsoletes, ignoredMembers, ignoredByNameMembers, ignoredTypes, ignoredInstances);
-        settings.ContractResolver = new CustomContractResolver(dontIgnoreFalse,
+        var propertyIgnorer = new PropertyIgnorer(
+            ignoreEmptyCollections,
+            includeObsoletes,
+            ignoredMembers,
+            ignoredByNameMembers,
+            ignoredTypes,
+            ignoredInstances);
+        settings.ContractResolver = new CustomContractResolver(
+            dontIgnoreFalse,
             scrubNumericIds,
             isNumericId,
             ignoreMembersThatThrow,

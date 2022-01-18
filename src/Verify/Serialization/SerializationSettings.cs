@@ -205,6 +205,7 @@ public partial class SerializationSettings
         }
 
         serializersettings = settings;
+        serializer = null;
     }
 
     public void AddExtraSettings(Action<JsonSerializerSettings> action)

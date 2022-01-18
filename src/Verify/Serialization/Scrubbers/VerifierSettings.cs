@@ -5,23 +5,23 @@ namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder>> GlobalScrubbers;
+    internal static List<Action<StringBuilder>> GlobalScrubbers= new();
 
     static VerifierSettings()
     {
-        GlobalScrubbers = new();
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            var profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var altProfileDirectory = profileDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            GlobalScrubbers.Add(builder =>
-            {
-                builder
-                    .Replace(profileDirectory, "{UserProfile}")
-                    .Replace(altProfileDirectory, "{UserProfile}");
-            });
+            return;
         }
+
+        var profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var altProfileDirectory = profileDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        GlobalScrubbers.Add(builder =>
+        {
+            builder
+                .Replace(profileDirectory, "{UserProfile}")
+                .Replace(altProfileDirectory, "{UserProfile}");
+        });
     }
 
     internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();

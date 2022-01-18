@@ -78,6 +78,7 @@ class PropertyIgnorer
 
                 return funcs.All(func => !func(instance));
             };
+
             return true;
         }
 
@@ -99,6 +100,7 @@ class PropertyIgnorer
 
                 return collection.HasMembers();
             };
+
             return true;
         }
 

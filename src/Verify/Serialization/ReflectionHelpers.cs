@@ -35,12 +35,12 @@
             return false;
         }
 
-        if (type.IsGenericList())
+        if (type.IsGenericCollection())
         {
             return true;
         }
 
-        return type.GetInterfaces().Any(IsGenericList);
+        return type.GetInterfaces().Any(IsGenericCollection);
     }
 
     public static bool ImplementsStreamEnumerable(this Type type)
@@ -76,7 +76,7 @@
                definition == typeof(IReadOnlyDictionary<,>);
     }
 
-    static bool IsGenericList(this Type x)
+    static bool IsGenericCollection(this Type x)
     {
         if (!x.IsGenericType)
         {

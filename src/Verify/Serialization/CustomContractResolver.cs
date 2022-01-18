@@ -141,7 +141,7 @@ class CustomContractResolver :
 
         property.ConfigureIfBool(member, dontIgnoreFalse);
 
-        if (propertyIgnorer.ShouldIgnore(member, propertyType, property))
+        if (propertyIgnorer.ShouldIgnore(member))
         {
             property.Ignored = true;
             return property;
@@ -170,7 +170,7 @@ class CustomContractResolver :
         ConvertMember? membersConverter = null;
         foreach (var pair in membersConverters)
         {
-            if (pair.Key.IsAssignableFrom(property.DeclaringType))
+            if (pair.Key.IsAssignableFrom(member.DeclaringType))
             {
                 pair.Value.TryGetValue(member.Name, out membersConverter);
                 break;

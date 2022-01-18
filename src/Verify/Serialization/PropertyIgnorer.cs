@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-
-class PropertyIgnorer
+﻿class PropertyIgnorer
 {
     bool ignoreEmptyCollections;
     bool includeObsoletes;
@@ -25,7 +23,7 @@ class PropertyIgnorer
         this.ignoredInstances = ignoredInstances;
     }
 
-    public bool ShouldIgnore(MemberInfo member, Type propertyType, JsonProperty property)
+    public bool ShouldIgnore(MemberInfo member)
     {
         if (!includeObsoletes)
         {
@@ -35,27 +33,24 @@ class PropertyIgnorer
             }
         }
 
+        var propertyType = member.MemberType();
         if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
         {
             return true;
         }
 
-        var propertyName = property.UnderlyingName;
-        if (propertyName is not null)
+        if (ignoredByNameMembers.Contains(member.Name))
         {
-            if (ignoredByNameMembers.Contains(propertyName))
-            {
-                return true;
-            }
+            return true;
+        }
 
-            foreach (var pair in ignoredMembers)
+        foreach (var pair in ignoredMembers)
+        {
+            if (pair.Value.Contains(member.Name))
             {
-                if (pair.Value.Contains(propertyName))
+                if (pair.Key.IsAssignableFrom(member.DeclaringType))
                 {
-                    if (pair.Key.IsAssignableFrom(property.DeclaringType))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

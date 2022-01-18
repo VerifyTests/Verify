@@ -140,4 +140,19 @@
 
         throw new($"No supported MemberType: {member.MemberType}");
     }
+
+    public static Type MemberType(this MemberInfo member)
+    {
+        if (member is PropertyInfo propertyInfo)
+        {
+            return propertyInfo.PropertyType;
+        }
+
+        if (member is FieldInfo fieldInfo)
+        {
+            return fieldInfo.FieldType;
+        }
+
+        throw new($"No supported MemberType: {member.MemberType}");
+    }
 }

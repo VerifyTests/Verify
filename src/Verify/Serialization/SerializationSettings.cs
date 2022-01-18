@@ -61,7 +61,7 @@ public partial class SerializationSettings
             ExtraSettings = ExtraSettings.Clone(),
             dontIgnoreFalse = dontIgnoreFalse,
             ignoreMembersThatThrow = ignoreMembersThatThrow.Clone(),
-            ignoreMembersWithType = ignoreMembersWithType.Clone(),
+            ignoredTypes = ignoredTypes.Clone(),
             ignoredInstances = ignoredInstances
                 .ToDictionary(
                     x => x.Key,
@@ -139,19 +139,14 @@ public partial class SerializationSettings
 
         settings.SerializationBinder = new ShortNameBinder();
         var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes, settings);
-        settings.ContractResolver = new CustomContractResolver(
-            ignoreEmptyCollections,
-            dontIgnoreFalse,
-            includeObsoletes,
+        var propertyIgnorer = new PropertyIgnorer(ignoreEmptyCollections, includeObsoletes, ignoredMembers, ignoredByNameMembers, ignoredTypes, ignoredInstances);
+        settings.ContractResolver = new CustomContractResolver(dontIgnoreFalse,
             scrubNumericIds,
             isNumericId,
-            ignoredMembers,
-            ignoredByNameMembers,
-            ignoreMembersWithType,
             ignoreMembersThatThrow,
-            ignoredInstances,
             scrubber,
-            membersConverters);
+            membersConverters,
+            propertyIgnorer);
         var converters = settings.Converters;
         converters.Add(new StringConverter(scrubber));
         converters.Add(new StringBuilderConverter(scrubber));

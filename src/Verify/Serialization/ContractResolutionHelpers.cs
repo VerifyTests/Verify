@@ -15,41 +15,4 @@ public static class ContractResolutionHelpers
             }
         }
     }
-
-    public static void SkipEmptyCollections(this JsonProperty property, MemberInfo member)
-    {
-        var type = property.PropertyType;
-        if (type is null)
-        {
-            return;
-        }
-
-        if (type == typeof(string))
-        {
-            return;
-        }
-
-        if (type.IsCollection() || type.IsDictionary())
-        {
-            property.ShouldSerialize = instance =>
-            {
-                // since inside IsCollection, it is safe to use IEnumerable
-                var collection = member.GetValue<IEnumerable>(instance);
-
-                return HasMembers(collection);
-            };
-        }
-    }
-
-    static bool HasMembers(IEnumerable? collection)
-    {
-        if (collection is null)
-        {
-            // if the list is null, we defer the decision to NullValueHandling
-            return true;
-        }
-
-        // check to see if there is at least one item in the Enumerable
-        return collection.GetEnumerator().MoveNext();
-    }
 }

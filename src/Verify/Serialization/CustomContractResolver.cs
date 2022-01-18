@@ -6,45 +6,30 @@ using VerifyTests;
 class CustomContractResolver :
     DefaultContractResolver
 {
-    bool ignoreEmptyCollections;
     bool dontIgnoreFalse;
-    bool includeObsoletes;
     bool scrubNumericIds;
     IsNumericId isNumericId;
-    IReadOnlyDictionary<Type, List<string>> ignoredMembers;
-    IReadOnlyList<string> ignoredByNameMembers;
-    IReadOnlyList<Type> ignoredTypes;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-    IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
     SharedScrubber scrubber;
     Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
+    PropertyIgnorer propertyIgnorer;
 
     public CustomContractResolver(
-        bool ignoreEmptyCollections,
         bool dontIgnoreFalse,
-        bool includeObsoletes,
         bool scrubNumericIds,
         IsNumericId isNumericId,
-        IReadOnlyDictionary<Type, List<string>> ignoredMembers,
-        IReadOnlyList<string> ignoredByNameMembers,
-        IReadOnlyList<Type> ignoredTypes,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-        IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances,
         SharedScrubber scrubber,
-        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters)
+        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters,
+        PropertyIgnorer propertyIgnorer)
     {
-        this.ignoreEmptyCollections = ignoreEmptyCollections;
         this.dontIgnoreFalse = dontIgnoreFalse;
-        this.includeObsoletes = includeObsoletes;
         this.scrubNumericIds = scrubNumericIds;
         this.isNumericId = isNumericId;
-        this.ignoredMembers = ignoredMembers;
-        this.ignoredByNameMembers = ignoredByNameMembers;
-        this.ignoredTypes = ignoredTypes;
         this.ignoreMembersThatThrow = ignoreMembersThatThrow;
-        this.ignoredInstances = ignoredInstances;
         this.scrubber = scrubber;
         this.membersConverters = membersConverters;
+        this.propertyIgnorer = propertyIgnorer;
         IgnoreSerializableInterface = true;
     }
 
@@ -78,7 +63,8 @@ class CustomContractResolver :
         if (VerifierSettings.sortPropertiesAlphabetically)
         {
             properties = properties
-                .OrderBy(p => p.Order ?? -1) // Still honor explicit ordering
+                // Still honor explicit ordering
+                .OrderBy(p => p.Order ?? -1)
                 .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
                 .ToList();
         }
@@ -153,17 +139,17 @@ class CustomContractResolver :
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
-        if (ignoreEmptyCollections)
-        {
-            property.SkipEmptyCollections(member);
-        }
-
         property.ConfigureIfBool(member, dontIgnoreFalse);
 
-        if (ShouldIgnore(member, propertyType, property))
+        if (propertyIgnorer.ShouldIgnore(member, propertyType, property))
         {
             property.Ignored = true;
             return property;
+        }
+
+        if (propertyIgnorer.TryGetShouldSerialize(propertyType, valueProvider.GetValue, out var shouldSerialize))
+        {
+            property.ShouldSerialize = shouldSerialize;
         }
 
         var underlyingType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
@@ -181,21 +167,6 @@ class CustomContractResolver :
             }
         }
 
-        if (ignoredInstances.TryGetValue(propertyType, out var funcs))
-        {
-            property.ShouldSerialize = declaringInstance =>
-            {
-                var instance = valueProvider.GetValue(declaringInstance);
-
-                if (instance is null)
-                {
-                    return false;
-                }
-
-                return funcs.All(func => !func(instance));
-            };
-        }
-
         ConvertMember? membersConverter = null;
         foreach (var pair in membersConverters)
         {
@@ -209,43 +180,5 @@ class CustomContractResolver :
         property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow, membersConverter);
 
         return property;
-    }
-
-    bool ShouldIgnore(MemberInfo member, Type propertyType, JsonProperty property)
-    {
-        if (!includeObsoletes)
-        {
-            if (member.GetCustomAttribute<ObsoleteAttribute>(true) is not null)
-            {
-                return true;
-            }
-        }
-
-        if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
-        {
-            return true;
-        }
-
-        var propertyName = property.UnderlyingName;
-        if (propertyName is not null)
-        {
-            if (ignoredByNameMembers.Contains(propertyName))
-            {
-                return true;
-            }
-
-            foreach (var pair in ignoredMembers)
-            {
-                if (pair.Value.Contains(propertyName))
-                {
-                    if (pair.Key.IsAssignableFrom(property.DeclaringType))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
     }
 }

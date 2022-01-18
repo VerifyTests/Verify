@@ -95,11 +95,11 @@ public partial class SerializationSettings
         list.Add(shouldIgnore);
     }
 
-    List<Type> ignoreMembersWithType = new();
+    List<Type> ignoredTypes = new();
 
     public void IgnoreMembersWithType<T>()
     {
-        ignoreMembersWithType.Add(typeof(T));
+        ignoredTypes.Add(typeof(T));
     }
 
     List<Func<Exception, bool>> ignoreMembersThatThrow = new();

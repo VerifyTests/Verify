@@ -15,8 +15,26 @@
         return type.GetInterfaces().Any(IsGenericDictionary);
     }
 
+
+    public static bool HasMembers(this IEnumerable? collection)
+    {
+        if (collection is null)
+        {
+            // if the list is null, we defer the decision to NullValueHandling
+            return true;
+        }
+
+        // check to see if there is at least one item in the Enumerable
+        return collection.GetEnumerator().MoveNext();
+    }
+
     public static bool IsCollection(this Type type)
     {
+        if (type == typeof(string))
+        {
+            return false;
+        }
+
         if (type.IsGenericList())
         {
             return true;

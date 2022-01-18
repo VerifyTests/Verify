@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using SimpleInfoName;
+﻿using SimpleInfoName;
 using VerifyTests;
 
 static class JsonFormatter
@@ -30,11 +29,10 @@ static class JsonFormatter
             }
         }
 
-        var serializer = JsonSerializer.Create(settings.serialization.currentSettings);
 
         var builder = new StringBuilder();
         using var writer = new VerifyJsonWriter(builder, settings.Context);
-        serializer.Serialize(writer, input);
+        settings.Serializer.Serialize(writer, input);
         return builder;
     }
 }

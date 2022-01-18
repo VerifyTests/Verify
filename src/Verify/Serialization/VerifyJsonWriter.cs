@@ -8,8 +8,12 @@ public class VerifyJsonWriter :
     StringBuilder builder;
     public IReadOnlyDictionary<string, object> Context { get; }
 
-    public VerifyJsonWriter(StringWriter writer, StringBuilder builder, IReadOnlyDictionary<string, object> context) :
-        base(writer)
+    public VerifyJsonWriter(StringBuilder builder, IReadOnlyDictionary<string, object> context) :
+        base(
+            new StringWriter(builder)
+            {
+                NewLine = "\n"
+            })
     {
         this.builder = builder;
         Context = context;

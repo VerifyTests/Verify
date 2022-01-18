@@ -11,7 +11,7 @@ class TextWriterConverter :
         this.sharedScrubber = sharedScrubber;
     }
 
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         TextWriter value,
         JsonSerializer serializer)

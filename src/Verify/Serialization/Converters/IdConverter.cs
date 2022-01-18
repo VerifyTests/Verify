@@ -9,7 +9,7 @@ class IdConverter :
         return true;
     }
 
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         object value,
         JsonSerializer serializer)

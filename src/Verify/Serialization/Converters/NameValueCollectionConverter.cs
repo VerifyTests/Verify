@@ -5,7 +5,7 @@ using VerifyTests;
 class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         NameValueCollection collection,
         JsonSerializer serializer)

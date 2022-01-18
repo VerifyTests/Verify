@@ -4,7 +4,7 @@ using VerifyTests;
 class DirectoryInfoConverter :
     WriteOnlyJsonConverter<DirectoryInfo>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         DirectoryInfo value,
         JsonSerializer serializer)

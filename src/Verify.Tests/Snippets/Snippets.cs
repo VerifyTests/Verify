@@ -149,7 +149,7 @@ public class Snippets
     class CompanyConverter :
         WriteOnlyJsonConverter<Company>
     {
-        public override void WriteJson(
+        public override void Write(
             VerifyJsonWriter writer,
             Company company,
             JsonSerializer serializer)

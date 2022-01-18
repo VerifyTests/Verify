@@ -11,7 +11,7 @@ class DateTimeConverter :
         this.scrubber = scrubber;
     }
 
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         DateTime value,
         JsonSerializer serializer)

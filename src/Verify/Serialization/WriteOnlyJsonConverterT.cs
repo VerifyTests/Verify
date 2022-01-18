@@ -5,15 +5,15 @@ namespace VerifyTests;
 public abstract class WriteOnlyJsonConverter<T> :
     WriteOnlyJsonConverter
 {
-    public sealed override void WriteJson(
+    public sealed override void Write(
         VerifyJsonWriter writer,
         object value,
         JsonSerializer serializer)
     {
-        WriteJson(writer, (T) value, serializer);
+        Write(writer, (T) value, serializer);
     }
 
-    public abstract void WriteJson(
+    public abstract void Write(
         VerifyJsonWriter writer,
         T value,
         JsonSerializer serializer);

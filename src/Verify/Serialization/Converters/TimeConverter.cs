@@ -6,7 +6,7 @@ using VerifyTests;
 class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         TimeOnly value,
         JsonSerializer serializer)

@@ -5,7 +5,7 @@ using VerifyTests;
 class ClaimConverter :
     WriteOnlyJsonConverter<Claim>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         Claim claim,
         JsonSerializer serializer)

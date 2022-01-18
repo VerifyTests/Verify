@@ -4,7 +4,7 @@ using VerifyTests;
 class VersionConverter :
     WriteOnlyJsonConverter<Version>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         Version value,
         JsonSerializer serializer)

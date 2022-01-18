@@ -582,7 +582,7 @@ One common use case is to register a custom [JsonConverter](https://www.newtonso
 class CompanyConverter :
     WriteOnlyJsonConverter<Company>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         Company company,
         JsonSerializer serializer)

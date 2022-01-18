@@ -2099,7 +2099,7 @@ public class SerializationTests
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>
     {
-        public override void WriteJson(
+        public override void Write(
             VerifyJsonWriter writer,
             ConverterTarget target,
             JsonSerializer serializer)

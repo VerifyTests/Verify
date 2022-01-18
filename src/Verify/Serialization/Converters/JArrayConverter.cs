@@ -5,7 +5,7 @@ using VerifyTests;
 class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         JArray value,
         JsonSerializer serializer)

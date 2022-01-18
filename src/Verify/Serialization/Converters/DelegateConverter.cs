@@ -5,7 +5,7 @@ using VerifyTests;
 class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         Delegate @delegate,
         JsonSerializer serializer)

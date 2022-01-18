@@ -5,7 +5,7 @@ using VerifyTests;
 class ParameterInfoConverter :
     WriteOnlyJsonConverter<ParameterInfo>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         ParameterInfo value,
         JsonSerializer serializer)

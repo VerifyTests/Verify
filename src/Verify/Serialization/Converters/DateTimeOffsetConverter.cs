@@ -11,7 +11,7 @@ class DateTimeOffsetConverter :
         this.scrubber = scrubber;
     }
 
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         DateTimeOffset value,
         JsonSerializer serializer)

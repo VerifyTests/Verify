@@ -5,7 +5,7 @@ using VerifyTests;
 class FieldInfoConverter :
     WriteOnlyJsonConverter<FieldInfo>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         FieldInfo value,
         JsonSerializer serializer)

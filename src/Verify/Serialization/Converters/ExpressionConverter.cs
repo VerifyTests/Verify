@@ -5,7 +5,7 @@ using VerifyTests;
 class ExpressionConverter :
     WriteOnlyJsonConverter<Expression>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         Expression value,
         JsonSerializer serializer)

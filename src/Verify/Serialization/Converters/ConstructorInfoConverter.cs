@@ -5,7 +5,7 @@ using VerifyTests;
 class ConstructorInfoConverter :
     WriteOnlyJsonConverter<ConstructorInfo>
 {
-    public override void WriteJson(
+    public override void Write(
         VerifyJsonWriter writer,
         ConstructorInfo value,
         JsonSerializer serializer)

@@ -40,7 +40,7 @@ public partial class SerializationSettings
         IgnoreMember<Exception>(x => x.HResult);
         MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
 
-        Serializer = BuildSettings();
+        RegenSettings();
     }
 
     internal Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
@@ -123,7 +123,7 @@ public partial class SerializationSettings
         scrubNumericIds = false;
     }
 
-    JsonSerializer BuildSettings()
+    internal void RegenSettings()
     {
         #region defaultSerialization
 
@@ -204,7 +204,7 @@ public partial class SerializationSettings
             throw new("Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
         }
 
-        return JsonSerializer.Create(settings);
+        serializersettings = settings;
     }
 
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
@@ -213,14 +213,24 @@ public partial class SerializationSettings
     }
 
     List<Action<JsonSerializerSettings>> ExtraSettings = new();
-    internal JsonSerializer Serializer;
+    private JsonSerializer? serializer;
 
-    internal void RegenSettings()
+    internal JsonSerializer Serializer
     {
-        Serializer = BuildSettings();
+        get
+        {
+            var jsonSerializer = serializer;
+            if (jsonSerializer == null)
+            {
+                return serializer = JsonSerializer.Create(serializersettings);
+            }
+
+            return jsonSerializer;
+        }
     }
 
     bool includeObsoletes;
+    JsonSerializerSettings serializersettings = null!;
 
     public void IncludeObsoletes()
     {

@@ -7,7 +7,7 @@ class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         TimeOnly value,
         JsonSerializer serializer)
     {

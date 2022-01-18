@@ -6,7 +6,7 @@ class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         Delegate @delegate,
         JsonSerializer serializer)
     {

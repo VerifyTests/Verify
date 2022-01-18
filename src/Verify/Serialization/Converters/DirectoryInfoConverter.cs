@@ -5,7 +5,7 @@ class DirectoryInfoConverter :
     WriteOnlyJsonConverter<DirectoryInfo>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         DirectoryInfo value,
         JsonSerializer serializer)
     {

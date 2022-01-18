@@ -14,7 +14,7 @@ class DateConverter :
     }
 
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         DateOnly value,
         JsonSerializer serializer)
     {

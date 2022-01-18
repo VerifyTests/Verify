@@ -33,7 +33,7 @@ class DictionaryConverter :
                definition == typeof(ReadOnlyDictionary<,>);
     }
 
-    public override void WriteJson(VerifyJsonTextWriter writer, object value, JsonSerializer serializer)
+    public override void WriteJson(VerifyJsonWriter writer, object value, JsonSerializer serializer)
     {
         var type = value.GetType();
 

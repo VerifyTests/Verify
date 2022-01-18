@@ -6,7 +6,7 @@ class ParameterInfoConverter :
     WriteOnlyJsonConverter<ParameterInfo>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         ParameterInfo value,
         JsonSerializer serializer)
     {

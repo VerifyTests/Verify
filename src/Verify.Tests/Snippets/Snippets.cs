@@ -150,10 +150,9 @@ public class Snippets
         WriteOnlyJsonConverter<Company>
     {
         public override void WriteJson(
-            JsonWriter writer,
+            VerifyJsonWriter writer,
             Company company,
-            JsonSerializer serializer,
-            IReadOnlyDictionary<string, object> context)
+            JsonSerializer serializer)
         {
             serializer.Serialize(writer, company.Name);
         }

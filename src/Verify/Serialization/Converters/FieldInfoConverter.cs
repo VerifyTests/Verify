@@ -6,7 +6,7 @@ class FieldInfoConverter :
     WriteOnlyJsonConverter<FieldInfo>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         FieldInfo value,
         JsonSerializer serializer)
     {

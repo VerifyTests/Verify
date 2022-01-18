@@ -38,7 +38,7 @@ static class JsonFormatter
             NewLine = "\n"
         };
 
-        using var writer = new VerifyJsonTextWriter(stringWriter, builder, verifySettings.Context);
+        using var writer = new VerifyJsonWriter(stringWriter, builder, verifySettings.Context);
         serializer.Serialize(writer, input);
         return builder;
     }

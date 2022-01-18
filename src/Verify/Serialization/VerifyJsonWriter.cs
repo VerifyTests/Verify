@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 namespace VerifyTests;
 
-public class VerifyJsonTextWriter :
+public class VerifyJsonWriter :
     JsonTextWriter
 {
     StringBuilder builder;
     public IReadOnlyDictionary<string, object> Context { get; }
 
-    public VerifyJsonTextWriter(StringWriter writer, StringBuilder builder, IReadOnlyDictionary<string, object> context) :
+    public VerifyJsonWriter(StringWriter writer, StringBuilder builder, IReadOnlyDictionary<string, object> context) :
         base(writer)
     {
         this.builder = builder;

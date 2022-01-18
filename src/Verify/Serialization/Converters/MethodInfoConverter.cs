@@ -6,7 +6,7 @@ class MethodInfoConverter :
     WriteOnlyJsonConverter<MethodInfo>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         MethodInfo value,
         JsonSerializer serializer)
     {

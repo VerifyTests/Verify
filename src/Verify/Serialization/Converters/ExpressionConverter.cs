@@ -6,7 +6,7 @@ class ExpressionConverter :
     WriteOnlyJsonConverter<Expression>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         Expression value,
         JsonSerializer serializer)
     {

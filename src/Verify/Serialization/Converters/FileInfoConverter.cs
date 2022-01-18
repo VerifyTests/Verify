@@ -5,7 +5,7 @@ class FileInfoConverter :
     WriteOnlyJsonConverter<FileInfo>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         FileInfo value,
         JsonSerializer serializer)
     {

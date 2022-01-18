@@ -12,7 +12,7 @@ class StringBuilderConverter :
     }
 
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         StringBuilder value,
         JsonSerializer serializer)
     {

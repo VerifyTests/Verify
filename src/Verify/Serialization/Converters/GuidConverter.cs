@@ -13,7 +13,7 @@ class GuidConverter :
     }
 
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         Guid value,
         JsonSerializer serializer)
     {

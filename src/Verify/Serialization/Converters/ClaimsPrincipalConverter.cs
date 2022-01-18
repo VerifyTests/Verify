@@ -6,7 +6,7 @@ class ClaimsPrincipalConverter :
     WriteOnlyJsonConverter<ClaimsPrincipal>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         ClaimsPrincipal principal,
         JsonSerializer serializer)
     {

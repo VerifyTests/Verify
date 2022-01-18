@@ -6,7 +6,7 @@ class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         NameValueCollection collection,
         JsonSerializer serializer)
     {

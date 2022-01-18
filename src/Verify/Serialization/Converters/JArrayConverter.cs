@@ -6,7 +6,7 @@ class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         JArray value,
         JsonSerializer serializer)
     {

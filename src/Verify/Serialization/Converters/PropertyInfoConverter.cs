@@ -6,7 +6,7 @@ class PropertyInfoConverter :
     WriteOnlyJsonConverter<PropertyInfo>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         PropertyInfo value,
         JsonSerializer serializer)
     {

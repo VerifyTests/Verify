@@ -5,7 +5,7 @@ class VersionConverter :
     WriteOnlyJsonConverter<Version>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         Version value,
         JsonSerializer serializer)
     {

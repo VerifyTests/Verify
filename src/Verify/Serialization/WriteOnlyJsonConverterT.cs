@@ -6,7 +6,7 @@ public abstract class WriteOnlyJsonConverter<T> :
     WriteOnlyJsonConverter
 {
     public sealed override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         object value,
         JsonSerializer serializer)
     {
@@ -14,7 +14,7 @@ public abstract class WriteOnlyJsonConverter<T> :
     }
 
     public abstract void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         T value,
         JsonSerializer serializer);
 

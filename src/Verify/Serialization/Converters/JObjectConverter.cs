@@ -6,7 +6,7 @@ class JObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         JObject value,
         JsonSerializer serializer)
     {

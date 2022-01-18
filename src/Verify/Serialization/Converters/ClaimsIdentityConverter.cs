@@ -6,7 +6,7 @@ class ClaimsIdentityConverter :
     WriteOnlyJsonConverter<ClaimsIdentity>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         ClaimsIdentity identity,
         JsonSerializer serializer)
     {

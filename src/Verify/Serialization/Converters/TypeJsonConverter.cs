@@ -6,7 +6,7 @@ class TypeJsonConverter :
     WriteOnlyJsonConverter<Type>
 {
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         Type value,
         JsonSerializer serializer)
     {

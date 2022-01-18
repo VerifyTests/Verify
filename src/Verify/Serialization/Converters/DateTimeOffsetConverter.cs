@@ -12,7 +12,7 @@ class DateTimeOffsetConverter :
     }
 
     public override void WriteJson(
-        VerifyJsonTextWriter writer,
+        VerifyJsonWriter writer,
         DateTimeOffset value,
         JsonSerializer serializer)
     {

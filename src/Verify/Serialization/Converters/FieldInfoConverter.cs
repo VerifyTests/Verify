@@ -5,11 +5,10 @@ using VerifyTests;
 class FieldInfoConverter :
     WriteOnlyJsonConverter<FieldInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         FieldInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

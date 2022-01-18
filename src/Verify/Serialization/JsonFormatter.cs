@@ -33,12 +33,7 @@ static class JsonFormatter
         var serializer = JsonSerializer.Create(settings);
 
         var builder = new StringBuilder();
-        using var stringWriter = new StringWriter(builder)
-        {
-            NewLine = "\n"
-        };
-
-        using var writer = new JsonTextWriterEx(stringWriter, builder, verifySettings.Context);
+        using var writer = new VerifyJsonWriter(builder, verifySettings.Context);
         serializer.Serialize(writer, input);
         return builder;
     }

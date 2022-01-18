@@ -5,11 +5,10 @@ using VerifyTests;
 class JObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         JObject value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var dictionary = value.ToObject<Dictionary<string, object>>()!;
         serializer.Serialize(writer, dictionary);

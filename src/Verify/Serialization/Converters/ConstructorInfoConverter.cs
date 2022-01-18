@@ -5,10 +5,10 @@ using VerifyTests;
 class ConstructorInfoConverter :
     WriteOnlyJsonConverter<ConstructorInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer, ConstructorInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(
+        VerifyJsonWriter writer,
+        ConstructorInfo value,
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

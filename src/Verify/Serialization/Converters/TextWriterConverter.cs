@@ -11,11 +11,10 @@ class TextWriterConverter :
         this.sharedScrubber = sharedScrubber;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         TextWriter value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var stringValue = value.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse

@@ -6,11 +6,10 @@ using VerifyTests;
 class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         TimeOnly value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString("h:mm tt", serializer.Culture));
     }

@@ -5,11 +5,10 @@ using VerifyTests;
 class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         Delegate @delegate,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteStartObject();
         writer.WritePropertyName("Type");

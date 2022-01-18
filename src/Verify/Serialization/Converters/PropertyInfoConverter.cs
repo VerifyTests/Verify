@@ -5,11 +5,10 @@ using VerifyTests;
 class PropertyInfoConverter :
     WriteOnlyJsonConverter<PropertyInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         PropertyInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.SimpleName());
     }

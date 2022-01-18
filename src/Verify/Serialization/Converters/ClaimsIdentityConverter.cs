@@ -5,11 +5,10 @@ using VerifyTests;
 class ClaimsIdentityConverter :
     WriteOnlyJsonConverter<ClaimsIdentity>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         ClaimsIdentity identity,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteStartObject();
 

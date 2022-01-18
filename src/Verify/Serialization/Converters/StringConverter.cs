@@ -11,11 +11,10 @@ class StringConverter :
         this.sharedScrubber = sharedScrubber;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         string value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         if (sharedScrubber.TryConvertString(value, out var result))
         {

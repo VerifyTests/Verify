@@ -9,11 +9,10 @@ class IdConverter :
         return true;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         object value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var id = CounterContext.Current.NextId(value);
         writer.WriteValue($"Id_{id}");

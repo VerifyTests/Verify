@@ -5,11 +5,10 @@ using VerifyTests;
 class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         NameValueCollection collection,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         var dictionary = new Dictionary<string,string?>();
         foreach (string? key in collection)

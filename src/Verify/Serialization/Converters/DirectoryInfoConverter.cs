@@ -4,11 +4,10 @@ using VerifyTests;
 class DirectoryInfoConverter :
     WriteOnlyJsonConverter<DirectoryInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         DirectoryInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString().Replace('\\','/'));
     }

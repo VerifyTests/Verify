@@ -4,11 +4,10 @@ using VerifyTests;
 class FileInfoConverter :
     WriteOnlyJsonConverter<FileInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         FileInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString().Replace('\\','/'));
     }

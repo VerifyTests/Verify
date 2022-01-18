@@ -2099,11 +2099,10 @@ public class SerializationTests
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>
     {
-        public override void WriteJson(
-            JsonWriter writer,
+        public override void Write(
+            VerifyJsonWriter writer,
             ConverterTarget target,
-            JsonSerializer serializer,
-            IReadOnlyDictionary<string, object> context)
+            JsonSerializer serializer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("Name");

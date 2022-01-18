@@ -1,15 +1,19 @@
 ﻿using System.Globalization;
 using Newtonsoft.Json;
-using VerifyTests;
+namespace VerifyTests;
 
-class JsonTextWriterEx :
+public class VerifyJsonWriter :
     JsonTextWriter
 {
     StringBuilder builder;
-    public Dictionary<string, object> Context { get; }
+    public IReadOnlyDictionary<string, object> Context { get; }
 
-    public JsonTextWriterEx(StringWriter writer, StringBuilder builder, Dictionary<string, object> context) :
-        base(writer)
+    public VerifyJsonWriter(StringBuilder builder, IReadOnlyDictionary<string, object> context) :
+        base(
+            new StringWriter(builder)
+            {
+                NewLine = "\n"
+            })
     {
         this.builder = builder;
         Context = context;

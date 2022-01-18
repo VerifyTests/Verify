@@ -4,11 +4,10 @@ using VerifyTests;
 class VersionConverter :
     WriteOnlyJsonConverter<Version>
 {
-    public override void WriteJson(
-        JsonWriter writer,
+    public override void Write(
+        VerifyJsonWriter writer,
         Version value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+        JsonSerializer serializer)
     {
         writer.WriteValue(value.ToString());
     }

@@ -28,6 +28,11 @@
         return collection.GetEnumerator().MoveNext();
     }
 
+    static bool ImplementsICollection(this Type interfaceType)
+    {
+        return typeof(ICollection).IsAssignableFrom(interfaceType);
+    }
+
     public static bool IsCollection(this Type type)
     {
         if (type == typeof(string))
@@ -35,13 +40,43 @@
             return false;
         }
 
+        if (type.ImplementsICollection())
+        {
+            return true;
+        }
+
         if (type.IsGenericCollection())
         {
             return true;
         }
 
-        return type.GetInterfaces().Any(IsGenericCollection);
+        var interfaces = type.GetInterfaces();
+
+        if (interfaces.Any(ImplementsICollection))
+        {
+            return true;
+        }
+
+        if (interfaces.Any(IsGenericCollection))
+        {
+            return true;
+        }
+
+        return false;
     }
+
+    static bool IsGenericCollection(this Type x)
+    {
+        if (!x.IsGenericType)
+        {
+            return false;
+        }
+
+        var definition = x.GetGenericTypeDefinition();
+        return definition == typeof(ICollection<>) ||
+               definition == typeof(IReadOnlyCollection<>);
+    }
+
 
     public static bool ImplementsStreamEnumerable(this Type type)
     {
@@ -74,18 +109,6 @@
         var definition = x.GetGenericTypeDefinition();
         return definition == typeof(IDictionary<,>) ||
                definition == typeof(IReadOnlyDictionary<,>);
-    }
-
-    static bool IsGenericCollection(this Type x)
-    {
-        if (!x.IsGenericType)
-        {
-            return false;
-        }
-
-        var definition = x.GetGenericTypeDefinition();
-        return definition == typeof(ICollection<>) ||
-               definition == typeof(IReadOnlyCollection<>);
     }
 
     public static T GetValue<T>(this MemberInfo member, object instance)

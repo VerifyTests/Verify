@@ -7,6 +7,11 @@
             return true;
         }
 
+        if (!type.ImplementsIEnumerable())
+        {
+            return false;
+        }
+
         if (type.IsGenericDictionary())
         {
             return true;
@@ -15,6 +20,17 @@
         return type.GetInterfaces().Any(IsGenericDictionary);
     }
 
+    static bool IsGenericDictionary(this Type x)
+    {
+        if (!x.IsGenericType)
+        {
+            return false;
+        }
+
+        var definition = x.GetGenericTypeDefinition();
+        return definition == typeof(IDictionary<,>) ||
+               definition == typeof(IReadOnlyDictionary<,>);
+    }
 
     public static bool HasMembers(this IEnumerable? collection)
     {
@@ -33,6 +49,11 @@
         return typeof(ICollection).IsAssignableFrom(interfaceType);
     }
 
+    static bool ImplementsIEnumerable(this Type interfaceType)
+    {
+        return typeof(IEnumerable).IsAssignableFrom(interfaceType);
+    }
+
     public static bool IsCollection(this Type type)
     {
         if (type == typeof(string))
@@ -43,6 +64,11 @@
         if (type.ImplementsICollection())
         {
             return true;
+        }
+
+        if (!type.ImplementsIEnumerable())
+        {
+            return false;
         }
 
         if (type.IsGenericCollection())
@@ -97,18 +123,6 @@
         }
 
         return type.GetGenericArguments()[0] == typeof(Stream);
-    }
-
-    static bool IsGenericDictionary(this Type x)
-    {
-        if (!x.IsGenericType)
-        {
-            return false;
-        }
-
-        var definition = x.GetGenericTypeDefinition();
-        return definition == typeof(IDictionary<,>) ||
-               definition == typeof(IReadOnlyDictionary<,>);
     }
 
     public static T GetValue<T>(this MemberInfo member, object instance)

@@ -19,6 +19,11 @@ public partial class VerifySettings
         serialization.RegenSettings();
     }
 
+    internal JsonSerializer Serializer
+    {
+        get { return serialization.Serializer; }
+    }
+
     internal List<ToAppend> Appends = new();
 
     /// <summary>

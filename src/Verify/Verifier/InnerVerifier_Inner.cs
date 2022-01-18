@@ -51,11 +51,7 @@ partial class InnerVerifier
                 extension = "json";
             }
 
-            builder = JsonFormatter.AsJson(
-                null,
-                settings.serialization.currentSettings,
-                appends,
-                settings);
+            builder = JsonFormatter.AsJson(null, appends, settings);
             return true;
         }
 
@@ -74,11 +70,7 @@ partial class InnerVerifier
             extension = "json";
         }
 
-        builder = JsonFormatter.AsJson(
-            target,
-            settings.serialization.currentSettings,
-            appends,
-            settings);
+        builder = JsonFormatter.AsJson(target, appends, settings);
 
         return true;
     }

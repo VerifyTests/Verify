@@ -1,14 +1,15 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-partial class SharedScrubber
+namespace VerifyTests;
+
+public partial class SerializationSettings
 {
     internal static List<string> dateFormats = new() {"d"};
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
-    bool scrubDateTimes;
 
-    public bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
         {
@@ -22,7 +23,7 @@ partial class SharedScrubber
 
 #if NET6_0_OR_GREATER
 
-    public bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
+    bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -40,7 +41,7 @@ partial class SharedScrubber
         return false;
     }
 
-    public bool TryConvert(DateOnly value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateOnly value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
         {
@@ -70,7 +71,7 @@ partial class SharedScrubber
 
 #endif
 
-    public bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
         {
@@ -114,11 +115,11 @@ partial class SharedScrubber
         return $"DateTimeOffset_{next}";
     }
 
-    public bool TryParseConvertDateTime(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTime(string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
-            if (DateTime.TryParseExact(value, settings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
+            if (DateTime.TryParseExact(value, serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
             {
                 result = Convert(dateTime);
                 return true;
@@ -138,11 +139,11 @@ partial class SharedScrubber
         return false;
     }
 
-    public bool TryParseConvertDateTimeOffset(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTimeOffset(string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
-            if (DateTimeOffset.TryParseExact(value, settings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
+            if (DateTimeOffset.TryParseExact(value, serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
             {
                 result = Convert(dateTimeOffset);
                 return true;

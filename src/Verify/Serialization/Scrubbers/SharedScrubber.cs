@@ -1,18 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
 
-partial class SharedScrubber
+namespace VerifyTests;
+
+public partial class SerializationSettings
 {
-    JsonSerializerSettings settings;
-
-    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
-    {
-        this.scrubGuids = scrubGuids;
-        this.scrubDateTimes = scrubDateTimes;
-        this.settings = settings;
-    }
-
-    public bool TryConvertString(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertString(string value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(value, out result))
         {

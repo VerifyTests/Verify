@@ -6,9 +6,9 @@ using VerifyTests;
 class DateConverter :
     WriteOnlyJsonConverter<DateOnly>
 {
-    SharedScrubber scrubber;
+    SerializationSettings scrubber;
 
-    public DateConverter(SharedScrubber scrubber)
+    public DateConverter(SerializationSettings scrubber)
     {
         this.scrubber = scrubber;
     }

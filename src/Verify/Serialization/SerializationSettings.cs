@@ -31,6 +31,8 @@ public partial class SerializationSettings
     static JObjectConverter jObjectConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
 
+    JsonSerializerSettings serializersettings;
+
     public SerializationSettings()
     {
         IgnoreMembersThatThrow<NotImplementedException>();
@@ -40,39 +42,38 @@ public partial class SerializationSettings
         IgnoreMember<Exception>(x => x.HResult);
         MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
 
-        RegenSettings();
+        serializersettings = BuildSettings();
+    }
+
+    public SerializationSettings(SerializationSettings settings)
+    {
+        membersConverters = settings.membersConverters
+            .ToDictionary(
+                x => x.Key,
+                x => x.Value.ToDictionary(y => y.Key, y => y.Value));
+        ignoredMembers = settings.ignoredMembers.ToDictionary(
+            x => x.Key,
+            x => x.Value.Clone());
+        ignoredByNameMembers = settings.ignoredByNameMembers.Clone();
+        ignoreEmptyCollections = settings.ignoreEmptyCollections;
+        extraSettings = settings.extraSettings.Clone();
+        dontIgnoreFalse = settings.dontIgnoreFalse;
+        ignoreMembersThatThrow = settings.ignoreMembersThatThrow.Clone();
+        ignoredTypes = settings.ignoredTypes.Clone();
+        ignoredInstances = settings.ignoredInstances
+            .ToDictionary(
+                x => x.Key,
+                x => x.Value.Clone());
+        scrubDateTimes = settings.scrubDateTimes;
+        scrubNumericIds = settings.scrubNumericIds;
+        scrubGuids = settings.scrubGuids;
+        includeObsoletes = settings.includeObsoletes;
+        isNumericId = settings.isNumericId;
+
+        serializersettings = BuildSettings();
     }
 
     internal Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
-
-    public SerializationSettings Clone()
-    {
-        return new()
-        {
-            membersConverters = membersConverters
-                .ToDictionary(
-                    x => x.Key,
-                    x => x.Value.ToDictionary(y => y.Key, y => y.Value)),
-            ignoredMembers = ignoredMembers.ToDictionary(
-                x => x.Key,
-                x => x.Value.Clone()),
-            ignoredByNameMembers = ignoredByNameMembers.Clone(),
-            ignoreEmptyCollections = ignoreEmptyCollections,
-            ExtraSettings = ExtraSettings.Clone(),
-            dontIgnoreFalse = dontIgnoreFalse,
-            ignoreMembersThatThrow = ignoreMembersThatThrow.Clone(),
-            ignoredTypes = ignoredTypes.Clone(),
-            ignoredInstances = ignoredInstances
-                .ToDictionary(
-                    x => x.Key,
-                    x => x.Value.Clone()),
-            scrubDateTimes = scrubDateTimes,
-            scrubNumericIds = scrubNumericIds,
-            scrubGuids = scrubGuids,
-            includeObsoletes = includeObsoletes,
-            isNumericId = isNumericId
-        };
-    }
 
     public void MemberConverter<TTarget, TMember>(
         Expression<Func<TTarget, TMember?>> expression,
@@ -110,9 +111,9 @@ public partial class SerializationSettings
         scrubDateTimes = false;
     }
 
-    bool scrubNumericIds = true;
+    internal bool scrubNumericIds = true;
 
-    private IsNumericId isNumericId = member => member.Name.EndsWith("Id");
+    internal IsNumericId isNumericId = member => member.Name.EndsWith("Id");
 
     public void TreatAsNumericId(IsNumericId isNumericId)
     {
@@ -124,7 +125,7 @@ public partial class SerializationSettings
         scrubNumericIds = false;
     }
 
-    internal void RegenSettings()
+    JsonSerializerSettings BuildSettings()
     {
         #region defaultSerialization
 
@@ -139,33 +140,19 @@ public partial class SerializationSettings
         #endregion
 
         settings.SerializationBinder = ShortNameBinder.Instance;
-        var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes, settings);
-        var propertyIgnorer = new PropertyIgnorer(
-            ignoreEmptyCollections,
-            includeObsoletes,
-            ignoredMembers,
-            ignoredByNameMembers,
-            ignoredTypes,
-            ignoredInstances);
-        settings.ContractResolver = new CustomContractResolver(
-            dontIgnoreFalse,
-            scrubNumericIds,
-            isNumericId,
-            ignoreMembersThatThrow,
-            scrubber,
-            membersConverters,
-            propertyIgnorer);
+
+        settings.ContractResolver = new CustomContractResolver(this);
         var converters = settings.Converters;
-        converters.Add(new StringConverter(scrubber));
-        converters.Add(new StringBuilderConverter(scrubber));
-        converters.Add(new TextWriterConverter(scrubber));
-        converters.Add(new GuidConverter(scrubber));
-        converters.Add(new DateTimeConverter(scrubber));
+        converters.Add(new StringConverter(this));
+        converters.Add(new StringBuilderConverter(this));
+        converters.Add(new TextWriterConverter(this));
+        converters.Add(new GuidConverter(this));
+        converters.Add(new DateTimeConverter(this));
 #if NET6_0_OR_GREATER
-        converters.Add(new DateConverter(scrubber));
+        converters.Add(new DateConverter(this));
         converters.Add(timeConverter);
 #endif
-        converters.Add(new DateTimeOffsetConverter(scrubber));
+        converters.Add(new DateTimeOffsetConverter(this));
         converters.Add(fileInfoConverter);
         converters.Add(directoryInfoConverter);
         converters.Add(stringEnumConverter);
@@ -185,11 +172,16 @@ public partial class SerializationSettings
         converters.Add(jArrayConverter);
         converters.Add(jObjectConverter);
         converters.Add(nameValueCollectionConverter);
-        foreach (var extraSetting in ExtraSettings)
+        foreach (var extraSetting in extraSettings)
         {
             extraSetting(settings);
         }
 
+        return settings;
+    }
+
+    static void ValidateSettings(JsonSerializerSettings settings)
+    {
         if (settings.DateFormatHandling != DateFormatHandling.IsoDateFormat)
         {
             throw new("Custom DateFormatHandling is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
@@ -204,17 +196,17 @@ public partial class SerializationSettings
         {
             throw new("Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
         }
-
-        serializersettings = settings;
-        serializer = null;
     }
 
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
-        ExtraSettings.Add(action);
+        extraSettings.Add(action);
+        action(serializersettings);
+        ValidateSettings(serializersettings);
+        serializer = null;
     }
 
-    List<Action<JsonSerializerSettings>> ExtraSettings = new();
+    List<Action<JsonSerializerSettings>> extraSettings = new();
     JsonSerializer? serializer;
 
     internal JsonSerializer Serializer
@@ -232,7 +224,6 @@ public partial class SerializationSettings
     }
 
     bool includeObsoletes;
-    JsonSerializerSettings serializersettings = null!;
 
     public void IncludeObsoletes()
     {

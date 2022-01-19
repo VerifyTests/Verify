@@ -6,30 +6,11 @@ using VerifyTests;
 class CustomContractResolver :
     DefaultContractResolver
 {
-    bool dontIgnoreFalse;
-    bool scrubNumericIds;
-    IsNumericId isNumericId;
-    IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-    SharedScrubber scrubber;
-    IReadOnlyDictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
-    PropertyIgnorer propertyIgnorer;
+    SerializationSettings settings;
 
-    public CustomContractResolver(
-        bool dontIgnoreFalse,
-        bool scrubNumericIds,
-        IsNumericId isNumericId,
-        IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-        SharedScrubber scrubber,
-        IReadOnlyDictionary<Type, Dictionary<string, ConvertMember>> membersConverters,
-        PropertyIgnorer propertyIgnorer)
+    public CustomContractResolver(SerializationSettings settings)
     {
-        this.dontIgnoreFalse = dontIgnoreFalse;
-        this.scrubNumericIds = scrubNumericIds;
-        this.isNumericId = isNumericId;
-        this.ignoreMembersThatThrow = ignoreMembersThatThrow;
-        this.scrubber = scrubber;
-        this.membersConverters = membersConverters;
-        this.propertyIgnorer = propertyIgnorer;
+        this.settings = settings;
         IgnoreSerializableInterface = true;
     }
 
@@ -77,7 +58,7 @@ class CustomContractResolver :
         var keyType = contract.DictionaryKeyType;
         if (keyType == typeof(Guid))
         {
-            if (scrubber.TryParseConvertGuid(value, out var result))
+            if (settings.TryParseConvertGuid(value, out var result))
             {
                 return result;
             }
@@ -85,7 +66,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTimeOffset))
         {
-            if (scrubber.TryParseConvertDateTimeOffset(value, out var result))
+            if (settings.TryParseConvertDateTimeOffset(value, out var result))
             {
                 return result;
             }
@@ -93,7 +74,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTime))
         {
-            if (scrubber.TryParseConvertDateTime(value, out var result))
+            if (settings.TryParseConvertDateTime(value, out var result))
             {
                 return result;
             }
@@ -139,15 +120,15 @@ class CustomContractResolver :
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
-        property.ConfigureIfBool(member, dontIgnoreFalse);
+        property.ConfigureIfBool(member, settings.dontIgnoreFalse);
 
-        if (propertyIgnorer.ShouldIgnore(member))
+        if (settings.ShouldIgnore(member))
         {
             property.Ignored = true;
             return property;
         }
 
-        if (propertyIgnorer.TryGetShouldSerialize(propertyType, valueProvider.GetValue, out var shouldSerialize))
+        if (settings.TryGetShouldSerialize(propertyType, valueProvider.GetValue, out var shouldSerialize))
         {
             property.ShouldSerialize = shouldSerialize;
         }
@@ -160,7 +141,7 @@ class CustomContractResolver :
             underlyingType == typeof(ulong)
         )
         {
-            if (scrubNumericIds && isNumericId(member))
+            if (settings.scrubNumericIds && settings.isNumericId(member))
             {
                 property.Converter = new IdConverter();
                 return property;
@@ -168,7 +149,7 @@ class CustomContractResolver :
         }
 
         ConvertMember? membersConverter = null;
-        foreach (var pair in membersConverters)
+        foreach (var pair in settings.membersConverters)
         {
             if (pair.Key.IsAssignableFrom(member.DeclaringType))
             {
@@ -177,7 +158,7 @@ class CustomContractResolver :
             }
         }
 
-        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow, membersConverter);
+        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, settings.ignoreMembersThatThrow, membersConverter);
 
         return property;
     }

@@ -29,7 +29,7 @@ static class FileComparer
         if (!previousTextHasFailed &&
             settings.TryFindStreamComparer(filePair.Extension, out var compare))
         {
-            return DoCompare(settings, compare!, filePair);
+            return DoCompare(settings, compare, filePair);
         }
 
         if (FilesAreSameSize(filePair))

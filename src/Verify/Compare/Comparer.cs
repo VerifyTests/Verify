@@ -29,7 +29,7 @@ static class Comparer
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
-            return compare!(received, verified, settings.Context);
+            return compare(received, verified, settings.Context);
         }
 
         return Task.FromResult(new CompareResult(isEqual));

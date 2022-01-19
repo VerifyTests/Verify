@@ -10,7 +10,7 @@ partial class SharedScrubber
         this.serializationSettings = serializationSettings;
     }
 
-    public bool TryConvertString(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertString(string value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(value, out result))
         {

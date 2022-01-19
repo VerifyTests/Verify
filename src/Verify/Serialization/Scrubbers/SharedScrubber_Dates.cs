@@ -7,7 +7,7 @@ partial class SharedScrubber
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
 
-    public bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
     {
         if (!serializationSettings.scrubDateTimes)
         {
@@ -21,7 +21,7 @@ partial class SharedScrubber
 
 #if NET6_0_OR_GREATER
 
-    public bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
     {
         if (serializationSettings.scrubDateTimes)
         {
@@ -39,7 +39,7 @@ partial class SharedScrubber
         return false;
     }
 
-    public bool TryConvert(DateOnly value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateOnly value, [NotNullWhen(true)] out string? result)
     {
         if (!serializationSettings.scrubDateTimes)
         {
@@ -69,7 +69,7 @@ partial class SharedScrubber
 
 #endif
 
-    public bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
     {
         if (!serializationSettings.scrubDateTimes)
         {
@@ -113,7 +113,7 @@ partial class SharedScrubber
         return $"DateTimeOffset_{next}";
     }
 
-    public bool TryParseConvertDateTime(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTime(string value, [NotNullWhen(true)] out string? result)
     {
         if (serializationSettings.scrubDateTimes)
         {
@@ -137,7 +137,7 @@ partial class SharedScrubber
         return false;
     }
 
-    public bool TryParseConvertDateTimeOffset(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTimeOffset(string value, [NotNullWhen(true)] out string? result)
     {
         if (serializationSettings.scrubDateTimes)
         {

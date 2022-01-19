@@ -29,7 +29,6 @@ static class JsonFormatter
             }
         }
 
-
         var builder = new StringBuilder();
         using var writer = new VerifyJsonWriter(builder, settings.Context);
         settings.Serializer.Serialize(writer, input);

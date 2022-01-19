@@ -4,7 +4,7 @@ namespace VerifyTests;
 
 public partial class VerifySettings
 {
-    internal SerializationSettings serialization = VerifierSettings.serialization;
+    SerializationSettings serialization = VerifierSettings.serialization;
     bool isCloned;
 
     public void ModifySerialization(Action<SerializationSettings> action)

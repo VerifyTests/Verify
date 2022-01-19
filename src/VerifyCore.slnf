@@ -2,11 +2,11 @@
   "solution": {
     "path": "Verify.sln",
     "projects": [
+      "TargetLibrary\\TargetLibrary.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
       "Verify.Xunit.Tests\\Verify.Xunit.Tests.csproj",
       "Verify.Xunit\\Verify.Xunit.csproj",
-      "Verify\\Verify.csproj",
-      "TargetLibrary\\TargetLibrary.csproj"
+      "Verify\\Verify.csproj"
     ]
   }
 }

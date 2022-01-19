@@ -23,7 +23,7 @@ public partial class SerializationSettings
 
 #if NET6_0_OR_GREATER
 
-    internal bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
+    bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {

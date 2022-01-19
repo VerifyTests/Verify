@@ -31,7 +31,7 @@ public partial class SerializationSettings
     static JObjectConverter jObjectConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
 
-    internal JsonSerializerSettings serializersettings;
+    JsonSerializerSettings serializersettings;
 
     public SerializationSettings()
     {
@@ -97,14 +97,14 @@ public partial class SerializationSettings
         list[name] = converter;
     }
 
-    internal bool scrubGuids = true;
+    bool scrubGuids = true;
 
     public void DontScrubGuids()
     {
         scrubGuids = false;
     }
 
-    internal bool scrubDateTimes = true;
+    bool scrubDateTimes = true;
 
     public void DontScrubDateTimes()
     {

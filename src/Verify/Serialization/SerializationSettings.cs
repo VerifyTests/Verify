@@ -140,20 +140,19 @@ public partial class SerializationSettings
         #endregion
 
         settings.SerializationBinder = ShortNameBinder.Instance;
-        var scrubber = new SharedScrubber(this);
 
-        settings.ContractResolver = new CustomContractResolver(scrubber, this);
+        settings.ContractResolver = new CustomContractResolver(this);
         var converters = settings.Converters;
-        converters.Add(new StringConverter(scrubber));
-        converters.Add(new StringBuilderConverter(scrubber));
-        converters.Add(new TextWriterConverter(scrubber));
-        converters.Add(new GuidConverter(scrubber));
-        converters.Add(new DateTimeConverter(scrubber));
+        converters.Add(new StringConverter(this));
+        converters.Add(new StringBuilderConverter(this));
+        converters.Add(new TextWriterConverter(this));
+        converters.Add(new GuidConverter(this));
+        converters.Add(new DateTimeConverter(this));
 #if NET6_0_OR_GREATER
-        converters.Add(new DateConverter(scrubber));
+        converters.Add(new DateConverter(this));
         converters.Add(timeConverter);
 #endif
-        converters.Add(new DateTimeOffsetConverter(scrubber));
+        converters.Add(new DateTimeOffsetConverter(this));
         converters.Add(fileInfoConverter);
         converters.Add(directoryInfoConverter);
         converters.Add(stringEnumConverter);

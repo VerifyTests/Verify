@@ -5,9 +5,9 @@ using VerifyTests;
 class GuidConverter :
     WriteOnlyJsonConverter<Guid>
 {
-    SharedScrubber scrubber;
+    SerializationSettings scrubber;
 
-    public GuidConverter(SharedScrubber scrubber)
+    public GuidConverter(SerializationSettings scrubber)
     {
         this.scrubber = scrubber;
     }

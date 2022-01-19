@@ -163,17 +163,17 @@ public static partial class VerifierSettings
 
     public static void AddExtraDateFormat(string format)
     {
-        SharedScrubber.dateFormats.Add(format);
+        SerializationSettings.dateFormats.Add(format);
     }
 
     public static void AddExtraDatetimeFormat(string format)
     {
-        SharedScrubber.datetimeFormats.Add(format);
+        SerializationSettings.datetimeFormats.Add(format);
     }
 
     public static void AddExtraDatetimeOffsetFormat(string format)
     {
-        SharedScrubber.datetimeOffsetFormats.Add(format);
+        SerializationSettings.datetimeOffsetFormats.Add(format);
     }
 
     public static void UseStrictJson()

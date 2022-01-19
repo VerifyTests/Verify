@@ -6,14 +6,10 @@ using VerifyTests;
 class CustomContractResolver :
     DefaultContractResolver
 {
-    SharedScrubber scrubber;
     SerializationSettings settings;
 
-    public CustomContractResolver(
-        SharedScrubber scrubber,
-        SerializationSettings settings)
+    public CustomContractResolver(SerializationSettings settings)
     {
-        this.scrubber = scrubber;
         this.settings = settings;
         IgnoreSerializableInterface = true;
     }
@@ -62,7 +58,7 @@ class CustomContractResolver :
         var keyType = contract.DictionaryKeyType;
         if (keyType == typeof(Guid))
         {
-            if (scrubber.TryParseConvertGuid(value, out var result))
+            if (settings.TryParseConvertGuid(value, out var result))
             {
                 return result;
             }
@@ -70,7 +66,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTimeOffset))
         {
-            if (scrubber.TryParseConvertDateTimeOffset(value, out var result))
+            if (settings.TryParseConvertDateTimeOffset(value, out var result))
             {
                 return result;
             }
@@ -78,7 +74,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTime))
         {
-            if (scrubber.TryParseConvertDateTime(value, out var result))
+            if (settings.TryParseConvertDateTime(value, out var result))
             {
                 return result;
             }

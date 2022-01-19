@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using VerifyTests;
 
 static class GuidScrubber
 {
@@ -8,7 +9,7 @@ static class GuidScrubber
 
     public static void ReplaceGuids(StringBuilder builder)
     {
-        if (!TryReplaceGuids(builder.ToString(), SharedScrubber.Convert, out var result))
+        if (!TryReplaceGuids(builder.ToString(), SerializationSettings.Convert, out var result))
         {
             return;
         }

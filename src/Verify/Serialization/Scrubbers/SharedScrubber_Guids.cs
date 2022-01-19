@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-partial class SharedScrubber
+namespace VerifyTests;
+
+public partial class SerializationSettings
 {
     internal bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
     {
-        if (!serializationSettings.scrubGuids)
+        if (!scrubGuids)
         {
             result = null;
             return false;
@@ -27,7 +29,7 @@ partial class SharedScrubber
 
     internal bool TryParseConvertGuid(string value, [NotNullWhen(true)] out string? result)
     {
-        if (serializationSettings.scrubGuids)
+        if (scrubGuids)
         {
             if (Guid.TryParse(value, out var guid))
             {

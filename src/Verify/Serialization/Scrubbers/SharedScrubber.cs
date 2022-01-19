@@ -1,15 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using VerifyTests;
 
-partial class SharedScrubber
+namespace VerifyTests;
+
+public partial class SerializationSettings
 {
-    SerializationSettings serializationSettings;
-
-    public SharedScrubber(SerializationSettings serializationSettings)
-    {
-        this.serializationSettings = serializationSettings;
-    }
-
     internal bool TryConvertString(string value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(value, out result))

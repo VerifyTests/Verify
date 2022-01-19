@@ -4,11 +4,11 @@ using VerifyTests;
 class StringConverter :
     WriteOnlyJsonConverter<string>
 {
-    SharedScrubber sharedScrubber;
+    SerializationSettings settings;
 
-    public StringConverter(SharedScrubber sharedScrubber)
+    public StringConverter(SerializationSettings settings)
     {
-        this.sharedScrubber = sharedScrubber;
+        this.settings = settings;
     }
 
     public override void Write(
@@ -16,7 +16,7 @@ class StringConverter :
         string value,
         JsonSerializer serializer)
     {
-        if (sharedScrubber.TryConvertString(value, out var result))
+        if (settings.TryConvertString(value, out var result))
         {
             writer.WriteValue(result);
             return;

@@ -117,7 +117,7 @@ partial class SharedScrubber
     {
         if (serializationSettings.scrubDateTimes)
         {
-            if (DateTime.TryParseExact(value, settings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
+            if (DateTime.TryParseExact(value, serializationSettings.serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
             {
                 result = Convert(dateTime);
                 return true;
@@ -141,7 +141,7 @@ partial class SharedScrubber
     {
         if (serializationSettings.scrubDateTimes)
         {
-            if (DateTimeOffset.TryParseExact(value, settings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
+            if (DateTimeOffset.TryParseExact(value, serializationSettings.serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
             {
                 result = Convert(dateTimeOffset);
                 return true;

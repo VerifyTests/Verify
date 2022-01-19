@@ -1,15 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
 using VerifyTests;
 
 partial class SharedScrubber
 {
-    JsonSerializerSettings settings;
     SerializationSettings serializationSettings;
 
-    public SharedScrubber(JsonSerializerSettings settings, SerializationSettings serializationSettings)
+    public SharedScrubber(SerializationSettings serializationSettings)
     {
-        this.settings = settings;
         this.serializationSettings = serializationSettings;
     }
 

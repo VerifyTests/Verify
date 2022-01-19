@@ -31,7 +31,7 @@ public partial class SerializationSettings
     static JObjectConverter jObjectConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
 
-    JsonSerializerSettings serializersettings;
+    internal JsonSerializerSettings serializersettings;
 
     public SerializationSettings()
     {
@@ -140,7 +140,7 @@ public partial class SerializationSettings
         #endregion
 
         settings.SerializationBinder = ShortNameBinder.Instance;
-        var scrubber = new SharedScrubber(settings, this);
+        var scrubber = new SharedScrubber(this);
 
         settings.ContractResolver = new CustomContractResolver(scrubber, this);
         var converters = settings.Converters;

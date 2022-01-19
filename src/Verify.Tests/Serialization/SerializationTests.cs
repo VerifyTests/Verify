@@ -371,7 +371,7 @@ public class SerializationTests
 
         settings.ignoredByNameMembers.Add("ignored");
 
-        var clone = settings.Clone();
+        var clone = new SerializationSettings(settings);
 
         Assert.NotSame(settings, clone);
         Assert.NotSame(settings.ignoredMembers, clone.ignoredMembers);

@@ -149,13 +149,11 @@ public static partial class VerifierSettings
     public static void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         serialization.AddExtraSettings(action);
-        serialization.RegenSettings();
     }
 
     public static void ModifySerialization(Action<SerializationSettings> action)
     {
         action(serialization);
-        serialization.RegenSettings();
     }
 
     public static void IgnoreStackTrack()

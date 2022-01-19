@@ -144,7 +144,7 @@ public partial class SerializationSettings
         dontIgnoreFalse = true;
     }
 
-    public bool ShouldIgnore(MemberInfo member)
+    internal bool ShouldIgnore(MemberInfo member)
     {
         if (!includeObsoletes)
         {
@@ -179,7 +179,7 @@ public partial class SerializationSettings
         return false;
     }
 
-    public bool TryGetShouldSerialize(Type propertyType, Func<object, object?> getValue, out Predicate<object>? shouldSerialize)
+    internal bool TryGetShouldSerialize(Type propertyType, Func<object, object?> getValue, out Predicate<object>? shouldSerialize)
     {
         if (ignoredInstances.TryGetValue(propertyType, out var funcs))
         {

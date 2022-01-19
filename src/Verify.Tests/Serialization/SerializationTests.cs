@@ -276,14 +276,15 @@ public class SerializationTests
 
     #endregion
 
-    #region TreatAsNumericIdGlobal
-
-    [Fact]
+    //TOFO: move to diff project
+    //[Fact]
     public Task TreatAsNumericIdGlobal()
     {
+        #region TreatAsNumericIdGlobal
         VerifierSettings.ModifySerialization(
             settings => settings.TreatAsNumericId(
                 member => member.Name == "TheProperty"));
+        #endregion
         var target = new IdConventionTarget
         {
             TheProperty = 5
@@ -291,19 +292,17 @@ public class SerializationTests
         return Verify(target);
     }
 
-    #endregion
-
     public class IdConventionTarget
     {
         public int TheProperty { get; set; }
     }
 
-    #region DisableNumericIdGlobal
-
-    [Fact]
+    //TODO: move to diff project
     public Task NumericIdScrubbingDisabledGlobal()
     {
+        #region DisableNumericIdGlobal
         VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
+        #endregion
         return Verify(
             new
             {
@@ -315,7 +314,6 @@ public class SerializationTests
             });
     }
 
-    #endregion
 
     #region DisableNumericId
 
@@ -1312,7 +1310,6 @@ public class SerializationTests
 
         VerifierSettings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
-
 #endregion
     }
 

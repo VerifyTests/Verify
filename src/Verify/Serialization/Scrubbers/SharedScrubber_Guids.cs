@@ -2,11 +2,9 @@
 
 partial class SharedScrubber
 {
-    bool scrubGuids;
-
     public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubGuids)
+        if (!serializationSettings.scrubGuids)
         {
             result = null;
             return false;
@@ -29,7 +27,7 @@ partial class SharedScrubber
 
     public bool TryParseConvertGuid(string value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubGuids)
+        if (serializationSettings.scrubGuids)
         {
             if (Guid.TryParse(value, out var guid))
             {

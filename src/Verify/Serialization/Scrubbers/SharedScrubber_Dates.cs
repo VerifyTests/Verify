@@ -6,11 +6,10 @@ partial class SharedScrubber
     internal static List<string> dateFormats = new() {"d"};
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
-    bool scrubDateTimes;
 
     public bool TryConvert(DateTime value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (!serializationSettings.scrubDateTimes)
         {
             result = null;
             return false;
@@ -24,7 +23,7 @@ partial class SharedScrubber
 
     public bool TryParseConvertDate(string value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (serializationSettings.scrubDateTimes)
         {
             foreach (var format in dateFormats)
             {
@@ -42,7 +41,7 @@ partial class SharedScrubber
 
     public bool TryConvert(DateOnly value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (!serializationSettings.scrubDateTimes)
         {
             result = null;
             return false;
@@ -72,7 +71,7 @@ partial class SharedScrubber
 
     public bool TryConvert(DateTimeOffset value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (!serializationSettings.scrubDateTimes)
         {
             result = null;
             return false;
@@ -116,7 +115,7 @@ partial class SharedScrubber
 
     public bool TryParseConvertDateTime(string value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (serializationSettings.scrubDateTimes)
         {
             if (DateTime.TryParseExact(value, settings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
             {
@@ -140,7 +139,7 @@ partial class SharedScrubber
 
     public bool TryParseConvertDateTimeOffset(string value, [NotNullWhen(true)] out string? result)
     {
-        if (scrubDateTimes)
+        if (serializationSettings.scrubDateTimes)
         {
             if (DateTimeOffset.TryParseExact(value, settings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
             {

@@ -1,15 +1,16 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
+using VerifyTests;
 
 partial class SharedScrubber
 {
     JsonSerializerSettings settings;
+    SerializationSettings serializationSettings;
 
-    public SharedScrubber(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
+    public SharedScrubber(JsonSerializerSettings settings, SerializationSettings serializationSettings)
     {
-        this.scrubGuids = scrubGuids;
-        this.scrubDateTimes = scrubDateTimes;
         this.settings = settings;
+        this.serializationSettings = serializationSettings;
     }
 
     public bool TryConvertString(string value, [NotNullWhen(true)] out string? result)

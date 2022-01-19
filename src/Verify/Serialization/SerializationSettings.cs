@@ -97,23 +97,23 @@ public partial class SerializationSettings
         list[name] = converter;
     }
 
-    bool scrubGuids = true;
+    internal bool scrubGuids = true;
 
     public void DontScrubGuids()
     {
         scrubGuids = false;
     }
 
-    bool scrubDateTimes = true;
+    internal bool scrubDateTimes = true;
 
     public void DontScrubDateTimes()
     {
         scrubDateTimes = false;
     }
 
-    bool scrubNumericIds = true;
+    internal bool scrubNumericIds = true;
 
-    private IsNumericId isNumericId = member => member.Name.EndsWith("Id");
+    internal IsNumericId isNumericId = member => member.Name.EndsWith("Id");
 
     public void TreatAsNumericId(IsNumericId isNumericId)
     {
@@ -140,22 +140,9 @@ public partial class SerializationSettings
         #endregion
 
         settings.SerializationBinder = ShortNameBinder.Instance;
-        var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes, settings);
-        var propertyIgnorer = new PropertyIgnorer(
-            ignoreEmptyCollections,
-            includeObsoletes,
-            ignoredMembers,
-            ignoredByNameMembers,
-            ignoredTypes,
-            ignoredInstances);
-        settings.ContractResolver = new CustomContractResolver(
-            dontIgnoreFalse,
-            scrubNumericIds,
-            isNumericId,
-            ignoreMembersThatThrow,
-            scrubber,
-            membersConverters,
-            propertyIgnorer);
+        var scrubber = new SharedScrubber(settings, this);
+
+        settings.ContractResolver = new CustomContractResolver(scrubber, this);
         var converters = settings.Converters;
         converters.Add(new StringConverter(scrubber));
         converters.Add(new StringBuilderConverter(scrubber));
@@ -216,6 +203,7 @@ public partial class SerializationSettings
     {
         extraSettings.Add(action);
         action(serializersettings);
+        ValidateSettings(serializersettings);
         serializer = null;
     }
 
@@ -229,7 +217,6 @@ public partial class SerializationSettings
             var jsonSerializer = serializer;
             if (jsonSerializer == null)
             {
-                ValidateSettings(serializersettings);
                 return serializer = JsonSerializer.Create(serializersettings);
             }
 

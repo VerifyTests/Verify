@@ -70,6 +70,7 @@ public partial class SerializationSettings
             scrubNumericIds = scrubNumericIds,
             scrubGuids = scrubGuids,
             includeObsoletes = includeObsoletes,
+            isNumericId = isNumericId
         };
     }
 
@@ -214,7 +215,7 @@ public partial class SerializationSettings
     }
 
     List<Action<JsonSerializerSettings>> ExtraSettings = new();
-    private JsonSerializer? serializer;
+    JsonSerializer? serializer;
 
     internal JsonSerializer Serializer
     {

@@ -4,6 +4,12 @@ using SimpleInfoName;
 class ShortNameBinder :
     ISerializationBinder
 {
+    public static readonly ShortNameBinder Instance = new();
+
+    private ShortNameBinder()
+    {
+    }
+
     public void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
     {
         assemblyName = null;

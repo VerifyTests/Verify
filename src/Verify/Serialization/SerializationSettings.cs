@@ -138,7 +138,7 @@ public partial class SerializationSettings
 
         #endregion
 
-        settings.SerializationBinder = new ShortNameBinder();
+        settings.SerializationBinder = ShortNameBinder.Instance;
         var scrubber = new SharedScrubber(scrubGuids, scrubDateTimes, settings);
         var propertyIgnorer = new PropertyIgnorer(
             ignoreEmptyCollections,

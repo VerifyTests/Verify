@@ -185,23 +185,18 @@ public partial class SerializationSettings
 
     internal bool ShouldSerialize<T>(T value)
     {
+        if (value is null)
+        {
+            return false;
+        }
+
         if (ignoredInstances.TryGetValue(typeof(T), out var funcs))
         {
-            if (value is null)
-            {
-                return false;
-            }
-
             return funcs.All(func => !func(value));
         }
 
         if (IsIgnoredCollection(typeof(T)))
         {
-            if (value is null)
-            {
-                return false;
-            }
-
             // since inside IsCollection, it is safe to use IEnumerable
             var collection = (IEnumerable) value;
 

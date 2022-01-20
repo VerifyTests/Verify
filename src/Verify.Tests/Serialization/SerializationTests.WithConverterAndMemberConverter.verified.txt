@@ -1,1 +1,4 @@
-﻿
+﻿{
+  Name: New Value,
+  Custom: CustomValue
+}

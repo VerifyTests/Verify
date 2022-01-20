@@ -50,11 +50,10 @@ public class VerifyJsonWriter :
             base.WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
+            return;
         }
-        else
-        {
-            base.WriteRawValue(value);
-        }
+
+        base.WriteRawValue(value);
     }
 
     public override void WriteValue(byte[]? value)
@@ -112,7 +111,38 @@ public class VerifyJsonWriter :
             return;
         }
 
+        var converter = VerifierSettings.GetMemberConverter(member);
+        if (converter != null)
+        {
+            var converted = converter(target!, value);
+            if (converted == null)
+            {
+                return;
+            }
+
+            WritePropertyName(member.Name);
+            WriteOrSerialize(converted);
+
+            return;
+        }
+
         WritePropertyName(member.Name);
-        WriteValue(value);
+        WriteOrSerialize(value!);
+    }
+
+    void WriteOrSerialize(object converted)
+    {
+        if (converted is string convertedString)
+        {
+            WriteRawValue(convertedString);
+        }
+        else if (converted.GetType().IsPrimitive)
+        {
+            WriteValue(converted);
+        }
+        else
+        {
+            settings.Serializer.Serialize(this, converted);
+        }
     }
 }

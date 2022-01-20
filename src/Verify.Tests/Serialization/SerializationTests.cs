@@ -1664,7 +1664,10 @@ public class SerializationTests
 
         VerifierSettings.ModifySerialization(_ =>
         {
+            // For all types
             _.IgnoreMember("PropertyByName");
+
+            // For a specific type
             var type = typeof(IgnoreExplicitTarget);
             _.IgnoreMember(type, "Property");
             _.IgnoreMember(type, "Field");
@@ -1690,7 +1693,10 @@ public class SerializationTests
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
+            // For all types
             _.IgnoreMember("PropertyByName");
+
+            // For a specific type
             var type = typeof(IgnoreExplicitTarget);
             _.IgnoreMember(type, "Property");
             _.IgnoreMember(type, "Field");

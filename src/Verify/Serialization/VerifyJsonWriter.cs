@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq.Expressions;
 using Newtonsoft.Json;
 namespace VerifyTests;
 
@@ -6,9 +7,10 @@ public class VerifyJsonWriter :
     JsonTextWriter
 {
     StringBuilder builder;
+    SerializationSettings settings;
     public IReadOnlyDictionary<string, object> Context { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, IReadOnlyDictionary<string, object> context) :
+    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context) :
         base(
             new StringWriter(builder)
             {
@@ -16,6 +18,7 @@ public class VerifyJsonWriter :
             })
     {
         this.builder = builder;
+        this.settings = settings;
         Context = context;
         if (!VerifierSettings.StrictJson)
         {
@@ -93,5 +96,23 @@ public class VerifyJsonWriter :
     public override void WriteValue(TimeSpan value)
     {
         WriteValue(value.ToString());
+    }
+
+    public void WriteProperty<T, TMember>(T target, Expression<Func<T, TMember>> expression)
+    {
+        var member = expression.FindMember();
+        if (settings.ShouldIgnore(member))
+        {
+            return;
+        }
+
+        var value = expression.Compile().Invoke(target);
+        if (!settings.ShouldSerialize(value))
+        {
+            return;
+        }
+
+        WritePropertyName(member.Name);
+        WriteValue(value);
     }
 }

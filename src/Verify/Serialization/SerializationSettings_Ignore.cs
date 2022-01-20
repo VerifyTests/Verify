@@ -154,22 +154,26 @@ public partial class SerializationSettings
             }
         }
 
+        var name = member.Name;
+
         var propertyType = member.MemberType();
+        var declaringType = member.DeclaringType;
+
         if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
         {
             return true;
         }
 
-        if (ignoredByNameMembers.Contains(member.Name))
+        if (ignoredByNameMembers.Contains(name))
         {
             return true;
         }
 
         foreach (var pair in ignoredMembers)
         {
-            if (pair.Value.Contains(member.Name))
+            if (pair.Value.Contains(name))
             {
-                if (pair.Key.IsAssignableFrom(member.DeclaringType))
+                if (pair.Key.IsAssignableFrom(declaringType))
                 {
                     return true;
                 }
@@ -177,6 +181,34 @@ public partial class SerializationSettings
         }
 
         return false;
+    }
+
+    internal bool ShouldSerialize<T>(T value)
+    {
+        if (ignoredInstances.TryGetValue(typeof(T), out var funcs))
+        {
+            if (value is null)
+            {
+                return false;
+            }
+
+            return funcs.All(func => !func(value));
+        }
+
+        if (IsIgnoredCollection(typeof(T)))
+        {
+            if (value is null)
+            {
+                return false;
+            }
+
+            // since inside IsCollection, it is safe to use IEnumerable
+            var collection = (IEnumerable) value;
+
+            return collection.HasMembers();
+        }
+
+        return true;
     }
 
     internal bool TryGetShouldSerialize(Type propertyType, Func<object, object?> getValue, out Predicate<object>? shouldSerialize)
@@ -198,9 +230,7 @@ public partial class SerializationSettings
             return true;
         }
 
-        if (ignoreEmptyCollections &&
-            propertyType.IsCollection() ||
-            propertyType.IsDictionary())
+        if (IsIgnoredCollection(propertyType))
         {
             shouldSerialize = declaringInstance =>
             {
@@ -222,5 +252,12 @@ public partial class SerializationSettings
 
         shouldSerialize = null;
         return false;
+    }
+
+    bool IsIgnoredCollection(Type propertyType)
+    {
+        return ignoreEmptyCollections &&
+               propertyType.IsCollection() ||
+               propertyType.IsDictionary();
     }
 }

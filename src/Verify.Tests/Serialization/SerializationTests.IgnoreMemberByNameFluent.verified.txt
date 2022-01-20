@@ -1,3 +1,4 @@
 {
-  Include: Value
+  Include: Value,
+  GetOnlyProperty: asd
 }

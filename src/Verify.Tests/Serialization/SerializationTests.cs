@@ -2092,7 +2092,6 @@ public class SerializationTests
         return Verify(new ConverterTarget {Name = "The name"})
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
     }
-    }
 
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>

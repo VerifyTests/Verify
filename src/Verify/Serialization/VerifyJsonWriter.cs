@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq.Expressions;
 using Newtonsoft.Json;
 namespace VerifyTests;
 
@@ -6,9 +7,10 @@ public class VerifyJsonWriter :
     JsonTextWriter
 {
     StringBuilder builder;
+    SerializationSettings settings;
     public IReadOnlyDictionary<string, object> Context { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, IReadOnlyDictionary<string, object> context) :
+    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context) :
         base(
             new StringWriter(builder)
             {
@@ -16,6 +18,7 @@ public class VerifyJsonWriter :
             })
     {
         this.builder = builder;
+        this.settings = settings;
         Context = context;
         if (!VerifierSettings.StrictJson)
         {
@@ -47,11 +50,10 @@ public class VerifyJsonWriter :
             base.WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
+            return;
         }
-        else
-        {
-            base.WriteRawValue(value);
-        }
+
+        base.WriteRawValue(value);
     }
 
     public override void WriteValue(byte[]? value)
@@ -93,5 +95,54 @@ public class VerifyJsonWriter :
     public override void WriteValue(TimeSpan value)
     {
         WriteValue(value.ToString());
+    }
+
+    public void WriteProperty<T, TMember>(T target, Expression<Func<T, TMember>> expression)
+    {
+        var member = expression.FindMember();
+        if (settings.ShouldIgnore(member))
+        {
+            return;
+        }
+
+        var value = expression.Compile().Invoke(target);
+        if (!settings.ShouldSerialize(value))
+        {
+            return;
+        }
+
+        var converter = VerifierSettings.GetMemberConverter(member);
+        if (converter != null)
+        {
+            var converted = converter(target!, value);
+            if (converted == null)
+            {
+                return;
+            }
+
+            WritePropertyName(member.Name);
+            WriteOrSerialize(converted);
+
+            return;
+        }
+
+        WritePropertyName(member.Name);
+        WriteOrSerialize(value!);
+    }
+
+    void WriteOrSerialize(object converted)
+    {
+        if (converted is string convertedString)
+        {
+            WriteRawValue(convertedString);
+        }
+        else if (converted.GetType().IsPrimitive)
+        {
+            WriteValue(converted);
+        }
+        else
+        {
+            settings.Serializer.Serialize(this, converted);
+        }
     }
 }

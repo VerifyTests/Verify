@@ -19,16 +19,11 @@ class ClaimConverter :
         writer.WritePropertyName(type);
         writer.WriteRawValue(claim.Value);
 
-        if (claim.Properties.Any())
-        {
-            writer.WritePropertyName("Properties");
-            serializer.Serialize(writer, claim.Properties);
-        }
+        writer.WriteProperty(claim, _ => _.Properties);
 
         if (claim.Subject is {Name: { }})
         {
-            writer.WritePropertyName("Subject");
-            serializer.Serialize(writer, claim.Subject);
+            writer.WriteProperty(claim, _ => _.Subject);
         }
 
         writer.WriteEndObject();

@@ -2070,6 +2070,24 @@ public class SerializationTests
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
     }
 
+    [Fact]
+    public Task WithConverterAndIgnore()
+    {
+        return Verify(new ConverterTarget {Name = "The name"})
+            .ModifySerialization(_ => _.IgnoreMember("Name"))
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
+
+    [Fact]
+    public Task WithConverterAndMemberConverter()
+    {
+        VerifierSettings.MemberConverter<ConverterTarget, string>(
+            target => target.Name,
+            (target, value) => "New Value");
+        return Verify(new ConverterTarget {Name = "The name"})
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
+
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>
     {
@@ -2079,8 +2097,7 @@ public class SerializationTests
             JsonSerializer serializer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("Name");
-            writer.WriteValue(target.Name);
+            writer.WriteProperty(target, _ => _.Name);
             writer.WritePropertyName("Custom");
             writer.WriteValue("CustomValue");
             writer.WriteEnd();

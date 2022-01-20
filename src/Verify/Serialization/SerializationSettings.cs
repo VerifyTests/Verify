@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -40,17 +39,12 @@ public partial class SerializationSettings
         IgnoreMember<AggregateException>(x => x.InnerException);
         IgnoreMember<Exception>(x => x.Source);
         IgnoreMember<Exception>(x => x.HResult);
-        MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
 
         serializersettings = BuildSettings();
     }
 
     public SerializationSettings(SerializationSettings settings)
     {
-        membersConverters = settings.membersConverters
-            .ToDictionary(
-                x => x.Key,
-                x => x.Value.ToDictionary(y => y.Key, y => y.Value));
         ignoredMembers = settings.ignoredMembers.ToDictionary(
             x => x.Key,
             x => x.Value.Clone());
@@ -71,30 +65,6 @@ public partial class SerializationSettings
         isNumericId = settings.isNumericId;
 
         serializersettings = BuildSettings();
-    }
-
-    internal Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
-
-    public void MemberConverter<TTarget, TMember>(
-        Expression<Func<TTarget, TMember?>> expression,
-        ConvertMember<TTarget, TMember?> converter)
-    {
-        var member = expression.FindMember();
-        MemberConverter(
-            member.DeclaringType!,
-            member.Name,
-            (target, memberValue) => converter((TTarget) target!, (TMember) memberValue!));
-    }
-
-    public void MemberConverter(Type declaringType, string name, ConvertMember converter)
-    {
-        Guard.AgainstNullOrEmpty(name, nameof(name));
-        if (!membersConverters.TryGetValue(declaringType, out var list))
-        {
-            membersConverters[declaringType] = list = new();
-        }
-
-        list[name] = converter;
     }
 
     bool scrubGuids = true;

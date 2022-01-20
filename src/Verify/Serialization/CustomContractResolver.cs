@@ -148,18 +148,9 @@ class CustomContractResolver :
             }
         }
 
-        ConvertMember? membersConverter = null;
-        foreach (var pair in settings.membersConverters)
-        {
-            if (pair.Key.IsAssignableFrom(member.DeclaringType))
-            {
-                pair.Value.TryGetValue(member.Name, out membersConverter);
-                break;
-            }
-        }
-
-        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, settings.ignoreMembersThatThrow, membersConverter);
+        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
 
         return property;
     }
+
 }

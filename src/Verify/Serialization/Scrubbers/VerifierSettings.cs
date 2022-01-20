@@ -9,19 +9,19 @@ public static partial class VerifierSettings
 
     static VerifierSettings()
     {
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            return;
-        }
+        MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
 
-        var profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        var altProfileDirectory = profileDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        GlobalScrubbers.Add(builder =>
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            builder
-                .Replace(profileDirectory, "{UserProfile}")
-                .Replace(altProfileDirectory, "{UserProfile}");
-        });
+            var profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var altProfileDirectory = profileDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            GlobalScrubbers.Add(builder =>
+            {
+                builder
+                    .Replace(profileDirectory, "{UserProfile}")
+                    .Replace(altProfileDirectory, "{UserProfile}");
+            });
+        }
     }
 
     internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();

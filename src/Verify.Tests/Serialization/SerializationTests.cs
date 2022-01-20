@@ -49,8 +49,8 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<int, string>(new DescendingComparer<int>())
         {
-            { 1, "1234" },
-            { 2, "5678" }
+            {1, "1234"},
+            {2, "5678"}
         };
 
         return Verify(dictionary);
@@ -61,8 +61,8 @@ public class SerializationTests
     {
         var target = new Dictionary<string, int>
         {
-            { "#", 1 },
-            { "@", 2 },
+            {"#", 1},
+            {"@", 2},
         };
 
         return Verify(target);
@@ -73,8 +73,8 @@ public class SerializationTests
     {
         var target = new Dictionary<string, int>
         {
-            { "@", 2 },
-            { "#", 1 },
+            {"@", 2},
+            {"#", 1},
         };
 
         return Verify(target);
@@ -107,9 +107,9 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())
         {
-            { "Entry_1", "1234" },
-            { "ignored", "1234" },
-            { "Entry_2", "5678" }
+            {"Entry_1", "1234"},
+            {"ignored", "1234"},
+            {"Entry_2", "5678"}
         };
 
         return Verify(dictionary)
@@ -172,7 +172,7 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            { "ignored", "1234" }
+            {"ignored", "1234"}
         };
 
         if (DateTime.UtcNow.Ticks % 2 == 0)
@@ -199,7 +199,7 @@ public class SerializationTests
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
                 })
-            .ModifySerialization(settings => settings.DontScrubDateTimes());
+            .ModifySerialization(_ => _.DontScrubDateTimes());
     }
 
     [Fact]
@@ -211,7 +211,7 @@ public class SerializationTests
                     noTime = new DateTime(2000, 1, 1),
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1)
                 })
-            .ModifySerialization(settings => settings.DontScrubDateTimes());
+            .ModifySerialization(_ => _.DontScrubDateTimes());
     }
 #if NET6_0_OR_GREATER
 
@@ -281,10 +281,13 @@ public class SerializationTests
     public Task TreatAsNumericIdGlobal()
     {
         #region TreatAsNumericIdGlobal
+
         VerifierSettings.ModifySerialization(
             settings => settings.TreatAsNumericId(
                 member => member.Name == "TheProperty"));
+
         #endregion
+
         var target = new IdConventionTarget
         {
             TheProperty = 5
@@ -301,16 +304,19 @@ public class SerializationTests
     public Task NumericIdScrubbingDisabledGlobal()
     {
         #region DisableNumericIdGlobal
-        VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
+
+        VerifierSettings.ModifySerialization(_ => _.DontScrubNumericIds());
+
         #endregion
+
         return Verify(
             new
             {
                 Id = 5,
                 OtherId = 5,
                 YetAnotherId = 4,
-                PossibleNullId = (int?)5,
-                ActualNullId = (int?)null
+                PossibleNullId = (int?) 5,
+                ActualNullId = (int?) null
             });
     }
 
@@ -325,11 +331,11 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            PossibleNullId = (int?) 5,
+            ActualNullId = (int?) null
         };
         return Verify(target)
-            .ModifySerialization(settings => settings.DontScrubNumericIds());
+            .ModifySerialization(_ => _.DontScrubNumericIds());
     }
 
     #endregion
@@ -344,8 +350,8 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            PossibleNullId = (int?) 5,
+            ActualNullId = (int?) null
         };
 
         return Verify(target);
@@ -445,14 +451,14 @@ public class SerializationTests
         return Verify(
             new
             {
-                item1 = new NameValueCollection { { null, null } },
-                item2 = new NameValueCollection { { "key", null } },
-                item3 = new NameValueCollection { { null, "value" } },
-                item4 = new NameValueCollection { { "key", "value" } },
-                item5 = new NameValueCollection { { "key", "value1" }, { "key", "value2" } },
-                item6 = new NameValueCollection { { "key", null }, { "key", "value2" } },
-                item7 = new NameValueCollection { { "key", "value1" }, { "key", null } },
-                item8 = new NameValueCollection { { "key1", "value1" }, { "key2", "value2" } },
+                item1 = new NameValueCollection {{null, null}},
+                item2 = new NameValueCollection {{"key", null}},
+                item3 = new NameValueCollection {{null, "value"}},
+                item4 = new NameValueCollection {{"key", "value"}},
+                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
+                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
+                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
+                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}},
             });
     }
 
@@ -482,7 +488,7 @@ public class SerializationTests
         return Verify(
             new
             {
-                bytes = new byte[] { 1 }
+                bytes = new byte[] {1}
             });
     }
 
@@ -496,7 +502,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -537,10 +543,7 @@ public class SerializationTests
 
             if (includeDefault)
             {
-                serialization.AddExtraSettings(serializerSettings =>
-                {
-                    serializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
-                });
+                serialization.AddExtraSettings(serializerSettings => serializerSettings.DefaultValueHandling = DefaultValueHandling.Include);
             }
         });
 
@@ -549,10 +552,10 @@ public class SerializationTests
 
     public static IEnumerable<object?[]> GetBoolData()
     {
-        foreach (var boolean in new[] { true, false })
-        foreach (var nullableBoolean in new bool?[] { true, false , null})
-        foreach (var dontIgnoreFalse in new[] { true, false })
-        foreach (var includeDefault in new[] { true, false })
+        foreach (var boolean in new[] {true, false})
+        foreach (var nullableBoolean in new bool?[] {true, false, null})
+        foreach (var dontIgnoreFalse in new[] {true, false})
+        foreach (var includeDefault in new[] {true, false})
         {
             yield return new object?[]
             {
@@ -580,7 +583,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -589,7 +592,7 @@ public class SerializationTests
         };
 
         return Verify(person)
-            .AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
+            .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     }
 
 #if NET6_0_OR_GREATER
@@ -838,7 +841,7 @@ public class SerializationTests
     {
         return ThrowsTask(
                 () => Verify("foo")
-                    .AddExtraSettings(_ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; }))
+                    .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
             .IgnoreStackTrack();
     }
 
@@ -847,7 +850,7 @@ public class SerializationTests
     {
         return ThrowsTask(
                 () => Verify("foo")
-                    .AddExtraSettings(_ => { _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified; }))
+                    .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
             .IgnoreStackTrack();
     }
 
@@ -856,7 +859,7 @@ public class SerializationTests
     {
         return ThrowsTask(
                 () => Verify("foo")
-                    .AddExtraSettings(_ => { _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"; }))
+                    .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
             .IgnoreStackTrack();
     }
 
@@ -913,7 +916,7 @@ public class SerializationTests
     [Fact]
     public Task NewLineNotEscapedInProperty()
     {
-        return Verify(new { Property = "a\r\nb\\nc" });
+        return Verify(new {Property = "a\r\nb\\nc"});
     }
 
     void List()
@@ -988,7 +991,7 @@ public class SerializationTests
     [Fact]
     public Task ScrubUserProfile()
     {
-        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\','/');
+        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\', '/');
         return Verify(target).UniqueForOSPlatform();
     }
 
@@ -998,7 +1001,7 @@ public class SerializationTests
     {
         var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verify(new { codeBaseLocation, altCodeBaseLocation });
+        return Verify(new {codeBaseLocation, altCodeBaseLocation});
     }
 #endif
 
@@ -1007,7 +1010,7 @@ public class SerializationTests
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verify(new { baseDirectory, altBaseDirectory });
+        return Verify(new {baseDirectory, altBaseDirectory});
     }
 
     class TypeTarget
@@ -1033,7 +1036,7 @@ public class SerializationTests
     {
         #region type
 
-        var foo = new { x = 1 };
+        var foo = new {x = 1};
         var target = new TypeTarget
         {
             Type = GetType(),
@@ -1371,7 +1374,7 @@ public class SerializationTests
 #region AddIgnoreInstanceGlobal
 
         VerifierSettings.ModifySerialization(
-            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+            _ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
 
 #endregion
     }
@@ -1394,7 +1397,7 @@ public class SerializationTests
         };
         var settings = new VerifySettings();
         settings.ModifySerialization(
-            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+            _ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
         return Verify(target, settings);
     }
 
@@ -1776,7 +1779,7 @@ public class SerializationTests
 }";
         var target = JToken.Parse(json);
         return Verify(target)
-            .ModifySerialization(_ => { _.IgnoreMember("Ignore1"); });
+            .ModifySerialization(_ => _.IgnoreMember("Ignore1"));
     }
 
     [Fact]
@@ -1850,7 +1853,7 @@ public class SerializationTests
             { "Key2", "Value4" },
         };
         return Verify(target)
-            .ModifySerialization(_ => { _.IgnoreMember("Ignore"); });
+            .ModifySerialization(_ => _.IgnoreMember("Ignore"));
     }
 
     class IgnoreExplicitTarget
@@ -1981,7 +1984,7 @@ public class SerializationTests
     {
 #region WithObsoletePropIncludedGlobally
 
-        VerifierSettings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+        VerifierSettings.ModifySerialization(_ => _.IncludeObsoletes());
 
 #endregion
     }
@@ -1997,7 +2000,7 @@ public class SerializationTests
             OtherProperty = "value2"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+        settings.ModifySerialization(_ => _.IncludeObsoletes());
         return Verify(target, settings);
     }
 
@@ -2010,7 +2013,7 @@ public class SerializationTests
             OtherProperty = "value2"
         };
         return Verify(target)
-            .ModifySerialization(_ => { _.IncludeObsoletes(); });
+            .ModifySerialization(_ => _.IncludeObsoletes());
     }
 
 #endregion
@@ -2065,8 +2068,7 @@ public class SerializationTests
             FamilyName = "Smith"
         };
         var settings = new VerifySettings();
-        settings.AddExtraSettings(
-            _ => { _.TypeNameHandling = TypeNameHandling.All; });
+        settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verify(person, settings);
     }
 
@@ -2079,8 +2081,7 @@ public class SerializationTests
             FamilyName = "Smith"
         };
         return Verify(person)
-            .AddExtraSettings(
-                _ => { _.TypeNameHandling = TypeNameHandling.All; });
+            .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     }
 
     #endregion
@@ -2089,8 +2090,8 @@ public class SerializationTests
     public Task WithConverter()
     {
         return Verify(new ConverterTarget {Name = "The name"})
-            .AddExtraSettings(
-                _ => { _.Converters.Add(new Converter()); });
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
     }
 
     class Converter :

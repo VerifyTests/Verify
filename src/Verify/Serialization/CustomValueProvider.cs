@@ -7,13 +7,13 @@ class CustomValueProvider :
     IValueProvider inner;
     Type propertyType;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-    ConvertMember? membersConverter;
+    ConvertTargetMember? membersConverter;
 
     public CustomValueProvider(
         IValueProvider inner,
         Type propertyType,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-        ConvertMember? membersConverter)
+        ConvertTargetMember? membersConverter)
     {
         this.inner = inner;
         this.propertyType = propertyType;

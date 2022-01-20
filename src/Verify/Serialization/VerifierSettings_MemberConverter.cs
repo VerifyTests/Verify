@@ -28,7 +28,7 @@ public static partial class VerifierSettings
         MemberConverter(
             member.DeclaringType!,
             member.Name,
-            (target, memberValue) => converter((TTarget) target!, (TMember) memberValue!));
+            (target, memberValue) => converter((TTarget) target, (TMember) memberValue!));
     }
 
     public static void MemberConverter(Type declaringType, string name, ConvertMember converter)

@@ -1668,11 +1668,13 @@ public class SerializationTests
             _.IgnoreMember("PropertyByName");
 
             // For a specific type
-            var type = typeof(IgnoreExplicitTarget);
-            _.IgnoreMember(type, "Property");
-            _.IgnoreMember(type, "Field");
-            _.IgnoreMember(type, "GetOnlyProperty");
-            _.IgnoreMember(type, "PropertyThatThrows");
+            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+
+            // For a specific type generic
+            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+            // For a specific type with expression
+            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
         });
 
 #endregion
@@ -1697,11 +1699,13 @@ public class SerializationTests
             _.IgnoreMember("PropertyByName");
 
             // For a specific type
-            var type = typeof(IgnoreExplicitTarget);
-            _.IgnoreMember(type, "Property");
-            _.IgnoreMember(type, "Field");
-            _.IgnoreMember(type, "GetOnlyProperty");
-            _.IgnoreMember(type, "PropertyThatThrows");
+            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+
+            // For a specific type generic
+            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+            // For a specific type with expression
+            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
         });
         return Verify(target, settings);
     }
@@ -1719,12 +1723,17 @@ public class SerializationTests
         return Verify(target)
             .ModifySerialization(_ =>
             {
+                // For all types
                 _.IgnoreMember("PropertyByName");
-                var type = typeof(IgnoreExplicitTarget);
-                _.IgnoreMember(type, "Property");
-                _.IgnoreMember(type, "Field");
-                _.IgnoreMember(type, "GetOnlyProperty");
-                _.IgnoreMember(type, "PropertyThatThrows");
+
+                // For a specific type
+                _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+
+                // For a specific type generic
+                _.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+                // For a specific type with expression
+                _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
             });
     }
 

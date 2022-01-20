@@ -354,10 +354,6 @@ The value of a member can be mutated before serialization:
 
 snippet: MemberConverter
 
-This can also be configured globally:
-
-snippet: MemberConverterGlobal
-
 
 ## SortPropertiesAlphabetically
 

@@ -370,9 +370,6 @@ public class SerializationTests
         var ignoredInstances = new List<Func<object, bool>>();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
-        var memberConverterList = new Dictionary<string, ConvertMember>();
-        settings.membersConverters.Add(GetType(), memberConverterList);
-
         settings.ignoredByNameMembers.Add("ignored");
 
         var clone = new SerializationSettings(settings);
@@ -383,8 +380,6 @@ public class SerializationTests
         Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
         Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
         Assert.NotSame(settings.ignoredByNameMembers, clone.ignoredByNameMembers);
-        Assert.NotSame(settings.membersConverters, clone.membersConverters);
-        Assert.NotSame(settings.membersConverters.First().Value, clone.membersConverters.First().Value);
     }
 
     [Fact]
@@ -1631,7 +1626,6 @@ public class SerializationTests
 
 #endregion
 
-
 #region MemberConverter
 
     [Fact]
@@ -1642,53 +1636,12 @@ public class SerializationTests
             Field = "Value",
             Property = "Value"
         };
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
-            _.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
-        });
-        return Verify(input, settings);
-    }
-
-    [Fact]
-    public Task MemberConverterByExpressionFluent()
-    {
-        var input = new MemberConverterTarget
-        {
-            Field = "Value",
-            Property = "Value"
-        };
-        return Verify(input)
-            .ModifySerialization(_ =>
-            {
-                _.MemberConverter<MemberConverterTarget, string>(
-                    x => x.Property,
-                    (target, value) => value + "Suffix");
-                _.MemberConverter<MemberConverterTarget, string>(
-                    x => x.Field,
-                    (target, value) => value + "Suffix");
-            });
+        VerifierSettings.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
+        VerifierSettings.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
+        return Verify(input);
     }
 
 #endregion
-
-    void MemberConverterGlobal()
-    {
-#region MemberConverterGlobal
-
-        VerifierSettings.ModifySerialization(_ =>
-        {
-            _.MemberConverter<MemberConverterTarget, string>(
-                x => x.Property,
-                (target, value) => value + "Suffix");
-            _.MemberConverter<MemberConverterTarget, string>(
-                x => x.Field,
-                (target, value) => value + "Suffix");
-        });
-
-#endregion
-    }
 
     class MemberConverterTarget
     {

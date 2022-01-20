@@ -4,21 +4,20 @@ namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
-    internal static Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
+    static Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters = new();
 
     internal static ConvertMember? GetMemberConverter(MemberInfo member)
     {
-        ConvertMember? membersConverter = null;
         foreach (var pair in membersConverters)
         {
             if (pair.Key.IsAssignableFrom(member.DeclaringType))
             {
-                pair.Value.TryGetValue(member.Name, out membersConverter);
-                break;
+                pair.Value.TryGetValue(member.Name, out var membersConverter);
+                return membersConverter;
             }
         }
 
-        return membersConverter;
+        return null;
     }
 
     public static void MemberConverter<TTarget, TMember>(

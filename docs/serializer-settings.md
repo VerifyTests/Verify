@@ -1058,10 +1058,11 @@ Result:
 <a id='snippet-SerializationTests.IgnoreMemberByName.verified.txt'></a>
 ```txt
 {
-  Include: Value
+  Include: Value,
+  GetOnlyProperty: asd
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

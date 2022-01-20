@@ -2081,11 +2081,10 @@ public class SerializationTests
     [Fact]
     public Task WithConverterAndMemberConverter()
     {
+        VerifierSettings.MemberConverter<ConverterTarget, string>(
+            target => target.Name,
+            (target, value) => "New Value");
         return Verify(new ConverterTarget {Name = "The name"})
-            .ModifySerialization(_ =>
-                _.MemberConverter<ConverterTarget, string>(
-                    target => target.Name,
-                    (target, value) => "New Value"))
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
     }
 

@@ -1631,19 +1631,28 @@ public class SerializationTests
     [Fact]
     public Task MemberConverterByExpression()
     {
-        var input = new MemberConverterTarget
+        var input = new MemberTarget
         {
-            Field = "Value",
-            Property = "Value"
+            Field = "FieldValue",
+            Property = "PropertyValue"
         };
-        VerifierSettings.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
-        VerifierSettings.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
+
+        // using only the member
+        VerifierSettings.MemberConverter<MemberTarget, string>(
+            expression: x => x.Field,
+            converter: member => $"{member}_Suffix");
+
+        // using target and member
+        VerifierSettings.MemberConverter<MemberTarget, string>(
+            expression: x => x.Property,
+            converter: (target, member) => $"{target}_{member}_Suffix");
+
         return Verify(input);
     }
 
 #endregion
 
-    class MemberConverterTarget
+    class MemberTarget
     {
         public string Property { get; set; }
         public string Field;

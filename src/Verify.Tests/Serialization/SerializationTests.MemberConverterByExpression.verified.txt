@@ -1,4 +1,4 @@
 {
-  Field: ValueSuffix,
-  Property: ValueSuffix
+  Field: FieldValue_Suffix,
+  Property: SerializationTests+MemberTarget_PropertyValue_Suffix
 }

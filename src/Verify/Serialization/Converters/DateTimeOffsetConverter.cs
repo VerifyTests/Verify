@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
+﻿using VerifyTests;
 
 class DateTimeOffsetConverter :
     WriteOnlyJsonConverter<DateTimeOffset>
@@ -11,10 +10,7 @@ class DateTimeOffsetConverter :
         this.scrubber = scrubber;
     }
 
-    public override void Write(
-        VerifyJsonWriter writer,
-        DateTimeOffset value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, DateTimeOffset value)
     {
         if (scrubber.TryConvert(value, out var result))
         {

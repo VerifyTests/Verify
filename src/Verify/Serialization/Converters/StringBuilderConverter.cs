@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
+﻿using VerifyTests;
 
 class StringBuilderConverter :
     WriteOnlyJsonConverter<StringBuilder>
@@ -11,10 +10,7 @@ class StringBuilderConverter :
         this.settings = settings;
     }
 
-    public override void Write(
-        VerifyJsonWriter writer,
-        StringBuilder value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, StringBuilder value)
     {
         var stringValue = value.ToString();
         if (settings.TryConvertString(stringValue, out var result))

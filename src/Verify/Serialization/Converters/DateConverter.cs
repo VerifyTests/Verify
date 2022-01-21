@@ -1,6 +1,5 @@
 ﻿#if NET6_0_OR_GREATER
 
-using Newtonsoft.Json;
 using VerifyTests;
 
 class DateConverter :
@@ -13,10 +12,7 @@ class DateConverter :
         this.scrubber = scrubber;
     }
 
-    public override void Write(
-        VerifyJsonWriter writer,
-        DateOnly value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, DateOnly value)
     {
         if (scrubber.TryConvert(value, out var result))
         {

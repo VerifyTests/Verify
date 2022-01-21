@@ -17,13 +17,10 @@ public abstract class WriteOnlyJsonConverter :
             return;
         }
 
-        Write((VerifyJsonWriter)writer, value, serializer);
+        Write((VerifyJsonWriter)writer, value);
     }
 
-    public abstract void Write(
-        VerifyJsonWriter writer,
-        object value,
-        JsonSerializer serializer);
+    public abstract void Write(VerifyJsonWriter writer, object value);
 
     public sealed override object ReadJson(
         JsonReader reader,

@@ -1,14 +1,10 @@
 ﻿using System.Security.Claims;
-using Newtonsoft.Json;
 using VerifyTests;
 
 class ClaimsIdentityConverter :
     WriteOnlyJsonConverter<ClaimsIdentity>
 {
-    public override void Write(
-        VerifyJsonWriter writer,
-        ClaimsIdentity identity,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, ClaimsIdentity identity)
     {
         writer.WriteStartObject();
 

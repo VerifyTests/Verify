@@ -1,14 +1,10 @@
 ﻿using System.Collections.Specialized;
-using Newtonsoft.Json;
 using VerifyTests;
 
 class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
-    public override void Write(
-        VerifyJsonWriter writer,
-        NameValueCollection collection,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, NameValueCollection collection)
     {
         var dictionary = new Dictionary<string,string?>();
         foreach (string? key in collection)
@@ -30,6 +26,6 @@ class NameValueCollectionConverter :
             dictionary[notNullKey] = value;
         }
 
-        serializer.Serialize(writer,dictionary);
+        writer.Serialize(dictionary);
     }
 }

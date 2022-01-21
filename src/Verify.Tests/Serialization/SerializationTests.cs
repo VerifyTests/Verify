@@ -2098,13 +2098,10 @@ public class SerializationTests
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>
     {
-        public override void Write(
-            VerifyJsonWriter writer,
-            ConverterTarget target,
-            JsonSerializer serializer)
+        public override void Write(VerifyJsonWriter writer, ConverterTarget target)
         {
             writer.WriteStartObject();
-            writer.WriteProperty(target, _ => _.Name);
+            writer.WriteProperty(target, target.Name, "Name");
             writer.WritePropertyName("Custom");
             writer.WriteValue("CustomValue");
             writer.WriteEnd();

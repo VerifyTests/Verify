@@ -560,16 +560,13 @@ One common use case is to register a custom [JsonConverter](https://www.newtonso
 class CompanyConverter :
     WriteOnlyJsonConverter<Company>
 {
-    public override void Write(
-        VerifyJsonWriter writer,
-        Company company,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, Company company)
     {
-        serializer.Serialize(writer, company.Name);
+        writer.WriteProperty(company, company.Name, "Name");
     }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L147-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L147-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->

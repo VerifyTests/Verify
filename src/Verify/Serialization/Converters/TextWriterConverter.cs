@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
+﻿using VerifyTests;
 
 class TextWriterConverter :
     WriteOnlyJsonConverter<TextWriter>
@@ -11,10 +10,7 @@ class TextWriterConverter :
         this.settings = settings;
     }
 
-    public override void Write(
-        VerifyJsonWriter writer,
-        TextWriter value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, TextWriter value)
     {
         var stringValue = value.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse

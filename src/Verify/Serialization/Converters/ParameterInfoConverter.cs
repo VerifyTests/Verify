@@ -1,14 +1,10 @@
-﻿using Newtonsoft.Json;
-using SimpleInfoName;
+﻿using SimpleInfoName;
 using VerifyTests;
 
 class ParameterInfoConverter :
     WriteOnlyJsonConverter<ParameterInfo>
 {
-    public override void Write(
-        VerifyJsonWriter writer,
-        ParameterInfo value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, ParameterInfo value)
     {
         writer.WriteValue(value.SimpleName());
     }

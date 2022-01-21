@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Newtonsoft.Json;
 using VerifyTests;
 
 class GuidConverter :
@@ -12,10 +11,7 @@ class GuidConverter :
         this.scrubber = scrubber;
     }
 
-    public override void Write(
-        VerifyJsonWriter writer,
-        Guid value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, Guid value)
     {
         if (scrubber.TryConvert(value, out var result))
         {

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
+﻿using VerifyTests;
 
 class IdConverter :
     WriteOnlyJsonConverter
@@ -9,10 +8,7 @@ class IdConverter :
         return true;
     }
 
-    public override void Write(
-        VerifyJsonWriter writer,
-        object value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, object value)
     {
         var id = CounterContext.Current.NextId(value);
         writer.WriteValue($"Id_{id}");

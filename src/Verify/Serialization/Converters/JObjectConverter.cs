@@ -1,16 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using VerifyTests;
 
 class JObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
-    public override void Write(
-        VerifyJsonWriter writer,
-        JObject value,
-        JsonSerializer serializer)
+    public override void Write(VerifyJsonWriter writer, JObject value)
     {
         var dictionary = value.ToObject<Dictionary<string, object>>()!;
-        serializer.Serialize(writer, dictionary);
+        writer.Serialize(dictionary);
     }
 }

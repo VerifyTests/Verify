@@ -2071,6 +2071,13 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task WithConverterAndNewline()
+    {
+        return Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
+
+    [Fact]
     public Task WithConverterAndIgnore()
     {
         return Verify(new ConverterTarget {Name = "The name"})

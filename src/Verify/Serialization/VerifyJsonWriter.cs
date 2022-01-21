@@ -42,7 +42,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (value.Contains("\n"))
+        if (value.Contains('\n'))
         {
             base.Flush();
             var builderLength = builder.Length;
@@ -134,7 +134,7 @@ public class VerifyJsonWriter :
     {
         if (converted is string convertedString)
         {
-            WriteRawValue(convertedString);
+            WriteValue(convertedString);
         }
         else if (converted.GetType().IsPrimitive)
         {

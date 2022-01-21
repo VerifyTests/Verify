@@ -1,0 +1,8 @@
+{
+  Name:
+A
+B
+C
+D,
+  Custom: CustomValue
+}

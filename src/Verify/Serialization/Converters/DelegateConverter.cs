@@ -1,5 +1,4 @@
-﻿using SimpleInfoName;
-using VerifyTests;
+﻿using VerifyTests;
 
 class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
@@ -7,17 +6,15 @@ class DelegateConverter :
     public override void Write(VerifyJsonWriter writer, Delegate @delegate)
     {
         writer.WriteStartObject();
-        //TODO:
-        writer.WriteProperty(@delegate, @delegate.GetType().SimpleName(), "Type");
-        var declaringType = @delegate.Method.DeclaringType;
-        if (declaringType is not null)
-        {
-            writer.WriteProperty(@delegate, declaringType.SimpleName(), "Target");
-        }
 
-        writer.WritePropertyName("Method");
+        writer.WriteProperty(@delegate, @delegate.GetType(), "Type");
+
+        var declaringType = @delegate.Method.DeclaringType;
+        writer.WriteProperty(@delegate, declaringType, "Target");
+
         var s = @delegate.Method.ToString()!;
-        writer.WriteValue(CleanMethodName(s));
+        writer.WriteProperty(@delegate, CleanMethodName(s), "Method");
+
         writer.WriteEndObject();
     }
 

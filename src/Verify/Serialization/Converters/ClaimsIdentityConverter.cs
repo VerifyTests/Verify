@@ -12,19 +12,19 @@ class ClaimsIdentityConverter :
     {
         writer.WriteStartObject();
 
-        writer.WriteProperty(identity, _ => _.Claims);
-        writer.WriteProperty(identity, _ => _.Actor);
-        writer.WriteProperty(identity, _ => _.AuthenticationType);
-        writer.WriteProperty(identity, _ => _.Label);
+        writer.WriteProperty(identity, identity.Claims, "Claims");
+        writer.WriteProperty(identity, identity.Actor, "Actor");
+        writer.WriteProperty(identity, identity.AuthenticationType, "AuthenticationType");
+        writer.WriteProperty(identity, identity.Label, "Label");
 
         if (identity.NameClaimType != ClaimTypes.Name)
         {
-            writer.WriteProperty(identity, _ => _.NameClaimType);
+            writer.WriteProperty(identity, identity.NameClaimType, "NameClaimType");
         }
 
         if (identity.RoleClaimType != ClaimTypes.Role)
         {
-            writer.WriteProperty(identity, _ => _.RoleClaimType);
+            writer.WriteProperty(identity, identity.RoleClaimType, "RoleClaimType");
         }
 
         writer.WriteEndObject();

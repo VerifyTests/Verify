@@ -16,14 +16,13 @@ class ClaimConverter :
             .Replace("http://schemas.xmlsoap.org/ws/2009/09/identity/claims/", "")
             .Replace("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/", "")
             .Replace("http://schemas.microsoft.com/ws/2008/06/identity/claims/", "");
-        writer.WritePropertyName(type);
-        writer.WriteRawValue(claim.Value);
+        writer.WriteProperty(claim, claim.Value, type);
 
-        writer.WriteProperty(claim, _ => _.Properties);
+        writer.WriteProperty(claim, claim.Properties, "Properties");
 
         if (claim.Subject is {Name: { }})
         {
-            writer.WriteProperty(claim, _ => _.Subject);
+            writer.WriteProperty(claim, claim.Subject, "Subject");
         }
 
         writer.WriteEndObject();

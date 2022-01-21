@@ -5,18 +5,18 @@ class CustomValueProvider :
     IValueProvider
 {
     IValueProvider inner;
-    Type propertyType;
+    Type memberType;
     IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
     ConvertTargetMember? membersConverter;
 
     public CustomValueProvider(
         IValueProvider inner,
-        Type propertyType,
+        Type memberType,
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
         ConvertTargetMember? membersConverter)
     {
         this.inner = inner;
-        this.propertyType = propertyType;
+        this.memberType = memberType;
         this.ignoreMembersThatThrow = ignoreMembersThatThrow;
         this.membersConverter = membersConverter;
     }
@@ -59,9 +59,9 @@ class CustomValueProvider :
 
     object? GetDefault()
     {
-        if (propertyType.IsValueType)
+        if (memberType.IsValueType)
         {
-            return Activator.CreateInstance(propertyType);
+            return Activator.CreateInstance(memberType);
         }
 
         return null;

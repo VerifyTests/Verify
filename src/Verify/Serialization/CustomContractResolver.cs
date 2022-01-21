@@ -101,8 +101,8 @@ class CustomContractResolver :
         var property = base.CreateProperty(member, serialization);
 
         var valueProvider = property.ValueProvider;
-        var propertyType = property.PropertyType;
-        if (propertyType == null || valueProvider is null)
+        var memberType = property.PropertyType;
+        if (memberType == null || valueProvider is null)
         {
             return property;
         }
@@ -115,7 +115,7 @@ class CustomContractResolver :
             }
         }
 
-        if (propertyType.IsException())
+        if (memberType.IsException())
         {
             property.TypeNameHandling = TypeNameHandling.All;
         }
@@ -128,12 +128,12 @@ class CustomContractResolver :
             return property;
         }
 
-        if (settings.TryGetShouldSerialize(propertyType, valueProvider.GetValue, out var shouldSerialize))
+        if (settings.TryGetShouldSerialize(memberType, valueProvider.GetValue, out var shouldSerialize))
         {
             property.ShouldSerialize = shouldSerialize;
         }
 
-        var underlyingType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+        var underlyingType = Nullable.GetUnderlyingType(memberType) ?? memberType;
         if (
             underlyingType == typeof(int) ||
             underlyingType == typeof(long) ||
@@ -148,7 +148,7 @@ class CustomContractResolver :
             }
         }
 
-        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
+        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
 
         return property;
     }

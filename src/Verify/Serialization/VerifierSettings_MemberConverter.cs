@@ -8,11 +8,21 @@ public static partial class VerifierSettings
 
     internal static ConvertTargetMember? GetMemberConverter(MemberInfo member)
     {
+        return GetMemberConverter(member.DeclaringType, member.Name);
+    }
+
+    internal static ConvertTargetMember? GetMemberConverter<T>(string name)
+    {
+        return GetMemberConverter(typeof(T), name);
+    }
+
+    private static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
+    {
         foreach (var pair in membersConverters)
         {
-            if (pair.Key.IsAssignableFrom(member.DeclaringType))
+            if (pair.Key.IsAssignableFrom(declaringType))
             {
-                pair.Value.TryGetValue(member.Name, out var membersConverter);
+                pair.Value.TryGetValue(name, out var membersConverter);
                 return membersConverter;
             }
         }

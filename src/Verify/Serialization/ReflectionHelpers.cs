@@ -143,14 +143,14 @@
 
     public static Type MemberType(this MemberInfo member)
     {
-        if (member is PropertyInfo propertyInfo)
+        if (member is PropertyInfo property)
         {
-            return propertyInfo.PropertyType;
+            return property.PropertyType;
         }
 
-        if (member is FieldInfo fieldInfo)
+        if (member is FieldInfo field)
         {
-            return fieldInfo.FieldType;
+            return field.FieldType;
         }
 
         throw new($"No supported MemberType: {member.MemberType}");

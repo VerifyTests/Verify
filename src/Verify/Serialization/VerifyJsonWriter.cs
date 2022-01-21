@@ -100,18 +100,28 @@ public class VerifyJsonWriter :
     public void WriteProperty<T, TMember>(T target, Expression<Func<T, TMember>> expression)
     {
         var member = expression.FindMember();
-        if (settings.ShouldIgnore(member))
+        var value = expression.Compile().Invoke(target);
+        WriteProperty(target, value, member.Name);
+    }
+
+    public void WriteProperty<T, TMember>(T target, TMember value, string name)
+    {
+        if (settings.ShouldIgnore<T, TMember>(name))
         {
             return;
         }
 
-        var value = expression.Compile().Invoke(target);
+        InnerWriteProperty(target, value, name);
+    }
+
+    void InnerWriteProperty<T, TMember>(T target, TMember value, string name)
+    {
         if (!settings.ShouldSerialize(value))
         {
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter(member);
+        var converter = VerifierSettings.GetMemberConverter<T>(name);
         if (converter != null)
         {
             var converted = converter(target!, value);
@@ -120,14 +130,14 @@ public class VerifyJsonWriter :
                 return;
             }
 
-            WritePropertyName(member.Name);
+            WritePropertyName(name);
             WriteOrSerialize(converted);
 
             return;
         }
 
-        WritePropertyName(member.Name);
-        WriteOrSerialize(value!);
+        WritePropertyName(name);
+        WriteOrSerialize(value);
     }
 
     void WriteOrSerialize(object converted)

@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmitContentFromException", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.ApprovalTestsTransition", "Verify.ApprovalTestsTransition\Verify.ApprovalTestsTransition.csproj", "{61D67340-5C79-4630-8CDA-1B3B3EA7BFF3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.ExceptionParsing", "Verify.ExceptionParsing\Verify.ExceptionParsing.csproj", "{78C33E9A-0DBF-4C25-B7C6-7E2B549354C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,10 @@ Global
 		{61D67340-5C79-4630-8CDA-1B3B3EA7BFF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D67340-5C79-4630-8CDA-1B3B3EA7BFF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D67340-5C79-4630-8CDA-1B3B3EA7BFF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C33E9A-0DBF-4C25-B7C6-7E2B549354C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C33E9A-0DBF-4C25-B7C6-7E2B549354C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C33E9A-0DBF-4C25-B7C6-7E2B549354C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C33E9A-0DBF-4C25-B7C6-7E2B549354C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

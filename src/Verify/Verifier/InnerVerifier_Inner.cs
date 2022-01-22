@@ -18,7 +18,7 @@ partial class InnerVerifier
 
         targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-        var engine = new VerifyEngine(settings, VerifiedFiles, GetFileNames, GetIndexedFileNames);
+        var engine = new VerifyEngine(directory, settings, VerifiedFiles, GetFileNames, GetIndexedFileNames);
 
         await engine.HandleResults(targetList);
 

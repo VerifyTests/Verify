@@ -99,10 +99,10 @@ public class Tests
             {
                 if (filePair.Name.Contains("OnVerifyMismatch"))
                 {
-                    Assert.NotEmpty(filePair.Received);
-                    Assert.NotNull(filePair.Received);
-                    Assert.NotEmpty(filePair.Verified);
-                    Assert.NotNull(filePair.Verified);
+                    Assert.NotEmpty(filePair.ReceivedPath);
+                    Assert.NotNull(filePair.ReceivedPath);
+                    Assert.NotEmpty(filePair.VerifiedPath);
+                    Assert.NotNull(filePair.VerifiedPath);
                     onVerifyMismatchCalled = true;
                 }
 
@@ -125,8 +125,8 @@ public class Tests
             {
                 if (filePair.Name.Contains("OnFirstVerify"))
                 {
-                    Assert.NotEmpty(filePair.Received);
-                    Assert.NotNull(filePair.Received);
+                    Assert.NotEmpty(filePair.ReceivedPath);
+                    Assert.NotNull(filePair.ReceivedPath);
                     onFirstVerifyCalled = true;
                 }
 

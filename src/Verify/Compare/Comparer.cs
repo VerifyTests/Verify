@@ -4,21 +4,21 @@ static class Comparer
 {
     public static async Task<EqualityResult> Text(FilePair filePair, string received, VerifySettings settings)
     {
-        FileHelpers.DeleteIfEmpty(filePair.Verified);
-        if (!File.Exists(filePair.Verified))
+        FileHelpers.DeleteIfEmpty(filePair.VerifiedPath);
+        if (!File.Exists(filePair.VerifiedPath))
         {
-            await FileHelpers.WriteText(filePair.Received, received);
-            return Equality.MissingVerified;
+            await FileHelpers.WriteText(filePair.ReceivedPath, received);
+            return Equality.New;
         }
 
-        var verified = await FileHelpers.ReadText(filePair.Verified);
+        var verified = await FileHelpers.ReadText(filePair.VerifiedPath);
         var result = await CompareStrings(filePair.Extension, received, verified.ToString(), settings);
         if (result.IsEqual)
         {
             return Equality.Equal;
         }
 
-        await FileHelpers.WriteText(filePair.Received, received);
+        await FileHelpers.WriteText(filePair.ReceivedPath, received);
         return new(Equality.NotEqual, result.Message);
     }
 
@@ -41,13 +41,13 @@ static class Comparer
         FilePair file,
         bool previousTextHasFailed)
     {
-        await FileHelpers.WriteStream(file.Received, stream);
+        await FileHelpers.WriteStream(file.ReceivedPath, stream);
 
         var result = await FileComparer.DoCompare(settings, file, previousTextHasFailed);
 
         if (result.Equality == Equality.Equal)
         {
-            File.Delete(file.Received);
+            File.Delete(file.ReceivedPath);
         }
 
         return result;

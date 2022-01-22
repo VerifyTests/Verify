@@ -4,6 +4,7 @@ partial class InnerVerifier :
     IDisposable
 {
     VerifySettings settings;
+    string directory;
     internal GetFileNames GetFileNames { get; }
     internal GetIndexedFileNames GetIndexedFileNames { get; }
     internal List<string> VerifiedFiles { get; }
@@ -27,6 +28,7 @@ partial class InnerVerifier :
             Directory.CreateDirectory(directory);
         }
 
+        this.directory = directory;
         var filePathPrefix = Path.Combine(directory, fileNamePrefix);
         ValidatePrefix(settings, filePathPrefix);
 

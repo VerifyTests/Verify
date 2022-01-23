@@ -4,6 +4,22 @@ public static class Parser
 {
     public static Result Parse(IEnumerable<string> lines)
     {
+        try
+        {
+            return InnerParse(lines);
+        }
+        catch (ParseException)
+        {
+            throw;
+        }
+        catch (Exception exception)
+        {
+            throw new ParseException("Failed to parse content.", exception);
+        }
+    }
+
+    static Result InnerParse(IEnumerable<string> lines)
+    {
         var delete = new List<string>();
         var notEqual = new List<FilePair>();
         var @new = new List<FilePair>();
@@ -13,14 +29,14 @@ public static class Parser
         {
             if (!enumerator.MoveNext() || !enumerator.Current!.StartsWith("Directory: "))
             {
-                throw new("Expected content to contain `Directory:` at the start.");
+                throw new ParseException("Expected content to contain `Directory:` at the start.");
             }
 
             var directory = enumerator.Current.Substring(11);
 
             if (string.IsNullOrWhiteSpace(directory))
             {
-                throw new("Empty 'Directory:'");
+                throw new ParseException("Empty 'Directory:'");
             }
 
             while (enumerator.MoveNext())
@@ -78,14 +94,14 @@ public static class Parser
     {
         if (!next.StartsWith(prefix))
         {
-            throw new($"Expected line to start with `{prefix}`. Line: {next}");
+            throw new ParseException($"Expected line to start with `{prefix}`. Line: {next}");
         }
 
         var trimmed = next.Substring(prefix.Length);
 
         if (string.IsNullOrWhiteSpace(trimmed))
         {
-            throw new($"Expected line to have content after prefix `{prefix}` is trimmed . Line: {next}");
+            throw new ParseException($"Expected line to have content after prefix `{prefix}` is trimmed . Line: {next}");
         }
 
         return trimmed;
@@ -105,7 +121,7 @@ public static class Parser
     {
         if (!enumerator.MoveNext())
         {
-            throw new Exception("Expected more lines");
+            throw new ParseException("Expected more lines");
         }
 
         return enumerator.Current!;

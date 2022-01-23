@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net6</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <TargetFrameworks>net48;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -9,19 +12,9 @@
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.62" PrivateAssets="All" />
-    <ProjectReference Include="..\Verify.ExceptionParsing\Verify.ExceptionParsing.csproj" Condition="$(TargetFramework) == 'net48'" />
+    <ProjectReference Include="..\Verify.ExceptionParsing\Verify.ExceptionParsing.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="ExceptionParsingTests.Fake.received.txt">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
-    </None>
-    <None Update="ExceptionParsingTests.Fake.verified.txt">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <DependentUpon>%(ParentFile).cs</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

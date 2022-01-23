@@ -58,7 +58,7 @@ static class VerifyExceptionMessageBuilder
         builder.AppendLine($"  - Received: {file.ReceivedName}");
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
-    
+
     static async Task AppendContent(IReadOnlyList<FilePair> @new, IReadOnlyList<(FilePair filePair, string? message)> notEqual, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)

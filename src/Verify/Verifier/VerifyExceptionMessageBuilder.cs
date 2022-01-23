@@ -73,6 +73,7 @@ static class VerifyExceptionMessageBuilder
             return;
         }
 
+        builder.AppendLine();
         builder.AppendLine("FileContent:");
         builder.AppendLine();
 

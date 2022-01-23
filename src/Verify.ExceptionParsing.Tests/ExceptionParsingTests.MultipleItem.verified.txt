@@ -1,4 +1,4 @@
-{
+﻿{
   exceptionMessage:
 Directory: {ProjectDirectory}
 New:
@@ -19,6 +19,7 @@ Equal:
     Verified: ExceptionParsingTests.Fake.verified.txt
   - Received: ExceptionParsingTests.Fake.received.bin
     Verified: ExceptionParsingTests.Fake.verified.bin
+
 FileContent:
 
 New:

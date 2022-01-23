@@ -1,4 +1,4 @@
-{
+﻿{
   exceptionMessage:
 Directory: {ProjectDirectory}
 New:
@@ -12,6 +12,7 @@ Delete:
 Equal:
   - Received: ExceptionParsingTests.Fake.received.txt
     Verified: ExceptionParsingTests.Fake.verified.txt
+
 FileContent:
 
 New:

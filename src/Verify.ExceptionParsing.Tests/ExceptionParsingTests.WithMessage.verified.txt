@@ -1,9 +1,10 @@
-{
+﻿{
   exceptionMessage:
 Directory: {ProjectDirectory}
 NotEqual:
   - Received: ExceptionParsingTests.Fake.received.txt
     Verified: ExceptionParsingTests.Fake.verified.txt
+
 FileContent:
 
 NotEqual:

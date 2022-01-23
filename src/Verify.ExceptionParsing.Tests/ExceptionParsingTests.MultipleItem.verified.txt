@@ -20,14 +20,19 @@ Equal:
   - Received: ExceptionParsingTests.Fake.received.bin
     Verified: ExceptionParsingTests.Fake.verified.bin
 FileContent:
-NewFiles:
+
+New:
+
 Received: ExceptionParsingTests.Fake.received.txt
 recevied content
-Differences:
+
+NotEqual:
+
 Received: ExceptionParsingTests.Fake.received.txt
 recevied content
 Verified: ExceptionParsingTests.Fake.verified.txt
 verified content
+
 ,
   result: {
     Directory: {ProjectDirectory},

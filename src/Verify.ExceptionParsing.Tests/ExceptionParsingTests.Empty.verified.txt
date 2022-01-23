@@ -1,7 +1,6 @@
 {
   exceptionMessage:
 Directory: {ProjectDirectory}
-FileContent:
 ,
   result: {
     Directory: {ProjectDirectory}

@@ -48,12 +48,7 @@ static class VerifyExceptionMessageBuilder
             }
         }
 
-        if (!VerifierSettings.omitContentFromException)
-        {
-            builder.AppendLine("FileContent:");
-            await AppendNewContent(builder, @new);
-            await AppendNotEqualContent(builder, notEqual);
-        }
+        await AppendContent(@new, notEqual, builder);
 
         return builder.ToString();
     }
@@ -63,35 +58,45 @@ static class VerifyExceptionMessageBuilder
         builder.AppendLine($"  - Received: {file.ReceivedName}");
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
-
-    static async Task AppendNotEqualContent(StringBuilder builder, IReadOnlyList<(FilePair filePair, string? message)> notEqual)
+    
+    static async Task AppendContent(IReadOnlyList<FilePair> @new, IReadOnlyList<(FilePair filePair, string? message)> notEqual, StringBuilder builder)
     {
-        var textFiles = notEqual.Where(x => x.filePair.IsText).ToList();
-        if (textFiles.IsEmpty())
+        if (VerifierSettings.omitContentFromException)
         {
             return;
         }
 
-        builder.AppendLine("Differences:");
-        foreach (var (filePair, message) in textFiles)
-        {
-            await AppendNotEqualContent(builder, filePair, message);
-        }
-    }
-
-    static async Task AppendNewContent(StringBuilder builder, IReadOnlyList<FilePair> @new)
-    {
-        var textFiles = @new.Where(x => x.IsText).ToList();
-        if (textFiles.IsEmpty())
+        var newTextFiles = @new.Where(x => x.IsText).ToList();
+        var notEqualTextFiles = notEqual.Where(x => x.filePair.IsText).ToList();
+        if (newTextFiles.IsEmpty() && notEqualTextFiles.IsEmpty())
         {
             return;
         }
 
-        builder.AppendLine("NewFiles:");
-        foreach (var item in textFiles)
+        builder.AppendLine("FileContent:");
+        builder.AppendLine();
+
+        if (newTextFiles.Any())
         {
-            builder.AppendLine($"Received: {item.ReceivedName}");
-            builder.AppendLine($"{await FileHelpers.ReadText(item.ReceivedPath)}");
+            builder.AppendLine("New:");
+            builder.AppendLine();
+            foreach (var item in newTextFiles)
+            {
+                builder.AppendLine($"Received: {item.ReceivedName}");
+                builder.AppendLine($"{await FileHelpers.ReadText(item.ReceivedPath)}");
+                builder.AppendLine();
+            }
+        }
+
+        if (notEqualTextFiles.Any())
+        {
+            builder.AppendLine("NotEqual:");
+            builder.AppendLine();
+            foreach (var (filePair, message) in notEqualTextFiles)
+            {
+                await AppendNotEqualContent(builder, filePair, message);
+                builder.AppendLine();
+            }
         }
     }
 

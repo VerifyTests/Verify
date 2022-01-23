@@ -3,7 +3,6 @@
 Directory: {ProjectDirectory}
 Delete:
   - ExceptionParsingTests.Fake.recevied.txt
-FileContent:
 ,
   result: {
     Directory: {ProjectDirectory},

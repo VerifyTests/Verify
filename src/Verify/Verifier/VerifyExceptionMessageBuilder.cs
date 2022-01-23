@@ -4,21 +4,13 @@ static class VerifyExceptionMessageBuilder
 {
     public static async Task<string> Build(
         string directory,
-        IReadOnlyList<string> delete,
-        IReadOnlyList<(FilePair filePair, string? message)> notEqual,
         IReadOnlyList<FilePair> @new,
-        List<FilePair> equal)
+        IReadOnlyList<(FilePair filePair, string? message)> notEqual,
+        IReadOnlyList<string> delete,
+        IReadOnlyList<FilePair> equal)
     {
         var builder = new StringBuilder($"Directory: {directory}");
         builder.AppendLine();
-        if (delete.Any())
-        {
-            builder.AppendLine("Delete:");
-            foreach (var file in delete)
-            {
-                builder.AppendLine($"  - {Path.GetFileName(file)}");
-            }
-        }
 
         if (@new.Any())
         {
@@ -35,6 +27,15 @@ static class VerifyExceptionMessageBuilder
             foreach (var file in notEqual)
             {
                 AppendFile(builder, file.filePair);
+            }
+        }
+
+        if (delete.Any())
+        {
+            builder.AppendLine("Delete:");
+            foreach (var file in delete)
+            {
+                builder.AppendLine($"  - {Path.GetFileName(file)}");
             }
         }
 

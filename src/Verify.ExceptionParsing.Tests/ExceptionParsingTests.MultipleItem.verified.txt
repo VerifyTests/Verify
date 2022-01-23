@@ -1,0 +1,69 @@
+{
+  exceptionMessage:
+Directory: {ProjectDirectory}
+New:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+  - Received: ExceptionParsingTests.Fake.received.bin
+    Verified: ExceptionParsingTests.Fake.verified.bin
+NotEqual:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+  - Received: ExceptionParsingTests.Fake.received.bin
+    Verified: ExceptionParsingTests.Fake.verified.bin
+Delete:
+  - ExceptionParsingTests.Fake.recevied.txt
+  - ExceptionParsingTests.Fake.recevied.bin
+Equal:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+  - Received: ExceptionParsingTests.Fake.received.bin
+    Verified: ExceptionParsingTests.Fake.verified.bin
+FileContent:
+NewFiles:
+Received: ExceptionParsingTests.Fake.received.txt
+recevied content
+Differences:
+Received: ExceptionParsingTests.Fake.received.txt
+recevied content
+Verified: ExceptionParsingTests.Fake.verified.txt
+verified content
+,
+  result: {
+    Directory: {ProjectDirectory},
+    New: [
+      {
+        Received: ExceptionParsingTests.Fake.received.txt,
+        Verified: ExceptionParsingTests.Fake.verified.txt
+      },
+      {
+        Received: ExceptionParsingTests.Fake.received.bin,
+        Verified: ExceptionParsingTests.Fake.verified.bin
+      }
+    ],
+    NotEqual: [
+      {
+        Received: ExceptionParsingTests.Fake.received.txt,
+        Verified: ExceptionParsingTests.Fake.verified.txt
+      },
+      {
+        Received: ExceptionParsingTests.Fake.received.bin,
+        Verified: ExceptionParsingTests.Fake.verified.bin
+      }
+    ],
+    Delete: [
+      ExceptionParsingTests.Fake.recevied.txt,
+      ExceptionParsingTests.Fake.recevied.bin
+    ],
+    Equal: [
+      {
+        Received: ExceptionParsingTests.Fake.received.txt,
+        Verified: ExceptionParsingTests.Fake.verified.txt
+      },
+      {
+        Received: ExceptionParsingTests.Fake.received.bin,
+        Verified: ExceptionParsingTests.Fake.verified.bin
+      }
+    ]
+  }
+}

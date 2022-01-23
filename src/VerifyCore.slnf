@@ -3,6 +3,7 @@
     "path": "Verify.sln",
     "projects": [
       "TargetLibrary\\TargetLibrary.csproj",
+      "Verify.ExceptionParsing.Tests\\Verify.ExceptionParsing.Tests.csproj",
       "Verify.ExceptionParsing\\Verify.ExceptionParsing.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
       "Verify.Xunit.Tests\\Verify.Xunit.Tests.csproj",

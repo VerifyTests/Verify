@@ -5,9 +5,12 @@ New:
   - Received: ExceptionParsingTests.Fake.received.txt
     Verified: ExceptionParsingTests.Fake.verified.txt
 FileContent:
-NewFiles:
+
+New:
+
 Received: ExceptionParsingTests.Fake.received.txt
 recevied content
+
 ,
   result: {
     Directory: {ProjectDirectory},

@@ -70,7 +70,7 @@ class VerifyEngine
             var target = targetList[index];
             var file = getIndexedFileNames(target.Extension, index);
             var result = await GetResult(settings, file, target, textHasFailed);
-            if (EmptyFiles.Extensions.IsText(target.Extension) &&
+            if (file.IsText &&
                 result.Equality != Equality.Equal)
             {
                 textHasFailed = true;

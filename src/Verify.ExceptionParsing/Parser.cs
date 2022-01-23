@@ -4,7 +4,6 @@ public static class Parser
 {
     public static Result Parse(IEnumerable<string> lines)
     {
-        string? directory = null;
         var delete = new List<string>();
         var notEqual = new List<FilePair>();
         var @new = new List<FilePair>();
@@ -12,6 +11,18 @@ public static class Parser
         Action<string, IEnumerator<string>>? lineHandler = null;
         using (var enumerator = lines.GetEnumerator())
         {
+            if (!enumerator.MoveNext() || !enumerator.Current!.StartsWith("Directory: "))
+            {
+                throw new("Expected content to contain `Directory:` at the start.");
+            }
+
+            var directory = enumerator.Current.Substring(11);
+
+            if (string.IsNullOrWhiteSpace(directory))
+            {
+                throw new("Empty 'Directory:'");
+            }
+
             while (enumerator.MoveNext())
             {
                 var line = enumerator.Current!;
@@ -19,33 +30,27 @@ public static class Parser
                 {
                     continue;
                 }
+
                 if (line.StartsWith("FileContent:"))
                 {
                     break;
                 }
 
-                if (line.StartsWith("Directory:"))
-                {
-                    directory = line.Substring(11);
-                    lineHandler = null;
-                    continue;
-                }
-
                 if (line.StartsWith("New:"))
                 {
-                    lineHandler = (next, scopedEnum) => AddFilePair(next, scopedEnum, @new);
+                    lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, @new);
                     continue;
                 }
 
                 if (line.StartsWith("NotEqual:"))
                 {
-                    lineHandler = (next, scopedEnum) => AddFilePair(next, scopedEnum, notEqual);
+                    lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, notEqual);
                     continue;
                 }
 
                 if (line.StartsWith("Equal:"))
                 {
-                    lineHandler = (next, scopedEnum) => AddFilePair(next, scopedEnum, equal);
+                    lineHandler = (next, scopedEnum) => AddFilePair(directory, next, scopedEnum, equal);
                     continue;
                 }
 
@@ -54,7 +59,7 @@ public static class Parser
                     lineHandler = (next, _) =>
                     {
                         var trimmed = TrimStart(next, "  - ");
-                        delete.Add(trimmed);
+                        delete.Add(Path.Combine(directory, trimmed));
                     };
                     continue;
                 }
@@ -66,12 +71,7 @@ public static class Parser
             }
         }
 
-        if (string.IsNullOrWhiteSpace(directory))
-        {
-            throw new("'Directory:' not found");
-        }
-
-        return new Result(directory!, @new, notEqual, delete, equal);
+        return new Result(@new, notEqual, delete, equal);
     }
 
     static string TrimStart(string next, string prefix)
@@ -91,11 +91,14 @@ public static class Parser
         return trimmed;
     }
 
-    static void AddFilePair(string line, IEnumerator<string> scopedEnumerator, List<FilePair> filePairs)
+    static void AddFilePair(string directory, string line, IEnumerator<string> scopedEnumerator, List<FilePair> filePairs)
     {
-        var received = TrimStart(line,"  - Received: ");
-        var verified = TrimStart(scopedEnumerator.SafeMoveNext(),"    Verified: ");
-        filePairs.Add(new FilePair(received, verified));
+        var received = TrimStart(line, "  - Received: ");
+        var verified = TrimStart(scopedEnumerator.SafeMoveNext(), "    Verified: ");
+        filePairs.Add(
+            new FilePair(
+                Path.Combine(directory, received),
+                Path.Combine(directory, verified)));
     }
 
     static string SafeMoveNext(this IEnumerator<string> enumerator)
@@ -104,6 +107,7 @@ public static class Parser
         {
             throw new Exception("Expected more lines");
         }
+
         return enumerator.Current!;
     }
 }

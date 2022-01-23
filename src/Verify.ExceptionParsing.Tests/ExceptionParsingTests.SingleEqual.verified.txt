@@ -6,11 +6,10 @@ Equal:
     Verified: ExceptionParsingTests.Fake.verified.txt
 ,
   result: {
-    Directory: {ProjectDirectory},
     Equal: [
       {
-        Received: ExceptionParsingTests.Fake.received.txt,
-        Verified: ExceptionParsingTests.Fake.verified.txt
+        Received: {ProjectDirectory}ExceptionParsingTests.Fake.received.txt,
+        Verified: {ProjectDirectory}ExceptionParsingTests.Fake.verified.txt
       }
     ]
   }

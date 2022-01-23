@@ -5,9 +5,8 @@ Delete:
   - ExceptionParsingTests.Fake.recevied.txt
 ,
   result: {
-    Directory: {ProjectDirectory},
     Delete: [
-      ExceptionParsingTests.Fake.recevied.txt
+      {ProjectDirectory}ExceptionParsingTests.Fake.recevied.txt
     ]
   }
 }

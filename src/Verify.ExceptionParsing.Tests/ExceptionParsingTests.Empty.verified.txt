@@ -2,7 +2,5 @@
   exceptionMessage:
 Directory: {ProjectDirectory}
 ,
-  result: {
-    Directory: {ProjectDirectory}
-  }
+  result: {}
 }

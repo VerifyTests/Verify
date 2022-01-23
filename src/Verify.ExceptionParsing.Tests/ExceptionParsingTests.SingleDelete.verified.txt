@@ -1,0 +1,13 @@
+{
+  exceptionMessage:
+Directory: {ProjectDirectory}
+Delete:
+  - ExceptionParsingTests.Fake.recevied.txt
+,
+  result: {
+    Directory: {ProjectDirectory},
+    Delete: [
+      ExceptionParsingTests.Fake.recevied.txt
+    ]
+  }
+}

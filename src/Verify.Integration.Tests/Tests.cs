@@ -86,7 +86,7 @@ Commands:
 
     static string BuildCommand(FilePair pair)
     {
-        return $"\"{toolPath}\" \"{pair.Received}\" \"{pair.Verified}\"";
+        return $"\"{toolPath}\" \"{pair.ReceivedPath}\" \"{pair.VerifiedPath}\"";
     }
 
     static void RunClipboardCommand()

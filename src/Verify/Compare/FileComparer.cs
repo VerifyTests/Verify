@@ -5,12 +5,12 @@ static class FileComparer
 {
     public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextHasFailed)
     {
-        if (!File.Exists(file.Verified))
+        if (!File.Exists(file.VerifiedPath))
         {
-            return Equality.MissingVerified;
+            return Equality.New;
         }
 
-        if (AllFiles.IsEmptyFile(file.Verified))
+        if (AllFiles.IsEmptyFile(file.VerifiedPath))
         {
             return Equality.NotEqual;
         }
@@ -50,19 +50,19 @@ static class FileComparer
 
     static bool FilesAreSameSize(in FilePair file)
     {
-        var first = new FileInfo(file.Received);
-        var second = new FileInfo(file.Verified);
+        var first = new FileInfo(file.ReceivedPath);
+        var second = new FileInfo(file.VerifiedPath);
         return first.Length == second.Length;
     }
 
     static async Task<CompareResult> DoCompare(VerifySettings settings, StreamCompare compare, FilePair filePair)
     {
 #if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
-        using var fs1 = FileHelpers.OpenRead(filePair.Received);
-        using var fs2 = FileHelpers.OpenRead(filePair.Verified);
+        using var fs1 = FileHelpers.OpenRead(filePair.ReceivedPath);
+        using var fs2 = FileHelpers.OpenRead(filePair.VerifiedPath);
 #else
-        await using var fs1 = FileHelpers.OpenRead(filePair.Received);
-        await using var fs2 = FileHelpers.OpenRead(filePair.Verified);
+        await using var fs1 = FileHelpers.OpenRead(filePair.ReceivedPath);
+        await using var fs2 = FileHelpers.OpenRead(filePair.VerifiedPath);
 #endif
         return await compare(fs1, fs2, settings.Context);
     }

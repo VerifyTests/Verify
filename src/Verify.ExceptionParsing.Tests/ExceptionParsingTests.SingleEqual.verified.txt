@@ -1,0 +1,17 @@
+{
+  exceptionMessage:
+Directory: {ProjectDirectory}
+Equal:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+,
+  result: {
+    Directory: {ProjectDirectory},
+    Equal: [
+      {
+        Received: ExceptionParsingTests.Fake.received.txt,
+        Verified: ExceptionParsingTests.Fake.verified.txt
+      }
+    ]
+  }
+}

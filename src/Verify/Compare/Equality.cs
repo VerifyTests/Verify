@@ -2,5 +2,5 @@
 {
     Equal,
     NotEqual,
-    MissingVerified
+    New
 }

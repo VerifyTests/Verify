@@ -1,24 +1,26 @@
 ﻿using DiffEngine;
 using VerifyTests;
 
-[DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
+[DebuggerDisplay("new = {new.Count} | notEqual = {notEqual.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {
+    string directory;
     VerifySettings settings;
     bool diffEnabled;
     static bool clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
-    List<FilePair> missings = new();
-    List<(FilePair filePair, string? message)> notEquals = new();
-    List<FilePair> equals = new();
-    List<string> danglingVerified;
+    List<FilePair> @new = new();
+    List<(FilePair filePair, string? message)> notEqual = new();
+    List<FilePair> equal = new();
+    List<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
 
-    public VerifyEngine(VerifySettings settings, List<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
+    public VerifyEngine(string directory, VerifySettings settings, List<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
     {
+        this.directory = directory;
         this.settings = settings;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        danglingVerified = verifiedFiles;
+        delete = verifiedFiles;
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
     }
@@ -68,7 +70,7 @@ class VerifyEngine
             var target = targetList[index];
             var file = getIndexedFileNames(target.Extension, index);
             var result = await GetResult(settings, file, target, textHasFailed);
-            if (EmptyFiles.Extensions.IsText(target.Extension) &&
+            if (file.IsText &&
                 result.Equality != Equality.Equal)
             {
                 textHasFailed = true;
@@ -82,7 +84,7 @@ class VerifyEngine
     {
         switch (compareResult.Equality)
         {
-            case Equality.MissingVerified:
+            case Equality.New:
                 AddMissing(file);
                 break;
             case Equality.NotEqual:
@@ -96,80 +98,59 @@ class VerifyEngine
 
     void AddMissing(in FilePair item)
     {
-        missings.Add(item);
-        danglingVerified.Remove(item.Verified);
+        @new.Add(item);
+        delete.Remove(item.VerifiedPath);
     }
 
     void AddNotEquals(in FilePair item, string? message)
     {
-        notEquals.Add((item, message));
-        danglingVerified.Remove(item.Verified);
+        notEqual.Add((item, message));
+        delete.Remove(item.VerifiedPath);
     }
 
     void AddEquals(in FilePair item)
     {
-        danglingVerified.Remove(item.Verified);
-        equals.Add(item);
+        delete.Remove(item.VerifiedPath);
+        equal.Add(item);
     }
 
-    public async Task ThrowIfRequired(string? message = null)
+    public async Task ThrowIfRequired()
     {
         ProcessEquals();
-        if (missings.Count == 0 &&
-            notEquals.Count == 0 &&
-            danglingVerified.Count == 0)
+        if (@new.Count == 0 &&
+            notEqual.Count == 0 &&
+            delete.Count == 0)
         {
             return;
         }
 
-        var builder = new StringBuilder("Results do not match.");
-        builder.AppendLine();
-        if (message is not null)
-        {
-            builder.AppendLine(message);
-        }
+        await ProcessDeletes();
 
+        await ProcessNew();
+
+        await ProcessNotEquals();
         if (!settings.autoVerify)
         {
-            if (DiffEngineTray.IsRunning)
-            {
-                builder.AppendLine("Use DiffEngineTray to verify files.");
-            }
-            else if (ClipboardEnabled.IsEnabled())
-            {
-                builder.AppendLine("Verify command placed in clipboard.");
-            }
-        }
-
-        await ProcessDangling(builder);
-
-        await ProcessMissing(builder);
-
-        await ProcessNotEquals(builder);
-        if (!settings.autoVerify)
-        {
-            builder.TrimEnd();
-            throw new VerifyException(builder.ToString());
+            var message = await VerifyExceptionMessageBuilder.Build(directory, @new, notEqual, delete, equal);
+            throw new VerifyException(message);
         }
     }
 
-    async Task ProcessDangling(StringBuilder builder)
+    async Task ProcessDeletes()
     {
-        if (danglingVerified.IsEmpty())
+        if (delete.IsEmpty())
         {
             return;
         }
 
-        builder.AppendLine("Deletions:");
-        foreach (var item in danglingVerified)
+        foreach (var item in delete)
         {
-            await ProcessDangling(builder, item);
+            await ProcessDeletes(item);
         }
     }
 
-    Task ProcessDangling(StringBuilder builder, string item)
+    Task ProcessDeletes(string item)
     {
-        builder.AppendLine($"  {Path.GetFileName(item)}");
         if (settings.autoVerify)
         {
             File.Delete(item);
@@ -194,17 +175,17 @@ class VerifyEngine
         return Task.CompletedTask;
     }
 
-    async Task ProcessNotEquals(StringBuilder builder)
+    async Task ProcessNotEquals()
     {
-        if (notEquals.IsEmpty())
+        if (notEqual.IsEmpty())
         {
             return;
         }
 
-        builder.AppendLine("Differences:");
-        foreach (var (filePair, message) in notEquals)
+        foreach (var (file, message) in notEqual)
         {
-            await ProcessNotEquals(builder, filePair, message);
+            await VerifierSettings.RunOnVerifyMismatch(file, message);
+            await RunClipboardDiffAutoCheck(file);
         }
     }
 
@@ -215,53 +196,10 @@ class VerifyEngine
             return;
         }
 
-        foreach (var equal in equals)
+        foreach (var item in equal)
         {
-            DiffRunner.Kill(equal.Received, equal.Verified);
+            DiffRunner.Kill(item.ReceivedPath, item.VerifiedPath);
         }
-    }
-
-    async Task ProcessNotEquals(StringBuilder builder, FilePair item, string? message)
-    {
-        await VerifierSettings.RunOnVerifyMismatch(item, message);
-
-        builder.AppendLine($"Received: {item.Received}");
-        builder.AppendLine($"Verified: {item.Verified}");
-        if (message is null)
-        {
-            if (!VerifierSettings.omitContentFromException &&
-                EmptyFiles.Extensions.IsText(item.Extension))
-            {
-                builder.AppendLine("Received Content:");
-                builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-                builder.AppendLine("Verified Content:");
-                builder.AppendLine($"{await FileHelpers.ReadText(item.Verified)}");
-            }
-        }
-        else
-        {
-            builder.AppendLine("Compare Result:");
-            builder.AppendLine(message);
-        }
-
-        await RunClipboardDiffAutoCheck(item);
-    }
-
-    async Task ProcessMissing(StringBuilder builder, FilePair item)
-    {
-        await VerifierSettings.RunOnFirstVerify(item);
-
-        builder.AppendLine("Verified file empty or does not exist");
-        builder.AppendLine($"Received: {item.Received}");
-        builder.AppendLine($"Verified: {item.Verified}");
-        if (!VerifierSettings.omitContentFromException &&
-            EmptyFiles.Extensions.IsText(item.Extension))
-        {
-            builder.AppendLine($"{Path.GetFileName(item.Received)}");
-            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-        }
-
-        await RunClipboardDiffAutoCheck(item);
     }
 
     async Task RunClipboardDiffAutoCheck(FilePair item)
@@ -279,32 +217,32 @@ class VerifyEngine
 
         if (clipboardEnabled)
         {
-            await ClipboardCapture.AppendMove(item.Received, item.Verified);
+            await ClipboardCapture.AppendMove(item.ReceivedPath, item.VerifiedPath);
         }
 
         if (diffEnabled)
         {
-            await DiffRunner.LaunchAsync(item.Received, item.Verified);
+            await DiffRunner.LaunchAsync(item.ReceivedPath, item.VerifiedPath);
         }
     }
 
-    async Task ProcessMissing(StringBuilder builder)
+    async Task ProcessNew()
     {
-        if (missings.IsEmpty())
+        if (@new.IsEmpty())
         {
             return;
         }
 
-        builder.AppendLine("Pending verification:");
-        foreach (var item in missings)
+        foreach (var item in @new)
         {
-            await ProcessMissing(builder, item);
+            await VerifierSettings.RunOnFirstVerify(item);
+            await RunClipboardDiffAutoCheck(item);
         }
     }
 
     static void AcceptChanges(in FilePair item)
     {
-        File.Delete(item.Verified);
-        File.Move(item.Received, item.Verified);
+        File.Delete(item.VerifiedPath);
+        File.Move(item.ReceivedPath, item.VerifiedPath);
     }
 }

@@ -20,8 +20,8 @@ public class Snippets
         VerifierSettings.OnVerifyMismatch(
             (filePair, message) =>
             {
-                Debug.WriteLine(filePair.Received);
-                Debug.WriteLine(filePair.Verified);
+                Debug.WriteLine(filePair.ReceivedPath);
+                Debug.WriteLine(filePair.VerifiedPath);
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });

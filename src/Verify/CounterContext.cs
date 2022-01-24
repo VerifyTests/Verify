@@ -1,6 +1,6 @@
-﻿ using VerifyTests;
+﻿ namespace VerifyTests;
 
- class CounterContext
+ public class CounterContext
  {
      static AsyncLocal<CounterContext?> local = new();
 
@@ -48,12 +48,6 @@
 
      #endif
 
-     [ModuleInitializer]
-     public static void Initialize()
-     {
-         VerifierSettings.OnVerify(Start, Stop);
-     }
-
      public static CounterContext Current
      {
          get
@@ -68,9 +62,11 @@
          }
      }
 
-     internal static void Start()
+     internal static CounterContext Start()
      {
-         local.Value = new();
+         var context = new CounterContext();
+         local.Value = context;
+         return context;
      }
 
      internal static void Stop()

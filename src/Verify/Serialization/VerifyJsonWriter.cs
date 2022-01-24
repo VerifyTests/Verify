@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Newtonsoft.Json;
+
 namespace VerifyTests;
 
 public class VerifyJsonWriter :
@@ -8,8 +9,9 @@ public class VerifyJsonWriter :
     StringBuilder builder;
     internal SerializationSettings settings;
     public IReadOnlyDictionary<string, object> Context { get; }
+    public CounterContext CounterContext { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context) :
+    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, CounterContext counterContext) :
         base(
             new StringWriter(builder)
             {
@@ -19,6 +21,7 @@ public class VerifyJsonWriter :
         this.builder = builder;
         this.settings = settings;
         Context = context;
+        CounterContext = counterContext;
         if (!VerifierSettings.StrictJson)
         {
             QuoteChar = '\'';

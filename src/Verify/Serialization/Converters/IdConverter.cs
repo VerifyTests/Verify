@@ -10,7 +10,7 @@ class IdConverter :
 
     public override void Write(VerifyJsonWriter writer, object value)
     {
-        var id = CounterContext.Current.NextId(value);
+        var id = writer.CounterContext.NextId(value);
         writer.WriteValue($"Id_{id}");
     }
 }

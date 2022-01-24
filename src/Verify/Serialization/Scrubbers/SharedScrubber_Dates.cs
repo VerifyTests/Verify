@@ -17,7 +17,8 @@ public partial class SerializationSettings
             return false;
         }
 
-        result = Convert(value);
+        var counterContext = CounterContext.Current;
+        result = Convert(counterContext, value);
         return true;
     }
 
@@ -27,11 +28,12 @@ public partial class SerializationSettings
     {
         if (scrubDateTimes)
         {
+            var counterContext = CounterContext.Current;
             foreach (var format in dateFormats)
             {
                 if (DateOnly.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
                 {
-                    result = Convert(date);
+                    result = Convert(counterContext, date);
                     return true;
                 }
             }
@@ -49,11 +51,12 @@ public partial class SerializationSettings
             return false;
         }
 
-        result = Convert(value);
+        var counterContext = CounterContext.Current;
+        result = Convert(counterContext, value);
         return true;
     }
 
-    static string Convert(DateOnly date)
+    private static string Convert(CounterContext counterContext, DateOnly date)
     {
         if (date == DateOnly.MaxValue)
         {
@@ -65,7 +68,7 @@ public partial class SerializationSettings
             return "Date_MinValue";
         }
 
-        var next = CounterContext.Current.Next(date);
+        var next = counterContext.Next(date);
         return $"Date_{next}";
     }
 
@@ -79,11 +82,12 @@ public partial class SerializationSettings
             return false;
         }
 
-        result = Convert(value);
+        var counterContext = CounterContext.Current;
+        result = Convert(counterContext, value);
         return true;
     }
 
-    static string Convert(DateTime date)
+    private static string Convert(CounterContext counterContext, DateTime date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
@@ -95,11 +99,11 @@ public partial class SerializationSettings
             return "Date_MinValue";
         }
 
-        var next = CounterContext.Current.Next(date);
+        var next = counterContext.Next(date);
         return $"DateTime_{next}";
     }
 
-    static string Convert(DateTimeOffset date)
+    static string Convert(CounterContext counter, DateTimeOffset date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
@@ -111,7 +115,7 @@ public partial class SerializationSettings
             return "Date_MinValue";
         }
 
-        var next = CounterContext.Current.Next(date);
+        var next = counter.Next(date);
         return $"DateTimeOffset_{next}";
     }
 
@@ -119,9 +123,10 @@ public partial class SerializationSettings
     {
         if (scrubDateTimes)
         {
+            var counterContext = CounterContext.Current;
             if (DateTime.TryParseExact(value, serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
             {
-                result = Convert(dateTime);
+                result = Convert(counterContext, dateTime);
                 return true;
             }
 
@@ -129,7 +134,7 @@ public partial class SerializationSettings
             {
                 if (DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime))
                 {
-                    result = Convert(dateTime);
+                    result = Convert(counterContext, dateTime);
                     return true;
                 }
             }
@@ -143,9 +148,10 @@ public partial class SerializationSettings
     {
         if (scrubDateTimes)
         {
+            var counterContext = CounterContext.Current;
             if (DateTimeOffset.TryParseExact(value, serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
             {
-                result = Convert(dateTimeOffset);
+                result = Convert(counterContext, dateTimeOffset);
                 return true;
             }
 
@@ -153,7 +159,7 @@ public partial class SerializationSettings
             {
                 if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset))
                 {
-                    result = Convert(dateTimeOffset);
+                    result = Convert(counterContext, dateTimeOffset);
                     return true;
                 }
             }

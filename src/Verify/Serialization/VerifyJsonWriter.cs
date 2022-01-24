@@ -9,9 +9,9 @@ public class VerifyJsonWriter :
     StringBuilder builder;
     internal SerializationSettings settings;
     public IReadOnlyDictionary<string, object> Context { get; }
-    public CounterContext CounterContext { get; }
+    public CounterContext Counter { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, CounterContext counterContext) :
+    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, CounterContext counter) :
         base(
             new StringWriter(builder)
             {
@@ -21,7 +21,7 @@ public class VerifyJsonWriter :
         this.builder = builder;
         this.settings = settings;
         Context = context;
-        CounterContext = counterContext;
+        Counter = counter;
         if (!VerifierSettings.StrictJson)
         {
             QuoteChar = '\'';

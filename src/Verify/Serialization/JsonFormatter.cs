@@ -8,7 +8,7 @@ static class JsonFormatter
         TypeNameConverter.AddRedirect(typeof(IDictionaryWrapper), _ => _.GetGenericArguments().Last());
     }
 
-    public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, CounterContext counterContext)
+    public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, CounterContext counter)
     {
         if (appends.Any())
         {
@@ -30,7 +30,7 @@ static class JsonFormatter
         }
 
         var builder = new StringBuilder();
-        using var writer = new VerifyJsonWriter(builder, settings.serialization, settings.Context, counterContext);
+        using var writer = new VerifyJsonWriter(builder, settings.serialization, settings.Context, counter);
         settings.Serializer.Serialize(writer, input);
         return builder;
     }

@@ -12,7 +12,7 @@ class DateTimeOffsetConverter :
 
     public override void Write(VerifyJsonWriter writer, DateTimeOffset value)
     {
-        if (scrubber.TryConvert(value, out var result))
+        if (scrubber.TryConvert(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

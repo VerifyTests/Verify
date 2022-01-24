@@ -66,9 +66,9 @@ static class VerifyExceptionMessageBuilder
             return;
         }
 
-        var newTextFiles = @new.Where(x => x.IsText).ToList();
-        var notEqualTextFiles = notEqual.Where(x => x.filePair.IsText).ToList();
-        if (newTextFiles.IsEmpty() && notEqualTextFiles.IsEmpty())
+        var newContentFiles = @new.Where(x => x.IsText).ToList();
+        var notEqualContentFiles = notEqual.Where(x => x.filePair.IsText || x.message != null).ToList();
+        if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
             return;
         }
@@ -77,11 +77,11 @@ static class VerifyExceptionMessageBuilder
         builder.AppendLine("FileContent:");
         builder.AppendLine();
 
-        if (newTextFiles.Any())
+        if (newContentFiles.Any())
         {
             builder.AppendLine("New:");
             builder.AppendLine();
-            foreach (var item in newTextFiles)
+            foreach (var item in newContentFiles)
             {
                 builder.AppendLine($"Received: {item.ReceivedName}");
                 builder.AppendLine($"{await FileHelpers.ReadText(item.ReceivedPath)}");
@@ -89,14 +89,17 @@ static class VerifyExceptionMessageBuilder
             }
         }
 
-        if (notEqualTextFiles.Any())
+        if (notEqualContentFiles.Any())
         {
             builder.AppendLine("NotEqual:");
             builder.AppendLine();
-            foreach (var (filePair, message) in notEqualTextFiles)
+            foreach (var (filePair, message) in notEqualContentFiles)
             {
-                await AppendNotEqualContent(builder, filePair, message);
-                builder.AppendLine();
+                if (filePair.IsText || message != null)
+                {
+                    await AppendNotEqualContent(builder, filePair, message);
+                    builder.AppendLine();
+                }
             }
         }
     }

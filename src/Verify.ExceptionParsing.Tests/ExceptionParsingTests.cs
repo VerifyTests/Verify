@@ -41,7 +41,8 @@ public class ExceptionParsingTests
         var @new = new List<FilePair>();
         var notEqual = new List<(FilePair filePair, string? message)>
         {
-            new(new("txt", fakeFilePrefix), "TheMessage")
+            new(new("txt", fakeFilePrefix), "TheMessage"),
+            new(new("bin", fakeFilePrefix), "TheMessage")
         };
         var delete = new List<string>();
 

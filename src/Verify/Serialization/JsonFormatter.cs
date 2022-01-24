@@ -8,7 +8,7 @@ static class JsonFormatter
         TypeNameConverter.AddRedirect(typeof(IDictionaryWrapper), _ => _.GetGenericArguments().Last());
     }
 
-    public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, CounterContext counter)
+    public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, Counter counter)
     {
         if (appends.Any())
         {

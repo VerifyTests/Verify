@@ -9,11 +9,11 @@ partial class InnerVerifier :
     internal GetIndexedFileNames GetIndexedFileNames { get; }
     internal List<string> VerifiedFiles { get; }
     internal List<string> ReceivedFiles { get; }
-    CounterContext counter;
+    Counter counter;
 
     public InnerVerifier(string sourceFile, VerifySettings settings, GetFileConvention fileConvention)
     {
-        counter = CounterContext.Start();
+        counter = Counter.Start();
         this.settings = settings;
 
         var uniqueness = PrefixUnique.GetUniqueness(settings.Namer);
@@ -64,6 +64,6 @@ partial class InnerVerifier :
     {
         VerifierSettings.RunAfterCallbacks();
 
-        CounterContext.Stop();
+        Counter.Stop();
     }
 }

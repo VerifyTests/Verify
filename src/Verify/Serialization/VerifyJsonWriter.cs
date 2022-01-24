@@ -9,9 +9,9 @@ public class VerifyJsonWriter :
     StringBuilder builder;
     internal SerializationSettings settings;
     public IReadOnlyDictionary<string, object> Context { get; }
-    public CounterContext Counter { get; }
+    public Counter Counter { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, CounterContext counter) :
+    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, Counter counter) :
         base(
             new StringWriter(builder)
             {

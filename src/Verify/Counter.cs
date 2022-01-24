@@ -1,8 +1,8 @@
 ﻿ namespace VerifyTests;
 
- public class CounterContext
+ public class Counter
  {
-     static AsyncLocal<CounterContext?> local = new();
+     static AsyncLocal<Counter?> local = new();
 
      ConcurrentDictionary<object, int> idCache = new();
      int currentId;
@@ -48,7 +48,7 @@
 
      #endif
 
-     public static CounterContext Current
+     public static Counter Current
      {
          get
          {
@@ -62,9 +62,9 @@
          }
      }
 
-     internal static CounterContext Start()
+     internal static Counter Start()
      {
-         var context = new CounterContext();
+         var context = new Counter();
          local.Value = context;
          return context;
      }

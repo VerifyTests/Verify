@@ -19,7 +19,7 @@ class TextWriterConverter :
             return;
         }
 
-        if (settings.TryConvertString(stringValue, out var result))
+        if (settings.TryConvertString(writer.Counter, stringValue, out var result))
         {
             writer.WriteValue(result);
             return;

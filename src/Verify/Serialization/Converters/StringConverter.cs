@@ -12,7 +12,7 @@ class StringConverter :
 
     public override void Write(VerifyJsonWriter writer, string value)
     {
-        if (settings.TryConvertString(value, out var result))
+        if (settings.TryConvertString(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

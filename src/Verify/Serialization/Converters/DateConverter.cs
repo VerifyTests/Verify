@@ -14,7 +14,7 @@ class DateConverter :
 
     public override void Write(VerifyJsonWriter writer, DateOnly value)
     {
-        if (scrubber.TryConvert(value, out var result))
+        if (scrubber.TryConvert(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

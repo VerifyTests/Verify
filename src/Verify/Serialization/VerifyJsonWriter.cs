@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Newtonsoft.Json;
+
 namespace VerifyTests;
 
 public class VerifyJsonWriter :
@@ -8,8 +9,9 @@ public class VerifyJsonWriter :
     StringBuilder builder;
     internal SerializationSettings settings;
     public IReadOnlyDictionary<string, object> Context { get; }
+    public Counter Counter { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context) :
+    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, Counter counter) :
         base(
             new StringWriter(builder)
             {
@@ -19,6 +21,7 @@ public class VerifyJsonWriter :
         this.builder = builder;
         this.settings = settings;
         Context = context;
+        Counter = counter;
         if (!VerifierSettings.StrictJson)
         {
             QuoteChar = '\'';
@@ -96,6 +99,9 @@ public class VerifyJsonWriter :
         WriteValue(value.ToString());
     }
 
+    /// <summary>
+    /// Writes a property name and value while respecting other custom serialization settings.
+    /// </summary>
     public void WriteProperty<T, TMember>(T target, TMember value, string name)
     {
         if (settings.ShouldIgnore<T, TMember>(name))
@@ -148,6 +154,9 @@ public class VerifyJsonWriter :
         }
     }
 
+    /// <summary>
+    /// Convenience method that calls <see cref="Serializer"/>.<see cref="JsonSerializer.Serialize(TextWriter,object?)"/> passing in the writer instance and <paramref name="value"/>
+    /// </summary>
     public void Serialize(object value)
     {
         settings.Serializer.Serialize(this, value);

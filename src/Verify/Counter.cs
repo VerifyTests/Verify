@@ -1,8 +1,8 @@
-﻿ using VerifyTests;
+﻿ namespace VerifyTests;
 
- class CounterContext
+ public class Counter
  {
-     static AsyncLocal<CounterContext?> local = new();
+     static AsyncLocal<Counter?> local = new();
 
      ConcurrentDictionary<object, int> idCache = new();
      int currentId;
@@ -48,13 +48,7 @@
 
      #endif
 
-     [ModuleInitializer]
-     public static void Initialize()
-     {
-         VerifierSettings.OnVerify(Start, Stop);
-     }
-
-     public static CounterContext Current
+     public static Counter Current
      {
          get
          {
@@ -68,9 +62,11 @@
          }
      }
 
-     internal static void Start()
+     internal static Counter Start()
      {
-         local.Value = new();
+         var context = new Counter();
+         local.Value = context;
+         return context;
      }
 
      internal static void Stop()

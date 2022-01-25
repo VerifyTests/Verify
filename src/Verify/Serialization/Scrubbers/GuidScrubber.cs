@@ -9,7 +9,10 @@ static class GuidScrubber
 
     public static void ReplaceGuids(StringBuilder builder)
     {
-        if (!TryReplaceGuids(builder.ToString(), SerializationSettings.Convert, out var result))
+        if (!TryReplaceGuids(
+                builder.ToString(),
+                guid => SerializationSettings.Convert(Counter.Current, guid),
+                out var result))
         {
             return;
         }

@@ -55,10 +55,11 @@ class CustomContractResolver :
 
     string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
     {
+        var counter = Counter.Current;
         var keyType = contract.DictionaryKeyType;
         if (keyType == typeof(Guid))
         {
-            if (settings.TryParseConvertGuid(value, out var result))
+            if (settings.TryParseConvertGuid(counter, value, out var result))
             {
                 return result;
             }
@@ -66,7 +67,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTimeOffset))
         {
-            if (settings.TryParseConvertDateTimeOffset(value, out var result))
+            if (settings.TryParseConvertDateTimeOffset(counter, value, out var result))
             {
                 return result;
             }
@@ -74,7 +75,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTime))
         {
-            if (settings.TryParseConvertDateTime(value, out var result))
+            if (settings.TryParseConvertDateTime(counter, value, out var result))
             {
                 return result;
             }

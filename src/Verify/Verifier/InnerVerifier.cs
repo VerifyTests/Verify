@@ -27,7 +27,10 @@ partial class InnerVerifier :
         else
         {
             directory = Path.Combine(sourceFileDirectory, directory);
-            Directory.CreateDirectory(directory);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
         this.directory = directory;

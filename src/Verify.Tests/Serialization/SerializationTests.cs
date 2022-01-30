@@ -1787,6 +1787,18 @@ public class SerializationTests
         return VerifyJson(json);
     }
 
+    [Fact]
+    public Task VerifyJsonWithArrayAtRoot()
+    {
+        var json = @"[
+      {
+        id: '9585dadf-551a-43eb-960c-18b935993cc3',
+        title: 'Commitment1'
+      }
+    ]";
+        return VerifyJson(json);
+    }
+
 #region VerifyJson
 
     [Fact]

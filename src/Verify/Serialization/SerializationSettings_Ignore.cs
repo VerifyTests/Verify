@@ -99,6 +99,7 @@ public partial class SerializationSettings
     List<Type> ignoredTypes = new();
 
     public void IgnoreMembersWithType<T>()
+        where T : notnull
     {
         ignoredTypes.Add(typeof(T));
     }
@@ -168,6 +169,16 @@ public partial class SerializationSettings
         if (ignoredTypes.Any(x => x.IsAssignableFrom(memberType)))
         {
             return true;
+        }
+
+        var typeFromNullable= Nullable.GetUnderlyingType(memberType);
+
+        if (typeFromNullable != null)
+        {
+            if (ignoredTypes.Any(x => x.IsAssignableFrom(typeFromNullable)))
+            {
+                return true;
+            }
         }
 
         if (ignoredByNameMembers.Contains(name))

@@ -1479,13 +1479,29 @@ public class SerializationTests
             {
                 Property = "Value"
             },
+            ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
             ToInclude = new()
             {
                 Property = "Value"
-            }
+            },
+            ToIncludeNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreStruct = new ("Value"),
+            ToIgnoreStructNullable = new ("Value"),
+            ToIncludeStruct = new ("Value"),
+            ToIncludeStructNullable = new ("Value"),
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
+        settings.ModifySerialization(_ =>
+        {
+            _.IgnoreMembersWithType<ToIgnore>();
+            _.IgnoreMembersWithType<ToIgnoreStruct>();
+        });
         return Verify(target, settings);
     }
 
@@ -1582,8 +1598,34 @@ public class SerializationTests
     class IgnoreTypeTarget
     {
         public ToIgnore ToIgnore;
+        public ToIgnore ToIgnoreNullable;
+        public ToIgnoreStruct ToIgnoreStruct;
+        public ToIgnoreStruct? ToIgnoreStructNullable;
         public ToInclude ToInclude;
+        public ToInclude ToIncludeNullable;
+        public ToIncludeStruct ToIncludeStruct;
+        public ToIncludeStruct? ToIncludeStructNullable;
     }
+
+        struct ToIncludeStruct
+        {
+            public ToIncludeStruct(string property)
+            {
+                Property = property;
+            }
+
+            public string Property { get; }
+        }
+
+        struct ToIgnoreStruct
+        {
+            public ToIgnoreStruct(string property)
+            {
+                Property = property;
+            }
+
+            public string Property { get; }
+        }
 
     class ToInclude
     {

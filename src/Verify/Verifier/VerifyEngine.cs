@@ -138,11 +138,6 @@ class VerifyEngine
 
     async Task ProcessDeletes()
     {
-        if (delete.IsEmpty())
-        {
-            return;
-        }
-
         foreach (var item in delete)
         {
             await ProcessDeletes(item);
@@ -177,11 +172,6 @@ class VerifyEngine
 
     async Task ProcessNotEquals()
     {
-        if (notEqual.IsEmpty())
-        {
-            return;
-        }
-
         foreach (var (file, message) in notEqual)
         {
             await VerifierSettings.RunOnVerifyMismatch(file, message);
@@ -228,11 +218,6 @@ class VerifyEngine
 
     async Task ProcessNew()
     {
-        if (@new.IsEmpty())
-        {
-            return;
-        }
-
         foreach (var item in @new)
         {
             await VerifierSettings.RunOnFirstVerify(item);

@@ -9,6 +9,12 @@ public partial class Tests
 
     static Tests()
     {
+        #region EnableClipboard
+
+        ClipboardAccept.Enable();
+
+        #endregion
+
         BuildServerDetector.Detected = false;
         DiffRunner.Disabled = false;
         DiffTools.AddTool(
@@ -91,7 +97,7 @@ Commands:
 
     static void RunClipboardCommand()
     {
-        foreach (var line in ClipboardCapture
+        foreach (var line in ClipboardAccept
             .Read()
             .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
         {
@@ -119,7 +125,7 @@ Commands:
     public Tests()
     {
         PrefixUnique.Clear();
-        ClipboardCapture.Clear();
+        ClipboardAccept.Clear();
     }
 }
 #endif

@@ -45,15 +45,6 @@ public class Snippets
         public string Property { get; set; } = null!;
     }
 
-    void DisableClipboardGlobal()
-    {
-        #region DisableClipboardGlobal
-
-        VerifierSettings.DisableClipboard();
-
-        #endregion
-    }
-
     void DerivePathInfo()
     {
         #region DerivePathInfo

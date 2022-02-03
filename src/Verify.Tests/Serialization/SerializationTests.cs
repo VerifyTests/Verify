@@ -1554,6 +1554,26 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task IgnoreMembersNullableNested()
+    {
+        var target = new IgnoreMembersNullableNestedTarget
+        {
+            ToIgnoreStruct = new ToIgnoreStruct("Value")
+        };
+
+        return Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembers<IgnoreMembersNullableNestedTarget>(_ => _.ToIgnoreStruct);
+            });
+    }
+
+    class IgnoreMembersNullableNestedTarget
+    {
+        public ToIgnoreStruct? ToIgnoreStruct { get; set; }
+    }
+
+    [Fact]
     public Task Type()
     {
         return Verify(GetType());

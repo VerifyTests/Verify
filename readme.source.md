@@ -92,29 +92,15 @@ snippet: SampleTestMSTest
 
 ### Initial Verification
 
-When the test is initially run will fail with:
-
-```
-First verification. Sample.Test.verified.txt not found.
-Verification command has been copied to the clipboard.
-```
-
-The clipboard will contain the following:
-
-> cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
-
-Notes:
-
- * [More Clipboard info](/docs/clipboard.md).
- * **An alternative to using the clipboard is the [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md).**
-
-If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff:
+When the test is initially run will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff.
 
 ![InitialDiff](/docs/InitialDiff.png)
 
 To verify the result:
 
- * Execute the command from the clipboard, or
+ * Execute the command from the [Clipboard](/docs/clipboard.md), or
+ * Accept with [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md),
+ * Accept with [ReSharper Addin](https://plugins.jetbrains.com/plugin/17241-verify-support) or [Rider Addin](https://plugins.jetbrains.com/plugin/17240-verify-support)
  * Use the diff tool to accept the changes, or
  * Manually copy the text to the new file
 
@@ -132,22 +118,7 @@ If the implementation of `ClassBeingTested` changes:
 
 snippet: ClassBeingTestedChanged
 
-And the test is re run it will fail with
-
-```
-Verification command has been copied to the clipboard.
-Assert.Equal() Failure
-                                  ↓ (pos 21)
-Expected: ···\n  GivenNames: 'John',\n  FamilyName: 'Smith',\n  Spouse: 'Jill···
-Actual:   ···\n  GivenNames: 'John James',\n  FamilyName: 'Smith',\n  Spouse:···
-                                  ↑ (pos 21)
-```
-
-The clipboard will again contain the following:
-
-> cmd /c move /Y "C:\Code\Sample\Sample.Test.received.txt" "C:\Code\Sample\Sample.Test.verified.txt"
-
-See also: [Clipboard](/docs/clipboard.md)
+And the test is re run it will fail.
 
 
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) will display the diff:

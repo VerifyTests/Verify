@@ -1514,14 +1514,29 @@ public class SerializationTests
             {
                 Property = "Value"
             },
+            ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
             ToInclude = new()
             {
                 Property = "Value"
-            }
+            },
+            ToIncludeNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreStruct = new ("Value"),
+            ToIgnoreStructNullable = new ("Value"),
+            ToIncludeStruct = new ("Value"),
+            ToIncludeStructNullable = new ("Value"),
         };
         return Verify(target)
-            .ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
-
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembersWithType<ToIgnore>();
+                _.IgnoreMembersWithType<ToIgnoreStruct>();
+            });
     }
 
 #endregion

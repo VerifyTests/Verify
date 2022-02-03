@@ -7,7 +7,6 @@ class VerifyEngine
     string directory;
     VerifySettings settings;
     bool diffEnabled;
-    static bool clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
     List<FilePair> @new = new();
     List<(FilePair filePair, string? message)> notEqual = new();
     List<FilePair> equal = new();
@@ -167,11 +166,6 @@ class VerifyEngine
             return DiffEngineTray.AddDeleteAsync(item);
         }
 
-        if (ClipboardEnabled.IsEnabled())
-        {
-            return ClipboardCapture.AppendDelete(item);
-        }
-
         return Task.CompletedTask;
     }
 
@@ -213,11 +207,6 @@ class VerifyEngine
         {
             AcceptChanges(item);
             return;
-        }
-
-        if (clipboardEnabled)
-        {
-            await ClipboardCapture.AppendMove(item.ReceivedPath, item.VerifiedPath);
         }
 
         if (diffEnabled)

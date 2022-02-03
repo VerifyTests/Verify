@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using DiffEngine;
 using TextCopy;
 
 static class ClipboardCapture
@@ -8,6 +9,11 @@ static class ClipboardCapture
 
     static string moveCommand;
     static string deleteCommand;
+
+    public static void Enable()
+    {
+        throw new NotImplementedException();
+    }
 
     static ClipboardCapture()
     {
@@ -57,6 +63,16 @@ static class ClipboardCapture
 
     static async Task Append(string command)
     {
+        if (!ClipboardEnabled.IsEnabled())
+        {
+            return;
+        }
+
+        if (DiffEngineTray.IsRunning)
+        {
+            return;
+        }
+
         await semaphore.WaitAsync();
 
         try

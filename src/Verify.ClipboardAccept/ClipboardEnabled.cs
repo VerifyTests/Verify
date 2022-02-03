@@ -1,14 +1,13 @@
 ﻿using DiffEngine;
-using VerifyTests;
 
 static class ClipboardEnabled
 {
-    static bool clipboardDisabled;
+    static bool clipboardDisabledInEnv;
 
     static ClipboardEnabled()
     {
         var disabledText = Environment.GetEnvironmentVariable("Verify_DisableClipboard");
-        clipboardDisabled = ParseEnvironmentVariable(disabledText);
+        clipboardDisabledInEnv = ParseEnvironmentVariable(disabledText);
     }
 
     public static bool ParseEnvironmentVariable(string? disabledText)
@@ -28,21 +27,9 @@ static class ClipboardEnabled
 
     public static bool IsEnabled()
     {
-        if (clipboardDisabled)
-        {
-            return false;
-        }
-
-        if (BuildServerDetector.Detected)
-        {
-            return false;
-        }
-
-        if (ContinuousTestingDetector.Detected)
-        {
-            return false;
-        }
-
-        return !VerifierSettings.clipboardDisabled;
+        return !(
+            clipboardDisabledInEnv ||
+            ContinuousTestingDetector.Detected ||
+            BuildServerDetector.Detected);
     }
 }

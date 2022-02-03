@@ -9,6 +9,12 @@ public partial class Tests
 
     static Tests()
     {
+        #region EnableClipboard
+
+        ClipboardCapture.Enable();
+
+        #endregion
+
         BuildServerDetector.Detected = false;
         DiffRunner.Disabled = false;
         DiffTools.AddTool(

@@ -56,7 +56,7 @@ public Task OnHandlersSample()
             Debug.WriteLine(message);
             return Task.CompletedTask;
         });
-    return Verify("value");
+    return Verifier.Verify("value");
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L7-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>

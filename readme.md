@@ -98,7 +98,7 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 ```
@@ -122,7 +122,7 @@ public class Sample
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 ```
@@ -179,7 +179,7 @@ public class Sample :
     public Task Test()
     {
         var person = ClassBeingTested.FindPerson();
-        return Verify(person);
+        return Verifier.Verify(person);
     }
 }
 ```
@@ -348,7 +348,7 @@ public class StaticSettings
     [Fact]
     public Task Test()
     {
-        return Verify("String to verify");
+        return Verifier.Verify("String to verify");
     }
 }
 

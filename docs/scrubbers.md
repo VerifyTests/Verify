@@ -148,7 +148,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
                     LineA
@@ -165,7 +165,7 @@ public class ScrubbersSample
     [Fact]
     public Task LinesFluent()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         LineB
@@ -202,7 +202,7 @@ public class ScrubbersSample
         var settings = new VerifySettings();
         settings.AddScrubber(
             input => input.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     [Fact]
@@ -213,7 +213,7 @@ public class ScrubbersSample
             RowVersion = "7D3"
         };
 
-        return Verify(target)
+        return Verifier.Verify(target)
             .AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
     }
@@ -221,7 +221,7 @@ public class ScrubbersSample
     [Fact]
     public Task RemoveOrReplace()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         LineB
@@ -242,7 +242,7 @@ public class ScrubbersSample
     [Fact]
     public Task EmptyLines()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         
@@ -281,7 +281,7 @@ public class ScrubbersSample
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
                     LineA
@@ -298,7 +298,7 @@ public class ScrubbersSample
     [Test]
     public Task LinesFluent()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         LineB
@@ -335,7 +335,7 @@ public class ScrubbersSample
         var settings = new VerifySettings();
         settings.AddScrubber(
             s => s.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     [Test]
@@ -346,7 +346,7 @@ public class ScrubbersSample
             RowVersion = "7D3"
         };
 
-        return Verify(target)
+        return Verifier.Verify(target)
             .AddScrubber(
                 s => s.Replace("7D3", "TheRowVersion"));
     }
@@ -354,7 +354,7 @@ public class ScrubbersSample
     [Test]
     public Task RemoveOrReplace()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         LineB
@@ -375,7 +375,7 @@ public class ScrubbersSample
     [Test]
     public Task EmptyLines()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         
@@ -415,7 +415,7 @@ public class ScrubbersSample :
         settings.ScrubLines(removeLine: line => line.Contains("J"));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
-        return Verify(
+        return Verifier.Verify(
             settings: settings,
             target: @"
                     LineA
@@ -432,7 +432,7 @@ public class ScrubbersSample :
     [TestMethod]
     public Task LinesFluent()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         LineB
@@ -469,7 +469,7 @@ public class ScrubbersSample :
         var settings = new VerifySettings();
         settings.AddScrubber(
             input => input.Replace("7D3", "TheRowVersion"));
-        return Verify(target, settings);
+        return Verifier.Verify(target, settings);
     }
 
     [TestMethod]
@@ -480,7 +480,7 @@ public class ScrubbersSample :
             RowVersion = "7D3"
         };
 
-        return Verify(target)
+        return Verifier.Verify(target)
             .AddScrubber(
                 input => input.Replace("7D3", "TheRowVersion"));
     }
@@ -488,7 +488,7 @@ public class ScrubbersSample :
     [TestMethod]
     public Task RemoveOrReplace()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         LineB
@@ -509,7 +509,7 @@ public class ScrubbersSample :
     [TestMethod]
     public Task EmptyLines()
     {
-        return Verify(
+        return Verifier.Verify(
                 target: @"
                         LineA
                         
@@ -577,13 +577,13 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     [Fact]
     public Task UsageFluent()
     {
-        return Verify("One Two Three", classLevelSettings)
+        return Verifier.Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 
@@ -619,13 +619,13 @@ public class ScrubberLevelsSample
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     [Test]
     public Task SimpleFluent()
     {
-        return Verify("One Two Three", classLevelSettings)
+        return Verifier.Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 
@@ -662,13 +662,13 @@ public class ScrubberLevelsSample :
     {
         var settings = new VerifySettings(classLevelSettings);
         settings.AddScrubber(s => s.Replace("Two", "B"));
-        return Verify("One Two Three", settings);
+        return Verifier.Verify("One Two Three", settings);
     }
 
     [TestMethod]
     public Task SimpleFluent()
     {
-        return Verify("One Two Three", classLevelSettings)
+        return Verifier.Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
     }
 

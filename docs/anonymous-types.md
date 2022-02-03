@@ -29,7 +29,7 @@ public Task Anon()
         FamilyName = "Aguirre"
     };
 
-    return Verify(
+    return Verifier.Verify(
         new
         {
             person1,
@@ -60,7 +60,7 @@ public async Task Anon()
         FamilyName = "Aguirre"
     };
 
-    await Verify(
+    await Verifier.Verify(
         new
         {
             person1,

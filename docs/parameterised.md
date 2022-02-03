@@ -40,7 +40,7 @@ public Task InlineDataUsage(string arg)
 {
     var settings = new VerifySettings();
     settings.UseParameters(arg);
-    return Verify(arg, settings);
+    return Verifier.Verify(arg, settings);
 }
 
 [Theory]
@@ -48,7 +48,7 @@ public Task InlineDataUsage(string arg)
 [InlineData("Value2")]
 public Task InlineDataUsageFluent(string arg)
 {
-    return Verify(arg)
+    return Verifier.Verify(arg)
         .UseParameters(arg);
 }
 ```
@@ -67,14 +67,14 @@ public Task MemberDataUsage(string arg)
 {
     var settings = new VerifySettings();
     settings.UseParameters(arg);
-    return Verify(arg, settings);
+    return Verifier.Verify(arg, settings);
 }
 
 [Theory]
 [MemberData(nameof(GetData))]
 public Task MemberDataUsageFluent(string arg)
 {
-    return Verify(arg)
+    return Verifier.Verify(arg)
         .UseParameters(arg);
 }
 
@@ -111,14 +111,14 @@ public class ComplexParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verify(arg, settings);
+        return Verifier.Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberDataFluent(ComplexData arg)
     {
-        return Verify(arg)
+        return Verifier.Verify(arg)
             .UseParameters(arg);
     }
 
@@ -128,14 +128,14 @@ public class ComplexParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verify(arg, settings);
+        return Verifier.Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
     public Task ComplexMemberNullableDataFluent(ComplexData? arg)
     {
-        return Verify(arg)
+        return Verifier.Verify(arg)
             .UseParameters(arg);
     }
 
@@ -162,14 +162,14 @@ public class ComplexParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verify(arg, settings);
+        return Verifier.Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
     public Task ComplexMemberStructDataFluent(ComplexStructData arg)
     {
-        return Verify(arg)
+        return Verifier.Verify(arg)
             .UseParameters(arg);
     }
 
@@ -179,14 +179,14 @@ public class ComplexParametersSample
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verify(arg, settings);
+        return Verifier.Verify(arg, settings);
     }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
     public Task ComplexMemberNullableStructDataFluent(ComplexStructData? arg)
     {
-        return Verify(arg)
+        return Verifier.Verify(arg)
             .UseParameters(arg);
     }
 
@@ -231,7 +231,7 @@ public class ComplexParametersSample
 [TestCase("Value2")]
 public Task TestCaseUsage(string arg)
 {
-    return Verify(arg);
+    return Verifier.Verify(arg);
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
@@ -259,7 +259,7 @@ public class ParametersSample :
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
-        return Verify(arg, settings);
+        return Verifier.Verify(arg, settings);
     }
 
     [DataTestMethod]
@@ -267,7 +267,7 @@ public class ParametersSample :
     [DataRow("Value2")]
     public Task DataRowUsageFluent(string arg)
     {
-        return Verify(arg)
+        return Verifier.Verify(arg)
             .UseParameters(arg);
     }
 }
@@ -294,7 +294,7 @@ public Task UseTextForParameters(string arg)
 {
     var settings = new VerifySettings();
     settings.UseTextForParameters(arg);
-    return Verify(arg, settings);
+    return Verifier.Verify(arg, settings);
 }
 
 [Theory]
@@ -302,7 +302,7 @@ public Task UseTextForParameters(string arg)
 [InlineData("Value2")]
 public Task UseTextForParametersFluent(string arg)
 {
-    return Verify(arg)
+    return Verifier.Verify(arg)
         .UseTextForParameters(arg);
 }
 ```

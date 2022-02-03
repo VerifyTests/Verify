@@ -12,6 +12,7 @@ public partial class SerializationSettings
     internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
+        where T : notnull
     {
         foreach (var expression in expressions)
         {
@@ -20,12 +21,14 @@ public partial class SerializationSettings
     }
 
     public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
+        where T : notnull
     {
         var member = expression.FindMember();
         IgnoreMember(member.DeclaringType!, member.Name);
     }
 
     public void IgnoreMembers<T>(params string[] names)
+        where T : notnull
     {
         Guard.AgainstNullOrEmpty(names, nameof(names));
         foreach (var name in names)
@@ -35,6 +38,7 @@ public partial class SerializationSettings
     }
 
     public void IgnoreMember<T>(string name)
+        where T : notnull
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
         IgnoreMember(typeof(T), name);
@@ -51,6 +55,7 @@ public partial class SerializationSettings
     public void IgnoreMember(Type declaringType, string name)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
+        Guard.AgainstNullable(declaringType, nameof(name));
         if (!ignoredMembers.TryGetValue(declaringType, out var list))
         {
             ignoredMembers[declaringType] = list = new();
@@ -75,6 +80,7 @@ public partial class SerializationSettings
     }
 
     public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
+        where T : notnull
     {
         var type = typeof(T);
         IgnoreInstance(

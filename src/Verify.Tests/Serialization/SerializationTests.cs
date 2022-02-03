@@ -1542,6 +1542,18 @@ public class SerializationTests
 #endregion
 
     [Fact]
+    public Task IgnoreMembersNullable()
+    {
+        ToIgnoreStruct? toIgnoreStruct = new ToIgnoreStruct("Value");
+
+        return Verify(toIgnoreStruct)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembers<ToIgnoreStruct>(_ => _.Property);
+            });
+    }
+
+    [Fact]
     public Task Type()
     {
         return Verify(GetType());

@@ -59,6 +59,16 @@
         }
     }
 
+    public static void AgainstNullable(Type type, string argumentName)
+    {
+        var typeFromNullable= Nullable.GetUnderlyingType(type);
+
+        if (typeFromNullable != null)
+        {
+            throw new ArgumentException("Nullable types not supported", argumentName);
+        }
+    }
+
     public static void AgainstNullOrEmpty(string value, string argumentName)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -66,6 +76,7 @@
             throw new ArgumentNullException(argumentName);
         }
     }
+
     public static void AgainstBadSourceFile(string value)
     {
         if (string.IsNullOrWhiteSpace(value))

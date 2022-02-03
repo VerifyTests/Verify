@@ -9,6 +9,13 @@ public static partial class VerifierSettings
         handleOnFirstVerify += firstVerify;
     }
 
+    public static void OnDelete(VerifyDelete verifyDelete)
+    {
+        handleOnVerifyDelete += verifyDelete;
+    }
+
+    static VerifyDelete? handleOnVerifyDelete;
+
     internal static Task RunOnFirstVerify(FilePair item)
     {
         if (handleOnFirstVerify is null)
@@ -21,6 +28,15 @@ public static partial class VerifierSettings
 
     static VerifyMismatch? handleOnVerifyMismatch;
 
+    internal static Task RunOnVerifyDelete(string file)
+    {
+        if (handleOnVerifyDelete is null)
+        {
+            return Task.CompletedTask;
+        }
+
+        return handleOnVerifyDelete(file);
+    }
     internal static Task RunOnVerifyMismatch(FilePair item, string? message)
     {
         if (handleOnVerifyMismatch is null)

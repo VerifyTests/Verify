@@ -4,7 +4,16 @@ Verify makes use of the clipboard.
 
 This is done via the [TextCopy project](https://github.com/CopyText/TextCopy).
 
+Clipboard support is shipped via the [Verify.ClipboardAccept nuget](https://www.nuget.org/packages/Verify.ClipboardAccept/).
+
 **An alternative to using the clipboard is the [DiffEngineTray tool](https://github.com/VerifyTests/DiffEngine/blob/master/docs/tray.md).**
+
+
+## Enable
+
+The clipboard behavior can be enabled using the following:
+
+snippet: EnableClipboard
 
 
 ## Accept received
@@ -22,7 +31,7 @@ On Linux or OS:
 
 ## Cleanup dangling converter files
 
-When the number of files outputted from a [converter](converter.mc) reduces, a command to delete the extra files is added to the clipboard:
+When the number of files outputted from a [converter](converter.md) reduces, a command to delete the extra files is added to the clipboard:
 
 On Windows:
 
@@ -46,13 +55,6 @@ Add a variable named `Verify.MoveCommand` where `{0}` and `{1}` will be replaced
 ### Cleanup
 
 Add a variable named `Verify.DeleteCommand` where `{0}` will be replaced with the file to be cleaned up.
-
-
-## Disable Clipboard
-
-The clipboard behavior can be disabled using the following:
-
-snippet: DisableClipboardGlobal
 
 
 ### For a machine

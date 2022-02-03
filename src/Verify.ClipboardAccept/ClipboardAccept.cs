@@ -2,7 +2,9 @@
 using DiffEngine;
 using TextCopy;
 
-static class ClipboardCapture
+namespace VerifyTests;
+
+public static class ClipboardAccept
 {
     static StringBuilder builder = new();
     static SemaphoreSlim semaphore = new(1, 1);
@@ -12,10 +14,17 @@ static class ClipboardCapture
 
     public static void Enable()
     {
-        throw new NotImplementedException();
+        VerifierSettings.OnFirstVerify(AppendMove);
+        VerifierSettings.OnDelete(AppendDelete);
+        VerifierSettings.OnVerifyMismatch((file, _) => AppendMove(file));
     }
 
-    static ClipboardCapture()
+    static Task AppendMove(FilePair file)
+    {
+        return Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
+    }
+
+    static ClipboardAccept()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
@@ -41,22 +50,17 @@ static class ClipboardCapture
         }
     }
 
-    public static void Clear()
+    internal static void Clear()
     {
         builder = new();
     }
 
-    public static string Read()
+    internal static string Read()
     {
         return builder.ToString();
     }
 
-    public static Task AppendMove(string received, string verified)
-    {
-        return Append(string.Format(moveCommand, received, verified));
-    }
-
-    public static Task AppendDelete(string verified)
+    internal static Task AppendDelete(string verified)
     {
         return Append(string.Format(deleteCommand, verified));
     }

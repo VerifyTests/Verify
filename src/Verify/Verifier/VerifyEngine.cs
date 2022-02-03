@@ -143,25 +143,25 @@ class VerifyEngine
         }
     }
 
-    Task ProcessDeletes(string item)
+    async Task ProcessDeletes(string file)
     {
+        await VerifierSettings.RunOnVerifyDelete(file);
+
         if (settings.autoVerify)
         {
-            File.Delete(item);
-            return Task.CompletedTask;
+            File.Delete(file);
+            return;
         }
 
         if (BuildServerDetector.Detected)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         if (DiffEngineTray.IsRunning)
         {
-            return DiffEngineTray.AddDeleteAsync(item);
+            await DiffEngineTray.AddDeleteAsync(file);
         }
-
-        return Task.CompletedTask;
     }
 
     async Task ProcessNotEquals()
@@ -169,13 +169,13 @@ class VerifyEngine
         foreach (var (file, message) in notEqual)
         {
             await VerifierSettings.RunOnVerifyMismatch(file, message);
-            await RunClipboardDiffAutoCheck(file);
+            await RunDiffAutoCheck(file);
         }
     }
 
     void ProcessEquals()
     {
-        if (DiffRunner.Disabled)
+        if (!diffEnabled)
         {
             return;
         }
@@ -186,7 +186,7 @@ class VerifyEngine
         }
     }
 
-    async Task RunClipboardDiffAutoCheck(FilePair item)
+    async Task RunDiffAutoCheck(FilePair file)
     {
         if (BuildServerDetector.Detected)
         {
@@ -195,28 +195,28 @@ class VerifyEngine
 
         if (settings.autoVerify)
         {
-            AcceptChanges(item);
+            AcceptChanges(file);
             return;
         }
 
         if (diffEnabled)
         {
-            await DiffRunner.LaunchAsync(item.ReceivedPath, item.VerifiedPath);
+            await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
         }
     }
 
     async Task ProcessNew()
     {
-        foreach (var item in @new)
+        foreach (var file in @new)
         {
-            await VerifierSettings.RunOnFirstVerify(item);
-            await RunClipboardDiffAutoCheck(item);
+            await VerifierSettings.RunOnFirstVerify(file);
+            await RunDiffAutoCheck(file);
         }
     }
 
-    static void AcceptChanges(in FilePair item)
+    static void AcceptChanges(in FilePair file)
     {
-        File.Delete(item.VerifiedPath);
-        File.Move(item.ReceivedPath, item.VerifiedPath);
+        File.Delete(file.VerifiedPath);
+        File.Move(file.ReceivedPath, file.VerifiedPath);
     }
 }

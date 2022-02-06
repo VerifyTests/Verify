@@ -64,8 +64,11 @@ static class ApplyScrubbers
             {
                 builder.Replace(projectDirectory, "{ProjectDirectory}");
                 builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
-                builder.Replace(altProjectDirectory, "{ProjectDirectory}");
-                builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+                if (projectDirectory != altProjectDirectory)
+                {
+                    builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                    builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+                }
             };
         }
 
@@ -76,13 +79,19 @@ static class ApplyScrubbers
         {
             builder.Replace(projectDirectory, "{ProjectDirectory}");
             builder.Replace(projectDirectoryTrimmed, "{ProjectDirectory}");
-            builder.Replace(altProjectDirectory, "{ProjectDirectory}");
-            builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+            if (projectDirectory != altProjectDirectory)
+            {
+                builder.Replace(altProjectDirectory, "{ProjectDirectory}");
+                builder.Replace(altProjectDirectoryTrimmed, "{ProjectDirectory}");
+            }
 
             builder.Replace(solutionDirectory, "{SolutionDirectory}");
             builder.Replace(solutionDirectoryTrimmed, "{SolutionDirectory}");
-            builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
-            builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
+            if (solutionDirectory != altSolutionDirectory)
+            {
+                builder.Replace(altSolutionDirectory, "{SolutionDirectory}");
+                builder.Replace(altSolutionDirectoryTrimmed, "{SolutionDirectory}");
+            }
         };
     }
 

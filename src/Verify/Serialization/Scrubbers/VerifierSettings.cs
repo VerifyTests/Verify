@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace VerifyTests;
 
@@ -10,18 +9,6 @@ public static partial class VerifierSettings
     static VerifierSettings()
     {
         MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            var profileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var altProfileDirectory = profileDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            GlobalScrubbers.Add(builder =>
-            {
-                builder
-                    .Replace(profileDirectory, "{UserProfile}")
-                    .Replace(altProfileDirectory, "{UserProfile}");
-            });
-        }
     }
 
     internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();

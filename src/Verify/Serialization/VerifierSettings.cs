@@ -183,18 +183,18 @@ public static partial class VerifierSettings
 
     public static bool StrictJson { get; private set; }
 
-    internal static bool scrubProjectDirectory = true;
+    internal static bool scrubProjectDir = true;
 
     public static void DontScrubProjectDirectory()
     {
-        scrubProjectDirectory = false;
+        scrubProjectDir = false;
     }
 
-    internal static bool scrubSolutionDirectory = true;
+    internal static bool scrubSolutionDir = true;
 
     public static void DontScrubSolutionDirectory()
     {
-        scrubSolutionDirectory = false;
+        scrubSolutionDir = false;
     }
 
     internal static bool sortPropertiesAlphabetically;

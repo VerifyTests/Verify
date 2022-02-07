@@ -1014,6 +1014,17 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task MoreSpecificScrubberShouldOverride()
+    {
+        var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\') + "Foo";
+        return Verify(new
+            {
+                currentDirectory
+            })
+            .AddScrubber(builder => builder.Replace(currentDirectory, "Bar"));
+    }
+
+    [Fact]
     public Task ScrubUserProfile()
     {
         var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\', '/');

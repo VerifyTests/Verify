@@ -54,9 +54,9 @@ static class ApplyScrubbers
             replacements[profileDir] = "{UserProfile}";
             replacements[altProfileDir] = "{UserProfile}";
         }
-        AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
-        ApplyScrubbers.replacements= replacements.OrderByDescending(x=>x.Key).ToList();
 
+        AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
+        ApplyScrubbers.replacements = replacements.OrderByDescending(x => x.Key).ToList();
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, Dictionary<string, string> replacements)

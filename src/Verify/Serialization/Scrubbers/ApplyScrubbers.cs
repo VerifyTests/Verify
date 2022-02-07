@@ -3,13 +3,18 @@ using VerifyTests;
 
 static class ApplyScrubbers
 {
-    static Dictionary<string, string> replacements = new();
-
     static char dirSeparator = Path.DirectorySeparatorChar;
     static char altDirSeparator = Path.AltDirectorySeparatorChar;
+    static List<KeyValuePair<string, string>> replacements = null!;
 
-    static ApplyScrubbers()
+    static string ReplaceAltDirChar(this string directory)
     {
+        return directory.Replace(dirSeparator, altDirSeparator);
+    }
+
+    public static void UseAssembly(string? solutionDir, string projectDir)
+    {
+        Dictionary<string, string> replacements = new();
         var baseDir = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
         var altBaseDir = baseDir.ReplaceAltDirChar();
         replacements[baseDir + dirSeparator] = "{CurrentDirectory}";
@@ -49,21 +54,18 @@ static class ApplyScrubbers
             replacements[profileDir] = "{UserProfile}";
             replacements[altProfileDir] = "{UserProfile}";
         }
+        AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
+        ApplyScrubbers.replacements= replacements.OrderByDescending(x=>x.Key).ToList();
+
     }
 
-    static string ReplaceAltDirChar(this string directory)
-    {
-        return directory.Replace(dirSeparator, altDirSeparator);
-    }
-
-    public static void UseAssembly(string? solutionDir, string projectDir)
+    static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, Dictionary<string, string> replacements)
     {
         if (!VerifierSettings.scrubProjectDir &&
             !VerifierSettings.scrubSolutionDir)
         {
             return;
         }
-
         var altProjectDir = projectDir.ReplaceAltDirChar();
         var altProjectDirTrimmed = altProjectDir.TrimEnd('/', '\\');
         var projectDirTrimmed = projectDir.TrimEnd('/', '\\');
@@ -130,9 +132,7 @@ static class ApplyScrubbers
             }
         }
 
-        var keyValuePairs = replacements.OrderByDescending(x=>x.Key)
-            .ToList();
-        foreach (var replace in keyValuePairs)
+        foreach (var replace in replacements)
         {
             target.Replace(replace.Key, replace.Value);
         }

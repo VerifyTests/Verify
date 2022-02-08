@@ -26,8 +26,8 @@ Verify is called on the test result during the assertion phase. It serializes th
 Accepting or declining a snapshot file is part of the core workflow of Verify. There are several ways to do this and the approach(s) selected is a personal preference.
 
  * In the Windows Tray via [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)
- * [ReSharper test runner support](https://plugins.jetbrains.com/plugin/17241-verify-support) [Source](https://github.com/matkoch/resharper-verify)
- * [Rider test runner support](https://plugins.jetbrains.com/plugin/17240-verify-support) [Source](https://github.com/matkoch/resharper-verify)
+ * [ReSharper test runner support](https://plugins.jetbrains.com/plugin/17241-verify-support) ([Source](https://github.com/matkoch/resharper-verify))
+ * [Rider test runner support](https://plugins.jetbrains.com/plugin/17240-verify-support) ([Source](https://github.com/matkoch/resharper-verify))
  * [Via the clipboard](/docs/clipboard.md).
  * Manually making the change in the [launched diff tool](https://github.com/VerifyTests/DiffEngine#supported-tools). Either with a copy paste, or some tools have commands to automate this via a shortcut or a button.
  * Manually on the file system. By renaming the `.received.` file to `.verified.`. This can be automated via a scripted to bulk accept all (by matching a pattern) `.received.` files.

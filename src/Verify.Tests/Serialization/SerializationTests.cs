@@ -2223,16 +2223,6 @@ public class SerializationTests
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
     }
 
-    [Fact]
-    public Task WithConverterAndMemberConverter()
-    {
-        VerifierSettings.MemberConverter<ConverterTarget, string>(
-            target => target.Name,
-            (target, value) => "New Value");
-        return Verify(new ConverterTarget {Name = "The name"})
-            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
-
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>
     {
@@ -2247,6 +2237,34 @@ public class SerializationTests
     }
 
     class ConverterTarget
+    {
+        public string Name { get; set; } = null!;
+    }
+
+    [Fact]
+    public Task WithConverterAndMemberConverter()
+    {
+        VerifierSettings.MemberConverter<StaticConverterTarget, string>(
+            target => target.Name,
+            (target, value) => "New Value");
+        return Verify(new StaticConverterTarget {Name = "The name"})
+            .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
+    }
+
+    class StaticConverter :
+        WriteOnlyJsonConverter<StaticConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, StaticConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WriteProperty(target, target.Name, "Name");
+            writer.WritePropertyName("Custom");
+            writer.WriteValue("CustomValue");
+            writer.WriteEnd();
+        }
+    }
+
+    class StaticConverterTarget
     {
         public string Name { get; set; } = null!;
     }

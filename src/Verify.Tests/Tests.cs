@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-// Non-nullable field is uninitialized.
+﻿// Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
 [UsesVerify]

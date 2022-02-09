@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-
-class NameValueCollectionConverter :
+﻿class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>
 {
     public override void Write(VerifyJsonWriter writer, NameValueCollection collection)

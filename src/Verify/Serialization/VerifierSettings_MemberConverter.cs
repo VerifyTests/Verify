@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public static partial class VerifierSettings
 {

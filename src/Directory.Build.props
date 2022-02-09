@@ -17,5 +17,6 @@
     <Using Include="System.Text.RegularExpressions" />
     <Using Include="System.Globalization" />
     <Using Include="System.Linq.Expressions" />
+    <Using Include="System.Collections.Specialized" />
   </ItemGroup>
 </Project>

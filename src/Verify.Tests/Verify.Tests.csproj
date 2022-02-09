@@ -10,6 +10,10 @@
     <TargetFrameworks>net461;net48;net6;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Using Include="Newtonsoft.Json" />
+    <Using Include="Newtonsoft.Json.Serialization" />
+    <Using Include="Newtonsoft.Json.Linq" />
+    <Using Include="Newtonsoft.Json.Converters" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />

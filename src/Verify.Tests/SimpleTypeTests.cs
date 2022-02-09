@@ -1,6 +1,5 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
 
 [UsesVerify]
 public class SimpleTypeTests

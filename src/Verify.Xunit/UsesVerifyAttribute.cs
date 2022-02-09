@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class UsesVerifyAttribute :

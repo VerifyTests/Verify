@@ -1,5 +1,4 @@
 ﻿using DiffEngine;
-using Newtonsoft.Json;
 // ReSharper disable UnusedParameter.Local
 
 public class Snippets

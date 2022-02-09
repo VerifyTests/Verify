@@ -1,8 +1,4 @@
-﻿using System.Collections.Specialized;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-#if !NET461
-using System.Linq.Expressions;
+﻿#if !NET461
 using System.Security.Claims;
 #endif
 // ReSharper disable UnusedParameter.Local

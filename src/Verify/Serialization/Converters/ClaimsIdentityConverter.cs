@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using VerifyTests;
 
 class ClaimsIdentityConverter :
     WriteOnlyJsonConverter<ClaimsIdentity>

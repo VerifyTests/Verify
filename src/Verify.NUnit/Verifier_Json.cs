@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using VerifyTests;
-
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 public static partial class Verifier
 {

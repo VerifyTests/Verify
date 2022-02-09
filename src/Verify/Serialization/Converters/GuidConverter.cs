@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using VerifyTests;
-
-class GuidConverter :
+﻿class GuidConverter :
     WriteOnlyJsonConverter<Guid>
 {
     SerializationSettings scrubber;

@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-static class ParameterBuilder
+﻿static class ParameterBuilder
 {
     public static string Concat(Dictionary<string, object?> dictionary)
     {

@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-class DateTimeOffsetConverter :
+﻿class DateTimeOffsetConverter :
     WriteOnlyJsonConverter<DateTimeOffset>
 {
     SerializationSettings scrubber;

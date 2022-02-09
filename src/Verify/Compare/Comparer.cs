@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-static class Comparer
+﻿static class Comparer
 {
     public static async Task<EqualityResult> Text(FilePair filePair, string received, VerifySettings settings)
     {

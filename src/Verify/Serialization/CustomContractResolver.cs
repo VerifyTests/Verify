@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using SimpleInfoName;
-using VerifyTests;
+﻿using SimpleInfoName;
 
 class CustomContractResolver :
     DefaultContractResolver

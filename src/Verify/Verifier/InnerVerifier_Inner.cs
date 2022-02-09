@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using VerifyTests;
-
-partial class InnerVerifier
+﻿partial class InnerVerifier
 {
     async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
     {

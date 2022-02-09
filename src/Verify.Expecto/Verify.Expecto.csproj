@@ -6,7 +6,11 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net461;net472;net5;net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Using Include="Expecto.CSharp" />
+    <Using Include="Expecto" />
+    <Using Include="VerifyTests" />
     <Using Remove="System.Net.Http" />
+    <Using Include="Newtonsoft.Json.Serialization" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />

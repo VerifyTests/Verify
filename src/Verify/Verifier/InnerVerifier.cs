@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-partial class InnerVerifier :
+﻿partial class InnerVerifier :
     IDisposable
 {
     VerifySettings settings;

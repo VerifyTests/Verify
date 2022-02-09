@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-class DelegateConverter :
+﻿class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
     public override void Write(VerifyJsonWriter writer, Delegate @delegate)

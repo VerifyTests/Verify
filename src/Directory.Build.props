@@ -11,4 +11,11 @@
     <Description>Enables verification of complex models and documents.</Description>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Text.RegularExpressions" />
+    <Using Include="System.Globalization" />
+    <Using Include="System.Linq.Expressions" />
+  </ItemGroup>
 </Project>

@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public static class ContractResolutionHelpers
 {

@@ -1,5 +1,4 @@
 ﻿using SimpleInfoName;
-using VerifyTests;
 
 class TypeJsonConverter :
     WriteOnlyJsonConverter<Type>

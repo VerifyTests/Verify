@@ -1,8 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Linq;
-using Newtonsoft.Json;
 using SimpleInfoName;
 
 // ReSharper disable UnusedParameter.Local

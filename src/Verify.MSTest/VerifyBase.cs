@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VerifyTests;
-
-namespace VerifyMSTest;
+﻿namespace VerifyMSTest;
 
 [TestClass]
 public abstract partial class VerifyBase

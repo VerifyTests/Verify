@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-// ReSharper disable UseObjectOrCollectionInitializer
+﻿// ReSharper disable UseObjectOrCollectionInitializer
 
 namespace VerifyTests;
 

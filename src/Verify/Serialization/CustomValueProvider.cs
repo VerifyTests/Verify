@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-using VerifyTests;
-
-class CustomValueProvider :
+﻿class CustomValueProvider :
     IValueProvider
 {
     IValueProvider inner;

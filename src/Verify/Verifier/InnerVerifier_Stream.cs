@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-partial class InnerVerifier
+﻿partial class InnerVerifier
 {
     public Task Verify(byte[] target)
     {

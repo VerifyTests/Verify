@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-class IdConverter :
+﻿class IdConverter :
     WriteOnlyJsonConverter
 {
     public override bool CanConvert(Type objectType)

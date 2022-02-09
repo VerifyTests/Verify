@@ -7,6 +7,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
+    <Using Include="Newtonsoft.Json" />
+    <Using Include="VerifyTests" />
+    <Using Include="Newtonsoft.Json.Serialization" />
+    <Using Include="Newtonsoft.Json.Linq" />
+    <Using Include="Newtonsoft.Json.Converters" />
     <PackageReference Include="DiffEngine" Version="8.5.3" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.1.1" />

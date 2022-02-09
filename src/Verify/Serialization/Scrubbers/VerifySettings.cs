@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public partial class VerifySettings
 {

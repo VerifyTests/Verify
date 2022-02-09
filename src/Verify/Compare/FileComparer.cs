@@ -1,5 +1,4 @@
 ﻿using EmptyFiles;
-using VerifyTests;
 
 static class FileComparer
 {

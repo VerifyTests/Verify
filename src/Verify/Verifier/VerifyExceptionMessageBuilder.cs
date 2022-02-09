@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-static class VerifyExceptionMessageBuilder
+﻿static class VerifyExceptionMessageBuilder
 {
     public static async Task<string> Build(
         string directory,

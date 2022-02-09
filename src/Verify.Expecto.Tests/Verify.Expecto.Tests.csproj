@@ -5,6 +5,7 @@
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Using Include="Newtonsoft.Json.Serialization" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />

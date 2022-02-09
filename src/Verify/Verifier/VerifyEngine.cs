@@ -1,5 +1,4 @@
 ﻿using DiffEngine;
-using VerifyTests;
 
 [DebuggerDisplay("new = {new.Count} | notEqual = {notEqual.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine

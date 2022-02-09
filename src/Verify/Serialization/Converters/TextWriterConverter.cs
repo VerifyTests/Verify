@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-class TextWriterConverter :
+﻿class TextWriterConverter :
     WriteOnlyJsonConverter<TextWriter>
 {
     SerializationSettings settings;

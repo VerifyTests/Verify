@@ -1,5 +1,4 @@
 ﻿using SimpleInfoName;
-using VerifyTests;
 
 class ConstructorInfoConverter :
     WriteOnlyJsonConverter<ConstructorInfo>

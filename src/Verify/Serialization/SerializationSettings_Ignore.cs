@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-
-// ReSharper disable UseObjectOrCollectionInitializer
+﻿// ReSharper disable UseObjectOrCollectionInitializer
 
 namespace VerifyTests;
 

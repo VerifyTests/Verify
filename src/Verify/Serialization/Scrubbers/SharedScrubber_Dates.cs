@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public partial class SerializationSettings
 {

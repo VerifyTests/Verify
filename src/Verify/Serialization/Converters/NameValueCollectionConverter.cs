@@ -1,5 +1,4 @@
 ﻿using System.Collections.Specialized;
-using VerifyTests;
 
 class NameValueCollectionConverter :
     WriteOnlyJsonConverter<NameValueCollection>

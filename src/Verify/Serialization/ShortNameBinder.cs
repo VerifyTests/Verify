@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-using SimpleInfoName;
+﻿using SimpleInfoName;
 
 class ShortNameBinder :
     ISerializationBinder

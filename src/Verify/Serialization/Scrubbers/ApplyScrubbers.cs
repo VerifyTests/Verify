@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using VerifyTests;
 
 static class ApplyScrubbers
 {

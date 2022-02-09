@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using Newtonsoft.Json;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public class VerifyJsonWriter :
     JsonTextWriter

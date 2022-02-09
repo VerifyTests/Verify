@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using VerifyTests;
-
-class JObjectConverter :
+﻿class JObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
     public override void Write(VerifyJsonWriter writer, JObject value)

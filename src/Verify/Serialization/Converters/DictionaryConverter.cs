@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using VerifyTests;
 
 class DictionaryConverter :
     WriteOnlyJsonConverter

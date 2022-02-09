@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-static class PrefixUnique
+﻿static class PrefixUnique
 {
     static ConcurrentBag<string> prefixList = new();
 

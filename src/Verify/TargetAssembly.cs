@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-static class TargetAssembly
+﻿static class TargetAssembly
 {
     static Assembly? assembly;
     public static string ProjectDir { get; private set; } = null!;

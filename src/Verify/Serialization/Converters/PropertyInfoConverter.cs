@@ -1,5 +1,4 @@
 ﻿using SimpleInfoName;
-using VerifyTests;
 
 class PropertyInfoConverter :
     WriteOnlyJsonConverter<PropertyInfo>

@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public class SettingsTask
 {

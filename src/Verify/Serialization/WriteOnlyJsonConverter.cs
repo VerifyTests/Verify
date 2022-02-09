@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public abstract class WriteOnlyJsonConverter :
     JsonConverter

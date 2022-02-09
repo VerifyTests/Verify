@@ -7,6 +7,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
+    <Using Include="NUnit" />
+    <Using Include="NUnit.Framework" />
+    <Using Include="NUnit.Framework.Internal" />
+    <Using Include="VerifyTests" />
+    <Using Include="Newtonsoft.Json.Linq" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />

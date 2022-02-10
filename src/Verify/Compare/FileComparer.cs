@@ -45,20 +45,33 @@
         }
         else
         {
-            using var memoryStream = new MemoryStream();
-            await receivedStream.CopyToAsync(memoryStream);
-            memoryStream.Position = 0;
-
-            var compareResult = await func(memoryStream, verifiedStream);
-
-            if (compareResult.IsEqual)
+            async Task<EqualityResult> EqualityResult(Stream stream)
             {
-                return Equality.Equal;
+                var compareResult = await func(stream, verifiedStream);
+
+                if (compareResult.IsEqual)
+                {
+                    return Equality.Equal;
+                }
+
+                stream.Position = 0;
+                await FileHelpers.WriteStream(file.ReceivedPath, stream);
+                return new(Equality.NotEqual, compareResult.Message);
             }
 
-            memoryStream.Position = 0;
-            await FileHelpers.WriteStream(file.ReceivedPath, memoryStream);
-            return new(Equality.NotEqual, compareResult.Message);
+            if (receivedStream.CanSeek)
+            {
+                receivedStream.Position = 0;
+                return await EqualityResult(receivedStream);
+            }
+            else
+            {
+                using var memoryStream = new MemoryStream();
+                await receivedStream.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+
+                return await EqualityResult(memoryStream);
+            }
         }
     }
 }

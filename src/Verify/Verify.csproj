@@ -9,6 +9,7 @@
     <Using Remove="System.Net.Http" />
     <Using Include="Newtonsoft.Json" />
     <Using Include="VerifyTests" />
+    <Using Include="EmptyFiles" />
     <Using Include="Newtonsoft.Json.Serialization" />
     <Using Include="Newtonsoft.Json.Linq" />
     <Using Include="Newtonsoft.Json.Converters" />

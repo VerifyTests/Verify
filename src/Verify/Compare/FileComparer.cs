@@ -1,6 +1,4 @@
-﻿using EmptyFiles;
-
-static class FileComparer
+﻿static class FileComparer
 {
     public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextFailed)
     {

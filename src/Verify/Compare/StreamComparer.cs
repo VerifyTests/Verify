@@ -2,9 +2,10 @@
 {
     #region DefualtCompare
 
+    const int bufferSize = 1024 * sizeof(long);
+
     public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
     {
-        const int bufferSize = 1024 * sizeof(long);
         var buffer1 = new byte[bufferSize];
         var buffer2 = new byte[bufferSize];
 

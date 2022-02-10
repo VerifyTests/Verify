@@ -8,7 +8,7 @@ public class NamerTests
         static Task Run()
         {
             return Verify("Value")
-                .UseMethodName("Conflict")
+                .UseMethodName("Conflict1")
                 .DisableDiff();
         }
 
@@ -32,7 +32,7 @@ public class NamerTests
         static Task Run()
         {
             return Verify("Value")
-                .UseMethodName("Conflict")
+                .UseMethodName("Conflict2")
                 .DisableRequireUniquePrefix()
                 .DisableDiff();
         }

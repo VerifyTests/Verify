@@ -1,7 +1,7 @@
 ﻿{
   Type: Exception,
   Message:
-The prefix has already been used: {ProjectDirectory}Naming/NamerTests.Conflict.
+The prefix has already been used: {ProjectDirectory}Naming/NamerTests.Conflict1.
 This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`.
 If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation.,
   StackTrace:

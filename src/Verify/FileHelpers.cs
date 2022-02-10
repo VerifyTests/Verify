@@ -38,6 +38,11 @@
         return stream.ReadAsStringBuilder();
     }
 
+
+    public static long Length(string file)
+    {
+        return new FileInfo(file).Length;
+    }
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
     public static Task WriteText(string filePath, string text)
     {

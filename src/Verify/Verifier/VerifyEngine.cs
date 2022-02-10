@@ -23,20 +23,20 @@ class VerifyEngine
         this.getIndexedFileNames = getIndexedFileNames;
     }
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
         if (target.IsStringBuilder)
         {
             var builder = target.StringBuilderData;
             ApplyScrubbers.Apply(target.Extension, builder, settings);
-            return await Comparer.Text(filePair, builder.ToString(), settings);
+            return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         if (target.IsString)
         {
             var builder = new StringBuilder(target.StringData);
             ApplyScrubbers.Apply(target.Extension, builder, settings);
-            return await Comparer.Text(filePair, builder.ToString(), settings);
+            return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         var stream = target.StreamData;
@@ -47,7 +47,7 @@ class VerifyEngine
 #endif
         {
             stream.MoveToStart();
-            return await Comparer.Streams(settings, stream, filePair, previousTextFailed);
+            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
         }
     }
 

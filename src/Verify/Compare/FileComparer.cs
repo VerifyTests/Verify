@@ -14,42 +14,51 @@
             return Equality.NotEqual;
         }
 
-        var result = await FilesEqual(settings, file, previousTextFailed);
-        if (!result.IsEqual)
-        {
-            return new(Equality.NotEqual, result.Message);
-        }
-
-        return Equality.Equal;
-    }
-
-    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair, bool previousTextFailed)
-    {
         if (!previousTextFailed &&
-            settings.TryFindStreamComparer(filePair.Extension, out var compare))
+            settings.TryFindStreamComparer(file.Extension, out var compare))
         {
-            return DoCompare(settings, compare, filePair);
+            return await InnerCompare(file, receivedStream, (s1, s2) => compare(s1, s2, settings.Context));
         }
 
-        if (FilesAreSameSize(filePair))
+        if (receivedStream.CanSeek &&
+            FileHelpers.Length(file.VerifiedPath) != receivedStream.Length)
         {
-            return DoCompare(settings, (stream1, stream2, _) => StreamComparer.AreEqual(stream1, stream2), filePair);
+            return new(Equality.NotEqual);
         }
 
-        return Task.FromResult(CompareResult.NotEqual());
+        return await InnerCompare(file, receivedStream, StreamComparer.AreEqual);
     }
 
-    static bool FilesAreSameSize(in FilePair file)
+    static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, Func<Stream, Stream, Task<CompareResult>> func)
     {
-        var first = new FileInfo(file.ReceivedPath);
-        var second = new FileInfo(file.VerifiedPath);
-        return first.Length == second.Length;
-    }
+        using var verifiedStream = FileHelpers.OpenRead(file.VerifiedPath);
+        if (receivedStream is FileStream fileStream)
+        {
+            var compareResult = await func(fileStream, verifiedStream);
+            if (compareResult.IsEqual)
+            {
+                return Equality.Equal;
+            }
 
-    static async Task<CompareResult> DoCompare(VerifySettings settings, StreamCompare compare, FilePair filePair)
-    {
-        using var fs1 = FileHelpers.OpenRead(filePair.ReceivedPath);
-        using var fs2 = FileHelpers.OpenRead(filePair.VerifiedPath);
-        return await compare(fs1, fs2, settings.Context);
+            File.Copy(fileStream.Name, file.ReceivedPath, true);
+            return new(Equality.NotEqual, compareResult.Message);
+        }
+        else
+        {
+            using var memoryStream = new MemoryStream();
+            await receivedStream.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+
+            var compareResult = await func(memoryStream, verifiedStream);
+
+            if (compareResult.IsEqual)
+            {
+                return Equality.Equal;
+            }
+
+            memoryStream.Position = 0;
+            await FileHelpers.WriteStream(file.ReceivedPath, memoryStream);
+            return new(Equality.NotEqual, compareResult.Message);
+        }
     }
 }

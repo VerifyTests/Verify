@@ -32,13 +32,4 @@
 
         return Task.FromResult(new CompareResult(isEqual));
     }
-
-    public static Task<EqualityResult> Streams(
-        VerifySettings settings,
-        Stream receivedStream,
-        FilePair file,
-        bool previousTextFailed)
-    {
-        return FileComparer.DoCompare(settings, file, previousTextFailed, receivedStream);
-    }
 }

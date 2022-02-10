@@ -36,7 +36,7 @@ static class FileComparer
 
         if (FilesAreSameSize(filePair))
         {
-            return DoCompare(settings, (stream1, stream2, _) => StreamsAreEqual(stream1, stream2), filePair);
+            return DoCompare(settings, (stream1, stream2, _) => StreamComparer.AreEqual(stream1, stream2), filePair);
         }
 
         return Task.FromResult(CompareResult.NotEqual());

@@ -39,6 +39,6 @@
         FilePair file,
         bool previousTextFailed)
     {
-        return FileComparer.DoCompare(settings, file, previousTextFailed,receivedStream);
+        return FileComparer.DoCompare(settings, file, previousTextFailed, receivedStream);
     }
 }

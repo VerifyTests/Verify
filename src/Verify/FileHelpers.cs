@@ -57,8 +57,13 @@
 
     public static async Task WriteStream(string filePath, Stream stream)
     {
-        await using var fileStream = OpenWrite(filePath);
-        await stream.CopyToAsync(fileStream);
+        if (stream is FileStream fileStream)
+        {
+            File.Copy(fileStream.Name, filePath);
+        }
+
+        await using var targetStream = OpenWrite(filePath);
+        await stream.CopyToAsync(targetStream);
     }
 #else
     public static async Task WriteText(string filePath, string text)
@@ -71,9 +76,13 @@
 
     public static async Task WriteStream(string filePath, Stream stream)
     {
-        //TODO: do shortcut for filestream
-        using var fileStream = OpenWrite(filePath);
-        await stream.CopyToAsync(fileStream);
+        if (stream is FileStream fileStream)
+        {
+            File.Copy(fileStream.Name, filePath);
+        }
+
+        using var targetStream = OpenWrite(filePath);
+        await stream.CopyToAsync(targetStream);
     }
 
     public static async Task<StringBuilder> ReadText(string filePath)

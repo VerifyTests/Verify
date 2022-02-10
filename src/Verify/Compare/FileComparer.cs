@@ -2,25 +2,28 @@
 
 static class FileComparer
 {
-    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextHasFailed)
+    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextHasFailed, Stream receivedStream)
     {
         if (!File.Exists(file.VerifiedPath))
         {
+            await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return Equality.New;
         }
 
         if (AllFiles.IsEmptyFile(file.VerifiedPath))
         {
+            await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return Equality.NotEqual;
         }
 
         var result = await FilesEqual(settings, file, previousTextHasFailed);
-        if (result.IsEqual)
+        if (!result.IsEqual)
         {
-            return Equality.Equal;
+            return new(Equality.NotEqual, result.Message);
         }
 
-        return new(Equality.NotEqual, result.Message);
+        return Equality.Equal;
+
     }
 
     static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair, bool previousTextHasFailed)
@@ -33,18 +36,10 @@ static class FileComparer
 
         if (FilesAreSameSize(filePair))
         {
-            return DefaultCompare(settings, filePair);
+            return DoCompare(settings, (stream1, stream2, _) => StreamsAreEqual(stream1, stream2), filePair);
         }
 
         return Task.FromResult(CompareResult.NotEqual());
-    }
-
-    public static Task<CompareResult> DefaultCompare(VerifySettings settings, FilePair filePair)
-    {
-        return DoCompare(
-            settings,
-            (stream1, stream2, _) => StreamsAreEqual(stream1, stream2),
-            filePair);
     }
 
     static bool FilesAreSameSize(in FilePair file)

@@ -66,6 +66,7 @@
 
     public static async Task WriteStream(string filePath, Stream stream)
     {
+        //TODO: do shortcut for filestream
         using var fileStream = OpenWrite(filePath);
         await stream.CopyToAsync(fileStream);
     }

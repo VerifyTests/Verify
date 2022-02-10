@@ -33,21 +33,12 @@
         return Task.FromResult(new CompareResult(isEqual));
     }
 
-    public static async Task<EqualityResult> Streams(
+    public static Task<EqualityResult> Streams(
         VerifySettings settings,
-        Stream stream,
+        Stream receivedStream,
         FilePair file,
         bool previousTextHasFailed)
     {
-        await FileHelpers.WriteStream(file.ReceivedPath, stream);
-
-        var result = await FileComparer.DoCompare(settings, file, previousTextHasFailed);
-
-        if (result.Equality == Equality.Equal)
-        {
-            File.Delete(file.ReceivedPath);
-        }
-
-        return result;
+        return FileComparer.DoCompare(settings, file, previousTextHasFailed,receivedStream);
     }
 }

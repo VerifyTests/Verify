@@ -2,7 +2,7 @@
 
 static class FileComparer
 {
-    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextHasFailed)
+    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextFailed)
     {
         if (!File.Exists(file.VerifiedPath))
         {
@@ -14,7 +14,7 @@ static class FileComparer
             return Equality.NotEqual;
         }
 
-        var result = await FilesEqual(settings, file, previousTextHasFailed);
+        var result = await FilesEqual(settings, file, previousTextFailed);
         if (result.IsEqual)
         {
             return Equality.Equal;
@@ -23,9 +23,9 @@ static class FileComparer
         return new(Equality.NotEqual, result.Message);
     }
 
-    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair, bool previousTextHasFailed)
+    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair, bool previousTextFailed)
     {
-        if (!previousTextHasFailed &&
+        if (!previousTextFailed &&
             settings.TryFindStreamComparer(filePair.Extension, out var compare))
         {
             return DoCompare(settings, compare, filePair);

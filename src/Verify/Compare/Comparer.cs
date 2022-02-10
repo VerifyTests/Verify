@@ -37,11 +37,11 @@
         VerifySettings settings,
         Stream stream,
         FilePair file,
-        bool previousTextHasFailed)
+        bool previousTextFailed)
     {
         await FileHelpers.WriteStream(file.ReceivedPath, stream);
 
-        var result = await FileComparer.DoCompare(settings, file, previousTextHasFailed);
+        var result = await FileComparer.DoCompare(settings, file, previousTextFailed);
 
         if (result.Equality == Equality.Equal)
         {

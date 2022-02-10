@@ -87,7 +87,7 @@ await VerifyFile("TheImage.png");
 <!-- snippet: DefualtCompare -->
 <a id='snippet-defualtcompare'></a>
 ```cs
-static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
+public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
 {
     const int bufferSize = 1024 * sizeof(long);
     var buffer1 = new byte[bufferSize];
@@ -134,7 +134,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/FileComparer.cs#L69-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

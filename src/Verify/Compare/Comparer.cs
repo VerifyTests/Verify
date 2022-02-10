@@ -37,8 +37,8 @@
         VerifySettings settings,
         Stream receivedStream,
         FilePair file,
-        bool previousTextHasFailed)
+        bool previousTextFailed)
     {
-        return FileComparer.DoCompare(settings, file, previousTextHasFailed,receivedStream);
+        return FileComparer.DoCompare(settings, file, previousTextFailed,receivedStream);
     }
 }

@@ -23,7 +23,7 @@ class VerifyEngine
         this.getIndexedFileNames = getIndexedFileNames;
     }
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextHasFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextFailed)
     {
         if (target.IsStringBuilder)
         {
@@ -47,7 +47,7 @@ class VerifyEngine
 #endif
         {
             stream.MoveToStart();
-            return await Comparer.Streams(settings, stream, filePair, previousTextHasFailed);
+            return await Comparer.Streams(settings, stream, filePair, previousTextFailed);
         }
     }
 

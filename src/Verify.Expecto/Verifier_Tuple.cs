@@ -1,6 +1,4 @@
 ﻿#if !NETSTANDARD2_0 && !NET461
-using System.Linq.Expressions;
-
 namespace VerifyExpecto
 {
     public static partial class Verifier

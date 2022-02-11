@@ -303,6 +303,7 @@ public class Tests
         return Verify(new { target });
     }
 
+#if (NET6_0)
     [Fact]
     public async Task StringWithDifferingNewline()
     {
@@ -333,7 +334,7 @@ public class Tests
         PrefixUnique.Clear();
         await Verify("a\nb");
     }
-
+#endif
     [Fact]
     public Task Stream()
     {
@@ -548,14 +549,14 @@ public class Tests
             .AppendValue("key", "value");
     }
 
-    #region GetFilePath
+#region GetFilePath
 
     string GetFilePath([CallerFilePath] string sourceFile = "")
     {
         return sourceFile;
     }
 
-    #endregion
+#endregion
 
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()

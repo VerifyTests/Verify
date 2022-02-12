@@ -134,12 +134,9 @@ class VerifyEngine
         }
     }
 
-    async Task ProcessDeletes()
+    Task ProcessDeletes()
     {
-        foreach (var item in delete)
-        {
-            await ProcessDeletes(item);
-        }
+        return Task.WhenAll(delete.Select(ProcessDeletes));
     }
 
     async Task ProcessDeletes(string file)
@@ -185,23 +182,25 @@ class VerifyEngine
         }
     }
 
-    async Task RunDiffAutoCheck(FilePair file)
+    Task RunDiffAutoCheck(FilePair file)
     {
         if (BuildServerDetector.Detected)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (settings.autoVerify)
         {
             AcceptChanges(file);
-            return;
+            return Task.CompletedTask;
         }
 
         if (diffEnabled)
         {
-            await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
+            return DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
         }
+
+        return Task.CompletedTask;
     }
 
     async Task ProcessNew()

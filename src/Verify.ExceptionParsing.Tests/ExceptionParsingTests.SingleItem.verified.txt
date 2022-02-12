@@ -18,7 +18,7 @@ FileContent:
 New:
 
 Received: ExceptionParsingTests.Fake.received.txt
-recevied content
+the content
 
 NotEqual:
 

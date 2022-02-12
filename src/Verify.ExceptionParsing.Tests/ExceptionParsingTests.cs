@@ -27,8 +27,8 @@ public class ExceptionParsingTests
     public Task Empty()
     {
         var equal = new List<FilePair>();
-        var @new = new List<FilePair>();
-        var notEquals = new List<NotEqual>();
+        var @new = new List<NewResult>();
+        var notEquals = new List<NotEqualResult>();
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
@@ -38,8 +38,8 @@ public class ExceptionParsingTests
     public Task WithMessage()
     {
         var equal = new List<FilePair>();
-        var @new = new List<FilePair>();
-        var notEquals = new List<NotEqual>
+        var @new = new List<NewResult>();
+        var notEquals = new List<NotEqualResult>
         {
             new(new("txt", fakeFilePrefix), "TheMessage", "receivedText", "verifiedText"),
             new(new("bin", fakeFilePrefix), "TheMessage", null, null)
@@ -56,8 +56,8 @@ public class ExceptionParsingTests
         {
             new("txt", fakeFilePrefix)
         };
-        var @new = new List<FilePair>();
-        var notEquals = new List<NotEqual>();
+        var @new = new List<NewResult>();
+        var notEquals = new List<NotEqualResult>();
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
@@ -67,11 +67,11 @@ public class ExceptionParsingTests
     public Task SingleNew()
     {
         var equal = new List<FilePair>();
-        var @new = new List<FilePair>
+        var @new = new List<NewResult>
         {
-            new("txt", fakeFilePrefix)
+            new(new("txt", fakeFilePrefix), "contents")
         };
-        var notEquals = new List<NotEqual>();
+        var notEquals = new List<NotEqualResult>();
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
@@ -81,8 +81,8 @@ public class ExceptionParsingTests
     public Task SingleNotEqual()
     {
         var equal = new List<FilePair>();
-        var @new = new List<FilePair>();
-        var notEquals = new List<NotEqual>
+        var @new = new List<NewResult>();
+        var notEquals = new List<NotEqualResult>
         {
             new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText")
         };
@@ -99,12 +99,12 @@ public class ExceptionParsingTests
             new("txt", fakeFilePrefix),
             new("bin", fakeFilePrefix)
         };
-        var @new = new List<FilePair>
+        var @new = new List<NewResult>
         {
-            new("txt", fakeFilePrefix),
-            new("bin", fakeFilePrefix)
+            new(new("txt", fakeFilePrefix), "the content"),
+            new(new("bin", fakeFilePrefix), null)
         };
-        var notEquals = new List<NotEqual>
+        var notEquals = new List<NotEqualResult>
         {
             new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText"),
             new(new("bin", fakeFilePrefix), null, null, null)
@@ -125,11 +125,11 @@ public class ExceptionParsingTests
         {
             new("txt", fakeFilePrefix)
         };
-        var @new = new List<FilePair>
+        var @new = new List<NewResult>
         {
-            new("txt", fakeFilePrefix)
+            new(new("txt", fakeFilePrefix), "the content")
         };
-        var notEquals = new List<NotEqual>
+        var notEquals = new List<NotEqualResult>
         {
             new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText")
         };
@@ -145,8 +145,8 @@ public class ExceptionParsingTests
     public Task SingleDelete()
     {
         var equal = new List<FilePair>();
-        var @new = new List<FilePair>();
-        var notEquals = new List<NotEqual>();
+        var @new = new List<NewResult>();
+        var notEquals = new List<NotEqualResult>();
         var delete = new List<string>
         {
             fakeReceivedTextFile
@@ -155,18 +155,18 @@ public class ExceptionParsingTests
         return ParseVerify(@new, notEquals, delete, equal);
     }
 
-    static async Task ParseVerify(
-        List<FilePair> @new,
-        List<NotEqual> notEquals,
+    static Task ParseVerify(
+        List<NewResult> @new,
+        List<NotEqualResult> notEquals,
         List<string> delete,
         List<FilePair> equal,
         [CallerFilePath] string sourceFile = "")
     {
-        var exceptionMessage = await VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEquals, delete, equal);
+        var exceptionMessage = VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEquals, delete, equal);
 
         var lines = exceptionMessage.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
         var result = Parser.Parse(lines);
-        await Verify(
+        return Verify(
             new
             {
                 exceptionMessage,

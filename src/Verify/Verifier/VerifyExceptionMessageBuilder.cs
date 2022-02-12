@@ -1,9 +1,9 @@
 ﻿static class VerifyExceptionMessageBuilder
 {
-    public static async Task<string> Build(
+    public static string Build(
         string directory,
-        IReadOnlyList<FilePair> @new,
-        List<NotEqual> notEquals,
+        List<NewResult> @new,
+        List<NotEqualResult> notEquals,
         IReadOnlyList<string> delete,
         IReadOnlyList<FilePair> equal)
     {
@@ -15,7 +15,7 @@
             builder.AppendLine("New:");
             foreach (var file in @new)
             {
-                AppendFile(builder, file);
+                AppendFile(builder, file.File);
             }
         }
 
@@ -46,7 +46,7 @@
             }
         }
 
-        await AppendContent(@new, notEquals, builder);
+        AppendContent(@new, notEquals, builder);
 
         return builder.ToString();
     }
@@ -57,14 +57,14 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<NotEqual> notEquals, StringBuilder builder)
+    static void AppendContent(IReadOnlyList<NewResult> @new, List<NotEqualResult> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {
             return;
         }
 
-        var newContentFiles = @new.Where(x => x.IsText).ToList();
+        var newContentFiles = @new.Where(x => x.File.IsText).ToList();
         var notEqualContentFiles = notEquals.Where(x => x.File.IsText || x.Message != null).ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
@@ -81,9 +81,8 @@
             builder.AppendLine();
             foreach (var item in newContentFiles)
             {
-                builder.AppendLine($"Received: {item.ReceivedName}");
-                //TODO:
-                builder.AppendLine($"{await FileHelpers.ReadText(item.ReceivedPath)}");
+                builder.AppendLine($"Received: {item.File.ReceivedName}");
+                builder.AppendLine(item.ReceivedText);
                 builder.AppendLine();
             }
         }
@@ -103,7 +102,7 @@
         }
     }
 
-    static void AppendNotEqualContent(StringBuilder builder, NotEqual notEqual)
+    static void AppendNotEqualContent(StringBuilder builder, NotEqualResult notEqual)
     {
         var item = notEqual.File;
         var message = notEqual.Message;

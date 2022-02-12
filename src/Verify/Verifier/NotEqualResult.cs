@@ -1,11 +1,11 @@
-﻿readonly struct NotEqual
+﻿readonly struct NotEqualResult
 {
     public FilePair File { get; }
     public string? Message { get; }
     public string? ReceivedText { get; }
     public string? VerifiedText { get; }
 
-    public NotEqual(in FilePair file, in string? message, in string? receivedText, in string? verifiedText)
+    public NotEqualResult(in FilePair file, in string? message, in string? receivedText, in string? verifiedText)
     {
         File = file;
         Message = message;

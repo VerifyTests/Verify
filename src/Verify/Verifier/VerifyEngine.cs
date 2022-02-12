@@ -6,8 +6,8 @@ class VerifyEngine
     string directory;
     VerifySettings settings;
     bool diffEnabled;
-    List<FilePair> @new = new();
-    List<NotEqual> notEquals = new();
+    List<NewResult> @new = new();
+    List<NotEqualResult> notEquals = new();
     List<FilePair> equal = new();
     List<string> delete;
     GetFileNames getFileNames;
@@ -78,15 +78,15 @@ class VerifyEngine
         }
     }
 
-    void HandleCompareResult(EqualityResult compareResult, in FilePair file)
+    void HandleCompareResult(EqualityResult result, in FilePair file)
     {
-        switch (compareResult.Equality)
+        switch (result.Equality)
         {
             case Equality.New:
-                AddMissing(file);
+                AddMissing(new NewResult(file, result.ReceivedText));
                 break;
             case Equality.NotEqual:
-                AddNotEquals(new NotEqual(file, compareResult.Message, compareResult.ReceivedText, compareResult.VerifiedText));
+                AddNotEquals(new NotEqualResult(file, result.Message, result.ReceivedText, result.VerifiedText));
                 break;
             case Equality.Equal:
                 AddEquals(file);
@@ -94,13 +94,13 @@ class VerifyEngine
         }
     }
 
-    void AddMissing(in FilePair item)
+    void AddMissing(in NewResult item)
     {
         @new.Add(item);
-        delete.Remove(item.VerifiedPath);
+        delete.Remove(item.File.VerifiedPath);
     }
 
-    void AddNotEquals(in NotEqual notEqual)
+    void AddNotEquals(in NotEqualResult notEqual)
     {
         notEquals.Add(notEqual);
         delete.Remove(notEqual.File.VerifiedPath);
@@ -129,7 +129,7 @@ class VerifyEngine
         await ProcessNotEquals();
         if (!settings.autoVerify)
         {
-            var message = await VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
+            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
         }
     }
@@ -209,7 +209,7 @@ class VerifyEngine
         foreach (var file in @new)
         {
             await VerifierSettings.RunOnFirstVerify(file);
-            await RunDiffAutoCheck(file);
+            await RunDiffAutoCheck(file.File);
         }
     }
 

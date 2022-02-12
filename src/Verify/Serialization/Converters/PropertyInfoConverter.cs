@@ -1,6 +1,4 @@
-﻿using SimpleInfoName;
-
-class PropertyInfoConverter :
+﻿class PropertyInfoConverter :
     WriteOnlyJsonConverter<PropertyInfo>
 {
     public override void Write(VerifyJsonWriter writer, PropertyInfo value)

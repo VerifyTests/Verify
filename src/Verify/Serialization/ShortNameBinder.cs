@@ -1,6 +1,4 @@
-﻿using SimpleInfoName;
-
-class ShortNameBinder :
+﻿class ShortNameBinder :
     ISerializationBinder
 {
     public static readonly ShortNameBinder Instance = new();

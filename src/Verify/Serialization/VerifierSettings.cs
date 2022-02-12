@@ -1,6 +1,5 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
-using SimpleInfoName;
 
 // ReSharper disable UnusedParameter.Local
 

@@ -1,6 +1,4 @@
-﻿using SimpleInfoName;
-
-static class JsonFormatter
+﻿static class JsonFormatter
 {
     static JsonFormatter()
     {

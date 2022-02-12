@@ -18,14 +18,14 @@ build_script:
       }
     }
 - dotnet build src --configuration Release -maxcpucount
-- dotnet test src --configuration Release --no-build --no-restore -maxcpucount
+- dotnet test src --configuration Release --no-build --no-restore -maxcpucount -- xunit.parallelizeAssembly=true
 
 - pwsh: |
     if ($isWindows) {
       Set-Culture -CultureInfo de-DE
-      dotnet test src --configuration Release --no-build --no-restore -maxcpucount
+      dotnet test src --configuration Release --no-build --no-restore -maxcpucount -- xunit.parallelizeAssembly=true
       Set-TimeZone -Name "Russia TZ 2 Standard Time"
-      dotnet test src --configuration Release --no-build --no-restore -maxcpucount
+      dotnet test src --configuration Release --no-build --no-restore -maxcpucount -- xunit.parallelizeAssembly=true
     }
 # begin-snippet: AppVeyorArtifacts
 on_failure:

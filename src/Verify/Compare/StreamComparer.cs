@@ -6,6 +6,9 @@
 
     public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
     {
+        EnsureAtStart(stream1);
+        EnsureAtStart(stream2);
+
         var buffer1 = new byte[bufferSize];
         var buffer2 = new byte[bufferSize];
 
@@ -29,6 +32,15 @@
                     return CompareResult.NotEqual();
                 }
             }
+        }
+    }
+
+    static void EnsureAtStart(Stream stream)
+    {
+        if (stream.CanSeek &&
+            stream.Position != 0)
+        {
+            throw new("Expected stream to be at position 0.");
         }
     }
 

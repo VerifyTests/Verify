@@ -14,7 +14,7 @@ public static partial class VerifierSettings
         return GetMemberConverter(typeof(T), name);
     }
 
-    private static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
+    static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
     {
         foreach (var pair in membersConverters)
         {

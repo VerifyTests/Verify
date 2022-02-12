@@ -50,7 +50,7 @@ public partial class SerializationSettings
         return true;
     }
 
-    private static string Convert(Counter counter, DateOnly date)
+    static string Convert(Counter counter, DateOnly date)
     {
         if (date == DateOnly.MaxValue)
         {
@@ -80,7 +80,7 @@ public partial class SerializationSettings
         return true;
     }
 
-    private static string Convert(Counter counter, DateTime date)
+    static string Convert(Counter counter, DateTime date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {

@@ -45,7 +45,13 @@
 
         foreach (var file in ReceivedFiles)
         {
-            File.Delete(file);
+            try
+            {
+                File.Delete(file);
+            }
+            catch
+            {
+            }
         }
 
         VerifierSettings.RunBeforeCallbacks();

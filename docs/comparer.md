@@ -91,6 +91,9 @@ const int bufferSize = 1024 * sizeof(long);
 
 public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
 {
+    EnsureAtStart(stream1);
+    EnsureAtStart(stream2);
+
     var buffer1 = new byte[bufferSize];
     var buffer2 = new byte[bufferSize];
 
@@ -117,6 +120,15 @@ public static async Task<CompareResult> AreEqual(Stream stream1, Stream stream2)
     }
 }
 
+static void EnsureAtStart(Stream stream)
+{
+    if (stream.CanSeek &&
+        stream.Position != 0)
+    {
+        throw new("Expected stream to be at position 0.");
+    }
+}
+
 static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
 {
     var bytesRead = 0;
@@ -135,7 +147,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

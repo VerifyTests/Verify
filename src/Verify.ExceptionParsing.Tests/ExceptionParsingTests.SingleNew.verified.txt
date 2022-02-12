@@ -1,4 +1,4 @@
-﻿{
+{
   exceptionMessage:
 Directory: {ProjectDirectory}
 New:
@@ -10,7 +10,7 @@ FileContent:
 New:
 
 Received: ExceptionParsingTests.Fake.received.txt
-recevied content
+contents
 
 ,
   result: {

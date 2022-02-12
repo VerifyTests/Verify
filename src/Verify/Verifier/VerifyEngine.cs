@@ -1,13 +1,13 @@
 ﻿using DiffEngine;
 
-[DebuggerDisplay("new = {new.Count} | notEqual = {notEqual.Count} | equal = {equal.Count} | delete = {delete.Count}")]
+[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {
     string directory;
     VerifySettings settings;
     bool diffEnabled;
-    List<FilePair> @new = new();
-    List<(FilePair filePair, string? message)> notEqual = new();
+    List<NewResult> @new = new();
+    List<NotEqualResult> notEquals = new();
     List<FilePair> equal = new();
     List<string> delete;
     GetFileNames getFileNames;
@@ -23,20 +23,20 @@ class VerifyEngine
         this.getIndexedFileNames = getIndexedFileNames;
     }
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
         if (target.IsStringBuilder)
         {
             var builder = target.StringBuilderData;
             ApplyScrubbers.Apply(target.Extension, builder, settings);
-            return await Comparer.Text(filePair, builder.ToString(), settings);
+            return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         if (target.IsString)
         {
             var builder = new StringBuilder(target.StringData);
             ApplyScrubbers.Apply(target.Extension, builder, settings);
-            return await Comparer.Text(filePair, builder.ToString(), settings);
+            return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         var stream = target.StreamData;
@@ -47,7 +47,7 @@ class VerifyEngine
 #endif
         {
             stream.MoveToStart();
-            return await Comparer.Streams(settings, stream, filePair, previousTextFailed);
+            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
         }
     }
 
@@ -78,15 +78,15 @@ class VerifyEngine
         }
     }
 
-    void HandleCompareResult(EqualityResult compareResult, in FilePair file)
+    void HandleCompareResult(EqualityResult result, in FilePair file)
     {
-        switch (compareResult.Equality)
+        switch (result.Equality)
         {
             case Equality.New:
-                AddMissing(file);
+                AddMissing(new NewResult(file, result.ReceivedText));
                 break;
             case Equality.NotEqual:
-                AddNotEquals(file, compareResult.Message);
+                AddNotEquals(new NotEqualResult(file, result.Message, result.ReceivedText, result.VerifiedText));
                 break;
             case Equality.Equal:
                 AddEquals(file);
@@ -94,16 +94,16 @@ class VerifyEngine
         }
     }
 
-    void AddMissing(in FilePair item)
+    void AddMissing(in NewResult item)
     {
         @new.Add(item);
-        delete.Remove(item.VerifiedPath);
+        delete.Remove(item.File.VerifiedPath);
     }
 
-    void AddNotEquals(in FilePair item, string? message)
+    void AddNotEquals(in NotEqualResult notEqual)
     {
-        notEqual.Add((item, message));
-        delete.Remove(item.VerifiedPath);
+        notEquals.Add(notEqual);
+        delete.Remove(notEqual.File.VerifiedPath);
     }
 
     void AddEquals(in FilePair item)
@@ -116,7 +116,7 @@ class VerifyEngine
     {
         ProcessEquals();
         if (@new.Count == 0 &&
-            notEqual.Count == 0 &&
+            notEquals.Count == 0 &&
             delete.Count == 0)
         {
             return;
@@ -129,17 +129,14 @@ class VerifyEngine
         await ProcessNotEquals();
         if (!settings.autoVerify)
         {
-            var message = await VerifyExceptionMessageBuilder.Build(directory, @new, notEqual, delete, equal);
+            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
         }
     }
 
-    async Task ProcessDeletes()
+    Task ProcessDeletes()
     {
-        foreach (var item in delete)
-        {
-            await ProcessDeletes(item);
-        }
+        return Task.WhenAll(delete.Select(ProcessDeletes));
     }
 
     async Task ProcessDeletes(string file)
@@ -165,10 +162,10 @@ class VerifyEngine
 
     async Task ProcessNotEquals()
     {
-        foreach (var (file, message) in notEqual)
+        foreach (var notEqual in notEquals)
         {
-            await VerifierSettings.RunOnVerifyMismatch(file, message);
-            await RunDiffAutoCheck(file);
+            await VerifierSettings.RunOnVerifyMismatch(notEqual.File, notEqual.Message);
+            await RunDiffAutoCheck(notEqual.File);
         }
     }
 
@@ -185,23 +182,25 @@ class VerifyEngine
         }
     }
 
-    async Task RunDiffAutoCheck(FilePair file)
+    Task RunDiffAutoCheck(FilePair file)
     {
         if (BuildServerDetector.Detected)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (settings.autoVerify)
         {
             AcceptChanges(file);
-            return;
+            return Task.CompletedTask;
         }
 
         if (diffEnabled)
         {
-            await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
+            return DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
         }
+
+        return Task.CompletedTask;
     }
 
     async Task ProcessNew()
@@ -209,7 +208,7 @@ class VerifyEngine
         foreach (var file in @new)
         {
             await VerifierSettings.RunOnFirstVerify(file);
-            await RunDiffAutoCheck(file);
+            await RunDiffAutoCheck(file.File);
         }
     }
 

@@ -4,10 +4,10 @@
 
     public static void DeleteIfEmpty(string path)
     {
-        var fileInfo = new FileInfo(path);
-        if (fileInfo.Exists && fileInfo.Length == 0)
+        var info = new FileInfo(path);
+        if (info.Exists && info.Length == 0)
         {
-            fileInfo.Delete();
+            info.Delete();
         }
     }
 
@@ -17,7 +17,7 @@
             filePath,
             FileMode.Create,
             FileAccess.Write,
-            FileShare.None,
+            FileShare.Read,
             bufferSize: 4096,
             useAsync: true);
     }
@@ -38,6 +38,11 @@
         return stream.ReadAsStringBuilder();
     }
 
+    public static long Length(string file)
+    {
+        return new FileInfo(file).Length;
+    }
+
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
     public static Task WriteText(string filePath, string text)
     {
@@ -52,22 +57,35 @@
 
     public static async Task WriteStream(string filePath, Stream stream)
     {
-        await using var fileStream = OpenWrite(filePath);
-        await stream.CopyToAsync(fileStream);
+        if (stream is FileStream fileStream)
+        {
+            File.Copy(fileStream.Name, filePath);
+            return;
+        }
+
+        await using var targetStream = OpenWrite(filePath);
+        await stream.CopyToAsync(targetStream);
     }
 #else
+
     public static async Task WriteText(string filePath, string text)
     {
         var encodedText = Utf8.GetBytes(text);
 
-        using var fileStream = OpenWrite(filePath);
-        await fileStream.WriteAsync(encodedText, 0, encodedText.Length);
+        using var stream = OpenWrite(filePath);
+        await stream.WriteAsync(encodedText, 0, encodedText.Length);
     }
 
     public static async Task WriteStream(string filePath, Stream stream)
     {
-        using var fileStream = OpenWrite(filePath);
-        await stream.CopyToAsync(fileStream);
+        if (stream is FileStream fileStream)
+        {
+            File.Copy(fileStream.Name, filePath, true);
+            return;
+        }
+
+        using var targetStream = OpenWrite(filePath);
+        await stream.CopyToAsync(targetStream);
     }
 
     public static async Task<StringBuilder> ReadText(string filePath)

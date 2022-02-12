@@ -3,7 +3,7 @@
 {
     public static readonly ShortNameBinder Instance = new();
 
-    private ShortNameBinder()
+    ShortNameBinder()
     {
     }
 

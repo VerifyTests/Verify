@@ -1,13 +1,13 @@
-﻿readonly struct EqualityResult
+﻿readonly struct NotEqualResult
 {
-    public Equality Equality { get; }
+    public FilePair File { get; }
     public string? Message { get; }
     public string? ReceivedText { get; }
     public string? VerifiedText { get; }
 
-    public EqualityResult(in Equality equality, in string? message, in string? receivedText, in string? verifiedText)
+    public NotEqualResult(in FilePair file, in string? message, in string? receivedText, in string? verifiedText)
     {
-        Equality = equality;
+        File = file;
         Message = message;
         ReceivedText = receivedText;
         VerifiedText = verifiedText;

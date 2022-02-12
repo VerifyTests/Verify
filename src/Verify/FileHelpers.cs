@@ -79,7 +79,7 @@
     {
         if (stream is FileStream fileStream)
         {
-            File.Copy(fileStream.Name, filePath);
+            File.Copy(fileStream.Name, filePath, true);
             return;
         }
 

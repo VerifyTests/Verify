@@ -1,13 +1,13 @@
 ﻿using DiffEngine;
 
-[DebuggerDisplay("new = {new.Count} | notEqual = {notEqual.Count} | equal = {equal.Count} | delete = {delete.Count}")]
+[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {
     string directory;
     VerifySettings settings;
     bool diffEnabled;
     List<FilePair> @new = new();
-    List<(FilePair filePair, string? message)> notEqual = new();
+    List<(FilePair filePair, string? message)> notEquals = new();
     List<FilePair> equal = new();
     List<string> delete;
     GetFileNames getFileNames;
@@ -102,7 +102,7 @@ class VerifyEngine
 
     void AddNotEquals(in FilePair item, string? message)
     {
-        notEqual.Add((item, message));
+        notEquals.Add((item, message));
         delete.Remove(item.VerifiedPath);
     }
 
@@ -116,7 +116,7 @@ class VerifyEngine
     {
         ProcessEquals();
         if (@new.Count == 0 &&
-            notEqual.Count == 0 &&
+            notEquals.Count == 0 &&
             delete.Count == 0)
         {
             return;
@@ -129,7 +129,7 @@ class VerifyEngine
         await ProcessNotEquals();
         if (!settings.autoVerify)
         {
-            var message = await VerifyExceptionMessageBuilder.Build(directory, @new, notEqual, delete, equal);
+            var message = await VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
         }
     }
@@ -165,7 +165,7 @@ class VerifyEngine
 
     async Task ProcessNotEquals()
     {
-        foreach (var (file, message) in notEqual)
+        foreach (var (file, message) in notEquals)
         {
             await VerifierSettings.RunOnVerifyMismatch(file, message);
             await RunDiffAutoCheck(file);

@@ -3,7 +3,7 @@
     public static async Task<string> Build(
         string directory,
         IReadOnlyList<FilePair> @new,
-        IReadOnlyList<(FilePair filePair, string? message)> notEqual,
+        IReadOnlyList<(FilePair filePair, string? message)> notEquals,
         IReadOnlyList<string> delete,
         IReadOnlyList<FilePair> equal)
     {
@@ -19,10 +19,10 @@
             }
         }
 
-        if (notEqual.Any())
+        if (notEquals.Any())
         {
             builder.AppendLine("NotEqual:");
-            foreach (var file in notEqual)
+            foreach (var file in notEquals)
             {
                 AppendFile(builder, file.filePair);
             }
@@ -46,7 +46,7 @@
             }
         }
 
-        await AppendContent(@new, notEqual, builder);
+        await AppendContent(@new, notEquals, builder);
 
         return builder.ToString();
     }
@@ -57,7 +57,7 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static async Task AppendContent(IReadOnlyList<FilePair> @new, IReadOnlyList<(FilePair filePair, string? message)> notEqual, StringBuilder builder)
+    static async Task AppendContent(IReadOnlyList<FilePair> @new, IReadOnlyList<(FilePair filePair, string? message)> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {
@@ -65,7 +65,7 @@
         }
 
         var newContentFiles = @new.Where(x => x.IsText).ToList();
-        var notEqualContentFiles = notEqual.Where(x => x.filePair.IsText || x.message != null).ToList();
+        var notEqualContentFiles = notEquals.Where(x => x.filePair.IsText || x.message != null).ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
             return;

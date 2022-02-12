@@ -28,10 +28,10 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEqual = new List<(FilePair filePair, string? message)>();
+        var notEquals = new List<(FilePair filePair, string? message)>();
         var delete = new List<string>();
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -39,14 +39,14 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEqual = new List<(FilePair filePair, string? message)>
+        var notEquals = new List<(FilePair filePair, string? message)>
         {
             new(new("txt", fakeFilePrefix), "TheMessage"),
             new(new("bin", fakeFilePrefix), "TheMessage")
         };
         var delete = new List<string>();
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -57,10 +57,10 @@ public class ExceptionParsingTests
             new("txt", fakeFilePrefix)
         };
         var @new = new List<FilePair>();
-        var notEqual = new List<(FilePair filePair, string? message)>();
+        var notEquals = new List<(FilePair filePair, string? message)>();
         var delete = new List<string>();
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -71,10 +71,10 @@ public class ExceptionParsingTests
         {
             new("txt", fakeFilePrefix)
         };
-        var notEqual = new List<(FilePair filePair, string? message)>();
+        var notEquals = new List<(FilePair filePair, string? message)>();
         var delete = new List<string>();
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -82,13 +82,13 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEqual = new List<(FilePair filePair, string? message)>
+        var notEquals = new List<(FilePair filePair, string? message)>
         {
             new(new("txt", fakeFilePrefix), null)
         };
         var delete = new List<string>();
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -104,7 +104,7 @@ public class ExceptionParsingTests
             new("txt", fakeFilePrefix),
             new("bin", fakeFilePrefix)
         };
-        var notEqual = new List<(FilePair filePair, string? message)>
+        var notEquals = new List<(FilePair filePair, string? message)>
         {
             new(new("txt", fakeFilePrefix), null),
             new(new("bin", fakeFilePrefix), null)
@@ -115,7 +115,7 @@ public class ExceptionParsingTests
             fakeReceivedBinFile
         };
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -129,7 +129,7 @@ public class ExceptionParsingTests
         {
             new("txt", fakeFilePrefix)
         };
-        var notEqual = new List<(FilePair filePair, string? message)>
+        var notEquals = new List<(FilePair filePair, string? message)>
         {
             new(new("txt", fakeFilePrefix), null)
         };
@@ -138,7 +138,7 @@ public class ExceptionParsingTests
             fakeReceivedTextFile
         };
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     [Fact]
@@ -146,23 +146,23 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEqual = new List<(FilePair filePair, string? message)>();
+        var notEquals = new List<(FilePair filePair, string? message)>();
         var delete = new List<string>
         {
             fakeReceivedTextFile
         };
 
-        return ParseVerify(@new, notEqual, delete, equal);
+        return ParseVerify(@new, notEquals, delete, equal);
     }
 
     static async Task ParseVerify(
         List<FilePair> @new,
-        List<(FilePair filePair, string? message)> notEqual,
+        List<(FilePair filePair, string? message)> notEquals,
         List<string> delete,
         List<FilePair> equal,
         [CallerFilePath] string sourceFile = "")
     {
-        var exceptionMessage = await VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEqual, delete, equal);
+        var exceptionMessage = await VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEquals, delete, equal);
 
         var lines = exceptionMessage.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
         var result = Parser.Parse(lines);

@@ -28,7 +28,7 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>();
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>();
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
@@ -39,7 +39,7 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>
         {
             new(new("txt", fakeFilePrefix), "TheMessage", new NotEqual(new("txt", fakeFilePrefix), "TheMessage","receivedText", "verifiedText")),
             new(new("bin", fakeFilePrefix), "TheMessage", new NotEqual(new("txt", fakeFilePrefix), "TheMessage",null,null))
@@ -57,7 +57,7 @@ public class ExceptionParsingTests
             new("txt", fakeFilePrefix)
         };
         var @new = new List<FilePair>();
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>();
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>();
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
@@ -71,7 +71,7 @@ public class ExceptionParsingTests
         {
             new("txt", fakeFilePrefix)
         };
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>();
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>();
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
@@ -82,7 +82,7 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>
         {
             new(new("txt", fakeFilePrefix), null, new NotEqual(new("txt", fakeFilePrefix),null,"receivedText", "verifiedText"))
         };
@@ -104,7 +104,7 @@ public class ExceptionParsingTests
             new("txt", fakeFilePrefix),
             new("bin", fakeFilePrefix)
         };
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>
         {
             new(new("txt", fakeFilePrefix), null, new NotEqual(new("txt", fakeFilePrefix), null,"receivedText", "verifiedText")),
             new(new("bin", fakeFilePrefix), null, new NotEqual(new("txt", fakeFilePrefix), null,null,null))
@@ -129,7 +129,7 @@ public class ExceptionParsingTests
         {
             new("txt", fakeFilePrefix)
         };
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>
         {
             new(new("txt", fakeFilePrefix), null, new NotEqual(new("txt", fakeFilePrefix), null,"receivedText", "verifiedText"))
         };
@@ -146,7 +146,7 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>();
         var @new = new List<FilePair>();
-        var notEquals = new List<(FilePair filePair, string? message, NotEqual)>();
+        var notEquals = new List<(FilePair filePair, string? message, NotEqual notEqual)>();
         var delete = new List<string>
         {
             fakeReceivedTextFile
@@ -157,7 +157,7 @@ public class ExceptionParsingTests
 
     static async Task ParseVerify(
         List<FilePair> @new,
-        List<(FilePair filePair, string? message, NotEqual)> notEquals,
+        List<(FilePair filePair, string? message, NotEqual notEqual)> notEquals,
         List<string> delete,
         List<FilePair> equal,
         [CallerFilePath] string sourceFile = "")

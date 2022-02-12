@@ -7,7 +7,7 @@ class VerifyEngine
     VerifySettings settings;
     bool diffEnabled;
     List<FilePair> @new = new();
-    List<(FilePair filePair, string? message, NotEqual)> notEquals = new();
+    List<(FilePair filePair, string? message, NotEqual notEqual)> notEquals = new();
     List<FilePair> equal = new();
     List<string> delete;
     GetFileNames getFileNames;

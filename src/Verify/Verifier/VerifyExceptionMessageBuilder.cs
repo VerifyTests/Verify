@@ -3,7 +3,7 @@
     public static async Task<string> Build(
         string directory,
         IReadOnlyList<FilePair> @new,
-        List<(FilePair filePair, string? message, NotEqual)> notEquals,
+        List<(FilePair filePair, string? message, NotEqual notEqual)> notEquals,
         IReadOnlyList<string> delete,
         IReadOnlyList<FilePair> equal)
     {
@@ -57,7 +57,7 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<(FilePair filePair, string? message, NotEqual)> notEquals, StringBuilder builder)
+    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<(FilePair filePair, string? message, NotEqual notEqual)> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {

@@ -1,6 +1,4 @@
-﻿using SimpleInfoName;
-
-class TypeJsonConverter :
+﻿class TypeJsonConverter :
     WriteOnlyJsonConverter<Type>
 {
     public override void Write(VerifyJsonWriter writer, Type value)

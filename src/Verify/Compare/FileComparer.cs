@@ -31,7 +31,12 @@
 
     static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, Func<Stream, Stream, Task<CompareResult>> func)
     {
+#if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
         using var verifiedStream = FileHelpers.OpenRead(file.VerifiedPath);
+#else
+        await using var verifiedStream = FileHelpers.OpenRead(file.VerifiedPath);
+#endif
+
         if (receivedStream is FileStream fileStream)
         {
             var compareResult = await func(fileStream, verifiedStream);
@@ -43,35 +48,31 @@
             File.Copy(fileStream.Name, file.ReceivedPath, true);
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }
-        else
+
+        async Task<EqualityResult> EqualityResult(Stream receivedStream, Stream verifiedStream)
         {
-            async Task<EqualityResult> EqualityResult(Stream receivedStream, Stream verifiedStream)
+            var compareResult = await func(receivedStream, verifiedStream);
+
+            if (compareResult.IsEqual)
             {
-                var compareResult = await func(receivedStream, verifiedStream);
-
-                if (compareResult.IsEqual)
-                {
-                    return new(Equality.Equal, compareResult.Message, null, null);
-                }
-
-                receivedStream.Position = 0;
-                await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
-                return new(Equality.NotEqual, compareResult.Message, null, null);
+                return new(Equality.Equal, compareResult.Message, null, null);
             }
 
-            if (receivedStream.CanSeek)
-            {
-                receivedStream.Position = 0;
-                return await EqualityResult(receivedStream, verifiedStream);
-            }
-            else
-            {
-                using var memoryStream = new MemoryStream();
-                await receivedStream.CopyToAsync(memoryStream);
-                memoryStream.Position = 0;
-
-                return await EqualityResult(memoryStream, verifiedStream);
-            }
+            receivedStream.Position = 0;
+            await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            return new(Equality.NotEqual, compareResult.Message, null, null);
         }
+
+        if (receivedStream.CanSeek)
+        {
+            receivedStream.Position = 0;
+            return await EqualityResult(receivedStream, verifiedStream);
+        }
+
+        using var memoryStream = new MemoryStream();
+        await receivedStream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+
+        return await EqualityResult(memoryStream, verifiedStream);
     }
 }

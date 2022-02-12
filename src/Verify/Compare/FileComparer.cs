@@ -5,13 +5,13 @@
         if (!File.Exists(file.VerifiedPath))
         {
             await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
-            return Equality.New;
+            return new(Equality.New, null, null, null);
         }
 
         if (AllFiles.IsEmptyFile(file.VerifiedPath))
         {
             await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
-            return Equality.NotEqual;
+            return new(Equality.NotEqual, null, null, null);
         }
 
         if (!previousTextFailed &&
@@ -23,7 +23,7 @@
         if (receivedStream.CanSeek &&
             FileHelpers.Length(file.VerifiedPath) != receivedStream.Length)
         {
-            return new(Equality.NotEqual);
+            return new(Equality.NotEqual, null,null,null);
         }
 
         return await InnerCompare(file, receivedStream, StreamComparer.AreEqual);
@@ -37,32 +37,32 @@
             var compareResult = await func(fileStream, verifiedStream);
             if (compareResult.IsEqual)
             {
-                return Equality.Equal;
+                return new(Equality.Equal, compareResult.Message, null, null);
             }
 
             File.Copy(fileStream.Name, file.ReceivedPath, true);
-            return new(Equality.NotEqual, compareResult.Message);
+            return new(Equality.NotEqual, compareResult.Message, null, null);
         }
         else
         {
-            async Task<EqualityResult> EqualityResult(Stream stream)
+            async Task<EqualityResult> EqualityResult(Stream receivedStream, Stream verifiedStream)
             {
-                var compareResult = await func(stream, verifiedStream);
+                var compareResult = await func(receivedStream, verifiedStream);
 
                 if (compareResult.IsEqual)
                 {
-                    return Equality.Equal;
+                    return new(Equality.Equal, compareResult.Message, null, null);
                 }
 
-                stream.Position = 0;
-                await FileHelpers.WriteStream(file.ReceivedPath, stream);
-                return new(Equality.NotEqual, compareResult.Message);
+                receivedStream.Position = 0;
+                await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
+                return new(Equality.NotEqual, compareResult.Message, null, null);
             }
 
             if (receivedStream.CanSeek)
             {
                 receivedStream.Position = 0;
-                return await EqualityResult(receivedStream);
+                return await EqualityResult(receivedStream, verifiedStream);
             }
             else
             {
@@ -70,7 +70,7 @@
                 await receivedStream.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
 
-                return await EqualityResult(memoryStream);
+                return await EqualityResult(memoryStream, verifiedStream);
             }
         }
     }

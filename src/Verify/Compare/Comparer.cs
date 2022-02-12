@@ -1,23 +1,24 @@
 ﻿static class Comparer
 {
-    public static async Task<EqualityResult> Text(FilePair filePair, string received, VerifySettings settings)
+    public static async Task<EqualityResult> Text(FilePair filePair, string receivedText, VerifySettings settings)
     {
         FileHelpers.DeleteIfEmpty(filePair.VerifiedPath);
         if (!File.Exists(filePair.VerifiedPath))
         {
-            await FileHelpers.WriteText(filePair.ReceivedPath, received);
-            return Equality.New;
+            await FileHelpers.WriteText(filePair.ReceivedPath, receivedText);
+            return new EqualityResult(Equality.New, null, receivedText, null);
         }
 
-        var verified = await FileHelpers.ReadText(filePair.VerifiedPath);
-        var result = await CompareStrings(filePair.Extension, received, verified.ToString(), settings);
+        var verifiedBuilder = await FileHelpers.ReadText(filePair.VerifiedPath);
+        var verifiedText = verifiedBuilder.ToString();
+        var result = await CompareStrings(filePair.Extension, receivedText, verifiedText, settings);
         if (result.IsEqual)
         {
-            return Equality.Equal;
+            return new EqualityResult(Equality.Equal, null, receivedText, verifiedText);
         }
 
-        await FileHelpers.WriteText(filePair.ReceivedPath, received);
-        return new(Equality.NotEqual, result.Message);
+        await FileHelpers.WriteText(filePair.ReceivedPath, receivedText);
+        return new(Equality.NotEqual, result.Message, receivedText, verifiedText);
     }
 
     static Task<CompareResult> CompareStrings(string extension, string received, string verified, VerifySettings settings)

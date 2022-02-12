@@ -42,6 +42,7 @@
     {
         return new FileInfo(file).Length;
     }
+
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
     public static Task WriteText(string filePath, string text)
     {
@@ -65,6 +66,7 @@
         await stream.CopyToAsync(targetStream);
     }
 #else
+
     public static async Task WriteText(string filePath, string text)
     {
         var encodedText = Utf8.GetBytes(text);

@@ -43,6 +43,17 @@
         GetFileNames = extension => new(extension, filePathPrefix);
         GetIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefix}.{index:D2}");
 
+        foreach (var file in ReceivedFiles)
+        {
+            try
+            {
+                File.Delete(file);
+            }
+            catch
+            {
+            }
+        }
+
         VerifierSettings.RunBeforeCallbacks();
     }
 

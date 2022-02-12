@@ -1,6 +1,4 @@
-﻿using SimpleInfoName;
-
-class CustomContractResolver :
+﻿class CustomContractResolver :
     DefaultContractResolver
 {
     SerializationSettings settings;

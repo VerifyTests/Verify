@@ -1,6 +1,4 @@
-﻿using SimpleInfoName;
-
-class ParameterInfoConverter :
+﻿class ParameterInfoConverter :
     WriteOnlyJsonConverter<ParameterInfo>
 {
     public override void Write(VerifyJsonWriter writer, ParameterInfo value)

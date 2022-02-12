@@ -80,6 +80,7 @@
         if (stream is FileStream fileStream)
         {
             File.Copy(fileStream.Name, filePath);
+            return;
         }
 
         using var targetStream = OpenWrite(filePath);

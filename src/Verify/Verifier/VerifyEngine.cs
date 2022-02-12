@@ -7,7 +7,7 @@ class VerifyEngine
     VerifySettings settings;
     bool diffEnabled;
     List<FilePair> @new = new();
-    List<(FilePair filePair, string? message)> notEquals = new();
+    List<(FilePair filePair, string? message, NotEqual)> notEquals = new();
     List<FilePair> equal = new();
     List<string> delete;
     GetFileNames getFileNames;
@@ -86,7 +86,7 @@ class VerifyEngine
                 AddMissing(file);
                 break;
             case Equality.NotEqual:
-                AddNotEquals(file, compareResult.Message);
+                AddNotEquals(file, compareResult.Message, new NotEqual(file, compareResult.Message, compareResult.ReceivedText, compareResult.VerifiedText));
                 break;
             case Equality.Equal:
                 AddEquals(file);
@@ -100,9 +100,9 @@ class VerifyEngine
         delete.Remove(item.VerifiedPath);
     }
 
-    void AddNotEquals(in FilePair item, string? message)
+    void AddNotEquals(in FilePair item, string? message, in NotEqual notEqual)
     {
-        notEquals.Add((item, message));
+        notEquals.Add((item, message, notEqual));
         delete.Remove(item.VerifiedPath);
     }
 
@@ -165,7 +165,7 @@ class VerifyEngine
 
     async Task ProcessNotEquals()
     {
-        foreach (var (file, message) in notEquals)
+        foreach (var (file, message, notEqual) in notEquals)
         {
             await VerifierSettings.RunOnVerifyMismatch(file, message);
             await RunDiffAutoCheck(file);

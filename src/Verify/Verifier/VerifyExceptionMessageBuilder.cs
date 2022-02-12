@@ -3,7 +3,7 @@
     public static async Task<string> Build(
         string directory,
         IReadOnlyList<FilePair> @new,
-        List<(string? message, NotEqual notEqual)> notEquals,
+        List<NotEqual> notEquals,
         IReadOnlyList<string> delete,
         IReadOnlyList<FilePair> equal)
     {
@@ -24,7 +24,7 @@
             builder.AppendLine("NotEqual:");
             foreach (var file in notEquals)
             {
-                AppendFile(builder, file.notEqual.File);
+                AppendFile(builder, file.File);
             }
         }
 
@@ -57,7 +57,7 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<(string? message, NotEqual notEqual)> notEquals, StringBuilder builder)
+    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<NotEqual> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {
@@ -65,7 +65,7 @@
         }
 
         var newContentFiles = @new.Where(x => x.IsText).ToList();
-        var notEqualContentFiles = notEquals.Where(x => x.notEqual.File.IsText || x.message != null).ToList();
+        var notEqualContentFiles = notEquals.Where(x => x.File.IsText || x.Message != null).ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
             return;
@@ -82,6 +82,7 @@
             foreach (var item in newContentFiles)
             {
                 builder.AppendLine($"Received: {item.ReceivedName}");
+                //TODO:
                 builder.AppendLine($"{await FileHelpers.ReadText(item.ReceivedPath)}");
                 builder.AppendLine();
             }
@@ -91,25 +92,27 @@
         {
             builder.AppendLine("NotEqual:");
             builder.AppendLine();
-            foreach (var (message, notEqual) in notEqualContentFiles)
+            foreach (var notEqual in notEqualContentFiles)
             {
-                if (notEqual.File.IsText || message != null)
+                if (notEqual.File.IsText || notEqual.Message != null)
                 {
-                    await AppendNotEqualContent(builder, notEqual.File, message);
+                    AppendNotEqualContent(builder, notEqual);
                     builder.AppendLine();
                 }
             }
         }
     }
 
-    static async Task AppendNotEqualContent(StringBuilder builder, FilePair item, string? message)
+    static void AppendNotEqualContent(StringBuilder builder, NotEqual notEqual)
     {
+        var item = notEqual.File;
+        var message = notEqual.Message;
         if (message is null)
         {
             builder.AppendLine($"Received: {item.ReceivedName}");
-            builder.AppendLine($"{await FileHelpers.ReadText(item.ReceivedPath)}");
+            builder.AppendLine(notEqual.ReceivedText);
             builder.AppendLine($"Verified: {item.VerifiedName}");
-            builder.AppendLine($"{await FileHelpers.ReadText(item.VerifiedPath)}");
+            builder.AppendLine(notEqual.VerifiedText);
         }
         else
         {

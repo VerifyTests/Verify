@@ -1,4 +1,4 @@
-﻿{
+{
   exceptionMessage:
 Directory: {ProjectDirectory}
 New:
@@ -23,9 +23,9 @@ recevied content
 NotEqual:
 
 Received: ExceptionParsingTests.Fake.received.txt
-recevied content
+receivedText
 Verified: ExceptionParsingTests.Fake.verified.txt
-verified content
+verifiedText
 
 ,
   result: {

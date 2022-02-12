@@ -3,7 +3,7 @@
     public static async Task<string> Build(
         string directory,
         IReadOnlyList<FilePair> @new,
-        List<(FilePair filePair, string? message, NotEqual notEqual)> notEquals,
+        List<(string? message, NotEqual notEqual)> notEquals,
         IReadOnlyList<string> delete,
         IReadOnlyList<FilePair> equal)
     {
@@ -24,7 +24,7 @@
             builder.AppendLine("NotEqual:");
             foreach (var file in notEquals)
             {
-                AppendFile(builder, file.filePair);
+                AppendFile(builder, file.notEqual.File);
             }
         }
 
@@ -57,7 +57,7 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<(FilePair filePair, string? message, NotEqual notEqual)> notEquals, StringBuilder builder)
+    static async Task AppendContent(IReadOnlyList<FilePair> @new, List<(string? message, NotEqual notEqual)> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {
@@ -65,7 +65,7 @@
         }
 
         var newContentFiles = @new.Where(x => x.IsText).ToList();
-        var notEqualContentFiles = notEquals.Where(x => x.filePair.IsText || x.message != null).ToList();
+        var notEqualContentFiles = notEquals.Where(x => x.notEqual.File.IsText || x.message != null).ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
             return;
@@ -91,11 +91,11 @@
         {
             builder.AppendLine("NotEqual:");
             builder.AppendLine();
-            foreach (var (filePair, message, notEqual) in notEqualContentFiles)
+            foreach (var (message, notEqual) in notEqualContentFiles)
             {
-                if (filePair.IsText || message != null)
+                if (notEqual.File.IsText || message != null)
                 {
-                    await AppendNotEqualContent(builder, filePair, message);
+                    await AppendNotEqualContent(builder, notEqual.File, message);
                     builder.AppendLine();
                 }
             }

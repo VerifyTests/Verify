@@ -32,27 +32,23 @@
             bufferSize: 4096,
             useAsync: true);
     }
-
-    static Task<StringBuilder> ReadText(FileStream stream)
-    {
-        return stream.ReadAsStringBuilder();
-    }
-
+    
     public static long Length(string file)
     {
         return new FileInfo(file).Length;
     }
 
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
+
     public static Task WriteText(string filePath, string text)
     {
         return File.WriteAllTextAsync(filePath, text, Utf8);
     }
 
-    public static async Task<StringBuilder> ReadText(string filePath)
+    public static async Task<StringBuilder> ReadStringBuilder(string filePath)
     {
         await using var stream = OpenRead(filePath);
-        return await ReadText(stream);
+        return await stream.ReadAsStringBuilder();
     }
 
     public static async Task WriteStream(string filePath, Stream stream)
@@ -66,6 +62,7 @@
         await using var targetStream = OpenWrite(filePath);
         await stream.CopyToAsync(targetStream);
     }
+
 #else
 
     public static async Task WriteText(string filePath, string text)
@@ -88,10 +85,11 @@
         await stream.CopyToAsync(targetStream);
     }
 
-    public static async Task<StringBuilder> ReadText(string filePath)
+    public static async Task<StringBuilder> ReadStringBuilder(string filePath)
     {
         using var stream = OpenRead(filePath);
-        return await ReadText(stream);
+        return await stream.ReadAsStringBuilder();
     }
+
 #endif
 }

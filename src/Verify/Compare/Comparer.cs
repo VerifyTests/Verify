@@ -9,7 +9,7 @@
             return new EqualityResult(Equality.New, null, receivedText, null);
         }
 
-        var verifiedBuilder = await FileHelpers.ReadText(filePair.VerifiedPath);
+        var verifiedBuilder = await FileHelpers.ReadStringBuilder(filePair.VerifiedPath);
         var verifiedText = verifiedBuilder.ToString();
         var result = await CompareStrings(filePair.Extension, receivedText, verifiedText, settings);
         if (result.IsEqual)

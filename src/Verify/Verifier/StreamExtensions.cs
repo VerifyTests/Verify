@@ -8,7 +8,7 @@
         }
     }
 
-    public static async Task<string> ReadAsString(this Stream stream)
+    static async Task<string> ReadAsString(this Stream stream)
     {
         stream.MoveToStart();
         using var reader = new StreamReader(stream);

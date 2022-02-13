@@ -37,7 +37,7 @@ On Windows:
 
 > cmd /c move /Y "ReceivedFile" "VerifiedFile"
 
-On Linux or OS:
+On Linux or MacOS:
 
 > mv -f "ReceivedFile" "VerifiedFile"
 

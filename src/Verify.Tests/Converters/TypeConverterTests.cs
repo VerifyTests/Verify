@@ -152,9 +152,11 @@ public class TypeConverterTests
             });
     }
 
-    [Fact]
+    [SkippableFact]
     public Task WithInfo()
     {
+        Skip.IfNot(OperatingSystem.IsWindows());
+
         var settings = new VerifySettings
         {
             Context =
@@ -185,9 +187,11 @@ public class TypeConverterTests
             });
     }
 
-    [Fact]
+    [SkippableFact]
     public Task WithInfoShouldRespectSettings()
     {
+        Skip.IfNot(OperatingSystem.IsWindows());
+
         var settings = new VerifySettings
         {
             Context =
@@ -215,9 +219,11 @@ public class TypeConverterTests
             });
     }
 
-    [Fact]
+    [SkippableFact]
     public Task TypeConversion()
     {
+        Skip.IfNot(OperatingSystem.IsWindows());
+        
         var settings = new VerifySettings
         {
             Context =

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFrameworks>net6;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <PlatformTarget>x64</PlatformTarget>
     <TargetFrameworks>net461;net48;net6;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
@@ -18,6 +18,7 @@
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.62" PrivateAssets="All" />
+    <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

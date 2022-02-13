@@ -40,9 +40,11 @@ public class ConverterSnippets
         #endregion
     }
 
-    [Fact]
+    [SkippableFact]
     public async Task Type()
     {
+        Skip.IfNot(OperatingSystem.IsWindows());
+        
         #region FileConverterTypeVerify
 
         using var stream = File.OpenRead("sample.tif");
@@ -51,9 +53,11 @@ public class ConverterSnippets
         #endregion
     }
 
-    [Fact]
+    [SkippableFact]
     public async Task Extension()
     {
+        Skip.IfNot(OperatingSystem.IsWindows());
+
         #region RegisterFileConverterExtension
 
         VerifierSettings.RegisterFileConverter(

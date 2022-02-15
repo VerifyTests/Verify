@@ -1423,7 +1423,7 @@ If the target is a stream or binary file:
 [Fact]
 public Task Stream()
 {
-    return Verify(FileHelpers.OpenRead("sample.txt"));
+    return Verify(IoHelpers.OpenRead("sample.txt"));
 }
 ```
 <sup><a href='/src/Verify.Tests/Converters/JsonAppenderTests.cs#L72-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonappenderstream' title='Start of snippet'>anchor</a></sup>

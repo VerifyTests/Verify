@@ -32,7 +32,7 @@
             {
                 targets = new()
                 {
-                    new(extension, await stream.ReadAsStringBuilder())
+                    new(extension, await stream.ReadString())
                 };
                 await VerifyInner(null, null, targets);
             }

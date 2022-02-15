@@ -4,7 +4,7 @@
     {
         Guard.FileExists(path, nameof(path));
         settings.extension ??= EmptyFiles.Extensions.GetExtension(path);
-        return VerifyStream(FileHelpers.OpenRead(path));
+        return VerifyStream(IoHelpers.OpenRead(path));
     }
 
     public Task VerifyFile(FileInfo target)

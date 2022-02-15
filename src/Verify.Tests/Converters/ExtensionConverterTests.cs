@@ -12,7 +12,7 @@ public class ExtensionConverterTests
     [Fact]
     public Task TextSplit()
     {
-        return Verify(FileHelpers.OpenRead("sample.split"))
+        return Verify(IoHelpers.OpenRead("sample.split"))
             .UseExtension("txt");
     }
 

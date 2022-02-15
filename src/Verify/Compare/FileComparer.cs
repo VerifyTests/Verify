@@ -4,13 +4,13 @@
     {
         if (!File.Exists(file.VerifiedPath))
         {
-            await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return new(Equality.New, null, null, null);
         }
 
         if (AllFiles.IsEmptyFile(file.VerifiedPath))
         {
-            await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return new(Equality.NotEqual, null, null, null);
         }
 
@@ -21,7 +21,7 @@
         }
 
         if (receivedStream.CanSeek &&
-            FileHelpers.Length(file.VerifiedPath) != receivedStream.Length)
+            IoHelpers.Length(file.VerifiedPath) != receivedStream.Length)
         {
             return new(Equality.NotEqual, null,null,null);
         }
@@ -32,9 +32,9 @@
     static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, Func<Stream, Stream, Task<CompareResult>> func)
     {
 #if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
-        using var verifiedStream = FileHelpers.OpenRead(file.VerifiedPath);
+        using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);
 #else
-        await using var verifiedStream = FileHelpers.OpenRead(file.VerifiedPath);
+        await using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);
 #endif
 
         if (receivedStream is FileStream fileStream)
@@ -59,7 +59,7 @@
             }
 
             receivedStream.Position = 0;
-            await FileHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }
 

@@ -54,6 +54,12 @@
         return typeof(IEnumerable).IsAssignableFrom(interfaceType);
     }
 
+    public static bool IsCollectionOrDictionary(this Type type)
+    {
+        return type.IsCollection() ||
+               type.IsDictionary();
+    }
+
     public static bool IsCollection(this Type type)
     {
         if (type == typeof(string))

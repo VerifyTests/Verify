@@ -1,11 +1,11 @@
 public class ApplyScrubbersTests
 {
     [Theory]
-    [InlineData("/",  "/",  "/,/")]
-    [InlineData("//", "//", "/,/")]
+    [InlineData("/",           "/project",    "/,/project")]
+    [InlineData("/solution",   "/project",    "/solution,/project")]
     [InlineData("/solution/",  "/project/",   "/solution,/project")]
     [InlineData("/solution//", "/project//",  "/solution,/project")]
-    public void Apply_Solution_and_Project_directory_Scrubbers_on_Separator_ending_Values(
+    public void Apply_solution_and_project_directories_scrubbers(
         string solutionDirectory,
         string projectDirectory,
         string input)

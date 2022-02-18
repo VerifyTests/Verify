@@ -1,4 +1,5 @@
-﻿using VerifyTests;
+﻿using System.Text.RegularExpressions;
+using VerifyTests;
 
 static class ApplyScrubbers
 {
@@ -53,9 +54,11 @@ static class ApplyScrubbers
             return _ => { };
         }
 
+        var regex = new Regex(@"([^/\\])[/\\]+$");
+
         var altProjectDirectory = projectDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        var altProjectDirectoryTrimmed = altProjectDirectory.TrimEnd('/', '\\');
-        var projectDirectoryTrimmed = projectDirectory.TrimEnd('/', '\\');
+        var altProjectDirectoryTrimmed = regex.Replace(altProjectDirectory, "$1");
+        var projectDirectoryTrimmed = regex.Replace(projectDirectory, "$1");
 
         if (!VerifierSettings.scrubSolutionDirectory ||
             solutionDirectory == null)
@@ -70,8 +73,8 @@ static class ApplyScrubbers
         }
 
         var altSolutionDirectory = solutionDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        var altSolutionDirectoryTrimmed = altSolutionDirectory.TrimEnd('/', '\\');
-        var solutionDirectoryTrimmed = solutionDirectory.TrimEnd('/', '\\');
+        var altSolutionDirectoryTrimmed = regex.Replace(altSolutionDirectory, "$1");
+        var solutionDirectoryTrimmed = regex.Replace(solutionDirectory, "$1");
         return builder =>
         {
             builder.Replace(projectDirectory, "{ProjectDirectory}");

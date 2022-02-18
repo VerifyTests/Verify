@@ -1,50 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using SimpleInfoName;
-using VerifyTests;
-
-class CustomContractResolver :
+﻿class CustomContractResolver :
     DefaultContractResolver
 {
-    bool ignoreEmptyCollections;
-    bool dontIgnoreFalse;
-    bool includeObsoletes;
-    bool scrubNumericIds;
-    IsNumericId isNumericId;
-    IReadOnlyDictionary<Type, List<string>> ignoredMembers;
-    IReadOnlyList<string> ignoredByNameMembers;
-    IReadOnlyList<Type> ignoredTypes;
-    IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-    IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
-    SharedScrubber scrubber;
-    Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters;
+    SerializationSettings settings;
 
-    public CustomContractResolver(
-        bool ignoreEmptyCollections,
-        bool dontIgnoreFalse,
-        bool includeObsoletes,
-        bool scrubNumericIds,
-        IsNumericId isNumericId,
-        IReadOnlyDictionary<Type, List<string>> ignoredMembers,
-        IReadOnlyList<string> ignoredByNameMembers,
-        IReadOnlyList<Type> ignoredTypes,
-        IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-        IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances,
-        SharedScrubber scrubber,
-        Dictionary<Type, Dictionary<string, ConvertMember>> membersConverters)
+    public CustomContractResolver(SerializationSettings settings)
     {
-        this.ignoreEmptyCollections = ignoreEmptyCollections;
-        this.dontIgnoreFalse = dontIgnoreFalse;
-        this.includeObsoletes = includeObsoletes;
-        this.scrubNumericIds = scrubNumericIds;
-        this.isNumericId = isNumericId;
-        this.ignoredMembers = ignoredMembers;
-        this.ignoredByNameMembers = ignoredByNameMembers;
-        this.ignoredTypes = ignoredTypes;
-        this.ignoreMembersThatThrow = ignoreMembersThatThrow;
-        this.ignoredInstances = ignoredInstances;
-        this.scrubber = scrubber;
-        this.membersConverters = membersConverters;
+        this.settings = settings;
         IgnoreSerializableInterface = true;
     }
 
@@ -78,7 +39,8 @@ class CustomContractResolver :
         if (VerifierSettings.sortPropertiesAlphabetically)
         {
             properties = properties
-                .OrderBy(p => p.Order ?? -1) // Still honor explicit ordering
+                // Still honor explicit ordering
+                .OrderBy(p => p.Order ?? -1)
                 .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
                 .ToList();
         }
@@ -88,10 +50,11 @@ class CustomContractResolver :
 
     string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
     {
+        var counter = Counter.Current;
         var keyType = contract.DictionaryKeyType;
         if (keyType == typeof(Guid))
         {
-            if (scrubber.TryParseConvertGuid(value, out var result))
+            if (settings.TryParseConvertGuid(counter, value, out var result))
             {
                 return result;
             }
@@ -99,7 +62,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTimeOffset))
         {
-            if (scrubber.TryParseConvertDateTimeOffset(value, out var result))
+            if (settings.TryParseConvertDateTimeOffset(counter, value, out var result))
             {
                 return result;
             }
@@ -107,7 +70,7 @@ class CustomContractResolver :
 
         if (keyType == typeof(DateTime))
         {
-            if (scrubber.TryParseConvertDateTime(value, out var result))
+            if (settings.TryParseConvertDateTime(counter, value, out var result))
             {
                 return result;
             }
@@ -134,8 +97,8 @@ class CustomContractResolver :
         var property = base.CreateProperty(member, serialization);
 
         var valueProvider = property.ValueProvider;
-        var propertyType = property.PropertyType;
-        if (propertyType == null || valueProvider is null)
+        var memberType = property.PropertyType;
+        if (memberType == null || valueProvider is null)
         {
             return property;
         }
@@ -148,25 +111,25 @@ class CustomContractResolver :
             }
         }
 
-        if (propertyType.IsException())
+        if (memberType.IsException())
         {
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
-        if (ignoreEmptyCollections)
-        {
-            property.SkipEmptyCollections(member);
-        }
+        property.ConfigureIfBool(member, settings.dontIgnoreFalse);
 
-        property.ConfigureIfBool(member, dontIgnoreFalse);
-
-        if (ShouldIgnore(member, propertyType, property))
+        if (settings.ShouldIgnore(member))
         {
             property.Ignored = true;
             return property;
         }
 
-        var underlyingType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+        if (settings.TryGetShouldSerialize(memberType, valueProvider.GetValue, out var shouldSerialize))
+        {
+            property.ShouldSerialize = shouldSerialize;
+        }
+
+        var underlyingType = Nullable.GetUnderlyingType(memberType) ?? memberType;
         if (
             underlyingType == typeof(int) ||
             underlyingType == typeof(long) ||
@@ -174,78 +137,16 @@ class CustomContractResolver :
             underlyingType == typeof(ulong)
         )
         {
-            if (scrubNumericIds && isNumericId(member))
+            if (settings.scrubNumericIds && settings.isNumericId(member))
             {
                 property.Converter = new IdConverter();
                 return property;
             }
         }
 
-        if (ignoredInstances.TryGetValue(propertyType, out var funcs))
-        {
-            property.ShouldSerialize = declaringInstance =>
-            {
-                var instance = valueProvider.GetValue(declaringInstance);
-
-                if (instance is null)
-                {
-                    return false;
-                }
-
-                return funcs.All(func => !func(instance));
-            };
-        }
-
-        ConvertMember? membersConverter = null;
-        foreach (var pair in membersConverters)
-        {
-            if (pair.Key.IsAssignableFrom(property.DeclaringType))
-            {
-                pair.Value.TryGetValue(member.Name, out membersConverter);
-                break;
-            }
-        }
-
-        property.ValueProvider = new CustomValueProvider(valueProvider, propertyType, ignoreMembersThatThrow, membersConverter);
+        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
 
         return property;
     }
 
-    bool ShouldIgnore(MemberInfo member, Type propertyType, JsonProperty property)
-    {
-        if (!includeObsoletes)
-        {
-            if (member.GetCustomAttribute<ObsoleteAttribute>(true) is not null)
-            {
-                return true;
-            }
-        }
-
-        if (ignoredTypes.Any(x => x.IsAssignableFrom(propertyType)))
-        {
-            return true;
-        }
-
-        var propertyName = property.UnderlyingName;
-        if (propertyName is not null)
-        {
-            if (ignoredByNameMembers.Contains(propertyName))
-            {
-                return true;
-            }
-
-            foreach (var pair in ignoredMembers)
-            {
-                if (pair.Value.Contains(propertyName))
-                {
-                    if (pair.Key.IsAssignableFrom(property.DeclaringType))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 }

@@ -1,24 +1,14 @@
-﻿using Newtonsoft.Json;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public abstract class WriteOnlyJsonConverter<T> :
     WriteOnlyJsonConverter
 {
-    public sealed override void WriteJson(
-        JsonWriter writer,
-        object value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public sealed override void Write(VerifyJsonWriter writer, object value)
     {
-        WriteJson(writer, (T) value, serializer, context);
+        Write(writer, (T) value);
     }
 
-    public abstract void WriteJson(
-        JsonWriter writer,
-        T value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context);
+    public abstract void Write(VerifyJsonWriter writer, T value);
 
     static Type? nullableType;
 

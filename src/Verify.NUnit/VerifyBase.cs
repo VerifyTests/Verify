@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using VerifyTests;
-
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 [TestFixture]
 public abstract partial class VerifyBase

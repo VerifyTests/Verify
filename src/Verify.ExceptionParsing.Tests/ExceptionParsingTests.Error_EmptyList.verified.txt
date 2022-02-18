@@ -1,0 +1,4 @@
+{
+  Type: ParseException,
+  Message: Expected content to contain `Directory:` at the start. Ensure at least version 15 of Verify is being used.
+}

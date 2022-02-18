@@ -1,0 +1,6 @@
+{
+  exceptionMessage:
+Directory: {ProjectDirectory}
+,
+  result: {}
+}

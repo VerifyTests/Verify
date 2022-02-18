@@ -17,7 +17,7 @@ public partial class VerifySettings
 
     // Dont use this.extension since a converter may have
     // changed the extension for the current compare operation
-    internal bool TryFindStreamComparer(string extension, out StreamCompare? compare)
+    internal bool TryFindStreamComparer(string extension, [NotNullWhen(true)] out StreamCompare? compare)
     {
         if (streamComparer is not null)
         {
@@ -28,7 +28,7 @@ public partial class VerifySettings
         return VerifierSettings.TryGetStreamComparer(extension, out compare);
     }
 
-    internal bool TryFindStringComparer(string extension, out StringCompare? compare)
+    internal bool TryFindStringComparer(string extension, [NotNullWhen(true)] out StringCompare? compare)
     {
         if (stringComparer is not null)
         {

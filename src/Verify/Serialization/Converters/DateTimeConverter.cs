@@ -1,23 +1,16 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class DateTimeConverter :
+﻿class DateTimeConverter :
     WriteOnlyJsonConverter<DateTime>
 {
-    SharedScrubber scrubber;
+    SerializationSettings scrubber;
 
-    public DateTimeConverter(SharedScrubber scrubber)
+    public DateTimeConverter(SerializationSettings scrubber)
     {
         this.scrubber = scrubber;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        DateTime value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, DateTime value)
     {
-        if (scrubber.TryConvert(value, out var result))
+        if (scrubber.TryConvert(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

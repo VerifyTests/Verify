@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 [UsesVerify]
 public abstract partial class VerifyBase

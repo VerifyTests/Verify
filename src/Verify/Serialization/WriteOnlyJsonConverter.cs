@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public abstract class WriteOnlyJsonConverter :
     JsonConverter
@@ -17,16 +15,10 @@ public abstract class WriteOnlyJsonConverter :
             return;
         }
 
-        var writerEx = (JsonTextWriterEx)writer;
-
-        WriteJson(writer, value, serializer, writerEx.Context);
+        Write((VerifyJsonWriter)writer, value);
     }
 
-    public abstract void WriteJson(
-        JsonWriter writer,
-        object value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context);
+    public abstract void Write(VerifyJsonWriter writer, object value);
 
     public sealed override object ReadJson(
         JsonReader reader,

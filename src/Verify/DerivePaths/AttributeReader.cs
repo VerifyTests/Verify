@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public static class AttributeReader
 {

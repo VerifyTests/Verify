@@ -1,23 +1,16 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class DateTimeOffsetConverter :
+﻿class DateTimeOffsetConverter :
     WriteOnlyJsonConverter<DateTimeOffset>
 {
-    SharedScrubber scrubber;
+    SerializationSettings scrubber;
 
-    public DateTimeOffsetConverter(SharedScrubber scrubber)
+    public DateTimeOffsetConverter(SerializationSettings scrubber)
     {
         this.scrubber = scrubber;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        DateTimeOffset value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, DateTimeOffset value)
     {
-        if (scrubber.TryConvert(value, out var result))
+        if (scrubber.TryConvert(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

@@ -1,15 +1,7 @@
-﻿using System.Linq.Expressions;
-using Newtonsoft.Json;
-using VerifyTests;
-
-class ExpressionConverter :
+﻿class ExpressionConverter :
     WriteOnlyJsonConverter<Expression>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        Expression value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, Expression value)
     {
         writer.WriteValue(value.ToString());
     }

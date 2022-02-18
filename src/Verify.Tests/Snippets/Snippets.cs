@@ -1,5 +1,4 @@
 ﻿using DiffEngine;
-using Newtonsoft.Json;
 // ReSharper disable UnusedParameter.Local
 
 public class Snippets
@@ -20,8 +19,8 @@ public class Snippets
         VerifierSettings.OnVerifyMismatch(
             (filePair, message) =>
             {
-                Debug.WriteLine(filePair.Received);
-                Debug.WriteLine(filePair.Verified);
+                Debug.WriteLine(filePair.ReceivedPath);
+                Debug.WriteLine(filePair.VerifiedPath);
                 Debug.WriteLine(message);
                 return Task.CompletedTask;
             });
@@ -43,15 +42,6 @@ public class Snippets
     class ClassWithToString
     {
         public string Property { get; set; } = null!;
-    }
-
-    void DisableClipboardGlobal()
-    {
-        #region DisableClipboardGlobal
-
-        VerifierSettings.DisableClipboard();
-
-        #endregion
     }
 
     void DerivePathInfo()
@@ -149,13 +139,9 @@ public class Snippets
     class CompanyConverter :
         WriteOnlyJsonConverter<Company>
     {
-        public override void WriteJson(
-            JsonWriter writer,
-            Company company,
-            JsonSerializer serializer,
-            IReadOnlyDictionary<string, object> context)
+        public override void Write(VerifyJsonWriter writer, Company company)
         {
-            serializer.Serialize(writer, company.Name);
+            writer.WriteProperty(company, company.Name, "Name");
         }
     }
 

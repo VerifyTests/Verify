@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-namespace VerifyExpecto;
+﻿namespace VerifyExpecto;
 
 public static partial class Verifier
 {

@@ -1,49 +1,25 @@
 ﻿using System.Security.Claims;
-using Newtonsoft.Json;
-using VerifyTests;
 
 class ClaimsIdentityConverter :
     WriteOnlyJsonConverter<ClaimsIdentity>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        ClaimsIdentity identity,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, ClaimsIdentity identity)
     {
         writer.WriteStartObject();
 
-        writer.WritePropertyName("Claims");
-        serializer.Serialize(writer, identity.Claims);
-
-        if (identity.Actor is not null)
-        {
-            writer.WritePropertyName("Actor");
-            serializer.Serialize(writer, identity.Actor);
-        }
-
-        if (identity.Actor is not null)
-        {
-            writer.WritePropertyName("AuthenticationType");
-            writer.WriteRawValue(identity.AuthenticationType);
-        }
-
-        if (identity.Label is not null)
-        {
-            writer.WritePropertyName("Label");
-            writer.WriteRawValue(identity.Label);
-        }
+        writer.WriteProperty(identity, identity.Claims, "Claims");
+        writer.WriteProperty(identity, identity.Actor, "Actor");
+        writer.WriteProperty(identity, identity.AuthenticationType, "AuthenticationType");
+        writer.WriteProperty(identity, identity.Label, "Label");
 
         if (identity.NameClaimType != ClaimTypes.Name)
         {
-            writer.WritePropertyName("NameClaimType");
-            writer.WriteRawValue(identity.NameClaimType);
+            writer.WriteProperty(identity, identity.NameClaimType, "NameClaimType");
         }
 
         if (identity.RoleClaimType != ClaimTypes.Role)
         {
-            writer.WritePropertyName("RoleClaimType");
-            writer.WriteRawValue(identity.RoleClaimType);
+            writer.WriteProperty(identity, identity.RoleClaimType, "RoleClaimType");
         }
 
         writer.WriteEndObject();

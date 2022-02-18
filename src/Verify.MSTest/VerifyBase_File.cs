@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-namespace VerifyMSTest;
+﻿namespace VerifyMSTest;
 
 public partial class VerifyBase
 {

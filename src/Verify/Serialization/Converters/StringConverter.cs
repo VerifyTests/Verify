@@ -1,23 +1,16 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class StringConverter :
+﻿class StringConverter :
     WriteOnlyJsonConverter<string>
 {
-    SharedScrubber sharedScrubber;
+    SerializationSettings settings;
 
-    public StringConverter(SharedScrubber sharedScrubber)
+    public StringConverter(SerializationSettings settings)
     {
-        this.sharedScrubber = sharedScrubber;
+        this.settings = settings;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        string value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, string value)
     {
-        if (sharedScrubber.TryConvertString(value, out var result))
+        if (settings.TryConvertString(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

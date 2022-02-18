@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-partial class InnerVerifier
+﻿partial class InnerVerifier
 {
     public Task Verify(byte[] target)
     {
@@ -34,7 +32,7 @@ partial class InnerVerifier
             {
                 targets = new()
                 {
-                    new(extension, await stream.ReadAsString())
+                    new(extension, await stream.ReadString())
                 };
                 await VerifyInner(null, null, targets);
             }

@@ -1,8 +1,4 @@
-﻿using System.Collections.Specialized;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-#if !NET461
-using System.Linq.Expressions;
+﻿#if !NET461
 using System.Security.Claims;
 #endif
 // ReSharper disable UnusedParameter.Local
@@ -49,8 +45,8 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<int, string>(new DescendingComparer<int>())
         {
-            { 1, "1234" },
-            { 2, "5678" }
+            {1, "1234"},
+            {2, "5678"}
         };
 
         return Verify(dictionary);
@@ -61,8 +57,8 @@ public class SerializationTests
     {
         var target = new Dictionary<string, int>
         {
-            { "#", 1 },
-            { "@", 2 },
+            {"#", 1},
+            {"@", 2},
         };
 
         return Verify(target);
@@ -73,8 +69,8 @@ public class SerializationTests
     {
         var target = new Dictionary<string, int>
         {
-            { "@", 2 },
-            { "#", 1 },
+            {"@", 2},
+            {"#", 1},
         };
 
         return Verify(target);
@@ -89,6 +85,36 @@ public class SerializationTests
         );
 
         return Verify(obj);
+    }
+
+    [Fact]
+    public Task JTokenIgnore()
+    {
+        var jToken = JToken.Parse(@"{
+  Include: 1,
+  Ignore: 2,
+  ""Memory Info"": {
+          fragmentedBytes: 208,
+          heapSizeBytes: 2479536,
+          highMemoryLoadThresholdBytes: 30821986713,
+          memoryLoadBytes: 14041127280,
+          totalAvailableMemoryBytes: 34246651904
+        }
+}");
+        return Verify(jToken)
+            .ModifySerialization(_ => _.IgnoreMembers("Ignore", "Memory Info"));
+    }
+
+    [Fact]
+    public Task JObjectIgnore()
+    {
+        var obj = new JObject(
+            new JProperty("Include", 2),
+            new JProperty("Ignore", 1)
+        );
+
+        return Verify(obj)
+            .ModifySerialization(_ => _.IgnoreMember("Ignore"));
     }
 
     [Fact]
@@ -107,9 +133,9 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())
         {
-            { "Entry_1", "1234" },
-            { "ignored", "1234" },
-            { "Entry_2", "5678" }
+            {"Entry_1", "1234"},
+            {"ignored", "1234"},
+            {"Entry_2", "5678"}
         };
 
         return Verify(dictionary)
@@ -172,7 +198,7 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            { "ignored", "1234" }
+            {"ignored", "1234"}
         };
 
         if (DateTime.UtcNow.Ticks % 2 == 0)
@@ -199,7 +225,7 @@ public class SerializationTests
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
                 })
-            .ModifySerialization(settings => settings.DontScrubDateTimes());
+            .ModifySerialization(_ => _.DontScrubDateTimes());
     }
 
     [Fact]
@@ -211,7 +237,7 @@ public class SerializationTests
                     noTime = new DateTime(2000, 1, 1),
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1)
                 })
-            .ModifySerialization(settings => settings.DontScrubDateTimes());
+            .ModifySerialization(_ => _.DontScrubDateTimes());
     }
 #if NET6_0_OR_GREATER
 
@@ -276,14 +302,18 @@ public class SerializationTests
 
     #endregion
 
-    #region TreatAsNumericIdGlobal
-
-    [Fact]
+    //TOFO: move to diff project
+    //[Fact]
     public Task TreatAsNumericIdGlobal()
     {
+        #region TreatAsNumericIdGlobal
+
         VerifierSettings.ModifySerialization(
             settings => settings.TreatAsNumericId(
                 member => member.Name == "TheProperty"));
+
+        #endregion
+
         var target = new IdConventionTarget
         {
             TheProperty = 5
@@ -291,31 +321,31 @@ public class SerializationTests
         return Verify(target);
     }
 
-    #endregion
-
     public class IdConventionTarget
     {
         public int TheProperty { get; set; }
     }
 
-    #region DisableNumericIdGlobal
-
-    [Fact]
+    //TODO: move to diff project
     public Task NumericIdScrubbingDisabledGlobal()
     {
-        VerifierSettings.ModifySerialization(settings => settings.DontScrubNumericIds());
+        #region DisableNumericIdGlobal
+
+        VerifierSettings.ModifySerialization(_ => _.DontScrubNumericIds());
+
+        #endregion
+
         return Verify(
             new
             {
                 Id = 5,
                 OtherId = 5,
                 YetAnotherId = 4,
-                PossibleNullId = (int?)5,
-                ActualNullId = (int?)null
+                PossibleNullId = (int?) 5,
+                ActualNullId = (int?) null
             });
     }
 
-    #endregion
 
     #region DisableNumericId
 
@@ -327,11 +357,11 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            PossibleNullId = (int?) 5,
+            ActualNullId = (int?) null
         };
         return Verify(target)
-            .ModifySerialization(settings => settings.DontScrubNumericIds());
+            .ModifySerialization(_ => _.DontScrubNumericIds());
     }
 
     #endregion
@@ -346,8 +376,8 @@ public class SerializationTests
             Id = 5,
             OtherId = 5,
             YetAnotherId = 4,
-            PossibleNullId = (int?)5,
-            ActualNullId = (int?)null
+            PossibleNullId = (int?) 5,
+            ActualNullId = (int?) null
         };
 
         return Verify(target);
@@ -366,12 +396,9 @@ public class SerializationTests
         var ignoredInstances = new List<Func<object, bool>>();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
-        var memberConverterList = new Dictionary<string, ConvertMember>();
-        settings.membersConverters.Add(GetType(), memberConverterList);
-
         settings.ignoredByNameMembers.Add("ignored");
 
-        var clone = settings.Clone();
+        var clone = new SerializationSettings(settings);
 
         Assert.NotSame(settings, clone);
         Assert.NotSame(settings.ignoredMembers, clone.ignoredMembers);
@@ -379,8 +406,6 @@ public class SerializationTests
         Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
         Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
         Assert.NotSame(settings.ignoredByNameMembers, clone.ignoredByNameMembers);
-        Assert.NotSame(settings.membersConverters, clone.membersConverters);
-        Assert.NotSame(settings.membersConverters.First().Value, clone.membersConverters.First().Value);
     }
 
     [Fact]
@@ -447,14 +472,14 @@ public class SerializationTests
         return Verify(
             new
             {
-                item1 = new NameValueCollection { { null, null } },
-                item2 = new NameValueCollection { { "key", null } },
-                item3 = new NameValueCollection { { null, "value" } },
-                item4 = new NameValueCollection { { "key", "value" } },
-                item5 = new NameValueCollection { { "key", "value1" }, { "key", "value2" } },
-                item6 = new NameValueCollection { { "key", null }, { "key", "value2" } },
-                item7 = new NameValueCollection { { "key", "value1" }, { "key", null } },
-                item8 = new NameValueCollection { { "key1", "value1" }, { "key2", "value2" } },
+                item1 = new NameValueCollection {{null, null}},
+                item2 = new NameValueCollection {{"key", null}},
+                item3 = new NameValueCollection {{null, "value"}},
+                item4 = new NameValueCollection {{"key", "value"}},
+                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
+                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
+                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
+                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}},
             });
     }
 
@@ -484,7 +509,7 @@ public class SerializationTests
         return Verify(
             new
             {
-                bytes = new byte[] { 1 }
+                bytes = new byte[] {1}
             });
     }
 
@@ -498,7 +523,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -539,10 +564,7 @@ public class SerializationTests
 
             if (includeDefault)
             {
-                serialization.AddExtraSettings(serializerSettings =>
-                {
-                    serializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
-                });
+                serialization.AddExtraSettings(serializerSettings => serializerSettings.DefaultValueHandling = DefaultValueHandling.Include);
             }
         });
 
@@ -551,10 +573,10 @@ public class SerializationTests
 
     public static IEnumerable<object?[]> GetBoolData()
     {
-        foreach (var boolean in new[] { true, false })
-        foreach (var nullableBoolean in new bool?[] { true, false , null})
-        foreach (var dontIgnoreFalse in new[] { true, false })
-        foreach (var includeDefault in new[] { true, false })
+        foreach (var boolean in new[] {true, false})
+        foreach (var nullableBoolean in new bool?[] {true, false, null})
+        foreach (var dontIgnoreFalse in new[] {true, false})
+        foreach (var includeDefault in new[] {true, false})
         {
             yield return new object?[]
             {
@@ -582,7 +604,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -591,7 +613,7 @@ public class SerializationTests
         };
 
         return Verify(person)
-            .AddExtraSettings(_ => { _.TypeNameHandling = TypeNameHandling.All; });
+            .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     }
 
 #if NET6_0_OR_GREATER
@@ -840,7 +862,7 @@ public class SerializationTests
     {
         return ThrowsTask(
                 () => Verify("foo")
-                    .AddExtraSettings(_ => { _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; }))
+                    .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
             .IgnoreStackTrack();
     }
 
@@ -849,7 +871,7 @@ public class SerializationTests
     {
         return ThrowsTask(
                 () => Verify("foo")
-                    .AddExtraSettings(_ => { _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified; }))
+                    .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
             .IgnoreStackTrack();
     }
 
@@ -858,7 +880,7 @@ public class SerializationTests
     {
         return ThrowsTask(
                 () => Verify("foo")
-                    .AddExtraSettings(_ => { _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"; }))
+                    .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
             .IgnoreStackTrack();
     }
 
@@ -915,7 +937,7 @@ public class SerializationTests
     [Fact]
     public Task NewLineNotEscapedInProperty()
     {
-        return Verify(new { Property = "a\r\nb\\nc" });
+        return Verify(new {Property = "a\r\nb\\nc"});
     }
 
     void List()
@@ -988,9 +1010,20 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task MoreSpecificScrubberShouldOverride()
+    {
+        var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\') + "Foo";
+        return Verify(new
+            {
+                currentDirectory
+            })
+            .AddScrubber(builder => builder.Replace(currentDirectory, "Bar"));
+    }
+
+    [Fact]
     public Task ScrubUserProfile()
     {
-        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\','/');
+        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\', '/');
         return Verify(target).UniqueForOSPlatform();
     }
 
@@ -1000,7 +1033,7 @@ public class SerializationTests
     {
         var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verify(new { codeBaseLocation, altCodeBaseLocation });
+        return Verify(new {codeBaseLocation, altCodeBaseLocation});
     }
 #endif
 
@@ -1009,7 +1042,7 @@ public class SerializationTests
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verify(new { baseDirectory, altBaseDirectory });
+        return Verify(new {baseDirectory, altBaseDirectory});
     }
 
     class TypeTarget
@@ -1035,7 +1068,7 @@ public class SerializationTests
     {
         #region type
 
-        var foo = new { x = 1 };
+        var foo = new {x = 1};
         var target = new TypeTarget
         {
             Type = GetType(),
@@ -1312,7 +1345,6 @@ public class SerializationTests
 
         VerifierSettings.ModifySerialization(
             _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
-
 #endregion
     }
 
@@ -1374,7 +1406,7 @@ public class SerializationTests
 #region AddIgnoreInstanceGlobal
 
         VerifierSettings.ModifySerialization(
-            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+            _ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
 
 #endregion
     }
@@ -1397,7 +1429,7 @@ public class SerializationTests
         };
         var settings = new VerifySettings();
         settings.ModifySerialization(
-            _ => { _.IgnoreInstance<Instance>(x => x.Property == "Ignore"); });
+            _ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
         return Verify(target, settings);
     }
 
@@ -1454,13 +1486,29 @@ public class SerializationTests
             {
                 Property = "Value"
             },
+            ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
             ToInclude = new()
             {
                 Property = "Value"
-            }
+            },
+            ToIncludeNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreStruct = new ("Value"),
+            ToIgnoreStructNullable = new ("Value"),
+            ToIncludeStruct = new ("Value"),
+            ToIncludeStructNullable = new ("Value"),
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
+        settings.ModifySerialization(_ =>
+        {
+            _.IgnoreMembersWithType<ToIgnore>();
+            _.IgnoreMembersWithType<ToIgnoreStruct>();
+        });
         return Verify(target, settings);
     }
 
@@ -1473,17 +1521,64 @@ public class SerializationTests
             {
                 Property = "Value"
             },
+            ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
             ToInclude = new()
             {
                 Property = "Value"
-            }
+            },
+            ToIncludeNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreStruct = new ("Value"),
+            ToIgnoreStructNullable = new ("Value"),
+            ToIncludeStruct = new ("Value"),
+            ToIncludeStructNullable = new ("Value"),
         };
         return Verify(target)
-            .ModifySerialization(_ => _.IgnoreMembersWithType<ToIgnore>());
-
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembersWithType<ToIgnore>();
+                _.IgnoreMembersWithType<ToIgnoreStruct>();
+            });
     }
 
 #endregion
+
+    [Fact]
+    public Task IgnoreMembersNullable()
+    {
+        ToIgnoreStruct? toIgnoreStruct = new ToIgnoreStruct("Value");
+
+        return Verify(toIgnoreStruct)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembers<ToIgnoreStruct>(_ => _.Property);
+            });
+    }
+
+    [Fact]
+    public Task IgnoreMembersNullableNested()
+    {
+        var target = new IgnoreMembersNullableNestedTarget
+        {
+            ToIgnoreStruct = new ToIgnoreStruct("Value")
+        };
+
+        return Verify(target)
+            .ModifySerialization(_ =>
+            {
+                _.IgnoreMembers<IgnoreMembersNullableNestedTarget>(_ => _.ToIgnoreStruct);
+            });
+    }
+
+    class IgnoreMembersNullableNestedTarget
+    {
+        public ToIgnoreStruct? ToIgnoreStruct { get; set; }
+    }
 
     [Fact]
     public Task Type()
@@ -1557,8 +1652,34 @@ public class SerializationTests
     class IgnoreTypeTarget
     {
         public ToIgnore ToIgnore;
+        public ToIgnore ToIgnoreNullable;
+        public ToIgnoreStruct ToIgnoreStruct;
+        public ToIgnoreStruct? ToIgnoreStructNullable;
         public ToInclude ToInclude;
+        public ToInclude ToIncludeNullable;
+        public ToIncludeStruct ToIncludeStruct;
+        public ToIncludeStruct? ToIncludeStructNullable;
     }
+
+        struct ToIncludeStruct
+        {
+            public ToIncludeStruct(string property)
+            {
+                Property = property;
+            }
+
+            public string Property { get; }
+        }
+
+        struct ToIgnoreStruct
+        {
+            public ToIgnoreStruct(string property)
+            {
+                Property = property;
+            }
+
+            public string Property { get; }
+        }
 
     class ToInclude
     {
@@ -1631,66 +1752,33 @@ public class SerializationTests
 
 #endregion
 
-
 #region MemberConverter
 
     [Fact]
     public Task MemberConverterByExpression()
     {
-        var input = new MemberConverterTarget
+        var input = new MemberTarget
         {
-            Field = "Value",
-            Property = "Value"
+            Field = "FieldValue",
+            Property = "PropertyValue"
         };
-        var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.MemberConverter<MemberConverterTarget, string>(x => x.Property, (target, value) => value + "Suffix");
-            _.MemberConverter<MemberConverterTarget, string>(x => x.Field, (target, value) => value + "Suffix");
-        });
-        return Verify(input, settings);
-    }
 
-    [Fact]
-    public Task MemberConverterByExpressionFluent()
-    {
-        var input = new MemberConverterTarget
-        {
-            Field = "Value",
-            Property = "Value"
-        };
-        return Verify(input)
-            .ModifySerialization(_ =>
-            {
-                _.MemberConverter<MemberConverterTarget, string>(
-                    x => x.Property,
-                    (target, value) => value + "Suffix");
-                _.MemberConverter<MemberConverterTarget, string>(
-                    x => x.Field,
-                    (target, value) => value + "Suffix");
-            });
+        // using only the member
+        VerifierSettings.MemberConverter<MemberTarget, string>(
+            expression: x => x.Field,
+            converter: member => $"{member}_Suffix");
+
+        // using target and member
+        VerifierSettings.MemberConverter<MemberTarget, string>(
+            expression: x => x.Property,
+            converter: (target, member) => $"{target}_{member}_Suffix");
+
+        return Verify(input);
     }
 
 #endregion
 
-    void MemberConverterGlobal()
-    {
-#region MemberConverterGlobal
-
-        VerifierSettings.ModifySerialization(_ =>
-        {
-            _.MemberConverter<MemberConverterTarget, string>(
-                x => x.Property,
-                (target, value) => value + "Suffix");
-            _.MemberConverter<MemberConverterTarget, string>(
-                x => x.Field,
-                (target, value) => value + "Suffix");
-        });
-
-#endregion
-    }
-
-    class MemberConverterTarget
+    class MemberTarget
     {
         public string Property { get; set; }
         public string Field;
@@ -1702,12 +1790,17 @@ public class SerializationTests
 
         VerifierSettings.ModifySerialization(_ =>
         {
+            // For all types
             _.IgnoreMember("PropertyByName");
-            var type = typeof(IgnoreExplicitTarget);
-            _.IgnoreMember(type, "Property");
-            _.IgnoreMember(type, "Field");
-            _.IgnoreMember(type, "GetOnlyProperty");
-            _.IgnoreMember(type, "PropertyThatThrows");
+
+            // For a specific type
+            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+
+            // For a specific type generic
+            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+            // For a specific type with expression
+            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
         });
 
 #endregion
@@ -1728,12 +1821,17 @@ public class SerializationTests
         var settings = new VerifySettings();
         settings.ModifySerialization(_ =>
         {
+            // For all types
             _.IgnoreMember("PropertyByName");
-            var type = typeof(IgnoreExplicitTarget);
-            _.IgnoreMember(type, "Property");
-            _.IgnoreMember(type, "Field");
-            _.IgnoreMember(type, "GetOnlyProperty");
-            _.IgnoreMember(type, "PropertyThatThrows");
+
+            // For a specific type
+            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+
+            // For a specific type generic
+            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+            // For a specific type with expression
+            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
         });
         return Verify(target, settings);
     }
@@ -1751,12 +1849,17 @@ public class SerializationTests
         return Verify(target)
             .ModifySerialization(_ =>
             {
+                // For all types
                 _.IgnoreMember("PropertyByName");
-                var type = typeof(IgnoreExplicitTarget);
-                _.IgnoreMember(type, "Property");
-                _.IgnoreMember(type, "Field");
-                _.IgnoreMember(type, "GetOnlyProperty");
-                _.IgnoreMember(type, "PropertyThatThrows");
+
+                // For a specific type
+                _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+
+                // For a specific type generic
+                _.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+                // For a specific type with expression
+                _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
             });
     }
 
@@ -1779,7 +1882,7 @@ public class SerializationTests
 }";
         var target = JToken.Parse(json);
         return Verify(target)
-            .ModifySerialization(_ => { _.IgnoreMember("Ignore1"); });
+            .ModifySerialization(_ => _.IgnoreMember("Ignore1"));
     }
 
     [Fact]
@@ -1807,6 +1910,18 @@ public class SerializationTests
       }
     ]
     }";
+        return VerifyJson(json);
+    }
+
+    [Fact]
+    public Task VerifyJsonWithArrayAtRoot()
+    {
+        var json = @"[
+      {
+        id: '9585dadf-551a-43eb-960c-18b935993cc3',
+        title: 'Commitment1'
+      }
+    ]";
         return VerifyJson(json);
     }
 
@@ -1853,7 +1968,7 @@ public class SerializationTests
             { "Key2", "Value4" },
         };
         return Verify(target)
-            .ModifySerialization(_ => { _.IgnoreMember("Ignore"); });
+            .ModifySerialization(_ => _.IgnoreMember("Ignore"));
     }
 
     class IgnoreExplicitTarget
@@ -1984,7 +2099,7 @@ public class SerializationTests
     {
 #region WithObsoletePropIncludedGlobally
 
-        VerifierSettings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+        VerifierSettings.ModifySerialization(_ => _.IncludeObsoletes());
 
 #endregion
     }
@@ -2000,7 +2115,7 @@ public class SerializationTests
             OtherProperty = "value2"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => { _.IncludeObsoletes(); });
+        settings.ModifySerialization(_ => _.IncludeObsoletes());
         return Verify(target, settings);
     }
 
@@ -2013,7 +2128,7 @@ public class SerializationTests
             OtherProperty = "value2"
         };
         return Verify(target)
-            .ModifySerialization(_ => { _.IncludeObsoletes(); });
+            .ModifySerialization(_ => _.IncludeObsoletes());
     }
 
 #endregion
@@ -2068,8 +2183,7 @@ public class SerializationTests
             FamilyName = "Smith"
         };
         var settings = new VerifySettings();
-        settings.AddExtraSettings(
-            _ => { _.TypeNameHandling = TypeNameHandling.All; });
+        settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verify(person, settings);
     }
 
@@ -2082,9 +2196,76 @@ public class SerializationTests
             FamilyName = "Smith"
         };
         return Verify(person)
-            .AddExtraSettings(
-                _ => { _.TypeNameHandling = TypeNameHandling.All; });
+            .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
     }
 
     #endregion
+
+    [Fact]
+    public Task WithConverter()
+    {
+        return Verify(new ConverterTarget {Name = "The name"})
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
+
+    [Fact]
+    public Task WithConverterAndNewline()
+    {
+        return Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
+
+    [Fact]
+    public Task WithConverterAndIgnore()
+    {
+        return Verify(new ConverterTarget {Name = "The name"})
+            .ModifySerialization(_ => _.IgnoreMember("Name"))
+            .AddExtraSettings(_ => _.Converters.Add(new Converter()));
+    }
+
+    class Converter :
+        WriteOnlyJsonConverter<ConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WriteProperty(target, target.Name, "Name");
+            writer.WritePropertyName("Custom");
+            writer.WriteValue("CustomValue");
+            writer.WriteEnd();
+        }
+    }
+
+    class ConverterTarget
+    {
+        public string Name { get; set; } = null!;
+    }
+
+    [Fact]
+    public Task WithConverterAndMemberConverter()
+    {
+        VerifierSettings.MemberConverter<StaticConverterTarget, string>(
+            target => target.Name,
+            (target, value) => "New Value");
+        return Verify(new StaticConverterTarget {Name = "The name"})
+            .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
+    }
+
+    class StaticConverter :
+        WriteOnlyJsonConverter<StaticConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, StaticConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WriteProperty(target, target.Name, "Name");
+            writer.WritePropertyName("Custom");
+            writer.WriteValue("CustomValue");
+            writer.WriteEnd();
+        }
+    }
+
+    class StaticConverterTarget
+    {
+        public string Name { get; set; } = null!;
+    }
 }

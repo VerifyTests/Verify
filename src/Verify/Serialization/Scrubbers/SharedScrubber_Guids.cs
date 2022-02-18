@@ -1,10 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace VerifyTests;
 
-partial class SharedScrubber
+public partial class SerializationSettings
 {
-    bool scrubGuids;
-
-    public bool TryConvert(Guid value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(Counter counter, Guid value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubGuids)
         {
@@ -12,28 +10,28 @@ partial class SharedScrubber
             return false;
         }
 
-        result = Convert(value);
+        result = Convert(counter, value);
         return true;
     }
 
-    public static string Convert(Guid guid)
+    internal static string Convert(Counter counter, Guid guid)
     {
         if (guid == Guid.Empty)
         {
             return "Guid_Empty";
         }
 
-        var next = CounterContext.Current.Next(guid);
+        var next = counter.Next(guid);
         return $"Guid_{next}";
     }
 
-    public bool TryParseConvertGuid(string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertGuid(Counter counter, string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubGuids)
         {
             if (Guid.TryParse(value, out var guid))
             {
-                result = Convert(guid);
+                result = Convert(counter, guid);
                 return true;
             }
         }

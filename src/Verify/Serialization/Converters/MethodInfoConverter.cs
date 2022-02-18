@@ -1,15 +1,7 @@
-﻿using Newtonsoft.Json;
-using SimpleInfoName;
-using VerifyTests;
-
-class MethodInfoConverter :
+﻿class MethodInfoConverter :
     WriteOnlyJsonConverter<MethodInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        MethodInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, MethodInfo value)
     {
         writer.WriteValue(value.SimpleName());
     }

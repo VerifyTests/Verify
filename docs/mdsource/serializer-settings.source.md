@@ -205,6 +205,16 @@ snippet: CompanyConverter
 snippet: JsonConverter
 
 
+#### VerifyJsonWriter
+
+`VerifyJsonWriter` exposes the following members:
+
+ * `Counter` property that gives programmatic access to the counting behavior used by [Guid](#guids-are-scrubbed), [Date](#dates-are-scrubbed), and [Id](#numeric-ids-are-scrubbed) scrubbing.
+ * `Serializer` property that exposes the current `JsonSerializer`.
+ * `Serialize(object value)` is a convenience method that calls `JsonSerializer.Serialize` passing in the writer instance and the `value` parameter.
+ * `WriteProperty<T, TMember>(T target, TMember value, string name)` method that writes a property name and value while respecting other custom serialization settings eg [member converters](#converting-a-member), [ignore rules](#ignoring-a-type) etc.
+
+
 ## Scoped settings
 
 snippet: ScopedSerializer
@@ -353,10 +363,6 @@ snippet: TreatAsString
 The value of a member can be mutated before serialization:
 
 snippet: MemberConverter
-
-This can also be configured globally:
-
-snippet: MemberConverterGlobal
 
 
 ## SortPropertiesAlphabetically

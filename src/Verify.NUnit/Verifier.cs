@@ -1,8 +1,4 @@
-﻿using NUnit.Framework;
-using NUnit.Framework.Internal;
-using VerifyTests;
-
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 public static partial class Verifier
 {

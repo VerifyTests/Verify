@@ -1,42 +1,42 @@
 ﻿using DiffEngine;
-using VerifyTests;
 
-[DebuggerDisplay("missings = {missings.Count} | notEquals = {notEquals.Count} | equals = {equals.Count} | danglingVerified = {danglingVerified.Count}")]
+[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {
+    string directory;
     VerifySettings settings;
     bool diffEnabled;
-    static bool clipboardEnabled = !DiffEngineTray.IsRunning && ClipboardEnabled.IsEnabled();
-    List<FilePair> missings = new();
-    List<(FilePair filePair, string? message)> notEquals = new();
-    List<FilePair> equals = new();
-    List<string> danglingVerified;
+    List<NewResult> @new = new();
+    List<NotEqualResult> notEquals = new();
+    List<FilePair> equal = new();
+    List<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
 
-    public VerifyEngine(VerifySettings settings, List<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
+    public VerifyEngine(string directory, VerifySettings settings, List<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
     {
+        this.directory = directory;
         this.settings = settings;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        danglingVerified = verifiedFiles;
+        delete = verifiedFiles;
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
     }
 
-    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair filePair, Target target, bool previousTextHasFailed)
+    static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
         if (target.IsStringBuilder)
         {
             var builder = target.StringBuilderData;
             ApplyScrubbers.Apply(target.Extension, builder, settings);
-            return await Comparer.Text(filePair, builder.ToString(), settings);
+            return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         if (target.IsString)
         {
             var builder = new StringBuilder(target.StringData);
             ApplyScrubbers.Apply(target.Extension, builder, settings);
-            return await Comparer.Text(filePair, builder.ToString(), settings);
+            return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         var stream = target.StreamData;
@@ -47,7 +47,7 @@ class VerifyEngine
 #endif
         {
             stream.MoveToStart();
-            return await Comparer.Streams(settings, stream, filePair, previousTextHasFailed);
+            return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);
         }
     }
 
@@ -68,7 +68,7 @@ class VerifyEngine
             var target = targetList[index];
             var file = getIndexedFileNames(target.Extension, index);
             var result = await GetResult(settings, file, target, textHasFailed);
-            if (EmptyFiles.Extensions.IsText(target.Extension) &&
+            if (file.IsText &&
                 result.Equality != Equality.Equal)
             {
                 textHasFailed = true;
@@ -78,15 +78,15 @@ class VerifyEngine
         }
     }
 
-    void HandleCompareResult(EqualityResult compareResult, in FilePair file)
+    void HandleCompareResult(EqualityResult result, in FilePair file)
     {
-        switch (compareResult.Equality)
+        switch (result.Equality)
         {
-            case Equality.MissingVerified:
-                AddMissing(file);
+            case Equality.New:
+                AddMissing(new NewResult(file, result.ReceivedText));
                 break;
             case Equality.NotEqual:
-                AddNotEquals(file, compareResult.Message);
+                AddNotEquals(new NotEqualResult(file, result.Message, result.ReceivedText, result.VerifiedText));
                 break;
             case Equality.Equal:
                 AddEquals(file);
@@ -94,217 +94,127 @@ class VerifyEngine
         }
     }
 
-    void AddMissing(in FilePair item)
+    void AddMissing(in NewResult item)
     {
-        missings.Add(item);
-        danglingVerified.Remove(item.Verified);
+        @new.Add(item);
+        delete.Remove(item.File.VerifiedPath);
     }
 
-    void AddNotEquals(in FilePair item, string? message)
+    void AddNotEquals(in NotEqualResult notEqual)
     {
-        notEquals.Add((item, message));
-        danglingVerified.Remove(item.Verified);
+        notEquals.Add(notEqual);
+        delete.Remove(notEqual.File.VerifiedPath);
     }
 
     void AddEquals(in FilePair item)
     {
-        danglingVerified.Remove(item.Verified);
-        equals.Add(item);
+        delete.Remove(item.VerifiedPath);
+        equal.Add(item);
     }
 
-    public async Task ThrowIfRequired(string? message = null)
+    public async Task ThrowIfRequired()
     {
         ProcessEquals();
-        if (missings.Count == 0 &&
+        if (@new.Count == 0 &&
             notEquals.Count == 0 &&
-            danglingVerified.Count == 0)
+            delete.Count == 0)
         {
             return;
         }
 
-        var builder = new StringBuilder("Results do not match.");
-        builder.AppendLine();
-        if (message is not null)
-        {
-            builder.AppendLine(message);
-        }
+        await ProcessDeletes();
 
+        await ProcessNew();
+
+        await ProcessNotEquals();
         if (!settings.autoVerify)
         {
-            if (DiffEngineTray.IsRunning)
-            {
-                builder.AppendLine("Use DiffEngineTray to verify files.");
-            }
-            else if (ClipboardEnabled.IsEnabled())
-            {
-                builder.AppendLine("Verify command placed in clipboard.");
-            }
-        }
-
-        await ProcessDangling(builder);
-
-        await ProcessMissing(builder);
-
-        await ProcessNotEquals(builder);
-        if (!settings.autoVerify)
-        {
-            builder.TrimEnd();
-            throw new VerifyException(builder.ToString());
+            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
+            throw new VerifyException(message);
         }
     }
 
-    async Task ProcessDangling(StringBuilder builder)
+    Task ProcessDeletes()
     {
-        if (danglingVerified.IsEmpty())
-        {
-            return;
-        }
-
-        builder.AppendLine("Deletions:");
-        foreach (var item in danglingVerified)
-        {
-            await ProcessDangling(builder, item);
-        }
+        return Task.WhenAll(delete.Select(ProcessDeletes));
     }
 
-    Task ProcessDangling(StringBuilder builder, string item)
+    async Task ProcessDeletes(string file)
     {
-        builder.AppendLine($"  {Path.GetFileName(item)}");
+        await VerifierSettings.RunOnVerifyDelete(file);
+
         if (settings.autoVerify)
         {
-            File.Delete(item);
-            return Task.CompletedTask;
+            File.Delete(file);
+            return;
         }
 
         if (BuildServerDetector.Detected)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         if (DiffEngineTray.IsRunning)
         {
-            return DiffEngineTray.AddDeleteAsync(item);
+            await DiffEngineTray.AddDeleteAsync(file);
         }
-
-        if (ClipboardEnabled.IsEnabled())
-        {
-            return ClipboardCapture.AppendDelete(item);
-        }
-
-        return Task.CompletedTask;
     }
 
-    async Task ProcessNotEquals(StringBuilder builder)
+    async Task ProcessNotEquals()
     {
-        if (notEquals.IsEmpty())
+        foreach (var notEqual in notEquals)
         {
-            return;
-        }
-
-        builder.AppendLine("Differences:");
-        foreach (var (filePair, message) in notEquals)
-        {
-            await ProcessNotEquals(builder, filePair, message);
+            await VerifierSettings.RunOnVerifyMismatch(notEqual.File, notEqual.Message);
+            await RunDiffAutoCheck(notEqual.File);
         }
     }
 
     void ProcessEquals()
     {
-        if (DiffRunner.Disabled)
+        if (!diffEnabled)
         {
             return;
         }
 
-        foreach (var equal in equals)
+        foreach (var item in equal)
         {
-            DiffRunner.Kill(equal.Received, equal.Verified);
+            DiffRunner.Kill(item.ReceivedPath, item.VerifiedPath);
         }
     }
 
-    async Task ProcessNotEquals(StringBuilder builder, FilePair item, string? message)
-    {
-        await VerifierSettings.RunOnVerifyMismatch(item, message);
-
-        builder.AppendLine($"Received: {item.Received}");
-        builder.AppendLine($"Verified: {item.Verified}");
-        if (message is null)
-        {
-            if (!VerifierSettings.omitContentFromException &&
-                EmptyFiles.Extensions.IsText(item.Extension))
-            {
-                builder.AppendLine("Received Content:");
-                builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-                builder.AppendLine("Verified Content:");
-                builder.AppendLine($"{await FileHelpers.ReadText(item.Verified)}");
-            }
-        }
-        else
-        {
-            builder.AppendLine("Compare Result:");
-            builder.AppendLine(message);
-        }
-
-        await RunClipboardDiffAutoCheck(item);
-    }
-
-    async Task ProcessMissing(StringBuilder builder, FilePair item)
-    {
-        await VerifierSettings.RunOnFirstVerify(item);
-
-        builder.AppendLine("Verified file empty or does not exist");
-        builder.AppendLine($"Received: {item.Received}");
-        builder.AppendLine($"Verified: {item.Verified}");
-        if (!VerifierSettings.omitContentFromException &&
-            EmptyFiles.Extensions.IsText(item.Extension))
-        {
-            builder.AppendLine($"{Path.GetFileName(item.Received)}");
-            builder.AppendLine($"{await FileHelpers.ReadText(item.Received)}");
-        }
-
-        await RunClipboardDiffAutoCheck(item);
-    }
-
-    async Task RunClipboardDiffAutoCheck(FilePair item)
+    Task RunDiffAutoCheck(FilePair file)
     {
         if (BuildServerDetector.Detected)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         if (settings.autoVerify)
         {
-            AcceptChanges(item);
-            return;
-        }
-
-        if (clipboardEnabled)
-        {
-            await ClipboardCapture.AppendMove(item.Received, item.Verified);
+            AcceptChanges(file);
+            return Task.CompletedTask;
         }
 
         if (diffEnabled)
         {
-            await DiffRunner.LaunchAsync(item.Received, item.Verified);
+            return DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    async Task ProcessNew()
+    {
+        foreach (var file in @new)
+        {
+            await VerifierSettings.RunOnFirstVerify(file);
+            await RunDiffAutoCheck(file.File);
         }
     }
 
-    async Task ProcessMissing(StringBuilder builder)
+    static void AcceptChanges(in FilePair file)
     {
-        if (missings.IsEmpty())
-        {
-            return;
-        }
-
-        builder.AppendLine("Pending verification:");
-        foreach (var item in missings)
-        {
-            await ProcessMissing(builder, item);
-        }
-    }
-
-    static void AcceptChanges(in FilePair item)
-    {
-        File.Delete(item.Verified);
-        File.Move(item.Received, item.Verified);
+        File.Delete(file.VerifiedPath);
+        File.Move(file.ReceivedPath, file.VerifiedPath);
     }
 }

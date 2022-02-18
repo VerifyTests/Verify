@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-static class ExpressionExtensions
+﻿static class ExpressionExtensions
 {
     public static MemberInfo FindMember<T, TMember>(this Expression<Func<T, TMember>> expression)
     {

@@ -1,18 +1,11 @@
 ﻿#if NET6_0_OR_GREATER
 
-using Newtonsoft.Json;
-using VerifyTests;
-
 class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        TimeOnly value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, TimeOnly value)
     {
-        writer.WriteValue(value.ToString("h:mm tt", serializer.Culture));
+        writer.WriteValue(value.ToString("h:mm tt", writer.Serializer.Culture));
     }
 }
 #endif

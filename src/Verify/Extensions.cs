@@ -29,7 +29,7 @@ static class Extensions
         return $"{method.ReflectedType!.Name}.{method.Name}";
     }
 
-    public static bool IsEmpty<T>(this ICollection<T> target)
+    public static bool IsEmpty<T>(this IReadOnlyCollection<T> target)
     {
         return !target.Any();
     }

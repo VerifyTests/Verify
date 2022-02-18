@@ -1,10 +1,8 @@
-﻿using VerifyTests;
-
-static class TargetAssembly
+﻿static class TargetAssembly
 {
     static Assembly? assembly;
-    public static string ProjectDirectory { get; private set; } = null!;
-    public static string? SolutionDirectory { get; private set; }
+    public static string ProjectDir { get; private set; } = null!;
+    public static string? SolutionDir { get; private set; }
 
     public static void Assign(Assembly assembly)
     {
@@ -14,10 +12,10 @@ static class TargetAssembly
         }
 
         Namer.UseAssembly(assembly);
-        ProjectDirectory = AttributeReader.GetProjectDirectory(assembly);
-        AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDirectory);
-        SolutionDirectory = solutionDirectory;
-        ApplyScrubbers.UseAssembly(solutionDirectory, ProjectDirectory);
+        ProjectDir = AttributeReader.GetProjectDirectory(assembly);
+        AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDir);
+        SolutionDir  = solutionDir;
+        ApplyScrubbers.UseAssembly(solutionDir, ProjectDir);
         TargetAssembly.assembly = assembly;
     }
 }

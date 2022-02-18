@@ -7,13 +7,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
-    <PackageReference Include="DiffEngine" Version="8.5.3" />
+    <Using Include="Newtonsoft.Json" />
+    <Using Include="VerifyTests" />
+    <Using Include="EmptyFiles" />
+    <Using Include="Newtonsoft.Json.Serialization" />
+    <Using Include="Newtonsoft.Json.Linq" />
+    <Using Include="Newtonsoft.Json.Converters" />
+    <Using Include="SimpleInfoName" />
+    <PackageReference Include="DiffEngine" Version="9.0.0" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.1.1" />
-    <PackageReference Include="TextCopy" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.63" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <Content Include="buildTransitive\Verify.props" PackagePath="buildTransitive\Verify.props" />
     <Content Include="buildTransitive\Verify.targets" PackagePath="buildTransitive\Verify.targets" />
     <Content Include="buildTransitive\Verify.props" PackagePath="build\Verify.props" />

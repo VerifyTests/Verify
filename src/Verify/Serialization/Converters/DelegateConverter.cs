@@ -1,29 +1,18 @@
-﻿using Newtonsoft.Json;
-using SimpleInfoName;
-using VerifyTests;
-
-class DelegateConverter :
+﻿class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        Delegate @delegate,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, Delegate @delegate)
     {
         writer.WriteStartObject();
-        writer.WritePropertyName("Type");
-        writer.WriteValue(@delegate.GetType().SimpleName());
-        var declaringType = @delegate.Method.DeclaringType;
-        if (declaringType is not null)
-        {
-            writer.WritePropertyName("Target");
-            writer.WriteValue(declaringType.SimpleName());
-        }
 
-        writer.WritePropertyName("Method");
+        writer.WriteProperty(@delegate, @delegate.GetType(), "Type");
+
+        var declaringType = @delegate.Method.DeclaringType;
+        writer.WriteProperty(@delegate, declaringType, "Target");
+
         var s = @delegate.Method.ToString()!;
-        writer.WriteValue(CleanMethodName(s));
+        writer.WriteProperty(@delegate, CleanMethodName(s), "Method");
+
         writer.WriteEndObject();
     }
 

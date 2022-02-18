@@ -1,21 +1,14 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class TextWriterConverter :
+﻿class TextWriterConverter :
     WriteOnlyJsonConverter<TextWriter>
 {
-    SharedScrubber sharedScrubber;
+    SerializationSettings settings;
 
-    public TextWriterConverter(SharedScrubber sharedScrubber)
+    public TextWriterConverter(SerializationSettings settings)
     {
-        this.sharedScrubber = sharedScrubber;
+        this.settings = settings;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        TextWriter value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, TextWriter value)
     {
         var stringValue = value.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
@@ -24,7 +17,7 @@ class TextWriterConverter :
             return;
         }
 
-        if (sharedScrubber.TryConvertString(stringValue, out var result))
+        if (settings.TryConvertString(writer.Counter, stringValue, out var result))
         {
             writer.WriteValue(result);
             return;

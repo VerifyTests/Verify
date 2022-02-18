@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class IdConverter :
+﻿class IdConverter :
     WriteOnlyJsonConverter
 {
     public override bool CanConvert(Type objectType)
@@ -9,13 +6,9 @@ class IdConverter :
         return true;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        object value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, object value)
     {
-        var id = CounterContext.Current.NextId(value);
+        var id = writer.Counter.NextId(value);
         writer.WriteValue($"Id_{id}");
     }
 }

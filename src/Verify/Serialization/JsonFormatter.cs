@@ -1,15 +1,11 @@
-﻿using Newtonsoft.Json;
-using SimpleInfoName;
-using VerifyTests;
-
-static class JsonFormatter
+﻿static class JsonFormatter
 {
     static JsonFormatter()
     {
         TypeNameConverter.AddRedirect(typeof(IDictionaryWrapper), _ => _.GetGenericArguments().Last());
     }
 
-    public static StringBuilder AsJson(object? input, JsonSerializerSettings settings, List<ToAppend> appends, VerifySettings verifySettings)
+    public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, Counter counter)
     {
         if (appends.Any())
         {
@@ -30,17 +26,9 @@ static class JsonFormatter
             }
         }
 
-        var serializer = JsonSerializer.Create(settings);
-
         var builder = new StringBuilder();
-        using var stringWriter = new StringWriter(builder)
-        {
-            NewLine = "\n"
-        };
-
-        using var writer = new JsonTextWriterEx(stringWriter, builder, verifySettings.Context);
-        serializer.Serialize(writer, input);
+        using var writer = new VerifyJsonWriter(builder, settings.serialization, settings.Context, counter);
+        settings.Serializer.Serialize(writer, input);
         return builder;
     }
-
 }

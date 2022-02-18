@@ -1,0 +1,4 @@
+{
+  Type: ParseException,
+  Message: Empty 'Directory:' Ensure at least version 15 of Verify is being used.
+}

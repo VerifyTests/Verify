@@ -1,14 +1,7 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class DirectoryInfoConverter :
+﻿class DirectoryInfoConverter :
     WriteOnlyJsonConverter<DirectoryInfo>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        DirectoryInfo value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, DirectoryInfo value)
     {
         writer.WriteValue(value.ToString().Replace('\\','/'));
     }

@@ -1,14 +1,7 @@
-﻿using Newtonsoft.Json;
-using VerifyTests;
-
-class VersionConverter :
+﻿class VersionConverter :
     WriteOnlyJsonConverter<Version>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        Version value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, Version value)
     {
         writer.WriteValue(value.ToString());
     }

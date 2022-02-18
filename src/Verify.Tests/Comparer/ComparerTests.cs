@@ -20,6 +20,7 @@ public class ComparerTests
         PrefixUnique.Clear();
         await Verify("thetext", settings);
     }
+
 #if(Release)
     [Fact]
     public async Task Static_with_message()

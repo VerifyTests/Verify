@@ -1,120 +1,78 @@
-﻿using EmptyFiles;
-using VerifyTests;
-
-static class FileComparer
+﻿static class FileComparer
 {
-    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextHasFailed)
+    public static async Task<EqualityResult> DoCompare(VerifySettings settings, FilePair file, bool previousTextFailed, Stream receivedStream)
     {
-        if (!File.Exists(file.Verified))
+        if (!File.Exists(file.VerifiedPath))
         {
-            return Equality.MissingVerified;
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            return new(Equality.New, null, null, null);
         }
 
-        if (AllFiles.IsEmptyFile(file.Verified))
+        if (AllFiles.IsEmptyFile(file.VerifiedPath))
         {
-            return Equality.NotEqual;
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            return new(Equality.NotEqual, null, null, null);
         }
 
-        var result = await FilesEqual(settings, file, previousTextHasFailed);
-        if (result.IsEqual)
+        if (!previousTextFailed &&
+            settings.TryFindStreamComparer(file.Extension, out var compare))
         {
-            return Equality.Equal;
+            return await InnerCompare(file, receivedStream, (s1, s2) => compare(s1, s2, settings.Context));
         }
 
-        return new(Equality.NotEqual, result.Message);
+        if (receivedStream.CanSeek &&
+            IoHelpers.Length(file.VerifiedPath) != receivedStream.Length)
+        {
+            return new(Equality.NotEqual, null,null,null);
+        }
+
+        return await InnerCompare(file, receivedStream, StreamComparer.AreEqual);
     }
 
-    static Task<CompareResult> FilesEqual(VerifySettings settings, FilePair filePair, bool previousTextHasFailed)
-    {
-        if (!previousTextHasFailed &&
-            settings.TryFindStreamComparer(filePair.Extension, out var compare))
-        {
-            return DoCompare(settings, compare!, filePair);
-        }
-
-        if (FilesAreSameSize(filePair))
-        {
-            return DefaultCompare(settings, filePair);
-        }
-
-        return Task.FromResult(CompareResult.NotEqual());
-    }
-
-    public static Task<CompareResult> DefaultCompare(VerifySettings settings, FilePair filePair)
-    {
-        return DoCompare(
-            settings,
-            (stream1, stream2, _) => StreamsAreEqual(stream1, stream2),
-            filePair);
-    }
-
-    static bool FilesAreSameSize(in FilePair file)
-    {
-        var first = new FileInfo(file.Received);
-        var second = new FileInfo(file.Verified);
-        return first.Length == second.Length;
-    }
-
-    static async Task<CompareResult> DoCompare(VerifySettings settings, StreamCompare compare, FilePair filePair)
+    static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, Func<Stream, Stream, Task<CompareResult>> func)
     {
 #if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
-        using var fs1 = FileHelpers.OpenRead(filePair.Received);
-        using var fs2 = FileHelpers.OpenRead(filePair.Verified);
+        using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);
 #else
-        await using var fs1 = FileHelpers.OpenRead(filePair.Received);
-        await using var fs2 = FileHelpers.OpenRead(filePair.Verified);
+        await using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);
 #endif
-        return await compare(fs1, fs2, settings.Context);
-    }
 
-    #region DefualtCompare
-
-    static async Task<CompareResult> StreamsAreEqual(Stream stream1, Stream stream2)
-    {
-        const int bufferSize = 1024 * sizeof(long);
-        var buffer1 = new byte[bufferSize];
-        var buffer2 = new byte[bufferSize];
-
-        while (true)
+        if (receivedStream is FileStream fileStream)
         {
-            var count = await ReadBufferAsync(stream1, buffer1);
-
-            //no need to compare size here since only enter on files being same size
-
-            if (count == 0)
+            var compareResult = await func(fileStream, verifiedStream);
+            if (compareResult.IsEqual)
             {
-                return CompareResult.Equal;
+                return new(Equality.Equal, compareResult.Message, null, null);
             }
 
-            await ReadBufferAsync(stream2, buffer2);
-
-            for (var i = 0; i < count; i += sizeof(long))
-            {
-                if (BitConverter.ToInt64(buffer1, i) != BitConverter.ToInt64(buffer2, i))
-                {
-                    return CompareResult.NotEqual();
-                }
-            }
-        }
-    }
-
-    static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
-    {
-        var bytesRead = 0;
-        while (bytesRead < buffer.Length)
-        {
-            var read = await stream.ReadAsync(buffer, bytesRead, buffer.Length - bytesRead);
-            if (read == 0)
-            {
-                // Reached end of stream.
-                return bytesRead;
-            }
-
-            bytesRead += read;
+            File.Copy(fileStream.Name, file.ReceivedPath, true);
+            return new(Equality.NotEqual, compareResult.Message, null, null);
         }
 
-        return bytesRead;
-    }
+        async Task<EqualityResult> EqualityResult(Stream receivedStream, Stream verifiedStream)
+        {
+            var compareResult = await func(receivedStream, verifiedStream);
 
-    #endregion
+            if (compareResult.IsEqual)
+            {
+                return new(Equality.Equal, compareResult.Message, null, null);
+            }
+
+            receivedStream.Position = 0;
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
+            return new(Equality.NotEqual, compareResult.Message, null, null);
+        }
+
+        if (receivedStream.CanSeek)
+        {
+            receivedStream.Position = 0;
+            return await EqualityResult(receivedStream, verifiedStream);
+        }
+
+        using var memoryStream = new MemoryStream();
+        await receivedStream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+
+        return await EqualityResult(memoryStream, verifiedStream);
+    }
 }

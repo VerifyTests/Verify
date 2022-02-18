@@ -1,0 +1,54 @@
+{
+  exceptionMessage:
+Directory: {ProjectDirectory}
+New:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+NotEqual:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+Delete:
+  - ExceptionParsingTests.Fake.recevied.txt
+Equal:
+  - Received: ExceptionParsingTests.Fake.received.txt
+    Verified: ExceptionParsingTests.Fake.verified.txt
+
+FileContent:
+
+New:
+
+Received: ExceptionParsingTests.Fake.received.txt
+the content
+
+NotEqual:
+
+Received: ExceptionParsingTests.Fake.received.txt
+receivedText
+Verified: ExceptionParsingTests.Fake.verified.txt
+verifiedText
+
+,
+  result: {
+    New: [
+      {
+        Received: {ProjectDirectory}ExceptionParsingTests.Fake.received.txt,
+        Verified: {ProjectDirectory}ExceptionParsingTests.Fake.verified.txt
+      }
+    ],
+    NotEqual: [
+      {
+        Received: {ProjectDirectory}ExceptionParsingTests.Fake.received.txt,
+        Verified: {ProjectDirectory}ExceptionParsingTests.Fake.verified.txt
+      }
+    ],
+    Delete: [
+      {ProjectDirectory}ExceptionParsingTests.Fake.recevied.txt
+    ],
+    Equal: [
+      {
+        Received: {ProjectDirectory}ExceptionParsingTests.Fake.received.txt,
+        Verified: {ProjectDirectory}ExceptionParsingTests.Fake.verified.txt
+      }
+    ]
+  }
+}

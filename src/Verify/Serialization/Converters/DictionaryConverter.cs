@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Newtonsoft.Json;
-using VerifyTests;
 
 class DictionaryConverter :
     WriteOnlyJsonConverter
@@ -33,7 +31,7 @@ class DictionaryConverter :
                definition == typeof(ReadOnlyDictionary<,>);
     }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer, IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, object value)
     {
         var type = value.GetType();
 
@@ -69,6 +67,6 @@ class DictionaryConverter :
             }
         }
 
-        serializer.Serialize(writer, value);
+        writer.Serialize(value);
     }
 }

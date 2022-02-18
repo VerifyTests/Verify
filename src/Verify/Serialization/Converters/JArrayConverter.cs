@@ -1,17 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using VerifyTests;
-
-class JArrayConverter :
+﻿class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
-    public override void WriteJson(
-        JsonWriter writer,
-        JArray value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, JArray value)
     {
         var list = value.ToObject<List<object>>()!;
-        serializer.Serialize(writer, list);
+        writer.Serialize(list);
     }
 }

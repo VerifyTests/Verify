@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using VerifyTests;
-
-partial class InnerVerifier
+﻿partial class InnerVerifier
 {
     async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
@@ -18,7 +15,7 @@ partial class InnerVerifier
 
         targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-        var engine = new VerifyEngine(settings, VerifiedFiles, GetFileNames, GetIndexedFileNames);
+        var engine = new VerifyEngine(directory, settings, VerifiedFiles, GetFileNames, GetIndexedFileNames);
 
         await engine.HandleResults(targetList);
 
@@ -51,11 +48,7 @@ partial class InnerVerifier
                 extension = "json";
             }
 
-            builder = JsonFormatter.AsJson(
-                null,
-                settings.serialization.currentSettings,
-                appends,
-                settings);
+            builder = JsonFormatter.AsJson(null, appends, settings, counter);
             return true;
         }
 
@@ -74,11 +67,7 @@ partial class InnerVerifier
             extension = "json";
         }
 
-        builder = JsonFormatter.AsJson(
-            target,
-            settings.serialization.currentSettings,
-            appends,
-            settings);
+        builder = JsonFormatter.AsJson(target, appends, settings, counter);
 
         return true;
     }

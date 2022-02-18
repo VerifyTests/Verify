@@ -73,7 +73,7 @@ public class JsonAppenderTests : IDisposable
     [Fact]
     public Task Stream()
     {
-        return Verify(FileHelpers.OpenRead("sample.txt"));
+        return Verify(IoHelpers.OpenRead("sample.txt"));
     }
     #endregion
 

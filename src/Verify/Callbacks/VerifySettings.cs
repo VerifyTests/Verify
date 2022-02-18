@@ -9,17 +9,35 @@ public static partial class VerifierSettings
         handleOnFirstVerify += firstVerify;
     }
 
-    internal static Task RunOnFirstVerify(FilePair item)
+    public static void OnDelete(VerifyDelete verifyDelete)
+    {
+        handleOnVerifyDelete += verifyDelete;
+    }
+
+    static VerifyDelete? handleOnVerifyDelete;
+
+    internal static Task RunOnFirstVerify(NewResult item)
     {
         if (handleOnFirstVerify is null)
         {
             return Task.CompletedTask;
         }
 
-        return handleOnFirstVerify(item);
+        //TODO: pass in text
+        return handleOnFirstVerify(item.File);
     }
 
     static VerifyMismatch? handleOnVerifyMismatch;
+
+    internal static Task RunOnVerifyDelete(string file)
+    {
+        if (handleOnVerifyDelete is null)
+        {
+            return Task.CompletedTask;
+        }
+
+        return handleOnVerifyDelete(file);
+    }
 
     internal static Task RunOnVerifyMismatch(FilePair item, string? message)
     {

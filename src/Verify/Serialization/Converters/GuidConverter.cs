@@ -1,24 +1,16 @@
-﻿using System.Globalization;
-using Newtonsoft.Json;
-using VerifyTests;
-
-class GuidConverter :
+﻿class GuidConverter :
     WriteOnlyJsonConverter<Guid>
 {
-    SharedScrubber scrubber;
+    SerializationSettings scrubber;
 
-    public GuidConverter(SharedScrubber scrubber)
+    public GuidConverter(SerializationSettings scrubber)
     {
         this.scrubber = scrubber;
     }
 
-    public override void WriteJson(
-        JsonWriter writer,
-        Guid value,
-        JsonSerializer serializer,
-        IReadOnlyDictionary<string, object> context)
+    public override void Write(VerifyJsonWriter writer, Guid value)
     {
-        if (scrubber.TryConvert(value, out var result))
+        if (scrubber.TryConvert(writer.Counter, value, out var result))
         {
             writer.WriteValue(result);
             return;

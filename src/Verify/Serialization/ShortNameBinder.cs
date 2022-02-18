@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json.Serialization;
-using SimpleInfoName;
-
-class ShortNameBinder :
+﻿class ShortNameBinder :
     ISerializationBinder
 {
+    public static readonly ShortNameBinder Instance = new();
+
+    ShortNameBinder()
+    {
+    }
+
     public void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
     {
         assemblyName = null;

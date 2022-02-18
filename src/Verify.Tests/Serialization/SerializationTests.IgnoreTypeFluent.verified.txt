@@ -1,5 +1,14 @@
 {
   ToInclude: {
     Property: Value
+  },
+  ToIncludeNullable: {
+    Property: Value
+  },
+  ToIncludeStruct: {
+    Property: Value
+  },
+  ToIncludeStructNullable: {
+    Property: Value
   }
 }

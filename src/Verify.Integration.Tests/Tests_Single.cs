@@ -88,12 +88,12 @@ public partial class Tests
         var danglingFile = Path.Combine(projectDirectory, $"{prefix}.01.verified.{extension}");
         var file = new FilePair(extension, prefix);
 
-        DeleteAll(danglingFile, file.Verified, file.Received);
+        DeleteAll(danglingFile, file.VerifiedPath, file.ReceivedPath);
         await File.WriteAllTextAsync(danglingFile, "");
 
         if (hasExistingReceived)
         {
-            await File.WriteAllTextAsync(file.Received, "");
+            await File.WriteAllTextAsync(file.ReceivedPath, "");
         }
 
         PrefixUnique.Clear();
@@ -130,8 +130,8 @@ public partial class Tests
         ProcessCleanup.Refresh();
         AssertProcessNotRunning(command);
 
-        AssertNotExists(pair.Received);
-        AssertExists(pair.Verified);
+        AssertNotExists(pair.ReceivedPath);
+        AssertExists(pair.VerifiedPath);
 
         await EnsureUtf8(pair);
     }
@@ -160,8 +160,8 @@ public partial class Tests
             }
         }
 
-        await Ensure(pair.Verified);
-        await Ensure(pair.Received);
+        await Ensure(pair.VerifiedPath);
+        await Ensure(pair.ReceivedPath);
     }
 
     static async Task InitialVerify(Func<object> target, bool hasMatchingDiffTool, VerifySettings settings, FilePair pair)
@@ -169,7 +169,7 @@ public partial class Tests
         if (settings.autoVerify)
         {
             await Verify(target(), settings);
-            AssertExists(pair.Verified);
+            AssertExists(pair.VerifiedPath);
         }
         else
         {
@@ -178,10 +178,10 @@ public partial class Tests
             AssertProcess(hasMatchingDiffTool, pair);
             if (hasMatchingDiffTool)
             {
-                AssertExists(pair.Verified);
+                AssertExists(pair.VerifiedPath);
             }
 
-            AssertExists(pair.Received);
+            AssertExists(pair.ReceivedPath);
         }
 
         await EnsureUtf8(pair);

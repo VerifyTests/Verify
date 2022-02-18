@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-
-class TypeNameProvider :
+﻿class TypeNameProvider :
     IValueProvider
 {
     Type type;

@@ -25,7 +25,7 @@ public static partial class VerifierSettings
 
     internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method)
     {
-        return derivePathInfo(sourceFile, TargetAssembly.ProjectDirectory, type, method);
+        return derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
     }
 
     /// <summary>

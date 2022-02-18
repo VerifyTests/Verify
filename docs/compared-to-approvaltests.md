@@ -30,7 +30,7 @@ Verify is designed with extensibility in mind with many APIS to plug into. For e
  * [File naming](naming.md).
  * [Converters](converter.md).
 
-This results in a simpler process for creating [Custom extensions for Verify](/#extensions)
+This results in a simpler process for creating [Custom extensions for Verify](https://github.com/VerifyTests/Verify#extensions)
 
 
 ### Object Serialization
@@ -71,10 +71,11 @@ In ApprovalTests both these features are opt-in through attributes.
 
 This is a work-in-progress, to contribute more information submit a Pull Request.
 
-  * Choose an [approach to snapshot management](/#snapshot-management).
-  * Remove all ApprovalTests* NuGets.
+  * Choose an [approach to snapshot management](https://github.com/VerifyTests/Verify#snapshot-management).
+  * Remove all `ApprovalTests*` NuGets.
+  * Be aware of the [usage notes](https://github.com/VerifyTests/Verify#usage) for specific test frameworks.
   * Add a reference to the specific test framework variant of Verify ([Verify.Xunit](https://www.nuget.org/packages/Verify.Xunit/)/[Verify.NUnit](https://www.nuget.org/packages/Verify.NUnit/)/[Verify.Expecto](https://www.nuget.org/packages/Verify.Expecto/)/[Verify.MSTest](https://www.nuget.org/packages/Verify.MSTest/)).
-  * Add the [Verify.ApprovalTestsTransition](https://www.nuget.org/packages/Verify.ApprovalTestsTransition/) NuGet. This NuGet contains signatures for the commonly used ApprocalTests APIs. These APIs a attributed with `[Obsolete]` that point to the alternative APIs and/or documentation. This NuGet is a work-in-progress, submit a PR is more APIs are required.
+  * Add the [Verify.ApprovalTestsTransition](https://www.nuget.org/packages/Verify.ApprovalTestsTransition/) NuGet. This NuGet contains signatures for the commonly used ApprovalTests APIs. These APIs a attributed with `[Obsolete]` that point to the alternative APIs and/or documentation. This NuGet is a work-in-progress, submit a PR is more APIs are required.
   * Fix all obsoletes.
   * Remove the Verify.ApprovalTestsTransition NuGet.
   * Delete all `*.approved.*` files.

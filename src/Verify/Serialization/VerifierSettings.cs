@@ -1,9 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Linq;
-using Newtonsoft.Json;
-using SimpleInfoName;
 
 // ReSharper disable UnusedParameter.Local
 
@@ -149,13 +145,11 @@ public static partial class VerifierSettings
     public static void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         serialization.AddExtraSettings(action);
-        serialization.RegenSettings();
     }
 
     public static void ModifySerialization(Action<SerializationSettings> action)
     {
         action(serialization);
-        serialization.RegenSettings();
     }
 
     public static void IgnoreStackTrack()
@@ -165,17 +159,17 @@ public static partial class VerifierSettings
 
     public static void AddExtraDateFormat(string format)
     {
-        SharedScrubber.dateFormats.Add(format);
+        SerializationSettings.dateFormats.Add(format);
     }
 
     public static void AddExtraDatetimeFormat(string format)
     {
-        SharedScrubber.datetimeFormats.Add(format);
+        SerializationSettings.datetimeFormats.Add(format);
     }
 
     public static void AddExtraDatetimeOffsetFormat(string format)
     {
-        SharedScrubber.datetimeOffsetFormats.Add(format);
+        SerializationSettings.datetimeOffsetFormats.Add(format);
     }
 
     public static void UseStrictJson()
@@ -185,18 +179,18 @@ public static partial class VerifierSettings
 
     public static bool StrictJson { get; private set; }
 
-    internal static bool scrubProjectDirectory = true;
+    internal static bool scrubProjectDir = true;
 
     public static void DontScrubProjectDirectory()
     {
-        scrubProjectDirectory = false;
+        scrubProjectDir = false;
     }
 
-    internal static bool scrubSolutionDirectory = true;
+    internal static bool scrubSolutionDir = true;
 
     public static void DontScrubSolutionDirectory()
     {
-        scrubSolutionDirectory = false;
+        scrubSolutionDir = false;
     }
 
     internal static bool sortPropertiesAlphabetically;

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public partial class VerifySettings
 {
@@ -9,14 +7,24 @@ public partial class VerifySettings
 
     public void ModifySerialization(Action<SerializationSettings> action)
     {
-        if (!isCloned)
-        {
-            serialization = serialization.Clone();
-            isCloned = true;
-        }
+        CloneSettings();
 
         action(serialization);
-        serialization.RegenSettings();
+    }
+
+    void CloneSettings()
+    {
+        if (isCloned)
+        {
+            return;
+        }
+        serialization = new(serialization);
+        isCloned = true;
+    }
+
+    internal JsonSerializer Serializer
+    {
+        get { return serialization.Serializer; }
     }
 
     internal List<ToAppend> Appends = new();
@@ -58,13 +66,8 @@ public partial class VerifySettings
 
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
-        if (!isCloned)
-        {
-            serialization = serialization.Clone();
-            isCloned = true;
-        }
+        CloneSettings();
 
         serialization.AddExtraSettings(action);
-        serialization.RegenSettings();
     }
 }

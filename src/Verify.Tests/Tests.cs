@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-// Non-nullable field is uninitialized.
+﻿// Non-nullable field is uninitialized.
 #pragma warning disable CS8618
 
 [UsesVerify]
@@ -24,7 +23,7 @@ public class Tests
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooFew(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify("Value").UseParameters(1));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value").UseParameters(1));
         Assert.Equal("The number of passed in parameters (1) must match the number of parameters for the method (2).", exception.Message);
     }
 
@@ -32,7 +31,7 @@ public class Tests
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooMany(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify("Value").UseParameters(1, 2, 3));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value").UseParameters(1, 2, 3));
         Assert.Equal("The number of passed in parameters (3) must match the number of parameters for the method (2).", exception.Message);
     }
 
@@ -99,10 +98,10 @@ public class Tests
             {
                 if (filePair.Name.Contains("OnVerifyMismatch"))
                 {
-                    Assert.NotEmpty(filePair.Received);
-                    Assert.NotNull(filePair.Received);
-                    Assert.NotEmpty(filePair.Verified);
-                    Assert.NotNull(filePair.Verified);
+                    Assert.NotEmpty(filePair.ReceivedPath);
+                    Assert.NotNull(filePair.ReceivedPath);
+                    Assert.NotEmpty(filePair.VerifiedPath);
+                    Assert.NotNull(filePair.VerifiedPath);
                     onVerifyMismatchCalled = true;
                 }
 
@@ -125,8 +124,8 @@ public class Tests
             {
                 if (filePair.Name.Contains("OnFirstVerify"))
                 {
-                    Assert.NotEmpty(filePair.Received);
-                    Assert.NotNull(filePair.Received);
+                    Assert.NotEmpty(filePair.ReceivedPath);
+                    Assert.NotNull(filePair.ReceivedPath);
                     onFirstVerifyCalled = true;
                 }
 
@@ -304,6 +303,7 @@ public class Tests
         return Verify(new { target });
     }
 
+#if NET6_0
     [Fact]
     public async Task StringWithDifferingNewline()
     {
@@ -334,6 +334,7 @@ public class Tests
         PrefixUnique.Clear();
         await Verify("a\nb");
     }
+#endif
 
     [Fact]
     public Task Stream()
@@ -549,14 +550,14 @@ public class Tests
             .AppendValue("key", "value");
     }
 
-    #region GetFilePath
+#region GetFilePath
 
     string GetFilePath([CallerFilePath] string sourceFile = "")
     {
         return sourceFile;
     }
 
-    #endregion
+#endregion
 
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()

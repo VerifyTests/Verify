@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public static partial class VerifierSettings
 {

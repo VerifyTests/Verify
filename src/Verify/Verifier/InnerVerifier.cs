@@ -1,16 +1,17 @@
-﻿using VerifyTests;
-
-partial class InnerVerifier :
+﻿partial class InnerVerifier :
     IDisposable
 {
     VerifySettings settings;
+    string directory;
     internal GetFileNames GetFileNames { get; }
     internal GetIndexedFileNames GetIndexedFileNames { get; }
     internal List<string> VerifiedFiles { get; }
     internal List<string> ReceivedFiles { get; }
+    Counter counter;
 
     public InnerVerifier(string sourceFile, VerifySettings settings, GetFileConvention fileConvention)
     {
+        counter = Counter.Start();
         this.settings = settings;
 
         var uniqueness = PrefixUnique.GetUniqueness(settings.Namer);
@@ -24,9 +25,13 @@ partial class InnerVerifier :
         else
         {
             directory = Path.Combine(sourceFileDirectory, directory);
-            Directory.CreateDirectory(directory);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
+        this.directory = directory;
         var filePathPrefix = Path.Combine(directory, fileNamePrefix);
         ValidatePrefix(settings, filePathPrefix);
 
@@ -40,7 +45,13 @@ partial class InnerVerifier :
 
         foreach (var file in ReceivedFiles)
         {
-            File.Delete(file);
+            try
+            {
+                File.Delete(file);
+            }
+            catch
+            {
+            }
         }
 
         VerifierSettings.RunBeforeCallbacks();
@@ -59,5 +70,7 @@ partial class InnerVerifier :
     public void Dispose()
     {
         VerifierSettings.RunAfterCallbacks();
+
+        Counter.Stop();
     }
 }

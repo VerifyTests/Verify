@@ -1,6 +1,4 @@
-﻿using VerifyTests;
-
-class TypeConverter
+﻿class TypeConverter
 {
     public AsyncConversion Conversion { get; }
     public CanConvert CanConvert { get; }

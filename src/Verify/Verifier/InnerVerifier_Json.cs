@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using VerifyTests;
-
-partial class InnerVerifier
+﻿partial class InnerVerifier
 {
     static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
 

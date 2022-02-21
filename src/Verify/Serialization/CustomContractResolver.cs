@@ -6,7 +6,6 @@
     public CustomContractResolver(SerializationSettings settings)
     {
         this.settings = settings;
-        IgnoreSerializableInterface = true;
     }
 
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)

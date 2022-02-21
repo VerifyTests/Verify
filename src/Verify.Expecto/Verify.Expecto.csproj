@@ -10,7 +10,6 @@
     <Using Include="Expecto" />
     <Using Include="VerifyTests" />
     <Using Remove="System.Net.Http" />
-    <Using Include="Newtonsoft.Json.Serialization" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />

@@ -28,7 +28,7 @@
     {
         return new(path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
     }
-    
+
     public static long Length(string file)
     {
         return new FileInfo(file).Length;

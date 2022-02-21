@@ -95,7 +95,7 @@
         using var targetStream = OpenWrite(path);
         await stream.CopyToAsync(targetStream);
     }
-    
+
     public static async Task<string> ReadStringWithFixedLines(string path)
     {
         using var stream = OpenRead(path);

@@ -271,7 +271,7 @@ public partial class SerializationSettings
 
     bool IsIgnoredCollection(Type memberType)
     {
-        return ignoreEmptyCollections && 
+        return ignoreEmptyCollections &&
                memberType.IsCollectionOrDictionary();
     }
 }

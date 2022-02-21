@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Argon.Linq;
 
 namespace VerifyExpecto;
 

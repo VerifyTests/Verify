@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using Argon;
 
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618

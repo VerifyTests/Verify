@@ -1293,9 +1293,28 @@ The default mapping is:
         var converted = (XElement) target;
         return new(converted.ToString(), "xml");
     }
+},
+{
+    typeof(XmlDocument), (target, settings) =>
+    {
+        var xmlDocument = (XmlDocument) target;
+        var stringBuilder = new StringBuilder();
+        var writerSettings = new XmlWriterSettings
+        {
+            Indent = true,
+            IndentChars = "  ",
+            NewLineChars = "\r\n",
+            NewLineHandling = NewLineHandling.Replace
+        };
+        using (var writer = XmlWriter.Create(stringBuilder, writerSettings))
+        {
+            xmlDocument.Save(writer);
+        }
+        return new(stringBuilder.ToString(), "xml");
+    }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L57-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L57-L147' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

@@ -107,7 +107,7 @@
         {
             if (member.DeclaringType == typeof(ArgumentException))
             {
-                valueProvider = new ReflectionValueProvider(exceptionMessageField);
+                valueProvider = new ExpressionValueProvider(exceptionMessageField);
             }
         }
 

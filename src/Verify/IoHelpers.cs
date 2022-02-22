@@ -28,7 +28,7 @@
     {
         return new(path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
     }
-    
+
     public static long Length(string file)
     {
         return new FileInfo(file).Length;
@@ -95,7 +95,7 @@
         using var targetStream = OpenWrite(path);
         await stream.CopyToAsync(targetStream);
     }
-    
+
     public static async Task<string> ReadStringWithFixedLines(string path)
     {
         using var stream = OpenRead(path);

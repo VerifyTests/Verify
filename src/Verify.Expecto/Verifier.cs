@@ -31,7 +31,7 @@ public static partial class Verifier
             {
                 var directory = settings.Directory ?? Path.GetDirectoryName(sourceFile)!;
                 var fileName = Path.GetFileNameWithoutExtension(sourceFile);
-                return ($"{fileName}.{name}{uniqueness}", directory);
+                return ($"{fileName}.{name}{uniqueness}", $"{fileName}.{name}{uniqueness}", directory);
             });
     }
 

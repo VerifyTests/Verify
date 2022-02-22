@@ -1,6 +1,7 @@
 ﻿[UsesVerify]
 public class ComparerTests
 {
+#if NET6_0
     [Fact]
     public async Task Instance_with_message()
     {
@@ -10,6 +11,7 @@ public class ComparerTests
         var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify("NotTheText", settings));
         Assert.Contains("theMessage", exception.Message);
     }
+#endif
 
     [Fact]
     public async Task Instance()

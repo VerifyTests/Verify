@@ -85,10 +85,22 @@ public class SimpleTypeTests
     }
   }
 }";
-        var jToken = JToken.Parse(json);
+        var argonJToken = JToken.Parse(json);
+        yield return new object[] {argonJToken};
 
-        yield return new object[] {jToken};
+        var newtonsoftJToken = Newtonsoft.Json.Linq.JToken.Parse(json);
+        yield return new object[] {newtonsoftJToken};
 
+        var jsonArray = @"[
+  'Small',
+  'Medium',
+  'Large'
+]";
+
+        var argonJArray = JArray.Parse(jsonArray);
+        yield return new object[] {argonJArray};
+        var newtonsoftJArray = Newtonsoft.Json.Linq.JArray.Parse(jsonArray);
+        yield return new object[] {newtonsoftJArray};
         yield return new object[] {"theString"};
         yield return new object[] {true};
         yield return new object[] {(long) 1};

@@ -4,7 +4,10 @@ namespace VerifyTests;
 
 public partial class SerializationSettings
 {
-    static JArrayConverter jArrayConverter = new();
+    static ArgonJArrayConverter argonJArrayConverter = new();
+    static ArgonJObjectConverter argonJObjectConverter = new();
+    static NewtonsoftJArrayConverter newtonsoftJArrayConverter = new();
+    static NewtonsoftJObjectConverter newtonsoftJObjectConverter = new();
     static FileInfoConverter fileInfoConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
@@ -23,7 +26,6 @@ public partial class SerializationSettings
     static ClaimConverter claimConverter = new();
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
-    static JObjectConverter jObjectConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
 
     JsonSerializerSettings serializersettings;
@@ -135,8 +137,10 @@ public partial class SerializationSettings
         converters.Add(claimsIdentityConverter);
         converters.Add(claimsPrincipalConverter);
         converters.Add(new DictionaryConverter(ignoredByNameMembers));
-        converters.Add(jArrayConverter);
-        converters.Add(jObjectConverter);
+        converters.Add(argonJArrayConverter);
+        converters.Add(argonJObjectConverter);
+        converters.Add(newtonsoftJArrayConverter);
+        converters.Add(newtonsoftJObjectConverter);
         converters.Add(nameValueCollectionConverter);
         foreach (var extraSetting in extraSettings)
         {

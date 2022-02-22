@@ -1,4 +1,4 @@
-﻿class JObjectConverter :
+﻿class ArgonJObjectConverter :
     WriteOnlyJsonConverter<JObject>
 {
     public override void Write(VerifyJsonWriter writer, JObject value)

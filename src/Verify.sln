@@ -71,6 +71,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.ClipboardAccept", "V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.ClipboardAccept.Tests", "Verify.ClipboardAccept.Tests\Verify.ClipboardAccept.Tests.csproj", "{1E92BEB7-4455-49D4-9317-AF90B97684CD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NamingTests", "Naming\NamingTests.csproj", "{1868CA7C-CD2C-488F-9E52-0BB895E5DB18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +235,11 @@ Global
 		{1E92BEB7-4455-49D4-9317-AF90B97684CD}.DebugNet6|Any CPU.Build.0 = DebugNet6|Any CPU
 		{1E92BEB7-4455-49D4-9317-AF90B97684CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E92BEB7-4455-49D4-9317-AF90B97684CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1868CA7C-CD2C-488F-9E52-0BB895E5DB18}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{1868CA7C-CD2C-488F-9E52-0BB895E5DB18}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{1868CA7C-CD2C-488F-9E52-0BB895E5DB18}.DebugNet6|Any CPU.ActiveCfg = DebugNet6|Any CPU
+		{1868CA7C-CD2C-488F-9E52-0BB895E5DB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1868CA7C-CD2C-488F-9E52-0BB895E5DB18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

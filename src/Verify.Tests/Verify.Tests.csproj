@@ -13,9 +13,9 @@
     <Using Include="Newtonsoft.Json.Serialization" />
     <Using Include="Newtonsoft.Json.Linq" />
     <Using Include="Newtonsoft.Json.Converters" />
-    <PackageReference Include="InfoOf.Fody" Version="2.1.0" />
+    <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.3.0" PrivateAssets="all" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" Condition="$(TargetFramework) == 'net6'" />
     <PackageReference Include="Xunit" Version="2.4.1" />

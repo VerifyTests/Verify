@@ -364,4 +364,35 @@ public class NamerTests
         return Verify("Foo")
             .UniqueForOSPlatform();
     }
+
+    #region IgnoreParametersForVerified
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public async Task IgnoreParametersForVerified(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified(arg);
+        await Verify("value", settings);
+    }
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public async Task IgnoreParametersForVerifiedFluent(string arg)
+    {
+        await Verify("value")
+            .IgnoreParametersForVerified(arg);
+    }
+
+    #endregion
+
+    [Fact]
+    public async Task IgnoreParametersForVerified()
+    {
+        // note that this test 'generates' the same verified and received filenames as the parameterized method 
+        var settings = new VerifySettings();
+        await Verify("value", settings);
+    }
 }

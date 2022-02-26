@@ -21,4 +21,16 @@ public partial class VerifySettings
 
         this.parameters = parameters;
     }
+
+    internal bool ignoreParametersForVerified = false;
+
+    /// <summary>
+    /// Ignore parameters in 'verified' filename resulting in the same verified file for each testcase.
+    /// Note that the 'received' files contain the parameters.
+    /// </summary>
+    public void IgnoreParametersForVerified(params object?[] parameters)
+    {
+        UseParameters(parameters);
+        ignoreParametersForVerified = true;
+    }
 }

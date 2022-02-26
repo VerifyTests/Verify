@@ -315,3 +315,44 @@ Results in:
  * TheTest.UseTextForParameters_Value2.verified.txt
  * TheTest.UseTextForParametersFluent_Value1.verified.txt
  * TheTest.UseTextForParametersFluent_Value2.verified.txt
+
+ ## Ignore parameters for verified filename
+
+By default, every parameterised case has a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overriden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
+
+<!-- snippet: IgnoreParametersForVerified -->
+<a id='snippet-ignoreparametersforverified'></a>
+```cs
+[Theory]
+[InlineData("One")]
+[InlineData("Two")]
+public async Task IgnoreParametersForVerified(string arg)
+{
+    var settings = new VerifySettings();
+    settings.IgnoreParametersForVerified(arg);
+    await Verify("value", settings);
+}
+
+[Theory]
+[InlineData("One")]
+[InlineData("Two")]
+public async Task IgnoreParametersForVerifiedFluent(string arg)
+{
+    await Verify("value")
+        .IgnoreParametersForVerified(arg);
+}
+```
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L368-L389' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Results in:
+
+* NamerTests.IgnoreParametersForVerified_arg=One.received.txt
+* NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
+* NamerTests.IgnoreParametersForVerified.verified.txt
+
+And for the second test:
+
+* NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
+* NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
+* NamerTests.IgnoreParametersForVerifiedFluent.verified.txt

@@ -1,1 +1,1 @@
-﻿internal delegate (string fileNamePrefix, string? directory) GetFileConvention(string uniqueness);
+﻿internal delegate (string receivedFileNamePrefix, string verifiedFileNamePrefix, string? directory) GetFileConvention(string uniqueness);

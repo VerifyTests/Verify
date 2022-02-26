@@ -58,6 +58,16 @@ public class SettingsTask
     }
 
     /// <summary>
+    /// Ignore parameters in 'verified' filename resulting in the same verified file for each testcase.
+    /// Note that the 'received' files contain the parameters.
+    /// </summary>
+    public SettingsTask IgnoreParametersForVerified(params object?[] parameters)
+    {
+        CurrentSettings.IgnoreParametersForVerified(parameters);
+        return this;
+    }
+
+    /// <summary>
     /// Define the parameter values being used by a parameterised (aka data drive) test.
     /// In most cases the parameter parameter values can be automatically resolved.
     /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>

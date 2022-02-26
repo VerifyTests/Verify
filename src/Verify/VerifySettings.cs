@@ -23,6 +23,7 @@ public partial class VerifySettings
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
         parameters = settings.parameters;
+        ignoreParametersForVerified = settings.ignoreParametersForVerified;
         parametersText = settings.parametersText;
         fileName = settings.fileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;

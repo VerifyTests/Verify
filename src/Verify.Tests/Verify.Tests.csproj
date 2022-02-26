@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;net472</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net6;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="$(Configuration) == 'DebugNet6'">net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <TargetFrameworks>net461;net48;net6;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="Newtonsoft.Json" />

@@ -13,7 +13,7 @@
     <Using Include="Newtonsoft.Json.Linq" />
     <Using Include="Newtonsoft.Json.Converters" />
     <Using Include="SimpleInfoName" />
-    <PackageReference Include="DiffEngine" Version="9.0.3" />
+    <PackageReference Include="DiffEngine" Version="9.0.4" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

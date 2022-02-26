@@ -391,7 +391,7 @@ public class NamerTests
     [Fact]
     public async Task IgnoreParametersForVerified()
     {
-        // note that this test 'generates' the same verified and received filenames as the parameterized method 
+        // note that this test 'generates' the same verified and received filenames as the parameterized method
         var settings = new VerifySettings();
         await Verify("value", settings);
     }

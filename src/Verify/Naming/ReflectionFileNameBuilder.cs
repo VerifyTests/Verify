@@ -9,16 +9,16 @@
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
 
-        var (filenamePrefixWithParameters, filenamePrefixWithoutParameters) = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
-        
-        var receivedFileNamePrefix = filenamePrefixWithParameters;
-        var verifiedFileNamePrefix = settings.ignoreParametersForVerified ? filenamePrefixWithoutParameters : filenamePrefixWithParameters;
+        var (prefixWithParameters, prefixWithoutParameters) = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
+
+        var receivedFilePrefix = prefixWithParameters;
+        var verifiedFilePrefix = settings.ignoreParametersForVerified ? prefixWithoutParameters : prefixWithParameters;
 
         var directory = settings.Directory ?? pathInfo.Directory;
-        return (receivedFileNamePrefix, verifiedFileNamePrefix, directory);
+        return (receivedFilePrefix, verifiedFilePrefix, directory);
     }
 
-    static (string filenamePrefixWithParameters, string filenamePrefixWithoutParameters) GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
+    static (string prefixWithParameters, string prefixWithoutParameters) GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
     {
         if (settings.fileName is not null)
         {

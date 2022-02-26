@@ -11,7 +11,7 @@ public readonly struct FilePair
     public string Name { get; }
     public bool IsText { get; }
 
-    public FilePair(string extension, string prefix) 
+    public FilePair(string extension, string prefix)
         : this (extension, prefix, prefix)
     {
     }

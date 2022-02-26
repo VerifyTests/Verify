@@ -9,15 +9,10 @@
     {
         if (appends.Any())
         {
-            var dictionary = new DictionaryWrapper<string, object>();
-            if (input is null)
+            var dictionary = new DictionaryWrapper<string, object>
             {
-                dictionary.Add("target", "null");
-            }
-            else
-            {
-                dictionary.Add("target", input);
-            }
+                {"target", input ?? "null"}
+            };
 
             input = dictionary;
             foreach (var append in appends)

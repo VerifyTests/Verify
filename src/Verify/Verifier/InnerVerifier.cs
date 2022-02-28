@@ -15,7 +15,7 @@
         this.settings = settings;
 
         var uniqueness = PrefixUnique.GetUniqueness(settings.Namer);
-        var (fileNamePrefix, directory) = fileConvention(uniqueness);
+        var (receivedFileNamePrefix, verifiedFileNamePrefix, directory) = fileConvention(uniqueness);
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
         if (directory is null)
@@ -32,16 +32,18 @@
         }
 
         this.directory = directory;
-        var filePathPrefix = Path.Combine(directory, fileNamePrefix);
-        ValidatePrefix(settings, filePathPrefix);
+        var filePathPrefixReceived = Path.Combine(directory, receivedFileNamePrefix);
+        var filePathPrefixVerified = Path.Combine(directory, verifiedFileNamePrefix);
+        ValidatePrefix(settings, filePathPrefixReceived); // intentionally do not validate filePathPrefixVerified
 
-        var pattern = $"{fileNamePrefix}.*.*";
-        var files = Directory.EnumerateFiles(directory, pattern).ToList();
-        VerifiedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".verified").ToList();
-        ReceivedFiles = MatchingFileFinder.Find(files, fileNamePrefix, ".received").ToList();
+        var filesReceived = Directory.EnumerateFiles(directory, $"{receivedFileNamePrefix}.*.*").ToList();
+        var filesVerified = Directory.EnumerateFiles(directory, $"{verifiedFileNamePrefix}.*.*").ToList();
 
-        GetFileNames = extension => new(extension, filePathPrefix);
-        GetIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefix}.{index:D2}");
+        ReceivedFiles = MatchingFileFinder.Find(filesReceived, receivedFileNamePrefix, ".received").ToList();
+        VerifiedFiles = MatchingFileFinder.Find(filesReceived, verifiedFileNamePrefix, ".verified").ToList();
+
+        GetFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
+        GetIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
 
         foreach (var file in ReceivedFiles)
         {

@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(Configuration) == 'DebugNet6'">net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
-    <PackageReference Include="DiffEngine" Version="9.0.0" />
+    <PackageReference Include="DiffEngine" Version="9.0.4" />
     <PackageReference Include="TextCopy" Version="6.1.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

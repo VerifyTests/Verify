@@ -1,6 +1,6 @@
 ﻿class ReflectionFileNameBuilder
 {
-    public static (string fileNamePrefix, string? directory) FileNamePrefix(
+    public static (string receivedFileNamePrefix, string verifiedFileNamePrefix, string? directory) FileNamePrefix(
         MethodInfo method,
         Type type,
         string sourceFile,
@@ -9,16 +9,21 @@
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
 
-        var fileNamePrefix = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
+        var (prefixWithParameters, prefixWithoutParameters) = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
+
+        var receivedFilePrefix = prefixWithParameters;
+        var verifiedFilePrefix = settings.ignoreParametersForVerified ? prefixWithoutParameters : prefixWithParameters;
+
         var directory = settings.Directory ?? pathInfo.Directory;
-        return (fileNamePrefix, directory);
+        return (receivedFilePrefix, verifiedFilePrefix, directory);
     }
 
-    static string GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
+    static (string prefixWithParameters, string prefixWithoutParameters) GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
     {
         if (settings.fileName is not null)
         {
-            return settings.fileName + uniqueness;
+            var filename = settings.fileName + uniqueness;
+            return (filename, filename);
         }
 
         var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
@@ -26,7 +31,9 @@
 
         var parameterText = GetParameterText(method, settings);
 
-        return $"{typeName}.{methodName}{parameterText}{uniqueness}";
+        var withParameters = $"{typeName}.{methodName}{parameterText}{uniqueness}";
+        var withoutParameters = $"{typeName}.{methodName}{uniqueness}";
+        return (withParameters, withoutParameters);
     }
 
     static string GetParameterText(MethodInfo method, VerifySettings settings)

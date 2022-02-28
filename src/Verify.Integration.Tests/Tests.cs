@@ -109,12 +109,18 @@ Commands:
 
     static void AssertExists(string file)
     {
-        Assert.True(File.Exists(file));
+        if (!File.Exists(file))
+        {
+            throw new($"Expected file to exist: {file}");
+        }
     }
 
     static void AssertNotExists(string file)
     {
-        Assert.False(File.Exists(file));
+        if (File.Exists(file))
+        {
+            throw new($"Expected file to not exist: {file}");
+        }
     }
 
     static Task<VerifyException> Throws(Func<Task> testCode)

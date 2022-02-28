@@ -12,14 +12,18 @@ public readonly struct FilePair
     public bool IsText { get; }
 
     public FilePair(string extension, string prefix)
+        : this (extension, prefix, prefix)
+    {
+    }
+
+    public FilePair(string extension, string prefixReceived, string prefixVerified)
     {
         Extension = extension;
-        Name = Path.GetFileName(prefix);
-        ReceivedPath = $"{prefix}.received.{extension}";
-        VerifiedPath = $"{prefix}.verified.{extension}";
+        Name = Path.GetFileName(prefixReceived);
+        ReceivedPath = $"{prefixReceived}.received.{extension}";
+        VerifiedPath = $"{prefixVerified}.verified.{extension}";
         ReceivedName = Path.GetFileName(ReceivedPath);
         VerifiedName = Path.GetFileName(VerifiedPath);
         IsText = EmptyFiles.Extensions.IsText(extension);
     }
-
 }

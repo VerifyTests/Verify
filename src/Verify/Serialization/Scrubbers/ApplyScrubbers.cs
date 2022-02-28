@@ -81,8 +81,6 @@ static class ApplyScrubbers
         }
 
         var altSolutionDir = solutionDir.ReplaceAltDirChar();
-        var altSolutionDirTrimmed = altSolutionDir.TrimEnd('/', '\\');
-        var solutionDirectoryTrimmed = solutionDir.TrimEnd('/', '\\');
 
         replacements[projectDir] = "{ProjectDirectory}";
         replacements[projectDirTrimmed] = "{ProjectDirectory}";
@@ -90,9 +88,18 @@ static class ApplyScrubbers
         replacements[altProjectDirTrimmed] = "{ProjectDirectory}";
 
         replacements[solutionDir] = "{SolutionDirectory}";
-        replacements[solutionDirectoryTrimmed] = "{SolutionDirectory}";
+        if (solutionDir.Length > 1)
+        {
+            var solutionDirectoryTrimmed = solutionDir.TrimEnd('/', '\\');
+            replacements[solutionDirectoryTrimmed] = "{SolutionDirectory}";
+        }
+
         replacements[altSolutionDir] = "{SolutionDirectory}";
-        replacements[altSolutionDirTrimmed] = "{SolutionDirectory}";
+        if (solutionDir.Length > 1)
+        {
+            var altSolutionDirTrimmed = altSolutionDir.TrimEnd('/', '\\');
+            replacements[altSolutionDirTrimmed] = "{SolutionDirectory}";
+        }
     }
 
     public static void Apply(string extension, StringBuilder target, VerifySettings settings)

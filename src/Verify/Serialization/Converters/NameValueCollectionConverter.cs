@@ -8,15 +8,7 @@
         {
             var value = collection.Get(key);
 
-            string? notNullKey;
-            if (key is null)
-            {
-                notNullKey = "null";
-            }
-            else
-            {
-                notNullKey = key;
-            }
+            var notNullKey = key ?? "null";
 
             value ??= "null";
 

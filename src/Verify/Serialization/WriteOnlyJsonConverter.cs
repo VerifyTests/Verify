@@ -7,14 +7,9 @@ public abstract class WriteOnlyJsonConverter :
 
     public sealed override void WriteJson(
         JsonWriter writer,
-        object? value,
+        object value,
         JsonSerializer serializer)
     {
-        if (value is null)
-        {
-            return;
-        }
-
         Write((VerifyJsonWriter)writer, value);
     }
 

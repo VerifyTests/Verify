@@ -10,7 +10,7 @@
     <Using Include="NUnit.Framework" />
     <Using Include="NUnit.Framework.Internal" />
     <Using Include="VerifyTests" />
-    <Using Include="Argon.Linq" />
+    <Using Include="Argon" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />

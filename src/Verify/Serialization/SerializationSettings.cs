@@ -152,7 +152,7 @@ public partial class SerializationSettings
 
     static void ValidateSettings(JsonSerializerSettings settings)
     {
-        if (settings.DateFormatHandling != DateFormatHandling.IsoDateFormat)
+        if (settings.DateFormatHandling != null)
         {
             throw new("Custom DateFormatHandling is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
         }
@@ -162,7 +162,7 @@ public partial class SerializationSettings
             throw new("Custom DateFormatString is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
         }
 
-        if (settings.DateTimeZoneHandling != DateTimeZoneHandling.RoundtripKind)
+        if (settings.DateTimeZoneHandling != null)
         {
             throw new("Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
         }

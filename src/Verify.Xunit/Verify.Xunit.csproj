@@ -9,7 +9,7 @@
     <Using Include="Xunit" />
     <Using Include="Xunit.Sdk" />
     <Using Include="VerifyTests" />
-    <Using Include="Argon.Linq" />
+    <Using Include="Argon" />
     <PackageReference Include="xunit.assert" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />

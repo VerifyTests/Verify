@@ -114,7 +114,8 @@ public class ExtensionConverterTests
         var target = new ClassWithConflictingExtension();
         return ThrowsTask(() => Verify(target)
                 .UseExtension("conflictingextension"))
-            .UseMethodName("WithConflictingExtensionOuter");
+            .UseMethodName("WithConflictingExtensionOuter")
+            .IgnoreStackTrack();
     }
 
     public class ClassWithConflictingExtension

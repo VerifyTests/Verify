@@ -1,7 +1,4 @@
 ﻿{
   Type: Exception,
-  Message: The current target 'ClassWithConflictingExtension' already has a type converter. Applying an extension converter is not supported. This can most likely be fixed by removing `.UseExtension("conflictingextension");`,
-  StackTrace:
-at InnerVerifier.Verify[T](T target)
---- End of stack trace from previous location ---
+  Message: The current target 'ClassWithConflictingExtension' already has a type converter. Applying an extension converter is not supported. This can most likely be fixed by removing `.UseExtension("conflictingextension");`
 }

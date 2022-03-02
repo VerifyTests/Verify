@@ -23,7 +23,7 @@
         if (receivedStream.CanSeek &&
             IoHelpers.Length(file.VerifiedPath) != receivedStream.Length)
         {
-            return new(Equality.NotEqual, null,null,null);
+            return new(Equality.NotEqual, null, null, null);
         }
 
         return await InnerCompare(file, receivedStream, StreamComparer.AreEqual);

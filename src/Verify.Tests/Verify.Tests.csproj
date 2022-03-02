@@ -24,13 +24,16 @@
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <None Update="sample.*">
+    <None Update="sample*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Binary*.*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Folder Include="Naming\CustomDirectory\" />
+    <None Update="sample2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

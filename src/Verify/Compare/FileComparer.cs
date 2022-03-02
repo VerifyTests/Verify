@@ -23,6 +23,7 @@
         if (receivedStream.CanSeek &&
             IoHelpers.Length(file.VerifiedPath) != receivedStream.Length)
         {
+            await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return new(Equality.NotEqual, null, null, null);
         }
 

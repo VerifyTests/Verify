@@ -11,7 +11,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.71" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.NUnit\Verify.NUnit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

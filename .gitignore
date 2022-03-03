@@ -1,7 +1,5 @@
 .vs
 
-*.DotSettings
-
 Nugets/
 
 [Bb]in

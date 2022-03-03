@@ -174,7 +174,7 @@ public partial class SerializationSettings
             return true;
         }
 
-        var typeFromNullable= Nullable.GetUnderlyingType(memberType);
+        var typeFromNullable = Nullable.GetUnderlyingType(memberType);
 
         if (typeFromNullable != null)
         {

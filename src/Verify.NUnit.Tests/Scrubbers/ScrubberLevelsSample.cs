@@ -32,4 +32,5 @@ public class ScrubberLevelsSample
         VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
     }
 }
+
 #endregion

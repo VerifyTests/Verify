@@ -2,12 +2,9 @@
 {
     public static MemberInfo FindMember<T, TMember>(this Expression<Func<T, TMember>> expression)
     {
-        if (expression.Body is UnaryExpression unary)
+        if (expression.Body is UnaryExpression {Operand: MemberExpression unaryMember})
         {
-            if (unary.Operand is MemberExpression unaryMember)
-            {
-                return unaryMember.Member;
-            }
+            return unaryMember.Member;
         }
 
         if (expression.Body is MemberExpression member)

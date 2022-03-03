@@ -1,4 +1,5 @@
 ﻿module PROJECT_NAME
+
 open Expecto
 
 [<EntryPoint>]

@@ -1,6 +1,7 @@
 ﻿namespace Changed;
 
 #region ClassBeingTestedChanged
+
 public static class ClassBeingTested
 {
     public static Person FindPerson()
@@ -27,4 +28,5 @@ public static class ClassBeingTested
         };
     }
 }
+
 #endregion

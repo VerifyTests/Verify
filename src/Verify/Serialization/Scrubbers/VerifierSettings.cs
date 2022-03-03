@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder>> GlobalScrubbers= new();
+    internal static List<Action<StringBuilder>> GlobalScrubbers = new();
 
     static VerifierSettings()
     {
@@ -33,7 +33,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public static void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
     {
@@ -41,7 +41,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Remove any lines matching <paramref name="removeLine"/> from the test results.
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public static void ScrubLines(Func<string, bool> removeLine)
     {
@@ -57,8 +57,8 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Replace inline <see cref="Guid"/>s with a placeholder.
-    /// Uses a <see cref="Regex"/> to find <see cref="Guid"/>s inside strings.
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public static void ScrubInlineGuids()
     {
@@ -67,7 +67,7 @@ public static partial class VerifierSettings
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
     /// </summary>
     public static void ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
@@ -75,7 +75,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public static void ScrubLinesContaining(params string[] stringToMatch)
     {
@@ -83,7 +83,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Remove the <see cref="Environment.MachineName"/> from the test results.
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     public static void ScrubMachineName()
     {

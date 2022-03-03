@@ -65,7 +65,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             VerifierSettings.SharedNamer.UniqueForTargetFramework)
         {
             var assembly = namer.UniqueForTargetFrameworkAssembly ??
-                         VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+                           VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
 
             if (assembly == null)
             {

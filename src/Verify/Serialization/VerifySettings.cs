@@ -18,14 +18,12 @@ public partial class VerifySettings
         {
             return;
         }
+
         serialization = new(serialization);
         isCloned = true;
     }
 
-    internal JsonSerializer Serializer
-    {
-        get { return serialization.Serializer; }
-    }
+    internal JsonSerializer Serializer => serialization.Serializer;
 
     internal List<ToAppend> Appends = new();
 

@@ -122,7 +122,7 @@ public class ExtensionConverterTests
     static void AsserFileExists([CallerFilePath] string sourceFile = "")
     {
         var directory = Path.GetDirectoryName(sourceFile)!;
-        var file = Path.Combine(directory,"ExtensionConverterTests.WithInfoAndModifiedBinary.01.received.png");
+        var file = Path.Combine(directory, "ExtensionConverterTests.WithInfoAndModifiedBinary.01.received.png");
         Assert.True(File.Exists(file));
     }
 

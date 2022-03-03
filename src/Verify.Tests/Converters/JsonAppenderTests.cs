@@ -7,6 +7,7 @@ public class JsonAppenderTests : IDisposable
     public static void Initialize()
     {
         #region RegisterJsonAppender
+
         VerifierSettings.RegisterJsonAppender(
             context =>
             {
@@ -17,6 +18,7 @@ public class JsonAppenderTests : IDisposable
 
                 return null;
             });
+
         #endregion
     }
 
@@ -70,11 +72,13 @@ public class JsonAppenderTests : IDisposable
     }
 
     #region JsonAppenderStream
+
     [Fact]
     public Task Stream()
     {
         return Verify(IoHelpers.OpenRead("sample.txt"));
     }
+
     #endregion
 
     [Fact]

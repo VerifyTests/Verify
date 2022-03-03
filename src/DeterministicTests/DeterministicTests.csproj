@@ -7,21 +7,21 @@
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="Xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.71" PrivateAssets="all" />
-    <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
-    <ProjectReference Include="..\Verify\Verify.csproj" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
+    <PackageReference Include="Xunit" Version="2.4.1"/>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3"/>
+    <PackageReference Include="ProjectDefaults" Version="1.0.71" PrivateAssets="all"/>
+    <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj"/>
+    <ProjectReference Include="..\Verify\Verify.csproj"/>
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
-  <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props"/>
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets"/>
+  <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props"/>
   <!--Work around: https://github.com/dotnet/sdk/issues/21006-->
   <Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
     <ItemGroup>
-      <Analyzer Remove="@(Analyzer)" />
+      <Analyzer Remove="@(Analyzer)"/>
     </ItemGroup>
   </Target>
 </Project>

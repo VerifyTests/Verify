@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+// ReSharper disable RedundantSuppressNullableWarningExpression
 
 static class ApplyScrubbers
 {
@@ -65,6 +66,7 @@ static class ApplyScrubbers
         {
             return;
         }
+
         var altProjectDir = projectDir.ReplaceAltDirChar();
         var altProjectDirTrimmed = altProjectDir.TrimEnd('/', '\\');
         var projectDirTrimmed = projectDir.TrimEnd('/', '\\');

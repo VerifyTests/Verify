@@ -22,6 +22,5 @@
         return inner
             .OrderBy(pair => pair.Key, compare)
             .ToDictionary(x => x.Key, x => x.Value);
-
     }
 }

@@ -24,17 +24,17 @@
         <_Parameter2>$(SolutionDir)</_Parameter2>
       </Attributes>
       <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
-      <Compile Remove="$(AttributesFilePath)" />
+      <Compile Remove="$(AttributesFilePath)"/>
     </ItemGroup>
     <WriteCodeFragment AssemblyAttributes="@(Attributes)"
                        Language="$(Language)"
                        OutputFile="$(AttributesFilePath)">
-      <Output TaskParameter="OutputFile" ItemName="Compile" Condition="$(Language) != 'F#'" />
-      <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="$(Language) == 'F#'" />
-      <Output TaskParameter="OutputFile" ItemName="FileWrites" />
+      <Output TaskParameter="OutputFile" ItemName="Compile" Condition="$(Language) != 'F#'"/>
+      <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="$(Language) == 'F#'"/>
+      <Output TaskParameter="OutputFile" ItemName="FileWrites"/>
     </WriteCodeFragment>
   </Target>
   <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or $(ImplicitUsings) == 'true')">
-    <Using Include="VerifyTests" />
+    <Using Include="VerifyTests"/>
   </ItemGroup>
 </Project>

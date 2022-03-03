@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 #region SortProperties
+
 static class ModuleInitializer
 {
     [ModuleInitializer]
@@ -9,12 +10,14 @@ static class ModuleInitializer
         VerifierSettings.SortPropertiesAlphabetically();
     }
 }
+
 #endregion
 
 [UsesVerify]
 public class SortedPropertiesTests
 {
     #region SortPropertiesUsage
+
     [Fact]
     public Task Alphabetically()
     {
@@ -25,7 +28,7 @@ public class SortedPropertiesTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -35,6 +38,7 @@ public class SortedPropertiesTests
 
         return Verify(person);
     }
+
     #endregion
 
     [Fact]
@@ -47,7 +51,7 @@ public class SortedPropertiesTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() { "Sam", "Mary" },
+            Children = new() {"Sam", "Mary"},
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -57,7 +61,10 @@ public class SortedPropertiesTests
 
         return Verify(person)
             .AddExtraSettings(
-                _ => { _.TypeNameHandling = TypeNameHandling.All; });
+                _ =>
+                {
+                    _.TypeNameHandling = TypeNameHandling.All;
+                });
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿// Non-nullable field is uninitialized.
+
 #pragma warning disable CS8618
 
 [UsesVerify]
@@ -55,7 +56,7 @@ public class Tests
     [Fact]
     public Task WithNewline()
     {
-        return Verify(new { Property = "F\roo" });
+        return Verify(new {Property = "F\roo"});
     }
 
     [ModuleInitializer]
@@ -68,7 +69,7 @@ public class Tests
     [Fact]
     public Task TreatAsString()
     {
-        return Verify(new ClassWithToString { Property = "Foo" });
+        return Verify(new ClassWithToString {Property = "Foo"});
     }
 
     class ClassWithToString
@@ -159,7 +160,7 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verify(new MemoryStream(new byte[] { 1 }), settings)
+        await Verify(new MemoryStream(new byte[] {1}), settings)
             .UseExtension("SettingsArePassed");
     }
 
@@ -284,7 +285,7 @@ public class Tests
     [Fact]
     public Task NestedStringBuilder()
     {
-        return Verify(new { StringBuilder = new StringBuilder("value") });
+        return Verify(new {StringBuilder = new StringBuilder("value")});
     }
 
     [Fact]
@@ -300,7 +301,7 @@ public class Tests
     {
         var target = new StringWriter();
         target.Write("content");
-        return Verify(new { target });
+        return Verify(new {target});
     }
 
 #if NET6_0
@@ -339,7 +340,7 @@ public class Tests
     [Fact]
     public Task Stream()
     {
-        return Verify(new MemoryStream(new byte[] { 1 }));
+        return Verify(new MemoryStream(new byte[] {1}));
     }
 
     [Fact]
@@ -364,8 +365,8 @@ public class Tests
         return Verify(
             new List<Stream>
             {
-                new MemoryStream(new byte[] { 1 }),
-                new MemoryStream(new byte[] { 2 })
+                new MemoryStream(new byte[] {1}),
+                new MemoryStream(new byte[] {2})
             });
     }
 
@@ -375,7 +376,7 @@ public class Tests
         return Verify(
             new List<Stream?>
             {
-                new MemoryStream(new byte[] { 1 }),
+                new MemoryStream(new byte[] {1}),
                 null
             });
     }
@@ -550,14 +551,14 @@ public class Tests
             .AppendValue("key", "value");
     }
 
-#region GetFilePath
+    #region GetFilePath
 
     string GetFilePath([CallerFilePath] string sourceFile = "")
     {
         return sourceFile;
     }
 
-#endregion
+    #endregion
 
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()

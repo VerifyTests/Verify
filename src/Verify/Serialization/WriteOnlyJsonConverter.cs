@@ -15,7 +15,7 @@ public abstract class WriteOnlyJsonConverter :
             return;
         }
 
-        Write((VerifyJsonWriter)writer, value);
+        Write((VerifyJsonWriter) writer, value);
     }
 
     public abstract void Write(VerifyJsonWriter writer, object value);

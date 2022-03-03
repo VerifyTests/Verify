@@ -1,4 +1,6 @@
-﻿class DelegateConverter :
+﻿// ReSharper disable RedundantSuppressNullableWarningExpression
+
+class DelegateConverter :
     WriteOnlyJsonConverter<Delegate>
 {
     public override void Write(VerifyJsonWriter writer, Delegate @delegate)

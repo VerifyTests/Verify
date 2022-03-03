@@ -23,7 +23,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Retrieves the value passed into <see cref="UseExtension"/>, if it exists.
+    /// Retrieves the value passed into <see cref="UseExtension" />, if it exists.
     /// </summary>
     public bool TryGetExtension([NotNullWhen(true)] out string? extension)
     {
@@ -70,8 +70,8 @@ public class SettingsTask
     /// <summary>
     /// Define the parameter values being used by a parameterised (aka data drive) test.
     /// In most cases the parameter parameter values can be automatically resolved.
-    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
-    /// Not compatible with <see cref="UseTextForParameters"/>.
+    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
+    /// Not compatible with <see cref="UseTextForParameters" />.
     /// </summary>
     public SettingsTask UseParameters(params object?[] parameters)
     {
@@ -98,8 +98,8 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Replace inline <see cref="Guid"/>s with a placeholder.
-    /// Uses a <see cref="Regex"/> to find <see cref="Guid"/>s inside strings.
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public SettingsTask ScrubInlineGuids()
     {
@@ -169,7 +169,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Use <paramref name="assembly"/> TargetFrameworkAttribute to make the test results unique.
+    /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
     public SettingsTask UniqueForTargetFramework(Assembly assembly)
@@ -179,7 +179,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Use the <paramref name="assembly"/> TargetFrameworkAttribute name and version to make the test results unique.
+    /// Use the <paramref name="assembly" /> TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
     public SettingsTask UniqueForTargetFrameworkAndVersion(Assembly assembly)
@@ -189,7 +189,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Use the <paramref name="assembly"/> configuration (debug/release) to make the test results unique.
+    /// Use the <paramref name="assembly" /> configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
     public SettingsTask UniqueForAssemblyConfiguration(Assembly assembly)
@@ -211,7 +211,7 @@ public class SettingsTask
     /// Use a custom method name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
     /// </summary>
-    /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
+    /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public SettingsTask UseMethodName(string name)
     {
         CurrentSettings.UseMethodName(name);
@@ -232,7 +232,7 @@ public class SettingsTask
     /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
     /// </summary>
-    /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
+    /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
     public SettingsTask UseFileName(string fileName)
     {
         CurrentSettings.UseFileName(fileName);
@@ -243,7 +243,7 @@ public class SettingsTask
     /// Use a custom class name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
     /// </summary>
-    /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
+    /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public SettingsTask UseTypeName(string name)
     {
         CurrentSettings.UseTypeName(name);
@@ -281,7 +281,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Remove the <see cref="Environment.MachineName"/> from the test results.
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     public SettingsTask ScrubMachineName()
     {
@@ -290,7 +290,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
     {
@@ -299,7 +299,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Remove any lines matching <paramref name="removeLine"/> from the test results.
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public SettingsTask ScrubLines(Func<string, bool> removeLine)
     {
@@ -309,7 +309,7 @@ public class SettingsTask
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
     /// </summary>
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
@@ -327,7 +327,7 @@ public class SettingsTask
     }
 
     /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public SettingsTask ScrubLinesContaining(params string[] stringToMatch)
     {
@@ -358,7 +358,7 @@ public class SettingsTask
 
     /// <summary>
     /// Use a custom text for the `Parameters` part of the file name.
-    /// Not compatible with <see cref="UseParameters"/>.
+    /// Not compatible with <see cref="UseParameters" />.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     public SettingsTask UseTextForParameters(string parametersText)
@@ -377,10 +377,7 @@ public class SettingsTask
         return this;
     }
 
-    public VerifySettings CurrentSettings
-    {
-        get => settings ??= new();
-    }
+    public VerifySettings CurrentSettings => settings ??= new();
 
     public Task ToTask()
     {

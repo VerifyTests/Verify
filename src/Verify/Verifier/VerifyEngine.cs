@@ -83,10 +83,10 @@ class VerifyEngine
         switch (result.Equality)
         {
             case Equality.New:
-                AddMissing(new NewResult(file, result.ReceivedText));
+                AddMissing(new(file, result.ReceivedText));
                 break;
             case Equality.NotEqual:
-                AddNotEquals(new NotEqualResult(file, result.Message, result.ReceivedText, result.VerifiedText));
+                AddNotEquals(new(file, result.Message, result.ReceivedText, result.VerifiedText));
                 break;
             case Equality.Equal:
                 AddEquals(file);

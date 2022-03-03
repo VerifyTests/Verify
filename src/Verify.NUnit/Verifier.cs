@@ -21,7 +21,7 @@ public static partial class Verifier
         Guard.AgainstBadSourceFile(sourceFile);
         var context = TestContext.CurrentContext;
         var adapter = context.Test;
-        var test = (Test)field.GetValue(adapter)!;
+        var test = (Test) field.GetValue(adapter)!;
         if (test.TypeInfo == null || test.Method is null)
         {
             throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");

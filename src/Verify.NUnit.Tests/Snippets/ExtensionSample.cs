@@ -1,4 +1,5 @@
 ﻿#region NUnitExtensionSample
+
 [TestFixture]
 public class ExtensionSample
 {
@@ -52,4 +53,5 @@ public class ExtensionSample
             settings: classLevelSettings);
     }
 }
+
 #endregion

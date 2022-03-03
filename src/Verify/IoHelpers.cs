@@ -50,7 +50,6 @@
     }
 
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
-
     public static Task WriteText(string path, string text)
     {
         return File.WriteAllTextAsync(path, text, Utf8);

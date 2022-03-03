@@ -41,7 +41,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Use <paramref name="assembly"/> TargetFrameworkAttribute to make the test results unique.
+    /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
     public void UniqueForTargetFramework(Assembly assembly)
@@ -51,7 +51,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Use the <paramref name="assembly"/> TargetFrameworkAttribute name and version to make the test results unique.
+    /// Use the <paramref name="assembly" /> TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
     public void UniqueForTargetFrameworkAndVersion(Assembly assembly)
@@ -61,7 +61,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Use the <paramref name="assembly"/> configuration (debug/release) to make the test results unique.
+    /// Use the <paramref name="assembly" /> configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
     public void UniqueForAssemblyConfiguration(Assembly assembly)
@@ -87,7 +87,7 @@ public partial class VerifySettings
     /// Use a custom class name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
-    /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
+    /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public void UseTypeName(string name)
     {
         Guard.BadFileName(name, nameof(name));
@@ -102,7 +102,7 @@ public partial class VerifySettings
     /// Use a custom method name for the test results.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
-    /// <remarks>Not compatible with <see cref="UseFileName"/>.</remarks>
+    /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public void UseMethodName(string name)
     {
         Guard.BadFileName(name, nameof(name));
@@ -118,7 +118,7 @@ public partial class VerifySettings
     /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
-    /// <remarks>Not compatible with <see cref="UseTypeName"/>, <see cref="UseMethodName"/>, or <see cref="UseParameters"/>.</remarks>
+    /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
     public void UseFileName(string fileName)
     {
         Guard.BadFileName(fileName, nameof(fileName));

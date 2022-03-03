@@ -24,12 +24,12 @@ public partial class Tests
         var concat = ParameterBuilder.Concat(new()
         {
             {"hasExistingReceived", hasExistingReceived},
-            {"autoVerify", autoVerify},
+            {"autoVerify", autoVerify}
         });
         var uniqueTestName = $"Tests.Split_{concat}";
 
         settings.UseParameters(hasExistingReceived, autoVerify);
-        var prefix = Path.Combine(AttributeReader.GetProjectDirectory(),$"{uniqueTestName}.");
+        var prefix = Path.Combine(AttributeReader.GetProjectDirectory(), $"{uniqueTestName}.");
         var danglingFile = $"{prefix}03.verified.txt";
         var file0 = new FilePair("txt", $"{prefix}00");
         var file1 = new FilePair("txt", $"{prefix}01");

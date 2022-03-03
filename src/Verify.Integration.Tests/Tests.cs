@@ -26,7 +26,7 @@ public partial class Tests
             targetLeftArguments: (tempFile, targetFile) => $"\"{targetFile}\" \"{tempFile}\"",
             targetRightArguments: (tempFile, targetFile) => $"\"{tempFile}\" \"{targetFile}\"",
             exePath: toolPath,
-            binaryExtensions: new[] {"knownBin","AlwaysPassBin"});
+            binaryExtensions: new[] {"knownBin", "AlwaysPassBin"});
         var binPath = AllFiles.Files["jpg"];
         var knownBinPath = Path.ChangeExtension(binPath.Path, "knownBin");
         File.Copy(binPath.Path, knownBinPath, true);
@@ -98,8 +98,8 @@ Commands:
     static void RunClipboardCommand()
     {
         foreach (var line in ClipboardAccept
-            .Read()
-            .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
+                     .Read()
+                     .Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries))
         {
             var command = $"/c {line}";
             using var process = Process.Start("cmd.exe", command);

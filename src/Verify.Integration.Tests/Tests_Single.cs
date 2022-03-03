@@ -15,7 +15,7 @@ public partial class Tests
         var concat = ParameterBuilder.Concat(new()
         {
             {"hasExistingReceived", hasExistingReceived},
-            {"autoVerify", autoVerify},
+            {"autoVerify", autoVerify}
         });
         var uniqueTestName = $"Tests.Text_{concat}";
         var settings = new VerifySettings();
@@ -51,7 +51,7 @@ public partial class Tests
         {
             {"hasMatchingDiffTool", hasMatchingDiffTool},
             {"hasExistingReceived", hasExistingReceived},
-            {"autoVerify", autoVerify},
+            {"autoVerify", autoVerify}
         });
         var uniqueTestName = $"Tests.Stream_{concat}";
         var settings = new VerifySettings();

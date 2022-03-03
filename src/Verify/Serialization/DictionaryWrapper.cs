@@ -3,5 +3,4 @@
     IDictionaryWrapper
     where TKey : notnull
 {
-
 }

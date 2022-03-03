@@ -46,7 +46,7 @@ public class VerifyObjectSamples :
         {
             GivenNames = "John",
             FamilyName = "Smith",
-            Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero),
+            Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero)
         };
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);

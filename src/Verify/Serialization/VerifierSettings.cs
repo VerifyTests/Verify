@@ -1,6 +1,8 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 
+// ReSharper disable RedundantSuppressNullableWarningExpression
+
 // ReSharper disable UnusedParameter.Local
 
 namespace VerifyTests;
@@ -140,6 +142,7 @@ public static partial class VerifierSettings
                 {
                     xmlDocument.Save(writer);
                 }
+
                 return new(stringBuilder.ToString(), "xml");
             }
         }

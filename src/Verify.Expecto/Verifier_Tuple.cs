@@ -1,4 +1,5 @@
-﻿#if !NETSTANDARD2_0 && !NET461
+﻿// ReSharper disable RedundantSuppressNullableWarningExpression
+#if !NETSTANDARD2_0 && !NET461
 namespace VerifyExpecto;
 
 public static partial class Verifier

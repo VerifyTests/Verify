@@ -6,5 +6,5 @@
     {
     }
 
-    public override string StackTrace { get => ""; }
+    public override string StackTrace => "";
 }

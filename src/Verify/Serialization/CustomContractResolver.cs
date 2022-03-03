@@ -32,7 +32,7 @@
                     ValueProvider = new TypeNameProvider(type),
                     Ignored = false,
                     Readable = true,
-                    Writable = false,
+                    Writable = false
                 });
         }
 
@@ -148,5 +148,4 @@
 
         return property;
     }
-
 }

@@ -87,7 +87,7 @@ public static class Parser
             }
         }
 
-        return new Result(@new, notEqual, delete, equal);
+        return new(@new, notEqual, delete, equal);
     }
 
     static string TrimStart(string next, string prefix)
@@ -112,7 +112,7 @@ public static class Parser
         var received = TrimStart(line, "  - Received: ");
         var verified = TrimStart(scopedEnumerator.SafeMoveNext(), "    Verified: ");
         filePairs.Add(
-            new FilePair(
+            new(
                 Path.Combine(directory, received),
                 Path.Combine(directory, verified)));
     }

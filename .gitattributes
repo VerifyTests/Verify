@@ -4,6 +4,8 @@
 *.targets -text
 *.json -text
 *.txt -text
+.editorconfig -text
+*.sln.DotSettings -text
 
 # Custom for Visual Studio
 *.cs     diff=csharp

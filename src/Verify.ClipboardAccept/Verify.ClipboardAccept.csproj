@@ -4,11 +4,11 @@
     <TargetFrameworks Condition="$(Configuration) == 'DebugNet6'">net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Using Remove="System.Net.Http"/>
-    <PackageReference Include="DiffEngine" Version="9.0.4"/>
-    <PackageReference Include="TextCopy" Version="6.1.0"/>
-    <PackageReference Include="ProjectDefaults" Version="1.0.71" PrivateAssets="all"/>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'"/>
-    <ProjectReference Include="..\Verify\Verify.csproj"/>
+    <Using Remove="System.Net.Http" />
+    <PackageReference Include="DiffEngine" Version="9.0.4" />
+    <PackageReference Include="TextCopy" Version="6.1.0" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.72" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
 </Project>

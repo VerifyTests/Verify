@@ -5,18 +5,18 @@
     <TargetFrameworks Condition="$(Configuration) == 'DebugNet6'">net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="Expecto.CSharp"/>
-    <Using Include="Expecto"/>
-    <Using Include="VerifyTests"/>
-    <Using Remove="System.Net.Http"/>
-    <Using Include="Newtonsoft.Json.Serialization"/>
-    <PackageReference Include="Expecto" Version="9.0.4"/>
-    <PackageReference Include="ProjectDefaults" Version="1.0.71" PrivateAssets="all"/>
-    <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None"/>
-    <PackageReference Include="IndexRange" Version="1.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all"/>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'"/>
-    <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None"/>
-    <Content Include="buildTransitive\Verify.Expecto.props" PackagePath="buildTransitive\Verify.Expecto.props"/>
-    <Content Include="buildTransitive\Verify.Expecto.props" PackagePath="build\Verify.Expecto.props"/>
+    <Using Include="Expecto.CSharp" />
+    <Using Include="Expecto" />
+    <Using Include="VerifyTests" />
+    <Using Remove="System.Net.Http" />
+    <Using Include="Newtonsoft.Json.Serialization" />
+    <PackageReference Include="Expecto" Version="9.0.4" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.72" PrivateAssets="all" />
+    <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
+    <PackageReference Include="IndexRange" Version="1.0.0" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
+    <Content Include="buildTransitive\Verify.Expecto.props" PackagePath="buildTransitive\Verify.Expecto.props" />
+    <Content Include="buildTransitive\Verify.Expecto.props" PackagePath="build\Verify.Expecto.props" />
   </ItemGroup>
 </Project>

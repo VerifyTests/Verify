@@ -102,7 +102,7 @@ public class SimpleTypeTests
         yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()};
         yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};
 #if NET6_0_OR_GREATER
-        yield return new object[] {(Half)10};
+        yield return new object[] {(Half) 10};
         yield return new object[] {new DateOnly(2000, 1, 1)};
         yield return new object[] {new TimeOnly(1, 1)};
 #endif

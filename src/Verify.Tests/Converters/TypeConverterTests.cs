@@ -19,9 +19,7 @@ public class TypeConverterTests
         {
             Value = "line1"
         };
-        var settings = new VerifySettings();
-        settings.UseExtension("txt");
-        return Verify(target, settings);
+        return Verify(target);
     }
 
     class ParentClass
@@ -42,7 +40,7 @@ public class TypeConverterTests
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (_, _) =>
             {
-#region ConversionResultWithCleanup
+                #region ConversionResultWithCleanup
 
                 return new(
                     info: info,
@@ -54,7 +52,7 @@ public class TypeConverterTests
                         return Task.CompletedTask;
                     });
 
-#endregion
+                #endregion
             });
         var target = new TargetForCleanup
         {

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+
 // ReSharper disable RedundantSuppressNullableWarningExpression
 
 namespace VerifyExpecto;

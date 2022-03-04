@@ -37,13 +37,13 @@ public class Counter
     }
 
 #if NET6_0_OR_GREATER
-     ConcurrentDictionary<DateOnly, int> dateCache = new();
-     int currentDate;
+    ConcurrentDictionary<DateOnly, int> dateCache = new();
+    int currentDate;
 
-     public int Next(DateOnly input)
-     {
-         return dateCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDate));
-     }
+    public int Next(DateOnly input)
+    {
+        return dateCache.GetOrAdd(input, _ => Interlocked.Increment(ref currentDate));
+    }
 
 #endif
 

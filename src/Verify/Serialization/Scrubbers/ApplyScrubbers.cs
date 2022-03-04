@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+
 // ReSharper disable RedundantSuppressNullableWarningExpression
 
 static class ApplyScrubbers

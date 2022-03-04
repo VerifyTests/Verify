@@ -1,6 +1,7 @@
 ﻿#if !NET461
 using System.Security.Claims;
 #endif
+
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBeMadeStatic.Local
@@ -241,7 +242,8 @@ public class SerializationTests
             .ModifySerialization(_ => _.DontScrubDateTimes());
     }
 #if NET6_0_OR_GREATER
-#region AddExtraSettings
+
+    #region AddExtraSettings
 
     [Fact]
     public Task AddExtraSettings()
@@ -255,9 +257,9 @@ public class SerializationTests
         return Verify(target, verifySettings);
     }
 
-#endregion
+    #endregion
 
-#region AddExtraSettingsFluent
+    #region AddExtraSettingsFluent
 
     [Fact]
     public Task AddExtraSettingsFluent()
@@ -270,7 +272,7 @@ public class SerializationTests
                     serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
     }
 
-#endregion
+    #endregion
 
 #endif
 
@@ -620,7 +622,7 @@ public class SerializationTests
     [Fact]
     public Task TimeOnlyNested()
     {
-        return Verify(new { value = new TimeOnly(10, 10) });
+        return Verify(new {value = new TimeOnly(10, 10)});
     }
 
     [Fact]
@@ -634,7 +636,7 @@ public class SerializationTests
     [Fact]
     public async Task ShouldReUseDatetime()
     {
-#region Date
+        #region Date
 
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
@@ -648,12 +650,12 @@ public class SerializationTests
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset,
-            DateTimeOffsetString = dateTimeOffset.ToString("F"),
+            DateTimeOffsetString = dateTimeOffset.ToString("F")
         };
 
         await Verify(target);
 
-#endregion
+        #endregion
     }
 
     [Fact]
@@ -671,7 +673,7 @@ public class SerializationTests
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset,
-            DateTimeOffsetString = dateTimeOffset.ToString("F"),
+            DateTimeOffsetString = dateTimeOffset.ToString("F")
         };
 
         await Verify(target);
@@ -692,7 +694,7 @@ public class SerializationTests
             DateTimeString = dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset,
-            DateTimeOffsetString = dateTimeOffset.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
+            DateTimeOffsetString = dateTimeOffset.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK")
         };
 
         await Verify(target);

@@ -74,7 +74,6 @@
     }
 
 #else
-
     public static async Task WriteText(string path, string text)
     {
         var encodedText = Utf8.GetBytes(text);

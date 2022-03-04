@@ -12,7 +12,7 @@
     <Using Include="VerifyTests" />
     <Using Include="Newtonsoft.Json.Linq" />
     <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.75" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.77" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

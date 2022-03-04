@@ -143,6 +143,11 @@ csharp_new_line_before_catch = true:error
 csharp_new_line_before_finally = true:error
 csharp_new_line_before_members_in_object_initializers = true:error
 csharp_new_line_before_members_in_anonymous_types = true:error
+csharp_place_type_constraints_on_same_line = false:error
+csharp_wrap_before_first_type_parameter_constraint = true:error
+csharp_wrap_extends_list_style = true:error
+csharp_wrap_after_dot_in_method_calls false:error
+csharp_wrap_before_binary_pattern_op false:error
 
 dotnet_style_require_accessibility_modifiers = never:error
 
@@ -160,6 +165,7 @@ braces_for_for = required
 indent_size = 2
 # https://www.jetbrains.com/help/resharper/EditorConfig_XML_XmlCodeStylePageSchema.html#resharper_xml_blank_line_after_pi
 blank_line_after_pi = false
+space_before_self_closing = true
 
 [*.json]
 indent_size = 2

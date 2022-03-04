@@ -541,7 +541,7 @@ Result in two files:
   color: 'Red'
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
@@ -553,7 +553,7 @@ Result in two files:
   <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

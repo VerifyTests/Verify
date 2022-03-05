@@ -7,7 +7,7 @@
   <ItemGroup>
     <Using Include="Newtonsoft.Json.Serialization" />
     <PackageReference Include="Expecto" Version="9.0.4" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.77" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.78" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

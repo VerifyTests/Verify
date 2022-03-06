@@ -3,13 +3,6 @@
 class DictionaryConverter :
     WriteOnlyJsonConverter
 {
-    List<string> ignoredByNameMembers;
-
-    public DictionaryConverter(List<string> ignoredByNameMembers)
-    {
-        this.ignoredByNameMembers = ignoredByNameMembers;
-    }
-
     public override bool CanConvert(Type type)
     {
         if (!type.IsGenericType)
@@ -39,6 +32,7 @@ class DictionaryConverter :
         var valueType = genericArguments.Last();
         var keyType = genericArguments.First();
         var definition = type.GetGenericTypeDefinition();
+        var ignoredByNameMembers = writer.settings.ignoredByNameMembers;
         if (definition == typeof(SortedDictionary<,>) ||
             definition.Name == "ImmutableSortedDictionary`2")
         {

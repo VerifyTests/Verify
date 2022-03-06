@@ -27,6 +27,7 @@ public partial class SerializationSettings
     static NameValueCollectionConverter nameValueCollectionConverter = new();
     static StringBuilderConverter stringBuilderConverter = new();
     static TextWriterConverter textWriterConverter = new();
+    static DictionaryConverter dictionaryConverter = new();
 
     JsonSerializerSettings serializersettings;
 
@@ -132,7 +133,7 @@ public partial class SerializationSettings
         converters.Add(claimConverter);
         converters.Add(claimsIdentityConverter);
         converters.Add(claimsPrincipalConverter);
-        converters.Add(new DictionaryConverter(ignoredByNameMembers));
+        converters.Add(dictionaryConverter);
         converters.Add(jArrayConverter);
         converters.Add(jObjectConverter);
         converters.Add(nameValueCollectionConverter);

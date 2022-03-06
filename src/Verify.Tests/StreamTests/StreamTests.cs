@@ -23,20 +23,15 @@ public class StreamTests
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }
 
-    static readonly string[] ExpectedFiles =
+    internal static bool RunningOnBuildServer => BuildServerDetector.Detected;
+
+    static readonly string[] ExpectedAbcFiles =
     {
         "00.received.txt",
         "00.verified.txt",
         "01.received.abc",
         "01.verified.abc"
     };
-
-    static bool ExistingInTestContext(string fileName)
-    {
-        return !BuildServerDetector.Detected || !fileName.Contains(".verified.");
-    }
-
-    static readonly string[] ExpectedAbcFiles = ExpectedFiles.Where(ExistingInTestContext).ToArray();
 
     static readonly string[] ExpectedXyzFiles = ExpectedAbcFiles.Select(item => item.Replace(".abc", ".xyz")).ToArray();
 
@@ -50,7 +45,7 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
@@ -59,7 +54,7 @@ public class StreamTests
 
         var expectedFiles = ExpectedAbcFiles;
 
-        Assert.Equal(expectedFiles, context.GetFileKeys());
+        Assert.Equal(expectedFiles.InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(2);
     }
@@ -69,7 +64,7 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
@@ -78,7 +73,7 @@ public class StreamTests
 
         var expectedFiles = ExpectedXyzFiles;
 
-        Assert.Equal(expectedFiles, context.GetFileKeys());
+        Assert.Equal(expectedFiles.InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(2);
     }
@@ -88,19 +83,19 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
-
         var expectedFiles = ExpectedAbcFiles;
 
         var textFile = context.GetFullName(expectedFiles[1]);
         File.WriteAllText(textFile, "dummy");
+
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1);
         });
 
-        Assert.Equal(expectedFiles, context.GetFileKeys());
+        Assert.Equal(expectedFiles.InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(2);
     }
@@ -110,20 +105,20 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
-
         var expectedFiles = ExpectedAbcFiles;
         var textFile = context.GetFullName(expectedFiles[1]);
         File.WriteAllText(textFile, "dummy");
         var binaryFile = context.GetFullName(expectedFiles[3]);
         Binary2.SaveAs(binaryFile);
 
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
+
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1);
         });
 
-        Assert.Equal(expectedFiles, context.GetFileKeys());
+        Assert.Equal(expectedFiles.InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(2);
     }
@@ -133,19 +128,19 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
-
         var expectedFiles = ExpectedAbcFiles;
 
         var textFile = context.GetFullName(expectedFiles[1]);
         File.WriteAllText(textFile, ExpectedText);
+
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1);
         });
 
-        Assert.Equal(expectedFiles.Skip(1), context.GetFileKeys());
+        Assert.Equal(expectedFiles.Skip(1).InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(1);
     }
@@ -156,8 +151,6 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
-
         var expectedFiles = ExpectedAbcFiles;
 
         var textFile = context.GetFullName(expectedFiles[1]);
@@ -165,12 +158,14 @@ public class StreamTests
         var binaryFile = context.GetFullName(expectedFiles[3]);
         Binary2.SaveAs(binaryFile);
 
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
+
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1);
         });
 
-        Assert.Equal(expectedFiles.Skip(1), context.GetFileKeys());
+        Assert.Equal(expectedFiles.Skip(1).InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(1);
     }
@@ -180,8 +175,6 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
-
         var expectedFiles = ExpectedXyzFiles;
 
         var textFile = context.GetFullName(expectedFiles[1]);
@@ -189,12 +182,14 @@ public class StreamTests
         var binaryFile = context.GetFullName(expectedFiles[3]);
         Binary2.SaveAs(binaryFile);
 
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
+
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1).UseExtension("xyz");
         });
 
-        Assert.Equal(expectedFiles.Skip(1), context.GetFileKeys());
+        Assert.Equal(expectedFiles.Skip(1).InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(1);
     }
@@ -204,8 +199,6 @@ public class StreamTests
     {
         var context = CreateContext();
 
-        context.ClearFiles();
-
         var expectedFiles = ExpectedAbcFiles;
 
         var textFile = context.GetFullName(expectedFiles[1]);
@@ -214,16 +207,22 @@ public class StreamTests
 
         Binary1.SaveAs(binaryFile);
 
+        var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
+
         await Verify(Binary1);
 
-        Assert.Equal(expectedFiles.Where(file => file.Contains("verified")), context.GetFileKeys());
+        Assert.Equal(expectedFiles.Where(file => file.Contains("verified")).InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(0);
     }
 
     Context<StreamTests> CreateContext([CallerMemberName] string? testMethodName = null, [CallerFilePath] string? sourceFile = null)
     {
-        return new(testMethodName!, sourceFile!);
+        var context = new Context<StreamTests>(testMethodName!, sourceFile!);
+
+        context.ClearFiles();
+
+        return context;
     }
 
     class Context<T>
@@ -268,7 +267,7 @@ public class StreamTests
 
         public async Task AssertDiffToolExecutedAsync(int expectedFileCount)
         {
-            if (BuildServerDetector.Detected)
+            if (RunningOnBuildServer)
             {
                 return;
             }
@@ -356,4 +355,18 @@ public class StreamTests
         var info = binary?.Metadata;
         return new(info, extension, stream);
     }
+}
+
+static class ExtensionMethods
+{
+    public static IEnumerable<string> InTestContext(this IEnumerable<string> files, ICollection<string> filesBeforeTest)
+    {
+        return files.Where(key => ExistsInTestContext(key, filesBeforeTest));
+    }
+
+    static bool ExistsInTestContext(string fileName, ICollection<string> filesBefore)
+    {
+        return !StreamTests.RunningOnBuildServer || filesBefore.Contains(fileName) || !fileName.Contains(".verified.");
+    }
+
 }

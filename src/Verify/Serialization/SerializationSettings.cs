@@ -113,12 +113,10 @@ public partial class SerializationSettings
         converters.Add(new StringBuilderConverter(this));
         converters.Add(new TextWriterConverter(this));
         converters.Add(new GuidConverter(this));
-        converters.Add(new DateTimeConverter(this));
 #if NET6_0_OR_GREATER
         converters.Add(new DateConverter(this));
         converters.Add(timeConverter);
 #endif
-        converters.Add(new DateTimeOffsetConverter(this));
         converters.Add(fileInfoConverter);
         converters.Add(directoryInfoConverter);
         converters.Add(stringEnumConverter);

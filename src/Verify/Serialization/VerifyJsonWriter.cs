@@ -68,26 +68,36 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(DateTimeOffset value)
     {
+        if (settings.TryConvert(Counter, value, out var result))
+        {
+            base.WriteRawValue(result);
+            return;
+        }
+
         if (value.TimeOfDay == TimeSpan.Zero)
         {
             base.WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            return;
         }
-        else
-        {
-            base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
-        }
+
+        base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
     public override void WriteValue(DateTime value)
     {
+        if (settings.TryConvert(Counter, value, out var result))
+        {
+            base.WriteRawValue(result);
+            return;
+        }
+
         if (value.TimeOfDay == TimeSpan.Zero)
         {
             base.WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            return;
         }
-        else
-        {
-            base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
-        }
+
+        base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
     public override void WriteValue(TimeSpan value)

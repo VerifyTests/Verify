@@ -6,6 +6,12 @@
 
         if (TryGetTargetBuilder(target, out var builder, out var extension))
         {
+            if (targetList.Any())
+            {
+                // if we have targets, extension applies to targets, and "target" is just text metadata.
+                extension = "txt";
+            }
+
             ApplyScrubbers.Apply(extension, builder, settings);
 
             var received = builder.ToString();

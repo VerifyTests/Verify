@@ -47,7 +47,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
+        await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1);
         });
@@ -66,7 +66,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
+        await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1).UseExtension("xyz");
         });
@@ -90,7 +90,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
+        await Assert.ThrowsAsync<VerifyException>(async () =>
         {
             await Verify(Binary1);
         });
@@ -113,10 +113,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1);
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1));
 
         Assert.Equal(expectedFiles.InTestContext(filesBeforeTest), context.GetFileKeys());
 
@@ -135,16 +132,12 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1);
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1));
 
         Assert.Equal(expectedFiles.Skip(1).InTestContext(filesBeforeTest), context.GetFileKeys());
 
         await context.AssertDiffToolExecutedAsync(1);
     }
-
 
     [Fact]
     public async Task VerifyFailsCorrectly_TextExistAndMatching_BinaryExistsWithDifferentContent()
@@ -160,10 +153,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1);
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1));
 
         Assert.Equal(expectedFiles.Skip(1).InTestContext(filesBeforeTest), context.GetFileKeys());
 
@@ -184,10 +174,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1).UseExtension("xyz");
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1).UseExtension("xyz"));
 
         Assert.Equal(expectedFiles.Skip(1).InTestContext(filesBeforeTest), context.GetFileKeys());
 
@@ -216,7 +203,7 @@ public class StreamTests
         await context.AssertDiffToolExecutedAsync(0);
     }
 
-    Context<StreamTests> CreateContext([CallerMemberName] string? testMethodName = null, [CallerFilePath] string? sourceFile = null)
+    static Context<StreamTests> CreateContext([CallerMemberName] string? testMethodName = null, [CallerFilePath] string? sourceFile = null)
     {
         var context = new Context<StreamTests>(testMethodName!, sourceFile!);
 
@@ -284,7 +271,9 @@ public class StreamTests
             {
                 var received = verified.Replace(".verified.", ".received.");
                 if (!File.Exists(received))
+                {
                     continue;
+                }
 
                 checkedFiles++;
                 Assert.Equal(NullComparer.Constants.KeyText, File.ReadAllText(verified));
@@ -366,7 +355,8 @@ static class ExtensionMethods
 
     static bool ExistsInTestContext(string fileName, ICollection<string> filesBefore)
     {
-        return !StreamTests.RunningOnBuildServer || filesBefore.Contains(fileName) || !fileName.Contains(".verified.");
+        return !StreamTests.RunningOnBuildServer ||
+               filesBefore.Contains(fileName) ||
+               !fileName.Contains(".verified.");
     }
-
 }

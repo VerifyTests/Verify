@@ -82,7 +82,7 @@ public class ExtensionConverterTests
         return Verify(new MemoryStream())
             .UseExtension("WithInfo");
     }
-    
+
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit()
     {

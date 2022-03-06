@@ -27,6 +27,8 @@ public partial class SerializationSettings
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
+    static StringBuilderConverter stringBuilderConverter = new();
+    static TextWriterConverter textWriterConverter = new();
 
     JsonSerializerSettings serializersettings;
 
@@ -111,10 +113,8 @@ public partial class SerializationSettings
 
         settings.ContractResolver = new CustomContractResolver(this);
         var converters = settings.Converters;
-        converters.Add(new StringConverter(this));
-        converters.Add(new StringBuilderConverter(this));
-        converters.Add(new TextWriterConverter(this));
-        converters.Add(new GuidConverter(this));
+        converters.Add(stringBuilderConverter);
+        converters.Add(textWriterConverter);
 #if NET6_0_OR_GREATER
         converters.Add(new DateConverter(this));
         converters.Add(timeConverter);

@@ -10,7 +10,6 @@ public abstract class WriteOnlyJsonConverter :
         object value,
         JsonSerializer serializer)
     {
-        Write((VerifyJsonWriter)writer, value);
         Write((VerifyJsonWriter) writer, value);
     }
 

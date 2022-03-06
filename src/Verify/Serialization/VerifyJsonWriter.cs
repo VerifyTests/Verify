@@ -21,7 +21,8 @@ public class VerifyJsonWriter :
         Counter = counter;
         if (!VerifierSettings.StrictJson)
         {
-            QuoteChar = '\'';
+            QuoteValue = false;
+            EscapeHandling = EscapeHandling.None;
             QuoteName = false;
         }
     }
@@ -55,27 +56,15 @@ public class VerifyJsonWriter :
         base.WriteRawValue(value);
     }
 
-    public override void WriteValue(byte[]? value)
-    {
-        if (value is null)
-        {
-            WriteNull();
-        }
-        else
-        {
-            WriteValue(Convert.ToBase64String(value));
-        }
-    }
-
     public override void WriteValue(DateTimeOffset value)
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            WriteValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            base.WriteValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
         }
         else
         {
-            WriteValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
+            base.WriteValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
         }
     }
 

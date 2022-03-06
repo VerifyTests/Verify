@@ -6,9 +6,9 @@
 
         if (TryGetTargetBuilder(target, out var builder, out var extension))
         {
-            if (targetList.Any())
+            if (target is string && targetList.Any(item => item.IsStream))
             {
-                // if we have targets, extension applies to targets, and "target" is just text metadata.
+                // if we have stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
             }
 

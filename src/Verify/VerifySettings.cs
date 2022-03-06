@@ -39,6 +39,7 @@ public partial class VerifySettings
                 AppendValue(append.Name, append.Data);
             }
         }
+
         foreach (var pair in settings.Context)
         {
             if (pair.Value is ICloneable cloneable)
@@ -53,7 +54,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Allows extensions to Verify to pass config via <see cref="VerifySettings"/>.
+    /// Allows extensions to Verify to pass config via <see cref="VerifySettings" />.
     /// </summary>
     public Dictionary<string, object> Context { get; } = new();
 
@@ -65,7 +66,7 @@ public partial class VerifySettings
 
     /// <summary>
     /// Use a custom text for the `Parameters` part of the file name.
-    /// Not compatible with <see cref="UseParameters"/>.
+    /// Not compatible with <see cref="UseParameters" />.
     /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     public void UseTextForParameters(string parametersText)
@@ -93,7 +94,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Retrieves the value passed into <see cref="UseExtension"/>, if it exists.
+    /// Retrieves the value passed into <see cref="UseExtension" />, if it exists.
     /// </summary>
     public bool TryGetExtension([NotNullWhen(true)] out string? extension)
     {
@@ -126,7 +127,7 @@ public partial class VerifySettings
     {
         if (includeBuildServer)
         {
-             autoVerify = true;
+            autoVerify = true;
         }
         else
         {

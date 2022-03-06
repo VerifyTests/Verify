@@ -7,8 +7,8 @@ public partial class VerifySettings
     /// <summary>
     /// Define the parameter values being used by a parameterised (aka data driven) test.
     /// In most cases the parameter values can be automatically resolved.
-    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters"/>
-    /// Not compatible with <see cref="UseTextForParameters"/>.
+    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
+    /// Not compatible with <see cref="UseTextForParameters" />.
     /// </summary>
     public void UseParameters(params object?[] parameters)
     {
@@ -22,7 +22,7 @@ public partial class VerifySettings
         this.parameters = parameters;
     }
 
-    internal bool ignoreParametersForVerified = false;
+    internal bool ignoreParametersForVerified;
 
     /// <summary>
     /// Ignore parameters in 'verified' filename resulting in the same verified file for each testcase.

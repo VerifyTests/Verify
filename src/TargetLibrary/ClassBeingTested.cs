@@ -1,4 +1,5 @@
 ﻿#region ClassBeingTested
+
 public static class ClassBeingTested
 {
     public static Person FindPerson()
@@ -23,4 +24,5 @@ public static class ClassBeingTested
         };
     }
 }
+
 #endregion

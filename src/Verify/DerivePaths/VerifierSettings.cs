@@ -5,6 +5,7 @@ namespace VerifyTests;
 public static partial class VerifierSettings
 {
     #region defaultDerivePathInfo
+
     static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
     {
         static string GetTypeName(Type type)
@@ -21,6 +22,7 @@ public static partial class VerifierSettings
 
         return new(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
     };
+
     #endregion
 
     internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method)

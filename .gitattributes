@@ -1,23 +1,8 @@
-# Auto detect text files and perform LF normalization
 * text=auto eol=crlf
-*.xml     -text 
-*.targets -text
-*.json -text
-*.txt -text
-
-# Custom for Visual Studio
-*.cs     diff=csharp
-*.sln    merge=union
-*.csproj merge=union
-*.vbproj merge=union
-*.fsproj merge=union
-*.dbproj merge=union
-
-# Denote all files that are truly binary and should not be modified.
-*.dll binary
-*.exe binary
+.editorconfig -text
+*.sln.DotSettings -text
 *.snk binary
-*.pdb binary
+*.json -text
 *.png binary
 *.bmp binary
 *.tif binary

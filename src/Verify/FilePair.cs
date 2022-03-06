@@ -12,7 +12,7 @@ public readonly struct FilePair
     public bool IsText { get; }
 
     public FilePair(string extension, string prefix)
-        : this (extension, prefix, prefix)
+        : this(extension, prefix, prefix)
     {
     }
 

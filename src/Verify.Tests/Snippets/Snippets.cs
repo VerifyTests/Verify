@@ -1,4 +1,5 @@
 ﻿using DiffEngine;
+
 // ReSharper disable UnusedParameter.Local
 
 public class Snippets
@@ -8,8 +9,14 @@ public class Snippets
     public Task OnHandlersSample()
     {
         VerifierSettings.OnVerify(
-            before: () => { Debug.WriteLine("before"); },
-            after: () => { Debug.WriteLine("after"); });
+            before: () =>
+            {
+                Debug.WriteLine("before");
+            },
+            after: () =>
+            {
+                Debug.WriteLine("after");
+            });
         VerifierSettings.OnFirstVerify(
             receivedFile =>
             {
@@ -41,7 +48,7 @@ public class Snippets
 
     class ClassWithToString
     {
-        public string Property { get; set; } = null!;
+        public string Property { get; } = null!;
     }
 
     void DerivePathInfo()
@@ -149,6 +156,6 @@ public class Snippets
 
     class Company
     {
-        public string Name { get; set; } = null!;
+        public string Name { get; } = null!;
     }
 }

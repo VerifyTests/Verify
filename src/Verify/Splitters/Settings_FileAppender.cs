@@ -11,7 +11,7 @@ public static partial class VerifierSettings
             var stream = appender(settings.Context);
             if (stream is not null)
             {
-                yield return (Target)stream;
+                yield return (Target) stream;
             }
         }
     }

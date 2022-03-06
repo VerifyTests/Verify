@@ -23,7 +23,7 @@ f");
         settings.ScrubLines(removeLine: x => x.Contains("D"));
         return Verify(
             settings: settings,
-            target:  @"b
+            target: @"b
 ");
     }
 
@@ -34,7 +34,7 @@ f");
         settings.ScrubLines(removeLine: x => x.Contains("D"));
         return Verify(
             settings: settings,
-            target:  @"b
+            target: @"b
 
 c");
     }
@@ -46,7 +46,7 @@ c");
         settings.ScrubLines(removeLine: x => x.Contains("D"));
         return Verify(
             settings: settings,
-            target:  @"a
+            target: @"a
 b
 c
 D

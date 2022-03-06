@@ -3,7 +3,7 @@
 {
     public override void Write(VerifyJsonWriter writer, NameValueCollection collection)
     {
-        var dictionary = new Dictionary<string,string?>();
+        var dictionary = new Dictionary<string, string?>();
         foreach (string? key in collection)
         {
             var value = collection.Get(key);

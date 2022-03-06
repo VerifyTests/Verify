@@ -1,4 +1,5 @@
 ﻿// ReSharper disable ConditionIsAlwaysTrueOrFalse
+
 #if !NET5_0_OR_GREATER
 static class CodeBaseLocation
 {

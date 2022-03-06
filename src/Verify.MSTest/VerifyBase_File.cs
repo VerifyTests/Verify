@@ -18,7 +18,10 @@ public partial class VerifyBase
         return Verify(
             settings,
             sourceFile,
-            async _ => { await _.Verify(await target); });
+            async _ =>
+            {
+                await _.Verify(await target);
+            });
     }
 
     public SettingsTask VerifyFile(
@@ -29,7 +32,7 @@ public partial class VerifyBase
         return Verify(settings, sourceFile, _ => _.VerifyFile(path));
     }
 
-    public  SettingsTask VerifyFile(
+    public SettingsTask VerifyFile(
         FileInfo path,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")

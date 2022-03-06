@@ -108,6 +108,7 @@ public partial class Tests
             AssertExists(file2.ReceivedPath);
         }
     }
+
     static async Task ReVerifySplit(TypeToSplitOneFail target, VerifySettings settings, FilePair info, FilePair file1, FilePair file2)
     {
         var infoCommand = BuildCommand(info);

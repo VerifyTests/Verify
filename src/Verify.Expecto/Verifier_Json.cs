@@ -1,4 +1,6 @@
-﻿namespace VerifyExpecto;
+namespace VerifyExpecto;
+
+// ReSharper disable RedundantSuppressNullableWarningExpression
 
 public static partial class Verifier
 {

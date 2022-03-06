@@ -30,6 +30,7 @@
             var value = inner.GetValue(target);
             return membersConverter(target, value);
         }
+
         try
         {
             return inner.GetValue(target);

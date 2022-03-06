@@ -1,4 +1,5 @@
 ﻿// Non-nullable field is uninitialized.
+
 #pragma warning disable CS8618
 public class Person
 {
@@ -21,5 +22,6 @@ public class Address
 
 public enum Title
 {
-    Mr, Mrs
+    Mr,
+    Mrs
 }

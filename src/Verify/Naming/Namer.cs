@@ -6,6 +6,7 @@ namespace VerifyTests;
 public class Namer
 {
     static string? assemblyConfig;
+
     public static string AssemblyConfig
     {
         get

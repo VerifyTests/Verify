@@ -340,11 +340,11 @@ public class UniqueForSample
 ```fs
 [<Tests>]
 let uniqueTests =
-  testTask "unique" {
-    let settings = new VerifySettings()
-    settings.UniqueForRuntime()
-    do! Verifier.Verify("unique", "value1", settings)
-  }
+    testTask "unique" {
+        let settings = new VerifySettings()
+        settings.UniqueForRuntime()
+        do! Verifier.Verify("unique", "value1", settings)
+    }
 ```
 <sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsampleexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -594,7 +594,7 @@ VerifierSettings.DerivePathInfo(
             methodName: method.Name);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L49-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
@@ -626,7 +626,7 @@ static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, meth
     return new(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
 };
 ```
-<sup><a href='/src/Verify/DerivePaths/VerifierSettings.cs#L7-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/DerivePaths/VerifierSettings.cs#L7-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

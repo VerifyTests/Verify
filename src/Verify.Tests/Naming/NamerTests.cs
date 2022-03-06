@@ -51,7 +51,7 @@ public class NamerTests
     }
 #endif
 
-#region MultipleCalls
+    #region MultipleCalls
 
     [Fact]
     public async Task MultipleCalls()
@@ -63,7 +63,7 @@ public class NamerTests
                 .UseMethodName("MultipleCalls_2"));
     }
 
-#endregion
+    #endregion
 
     [Fact]
     public Task Runtime()
@@ -274,6 +274,7 @@ public class NamerTests
         settings.UniqueForAssemblyConfiguration();
         return Verify("Foo", settings);
     }
+
     [Fact]
     public Task AssemblyConfigurationWithAssembly()
     {
@@ -281,6 +282,7 @@ public class NamerTests
         settings.UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
         return Verify("Foo", settings);
     }
+
     [Fact]
     public Task AssemblyConfigurationFluent()
     {

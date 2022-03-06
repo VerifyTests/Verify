@@ -1,6 +1,7 @@
 ﻿#if DEBUG && NET6_0
 using System.Drawing;
 using System.Drawing.Imaging;
+
 // ReSharper disable UnusedParameter.Local
 
 [UsesVerify]
@@ -12,9 +13,13 @@ public class ConverterSnippets
         #region RegisterFileConverterType
 
         VerifierSettings.RegisterFileConverter<Image>(
+
             #region ConverterCanConvert
+
             canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
+
             #endregion
+
             conversion: (image, settings) =>
             {
                 var pages = image.GetFrameCount(FrameDimension.Page);
@@ -37,6 +42,7 @@ public class ConverterSnippets
                     },
                     targets);
             });
+
         #endregion
     }
 

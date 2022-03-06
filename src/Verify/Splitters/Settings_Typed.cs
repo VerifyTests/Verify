@@ -10,7 +10,7 @@ public static partial class VerifierSettings
         [NotNullWhen(true)] out TypeConverter? converter)
     {
         foreach (var typedConverter in typedConverters
-            .Where(_ => _.CanConvert(target!, settings.extension, settings.Context)))
+                     .Where(_ => _.CanConvert(target!, settings.extension, settings.Context)))
         {
             converter = typedConverter;
             return true;
@@ -58,7 +58,7 @@ public static partial class VerifierSettings
     {
         if (canConvert is null)
         {
-            return (target,_ , _) => target is T;
+            return (target, _, _) => target is T;
         }
 
         return (target, extension, settings) =>

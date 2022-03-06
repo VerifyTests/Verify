@@ -18,17 +18,20 @@
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" Condition="$(TargetFramework) == 'net6'" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.78" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <None Update="sample.*">
+    <None Update="sample*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Binary*.*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Folder Include="Naming\CustomDirectory\" />
+    <None Update="sample2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

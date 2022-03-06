@@ -36,7 +36,7 @@
     }
 
     static char[] invalidPathChars = Path.GetInvalidPathChars()
-        .Concat(invalidFileChars.Except(new []{'/','\\', ':'}))
+        .Concat(invalidFileChars.Except(new[] {'/', '\\', ':'}))
         .Distinct()
         .ToArray();
 
@@ -61,7 +61,7 @@
 
     public static void AgainstNullable(Type type, string argumentName)
     {
-        var typeFromNullable= Nullable.GetUnderlyingType(type);
+        var typeFromNullable = Nullable.GetUnderlyingType(type);
 
         if (typeFromNullable != null)
         {

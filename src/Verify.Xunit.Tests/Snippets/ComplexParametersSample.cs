@@ -1,4 +1,5 @@
 ﻿#region xunitComplexMemberData
+
 [UsesVerify]
 public class ComplexParametersSample
 {

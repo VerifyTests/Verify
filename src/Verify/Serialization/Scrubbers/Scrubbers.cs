@@ -19,7 +19,7 @@ public static class Scrubbers
         while (reader.ReadLine() is { } line)
         {
             if (
-                line.Contains("<>") && line.Contains(".MoveNext()") ||
+                (line.Contains("<>") && line.Contains(".MoveNext()")) ||
                 line.Contains("System.Runtime.CompilerServices.TaskAwaiter") ||
                 line.Contains("End of stack trace from previous location where exception was thrown")
             )

@@ -152,12 +152,12 @@ public class VerifyJsonWriter :
     }
 
     /// <summary>
-    /// Convenience method that calls <see cref="Serializer"/>.<see cref="JsonSerializer.Serialize(TextWriter,object?)"/> passing in the writer instance and <paramref name="value"/>
+    /// Convenience method that calls <see cref="Serializer" />.<see cref="JsonSerializer.Serialize(TextWriter,object?)" /> passing in the writer instance and <paramref name="value" />
     /// </summary>
     public void Serialize(object value)
     {
         settings.Serializer.Serialize(this, value);
     }
 
-    public JsonSerializer Serializer { get => settings.Serializer; }
+    public JsonSerializer Serializer => settings.Serializer;
 }

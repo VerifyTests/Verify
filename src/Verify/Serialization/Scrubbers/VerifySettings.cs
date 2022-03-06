@@ -5,16 +5,10 @@ public partial class VerifySettings
     List<Action<StringBuilder>> instanceScrubbers = new();
     internal Dictionary<string, List<Action<StringBuilder>>> extensionMappedInstanceScrubbers = new();
 
-    public IReadOnlyList<Action<StringBuilder>> InstanceScrubbers
-    {
-        get
-        {
-            return instanceScrubbers;
-        }
-    }
+    public IReadOnlyList<Action<StringBuilder>> InstanceScrubbers => instanceScrubbers;
 
     /// <summary>
-    /// Remove the <see cref="Environment.MachineName"/> from the test results.
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     public void ScrubMachineName()
     {
@@ -43,7 +37,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
     {
@@ -54,8 +48,8 @@ public partial class VerifySettings
     //and instead pass a bool to the json serializer for the object scenario
     //Same for the static
     /// <summary>
-    /// Replace inline <see cref="Guid"/>s with a placeholder.
-    /// Uses a <see cref="Regex"/> to find <see cref="Guid"/>s inside strings.
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public void ScrubInlineGuids()
     {
@@ -63,7 +57,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Remove any lines matching <paramref name="removeLine"/> from the test results.
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public void ScrubLines(Func<string, bool> removeLine)
     {
@@ -72,7 +66,7 @@ public partial class VerifySettings
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine"/> can return the input to ignore the line, or return a a different string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
     /// </summary>
     public void ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {
@@ -88,7 +82,7 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch"/> from the test results.
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(params string[] stringToMatch)
     {

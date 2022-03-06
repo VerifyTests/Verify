@@ -7,14 +7,14 @@
   <ItemGroup>
     <None Remove="*.verified.txt" />
     <None Remove="*.received.txt" />
-    <PackageReference Include="DiffEngine" Version="9.0.3" />
+    <PackageReference Include="DiffEngine" Version="9.0.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Argon" Version="0.1.0-beta.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.68" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.78" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

@@ -50,7 +50,6 @@
     }
 
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
-
     public static Task WriteText(string path, string text)
     {
         return File.WriteAllTextAsync(path, text, Utf8);
@@ -75,7 +74,6 @@
     }
 
 #else
-
     public static async Task WriteText(string path, string text)
     {
         var encodedText = Utf8.GetBytes(text);

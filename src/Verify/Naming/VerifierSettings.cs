@@ -178,7 +178,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Use <paramref name="assembly"/> TargetFrameworkAttribute to make the test results unique.
+    /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
     public static void UniqueForTargetFramework(Assembly assembly)
@@ -188,7 +188,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Use the <paramref name="assembly"/> TargetFrameworkAttribute name and version to make the test results unique.
+    /// Use the <paramref name="assembly" /> TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
     public static void UniqueForTargetFrameworkAndVersion(Assembly assembly)
@@ -198,7 +198,7 @@ public static partial class VerifierSettings
     }
 
     /// <summary>
-    /// Use the <paramref name="assembly"/> configuration (debug/release) to make the test results unique.
+    /// Use the <paramref name="assembly" /> configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
     public static void UniqueForAssemblyConfiguration(Assembly assembly)

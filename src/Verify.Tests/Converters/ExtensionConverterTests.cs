@@ -82,7 +82,50 @@ public class ExtensionConverterTests
         return Verify(new MemoryStream())
             .UseExtension("WithInfo");
     }
-    
+
+    [ModuleInitializer]
+    public static void WithInfoAndBinaryInit()
+    {
+        VerifierSettings.RegisterFileConverter(
+            "WithInfoAndBinary",
+            (stream, _) =>
+            {
+                var info = new
+                {
+                    Property = "Value"
+                };
+                return new(info, "png", stream);
+            });
+    }
+
+    [Fact]
+    public async Task WithInfoAndBinary()
+    {
+        await Verify(File.OpenRead("sample.png"))
+            .UseExtension("WithInfoAndBinary");
+    }
+
+    [Fact]
+    public async Task WithInfoAndModifiedBinary()
+    {
+        await Verify(File.OpenRead("sample.png"))
+            .UseExtension("WithInfoAndBinary")
+            .AutoVerify();
+
+        await Assert.ThrowsAsync<VerifyException>(
+            () => Verify(File.OpenRead("sample2.png"))
+                .UseExtension("WithInfoAndBinary")
+                .DisableRequireUniquePrefix().DisableDiff());
+        AsserFileExists();
+    }
+
+    static void AsserFileExists([CallerFilePath] string sourceFile = "")
+    {
+        var directory = Path.GetDirectoryName(sourceFile)!;
+        var file = Path.Combine(directory, "ExtensionConverterTests.WithInfoAndModifiedBinary.01.received.png");
+        Assert.True(File.Exists(file));
+    }
+
     [ModuleInitializer]
     public static void ConflictingExtensionInit()
     {

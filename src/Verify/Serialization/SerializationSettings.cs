@@ -8,6 +8,7 @@ public partial class SerializationSettings
     static FileInfoConverter fileInfoConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
+    static DateConverter dateConverter = new();
 #endif
     static DirectoryInfoConverter directoryInfoConverter = new();
     static StringEnumConverter stringEnumConverter = new();
@@ -115,7 +116,7 @@ public partial class SerializationSettings
         converters.Add(stringBuilderConverter);
         converters.Add(textWriterConverter);
 #if NET6_0_OR_GREATER
-        converters.Add(new DateConverter(this));
+        converters.Add(dateConverter);
         converters.Add(timeConverter);
 #endif
         converters.Add(fileInfoConverter);

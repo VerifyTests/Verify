@@ -32,7 +32,7 @@ public partial class SerializationSettings
     static TextWriterConverter textWriterConverter = new();
     static DictionaryConverter dictionaryConverter = new();
 
-    JsonSerializerSettings serializersettings;
+    JsonSerializerSettings jsonSettings;
 
     public SerializationSettings()
     {
@@ -42,7 +42,7 @@ public partial class SerializationSettings
         IgnoreMember<Exception>(x => x.Source);
         IgnoreMember<Exception>(x => x.HResult);
 
-        serializersettings = BuildSettings();
+        jsonSettings = BuildSettings();
     }
 
     public SerializationSettings(SerializationSettings settings)
@@ -66,7 +66,7 @@ public partial class SerializationSettings
         includeObsoletes = settings.includeObsoletes;
         isNumericId = settings.isNumericId;
 
-        serializersettings = BuildSettings();
+        jsonSettings = BuildSettings();
     }
 
     bool scrubGuids = true;
@@ -166,8 +166,8 @@ public partial class SerializationSettings
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         extraSettings.Add(action);
-        action(serializersettings);
-        ValidateSettings(serializersettings);
+        action(jsonSettings);
+        ValidateSettings(jsonSettings);
         serializer = null;
     }
 
@@ -181,7 +181,7 @@ public partial class SerializationSettings
             var jsonSerializer = serializer;
             if (jsonSerializer == null)
             {
-                return serializer = JsonSerializer.Create(serializersettings);
+                return serializer = JsonSerializer.Create(jsonSettings);
             }
 
             return jsonSerializer;

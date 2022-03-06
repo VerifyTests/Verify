@@ -58,31 +58,41 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(DateTimeOffset value)
     {
-        if (value.TimeOfDay == TimeSpan.Zero)
+        if (settings.TryConvert(Counter, value, out var result))
         {
             base.WriteValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            return;
         }
-        else
+
+        if (value.TimeOfDay == TimeSpan.Zero)
         {
-            base.WriteValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
+            base.WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            return;
         }
+
+        base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
     public override void WriteValue(DateTime value)
     {
+        if (settings.TryConvert(Counter, value, out var result))
+        {
+            base.WriteRawValue(result);
+            return;
+        }
+
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            WriteValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            base.WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            return;
         }
-        else
-        {
-            WriteValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
-        }
+
+        base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
     public override void WriteValue(TimeSpan value)
     {
-        WriteValue(value.ToString());
+        base.WriteRawValue(value.ToString());
     }
 
     /// <summary>

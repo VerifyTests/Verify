@@ -82,7 +82,7 @@ public class ExtensionConverterTests
         return Verify(new MemoryStream())
             .UseExtension("WithInfo");
     }
-
+    
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit()
     {
@@ -124,44 +124,5 @@ public class ExtensionConverterTests
         var directory = Path.GetDirectoryName(sourceFile)!;
         var file = Path.Combine(directory, "ExtensionConverterTests.WithInfoAndModifiedBinary.01.received.png");
         Assert.True(File.Exists(file));
-    }
-
-    [ModuleInitializer]
-    public static void ConflictingExtensionInit()
-    {
-        VerifierSettings.RegisterFileConverter(
-            (_, _) =>
-            {
-                var info = new
-                {
-                    Property = "Value"
-                };
-                return new(info, "conflictingextension", new MemoryStream());
-            },
-            (target, extension, context) => target is ClassWithConflictingExtension);
-        VerifierSettings.RegisterFileConverter(
-            "conflictingextension",
-            (_, _) =>
-            {
-                var info = new
-                {
-                    Property = "Value"
-                };
-                return new(info, "conflictingextension", new MemoryStream());
-            });
-    }
-
-    [Fact]
-    public Task WithConflictingExtension()
-    {
-        var target = new ClassWithConflictingExtension();
-        return ThrowsTask(() => Verify(target)
-                .UseExtension("conflictingextension"))
-            .UseMethodName("WithConflictingExtensionOuter")
-            .IgnoreStackTrack();
-    }
-
-    public class ClassWithConflictingExtension
-    {
     }
 }

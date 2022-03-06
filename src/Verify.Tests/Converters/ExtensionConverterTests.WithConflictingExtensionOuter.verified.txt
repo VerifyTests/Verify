@@ -1,4 +1,0 @@
-﻿{
-  Type: Exception,
-  Message: The current target 'ClassWithConflictingExtension' already has a type converter. Applying an extension converter is not supported. This can most likely be fixed by removing `.UseExtension("conflictingextension");`
-}

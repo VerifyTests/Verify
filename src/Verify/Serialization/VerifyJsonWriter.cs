@@ -60,7 +60,7 @@ public class VerifyJsonWriter :
     {
         if (settings.TryConvert(Counter, value, out var result))
         {
-            base.WriteValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            base.WriteValue(result);
             return;
         }
 

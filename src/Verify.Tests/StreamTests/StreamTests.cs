@@ -1,5 +1,7 @@
 ﻿// ReSharper disable MethodHasAsyncOverload
 
+using DiffEngine;
+
 [UsesVerify]
 public class StreamTests
 {
@@ -10,9 +12,18 @@ public class StreamTests
         VerifierSettings.RegisterFileConverter("xyz", ConvertXyz);
         VerifierSettings.RegisterFileConverter(ConvertAbcBinary, (o, extension, _) => IsBinary(o, extension, "abc"));
         VerifierSettings.RegisterFileConverter(ConvertXyzBinary, (o, extension, _) => IsBinary(o, extension, "xyz"));
+
+        DiffTools.AddTool("NullComparer",
+            true, false, true, true,
+            (tempFile, targetFile) => $"\"{targetFile}\" \"{tempFile}\"",
+            (tempFile, targetFile) => $"\"{tempFile}\" \"{targetFile}\"",
+            exePath: "NullComparer.exe",
+            binaryExtensions: new[] { "abc", "xyz" });
+
+        DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }
 
-    static readonly string[] expectedFiles =
+    static readonly string[] ExpectedFiles =
     {
         "00.received.txt",
         "00.verified.txt",
@@ -20,163 +31,206 @@ public class StreamTests
         "01.verified.abc"
     };
 
-    const string expectedText = "abc";
+    static bool ExistingInTestContext(string fileName)
+    {
+        return !BuildServerDetector.Detected || !fileName.Contains(".verified.");
+    }
 
-    static readonly Binary binary1 = new("abc", "123");
-    static readonly Binary binary2 = new("abc", "1234");
+    static readonly string[] ExpectedAbcFiles = ExpectedFiles.Where(ExistingInTestContext).ToArray();
+
+    static readonly string[] ExpectedXyzFiles = ExpectedAbcFiles.Select(item => item.Replace(".abc", ".xyz")).ToArray();
+
+    const string ExpectedText = "abc";
+
+    static readonly Binary Binary1 = new("abc", "123");
+    static readonly Binary Binary2 = new("abc", "1234");
 
     [Fact]
     public async Task VerifyFailsCorrectly_NoFilesExist()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1);
+            await Verify(Binary1);
         });
 
+        var expectedFiles = ExpectedAbcFiles;
+
         Assert.Equal(expectedFiles, context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(2);
     }
 
     [Fact]
     public async Task VerifyFailsCorrectly_NoFilesExist_UsingExtension()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1).UseExtension("xyz");
+            await Verify(Binary1).UseExtension("xyz");
         });
 
+        var expectedFiles = ExpectedXyzFiles;
+
         Assert.Equal(expectedFiles, context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(2);
     }
 
     [Fact]
     public async Task VerifyFailsCorrectly_TextFileExistsWithDifferentContent_BinaryIsMissing()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
+
+        var expectedFiles = ExpectedAbcFiles;
 
         var textFile = context.GetFullName(expectedFiles[1]);
         File.WriteAllText(textFile, "dummy");
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1);
+            await Verify(Binary1);
         });
 
-        Assert.Equal(expectedFiles.Take(3), context.GetFileKeys());
+        Assert.Equal(expectedFiles, context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(2);
     }
 
     [Fact]
     public async Task VerifyFailsCorrectly_TextFileExistsWithDifferentContent_BinaryExistsWithDifferentContent()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
+        var expectedFiles = ExpectedAbcFiles;
         var textFile = context.GetFullName(expectedFiles[1]);
         File.WriteAllText(textFile, "dummy");
         var binaryFile = context.GetFullName(expectedFiles[3]);
-        binary2.SaveAs(binaryFile);
+        Binary2.SaveAs(binaryFile);
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1);
+            await Verify(Binary1);
         });
 
         Assert.Equal(expectedFiles, context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(2);
     }
 
     [Fact]
     public async Task VerifyFailsCorrectly_TextExistAndMatching_BinaryIsMissing()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
+        var expectedFiles = ExpectedAbcFiles;
+
         var textFile = context.GetFullName(expectedFiles[1]);
-        File.WriteAllText(textFile, expectedText);
+        File.WriteAllText(textFile, ExpectedText);
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1);
+            await Verify(Binary1);
         });
 
         Assert.Equal(expectedFiles.Skip(1), context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(1);
     }
 
 
     [Fact]
     public async Task VerifyFailsCorrectly_TextExistAndMatching_BinaryExistsWithDifferentContent()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
+        var expectedFiles = ExpectedAbcFiles;
+
         var textFile = context.GetFullName(expectedFiles[1]);
-        File.WriteAllText(textFile, expectedText);
+        File.WriteAllText(textFile, ExpectedText);
         var binaryFile = context.GetFullName(expectedFiles[3]);
-        binary2.SaveAs(binaryFile);
+        Binary2.SaveAs(binaryFile);
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1);
+            await Verify(Binary1);
         });
 
         Assert.Equal(expectedFiles.Skip(1), context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(1);
     }
 
     [Fact]
     public async Task VerifyFailsCorrectly_TextExistAndMatching_BinaryExistsWithDifferentContent_UsingExtension()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
-        var xyzFiles = expectedFiles.Select(item => item.Replace(".abc", ".xyz")).ToArray();
+        var expectedFiles = ExpectedXyzFiles;
 
-        var textFile = context.GetFullName(xyzFiles[1]);
-        File.WriteAllText(textFile, expectedText);
-        var binaryFile = context.GetFullName(xyzFiles[3]);
-        binary2.SaveAs(binaryFile);
+        var textFile = context.GetFullName(expectedFiles[1]);
+        File.WriteAllText(textFile, ExpectedText);
+        var binaryFile = context.GetFullName(expectedFiles[3]);
+        Binary2.SaveAs(binaryFile);
 
         var ex = await Assert.ThrowsAsync<VerifyException>(async () =>
         {
-            await Verify(binary1).UseExtension("xyz");
+            await Verify(Binary1).UseExtension("xyz");
         });
 
-        Assert.Equal(xyzFiles, context.GetFileKeys());
+        Assert.Equal(expectedFiles.Skip(1), context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(1);
     }
 
     [Fact]
     public async Task VerifySucceeds_TextAndBinaryMatching()
     {
-        var context = new Context();
+        var context = CreateContext();
 
         context.ClearFiles();
 
+        var expectedFiles = ExpectedAbcFiles;
+
         var textFile = context.GetFullName(expectedFiles[1]);
-        File.WriteAllText(textFile, expectedText);
+        File.WriteAllText(textFile, ExpectedText);
         var binaryFile = context.GetFullName(expectedFiles[3]);
 
-        binary1.SaveAs(binaryFile);
+        Binary1.SaveAs(binaryFile);
 
-        await Verify(binary1);
+        await Verify(Binary1);
 
         Assert.Equal(expectedFiles.Where(file => file.Contains("verified")), context.GetFileKeys());
+
+        await context.AssertDiffToolExecutedAsync(0);
     }
 
-    class Context
+    Context<StreamTests> CreateContext([CallerMemberName] string? testMethodName = null, [CallerFilePath] string? sourceFile = null)
     {
-        public Context([CallerMemberName] string? testMethodName = null, [CallerFilePath] string sourceFile = "")
+        return new(testMethodName!, sourceFile!);
+    }
+
+    class Context<T>
+    {
+        public Context(string testMethodName, string sourceFile)
         {
-            FilePrefix = $"{nameof(StreamTests)}.{testMethodName}.";
+            FilePrefix = $"{typeof(T).Name}.{testMethodName}.";
             Folder = Path.GetDirectoryName(sourceFile)!;
         }
 
@@ -210,6 +264,34 @@ public class StreamTests
         public string GetFullName(string file)
         {
             return Path.Combine(Folder, FilePrefix + file);
+        }
+
+        public async Task AssertDiffToolExecutedAsync(int expectedFileCount)
+        {
+            if (BuildServerDetector.Detected)
+            {
+                return;
+            }
+
+            while (Process.GetProcessesByName("NullComparer").Any())
+            {
+                await Task.Delay(200);
+            }
+
+            var verifiedFiles = GetFiles().Where(item => item.Contains(".verified."));
+            var checkedFiles = 0;
+
+            foreach (var verified in verifiedFiles)
+            {
+                var received = verified.Replace(".verified.", ".received.");
+                if (!File.Exists(received))
+                    continue;
+
+                checkedFiles++;
+                Assert.Equal(NullComparer.Constants.KeyText, File.ReadAllText(verified));
+            }
+
+            Assert.Equal(expectedFileCount, checkedFiles);
         }
     }
 

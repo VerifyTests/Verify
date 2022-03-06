@@ -115,7 +115,7 @@ public partial class SerializationSettings
     {
         if (scrubDateTimes)
         {
-            if (DateTime.TryParseExact(value, serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
+            if (DateTime.TryParseExact(value, jsonSettings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
             {
                 result = Convert(counter, dateTime);
                 return true;
@@ -139,7 +139,7 @@ public partial class SerializationSettings
     {
         if (scrubDateTimes)
         {
-            if (DateTimeOffset.TryParseExact(value, serializersettings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
+            if (DateTimeOffset.TryParseExact(value, jsonSettings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
             {
                 result = Convert(counter, dateTimeOffset);
                 return true;

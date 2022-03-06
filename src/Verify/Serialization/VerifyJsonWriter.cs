@@ -34,6 +34,12 @@ public class VerifyJsonWriter :
             return;
         }
 
+        if (settings.TryConvertString(Counter, value, out var result))
+        {
+            WriteRawValue(result);
+            return;
+        }
+
         value = value.Replace("\r\n", "\n").Replace('\r', '\n');
         if (VerifierSettings.StrictJson)
         {
@@ -46,63 +52,74 @@ public class VerifyJsonWriter :
             base.Flush();
             var builderLength = builder.Length;
             value = $"\n{value}";
-            base.WriteRawValue(value);
+            WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
             return;
         }
 
-        base.WriteRawValue(value);
+        WriteRawValue(value);
     }
 
     public override void WriteValue(byte[]? value)
     {
         if (value is null)
         {
-            base.WriteNull();
+            WriteNull();
             return;
         }
 
-        base.WriteRawValue(Convert.ToBase64String(value));
+        WriteRawValue(Convert.ToBase64String(value));
     }
 
     public override void WriteValue(DateTimeOffset value)
     {
         if (settings.TryConvert(Counter, value, out var result))
         {
-            base.WriteRawValue(result);
+            WriteRawValue(result);
             return;
         }
 
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            base.WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
             return;
         }
 
-        base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
+        WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
     public override void WriteValue(DateTime value)
     {
         if (settings.TryConvert(Counter, value, out var result))
         {
-            base.WriteRawValue(result);
+            WriteRawValue(result);
             return;
         }
 
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            base.WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
+            WriteRawValue(value.ToString("yyyy-MM-ddK", CultureInfo.InvariantCulture));
             return;
         }
 
-        base.WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
+        WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
     public override void WriteValue(TimeSpan value)
     {
-        base.WriteRawValue(value.ToString());
+        WriteRawValue(value.ToString());
+    }
+
+    public override void WriteValue(Guid value)
+    {
+        if (settings.TryConvert(Counter, value, out var result))
+        {
+            WriteRawValue(result);
+            return;
+        }
+
+        WriteRawValue(value.ToString("D", CultureInfo.InvariantCulture));
     }
 
     /// <summary>

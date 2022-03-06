@@ -6,7 +6,7 @@ class DateConverter :
     {
         if (writer.settings.TryConvert(writer.Counter, value, out var result))
         {
-            writer.WriteValue(result);
+            writer.WriteRawValue(result);
             return;
         }
 

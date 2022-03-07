@@ -4,6 +4,10 @@
     <TargetFrameworks>net6</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
+    <Using Include="Newtonsoft.Json" />
+    <Using Include="Newtonsoft.Json.Serialization" />
+    <Using Include="Newtonsoft.Json.Linq" />
+    <Using Include="Newtonsoft.Json.Converters" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Xunit" Version="2.4.1" />
@@ -12,6 +16,7 @@
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
+    <ProjectReference Include="..\NullComparer\NullComparer.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

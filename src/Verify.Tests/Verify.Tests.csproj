@@ -29,7 +29,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Folder Include="Naming\CustomDirectory\" />
-    <None Update="sample2.png">
+    <None Update="EmptyFiles\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -64,13 +64,6 @@
 
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
-            var extension = settings.extension;
-            if (extension != null)
-            {
-                var name = target.GetType().Name;
-                throw new($"The current target '{name}' already has a type converter. Applying an extension converter is not supported. This can most likely be fixed by removing `.UseExtension(\"{extension}\");`");
-            }
-
             var result = await converter.Conversion(target, settings.Context);
             await VerifyInner(result.Info, result.Cleanup, result.Targets);
             return;

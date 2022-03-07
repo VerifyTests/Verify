@@ -6,6 +6,12 @@
 
         if (TryGetTargetBuilder(target, out var builder, out var extension))
         {
+            if (target is string && targetList.Any(item => item.IsStream))
+            {
+                // if we have stream targets, extension applies to stream, and "target" is just text metadata.
+                extension = "txt";
+            }
+
             ApplyScrubbers.Apply(extension, builder, settings);
 
             var received = builder.ToString();

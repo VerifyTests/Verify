@@ -4,15 +4,21 @@ root = true
 # top-most EditorConfig file
 
 [*]
-indent_style = space:error
+indent_style = space
+
+
+[*.cs]
+indent_size = 4
+charset = utf-8
+
 
 # Microsoft .NET properties
 csharp_new_line_before_members_in_object_initializers = false
 csharp_preferred_modifier_order = public, private, protected, internal, new, static, abstract, virtual, sealed, readonly, override, extern, unsafe, volatile, async:suggestion
 csharp_style_namespace_declarations = file_scoped:error
-csharp_style_var_elsewhere = true:suggestion
-csharp_style_var_for_built_in_types = true:suggestion
-csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:error
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
 dotnet_naming_rule.private_constants_rule.import_to_resharper = as_predefined
 dotnet_naming_rule.private_constants_rule.severity = warning
 dotnet_naming_rule.private_constants_rule.style = upper_camel_case_style
@@ -90,12 +96,8 @@ resharper_unnecessary_whitespace_highlighting = error
 resharper_use_await_using_highlighting = warning
 resharper_use_deconstruction_highlighting = warning
 
-[*.cs]
-indent_size = 4:error
-charset = utf-8-bom:error
-
 # Sort using and Import directives with System.* appearing first
-dotnet_sort_system_directives_first = true:error
+dotnet_sort_system_directives_first = true
 
 # Avoid "this." and "Me." if not necessary
 dotnet_style_qualification_for_field = false:error
@@ -120,14 +122,14 @@ csharp_style_var_when_type_is_apparent = true:error
 csharp_style_var_elsewhere = true:error
 
 # Prefer method-like constructs to have a block body
-csharp_style_expression_bodied_methods = false:none
-csharp_style_expression_bodied_constructors = false:none
-csharp_style_expression_bodied_operators = false:none
+csharp_style_expression_bodied_methods = true:error
+csharp_style_expression_bodied_constructors = true:error
+csharp_style_expression_bodied_operators = true:error
 
 # Prefer property-like constructs to have an expression-body
-csharp_style_expression_bodied_properties = true:suggestion
-csharp_style_expression_bodied_indexers = true:suggestion
-csharp_style_expression_bodied_accessors = true:none
+csharp_style_expression_bodied_properties = true:error
+csharp_style_expression_bodied_indexers = true:error
+csharp_style_expression_bodied_accessors = true:error
 
 # Suggest more modern language features when available
 csharp_style_pattern_matching_over_is_with_cast_check = true:error
@@ -138,18 +140,21 @@ csharp_style_conditional_delegate_call = true:suggestion
 
 # Newline settings
 #csharp_new_line_before_open_brace = all:error
-csharp_new_line_before_else = true:error
-csharp_new_line_before_catch = true:error
-csharp_new_line_before_finally = true:error
-csharp_new_line_before_members_in_object_initializers = true:error
-csharp_new_line_before_members_in_anonymous_types = true:error
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
 csharp_place_type_constraints_on_same_line = false:error
 csharp_wrap_before_first_type_parameter_constraint = true:error
 csharp_wrap_extends_list_style = true:error
-csharp_wrap_after_dot_in_method_calls false:error
-csharp_wrap_before_binary_pattern_op false:error
+csharp_wrap_after_dot_in_method_calls false
+csharp_wrap_before_binary_pattern_op false
+resharper_csharp_wrap_object_and_collection_initializer_style = chop_always
+resharper_csharp_place_simple_initializer_on_single_line = false
 
 dotnet_style_require_accessibility_modifiers = never:error
+resharper_place_type_constraints_on_same_line = false
 
 #braces https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html#Braces
 braces_for_ifelse = required
@@ -169,4 +174,3 @@ space_before_self_closing = true
 
 [*.json]
 indent_size = 2
-

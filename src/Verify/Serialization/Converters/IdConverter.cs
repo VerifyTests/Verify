@@ -8,7 +8,7 @@
 
     public override void Write(VerifyJsonWriter writer, object value)
     {
-        var id = writer.Counter.NextId(value);
-        writer.WriteValue($"Id_{id}");
+        var id = writer.Counter.NextIdString(value);
+        writer.WriteValue(id);
     }
 }

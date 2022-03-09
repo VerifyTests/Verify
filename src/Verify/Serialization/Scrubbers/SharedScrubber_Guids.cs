@@ -21,8 +21,7 @@ public partial class SerializationSettings
             return "Guid_Empty";
         }
 
-        var next = counter.Next(guid);
-        return $"Guid_{next}";
+        return counter.NextString(guid);
     }
 
     internal bool TryParseConvertGuid(Counter counter, string value, [NotNullWhen(true)] out string? result)

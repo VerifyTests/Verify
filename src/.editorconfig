@@ -125,6 +125,7 @@ csharp_style_var_elsewhere = true:error
 csharp_style_expression_bodied_methods = true:error
 csharp_style_expression_bodied_constructors = true:error
 csharp_style_expression_bodied_operators = true:error
+csharp_place_expr_method_on_single_line = false
 
 # Prefer property-like constructs to have an expression-body
 csharp_style_expression_bodied_properties = true:error

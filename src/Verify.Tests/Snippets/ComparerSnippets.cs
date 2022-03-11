@@ -15,12 +15,10 @@ public class ComparerSnippets
     }
 
     [Fact]
-    public Task InstanceComparerFluent()
-    {
-        return VerifyFile("sample.png")
+    public Task InstanceComparerFluent() =>
+        VerifyFile("sample.png")
             .UseStreamComparer(CompareImages)
             .UseExtension("png");
-    }
 
     #endregion
 

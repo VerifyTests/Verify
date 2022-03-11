@@ -8,27 +8,21 @@ public class ParametersSample
 
     [Theory]
     [MemberData(nameof(GetDecimalData))]
-    public async Task Decimal(decimal arg)
-    {
+    public async Task Decimal(decimal arg) =>
         await Verify(arg)
             .UseParameters(arg);
-    }
 
     [Theory]
     [InlineData((float) 1.1)]
-    public async Task Float(float arg)
-    {
+    public async Task Float(float arg) =>
         await Verify(arg)
             .UseParameters(arg);
-    }
 
     [Theory]
     [InlineData(1.1d)]
-    public async Task Double(double arg)
-    {
+    public async Task Double(double arg) =>
         await Verify(arg)
             .UseParameters(arg);
-    }
 
     #region xunitInlineData
 
@@ -45,11 +39,9 @@ public class ParametersSample
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
-    public Task InlineDataUsageFluent(string arg)
-    {
-        return Verify(arg)
+    public Task InlineDataUsageFluent(string arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     #endregion
 
@@ -66,11 +58,9 @@ public class ParametersSample
 
     [Theory]
     [MemberData(nameof(GetData))]
-    public Task MemberDataUsageFluent(string arg)
-    {
-        return Verify(arg)
+    public Task MemberDataUsageFluent(string arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     public static IEnumerable<object[]> GetData()
     {

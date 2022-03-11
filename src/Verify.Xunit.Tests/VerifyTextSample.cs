@@ -2,8 +2,6 @@
 public class VerifyTextSample
 {
     [Fact]
-    public Task Simple()
-    {
-        return Verify("Foo");
-    }
+    public Task Simple() =>
+        Verify("Foo");
 }

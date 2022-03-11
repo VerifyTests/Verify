@@ -27,8 +27,7 @@ public class ExtensionSample
     }
 
     [Test]
-    public async Task AtMethodFluent()
-    {
+    public async Task AtMethodFluent() =>
         await Verify(
                 target: @"
 <note>
@@ -38,11 +37,9 @@ public class ExtensionSample
 </note>",
                 settings: classLevelSettings)
             .UseExtension("xml");
-    }
 
     [Test]
-    public async Task SharedClassLevelSettings()
-    {
+    public async Task SharedClassLevelSettings() =>
         await Verify(
             target: @"
 {
@@ -51,7 +48,6 @@ public class ExtensionSample
   color: 'Red'
 }",
             settings: classLevelSettings);
-    }
 }
 
 #endregion

@@ -25,11 +25,9 @@ static class ClipboardEnabled
         throw new($"Could not convert `Verify_DisableClipboard` environment variable to a bool. Value: {disabledText}");
     }
 
-    public static bool IsEnabled()
-    {
-        return !(
+    public static bool IsEnabled() =>
+        !(
             clipboardDisabledInEnv ||
             ContinuousTestingDetector.Detected ||
             BuildServerDetector.Detected);
-    }
 }

@@ -8,10 +8,8 @@ static class ApplyScrubbers
     static char altDirSeparator = Path.AltDirectorySeparatorChar;
     static List<KeyValuePair<string, string>> replacements = null!;
 
-    static string ReplaceAltDirChar(this string directory)
-    {
-        return directory.Replace(dirSeparator, altDirSeparator);
-    }
+    static string ReplaceAltDirChar(this string directory) =>
+        directory.Replace(dirSeparator, altDirSeparator);
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
@@ -149,8 +147,6 @@ static class ApplyScrubbers
         target.FixNewlines();
     }
 
-    static string CleanPath(string directory)
-    {
-        return directory.TrimEnd('/', '\\');
-    }
+    static string CleanPath(string directory) =>
+        directory.TrimEnd('/', '\\');
 }

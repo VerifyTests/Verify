@@ -4,8 +4,6 @@
 public class NamerInNamespaceTests
 {
     [Fact]
-    public Task Run()
-    {
-        return Verify("value");
-    }
+    public Task Run() =>
+        Verify("value");
 }

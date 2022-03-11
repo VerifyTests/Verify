@@ -6,10 +6,8 @@ public static partial class VerifierSettings
     static Dictionary<string, StreamCompare> streamComparers = new();
     static StringCompare? defaultStringComparer;
 
-    internal static bool TryGetStreamComparer(string extension, [NotNullWhen(true)] out StreamCompare? comparer)
-    {
-        return streamComparers.TryGetValue(extension, out comparer);
-    }
+    internal static bool TryGetStreamComparer(string extension, [NotNullWhen(true)] out StreamCompare? comparer) =>
+        streamComparers.TryGetValue(extension, out comparer);
 
     internal static bool TryGetStringComparer(string extension, [NotNullWhen(true)] out StringCompare? comparer)
     {
@@ -39,8 +37,6 @@ public static partial class VerifierSettings
         stringComparers[extension] = compare;
     }
 
-    public static void SetDefaultStringComparer(StringCompare compare)
-    {
+    public static void SetDefaultStringComparer(StringCompare compare) =>
         defaultStringComparer = compare;
-    }
 }

@@ -16,8 +16,6 @@ public static partial class VerifierSettings
         }
     }
 
-    public static void RegisterFileAppender(FileAppender appender)
-    {
+    public static void RegisterFileAppender(FileAppender appender) =>
         fileAppenders.Add(appender);
-    }
 }

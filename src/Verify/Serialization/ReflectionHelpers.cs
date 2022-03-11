@@ -44,21 +44,15 @@
         return collection.GetEnumerator().MoveNext();
     }
 
-    static bool ImplementsICollection(this Type interfaceType)
-    {
-        return typeof(ICollection).IsAssignableFrom(interfaceType);
-    }
+    static bool ImplementsICollection(this Type interfaceType) =>
+        typeof(ICollection).IsAssignableFrom(interfaceType);
 
-    static bool ImplementsIEnumerable(this Type interfaceType)
-    {
-        return typeof(IEnumerable).IsAssignableFrom(interfaceType);
-    }
+    static bool ImplementsIEnumerable(this Type interfaceType) =>
+        typeof(IEnumerable).IsAssignableFrom(interfaceType);
 
-    public static bool IsCollectionOrDictionary(this Type type)
-    {
-        return type.IsCollection() ||
-               type.IsDictionary();
-    }
+    public static bool IsCollectionOrDictionary(this Type type) =>
+        type.IsCollection() ||
+        type.IsDictionary();
 
     public static bool IsCollection(this Type type)
     {
@@ -110,11 +104,9 @@
     }
 
 
-    public static bool ImplementsStreamEnumerable(this Type type)
-    {
-        return type.GetInterfaces()
+    public static bool ImplementsStreamEnumerable(this Type type) =>
+        type.GetInterfaces()
             .Any(_ => _.IsStreamEnumerable());
-    }
 
     static bool IsStreamEnumerable(this Type type)
     {

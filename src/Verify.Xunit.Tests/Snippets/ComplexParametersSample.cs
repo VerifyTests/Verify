@@ -21,11 +21,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
-    public Task ComplexMemberDataFluent(ComplexData arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberDataFluent(ComplexData arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
@@ -38,11 +36,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
-    public Task ComplexMemberNullableDataFluent(ComplexData? arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberNullableDataFluent(ComplexData? arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     public static IEnumerable<object[]> GetComplexMemberData()
     {
@@ -72,11 +68,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
-    public Task ComplexMemberStructDataFluent(ComplexStructData arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberStructDataFluent(ComplexStructData arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
@@ -89,11 +83,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
-    public Task ComplexMemberNullableStructDataFluent(ComplexStructData? arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberNullableStructDataFluent(ComplexStructData? arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     public static IEnumerable<object[]> GetComplexMemberStructData()
     {
@@ -109,10 +101,8 @@ public class ComplexParametersSample
 
     public struct ComplexStructData
     {
-        public ComplexStructData(string value)
-        {
+        public ComplexStructData(string value) =>
             Value = value;
-        }
 
         public string Value { get; set; } = null!;
     }

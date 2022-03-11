@@ -11,10 +11,8 @@ public class Tests
     }
 
     [Fact]
-    public Task String()
-    {
-        return Verify("Foo");
-    }
+    public Task String() =>
+        Verify("Foo");
 
     [Fact]
     public Task VerifyJsonString()
@@ -31,10 +29,8 @@ public class Tests
     }
 
     [Fact]
-    public Task Dynamic()
-    {
-        return Verify(new {value = "Foo"});
-    }
+    public Task Dynamic() =>
+        Verify(new {value = "Foo"});
 
     [Fact]
     public async Task Object()

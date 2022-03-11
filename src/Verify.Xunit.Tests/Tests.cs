@@ -11,11 +11,9 @@ public class Tests
 
     [Theory]
     [MemberData(nameof(GetData))]
-    public Task UseFileNameWithParam(string arg)
-    {
-        return Verify(arg)
+    public Task UseFileNameWithParam(string arg) =>
+        Verify(arg)
             .UseFileName("UseFileNameWithParam");
-    }
 
     public static IEnumerable<object[]> GetData()
     {

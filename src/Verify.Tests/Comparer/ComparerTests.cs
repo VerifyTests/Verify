@@ -56,13 +56,9 @@ theMessage".Replace("\r\n", "\n"),
         await Verify("thetext", settings);
     }
 
-    static Task<CompareResult> Compare(string received, string verified, IReadOnlyDictionary<string, object> context)
-    {
-        return Task.FromResult(new CompareResult(string.Equals(received, received, StringComparison.OrdinalIgnoreCase)));
-    }
+    static Task<CompareResult> Compare(string received, string verified, IReadOnlyDictionary<string, object> context) =>
+        Task.FromResult(new CompareResult(string.Equals(received, received, StringComparison.OrdinalIgnoreCase)));
 
-    static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary)
-    {
-        return Task.FromResult(CompareResult.NotEqual("theMessage"));
-    }
+    static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary) =>
+        Task.FromResult(CompareResult.NotEqual("theMessage"));
 }

@@ -134,10 +134,8 @@ class VerifyEngine
         }
     }
 
-    Task ProcessDeletes()
-    {
-        return Task.WhenAll(delete.Select(ProcessDeletes));
-    }
+    Task ProcessDeletes() =>
+        Task.WhenAll(delete.Select(ProcessDeletes));
 
     async Task ProcessDeletes(string file)
     {

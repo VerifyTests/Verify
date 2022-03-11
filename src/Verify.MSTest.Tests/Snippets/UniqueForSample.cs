@@ -15,11 +15,9 @@ public class UniqueForSample :
     }
 
     [TestMethod]
-    public Task RuntimeFluent()
-    {
-        return Verify("value")
+    public Task RuntimeFluent() =>
+        Verify("value")
             .UniqueForRuntime();
-    }
 
     [TestMethod]
     public Task RuntimeAndVersion()
@@ -30,11 +28,9 @@ public class UniqueForSample :
     }
 
     [TestMethod]
-    public Task RuntimeAndVersionFluent()
-    {
-        return Verify("value")
+    public Task RuntimeAndVersionFluent() =>
+        Verify("value")
             .UniqueForRuntimeAndVersion();
-    }
 
     [TestMethod]
     public Task AssemblyConfiguration()
@@ -45,11 +41,9 @@ public class UniqueForSample :
     }
 
     [TestMethod]
-    public Task AssemblyConfigurationFluent()
-    {
-        return Verify("value")
+    public Task AssemblyConfigurationFluent() =>
+        Verify("value")
             .UniqueForAssemblyConfiguration();
-    }
 
     [TestMethod]
     public Task Architecture()
@@ -60,11 +54,9 @@ public class UniqueForSample :
     }
 
     [TestMethod]
-    public Task ArchitectureFluent()
-    {
-        return Verify("value")
+    public Task ArchitectureFluent() =>
+        Verify("value")
             .UniqueForArchitecture();
-    }
 
     [TestMethod]
     public Task OSPlatform()
@@ -75,11 +67,9 @@ public class UniqueForSample :
     }
 
     [TestMethod]
-    public Task OSPlatformFluent()
-    {
-        return Verify("value")
+    public Task OSPlatformFluent() =>
+        Verify("value")
             .UniqueForOSPlatform();
-    }
 }
 
 #endregion

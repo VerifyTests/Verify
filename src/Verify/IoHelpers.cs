@@ -19,20 +19,14 @@
         }
     }
 
-    static FileStream OpenWrite(string path)
-    {
-        return new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
-    }
+    static FileStream OpenWrite(string path) =>
+        new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
 
-    public static FileStream OpenRead(string path)
-    {
-        return new(path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
-    }
+    public static FileStream OpenRead(string path) =>
+        new(path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
 
-    public static long Length(string file)
-    {
-        return new FileInfo(file).Length;
-    }
+    public static long Length(string file) =>
+        new FileInfo(file).Length;
 
     public static async Task<string> ReadString(this Stream stream)
     {
@@ -50,10 +44,8 @@
     }
 
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
-    public static Task WriteText(string path, string text)
-    {
-        return File.WriteAllTextAsync(path, text, Utf8);
-    }
+    public static Task WriteText(string path, string text) =>
+        File.WriteAllTextAsync(path, text, Utf8);
 
     public static async Task<string> ReadStringWithFixedLines(string path)
     {

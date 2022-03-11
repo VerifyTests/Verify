@@ -19,10 +19,8 @@ public static class ClipboardAccept
         VerifierSettings.OnVerifyMismatch((file, _) => AppendMove(file));
     }
 
-    static Task AppendMove(FilePair file)
-    {
-        return Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
-    }
+    static Task AppendMove(FilePair file) =>
+        Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
 
     static ClipboardAccept()
     {
@@ -50,20 +48,14 @@ public static class ClipboardAccept
         }
     }
 
-    internal static void Clear()
-    {
+    internal static void Clear() =>
         builder = new();
-    }
 
-    internal static string Read()
-    {
-        return builder.ToString();
-    }
+    internal static string Read() =>
+        builder.ToString();
 
-    internal static Task AppendDelete(string verified)
-    {
-        return Append(string.Format(deleteCommand, verified));
-    }
+    internal static Task AppendDelete(string verified) =>
+        Append(string.Format(deleteCommand, verified));
 
     static async Task Append(string command)
     {

@@ -6,11 +6,9 @@ using System.Drawing.Imaging;
 public class TypeConverterTests
 {
     [ModuleInitializer]
-    public static void InheritedInit()
-    {
+    public static void InheritedInit() =>
         VerifierSettings.RegisterFileConverter<ParentClass>(
             (instance, _) => new(null, "txt", instance.Value));
-    }
 
     [Fact]
     public Task Inherited()
@@ -68,11 +66,9 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void ConvertWithNewlineInit()
-    {
+    public static void ConvertWithNewlineInit() =>
         VerifierSettings.RegisterFileConverter<ClassToSplit>(
             (instance, _) => new(null, "txt", instance.Value));
-    }
 
     [Fact]
     public Task ConvertWithNewline()
@@ -90,12 +86,10 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void ConvertWithCanConvert_InvalidInit()
-    {
+    public static void ConvertWithCanConvert_InvalidInit() =>
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
             (instance, _) => new(null, "txt", instance.Value),
             (inner, _, _) => inner.Value == "Valid");
-    }
 
     [Fact]
     public Task ConvertWithCanConvert_Invalid()
@@ -108,12 +102,10 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void ConvertWithCanConvert_ValidInit()
-    {
+    public static void ConvertWithCanConvert_ValidInit() =>
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
             (instance, _) => new(null, "txt", instance.Value),
             (inner, _, _) => inner.Value == "Valid");
-    }
 
     [Fact]
     public Task ConvertWithCanConvert_Valid()
@@ -131,8 +123,7 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void WithInfoInit()
-    {
+    public static void WithInfoInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
             (bitmap1, _) =>
             {
@@ -148,7 +139,6 @@ public class TypeConverterTests
                 return context.ContainsKey("name") &&
                        (string) context["name"] == nameof(WithInfo);
             });
-    }
 
     [Fact]
     public Task WithInfo()
@@ -165,8 +155,7 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void WithInfoShouldRespectSettingsInit()
-    {
+    public static void WithInfoShouldRespectSettingsInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _, context) =>
                 context.ContainsKey("name") &&
@@ -181,7 +170,6 @@ public class TypeConverterTests
                 };
                 return new(info, targets.Select(x => new Target("png", x)));
             });
-    }
 
     [Fact]
     public Task WithInfoShouldRespectSettings()
@@ -199,8 +187,7 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void TypeConversionInit()
-    {
+    public static void TypeConversionInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _, context) =>
                 context.ContainsKey("name") &&
@@ -211,7 +198,6 @@ public class TypeConverterTests
                 var targets = ConvertBmpTpPngStreams(bitmap1);
                 return new ConversionResult(null, targets.Select(x => new Target("png", x)));
             });
-    }
 
     [Fact]
     public Task TypeConversion()

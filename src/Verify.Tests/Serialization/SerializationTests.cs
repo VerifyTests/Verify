@@ -20,15 +20,13 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task PathInfos()
-    {
-        return Verify(
+    public Task PathInfos() =>
+        Verify(
             new
             {
                 file = new FileInfo(@"c:/foo\bar.txt"),
                 directory = new DirectoryInfo(@"c:/foo\bar/")
             });
-    }
 
     class DescendingComparer<T> :
         IComparer<T>
@@ -167,20 +165,14 @@ public class SerializationTests
     {
         string member;
 
-        public NonComparableKey(string member)
-        {
+        public NonComparableKey(string member) =>
             this.member = member;
-        }
 
-        public override string ToString()
-        {
-            return member;
-        }
+        public override string ToString() =>
+            member;
 
-        public override int GetHashCode()
-        {
-            return member.GetHashCode();
-        }
+        public override int GetHashCode() =>
+            member.GetHashCode();
     }
 
     [Fact]
@@ -219,28 +211,24 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task DatetimeOffsetScrubbingDisabled()
-    {
-        return Verify(
+    public Task DatetimeOffsetScrubbingDisabled() =>
+        Verify(
                 new
                 {
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
                 })
             .ModifySerialization(_ => _.DontScrubDateTimes());
-    }
 
     [Fact]
-    public Task DatetimeScrubbingDisabled()
-    {
-        return Verify(
+    public Task DatetimeScrubbingDisabled() =>
+        Verify(
                 new
                 {
                     noTime = new DateTime(2000, 1, 1),
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1)
                 })
             .ModifySerialization(_ => _.DontScrubDateTimes());
-    }
 #if NET6_0_OR_GREATER
 
     #region AddExtraSettings
@@ -438,26 +426,22 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task GuidScrubbingDisabledNested()
-    {
-        return Verify(
+    public Task GuidScrubbingDisabledNested() =>
+        Verify(
                 new
                 {
                     value = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e")
                 })
             .ModifySerialization(_ => _.DontScrubGuids());
-    }
 
     [Fact]
-    public Task ScrubberWithBadNewLine()
-    {
-        return Verify("a")
+    public Task ScrubberWithBadNewLine() =>
+        Verify("a")
             .AddScrubber(s =>
             {
                 s.AppendLine("b");
                 s.AppendLine("c");
             });
-    }
 
     [Fact]
     public Task ExtensionAwareScrubbers()
@@ -469,9 +453,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task NameValueCollection()
-    {
-        return Verify(
+    public Task NameValueCollection() =>
+        Verify(
             new
             {
                 item1 = new NameValueCollection {{null, null}},
@@ -483,37 +466,30 @@ public class SerializationTests
                 item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
                 item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}}
             });
-    }
 
     [Fact]
-    public Task Timespan()
-    {
-        return Verify(
+    public Task Timespan() =>
+        Verify(
             new
             {
                 timespan = TimeSpan.FromDays(1)
             });
-    }
 
     [Fact]
-    public Task EmptyDictionaryProperty()
-    {
-        return Verify(new
+    public Task EmptyDictionaryProperty() =>
+        Verify(new
         {
             property = new Dictionary<string, string>()
         });
-    }
 
 
     [Fact]
-    public Task ByteArray()
-    {
-        return Verify(
+    public Task ByteArray() =>
+        Verify(
             new
             {
                 bytes = new byte[] {1}
             });
-    }
 
     [Fact]
     public Task ExampleNonDefaults()
@@ -620,10 +596,8 @@ public class SerializationTests
 
 #if NET6_0_OR_GREATER
     [Fact]
-    public Task TimeOnlyNested()
-    {
-        return Verify(new {value = new TimeOnly(10, 10)});
-    }
+    public Task TimeOnlyNested() =>
+        Verify(new {value = new TimeOnly(10, 10)});
 
     [Fact]
     public Task ShouldIgnoreDatetimeDefaults()
@@ -737,11 +711,9 @@ public class SerializationTests
 #endif
 
     [Fact]
-    public Task VerifyBytes()
-    {
-        return Verify(File.ReadAllBytes("sample.jpg"))
+    public Task VerifyBytes() =>
+        Verify(File.ReadAllBytes("sample.jpg"))
             .UseExtension("jpg");
-    }
 
     [Fact]
     public Task ShouldNotScrubInlineGuidsByDefault()
@@ -776,25 +748,19 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInDash()
-    {
-        return Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
+    public Task ShouldNotExcludeInlineGuidsWrappedInDash() =>
+        Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
             .ScrubInlineGuids();
-    }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInLetters()
-    {
-        return Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
+    public Task ShouldNotExcludeInlineGuidsWrappedInLetters() =>
+        Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
-    }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInNumber()
-    {
-        return Verify("1087ea433-d83b-40b6-9e37-465211d95081")
+    public Task ShouldNotExcludeInlineGuidsWrappedInNumber() =>
+        Verify("1087ea433-d83b-40b6-9e37-465211d95081")
             .ScrubInlineGuids();
-    }
 
     [Fact]
     public Task ShouldBeAbleToExcludeInlineGuids()
@@ -859,31 +825,25 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ThrowForDateFormatHandling()
-    {
-        return ThrowsTask(
+    public Task ThrowForDateFormatHandling() =>
+        ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
             .IgnoreStackTrack();
-    }
 
     [Fact]
-    public Task ThrowForDateTimeZoneHandling()
-    {
-        return ThrowsTask(
+    public Task ThrowForDateTimeZoneHandling() =>
+        ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
             .IgnoreStackTrack();
-    }
 
     [Fact]
-    public Task ThrowForDateFormatString()
-    {
-        return ThrowsTask(
+    public Task ThrowForDateFormatString() =>
+        ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
             .IgnoreStackTrack();
-    }
 
     Task DontScrubDateTimes()
     {
@@ -936,10 +896,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task NewLineNotEscapedInProperty()
-    {
-        return Verify(new {Property = "a\r\nb\\nc"});
-    }
+    public Task NewLineNotEscapedInProperty() =>
+        Verify(new {Property = "a\r\nb\\nc"});
 
     void List()
     {
@@ -1053,16 +1011,14 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task QuoteEscaping()
-    {
-        return Verify(
+    public Task QuoteEscaping() =>
+        Verify(
             new
             {
                 singleQuote = "'",
                 doubleQuote = "\"",
                 mixed = "\"'"
             });
-    }
 
     [Fact]
     public async Task ShouldUseShortTypeName()
@@ -1094,10 +1050,8 @@ public class SerializationTests
 
     #region MethodWithNamedTuple
 
-    static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
-    {
-        return (true, "A", "B");
-    }
+    static (bool Member1, string Member2, string Member3) MethodWithNamedTuple() =>
+        (true, "A", "B");
 
     #endregion
 
@@ -1111,28 +1065,20 @@ public class SerializationTests
     }
 #endif
 
-    static (bool, string Member2, string Member3) MethodWithPartialNamedTuple()
-    {
-        return (true, "A", "B");
-    }
+    static (bool, string Member2, string Member3) MethodWithPartialNamedTuple() =>
+        (true, "A", "B");
 
     [Fact]
-    public Task NamedTupleWithNull()
-    {
-        return VerifyTuple(() => MethodWithNamedTupleWithNull());
-    }
+    public Task NamedTupleWithNull() =>
+        VerifyTuple(() => MethodWithNamedTupleWithNull());
 
     [Fact]
-    public Task Claim()
-    {
-        return Verify(new Claim("TheType", "TheValue"));
-    }
+    public Task Claim() =>
+        Verify(new Claim("TheType", "TheValue"));
 
     [Fact]
-    public Task ClaimWithClaimType()
-    {
-        return Verify(new Claim(ClaimTypes.Email, "TheValue"));
-    }
+    public Task ClaimWithClaimType() =>
+        Verify(new Claim(ClaimTypes.Email, "TheValue"));
 
     [Fact]
     public Task ClaimsPrincipal()
@@ -1152,10 +1098,8 @@ public class SerializationTests
         return Verify(claimsIdentity);
     }
 
-    static (string Member1, string? Member2) MethodWithNamedTupleWithNull()
-    {
-        return ("A", null);
-    }
+    static (string Member1, string? Member2) MethodWithNamedTupleWithNull() =>
+        ("A", null);
 
     [Fact]
     public async Task ShouldReUseGuid()
@@ -1214,10 +1158,8 @@ public class SerializationTests
             });
     }
 
-    static string GetProjectDirectory([CallerFilePath] string file = "")
-    {
-        return new FileInfo(file).Directory!.Parent!.FullName;
-    }
+    static string GetProjectDirectory([CallerFilePath] string file = "") =>
+        new FileInfo(file).Directory!.Parent!.FullName;
 
     [Fact]
     public Task ShouldScrubSolutionDirectory()
@@ -1235,10 +1177,8 @@ public class SerializationTests
             });
     }
 
-    static string GetSolutionDirectory([CallerFilePath] string file = "")
-    {
-        return new FileInfo(file).Directory!.Parent!.Parent!.FullName;
-    }
+    static string GetSolutionDirectory([CallerFilePath] string file = "") =>
+        new FileInfo(file).Directory!.Parent!.Parent!.FullName;
 
     [Fact]
     public Task ShouldScrubGuid()
@@ -1291,9 +1231,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubDictionaryKey()
-    {
-        return Verify(
+    public Task ShouldScrubDictionaryKey() =>
+        Verify(
             new
             {
                 guid = new Dictionary<Guid, string>
@@ -1313,7 +1252,6 @@ public class SerializationTests
                     {typeof(SerializationTests), "value"}
                 }
             });
-    }
 
     [Fact]
     public Task ShouldIgnoreEmptyList()
@@ -1587,10 +1525,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task Type()
-    {
-        return Verify(GetType());
-    }
+    public Task Type() =>
+        Verify(GetType());
 
     [Fact]
     public Task Field()
@@ -1625,16 +1561,12 @@ public class SerializationTests
     public string MyProperty { get; set; }
 
     [Fact]
-    public Task Method()
-    {
-        return Verify(Info.OfMethod<SerializationTests>("Method"));
-    }
+    public Task Method() =>
+        Verify(Info.OfMethod<SerializationTests>("Method"));
 
     [Fact]
-    public Task Constructor()
-    {
-        return Verify(Info.OfConstructor<SerializationTests>());
-    }
+    public Task Constructor() =>
+        Verify(Info.OfConstructor<SerializationTests>());
 
     [Fact]
     public Task Parameter()
@@ -1644,10 +1576,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task MethodWithParameters()
-    {
-        return Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
-    }
+    public Task MethodWithParameters() =>
+        Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
 
     // ReSharper disable UnusedParameter.Local
     void MyMethodWithParameters(int x, string y)
@@ -1669,20 +1599,16 @@ public class SerializationTests
 
     struct ToIncludeStruct
     {
-        public ToIncludeStruct(string property)
-        {
+        public ToIncludeStruct(string property) =>
             Property = property;
-        }
 
         public string Property { get; }
     }
 
     struct ToIgnoreStruct
     {
-        public ToIgnoreStruct(string property)
-        {
+        public ToIgnoreStruct(string property) =>
             Property = property;
-        }
 
         public string Property { get; }
     }
@@ -2172,10 +2098,8 @@ public class SerializationTests
         await Verify(exception.Message);
     }
 
-    static (bool, string, string) MethodWithTuple()
-    {
-        return (true, "A", "B");
-    }
+    static (bool, string, string) MethodWithTuple() =>
+        (true, "A", "B");
 
 #endif
 
@@ -2209,26 +2133,20 @@ public class SerializationTests
     #endregion
 
     [Fact]
-    public Task WithConverter()
-    {
-        return Verify(new ConverterTarget {Name = "The name"})
+    public Task WithConverter() =>
+        Verify(new ConverterTarget {Name = "The name"})
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
 
     [Fact]
-    public Task WithConverterAndNewline()
-    {
-        return Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
+    public Task WithConverterAndNewline() =>
+        Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
 
     [Fact]
-    public Task WithConverterAndIgnore()
-    {
-        return Verify(new ConverterTarget {Name = "The name"})
+    public Task WithConverterAndIgnore() =>
+        Verify(new ConverterTarget {Name = "The name"})
             .ModifySerialization(_ => _.IgnoreMember("Name"))
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
 
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>

@@ -10,18 +10,14 @@ public class ExceptionParsingTests
     string fakeReceivedBinFile = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake.recevied.bin");
 
     [Fact]
-    public Task Error_EmptyList()
-    {
-        return Throws(() => Parser.Parse(new[] {Environment.NewLine}))
+    public Task Error_EmptyList() =>
+        Throws(() => Parser.Parse(new[] {Environment.NewLine}))
             .IgnoreStackTrack();
-    }
 
     [Fact]
-    public Task Error_EmptyDirectory()
-    {
-        return Throws(() => Parser.Parse(new[] {"Directory: "}))
+    public Task Error_EmptyDirectory() =>
+        Throws(() => Parser.Parse(new[] {"Directory: "}))
             .IgnoreStackTrack();
-    }
 
     [Fact]
     public Task Empty()

@@ -69,31 +69,23 @@ public partial class SerializationSettings
 
     bool scrubGuids = true;
 
-    public void DontScrubGuids()
-    {
+    public void DontScrubGuids() =>
         scrubGuids = false;
-    }
 
     bool scrubDateTimes = true;
 
-    public void DontScrubDateTimes()
-    {
+    public void DontScrubDateTimes() =>
         scrubDateTimes = false;
-    }
 
     internal bool scrubNumericIds = true;
 
     internal IsNumericId isNumericId = member => member.Name.EndsWith("Id");
 
-    public void TreatAsNumericId(IsNumericId isNumericId)
-    {
+    public void TreatAsNumericId(IsNumericId isNumericId) =>
         this.isNumericId = isNumericId;
-    }
 
-    public void DontScrubNumericIds()
-    {
+    public void DontScrubNumericIds() =>
         scrubNumericIds = false;
-    }
 
     JsonSerializerSettings BuildSettings()
     {
@@ -191,8 +183,6 @@ public partial class SerializationSettings
 
     bool includeObsoletes;
 
-    public void IncludeObsoletes()
-    {
+    public void IncludeObsoletes() =>
         includeObsoletes = true;
-    }
 }

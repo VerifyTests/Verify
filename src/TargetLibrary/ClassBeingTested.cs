@@ -2,9 +2,8 @@
 
 public static class ClassBeingTested
 {
-    public static Person FindPerson()
-    {
-        return new()
+    public static Person FindPerson() =>
+        new()
         {
             Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
@@ -22,7 +21,6 @@ public static class ClassBeingTested
                 Country = "USA"
             }
         };
-    }
 }
 
 #endregion

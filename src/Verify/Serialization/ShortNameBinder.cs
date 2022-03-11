@@ -13,8 +13,6 @@
         typeName = serializedType.SimpleName();
     }
 
-    public Type BindToType(string? assemblyName, string typeName)
-    {
+    public Type BindToType(string? assemblyName, string typeName) =>
         throw new();
-    }
 }

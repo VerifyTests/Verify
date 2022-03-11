@@ -102,27 +102,20 @@ public partial class SerializationSettings
     List<Type> ignoredTypes = new();
 
     public void IgnoreMembersWithType<T>()
-        where T : notnull
-    {
+        where T : notnull =>
         ignoredTypes.Add(typeof(T));
-    }
 
     internal List<Func<Exception, bool>> ignoreMembersThatThrow = new();
 
     public void IgnoreMembersThatThrow<T>()
-        where T : Exception
-    {
+        where T : Exception =>
         ignoreMembersThatThrow.Add(x => x is T);
-    }
 
-    public void IgnoreMembersThatThrow(Func<Exception, bool> item)
-    {
+    public void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
         IgnoreMembersThatThrow<Exception>(item);
-    }
 
     public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
-        where T : Exception
-    {
+        where T : Exception =>
         ignoreMembersThatThrow.Add(
             x =>
             {
@@ -133,21 +126,16 @@ public partial class SerializationSettings
 
                 return false;
             });
-    }
 
     bool ignoreEmptyCollections = true;
 
-    public void DontIgnoreEmptyCollections()
-    {
+    public void DontIgnoreEmptyCollections() =>
         ignoreEmptyCollections = false;
-    }
 
     internal bool dontIgnoreFalse;
 
-    public void DontIgnoreFalse()
-    {
+    public void DontIgnoreFalse() =>
         dontIgnoreFalse = true;
-    }
 
     internal bool ShouldIgnore(MemberInfo member)
     {
@@ -162,10 +150,8 @@ public partial class SerializationSettings
         return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
     }
 
-    internal bool ShouldIgnore<TTarget, TProperty>(string name)
-    {
-        return ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
-    }
+    internal bool ShouldIgnore<TTarget, TProperty>(string name) =>
+        ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
 
     bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
@@ -269,9 +255,7 @@ public partial class SerializationSettings
         return false;
     }
 
-    bool IsIgnoredCollection(Type memberType)
-    {
-        return ignoreEmptyCollections &&
-               memberType.IsCollectionOrDictionary();
-    }
+    bool IsIgnoredCollection(Type memberType) =>
+        ignoreEmptyCollections &&
+        memberType.IsCollectionOrDictionary();
 }

@@ -8,8 +8,6 @@
     [InlineData(typeof(ICollection<int>), true)]
     [InlineData(typeof(IList), true)]
     [InlineData(typeof(IEnumerable<int>), false)]
-    public void ShouldNotLock(Type type, bool isCollection)
-    {
+    public void ShouldNotLock(Type type, bool isCollection) =>
         Assert.Equal(isCollection, type.IsCollection());
-    }
 }

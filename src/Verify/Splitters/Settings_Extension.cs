@@ -4,19 +4,15 @@ public static partial class VerifierSettings
 {
     static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new();
 
-    internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter)
-    {
-        return extensionConverters.TryGetValue(extension, out converter);
-    }
+    internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter) =>
+        extensionConverters.TryGetValue(extension, out converter);
 
     public static void RegisterFileConverter(
         string fromExtension,
-        Conversion<Stream> conversion)
-    {
+        Conversion<Stream> conversion) =>
         RegisterFileConverter(
             fromExtension,
             (stream, context) => Task.FromResult(conversion(stream, context)));
-    }
 
     public static void RegisterFileConverter(
         string fromExtension,

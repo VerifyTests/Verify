@@ -1,14 +1,10 @@
 ﻿public static class FileEx
 {
-    public static bool IsFileLocked(string file)
-    {
-        return IsFileLocked(file, FileAccess.ReadWrite);
-    }
+    public static bool IsFileLocked(string file) =>
+        IsFileLocked(file, FileAccess.ReadWrite);
 
-    public static bool IsFileReadLocked(string file)
-    {
-        return IsFileLocked(file, FileAccess.Read);
-    }
+    public static bool IsFileReadLocked(string file) =>
+        IsFileLocked(file, FileAccess.Read);
 
     static bool IsFileLocked(string file, FileAccess access)
     {

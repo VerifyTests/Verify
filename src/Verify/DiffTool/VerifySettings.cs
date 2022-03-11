@@ -9,8 +9,6 @@ public partial class VerifySettings
     /// <summary>
     /// Disable using a diff tool for this test
     /// </summary>
-    public void DisableDiff()
-    {
+    public void DisableDiff() =>
         diffEnabled = false;
-    }
 }

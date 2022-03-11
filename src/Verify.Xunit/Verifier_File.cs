@@ -5,17 +5,14 @@ public static partial class Verifier
     public static SettingsTask Verify(
         byte[] target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        return Verify(settings, sourceFile, _ => _.Verify(target));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.Verify(target));
 
     public static SettingsTask Verify(
         Task<byte[]> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        return Verify(
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
             settings,
             sourceFile,
             async _ =>
@@ -23,21 +20,16 @@ public static partial class Verifier
                 var bytes = await target;
                 await _.Verify(bytes);
             });
-    }
 
     public static SettingsTask VerifyFile(
         string path,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        return Verify(settings, sourceFile, _ => _.VerifyFile(path));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyFile(path));
 
     public static SettingsTask VerifyFile(
         FileInfo path,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        return Verify(settings, sourceFile, _ => _.VerifyFile(path));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyFile(path));
 }

@@ -53,10 +53,8 @@ public static partial class VerifierSettings
         }
     };
 
-    public static void NameForParameter<T>(ParameterToName<T> func)
-    {
+    public static void NameForParameter<T>(ParameterToName<T> func) =>
         parameterToNameLookup[typeof(T)] = o => func((T) o);
-    }
 
     static char[] invalidPathChars =
     {
@@ -145,37 +143,29 @@ public static partial class VerifierSettings
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
-    public static void UniqueForRuntime()
-    {
+    public static void UniqueForRuntime() =>
         SharedNamer.UniqueForRuntime = true;
-    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
-    public static void UniqueForTargetFramework()
-    {
+    public static void UniqueForTargetFramework() =>
         SharedNamer.UniqueForTargetFramework = true;
-    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
-    public static void UniqueForTargetFrameworkAndVersion()
-    {
+    public static void UniqueForTargetFrameworkAndVersion() =>
         SharedNamer.UniqueForTargetFrameworkAndVersion = true;
-    }
 
     /// <summary>
     /// Use the current test assembly configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
-    public static void UniqueForAssemblyConfiguration()
-    {
+    public static void UniqueForAssemblyConfiguration() =>
         SharedNamer.UniqueForAssemblyConfiguration = true;
-    }
 
     /// <summary>
     /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
@@ -211,36 +201,28 @@ public static partial class VerifierSettings
     /// Use the current runtime and runtime version to make the test results unique.
     /// Used when a test produces different results based on runtime and runtime version.
     /// </summary>
-    public static void UniqueForRuntimeAndVersion()
-    {
+    public static void UniqueForRuntimeAndVersion() =>
         SharedNamer.UniqueForRuntimeAndVersion = true;
-    }
 
     /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
     /// Used when a test produces different results based on processor architecture.
     /// </summary>
-    public static void UniqueForArchitecture()
-    {
+    public static void UniqueForArchitecture() =>
         SharedNamer.UniqueForArchitecture = true;
-    }
 
     /// <summary>
     /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
     /// Used when a test produces different results based on operating system family.
     /// </summary>
-    public static void UniqueForOSPlatform()
-    {
+    public static void UniqueForOSPlatform() =>
         SharedNamer.UniqueForOSPlatform = true;
-    }
 
     internal static bool UniquePrefixDisabled;
 
     /// <summary>
     /// Allow multiple tests to map to the same snapshot file prefix.
     /// </summary>
-    public static void DisableRequireUniquePrefix()
-    {
+    public static void DisableRequireUniquePrefix() =>
         UniquePrefixDisabled = true;
-    }
 }

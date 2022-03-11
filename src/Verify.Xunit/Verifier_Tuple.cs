@@ -7,18 +7,14 @@ namespace VerifyXunit
         public static SettingsTask Verify(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "")
-        {
-            return VerifyTuple(expression, settings, sourceFile);
-        }
+            [CallerFilePath] string sourceFile = "") =>
+            VerifyTuple(expression, settings, sourceFile);
 
         public static SettingsTask VerifyTuple(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "")
-        {
-            return Verify(settings, sourceFile, _ => _.VerifyTuple(expression));
-        }
+            [CallerFilePath] string sourceFile = "") =>
+            Verify(settings, sourceFile, _ => _.VerifyTuple(expression));
     }
 }
 #endif

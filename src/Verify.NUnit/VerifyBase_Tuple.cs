@@ -6,10 +6,8 @@ namespace VerifyNUnit
         [Obsolete("Use VerifyTuple")]
         public SettingsTask Verify(
             Expression<Func<ITuple>> expression,
-            VerifySettings? settings = null)
-        {
-            return VerifyTuple(expression, settings);
-        }
+            VerifySettings? settings = null) =>
+            VerifyTuple(expression, settings);
 
         public SettingsTask VerifyTuple(
             Expression<Func<ITuple>> target,

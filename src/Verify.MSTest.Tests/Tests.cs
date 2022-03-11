@@ -16,17 +16,13 @@ public class Tests :
 
     [DataTestMethod]
     [DataRow("Value1")]
-    public Task UseFileNameWithParam(string arg)
-    {
-        return Verify(arg)
+    public Task UseFileNameWithParam(string arg) =>
+        Verify(arg)
             .UseFileName("UseFileNameWithParam");
-    }
 
     [DataTestMethod]
     [DataRow("Value1")]
-    public Task UseTextForParameters(string arg)
-    {
-        return Verify(arg)
+    public Task UseTextForParameters(string arg) =>
+        Verify(arg)
             .UseTextForParameters("TextForParameter");
-    }
 }

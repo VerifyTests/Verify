@@ -7,18 +7,14 @@ namespace VerifyMSTest
         public SettingsTask Verify(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "")
-        {
-            return VerifyTuple(expression, settings, sourceFile);
-        }
+            [CallerFilePath] string sourceFile = "") =>
+            VerifyTuple(expression, settings, sourceFile);
 
         public SettingsTask VerifyTuple(
             Expression<Func<ITuple>> target,
             VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "")
-        {
-            return Verify(settings, sourceFile, _ => _.VerifyTuple(target));
-        }
+            [CallerFilePath] string sourceFile = "") =>
+            Verify(settings, sourceFile, _ => _.VerifyTuple(target));
     }
 }
 #endif

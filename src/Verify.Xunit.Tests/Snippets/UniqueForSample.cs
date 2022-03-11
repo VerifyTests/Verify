@@ -12,11 +12,9 @@ public class UniqueForSample
     }
 
     [Fact]
-    public Task RuntimeFluent()
-    {
-        return Verify("value")
+    public Task RuntimeFluent() =>
+        Verify("value")
             .UniqueForRuntime();
-    }
 
     [Fact]
     public Task RuntimeAndVersion()
@@ -35,11 +33,9 @@ public class UniqueForSample
     }
 
     [Fact]
-    public Task AssemblyConfigurationFluent()
-    {
-        return Verify("value")
+    public Task AssemblyConfigurationFluent() =>
+        Verify("value")
             .UniqueForAssemblyConfiguration();
-    }
 
     [Fact]
     public Task Architecture()
@@ -50,11 +46,9 @@ public class UniqueForSample
     }
 
     [Fact]
-    public Task ArchitectureFluent()
-    {
-        return Verify("value")
+    public Task ArchitectureFluent() =>
+        Verify("value")
             .UniqueForArchitecture();
-    }
 
     [Fact]
     public Task OSPlatform()
@@ -65,11 +59,9 @@ public class UniqueForSample
     }
 
     [Fact]
-    public Task OSPlatformFluent()
-    {
-        return Verify("value")
+    public Task OSPlatformFluent() =>
+        Verify("value")
             .UniqueForOSPlatform();
-    }
 }
 
 #endregion

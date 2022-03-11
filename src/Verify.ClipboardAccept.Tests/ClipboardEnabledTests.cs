@@ -10,8 +10,6 @@ public class ClipboardEnabledTests
     }
 
     [Fact]
-    public Task ParseEnvironmentVariable_failure()
-    {
-        return Throws(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
-    }
+    public Task ParseEnvironmentVariable_failure() =>
+        Throws(() => ClipboardEnabled.ParseEnvironmentVariable("foo"));
 }

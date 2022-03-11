@@ -53,8 +53,6 @@
         }
     }
 
-    static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison)
-    {
-        return stringToMatch.Any(toMatch => line.IndexOf(toMatch, comparison) != -1);
-    }
+    static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison) =>
+        stringToMatch.Any(toMatch => line.IndexOf(toMatch, comparison) != -1);
 }

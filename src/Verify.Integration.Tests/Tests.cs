@@ -54,10 +54,8 @@ public partial class Tests
         }
     }
 
-    static void AssertProcessNotRunning(string command)
-    {
+    static void AssertProcessNotRunning(string command) =>
         Assert.False(ProcessCleanup.IsRunning(command));
-    }
 
     static void AssertProcess(bool isRunning, params FilePair[] pairs)
     {
@@ -90,10 +88,8 @@ Commands:
         }
     }
 
-    static string BuildCommand(FilePair pair)
-    {
-        return $"\"{toolPath}\" \"{pair.ReceivedPath}\" \"{pair.VerifiedPath}\"";
-    }
+    static string BuildCommand(FilePair pair) =>
+        $"\"{toolPath}\" \"{pair.ReceivedPath}\" \"{pair.VerifiedPath}\"";
 
     static void RunClipboardCommand()
     {
@@ -123,10 +119,8 @@ Commands:
         }
     }
 
-    static Task<VerifyException> Throws(Func<Task> testCode)
-    {
-        return Assert.ThrowsAsync<VerifyException>(testCode);
-    }
+    static Task<VerifyException> Throws(Func<Task> testCode) =>
+        Assert.ThrowsAsync<VerifyException>(testCode);
 
     public Tests()
     {

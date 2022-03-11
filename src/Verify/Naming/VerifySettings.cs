@@ -8,37 +8,29 @@ public partial class VerifySettings
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
-    public void UniqueForRuntime()
-    {
+    public void UniqueForRuntime() =>
         Namer.UniqueForRuntime = true;
-    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
-    public void UniqueForTargetFramework()
-    {
+    public void UniqueForTargetFramework() =>
         Namer.UniqueForTargetFramework = true;
-    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
-    public void UniqueForTargetFrameworkAndVersion()
-    {
+    public void UniqueForTargetFrameworkAndVersion() =>
         Namer.UniqueForTargetFrameworkAndVersion = true;
-    }
 
     /// <summary>
     /// Use the current test assembly configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
-    public void UniqueForAssemblyConfiguration()
-    {
+    public void UniqueForAssemblyConfiguration() =>
         Namer.UniqueForAssemblyConfiguration = true;
-    }
 
     /// <summary>
     /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
@@ -148,36 +140,28 @@ public partial class VerifySettings
     /// Use the current runtime and runtime version to make the test results unique.
     /// Used when a test produces different results based on runtime and runtime version.
     /// </summary>
-    public void UniqueForRuntimeAndVersion()
-    {
+    public void UniqueForRuntimeAndVersion() =>
         Namer.UniqueForRuntimeAndVersion = true;
-    }
 
     /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
     /// Used when a test produces different results based on processor architecture.
     /// </summary>
-    public void UniqueForArchitecture()
-    {
+    public void UniqueForArchitecture() =>
         Namer.UniqueForArchitecture = true;
-    }
 
     /// <summary>
     /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
     /// Used when a test produces different results based on operating system family.
     /// </summary>
-    public void UniqueForOSPlatform()
-    {
+    public void UniqueForOSPlatform() =>
         Namer.UniqueForOSPlatform = true;
-    }
 
     internal bool UniquePrefixDisabled;
 
     /// <summary>
     /// Allow multiple tests to map to the same snapshot file prefix.
     /// </summary>
-    public void DisableRequireUniquePrefix()
-    {
+    public void DisableRequireUniquePrefix() =>
         UniquePrefixDisabled = true;
-    }
 }

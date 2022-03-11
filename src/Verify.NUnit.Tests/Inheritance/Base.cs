@@ -2,14 +2,10 @@
 public class Base
 {
     [Test]
-    public Task TestInBase()
-    {
-        return Verify("Foo");
-    }
+    public Task TestInBase() =>
+        Verify("Foo");
 
     [Test]
-    public virtual Task TestToOverride()
-    {
-        return Verify("Foo");
-    }
+    public virtual Task TestToOverride() =>
+        Verify("Foo");
 }

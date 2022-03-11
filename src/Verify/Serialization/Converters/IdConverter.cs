@@ -1,10 +1,8 @@
 ﻿class IdConverter :
     WriteOnlyJsonConverter
 {
-    public override bool CanConvert(Type objectType)
-    {
-        return true;
-    }
+    public override bool CanConvert(Type objectType) =>
+        true;
 
     public override void Write(VerifyJsonWriter writer, object value)
     {

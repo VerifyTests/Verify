@@ -12,9 +12,7 @@
     class MyCloneable :
         ICloneable
     {
-        public object Clone()
-        {
-            return new MyCloneable();
-        }
+        public object Clone() =>
+            new MyCloneable();
     }
 }

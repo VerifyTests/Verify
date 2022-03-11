@@ -226,12 +226,10 @@ public class StreamTests
 
         public string SearchPattern => FilePrefix + "*";
 
-        public IEnumerable<string> GetFileKeys()
-        {
-            return GetFiles()
+        public IEnumerable<string> GetFileKeys() =>
+            GetFiles()
                 .Select(file => Path.GetFileName(file).Substring(FilePrefix.Length))
                 .OrderBy(key => key);
-        }
 
         public void ClearFiles()
         {
@@ -242,15 +240,11 @@ public class StreamTests
             }
         }
 
-        public IEnumerable<string> GetFiles()
-        {
-            return Directory.EnumerateFiles(Folder, SearchPattern);
-        }
+        public IEnumerable<string> GetFiles() =>
+            Directory.EnumerateFiles(Folder, SearchPattern);
 
-        public string GetFullName(string file)
-        {
-            return Path.Combine(Folder, FilePrefix + file);
-        }
+        public string GetFullName(string file) =>
+            Path.Combine(Folder, FilePrefix + file);
 
         public async Task AssertDiffToolExecutedAsync(int expectedFileCount)
         {
@@ -295,26 +289,18 @@ public class StreamTests
 
         public string Content { get; set; }
 
-        public void SaveAs(string path)
-        {
+        public void SaveAs(string path) =>
             File.WriteAllText(path, JsonConvert.SerializeObject(this));
-        }
     }
 
-    static bool IsBinary(object target, string? extension, string requiredExtension)
-    {
-        return target is Binary && (extension == null || requiredExtension == extension);
-    }
+    static bool IsBinary(object target, string? extension, string requiredExtension) =>
+        target is Binary && (extension == null || requiredExtension == extension);
 
-    static ConversionResult ConvertXyzBinary(object binary, IReadOnlyDictionary<string, object> context)
-    {
-        return Convert((Binary)binary, "xyz");
-    }
+    static ConversionResult ConvertXyzBinary(object binary, IReadOnlyDictionary<string, object> context) =>
+        Convert((Binary)binary, "xyz");
 
-    static ConversionResult ConvertAbcBinary(object binary, IReadOnlyDictionary<string, object> context)
-    {
-        return Convert((Binary)binary, "abc");
-    }
+    static ConversionResult ConvertAbcBinary(object binary, IReadOnlyDictionary<string, object> context) =>
+        Convert((Binary)binary, "abc");
 
     static ConversionResult Convert(Binary binary, string extension)
     {
@@ -326,15 +312,11 @@ public class StreamTests
         return new(info, extension, stream);
     }
 
-    static ConversionResult ConvertXyz(Stream stream, IReadOnlyDictionary<string, object> context)
-    {
-        return Convert(stream, "xyz");
-    }
+    static ConversionResult ConvertXyz(Stream stream, IReadOnlyDictionary<string, object> context) =>
+        Convert(stream, "xyz");
 
-    static ConversionResult ConvertAbc(Stream stream, IReadOnlyDictionary<string, object> context)
-    {
-        return Convert(stream, "abc");
-    }
+    static ConversionResult ConvertAbc(Stream stream, IReadOnlyDictionary<string, object> context) =>
+        Convert(stream, "abc");
 
     static ConversionResult Convert(Stream stream, string extension)
     {
@@ -348,15 +330,11 @@ public class StreamTests
 
 static class ExtensionMethods
 {
-    public static IEnumerable<string> InTestContext(this IEnumerable<string> files, ICollection<string> filesBeforeTest)
-    {
-        return files.Where(key => ExistsInTestContext(key, filesBeforeTest));
-    }
+    public static IEnumerable<string> InTestContext(this IEnumerable<string> files, ICollection<string> filesBeforeTest) =>
+        files.Where(key => ExistsInTestContext(key, filesBeforeTest));
 
-    static bool ExistsInTestContext(string fileName, ICollection<string> filesBefore)
-    {
-        return !StreamTests.RunningOnBuildServer ||
-               filesBefore.Contains(fileName) ||
-               !fileName.Contains(".verified.");
-    }
+    static bool ExistsInTestContext(string fileName, ICollection<string> filesBefore) =>
+        !StreamTests.RunningOnBuildServer ||
+        filesBefore.Contains(fileName) ||
+        !fileName.Contains(".verified.");
 }

@@ -30,9 +30,8 @@ public class ExtensionSample :
     }
 
     [TestMethod]
-    public Task AtMethodFluent()
-    {
-        return Verify(
+    public Task AtMethodFluent() =>
+        Verify(
                 target: @"
 <note>
   <to>Joe</to>
@@ -41,12 +40,10 @@ public class ExtensionSample :
 </note>",
                 settings: classLevelSettings)
             .UseExtension("xml");
-    }
 
     [TestMethod]
-    public Task SharedClassLevelSettings()
-    {
-        return Verify(
+    public Task SharedClassLevelSettings() =>
+        Verify(
             target: @"
 {
   fruit: 'Apple',
@@ -54,7 +51,6 @@ public class ExtensionSample :
   color: 'Red'
 }",
             settings: classLevelSettings);
-    }
 }
 
 #endregion

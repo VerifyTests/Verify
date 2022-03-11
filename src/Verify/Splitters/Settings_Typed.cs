@@ -22,12 +22,10 @@ public static partial class VerifierSettings
 
     public static void RegisterFileConverter<T>(
         Conversion<T> conversion,
-        CanConvert<T>? canConvert = null)
-    {
+        CanConvert<T>? canConvert = null) =>
         RegisterFileConverter(
             (o, context) => Task.FromResult(conversion(o, context)),
             canConvert);
-    }
 
     public static void RegisterFileConverter<T>(
         AsyncConversion<T> conversion,
@@ -39,12 +37,10 @@ public static partial class VerifierSettings
 
     public static void RegisterFileConverter(
         Conversion conversion,
-        CanConvert canConvert)
-    {
+        CanConvert canConvert) =>
         RegisterFileConverter(
             (o, context) => Task.FromResult(conversion(o, context)),
             canConvert);
-    }
 
     public static void RegisterFileConverter(
         AsyncConversion conversion,

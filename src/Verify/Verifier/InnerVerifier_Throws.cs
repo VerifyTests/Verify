@@ -15,10 +15,8 @@
         throw new("Did not throw.");
     }
 
-    void ScrubInnerVerifier()
-    {
+    void ScrubInnerVerifier() =>
         settings.ScrubLinesContaining("VerifyTests.InnerVerifier");
-    }
 
     public Task Throws(Func<object?> target)
     {

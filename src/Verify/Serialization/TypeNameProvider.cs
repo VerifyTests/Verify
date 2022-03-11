@@ -3,18 +3,12 @@
 {
     Type type;
 
-    public TypeNameProvider(Type type)
-    {
+    public TypeNameProvider(Type type) =>
         this.type = type;
-    }
 
-    public void SetValue(object target, object? value)
-    {
+    public void SetValue(object target, object? value) =>
         throw new NotImplementedException();
-    }
 
-    public object? GetValue(object target)
-    {
-        return type.Name;
-    }
+    public object? GetValue(object target) =>
+        type.Name;
 }

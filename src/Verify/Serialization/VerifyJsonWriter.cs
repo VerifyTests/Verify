@@ -106,10 +106,8 @@ public class VerifyJsonWriter :
         WriteRawValue(value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFK", CultureInfo.InvariantCulture));
     }
 
-    public override void WriteValue(TimeSpan value)
-    {
+    public override void WriteValue(TimeSpan value) =>
         WriteRawValue(value.ToString());
-    }
 
     public override void WriteValue(Guid value)
     {
@@ -180,10 +178,8 @@ public class VerifyJsonWriter :
     /// <summary>
     /// Convenience method that calls <see cref="Serializer" />.<see cref="JsonSerializer.Serialize(TextWriter,object?)" /> passing in the writer instance and <paramref name="value" />
     /// </summary>
-    public void Serialize(object value)
-    {
+    public void Serialize(object value) =>
         settings.Serializer.Serialize(this, value);
-    }
 
     public JsonSerializer Serializer => settings.Serializer;
 }

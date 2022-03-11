@@ -4,15 +4,11 @@ public static partial class VerifierSettings
 {
     static Dictionary<Type, Dictionary<string, ConvertTargetMember>> membersConverters = new();
 
-    internal static ConvertTargetMember? GetMemberConverter(MemberInfo member)
-    {
-        return GetMemberConverter(member.DeclaringType, member.Name);
-    }
+    internal static ConvertTargetMember? GetMemberConverter(MemberInfo member) =>
+        GetMemberConverter(member.DeclaringType, member.Name);
 
-    internal static ConvertTargetMember? GetMemberConverter<T>(string name)
-    {
-        return GetMemberConverter(typeof(T), name);
-    }
+    internal static ConvertTargetMember? GetMemberConverter<T>(string name) =>
+        GetMemberConverter(typeof(T), name);
 
     static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
     {

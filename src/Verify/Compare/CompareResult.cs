@@ -20,8 +20,6 @@ public readonly struct CompareResult
 
     public static CompareResult Equal = new(true);
 
-    public static CompareResult NotEqual(in string? message = null)
-    {
-        return new(false, message);
-    }
+    public static CompareResult NotEqual(in string? message = null) =>
+        new(false, message);
 }

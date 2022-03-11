@@ -108,15 +108,11 @@ public partial class VerifySettings
         return true;
     }
 
-    internal string ExtensionOrTxt(string defaultValue = "txt")
-    {
-        return extension ?? defaultValue;
-    }
+    internal string ExtensionOrTxt(string defaultValue = "txt") =>
+        extension ?? defaultValue;
 
-    internal string ExtensionOrBin()
-    {
-        return extension ?? "bin";
-    }
+    internal string ExtensionOrBin() =>
+        extension ?? "bin";
 
     internal bool autoVerify;
 

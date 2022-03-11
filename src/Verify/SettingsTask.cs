@@ -25,10 +25,8 @@ public class SettingsTask
     /// <summary>
     /// Retrieves the value passed into <see cref="UseExtension" />, if it exists.
     /// </summary>
-    public bool TryGetExtension([NotNullWhen(true)] out string? extension)
-    {
-        return CurrentSettings.TryGetExtension(out extension);
-    }
+    public bool TryGetExtension([NotNullWhen(true)] out string? extension) =>
+        CurrentSettings.TryGetExtension(out extension);
 
     /// <summary>
     /// Append a key-value pair to the serialized target.
@@ -379,23 +377,15 @@ public class SettingsTask
 
     public VerifySettings CurrentSettings => settings ??= new();
 
-    public Task ToTask()
-    {
-        return task ??= buildTask(CurrentSettings);
-    }
+    public Task ToTask() =>
+        task ??= buildTask(CurrentSettings);
 
-    public ConfiguredTaskAwaitable ConfigureAwait(bool continueOnCapturedContext)
-    {
-        return ToTask().ConfigureAwait(continueOnCapturedContext);
-    }
+    public ConfiguredTaskAwaitable ConfigureAwait(bool continueOnCapturedContext) =>
+        ToTask().ConfigureAwait(continueOnCapturedContext);
 
-    public TaskAwaiter GetAwaiter()
-    {
-        return ToTask().GetAwaiter();
-    }
+    public TaskAwaiter GetAwaiter() =>
+        ToTask().GetAwaiter();
 
-    public static implicit operator Task(SettingsTask settingsTask)
-    {
-        return settingsTask.ToTask();
-    }
+    public static implicit operator Task(SettingsTask settingsTask) =>
+        settingsTask.ToTask();
 }

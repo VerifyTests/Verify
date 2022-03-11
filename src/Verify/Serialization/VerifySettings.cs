@@ -30,10 +30,8 @@ public partial class VerifySettings
     /// <summary>
     /// Append a key-value pair to the serialized target.
     /// </summary>
-    public void AppendValue(string name, object data)
-    {
+    public void AppendValue(string name, object data) =>
         Appends.Add(new(name, data));
-    }
 
     /// <summary>
     /// Append key-value pairs to the serialized target.
@@ -57,10 +55,8 @@ public partial class VerifySettings
         }
     }
 
-    public void IgnoreStackTrack()
-    {
+    public void IgnoreStackTrack() =>
         ModifySerialization(_ => _.IgnoreMember("StackTrace"));
-    }
 
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {

@@ -146,10 +146,8 @@ public class Snippets
     class CompanyConverter :
         WriteOnlyJsonConverter<Company>
     {
-        public override void Write(VerifyJsonWriter writer, Company company)
-        {
+        public override void Write(VerifyJsonWriter writer, Company company) =>
             writer.WriteProperty(company, company.Name, "Name");
-        }
     }
 
     #endregion

@@ -46,13 +46,11 @@ public Task InlineDataUsage(string arg)
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
-public Task InlineDataUsageFluent(string arg)
-{
-    return Verify(arg)
+public Task InlineDataUsageFluent(string arg) =>
+    Verify(arg)
         .UseParameters(arg);
-}
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L33-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L27-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -72,11 +70,9 @@ public Task MemberDataUsage(string arg)
 
 [Theory]
 [MemberData(nameof(GetData))]
-public Task MemberDataUsageFluent(string arg)
-{
-    return Verify(arg)
+public Task MemberDataUsageFluent(string arg) =>
+    Verify(arg)
         .UseParameters(arg);
-}
 
 public static IEnumerable<object[]> GetData()
 {
@@ -84,7 +80,7 @@ public static IEnumerable<object[]> GetData()
     yield return new object[] {"Value2"};
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L56-L81' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L48-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -116,11 +112,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
-    public Task ComplexMemberDataFluent(ComplexData arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberDataFluent(ComplexData arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
@@ -133,11 +127,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
-    public Task ComplexMemberNullableDataFluent(ComplexData? arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberNullableDataFluent(ComplexData? arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     public static IEnumerable<object[]> GetComplexMemberData()
     {
@@ -167,11 +159,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
-    public Task ComplexMemberStructDataFluent(ComplexStructData arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberStructDataFluent(ComplexStructData arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
@@ -184,11 +174,9 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
-    public Task ComplexMemberNullableStructDataFluent(ComplexStructData? arg)
-    {
-        return Verify(arg)
+    public Task ComplexMemberNullableStructDataFluent(ComplexStructData? arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 
     public static IEnumerable<object[]> GetComplexMemberStructData()
     {
@@ -204,16 +192,14 @@ public class ComplexParametersSample
 
     public struct ComplexStructData
     {
-        public ComplexStructData(string value)
-        {
+        public ComplexStructData(string value) =>
             Value = value;
-        }
 
         public string Value { get; set; } = null!;
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -229,12 +215,10 @@ public class ComplexParametersSample
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
-public Task TestCaseUsage(string arg)
-{
-    return Verify(arg);
-}
+public Task TestCaseUsage(string arg) =>
+    Verify(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L19-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -265,14 +249,12 @@ public class ParametersSample :
     [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
-    public Task DataRowUsageFluent(string arg)
-    {
-        return Verify(arg)
+    public Task DataRowUsageFluent(string arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L3-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L3-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -300,13 +282,11 @@ public Task UseTextForParameters(string arg)
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
-public Task UseTextForParametersFluent(string arg)
-{
-    return Verify(arg)
+public Task UseTextForParametersFluent(string arg) =>
+    Verify(arg)
         .UseTextForParameters(arg);
-}
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L300-L321' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L282-L301' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -336,13 +316,11 @@ public async Task IgnoreParametersForVerified(string arg)
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
-public async Task IgnoreParametersForVerifiedFluent(string arg)
-{
+public async Task IgnoreParametersForVerifiedFluent(string arg) =>
     await Verify("value")
         .IgnoreParametersForVerified(arg);
-}
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L370-L391' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L344-L363' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

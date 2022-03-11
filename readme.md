@@ -54,9 +54,8 @@ Given a class to be tested:
 ```cs
 public static class ClassBeingTested
 {
-    public static Person FindPerson()
-    {
-        return new()
+    public static Person FindPerson() =>
+        new()
         {
             Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
@@ -74,10 +73,9 @@ public static class ClassBeingTested
                 Country = "USA"
             }
         };
-    }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -234,9 +232,8 @@ If the implementation of `ClassBeingTested` changes:
 ```cs
 public static class ClassBeingTested
 {
-    public static Person FindPerson()
-    {
-        return new()
+    public static Person FindPerson() =>
+        new()
         {
             Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
@@ -256,10 +253,9 @@ public static class ClassBeingTested
                 Country = "USA"
             }
         };
-    }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L3-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L3-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 And the test is re run it will fail.
@@ -306,7 +302,7 @@ public Task VerifyJsonJToken()
     return VerifyJson(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1934-L1959' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1860-L1885' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -343,22 +339,18 @@ When modifying settings at the both global level it should be done using a Modul
 public class StaticSettings
 {
     [Fact]
-    public Task Test()
-    {
-        return Verify("String to verify");
-    }
+    public Task Test() =>
+        Verify("String to verify");
 }
 
 public static class StaticSettingsUsage
 {
     [ModuleInitializer]
-    public static void Initialize()
-    {
+    public static void Initialize() =>
         VerifierSettings.AddScrubber(_ => _.Replace("String to verify", "new value"));
-    }
 }
 ```
-<sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

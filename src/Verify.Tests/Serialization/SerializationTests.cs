@@ -1145,7 +1145,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldScrubProjectDirectory()
     {
-        var projectDirectory = GetProjectDirectory();
+        var projectDirectory = FileEx.GetProjectDirectory();
         var path = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
         var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(
@@ -1158,13 +1158,10 @@ public class SerializationTests
             });
     }
 
-    static string GetProjectDirectory([CallerFilePath] string file = "") =>
-        new FileInfo(file).Directory!.Parent!.FullName;
-
     [Fact]
     public Task ShouldScrubSolutionDirectory()
     {
-        var solutionDirectory = GetSolutionDirectory();
+        var solutionDirectory = FileEx.GetSolutionDirectory();
         var path = Path.GetFullPath(Path.Combine(solutionDirectory, "Foo"));
         var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(
@@ -1177,8 +1174,6 @@ public class SerializationTests
             });
     }
 
-    static string GetSolutionDirectory([CallerFilePath] string file = "") =>
-        new FileInfo(file).Directory!.Parent!.Parent!.FullName;
 
     [Fact]
     public Task ShouldScrubGuid()

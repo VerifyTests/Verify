@@ -4,6 +4,15 @@
     {
         builder.Replace("\r\n", "\n");
         builder.Replace('\r', '\n');
+
+        if (builder.Length > 0)
+        {
+            var last = builder[^1];
+            if (last == '\n')
+            {
+                builder.Length -= 1;
+            }
+        }
     }
 
     public static void TrimEnd(this StringBuilder builder)

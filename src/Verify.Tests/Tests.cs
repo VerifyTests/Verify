@@ -341,6 +341,56 @@ public class Tests
     public Task Newlines() =>
         Verify("a\r\nb\nc\rd\r\n");
 
+    [Fact]
+    public async Task TrailingNewlinesRaw()
+    {
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+        await Verify("a\r\n").AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+        await Verify("a\r", settings).AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+        await Verify("a\n", settings).AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+        await Verify("a", settings).AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+    }
+
+    [Fact]
+    public async Task TrailingNewlinesObject()
+    {
+        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesObject.verified.txt");
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+        var target = new
+        {
+            s = "a"
+        };
+        File.WriteAllText(file, "{\n  s: a\n}");
+        await Verify(target, settings);
+
+        File.WriteAllText(file, "{\n  s: a\r}");
+        await Verify(target, settings);
+
+        File.WriteAllText(file, "{\n  s: a\n}\n");
+        await Verify(target, settings);
+
+        File.WriteAllText(file, "{\n  s: a\n}\r\n");
+        await Verify(target, settings);
+    }
+
     class Element
     {
         public string? Id { get; set; }

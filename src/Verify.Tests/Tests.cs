@@ -368,6 +368,29 @@ public class Tests
         await Verify("a", settings);
     }
 
+    [Fact]
+    public async Task TrailingNewlinesObject()
+    {
+        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesObject.verified.txt");
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+        var target = new
+        {
+            s = "a"
+        };
+        File.WriteAllText(file, "{\n  s: a\n}");
+        await Verify(target, settings);
+
+        File.WriteAllText(file, "{\n  s: a\r}");
+        await Verify(target, settings);
+
+        File.WriteAllText(file, "{\n  s: a\n}\n");
+        await Verify(target, settings);
+
+        File.WriteAllText(file, "{\n  s: a\n}\r\n");
+        await Verify(target, settings);
+    }
+
     class Element
     {
         public string? Id { get; set; }

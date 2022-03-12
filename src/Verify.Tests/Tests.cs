@@ -341,6 +341,33 @@ public class Tests
     public Task Newlines() =>
         Verify("a\r\nb\nc\rd\r\n");
 
+    [Fact]
+    public async Task TrailingNewlinesRaw()
+    {
+        var settings = new VerifySettings();
+        settings.DisableRequireUniquePrefix();
+        await Verify("a\r\n").AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+        await Verify("a\r", settings).AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+        await Verify("a\n", settings).AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+        await Verify("a", settings).AutoVerify();
+        await Verify("a\r\n", settings);
+        await Verify("a\n", settings);
+        await Verify("a\r", settings);
+        await Verify("a", settings);
+    }
+
     class Element
     {
         public string? Id { get; set; }

@@ -19,13 +19,13 @@ public class Tests
     [Fact]
     public async Task JsonAsString()
     {
-        var obj = new
+        var json = JsonConvert.SerializeObject(new
         {
             Prop1 = "string value",
             Prop2 = 123
-        };
+        }, Formatting.Indented);
 
-        await Verify(JsonConvert.SerializeObject(obj, Formatting.Indented));
+        await Verify(json);
 
         var projectDir = Directory.GetParent(AppContext.BaseDirectory)
             ?.Parent?.Parent?.Parent?.FullName;

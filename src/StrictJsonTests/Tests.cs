@@ -1,4 +1,6 @@
-﻿[UsesVerify]
+using Newtonsoft.Json;
+
+[UsesVerify]
 public class Tests
 {
     static Tests()
@@ -13,6 +15,33 @@ public class Tests
     [Fact]
     public Task String() =>
         Verify("Foo");
+
+    [Fact]
+    public async Task JsonAsString()
+    {
+        var obj = new
+        {
+            Prop1 = "string value",
+            Prop2 = 123
+        };
+
+        await Verify(JsonConvert.SerializeObject(obj, Formatting.Indented));
+
+        var projectDir = Directory.GetParent(AppContext.BaseDirectory)
+            ?.Parent?.Parent?.Parent?.FullName;
+
+        if (projectDir == null)
+            throw new InvalidOperationException("Project directory not found");
+
+        var file = Directory.EnumerateFiles(projectDir)
+            .Select(Path.GetFileName)
+            .Single(x => x?.StartsWith("Tests.String.") == true);
+
+        Assert.True(VerifierSettings.StrictJson);
+
+        var extension = Path.GetExtension(file);
+        Assert.Equal(".json", extension);
+    }
 
     [Fact]
     public Task VerifyJsonString()

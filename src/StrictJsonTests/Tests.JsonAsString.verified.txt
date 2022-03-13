@@ -1,0 +1,4 @@
+﻿{
+  "Prop1": "string value",
+  "Prop2": 123
+}

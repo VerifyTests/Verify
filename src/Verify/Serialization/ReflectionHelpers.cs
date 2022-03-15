@@ -1,5 +1,58 @@
 ﻿static class ReflectionHelpers
 {
+    public static bool InheritsFrom(this Type type, Type parent)
+    {
+        if (parent.IsAssignableFrom(type))
+        {
+            return true;
+        }
+
+        if (!parent.IsGenericTypeDefinition)
+        {
+            return false;
+        }
+
+        if (parent.IsInterface)
+        {
+            var interfaces = type.GetInterfaces();
+            foreach (var @interface in interfaces)
+            {
+                if (@interface.IsGenericType)
+                {
+                    if (@interface.GetGenericTypeDefinition() == parent)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        Type? current = type;
+        while (true)
+        {
+            if (current == null)
+            {
+                return false;
+            }
+
+            if (parent == current)
+            {
+                return true;
+            }
+
+            if (parent.IsGenericTypeDefinition && current.IsGenericType)
+            {
+                if (current.GetGenericTypeDefinition() == parent)
+                {
+                    return true;
+                }
+            }
+
+            current = current.BaseType;
+        }
+    }
+
     public static bool IsDictionary(this Type type)
     {
         if (typeof(IDictionary).IsAssignableFrom(type))

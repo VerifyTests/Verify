@@ -1429,6 +1429,22 @@ public class SerializationTests
             {
                 Property = "Value"
             },
+            ToIgnoreByInterface = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBase = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBaseGeneric = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByType = new()
+            {
+                Property = "Value"
+            },
             ToInclude = new()
             {
                 Property = "Value"
@@ -1446,6 +1462,10 @@ public class SerializationTests
         settings.ModifySerialization(_ =>
         {
             _.IgnoreMembersWithType<ToIgnore>();
+            _.IgnoreMembersWithType<ToIgnoreByType>();
+            _.IgnoreMembersWithType<InterfaceToIgnore>();
+            _.IgnoreMembersWithType<BaseToIgnore>();
+            _.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
             _.IgnoreMembersWithType<ToIgnoreStruct>();
         });
         return Verify(target, settings);
@@ -1461,6 +1481,22 @@ public class SerializationTests
                 Property = "Value"
             },
             ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByInterface = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBase = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBaseGeneric = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByType = new()
             {
                 Property = "Value"
             },
@@ -1481,6 +1517,10 @@ public class SerializationTests
             .ModifySerialization(_ =>
             {
                 _.IgnoreMembersWithType<ToIgnore>();
+                _.IgnoreMembersWithType<ToIgnoreByType>();
+                _.IgnoreMembersWithType<InterfaceToIgnore>();
+                _.IgnoreMembersWithType<BaseToIgnore>();
+                _.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
                 _.IgnoreMembersWithType<ToIgnoreStruct>();
             });
     }
@@ -1583,6 +1623,10 @@ public class SerializationTests
     class IgnoreTypeTarget
     {
         public ToIgnore ToIgnore;
+        public ToIgnoreByType ToIgnoreByType;
+        public ToIgnoreByInterface ToIgnoreByInterface;
+        public ToIgnoreByBase ToIgnoreByBase;
+        public ToIgnoreByBaseGeneric ToIgnoreByBaseGeneric;
         public ToIgnore ToIgnoreNullable;
         public ToIgnoreStruct ToIgnoreStruct;
         public ToIgnoreStruct? ToIgnoreStructNullable;
@@ -1616,6 +1660,40 @@ public class SerializationTests
     class ToIgnore
     {
         public string Property;
+    }
+
+    class ToIgnoreByType
+    {
+        public string Property;
+    }
+
+    class ToIgnoreByInterface :
+        InterfaceToIgnore
+    {
+        public string Property;
+    }
+
+    class InterfaceToIgnore
+    {
+    }
+
+    class ToIgnoreByBase :
+        BaseToIgnore
+    {
+        public string Property;
+    }
+
+    class BaseToIgnore
+    {
+    }
+    class ToIgnoreByBaseGeneric :
+        BaseToIgnoreGeneric<int>
+    {
+        public string Property;
+    }
+
+    class BaseToIgnoreGeneric<T>
+    {
     }
 
     void IgnoreMemberByExpressionGlobal()

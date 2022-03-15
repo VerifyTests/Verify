@@ -105,6 +105,9 @@ public partial class SerializationSettings
         where T : notnull =>
         ignoredTypes.Add(typeof(T));
 
+    public void IgnoreMembersWithType(Type type) =>
+        ignoredTypes.Add(type);
+
     internal List<Func<Exception, bool>> ignoreMembersThatThrow = new();
 
     public void IgnoreMembersThatThrow<T>()
@@ -155,7 +158,7 @@ public partial class SerializationSettings
 
     bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
-        if (ignoredTypes.Any(x => x.IsAssignableFrom(memberType)))
+        if (ignoredTypes.Any(x => memberType.InheritsFrom(x)))
         {
             return true;
         }

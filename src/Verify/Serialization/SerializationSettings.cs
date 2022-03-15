@@ -36,7 +36,7 @@ public partial class SerializationSettings
     {
         IgnoreMembersThatThrow<NotImplementedException>();
         IgnoreMembersThatThrow<NotSupportedException>();
-        IgnoreMember<AggregateException>("InnerException");
+        IgnoreMember<AggregateException>(x => x.InnerException);
         IgnoreMembers<Exception>("Source", "HResult");
 
         jsonSettings = BuildSettings();

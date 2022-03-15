@@ -12,6 +12,11 @@
             return false;
         }
 
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == parent)
+        {
+            return true;
+        }
+
         if (parent.IsInterface)
         {
             var interfaces = type.GetInterfaces();

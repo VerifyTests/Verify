@@ -23,7 +23,11 @@
     [InlineData(typeof(Dictionary<int, string>), typeof(IDictionary), true)]
     [InlineData(typeof(Dictionary<int, string>), typeof(IDictionary<int, string>), true)]
     [InlineData(typeof(Dictionary<int, string>), typeof(IDictionary<string, string>), false)]
+    [InlineData(typeof(IDictionary<int, string>), typeof(IDictionary<string, string>), false)]
     [InlineData(typeof(Dictionary<int, string>), typeof(IDictionary<,>), true)]
+    [InlineData(typeof(IDictionary<int, string>), typeof(IDictionary<,>), true)]
+    [InlineData(typeof(IDictionary<int, string>), typeof(ICollection<KeyValuePair<int, string>>), true)]
+    [InlineData(typeof(IDictionary<int, string>), typeof(ICollection<>), true)]
     public void InheritsFrom(Type type, Type parent, bool match) =>
         Assert.Equal(match, type.InheritsFrom(parent));
 }

@@ -344,28 +344,29 @@ public class Tests
     [Fact]
     public async Task TrailingNewlinesRaw()
     {
+        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesRaw.verified.txt");
+        File.Delete(file);
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
-        await Verify("a\r\n").AutoVerify();
+
+        File.WriteAllText(file, "a\r\n");
         await Verify("a\r\n", settings);
         await Verify("a\n", settings);
-        await Verify("a\r", settings);
         await Verify("a", settings);
-        await Verify("a\r", settings).AutoVerify();
-        await Verify("a\r\n", settings);
+
+        File.WriteAllText(file, "a\r\n\r\n");
+        await Verify("a\r\n\r\n", settings);
+        await Verify("a\n\n", settings);
         await Verify("a\n", settings);
-        await Verify("a\r", settings);
-        await Verify("a", settings);
-        await Verify("a\n", settings).AutoVerify();
-        await Verify("a\r\n", settings);
+
+        File.WriteAllText(file, "a\n");
         await Verify("a\n", settings);
-        await Verify("a\r", settings);
         await Verify("a", settings);
-        await Verify("a", settings).AutoVerify();
-        await Verify("a\r\n", settings);
+
+        File.WriteAllText(file, "a\n\n");
+        await Verify("a\n\n", settings);
         await Verify("a\n", settings);
-        await Verify("a\r", settings);
-        await Verify("a", settings);
+        File.Delete(file);
     }
 
     [Fact]

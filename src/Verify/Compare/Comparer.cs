@@ -22,12 +22,13 @@
 
     static Task<CompareResult> CompareStrings(string extension, string received, string verified, VerifySettings settings)
     {
-        if (verified.Length>0 &&
+        if (verified.Length > 0 &&
             verified.Length - 1 == received.Length &&
-            verified.EndsWith('\n'))
+            verified[^1] == '\n')
         {
             verified = verified[..^1];
         }
+
         var isEqual = string.Equals(verified, received, StringComparison.Ordinal);
 
 

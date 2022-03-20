@@ -328,9 +328,9 @@ Results in:
 
 ## Static settings
 
-Most settings are available at the both global level and at the instance level.
+Most settings are available at both the global level and the instance level.
 
-When modifying settings at the both global level it should be done using a Module Initializer:
+When modifying settings at the global level it should be done using a Module Initializer:
 
 <!-- snippet: StaticSettings.cs -->
 <a id='snippet-StaticSettings.cs'></a>

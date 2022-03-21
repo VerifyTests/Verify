@@ -526,12 +526,14 @@ public class Tests
     }
 #endif
 
+#if NET6_0
     [Fact]
     public async Task VerifyFilePath()
     {
         await VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
+#endif
 
     [Fact]
     public async Task VerifyFileWithAppend() =>

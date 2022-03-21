@@ -295,6 +295,13 @@ public Task VerifyJsonStream()
 }
 
 [Fact]
+public Task StreamMember()
+{
+    var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
+    return Verify(new{stream});
+}
+
+[Fact]
 public Task VerifyJsonJToken()
 {
     var json = "{'key': {'msg': 'No action taken'}}";
@@ -302,7 +309,7 @@ public Task VerifyJsonJToken()
     return VerifyJson(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1933-L1958' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1933-L1965' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

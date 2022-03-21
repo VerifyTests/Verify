@@ -1,0 +1,18 @@
+﻿{
+  Type: VerifyException,
+  Message:
+Directory: {ProjectDirectory}Naming
+New:
+  - Received: NamerTests.Conflict1.received.txt
+    Verified: NamerTests.Conflict1.verified.txt
+
+FileContent:
+
+New:
+
+Received: NamerTests.Conflict1.received.txt
+Value
+
+,
+  StackTrace: 
+}

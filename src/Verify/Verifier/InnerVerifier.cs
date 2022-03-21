@@ -1,4 +1,4 @@
-﻿partial class InnerVerifier :
+partial class InnerVerifier :
     IDisposable
 {
     VerifySettings settings;
@@ -42,8 +42,32 @@
         ReceivedFiles = MatchingFileFinder.Find(filesReceived, receivedFileNamePrefix, ".received").ToList();
         VerifiedFiles = MatchingFileFinder.Find(filesReceived, verifiedFileNamePrefix, ".verified").ToList();
 
-        GetFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
-        GetIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
+        if (settings.UseFileHintName)
+        {
+            GetFileNames = (extension, target) =>
+            {
+                if (!string.IsNullOrWhiteSpace(target.HintName))
+                {
+                    return new(extension, filePathPrefixReceived.Replace(receivedFileNamePrefix, target.HintName), filePathPrefixVerified.Replace(verifiedFileNamePrefix, target.HintName));
+                }
+
+                return new(extension, filePathPrefixReceived, filePathPrefixVerified);
+            };
+            GetIndexedFileNames = (extension, index, target) =>
+            {
+                if (!string.IsNullOrWhiteSpace(target.HintName))
+                {
+                    return new(extension, $"{filePathPrefixReceived.Replace(receivedFileNamePrefix, target.HintName)}.{index:D2}", $"{filePathPrefixVerified.Replace(verifiedFileNamePrefix, target.HintName)}.{index:D2}");
+                }
+
+                return new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
+            };
+        }
+        else
+        {
+            GetFileNames = (extension, target) => new(extension, filePathPrefixReceived, filePathPrefixVerified);
+            GetIndexedFileNames = (extension, index, target) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
+        }
 
         foreach (var file in ReceivedFiles)
         {

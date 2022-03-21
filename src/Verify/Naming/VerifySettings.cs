@@ -1,8 +1,10 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class VerifySettings
 {
     internal Namer Namer = new();
+
+    internal bool UseFileHintName = false;
 
     /// <summary>
     /// Use the current runtime to make the test results unique.
@@ -117,6 +119,11 @@ public partial class VerifySettings
         ThrowIfMethodOrTypeNameDefined();
 
         this.fileName = fileName;
+    }
+
+    public void UseHintName(bool useHintName)
+    {
+        this.UseFileHintName = useHintName;
     }
 
     void ThrowIfMethodOrTypeNameDefined()

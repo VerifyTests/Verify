@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public readonly struct Target
 {
@@ -6,6 +6,7 @@ public readonly struct Target
     readonly StringBuilder? stringBuilderData;
     readonly Stream? streamData;
     public string Extension { get; }
+    public string HintName { get; }
 
     public Stream StreamData
     {
@@ -52,7 +53,7 @@ public readonly struct Target
 
     public bool IsStringBuilder => stringBuilderData != null;
 
-    public Target(string extension, Stream streamData)
+    public Target(string extension, Stream streamData, string? hintName = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
 
@@ -65,9 +66,10 @@ public readonly struct Target
         this.streamData = streamData;
         stringData = null;
         stringBuilderData = null;
+        this.HintName = hintName ?? string.Empty;
     }
 
-    public Target(string extension, StringBuilder stringBuilderData)
+    public Target(string extension, StringBuilder stringBuilderData, string? hintName = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
         if (!EmptyFiles.Extensions.IsText(extension))
@@ -79,9 +81,10 @@ public readonly struct Target
         stringData = null;
         streamData = null;
         this.stringBuilderData = stringBuilderData;
+        this.HintName = hintName ?? string.Empty;
     }
 
-    public Target(string extension, string stringData)
+    public Target(string extension, string stringData, string? hintName = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
         if (!EmptyFiles.Extensions.IsText(extension))
@@ -91,6 +94,7 @@ public readonly struct Target
 
         Extension = extension;
         this.stringData = stringData;
+        this.HintName = hintName ?? string.Empty;
         streamData = null;
         stringBuilderData = null;
     }

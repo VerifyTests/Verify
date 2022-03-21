@@ -1948,6 +1948,13 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task StreamMember()
+    {
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
+        return Verify(new{stream});
+    }
+
+    [Fact]
     public Task VerifyJsonJToken()
     {
         var json = "{'key': {'msg': 'No action taken'}}";

@@ -38,6 +38,7 @@ public partial class SerializationSettings
         IgnoreMembersThatThrow<NotSupportedException>();
         IgnoreMember<AggregateException>(x => x.InnerException);
         IgnoreMembers<Exception>("Source", "HResult");
+        IgnoreMembersWithType<Stream>();
 
         jsonSettings = BuildSettings();
     }

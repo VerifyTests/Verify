@@ -161,7 +161,6 @@
                definition == typeof(IReadOnlyCollection<>);
     }
 
-
     public static bool ImplementsStreamEnumerable(this Type type) =>
         type.GetInterfaces()
             .Any(_ => _.IsStreamEnumerable());

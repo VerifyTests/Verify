@@ -156,7 +156,7 @@ snippet: TreatAsNumericIdGlobal
 
 ### Disable
 
-To disable this globally use:
+To disable use:
 
 snippet: DisableNumericId
 

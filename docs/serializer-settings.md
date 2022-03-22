@@ -421,7 +421,7 @@ VerifierSettings.ModifySerialization(
 
 ### Disable
 
-To disable this globally use:
+To disable use:
 
 <!-- snippet: DisableNumericId -->
 <a id='snippet-disablenumericid'></a>

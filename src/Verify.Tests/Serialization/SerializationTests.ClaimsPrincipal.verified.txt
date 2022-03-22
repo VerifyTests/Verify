@@ -1,9 +1,11 @@
-﻿[
-  {
-    Claims: [
-      {
-        TheType: TheValue
-      }
-    ]
-  }
-]
+{
+  Identities: [
+    {
+      Claims: [
+        {
+          TheType: TheValue
+        }
+      ]
+    }
+  ]
+}

@@ -132,7 +132,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(x => new Target("png", x, null)));
             },
             (_, _, context) =>
             {
@@ -168,7 +168,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(x => new Target("png", x, null)));
             });
 
     [Fact]
@@ -196,7 +196,7 @@ public class TypeConverterTests
             conversion: (bitmap1, _) =>
             {
                 var targets = ConvertBmpTpPngStreams(bitmap1);
-                return new ConversionResult(null, targets.Select(x => new Target("png", x)));
+                return new ConversionResult(null, targets.Select(x => new Target("png", x, null)));
             });
 
     [Fact]

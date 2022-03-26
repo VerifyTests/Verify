@@ -22,7 +22,7 @@ public readonly struct ConversionResult
         Cleanup = cleanup;
         Targets = new List<Target>
         {
-            new(extension, stream)
+            new(extension, stream, null)
         };
     }
 
@@ -33,7 +33,7 @@ public readonly struct ConversionResult
         Cleanup = cleanup;
         Targets = new List<Target>
         {
-            new(extension, data)
+            new(extension, data, null)
         };
     }
 
@@ -44,7 +44,7 @@ public readonly struct ConversionResult
         Cleanup = cleanup;
         Targets = new List<Target>
         {
-            new(extension, data)
+            new(extension, data, null)
         };
     }
 }

@@ -12,7 +12,7 @@ public class Snippets
 
         #endregion
     }
-    
+
     #region OnHandlers
 
     public Task OnHandlersSample()

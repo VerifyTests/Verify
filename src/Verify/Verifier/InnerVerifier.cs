@@ -3,10 +3,9 @@
 {
     VerifySettings settings;
     string directory;
-    internal GetFileNames GetFileNames { get; }
-    internal GetIndexedFileNames GetIndexedFileNames { get; }
-    internal List<string> VerifiedFiles { get; }
-    internal List<string> ReceivedFiles { get; }
+    GetFileNames getFileNames;
+    GetIndexedFileNames getIndexedFileNames;
+    List<string> verifiedFiles;
     Counter counter;
 
     public InnerVerifier(string sourceFile, VerifySettings settings, GetFileConvention fileConvention)
@@ -36,16 +35,19 @@
         var filePathPrefixVerified = Path.Combine(directory, verifiedFileNamePrefix);
         ValidatePrefix(settings, filePathPrefixReceived); // intentionally do not validate filePathPrefixVerified
 
-        var filesReceived = Directory.EnumerateFiles(directory, $"{receivedFileNamePrefix}.*.*").ToList();
-        var filesVerified = Directory.EnumerateFiles(directory, $"{verifiedFileNamePrefix}.*.*").ToList();
+        verifiedFiles = MatchingFileFinder.Find(verifiedFileNamePrefix, ".verified", directory).ToList();
 
-        ReceivedFiles = MatchingFileFinder.Find(filesReceived, receivedFileNamePrefix, ".received").ToList();
-        VerifiedFiles = MatchingFileFinder.Find(filesVerified, verifiedFileNamePrefix, ".verified").ToList();
+        getFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
+        getIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
 
-        GetFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
-        GetIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
+        DeleteReceivedFiles(receivedFileNamePrefix, directory);
 
-        foreach (var file in ReceivedFiles)
+        VerifierSettings.RunBeforeCallbacks();
+    }
+
+    static void DeleteReceivedFiles(string receivedFileNamePrefix, string directory)
+    {
+        foreach (var file in MatchingFileFinder.Find(receivedFileNamePrefix, ".received", directory))
         {
             try
             {
@@ -55,8 +57,6 @@
             {
             }
         }
-
-        VerifierSettings.RunBeforeCallbacks();
     }
 
     static void ValidatePrefix(VerifySettings settings, string filePathPrefix)

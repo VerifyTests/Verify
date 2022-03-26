@@ -14,7 +14,7 @@ public class FileAppenderTests :
                     return null;
                 }
 
-                return new("txt", "data");
+                return new("txt", "data", null);
             });
 
     public FileAppenderTests() =>

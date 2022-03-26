@@ -15,7 +15,7 @@
             ApplyScrubbers.Apply(extension, builder, settings);
 
             var received = builder.ToString();
-            var stream = new Target(extension, received);
+            var stream = new Target(extension, received, null);
             targetList.Insert(0, stream);
         }
 

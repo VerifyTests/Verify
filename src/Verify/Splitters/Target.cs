@@ -133,6 +133,7 @@ public readonly struct Target
     public Target(string extension, string stringData, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstBadTargetName(name, nameof(name));
         if (!EmptyFiles.Extensions.IsText(extension))
         {
             throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");

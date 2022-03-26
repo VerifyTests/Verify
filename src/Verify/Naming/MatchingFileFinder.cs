@@ -22,7 +22,7 @@
             var numberPart = prefixRemoved
                 .Substring(1, prefixRemoved.Length - suffix.Length - 1);
 
-            if (int.TryParse(numberPart, out _))
+            if (ushort.TryParse(numberPart, out _))
             {
                 yield return file;
             }

@@ -40,11 +40,20 @@
         getFileNames = target => new(target.Extension, pathPrefixReceived, pathPrefixVerified);
         getIndexedFileNames = (target, index) =>
         {
-            if (target.Name == null)
+            var name = target.Name;
+            string suffix;
+            if (name == null)
             {
-                return new(target.Extension, $"{pathPrefixReceived}.{index:D2}", $"{pathPrefixVerified}.{index:D2}");
+                suffix = $"{index:D2}";
             }
-            return new(target.Extension, $"{pathPrefixReceived}.{index:D2}", $"{pathPrefixVerified}.{index:D2}");
+            else
+            {
+                suffix = $"{index:D2}{name}";
+            }
+            return new(
+                target.Extension,
+                $"{pathPrefixReceived}.{suffix}",
+                $"{pathPrefixVerified}.{suffix}");
         };
 
         DeleteReceivedFiles(namePrefixReceived, directory);

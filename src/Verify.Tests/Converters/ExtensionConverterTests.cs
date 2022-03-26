@@ -24,6 +24,25 @@ public class ExtensionConverterTests
             .UseExtension("ExtensionConversionStringBuilder");
 
     [ModuleInitializer]
+    public static void ExtensionConversionMultipleTargetsInit() =>
+        VerifierSettings.RegisterFileConverter(
+            "ExtensionConversionMultipleTargets",
+            new Conversion<Stream>(
+                (_, _) =>
+                {
+                    var targets = new Target[]
+                    {
+                        new("txt", "value1"),
+                        new("txt", "value2")
+                    };
+                    return new(null, targets);
+                }));
+
+    [Fact]
+    public Task ExtensionConversionMultipleTargets() =>
+        Verify(new MemoryStream())
+            .UseExtension("ExtensionConversionMultipleTargets");
+    [ModuleInitializer]
     public static void ExtensionConversionInit() =>
         VerifierSettings.RegisterFileConverter(
             "ExtensionConversion",

@@ -47,10 +47,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1);
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1));
 
         var expectedFiles = ExpectedAbcFiles;
 
@@ -66,10 +63,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1).UseExtension("xyz");
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1).UseExtension("xyz"));
 
         var expectedFiles = ExpectedXyzFiles;
 
@@ -90,10 +84,7 @@ public class StreamTests
 
         var filesBeforeTest = new HashSet<string>(context.GetFileKeys());
 
-        await Assert.ThrowsAsync<VerifyException>(async () =>
-        {
-            await Verify(Binary1);
-        });
+        await Assert.ThrowsAsync<VerifyException>(() => Verify(Binary1));
 
         Assert.Equal(expectedFiles.InTestContext(filesBeforeTest), context.GetFileKeys());
 

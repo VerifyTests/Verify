@@ -37,8 +37,8 @@
 
         verifiedFiles = MatchingFileFinder.Find(verifiedFileNamePrefix, ".verified", directory).ToList();
 
-        getFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
-        getIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
+        getFileNames = extension => new(extension.Extension, filePathPrefixReceived, filePathPrefixVerified);
+        getIndexedFileNames = (extension, index) => new(extension.Extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
 
         DeleteReceivedFiles(receivedFileNamePrefix, directory);
 

@@ -40,8 +40,8 @@ public partial class Tests
                 split.Info,
                 new List<Target>
                 {
-                    new("txt", split.Property1),
-                    new("txt", split.Property2)
+                    new("txt", split.Property1, null),
+                    new("txt", split.Property2, null)
                 }));
         DiffRunner.MaxInstancesToLaunch(int.MaxValue);
     }

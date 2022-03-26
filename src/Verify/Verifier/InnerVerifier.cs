@@ -14,7 +14,7 @@
         this.settings = settings;
 
         var uniqueness = PrefixUnique.GetUniqueness(settings.Namer);
-        var (receivedFileNamePrefix, verifiedFileNamePrefix, directory) = fileConvention(uniqueness);
+        var (namePrefixReceived, namePrefixVerified, directory) = fileConvention(uniqueness);
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
         if (directory is null)
@@ -31,16 +31,16 @@
         }
 
         this.directory = directory;
-        var filePathPrefixReceived = Path.Combine(directory, receivedFileNamePrefix);
-        var filePathPrefixVerified = Path.Combine(directory, verifiedFileNamePrefix);
-        ValidatePrefix(settings, filePathPrefixReceived); // intentionally do not validate filePathPrefixVerified
+        var pathPrefixReceived = Path.Combine(directory, namePrefixReceived);
+        var pathPrefixVerified = Path.Combine(directory, namePrefixVerified);
+        ValidatePrefix(settings, pathPrefixReceived); // intentionally do not validate filePathPrefixVerified
 
-        verifiedFiles = MatchingFileFinder.Find(verifiedFileNamePrefix, ".verified", directory).ToList();
+        verifiedFiles = MatchingFileFinder.Find(namePrefixVerified, ".verified", directory).ToList();
 
-        getFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
-        getIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");
+        getFileNames = extension => new(extension, pathPrefixReceived, pathPrefixVerified);
+        getIndexedFileNames = (extension, index) => new(extension, $"{pathPrefixReceived}.{index:D2}", $"{pathPrefixVerified}.{index:D2}");
 
-        DeleteReceivedFiles(receivedFileNamePrefix, directory);
+        DeleteReceivedFiles(namePrefixReceived, directory);
 
         VerifierSettings.RunBeforeCallbacks();
     }

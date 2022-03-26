@@ -63,5 +63,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L72-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L81-L95' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -4,6 +4,15 @@
 
 public class Snippets
 {
+    void EnableClipboard()
+    {
+        #region EnableClipboard
+
+        ClipboardAccept.Enable();
+
+        #endregion
+    }
+    
     #region OnHandlers
 
     public Task OnHandlersSample()

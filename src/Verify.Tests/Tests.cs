@@ -392,6 +392,31 @@ public class Tests
         await Verify(target, settings);
     }
 
+    [Fact]
+    public async Task DanglingFiles()
+    {
+        var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.received.txt");
+        var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.verified.txt");
+        File.WriteAllText(receivedFile,"");
+        File.WriteAllText(verifiedFile,"");
+        await Verify("value").AutoVerify();
+        Assert.False(File.Exists(receivedFile));
+        Assert.False(File.Exists(verifiedFile));
+    }
+
+    [Theory]
+    [InlineData("param")]
+    public async Task DanglingFilesIgnoreParametersForVerified(string param)
+    {
+        var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified_param=param.01.received.txt");
+        var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified.01.verified.txt");
+        File.WriteAllText(receivedFile,"");
+        File.WriteAllText(verifiedFile,"");
+        await Verify("value").IgnoreParametersForVerified(param).AutoVerify();
+        Assert.False(File.Exists(receivedFile));
+        Assert.False(File.Exists(verifiedFile));
+    }
+
     class Element
     {
         public string? Id { get; set; }

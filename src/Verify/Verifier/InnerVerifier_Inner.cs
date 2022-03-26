@@ -21,7 +21,7 @@
 
         targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-        var engine = new VerifyEngine(directory, settings, VerifiedFiles, GetFileNames, GetIndexedFileNames);
+        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
         await engine.HandleResults(targetList);
 

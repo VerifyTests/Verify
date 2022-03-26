@@ -52,8 +52,8 @@ public class ExtensionConverterTests
                 {
                     var targets = new Target[]
                     {
-                        new("txt", "value1", null),
-                        new("txt", "value2", null)
+                        new("txt", "value1", "name1"),
+                        new("txt", "value2", "name2")
                     };
                     return new(null, targets);
                 }));
@@ -62,6 +62,26 @@ public class ExtensionConverterTests
     public Task ExtensionConversionNamedTarget() =>
         Verify(new MemoryStream())
             .UseExtension("ExtensionConversionNamedTarget");
+
+    [ModuleInitializer]
+    public static void ExtensionConversionNamedMixedTargetInit() =>
+        VerifierSettings.RegisterFileConverter(
+            "ExtensionConversionNamedMixedTarget",
+            new Conversion<Stream>(
+                (_, _) =>
+                {
+                    var targets = new Target[]
+                    {
+                        new("txt", "value1", "name1"),
+                        new("txt", "value2", null)
+                    };
+                    return new(null, targets);
+                }));
+
+    [Fact]
+    public Task ExtensionConversionNamedMixedTarget() =>
+        Verify(new MemoryStream())
+            .UseExtension("ExtensionConversionNamedMixedTarget");
 
     [ModuleInitializer]
     public static void ExtensionConversionInit() =>

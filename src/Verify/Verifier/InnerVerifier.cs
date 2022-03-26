@@ -40,7 +40,7 @@
         var filesVerified = Directory.EnumerateFiles(directory, $"{verifiedFileNamePrefix}.*.*").ToList();
 
         ReceivedFiles = MatchingFileFinder.Find(filesReceived, receivedFileNamePrefix, ".received").ToList();
-        VerifiedFiles = MatchingFileFinder.Find(filesReceived, verifiedFileNamePrefix, ".verified").ToList();
+        VerifiedFiles = MatchingFileFinder.Find(filesVerified, verifiedFileNamePrefix, ".verified").ToList();
 
         GetFileNames = extension => new(extension, filePathPrefixReceived, filePathPrefixVerified);
         GetIndexedFileNames = (extension, index) => new(extension, $"{filePathPrefixReceived}.{index:D2}", $"{filePathPrefixVerified}.{index:D2}");

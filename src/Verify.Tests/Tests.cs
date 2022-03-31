@@ -70,6 +70,11 @@ public class Tests
     }
 
     [Fact]
+    // ReSharper disable once IdentifierTypo
+    public Task MisMatchcase() =>
+        Verify("Value");
+
+    [Fact]
     public async Task OnVerifyMismatch()
     {
         var settings = new VerifySettings();

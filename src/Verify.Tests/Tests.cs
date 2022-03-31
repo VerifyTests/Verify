@@ -1,5 +1,7 @@
 ﻿// Non-nullable field is uninitialized.
 
+using System.Runtime.InteropServices;
+
 #pragma warning disable CS8618
 
 [UsesVerify]
@@ -71,8 +73,15 @@ public class Tests
 
     [Fact]
     // ReSharper disable once IdentifierTypo
-    public Task MisMatchcase() =>
-        Verify("Value");
+    public Task MisMatchcase()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            // No way to caseless File.Exists https://github.com/dotnet/core/issues/4596 on linux
+            return Task.CompletedTask;
+        }
+        return Verify("Value");
+    }
 
     [Fact]
     public async Task OnVerifyMismatch()

@@ -77,7 +77,7 @@ public class Tests
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            // No way to caseles File.Exists https://github.com/dotnet/core/issues/4596 on linux
+            // No way to caseless File.Exists https://github.com/dotnet/core/issues/4596 on linux
             return Task.CompletedTask;
         }
         return Verify("Value");

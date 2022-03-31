@@ -71,8 +71,15 @@ public class Tests
 
     [Fact]
     // ReSharper disable once IdentifierTypo
-    public Task MisMatchcase() =>
-        Verify("Value");
+    public Task MisMatchcase()
+    {
+        if (OperatingSystem.IsLinux())
+        {
+            // No way to caseles File.Exists https://github.com/dotnet/core/issues/4596 on linux
+            return Task.CompletedTask;
+        }
+        return Verify("Value");
+    }
 
     [Fact]
     public async Task OnVerifyMismatch()

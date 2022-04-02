@@ -2,6 +2,12 @@
 
 public static class Parser
 {
+    public static Result Parse(string message)
+    {
+        var lines = message.Split(new[] {"\r\n","\r","\n"}, StringSplitOptions.RemoveEmptyEntries);
+        return Parse(lines);
+    }
+
     public static Result Parse(IEnumerable<string> lines)
     {
         try
@@ -27,17 +33,13 @@ public static class Parser
         Action<string, IEnumerator<string>>? lineHandler = null;
         using (var enumerator = lines.GetEnumerator())
         {
-            if (!enumerator.MoveNext() || !enumerator.Current!.StartsWith("Directory: "))
+            if (!enumerator.MoveNext())
             {
-                throw new ParseException("Expected content to contain `Directory:` at the start.");
+                throw new ParseException("No content");
             }
 
-            var directory = enumerator.Current.Substring(11);
-
-            if (string.IsNullOrWhiteSpace(directory))
-            {
-                throw new ParseException("Empty 'Directory:'");
-            }
+            var firstLine = enumerator.Current!;
+            var directory = GetDirectory(firstLine);
 
             while (enumerator.MoveNext())
             {
@@ -88,6 +90,37 @@ public static class Parser
         }
 
         return new(@new, notEqual, delete, equal);
+    }
+
+    static string GetDirectory(string firstLine)
+    {
+        void ThrowIfEmpty(string directory)
+        {
+            if (string.IsNullOrWhiteSpace(directory))
+            {
+                throw new ParseException("Empty 'Directory'");
+            }
+        }
+
+        if (firstLine.StartsWith("VerifyException : Directory: "))
+        {
+            var directory = firstLine.Substring(29);
+
+            ThrowIfEmpty(directory);
+
+            return directory;
+        }
+
+        if (firstLine.StartsWith("Directory: "))
+        {
+            var directory = firstLine.Substring(11);
+
+            ThrowIfEmpty(directory);
+
+            return directory;
+        }
+
+        throw new ParseException("Expected content to contain `Directory:` or `VerifyException : Directory:` at the start.");
     }
 
     static string TrimStart(string next, string prefix)

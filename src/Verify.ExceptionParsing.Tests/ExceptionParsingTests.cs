@@ -11,12 +11,18 @@ public class ExceptionParsingTests
 
     [Fact]
     public Task Error_EmptyList() =>
-        Throws(() => Parser.Parse(new[] {Environment.NewLine}))
+        Throws(() => Parser.Parse(new[]
+            {
+                Environment.NewLine
+            }))
             .IgnoreStackTrack();
 
     [Fact]
     public Task Error_EmptyDirectory() =>
-        Throws(() => Parser.Parse(new[] {"Directory: "}))
+        Throws(() => Parser.Parse(new[]
+            {
+                "Directory: "
+            }))
             .IgnoreStackTrack();
 
     [Fact]
@@ -72,7 +78,7 @@ public class ExceptionParsingTests
 
         return ParseVerify(@new, notEquals, delete, equal);
     }
-
+#if DEBUG
     [Fact]
     public Task Nunit()
     {
@@ -105,6 +111,8 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         var result = Parser.Parse(exceptionMessage);
         return Verify(result);
     }
+#endif
+
     [Fact]
     public Task SingleNotEqual()
     {

@@ -78,11 +78,11 @@ public class ExceptionParsingTests
 
         return ParseVerify(@new, notEquals, delete, equal);
     }
-#if DEBUG
+
     [Fact]
     public Task Nunit()
     {
-        var exceptionMessage = @"VerifyException : Directory: D:\Code\XAMLTools\src\tests\XAMLTools.Tests
+        var exceptionMessage = @$"VerifyException : Directory: {Environment.CurrentDirectory}
 NotEqual:
   - Received: XAMLCombinerTests.TestOutput.received.xaml
     Verified: XAMLCombinerTests.TestOutput.verified.xaml
@@ -111,7 +111,6 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         var result = Parser.Parse(exceptionMessage);
         return Verify(result);
     }
-#endif
 
     [Fact]
     public Task SingleNotEqual()

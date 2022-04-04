@@ -220,16 +220,6 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 include: doc-index
 
 
-## Alternatives
-
-Projects/tools that may be a better alternative to Verify
-
- * [ApprovalTests](https://github.com/approvals/ApprovalTests.Net)
- * [Snapshooter](https://github.com/SwissLife-OSS/Snapshooter)
- * [Snapper](https://github.com/theramis/Snapper)
- * [Polaroider](https://github.com/WickedFlame/Polaroider)
-
-
 ## Icon
 
 [Helmet](https://thenounproject.com/term/helmet/9554/) designed by [Leonidas Ikonomou](https://thenounproject.com/alterego) from [The Noun Project](https://thenounproject.com).

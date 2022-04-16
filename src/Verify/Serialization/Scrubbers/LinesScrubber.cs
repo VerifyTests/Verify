@@ -11,8 +11,7 @@
         var theString = input.ToString();
         using var reader = new StringReader(theString);
         input.Clear();
-        string? line;
-        while ((line = reader.ReadLine()) is not null)
+        while (reader.ReadLine() is { } line)
         {
             var value = replaceLine(line);
             if (value is not null)
@@ -34,8 +33,7 @@
         using var reader = new StringReader(theString);
         input.Clear();
 
-        string? line;
-        while ((line = reader.ReadLine()) is not null)
+        while (reader.ReadLine() is { } line)
         {
             if (removeLine(line))
             {

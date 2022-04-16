@@ -125,20 +125,17 @@ public class TypeConverterTests
     [ModuleInitializer]
     public static void WithInfoInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            (bitmap1, _) =>
+            (bitmap, _) =>
             {
-                var targets = ConvertBmpTpPngStreams(bitmap1);
+                var targets = ConvertBmpTpPngStreams(bitmap);
                 var info = new
                 {
                     Property = "Value"
                 };
                 return new(info, targets.Select(x => new Target("png", x, null)));
             },
-            (_, _, context) =>
-            {
-                return context.ContainsKey("name") &&
-                       (string) context["name"] == nameof(WithInfo);
-            });
+            (_, _, context) => context.ContainsKey("name") &&
+                               (string) context["name"] == nameof(WithInfo));
 
     [Fact]
     public Task WithInfo()

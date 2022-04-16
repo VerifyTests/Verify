@@ -22,7 +22,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L100-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L97-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.

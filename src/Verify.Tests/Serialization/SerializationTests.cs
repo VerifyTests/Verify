@@ -42,6 +42,27 @@ public class SerializationTests
             }).UniqueForRuntime();
     }
 
+#if NET5_0_OR_GREATER || net48
+    [Fact]
+    public async Task ValueTasks()
+    {
+        var withResult = ValueTask.FromResult("Value");
+        var withException = ValueTask.FromException(new("the exception"));
+        var withExceptionAndResult = ValueTask.FromException<string>(new("the exception"));
+        var genericCompletionSource = new TaskCompletionSource<int>();
+        genericCompletionSource.TrySetCanceled();
+        var canceledAndResult = genericCompletionSource.Task;
+        await Verify(
+            new
+            {
+                withResult,
+                withException,
+                withExceptionAndResult,
+                canceledAndResult
+            }).UniqueForRuntime();
+    }
+#endif
+
     [Fact]
     public Task PathInfos() =>
         Verify(

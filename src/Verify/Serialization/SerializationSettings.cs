@@ -28,6 +28,7 @@ public partial class SerializationSettings
     static NameValueCollectionConverter nameValueCollectionConverter = new();
     static StringBuilderConverter stringBuilderConverter = new();
     static TaskConverter taskConverter = new();
+    static ValueTaskConverter valueTaskConverter = new();
     static TextWriterConverter textWriterConverter = new();
     static DictionaryConverter dictionaryConverter = new();
 
@@ -127,6 +128,7 @@ public partial class SerializationSettings
         converters.Add(claimConverter);
         converters.Add(claimsIdentityConverter);
         converters.Add(taskConverter);
+        converters.Add(valueTaskConverter);
         converters.Add(claimsPrincipalConverter);
         converters.Add(dictionaryConverter);
         converters.Add(jArrayConverter);

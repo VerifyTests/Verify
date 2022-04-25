@@ -20,6 +20,29 @@ public class SerializationTests
     }
 
     [Fact]
+    public async Task Tasks()
+    {
+        var withResult = Task.FromResult("Value");
+        var withException = Task.FromException(new("the exception"));
+        var withExceptionAndResult = Task.FromException<string>(new("the exception"));
+        var genericCompletionSource = new TaskCompletionSource<int>();
+        genericCompletionSource.TrySetCanceled();
+        var canceledAndResult = genericCompletionSource.Task;
+        var finished = Task.Delay(0);
+        var running = Task.Delay(10000);
+        await Verify(
+            new
+            {
+                finished,
+                running,
+                withResult,
+                withException,
+                withExceptionAndResult,
+                canceledAndResult
+            }).UniqueForRuntime();
+    }
+
+    [Fact]
     public Task PathInfos() =>
         Verify(
             new

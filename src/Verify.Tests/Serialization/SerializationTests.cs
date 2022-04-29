@@ -1381,6 +1381,19 @@ public class SerializationTests
         public Guid NotImplementedExceptionProperty => throw new NotImplementedException();
     }
 
+    [Fact]
+    public Task TargetInvocationException()
+    {
+        var member = GetType().GetMethod("MethodThatThrows")!;
+        return Throws(() =>
+        {
+            member.Invoke(null, Array.Empty<object>());
+        });
+    }
+
+    public static void MethodThatThrows() =>
+        throw new ("the message");
+
     void AddIgnoreInstanceGlobal()
     {
         #region AddIgnoreInstanceGlobal

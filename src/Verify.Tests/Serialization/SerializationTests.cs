@@ -1391,6 +1391,23 @@ public class SerializationTests
         });
     }
 
+    [Fact]
+    public Task NestedTargetInvocationException()
+    {
+        var member = GetType().GetMethod("MethodThatThrows")!;
+        TargetInvocationException? exception = null;
+        try
+        {
+            member.Invoke(null, Array.Empty<object>());
+        }
+        catch (TargetInvocationException e)
+        {
+            exception = e;
+        }
+
+        return Verify(new {exception});
+    }
+
     public static void MethodThatThrows() =>
         throw new ("the message");
 

@@ -10,7 +10,7 @@ Verify is heavily influenced by [ApprovalTests](https://github.com/approvals/App
 
 ApprovalTests supports producing a single file from a test.
 
-Verify support multiple files from a test. For example a snapshot of a webpage can result in both the png and the html being output files.
+Verify support producing multiple snapshot files from a single test method. For example a snapshot of a webpage can result in both the png and the html being output files.
 
 
 ### Extensibility
@@ -35,12 +35,12 @@ Verify supports verification of any object through the use of Json.net
 
 ApprovalTests uses the stack trace and information from debug symbols. This results in a requirement for test assembly to have symbols enable and not be optimized.
 
-Verify has no dependency on the stack trace and debug symbols.
+Verify has no dependency on the stack trace and debug symbols. So test assemblies do not nee any custom debug build settings when in Release mode.
 
 
 ### Async by default
 
-The act of verification requires access to the file system and (possibly) the clipboard which both require blocking IO. As such the call to `Verify()` is async.
+The act of verification requires access to the file system and (possibly) the clipboard which both require blocking IO. As such the call to `Verify()` is async. This means tests are not throttled by IO.
 
 
 ### Not attribute driven
@@ -50,14 +50,11 @@ ApprovalTests is, in the majority, configured via attributes.
 Verify is configured using explicit code APIs and conventions.
 
 
-### Clipboard and Diff tool on by default
+### Diff tool on by default
 
-When a test fails verification:
+When a test fails verification the difference between the received and verified files is displayed in a diff tool.
 
- * The command to accept the new verified is copied to the clipboard.
- * The difference between the received and verified files is displayed in a diff tool.
-
-In ApprovalTests both these features are opt-in through attributes.
+In ApprovalTests this feature is opt-in through attributes.
 
 
 ## Migrating from ApprovalTests

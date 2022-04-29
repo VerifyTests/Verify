@@ -13,6 +13,7 @@ public partial class SerializationSettings
     static DirectoryInfoConverter directoryInfoConverter = new();
     static StringEnumConverter stringEnumConverter = new();
     static DelegateConverter delegateConverter = new();
+    static TargetInvocationExceptionConverter targetInvocationExceptionConverter = new();
     static ExpressionConverter expressionConverter = new();
     static TypeJsonConverter typeJsonConverter = new();
     static MethodInfoConverter methodInfoConverter = new();
@@ -118,6 +119,7 @@ public partial class SerializationSettings
         converters.Add(stringEnumConverter);
         converters.Add(expressionConverter);
         converters.Add(delegateConverter);
+        converters.Add(targetInvocationExceptionConverter);
         converters.Add(versionConverter);
         converters.Add(typeJsonConverter);
         converters.Add(methodInfoConverter);

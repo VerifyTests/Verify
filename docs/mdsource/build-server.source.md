@@ -27,9 +27,10 @@ Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/re
       **/*.received.*
 ```
 
+
 ### Azure DevOps YAML Pipeline
-Directly after the test runner step add a build step to set a flag if the testrunner failed.  This is done by using a [failed condition](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml).  This flag will be evaluated in the CopyFiles and 
-PublishBuildArtifacts steps below.
+
+Directly after the test runner step add a build step to set a flag if the testrunner failed. This is done by using a [failed condition](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml). This flag will be evaluated in the CopyFiles and PublishBuildArtifacts steps below.
 
 ```yaml
 - task: CmdLine@2
@@ -39,7 +40,7 @@ PublishBuildArtifacts steps below.
     script: 'echo ##vso[task.setvariable variable=publishverify]Yes'
 ```
 
-Since the PublishBuildArtifacts step in DevOps does not allow a wildcard we need stage the 'received' files before publishing them:
+Since the PublishBuildArtifacts step in DevOps does not allow a wildcard it is necessary to need stage the 'received' files before publishing:
 
 ```yaml
 - task: CopyFiles@2
@@ -51,6 +52,7 @@ Since the PublishBuildArtifacts step in DevOps does not allow a wildcard we need
     cleanTargetFolder: true
     overWrite: true
 ```
+
 Finally publish the staged files as a build artifact:
 
 ```yaml
@@ -62,8 +64,7 @@ Finally publish the staged files as a build artifact:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)\Verify'
     ArtifactName: 'Verify'
     publishLocation: 'Container'
-``` 
-
+```
 
 
 ## Custom directory and file name

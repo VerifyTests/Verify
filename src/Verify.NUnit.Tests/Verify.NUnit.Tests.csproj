@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFramework>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>
-    <TargetFramework Condition="$(Configuration) == 'DebugNet6'">net6.0</TargetFramework>
+    <TargetFrameworks Condition="$(Configuration) == 'DebugNet6'">net6</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>

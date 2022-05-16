@@ -39,7 +39,7 @@ public class SerializationTests
                 withException,
                 withExceptionAndResult,
                 canceledAndResult
-            }).UniqueForRuntime();
+            });
     }
 
 #if NET5_0_OR_GREATER || net48

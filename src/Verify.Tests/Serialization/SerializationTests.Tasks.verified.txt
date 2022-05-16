@@ -1,4 +1,4 @@
-{
+﻿{
   finished: {
     Status: RanToCompletion
   },
@@ -13,26 +13,20 @@
     Status: Faulted,
     Exception: {
       Type: AggregateException,
-      InnerExceptions: [
-        {
-          Type: Exception,
-          Message: the exception
-        }
-      ],
-      Message: One or more errors occurred.
+      InnerException: {
+        Type: Exception,
+        Message: the exception
+      }
     }
   },
   withExceptionAndResult: {
     Status: Faulted,
     Exception: {
       Type: AggregateException,
-      InnerExceptions: [
-        {
-          Type: Exception,
-          Message: the exception
-        }
-      ],
-      Message: One or more errors occurred.
+      InnerException: {
+        Type: Exception,
+        Message: the exception
+      }
     }
   },
   canceledAndResult: {

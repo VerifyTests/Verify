@@ -13,26 +13,20 @@
     Status: Faulted,
     Exception: {
       Type: AggregateException,
-      InnerExceptions: [
-        {
-          Type: Exception,
-          Message: the exception
-        }
-      ],
-      Message: One or more errors occurred. (the exception)
+      InnerException: {
+        Type: Exception,
+        Message: the exception
+      }
     }
   },
   withExceptionAndResult: {
     Status: Faulted,
     Exception: {
       Type: AggregateException,
-      InnerExceptions: [
-        {
-          Type: Exception,
-          Message: the exception
-        }
-      ],
-      Message: One or more errors occurred. (the exception)
+      InnerException: {
+        Type: Exception,
+        Message: the exception
+      }
     }
   },
   canceledAndResult: {

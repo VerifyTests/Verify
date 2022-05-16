@@ -23,6 +23,7 @@ public partial class SerializationSettings
     static VersionConverter versionConverter = new();
     static PropertyInfoConverter propertyInfoConverter = new();
     static ClaimConverter claimConverter = new();
+    static AggregateExceptionConverter aggregateExceptionConverter = new();
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
     static JObjectConverter jObjectConverter = new();
@@ -39,7 +40,6 @@ public partial class SerializationSettings
     {
         IgnoreMembersThatThrow<NotImplementedException>();
         IgnoreMembersThatThrow<NotSupportedException>();
-        IgnoreMember<AggregateException>(x => x.InnerException);
         IgnoreMembers<Exception>("Source", "HResult");
         IgnoreMembersWithType<Stream>();
 
@@ -108,6 +108,7 @@ public partial class SerializationSettings
 
         settings.ContractResolver = new CustomContractResolver(this);
         var converters = settings.Converters;
+        converters.Add(aggregateExceptionConverter);
         converters.Add(stringBuilderConverter);
         converters.Add(textWriterConverter);
 #if NET6_0_OR_GREATER

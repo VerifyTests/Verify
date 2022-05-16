@@ -55,7 +55,10 @@ public class Tests
 
     [Fact]
     public Task WithNewline() =>
-        Verify(new {Property = "F\roo"});
+        Verify(new
+        {
+            Property = "F\roo"
+        });
 
     [ModuleInitializer]
     public static void TreatAsStringInit() =>
@@ -64,7 +67,10 @@ public class Tests
 
     [Fact]
     public Task TreatAsString() =>
-        Verify(new ClassWithToString {Property = "Foo"});
+        Verify(new ClassWithToString
+        {
+            Property = "Foo"
+        });
 
     class ClassWithToString
     {
@@ -80,6 +86,7 @@ public class Tests
             // No way to caseless File.Exists https://github.com/dotnet/core/issues/4596 on linux
             return Task.CompletedTask;
         }
+
         return Verify("Value");
     }
 
@@ -164,7 +171,10 @@ public class Tests
     {
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verify(new MemoryStream(new byte[] {1}), settings)
+        await Verify(new MemoryStream(new byte[]
+            {
+                1
+            }), settings)
             .UseExtension("SettingsArePassed");
     }
 
@@ -200,15 +210,18 @@ public class Tests
         throw new ArgumentNullException("The parameter", "The Message");
 
     [Fact]
-    public Task ThrowsAggregate()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verifier.Throws(MethodThatThrowsAggregate, settings);
-    }
+    public Task ThrowsAggregate() =>
+        Verifier.Throws(MethodThatThrowsAggregate);
 
     static void MethodThatThrowsAggregate() =>
         throw new AggregateException(new Exception("The Message1"), new Exception("The Message2"));
+
+    [Fact]
+    public Task ThrowsEmptyAggregate() =>
+        Verifier.Throws(MethodThatThrowsEmptyAggregate);
+
+    static void MethodThatThrowsEmptyAggregate() =>
+        throw new AggregateException();
 
     [Fact]
     public Task ThrowsTask() =>
@@ -218,6 +231,13 @@ public class Tests
 
     static Task TaskMethodThatThrows() =>
         throw new("The Message");
+
+    [Fact]
+    public Task ThrowsWithInner() =>
+        Verifier.Throws(MethodThatThrowsWithInner);
+
+    static void MethodThatThrowsWithInner() =>
+        throw new("The Message", new("Inner"));
 
     [Fact]
     public Task ThrowsTaskGeneric() =>
@@ -252,7 +272,10 @@ public class Tests
 
     [Fact]
     public Task NestedStringBuilder() =>
-        Verify(new {StringBuilder = new StringBuilder("value")});
+        Verify(new
+        {
+            StringBuilder = new StringBuilder("value")
+        });
 
     [Fact]
     public Task TextWriter()
@@ -267,7 +290,10 @@ public class Tests
     {
         var target = new StringWriter();
         target.Write("content");
-        return Verify(new {target});
+        return Verify(new
+        {
+            target
+        });
     }
 
 #if NET6_0
@@ -305,12 +331,21 @@ public class Tests
 
     [Fact]
     public Task Stream() =>
-        Verify(new MemoryStream(new byte[] {1}));
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }));
 
     [Fact]
     public Task StreamNotAtStart()
     {
-        var stream = new MemoryStream(new byte[] {1, 2, 3, 4});
+        var stream = new MemoryStream(new byte[]
+        {
+            1,
+            2,
+            3,
+            4
+        });
         stream.Position = 2;
         return Verify(stream);
     }
@@ -328,8 +363,14 @@ public class Tests
         Verify(
             new List<Stream>
             {
-                new MemoryStream(new byte[] {1}),
-                new MemoryStream(new byte[] {2})
+                new MemoryStream(new byte[]
+                {
+                    1
+                }),
+                new MemoryStream(new byte[]
+                {
+                    2
+                })
             });
 
     [Fact]
@@ -337,7 +378,10 @@ public class Tests
         Verify(
             new List<Stream?>
             {
-                new MemoryStream(new byte[] {1}),
+                new MemoryStream(new byte[]
+                {
+                    1
+                }),
                 null
             });
 
@@ -411,8 +455,8 @@ public class Tests
     {
         var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.received.txt");
         var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.verified.txt");
-        File.WriteAllText(receivedFile,"");
-        File.WriteAllText(verifiedFile,"");
+        File.WriteAllText(receivedFile, "");
+        File.WriteAllText(verifiedFile, "");
         await Verify("value").AutoVerify();
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
@@ -424,8 +468,8 @@ public class Tests
     {
         var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified_param=param.01.received.txt");
         var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified.01.verified.txt");
-        File.WriteAllText(receivedFile,"");
-        File.WriteAllText(verifiedFile,"");
+        File.WriteAllText(receivedFile, "");
+        File.WriteAllText(verifiedFile, "");
         await Verify("value").IgnoreParametersForVerified(param).AutoVerify();
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));

@@ -1,0 +1,10 @@
+﻿{
+  Type: Exception,
+  Message: The Message,
+  InnerException: {
+    $type: Exception,
+    Type: Exception,
+    Message: Inner
+  },
+  StackTrace: at Tests.MethodThatThrowsWithInner()
+}

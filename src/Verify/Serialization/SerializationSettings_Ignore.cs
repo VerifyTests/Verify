@@ -21,7 +21,14 @@ public partial class SerializationSettings
         where T : notnull
     {
         var member = expression.FindMember();
-        IgnoreMember(member.DeclaringType!, member.Name);
+        var declaringType = member.DeclaringType!;
+        if (typeof(T) != declaringType)
+        {
+            throw new(@"IgnoreMember<T> can only be used on the type that defines the member.
+To ignore specific members for T, create a custom converter.");
+        }
+
+        IgnoreMember(declaringType, member.Name);
     }
 
     public void IgnoreMembers<T>(params string[] names)

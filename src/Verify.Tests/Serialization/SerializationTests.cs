@@ -1919,6 +1919,21 @@ public class SerializationTests
 
     #endregion
 
+    public class IgnoreTargetBase
+    {
+        public string Property { get; set; }
+    }
+
+    public class IgnoreTargetSub :
+        IgnoreTargetBase
+    {
+    }
+
+    [Fact]
+    public Task IgnoreMemberSubClass() =>
+        Throws(() => VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property))
+            .IgnoreStackTrack();
+
     [Fact]
     public Task IgnoreJTokenByName()
     {

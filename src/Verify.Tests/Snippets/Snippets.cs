@@ -116,20 +116,22 @@ public class Snippets
     {
         #region ExtraSettingsGlobal
 
-        VerifierSettings.AddExtraSettings(_ =>
-        {
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
+        VerifierSettings.AddExtraSettings(
+            _ =>
+            {
+                _.TypeNameHandling = TypeNameHandling.All;
+            });
 
         #endregion
 
         #region ExtraSettingsInstance
 
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ =>
-        {
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
+        settings.AddExtraSettings(
+            _ =>
+            {
+                _.TypeNameHandling = TypeNameHandling.All;
+            });
 
         #endregion
     }

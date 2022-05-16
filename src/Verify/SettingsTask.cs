@@ -1,6 +1,6 @@
 ﻿namespace VerifyTests;
 
-public class SettingsTask
+public partial class SettingsTask
 {
     VerifySettings? settings;
     Func<VerifySettings, Task> buildTask;

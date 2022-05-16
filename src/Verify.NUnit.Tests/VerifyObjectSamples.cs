@@ -33,7 +33,7 @@ public class VerifyObjectSamples
         };
 
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.DontScrubDateTimes());
+        settings.DontScrubDateTimes();
         settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
         await Verify(person, settings);
     }
@@ -49,7 +49,7 @@ public class VerifyObjectSamples
         };
 
         await Verify(person)
-            .ModifySerialization(_ => _.DontScrubDateTimes())
+            .DontScrubDateTimes()
             .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 

@@ -178,7 +178,7 @@ public class TypeConverterTests
                 ["name"] = nameof(WithInfoShouldRespectSettings)
             }
         };
-        settings.ModifySerialization(_ => _.IgnoreMember("Property"));
+        settings.IgnoreMember("Property");
         var bitmap = new Bitmap(IoHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }

@@ -26,7 +26,11 @@ public class SortedPropertiesTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new()
+            {
+                "Sam",
+                "Mary"
+            },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -49,7 +53,11 @@ public class SortedPropertiesTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new()
+            {
+                "Sam",
+                "Mary"
+            },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -59,10 +67,7 @@ public class SortedPropertiesTests
 
         return Verify(person)
             .AddExtraSettings(
-                _ =>
-                {
-                    _.TypeNameHandling = TypeNameHandling.All;
-                });
+                _ => _.TypeNameHandling = TypeNameHandling.All);
     }
 }
 

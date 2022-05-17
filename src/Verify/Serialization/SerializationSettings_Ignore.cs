@@ -165,7 +165,7 @@ To ignore specific members for T, create a custom converter.");
 
     bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
-        if (ignoredTypes.Any(x => memberType.InheritsFrom(x)))
+        if (ignoredTypes.Any(memberType.InheritsFrom))
         {
             return true;
         }

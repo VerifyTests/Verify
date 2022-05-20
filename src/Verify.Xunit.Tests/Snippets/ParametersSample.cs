@@ -1,9 +1,14 @@
-﻿[UsesVerify]
+﻿using AutoFixture.Xunit2;
+
+[UsesVerify]
 public class ParametersSample
 {
     public static IEnumerable<object[]> GetDecimalData()
     {
-        yield return new object[] {(decimal) 1.1};
+        yield return new object[]
+        {
+            (decimal) 1.1
+        };
     }
 
     [Theory]
@@ -64,9 +69,31 @@ public class ParametersSample
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {"Value1"};
-        yield return new object[] {"Value2"};
+        yield return new object[]
+        {
+            "Value1"
+        };
+        yield return new object[]
+        {
+            "Value2"
+        };
     }
 
     #endregion
+
+    #region xunitAutoFixture
+
+    [Theory]
+    [InlineAutoData(42)]
+    public Task AutoFixtureUsage(int stable, string random1, string random2)
+    {
+        var result = MethodBeingTested(stable, random1, random2);
+        return Verify(result)
+            .UseParameters(stable);
+    }
+
+    #endregion
+
+    static int MethodBeingTested(int stable, string random1, string random2) =>
+        stable;
 }

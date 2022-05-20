@@ -55,13 +55,13 @@
             throw BuildMissingParametersException(method, methodParameters);
         }
 
-        if (methodParameters.Length != settingsParameters.Length)
+        if (settingsParameters.Length > methodParameters.Length)
         {
-            throw new($"The number of passed in parameters ({settingsParameters.Length}) must match the number of parameters for the method ({methodParameters.Length}).");
+            throw new($"The number of passed in parameters ({settingsParameters.Length}) must be fewer than the number of parameters for the method ({methodParameters.Length}).");
         }
 
         var dictionary = new Dictionary<string, object?>();
-        for (var index = 0; index < methodParameters.Length; index++)
+        for (var index = 0; index < settingsParameters.Length; index++)
         {
             var parameter = methodParameters[index];
             var value = settingsParameters[index];

@@ -22,18 +22,15 @@ public class Tests
 
     [Theory]
     [InlineData(1, 2)]
-    public async Task IncorrectParameterCount_TooFew(int one, int two)
-    {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value").UseParameters(1));
-        Assert.Equal("The number of passed in parameters (1) must match the number of parameters for the method (2).", exception.Message);
-    }
+    public Task ParameterCount_TooFew(int one, int two) =>
+        Verify("Value").UseParameters(1);
 
     [Theory]
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooMany(int one, int two)
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value").UseParameters(1, 2, 3));
-        Assert.Equal("The number of passed in parameters (3) must match the number of parameters for the method (2).", exception.Message);
+        Assert.Equal("The number of passed in parameters (3) must be fewer than the number of parameters for the method (2).", exception.Message);
     }
 
     [Theory]

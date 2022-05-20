@@ -8,12 +8,8 @@ public static partial class Verifier
     {
         var temp = typeof(TestContext.TestAdapter)
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
-        if (temp is null)
-        {
-            throw new("Could not find field `_test` on TestContext.TestAdapter.");
-        }
 
-        field = temp;
+        field = temp ?? throw new("Could not find field `_test` on TestContext.TestAdapter.");
     }
 
     static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings)
@@ -27,7 +23,8 @@ public static partial class Verifier
             throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
         }
 
-        if (adapter.Arguments.Any())
+        if (settings.parameters == null &&
+            adapter.Arguments.Any())
         {
             settings.parameters = adapter.Arguments;
         }

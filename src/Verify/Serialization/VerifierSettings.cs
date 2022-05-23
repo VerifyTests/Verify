@@ -164,21 +164,9 @@ public static partial class VerifierSettings
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
-    public static void AddExtraSettings(Action<JsonSerializerSettings> action) =>
-        serialization.AddExtraSettings(action);
-
     [Obsolete("Serialization settings are exposed as top level member on VerifierSettings", true)]
     public static void ModifySerialization(Action<SerializationSettings> action) =>
         throw new NotImplementedException();
-
-    public static void AddExtraDateFormat(string format) =>
-        SerializationSettings.dateFormats.Add(format);
-
-    public static void AddExtraDatetimeFormat(string format) =>
-        SerializationSettings.datetimeFormats.Add(format);
-
-    public static void AddExtraDatetimeOffsetFormat(string format) =>
-        SerializationSettings.datetimeOffsetFormats.Add(format);
 
     public static void UseStrictJson() =>
         StrictJson = true;

@@ -2,6 +2,18 @@
 
 public static partial class VerifierSettings
 {
+    public static void AddExtraSettings(Action<JsonSerializerSettings> action) =>
+        serialization.AddExtraSettings(action);
+
+    public static void AddExtraDateFormat(string format) =>
+        SerializationSettings.dateFormats.Add(format);
+
+    public static void AddExtraDatetimeFormat(string format) =>
+        SerializationSettings.datetimeFormats.Add(format);
+
+    public static void AddExtraDatetimeOffsetFormat(string format) =>
+        SerializationSettings.datetimeOffsetFormats.Add(format);
+
     public static void DontScrubGuids() =>
         serialization.DontScrubGuids();
 

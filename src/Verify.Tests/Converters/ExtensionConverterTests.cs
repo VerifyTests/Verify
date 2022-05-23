@@ -32,8 +32,8 @@ public class ExtensionConverterTests
                 {
                     var targets = new Target[]
                     {
-                        new("txt", "value1", null),
-                        new("txt", "value2", null)
+                        new("txt", "value1"),
+                        new("txt", "value2")
                     };
                     return new(null, targets);
                 }));
@@ -73,7 +73,7 @@ public class ExtensionConverterTests
                     var targets = new Target[]
                     {
                         new("txt", "value1", "name1"),
-                        new("txt", "value2", null)
+                        new("txt", "value2")
                     };
                     return new(null, targets);
                 }));

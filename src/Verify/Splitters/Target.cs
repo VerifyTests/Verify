@@ -53,52 +53,6 @@ public readonly struct Target
 
     public bool IsStringBuilder => stringBuilderData != null;
 
-    [Obsolete("Use the overload with name")]
-    public Target(string extension, Stream streamData)
-    {
-        Guard.AgainstBadExtension(extension, nameof(extension));
-
-        if (EmptyFiles.Extensions.IsText(extension))
-        {
-            throw new("Dont pass a stream for text. Instead use `Target(string extension, string stringData)` or `Target(string extension, StringBuilder stringBuilderData)`.");
-        }
-
-        Extension = extension;
-        this.streamData = streamData;
-        stringData = null;
-        stringBuilderData = null;
-    }
-
-    [Obsolete("Use the overload with name")]
-    public Target(string extension, StringBuilder stringBuilderData)
-    {
-        Guard.AgainstBadExtension(extension, nameof(extension));
-        if (!EmptyFiles.Extensions.IsText(extension))
-        {
-            throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");
-        }
-
-        Extension = extension;
-        stringData = null;
-        streamData = null;
-        this.stringBuilderData = stringBuilderData;
-    }
-
-    [Obsolete("Use the overload with name")]
-    public Target(string extension, string stringData)
-    {
-        Guard.AgainstBadExtension(extension, nameof(extension));
-        if (!EmptyFiles.Extensions.IsText(extension))
-        {
-            throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");
-        }
-
-        Extension = extension;
-        this.stringData = stringData;
-        streamData = null;
-        stringBuilderData = null;
-    }
-
     public Target(string extension, Stream streamData, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));

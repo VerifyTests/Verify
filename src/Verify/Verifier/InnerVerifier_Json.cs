@@ -91,10 +91,10 @@
     {
         if (stream is null)
         {
-            return new(settings.ExtensionOrTxt(), "null", null);
+            return new(settings.ExtensionOrTxt(), "null");
         }
 
-        return new(settings.ExtensionOrBin(), stream, null);
+        return new(settings.ExtensionOrBin(), stream);
     }
 
     void AssertExtensionIsNull()

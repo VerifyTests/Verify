@@ -37,7 +37,7 @@ public partial class VerifySettings
         ModifySerialization(_ => _.IgnoreMember(name));
 
     public void IgnoreMembers(Type declaringType, params string[] names) =>
-        ModifySerialization(_ => _.IgnoreMembers(names));
+        ModifySerialization(_ => _.IgnoreMembers(declaringType, names));
 
     public void IgnoreMember(Type declaringType, string name) =>
         ModifySerialization(_ => _.IgnoreMember(declaringType, name));
@@ -53,7 +53,7 @@ public partial class VerifySettings
         ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
 
     public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore) =>
-        ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
+        ModifySerialization(_ => _.IgnoreInstance(type, shouldIgnore));
 
     public void IgnoreMembersWithType<T>()
         where T : notnull =>

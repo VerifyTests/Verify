@@ -34,7 +34,7 @@ public partial class SettingsTask
         ModifySerialization(_ => _.IgnoreMember(name));
 
     public SettingsTask IgnoreMembers(Type declaringType, params string[] names) =>
-        ModifySerialization(_ => _.IgnoreMembers(names));
+        ModifySerialization(_ => _.IgnoreMembers(declaringType, names));
 
     public SettingsTask IgnoreMember(Type declaringType, string name) =>
         ModifySerialization(_ => _.IgnoreMember(declaringType, name));
@@ -50,7 +50,7 @@ public partial class SettingsTask
         ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
 
     public SettingsTask IgnoreInstance(Type type, Func<object, bool> shouldIgnore) =>
-        ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
+        ModifySerialization(_ => _.IgnoreInstance(type, shouldIgnore));
 
     public SettingsTask IgnoreMembersWithType<T>()
         where T : notnull =>

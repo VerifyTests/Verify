@@ -3,13 +3,6 @@ namespace VerifyMSTest
 {
     public partial class VerifyBase
     {
-        [Obsolete("Use VerifyTuple")]
-        public SettingsTask Verify(
-            Expression<Func<ITuple>> expression,
-            VerifySettings? settings = null,
-            [CallerFilePath] string sourceFile = "") =>
-            VerifyTuple(expression, settings, sourceFile);
-
         public SettingsTask VerifyTuple(
             Expression<Func<ITuple>> target,
             VerifySettings? settings = null,

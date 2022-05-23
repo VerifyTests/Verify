@@ -1749,14 +1749,11 @@ public class SerializationTests
     {
         #region IgnoreMemberByExpressionGlobal
 
-        VerifierSettings.ModifySerialization(_ =>
-        {
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
-        });
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 
         #endregion
     }
@@ -1842,20 +1839,17 @@ public class SerializationTests
     {
         #region IgnoreMemberByNameGlobal
 
-        VerifierSettings.ModifySerialization(_ =>
-        {
-            // For all types
-            _.IgnoreMember("PropertyByName");
+        // For all types
+        VerifierSettings.IgnoreMember("PropertyByName");
 
-            // For a specific type
-            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+        // For a specific type
+        VerifierSettings.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
 
-            // For a specific type generic
-            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+        // For a specific type generic
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>("Field");
 
-            // For a specific type with expression
-            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
-        });
+        // For a specific type with expression
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 
         #endregion
     }

@@ -3,76 +3,79 @@
 public static partial class VerifierSettings
 {
     public static void DontScrubGuids() =>
-        ModifySerialization(_ => _.DontScrubGuids());
+        serialization.DontScrubGuids();
 
     public static void DontScrubDateTimes() =>
-        ModifySerialization(_ => _.DontScrubDateTimes());
+        serialization.DontScrubDateTimes();
 
     public static void DontScrubNumericIds() =>
-        ModifySerialization(_ => _.DontScrubNumericIds());
+       serialization.DontScrubNumericIds();
 
     public static void TreatAsNumericId(IsNumericId isNumericId) =>
-        ModifySerialization(_ => _.TreatAsNumericId(isNumericId));
+        serialization.TreatAsNumericId(isNumericId);
 
     public static void IncludeObsoletes() =>
-        ModifySerialization(_ => _.IncludeObsoletes());
+        serialization.IncludeObsoletes();
 
     public static void DontIgnoreEmptyCollections() =>
-        ModifySerialization(_ => _.DontIgnoreEmptyCollections());
+        serialization.DontIgnoreEmptyCollections();
 
     public static void DontIgnoreFalse() =>
-        ModifySerialization(_ => _.DontIgnoreFalse());
+        serialization.DontIgnoreFalse();
 
     public static void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(expressions));
+        serialization.IgnoreMembers(expressions);
 
     public static void IgnoreMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(expression));
+        serialization.IgnoreMembers(expression);
 
     public static void IgnoreMembers<T>(params string[] names)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(names));
+        serialization.IgnoreMembers(names);
 
     public static void IgnoreMember<T>(string name)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMember(name));
+        serialization.IgnoreMember(name);
 
     public static void IgnoreMembers(Type declaringType, params string[] names) =>
-        ModifySerialization(_ => _.IgnoreMembers(names));
+        serialization.IgnoreMembers(names);
 
     public static void IgnoreMember(Type declaringType, string name) =>
-        ModifySerialization(_ => _.IgnoreMember(declaringType, name));
+        serialization.IgnoreMember(declaringType, name);
+
+    public static void IgnoreStackTrack() =>
+        serialization.IgnoreMember("StackTrace");
 
     public static void IgnoreMember(string name) =>
-        ModifySerialization(_ => _.IgnoreMember( name));
+        serialization.IgnoreMember(name);
 
     public static void IgnoreMembers(params string[] names) =>
-        ModifySerialization(_ => _.IgnoreMembers( names));
+        serialization.IgnoreMembers( names);
 
     public static void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
+        serialization.IgnoreInstance( shouldIgnore);
 
     public static void IgnoreInstance(Type type, Func<object, bool> shouldIgnore) =>
-        ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
+        serialization.IgnoreInstance( shouldIgnore);
 
     public static void IgnoreMembersWithType<T>()
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembersWithType<T>());
+        serialization.IgnoreMembersWithType<T>();
 
     public static void IgnoreMembersWithType(Type type) =>
-        ModifySerialization(_ => _.IgnoreMembersWithType(type));
+        serialization.IgnoreMembersWithType(type);
 
     public static void IgnoreMembersThatThrow<T>()
         where T : Exception =>
-        ModifySerialization(_ => _.IgnoreMembersThatThrow<T>());
+        serialization.IgnoreMembersThatThrow<T>();
 
     public static void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
-        ModifySerialization(_ => _.IgnoreMembersThatThrow(item));
+        serialization.IgnoreMembersThatThrow(item);
 
     public static void IgnoreMembersThatThrow<T>(Func<T, bool> item)
         where T : Exception =>
-        ModifySerialization(_ => _.IgnoreMembersThatThrow(item));
+        serialization.IgnoreMembersThatThrow(item);
 }

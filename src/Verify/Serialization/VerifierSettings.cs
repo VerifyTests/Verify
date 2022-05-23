@@ -167,11 +167,9 @@ public static partial class VerifierSettings
     public static void AddExtraSettings(Action<JsonSerializerSettings> action) =>
         serialization.AddExtraSettings(action);
 
+    [Obsolete("Serialization settings are exposed as top level member on VerifierSettings", true)]
     public static void ModifySerialization(Action<SerializationSettings> action) =>
-        action(serialization);
-
-    public static void IgnoreStackTrack() =>
-        ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+        throw new NotImplementedException();
 
     public static void AddExtraDateFormat(string format) =>
         SerializationSettings.dateFormats.Add(format);

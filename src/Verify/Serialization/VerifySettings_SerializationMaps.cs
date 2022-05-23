@@ -8,6 +8,9 @@ public partial class VerifySettings
     public void DontScrubDateTimes() =>
         ModifySerialization(_ => _.DontScrubDateTimes());
 
+    public void IgnoreStackTrack() =>
+        ModifySerialization(_ => _.IgnoreMember("StackTrace"));
+
     public void DontScrubNumericIds() =>
         ModifySerialization(_ => _.DontScrubNumericIds());
 

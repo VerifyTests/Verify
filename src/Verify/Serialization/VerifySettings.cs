@@ -55,9 +55,6 @@ public partial class VerifySettings
         }
     }
 
-    public void IgnoreStackTrack() =>
-        ModifySerialization(_ => _.IgnoreMember("StackTrace"));
-
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         CloneSettings();

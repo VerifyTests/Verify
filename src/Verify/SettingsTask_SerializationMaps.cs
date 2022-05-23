@@ -8,12 +8,6 @@ public partial class SettingsTask
     public SettingsTask DontScrubDateTimes() =>
         ModifySerialization(_ => _.DontScrubDateTimes());
 
-    public SettingsTask DontScrubNumericIds() =>
-        ModifySerialization(_ => _.DontScrubNumericIds());
-
-    public SettingsTask TreatAsNumericId(IsNumericId isNumericId) =>
-        ModifySerialization(_ => _.TreatAsNumericId(isNumericId));
-
     public SettingsTask IncludeObsoletes() =>
         ModifySerialization(_ => _.IncludeObsoletes());
 

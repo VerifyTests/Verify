@@ -129,21 +129,6 @@
             property.ShouldSerialize = shouldSerialize;
         }
 
-        var underlyingType = Nullable.GetUnderlyingType(memberType) ?? memberType;
-        if (
-            underlyingType == typeof(int) ||
-            underlyingType == typeof(long) ||
-            underlyingType == typeof(uint) ||
-            underlyingType == typeof(ulong)
-        )
-        {
-            if (settings.scrubNumericIds && settings.isNumericId(member))
-            {
-                property.Converter = new IdConverter();
-                return property;
-            }
-        }
-
         property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
 
         return property;

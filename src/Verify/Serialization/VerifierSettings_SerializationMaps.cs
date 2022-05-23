@@ -20,12 +20,6 @@ public static partial class VerifierSettings
     public static void DontScrubDateTimes() =>
         serialization.DontScrubDateTimes();
 
-    public static void DontScrubNumericIds() =>
-       serialization.DontScrubNumericIds();
-
-    public static void TreatAsNumericId(IsNumericId isNumericId) =>
-        serialization.TreatAsNumericId(isNumericId);
-
     public static void IncludeObsoletes() =>
         serialization.IncludeObsoletes();
 

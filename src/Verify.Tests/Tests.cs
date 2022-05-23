@@ -396,6 +396,7 @@ public class Tests
     public Task Newlines() =>
         Verify("a\r\nb\nc\rd\r\n");
 
+#if NET6_0
     [Fact]
     public async Task TrailingNewlinesRaw()
     {
@@ -423,6 +424,7 @@ public class Tests
         await Verify("a\n", settings);
         File.Delete(file);
     }
+#endif
 
     [Fact(Skip = "TODO")]
     public async Task TrailingNewlinesObject()

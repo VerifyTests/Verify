@@ -3,12 +3,6 @@ namespace VerifyXunit
 {
     public partial class VerifyBase
     {
-        [Obsolete("Use VerifyTuple")]
-        public SettingsTask Verify(
-            Expression<Func<ITuple>> expression,
-            VerifySettings? settings = null) =>
-            VerifyTuple(expression, settings);
-
         public SettingsTask VerifyTuple(
             Expression<Func<ITuple>> target,
             VerifySettings? settings = null)

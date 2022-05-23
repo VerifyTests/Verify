@@ -11,12 +11,6 @@ public partial class VerifySettings
     public void IgnoreStackTrack() =>
         ModifySerialization(_ => _.IgnoreMember("StackTrace"));
 
-    public void DontScrubNumericIds() =>
-        ModifySerialization(_ => _.DontScrubNumericIds());
-
-    public void TreatAsNumericId(IsNumericId isNumericId) =>
-        ModifySerialization(_ => _.TreatAsNumericId(isNumericId));
-
     public void IncludeObsoletes() =>
         ModifySerialization(_ => _.IncludeObsoletes());
 

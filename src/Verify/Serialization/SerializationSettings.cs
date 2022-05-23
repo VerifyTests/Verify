@@ -62,10 +62,8 @@ public partial class SerializationSettings
                 x => x.Key,
                 x => x.Value.Clone());
         scrubDateTimes = settings.scrubDateTimes;
-        scrubNumericIds = settings.scrubNumericIds;
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;
-        isNumericId = settings.isNumericId;
 
         jsonSettings = BuildSettings();
     }
@@ -79,16 +77,6 @@ public partial class SerializationSettings
 
     public void DontScrubDateTimes() =>
         scrubDateTimes = false;
-
-    internal bool scrubNumericIds = true;
-
-    internal IsNumericId isNumericId = member => member.Name.EndsWith("Id");
-
-    public void TreatAsNumericId(IsNumericId isNumericId) =>
-        this.isNumericId = isNumericId;
-
-    public void DontScrubNumericIds() =>
-        scrubNumericIds = false;
 
     JsonSerializerSettings BuildSettings()
     {

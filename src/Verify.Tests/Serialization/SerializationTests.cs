@@ -1646,6 +1646,7 @@ public class SerializationTests
         public string Property;
     }
 
+// ReSharper disable once UnusedTypeParameter
     class BaseToIgnoreGeneric<T>
     {
     }

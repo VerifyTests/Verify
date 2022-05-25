@@ -50,6 +50,33 @@ public class ParametersSample
 
     #endregion
 
+    #region UseParameters
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseParametersUsage(string arg)
+    {
+        var somethingToVerify = $"{arg} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg);
+    }
+
+    #endregion
+
+    #region UseParametersSubSet
+
+    [Theory]
+    [InlineData("Value1", "Value2", "Value3")]
+    public Task UseParametersSubSet(string arg1, string arg2, string arg3)
+    {
+        var somethingToVerify = $"{arg1} {arg2} {arg3} some text";
+        return Verify(somethingToVerify)
+            .UseParameters(arg1, arg2);
+    }
+
+    #endregion
+
     #region xunitMemberData
 
     [Theory]

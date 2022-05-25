@@ -18,6 +18,19 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 Characters that cannot be used for a file name will be replaced with a dash (`-`).
 
 
+## UseParameters
+
+`UseParameters` is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
+
+snippet: UseParameters
+
+If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
+
+snippet: UseParametersSubSet
+
+If the number of parameters pass to `UseParameters` is greater than the number of parameters in the test method, an exception will be thrown.
+
+
 ## xUnit
 
 
@@ -33,7 +46,7 @@ snippet: xunitMemberData
 
 ### Complex MemberData
 
-xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()` on the base class.
+xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()`.
 
 snippet: xunitComplexMemberData
 

@@ -2,11 +2,12 @@
 
 namespace VerifyTests;
 
+public delegate bool ShouldIgnore(object memberType);
 public partial class SerializationSettings
 {
     internal Dictionary<Type, List<string>> ignoredMembers = new();
     internal List<string> ignoredByNameMembers = new();
-    internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
+    internal Dictionary<Type, List<ShouldIgnore>> ignoredInstances = new();
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -96,7 +97,7 @@ To ignore specific members for T, create a custom converter.");
             });
     }
 
-    public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
+    public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         if (!ignoredInstances.TryGetValue(type, out var list))
         {

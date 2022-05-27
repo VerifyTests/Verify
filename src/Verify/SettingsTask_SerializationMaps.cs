@@ -49,7 +49,7 @@ public partial class SettingsTask
         where T : notnull =>
         ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
 
-    public SettingsTask IgnoreInstance(Type type, Func<object, bool> shouldIgnore) =>
+    public SettingsTask IgnoreInstance(Type type, ShouldIgnore shouldIgnore) =>
         ModifySerialization(_ => _.IgnoreInstance(type, shouldIgnore));
 
     public SettingsTask IgnoreMembersWithType<T>()

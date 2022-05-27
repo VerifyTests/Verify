@@ -64,7 +64,7 @@ public static partial class VerifierSettings
         where T : notnull =>
         serialization.IgnoreInstance( shouldIgnore);
 
-    public static void IgnoreInstance(Type type, Func<object, bool> shouldIgnore) =>
+    public static void IgnoreInstance(Type type, ShouldIgnore shouldIgnore) =>
         serialization.IgnoreInstance(type, shouldIgnore);
 
     public static void IgnoreMembersWithType<T>()

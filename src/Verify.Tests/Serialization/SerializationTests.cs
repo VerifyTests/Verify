@@ -323,7 +323,7 @@ public class SerializationTests
         var ignoredMemberList = new List<string>();
         settings.ignoredMembers.Add(GetType(), ignoredMemberList);
 
-        var ignoredInstances = new List<Func<object, bool>>();
+        var ignoredInstances = new List<ShouldIgnore>();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
         settings.ignoredByNameMembers.Add("ignored");

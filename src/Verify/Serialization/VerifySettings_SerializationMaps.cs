@@ -52,7 +52,7 @@ public partial class VerifySettings
         where T : notnull =>
         ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
 
-    public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore) =>
+    public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore) =>
         ModifySerialization(_ => _.IgnoreInstance(type, shouldIgnore));
 
     public void IgnoreMembersWithType<T>()

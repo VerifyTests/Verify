@@ -211,7 +211,7 @@ To ignore specific members for T, create a custom converter.");
             return funcs.All(func => !func(value));
         }
 
-        if (IsIgnoredCollection(typeof(T)))
+        if (IsIgnoredCollection(typeof(TMember)))
         {
             // since inside IsCollection, it is safe to use IEnumerable
             var collection = (IEnumerable) value;

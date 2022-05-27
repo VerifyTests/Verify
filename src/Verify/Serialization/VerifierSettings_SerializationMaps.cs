@@ -33,11 +33,11 @@ public static partial class VerifierSettings
 
     public static void IgnoreMembers<T>(params string[] names)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(names));
+        ModifySerialization(_ => _.IgnoreMembers<T>(names));
 
     public static void IgnoreMember<T>(string name)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMember(name));
+        ModifySerialization(_ => _.IgnoreMember<T>(name));
 
     public static void IgnoreMembers(Type declaringType, params string[] names) =>
         ModifySerialization(_ => _.IgnoreMembers(names));

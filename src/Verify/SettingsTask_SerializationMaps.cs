@@ -33,11 +33,11 @@ public partial class SettingsTask
 
     public SettingsTask IgnoreMembers<T>(params string[] names)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(names));
+        ModifySerialization(_ => _.IgnoreMembers<T>(names));
 
     public SettingsTask IgnoreMember<T>(string name)
         where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMember(name));
+        ModifySerialization(_ => _.IgnoreMember<T>(name));
 
     public SettingsTask IgnoreMembers(Type declaringType, params string[] names) =>
         ModifySerialization(_ => _.IgnoreMembers(names));

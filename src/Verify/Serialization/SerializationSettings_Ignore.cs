@@ -199,14 +199,14 @@ To ignore specific members for T, create a custom converter.");
         return false;
     }
 
-    internal bool ShouldSerialize<T>([NotNullWhen(true)] T value)
+    internal bool ShouldSerialize<TMember>([NotNullWhen(true)] TMember value)
     {
         if (value is null)
         {
             return false;
         }
 
-        if (ignoredInstances.TryGetValue(typeof(T), out var funcs))
+        if (ignoredInstances.TryGetValue(typeof(TMember), out var funcs))
         {
             return funcs.All(func => !func(value));
         }

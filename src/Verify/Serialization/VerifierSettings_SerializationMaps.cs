@@ -45,10 +45,6 @@ public static partial class VerifierSettings
         where T : notnull =>
         serialization.IgnoreMember<T>(name);
 
-    public static void IgnoreMember<T>(string name)
-        where T : notnull =>
-        serialization.IgnoreMember<T>(name);
-
     public static void IgnoreMembers(Type declaringType, params string[] names) =>
         serialization.IgnoreMembers(declaringType, names);
 

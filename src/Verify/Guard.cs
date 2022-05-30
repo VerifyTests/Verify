@@ -135,4 +135,19 @@
             throw new ArgumentException("Must not start with a period ('.').", argumentName);
         }
     }
+
+    public static void AgainstBadTargetName(string? value, string argumentName)
+    {
+        if (value == null)
+        {
+            return;
+        }
+
+        AgainstNullOrEmpty(value, argumentName);
+
+        if (char.IsDigit(value[0]))
+        {
+            throw new ArgumentException("Name must not start with a number", argumentName);
+        }
+    }
 }

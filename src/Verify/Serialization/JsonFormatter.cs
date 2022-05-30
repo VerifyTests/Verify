@@ -1,9 +1,7 @@
 ﻿static class JsonFormatter
 {
-    static JsonFormatter()
-    {
+    static JsonFormatter() =>
         TypeNameConverter.AddRedirect(typeof(IDictionaryWrapper), _ => _.GetGenericArguments().Last());
-    }
 
     public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, Counter counter)
     {

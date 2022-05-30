@@ -19,8 +19,6 @@ public abstract class WriteOnlyJsonConverter :
         JsonReader reader,
         Type type,
         object? value,
-        JsonSerializer serializer)
-    {
+        JsonSerializer serializer) =>
         throw new NotImplementedException();
-    }
 }

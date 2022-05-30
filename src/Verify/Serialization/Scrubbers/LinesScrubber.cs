@@ -11,8 +11,7 @@
         var theString = input.ToString();
         using var reader = new StringReader(theString);
         input.Clear();
-        string? line;
-        while ((line = reader.ReadLine()) is not null)
+        while (reader.ReadLine() is { } line)
         {
             var value = replaceLine(line);
             if (value is not null)
@@ -34,8 +33,7 @@
         using var reader = new StringReader(theString);
         input.Clear();
 
-        string? line;
-        while ((line = reader.ReadLine()) is not null)
+        while (reader.ReadLine() is { } line)
         {
             if (removeLine(line))
             {
@@ -53,8 +51,6 @@
         }
     }
 
-    static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison)
-    {
-        return stringToMatch.Any(toMatch => line.IndexOf(toMatch, comparison) != -1);
-    }
+    static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison) =>
+        stringToMatch.Any(toMatch => line.IndexOf(toMatch, comparison) != -1);
 }

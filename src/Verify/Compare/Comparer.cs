@@ -22,7 +22,15 @@
 
     static Task<CompareResult> CompareStrings(string extension, string received, string verified, VerifySettings settings)
     {
-        var isEqual = verified == received;
+        if (verified.Length > 0 &&
+            verified.Length - 1 == received.Length &&
+            verified[^1] == '\n')
+        {
+            verified = verified[..^1];
+        }
+
+        var isEqual = string.Equals(verified, received, StringComparison.Ordinal);
+
 
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))

@@ -9,7 +9,7 @@ class VerifyEngine
     List<NewResult> @new = new();
     List<NotEqualResult> notEquals = new();
     List<FilePair> equal = new();
-    List<string> delete;
+    HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
 
@@ -18,7 +18,7 @@ class VerifyEngine
         this.directory = directory;
         this.settings = settings;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        delete = verifiedFiles;
+        delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);;
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
     }
@@ -56,7 +56,7 @@ class VerifyEngine
         if (targetList.Count == 1)
         {
             var target = targetList.Single();
-            var file = getFileNames(target.Extension);
+            var file = getFileNames(target);
             var result = await GetResult(settings, file, target, false);
             HandleCompareResult(result, file);
             return;
@@ -66,7 +66,7 @@ class VerifyEngine
         for (var index = 0; index < targetList.Count; index++)
         {
             var target = targetList[index];
-            var file = getIndexedFileNames(target.Extension, index);
+            var file = getIndexedFileNames(target, index);
             var result = await GetResult(settings, file, target, textHasFailed);
             if (file.IsText &&
                 result.Equality != Equality.Equal)
@@ -134,10 +134,8 @@ class VerifyEngine
         }
     }
 
-    Task ProcessDeletes()
-    {
-        return Task.WhenAll(delete.Select(ProcessDeletes));
-    }
+    Task ProcessDeletes() =>
+        Task.WhenAll(delete.Select(ProcessDeletes));
 
     async Task ProcessDeletes(string file)
     {

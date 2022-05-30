@@ -2,10 +2,8 @@
 
 public static class Scrubbers
 {
-    public static void ScrubMachineName(StringBuilder builder)
-    {
+    public static void ScrubMachineName(StringBuilder builder) =>
         builder.Replace(Environment.MachineName, "TheMachineName");
-    }
 
     public static string? ScrubStackTrace(string? stackTrace, bool removeParams = false)
     {

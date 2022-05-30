@@ -5,6 +5,13 @@ class ClaimsPrincipalConverter :
 {
     public override void Write(VerifyJsonWriter writer, ClaimsPrincipal principal)
     {
-        writer.Serialize(principal.Identities);
+        if (!principal.Identities.Any())
+        {
+            return;
+        }
+
+        writer.WriteStartObject();
+        writer.WriteProperty(principal, principal.Identities, "Identities");
+        writer.WriteEndObject();
     }
 }

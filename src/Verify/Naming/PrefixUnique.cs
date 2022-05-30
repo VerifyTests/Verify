@@ -14,10 +14,8 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         prefixList.Add(prefix);
     }
 
-    public static void Clear()
-    {
+    public static void Clear() =>
         prefixList = new();
-    }
 
     public static string GetUniqueness(Namer namer)
     {

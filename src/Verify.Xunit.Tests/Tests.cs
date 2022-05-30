@@ -3,22 +3,15 @@ public class Tests
 {
     [Theory]
     [InlineData("Value1")]
-    public async Task MissingParameter(string arg)
-    {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Foo"));
-        Assert.Contains("requires parameters", exception.Message);
-    }
+    public  Task MissingParameter(string arg) =>
+        Verify("Foo");
 
     [Theory]
     [MemberData(nameof(GetData))]
-    public Task UseFileNameWithParam(string arg)
-    {
-        return Verify(arg)
+    public Task UseFileNameWithParam(string arg) =>
+        Verify(arg)
             .UseFileName("UseFileNameWithParam");
-    }
 
-    public static IEnumerable<object[]> GetData()
-    {
-        yield return new object[] {"Value1"};
-    }
+    public static IEnumerable<object[]> GetData() =>
+        new[] {new object[] {"Value1"}};
 }

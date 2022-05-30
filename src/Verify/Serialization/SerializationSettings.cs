@@ -16,6 +16,7 @@ public partial class SerializationSettings
     static DirectoryInfoConverter directoryInfoConverter = new();
     static StringEnumConverter stringEnumConverter = new();
     static DelegateConverter delegateConverter = new();
+    static TargetInvocationExceptionConverter targetInvocationExceptionConverter = new();
     static ExpressionConverter expressionConverter = new();
     static TypeJsonConverter typeJsonConverter = new();
     static MethodInfoConverter methodInfoConverter = new();
@@ -25,10 +26,13 @@ public partial class SerializationSettings
     static VersionConverter versionConverter = new();
     static PropertyInfoConverter propertyInfoConverter = new();
     static ClaimConverter claimConverter = new();
+    static AggregateExceptionConverter aggregateExceptionConverter = new();
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
     static StringBuilderConverter stringBuilderConverter = new();
+    static TaskConverter taskConverter = new();
+    static ValueTaskConverter valueTaskConverter = new();
     static TextWriterConverter textWriterConverter = new();
     static DictionaryConverter dictionaryConverter = new();
 
@@ -38,9 +42,8 @@ public partial class SerializationSettings
     {
         IgnoreMembersThatThrow<NotImplementedException>();
         IgnoreMembersThatThrow<NotSupportedException>();
-        IgnoreMember<AggregateException>(x => x.InnerException);
-        IgnoreMember<Exception>(x => x.Source);
-        IgnoreMember<Exception>(x => x.HResult);
+        IgnoreMembers<Exception>("Source", "HResult");
+        IgnoreMembersWithType<Stream>();
 
         jsonSettings = BuildSettings();
     }
@@ -61,41 +64,21 @@ public partial class SerializationSettings
                 x => x.Key,
                 x => x.Value.Clone());
         scrubDateTimes = settings.scrubDateTimes;
-        scrubNumericIds = settings.scrubNumericIds;
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;
-        isNumericId = settings.isNumericId;
 
         jsonSettings = BuildSettings();
     }
 
     bool scrubGuids = true;
 
-    public void DontScrubGuids()
-    {
+    public void DontScrubGuids() =>
         scrubGuids = false;
-    }
 
     bool scrubDateTimes = true;
 
-    public void DontScrubDateTimes()
-    {
+    public void DontScrubDateTimes() =>
         scrubDateTimes = false;
-    }
-
-    internal bool scrubNumericIds = true;
-
-    internal IsNumericId isNumericId = member => member.Name.EndsWith("Id");
-
-    public void TreatAsNumericId(IsNumericId isNumericId)
-    {
-        this.isNumericId = isNumericId;
-    }
-
-    public void DontScrubNumericIds()
-    {
-        scrubNumericIds = false;
-    }
 
     JsonSerializerSettings BuildSettings()
     {
@@ -115,6 +98,7 @@ public partial class SerializationSettings
 
         settings.ContractResolver = new CustomContractResolver(this);
         var converters = settings.Converters;
+        converters.Add(aggregateExceptionConverter);
         converters.Add(stringBuilderConverter);
         converters.Add(textWriterConverter);
 #if NET6_0_OR_GREATER
@@ -126,6 +110,7 @@ public partial class SerializationSettings
         converters.Add(stringEnumConverter);
         converters.Add(expressionConverter);
         converters.Add(delegateConverter);
+        converters.Add(targetInvocationExceptionConverter);
         converters.Add(versionConverter);
         converters.Add(typeJsonConverter);
         converters.Add(methodInfoConverter);
@@ -135,6 +120,8 @@ public partial class SerializationSettings
         converters.Add(parameterInfoConverter);
         converters.Add(claimConverter);
         converters.Add(claimsIdentityConverter);
+        converters.Add(taskConverter);
+        converters.Add(valueTaskConverter);
         converters.Add(claimsPrincipalConverter);
         converters.Add(dictionaryConverter);
         converters.Add(argonJArrayConverter);
@@ -190,8 +177,6 @@ public partial class SerializationSettings
 
     bool includeObsoletes;
 
-    public void IncludeObsoletes()
-    {
+    public void IncludeObsoletes() =>
         includeObsoletes = true;
-    }
 }

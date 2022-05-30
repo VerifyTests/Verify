@@ -14,17 +14,13 @@ public class ParametersTests :
 
     [DataTestMethod]
     [DataRow((float) 1.1)]
-    public async Task Float(float arg)
-    {
+    public async Task Float(float arg) =>
         await Verify(arg)
             .UseParameters(arg);
-    }
 
     [DataTestMethod]
     [DataRow(1.1d)]
-    public async Task Double(double arg)
-    {
+    public async Task Double(double arg) =>
         await Verify(arg)
             .UseParameters(arg);
-    }
 }

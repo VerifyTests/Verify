@@ -44,24 +44,19 @@
         }
 
         var methodParameters = method.GetParameters();
-        if (methodParameters.IsEmpty())
+        var settingsParameters = settings.parameters;
+        if (methodParameters.IsEmpty() || settingsParameters is null)
         {
             return "";
         }
 
-        var settingsParameters = settings.parameters;
-        if (settingsParameters is null)
+        if (settingsParameters.Length > methodParameters.Length)
         {
-            throw BuildMissingParametersException(method, methodParameters);
-        }
-
-        if (methodParameters.Length != settingsParameters.Length)
-        {
-            throw new($"The number of passed in parameters ({settingsParameters.Length}) must match the number of parameters for the method ({methodParameters.Length}).");
+            throw new($"The number of passed in parameters ({settingsParameters.Length}) must be fewer than the number of parameters for the method ({methodParameters.Length}).");
         }
 
         var dictionary = new Dictionary<string, object?>();
-        for (var index = 0; index < methodParameters.Length; index++)
+        for (var index = 0; index < settingsParameters.Length; index++)
         {
             var parameter = methodParameters[index];
             var value = settingsParameters[index];
@@ -70,21 +65,6 @@
 
         var concat = ParameterBuilder.Concat(dictionary);
         return $"_{concat}";
-    }
-
-    static Exception BuildMissingParametersException(MethodInfo method, ParameterInfo[] parameters)
-    {
-        var names = string.Join(", ", parameters.Select(x => x.Name));
-        return new($@"Method `{method.DeclaringType!.Name}.{method.Name}` requires parameters, but none have been defined. Add UseParameters. For example:
-
-var settings = new VerifySettings();
-settings.UseParameters({names});
-await Verifier.Verify(target, settings);
-
-or
-
-await Verifier.Verify(target).UseParameters({names});
-");
     }
 
     static string GetTypeName(Type type)

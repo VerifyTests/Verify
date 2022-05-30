@@ -30,9 +30,8 @@ Given the following method:
 ```cs
 public static class ClassBeingTested
 {
-    public static Person FindPerson()
-    {
-        return new()
+    public static Person FindPerson() =>
+        new()
         {
             Id = new("ebced679-45d3-4653-8791-3d969c4a986c"),
             Title = Title.Mr,
@@ -50,10 +49,9 @@ public static class ClassBeingTested
                 Country = "USA"
             }
         };
-    }
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

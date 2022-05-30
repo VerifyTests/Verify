@@ -11,8 +11,6 @@ public readonly struct AsStringResult
         Extension = extension;
     }
 
-    public static implicit operator AsStringResult(string value)
-    {
-        return new(value);
-    }
+    public static implicit operator AsStringResult(string value) =>
+        new(value);
 }

@@ -4,15 +4,11 @@ public static partial class VerifierSettings
 {
     static FirstVerify? handleOnFirstVerify;
 
-    public static void OnFirstVerify(FirstVerify firstVerify)
-    {
+    public static void OnFirstVerify(FirstVerify firstVerify) =>
         handleOnFirstVerify += firstVerify;
-    }
 
-    public static void OnDelete(VerifyDelete verifyDelete)
-    {
+    public static void OnDelete(VerifyDelete verifyDelete) =>
         handleOnVerifyDelete += verifyDelete;
-    }
 
     static VerifyDelete? handleOnVerifyDelete;
 
@@ -49,10 +45,8 @@ public static partial class VerifierSettings
         return handleOnVerifyMismatch(item, message);
     }
 
-    public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
-    {
+    public static void OnVerifyMismatch(VerifyMismatch verifyMismatch) =>
         handleOnVerifyMismatch += verifyMismatch;
-    }
 
     public static void OnVerify(Action before, Action after)
     {
@@ -62,15 +56,11 @@ public static partial class VerifierSettings
 
     static Action? beforeVerify;
 
-    internal static void RunBeforeCallbacks()
-    {
+    internal static void RunBeforeCallbacks() =>
         beforeVerify?.Invoke();
-    }
 
     static Action? afterVerify;
 
-    internal static void RunAfterCallbacks()
-    {
+    internal static void RunAfterCallbacks() =>
         afterVerify?.Invoke();
-    }
 }

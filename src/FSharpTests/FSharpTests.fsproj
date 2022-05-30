@@ -11,7 +11,7 @@
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
         <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
         <ProjectReference Include="..\Verify\Verify.csproj" />
-        <PackageReference Update="FSharp.Core" Version="6.0.3" />
+        <PackageReference Update="FSharp.Core" Version="6.0.4" />
     </ItemGroup>
     <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
     <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

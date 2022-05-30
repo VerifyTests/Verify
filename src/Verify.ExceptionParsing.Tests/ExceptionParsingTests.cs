@@ -10,18 +10,20 @@ public class ExceptionParsingTests
     string fakeReceivedBinFile = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake.recevied.bin");
 
     [Fact]
-    public Task Error_EmptyList()
-    {
-        return Throws(() => Parser.Parse(new[] {Environment.NewLine}))
+    public Task Error_EmptyList() =>
+        Throws(() => Parser.Parse(new[]
+            {
+                Environment.NewLine
+            }))
             .IgnoreStackTrack();
-    }
 
     [Fact]
-    public Task Error_EmptyDirectory()
-    {
-        return Throws(() => Parser.Parse(new[] {"Directory: "}))
+    public Task Error_EmptyDirectory() =>
+        Throws(() => Parser.Parse(new[]
+            {
+                "Directory: "
+            }))
             .IgnoreStackTrack();
-    }
 
     [Fact]
     public Task Empty()
@@ -75,6 +77,39 @@ public class ExceptionParsingTests
         var delete = new List<string>();
 
         return ParseVerify(@new, notEquals, delete, equal);
+    }
+
+    [Fact]
+    public Task Nunit()
+    {
+        var exceptionMessage = @$"VerifyException : Directory: {Environment.CurrentDirectory}
+NotEqual:
+  - Received: XAMLCombinerTests.TestOutput.received.xaml
+    Verified: XAMLCombinerTests.TestOutput.verified.xaml
+
+FileContent:
+
+NotEqual:
+
+Received: XAMLCombinerTests.TestOutput.received.xaml
+<?xml version=""1.0"" encoding=""utf-8""?>
+<ResourceDictionary xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" xmlns:sys=""clr-namespace:System;assembly=mscorlib"" xmlns:sys_0=""clr-namespace:System;assembly=System.Runtime"">
+  <Style x:Key=""Control1"" />
+  <Color x:Key=""Control1_Color"">#FF2B579A</Color>
+  <sys:String x:Key=""string1"">stringValue</sys:String>
+  <Style x:Key=""Control2"" />
+  <Color x:Key=""Control2_Color"">#FF2B579A</Color>
+  <sys:String x:Key=""string2"">stringValue</sys:String>
+  <sys_0:String x:Key=""string3"">stringValue</sys_0:String>
+  <Style TargetType=""Block"" />
+</ResourceDictionary>
+Verified: XAMLCombinerTests.TestOutput.verified.xaml
+
+
+";
+
+        var result = Parser.Parse(exceptionMessage);
+        return Verify(result);
     }
 
     [Fact]
@@ -164,8 +199,7 @@ public class ExceptionParsingTests
     {
         var exceptionMessage = VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEquals, delete, equal);
 
-        var lines = exceptionMessage.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
-        var result = Parser.Parse(lines);
+        var result = Parser.Parse(exceptionMessage);
         return Verify(
             new
             {

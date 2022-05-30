@@ -19,11 +19,9 @@ public class ParametersSample :
     [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
-    public Task DataRowUsageFluent(string arg)
-    {
-        return Verify(arg)
+    public Task DataRowUsageFluent(string arg) =>
+        Verify(arg)
             .UseParameters(arg);
-    }
 }
 
 #endregion

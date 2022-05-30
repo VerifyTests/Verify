@@ -25,10 +25,8 @@ public static partial class VerifierSettings
 
     #endregion
 
-    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method)
-    {
-        return derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
-    }
+    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
+        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
 
     /// <summary>
     /// Use custom path information for `.verified.` files.
@@ -38,8 +36,6 @@ public static partial class VerifierSettings
     /// To move to this approach, any existing `.verified.` files will need to be moved to the new directory
     /// </remarks>
     /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
-    public static void DerivePathInfo(DerivePathInfo derivePathInfo)
-    {
+    public static void DerivePathInfo(DerivePathInfo derivePathInfo) =>
         VerifierSettings.derivePathInfo = derivePathInfo;
-    }
 }

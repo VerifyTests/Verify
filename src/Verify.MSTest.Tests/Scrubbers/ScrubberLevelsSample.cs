@@ -23,17 +23,13 @@ public class ScrubberLevelsSample :
     }
 
     [TestMethod]
-    public Task SimpleFluent()
-    {
-        return Verify("One Two Three", classLevelSettings)
+    public Task SimpleFluent() =>
+        Verify("One Two Three", classLevelSettings)
             .AddScrubber(s => s.Replace("Two", "B"));
-    }
 
     [AssemblyInitialize]
-    public static void Setup(TestContext testContext)
-    {
+    public static void Setup(TestContext testContext) =>
         VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
-    }
 }
 
 #endregion

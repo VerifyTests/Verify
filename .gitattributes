@@ -1,8 +1,5 @@
-* text=auto eol=crlf
-.editorconfig -text
-*.sln.DotSettings -text
+* text
 *.snk binary
-*.json -text
 *.png binary
 *.bmp binary
 *.tif binary

@@ -1,0 +1,8 @@
+﻿{
+  NotEqual: [
+    {
+      Received: {CurrentDirectory}XAMLCombinerTests.TestOutput.received.xaml,
+      Verified: {CurrentDirectory}XAMLCombinerTests.TestOutput.verified.xaml
+    }
+  ]
+}

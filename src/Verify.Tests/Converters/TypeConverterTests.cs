@@ -6,11 +6,9 @@ using System.Drawing.Imaging;
 public class TypeConverterTests
 {
     [ModuleInitializer]
-    public static void InheritedInit()
-    {
+    public static void InheritedInit() =>
         VerifierSettings.RegisterFileConverter<ParentClass>(
             (instance, _) => new(null, "txt", instance.Value));
-    }
 
     [Fact]
     public Task Inherited()
@@ -68,11 +66,9 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void ConvertWithNewlineInit()
-    {
+    public static void ConvertWithNewlineInit() =>
         VerifierSettings.RegisterFileConverter<ClassToSplit>(
             (instance, _) => new(null, "txt", instance.Value));
-    }
 
     [Fact]
     public Task ConvertWithNewline()
@@ -90,12 +86,10 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void ConvertWithCanConvert_InvalidInit()
-    {
+    public static void ConvertWithCanConvert_InvalidInit() =>
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
             (instance, _) => new(null, "txt", instance.Value),
             (inner, _, _) => inner.Value == "Valid");
-    }
 
     [Fact]
     public Task ConvertWithCanConvert_Invalid()
@@ -108,12 +102,10 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void ConvertWithCanConvert_ValidInit()
-    {
+    public static void ConvertWithCanConvert_ValidInit() =>
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
             (instance, _) => new(null, "txt", instance.Value),
             (inner, _, _) => inner.Value == "Valid");
-    }
 
     [Fact]
     public Task ConvertWithCanConvert_Valid()
@@ -131,24 +123,19 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void WithInfoInit()
-    {
+    public static void WithInfoInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            (bitmap1, _) =>
+            (bitmap, _) =>
             {
-                var targets = ConvertBmpTpPngStreams(bitmap1);
+                var targets = ConvertBmpTpPngStreams(bitmap);
                 var info = new
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(x => new Target("png", x, null)));
             },
-            (_, _, context) =>
-            {
-                return context.ContainsKey("name") &&
-                       (string) context["name"] == nameof(WithInfo);
-            });
-    }
+            (_, _, context) => context.ContainsKey("name") &&
+                               (string) context["name"] == nameof(WithInfo));
 
     [Fact]
     public Task WithInfo()
@@ -165,8 +152,7 @@ public class TypeConverterTests
     }
 
     [ModuleInitializer]
-    public static void WithInfoShouldRespectSettingsInit()
-    {
+    public static void WithInfoShouldRespectSettingsInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _, context) =>
                 context.ContainsKey("name") &&
@@ -179,9 +165,8 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(x => new Target("png", x, null)));
             });
-    }
 
     [Fact]
     public Task WithInfoShouldRespectSettings()
@@ -193,14 +178,13 @@ public class TypeConverterTests
                 ["name"] = nameof(WithInfoShouldRespectSettings)
             }
         };
-        settings.ModifySerialization(_ => _.IgnoreMember("Property"));
+        settings.IgnoreMember("Property");
         var bitmap = new Bitmap(IoHelpers.OpenRead("sample.bmp"));
         return Verify(bitmap, settings);
     }
 
     [ModuleInitializer]
-    public static void TypeConversionInit()
-    {
+    public static void TypeConversionInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
             canConvert: (target, _, context) =>
                 context.ContainsKey("name") &&
@@ -209,9 +193,8 @@ public class TypeConverterTests
             conversion: (bitmap1, _) =>
             {
                 var targets = ConvertBmpTpPngStreams(bitmap1);
-                return new ConversionResult(null, targets.Select(x => new Target("png", x)));
+                return new ConversionResult(null, targets.Select(x => new Target("png", x, null)));
             });
-    }
 
     [Fact]
     public Task TypeConversion()

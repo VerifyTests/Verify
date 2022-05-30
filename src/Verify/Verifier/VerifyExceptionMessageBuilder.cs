@@ -4,7 +4,7 @@
         string directory,
         List<NewResult> @new,
         List<NotEqualResult> notEquals,
-        IReadOnlyList<string> delete,
+        IReadOnlyCollection<string> delete,
         IReadOnlyList<FilePair> equal)
     {
         var builder = new StringBuilder($"Directory: {directory}");

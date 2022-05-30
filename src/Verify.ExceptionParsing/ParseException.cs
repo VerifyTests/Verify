@@ -3,7 +3,7 @@
 class ParseException :
     Exception
 {
-    const string exceptionSuffix = " Ensure at least version 15 of Verify is being used.";
+    const string exceptionSuffix = " Ensure the current stable of Verify is being used.";
 
     public ParseException(string message) :
         base($"{message}{exceptionSuffix}")

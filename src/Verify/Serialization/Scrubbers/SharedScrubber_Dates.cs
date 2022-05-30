@@ -61,8 +61,7 @@ public partial class SerializationSettings
             return "Date_MinValue";
         }
 
-        var next = counter.Next(date);
-        return $"Date_{next}";
+        return counter.NextString(date);
     }
 
 #endif
@@ -91,8 +90,7 @@ public partial class SerializationSettings
             return "Date_MinValue";
         }
 
-        var next = counter.Next(date);
-        return $"DateTime_{next}";
+        return counter.NextString(date);
     }
 
     static string Convert(Counter counter, DateTimeOffset date)
@@ -107,8 +105,7 @@ public partial class SerializationSettings
             return "Date_MinValue";
         }
 
-        var next = counter.Next(date);
-        return $"DateTimeOffset_{next}";
+        return counter.NextString(date);
     }
 
     internal bool TryParseConvertDateTime(Counter counter, string value, [NotNullWhen(true)] out string? result)

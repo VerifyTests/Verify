@@ -6,6 +6,7 @@ public readonly struct Target
     readonly StringBuilder? stringBuilderData;
     readonly Stream? streamData;
     public string Extension { get; }
+    public string? Name { get; } = null;
 
     public Stream StreamData
     {
@@ -52,7 +53,7 @@ public readonly struct Target
 
     public bool IsStringBuilder => stringBuilderData != null;
 
-    public Target(string extension, Stream streamData)
+    public Target(string extension, Stream streamData, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
 
@@ -62,12 +63,13 @@ public readonly struct Target
         }
 
         Extension = extension;
+        Name = name;
         this.streamData = streamData;
         stringData = null;
         stringBuilderData = null;
     }
 
-    public Target(string extension, StringBuilder stringBuilderData)
+    public Target(string extension, StringBuilder stringBuilderData, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
         if (!EmptyFiles.Extensions.IsText(extension))
@@ -76,20 +78,23 @@ public readonly struct Target
         }
 
         Extension = extension;
+        Name = name;
         stringData = null;
         streamData = null;
         this.stringBuilderData = stringBuilderData;
     }
 
-    public Target(string extension, string stringData)
+    public Target(string extension, string stringData, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstBadTargetName(name, nameof(name));
         if (!EmptyFiles.Extensions.IsText(extension))
         {
             throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");
         }
 
         Extension = extension;
+        Name = name;
         this.stringData = stringData;
         streamData = null;
         stringBuilderData = null;

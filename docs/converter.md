@@ -66,7 +66,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            targets.Add(new("png", page));
+            targets.Add(new("png", page, null));
         }
 
         return new(
@@ -122,7 +122,7 @@ VerifierSettings.RegisterFileConverter(
 
             var page = new MemoryStream();
             image.Save(page, ImageFormat.Png);
-            targets.Add(new("png", page));
+            targets.Add(new("png", page, null));
         }
 
         return new(
@@ -163,7 +163,7 @@ return new(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L43-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L41-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

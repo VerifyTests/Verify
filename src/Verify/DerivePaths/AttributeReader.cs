@@ -2,45 +2,29 @@
 
 public static class AttributeReader
 {
-    public static string GetProjectDirectory()
-    {
-        return GetProjectDirectory(Assembly.GetCallingAssembly());
-    }
+    public static string GetProjectDirectory() =>
+        GetProjectDirectory(Assembly.GetCallingAssembly());
 
-    public static string GetProjectDirectory(Assembly assembly)
-    {
-        return GetValue(assembly, "Verify.ProjectDirectory");
-    }
+    public static string GetProjectDirectory(Assembly assembly) =>
+        GetValue(assembly, "Verify.ProjectDirectory");
 
-    public static bool TryGetProjectDirectory([NotNullWhen(true)] out string? projectDirectory)
-    {
-        return TryGetProjectDirectory(Assembly.GetCallingAssembly(), out projectDirectory);
-    }
+    public static bool TryGetProjectDirectory([NotNullWhen(true)] out string? projectDirectory) =>
+        TryGetProjectDirectory(Assembly.GetCallingAssembly(), out projectDirectory);
 
-    public static bool TryGetProjectDirectory(Assembly assembly, [NotNullWhen(true)] out string? projectDirectory)
-    {
-        return TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory);
-    }
+    public static bool TryGetProjectDirectory(Assembly assembly, [NotNullWhen(true)] out string? projectDirectory) =>
+        TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory);
 
-    public static string GetSolutionDirectory()
-    {
-        return GetSolutionDirectory(Assembly.GetCallingAssembly());
-    }
+    public static string GetSolutionDirectory() =>
+        GetSolutionDirectory(Assembly.GetCallingAssembly());
 
-    public static string GetSolutionDirectory(Assembly assembly)
-    {
-        return GetValue(assembly, "Verify.SolutionDirectory");
-    }
+    public static string GetSolutionDirectory(Assembly assembly) =>
+        GetValue(assembly, "Verify.SolutionDirectory");
 
-    public static bool TryGetSolutionDirectory([NotNullWhen(true)] out string? solutionDirectory)
-    {
-        return TryGetSolutionDirectory(Assembly.GetCallingAssembly(), out solutionDirectory);
-    }
+    public static bool TryGetSolutionDirectory([NotNullWhen(true)] out string? solutionDirectory) =>
+        TryGetSolutionDirectory(Assembly.GetCallingAssembly(), out solutionDirectory);
 
-    public static bool TryGetSolutionDirectory(Assembly assembly, [NotNullWhen(true)] out string? solutionDirectory)
-    {
-        return TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory);
-    }
+    public static bool TryGetSolutionDirectory(Assembly assembly, [NotNullWhen(true)] out string? solutionDirectory) =>
+        TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory);
 
     static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value)
     {

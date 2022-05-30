@@ -4,6 +4,15 @@
 
 public class Snippets
 {
+    void EnableClipboard()
+    {
+        #region EnableClipboard
+
+        ClipboardAccept.Enable();
+
+        #endregion
+    }
+
     #region OnHandlers
 
     public Task OnHandlersSample()
@@ -56,13 +65,10 @@ public class Snippets
         #region DerivePathInfo
 
         VerifierSettings.DerivePathInfo(
-            (sourceFile, projectDirectory, type, method) =>
-            {
-                return new(
-                    directory: Path.Combine(projectDirectory, "Snapshots"),
-                    typeName: type.Name,
-                    methodName: method.Name);
-            });
+            (sourceFile, projectDirectory, type, method) => new(
+                directory: Path.Combine(projectDirectory, "Snapshots"),
+                typeName: type.Name,
+                methodName: method.Name));
 
         #endregion
     }
@@ -110,20 +116,22 @@ public class Snippets
     {
         #region ExtraSettingsGlobal
 
-        VerifierSettings.AddExtraSettings(_ =>
-        {
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
+        VerifierSettings.AddExtraSettings(
+            _ =>
+            {
+                _.TypeNameHandling = TypeNameHandling.All;
+            });
 
         #endregion
 
         #region ExtraSettingsInstance
 
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ =>
-        {
-            _.TypeNameHandling = TypeNameHandling.All;
-        });
+        settings.AddExtraSettings(
+            _ =>
+            {
+                _.TypeNameHandling = TypeNameHandling.All;
+            });
 
         #endregion
     }
@@ -146,10 +154,8 @@ public class Snippets
     class CompanyConverter :
         WriteOnlyJsonConverter<Company>
     {
-        public override void Write(VerifyJsonWriter writer, Company company)
-        {
+        public override void Write(VerifyJsonWriter writer, Company company) =>
             writer.WriteProperty(company, company.Name, "Name");
-        }
     }
 
     #endregion

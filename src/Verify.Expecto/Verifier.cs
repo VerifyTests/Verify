@@ -35,10 +35,8 @@ public static partial class Verifier
             });
     }
 
-    static void ThrowNotSupported(string api)
-    {
+    static void ThrowNotSupported(string api) =>
         throw new($"Expect does not support `{api}()`. Change the `name` parameter instead.");
-    }
 
     static async Task Verify(VerifySettings? settings, Assembly assembly, string sourceFile, string name, Func<InnerVerifier, Task> verify)
     {

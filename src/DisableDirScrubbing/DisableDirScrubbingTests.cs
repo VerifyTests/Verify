@@ -10,14 +10,10 @@ public class DisableDirScrubbingTests
     }
 
     [Fact]
-    public Task ProjectDirectory()
-    {
-        return Verify(AttributeReader.GetProjectDirectory().TrimEnd('\\', '/'));
-    }
+    public Task ProjectDirectory() =>
+        Verify(AttributeReader.GetProjectDirectory().TrimEnd('\\', '/'));
 
     [Fact]
-    public Task SolutionDirectory()
-    {
-        return Verify(AttributeReader.GetSolutionDirectory());
-    }
+    public Task SolutionDirectory() =>
+        Verify(AttributeReader.GetSolutionDirectory());
 }

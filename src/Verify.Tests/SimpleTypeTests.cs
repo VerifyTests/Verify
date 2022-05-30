@@ -16,49 +16,35 @@ public class SimpleTypeTests
 #endif
 
     [Fact]
-    public Task StringWrappedInTask()
-    {
-        return Verify(Task.FromResult("theString"));
-    }
+    public Task StringWrappedInTask() =>
+        Verify(Task.FromResult("theString"));
 
     [Fact]
-    public Task NullWrappedInTask()
-    {
-        return Verify(Task.FromResult<object?>(null));
-    }
+    public Task NullWrappedInTask() =>
+        Verify(Task.FromResult<object?>(null));
 
     [Fact]
-    public Task StringEmptyWrappedInTask()
-    {
-        return Verify(Task.FromResult<object?>(string.Empty));
-    }
+    public Task StringEmptyWrappedInTask() =>
+        Verify(Task.FromResult<object?>(string.Empty));
 
     [Fact]
-    public Task Null()
-    {
-        return Verify((string) null!);
-    }
+    public Task Null() =>
+        Verify((string) null!);
 
     [Fact]
-    public Task StringEmpty()
-    {
-        return Verify(string.Empty);
-    }
+    public Task StringEmpty() =>
+        Verify(string.Empty);
 
 #if NET5_0_OR_GREATER
     [Fact]
-    public Task DateTimeWrappedInTask()
-    {
-        return Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
-    }
+    public Task DateTimeWrappedInTask() =>
+        Verify(Task.FromResult(new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc)));
 
 #endif
 
     [Fact]
-    public Task GuidWrappedInTask()
-    {
-        return Verify(Task.FromResult(new Guid("ebced679-45d3-4653-8791-3d969c4a986c")));
-    }
+    public Task GuidWrappedInTask() =>
+        Verify(Task.FromResult(new Guid("ebced679-45d3-4653-8791-3d969c4a986c")));
 
     public static IEnumerable<object[]> GetData()
     {

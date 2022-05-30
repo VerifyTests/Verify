@@ -42,6 +42,45 @@ Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/re
 ```
 
 
+### Azure DevOps YAML Pipeline
+
+Directly after the test runner step add a build step to set a flag if the testrunner failed. This is done by using a [failed condition](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml). This flag will be evaluated in the CopyFiles and PublishBuildArtifacts steps below.
+
+```yaml
+- task: CmdLine@2
+  displayName: 'Set flag to publish received files when previous step fails'
+  condition: failed()
+  inputs:
+    script: 'echo ##vso[task.setvariable variable=publishverify]Yes'
+```
+
+Since the PublishBuildArtifacts step in DevOps does not allow a wildcard it is necessary to need stage the 'received' files before publishing:
+
+```yaml
+- task: CopyFiles@2
+  condition: eq(variables['publishverify'], 'Yes')
+  displayName: 'Copy received files to Artifact Staging'
+  inputs:
+    contents: '**\*.received.*' 
+    targetFolder: '$(Build.ArtifactStagingDirectory)\Verify'
+    cleanTargetFolder: true
+    overWrite: true
+```
+
+Finally publish the staged files as a build artifact:
+
+```yaml
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish received files as Artifacts'
+  name: 'verifypublish'
+  condition: eq(variables['publishverify'], 'Yes')
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Verify'
+    ArtifactName: 'Verify'
+    publishLocation: 'Container'
+```
+
+
 ## Custom directory and file name
 
 In some scenarios, as part of a build, the test assemblies are copied to a different directory or machine to be run. In this case custom code will be required to derive the path to the `.verified.` files. This can be done using [DerivePathInfo](naming.md#derivepathinfo).
@@ -63,5 +102,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L72-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L78-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

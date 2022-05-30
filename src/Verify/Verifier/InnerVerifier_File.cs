@@ -7,8 +7,6 @@
         return VerifyStream(IoHelpers.OpenRead(path));
     }
 
-    public Task VerifyFile(FileInfo target)
-    {
-        return VerifyFile(target.FullName);
-    }
+    public Task VerifyFile(FileInfo target) =>
+        VerifyFile(target.FullName);
 }

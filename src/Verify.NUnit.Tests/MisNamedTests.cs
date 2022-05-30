@@ -2,8 +2,6 @@
 public class DiffNamedTests
 {
     [Test]
-    public Task ShouldPass()
-    {
-        return Verify("Foo");
-    }
+    public Task ShouldPass() =>
+        Verify("Foo");
 }

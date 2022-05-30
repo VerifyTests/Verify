@@ -20,15 +20,57 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task PathInfos()
+    public async Task Tasks()
     {
-        return Verify(
+        var withResult = Task.FromResult("Value");
+        var withException = Task.FromException(new("the exception"));
+        var withExceptionAndResult = Task.FromException<string>(new("the exception"));
+        var genericCompletionSource = new TaskCompletionSource<int>();
+        genericCompletionSource.TrySetCanceled();
+        var canceledAndResult = genericCompletionSource.Task;
+        var finished = Task.Delay(0);
+        var running = Task.Delay(10000);
+        await Verify(
+            new
+            {
+                finished,
+                running,
+                withResult,
+                withException,
+                withExceptionAndResult,
+                canceledAndResult
+            });
+    }
+
+#if NET5_0_OR_GREATER || net48
+    [Fact]
+    public async Task ValueTasks()
+    {
+        var withResult = ValueTask.FromResult("Value");
+        var withException = ValueTask.FromException(new("the exception"));
+        var withExceptionAndResult = ValueTask.FromException<string>(new("the exception"));
+        var genericCompletionSource = new TaskCompletionSource<int>();
+        genericCompletionSource.TrySetCanceled();
+        var canceledAndResult = genericCompletionSource.Task;
+        await Verify(
+            new
+            {
+                withResult,
+                withException,
+                withExceptionAndResult,
+                canceledAndResult
+            }).UniqueForRuntime();
+    }
+#endif
+
+    [Fact]
+    public Task PathInfos() =>
+        Verify(
             new
             {
                 file = new FileInfo(@"c:/foo\bar.txt"),
                 directory = new DirectoryInfo(@"c:/foo\bar/")
             });
-    }
 
     class DescendingComparer<T> :
         IComparer<T>
@@ -104,7 +146,7 @@ public class SerializationTests
         }
 }");
         return Verify(jToken)
-            .ModifySerialization(_ => _.IgnoreMembers("Ignore", "Memory Info"));
+            .IgnoreMembers("Ignore", "Memory Info");
     }
 
     [Fact]
@@ -116,7 +158,7 @@ public class SerializationTests
         );
 
         return Verify(obj)
-            .ModifySerialization(_ => _.IgnoreMember("Ignore"));
+            .IgnoreMember("Ignore");
     }
 
     [Fact]
@@ -141,7 +183,7 @@ public class SerializationTests
         };
 
         return Verify(dictionary)
-            .ModifySerialization(_ => _.IgnoreMember("ignored"));
+            .IgnoreMember("ignored");
     }
 
     [Fact]
@@ -167,20 +209,14 @@ public class SerializationTests
     {
         string member;
 
-        public NonComparableKey(string member)
-        {
+        public NonComparableKey(string member) =>
             this.member = member;
-        }
 
-        public override string ToString()
-        {
-            return member;
-        }
+        public override string ToString() =>
+            member;
 
-        public override int GetHashCode()
-        {
-            return member.GetHashCode();
-        }
+        public override int GetHashCode() =>
+            member.GetHashCode();
     }
 
     [Fact]
@@ -215,32 +251,28 @@ public class SerializationTests
         }
 
         return Verify(dictionary)
-            .ModifySerialization(_ => _.IgnoreMember("ignored"));
+            .IgnoreMember("ignored");
     }
 
     [Fact]
-    public Task DatetimeOffsetScrubbingDisabled()
-    {
-        return Verify(
+    public Task DatetimeOffsetScrubbingDisabled() =>
+        Verify(
                 new
                 {
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
                 })
-            .ModifySerialization(_ => _.DontScrubDateTimes());
-    }
+            .DontScrubDateTimes();
 
     [Fact]
-    public Task DatetimeScrubbingDisabled()
-    {
-        return Verify(
+    public Task DatetimeScrubbingDisabled() =>
+        Verify(
                 new
                 {
                     noTime = new DateTime(2000, 1, 1),
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1)
                 })
-            .ModifySerialization(_ => _.DontScrubDateTimes());
-    }
+            .DontScrubDateTimes();
 #if NET6_0_OR_GREATER
 
     #region AddExtraSettings
@@ -250,11 +282,9 @@ public class SerializationTests
     {
         var target = new DateOnly(2000, 1, 1);
 
-        var verifySettings = new VerifySettings();
-        verifySettings.ModifySerialization(settings =>
-            settings.AddExtraSettings(serializerSettings =>
-                serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
-        return Verify(target, verifySettings);
+        var settings = new VerifySettings();
+        settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+        return Verify(target, settings);
     }
 
     #endregion
@@ -267,9 +297,7 @@ public class SerializationTests
         var target = new DateOnly(2000, 1, 1);
 
         return Verify(target)
-            .ModifySerialization(settings =>
-                settings.AddExtraSettings(serializerSettings =>
-                    serializerSettings.DefaultValueHandling = DefaultValueHandling.Include));
+            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
     #endregion
@@ -280,112 +308,12 @@ public class SerializationTests
     {
         #region AddExtraSettingsGlobal
 
-        VerifierSettings.ModifySerialization(settings =>
-            settings.AddExtraSettings(serializerSettings =>
-                serializerSettings.TypeNameHandling = TypeNameHandling.All));
+        VerifierSettings
+            .AddExtraSettings(_ =>
+                _.TypeNameHandling = TypeNameHandling.All);
 
         #endregion
     }
-
-    #region TreatAsNumericId
-
-    [Fact]
-    public Task TreatAsNumericId()
-    {
-        var target = new IdConventionTarget
-        {
-            TheProperty = 5
-        };
-        return Verify(target)
-            .ModifySerialization(
-                settings => settings.TreatAsNumericId(
-                    member => member.Name == "TheProperty"));
-    }
-
-    #endregion
-
-    //TOFO: move to diff project
-    //[Fact]
-    public Task TreatAsNumericIdGlobal()
-    {
-        #region TreatAsNumericIdGlobal
-
-        VerifierSettings.ModifySerialization(
-            settings => settings.TreatAsNumericId(
-                member => member.Name == "TheProperty"));
-
-        #endregion
-
-        var target = new IdConventionTarget
-        {
-            TheProperty = 5
-        };
-        return Verify(target);
-    }
-
-    public class IdConventionTarget
-    {
-        public int TheProperty { get; set; }
-    }
-
-    //TODO: move to diff project
-    public Task NumericIdScrubbingDisabledGlobal()
-    {
-        #region DisableNumericIdGlobal
-
-        VerifierSettings.ModifySerialization(_ => _.DontScrubNumericIds());
-
-        #endregion
-
-        return Verify(
-            new
-            {
-                Id = 5,
-                OtherId = 5,
-                YetAnotherId = 4,
-                PossibleNullId = (int?) 5,
-                ActualNullId = (int?) null
-            });
-    }
-
-
-    #region DisableNumericId
-
-    [Fact]
-    public Task NumericIdScrubbingDisabled()
-    {
-        var target = new
-        {
-            Id = 5,
-            OtherId = 5,
-            YetAnotherId = 4,
-            PossibleNullId = (int?) 5,
-            ActualNullId = (int?) null
-        };
-        return Verify(target)
-            .ModifySerialization(_ => _.DontScrubNumericIds());
-    }
-
-    #endregion
-
-    #region NumericId
-
-    [Fact]
-    public Task NumericIdScrubbing()
-    {
-        var target = new
-        {
-            Id = 5,
-            OtherId = 5,
-            YetAnotherId = 4,
-            PossibleNullId = (int?) 5,
-            ActualNullId = (int?) null
-        };
-
-        return Verify(target);
-    }
-
-    #endregion
 
     [Fact]
     public void SettingsIsCloned()
@@ -395,7 +323,7 @@ public class SerializationTests
         var ignoredMemberList = new List<string>();
         settings.ignoredMembers.Add(GetType(), ignoredMemberList);
 
-        var ignoredInstances = new List<Func<object, bool>>();
+        var ignoredInstances = new List<ShouldIgnore>();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
         settings.ignoredByNameMembers.Add("ignored");
@@ -418,7 +346,7 @@ public class SerializationTests
         #region DontScrubGuids
 
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.DontScrubGuids());
+        settings.DontScrubGuids();
         await Verify(target, settings);
 
         #endregion
@@ -432,32 +360,28 @@ public class SerializationTests
         #region DontScrubGuidsFluent
 
         await Verify(target)
-            .ModifySerialization(_ => _.DontScrubGuids());
+            .DontScrubGuids();
 
         #endregion
     }
 
     [Fact]
-    public Task GuidScrubbingDisabledNested()
-    {
-        return Verify(
+    public Task GuidScrubbingDisabledNested() =>
+        Verify(
                 new
                 {
                     value = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e")
                 })
-            .ModifySerialization(_ => _.DontScrubGuids());
-    }
+            .DontScrubGuids();
 
     [Fact]
-    public Task ScrubberWithBadNewLine()
-    {
-        return Verify("a")
+    public Task ScrubberWithBadNewLine() =>
+        Verify("a")
             .AddScrubber(s =>
             {
                 s.AppendLine("b");
                 s.AppendLine("c");
             });
-    }
 
     [Fact]
     public Task ExtensionAwareScrubbers()
@@ -469,9 +393,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task NameValueCollection()
-    {
-        return Verify(
+    public Task NameValueCollection() =>
+        Verify(
             new
             {
                 item1 = new NameValueCollection {{null, null}},
@@ -483,37 +406,30 @@ public class SerializationTests
                 item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
                 item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}}
             });
-    }
 
     [Fact]
-    public Task Timespan()
-    {
-        return Verify(
+    public Task Timespan() =>
+        Verify(
             new
             {
                 timespan = TimeSpan.FromDays(1)
             });
-    }
 
     [Fact]
-    public Task EmptyDictionaryProperty()
-    {
-        return Verify(new
+    public Task EmptyDictionaryProperty() =>
+        Verify(new
         {
             property = new Dictionary<string, string>()
         });
-    }
 
 
     [Fact]
-    public Task ByteArray()
-    {
-        return Verify(
+    public Task ByteArray() =>
+        Verify(
             new
             {
                 bytes = new byte[] {1}
             });
-    }
 
     [Fact]
     public Task ExampleNonDefaults()
@@ -566,7 +482,7 @@ public class SerializationTests
 
             if (includeDefault)
             {
-                serialization.AddExtraSettings(serializerSettings => serializerSettings.DefaultValueHandling = DefaultValueHandling.Include);
+                serialization.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
             }
         });
 
@@ -620,10 +536,8 @@ public class SerializationTests
 
 #if NET6_0_OR_GREATER
     [Fact]
-    public Task TimeOnlyNested()
-    {
-        return Verify(new {value = new TimeOnly(10, 10)});
-    }
+    public Task TimeOnlyNested() =>
+        Verify(new {value = new TimeOnly(10, 10)});
 
     [Fact]
     public Task ShouldIgnoreDatetimeDefaults()
@@ -737,11 +651,9 @@ public class SerializationTests
 #endif
 
     [Fact]
-    public Task VerifyBytes()
-    {
-        return Verify(File.ReadAllBytes("sample.jpg"))
+    public Task VerifyBytes() =>
+        Verify(File.ReadAllBytes("sample.jpg"))
             .UseExtension("jpg");
-    }
 
     [Fact]
     public Task ShouldNotScrubInlineGuidsByDefault()
@@ -776,25 +688,19 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInDash()
-    {
-        return Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
+    public Task ShouldNotExcludeInlineGuidsWrappedInDash() =>
+        Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
             .ScrubInlineGuids();
-    }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInLetters()
-    {
-        return Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
+    public Task ShouldNotExcludeInlineGuidsWrappedInLetters() =>
+        Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
-    }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInNumber()
-    {
-        return Verify("1087ea433-d83b-40b6-9e37-465211d95081")
+    public Task ShouldNotExcludeInlineGuidsWrappedInNumber() =>
+        Verify("1087ea433-d83b-40b6-9e37-465211d95081")
             .ScrubInlineGuids();
-    }
 
     [Fact]
     public Task ShouldBeAbleToExcludeInlineGuids()
@@ -817,7 +723,7 @@ public class SerializationTests
     {
         #region DontIgnoreEmptyCollections
 
-        VerifierSettings.ModifySerialization(_ => _.DontIgnoreEmptyCollections());
+        VerifierSettings.DontIgnoreEmptyCollections();
 
         #endregion
     }
@@ -826,7 +732,7 @@ public class SerializationTests
     {
         #region DontScrubGuidsGlobal
 
-        VerifierSettings.ModifySerialization(_ => _.DontScrubGuids());
+        VerifierSettings.DontScrubGuids();
 
         #endregion
     }
@@ -859,22 +765,25 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ThrowForDateTimeZoneHandling()
-    {
-        return ThrowsTask(
+    public Task ThrowForDateFormatHandling() =>
+        ThrowsTask(
+                () => Verify("foo")
+                    .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
+            .IgnoreStackTrack();
+
+    [Fact]
+    public Task ThrowForDateTimeZoneHandling() =>
+        ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
             .IgnoreStackTrack();
-    }
 
     [Fact]
-    public Task ThrowForDateFormatString()
-    {
-        return ThrowsTask(
+    public Task ThrowForDateFormatString() =>
+        ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
             .IgnoreStackTrack();
-    }
 
     Task DontScrubDateTimes()
     {
@@ -886,7 +795,7 @@ public class SerializationTests
         };
 
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.DontScrubDateTimes());
+        settings.DontScrubDateTimes();
 
         return Verify(target, settings);
 
@@ -903,7 +812,7 @@ public class SerializationTests
         };
 
         return Verify(target)
-            .ModifySerialization(_ => _.DontScrubDateTimes());
+            .DontScrubDateTimes();
 
         #endregion
     }
@@ -912,7 +821,7 @@ public class SerializationTests
     {
         #region DontScrubDateTimesGlobal
 
-        VerifierSettings.ModifySerialization(_ => _.DontScrubDateTimes());
+        VerifierSettings.DontScrubDateTimes();
 
         #endregion
     }
@@ -921,16 +830,14 @@ public class SerializationTests
     {
         #region DontIgnoreFalse
 
-        VerifierSettings.ModifySerialization(_ => _.DontIgnoreFalse());
+        VerifierSettings.DontIgnoreFalse();
 
         #endregion
     }
 
     [Fact]
-    public Task NewLineNotEscapedInProperty()
-    {
-        return Verify(new {Property = "a\r\nb\\nc"});
-    }
+    public Task NewLineNotEscapedInProperty() =>
+        Verify(new {Property = "a\r\nb\\nc"});
 
     void List()
     {
@@ -1044,16 +951,14 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task QuoteEscaping()
-    {
-        return Verify(
+    public Task QuoteEscaping() =>
+        Verify(
             new
             {
                 singleQuote = "'",
                 doubleQuote = "\"",
                 mixed = "\"'"
             });
-    }
 
     [Fact]
     public async Task ShouldUseShortTypeName()
@@ -1085,10 +990,8 @@ public class SerializationTests
 
     #region MethodWithNamedTuple
 
-    static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
-    {
-        return (true, "A", "B");
-    }
+    static (bool Member1, string Member2, string Member3) MethodWithNamedTuple() =>
+        (true, "A", "B");
 
     #endregion
 
@@ -1102,28 +1005,20 @@ public class SerializationTests
     }
 #endif
 
-    static (bool, string Member2, string Member3) MethodWithPartialNamedTuple()
-    {
-        return (true, "A", "B");
-    }
+    static (bool, string Member2, string Member3) MethodWithPartialNamedTuple() =>
+        (true, "A", "B");
 
     [Fact]
-    public Task NamedTupleWithNull()
-    {
-        return VerifyTuple(() => MethodWithNamedTupleWithNull());
-    }
+    public Task NamedTupleWithNull() =>
+        VerifyTuple(() => MethodWithNamedTupleWithNull());
 
     [Fact]
-    public Task Claim()
-    {
-        return Verify(new Claim("TheType", "TheValue"));
-    }
+    public Task Claim() =>
+        Verify(new Claim("TheType", "TheValue"));
 
     [Fact]
-    public Task ClaimWithClaimType()
-    {
-        return Verify(new Claim(ClaimTypes.Email, "TheValue"));
-    }
+    public Task ClaimWithClaimType() =>
+        Verify(new Claim(ClaimTypes.Email, "TheValue"));
 
     [Fact]
     public Task ClaimsPrincipal()
@@ -1143,10 +1038,8 @@ public class SerializationTests
         return Verify(claimsIdentity);
     }
 
-    static (string Member1, string? Member2) MethodWithNamedTupleWithNull()
-    {
-        return ("A", null);
-    }
+    static (string Member1, string? Member2) MethodWithNamedTupleWithNull() =>
+        ("A", null);
 
     [Fact]
     public async Task ShouldReUseGuid()
@@ -1192,7 +1085,7 @@ public class SerializationTests
     [Fact]
     public Task ShouldScrubProjectDirectory()
     {
-        var projectDirectory = GetProjectDirectory();
+        var projectDirectory = FileEx.GetProjectDirectory();
         var path = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
         var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(
@@ -1205,15 +1098,10 @@ public class SerializationTests
             });
     }
 
-    static string GetProjectDirectory([CallerFilePath] string file = "")
-    {
-        return new FileInfo(file).Directory!.Parent!.FullName;
-    }
-
     [Fact]
     public Task ShouldScrubSolutionDirectory()
     {
-        var solutionDirectory = GetSolutionDirectory();
+        var solutionDirectory = FileEx.GetSolutionDirectory();
         var path = Path.GetFullPath(Path.Combine(solutionDirectory, "Foo"));
         var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(
@@ -1226,10 +1114,6 @@ public class SerializationTests
             });
     }
 
-    static string GetSolutionDirectory([CallerFilePath] string file = "")
-    {
-        return new FileInfo(file).Directory!.Parent!.Parent!.FullName;
-    }
 
     [Fact]
     public Task ShouldScrubGuid()
@@ -1282,9 +1166,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubDictionaryKey()
-    {
-        return Verify(
+    public Task ShouldScrubDictionaryKey() =>
+        Verify(
             new
             {
                 guid = new Dictionary<Guid, string>
@@ -1304,7 +1187,6 @@ public class SerializationTests
                     {typeof(SerializationTests), "value"}
                 }
             });
-    }
 
     [Fact]
     public Task ShouldIgnoreEmptyList()
@@ -1336,8 +1218,7 @@ public class SerializationTests
     {
         #region IgnoreMembersThatThrowExpressionGlobal
 
-        VerifierSettings.ModifySerialization(
-            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        VerifierSettings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
 
         #endregion
     }
@@ -1350,8 +1231,7 @@ public class SerializationTests
         var target = new WithExceptionIgnoreMessage();
 
         var settings = new VerifySettings();
-        settings.ModifySerialization(
-            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        settings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
         return Verify(target, settings);
     }
 
@@ -1361,8 +1241,7 @@ public class SerializationTests
         var target = new WithExceptionIgnoreMessage();
 
         return Verify(target)
-            .ModifySerialization(
-                _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+            .IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
     }
 
     #endregion
@@ -1395,12 +1274,41 @@ public class SerializationTests
         public Guid NotImplementedExceptionProperty => throw new NotImplementedException();
     }
 
+    [Fact]
+    public Task TargetInvocationException()
+    {
+        var member = GetType().GetMethod("MethodThatThrows")!;
+        return Throws(() =>
+        {
+            member.Invoke(null, Array.Empty<object>());
+        });
+    }
+
+    [Fact]
+    public Task NestedTargetInvocationException()
+    {
+        var member = GetType().GetMethod("MethodThatThrows")!;
+        TargetInvocationException? exception = null;
+        try
+        {
+            member.Invoke(null, Array.Empty<object>());
+        }
+        catch (TargetInvocationException e)
+        {
+            exception = e;
+        }
+
+        return Verify(new {exception});
+    }
+
+    public static void MethodThatThrows() =>
+        throw new ("the message");
+
     void AddIgnoreInstanceGlobal()
     {
         #region AddIgnoreInstanceGlobal
 
-        VerifierSettings.ModifySerialization(
-            _ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
+        VerifierSettings.IgnoreInstance<Instance>(x => x.Property == "Ignore");
 
         #endregion
     }
@@ -1422,8 +1330,7 @@ public class SerializationTests
             }
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(
-            _ => _.IgnoreInstance<Instance>(x => x.Property == "Ignore"));
+        settings.IgnoreInstance<Instance>(x => x.Property == "Ignore");
         return Verify(target, settings);
     }
 
@@ -1442,11 +1349,7 @@ public class SerializationTests
             }
         };
         return Verify(target)
-            .ModifySerialization(
-                _ =>
-                {
-                    _.IgnoreInstance<Instance>(x => x.Property == "Ignore");
-                });
+            .IgnoreInstance<Instance>(x => x.Property == "Ignore");
     }
 
     #endregion
@@ -1466,8 +1369,7 @@ public class SerializationTests
     {
         #region AddIgnoreTypeGlobal
 
-        VerifierSettings.ModifySerialization(
-            _ => _.IgnoreMembersWithType<ToIgnore>());
+        VerifierSettings.IgnoreMembersWithType<ToIgnore>();
 
         #endregion
     }
@@ -1484,6 +1386,22 @@ public class SerializationTests
                 Property = "Value"
             },
             ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByInterface = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBase = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBaseGeneric = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByType = new()
             {
                 Property = "Value"
             },
@@ -1504,6 +1422,10 @@ public class SerializationTests
         settings.ModifySerialization(_ =>
         {
             _.IgnoreMembersWithType<ToIgnore>();
+            _.IgnoreMembersWithType<ToIgnoreByType>();
+            _.IgnoreMembersWithType<InterfaceToIgnore>();
+            _.IgnoreMembersWithType<BaseToIgnore>();
+            _.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
             _.IgnoreMembersWithType<ToIgnoreStruct>();
         });
         return Verify(target, settings);
@@ -1519,6 +1441,22 @@ public class SerializationTests
                 Property = "Value"
             },
             ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByInterface = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBase = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBaseGeneric = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByType = new()
             {
                 Property = "Value"
             },
@@ -1539,6 +1477,10 @@ public class SerializationTests
             .ModifySerialization(_ =>
             {
                 _.IgnoreMembersWithType<ToIgnore>();
+                _.IgnoreMembersWithType<ToIgnoreByType>();
+                _.IgnoreMembersWithType<InterfaceToIgnore>();
+                _.IgnoreMembersWithType<BaseToIgnore>();
+                _.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
                 _.IgnoreMembersWithType<ToIgnoreStruct>();
             });
     }
@@ -1551,10 +1493,7 @@ public class SerializationTests
         ToIgnoreStruct? toIgnoreStruct = new ToIgnoreStruct("Value");
 
         return Verify(toIgnoreStruct)
-            .ModifySerialization(_ =>
-            {
-                _.IgnoreMembers<ToIgnoreStruct>(_ => _.Property);
-            });
+            .IgnoreMembers<ToIgnoreStruct>(_ => _.Property);
     }
 
     [Fact]
@@ -1566,10 +1505,7 @@ public class SerializationTests
         };
 
         return Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.IgnoreMembers<IgnoreMembersNullableNestedTarget>(_ => _.ToIgnoreStruct);
-            });
+            .IgnoreMembers<IgnoreMembersNullableNestedTarget>(_ => _.ToIgnoreStruct);
     }
 
     class IgnoreMembersNullableNestedTarget
@@ -1578,10 +1514,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task Type()
-    {
-        return Verify(GetType());
-    }
+    public Task Type() =>
+        Verify(GetType());
 
     [Fact]
     public Task Field()
@@ -1616,16 +1550,12 @@ public class SerializationTests
     public string MyProperty { get; set; }
 
     [Fact]
-    public Task Method()
-    {
-        return Verify(Info.OfMethod<SerializationTests>("Method"));
-    }
+    public Task Method() =>
+        Verify(Info.OfMethod<SerializationTests>("Method"));
 
     [Fact]
-    public Task Constructor()
-    {
-        return Verify(Info.OfConstructor<SerializationTests>());
-    }
+    public Task Constructor() =>
+        Verify(Info.OfConstructor<SerializationTests>());
 
     [Fact]
     public Task Parameter()
@@ -1635,10 +1565,8 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task MethodWithParameters()
-    {
-        return Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
-    }
+    public Task MethodWithParameters() =>
+        Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
 
     // ReSharper disable UnusedParameter.Local
     void MyMethodWithParameters(int x, string y)
@@ -1649,6 +1577,10 @@ public class SerializationTests
     class IgnoreTypeTarget
     {
         public ToIgnore ToIgnore;
+        public ToIgnoreByType ToIgnoreByType;
+        public ToIgnoreByInterface ToIgnoreByInterface;
+        public ToIgnoreByBase ToIgnoreByBase;
+        public ToIgnoreByBaseGeneric ToIgnoreByBaseGeneric;
         public ToIgnore ToIgnoreNullable;
         public ToIgnoreStruct ToIgnoreStruct;
         public ToIgnoreStruct? ToIgnoreStructNullable;
@@ -1660,20 +1592,16 @@ public class SerializationTests
 
     struct ToIncludeStruct
     {
-        public ToIncludeStruct(string property)
-        {
+        public ToIncludeStruct(string property) =>
             Property = property;
-        }
 
         public string Property { get; }
     }
 
     struct ToIgnoreStruct
     {
-        public ToIgnoreStruct(string property)
-        {
+        public ToIgnoreStruct(string property) =>
             Property = property;
-        }
 
         public string Property { get; }
     }
@@ -1688,18 +1616,50 @@ public class SerializationTests
         public string Property;
     }
 
+    class ToIgnoreByType
+    {
+        public string Property;
+    }
+
+    class ToIgnoreByInterface :
+        InterfaceToIgnore
+    {
+        public string Property;
+    }
+
+    class InterfaceToIgnore
+    {
+    }
+
+    class ToIgnoreByBase :
+        BaseToIgnore
+    {
+        public string Property;
+    }
+
+    class BaseToIgnore
+    {
+    }
+    class ToIgnoreByBaseGeneric :
+        BaseToIgnoreGeneric<int>
+    {
+        public string Property;
+    }
+
+// ReSharper disable once UnusedTypeParameter
+    class BaseToIgnoreGeneric<T>
+    {
+    }
+
     void IgnoreMemberByExpressionGlobal()
     {
         #region IgnoreMemberByExpressionGlobal
 
-        VerifierSettings.ModifySerialization(_ =>
-        {
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
-        });
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 
         #endregion
     }
@@ -1785,20 +1745,17 @@ public class SerializationTests
     {
         #region IgnoreMemberByNameGlobal
 
-        VerifierSettings.ModifySerialization(_ =>
-        {
-            // For all types
-            _.IgnoreMember("PropertyByName");
+        // For all types
+        VerifierSettings.IgnoreMember("PropertyByName");
 
-            // For a specific type
-            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+        // For a specific type
+        VerifierSettings.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
 
-            // For a specific type generic
-            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+        // For a specific type generic
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>("Field");
 
-            // For a specific type with expression
-            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
-        });
+        // For a specific type with expression
+        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 
         #endregion
     }
@@ -1862,6 +1819,21 @@ public class SerializationTests
 
     #endregion
 
+    public class IgnoreTargetBase
+    {
+        public string Property { get; set; }
+    }
+
+    public class IgnoreTargetSub :
+        IgnoreTargetBase
+    {
+    }
+
+    [Fact]
+    public Task IgnoreMemberSubClass() =>
+        Throws(() => VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property))
+            .IgnoreStackTrack();
+
     [Fact]
     public Task IgnoreJTokenByName()
     {
@@ -1878,8 +1850,7 @@ public class SerializationTests
   }
 }";
         var target = JToken.Parse(json);
-        return Verify(target)
-            .ModifySerialization(_ => _.IgnoreMember("Ignore1"));
+        return Verify(target).IgnoreMember("Ignore1");
     }
 
     [Fact]
@@ -1940,6 +1911,13 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task StreamMember()
+    {
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
+        return Verify(new{stream});
+    }
+
+    [Fact]
     public Task VerifyJsonJToken()
     {
         var json = "{'key': {'msg': 'No action taken'}}";
@@ -1965,7 +1943,7 @@ public class SerializationTests
             {"Key2", "Value4"}
         };
         return Verify(target)
-            .ModifySerialization(_ => _.IgnoreMember("Ignore"));
+            .IgnoreMember("Ignore");
     }
 
     class IgnoreExplicitTarget
@@ -1986,7 +1964,7 @@ public class SerializationTests
     {
         #region IgnoreMembersThatThrowGlobal
 
-        VerifierSettings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+        VerifierSettings.IgnoreMembersThatThrow<CustomException>();
 
         #endregion
     }
@@ -1998,7 +1976,7 @@ public class SerializationTests
     {
         var target = new WithCustomException();
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+        settings.IgnoreMembersThatThrow<CustomException>();
         return Verify(target, settings);
     }
 
@@ -2007,7 +1985,7 @@ public class SerializationTests
     {
         var target = new WithCustomException();
         return Verify(target)
-            .ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+            .IgnoreMembersThatThrow<CustomException>();
     }
 
     #endregion
@@ -2034,7 +2012,7 @@ public class SerializationTests
     public Task ExceptionProp()
     {
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IgnoreMembersThatThrow<CustomException>());
+        settings.IgnoreMembersThatThrow<CustomException>();
 
         var target = new WithException();
 
@@ -2050,8 +2028,7 @@ public class SerializationTests
     public Task ExceptionNotIgnoreMessageProp()
     {
         var settings = new VerifySettings();
-        settings.ModifySerialization(
-            _ => _.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore"));
+        settings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
         var target = new WithExceptionNotIgnoreMessage();
 
         return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
@@ -2098,7 +2075,7 @@ public class SerializationTests
     {
         #region WithObsoletePropIncludedGlobally
 
-        VerifierSettings.ModifySerialization(_ => _.IncludeObsoletes());
+        VerifierSettings.IncludeObsoletes();
 
         #endregion
     }
@@ -2114,7 +2091,7 @@ public class SerializationTests
             OtherProperty = "value2"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ => _.IncludeObsoletes());
+        settings.IncludeObsoletes();
         return Verify(target, settings);
     }
 
@@ -2127,7 +2104,7 @@ public class SerializationTests
             OtherProperty = "value2"
         };
         return Verify(target)
-            .ModifySerialization(_ => _.IncludeObsoletes());
+            .IncludeObsoletes();
     }
 
     #endregion
@@ -2163,10 +2140,8 @@ public class SerializationTests
         await Verify(exception.Message);
     }
 
-    static (bool, string, string) MethodWithTuple()
-    {
-        return (true, "A", "B");
-    }
+    static (bool, string, string) MethodWithTuple() =>
+        (true, "A", "B");
 
 #endif
 
@@ -2200,26 +2175,20 @@ public class SerializationTests
     #endregion
 
     [Fact]
-    public Task WithConverter()
-    {
-        return Verify(new ConverterTarget {Name = "The name"})
+    public Task WithConverter() =>
+        Verify(new ConverterTarget {Name = "The name"})
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
 
     [Fact]
-    public Task WithConverterAndNewline()
-    {
-        return Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
+    public Task WithConverterAndNewline() =>
+        Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
 
     [Fact]
-    public Task WithConverterAndIgnore()
-    {
-        return Verify(new ConverterTarget {Name = "The name"})
-            .ModifySerialization(_ => _.IgnoreMember("Name"))
+    public Task WithConverterAndIgnore() =>
+        Verify(new ConverterTarget {Name = "The name"})
+            .IgnoreMember("Name")
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
-    }
 
     class Converter :
         WriteOnlyJsonConverter<ConverterTarget>

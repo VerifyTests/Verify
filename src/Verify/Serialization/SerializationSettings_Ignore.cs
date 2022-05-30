@@ -2,11 +2,12 @@
 
 namespace VerifyTests;
 
+public delegate bool ShouldIgnore(object memberType);
 public partial class SerializationSettings
 {
     internal Dictionary<Type, List<string>> ignoredMembers = new();
     internal List<string> ignoredByNameMembers = new();
-    internal Dictionary<Type, List<Func<object, bool>>> ignoredInstances = new();
+    internal Dictionary<Type, List<ShouldIgnore>> ignoredInstances = new();
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -21,7 +22,14 @@ public partial class SerializationSettings
         where T : notnull
     {
         var member = expression.FindMember();
-        IgnoreMember(member.DeclaringType!, member.Name);
+        var declaringType = member.DeclaringType!;
+        if (typeof(T) != declaringType)
+        {
+            throw new(@"IgnoreMember<T> can only be used on the type that defines the member.
+To ignore specific members for T, create a custom converter.");
+        }
+
+        IgnoreMember(declaringType, member.Name);
     }
 
     public void IgnoreMembers<T>(params string[] names)
@@ -89,7 +97,7 @@ public partial class SerializationSettings
             });
     }
 
-    public void IgnoreInstance(Type type, Func<object, bool> shouldIgnore)
+    public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         if (!ignoredInstances.TryGetValue(type, out var list))
         {
@@ -102,27 +110,23 @@ public partial class SerializationSettings
     List<Type> ignoredTypes = new();
 
     public void IgnoreMembersWithType<T>()
-        where T : notnull
-    {
+        where T : notnull =>
         ignoredTypes.Add(typeof(T));
-    }
+
+    public void IgnoreMembersWithType(Type type) =>
+        ignoredTypes.Add(type);
 
     internal List<Func<Exception, bool>> ignoreMembersThatThrow = new();
 
     public void IgnoreMembersThatThrow<T>()
-        where T : Exception
-    {
+        where T : Exception =>
         ignoreMembersThatThrow.Add(x => x is T);
-    }
 
-    public void IgnoreMembersThatThrow(Func<Exception, bool> item)
-    {
+    public void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
         IgnoreMembersThatThrow<Exception>(item);
-    }
 
     public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
-        where T : Exception
-    {
+        where T : Exception =>
         ignoreMembersThatThrow.Add(
             x =>
             {
@@ -133,21 +137,16 @@ public partial class SerializationSettings
 
                 return false;
             });
-    }
 
     bool ignoreEmptyCollections = true;
 
-    public void DontIgnoreEmptyCollections()
-    {
+    public void DontIgnoreEmptyCollections() =>
         ignoreEmptyCollections = false;
-    }
 
     internal bool dontIgnoreFalse;
 
-    public void DontIgnoreFalse()
-    {
+    public void DontIgnoreFalse() =>
         dontIgnoreFalse = true;
-    }
 
     internal bool ShouldIgnore(MemberInfo member)
     {
@@ -162,14 +161,12 @@ public partial class SerializationSettings
         return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
     }
 
-    internal bool ShouldIgnore<TTarget, TProperty>(string name)
-    {
-        return ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
-    }
+    internal bool ShouldIgnore<TTarget, TProperty>(string name) =>
+        ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
 
     bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
-        if (ignoredTypes.Any(x => x.IsAssignableFrom(memberType)))
+        if (ignoredTypes.Any(memberType.InheritsFrom))
         {
             return true;
         }
@@ -203,19 +200,19 @@ public partial class SerializationSettings
         return false;
     }
 
-    internal bool ShouldSerialize<T>([NotNullWhen(true)] T value)
+    internal bool ShouldSerialize<TMember>([NotNullWhen(true)] TMember value)
     {
         if (value is null)
         {
             return false;
         }
 
-        if (ignoredInstances.TryGetValue(typeof(T), out var funcs))
+        if (ignoredInstances.TryGetValue(typeof(TMember), out var funcs))
         {
             return funcs.All(func => !func(value));
         }
 
-        if (IsIgnoredCollection(typeof(T)))
+        if (IsIgnoredCollection(typeof(TMember)))
         {
             // since inside IsCollection, it is safe to use IEnumerable
             var collection = (IEnumerable) value;
@@ -269,9 +266,7 @@ public partial class SerializationSettings
         return false;
     }
 
-    bool IsIgnoredCollection(Type memberType)
-    {
-        return ignoreEmptyCollections &&
-               memberType.IsCollectionOrDictionary();
-    }
+    bool IsIgnoredCollection(Type memberType) =>
+        ignoreEmptyCollections &&
+        memberType.IsCollectionOrDictionary();
 }

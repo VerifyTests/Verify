@@ -54,14 +54,12 @@ public class NamerTests
     #region MultipleCalls
 
     [Fact]
-    public async Task MultipleCalls()
-    {
-        await Task.WhenAll(
+    public Task MultipleCalls() =>
+        Task.WhenAll(
             Verify("Value1")
                 .UseMethodName("MultipleCalls_1"),
             Verify("Value1")
                 .UseMethodName("MultipleCalls_2"));
-    }
 
     #endregion
 
@@ -74,11 +72,9 @@ public class NamerTests
     }
 
     [Fact]
-    public Task RuntimeFluent()
-    {
-        return Verify(Namer.Runtime)
+    public Task RuntimeFluent() =>
+        Verify(Namer.Runtime)
             .UniqueForRuntime();
-    }
 
     [Fact]
     public Task RuntimeAndVersion()
@@ -89,11 +85,9 @@ public class NamerTests
     }
 
     [Fact]
-    public Task RuntimeAndVersionFluent()
-    {
-        return Verify(Namer.RuntimeAndVersion)
+    public Task RuntimeAndVersionFluent() =>
+        Verify(Namer.RuntimeAndVersion)
             .UniqueForRuntimeAndVersion();
-    }
 
     [Fact]
     public Task TargetFramework()
@@ -112,18 +106,14 @@ public class NamerTests
     }
 
     [Fact]
-    public Task TargetFrameworkFluent()
-    {
-        return Verify("Foo")
+    public Task TargetFrameworkFluent() =>
+        Verify("Foo")
             .UniqueForTargetFramework();
-    }
 
     [Fact]
-    public Task TargetFrameworkFluentWithAssembly()
-    {
-        return Verify("Foo")
+    public Task TargetFrameworkFluentWithAssembly() =>
+        Verify("Foo")
             .UniqueForTargetFramework(typeof(ClassBeingTested).Assembly);
-    }
 
     [Fact]
     public Task TargetFrameworkAndVersion()
@@ -142,18 +132,14 @@ public class NamerTests
     }
 
     [Fact]
-    public Task TargetFrameworkAndVersionFluent()
-    {
-        return Verify("Foo")
+    public Task TargetFrameworkAndVersionFluent() =>
+        Verify("Foo")
             .UniqueForTargetFrameworkAndVersion();
-    }
 
     [Fact]
-    public Task TargetFrameworkAndVersionFluentWithAssembly()
-    {
-        return Verify("Foo")
+    public Task TargetFrameworkAndVersionFluentWithAssembly() =>
+        Verify("Foo")
             .UniqueForTargetFrameworkAndVersion(typeof(ClassBeingTested).Assembly);
-    }
 
     [Fact]
     public async Task UseFileName()
@@ -284,18 +270,14 @@ public class NamerTests
     }
 
     [Fact]
-    public Task AssemblyConfigurationFluent()
-    {
-        return Verify("Foo")
+    public Task AssemblyConfigurationFluent() =>
+        Verify("Foo")
             .UniqueForAssemblyConfiguration();
-    }
 
     [Fact]
-    public Task AssemblyConfigurationFluentWithAssembly()
-    {
-        return Verify("Foo")
+    public Task AssemblyConfigurationFluentWithAssembly() =>
+        Verify("Foo")
             .UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
-    }
 
     #region UseTextForParameters
 
@@ -312,20 +294,16 @@ public class NamerTests
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
-    public Task UseTextForParametersFluent(string arg)
-    {
-        return Verify(arg)
+    public Task UseTextForParametersFluent(string arg) =>
+        Verify(arg)
             .UseTextForParameters(arg);
-    }
 
     #endregion
 
     [Fact]
-    public Task UseTextForParametersNoParam()
-    {
-        return Verify("Value")
+    public Task UseTextForParametersNoParam() =>
+        Verify("Value")
             .UseTextForParameters("Suffix");
-    }
 
     [Fact]
     public void AccessNamerArchitecture()
@@ -346,11 +324,9 @@ public class NamerTests
     }
 
     [Fact]
-    public Task ArchitectureFluent()
-    {
-        return Verify("Foo")
+    public Task ArchitectureFluent() =>
+        Verify("Foo")
             .UniqueForArchitecture();
-    }
 
     [Fact]
     public Task OSPlatform()
@@ -361,11 +337,9 @@ public class NamerTests
     }
 
     [Fact]
-    public Task OSPlatformFluent()
-    {
-        return Verify("Foo")
+    public Task OSPlatformFluent() =>
+        Verify("Foo")
             .UniqueForOSPlatform();
-    }
 
     #region IgnoreParametersForVerified
 
@@ -382,11 +356,9 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public async Task IgnoreParametersForVerifiedFluent(string arg)
-    {
+    public async Task IgnoreParametersForVerifiedFluent(string arg) =>
         await Verify("value")
             .IgnoreParametersForVerified(arg);
-    }
 
     #endregion
 

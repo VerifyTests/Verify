@@ -38,9 +38,8 @@ public class ScrubbersSample :
     }
 
     [TestMethod]
-    public Task LinesFluent()
-    {
-        return Verify(
+    public Task LinesFluent() =>
+        Verify(
                 target: @"
                         LineA
                         LineB
@@ -64,7 +63,6 @@ public class ScrubbersSample :
             .ScrubLines(removeLine: line => line.Contains("J"))
             .ScrubLinesContaining("b", "D")
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
-    }
 
     [TestMethod]
     public Task AfterSerialization()
@@ -94,9 +92,8 @@ public class ScrubbersSample :
     }
 
     [TestMethod]
-    public Task RemoveOrReplace()
-    {
-        return Verify(
+    public Task RemoveOrReplace() =>
+        Verify(
                 target: @"
                         LineA
                         LineB
@@ -112,19 +109,16 @@ public class ScrubbersSample :
 
                     return line.ToLower();
                 });
-    }
 
     [TestMethod]
-    public Task EmptyLines()
-    {
-        return Verify(
+    public Task EmptyLines() =>
+        Verify(
                 target: @"
                         LineA
                         
                         LineC
                         ")
             .ScrubEmptyLines();
-    }
 }
 
 #endregion

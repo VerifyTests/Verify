@@ -19,20 +19,14 @@ static class Extensions
         return new(targetFrameworkAttribute.FrameworkName);
     }
 
-    public static bool IsException(this Type type)
-    {
-        return typeof(Exception).IsAssignableFrom(type);
-    }
+    public static bool IsException(this Type type) =>
+        typeof(Exception).IsAssignableFrom(type);
 
-    public static string FullName(this MethodInfo method)
-    {
-        return $"{method.ReflectedType!.Name}.{method.Name}";
-    }
+    public static string FullName(this MethodInfo method) =>
+        $"{method.ReflectedType!.Name}.{method.Name}";
 
-    public static bool IsEmpty<T>(this IReadOnlyCollection<T> target)
-    {
-        return !target.Any();
-    }
+    public static bool IsEmpty<T>(this IReadOnlyCollection<T> target) =>
+        !target.Any();
 
     public static TValue GetOrAdd<TKey, TValue>(
         this Dictionary<TKey, TValue> dictionary,

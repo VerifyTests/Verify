@@ -1,15 +1,10 @@
 ﻿static class MatchingFileFinder
 {
-    public static IEnumerable<string> Find(List<string> files, string fileNamePrefix, string suffix)
+    public static IEnumerable<string> Find(string fileNamePrefix, string suffix, string directory)
     {
-        foreach (var file in files)
+        foreach (var file in Directory.EnumerateFiles(directory, $"{fileNamePrefix}.*.*"))
         {
             var name = Path.GetFileNameWithoutExtension(file);
-            if (!name.StartsWith(fileNamePrefix))
-            {
-                continue;
-            }
-
             if (!name.EndsWith(suffix))
             {
                 continue;
@@ -27,7 +22,7 @@
             var numberPart = prefixRemoved
                 .Substring(1, prefixRemoved.Length - suffix.Length - 1);
 
-            if (int.TryParse(numberPart, out _))
+            if (ushort.TryParse(numberPart, out _))
             {
                 yield return file;
             }

@@ -1,7 +1,5 @@
 ﻿static class ShallowClone
 {
-    public static List<T> Clone<T>(this List<T> original)
-    {
-        return new(original);
-    }
+    public static List<T> Clone<T>(this List<T> original) =>
+        new(original);
 }

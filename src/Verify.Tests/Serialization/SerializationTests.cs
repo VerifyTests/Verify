@@ -765,13 +765,6 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ThrowForDateFormatHandling() =>
-        ThrowsTask(
-                () => Verify("foo")
-                    .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
-            .IgnoreStackTrack();
-
-    [Fact]
     public Task ThrowForDateTimeZoneHandling() =>
         ThrowsTask(
                 () => Verify("foo")

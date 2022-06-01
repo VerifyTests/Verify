@@ -1,8 +1,6 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
-namespace VerifyTests;
-
-public partial class SerializationSettings
+partial class SerializationSettings
 {
     static JArrayConverter jArrayConverter = new();
     static FileInfoConverter fileInfoConverter = new();

@@ -333,12 +333,6 @@ public partial class SettingsTask
         return this;
     }
 
-    public SettingsTask ModifySerialization(Action<SerializationSettings> action)
-    {
-        CurrentSettings.ModifySerialization(action);
-        return this;
-    }
-
     public SettingsTask IgnoreStackTrack()
     {
         CurrentSettings.IgnoreStackTrack();

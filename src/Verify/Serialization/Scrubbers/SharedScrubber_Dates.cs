@@ -1,6 +1,4 @@
-﻿namespace VerifyTests;
-
-public partial class SerializationSettings
+﻿partial class SerializationSettings
 {
     internal static List<string> dateFormats = new() {"d"};
     internal static List<string> datetimeFormats = new();

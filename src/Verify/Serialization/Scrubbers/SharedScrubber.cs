@@ -1,6 +1,4 @@
-﻿namespace VerifyTests;
-
-public partial class SerializationSettings
+﻿partial class SerializationSettings
 {
     internal bool TryConvertString(Counter counter, string value, [NotNullWhen(true)] out string? result)
     {

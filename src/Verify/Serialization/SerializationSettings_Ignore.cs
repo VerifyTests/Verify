@@ -1,9 +1,6 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
-namespace VerifyTests;
-
-public delegate bool ShouldIgnore(object memberType);
-public partial class SerializationSettings
+partial class SerializationSettings
 {
     internal Dictionary<Type, List<string>> ignoredMembers = new();
     internal List<string> ignoredByNameMembers = new();

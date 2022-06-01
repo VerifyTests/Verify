@@ -164,10 +164,6 @@ public static partial class VerifierSettings
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
-    [Obsolete("Serialization settings are exposed as top level member on VerifierSettings", true)]
-    public static void ModifySerialization(Action<SerializationSettings> action) =>
-        throw new NotImplementedException();
-
     public static void UseStrictJson() =>
         StrictJson = true;
 

@@ -11,13 +11,10 @@ public class VerifyObjectSamples
         #region ChangeDefaultsPerVerification
 
         await Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.DontIgnoreEmptyCollections();
-                _.DontScrubGuids();
-                _.DontScrubDateTimes();
-                _.DontIgnoreFalse();
-            });
+            .DontIgnoreEmptyCollections()
+            .DontScrubGuids()
+            .DontScrubDateTimes()
+            .DontIgnoreFalse();
 
         #endregion
     }

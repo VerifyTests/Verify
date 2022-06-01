@@ -2,71 +2,131 @@
 
 public partial class SettingsTask
 {
-    public SettingsTask DontScrubGuids() =>
-        ModifySerialization(_ => _.DontScrubGuids());
+    public SettingsTask DontScrubGuids()
+    {
+        CurrentSettings.DontScrubGuids();
+        return this;
+    }
 
-    public SettingsTask DontScrubDateTimes() =>
-        ModifySerialization(_ => _.DontScrubDateTimes());
+    public SettingsTask DontScrubDateTimes()
+    {
+        CurrentSettings.DontScrubDateTimes();
+        return this;
+    }
 
-    public SettingsTask IncludeObsoletes() =>
-        ModifySerialization(_ => _.IncludeObsoletes());
+    public SettingsTask IncludeObsoletes()
+    {
+        CurrentSettings.IncludeObsoletes();
+        return this;
+    }
 
-    public SettingsTask DontIgnoreEmptyCollections() =>
-        ModifySerialization(_ => _.DontIgnoreEmptyCollections());
+    public SettingsTask DontIgnoreEmptyCollections()
+    {
+        CurrentSettings.DontIgnoreEmptyCollections();
+        return this;
+    }
 
-    public SettingsTask DontIgnoreFalse() =>
-        ModifySerialization(_ => _.DontIgnoreFalse());
+    public SettingsTask DontIgnoreFalse()
+    {
+        CurrentSettings.DontIgnoreFalse();
+        return this;
+    }
 
     public SettingsTask IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
-        where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(expressions));
+        where T : notnull
+    {
+        CurrentSettings.IgnoreMembers(expressions);
+        return this;
+    }
 
     public SettingsTask IgnoreMember<T>(Expression<Func<T, object?>> expression)
-        where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers(expression));
+        where T : notnull
+    {
+        CurrentSettings.IgnoreMembers(expression);
+        return this;
+    }
 
     public SettingsTask IgnoreMembers<T>(params string[] names)
-        where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembers<T>(names));
+        where T : notnull
+    {
+        CurrentSettings.IgnoreMembers<T>(names);
+        return this;
+    }
 
     public SettingsTask IgnoreMember<T>(string name)
-        where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMember<T>(name));
+        where T : notnull
+    {
+        CurrentSettings.IgnoreMember<T>(name);
+        return this;
+    }
 
-    public SettingsTask IgnoreMembers(Type declaringType, params string[] names) =>
-        ModifySerialization(_ => _.IgnoreMembers(declaringType, names));
+    public SettingsTask IgnoreMembers(Type declaringType, params string[] names)
+    {
+        CurrentSettings.IgnoreMembers(declaringType, names);
+        return this;
+    }
 
-    public SettingsTask IgnoreMember(Type declaringType, string name) =>
-        ModifySerialization(_ => _.IgnoreMember(declaringType, name));
+    public SettingsTask IgnoreMember(Type declaringType, string name)
+    {
+        CurrentSettings.IgnoreMember(declaringType, name);
+        return this;
+    }
 
-    public SettingsTask IgnoreMember(string name) =>
-        ModifySerialization(_ => _.IgnoreMember( name));
+    public SettingsTask IgnoreMember(string name)
+    {
+        CurrentSettings.IgnoreMember(name);
+        return this;
+    }
 
-    public SettingsTask IgnoreMembers(params string[] names) =>
-        ModifySerialization(_ => _.IgnoreMembers( names));
+    public SettingsTask IgnoreMembers(params string[] names)
+    {
+        CurrentSettings.IgnoreMembers(names);
+        return this;
+    }
 
     public SettingsTask IgnoreInstance<T>(Func<T, bool> shouldIgnore)
-        where T : notnull =>
-        ModifySerialization(_ => _.IgnoreInstance( shouldIgnore));
+        where T : notnull
+    {
+        CurrentSettings.IgnoreInstance(shouldIgnore);
+        return this;
+    }
 
-    public SettingsTask IgnoreInstance(Type type, ShouldIgnore shouldIgnore) =>
-        ModifySerialization(_ => _.IgnoreInstance(type, shouldIgnore));
+    public SettingsTask IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
+    {
+        CurrentSettings.IgnoreInstance(type, shouldIgnore);
+        return this;
+    }
 
     public SettingsTask IgnoreMembersWithType<T>()
-        where T : notnull =>
-        ModifySerialization(_ => _.IgnoreMembersWithType<T>());
+        where T : notnull
+    {
+        CurrentSettings.IgnoreMembersWithType<T>();
+        return this;
+    }
 
-    public SettingsTask IgnoreMembersWithType(Type type) =>
-        ModifySerialization(_ => _.IgnoreMembersWithType(type));
+    public SettingsTask IgnoreMembersWithType(Type type)
+    {
+        CurrentSettings.IgnoreMembersWithType(type);
+        return this;
+    }
 
     public SettingsTask IgnoreMembersThatThrow<T>()
-        where T : Exception =>
-        ModifySerialization(_ => _.IgnoreMembersThatThrow<T>());
+        where T : Exception
+    {
+        CurrentSettings.IgnoreMembersThatThrow<T>();
+        return this;
+    }
 
-    public SettingsTask IgnoreMembersThatThrow(Func<Exception, bool> item) =>
-        ModifySerialization(_ => _.IgnoreMembersThatThrow(item));
+    public SettingsTask IgnoreMembersThatThrow(Func<Exception, bool> item)
+    {
+        CurrentSettings.IgnoreMembersThatThrow(item);
+        return this;
+    }
 
     public SettingsTask IgnoreMembersThatThrow<T>(Func<T, bool> item)
-        where T : Exception =>
-        ModifySerialization(_ => _.IgnoreMembersThatThrow(item));
+        where T : Exception
+    {
+        CurrentSettings.IgnoreMembersThatThrow(item);
+        return this;
+    }
 }

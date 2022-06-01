@@ -441,7 +441,11 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new()
+            {
+                "Sam",
+                "Mary"
+            },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -450,13 +454,10 @@ public class SerializationTests
         };
 
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.DontScrubDateTimes();
-            _.DontIgnoreFalse();
-            _.DontScrubGuids();
-            _.DontIgnoreEmptyCollections();
-        });
+        settings.DontScrubDateTimes();
+        settings.DontIgnoreFalse();
+        settings.DontScrubGuids();
+        settings.DontIgnoreEmptyCollections();
         settings.AddScrubber(s => s.Replace("Lane", "Street"));
         return Verify(person, settings);
     }
@@ -473,18 +474,14 @@ public class SerializationTests
 
         var settings = new VerifySettings();
         settings.UseParameters(boolean, nullableBoolean, dontIgnoreFalse, includeDefault);
-        settings.ModifySerialization(serialization =>
+        if (dontIgnoreFalse)
         {
-            if (dontIgnoreFalse)
-            {
-                serialization.DontIgnoreFalse();
-            }
-
-            if (includeDefault)
-            {
-                serialization.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-            }
-        });
+            settings.DontIgnoreFalse();
+        }
+        if (includeDefault)
+        {
+            settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
+        }
 
         return Verify(target, settings);
     }
@@ -1419,15 +1416,12 @@ public class SerializationTests
             ToIncludeStructNullable = new("Value")
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.IgnoreMembersWithType<ToIgnore>();
-            _.IgnoreMembersWithType<ToIgnoreByType>();
-            _.IgnoreMembersWithType<InterfaceToIgnore>();
-            _.IgnoreMembersWithType<BaseToIgnore>();
-            _.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
-            _.IgnoreMembersWithType<ToIgnoreStruct>();
-        });
+        settings.IgnoreMembersWithType<ToIgnore>();
+        settings.IgnoreMembersWithType<ToIgnoreByType>();
+        settings.IgnoreMembersWithType<InterfaceToIgnore>();
+        settings.IgnoreMembersWithType<BaseToIgnore>();
+        settings.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
+        settings.IgnoreMembersWithType<ToIgnoreStruct>();
         return Verify(target, settings);
     }
 
@@ -1474,15 +1468,12 @@ public class SerializationTests
             ToIncludeStructNullable = new("Value")
         };
         return Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.IgnoreMembersWithType<ToIgnore>();
-                _.IgnoreMembersWithType<ToIgnoreByType>();
-                _.IgnoreMembersWithType<InterfaceToIgnore>();
-                _.IgnoreMembersWithType<BaseToIgnore>();
-                _.IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>));
-                _.IgnoreMembersWithType<ToIgnoreStruct>();
-            });
+            .IgnoreMembersWithType<ToIgnore>()
+            .IgnoreMembersWithType<ToIgnoreByType>()
+            .IgnoreMembersWithType<InterfaceToIgnore>()
+            .IgnoreMembersWithType<BaseToIgnore>()
+            .IgnoreMembersWithType(typeof(BaseToIgnoreGeneric<>))
+            .IgnoreMembersWithType<ToIgnoreStruct>();
     }
 
     #endregion
@@ -1677,14 +1668,11 @@ public class SerializationTests
             PropertyWithPropertyName = "Value"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-            _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
-        });
+        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
+        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
         return Verify(target, settings);
     }
 
@@ -1698,13 +1686,10 @@ public class SerializationTests
             Property = "Value"
         };
         return Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-                _.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-                _.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-                _.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
-            });
+            .IgnoreMember<IgnoreExplicitTarget>(x => x.Property)
+            .IgnoreMember<IgnoreExplicitTarget>(x => x.Field)
+            .IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty)
+            .IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
     }
 
     #endregion
@@ -1773,20 +1758,19 @@ public class SerializationTests
             PropertyByName = "Value"
         };
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            // For all types
-            _.IgnoreMember("PropertyByName");
 
-            // For a specific type
-            _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+        // For all types
+        settings.IgnoreMember("PropertyByName");
 
-            // For a specific type generic
-            _.IgnoreMember<IgnoreExplicitTarget>("Field");
+        // For a specific type
+        settings.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
 
-            // For a specific type with expression
-            _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
-        });
+        // For a specific type generic
+        settings.IgnoreMember<IgnoreExplicitTarget>("Field");
+
+        // For a specific type with expression
+        settings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+
         return Verify(target, settings);
     }
 
@@ -1801,20 +1785,17 @@ public class SerializationTests
             PropertyByName = "Value"
         };
         return Verify(target)
-            .ModifySerialization(_ =>
-            {
-                // For all types
-                _.IgnoreMember("PropertyByName");
+            // For all types
+            .IgnoreMember("PropertyByName")
 
-                // For a specific type
-                _.IgnoreMember(typeof(IgnoreExplicitTarget), "Property");
+            // For a specific type
+            .IgnoreMember(typeof(IgnoreExplicitTarget), "Property")
 
-                // For a specific type generic
-                _.IgnoreMember<IgnoreExplicitTarget>("Field");
+            // For a specific type generic
+            .IgnoreMember<IgnoreExplicitTarget>("Field")
 
-                // For a specific type with expression
-                _.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
-            });
+            // For a specific type with expression
+            .IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
     }
 
     #endregion

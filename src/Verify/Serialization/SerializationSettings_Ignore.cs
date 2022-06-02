@@ -140,11 +140,6 @@ To ignore specific members for T, create a custom converter.");
     public void DontIgnoreEmptyCollections() =>
         ignoreEmptyCollections = false;
 
-    internal bool dontIgnoreFalse;
-
-    public void DontIgnoreFalse() =>
-        dontIgnoreFalse = true;
-
     internal bool ShouldIgnore(MemberInfo member)
     {
         if (!includeObsoletes)

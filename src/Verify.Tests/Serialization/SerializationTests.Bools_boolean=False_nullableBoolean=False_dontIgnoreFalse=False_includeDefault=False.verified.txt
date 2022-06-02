@@ -1,3 +1,0 @@
-{
-  NullableBoolMember: false
-}

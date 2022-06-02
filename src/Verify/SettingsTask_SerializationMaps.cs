@@ -26,12 +26,6 @@ public partial class SettingsTask
         return this;
     }
 
-    public SettingsTask DontIgnoreFalse()
-    {
-        CurrentSettings.DontIgnoreFalse();
-        return this;
-    }
-
     public SettingsTask IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
     {

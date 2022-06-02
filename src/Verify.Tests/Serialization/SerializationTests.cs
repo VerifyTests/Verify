@@ -455,49 +455,22 @@ public class SerializationTests
 
         var settings = new VerifySettings();
         settings.DontScrubDateTimes();
-        settings.DontIgnoreFalse();
         settings.DontScrubGuids();
         settings.DontIgnoreEmptyCollections();
         settings.AddScrubber(s => s.Replace("Lane", "Street"));
         return Verify(person, settings);
     }
 
-    [Theory]
-    [MemberData(nameof(GetBoolData))]
-    public Task Bools(bool boolean, bool? nullableBoolean, bool dontIgnoreFalse, bool includeDefault)
-    {
-        var target = new BoolModel
-        {
-            BoolMember = boolean,
-            NullableBoolMember = nullableBoolean
-        };
-
-        var settings = new VerifySettings();
-        settings.UseParameters(boolean, nullableBoolean, dontIgnoreFalse, includeDefault);
-        if (dontIgnoreFalse)
-        {
-            settings.DontIgnoreFalse();
-        }
-        if (includeDefault)
-        {
-            settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-        }
-
-        return Verify(target, settings);
-    }
-
     public static IEnumerable<object?[]> GetBoolData()
     {
         foreach (var boolean in new[] {true, false})
         foreach (var nullableBoolean in new bool?[] {true, false, null})
-        foreach (var dontIgnoreFalse in new[] {true, false})
         foreach (var includeDefault in new[] {true, false})
         {
             yield return new object?[]
             {
                 boolean,
                 nullableBoolean,
-                dontIgnoreFalse,
                 includeDefault
             };
         }
@@ -819,15 +792,6 @@ public class SerializationTests
         #region DontScrubDateTimesGlobal
 
         VerifierSettings.DontScrubDateTimes();
-
-        #endregion
-    }
-
-    void DontIgnoreFalseGlobal()
-    {
-        #region DontIgnoreFalse
-
-        VerifierSettings.DontIgnoreFalse();
 
         #endregion
     }

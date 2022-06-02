@@ -461,26 +461,6 @@ public class SerializationTests
         return Verify(person, settings);
     }
 
-    [Theory]
-    [MemberData(nameof(GetBoolData))]
-    public Task Bools(bool boolean, bool? nullableBoolean, bool includeDefault)
-    {
-        var target = new BoolModel
-        {
-            BoolMember = boolean,
-            NullableBoolMember = nullableBoolean
-        };
-
-        var settings = new VerifySettings();
-        settings.UseParameters(boolean, nullableBoolean, includeDefault);
-        if (includeDefault)
-        {
-            settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-        }
-
-        return Verify(target, settings);
-    }
-
     public static IEnumerable<object?[]> GetBoolData()
     {
         foreach (var boolean in new[] {true, false})

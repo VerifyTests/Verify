@@ -362,6 +362,13 @@ public class NamerTests
 
     #endregion
 
+    [Theory]
+    [InlineData("One")]
+    [InlineData("foo", "bar", "baz")]
+    public async Task TheoryWithArray(params string[] values) =>
+        await Verify("value")
+            .UseParameters(values);
+
     [Fact]
     public async Task IgnoreParametersForVerified()
     {

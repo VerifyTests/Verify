@@ -77,6 +77,18 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask UseParameters<T>(T parameter)
+    {
+        CurrentSettings.UseParameters(parameter);
+        return this;
+    }
+
+    public SettingsTask UseParameters<T>(T[] parameters)
+    {
+        CurrentSettings.UseParameters(parameters);
+        return this;
+    }
+
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>

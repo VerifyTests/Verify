@@ -116,6 +116,20 @@ public static partial class VerifierSettings
             }
         }
 
+        if (parameter is IEnumerable enumerable &&
+            parameter.GetType().IsCollection())
+        {
+            var innerBuilder = new StringBuilder();
+            foreach (var item in enumerable)
+            {
+                innerBuilder.Append(GetNameForParameter(item));
+                innerBuilder.Append(',');
+            }
+            innerBuilder.Length--;
+
+            return innerBuilder.ToString();
+        }
+
         var nameForParameter = parameter.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         if (nameForParameter is null)

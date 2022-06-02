@@ -1,3 +1,4 @@
 {
-  Property: Value
+  Property: Value,
+  AsyncDisposed: false
 }

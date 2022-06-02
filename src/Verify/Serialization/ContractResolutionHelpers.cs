@@ -2,14 +2,11 @@
 
 public static class ContractResolutionHelpers
 {
-    public static void ConfigureIfBool(this JsonProperty property, MemberInfo member, bool dontIgnoreFalse)
+    public static void ConfigureIfBool(this JsonProperty property)
     {
-        if (dontIgnoreFalse)
+        if (property.PropertyType == typeof(bool))
         {
-            if (property.PropertyType == typeof(bool))
-            {
-                property.DefaultValueHandling = DefaultValueHandling.Include;
-            }
+            property.DefaultValueHandling = DefaultValueHandling.Include;
         }
     }
 }

@@ -116,6 +116,11 @@
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
+        if (property.PropertyType == typeof(bool))
+        {
+            property.DefaultValueHandling = DefaultValueHandling.Include;
+        }
+
         if (settings.ShouldIgnore(member))
         {
             property.Ignored = true;

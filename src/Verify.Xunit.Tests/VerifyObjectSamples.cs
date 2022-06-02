@@ -14,7 +14,6 @@ public class VerifyObjectSamples
         settings.DontIgnoreEmptyCollections();
         settings.DontScrubGuids();
         settings.DontScrubDateTimes();
-        settings.DontIgnoreFalse();
         await Verify(target, settings);
 
         #endregion

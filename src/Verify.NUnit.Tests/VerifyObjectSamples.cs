@@ -13,8 +13,7 @@ public class VerifyObjectSamples
         await Verify(target)
             .DontIgnoreEmptyCollections()
             .DontScrubGuids()
-            .DontScrubDateTimes()
-            .DontIgnoreFalse();
+            .DontScrubDateTimes();
 
         #endregion
     }

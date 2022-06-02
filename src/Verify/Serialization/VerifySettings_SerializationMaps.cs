@@ -32,12 +32,6 @@ public partial class VerifySettings
         serialization.DontIgnoreEmptyCollections();
     }
 
-    public void DontIgnoreFalse()
-    {
-        CloneSettings();
-        serialization.DontIgnoreFalse();
-    }
-
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
     {

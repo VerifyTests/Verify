@@ -26,9 +26,6 @@ public static partial class VerifierSettings
     public static void DontIgnoreEmptyCollections() =>
         serialization.DontIgnoreEmptyCollections();
 
-    public static void DontIgnoreFalse() =>
-        serialization.DontIgnoreFalse();
-
     public static void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull =>
         serialization.IgnoreMembers(expressions);

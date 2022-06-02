@@ -52,7 +52,6 @@ partial class SerializationSettings
         ignoredByNameMembers = settings.ignoredByNameMembers.Clone();
         ignoreEmptyCollections = settings.ignoreEmptyCollections;
         extraSettings = settings.extraSettings.Clone();
-        dontIgnoreFalse = settings.dontIgnoreFalse;
         ignoreMembersThatThrow = settings.ignoreMembersThatThrow.Clone();
         ignoredTypes = settings.ignoredTypes.Clone();
         ignoredInstances = settings.ignoredInstances

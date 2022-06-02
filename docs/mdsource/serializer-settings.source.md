@@ -130,15 +130,6 @@ Or globally use:
 snippet: DontScrubDateTimesGlobal
 
 
-## Default Booleans are ignored
-
-By default values of `bool` and `bool?` are ignored during verification. So properties that equate to 'false' will not be written,
-
-To disable this behavior globally use:
-
-snippet: DontIgnoreFalse
-
-
 ## Change defaults at the verification level
 
 `DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 

@@ -116,8 +116,6 @@
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
-        property.ConfigureIfBool(member, settings.dontIgnoreFalse);
-
         if (settings.ShouldIgnore(member))
         {
             property.Ignored = true;

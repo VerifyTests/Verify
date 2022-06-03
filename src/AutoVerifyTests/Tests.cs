@@ -18,7 +18,6 @@ public class Tests
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
         await Verify("Foo");
-        Assert.True(File.Exists(fullPath));
         File.Delete(fullPath);
     }
 }

@@ -2,14 +2,14 @@
 {
     internal bool TryConvert(Counter counter, Guid value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubGuids)
+        if (scrubGuids)
         {
-            result = null;
-            return false;
+            result = Convert(counter, value);
+            return true;
         }
 
-        result = Convert(counter, value);
-        return true;
+        result = null;
+        return false;
     }
 
     internal static string Convert(Counter counter, Guid guid)

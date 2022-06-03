@@ -11,6 +11,10 @@ This can be done using `AutoVerify()`:
 
 snippet: AutoVerify
 
+Or globally
+
+snippet: StaticAutoVerify
+
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
 
 

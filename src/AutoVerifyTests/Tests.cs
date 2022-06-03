@@ -1,8 +1,15 @@
 ﻿[UsesVerify]
 public class Tests
 {
-    static Tests() =>
+    static Tests()
+    {
+        #region StaticAutoVerify
+
         VerifierSettings.AutoVerify();
+
+        #endregion
+    }
+
 
     [Fact]
     public async Task Simple()

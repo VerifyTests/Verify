@@ -127,7 +127,7 @@ class VerifyEngine
         await ProcessNew();
 
         await ProcessNotEquals();
-        if (!settings.autoVerify)
+        if (!settings.IsAutoVerify)
         {
             var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
@@ -141,7 +141,7 @@ class VerifyEngine
     {
         await VerifierSettings.RunOnVerifyDelete(file);
 
-        if (settings.autoVerify)
+        if (settings.IsAutoVerify)
         {
             File.Delete(file);
             return;
@@ -187,7 +187,7 @@ class VerifyEngine
             return Task.CompletedTask;
         }
 
-        if (settings.autoVerify)
+        if (settings.IsAutoVerify)
         {
             AcceptChanges(file);
             return Task.CompletedTask;

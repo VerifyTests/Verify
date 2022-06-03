@@ -70,6 +70,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplyScrubbersTests", "Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullComparer", "NullComparer\NullComparer.csproj", "{3C759E19-3482-48A7-B2E2-95DA5E1EF159}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoVerifyTests", "AutoVerifyTests\AutoVerifyTests.csproj", "{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -239,6 +241,12 @@ Global
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.DebugNet6|Any CPU.Build.0 = DebugNet6|Any CPU
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.DebugNet6|Any CPU.ActiveCfg = DebugNet6|Any CPU
+		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.DebugNet6|Any CPU.Build.0 = DebugNet6|Any CPU
+		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

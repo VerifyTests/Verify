@@ -19,6 +19,7 @@ partial class SerializationSettings
     static ConstructorInfoConverter constructorInfoConverter = new();
     static ParameterInfoConverter parameterInfoConverter = new();
     static VersionConverter versionConverter = new();
+    static EncodingConverter encodingConverter = new();
     static PropertyInfoConverter propertyInfoConverter = new();
     static ClaimConverter claimConverter = new();
     static AggregateExceptionConverter aggregateExceptionConverter = new();
@@ -107,6 +108,7 @@ partial class SerializationSettings
         converters.Add(delegateConverter);
         converters.Add(targetInvocationExceptionConverter);
         converters.Add(versionConverter);
+        converters.Add(encodingConverter);
         converters.Add(typeJsonConverter);
         converters.Add(methodInfoConverter);
         converters.Add(fieldInfoConverter);

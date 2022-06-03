@@ -978,6 +978,10 @@ public class SerializationTests
         Verify(new Claim("TheType", "TheValue"));
 
     [Fact]
+    public Task EncodingValue() =>
+        Verify(Encoding.UTF8);
+
+    [Fact]
     public Task ClaimWithClaimType() =>
         Verify(new Claim(ClaimTypes.Email, "TheValue"));
 

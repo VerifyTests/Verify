@@ -739,21 +739,21 @@ public class SerializationTests
         ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
 
     [Fact]
     public Task ThrowForDateTimeZoneHandling() =>
         ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
 
     [Fact]
     public Task ThrowForDateFormatString() =>
         ThrowsTask(
                 () => Verify("foo")
                     .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
 
     Task DontScrubDateTimes()
     {
@@ -1781,7 +1781,7 @@ public class SerializationTests
     [Fact]
     public Task IgnoreMemberSubClass() =>
         Throws(() => VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
 
     [Fact]
     public Task IgnoreJTokenByName()

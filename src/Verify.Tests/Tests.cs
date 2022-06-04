@@ -485,12 +485,12 @@ public class Tests
         var settings = new VerifySettings();
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
-        settings.IgnoreStackTrack();
+        settings.IgnoreStackTrace();
         settings.DisableDiff();
 
         var element = new Element();
         return Verifier.ThrowsTask(() => Verify(element, settings))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
     }
 
     [Fact]

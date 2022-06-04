@@ -48,7 +48,7 @@ public static partial class VerifierSettings
     public static void IgnoreMember(Type declaringType, string name) =>
         serialization.IgnoreMember(declaringType, name);
 
-    public static void IgnoreStackTrack() =>
+    public static void IgnoreStackTrace() =>
         serialization.IgnoreMember("StackTrace");
 
     public static void IgnoreMember(string name) =>

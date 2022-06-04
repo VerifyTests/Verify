@@ -14,7 +14,11 @@ public partial class VerifySettings
         serialization.DontScrubDateTimes();
     }
 
-    public void IgnoreStackTrack()
+    [Obsolete("Use IgnoreStackTrace", error:true)]
+    public void IgnoreStackTrack() =>
+        IgnoreStackTrace();
+
+    public void IgnoreStackTrace()
     {
         CloneSettings();
         serialization.IgnoreMember("StackTrace");

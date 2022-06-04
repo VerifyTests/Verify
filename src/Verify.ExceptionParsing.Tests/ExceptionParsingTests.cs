@@ -15,7 +15,7 @@ public class ExceptionParsingTests
             {
                 Environment.NewLine
             }))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
 
     [Fact]
     public Task Error_EmptyDirectory() =>
@@ -23,7 +23,7 @@ public class ExceptionParsingTests
             {
                 "Directory: "
             }))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
 
     [Fact]
     public Task Empty()

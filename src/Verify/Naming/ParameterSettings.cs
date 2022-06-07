@@ -10,7 +10,7 @@ public partial class VerifySettings
     /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
     /// Not compatible with <see cref="UseTextForParameters" />.
     /// </summary>
-    public void UseParameters<T>(params T[] parameters) =>
+    public void UseParameters<T>(T[] parameters) =>
         UseParameters(
             new object?[]
             {

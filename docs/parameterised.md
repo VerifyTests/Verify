@@ -366,7 +366,7 @@ public async Task IgnoreParametersForVerifiedFluent(string arg) =>
     await Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L344-L363' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L354-L373' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

@@ -341,6 +341,16 @@ public class NamerTests
         Verify("Foo")
             .UniqueForOSPlatform();
 
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, false)]
+    public Task MultipleParams(bool a, bool b)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(a, b);
+        return Verify("content", settings);
+    }
+
     #region IgnoreParametersForVerified
 
     [Theory]

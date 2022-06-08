@@ -492,7 +492,7 @@ public class Tests
         return Verifier.ThrowsTask(() => Verify(element, settings))
             .IgnoreStackTrace();
     }
-
+#if NET6_0
     [Fact]
     public async Task StringWithUtf8Bom()
     {
@@ -503,6 +503,7 @@ public class Tests
         await Verify($"{preamble}a").AutoVerify();
         Assert.Equal(4, new FileInfo(fullPath).Length);
     }
+#endif
 
     [Fact]
     public Task StringExtension()

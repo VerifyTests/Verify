@@ -496,12 +496,10 @@ public class Tests
     [Fact]
     public async Task StringWithUtf8Bom()
     {
-        var fullPath = Path.GetFullPath("../../../Tests.StringWithUtf8Bom.verified.txt");
-        File.Delete(fullPath);
         var utf8 = Encoding.UTF8;
         var preamble = utf8.GetString(utf8.GetPreamble());
         await Verify($"{preamble}a").AutoVerify();
-        Assert.Equal(4, new FileInfo(fullPath).Length);
+        await Verify("a").DisableRequireUniquePrefix();
     }
 #endif
 

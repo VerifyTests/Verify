@@ -58,12 +58,17 @@
             return true;
         }
 
-        if (!hasAppends && target is string stringTarget)
+        if (target is string stringTarget)
         {
-            builder = new(stringTarget);
-            builder.FixNewlines();
-            extension = settings.ExtensionOrTxt();
-            return true;
+            target = stringTarget = TrimPreamble(stringTarget);
+
+            if (!hasAppends)
+            {
+                builder = new(stringTarget);
+                builder.FixNewlines();
+                extension = settings.ExtensionOrTxt();
+                return true;
+            }
         }
 
         extension = "txt";
@@ -77,4 +82,7 @@
 
         return true;
     }
+
+    static string TrimPreamble(string text) =>
+        text.TrimStart('\uFEFF');
 }

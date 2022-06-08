@@ -2,8 +2,6 @@
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
 
-    static readonly string UTF8Preamble = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
-
     public static void DeleteIfEmpty(string path)
     {
         var info = new FileInfo(path);
@@ -45,19 +43,9 @@
         return builder.ToString();
     }
 
-    static string TrimPreamble(string text)
-    {
-        if (text.StartsWith(UTF8Preamble))
-        {
-            return text.Substring(UTF8Preamble.Length);
-        }
-
-        return text;
-    }
-
 #if NETSTANDARD2_1 || NET5_0_OR_GREATER
     public static Task WriteText(string path, string text) =>
-        File.WriteAllTextAsync(path, TrimPreamble(text), Utf8);
+        File.WriteAllTextAsync(path, text, Utf8);
 
     public static async Task<string> ReadStringWithFixedLines(string path)
     {
@@ -80,7 +68,7 @@
 #else
     public static async Task WriteText(string path, string text)
     {
-        var encodedText = Utf8.GetBytes(TrimPreamble(text));
+        var encodedText = Utf8.GetBytes(text);
 
         using var stream = OpenWrite(path);
         await stream.WriteAsync(encodedText, 0, encodedText.Length);

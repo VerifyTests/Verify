@@ -492,6 +492,16 @@ public class Tests
         return Verifier.ThrowsTask(() => Verify(element, settings))
             .IgnoreStackTrace();
     }
+#if NET6_0
+    [Fact]
+    public async Task StringWithUtf8Bom()
+    {
+        var utf8 = Encoding.UTF8;
+        var preamble = utf8.GetString(utf8.GetPreamble());
+        await Verify($"{preamble}a").AutoVerify();
+        await Verify("a").DisableRequireUniquePrefix();
+    }
+#endif
 
     [Fact]
     public Task StringExtension()

@@ -8,8 +8,6 @@
         writer.Serialize(list);
     }
 
-    public sealed override bool CanConvert(Type type)
-    {
-        return type.FullName == "Newtonsoft.Json.Linq.JArray";
-    }
+    public sealed override bool CanConvert(Type type) =>
+        type.FullName == "Newtonsoft.Json.Linq.JArray";
 }

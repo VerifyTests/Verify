@@ -3,10 +3,8 @@
 {
     SerializationSettings settings;
 
-    public CustomContractResolver(SerializationSettings settings)
-    {
+    public CustomContractResolver(SerializationSettings settings) =>
         this.settings = settings;
-    }
 
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {

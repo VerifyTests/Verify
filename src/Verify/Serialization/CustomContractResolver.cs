@@ -115,7 +115,10 @@
             property.TypeNameHandling = TypeNameHandling.All;
         }
 
-        property.ConfigureIfBool(member, settings.dontIgnoreFalse);
+        if (property.PropertyType == typeof(bool))
+        {
+            property.DefaultValueHandling = DefaultValueHandling.Include;
+        }
 
         if (settings.ShouldIgnore(member))
         {

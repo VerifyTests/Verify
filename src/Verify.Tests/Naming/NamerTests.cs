@@ -341,6 +341,16 @@ public class NamerTests
         Verify("Foo")
             .UniqueForOSPlatform();
 
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, false)]
+    public Task MultipleParams(bool a, bool b)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(a, b);
+        return Verify("content", settings);
+    }
+
     #region IgnoreParametersForVerified
 
     [Theory]
@@ -361,6 +371,13 @@ public class NamerTests
             .IgnoreParametersForVerified(arg);
 
     #endregion
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("foo", "bar", "baz")]
+    public async Task TheoryWithArray(params string[] values) =>
+        await Verify("value")
+            .UseParameters(values);
 
     [Fact]
     public async Task IgnoreParametersForVerified()

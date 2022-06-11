@@ -25,6 +25,16 @@ settings.AutoVerify();
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L97-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Or globally
+
+<!-- snippet: StaticAutoVerify -->
+<a id='snippet-staticautoverify'></a>
+```cs
+VerifierSettings.AutoVerify();
+```
+<sup><a href='/src/AutoVerifyTests/Tests.cs#L6-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
 
 

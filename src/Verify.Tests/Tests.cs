@@ -485,13 +485,23 @@ public class Tests
         var settings = new VerifySettings();
         settings.UseExtension("json");
         settings.UseMethodName("Foo");
-        settings.IgnoreStackTrack();
+        settings.IgnoreStackTrace();
         settings.DisableDiff();
 
         var element = new Element();
         return Verifier.ThrowsTask(() => Verify(element, settings))
-            .IgnoreStackTrack();
+            .IgnoreStackTrace();
     }
+#if NET6_0
+    [Fact]
+    public async Task StringWithUtf8Bom()
+    {
+        var utf8 = Encoding.UTF8;
+        var preamble = utf8.GetString(utf8.GetPreamble());
+        await Verify($"{preamble}a").AutoVerify();
+        await Verify("a").DisableRequireUniquePrefix();
+    }
+#endif
 
     [Fact]
     public Task StringExtension()

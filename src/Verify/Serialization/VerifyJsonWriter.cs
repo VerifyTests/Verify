@@ -8,7 +8,7 @@ public class VerifyJsonWriter :
     public IReadOnlyDictionary<string, object> Context { get; }
     public Counter Counter { get; }
 
-    public VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, Counter counter) :
+    internal VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, Counter counter) :
         base(
             new StringWriter(builder)
             {

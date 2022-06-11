@@ -1,5 +1,6 @@
 [
   {
-    Property: Value
+    Property: Value,
+    Disposed: false
   }
 ]

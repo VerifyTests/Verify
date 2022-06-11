@@ -11,13 +11,9 @@ public class VerifyObjectSamples
         #region ChangeDefaultsPerVerificationXunit
 
         var settings = new VerifySettings();
-        settings.ModifySerialization(_ =>
-        {
-            _.DontIgnoreEmptyCollections();
-            _.DontScrubGuids();
-            _.DontScrubDateTimes();
-            _.DontIgnoreFalse();
-        });
+        settings.DontIgnoreEmptyCollections();
+        settings.DontScrubGuids();
+        settings.DontScrubDateTimes();
         await Verify(target, settings);
 
         #endregion

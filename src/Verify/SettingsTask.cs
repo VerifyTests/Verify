@@ -77,6 +77,18 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask UseParameters<T>(T parameter)
+    {
+        CurrentSettings.UseParameters(parameter);
+        return this;
+    }
+
+    public SettingsTask UseParameters<T>(T[] parameters)
+    {
+        CurrentSettings.UseParameters(parameters);
+        return this;
+    }
+
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
@@ -333,15 +345,13 @@ public partial class SettingsTask
         return this;
     }
 
-    public SettingsTask ModifySerialization(Action<SerializationSettings> action)
-    {
-        CurrentSettings.ModifySerialization(action);
-        return this;
-    }
+    [Obsolete("Use IgnoreStackTrace", error:true)]
+    public SettingsTask IgnoreStackTrack() =>
+        IgnoreStackTrace();
 
-    public SettingsTask IgnoreStackTrack()
+    public SettingsTask IgnoreStackTrace()
     {
-        CurrentSettings.IgnoreStackTrack();
+        CurrentSettings.IgnoreStackTrace();
         return this;
     }
 

@@ -13,7 +13,7 @@ static class ApplyScrubbers
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
-        Dictionary<string, string> replacements = new();
+        var replacements = new Dictionary<string, string>();
         var baseDir = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
         var altBaseDir = baseDir.ReplaceAltDirChar();
         replacements[baseDir + dirSeparator] = "{CurrentDirectory}";

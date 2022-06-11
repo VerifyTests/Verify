@@ -5,13 +5,6 @@ public partial class VerifySettings
     internal SerializationSettings serialization = VerifierSettings.serialization;
     bool isCloned;
 
-    public void ModifySerialization(Action<SerializationSettings> action)
-    {
-        CloneSettings();
-
-        action(serialization);
-    }
-
     void CloneSettings()
     {
         if (isCloned)

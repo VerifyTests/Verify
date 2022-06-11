@@ -114,7 +114,11 @@ public partial class VerifySettings
     internal string ExtensionOrBin() =>
         extension ?? "bin";
 
-    internal bool autoVerify;
+    internal bool IsAutoVerify =>
+        VerifierSettings.autoVerify ||
+        autoVerify;
+
+    bool autoVerify;
 
     /// <summary>
     /// Automatically accept the results of the current test.

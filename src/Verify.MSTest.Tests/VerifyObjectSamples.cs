@@ -13,14 +13,9 @@ public class VerifyObjectSamples :
         #region ChangeDefaultsPerVerification
 
         var settings = new VerifySettings();
-
-        settings.ModifySerialization(_ =>
-        {
-            _.DontIgnoreEmptyCollections();
-            _.DontScrubGuids();
-            _.DontScrubDateTimes();
-            _.DontIgnoreFalse();
-        });
+        settings.DontIgnoreEmptyCollections();
+        settings.DontScrubGuids();
+        settings.DontScrubDateTimes();
         await Verify(target, settings);
 
         #endregion
@@ -28,13 +23,9 @@ public class VerifyObjectSamples :
         #region ChangeDefaultsPerVerification
 
         await Verify(target)
-            .ModifySerialization(_ =>
-            {
-                _.DontIgnoreEmptyCollections();
-                _.DontScrubGuids();
-                _.DontScrubDateTimes();
-                _.DontIgnoreFalse();
-            });
+            .DontIgnoreEmptyCollections()
+            .DontScrubGuids()
+            .DontScrubDateTimes();
 
         #endregion
     }

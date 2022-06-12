@@ -2,6 +2,9 @@
 
 static class Extensions
 {
+    public static List<T> Clone<T>(this List<T> original) =>
+        new(original);
+
     public static string? Configuration(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();

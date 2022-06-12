@@ -25,26 +25,26 @@
                 }
             }
 
-            extension ??= "bin";
-
-            List<Target> targets;
-            if (EmptyFiles.Extensions.IsText(extension))
-            {
-                targets = new()
-                {
-                    new(extension, await stream.ReadString())
-                };
-                await VerifyInner(null, null, targets);
-            }
-            else
-            {
-                targets = new()
-                {
-                    new(extension, stream)
-                };
-            }
+            var targets = await GetTargets(stream, extension);
 
             await VerifyInner(null, null, targets);
         }
+    }
+
+    static async Task<List<Target>> GetTargets(Stream stream, string? extension)
+    {
+        if (extension != null &&
+            EmptyFiles.Extensions.IsText(extension))
+        {
+            return new()
+            {
+                new(extension, await stream.ReadString())
+            };
+        }
+
+        return new()
+        {
+            new(extension ?? "bin", stream)
+        };
     }
 }

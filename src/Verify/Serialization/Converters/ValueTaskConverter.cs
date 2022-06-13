@@ -47,6 +47,7 @@
         writer.WriteEndObject();
     }
 
+    // ReSharper disable once UnusedMember.Local
     static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T> task)
     {
         writer.WriteProperty(task, task.IsCanceled, "IsCanceled");

@@ -22,10 +22,9 @@
             properties.Remove(stackTrace);
             properties.Add(stackTrace);
             properties.Insert(0,
-                new()
+                new(typeof(string), typeof(Exception))
                 {
                     PropertyName = "Type",
-                    PropertyType = typeof(string),
                     ValueProvider = new TypeNameProvider(type),
                     Ignored = false,
                     Readable = true,

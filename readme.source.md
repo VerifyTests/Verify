@@ -86,8 +86,25 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 snippet: SampleTestMSTest
 
-
 ### Initial Verification
+
+No existing `.verified.` file.
+
+```mermaid
+graph LR
+run(Run test and<br/>create Received file)
+failTest(Fail Test<br/>and show Diff)
+closeDiff(Close Diff)
+run-->failTest
+shouldAccept{Accept ?}
+failTest-->shouldAccept
+accept(Move Received<br/>to Verified)
+shouldAccept-- Yes -->accept
+discard(Discard<br/>Received)
+shouldAccept-- No -->discard
+accept-->closeDiff
+discard-->closeDiff
+```
 
 When the test is initially run will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff.
 
@@ -110,6 +127,29 @@ snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt
 
 
 ### Subsequent Verification
+
+Existing `.verified.` file.
+
+```mermaid
+graph LR
+run(Run test and<br/>create Received file)
+closeDiff(Close Diff)
+failTest(Fail Test<br/>and show Diff)
+run-->isSame
+shouldAccept{Accept ?}
+failTest-->shouldAccept
+accept(Move Received<br/>to Verified)
+shouldAccept-- Yes -->accept
+discard(Discard<br/>Received)
+shouldAccept-- No -->discard
+
+isSame{Compare<br/>Verified +<br/>Received}
+passTest(Pass Test and<br/>discard Received)
+isSame-- Same --> passTest
+isSame-- Different --> failTest
+accept-->closeDiff
+discard-->closeDiff
+```
 
 If the implementation of `ClassBeingTested` changes:
 

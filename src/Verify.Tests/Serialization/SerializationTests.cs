@@ -1942,6 +1942,10 @@ public class SerializationTests
     class WithCustomException
     {
         public Guid CustomExceptionProperty => throw new CustomException();
+
+        public IEnumerable<int> CustomExceptionProperty2 => throw new CustomException();
+
+        public int[] CustomExceptionProperty3 => throw new CustomException();
     }
 
     [Fact]

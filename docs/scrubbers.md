@@ -163,6 +163,20 @@ public class ScrubbersSample
     }
 
     [Fact]
+    public Task EmptyLine()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubLinesWithReplace(
+            replaceLine: line =>
+            {
+                return "";
+            });
+        return Verify(
+            settings: settings,
+            target: @"");
+    }
+
+    [Fact]
     public Task LinesFluent() =>
         Verify(
                 target: @"
@@ -246,7 +260,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

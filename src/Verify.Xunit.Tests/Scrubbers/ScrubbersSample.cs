@@ -35,6 +35,20 @@ public class ScrubbersSample
     }
 
     [Fact]
+    public Task EmptyLine()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubLinesWithReplace(
+            replaceLine: line =>
+            {
+                return "";
+            });
+        return Verify(
+            settings: settings,
+            target: @"");
+    }
+
+    [Fact]
     public Task LinesFluent() =>
         Verify(
                 target: @"

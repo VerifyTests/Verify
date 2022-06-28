@@ -475,7 +475,7 @@ public Task ScopedSerializerFluent()
         .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2097-L2124' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2101-L2128' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -737,7 +737,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2061-L2081' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2065-L2085' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -785,7 +785,7 @@ public Task WithObsoletePropIncludedFluent()
         .IncludeObsoletes();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2032-L2059' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2036-L2063' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -795,7 +795,7 @@ Or globally:
 ```cs
 VerifierSettings.IncludeObsoletes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2025-L2029' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincludedglobally' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2029-L2033' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincludedglobally' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

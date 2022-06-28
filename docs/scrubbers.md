@@ -167,10 +167,7 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: line =>
-            {
-                return "";
-            });
+            replaceLine: _ => "");
         return Verify(
             settings: settings,
             target: @"");
@@ -260,7 +257,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

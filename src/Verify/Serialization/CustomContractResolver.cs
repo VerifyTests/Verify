@@ -127,12 +127,11 @@
             return property;
         }
 
-        if (settings.TryGetShouldSerialize(memberType, valueProvider.GetValue, out var shouldSerialize))
+        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
+        if (settings.TryGetShouldSerialize(memberType, property.ValueProvider.GetValue, out var shouldSerialize))
         {
             property.ShouldSerialize = shouldSerialize;
         }
-
-        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
 
         return property;
     }

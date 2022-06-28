@@ -39,10 +39,7 @@ public class ScrubbersSample
     {
         var settings = new VerifySettings();
         settings.ScrubLinesWithReplace(
-            replaceLine: line =>
-            {
-                return "";
-            });
+            replaceLine: _ => "");
         return Verify(
             settings: settings,
             target: @"");

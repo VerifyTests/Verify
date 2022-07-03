@@ -179,6 +179,10 @@ public class Namer
         return ("Core", new(3, 0));
 #elif NETCOREAPP3_1
         return ("Core", new(3, 1));
+#elif NET461
+        return ("Net", new(4, 6));
+#elif NET472
+        return ("Net", new(4, 7));
 #else
         var description = RuntimeInformation.FrameworkDescription;
 

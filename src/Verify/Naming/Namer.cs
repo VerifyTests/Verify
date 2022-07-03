@@ -127,6 +127,20 @@ public class Namer
             return "OSX";
         }
 
+#if NET5_0_OR_GREATER
+
+        if (OperatingSystem.IsAndroid())
+        {
+            return "Android";
+        }
+
+        if (OperatingSystem.IsIOS())
+        {
+            return "IOS";
+        }
+
+#endif
+
         throw new("Unknown OS");
     }
 

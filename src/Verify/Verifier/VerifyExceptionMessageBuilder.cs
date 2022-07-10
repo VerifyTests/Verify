@@ -108,16 +108,23 @@
         var message = notEqual.Message;
         if (message is null)
         {
-            builder.AppendLine($"Received: {item.ReceivedName}");
-            builder.AppendLine(notEqual.ReceivedText);
-            builder.AppendLine($"Verified: {item.VerifiedName}");
-            builder.AppendLine(notEqual.VerifiedText);
+            builder.AppendLine(
+                $"""
+                Received: {item.ReceivedName}
+                {notEqual.ReceivedText}
+                Verified: {item.VerifiedName}
+                {notEqual.VerifiedText}
+                """);
         }
         else
         {
-            builder.AppendLine($"Received: {item.ReceivedName}");
-            builder.AppendLine($"Verified: {item.VerifiedName}");
-            builder.AppendLine($"Compare Result: {message}");
+            builder.AppendLine(
+                $"""
+                Received: {item.ReceivedName}
+                Verified: {item.VerifiedName}
+                Compare Result:
+                {message}
+                """);
         }
     }
 }

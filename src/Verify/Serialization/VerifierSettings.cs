@@ -68,6 +68,7 @@ public static partial class VerifierSettings
         {typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
         {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif

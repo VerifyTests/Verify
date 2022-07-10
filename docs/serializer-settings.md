@@ -1100,6 +1100,7 @@ The default mapping is:
 {typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
 {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
@@ -1179,7 +1180,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L59-L151' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L60-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

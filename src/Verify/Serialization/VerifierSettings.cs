@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Numerics;
+using System.Xml;
 using System.Xml.Linq;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
@@ -60,6 +61,7 @@ public static partial class VerifierSettings
 
         {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
+        {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
         {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},

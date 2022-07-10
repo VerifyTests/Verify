@@ -1091,6 +1091,7 @@ The default mapping is:
 ```cs
 {typeof(string), (target, _) => (string) target},
 {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
+{typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
 {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
@@ -1178,7 +1179,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L59-L150' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L59-L151' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

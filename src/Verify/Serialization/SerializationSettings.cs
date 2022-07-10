@@ -30,7 +30,7 @@ partial class SerializationSettings
     static StringBuilderConverter stringBuilderConverter = new();
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
-    static TextWriterConverter textWriterConverter = new();
+    static StringWriterConverter stringWriterConverter = new();
     static DictionaryConverter dictionaryConverter = new();
 
     JsonSerializerSettings jsonSettings;
@@ -96,7 +96,7 @@ partial class SerializationSettings
         var converters = settings.Converters;
         converters.Add(aggregateExceptionConverter);
         converters.Add(stringBuilderConverter);
-        converters.Add(textWriterConverter);
+        converters.Add(stringWriterConverter);
 #if NET6_0_OR_GREATER
         converters.Add(dateConverter);
         converters.Add(timeConverter);

@@ -1102,7 +1102,7 @@ The default mapping is:
 {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
-{typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+{typeof(Half), (target, _) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
 #if NET6_0_OR_GREATER
 {
@@ -1138,7 +1138,7 @@ The default mapping is:
     }
 },
 {
-    typeof(XmlNode), (target, settings) =>
+    typeof(XmlNode), (target, _) =>
     {
         var converted = (XmlNode) target;
         var document = XDocument.Parse(converted.OuterXml);
@@ -1146,7 +1146,7 @@ The default mapping is:
     }
 },
 {
-    typeof(XDocument), (target, settings) =>
+    typeof(XDocument), (target, _) =>
     {
         var converted = (XDocument) target;
         return new(converted.ToString(), "xml");
@@ -1160,7 +1160,7 @@ The default mapping is:
     }
 },
 {
-    typeof(XmlDocument), (target, settings) =>
+    typeof(XmlDocument), (target, _) =>
     {
         var xmlDocument = (XmlDocument) target;
         var stringBuilder = new StringBuilder();

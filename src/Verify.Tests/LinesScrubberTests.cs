@@ -20,7 +20,7 @@ f");
     public Task DontScrubTrailingNewline()
     {
         var settings = new VerifySettings();
-        settings.ScrubLines(removeLine: x => x.Contains("D"));
+        settings.ScrubLines(removeLine: _ => _.Contains("D"));
         return Verify(
             settings: settings,
             target: @"b
@@ -31,7 +31,7 @@ f");
     public Task DontScrubMultiNewline()
     {
         var settings = new VerifySettings();
-        settings.ScrubLines(removeLine: x => x.Contains("D"));
+        settings.ScrubLines(removeLine: _ => _.Contains("D"));
         return Verify(
             settings: settings,
             target: @"b
@@ -43,7 +43,7 @@ c");
     public Task FilterLines()
     {
         var settings = new VerifySettings();
-        settings.ScrubLines(removeLine: x => x.Contains("D"));
+        settings.ScrubLines(removeLine: _ => _.Contains("D"));
         return Verify(
             settings: settings,
             target: @"a

@@ -108,8 +108,8 @@ public class Tests
         PrefixUnique.Clear();
         builder = Builder(settings);
 
-        var receivedFiles = builder.ReceivedFiles.OrderBy(x => x);
-        var verifiedFiles = builder.VerifiedFiles.OrderBy(x => x);
+        var receivedFiles = builder.ReceivedFiles.OrderBy(_ => x);
+        var verifiedFiles = builder.VerifiedFiles.OrderBy(_ => x);
         PrefixUnique.Clear();
         return new()
         {
@@ -181,8 +181,8 @@ public class Tests
         PrefixUnique.Clear();
         builder = Builder(settings);
 
-        var receivedFiles = builder.ReceivedFiles.OrderBy(x => x);
-        var verifiedFiles = builder.VerifiedFiles.OrderBy(x => x);
+        var receivedFiles = builder.ReceivedFiles.OrderBy(_ => x);
+        var verifiedFiles = builder.VerifiedFiles.OrderBy(_ => x);
         PrefixUnique.Clear();
         return new()
         {

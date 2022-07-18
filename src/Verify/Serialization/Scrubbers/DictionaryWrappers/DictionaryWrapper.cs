@@ -5,7 +5,7 @@
     where TInner : IDictionary<TKey, TValue>
 {
     public DictionaryWrapper(TInner inner) :
-        base(inner.ToDictionary(x => x.Key, x => x.Value))
+        base(inner.ToDictionary(_ => _.Key, _ => _.Value))
     {
     }
 }

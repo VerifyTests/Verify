@@ -48,8 +48,8 @@ partial class SerializationSettings
     public SerializationSettings(SerializationSettings settings)
     {
         ignoredMembers = settings.ignoredMembers.ToDictionary(
-            x => x.Key,
-            x => x.Value.Clone());
+            _ => _.Key,
+            _ => _.Value.Clone());
         ignoredByNameMembers = settings.ignoredByNameMembers.Clone();
         ignoreEmptyCollections = settings.ignoreEmptyCollections;
         extraSettings = settings.extraSettings.Clone();
@@ -57,8 +57,8 @@ partial class SerializationSettings
         ignoredTypes = settings.ignoredTypes.Clone();
         ignoredInstances = settings.ignoredInstances
             .ToDictionary(
-                x => x.Key,
-                x => x.Value.Clone());
+                _ => _.Key,
+                _ => _.Value.Clone());
         scrubDateTimes = settings.scrubDateTimes;
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;

@@ -29,7 +29,7 @@ public static class AttributeReader
     static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value)
     {
         value = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .SingleOrDefault(x => x.Key == key)
+            .SingleOrDefault(_ => _.Key == key)
             ?.Value;
         return value != null;
     }

@@ -21,7 +21,7 @@
         var properties = base.CreateProperties(type, memberSerialization);
         if (type.IsException())
         {
-            var stackTrace = properties.Single(x => x.PropertyName == "StackTrace");
+            var stackTrace = properties.Single(_ => _.PropertyName == "StackTrace");
             properties.Remove(stackTrace);
             properties.Add(stackTrace);
             properties.Insert(0,

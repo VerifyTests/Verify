@@ -25,7 +25,7 @@ public abstract partial class VerifyBase
         TargetAssembly.Assign(type.Assembly);
         var methodInfo = type
             .GetMethods(BindingFlags.Instance | BindingFlags.Public)
-            .FirstOrDefault(x => x.Name == testName);
+            .FirstOrDefault(_ => _.Name == testName);
 
         if (methodInfo is null)
         {

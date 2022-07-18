@@ -132,7 +132,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(_ => new Target("png", x)));
             },
             (_, _, context) => context.ContainsKey("name") &&
                                (string) context["name"] == nameof(WithInfo));
@@ -165,7 +165,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(_ => new Target("png", x)));
             });
 
     [Fact]

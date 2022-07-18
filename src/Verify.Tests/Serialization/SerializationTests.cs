@@ -1183,7 +1183,7 @@ public class SerializationTests
     {
         #region IgnoreMembersThatThrowExpressionGlobal
 
-        VerifierSettings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        VerifierSettings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
 
         #endregion
     }
@@ -1196,7 +1196,7 @@ public class SerializationTests
         var target = new WithExceptionIgnoreMessage();
 
         var settings = new VerifySettings();
-        settings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        settings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
         return Verify(target, settings);
     }
 
@@ -1206,7 +1206,7 @@ public class SerializationTests
         var target = new WithExceptionIgnoreMessage();
 
         return Verify(target)
-            .IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+            .IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
     }
 
     #endregion
@@ -1273,7 +1273,7 @@ public class SerializationTests
     {
         #region AddIgnoreInstanceGlobal
 
-        VerifierSettings.IgnoreInstance<Instance>(x => x.Property == "Ignore");
+        VerifierSettings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 
         #endregion
     }
@@ -1295,7 +1295,7 @@ public class SerializationTests
             }
         };
         var settings = new VerifySettings();
-        settings.IgnoreInstance<Instance>(x => x.Property == "Ignore");
+        settings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
         return Verify(target, settings);
     }
 
@@ -1314,7 +1314,7 @@ public class SerializationTests
             }
         };
         return Verify(target)
-            .IgnoreInstance<Instance>(x => x.Property == "Ignore");
+            .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
     }
 
     #endregion
@@ -1614,11 +1614,12 @@ public class SerializationTests
     {
         #region IgnoreMemberByExpressionGlobal
 
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        VerifierSettings.IgnoreMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.PropertyWithPropertyName,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
 
         #endregion
     }
@@ -1636,11 +1637,12 @@ public class SerializationTests
             PropertyWithPropertyName = "Value"
         };
         var settings = new VerifySettings();
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        settings.IgnoreMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.PropertyWithPropertyName,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
         return Verify(target, settings);
     }
 
@@ -1654,10 +1656,11 @@ public class SerializationTests
             Property = "Value"
         };
         return Verify(target)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.Property)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.Field)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+            .IgnoreMembers<IgnoreExplicitTarget>(
+                _ => _.Property,
+                _ => _.Field,
+                _ => _.GetOnlyProperty,
+                _ => _.PropertyThatThrows);
     }
 
     #endregion
@@ -1675,12 +1678,12 @@ public class SerializationTests
 
         // using only the member
         VerifierSettings.MemberConverter<MemberTarget, string>(
-            expression: x => x.Field,
+            expression: _ => _.Field,
             converter: member => $"{member}_Suffix");
 
         // using target and member
         VerifierSettings.MemberConverter<MemberTarget, string>(
-            expression: x => x.Property,
+            expression: _ => _.Property,
             converter: (target, member) => $"{target}_{member}_Suffix");
 
         return Verify(input);
@@ -1981,7 +1984,7 @@ public class SerializationTests
     public Task ExceptionNotIgnoreMessageProp()
     {
         var settings = new VerifySettings();
-        settings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        settings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
         var target = new WithExceptionNotIgnoreMessage();
 
         return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));

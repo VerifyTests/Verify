@@ -117,7 +117,7 @@ To ignore specific members for T, create a custom converter.");
 
     public void IgnoreMembersThatThrow<T>()
         where T : Exception =>
-        ignoreMembersThatThrow.Add(x => x is T);
+        ignoreMembersThatThrow.Add(_ => _ is T);
 
     public void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
         IgnoreMembersThatThrow<Exception>(item);
@@ -125,9 +125,9 @@ To ignore specific members for T, create a custom converter.");
     public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
         where T : Exception =>
         ignoreMembersThatThrow.Add(
-            x =>
+            _ =>
             {
-                if (x is T exception)
+                if (_ is T exception)
                 {
                     return item(exception);
                 }
@@ -167,7 +167,7 @@ To ignore specific members for T, create a custom converter.");
 
         if (typeFromNullable != null)
         {
-            if (ignoredTypes.Any(x => x.IsAssignableFrom(typeFromNullable)))
+            if (ignoredTypes.Any(_ => _.IsAssignableFrom(typeFromNullable)))
             {
                 return true;
             }

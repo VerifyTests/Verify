@@ -422,6 +422,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
  * [Snapshot Testing with Verify - Dan Clarke (10 Dec 2021)](https://www.danclarke.com/snapshot-testing-with-verify)
  * [5 helpful Nuget package for Unit Testing in .NET (16 Oct 2021)](https://medium.com/@niteshsinghal85/5-helpful-nuget-package-for-unit-testing-in-net-87c2e087c6d)
  * [5 open source .NET projects that deserve more attention (9 Sep 2021)](https://www.youtube.com/watch?v=mwHWPoKEmyY&t=515s)
+ * [Snapshot Testing in .NET with Verify - Dan Clarke (21 July 2022](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
 
 
 ## Extensions

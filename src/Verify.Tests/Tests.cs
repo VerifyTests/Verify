@@ -470,6 +470,7 @@ public class Tests
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
         await Verify("value").IgnoreParametersForVerified(param).AutoVerify();
+        await Task.Delay(1000);
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
     }

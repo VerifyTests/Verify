@@ -2,10 +2,8 @@
 
 public class VerifyResult
 {
-    public VerifyResult(IReadOnlyList<string> files)
-    {
+    public VerifyResult(IReadOnlyList<FilePair> files) =>
         Files = files;
-    }
 
-    public IReadOnlyList<string> Files { get; }
+    public IReadOnlyList<FilePair> Files { get; }
 }

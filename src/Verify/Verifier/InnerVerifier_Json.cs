@@ -2,7 +2,7 @@
 {
     static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
 
-    public Task VerifyJson(string? target)
+    public Task<VerifyResult> VerifyJson(string? target)
     {
         if (target is null)
         {
@@ -13,34 +13,32 @@
         return VerifyJson(JToken.Parse(target));
     }
 
-    public async Task VerifyJson(Stream? target)
+    public async Task<VerifyResult> VerifyJson(Stream? target)
     {
         if (target is null)
         {
             AssertExtensionIsNull();
-            await VerifyInner("null", null, emptyTargets);
-            return;
+            return await VerifyInner("null", null, emptyTargets);
         }
 
         using var reader = new StreamReader(target);
         using var textReader = new JsonTextReader(reader);
         var json = await JToken.LoadAsync(textReader);
-        await VerifyJson(json);
+        return await VerifyJson(json);
     }
 
-    public Task VerifyJson(JToken? target)
+    public Task<VerifyResult> VerifyJson(JToken? target)
     {
         AssertExtensionIsNull();
         return VerifyInner(target, null, emptyTargets);
     }
 
-    public async Task Verify<T>(T target)
+    public async Task<VerifyResult> Verify<T>(T target)
     {
         if (target is null)
         {
             AssertExtensionIsNull();
-            await VerifyInner("null", null, emptyTargets);
-            return;
+            return await VerifyInner("null", null, emptyTargets);
         }
 
         if (VerifierSettings.TryGetToString(target, out var toString))
@@ -54,37 +52,32 @@
             var value = stringResult.Value;
             if (value == string.Empty)
             {
-                await VerifyInner("emptyString", null, emptyTargets);
-                return;
+                return await VerifyInner("emptyString", null, emptyTargets);
             }
 
-            await VerifyInner(value, null, emptyTargets);
-            return;
+            return await VerifyInner(value, null, emptyTargets);
         }
 
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
             var result = await converter.Conversion(target, settings.Context);
-            await VerifyInner(result.Info, result.Cleanup, result.Targets);
-            return;
+            return await VerifyInner(result.Info, result.Cleanup, result.Targets);
         }
 
         if (target is Stream stream)
         {
-            await VerifyStream(stream);
-            return;
+            return await VerifyStream(stream);
         }
 
         if (typeof(T).ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) target;
             var streams = enumerable.Cast<Stream>().Select(ToTarget);
-            await VerifyInner(null, null, streams);
-            return;
+            return await VerifyInner(null, null, streams);
         }
 
         AssertExtensionIsNull();
-        await VerifyInner(target, null, emptyTargets);
+        return await VerifyInner(target, null, emptyTargets);
     }
 
     Target ToTarget(Stream? stream)

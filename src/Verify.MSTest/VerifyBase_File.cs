@@ -15,10 +15,7 @@ public partial class VerifyBase
         Verify(
             settings,
             sourceFile,
-            async _ =>
-            {
-                await _.Verify(await target);
-            });
+            async _ => await _.Verify(await target));
 
     public SettingsTask VerifyFile(
         string path,

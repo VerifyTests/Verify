@@ -20,7 +20,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task Tasks()
+    public Task Tasks()
     {
         var withResult = Task.FromResult("Value");
         var withException = Task.FromException(new("the exception"));
@@ -30,7 +30,7 @@ public class SerializationTests
         var canceledAndResult = genericCompletionSource.Task;
         var finished = Task.Delay(0);
         var running = Task.Delay(10000);
-        await Verify(
+        return Verify(
             new
             {
                 finished,
@@ -44,7 +44,7 @@ public class SerializationTests
 
 #if NET5_0_OR_GREATER || net48
     [Fact]
-    public async Task ValueTasks()
+    public Task ValueTasks()
     {
         var withResult = ValueTask.FromResult("Value");
         var withException = ValueTask.FromException(new("the exception"));
@@ -52,7 +52,7 @@ public class SerializationTests
         var genericCompletionSource = new TaskCompletionSource<int>();
         genericCompletionSource.TrySetCanceled();
         var canceledAndResult = genericCompletionSource.Task;
-        await Verify(
+        return Verify(
             new
             {
                 withResult,
@@ -543,7 +543,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task DatetimeMin()
+    public Task DatetimeMin()
     {
         var dateTime = DateTime.MinValue;
         var dateTimeOffset = DateTimeOffset.MinValue;
@@ -560,11 +560,11 @@ public class SerializationTests
             DateTimeOffsetString = dateTimeOffset.ToString("F")
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
-    public async Task DatetimeMax()
+    public Task DatetimeMax()
     {
         var dateTime = DateTime.MaxValue;
         var dateTimeOffset = DateTimeOffset.MaxValue;
@@ -581,7 +581,7 @@ public class SerializationTests
             DateTimeOffsetString = dateTimeOffset.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK")
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
@@ -1026,7 +1026,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task ShouldRespectEmptyGuid()
+    public Task ShouldRespectEmptyGuid()
     {
         var guid = Guid.Empty;
         var target = new GuidTarget
@@ -1037,7 +1037,7 @@ public class SerializationTests
             OtherGuid = Guid.NewGuid()
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]

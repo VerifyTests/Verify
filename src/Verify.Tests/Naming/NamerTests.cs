@@ -356,18 +356,18 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public async Task IgnoreParametersForVerified(string arg)
+    public Task IgnoreParametersForVerified(string arg)
     {
         var settings = new VerifySettings();
         settings.IgnoreParametersForVerified(arg);
-        await Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public async Task IgnoreParametersForVerifiedFluent(string arg) =>
-        await Verify("value")
+    public Task IgnoreParametersForVerifiedFluent(string arg) =>
+        Verify("value")
             .IgnoreParametersForVerified(arg);
 
     #endregion
@@ -375,15 +375,15 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("foo", "bar", "baz")]
-    public async Task TheoryWithArray(params string[] values) =>
-        await Verify("value")
+    public Task TheoryWithArray(params string[] values) =>
+        Verify("value")
             .UseParameters(values);
 
     [Fact]
-    public async Task IgnoreParametersForVerified()
+    public Task IgnoreParametersForVerified()
     {
         // note that this test 'generates' the same verified and received filenames as the parameterized method
         var settings = new VerifySettings();
-        await Verify("value", settings);
+        return Verify("value", settings);
     }
 }

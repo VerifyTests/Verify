@@ -164,11 +164,11 @@ public class Tests
             (_, _, _) => Task.FromResult(new CompareResult(true)));
 
     [Fact]
-    public async Task SettingsArePassed()
+    public Task SettingsArePassed()
     {
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verify(new MemoryStream(new byte[]
+        return Verify(new MemoryStream(new byte[]
             {
                 1
             }), settings)
@@ -618,11 +618,11 @@ public class Tests
 
 #if !NETFRAMEWORK
     [Fact]
-    public async Task VerifyBytesAsync()
+    public Task VerifyBytesAsync()
     {
         var settings = new VerifySettings();
         settings.UseExtension("jpg");
-        await Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
+        return Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
 #endif
 
@@ -636,8 +636,8 @@ public class Tests
 #endif
 
     [Fact]
-    public async Task VerifyFileWithAppend() =>
-        await VerifyFile("sample.txt")
+    public Task VerifyFileWithAppend() =>
+        VerifyFile("sample.txt")
             .AppendValue("key", "value");
 
     #region GetFilePath

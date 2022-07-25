@@ -137,8 +137,8 @@ public class ExtensionConverterTests
             });
 
     [Fact]
-    public async Task WithInfoAndBinary() =>
-        await Verify(File.OpenRead("sample.png"))
+    public Task WithInfoAndBinary() =>
+        Verify(File.OpenRead("sample.png"))
             .UseExtension("WithInfoAndBinary");
 
     [Fact]

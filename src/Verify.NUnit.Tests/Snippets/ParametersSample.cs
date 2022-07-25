@@ -4,18 +4,18 @@
 public class ParametersSample
 {
     [TestCase("1.1")]
-    public async Task Decimal(decimal arg) =>
-        await Verify(arg)
+    public Task Decimal(decimal arg) =>
+        Verify(arg)
             .UseParameters(arg);
 
     [TestCase((float) 1.1)]
-    public async Task Float(float arg) =>
-        await Verify(arg)
+    public Task Float(float arg) =>
+        Verify(arg)
             .UseParameters(arg);
 
     [TestCase(1.1d)]
-    public async Task Double(double arg) =>
-        await Verify(arg)
+    public Task Double(double arg) =>
+        Verify(arg)
             .UseParameters(arg);
 
     #region NUnitTestCase

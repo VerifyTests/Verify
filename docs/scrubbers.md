@@ -210,7 +210,7 @@ public class ScrubbersSample
 
         var settings = new VerifySettings();
         settings.AddScrubber(
-            input => input.Replace("7D3", "TheRowVersion"));
+            _ => _.Replace("7D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 
@@ -223,8 +223,7 @@ public class ScrubbersSample
         };
 
         return Verify(target)
-            .AddScrubber(
-                input => input.Replace("7D3", "TheRowVersion"));
+            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
     }
 
     [Fact]
@@ -257,7 +256,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -336,8 +335,7 @@ public class ScrubbersSample
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(
-            s => s.Replace("7D3", "TheRowVersion"));
+        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 
@@ -350,8 +348,7 @@ public class ScrubbersSample
         };
 
         return Verify(target)
-            .AddScrubber(
-                s => s.Replace("7D3", "TheRowVersion"));
+            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
     }
 
     [Test]
@@ -384,7 +381,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -464,8 +461,7 @@ public class ScrubbersSample :
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(
-            input => input.Replace("7D3", "TheRowVersion"));
+        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 
@@ -478,8 +474,7 @@ public class ScrubbersSample :
         };
 
         return Verify(target)
-            .AddScrubber(
-                input => input.Replace("7D3", "TheRowVersion"));
+            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
     }
 
     [TestMethod]
@@ -512,7 +507,7 @@ public class ScrubbersSample :
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L3-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L3-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -562,25 +557,25 @@ public class ScrubberLevelsSample
     public ScrubberLevelsSample()
     {
         classLevelSettings = new();
-        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
+        classLevelSettings.AddScrubber(_ => _.Replace("Three", "C"));
     }
 
     [Fact]
     public Task Usage()
     {
         var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("Two", "B"));
+        settings.AddScrubber(_ => _.Replace("Two", "B"));
         return Verify("One Two Three", settings);
     }
 
     [Fact]
     public Task UsageFluent() =>
         Verify("One Two Three", classLevelSettings)
-            .AddScrubber(s => s.Replace("Two", "B"));
+            .AddScrubber(_ => _.Replace("Two", "B"));
 
     [ModuleInitializer]
     public static void Initialize() =>
-        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
@@ -600,25 +595,25 @@ public class ScrubberLevelsSample
     public ScrubberLevelsSample()
     {
         classLevelSettings = new();
-        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
+        classLevelSettings.AddScrubber(_ => _.Replace("Three", "C"));
     }
 
     [Test]
     public Task Simple()
     {
         var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("Two", "B"));
+        settings.AddScrubber(_ => _.Replace("Two", "B"));
         return Verify("One Two Three", settings);
     }
 
     [Test]
     public Task SimpleFluent() =>
         Verify("One Two Three", classLevelSettings)
-            .AddScrubber(s => s.Replace("Two", "B"));
+            .AddScrubber(_ => _.Replace("Two", "B"));
 
     [OneTimeSetUp]
     public static void Setup() =>
-        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Start of snippet'>anchor</a></sup>
@@ -639,25 +634,25 @@ public class ScrubberLevelsSample :
     public ScrubberLevelsSample()
     {
         classLevelSettings = new();
-        classLevelSettings.AddScrubber(s => s.Replace("Three", "C"));
+        classLevelSettings.AddScrubber(_ => _.Replace("Three", "C"));
     }
 
     [TestMethod]
     public Task Simple()
     {
         var settings = new VerifySettings(classLevelSettings);
-        settings.AddScrubber(s => s.Replace("Two", "B"));
+        settings.AddScrubber(_ => _.Replace("Two", "B"));
         return Verify("One Two Three", settings);
     }
 
     [TestMethod]
     public Task SimpleFluent() =>
         Verify("One Two Three", classLevelSettings)
-            .AddScrubber(s => s.Replace("Two", "B"));
+            .AddScrubber(_ => _.Replace("Two", "B"));
 
     [AssemblyInitialize]
     public static void Setup(TestContext testContext) =>
-        VerifierSettings.AddScrubber(s => s.Replace("One", "A"));
+        VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L3-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplemstest' title='Start of snippet'>anchor</a></sup>

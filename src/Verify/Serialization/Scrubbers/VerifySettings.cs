@@ -36,7 +36,7 @@ public partial class VerifySettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch) =>
-        instanceScrubbers.Insert(0, s => s.RemoveLinesContaining(comparison, stringToMatch));
+        instanceScrubbers.Insert(0, _ => _.RemoveLinesContaining(comparison, stringToMatch));
 
     //TODO: should only do this when it is a string.
     //and instead pass a bool to the json serializer for the object scenario
@@ -52,20 +52,20 @@ public partial class VerifySettings
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public void ScrubLines(Func<string, bool> removeLine) =>
-        instanceScrubbers.Insert(0, s => s.FilterLines(removeLine));
+        instanceScrubbers.Insert(0, _ => _.FilterLines(removeLine));
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
     /// </summary>
     public void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
-        instanceScrubbers.Insert(0, s => s.ReplaceLines(replaceLine));
+        instanceScrubbers.Insert(0, _ => _.ReplaceLines(replaceLine));
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     public void ScrubEmptyLines() =>
-        instanceScrubbers.Insert(0, s => s.FilterLines(string.IsNullOrWhiteSpace));
+        instanceScrubbers.Insert(0, _ => _.FilterLines(string.IsNullOrWhiteSpace));
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.

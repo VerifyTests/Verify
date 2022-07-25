@@ -401,6 +401,24 @@ public static class StaticSettingsUsage
 <!-- endSnippet -->
 
 
+## VerifyResult
+
+In some scenarios it can be helpful to get access to the resulting `*.verified.*` files after a successful run. For example to do an explicit check for contains or not-contains in the resulting text. To allow this all Verify methods return a `VerifyResult`.
+
+<!-- snippet: VerifyResult -->
+<a id='snippet-verifyresult'></a>
+```cs
+var result = await Verify(
+    new
+    {
+        Property = "Value To Check"
+    });
+Assert.Contains("Value To Check", result.Text);
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L552-L561' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Versioning
 
 Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:

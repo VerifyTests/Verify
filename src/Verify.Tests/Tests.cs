@@ -549,8 +549,16 @@ public class Tests
     [Fact]
     public async Task Result()
     {
-        var result = await Verify("value");
-        Assert.Equal("value", result.Text);
+        #region VerifyResult
+
+        var result = await Verify(
+            new
+            {
+                Property = "Value To Check"
+            });
+        Assert.Contains("Value To Check", result.Text);
+
+        #endregion
     }
 
     static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)

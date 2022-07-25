@@ -1,1 +1,3 @@
-value
+﻿{
+  Property: Value To Check
+}

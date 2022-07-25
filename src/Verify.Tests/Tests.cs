@@ -546,6 +546,13 @@ public class Tests
         Assert.True(target.Disposed);
     }
 
+    [Fact]
+    public async Task Result()
+    {
+        var result = await Verify("value");
+        Assert.Equal("value", result.Text);
+    }
+
     static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)
     {
         await Task.Delay(1);

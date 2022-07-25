@@ -559,6 +559,20 @@ public class Tests
         Assert.Contains("Value To Check", result.Text);
 
         #endregion
+
+        Assert.NotNull(result.Target);
+    }
+
+    [Fact]
+    public async Task ExceptionResult()
+    {
+        #region ExceptionResult
+
+        var result = await Verifier.Throws(MethodThatThrows);
+        Assert.NotNull(result.Exception);
+
+        #endregion
+
         Assert.NotNull(result.Target);
     }
 

@@ -201,6 +201,10 @@ In some scenarios it can be helpful to get access to the resulting `*.verified.*
 
 snippet: VerifyResult
 
+If using `Verifier.Throws`, the resulting `Exception` will also be accessible
+
+snippet: ExceptionResult
+
 
 ## Versioning
 

@@ -23,7 +23,7 @@ public class NamerTests
         await ThrowsTask(Run)
             .ScrubLinesContaining("InnerVerifier.ValidatePrefix")
             .UseMethodName("ThrowOnConflict")
-            .AddScrubber(builder => builder.Replace(@"\", "/"));
+            .AddScrubber(_ => _.Replace(@"\", "/"));
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class NamerTests
 
         await Verify("Value")
             .UseMethodName("DoesntThrowOnConflict")
-            .AddScrubber(builder => builder.Replace(@"\", "/"));
+            .AddScrubber(_ => _.Replace(@"\", "/"));
     }
 #endif
 

@@ -377,10 +377,10 @@ public class SerializationTests
     [Fact]
     public Task ScrubberWithBadNewLine() =>
         Verify("a")
-            .AddScrubber(s =>
+            .AddScrubber(_ =>
             {
-                s.AppendLine("b");
-                s.AppendLine("c");
+                _.AppendLine("b");
+                _.AppendLine("c");
             });
 
     [Fact]
@@ -388,7 +388,7 @@ public class SerializationTests
     {
         var settings = new VerifySettings();
         settings.UseExtension("html");
-        settings.AddScrubber("html", builder => builder.Replace("a", "b"));
+        settings.AddScrubber("html", _ => _.Replace("a", "b"));
         return Verify("a", settings);
     }
 
@@ -457,7 +457,7 @@ public class SerializationTests
         settings.DontScrubDateTimes();
         settings.DontScrubGuids();
         settings.DontIgnoreEmptyCollections();
-        settings.AddScrubber(s => s.Replace("Lane", "Street"));
+        settings.AddScrubber(_ => _.Replace("Lane", "Street"));
         return Verify(person, settings);
     }
 
@@ -836,7 +836,7 @@ public class SerializationTests
 
         #region AddScrubber
 
-        verifySettings.AddScrubber(fullText => fullText.Remove(0, 100));
+        verifySettings.AddScrubber(_ => _.Remove(0, 100));
 
         #endregion
     }
@@ -877,7 +877,7 @@ public class SerializationTests
             {
                 currentDirectory
             })
-            .AddScrubber(builder => builder.Replace(currentDirectory, "Bar"));
+            .AddScrubber(_ => _.Replace(currentDirectory, "Bar"));
     }
 
     [Fact]

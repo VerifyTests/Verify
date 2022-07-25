@@ -3,10 +3,10 @@
 public partial class SettingsTask
 {
     VerifySettings? settings;
-    Func<VerifySettings, Task> buildTask;
-    Task? task;
+    Func<VerifySettings, Task<VerifyResult>> buildTask;
+    Task<VerifyResult>? task;
 
-    public SettingsTask(VerifySettings? settings, Func<VerifySettings, Task> buildTask)
+    public SettingsTask(VerifySettings? settings, Func<VerifySettings, Task<VerifyResult>> buildTask)
     {
         if (settings is not null)
         {
@@ -387,15 +387,15 @@ public partial class SettingsTask
 
     public VerifySettings CurrentSettings => settings ??= new();
 
-    public Task ToTask() =>
+    public Task<VerifyResult> ToTask() =>
         task ??= buildTask(CurrentSettings);
 
-    public ConfiguredTaskAwaitable ConfigureAwait(bool continueOnCapturedContext) =>
+    public ConfiguredTaskAwaitable<VerifyResult> ConfigureAwait(bool continueOnCapturedContext) =>
         ToTask().ConfigureAwait(continueOnCapturedContext);
 
-    public TaskAwaiter GetAwaiter() =>
+    public TaskAwaiter<VerifyResult> GetAwaiter() =>
         ToTask().GetAwaiter();
 
-    public static implicit operator Task(SettingsTask settingsTask) =>
+    public static implicit operator Task<VerifyResult>(SettingsTask settingsTask) =>
         settingsTask.ToTask();
 }

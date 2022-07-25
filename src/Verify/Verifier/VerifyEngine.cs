@@ -23,6 +23,8 @@ class VerifyEngine
         this.getIndexedFileNames = getIndexedFileNames;
     }
 
+    public IReadOnlyList<FilePair> Equal => equal;
+
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
         if (target.IsStringBuilder)

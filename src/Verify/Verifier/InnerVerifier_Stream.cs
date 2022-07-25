@@ -1,12 +1,12 @@
 ﻿partial class InnerVerifier
 {
-    public Task Verify(byte[] target)
+    public Task<VerifyResult> Verify(byte[] target)
     {
         var stream = new MemoryStream(target);
         return VerifyStream(stream);
     }
 
-    async Task VerifyStream(Stream stream)
+    async Task<VerifyResult> VerifyStream(Stream stream)
     {
         var extension = settings.extension;
 #if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
@@ -20,14 +20,13 @@
                 if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
                 {
                     var result = await conversion(stream, settings.Context);
-                    await VerifyInner(result.Info, result.Cleanup, result.Targets);
-                    return;
+                    return await VerifyInner(result.Info, result.Cleanup, result.Targets);
                 }
             }
 
             var targets = await GetTargets(stream, extension);
 
-            await VerifyInner(null, null, targets);
+            return await VerifyInner(null, null, targets);
         }
     }
 

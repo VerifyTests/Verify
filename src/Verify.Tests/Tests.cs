@@ -546,6 +546,36 @@ public class Tests
         Assert.True(target.Disposed);
     }
 
+    [Fact]
+    public async Task Result()
+    {
+        #region VerifyResult
+
+        var result = await Verify(
+            new
+            {
+                Property = "Value To Check"
+            });
+        Assert.Contains("Value To Check", result.Text);
+
+        #endregion
+
+        Assert.NotNull(result.Target);
+    }
+
+    [Fact]
+    public async Task ExceptionResult()
+    {
+        #region ExceptionResult
+
+        var result = await Verifier.Throws(MethodThatThrows);
+        Assert.NotNull(result.Exception);
+
+        #endregion
+
+        Assert.NotNull(result.Target);
+    }
+
     static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)
     {
         await Task.Delay(1);

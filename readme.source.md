@@ -195,6 +195,17 @@ When modifying settings at the both global level it should be done using a Modul
 snippet: StaticSettings.cs
 
 
+## VerifyResult
+
+In some scenarios it can be helpful to get access to the resulting `*.verified.*` files after a successful run. For example to do an explicit check for contains or not-contains in the resulting text. To allow this all Verify methods return a `VerifyResult`.
+
+snippet: VerifyResult
+
+If using `Verifier.Throws`, the resulting `Exception` will also be accessible
+
+snippet: ExceptionResult
+
+
 ## Versioning
 
 Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:

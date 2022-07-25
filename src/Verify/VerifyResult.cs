@@ -2,16 +2,39 @@
 
 public class VerifyResult
 {
-    internal VerifyResult(IReadOnlyList<FilePair> files) =>
-        Files = files;
+    IReadOnlyList<FilePair> files;
 
-    public IReadOnlyList<FilePair> Files { get; }
+    internal VerifyResult(IReadOnlyList<FilePair> files, object? target)
+    {
+        this.files = files;
+        Target = target;
+    }
+
+    public Exception Exception
+    {
+        get
+        {
+            if (Target is null)
+            {
+                throw new("Target is null");
+            }
+
+            if (Target is Exception exception)
+            {
+                return exception;
+            }
+
+            throw new($"Target is a {Target.GetType()}");
+        }
+    }
+
+    public object? Target { get; }
 
     public string Text
     {
         get
         {
-            var textFiles = Files.Where(_ => _.IsText).ToList();
+            var textFiles = TextFiles.ToList();
             if (textFiles.Count == 0)
             {
                 throw new("No text files in results");
@@ -22,7 +45,14 @@ public class VerifyResult
                 throw new("More than one text file in results");
             }
 
-            return File.ReadAllText(textFiles[0].VerifiedPath);
+            return File.ReadAllText(textFiles[0]);
         }
     }
+
+    public IEnumerable<string> TextFiles =>
+        files.Where(_ => _.IsText)
+            .Select(_ => _.VerifiedPath);
+
+    public IEnumerable<string> Files =>
+        files.Select(_ => _.VerifiedPath);
 }

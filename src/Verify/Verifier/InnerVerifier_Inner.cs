@@ -31,7 +31,7 @@
         }
 
         await engine.ThrowIfRequired();
-        return new(engine.Equal);
+        return new(engine.Equal, target);
     }
 
     bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, [NotNullWhen(true)] out string? extension)

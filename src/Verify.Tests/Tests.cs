@@ -559,6 +559,7 @@ public class Tests
         Assert.Contains("Value To Check", result.Text);
 
         #endregion
+        Assert.NotNull(result.Target);
     }
 
     static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)

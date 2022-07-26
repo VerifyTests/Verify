@@ -7,13 +7,13 @@ class DelegateConverter :
     {
         writer.WriteStartObject();
 
-        writer.WriteProperty(@delegate, @delegate.GetType(), "Type");
+        writer.WriteMember(@delegate, @delegate.GetType(), "Type");
 
         var declaringType = @delegate.Method.DeclaringType;
-        writer.WriteProperty(@delegate, declaringType, "Target");
+        writer.WriteMember(@delegate, declaringType, "Target");
 
         var s = @delegate.Method.ToString()!;
-        writer.WriteProperty(@delegate, CleanMethodName(s), "Method");
+        writer.WriteMember(@delegate, CleanMethodName(s), "Method");
 
         writer.WriteEndObject();
     }

@@ -4,14 +4,14 @@
     public override void Write(VerifyJsonWriter writer, Task task)
     {
         writer.WriteStartObject();
-        writer.WriteProperty(task, task.Status, "Status");
+        writer.WriteMember(task, task.Status, "Status");
 
         if (task.CreationOptions != TaskCreationOptions.None)
         {
-            writer.WriteProperty(task, task.CreationOptions, "CreationOptions");
+            writer.WriteMember(task, task.CreationOptions, "CreationOptions");
         }
 
-        writer.WriteProperty(task, task.Exception, "Exception");
+        writer.WriteMember(task, task.Exception, "Exception");
         WriteResult(writer, task);
 
         writer.WriteEndObject();
@@ -41,6 +41,6 @@
 
         var resultProperty = type.GetProperty("Result")!;
         var result = resultProperty.GetValue(task);
-        writer.WriteProperty(task, result, "Result");
+        writer.WriteMember(task, result, "Result");
     }
 }

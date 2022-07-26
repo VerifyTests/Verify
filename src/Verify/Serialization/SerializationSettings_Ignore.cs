@@ -153,9 +153,6 @@ To ignore specific members for T, create a custom converter.");
         return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
     }
 
-    internal bool ShouldIgnore<TTarget, TProperty>(string name) =>
-        ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
-
     internal bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
         if (ignoredTypes.Any(memberType.InheritsFrom))
@@ -192,15 +189,15 @@ To ignore specific members for T, create a custom converter.");
         return false;
     }
 
-    internal bool ShouldSerialize<TMember>(TMember value)
-        where TMember : notnull
+    internal bool ShouldSerialize(object value)
     {
-        if (ignoredInstances.TryGetValue(typeof(TMember), out var funcs))
+        var memberType = value.GetType();
+        if (ignoredInstances.TryGetValue(memberType, out var funcs))
         {
             return funcs.All(func => !func(value));
         }
 
-        if (IsIgnoredCollection(typeof(TMember)))
+        if (IsIgnoredCollection(memberType))
         {
             // since inside IsCollection, it is safe to use IEnumerable
             var collection = (IEnumerable) value;

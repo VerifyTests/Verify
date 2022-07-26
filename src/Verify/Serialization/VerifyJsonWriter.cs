@@ -120,6 +120,7 @@ public class VerifyJsonWriter :
         WriteRawValue(value.ToString("D", CultureInfo.InvariantCulture));
     }
 
+    //TODO: remove generics in next major
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>
@@ -133,7 +134,8 @@ public class VerifyJsonWriter :
         }
 
         var declaringType = target.GetType();
-        if (settings.ShouldIgnore(declaringType, value.GetType(), name))
+        var memberType = value.GetType();
+        if (settings.ShouldIgnore(declaringType, memberType, name))
         {
             return;
         }
@@ -143,7 +145,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter(declaringType,name);
+        var converter = VerifierSettings.GetMemberConverter(declaringType, name);
         if (converter != null)
         {
             var converted = converter(target, value);

@@ -125,6 +125,7 @@ public class VerifyJsonWriter :
     /// </summary>
     public void WriteProperty<T, TMember>(T target, TMember? value, string name)
         where TMember : notnull
+        where T : notnull
     {
         if (settings.ShouldIgnore<T, TMember>(name))
         {
@@ -136,6 +137,7 @@ public class VerifyJsonWriter :
 
     void InnerWriteProperty<T, TMember>(T target, TMember? value, string name)
         where TMember : notnull
+        where T : notnull
     {
         if (value is null)
         {
@@ -147,7 +149,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter<T>(name);
+        var converter = VerifierSettings.GetMemberConverter(target.GetType(),name);
         if (converter != null)
         {
             var converted = converter(target!, value);

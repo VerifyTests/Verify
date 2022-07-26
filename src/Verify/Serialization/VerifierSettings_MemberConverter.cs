@@ -10,7 +10,7 @@ public static partial class VerifierSettings
     internal static ConvertTargetMember? GetMemberConverter<T>(string name) =>
         GetMemberConverter(typeof(T), name);
 
-    static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
+    internal static ConvertTargetMember? GetMemberConverter(Type? declaringType, string name)
     {
         foreach (var pair in membersConverters)
         {

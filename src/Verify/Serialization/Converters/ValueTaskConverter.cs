@@ -29,9 +29,9 @@
 
         if (value is ValueTask task)
         {
-            writer.WriteProperty(task, task.IsCanceled, "IsCanceled");
-            writer.WriteProperty(task, task.IsCompleted, "IsCompleted");
-            writer.WriteProperty(task, task.IsFaulted, "IsFaulted");
+            writer.WriteMember(task, task.IsCanceled, "IsCanceled");
+            writer.WriteMember(task, task.IsCompleted, "IsCompleted");
+            writer.WriteMember(task, task.IsFaulted, "IsFaulted");
         }
         else
         {
@@ -51,9 +51,9 @@
     static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T?> task)
         where T : notnull
     {
-        writer.WriteProperty(task, task.IsCanceled, "IsCanceled");
-        writer.WriteProperty(task, task.IsCompleted, "IsCompleted");
-        writer.WriteProperty(task, task.IsFaulted, "IsFaulted");
+        writer.WriteMember(task, task.IsCanceled, "IsCanceled");
+        writer.WriteMember(task, task.IsCompleted, "IsCompleted");
+        writer.WriteMember(task, task.IsFaulted, "IsFaulted");
         WriteResult(writer, task);
     }
 
@@ -74,6 +74,6 @@
             return;
         }
 
-        writer.WriteProperty(task, task.Result, "Result");
+        writer.WriteMember(task, task.Result, "Result");
     }
 }

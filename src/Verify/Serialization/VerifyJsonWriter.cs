@@ -120,24 +120,29 @@ public class VerifyJsonWriter :
         WriteRawValue(value.ToString("D", CultureInfo.InvariantCulture));
     }
 
+    //TODO: remove generics in next major
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>
+    [Obsolete("Use WriteMember", true)]
     public void WriteProperty<T, TMember>(T target, TMember? value, string name)
         where TMember : notnull
+        where T : notnull =>
+        WriteMember(target, value, name);
+
+    /// <summary>
+    /// Writes a property name and value while respecting other custom serialization settings.
+    /// </summary>
+    public void WriteMember(object target, object? value, string name)
     {
-        if (settings.ShouldIgnore<T, TMember>(name))
+        if (value is null)
         {
             return;
         }
 
-        InnerWriteProperty(target, value, name);
-    }
-
-    void InnerWriteProperty<T, TMember>(T target, TMember? value, string name)
-        where TMember : notnull
-    {
-        if (value is null)
+        var declaringType = target.GetType();
+        var memberType = value.GetType();
+        if (settings.ShouldIgnore(declaringType, memberType, name))
         {
             return;
         }
@@ -147,10 +152,10 @@ public class VerifyJsonWriter :
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter<T>(name);
+        var converter = VerifierSettings.GetMemberConverter(declaringType, name);
         if (converter != null)
         {
-            var converted = converter(target!, value);
+            var converted = converter(target, value);
             if (converted == null)
             {
                 return;

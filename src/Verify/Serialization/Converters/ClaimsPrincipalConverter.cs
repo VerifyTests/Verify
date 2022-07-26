@@ -11,7 +11,7 @@ class ClaimsPrincipalConverter :
         }
 
         writer.WriteStartObject();
-        writer.WriteProperty(principal, principal.Identities, "Identities");
+        writer.WriteMember(principal, principal.Identities, "Identities");
         writer.WriteEndObject();
     }
 }

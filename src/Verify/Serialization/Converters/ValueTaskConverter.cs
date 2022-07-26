@@ -48,7 +48,8 @@
     }
 
     // ReSharper disable once UnusedMember.Local
-    static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T> task)
+    static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T?> task)
+        where T : notnull
     {
         writer.WriteProperty(task, task.IsCanceled, "IsCanceled");
         writer.WriteProperty(task, task.IsCompleted, "IsCompleted");
@@ -56,7 +57,8 @@
         WriteResult(writer, task);
     }
 
-    static void WriteResult<T>(VerifyJsonWriter writer, ValueTask<T> task)
+    static void WriteResult<T>(VerifyJsonWriter writer, ValueTask<T?> task)
+        where T : notnull
     {
         if (!task.IsCompleted ||
             task.IsCanceled ||

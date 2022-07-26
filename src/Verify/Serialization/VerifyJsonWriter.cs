@@ -123,7 +123,8 @@ public class VerifyJsonWriter :
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>
-    public void WriteProperty<T, TMember>(T target, TMember value, string name)
+    public void WriteProperty<T, TMember>(T target, TMember? value, string name)
+        where TMember : notnull
     {
         if (settings.ShouldIgnore<T, TMember>(name))
         {
@@ -133,8 +134,14 @@ public class VerifyJsonWriter :
         InnerWriteProperty(target, value, name);
     }
 
-    void InnerWriteProperty<T, TMember>(T target, TMember value, string name)
+    void InnerWriteProperty<T, TMember>(T target, TMember? value, string name)
+        where TMember : notnull
     {
+        if (value is null)
+        {
+            return;
+        }
+
         if (!settings.ShouldSerialize(value))
         {
             return;

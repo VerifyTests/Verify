@@ -139,13 +139,18 @@
     protected override JsonArrayContract CreateArrayContract(Type objectType)
     {
         var jsonArrayContract = base.CreateArrayContract(objectType);
-        if (objectType.IsGenericType &&
-            objectType.GetGenericTypeDefinition() != typeof(ArrayWrapper<>) &&
-            objectType != typeof(NameValueCollection))
+        if (objectType != typeof(NameValueCollection))
         {
-            jsonArrayContract.Converter = new ArrayConverter();
+            if (!IsArrayWrapper(objectType))
+            {
+                jsonArrayContract.Converter = new ArrayConverter();
+            }
         }
 
         return jsonArrayContract;
     }
+
+    static bool IsArrayWrapper(Type objectType) =>
+        objectType.IsGenericType &&
+        objectType.GetGenericTypeDefinition() == typeof(ArrayWrapper<>);
 }

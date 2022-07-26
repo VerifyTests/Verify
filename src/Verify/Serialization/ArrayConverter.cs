@@ -3,10 +3,12 @@
     public override bool CanConvert(Type objectType) =>
         true;
 
+    static Type arrayWrapperType = typeof(ArrayWrapper<>);
+
     public override void Write(VerifyJsonWriter writer, object value)
     {
-        var genericType = typeof(ArrayWrapper<>).MakeGenericType(value.GetType());
-        var wrapper = Activator.CreateInstance(genericType, value)!;
+        var genericType = arrayWrapperType.MakeGenericType(value.GetType());
+        var wrapper = Activator.CreateInstance(genericType, NewMethod(writer, value))!;
         writer.Serialize(wrapper);
     }
 

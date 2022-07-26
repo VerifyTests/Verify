@@ -1319,6 +1319,24 @@ public class SerializationTests
 
     #endregion
 
+    [Fact]
+    public Task AddIgnoreInstanceInList()
+    {
+        var target = new[]
+        {
+            new Instance
+            {
+                Property = "Ignore"
+            },
+            new Instance
+            {
+                Property = "Include"
+            }
+        };
+        return Verify(target)
+            .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
+    }
+
     class IgnoreInstanceTarget
     {
         public Instance ToIgnore;

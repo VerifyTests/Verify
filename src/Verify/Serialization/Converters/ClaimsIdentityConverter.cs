@@ -7,19 +7,19 @@ class ClaimsIdentityConverter :
     {
         writer.WriteStartObject();
 
-        writer.WriteProperty(identity, identity.Claims, "Claims");
-        writer.WriteProperty(identity, identity.Actor, "Actor");
-        writer.WriteProperty(identity, identity.AuthenticationType, "AuthenticationType");
-        writer.WriteProperty(identity, identity.Label, "Label");
+        writer.WriteMember(identity, identity.Claims, "Claims");
+        writer.WriteMember(identity, identity.Actor, "Actor");
+        writer.WriteMember(identity, identity.AuthenticationType, "AuthenticationType");
+        writer.WriteMember(identity, identity.Label, "Label");
 
         if (identity.NameClaimType != ClaimTypes.Name)
         {
-            writer.WriteProperty(identity, identity.NameClaimType, "NameClaimType");
+            writer.WriteMember(identity, identity.NameClaimType, "NameClaimType");
         }
 
         if (identity.RoleClaimType != ClaimTypes.Role)
         {
-            writer.WriteProperty(identity, identity.RoleClaimType, "RoleClaimType");
+            writer.WriteMember(identity, identity.RoleClaimType, "RoleClaimType");
         }
 
         writer.WriteEndObject();

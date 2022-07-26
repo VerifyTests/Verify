@@ -416,7 +416,7 @@ class CompanyConverter :
     WriteOnlyJsonConverter<Company>
 {
     public override void Write(VerifyJsonWriter writer, Company company) =>
-        writer.WriteProperty(company, company.Name, "Name");
+        writer.WriteMember(company, company.Name, "Name");
 }
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>

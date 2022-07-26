@@ -2,29 +2,29 @@
 public class NamerTests
 {
 #if NET6_0 && DEBUG
-    [Fact]
-    public async Task ThrowOnConflict()
-    {
-        static Task Run()
-        {
-            return Verify("Value")
-                .UseMethodName("Conflict1")
-                .DisableDiff();
-        }
-
-        try
-        {
-            await Run();
-        }
-        catch
-        {
-        }
-
-        await ThrowsTask(Run)
-            .ScrubLinesContaining("InnerVerifier.ValidatePrefix")
-            .UseMethodName("ThrowOnConflict")
-            .AddScrubber(_ => _.Replace(@"\", "/"));
-    }
+    // [Fact]
+    // public async Task ThrowOnConflict()
+    // {
+    //     static Task Run()
+    //     {
+    //         return Verify("Value")
+    //             .UseMethodName("Conflict1")
+    //             .DisableDiff();
+    //     }
+    //
+    //     try
+    //     {
+    //         await Run();
+    //     }
+    //     catch
+    //     {
+    //     }
+    //
+    //     await ThrowsTask(Run)
+    //         .ScrubLinesContaining("InnerVerifier.ValidatePrefix")
+    //         .UseMethodName("ThrowOnConflict")
+    //         .AddScrubber(_ => _.Replace(@"\", "/"));
+    // }
 
     [Fact]
     public async Task DoesntThrowOnConflict()

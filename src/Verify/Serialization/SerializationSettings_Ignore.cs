@@ -196,7 +196,7 @@ To ignore specific members for T, create a custom converter.");
     {
         if (value is null)
         {
-            return true;
+            return false;
         }
 
         if (ignoredInstances.TryGetValue(typeof(TMember), out var funcs))

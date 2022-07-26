@@ -132,7 +132,8 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (settings.ShouldIgnore<T, TMember>(name))
+        var declaringType = target.GetType();
+        if (settings.ShouldIgnore(declaringType, value.GetType(), name))
         {
             return;
         }
@@ -142,10 +143,10 @@ public class VerifyJsonWriter :
             return;
         }
 
-        var converter = VerifierSettings.GetMemberConverter(target.GetType(),name);
+        var converter = VerifierSettings.GetMemberConverter(declaringType,name);
         if (converter != null)
         {
-            var converted = converter(target!, value);
+            var converted = converter(target, value);
             if (converted == null)
             {
                 return;

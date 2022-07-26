@@ -156,7 +156,7 @@ To ignore specific members for T, create a custom converter.");
     internal bool ShouldIgnore<TTarget, TProperty>(string name) =>
         ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
 
-    bool ShouldIgnore(Type declaringType, Type memberType, string name)
+    internal bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
         if (ignoredTypes.Any(memberType.InheritsFrom))
         {

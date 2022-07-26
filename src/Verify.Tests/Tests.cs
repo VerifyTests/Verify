@@ -123,6 +123,8 @@ public class Tests
         Assert.True(onVerifyMismatchCalled);
     }
 
+#if NET6_0
+
     [Fact]
     public async Task OnFirstVerify()
     {
@@ -156,6 +158,8 @@ public class Tests
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
     }
+
+#endif
 
     [ModuleInitializer]
     public static void SettingsArePassedInit() =>

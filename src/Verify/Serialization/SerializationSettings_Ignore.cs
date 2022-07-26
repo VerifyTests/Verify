@@ -153,10 +153,7 @@ To ignore specific members for T, create a custom converter.");
         return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
     }
 
-    internal bool ShouldIgnore<TTarget, TProperty>(string name) =>
-        ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
-
-    bool ShouldIgnore(Type declaringType, Type memberType, string name)
+    internal bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
         if (ignoredTypes.Any(memberType.InheritsFrom))
         {
@@ -192,14 +189,9 @@ To ignore specific members for T, create a custom converter.");
         return false;
     }
 
-    internal bool ShouldSerialize<TMember>([NotNullWhen(true)] TMember value)
+    internal bool ShouldSerialize(object value)
     {
-        if (value is null)
-        {
-            return false;
-        }
-
-        var memberType = typeof(TMember);
+        var memberType = value.GetType();
         if (ignoredInstances.TryGetValue(memberType, out var funcs))
         {
             return funcs.All(func => !func(value));

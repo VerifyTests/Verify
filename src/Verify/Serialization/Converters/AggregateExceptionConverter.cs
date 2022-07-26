@@ -5,17 +5,17 @@ class AggregateExceptionConverter :
     {
         writer.WriteStartObject();
 
-        writer.WriteProperty(exception, exception.GetType(), "Type");
+        writer.WriteMember(exception, exception.GetType(), "Type");
         if (exception.InnerExceptions.Count == 1)
         {
-            writer.WriteProperty(exception, exception.InnerException, "InnerException");
+            writer.WriteMember(exception, exception.InnerException, "InnerException");
         }
         else
         {
-            writer.WriteProperty(exception, exception.InnerExceptions, "InnerExceptions");
+            writer.WriteMember(exception, exception.InnerExceptions, "InnerExceptions");
         }
 
-        writer.WriteProperty(exception, exception.StackTrace, "StackTrace");
+        writer.WriteMember(exception, exception.StackTrace, "StackTrace");
 
         writer.WriteEndObject();
     }

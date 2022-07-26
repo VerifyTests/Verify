@@ -2152,7 +2152,7 @@ public class SerializationTests
         public override void Write(VerifyJsonWriter writer, ConverterTarget target)
         {
             writer.WriteStartObject();
-            writer.WriteProperty(target, target.Name, "Name");
+            writer.WriteMember(target, target.Name, "Name");
             writer.WritePropertyName("Custom");
             writer.WriteValue("CustomValue");
             writer.WriteEnd();
@@ -2180,7 +2180,7 @@ public class SerializationTests
         public override void Write(VerifyJsonWriter writer, StaticConverterTarget target)
         {
             writer.WriteStartObject();
-            writer.WriteProperty(target, target.Name, "Name");
+            writer.WriteMember(target, target.Name, "Name");
             writer.WritePropertyName("Custom");
             writer.WriteValue("CustomValue");
             writer.WriteEnd();

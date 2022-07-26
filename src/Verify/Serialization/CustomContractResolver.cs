@@ -135,4 +135,52 @@
 
         return property;
     }
+    
+    protected override JsonArrayContract CreateArrayContract(Type objectType)
+    {
+        var jsonArrayContract = base.CreateArrayContract(objectType);
+        if (objectType != typeof(ArrayWrapper) && objectType != typeof(NameValueCollection))
+        {
+            jsonArrayContract.Converter = new ListConverter();
+        }
+    
+        return jsonArrayContract;
+    }
+}
+
+class ArrayWrapper:IEnumerable
+{
+    IEnumerable inner;
+
+    public ArrayWrapper(IEnumerable inner) =>
+        this.inner = inner;
+
+    public IEnumerator GetEnumerator() =>
+        inner.GetEnumerator();
+}
+
+
+
+class ListConverter : WriteOnlyJsonConverter
+{
+    public override bool CanConvert(Type objectType) =>
+        true;
+
+    public override void Write(VerifyJsonWriter writer, object value) =>
+        writer.Serialize(new ArrayWrapper(NewMethod(writer,value)));
+
+    static IEnumerable<object?> NewMethod(VerifyJsonWriter writer, object value)
+    {
+        foreach (var item in (IEnumerable) value)
+        {
+            if (item is null)
+            {
+                yield return item;
+            }
+            else if (writer.settings.ShouldSerialize(item, item.GetType()))
+            {
+                yield return item;
+            }
+        }
+    }
 }

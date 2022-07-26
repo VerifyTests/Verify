@@ -7,10 +7,17 @@
     {
     }
 
-    public void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
+    public void BindToName(Type type, out string? assemblyName, out string? typeName)
     {
         assemblyName = null;
-        typeName = serializedType.SimpleName();
+        if (type.IsGenericType &&
+            type.GetGenericTypeDefinition() == typeof(ArrayWrapper<>))
+        {
+            typeName = type.GenericTypeArguments.Single().SimpleName();
+            return;
+        }
+
+        typeName = type.SimpleName();
     }
 
     public Type BindToType(string? assemblyName, string typeName) =>

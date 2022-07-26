@@ -127,19 +127,12 @@ public class VerifyJsonWriter :
         where TMember : notnull
         where T : notnull
     {
-        if (settings.ShouldIgnore<T, TMember>(name))
+        if (value is null)
         {
             return;
         }
 
-        InnerWriteProperty(target, value, name);
-    }
-
-    void InnerWriteProperty<T, TMember>(T target, TMember? value, string name)
-        where TMember : notnull
-        where T : notnull
-    {
-        if (value is null)
+        if (settings.ShouldIgnore<T, TMember>(name))
         {
             return;
         }

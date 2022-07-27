@@ -10,12 +10,6 @@
     public void BindToName(Type type, out string? assemblyName, out string? typeName)
     {
         assemblyName = null;
-        if (type.IsGenericType &&
-            type.GetGenericTypeDefinition() == typeof(ArrayWrapper<>))
-        {
-            typeName = type.GenericTypeArguments.Single().SimpleName();
-            return;
-        }
 
         typeName = type.SimpleName();
     }

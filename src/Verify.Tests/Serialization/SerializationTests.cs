@@ -1240,6 +1240,48 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task TestEnumerableWithExistingConverter()
+    {
+        var target = new EnumerableWithExistingConverterTarget
+        {
+            "Value"
+        };
+        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
+    }
+
+    class EnumerableWithExistingConverterTarget: List<string>
+    {
+    }
+
+    class EnumerableWithExistingConverter:
+        WriteOnlyJsonConverter<EnumerableWithExistingConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
+            writer.Serialize("Content");
+    }
+
+    [Fact]
+    public Task TestEnumerableWithExistingItemConverter()
+    {
+        var target = new EnumerableWithExistingItemConverterTarget
+        {
+            "Value"
+        };
+        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingItemConverter()));
+    }
+
+    class EnumerableWithExistingItemConverterTarget: List<string>
+    {
+    }
+
+    class EnumerableWithExistingItemConverter:
+        WriteOnlyJsonConverter<string>
+    {
+        public override void Write(VerifyJsonWriter writer, string target) =>
+            writer.Serialize(10);
+    }
+
+    [Fact]
     public Task TargetInvocationException()
     {
         var member = GetType().GetMethod("MethodThatThrows")!;

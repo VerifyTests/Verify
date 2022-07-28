@@ -273,18 +273,18 @@ public class SerializationTests
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1)
                 })
             .DontScrubDateTimes();
-#if NET6_0_OR_GREATER
 
     #region AddExtraSettings
 
     [Fact]
     public Task AddExtraSettings()
     {
-        var target = new DateOnly(2000, 1, 1);
-
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-        return Verify(target, settings);
+        settings
+            .AddExtraSettings(
+                _ => _.Error += (sender, args)
+                    => Console.WriteLine(args.ErrorContext.Member));
+        return Verify("Value", settings);
     }
 
     #endregion
@@ -292,17 +292,14 @@ public class SerializationTests
     #region AddExtraSettingsFluent
 
     [Fact]
-    public Task AddExtraSettingsFluent()
-    {
-        var target = new DateOnly(2000, 1, 1);
-
-        return Verify(target)
-            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-    }
+    public Task AddExtraSettingsFluent() =>
+        Verify("Value")
+            .AddExtraSettings(
+                _ => _.Error += (sender, args)
+                    => Console.WriteLine(args.ErrorContext.Member));
 
     #endregion
 
-#endif
 
     void AddExtraSettingsGlobal()
     {

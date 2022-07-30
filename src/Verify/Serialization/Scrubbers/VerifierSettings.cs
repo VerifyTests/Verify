@@ -71,4 +71,10 @@ public static partial class VerifierSettings
     /// </summary>
     public static void ScrubMachineName() =>
         AddScrubber(Scrubbers.ScrubMachineName);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public static void ScrubUserName() =>
+        AddScrubber(Scrubbers.ScrubUserName);
 }

@@ -115,6 +115,19 @@ verifySettings.ScrubMachineName();
 <!-- endSnippet -->
 
 
+### ScrubUserName
+
+Replaces `Environment.UserName` with `TheUserName`.
+
+<!-- snippet: ScrubUserName -->
+<a id='snippet-scrubusername'></a>
+```cs
+verifySettings.ScrubUserName();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L834-L838' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubusername' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### AddScrubber
 
 Adds a scrubber with full control over the text via a `Func`

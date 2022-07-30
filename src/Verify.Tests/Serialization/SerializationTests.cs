@@ -831,6 +831,12 @@ public class SerializationTests
 
         #endregion
 
+        #region ScrubUserName
+
+        verifySettings.ScrubUserName();
+
+        #endregion
+
         #region AddScrubber
 
         verifySettings.AddScrubber(_ => _.Remove(0, 100));
@@ -865,6 +871,11 @@ public class SerializationTests
             altCurrentDirectoryTrailing = altCurrentDirectory + Path.AltDirectorySeparatorChar
         });
     }
+
+    [Fact]
+    public Task ScrubUserName() =>
+        Verify(Environment.UserName)
+        .ScrubUserName();
 
     [Fact]
     public Task MoreSpecificScrubberShouldOverride()
@@ -1264,10 +1275,12 @@ public class SerializationTests
         {
             "Value"
         };
-        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingItemConverter()));
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingItemConverter()));
     }
 
-    class EnumerableWithExistingItemConverterTarget: List<string>
+    class EnumerableWithExistingItemConverterTarget :
+        List<string>
     {
     }
 

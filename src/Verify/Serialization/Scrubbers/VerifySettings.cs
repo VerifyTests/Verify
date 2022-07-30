@@ -14,6 +14,12 @@ public partial class VerifySettings
         AddScrubber(Scrubbers.ScrubMachineName);
 
     /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public void ScrubUserName() =>
+        AddScrubber(Scrubbers.ScrubUserName);
+
+    /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
     public void AddScrubber(Action<StringBuilder> scrubber) =>

@@ -78,6 +78,13 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 snippet: ScrubMachineName
 
 
+### ScrubUserName
+
+Replaces `Environment.UserName` with `TheUserName`.
+
+snippet: ScrubUserName
+
+
 ### AddScrubber
 
 Adds a scrubber with full control over the text via a `Func`

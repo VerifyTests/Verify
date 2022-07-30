@@ -5,6 +5,9 @@ public static class Scrubbers
     public static void ScrubMachineName(StringBuilder builder) =>
         builder.Replace(Environment.MachineName, "TheMachineName");
 
+    public static void ScrubUserName(StringBuilder builder) =>
+        builder.Replace(Environment.UserName, "TheUserName");
+
     public static string? ScrubStackTrace(string? stackTrace, bool removeParams = false)
     {
         if (stackTrace is null)

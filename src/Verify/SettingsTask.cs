@@ -300,6 +300,15 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public SettingsTask ScrubUserName()
+    {
+        CurrentSettings.ScrubUserName();
+        return this;
+    }
+
+    /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)

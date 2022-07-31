@@ -117,7 +117,7 @@ To ignore specific members for T, create a custom converter.");
 
     public void IgnoreMembersThatThrow<T>()
         where T : Exception =>
-        ignoreMembersThatThrow.Add(x => x is T);
+        ignoreMembersThatThrow.Add(_ => _ is T);
 
     public void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
         IgnoreMembersThatThrow<Exception>(item);
@@ -125,9 +125,9 @@ To ignore specific members for T, create a custom converter.");
     public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
         where T : Exception =>
         ignoreMembersThatThrow.Add(
-            x =>
+            _ =>
             {
-                if (x is T exception)
+                if (_ is T exception)
                 {
                     return item(exception);
                 }
@@ -153,10 +153,7 @@ To ignore specific members for T, create a custom converter.");
         return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
     }
 
-    internal bool ShouldIgnore<TTarget, TProperty>(string name) =>
-        ShouldIgnore(typeof(TTarget), typeof(TProperty), name);
-
-    bool ShouldIgnore(Type declaringType, Type memberType, string name)
+    internal bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
         if (ignoredTypes.Any(memberType.InheritsFrom))
         {
@@ -167,7 +164,7 @@ To ignore specific members for T, create a custom converter.");
 
         if (typeFromNullable != null)
         {
-            if (ignoredTypes.Any(x => x.IsAssignableFrom(typeFromNullable)))
+            if (ignoredTypes.Any(_ => _.IsAssignableFrom(typeFromNullable)))
             {
                 return true;
             }
@@ -192,19 +189,15 @@ To ignore specific members for T, create a custom converter.");
         return false;
     }
 
-    internal bool ShouldSerialize<TMember>([NotNullWhen(true)] TMember value)
+    internal bool ShouldSerialize(object value)
     {
-        if (value is null)
-        {
-            return false;
-        }
-
-        if (ignoredInstances.TryGetValue(typeof(TMember), out var funcs))
+        var memberType = value.GetType();
+        if (ignoredInstances.TryGetValue(memberType, out var funcs))
         {
             return funcs.All(func => !func(value));
         }
 
-        if (IsIgnoredCollection(typeof(TMember)))
+        if (IsIgnoredCollection(memberType))
         {
             // since inside IsCollection, it is safe to use IEnumerable
             var collection = (IEnumerable) value;

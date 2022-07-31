@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;net472</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5;net6</TargetFrameworks>
-    <TargetFrameworks Condition="$(Configuration) == 'DebugNet6'">net6</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="Expecto.CSharp" />
@@ -11,7 +10,7 @@
     <Using Include="VerifyTests" />
     <Using Remove="System.Net.Http" />
     <PackageReference Include="Expecto" Version="9.0.4" />
-    <PackageReference Include="FSharp.Core" Version="6.0.4" />
+    <PackageReference Include="FSharp.Core" Version="6.0.5" />
     <PackageReference Include="ProjectDefaults" Version="1.0.78" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.2" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />

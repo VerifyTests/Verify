@@ -5,7 +5,7 @@ public static partial class VerifierSettings
     internal static List<Action<StringBuilder>> GlobalScrubbers = new();
 
     static VerifierSettings() =>
-        MemberConverter<Exception, string>(x => x.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
+        MemberConverter<Exception, string>(_ => _.StackTrace, (_, value) => Scrubbers.ScrubStackTrace(value));
 
     internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();
 
@@ -32,19 +32,19 @@ public static partial class VerifierSettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public static void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch) =>
-        GlobalScrubbers.Insert(0, s => s.RemoveLinesContaining(comparison, stringToMatch));
+        GlobalScrubbers.Insert(0, _ => _.RemoveLinesContaining(comparison, stringToMatch));
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public static void ScrubLines(Func<string, bool> removeLine) =>
-        GlobalScrubbers.Insert(0, s => s.FilterLines(removeLine));
+        GlobalScrubbers.Insert(0, _ => _.FilterLines(removeLine));
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     public static void ScrubEmptyLines() =>
-        GlobalScrubbers.Insert(0, s => s.FilterLines(string.IsNullOrWhiteSpace));
+        GlobalScrubbers.Insert(0, _ => _.FilterLines(string.IsNullOrWhiteSpace));
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
@@ -58,7 +58,7 @@ public static partial class VerifierSettings
     /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
     /// </summary>
     public static void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
-        GlobalScrubbers.Insert(0, s => s.ReplaceLines(replaceLine));
+        GlobalScrubbers.Insert(0, _ => _.ReplaceLines(replaceLine));
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
@@ -71,4 +71,10 @@ public static partial class VerifierSettings
     /// </summary>
     public static void ScrubMachineName() =>
         AddScrubber(Scrubbers.ScrubMachineName);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public static void ScrubUserName() =>
+        AddScrubber(Scrubbers.ScrubUserName);
 }

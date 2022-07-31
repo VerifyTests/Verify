@@ -6,7 +6,7 @@ public class DisableDirScrubbingTests
         VerifierSettings.DontScrubSolutionDirectory();
         VerifierSettings.DontScrubProjectDirectory();
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        VerifierSettings.AddScrubber(s => s.Replace(solutionDirectory, "CustomReplace\\"));
+        VerifierSettings.AddScrubber(_ => _.Replace(solutionDirectory, "CustomReplace\\"));
     }
 
     [Fact]

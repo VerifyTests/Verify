@@ -47,7 +47,7 @@ public Task Anon()
 <a id='snippet-anonnunit'></a>
 ```cs
 [Test]
-public async Task Anon()
+public Task Anon()
 {
     var person1 = new Person
     {
@@ -60,7 +60,7 @@ public async Task Anon()
         FamilyName = "Aguirre"
     };
 
-    await Verify(
+    return Verify(
         new
         {
             person1,
@@ -78,7 +78,7 @@ public async Task Anon()
 <a id='snippet-anonmstest'></a>
 ```cs
 [TestMethod]
-public async Task Anon()
+public Task Anon()
 {
     var person1 = new Person
     {
@@ -91,7 +91,7 @@ public async Task Anon()
         FamilyName = "Aguirre"
     };
 
-    await Verify(
+    return Verify(
         new
         {
             person1,

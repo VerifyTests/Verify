@@ -352,18 +352,18 @@ By default, every parameterised case has a unique [file name](/docs/naming.md) w
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
-public async Task IgnoreParametersForVerified(string arg)
+public Task IgnoreParametersForVerified(string arg)
 {
     var settings = new VerifySettings();
     settings.IgnoreParametersForVerified(arg);
-    await Verify("value", settings);
+    return Verify("value", settings);
 }
 
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
-public async Task IgnoreParametersForVerifiedFluent(string arg) =>
-    await Verify("value")
+public Task IgnoreParametersForVerifiedFluent(string arg) =>
+    Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L354-L373' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>

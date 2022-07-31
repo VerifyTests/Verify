@@ -31,7 +31,7 @@ public class VerifyObjectSamples :
     }
 
     [TestMethod]
-    public async Task ScopedSerializer()
+    public Task ScopedSerializer()
     {
         var person = new Person
         {
@@ -41,7 +41,7 @@ public class VerifyObjectSamples :
         };
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
-        await Verify(person, settings);
+        return Verify(person, settings);
     }
 
     async Task Before()
@@ -68,7 +68,7 @@ public class VerifyObjectSamples :
     #region AnonMSTest
 
     [TestMethod]
-    public async Task Anon()
+    public Task Anon()
     {
         var person1 = new Person
         {
@@ -81,7 +81,7 @@ public class VerifyObjectSamples :
             FamilyName = "Aguirre"
         };
 
-        await Verify(
+        return Verify(
             new
             {
                 person1,

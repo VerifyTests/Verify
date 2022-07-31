@@ -64,8 +64,10 @@
             return;
         }
 
-        var newContentFiles = @new.Where(x => x.File.IsText).ToList();
-        var notEqualContentFiles = notEquals.Where(x => x.File.IsText || x.Message != null).ToList();
+        var newContentFiles = @new.Where(_ => _.File.IsText).ToList();
+        var notEqualContentFiles = notEquals
+            .Where(_ => _.File.IsText || _.Message != null)
+            .ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
             return;
@@ -108,16 +110,23 @@
         var message = notEqual.Message;
         if (message is null)
         {
-            builder.AppendLine($"Received: {item.ReceivedName}");
-            builder.AppendLine(notEqual.ReceivedText);
-            builder.AppendLine($"Verified: {item.VerifiedName}");
-            builder.AppendLine(notEqual.VerifiedText);
+            builder.AppendLine(
+                $"""
+                Received: {item.ReceivedName}
+                {notEqual.ReceivedText}
+                Verified: {item.VerifiedName}
+                {notEqual.VerifiedText}
+                """);
         }
         else
         {
-            builder.AppendLine($"Received: {item.ReceivedName}");
-            builder.AppendLine($"Verified: {item.VerifiedName}");
-            builder.AppendLine($"Compare Result: {message}");
+            builder.AppendLine(
+                $"""
+                Received: {item.ReceivedName}
+                Verified: {item.VerifiedName}
+                Compare Result:
+                {message}
+                """);
         }
     }
 }

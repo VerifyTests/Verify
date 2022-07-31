@@ -13,11 +13,13 @@ NotEqual:
 
 Received: ExceptionParsingTests.Fake.received.txt
 Verified: ExceptionParsingTests.Fake.verified.txt
-Compare Result: TheMessage
+Compare Result:
+TheMessage
 
 Received: ExceptionParsingTests.Fake.received.bin
 Verified: ExceptionParsingTests.Fake.verified.bin
-Compare Result: TheMessage
+Compare Result:
+TheMessage
 
 ,
   result: {

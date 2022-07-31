@@ -19,7 +19,7 @@ public class VerifyObjectSamples
     }
 
     [Test]
-    public async Task ScopedSerializer()
+    public Task ScopedSerializer()
     {
         var person = new Person
         {
@@ -31,11 +31,11 @@ public class VerifyObjectSamples
         var settings = new VerifySettings();
         settings.DontScrubDateTimes();
         settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-        await Verify(person, settings);
+        return Verify(person, settings);
     }
 
     [Test]
-    public async Task ScopedSerializerFluent()
+    public Task ScopedSerializerFluent()
     {
         var person = new Person
         {
@@ -44,7 +44,7 @@ public class VerifyObjectSamples
             Dob = new(2000, 10, 1, 0, 0, 0, TimeSpan.Zero)
         };
 
-        await Verify(person)
+        return Verify(person)
             .DontScrubDateTimes()
             .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
@@ -73,7 +73,7 @@ public class VerifyObjectSamples
     #region AnonNUnit
 
     [Test]
-    public async Task Anon()
+    public Task Anon()
     {
         var person1 = new Person
         {
@@ -86,7 +86,7 @@ public class VerifyObjectSamples
             FamilyName = "Aguirre"
         };
 
-        await Verify(
+        return Verify(
             new
             {
                 person1,

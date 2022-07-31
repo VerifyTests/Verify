@@ -20,7 +20,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task Tasks()
+    public Task Tasks()
     {
         var withResult = Task.FromResult("Value");
         var withException = Task.FromException(new("the exception"));
@@ -30,7 +30,7 @@ public class SerializationTests
         var canceledAndResult = genericCompletionSource.Task;
         var finished = Task.Delay(0);
         var running = Task.Delay(10000);
-        await Verify(
+        return Verify(
             new
             {
                 finished,
@@ -44,7 +44,7 @@ public class SerializationTests
 
 #if NET5_0_OR_GREATER || net48
     [Fact]
-    public async Task ValueTasks()
+    public Task ValueTasks()
     {
         var withResult = ValueTask.FromResult("Value");
         var withException = ValueTask.FromException(new("the exception"));
@@ -52,7 +52,7 @@ public class SerializationTests
         var genericCompletionSource = new TaskCompletionSource<int>();
         genericCompletionSource.TrySetCanceled();
         var canceledAndResult = genericCompletionSource.Task;
-        await Verify(
+        return Verify(
             new
             {
                 withResult,
@@ -273,18 +273,18 @@ public class SerializationTests
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1)
                 })
             .DontScrubDateTimes();
-#if NET6_0_OR_GREATER
 
     #region AddExtraSettings
 
     [Fact]
     public Task AddExtraSettings()
     {
-        var target = new DateOnly(2000, 1, 1);
-
         var settings = new VerifySettings();
-        settings.AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-        return Verify(target, settings);
+        settings
+            .AddExtraSettings(
+                _ => _.Error += (sender, args)
+                    => Console.WriteLine(args.ErrorContext.Member));
+        return Verify("Value", settings);
     }
 
     #endregion
@@ -292,17 +292,14 @@ public class SerializationTests
     #region AddExtraSettingsFluent
 
     [Fact]
-    public Task AddExtraSettingsFluent()
-    {
-        var target = new DateOnly(2000, 1, 1);
-
-        return Verify(target)
-            .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
-    }
+    public Task AddExtraSettingsFluent() =>
+        Verify("Value")
+            .AddExtraSettings(
+                _ => _.Error += (sender, args)
+                    => Console.WriteLine(args.ErrorContext.Member));
 
     #endregion
 
-#endif
 
     void AddExtraSettingsGlobal()
     {
@@ -377,10 +374,10 @@ public class SerializationTests
     [Fact]
     public Task ScrubberWithBadNewLine() =>
         Verify("a")
-            .AddScrubber(s =>
+            .AddScrubber(_ =>
             {
-                s.AppendLine("b");
-                s.AppendLine("c");
+                _.AppendLine("b");
+                _.AppendLine("c");
             });
 
     [Fact]
@@ -388,7 +385,7 @@ public class SerializationTests
     {
         var settings = new VerifySettings();
         settings.UseExtension("html");
-        settings.AddScrubber("html", builder => builder.Replace("a", "b"));
+        settings.AddScrubber("html", _ => _.Replace("a", "b"));
         return Verify("a", settings);
     }
 
@@ -457,7 +454,7 @@ public class SerializationTests
         settings.DontScrubDateTimes();
         settings.DontScrubGuids();
         settings.DontIgnoreEmptyCollections();
-        settings.AddScrubber(s => s.Replace("Lane", "Street"));
+        settings.AddScrubber(_ => _.Replace("Lane", "Street"));
         return Verify(person, settings);
     }
 
@@ -543,7 +540,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task DatetimeMin()
+    public Task DatetimeMin()
     {
         var dateTime = DateTime.MinValue;
         var dateTimeOffset = DateTimeOffset.MinValue;
@@ -560,11 +557,11 @@ public class SerializationTests
             DateTimeOffsetString = dateTimeOffset.ToString("F")
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
-    public async Task DatetimeMax()
+    public Task DatetimeMax()
     {
         var dateTime = DateTime.MaxValue;
         var dateTimeOffset = DateTimeOffset.MaxValue;
@@ -581,7 +578,7 @@ public class SerializationTests
             DateTimeOffsetString = dateTimeOffset.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK")
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
@@ -827,9 +824,15 @@ public class SerializationTests
 
         #endregion
 
+        #region ScrubUserName
+
+        verifySettings.ScrubUserName();
+
+        #endregion
+
         #region AddScrubber
 
-        verifySettings.AddScrubber(fullText => fullText.Remove(0, 100));
+        verifySettings.AddScrubber(_ => _.Remove(0, 100));
 
         #endregion
     }
@@ -863,6 +866,11 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task ScrubUserName() =>
+        Verify(Environment.UserName)
+        .ScrubUserName();
+
+    [Fact]
     public Task MoreSpecificScrubberShouldOverride()
     {
         var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\') + "Foo";
@@ -870,7 +878,7 @@ public class SerializationTests
             {
                 currentDirectory
             })
-            .AddScrubber(builder => builder.Replace(currentDirectory, "Bar"));
+            .AddScrubber(_ => _.Replace(currentDirectory, "Bar"));
     }
 
     [Fact]
@@ -1019,7 +1027,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task ShouldRespectEmptyGuid()
+    public Task ShouldRespectEmptyGuid()
     {
         var guid = Guid.Empty;
         var target = new GuidTarget
@@ -1030,7 +1038,7 @@ public class SerializationTests
             OtherGuid = Guid.NewGuid()
         };
 
-        await Verify(target);
+        return Verify(target);
     }
 
     [Fact]
@@ -1176,7 +1184,7 @@ public class SerializationTests
     {
         #region IgnoreMembersThatThrowExpressionGlobal
 
-        VerifierSettings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        VerifierSettings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
 
         #endregion
     }
@@ -1189,7 +1197,7 @@ public class SerializationTests
         var target = new WithExceptionIgnoreMessage();
 
         var settings = new VerifySettings();
-        settings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        settings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
         return Verify(target, settings);
     }
 
@@ -1199,7 +1207,7 @@ public class SerializationTests
         var target = new WithExceptionIgnoreMessage();
 
         return Verify(target)
-            .IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+            .IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
     }
 
     #endregion
@@ -1230,6 +1238,50 @@ public class SerializationTests
     class WithNotImplementedException
     {
         public Guid NotImplementedExceptionProperty => throw new NotImplementedException();
+    }
+
+    [Fact]
+    public Task TestEnumerableWithExistingConverter()
+    {
+        var target = new EnumerableWithExistingConverterTarget
+        {
+            "Value"
+        };
+        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
+    }
+
+    class EnumerableWithExistingConverterTarget: List<string>
+    {
+    }
+
+    class EnumerableWithExistingConverter:
+        WriteOnlyJsonConverter<EnumerableWithExistingConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
+            writer.Serialize("Content");
+    }
+
+    [Fact]
+    public Task TestEnumerableWithExistingItemConverter()
+    {
+        var target = new EnumerableWithExistingItemConverterTarget
+        {
+            "Value"
+        };
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingItemConverter()));
+    }
+
+    class EnumerableWithExistingItemConverterTarget :
+        List<string>
+    {
+    }
+
+    class EnumerableWithExistingItemConverter:
+        WriteOnlyJsonConverter<string>
+    {
+        public override void Write(VerifyJsonWriter writer, string target) =>
+            writer.Serialize(10);
     }
 
     [Fact]
@@ -1266,7 +1318,7 @@ public class SerializationTests
     {
         #region AddIgnoreInstanceGlobal
 
-        VerifierSettings.IgnoreInstance<Instance>(x => x.Property == "Ignore");
+        VerifierSettings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 
         #endregion
     }
@@ -1288,7 +1340,7 @@ public class SerializationTests
             }
         };
         var settings = new VerifySettings();
-        settings.IgnoreInstance<Instance>(x => x.Property == "Ignore");
+        settings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
         return Verify(target, settings);
     }
 
@@ -1307,10 +1359,28 @@ public class SerializationTests
             }
         };
         return Verify(target)
-            .IgnoreInstance<Instance>(x => x.Property == "Ignore");
+            .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
     }
 
     #endregion
+
+    [Fact]
+    public Task AddIgnoreInstanceInList()
+    {
+        var target = new[]
+        {
+            new Instance
+            {
+                Property = "Ignore"
+            },
+            new Instance
+            {
+                Property = "Include"
+            }
+        };
+        return Verify(target)
+            .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
+    }
 
     class IgnoreInstanceTarget
     {
@@ -1607,11 +1677,12 @@ public class SerializationTests
     {
         #region IgnoreMemberByExpressionGlobal
 
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-        VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        VerifierSettings.IgnoreMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.PropertyWithPropertyName,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
 
         #endregion
     }
@@ -1629,11 +1700,12 @@ public class SerializationTests
             PropertyWithPropertyName = "Value"
         };
         var settings = new VerifySettings();
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyWithPropertyName);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-        settings.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        settings.IgnoreMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.PropertyWithPropertyName,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
         return Verify(target, settings);
     }
 
@@ -1647,10 +1719,11 @@ public class SerializationTests
             Property = "Value"
         };
         return Verify(target)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.Property)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.Field)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty)
-            .IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+            .IgnoreMembers<IgnoreExplicitTarget>(
+                _ => _.Property,
+                _ => _.Field,
+                _ => _.GetOnlyProperty,
+                _ => _.PropertyThatThrows);
     }
 
     #endregion
@@ -1668,12 +1741,12 @@ public class SerializationTests
 
         // using only the member
         VerifierSettings.MemberConverter<MemberTarget, string>(
-            expression: x => x.Field,
+            expression: _ => _.Field,
             converter: member => $"{member}_Suffix");
 
         // using target and member
         VerifierSettings.MemberConverter<MemberTarget, string>(
-            expression: x => x.Property,
+            expression: _ => _.Property,
             converter: (target, member) => $"{target}_{member}_Suffix");
 
         return Verify(input);
@@ -1934,7 +2007,11 @@ public class SerializationTests
 
     class WithCustomException
     {
-        public Guid CustomExceptionProperty => throw new CustomException();
+        public Guid CustomExceptionGuid => throw new CustomException();
+
+        public int[] CustomExceptionArray => throw new CustomException();
+
+        public List<string> CustomExceptionList => throw new CustomException();
     }
 
     [Fact]
@@ -1970,7 +2047,7 @@ public class SerializationTests
     public Task ExceptionNotIgnoreMessageProp()
     {
         var settings = new VerifySettings();
-        settings.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        settings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
         var target = new WithExceptionNotIgnoreMessage();
 
         return Assert.ThrowsAsync<JsonSerializationException>(() => Verify(target, settings));
@@ -2138,7 +2215,7 @@ public class SerializationTests
         public override void Write(VerifyJsonWriter writer, ConverterTarget target)
         {
             writer.WriteStartObject();
-            writer.WriteProperty(target, target.Name, "Name");
+            writer.WriteMember(target, target.Name, "Name");
             writer.WritePropertyName("Custom");
             writer.WriteValue("CustomValue");
             writer.WriteEnd();
@@ -2166,7 +2243,7 @@ public class SerializationTests
         public override void Write(VerifyJsonWriter writer, StaticConverterTarget target)
         {
             writer.WriteStartObject();
-            writer.WriteProperty(target, target.Name, "Name");
+            writer.WriteMember(target, target.Name, "Name");
             writer.WritePropertyName("Custom");
             writer.WriteValue("CustomValue");
             writer.WriteEnd();

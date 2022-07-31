@@ -86,8 +86,25 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 snippet: SampleTestMSTest
 
-
 ### Initial Verification
+
+No existing `.verified.` file.
+
+```mermaid
+graph LR
+run(Run test and<br/>create Received file)
+failTest(Fail Test<br/>and show Diff)
+closeDiff(Close Diff)
+run-->failTest
+shouldAccept{Accept ?}
+failTest-->shouldAccept
+accept(Move Received<br/>to Verified)
+shouldAccept-- Yes -->accept
+discard(Discard<br/>Received)
+shouldAccept-- No -->discard
+accept-->closeDiff
+discard-->closeDiff
+```
 
 When the test is initially run will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff.
 
@@ -110,6 +127,29 @@ snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt
 
 
 ### Subsequent Verification
+
+Existing `.verified.` file.
+
+```mermaid
+graph LR
+run(Run test and<br/>create Received file)
+closeDiff(Close Diff)
+failTest(Fail Test<br/>and show Diff)
+run-->isSame
+shouldAccept{Accept ?}
+failTest-->shouldAccept
+accept(Move Received<br/>to Verified)
+shouldAccept-- Yes -->accept
+discard(Discard<br/>Received)
+shouldAccept-- No -->discard
+
+isSame{Compare<br/>Verified +<br/>Received}
+passTest(Pass Test and<br/>discard Received)
+isSame-- Same --> passTest
+isSame-- Different --> failTest
+accept-->closeDiff
+discard-->closeDiff
+```
 
 If the implementation of `ClassBeingTested` changes:
 
@@ -155,6 +195,17 @@ When modifying settings at the both global level it should be done using a Modul
 snippet: StaticSettings.cs
 
 
+## VerifyResult
+
+In some scenarios it can be helpful to get access to the resulting `*.verified.*` files after a successful run. For example to do an explicit check for contains or not-contains in the resulting text. To allow this all Verify methods return a `VerifyResult`.
+
+snippet: VerifyResult
+
+If using `Verifier.Throws`, the resulting `Exception` will also be accessible
+
+snippet: ExceptionResult
+
+
 ## Versioning
 
 Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:
@@ -176,6 +227,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
  * [Snapshot Testing with Verify - Dan Clarke (10 Dec 2021)](https://www.danclarke.com/snapshot-testing-with-verify)
  * [5 helpful Nuget package for Unit Testing in .NET (16 Oct 2021)](https://medium.com/@niteshsinghal85/5-helpful-nuget-package-for-unit-testing-in-net-87c2e087c6d)
  * [5 open source .NET projects that deserve more attention (9 Sep 2021)](https://www.youtube.com/watch?v=mwHWPoKEmyY&t=515s)
+ * [Snapshot Testing in .NET with Verify - Dan Clarke (21 July 2022](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
 
 
 ## Extensions

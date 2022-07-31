@@ -181,8 +181,25 @@ public class Sample :
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-
 ### Initial Verification
+
+No existing `.verified.` file.
+
+```mermaid
+graph LR
+run(Run test and<br/>create Received file)
+failTest(Fail Test<br/>and show Diff)
+closeDiff(Close Diff)
+run-->failTest
+shouldAccept{Accept ?}
+failTest-->shouldAccept
+accept(Move Received<br/>to Verified)
+shouldAccept-- Yes -->accept
+discard(Discard<br/>Received)
+shouldAccept-- No -->discard
+accept-->closeDiff
+discard-->closeDiff
+```
 
 When the test is initially run will fail. If a [Diff Tool](https://github.com/VerifyTests/DiffEngine) is detected it will display the diff.
 
@@ -224,6 +241,29 @@ This will result in the `Sample.Test.verified.txt` being created:
 
 
 ### Subsequent Verification
+
+Existing `.verified.` file.
+
+```mermaid
+graph LR
+run(Run test and<br/>create Received file)
+closeDiff(Close Diff)
+failTest(Fail Test<br/>and show Diff)
+run-->isSame
+shouldAccept{Accept ?}
+failTest-->shouldAccept
+accept(Move Received<br/>to Verified)
+shouldAccept-- Yes -->accept
+discard(Discard<br/>Received)
+shouldAccept-- No -->discard
+
+isSame{Compare<br/>Verified +<br/>Received}
+passTest(Pass Test and<br/>discard Received)
+isSame-- Same --> passTest
+isSame-- Different --> failTest
+accept-->closeDiff
+discard-->closeDiff
+```
 
 If the implementation of `ClassBeingTested` changes:
 
@@ -309,7 +349,7 @@ public Task VerifyJsonJToken()
     return VerifyJson(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1838-L1870' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1918-L1950' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -361,6 +401,35 @@ public static class StaticSettingsUsage
 <!-- endSnippet -->
 
 
+## VerifyResult
+
+In some scenarios it can be helpful to get access to the resulting `*.verified.*` files after a successful run. For example to do an explicit check for contains or not-contains in the resulting text. To allow this all Verify methods return a `VerifyResult`.
+
+<!-- snippet: VerifyResult -->
+<a id='snippet-verifyresult'></a>
+```cs
+var result = await Verify(
+    new
+    {
+        Property = "Value To Check"
+    });
+Assert.Contains("Value To Check", result.Text);
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L556-L565' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+If using `Verifier.Throws`, the resulting `Exception` will also be accessible
+
+<!-- snippet: ExceptionResult -->
+<a id='snippet-exceptionresult'></a>
+```cs
+var result = await Verifier.Throws(MethodThatThrows);
+Assert.NotNull(result.Exception);
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L573-L578' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Versioning
 
 Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:
@@ -382,6 +451,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
  * [Snapshot Testing with Verify - Dan Clarke (10 Dec 2021)](https://www.danclarke.com/snapshot-testing-with-verify)
  * [5 helpful Nuget package for Unit Testing in .NET (16 Oct 2021)](https://medium.com/@niteshsinghal85/5-helpful-nuget-package-for-unit-testing-in-net-87c2e087c6d)
  * [5 open source .NET projects that deserve more attention (9 Sep 2021)](https://www.youtube.com/watch?v=mwHWPoKEmyY&t=515s)
+ * [Snapshot Testing in .NET with Verify - Dan Clarke (21 July 2022](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
 
 
 ## Extensions

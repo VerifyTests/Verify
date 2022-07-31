@@ -2,29 +2,29 @@
 public class NamerTests
 {
 #if NET6_0 && DEBUG
-    [Fact]
-    public async Task ThrowOnConflict()
-    {
-        static Task Run()
-        {
-            return Verify("Value")
-                .UseMethodName("Conflict1")
-                .DisableDiff();
-        }
-
-        try
-        {
-            await Run();
-        }
-        catch
-        {
-        }
-
-        await ThrowsTask(Run)
-            .ScrubLinesContaining("InnerVerifier.ValidatePrefix")
-            .UseMethodName("ThrowOnConflict")
-            .AddScrubber(builder => builder.Replace(@"\", "/"));
-    }
+    // [Fact]
+    // public async Task ThrowOnConflict()
+    // {
+    //     static Task Run()
+    //     {
+    //         return Verify("Value")
+    //             .UseMethodName("Conflict1")
+    //             .DisableDiff();
+    //     }
+    //
+    //     try
+    //     {
+    //         await Run();
+    //     }
+    //     catch
+    //     {
+    //     }
+    //
+    //     await ThrowsTask(Run)
+    //         .ScrubLinesContaining("InnerVerifier.ValidatePrefix")
+    //         .UseMethodName("ThrowOnConflict")
+    //         .AddScrubber(_ => _.Replace(@"\", "/"));
+    // }
 
     [Fact]
     public async Task DoesntThrowOnConflict()
@@ -47,7 +47,7 @@ public class NamerTests
 
         await Verify("Value")
             .UseMethodName("DoesntThrowOnConflict")
-            .AddScrubber(builder => builder.Replace(@"\", "/"));
+            .AddScrubber(_ => _.Replace(@"\", "/"));
     }
 #endif
 
@@ -356,18 +356,18 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public async Task IgnoreParametersForVerified(string arg)
+    public Task IgnoreParametersForVerified(string arg)
     {
         var settings = new VerifySettings();
         settings.IgnoreParametersForVerified(arg);
-        await Verify("value", settings);
+        return Verify("value", settings);
     }
 
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public async Task IgnoreParametersForVerifiedFluent(string arg) =>
-        await Verify("value")
+    public Task IgnoreParametersForVerifiedFluent(string arg) =>
+        Verify("value")
             .IgnoreParametersForVerified(arg);
 
     #endregion
@@ -375,15 +375,15 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("foo", "bar", "baz")]
-    public async Task TheoryWithArray(params string[] values) =>
-        await Verify("value")
+    public Task TheoryWithArray(params string[] values) =>
+        Verify("value")
             .UseParameters(values);
 
     [Fact]
-    public async Task IgnoreParametersForVerified()
+    public Task IgnoreParametersForVerified()
     {
         // note that this test 'generates' the same verified and received filenames as the parameterized method
         var settings = new VerifySettings();
-        await Verify("value", settings);
+        return Verify("value", settings);
     }
 }

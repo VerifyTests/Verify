@@ -2,15 +2,14 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013;msb3277;CS0436</NoWarn>
-    <Version>17.1.4</Version>
+    <Version>17.5.0</Version>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>10</LangVersion>
+    <LangVersion>preview</LangVersion>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
-    <Configurations>Debug;Release;DebugNet6</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

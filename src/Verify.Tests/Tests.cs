@@ -123,6 +123,8 @@ public class Tests
         Assert.True(onVerifyMismatchCalled);
     }
 
+#if NET6_0
+
     [Fact]
     public async Task OnFirstVerify()
     {
@@ -157,6 +159,8 @@ public class Tests
         Assert.False(onVerifyMismatchCalled);
     }
 
+#endif
+
     [ModuleInitializer]
     public static void SettingsArePassedInit() =>
         VerifierSettings.RegisterStreamComparer(
@@ -164,11 +168,11 @@ public class Tests
             (_, _, _) => Task.FromResult(new CompareResult(true)));
 
     [Fact]
-    public async Task SettingsArePassed()
+    public Task SettingsArePassed()
     {
         var settings = new VerifySettings();
         settings.UseExtension("SettingsArePassed");
-        await Verify(new MemoryStream(new byte[]
+        return Verify(new MemoryStream(new byte[]
             {
                 1
             }), settings)
@@ -470,6 +474,7 @@ public class Tests
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
         await Verify("value").IgnoreParametersForVerified(param).AutoVerify();
+        await Task.Delay(1000);
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
     }
@@ -545,6 +550,36 @@ public class Tests
         Assert.True(target.Disposed);
     }
 
+    [Fact]
+    public async Task Result()
+    {
+        #region VerifyResult
+
+        var result = await Verify(
+            new
+            {
+                Property = "Value To Check"
+            });
+        Assert.Contains("Value To Check", result.Text);
+
+        #endregion
+
+        Assert.NotNull(result.Target);
+    }
+
+    [Fact]
+    public async Task ExceptionResult()
+    {
+        #region ExceptionResult
+
+        var result = await Verifier.Throws(MethodThatThrows);
+        Assert.NotNull(result.Exception);
+
+        #endregion
+
+        Assert.NotNull(result.Target);
+    }
+
     static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)
     {
         await Task.Delay(1);
@@ -610,11 +645,11 @@ public class Tests
 
 #if !NETFRAMEWORK
     [Fact]
-    public async Task VerifyBytesAsync()
+    public Task VerifyBytesAsync()
     {
         var settings = new VerifySettings();
         settings.UseExtension("jpg");
-        await Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
+        return Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
     }
 #endif
 
@@ -628,8 +663,8 @@ public class Tests
 #endif
 
     [Fact]
-    public async Task VerifyFileWithAppend() =>
-        await VerifyFile("sample.txt")
+    public Task VerifyFileWithAppend() =>
+        VerifyFile("sample.txt")
             .AppendValue("key", "value");
 
     #region GetFilePath

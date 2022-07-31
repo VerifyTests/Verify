@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Numerics;
+using System.Xml;
 using System.Xml.Linq;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
@@ -60,6 +61,7 @@ public static partial class VerifierSettings
 
         {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
+        {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
         {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
@@ -68,8 +70,9 @@ public static partial class VerifierSettings
         {typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
-        {typeof(Half), (target, settings) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+        {typeof(Half), (target, _) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
 #endif
 #if NET6_0_OR_GREATER
         {
@@ -105,7 +108,7 @@ public static partial class VerifierSettings
             }
         },
         {
-            typeof(XmlNode), (target, settings) =>
+            typeof(XmlNode), (target, _) =>
             {
                 var converted = (XmlNode) target;
                 var document = XDocument.Parse(converted.OuterXml);
@@ -113,7 +116,7 @@ public static partial class VerifierSettings
             }
         },
         {
-            typeof(XDocument), (target, settings) =>
+            typeof(XDocument), (target, _) =>
             {
                 var converted = (XDocument) target;
                 return new(converted.ToString(), "xml");
@@ -127,7 +130,7 @@ public static partial class VerifierSettings
             }
         },
         {
-            typeof(XmlDocument), (target, settings) =>
+            typeof(XmlDocument), (target, _) =>
             {
                 var xmlDocument = (XmlDocument) target;
                 var stringBuilder = new StringBuilder();

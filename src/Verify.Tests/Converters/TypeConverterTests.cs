@@ -34,7 +34,7 @@ public class TypeConverterTests
     {
         object? info = null;
         var filePath = "WithStreamRequiringCleanup.tmp";
-        File.WriteAllText(filePath, "FileContent");
+        await File.WriteAllTextAsync(filePath, "FileContent");
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (_, _) =>
             {
@@ -132,7 +132,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(_ => new Target("png", _)));
             },
             (_, _, context) => context.ContainsKey("name") &&
                                (string) context["name"] == nameof(WithInfo));
@@ -165,7 +165,7 @@ public class TypeConverterTests
                 {
                     Property = "Value"
                 };
-                return new(info, targets.Select(x => new Target("png", x)));
+                return new(info, targets.Select(_ => new Target("png", _)));
             });
 
     [Fact]

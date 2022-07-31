@@ -1,6 +1,6 @@
 ﻿partial class InnerVerifier
 {
-    public Task Throws(Action target)
+    public Task<VerifyResult> Throws(Action target)
     {
         ScrubInnerVerifier();
         try
@@ -18,7 +18,7 @@
     void ScrubInnerVerifier() =>
         settings.ScrubLinesContaining("VerifyTests.InnerVerifier");
 
-    public Task Throws(Func<object?> target)
+    public Task<VerifyResult> Throws(Func<object?> target)
     {
         ScrubInnerVerifier();
         try
@@ -33,7 +33,7 @@
         throw new("Did not throw.");
     }
 
-    public async Task ThrowsValueTask(Func<ValueTask> target)
+    public async Task<VerifyResult> ThrowsValueTask(Func<ValueTask> target)
     {
         ScrubInnerVerifier();
         try
@@ -42,14 +42,13 @@
         }
         catch (Exception exception)
         {
-            await Verify(exception);
-            return;
+            return await Verify(exception);
         }
 
         throw new("Did not throw.");
     }
 
-    public async Task ThrowsValueTask<T>(Func<ValueTask<T>> target)
+    public async Task<VerifyResult> ThrowsValueTask<T>(Func<ValueTask<T>> target)
     {
         ScrubInnerVerifier();
         try
@@ -58,14 +57,13 @@
         }
         catch (Exception exception)
         {
-            await Verify(exception);
-            return;
+            return await Verify(exception);
         }
 
         throw new("Did not throw.");
     }
 
-    public async Task ThrowsTask(Func<Task> target)
+    public async Task<VerifyResult> ThrowsTask(Func<Task> target)
     {
         ScrubInnerVerifier();
         try
@@ -74,14 +72,13 @@
         }
         catch (Exception exception)
         {
-            await Verify(exception);
-            return;
+            return await Verify(exception);
         }
 
         throw new("Did not throw.");
     }
 
-    public async Task ThrowsTask<T>(Func<Task<T>> target)
+    public async Task<VerifyResult> ThrowsTask<T>(Func<Task<T>> target)
     {
         ScrubInnerVerifier();
         try
@@ -90,8 +87,7 @@
         }
         catch (Exception exception)
         {
-            await Verify(exception);
-            return;
+            return await Verify(exception);
         }
 
         throw new("Did not throw.");

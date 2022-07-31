@@ -3,7 +3,7 @@
     public static void RemoveLinesContaining(this StringBuilder input, StringComparison comparison, params string[] stringToMatch)
     {
         Guard.AgainstNullOrEmpty(stringToMatch, nameof(stringToMatch));
-        FilterLines(input, s => s.LineContains(stringToMatch, comparison));
+        FilterLines(input, _ => _.LineContains(stringToMatch, comparison));
     }
 
     public static void ReplaceLines(this StringBuilder input, Func<string, string?> replaceLine)
@@ -21,7 +21,8 @@
             }
         }
 
-        if (!theString.EndsWith("\n"))
+        if (theString.Length > 0 &&
+            !theString.EndsWith("\n"))
         {
             input.Length -= 1;
         }

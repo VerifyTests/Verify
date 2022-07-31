@@ -4,9 +4,10 @@
     where TInner : IDictionary<string, TValue>
 {
     public OrderedStringDictionaryWrapper(List<string> ignored, TInner inner) :
-        base(inner.Where(x => !ignored.Contains(x.Key))
-            .OrderBy(x => x.Key, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(x => x.Key, x => x.Value))
+        base(inner
+            .Where(_ => !ignored.Contains(_.Key))
+            .OrderBy(_ => _.Key, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(_ => _.Key, _ => _.Value))
     {
     }
 }

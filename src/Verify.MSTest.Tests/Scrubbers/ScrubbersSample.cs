@@ -73,8 +73,7 @@ public class ScrubbersSample :
         };
 
         var settings = new VerifySettings();
-        settings.AddScrubber(
-            input => input.Replace("7D3", "TheRowVersion"));
+        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 
@@ -87,8 +86,7 @@ public class ScrubbersSample :
         };
 
         return Verify(target)
-            .AddScrubber(
-                input => input.Replace("7D3", "TheRowVersion"));
+            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
     }
 
     [TestMethod]

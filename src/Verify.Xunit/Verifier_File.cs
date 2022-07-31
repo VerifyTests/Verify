@@ -18,7 +18,7 @@ public static partial class Verifier
             async _ =>
             {
                 var bytes = await target;
-                await _.Verify(bytes);
+                return await _.Verify(bytes);
             });
 
     public static SettingsTask VerifyFile(

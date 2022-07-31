@@ -37,7 +37,7 @@ public static partial class Verifier
         return new(sourceFile, settings, fileConvention);
     }
 
-    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
+    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {
         Guard.AgainstBadSourceFile(sourceFile);
         return new(
@@ -45,7 +45,7 @@ public static partial class Verifier
             async verifySettings =>
             {
                 using var verifier = BuildVerifier(sourceFile, verifySettings);
-                await verify(verifier);
+                return await verify(verifier);
             });
     }
 }

@@ -29,9 +29,9 @@
 
         if (value is ValueTask task)
         {
-            writer.WriteProperty(task, task.IsCanceled, "IsCanceled");
-            writer.WriteProperty(task, task.IsCompleted, "IsCompleted");
-            writer.WriteProperty(task, task.IsFaulted, "IsFaulted");
+            writer.WriteMember(task, task.IsCanceled, "IsCanceled");
+            writer.WriteMember(task, task.IsCompleted, "IsCompleted");
+            writer.WriteMember(task, task.IsFaulted, "IsFaulted");
         }
         else
         {
@@ -48,15 +48,17 @@
     }
 
     // ReSharper disable once UnusedMember.Local
-    static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T> task)
+    static void WriteGeneric<T>(VerifyJsonWriter writer, ValueTask<T?> task)
+        where T : notnull
     {
-        writer.WriteProperty(task, task.IsCanceled, "IsCanceled");
-        writer.WriteProperty(task, task.IsCompleted, "IsCompleted");
-        writer.WriteProperty(task, task.IsFaulted, "IsFaulted");
+        writer.WriteMember(task, task.IsCanceled, "IsCanceled");
+        writer.WriteMember(task, task.IsCompleted, "IsCompleted");
+        writer.WriteMember(task, task.IsFaulted, "IsFaulted");
         WriteResult(writer, task);
     }
 
-    static void WriteResult<T>(VerifyJsonWriter writer, ValueTask<T> task)
+    static void WriteResult<T>(VerifyJsonWriter writer, ValueTask<T?> task)
+        where T : notnull
     {
         if (!task.IsCompleted ||
             task.IsCanceled ||
@@ -72,6 +74,6 @@
             return;
         }
 
-        writer.WriteProperty(task, task.Result, "Result");
+        writer.WriteMember(task, task.Result, "Result");
     }
 }

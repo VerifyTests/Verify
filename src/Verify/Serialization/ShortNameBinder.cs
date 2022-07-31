@@ -7,10 +7,11 @@
     {
     }
 
-    public void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
+    public void BindToName(Type type, out string? assemblyName, out string? typeName)
     {
         assemblyName = null;
-        typeName = serializedType.SimpleName();
+
+        typeName = type.SimpleName();
     }
 
     public Type BindToType(string? assemblyName, string typeName) =>

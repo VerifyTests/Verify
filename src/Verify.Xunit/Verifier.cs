@@ -19,7 +19,7 @@ public static partial class Verifier
         throw new($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
     }
 
-    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task> verify)
+    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {
         Guard.AgainstBadSourceFile(sourceFile);
         return new(
@@ -27,7 +27,7 @@ public static partial class Verifier
             async verifySettings =>
             {
                 using var verifier = GetVerifier(verifySettings, sourceFile);
-                await verify(verifier);
+                return await verify(verifier);
             });
     }
 }

@@ -35,6 +35,17 @@ public class ScrubbersSample
     }
 
     [Fact]
+    public Task EmptyLine()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubLinesWithReplace(
+            replaceLine: _ => "");
+        return Verify(
+            settings: settings,
+            target: @"");
+    }
+
+    [Fact]
     public Task LinesFluent() =>
         Verify(
                 target: @"
@@ -71,7 +82,7 @@ public class ScrubbersSample
 
         var settings = new VerifySettings();
         settings.AddScrubber(
-            input => input.Replace("7D3", "TheRowVersion"));
+            _ => _.Replace("7D3", "TheRowVersion"));
         return Verify(target, settings);
     }
 
@@ -84,8 +95,7 @@ public class ScrubbersSample
         };
 
         return Verify(target)
-            .AddScrubber(
-                input => input.Replace("7D3", "TheRowVersion"));
+            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
     }
 
     [Fact]

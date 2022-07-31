@@ -55,7 +55,7 @@ static class ApplyScrubbers
         }
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
-        ApplyScrubbers.replacements = replacements.OrderByDescending(x => x.Key).ToList();
+        ApplyScrubbers.replacements = replacements.OrderByDescending(_ => _.Key).ToList();
     }
 
     static void AddProjectAndSolutionReplacements(string? solutionDir, string projectDir, Dictionary<string, string> replacements)

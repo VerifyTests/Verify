@@ -1,6 +1,6 @@
 ﻿partial class InnerVerifier
 {
-    async Task VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
+    async Task<VerifyResult> VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
         var targetList = targets.ToList();
 
@@ -31,6 +31,7 @@
         }
 
         await engine.ThrowIfRequired();
+        return new(engine.Equal, target);
     }
 
     bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, [NotNullWhen(true)] out string? extension)

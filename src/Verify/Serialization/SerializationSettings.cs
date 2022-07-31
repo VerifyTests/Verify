@@ -32,7 +32,7 @@ partial class SerializationSettings
     static StringBuilderConverter stringBuilderConverter = new();
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
-    static TextWriterConverter textWriterConverter = new();
+    static StringWriterConverter stringWriterConverter = new();
     static DictionaryConverter dictionaryConverter = new();
 
     JsonSerializerSettings jsonSettings;
@@ -50,8 +50,8 @@ partial class SerializationSettings
     public SerializationSettings(SerializationSettings settings)
     {
         ignoredMembers = settings.ignoredMembers.ToDictionary(
-            x => x.Key,
-            x => x.Value.Clone());
+            _ => _.Key,
+            _ => _.Value.Clone());
         ignoredByNameMembers = settings.ignoredByNameMembers.Clone();
         ignoreEmptyCollections = settings.ignoreEmptyCollections;
         extraSettings = settings.extraSettings.Clone();
@@ -59,8 +59,8 @@ partial class SerializationSettings
         ignoredTypes = settings.ignoredTypes.Clone();
         ignoredInstances = settings.ignoredInstances
             .ToDictionary(
-                x => x.Key,
-                x => x.Value.Clone());
+                _ => _.Key,
+                _ => _.Value.Clone());
         scrubDateTimes = settings.scrubDateTimes;
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;
@@ -98,7 +98,7 @@ partial class SerializationSettings
         var converters = settings.Converters;
         converters.Add(aggregateExceptionConverter);
         converters.Add(stringBuilderConverter);
-        converters.Add(textWriterConverter);
+        converters.Add(stringWriterConverter);
 #if NET6_0_OR_GREATER
         converters.Add(dateConverter);
         converters.Add(timeConverter);

@@ -18,7 +18,7 @@
         var properties = base.CreateProperties(type, memberSerialization);
         if (type.IsException())
         {
-            var stackTrace = properties.Single(x => x.PropertyName == "StackTrace");
+            var stackTrace = properties.Single(_ => _.PropertyName == "StackTrace");
             properties.Remove(stackTrace);
             properties.Add(stackTrace);
             properties.Insert(0,
@@ -123,13 +123,24 @@
             return property;
         }
 
-        if (settings.TryGetShouldSerialize(memberType, valueProvider.GetValue, out var shouldSerialize))
+        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
+        if (settings.TryGetShouldSerialize(memberType, property.ValueProvider.GetValue, out var shouldSerialize))
         {
             property.ShouldSerialize = shouldSerialize;
         }
 
-        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
-
         return property;
     }
+
+    protected override JsonArrayContract CreateArrayContract(Type objectType)
+    {
+        var jsonArrayContract = base.CreateArrayContract(objectType);
+        if (jsonArrayContract.ItemConverter == null)
+        {
+            jsonArrayContract.ItemConverter = new ArrayConverter();
+        }
+
+        return jsonArrayContract;
+    }
+
 }

@@ -137,9 +137,11 @@ public class ExtensionConverterTests
             });
 
     [Fact]
-    public async Task WithInfoAndBinary() =>
-        await Verify(File.OpenRead("sample.png"))
+    public Task WithInfoAndBinary() =>
+        Verify(File.OpenRead("sample.png"))
             .UseExtension("WithInfoAndBinary");
+
+#if NET6_0
 
     [Fact]
     public async Task WithInfoAndModifiedBinary()
@@ -154,6 +156,8 @@ public class ExtensionConverterTests
                 .DisableRequireUniquePrefix().DisableDiff());
         AsserFileExists();
     }
+
+#endif
 
     static void AsserFileExists([CallerFilePath] string sourceFile = "")
     {

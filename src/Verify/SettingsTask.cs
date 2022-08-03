@@ -328,7 +328,7 @@ public partial class SettingsTask
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return adifferent string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {

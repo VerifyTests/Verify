@@ -1091,6 +1091,12 @@ The default mapping is:
 <!-- snippet: typeToStringMapping -->
 <a id='snippet-typetostringmapping'></a>
 ```cs
+{typeof(ParameterInfo), (target, _) => ((ParameterInfo) target).SimpleName()},
+{typeof(ConstructorInfo), (target, _) => ((ConstructorInfo) target).SimpleName()},
+{typeof(MethodInfo), (target, _) => ((MethodInfo) target).SimpleName()},
+{typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
+{typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},
+{typeof(Type), (target, _) => ((Type) target).SimpleName()},
 {typeof(string), (target, _) => (string) target},
 {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
 {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
@@ -1182,7 +1188,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L60-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L22-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

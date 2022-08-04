@@ -16,24 +16,20 @@
             return (filename, filename, directory);
         }
 
-        var (prefixWithParameters, prefixWithoutParameters) = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
-
-        var receivedFilePrefix = prefixWithParameters;
-        var verifiedFilePrefix = settings.ignoreParametersForVerified ? prefixWithoutParameters : prefixWithParameters;
-
-        return (receivedFilePrefix, verifiedFilePrefix, directory);
-    }
-
-    static (string prefixWithParameters, string prefixWithoutParameters) GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
-    {
         var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
         var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
         var parameterText = GetParameterText(method, settings);
 
         var withParameters = $"{typeName}.{methodName}{parameterText}{uniqueness}";
-        var withoutParameters = $"{typeName}.{methodName}{uniqueness}";
-        return (withParameters, withoutParameters);
+
+        if (settings.ignoreParametersForVerified)
+        {
+            var withoutParameters = $"{typeName}.{methodName}{uniqueness}";
+            return (withParameters, withoutParameters, directory);
+        }
+
+        return (withParameters, withParameters, directory);
     }
 
     static string GetParameterText(MethodInfo method, VerifySettings settings)

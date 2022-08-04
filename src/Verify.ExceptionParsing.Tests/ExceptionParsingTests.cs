@@ -43,8 +43,8 @@ public class ExceptionParsingTests
         var @new = new List<NewResult>();
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), "TheMessage", "receivedText", "verifiedText"),
-            new(new("bin", fakeFilePrefix), "TheMessage", null, null)
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "TheMessage", "receivedText", "verifiedText"),
+            new(new("bin", fakeFilePrefix, fakeFilePrefix), "TheMessage", null, null)
         };
         var delete = new List<string>();
 
@@ -56,7 +56,7 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix)
+            new("txt", fakeFilePrefix, fakeFilePrefix)
         };
         var @new = new List<NewResult>();
         var notEquals = new List<NotEqualResult>();
@@ -71,7 +71,7 @@ public class ExceptionParsingTests
         var equal = new List<FilePair>();
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix), "contents")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "contents")
         };
         var notEquals = new List<NotEqualResult>();
         var delete = new List<string>();
@@ -119,7 +119,7 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         var @new = new List<NewResult>();
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText")
         };
         var delete = new List<string>();
 
@@ -131,18 +131,18 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix),
-            new("bin", fakeFilePrefix)
+            new("txt", fakeFilePrefix, fakeFilePrefix),
+            new("bin", fakeFilePrefix, fakeFilePrefix)
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix), "the content"),
-            new(new("bin", fakeFilePrefix), null)
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "the content"),
+            new(new("bin", fakeFilePrefix, fakeFilePrefix), null)
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText"),
-            new(new("bin", fakeFilePrefix), null, null, null)
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText"),
+            new(new("bin", fakeFilePrefix, fakeFilePrefix), null, null, null)
         };
         var delete = new List<string>
         {
@@ -158,15 +158,15 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix)
+            new("txt", fakeFilePrefix, fakeFilePrefix)
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix), "the content")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "the content")
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText")
         };
         var delete = new List<string>
         {

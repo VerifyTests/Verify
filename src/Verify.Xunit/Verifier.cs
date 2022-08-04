@@ -12,7 +12,8 @@ public static partial class Verifier
             return new(
                 sourceFile,
                 settings,
-                uniqueness => ReflectionFileNameBuilder.FileNamePrefix(info, type, sourceFile, settings, uniqueness));
+                (uniquenessForReceived, uniquenessForVerified) =>
+                    ReflectionFileNameBuilder.FileNamePrefix(info, type, sourceFile, settings, uniquenessForReceived, uniquenessForVerified));
         }
 
         var fileName = Path.GetFileName(sourceFile);

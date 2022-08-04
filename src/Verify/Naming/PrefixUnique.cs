@@ -34,7 +34,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         var receivedBuilder = builder;
         AppendRuntime(namer, receivedBuilder, verifiedBuilder);
 
-        return builder.ToString();
+        return (receivedBuilder.ToString(), verifiedBuilder.ToString());
     }
 
     static void AppendTargetFramework(Namer namer, StringBuilder builder)

@@ -23,16 +23,17 @@ public abstract partial class VerifyBase
         }
 
         TargetAssembly.Assign(type.Assembly);
-        var methodInfo = type
+        var method = type
             .GetMethods(BindingFlags.Instance | BindingFlags.Public)
             .FirstOrDefault(_ => _.Name == testName);
 
-        if (methodInfo is null)
+        if (method is null)
         {
             throw new($"Could not find method `{type.Name}.{testName}`.");
         }
 
-        GetFileConvention fileConvention = uniqueness => ReflectionFileNameBuilder.FileNamePrefix(methodInfo, type, sourceFile, settings, uniqueness);
+        GetFileConvention fileConvention = (uniquenessForReceived, uniquenessForVerified) =>
+            ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessForReceived, uniquenessForVerified);
         return new(sourceFile, settings, fileConvention);
     }
 

@@ -18,7 +18,7 @@ public class ApplyScrubbersTests
 
         // Act
         ApplyScrubbers.UseAssembly(solutionDirectory, projectDirectory);
-        ApplyScrubbers.Apply(extension, builder, settings);
+        ApplyScrubbers.ApplyForExtension(extension, builder, settings);
 
         // Assert
         Assert.Equal("{SolutionDirectory},{ProjectDirectory}", builder.ToString());

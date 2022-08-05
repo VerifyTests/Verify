@@ -322,14 +322,14 @@ public Task UseTextForParameters(string arg)
 {
     var settings = new VerifySettings();
     settings.UseTextForParameters(arg);
-    return Verify(arg, settings);
+    return Verify(arg+"UseTextForParameters", settings);
 }
 
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
 public Task UseTextForParametersFluent(string arg) =>
-    Verify(arg)
+    Verify(arg+"UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L282-L301' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
@@ -356,14 +356,14 @@ public Task IgnoreParametersForVerified(string arg)
 {
     var settings = new VerifySettings();
     settings.IgnoreParametersForVerified(arg);
-    return Verify("value", settings);
+    return Verify("valueIgnoreParametersForVerified", settings);
 }
 
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
 public Task IgnoreParametersForVerifiedFluent(string arg) =>
-    Verify("value")
+    Verify("valueIgnoreParametersForVerifiedFluent")
         .IgnoreParametersForVerified(arg);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L354-L373' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>

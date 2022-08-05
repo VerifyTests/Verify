@@ -31,7 +31,7 @@ public class NamerTests
     {
         static Task Run()
         {
-            return Verify("Value")
+            return Verify("ValueDoesntThrowOnConflict")
                 .UseMethodName("Conflict2")
                 .DisableRequireUniquePrefix()
                 .DisableDiff();
@@ -45,7 +45,7 @@ public class NamerTests
         {
         }
 
-        await Verify("Value")
+        await Verify("ValueDoesntThrowOnConflict")
             .UseMethodName("DoesntThrowOnConflict")
             .AddScrubber(_ => _.Replace(@"\", "/"));
     }
@@ -56,9 +56,9 @@ public class NamerTests
     [Fact]
     public Task MultipleCalls() =>
         Task.WhenAll(
-            Verify("Value1")
+            Verify("Value1MultipleCalls")
                 .UseMethodName("MultipleCalls_1"),
-            Verify("Value1")
+            Verify("Value1MultipleCalls")
                 .UseMethodName("MultipleCalls_2"));
 
     #endregion
@@ -94,7 +94,7 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForTargetFramework();
-        return Verify("Foo", settings);
+        return Verify("FooTargetFramework", settings);
     }
 
     [Fact]
@@ -102,17 +102,17 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForTargetFramework(typeof(ClassBeingTested).Assembly);
-        return Verify("Foo", settings);
+        return Verify("FooTargetFrameworkWithAssembly", settings);
     }
 
     [Fact]
     public Task TargetFrameworkFluent() =>
-        Verify("Foo")
+        Verify("FooTargetFrameworkFluent")
             .UniqueForTargetFramework();
 
     [Fact]
     public Task TargetFrameworkFluentWithAssembly() =>
-        Verify("Foo")
+        Verify("FooTargetFrameworkFluentWithAssembly")
             .UniqueForTargetFramework(typeof(ClassBeingTested).Assembly);
 
     [Fact]
@@ -120,7 +120,7 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForTargetFrameworkAndVersion();
-        return Verify("Foo", settings);
+        return Verify("FooTargetFrameworkAndVersion", settings);
     }
 
     [Fact]
@@ -128,17 +128,17 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForTargetFrameworkAndVersion(typeof(ClassBeingTested).Assembly);
-        return Verify("Foo", settings);
+        return Verify("FooTargetFrameworkAndVersionWithAssembly", settings);
     }
 
     [Fact]
     public Task TargetFrameworkAndVersionFluent() =>
-        Verify("Foo")
+        Verify("FooTargetFrameworkAndVersionFluent")
             .UniqueForTargetFrameworkAndVersion();
 
     [Fact]
     public Task TargetFrameworkAndVersionFluentWithAssembly() =>
-        Verify("Foo")
+        Verify("FooTargetFrameworkAndVersionFluentWithAssembly")
             .UniqueForTargetFrameworkAndVersion(typeof(ClassBeingTested).Assembly);
 
     [Fact]
@@ -148,7 +148,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseFileName("CustomFileName");
-        await Verify("value", settings);
+        await Verify("valueUseFileName", settings);
 
         #endregion
     }
@@ -159,7 +159,7 @@ public class NamerTests
         var settings = new VerifySettings();
         settings.UseFileName("CustomFileName");
         settings.UniqueForRuntime();
-        return Verify("value", settings);
+        return Verify("valueUseFileNameWithUnique", settings);
     }
 
     [Fact]
@@ -167,7 +167,7 @@ public class NamerTests
     {
         #region UseFileNameFluent
 
-        await Verify("value")
+        await Verify("valueUseFileNameFluent")
             .UseFileName("CustomFileNameFluent");
 
         #endregion
@@ -180,7 +180,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseDirectory("CustomDirectory");
-        await Verify("value", settings);
+        await Verify("valueUseDirectory", settings);
 
         #endregion
     }
@@ -190,7 +190,7 @@ public class NamerTests
     {
         #region UseDirectoryFluent
 
-        await Verify("value")
+        await Verify("valueUseDirectoryFluent")
             .UseDirectory("CustomDirectory");
 
         #endregion
@@ -203,7 +203,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseTypeName("CustomTypeName");
-        await Verify("value", settings);
+        await Verify("valueUseTypeName", settings);
 
         #endregion
     }
@@ -213,7 +213,7 @@ public class NamerTests
     {
         #region UseTypeNameFluent
 
-        await Verify("value")
+        await Verify("valueUseTypeNameFluent")
             .UseTypeName("CustomTypeName");
 
         #endregion
@@ -226,7 +226,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseMethodName("CustomMethodName");
-        await Verify("value", settings);
+        await Verify("valueUseMethodName", settings);
 
         #endregion
     }
@@ -236,7 +236,7 @@ public class NamerTests
     {
         #region UseMethodNameFluent
 
-        await Verify("value")
+        await Verify("valueUseMethodNameFluent")
             .UseMethodName("CustomMethodNameFluent");
 
         #endregion
@@ -258,7 +258,7 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration();
-        return Verify("Foo", settings);
+        return Verify("FooAssemblyConfiguration", settings);
     }
 
     [Fact]
@@ -266,17 +266,17 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
-        return Verify("Foo", settings);
+        return Verify("FooAssemblyConfigurationWithAssembly", settings);
     }
 
     [Fact]
     public Task AssemblyConfigurationFluent() =>
-        Verify("Foo")
+        Verify("FooAssemblyConfigurationFluent")
             .UniqueForAssemblyConfiguration();
 
     [Fact]
     public Task AssemblyConfigurationFluentWithAssembly() =>
-        Verify("Foo")
+        Verify("FooAssemblyConfigurationFluentWithAssembly")
             .UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
 
     #region UseTextForParameters
@@ -288,21 +288,21 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UseTextForParameters(arg);
-        return Verify(arg, settings);
+        return Verify(arg+"UseTextForParameters", settings);
     }
 
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
     public Task UseTextForParametersFluent(string arg) =>
-        Verify(arg)
+        Verify(arg+"UseTextForParametersFluent")
             .UseTextForParameters(arg);
 
     #endregion
 
     [Fact]
     public Task UseTextForParametersNoParam() =>
-        Verify("Value")
+        Verify("ValueUseTextForParametersNoParam")
             .UseTextForParameters("Suffix");
 
     [Fact]
@@ -320,12 +320,12 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForArchitecture();
-        return Verify("Foo", settings);
+        return Verify("FooArchitecture", settings);
     }
 
     [Fact]
     public Task ArchitectureFluent() =>
-        Verify("Foo")
+        Verify("FooArchitectureFluent")
             .UniqueForArchitecture();
 
     [Fact]
@@ -333,12 +333,12 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UniqueForOSPlatform();
-        return Verify("Foo", settings);
+        return Verify("FooOSPlatform", settings);
     }
 
     [Fact]
     public Task OSPlatformFluent() =>
-        Verify("Foo")
+        Verify("FooOSPlatformFluent")
             .UniqueForOSPlatform();
 
     [Theory]
@@ -348,7 +348,7 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UseParameters(a, b);
-        return Verify("content", settings);
+        return Verify("contentMultipleParams", settings);
     }
 
     #region IgnoreParametersForVerified
@@ -360,14 +360,14 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.IgnoreParametersForVerified(arg);
-        return Verify("value", settings);
+        return Verify("valueIgnoreParametersForVerified", settings);
     }
 
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
-        Verify("value")
+        Verify("valueIgnoreParametersForVerifiedFluent")
             .IgnoreParametersForVerified(arg);
 
     #endregion
@@ -376,7 +376,7 @@ public class NamerTests
     [InlineData("One")]
     [InlineData("foo", "bar", "baz")]
     public Task TheoryWithArray(params string[] values) =>
-        Verify("value")
+        Verify("valueTheoryWithArray")
             .UseParameters(values);
 
     [Fact]
@@ -384,6 +384,6 @@ public class NamerTests
     {
         // note that this test 'generates' the same verified and received filenames as the parameterized method
         var settings = new VerifySettings();
-        return Verify("value", settings);
+        return Verify("valueIgnoreParametersForVerified", settings);
     }
 }

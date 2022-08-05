@@ -456,11 +456,14 @@ public class Tests
     [Fact]
     public async Task DanglingFiles()
     {
-        var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.received.txt");
-        var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.verified.txt");
+        var directory = FileEx.GetFileDirectory();
+        var receivedFile = Path.Combine(directory, $"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
+        var verifiedFile = Path.Combine(directory, $"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
-        await Verify("value").AutoVerify();
+        await Verify("value")
+            .UniqueForRuntimeAndVersion()
+            .AutoVerify();
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
     }
@@ -469,11 +472,15 @@ public class Tests
     [InlineData("param")]
     public async Task DanglingFilesIgnoreParametersForVerified(string param)
     {
-        var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified_param=param.01.received.txt");
-        var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified.01.verified.txt");
+        var directory = FileEx.GetFileDirectory();
+        var receivedFile = Path.Combine(directory, $"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}.01.received.txt");
+        var verifiedFile = Path.Combine(directory, $"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}.01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
-        await Verify("value").IgnoreParametersForVerified(param).AutoVerify();
+        await Verify("value")
+            .UniqueForRuntimeAndVersion()
+            .IgnoreParametersForVerified(param)
+            .AutoVerify();
         await Task.Delay(1000);
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));

@@ -157,7 +157,7 @@ public class NamerTests
     public Task UseFileNameWithUnique()
     {
         var settings = new VerifySettings();
-        settings.UseFileName("CustomFileName");
+        settings.UseFileName("CustomFileNameWithUnique");
         settings.UniqueForRuntime();
         return Verify("valueUseFileNameWithUnique", settings);
     }

@@ -25,7 +25,7 @@ The directory that contains the test. A custom directory can be used via `UseDir
 ```cs
 var settings = new VerifySettings();
 settings.UseDirectory("CustomDirectory");
-await Verify("value", settings);
+await Verify("valueUseDirectory", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L179-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -33,7 +33,7 @@ await Verify("value", settings);
 <!-- snippet: UseDirectoryFluent -->
 <a id='snippet-usedirectoryfluent'></a>
 ```cs
-await Verify("value")
+await Verify("valueUseDirectoryFluent")
     .UseDirectory("CustomDirectory");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L191-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-usedirectoryfluent' title='Start of snippet'>anchor</a></sup>
@@ -53,7 +53,7 @@ The class name that contains the test. A custom test name can be used via `UseTy
 ```cs
 var settings = new VerifySettings();
 settings.UseTypeName("CustomTypeName");
-await Verify("value", settings);
+await Verify("valueUseTypeName", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L202-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -61,7 +61,7 @@ await Verify("value", settings);
 <!-- snippet: UseTypeNameFluent -->
 <a id='snippet-usetypenamefluent'></a>
 ```cs
-await Verify("value")
+await Verify("valueUseTypeNameFluent")
     .UseTypeName("CustomTypeName");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L214-L219' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetypenamefluent' title='Start of snippet'>anchor</a></sup>
@@ -79,7 +79,7 @@ The test method name. A custom test name can be used via `UseMethodName`:
 ```cs
 var settings = new VerifySettings();
 settings.UseMethodName("CustomMethodName");
-await Verify("value", settings);
+await Verify("valueUseMethodName", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L225-L231' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -89,7 +89,7 @@ Will result in `TestClass.CustomMethodName.verified.txt`.
 <!-- snippet: UseMethodNameFluent -->
 <a id='snippet-usemethodnamefluent'></a>
 ```cs
-await Verify("value")
+await Verify("valueUseMethodNameFluent")
     .UseMethodName("CustomMethodNameFluent");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L237-L242' title='Snippet source file'>snippet source</a> | <a href='#snippet-usemethodnamefluent' title='Start of snippet'>anchor</a></sup>
@@ -109,9 +109,9 @@ Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 [Fact]
 public Task MultipleCalls() =>
     Task.WhenAll(
-        Verify("Value1")
+        Verify("Value1MultipleCalls")
             .UseMethodName("MultipleCalls_1"),
-        Verify("Value1")
+        Verify("Value1MultipleCalls")
             .UseMethodName("MultipleCalls_2"));
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L54-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-multiplecalls' title='Start of snippet'>anchor</a></sup>
@@ -127,7 +127,7 @@ To fully control the `{TestClassName}.{TestMethodName}_{Parameters}` parts of th
 ```cs
 var settings = new VerifySettings();
 settings.UseFileName("CustomFileName");
-await Verify("value", settings);
+await Verify("valueUseFileName", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L147-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -137,7 +137,7 @@ Will result in `CustomFileName.verified.txt`.
 <!-- snippet: UseFileNameFluent -->
 <a id='snippet-usefilenamefluent'></a>
 ```cs
-await Verify("value")
+await Verify("valueUseFileNameFluent")
     .UseFileName("CustomFileNameFluent");
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L168-L173' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefilenamefluent' title='Start of snippet'>anchor</a></sup>

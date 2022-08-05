@@ -49,9 +49,11 @@ static class ApplyScrubbers
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var altProfileDir = profileDir.ReplaceAltDirChar();
-            replacements[profileDir] = "{UserProfile}";
-            replacements[altProfileDir] = "{UserProfile}";
+            if (!string.IsNullOrWhiteSpace(profileDir)) {
+                var altProfileDir = profileDir.ReplaceAltDirChar();
+                replacements[profileDir] = "{UserProfile}";
+                replacements[altProfileDir] = "{UserProfile}";
+            }
         }
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);

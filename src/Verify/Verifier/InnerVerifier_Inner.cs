@@ -88,8 +88,8 @@
             if (!hasAppends)
             {
                 builder = new(stringTarget);
-                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
                 extension = settings.ExtensionOrTxt();
+                ApplyScrubbers.ApplyForExtension(extension, builder, settings);
                 return true;
             }
         }

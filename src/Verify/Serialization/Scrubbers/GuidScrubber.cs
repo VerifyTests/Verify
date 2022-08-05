@@ -1,6 +1,6 @@
 ﻿static class GuidScrubber
 {
-    static readonly string GuidPattern = @"(?<=[^a-zA-Z0-9])[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}(?=[^a-zA-Z0-9])";
+    static readonly string GuidPattern = @"\{[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\}";
     static readonly Regex Regex = new(GuidPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     public static void ReplaceGuids(StringBuilder builder)
@@ -32,7 +32,7 @@
             foreach (Match? id in guids)
             {
                 var stringGuid = id!.Value;
-                var guid = Guid.ParseExact(stringGuid, "D");
+                var guid = Guid.Parse(stringGuid);
                 var convertedGuid = guidToString(guid);
 
                 result = result.Replace(stringGuid, convertedGuid);

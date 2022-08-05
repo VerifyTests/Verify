@@ -20,7 +20,7 @@
         }
 
         var builder = new StringBuilder();
-        using var writer = new VerifyJsonWriter(builder, settings.serialization, settings.Context, counter);
+        using var writer = new VerifyJsonWriter(builder, settings, counter);
         settings.Serializer.Serialize(writer, input);
         return builder;
     }

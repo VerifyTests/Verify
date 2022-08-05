@@ -6,13 +6,12 @@
 
         if (TryGetTargetBuilder(target, out var builder, out var extension))
         {
-            if (target is string && targetList.Any(item => item.IsStream))
+            if (target is string &&
+                targetList.Any(item => item.IsStream))
             {
                 // if we have stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
             }
-
-            ApplyScrubbers.Apply(extension, builder, settings);
 
             var received = builder.ToString();
             var stream = new Target(extension, received);
@@ -56,6 +55,7 @@
             }
 
             builder = JsonFormatter.AsJson(null, appends, settings, counter);
+
             return true;
         }
 
@@ -66,7 +66,7 @@
             if (!hasAppends)
             {
                 builder = new(stringTarget);
-                builder.FixNewlines();
+                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
                 extension = settings.ExtensionOrTxt();
                 return true;
             }

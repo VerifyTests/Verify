@@ -103,7 +103,7 @@ static class ApplyScrubbers
         }
     }
 
-    public static void Apply(string extension, StringBuilder target, VerifySettings settings)
+    public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings)
     {
         foreach (var scrubber in settings.InstanceScrubbers)
         {
@@ -137,6 +137,28 @@ static class ApplyScrubbers
         }
 
         target.FixNewlines();
+    }
+
+    public static string ApplyForPropertyValue(string value, VerifySettings settings)
+    {
+        var builder = new StringBuilder(value);
+        foreach (var scrubber in settings.InstanceScrubbers)
+        {
+            scrubber(builder);
+        }
+
+        foreach (var scrubber in VerifierSettings.GlobalScrubbers)
+        {
+            scrubber(builder);
+        }
+
+        foreach (var replace in replacements)
+        {
+            builder.Replace(replace.Key, replace.Value);
+        }
+
+        builder.FixNewlines();
+        return builder.ToString();
     }
 
     static string CleanPath(string directory) =>

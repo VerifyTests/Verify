@@ -5,31 +5,43 @@
         Type type,
         string sourceFile,
         VerifySettings settings,
-        string uniqueness)
+        string uniquenessForReceived,
+        string uniquenessForVerified)
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
         var directory = settings.Directory ?? pathInfo.Directory;
 
         if (settings.fileName is not null)
         {
-            var filename = settings.fileName + uniqueness;
-            return (filename, filename, directory);
+            return (
+                settings.fileName + uniquenessForReceived,
+                settings.fileName + uniquenessForVerified,
+                directory);
         }
 
-        var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
-        var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
-
+        var typeAndMethod = GetTypeAndMethod(method, type, settings, pathInfo);
         var parameterText = GetParameterText(method, settings);
-
-        var withParameters = $"{typeName}.{methodName}{parameterText}{uniqueness}";
 
         if (settings.ignoreParametersForVerified)
         {
-            var withoutParameters = $"{typeName}.{methodName}{uniqueness}";
-            return (withParameters, withoutParameters, directory);
+            return (
+                $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
+                $"{typeAndMethod}{uniquenessForVerified}",
+                directory);
         }
 
-        return (withParameters, withParameters, directory);
+        return (
+            $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
+            $"{typeAndMethod}{parameterText}{uniquenessForVerified}",
+            directory);
+    }
+
+    static string GetTypeAndMethod(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
+    {
+        var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
+        var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
+
+        return $"{typeName}.{methodName}";
     }
 
     static string GetParameterText(MethodInfo method, VerifySettings settings)

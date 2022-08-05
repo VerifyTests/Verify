@@ -13,8 +13,8 @@
         counter = Counter.Start();
         this.settings = settings;
 
-        var uniqueness = PrefixUnique.GetUniqueness(settings.Namer);
-        var (namePrefixReceived, namePrefixVerified, directory) = fileConvention(uniqueness);
+        var (uniquenessForReceived, uniquenessForVerified) = PrefixUnique.GetUniqueness(settings.Namer);
+        var (namePrefixReceived, namePrefixVerified, directory) = fileConvention(uniquenessForReceived, uniquenessForVerified);
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
         if (directory is null)

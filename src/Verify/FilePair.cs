@@ -11,6 +11,7 @@ public readonly struct FilePair
     public string Name { get; }
     public bool IsText { get; }
 
+    [Obsolete("Use FilePair(string extension, string prefixReceived, string prefixVerified)", true)]
     public FilePair(string extension, string prefix)
         : this(extension, prefix, prefix)
     {
@@ -19,7 +20,7 @@ public readonly struct FilePair
     public FilePair(string extension, string prefixReceived, string prefixVerified)
     {
         Extension = extension;
-        Name = Path.GetFileName(prefixReceived);
+        Name = Path.GetFileName(prefixVerified);
         ReceivedPath = $"{prefixReceived}.received.{extension}";
         VerifiedPath = $"{prefixVerified}.verified.{extension}";
         ReceivedName = Path.GetFileName(ReceivedPath);

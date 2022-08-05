@@ -2,7 +2,7 @@
 {
     async Task<VerifyResult> VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
-        var targetList = targets.ToList();
+        var targetList = GetTargetList(targets).ToList();
 
         if (TryGetTargetBuilder(target, out var builder, out var extension))
         {
@@ -31,6 +31,28 @@
 
         await engine.ThrowIfRequired();
         return new(engine.Equal, target);
+    }
+
+    IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
+    {
+        foreach (var target in targets)
+        {
+            if (target.IsStringBuilder)
+            {
+                ApplyScrubbers.ApplyForExtension(target.Extension, target.StringBuilderData, settings);
+                yield return new(target.Extension, target.StringBuilderData, target.Name);
+            }
+            else if (target.IsString)
+            {
+                var builder = new StringBuilder(target.StringData);
+                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
+                yield return new(target.Extension, builder, target.Name);
+            }
+            else
+            {
+                yield return target;
+            }
+        }
     }
 
     bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, [NotNullWhen(true)] out string? extension)

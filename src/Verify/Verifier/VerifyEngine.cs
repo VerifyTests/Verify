@@ -30,14 +30,12 @@ class VerifyEngine
         if (target.IsStringBuilder)
         {
             var builder = target.StringBuilderData;
-            ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
             return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         if (target.IsString)
         {
             var builder = new StringBuilder(target.StringData);
-            ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
             return await Comparer.Text(file, builder.ToString(), settings);
         }
 

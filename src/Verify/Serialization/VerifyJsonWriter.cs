@@ -45,6 +45,7 @@ public class VerifyJsonWriter :
         value = value.Replace("\r\n", "\n").Replace('\r', '\n');
         if (VerifierSettings.StrictJson)
         {
+            value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
             base.WriteValue(value);
             return;
         }
@@ -54,7 +55,6 @@ public class VerifyJsonWriter :
             base.Flush();
             var builderLength = builder.Length;
             value = $"\n{value}";
-            value=  ApplyScrubbers.ApplyForPropertyValue(value, settings);
             WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
@@ -62,6 +62,18 @@ public class VerifyJsonWriter :
         }
 
         WriteRawValue(value);
+    }
+
+    public override void WriteRawValue(string? value)
+    {
+        if (value is null)
+        {
+            base.WriteValue(value);
+            return;
+        }
+
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
+        base.WriteRawValue(value);
     }
 
     public override void WriteValue(byte[]? value)

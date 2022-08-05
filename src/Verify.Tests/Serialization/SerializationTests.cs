@@ -266,6 +266,19 @@ public class SerializationTests
             .DontScrubDateTimes();
 
     [Fact]
+    public Task OnlyScrubInlineProperties() =>
+        Verify(
+                new
+                {
+                    property = @"
+line1
+line2
+line3"
+                })
+            .ScrubLinesContaining("property")
+            .ScrubLinesContaining("line2");
+
+    [Fact]
     public Task DatetimeScrubbingDisabled() =>
         Verify(
                 new

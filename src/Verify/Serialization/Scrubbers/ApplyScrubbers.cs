@@ -131,14 +131,6 @@ static class ApplyScrubbers
             scrubber(target);
         }
 
-        if (VerifierSettings.ExtensionMappedGlobalScrubbers.TryGetValue(extension, out extensionBasedScrubbers))
-        {
-            foreach (var scrubber in extensionBasedScrubbers)
-            {
-                scrubber(target);
-            }
-        }
-
         foreach (var replace in replacements)
         {
             target.Replace(replace.Key, replace.Value);

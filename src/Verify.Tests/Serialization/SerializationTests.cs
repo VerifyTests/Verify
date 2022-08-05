@@ -59,7 +59,8 @@ public class SerializationTests
                 withException,
                 withExceptionAndResult,
                 canceledAndResult
-            }).UniqueForRuntime();
+            })
+            .UniqueForRuntime();
     }
 #endif
 

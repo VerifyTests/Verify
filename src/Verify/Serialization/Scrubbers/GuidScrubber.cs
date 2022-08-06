@@ -44,7 +44,8 @@
 
             if (end < value.Length)
             {
-                if (IsValidEndingChar(value[end]))
+                var ch = value[end];
+                if (IsValidEndingChar(ch))
                 {
                     AppendCurrentChar();
                     continue;

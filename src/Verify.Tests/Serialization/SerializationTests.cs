@@ -925,11 +925,6 @@ line3"
     }
 
     [Fact]
-    public Task ScrubUserName() =>
-        Verify(Environment.UserName)
-        .ScrubUserName();
-
-    [Fact]
     public Task MoreSpecificScrubberShouldOverride()
     {
         var currentDirectory = Environment.CurrentDirectory.TrimEnd('/', '\\') + "Foo";

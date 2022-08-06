@@ -5,7 +5,7 @@
 
     public override void Write(VerifyJsonWriter writer, object value)
     {
-        if (!writer.settings.ShouldSerialize(value))
+        if (!writer.serialization.ShouldSerialize(value))
         {
             return;
         }

@@ -266,6 +266,19 @@ public class SerializationTests
             .DontScrubDateTimes();
 
     [Fact]
+    public Task OnlyScrubInlineProperties() =>
+        Verify(
+                new
+                {
+                    property = @"
+line1
+line2
+line3"
+                })
+            .ScrubLinesContaining("property")
+            .ScrubLinesContaining("line2");
+
+    [Fact]
     public Task DatetimeScrubbingDisabled() =>
         Verify(
                 new
@@ -640,7 +653,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldBeAbleToExcludeInlineGuidsInString()
+    public Task ShouldScrublineGuidsInString()
     {
         var id = Guid.NewGuid();
         return Verify($"The string {id} ")
@@ -648,7 +661,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldBeAbleToExcludeInlineGuidsWrappedInSymbols()
+    public Task ShouldScrubInlineGuidsWrappedInSymbols()
     {
         var id = Guid.NewGuid();
         return Verify($"({id})")
@@ -656,22 +669,48 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInDash() =>
+    public Task ShouldNotScrubInlineGuidsWrappedInDash() =>
         Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInLetters() =>
+    public Task ShouldNotScrubInlineGuidsWrappedInLetters() =>
         Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInNumber() =>
-        Verify("1087ea433-d83b-40b6-9e37-465211d95081")
+    public Task ShouldNotScrubInlineGuidsStartingInLetters() =>
+        Verify("before087ea433-d83b-40b6-9e37-465211d9508")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsStartingInNewline1() =>
+        Verify("\n087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsStartingInNewline2() =>
+        Verify("\r087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsEndingInNewline1() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081\n")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsEndingInNewline2() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081\r")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldBeAbleToExcludeInlineGuids()
+    public Task ShouldNotScrubInlineGuidsEndingLetters() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081after")
+            .ScrubInlineGuids();
+
+    [Fact]
+    public Task ShouldNotScrubInlineGuidsWrappedInNumber() =>
+        Verify("1087ea433-d83b-40b6-9e37-465211d950811")
+            .ScrubInlineGuids();
+
+    [Fact]
+    public Task ScrubInlineGuids()
     {
         var id = Guid.NewGuid();
         var product = new
@@ -723,7 +762,7 @@ public class SerializationTests
         #endregion
     }
 
-    void ScrubInlineGuids()
+    void ScrubInlineGuidsGlobal()
     {
         #region ScrubInlineGuids
 

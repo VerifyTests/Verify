@@ -69,9 +69,9 @@ public class VerifyJsonWriter :
         WriteRawValue(value);
     }
 
-    public void WriteSingleLineNoScrubbing(string? value)
+    public void WriteSingleLineNoScrubbing(string value)
     {
-        if (value is null or "")
+        if (value is "")
         {
             base.WriteRawValue(value);
             return;

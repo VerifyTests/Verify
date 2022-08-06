@@ -1,4 +1,0 @@
-{
-  Field: ValueSuffix,
-  Property: ValueSuffix
-}

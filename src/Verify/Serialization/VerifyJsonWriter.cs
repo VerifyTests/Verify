@@ -32,7 +32,7 @@ public class VerifyJsonWriter :
     {
         if (value is null or "")
         {
-            base.WriteValue(value);
+            base.WriteRawValue(value);
             return;
         }
 
@@ -66,6 +66,23 @@ public class VerifyJsonWriter :
         }
 
         value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
+        WriteRawValue(value);
+    }
+
+    public void WriteSingleLineNoScrubbing(string value)
+    {
+        if (value is "")
+        {
+            base.WriteRawValue(value);
+            return;
+        }
+
+        if (VerifierSettings.StrictJson)
+        {
+            base.WriteValue(value);
+            return;
+        }
+
         WriteRawValue(value);
     }
 

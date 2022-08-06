@@ -32,7 +32,7 @@ class DictionaryConverter :
         var valueType = genericArguments.Last();
         var keyType = genericArguments.First();
         var definition = type.GetGenericTypeDefinition();
-        var ignoredByNameMembers = writer.settings.ignoredByNameMembers;
+        var ignoredByNameMembers = writer.serialization.ignoredByNameMembers;
         if (definition == typeof(SortedDictionary<,>) ||
             definition.Name == "ImmutableSortedDictionary`2")
         {

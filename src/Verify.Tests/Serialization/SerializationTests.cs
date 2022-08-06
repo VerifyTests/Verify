@@ -516,6 +516,18 @@ public class SerializationTests
     }
 
     [Fact]
+    public async Task DateOnlyWithNoScrubbing()
+    {
+        var target = new
+        {
+            DateOnly = new DateOnly(2020, 10, 10)
+        };
+
+        await Verify(target)
+            .DontScrubDateTimes();
+    }
+
+    [Fact]
     public async Task ShouldReUseDatetime()
     {
         #region Date

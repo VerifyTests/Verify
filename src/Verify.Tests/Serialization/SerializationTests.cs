@@ -678,9 +678,17 @@ line3"
         Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
 
+        Verify("087ea433-d83b-40b6-9e37-465211d95081\r")
+            .ScrubInlineGuids();
+
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsEndingLetters() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081after")
+            .ScrubInlineGuids();
+
     [Fact]
     public Task ShouldNotExcludeInlineGuidsWrappedInNumber() =>
-        Verify("1087ea433-d83b-40b6-9e37-465211d95081")
+        Verify("1087ea433-d83b-40b6-9e37-465211d950811")
             .ScrubInlineGuids();
 
     [Fact]

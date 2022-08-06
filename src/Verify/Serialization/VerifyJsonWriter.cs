@@ -30,7 +30,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(string? value)
     {
-        if (value is null)
+        if (value is null or "")
         {
             base.WriteValue(value);
             return;
@@ -54,26 +54,19 @@ public class VerifyJsonWriter :
         {
             base.Flush();
             var builderLength = builder.Length;
-            value = $"\n{value}";
+            value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
+            if (!value.StartsWith('\n'))
+            {
+                value = $"\n{value}";
+            }
             WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
             return;
         }
 
-        WriteRawValue(value);
-    }
-
-    public override void WriteRawValue(string? value)
-    {
-        if (value is null)
-        {
-            base.WriteValue(value);
-            return;
-        }
-
         value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
-        base.WriteRawValue(value);
+        WriteRawValue(value);
     }
 
     public override void WriteValue(byte[]? value)

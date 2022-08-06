@@ -1,47 +1,83 @@
 ﻿static class GuidScrubber
 {
-    static readonly string GuidPattern = @"\{[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\}";
+    static readonly string GuidPattern = @"(?<=[^a-zA-Z0-9])[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}(.=[^a-zA-Z0-9])";
     static readonly Regex Regex = new(GuidPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     public static void ReplaceGuids(StringBuilder builder)
     {
-        if (!TryReplaceGuids(
-                builder.ToString(),
-                guid => SerializationSettings.Convert(Counter.Current, guid),
-                out var result))
+        //{173535ae-995b-4cc6-a74e-8cd4be57039c}
+        if (builder.Length < 36)
+        {
+            return;
+        }
+
+        var value = builder.ToString();
+        if (!value.Contains('-'))
         {
             return;
         }
 
         builder.Clear();
-        builder.Append(result);
-    }
-
-    static bool TryReplaceGuids(string value, Func<Guid, string> guidToString, [NotNullWhen(true)] out string? result)
-    {
-        if (Guid.TryParseExact(value, "D", out var fullGuid))
+        for (var index = 0; index <= value.Length; index++)
         {
-            result = guidToString(fullGuid);
-            return true;
-        }
-
-        var guids = Regex.Matches(value);
-        if (guids.Count > 0)
-        {
-            result = value;
-            foreach (Match? id in guids)
+            void AppendCurrentChar()
             {
-                var stringGuid = id!.Value;
-                var guid = Guid.Parse(stringGuid);
-                var convertedGuid = guidToString(guid);
-
-                result = result.Replace(stringGuid, convertedGuid);
+                builder.Append(value[index]);
             }
 
-            return true;
-        }
+            var end = index + 36;
+            if (end > value.Length)
+            {
+                var remaining = value[index..];
+                builder.Append(remaining);
+                return;
+            }
 
-        result = null;
-        return false;
+            if (index > 0)
+            {
+                if (IsValidStartingChar(value[index - 1]))
+                {
+                    AppendCurrentChar();
+                    continue;
+                }
+            }
+
+            if (end < value.Length)
+            {
+                if (IsValidEndingChar(value[end]))
+                {
+                    AppendCurrentChar();
+                    continue;
+                }
+            }
+
+            var substring = value.Substring(index, 36);
+
+            if (!Guid.TryParseExact(substring, "D", out var guid))
+            {
+                AppendCurrentChar();
+                continue;
+            }
+
+            var convert = SerializationSettings.Convert(Counter.Current, guid);
+            builder.Append(convert);
+            index += 35;
+        }
     }
+
+    static bool IsValidEndingChar(char ch) =>
+        IsValidChar(ch) &&
+        ch != '}' &&
+        ch != ')';
+
+    static bool IsValidChar(char ch) =>
+        ch != ' ' &&
+        ch != '\t' &&
+        ch != '\n' &&
+        ch != '\r';
+
+    static bool IsValidStartingChar(char ch) =>
+        IsValidChar(ch) &&
+        ch != '{' &&
+        ch != '(';
 }

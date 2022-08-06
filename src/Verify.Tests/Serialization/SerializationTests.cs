@@ -678,6 +678,24 @@ line3"
         Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
 
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsStartingInLetters() =>
+        Verify("before087ea433-d83b-40b6-9e37-465211d9508")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsStartingInNewline1() =>
+        Verify("\n087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsStartingInNewline2() =>
+        Verify("\r087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsEndingInNewline1() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081\n")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldNotExcludeInlineGuidsEndingInNewline2() =>
         Verify("087ea433-d83b-40b6-9e37-465211d95081\r")
             .ScrubInlineGuids();
 

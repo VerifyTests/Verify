@@ -220,7 +220,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 
 ## Media
 
- * [Testing your C# code reliably by freezing it in time - 
+ * [Testing C# code reliably by freezing it in time - 
 Nick Chapsas (1 August 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
  * [Snapshot Testing in .NET with Verify - Dan Clarke (21 July 2022)](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
  * [Testing an incremental generator with snapshot testing (14 Dec 2021)](https://andrewlock.net/creating-a-source-generator-part-2-testing-an-incremental-generator-with-snapshot-testing/)

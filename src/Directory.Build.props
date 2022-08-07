@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013;msb3277;CS0436</NoWarn>
-    <Version>17.6.0</Version>
+    <Version>17.6.1</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>preview</LangVersion>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Using Include="System.Diagnostics.CodeAnalysis" />
-    <Using Include="System.Text.RegularExpressions" />
     <Using Include="System.Globalization" />
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />

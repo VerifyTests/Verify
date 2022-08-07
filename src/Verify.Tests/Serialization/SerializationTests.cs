@@ -665,7 +665,7 @@ line3"
     }
 
     [Fact]
-    public Task ShouldScrublineGuidsInString()
+    public Task ShouldScrubInlineGuidsInString()
     {
         var id = Guid.NewGuid();
         return Verify($"The string {id} ")
@@ -677,6 +677,40 @@ line3"
     {
         var id = Guid.NewGuid();
         return Verify($"({id})")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsStartingWithSymbol()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"/{id}")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsEndingWithSymbol()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"{id}/")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsWrappedInNewLine()
+    {
+        var id = Guid.NewGuid();
+        return Verify($@"
+{id}
+")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsWrappedWithSymbol()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"/{id}/")
             .ScrubInlineGuids();
     }
 

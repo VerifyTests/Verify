@@ -1,8 +1,5 @@
 ﻿static class GuidScrubber
 {
-    static readonly string GuidPattern = @"(?<=[^a-zA-Z0-9])[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}(.=[^a-zA-Z0-9])";
-    static readonly Regex Regex = new(GuidPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
     public static void ReplaceGuids(StringBuilder builder)
     {
         //{173535ae-995b-4cc6-a74e-8cd4be57039c}
@@ -35,7 +32,7 @@
 
             if (index > 0)
             {
-                if (IsValidStartingChar(value[index - 1]))
+                if (IsInvalidStartingChar(value[index - 1]))
                 {
                     AppendCurrentChar();
                     continue;
@@ -45,7 +42,7 @@
             if (end < value.Length)
             {
                 var ch = value[end];
-                if (IsValidEndingChar(ch))
+                if (IsInvalidEndingChar(ch))
                 {
                     AppendCurrentChar();
                     continue;
@@ -66,19 +63,18 @@
         }
     }
 
-    static bool IsValidEndingChar(char ch) =>
-        IsValidChar(ch) &&
+    static bool IsInvalidEndingChar(char ch) =>
+        IsInvalidChar(ch) &&
         ch != '}' &&
         ch != ')';
 
-    static bool IsValidChar(char ch) =>
-        ch != ' ' &&
-        ch != '\t' &&
-        ch != '\n' &&
-        ch != '\r';
+    static bool IsInvalidChar(char ch) =>
+        char.IsLetter(ch) ||
+        char.IsNumber(ch) ||
+        ch is '-';
 
-    static bool IsValidStartingChar(char ch) =>
-        IsValidChar(ch) &&
+    static bool IsInvalidStartingChar(char ch) =>
+        IsInvalidChar(ch) &&
         ch != '{' &&
         ch != '(';
 }

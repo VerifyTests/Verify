@@ -11,6 +11,16 @@ static class Extensions
         return attribute?.Configuration;
     }
 
+    public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
+    {
+        if (builder.Length < oldValue.Length)
+        {
+            return;
+        }
+
+        builder.Replace(oldValue, newValue);
+    }
+
 #if NET472 || NET461  || NET48 || NETSTANDARD2_0
     public static bool StartsWith(this string value, char ch)
     {

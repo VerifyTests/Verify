@@ -67,7 +67,7 @@ public static class Scrubbers
 
         foreach (var replace in replacements.replace)
         {
-            builder.Replace(replace.Key, replace.Value);
+            builder.ReplaceIfLonger(replace.Key, replace.Value);
         }
     }
 

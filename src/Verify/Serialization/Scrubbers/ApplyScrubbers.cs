@@ -135,7 +135,7 @@ static class ApplyScrubbers
 
         foreach (var replace in replacements)
         {
-            target.Replace(replace.Key, replace.Value);
+            target.ReplaceIfLonger(replace.Key, replace.Value);
         }
 
         target.FixNewlines();
@@ -156,7 +156,7 @@ static class ApplyScrubbers
 
         foreach (var replace in replacements)
         {
-            builder.Replace(replace.Key, replace.Value);
+            builder.ReplaceIfLonger(replace.Key, replace.Value);
         }
 
         builder.FixNewlines();

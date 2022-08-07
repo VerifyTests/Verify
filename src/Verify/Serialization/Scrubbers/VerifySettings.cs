@@ -49,7 +49,6 @@ public partial class VerifySettings
     //Same for the static
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
-    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public void ScrubInlineGuids() =>
         instanceScrubbers.Insert(0, GuidScrubber.ReplaceGuids);

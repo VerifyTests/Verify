@@ -109,7 +109,6 @@ public partial class SettingsTask
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
-    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public SettingsTask ScrubInlineGuids()
     {

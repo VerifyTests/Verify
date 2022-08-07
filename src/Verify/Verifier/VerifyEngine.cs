@@ -18,7 +18,7 @@ class VerifyEngine
         this.directory = directory;
         this.settings = settings;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);;
+        delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
     }

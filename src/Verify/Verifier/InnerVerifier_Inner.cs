@@ -30,7 +30,7 @@
         }
 
         await engine.ThrowIfRequired();
-        return new(engine.Equal, target);
+        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), target);
     }
 
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)

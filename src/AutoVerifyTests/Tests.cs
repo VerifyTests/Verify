@@ -14,7 +14,7 @@ public class Tests
     [Fact]
     public async Task Simple()
     {
-        var path = Path.Combine(AttributeReader.GetProjectDirectory(), "Tests.Simple.verified.txt");
+        var path = CurrentFile.Relative("Tests.Simple.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
         await Verify("Foo");

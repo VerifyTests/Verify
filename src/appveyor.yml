@@ -26,9 +26,9 @@ build_script:
 - pwsh: |
     if ($isWindows) {
       Set-Culture -CultureInfo de-DE
-      dotnet test src --configuration Release --no-build --no-restore
+      dotnet test src --configuration Release --no-build --no-restore --nologo
       Set-TimeZone -Name "Russia TZ 2 Standard Time"
-      dotnet test src --configuration Release --no-build --no-restore
+      dotnet test src --configuration Release --no-build --no-restore --nologo
     }
 # begin-snippet: AppVeyorArtifacts
 on_failure:

@@ -1,7 +1,5 @@
 ﻿// Non-nullable field is uninitialized.
 
-using System.Runtime.InteropServices;
-
 #pragma warning disable CS8618
 
 [UsesVerify]

@@ -597,6 +597,34 @@ public class Tests
     }
 
     [Fact]
+    public async Task ResultAutoVerify()
+    {
+        var result = await Verify("Value")
+            .AutoVerify();
+
+        Assert.Single(result.Files);
+    }
+
+    [Fact]
+    public async Task ResultAutoVerifyMissingVerified()
+    {
+        try
+        {
+            var result = await Verify("Value")
+                .UniqueForRuntimeAndVersion()
+                .AutoVerify();
+
+            Assert.Single(result.Files);
+        }
+        finally
+        {
+            var projectDirectory = AttributeReader.GetProjectDirectory();
+            var file = Path.Combine(projectDirectory, $"Tests.ResultAutoVerifyMissingVerified.{Namer.RuntimeAndVersion}.verified.txt");
+            File.Delete(file);
+        }
+    }
+
+    [Fact]
     public async Task ExceptionResult()
     {
         #region ExceptionResult

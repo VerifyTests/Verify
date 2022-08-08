@@ -2,10 +2,10 @@
 {
     public static string Build(
         string directory,
-        List<NewResult> @new,
-        List<NotEqualResult> notEquals,
+        IReadOnlyCollection<NewResult> @new,
+        IReadOnlyCollection<NotEqualResult> notEquals,
         IReadOnlyCollection<string> delete,
-        IReadOnlyList<FilePair> equal)
+        IReadOnlyCollection<FilePair> equal)
     {
         var builder = new StringBuilder($"Directory: {directory}");
         builder.AppendLine();
@@ -57,7 +57,7 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static void AppendContent(IReadOnlyList<NewResult> @new, List<NotEqualResult> notEquals, StringBuilder builder)
+    static void AppendContent(IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {

@@ -32,9 +32,6 @@
     public static string GetSolutionDirectory([CallerFilePath] string file = "") =>
         FindDirectory(file, "*.sln");
 
-    public static string GetFileDirectory([CallerFilePath] string file = "") =>
-        new FileInfo(file).Directory!.FullName;
-
     static string FindDirectory(string file, string extension)
     {
         var currentDirectory = new FileInfo(file).Directory!.FullName;

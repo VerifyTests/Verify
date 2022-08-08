@@ -154,15 +154,9 @@ public class ExtensionConverterTests
             () => Verify(File.OpenRead("sample2.png"))
                 .UseExtension("WithInfoAndBinary")
                 .DisableRequireUniquePrefix().DisableDiff());
-        AsserFileExists();
+        var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.01.received.png");
+        Assert.True(File.Exists(file));
     }
 
 #endif
-
-    static void AsserFileExists([CallerFilePath] string sourceFile = "")
-    {
-        var directory = Path.GetDirectoryName(sourceFile)!;
-        var file = Path.Combine(directory, $"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.01.received.png");
-        Assert.True(File.Exists(file));
-    }
 }

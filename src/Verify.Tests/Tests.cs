@@ -405,7 +405,7 @@ public class Tests
     [Fact]
     public async Task TrailingNewlinesRaw()
     {
-        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesRaw.verified.txt");
+        var file = CurrentFile.Relative("Tests.TrailingNewlinesRaw.verified.txt");
         File.Delete(file);
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
@@ -434,7 +434,7 @@ public class Tests
     [Fact(Skip = "TODO")]
     public async Task TrailingNewlinesObject()
     {
-        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesObject.verified.txt");
+        var file = CurrentFile.Relative("Tests.TrailingNewlinesObject.verified.txt");
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
         var target = new
@@ -457,9 +457,8 @@ public class Tests
     [Fact]
     public async Task DanglingFiles()
     {
-        var directory = FileEx.GetFileDirectory();
-        var receivedFile = Path.Combine(directory, $"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
-        var verifiedFile = Path.Combine(directory, $"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.01.verified.txt");
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
         await Verify("value")
@@ -473,9 +472,8 @@ public class Tests
     [InlineData("param")]
     public async Task DanglingFilesIgnoreParametersForVerified(string param)
     {
-        var directory = FileEx.GetFileDirectory();
-        var receivedFile = Path.Combine(directory, $"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}.01.received.txt");
-        var verifiedFile = Path.Combine(directory, $"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}.01.verified.txt");
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}.01.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}.01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
         await Verify("value")
@@ -690,25 +688,20 @@ public class Tests
 #endif
 
 #if NET6_0
+
     [Fact]
     public async Task VerifyFilePath()
     {
         await VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
+
 #endif
 
     [Fact]
     public Task VerifyFileWithAppend() =>
         VerifyFile("sample.txt")
             .AppendValue("key", "value");
-
-    #region GetFilePath
-
-    string GetFilePath([CallerFilePath] string sourceFile = "") =>
-        sourceFile;
-
-    #endregion
 
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()

@@ -106,7 +106,7 @@ public static partial class VerifierSettings
                 {
                     Indent = true,
                     IndentChars = "  ",
-                    NewLineChars = "\r\n",
+                    NewLineChars = "\n",
                     NewLineHandling = NewLineHandling.Replace
                 };
                 using (var writer = XmlWriter.Create(stringBuilder, writerSettings))

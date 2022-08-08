@@ -1243,6 +1243,117 @@ line3"
             });
 
     [Fact]
+    public Task ScrubBeforeNewline() =>
+        Verify("Line1\nLine2")
+            .ScrubLinesContaining("Line1");
+
+    [Fact]
+    public Task ScrubEmptyLinesMiddle() =>
+        Verify("Line1\n\n\n\n\r\n\r\rLine2")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEnd() =>
+        Verify("\n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEndAndWhiteSpace() =>
+        Verify(" \n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r ")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStart() =>
+        Verify("\n\n\n\n\r\n\r\rLine")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLineEnd() =>
+        Verify("Line\n\n\n\n\r\n\r\r")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartProperty() =>
+        Verify(
+                new
+                {
+                    Property = "\n\n\n\n\r\n\r\rLine"
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEndProperty() =>
+        Verify(
+                new
+                {
+                    Property = "\n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r"
+                })
+            .ScrubEmptyLines();
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEndAndWhiteSpaceProperty() =>
+        Verify(
+                new
+                {
+                    Property = " \n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r "
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesEndProperty() =>
+        Verify(
+                new
+                {
+                    Property = "Line\n\n\n\n\r\n\r\r"
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesMiddleProperty() =>
+        Verify(
+                new
+                {
+                    Property = "Line1\n\n\n\n\r\n\r\rLine2"
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubPropertyBeforeNewline() =>
+        Verify(
+                new {
+                    Property = @"Line1
+Line2"
+                })
+            .ScrubLinesContaining("Line1");
+
+    [Theory]
+    [InlineData(10, "NoMatch")]
+    [InlineData("Value", "Value")]
+    [InlineData("BeforeValue", "BeforeValue")]
+    [InlineData("BeforeValueAfter", "BeforeValueAfter")]
+    [InlineData("ValueAfter", "ValueAfter")]
+    [InlineData("Before\nValue", "BeforeValueWithNewLine")]
+    [InlineData("Before\nValue\nAfter", "BeforeValueAfterNewLine")]
+    [InlineData("Value\nAfter", "ValueAfterWithNewLine")]
+    public Task ScrubDictionaryValue(string value, string name) =>
+        Verify(new Dictionary<int, object>
+        {
+            {1, value},
+            {2, new StringWriter(new StringBuilder(value))},
+            {3, new StringWriter(new StringBuilder(value))},
+        })
+            .ScrubLinesContaining("Value")
+            .UseTextForParameters(name);
+
+    [Fact]
+    public Task NotScrubNonStringDictionaryValues() =>
+        Verify(new Dictionary<int, object>
+        {
+            {1, 1},
+            {2, true},
+            })
+            .ScrubLinesContaining("value");
+
+    [Fact]
     public Task ShouldIgnoreEmptyList()
     {
         var target = new CollectionTarget

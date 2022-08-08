@@ -11,6 +11,26 @@ static class Extensions
         return attribute?.Configuration;
     }
 
+    public static char? FirstChar(this StringBuilder builder)
+    {
+        if (builder.Length > 0)
+        {
+            return builder[0];
+        }
+
+        return null;
+    }
+
+    public static char? LastChar(this StringBuilder builder)
+    {
+        if (builder.Length > 0)
+        {
+            return builder[^1];
+        }
+
+        return null;
+    }
+
     public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
     {
         if (builder.Length < oldValue.Length)

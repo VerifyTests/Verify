@@ -43,9 +43,9 @@ public class VerifyJsonWriter :
         }
 
         value = value.Replace("\r\n", "\n").Replace('\r', '\n');
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
         if (VerifierSettings.StrictJson)
         {
-            value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
             base.WriteValue(value);
             return;
         }
@@ -54,18 +54,17 @@ public class VerifyJsonWriter :
         {
             base.Flush();
             var builderLength = builder.Length;
-            value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
             if (!value.StartsWith('\n'))
             {
                 value = $"\n{value}";
             }
+
             WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
             return;
         }
 
-        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
         WriteRawValue(value);
     }
 

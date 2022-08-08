@@ -1,6 +1,4 @@
-﻿using DiffEngine;
-
-// ReSharper disable UnusedParameter.Local
+﻿// ReSharper disable UnusedParameter.Local
 
 public class Snippets
 {

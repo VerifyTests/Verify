@@ -1,3 +1,0 @@
-{
-  TheProperty: Id_1
-}

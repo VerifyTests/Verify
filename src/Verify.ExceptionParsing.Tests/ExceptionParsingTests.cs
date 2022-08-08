@@ -5,9 +5,9 @@ using FilePair = VerifyTests.FilePair;
 public class ExceptionParsingTests
 {
     static string projectDirectory = AttributeReader.GetProjectDirectory();
-    string fakeFilePrefix = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake");
-    string fakeReceivedTextFile = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake.recevied.txt");
-    string fakeReceivedBinFile = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake.recevied.bin");
+    string fakeFilePrefix = CurrentFile.Relative("ExceptionParsingTests.Fake");
+    string fakeReceivedTextFile = CurrentFile.Relative("ExceptionParsingTests.Fake.recevied.txt");
+    string fakeReceivedBinFile = CurrentFile.Relative("ExceptionParsingTests.Fake.recevied.bin");
 
     [Fact]
     public Task Error_EmptyList() =>
@@ -26,29 +26,27 @@ public class ExceptionParsingTests
             .IgnoreStackTrace();
 
     [Fact]
-    public Task Empty()
-    {
-        var equal = new List<FilePair>();
-        var @new = new List<NewResult>();
-        var notEquals = new List<NotEqualResult>();
-        var delete = new List<string>();
-
-        return ParseVerify(@new, notEquals, delete, equal);
-    }
+    public Task Empty() =>
+        ParseVerify(
+            Array.Empty<NewResult>(),
+            Array.Empty<NotEqualResult>(),
+            Array.Empty<string>(),
+            Array.Empty<FilePair>());
 
     [Fact]
     public Task WithMessage()
     {
-        var equal = new List<FilePair>();
-        var @new = new List<NewResult>();
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), "TheMessage", "receivedText", "verifiedText"),
-            new(new("bin", fakeFilePrefix), "TheMessage", null, null)
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "TheMessage", "receivedText", "verifiedText"),
+            new(new("bin", fakeFilePrefix, fakeFilePrefix), "TheMessage", null, null)
         };
-        var delete = new List<string>();
 
-        return ParseVerify(@new, notEquals, delete, equal);
+        return ParseVerify(
+            Array.Empty<NewResult>(),
+            notEquals,
+            Array.Empty<string>(),
+            Array.Empty<FilePair>());
     }
 
     [Fact]
@@ -56,27 +54,29 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix)
+            new("txt", fakeFilePrefix, fakeFilePrefix)
         };
-        var @new = new List<NewResult>();
-        var notEquals = new List<NotEqualResult>();
-        var delete = new List<string>();
 
-        return ParseVerify(@new, notEquals, delete, equal);
+        return ParseVerify(
+            Array.Empty<NewResult>(),
+            Array.Empty<NotEqualResult>(),
+            Array.Empty<string>(),
+            equal);
     }
 
     [Fact]
     public Task SingleNew()
     {
-        var equal = new List<FilePair>();
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix), "contents")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "contents")
         };
-        var notEquals = new List<NotEqualResult>();
-        var delete = new List<string>();
 
-        return ParseVerify(@new, notEquals, delete, equal);
+        return ParseVerify(
+            @new,
+            Array.Empty<NotEqualResult>(),
+            Array.Empty<string>(),
+            Array.Empty<FilePair>());
     }
 
     [Fact]
@@ -115,15 +115,16 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     [Fact]
     public Task SingleNotEqual()
     {
-        var equal = new List<FilePair>();
-        var @new = new List<NewResult>();
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText")
         };
-        var delete = new List<string>();
 
-        return ParseVerify(@new, notEquals, delete, equal);
+        return ParseVerify(
+            Array.Empty<NewResult>(),
+            notEquals,
+            Array.Empty<string>(),
+            Array.Empty<FilePair>());
     }
 
     [Fact]
@@ -131,18 +132,18 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix),
-            new("bin", fakeFilePrefix)
+            new("txt", fakeFilePrefix, fakeFilePrefix),
+            new("bin", fakeFilePrefix, fakeFilePrefix)
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix), "the content"),
-            new(new("bin", fakeFilePrefix), null)
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "the content"),
+            new(new("bin", fakeFilePrefix, fakeFilePrefix), null)
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText"),
-            new(new("bin", fakeFilePrefix), null, null, null)
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText"),
+            new(new("bin", fakeFilePrefix, fakeFilePrefix), null, null, null)
         };
         var delete = new List<string>
         {
@@ -158,15 +159,15 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix)
+            new("txt", fakeFilePrefix, fakeFilePrefix)
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix), "the content")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), "the content")
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix), null, "receivedText", "verifiedText")
+            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText")
         };
         var delete = new List<string>
         {
@@ -179,25 +180,30 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     [Fact]
     public Task SingleDelete()
     {
-        var equal = new List<FilePair>();
-        var @new = new List<NewResult>();
-        var notEquals = new List<NotEqualResult>();
         var delete = new List<string>
         {
             fakeReceivedTextFile
         };
-
-        return ParseVerify(@new, notEquals, delete, equal);
+        return ParseVerify(
+            Array.Empty<NewResult>(),
+            Array.Empty<NotEqualResult>(),
+            delete,
+            Array.Empty<FilePair>());
     }
 
     static Task ParseVerify(
-        List<NewResult> @new,
-        List<NotEqualResult> notEquals,
-        List<string> delete,
-        List<FilePair> equal,
+        IReadOnlyCollection<NewResult> @new,
+        IReadOnlyCollection<NotEqualResult> notEquals,
+        IReadOnlyCollection<string> delete,
+        IReadOnlyCollection<FilePair> equal,
         [CallerFilePath] string sourceFile = "")
     {
-        var exceptionMessage = VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEquals, delete, equal);
+        var exceptionMessage = VerifyExceptionMessageBuilder.Build(
+            projectDirectory,
+            @new,
+            notEquals,
+            delete,
+            equal);
 
         var result = Parser.Parse(exceptionMessage);
         return Verify(

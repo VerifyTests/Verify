@@ -109,7 +109,6 @@ public partial class SettingsTask
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
-    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public SettingsTask ScrubInlineGuids()
     {
@@ -328,7 +327,7 @@ public partial class SettingsTask
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
     {

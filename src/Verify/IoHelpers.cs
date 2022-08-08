@@ -43,9 +43,34 @@
         return builder.ToString();
     }
 
-#if NETSTANDARD2_1 || NET5_0_OR_GREATER
+    static bool TryCopyFileStream(string path, Stream stream)
+    {
+        if (stream is not FileStream fileStream)
+        {
+            return false;
+        }
+
+        File.Copy(fileStream.Name, path, true);
+        return true;
+    }
+
+
+#if NET461 || NET472 || NET48 || NETSTANDARD2_0
+
+    public static Task WriteText(string path, string text)
+    {
+        File.WriteAllText(path, text, Utf8);
+        return Task.CompletedTask;
+    }
+
+#else
+
     public static Task WriteText(string path, string text) =>
         File.WriteAllTextAsync(path, text, Utf8);
+
+#endif
+
+#if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 
     public static async Task<string> ReadStringWithFixedLines(string path)
     {
@@ -55,41 +80,28 @@
 
     public static async Task WriteStream(string path, Stream stream)
     {
-        if (stream is FileStream fileStream)
+        if (!TryCopyFileStream(path, stream))
         {
-            File.Copy(fileStream.Name, path);
-            return;
+            await using var targetStream = OpenWrite(path);
+            await stream.CopyToAsync(targetStream);
         }
-
-        await using var targetStream = OpenWrite(path);
-        await stream.CopyToAsync(targetStream);
     }
 
 #else
-    public static async Task WriteText(string path, string text)
-    {
-        var encodedText = Utf8.GetBytes(text);
-
-        using var stream = OpenWrite(path);
-        await stream.WriteAsync(encodedText, 0, encodedText.Length);
-    }
-
-    public static async Task WriteStream(string path, Stream stream)
-    {
-        if (stream is FileStream fileStream)
-        {
-            File.Copy(fileStream.Name, path, true);
-            return;
-        }
-
-        using var targetStream = OpenWrite(path);
-        await stream.CopyToAsync(targetStream);
-    }
 
     public static async Task<string> ReadStringWithFixedLines(string path)
     {
         using var stream = OpenRead(path);
         return await stream.ReadStringWithFixedLines();
+    }
+
+    public static async Task WriteStream(string path, Stream stream)
+    {
+        if (!TryCopyFileStream(path, stream))
+        {
+            using var targetStream = OpenWrite(path);
+            await stream.CopyToAsync(targetStream);
+        }
     }
 
 #endif

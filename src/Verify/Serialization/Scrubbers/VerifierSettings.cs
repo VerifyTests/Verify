@@ -48,14 +48,13 @@ public static partial class VerifierSettings
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
-    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public static void ScrubInlineGuids() =>
         GlobalScrubbers.Insert(0, GuidScrubber.ReplaceGuids);
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public static void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
         GlobalScrubbers.Insert(0, _ => _.ReplaceLines(replaceLine));

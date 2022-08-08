@@ -1,7 +1,5 @@
 ﻿// Non-nullable field is uninitialized.
 
-using System.Runtime.InteropServices;
-
 #pragma warning disable CS8618
 
 [UsesVerify]
@@ -301,7 +299,7 @@ public class Tests
     [Fact]
     public async Task StringWithDifferingNewline()
     {
-        var fullPath = Path.GetFullPath("../../../Tests.StringWithDifferingNewline.verified.txt");
+        var fullPath = CurrentFile.Relative("Tests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
         await Verify("a\r\nb");
@@ -404,7 +402,7 @@ public class Tests
     [Fact]
     public async Task TrailingNewlinesRaw()
     {
-        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesRaw.verified.txt");
+        var file = CurrentFile.Relative("Tests.TrailingNewlinesRaw.verified.txt");
         File.Delete(file);
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
@@ -433,7 +431,7 @@ public class Tests
     [Fact(Skip = "TODO")]
     public async Task TrailingNewlinesObject()
     {
-        var file = Path.Combine(FileEx.GetFileDirectory(), "Tests.TrailingNewlinesObject.verified.txt");
+        var file = CurrentFile.Relative("Tests.TrailingNewlinesObject.verified.txt");
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
         var target = new
@@ -456,11 +454,13 @@ public class Tests
     [Fact]
     public async Task DanglingFiles()
     {
-        var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.received.txt");
-        var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFiles.01.verified.txt");
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
-        await Verify("value").AutoVerify();
+        await Verify("value")
+            .UniqueForRuntimeAndVersion()
+            .AutoVerify();
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
     }
@@ -469,11 +469,14 @@ public class Tests
     [InlineData("param")]
     public async Task DanglingFilesIgnoreParametersForVerified(string param)
     {
-        var receivedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified_param=param.01.received.txt");
-        var verifiedFile = Path.Combine(FileEx.GetFileDirectory(), "Tests.DanglingFilesIgnoreParametersForVerified.01.verified.txt");
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}.01.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}.01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
-        await Verify("value").IgnoreParametersForVerified(param).AutoVerify();
+        await Verify("value")
+            .UniqueForRuntimeAndVersion()
+            .IgnoreParametersForVerified(param)
+            .AutoVerify();
         await Task.Delay(1000);
         Assert.False(File.Exists(receivedFile));
         Assert.False(File.Exists(verifiedFile));
@@ -497,7 +500,9 @@ public class Tests
         return Verifier.ThrowsTask(() => Verify(element, settings))
             .IgnoreStackTrace();
     }
+
 #if NET6_0
+
     [Fact]
     public async Task StringWithUtf8Bom()
     {
@@ -506,7 +511,26 @@ public class Tests
         await Verify($"{preamble}a").AutoVerify();
         await Verify("a").DisableRequireUniquePrefix();
     }
+
 #endif
+
+    [Fact]
+    public async Task EnsureUtf8BomPreamble()
+    {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
+        var file = CurrentFile.Relative($"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
+        File.Delete(file);
+        await Verify("value")
+            .UniqueForRuntimeAndVersion()
+            .AutoVerify();
+        var fileBytes = File.ReadAllBytes(file).Take(3);
+        var preambleBytes = Encoding.UTF8.GetPreamble();
+        Assert.Equal(preambleBytes, fileBytes);
+    }
 
     [Fact]
     public Task StringExtension()
@@ -565,6 +589,33 @@ public class Tests
         #endregion
 
         Assert.NotNull(result.Target);
+    }
+
+    [Fact]
+    public async Task ResultAutoVerify()
+    {
+        var result = await Verify("Value")
+            .AutoVerify();
+
+        Assert.Single(result.Files);
+    }
+
+    [Fact]
+    public async Task ResultAutoVerifyMissingVerified()
+    {
+        try
+        {
+            var result = await Verify("Value")
+                .UniqueForRuntimeAndVersion()
+                .AutoVerify();
+
+            Assert.Single(result.Files);
+        }
+        finally
+        {
+            var file = CurrentFile.Relative($"Tests.ResultAutoVerifyMissingVerified.{Namer.RuntimeAndVersion}.verified.txt");
+            File.Delete(file);
+        }
     }
 
     [Fact]
@@ -654,25 +705,20 @@ public class Tests
 #endif
 
 #if NET6_0
+
     [Fact]
     public async Task VerifyFilePath()
     {
         await VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
     }
+
 #endif
 
     [Fact]
     public Task VerifyFileWithAppend() =>
         VerifyFile("sample.txt")
             .AppendValue("key", "value");
-
-    #region GetFilePath
-
-    string GetFilePath([CallerFilePath] string sourceFile = "") =>
-        sourceFile;
-
-    #endregion
 
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()

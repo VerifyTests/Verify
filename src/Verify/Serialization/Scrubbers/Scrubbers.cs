@@ -2,11 +2,74 @@
 
 public static class Scrubbers
 {
+    static (Dictionary<string, string> exact, Dictionary<string, string> replace) machineNameReplacements;
+    static (Dictionary<string, string> exact, Dictionary<string, string> replace) userNameReplacements;
+
+    static Scrubbers() =>
+        ResetReplacements(Environment.MachineName, Environment.UserName);
+
+    internal static void ResetReplacements(string machineName, string userName)
+    {
+        machineNameReplacements = CreateWrappedReplacements(machineName, "TheMachineName");
+        userNameReplacements = CreateWrappedReplacements(userName, "TheUserName");
+    }
+
+    static char[] validWrappingChars =
+    {
+        ' ',
+        '\t',
+        '\n',
+        '\r'
+    };
+
+    static (Dictionary<string, string> exact, Dictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
+    {
+        var replace = new Dictionary<string, string>();
+        foreach (var wrappingChar in validWrappingChars)
+        {
+            replace[wrappingChar + toReplace] = wrappingChar + toReplaceWith;
+            replace[toReplace + wrappingChar] = toReplaceWith + wrappingChar;
+        }
+
+        var exact = new Dictionary<string, string>
+        {
+            {
+                toReplace, toReplaceWith
+            }
+        };
+        foreach (var beforeChar in validWrappingChars)
+        foreach (var afterChar in validWrappingChars)
+        {
+            exact[beforeChar + toReplace + afterChar] = beforeChar + toReplaceWith + afterChar;
+        }
+
+        return (exact, replace);
+    }
+
     public static void ScrubMachineName(StringBuilder builder) =>
-        builder.Replace(Environment.MachineName, "TheMachineName");
+        PerformReplacements(builder, machineNameReplacements);
 
     public static void ScrubUserName(StringBuilder builder) =>
-        builder.Replace(Environment.UserName, "TheUserName");
+        PerformReplacements(builder, userNameReplacements);
+
+    static void PerformReplacements(StringBuilder builder, (Dictionary<string, string> exact, Dictionary<string, string> replace) replacements)
+    {
+        var value = builder.ToString();
+        foreach (var exact in replacements.exact)
+        {
+            if (value == exact.Key)
+            {
+                builder.Clear();
+                builder.Append(exact.Value);
+                return;
+            }
+        }
+
+        foreach (var replace in replacements.replace)
+        {
+            builder.ReplaceIfLonger(replace.Key, replace.Value);
+        }
+    }
 
     public static string? ScrubStackTrace(string? stackTrace, bool removeParams = false)
     {

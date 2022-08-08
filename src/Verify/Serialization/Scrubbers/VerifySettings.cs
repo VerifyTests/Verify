@@ -49,7 +49,6 @@ public partial class VerifySettings
     //Same for the static
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
-    /// Uses a <see cref="Regex" /> to find <see cref="Guid" />s inside strings.
     /// </summary>
     public void ScrubInlineGuids() =>
         instanceScrubbers.Insert(0, GuidScrubber.ReplaceGuids);
@@ -62,7 +61,7 @@ public partial class VerifySettings
 
     /// <summary>
     /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a a different string to replace it.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
         instanceScrubbers.Insert(0, _ => _.ReplaceLines(replaceLine));
@@ -71,7 +70,19 @@ public partial class VerifySettings
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     public void ScrubEmptyLines() =>
-        instanceScrubbers.Insert(0, _ => _.FilterLines(string.IsNullOrWhiteSpace));
+        instanceScrubbers.Insert(0, builder =>
+        {
+            builder.FilterLines(string.IsNullOrWhiteSpace);
+            if (builder.FirstChar() is '\n')
+            {
+                builder.Remove(0, 1);
+            }
+
+            if (builder.LastChar() is '\n')
+            {
+                builder.Length--;
+            }
+        });
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.

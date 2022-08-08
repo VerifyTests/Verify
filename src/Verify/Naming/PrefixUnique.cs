@@ -17,11 +17,10 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     public static void Clear() =>
         prefixList = new();
 
-    public static string GetUniqueness(Namer namer)
+    public static (string uniquenessForReceived, string uniquenessForVerified)  GetUniqueness(Namer namer)
     {
         var builder = new StringBuilder();
 
-        AppendRuntime(namer, builder);
 
         AppendTargetFramework(namer, builder);
 
@@ -30,8 +29,12 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         AppendArchitecture(namer, builder);
 
         AppendOsPlatform(namer, builder);
+        var verifiedBuilder = new StringBuilder(builder.Length);
+        verifiedBuilder.Append(builder);
+        var receivedBuilder = builder;
+        AppendRuntime(namer, receivedBuilder, verifiedBuilder);
 
-        return builder.ToString();
+        return (receivedBuilder.ToString(), verifiedBuilder.ToString());
     }
 
     static void AppendTargetFramework(Namer namer, StringBuilder builder)
@@ -82,19 +85,21 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         }
     }
 
-    static void AppendRuntime(Namer namer, StringBuilder builder)
+    static void AppendRuntime(Namer namer, StringBuilder receivedBuilder, StringBuilder verifiedBuilder)
     {
+        receivedBuilder.Append($".{Namer.RuntimeAndVersion}");
+
         if (namer.UniqueForRuntimeAndVersion ||
             VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
         {
-            builder.Append($".{Namer.RuntimeAndVersion}");
+            verifiedBuilder.Append($".{Namer.RuntimeAndVersion}");
             return;
         }
 
         if (namer.UniqueForRuntime ||
             VerifierSettings.SharedNamer.UniqueForRuntime)
         {
-            builder.Append($".{Namer.Runtime}");
+            verifiedBuilder.Append($".{Namer.Runtime}");
         }
     }
 

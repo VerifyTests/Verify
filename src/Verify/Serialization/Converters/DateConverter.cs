@@ -4,13 +4,13 @@ class DateConverter :
 {
     public override void Write(VerifyJsonWriter writer, DateOnly value)
     {
-        if (writer.settings.TryConvert(writer.Counter, value, out var result))
+        if (writer.serialization.TryConvert(writer.Counter, value, out var result))
         {
             writer.WriteRawValue(result);
             return;
         }
 
-        writer.WriteValue(value);
+        writer.WriteRawValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
     }
 }
 #endif

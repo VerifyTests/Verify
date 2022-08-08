@@ -14,51 +14,19 @@ public static partial class VerifierSettings
 
     public static bool TryGetToString<T>(
         T target,
-        [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
-    {
-        if (target is Type type)
-        {
-            toString = (_, _) => type.SimpleName();
-            return true;
-        }
-
-        if (target is FieldInfo field)
-        {
-            toString = (_, _) => field.SimpleName();
-            return true;
-        }
-
-        if (target is PropertyInfo property)
-        {
-            toString = (_, _) => property.SimpleName();
-            return true;
-        }
-
-        if (target is MethodInfo method)
-        {
-            toString = (_, _) => method.SimpleName();
-            return true;
-        }
-
-        if (target is ConstructorInfo constructor)
-        {
-            toString = (_, _) => constructor.SimpleName();
-            return true;
-        }
-
-        if (target is ParameterInfo parameter)
-        {
-            toString = (_, _) => parameter.SimpleName();
-            return true;
-        }
-
-        return typeToString.TryGetValue(target!.GetType(), out toString);
-    }
+        [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString) =>
+        typeToString.TryGetValue(target!.GetType(), out toString);
 
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
         #region typeToStringMapping
 
+        {typeof(ParameterInfo), (target, _) => ((ParameterInfo) target).SimpleName()},
+        {typeof(ConstructorInfo), (target, _) => ((ConstructorInfo) target).SimpleName()},
+        {typeof(MethodInfo), (target, _) => ((MethodInfo) target).SimpleName()},
+        {typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
+        {typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},
+        {typeof(Type), (target, _) => ((Type) target).SimpleName()},
         {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},

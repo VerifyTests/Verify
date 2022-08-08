@@ -5,35 +5,43 @@
         Type type,
         string sourceFile,
         VerifySettings settings,
-        string uniqueness)
+        string uniquenessForReceived,
+        string uniquenessForVerified)
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
-
-        var (prefixWithParameters, prefixWithoutParameters) = GetFileNamePrefix(method, type, settings, pathInfo, uniqueness);
-
-        var receivedFilePrefix = prefixWithParameters;
-        var verifiedFilePrefix = settings.ignoreParametersForVerified ? prefixWithoutParameters : prefixWithParameters;
-
         var directory = settings.Directory ?? pathInfo.Directory;
-        return (receivedFilePrefix, verifiedFilePrefix, directory);
-    }
 
-    static (string prefixWithParameters, string prefixWithoutParameters) GetFileNamePrefix(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo, string uniqueness)
-    {
         if (settings.fileName is not null)
         {
-            var filename = settings.fileName + uniqueness;
-            return (filename, filename);
+            return (
+                settings.fileName + uniquenessForReceived,
+                settings.fileName + uniquenessForVerified,
+                directory);
         }
 
+        var typeAndMethod = GetTypeAndMethod(method, type, settings, pathInfo);
+        var parameterText = GetParameterText(method, settings);
+
+        if (settings.ignoreParametersForVerified)
+        {
+            return (
+                $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
+                $"{typeAndMethod}{uniquenessForVerified}",
+                directory);
+        }
+
+        return (
+            $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
+            $"{typeAndMethod}{parameterText}{uniquenessForVerified}",
+            directory);
+    }
+
+    static string GetTypeAndMethod(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
+    {
         var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
         var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
-        var parameterText = GetParameterText(method, settings);
-
-        var withParameters = $"{typeName}.{methodName}{parameterText}{uniqueness}";
-        var withoutParameters = $"{typeName}.{methodName}{uniqueness}";
-        return (withParameters, withoutParameters);
+        return $"{typeName}.{methodName}";
     }
 
     static string GetParameterText(MethodInfo method, VerifySettings settings)

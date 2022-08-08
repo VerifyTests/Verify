@@ -59,7 +59,8 @@ public class SerializationTests
                 withException,
                 withExceptionAndResult,
                 canceledAndResult
-            }).UniqueForRuntime();
+            })
+            .UniqueForRuntime();
     }
 #endif
 
@@ -263,6 +264,19 @@ public class SerializationTests
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
                 })
             .DontScrubDateTimes();
+
+    [Fact]
+    public Task OnlyScrubInlineProperties() =>
+        Verify(
+                new
+                {
+                    property = @"
+line1
+line2
+line3"
+                })
+            .ScrubLinesContaining("property")
+            .ScrubLinesContaining("line2");
 
     [Fact]
     public Task DatetimeScrubbingDisabled() =>
@@ -515,6 +529,18 @@ public class SerializationTests
     }
 
     [Fact]
+    public async Task DateOnlyWithNoScrubbing()
+    {
+        var target = new
+        {
+            DateOnly = new DateOnly(2020, 10, 10)
+        };
+
+        await Verify(target)
+            .DontScrubDateTimes();
+    }
+
+    [Fact]
     public async Task ShouldReUseDatetime()
     {
         #region Date
@@ -639,7 +665,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldBeAbleToExcludeInlineGuidsInString()
+    public Task ShouldScrubInlineGuidsInString()
     {
         var id = Guid.NewGuid();
         return Verify($"The string {id} ")
@@ -647,7 +673,35 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldBeAbleToExcludeInlineGuidsWrappedInSymbols()
+    public Task WriteRawInConverterTest()
+    {
+        var target = new WriteRawInConverterTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter())).ScrubEmptyLines();
+    }
+
+    class WriteRawInConverterTarget
+    {
+    }
+
+    class WriteRawInConverter:
+        WriteOnlyJsonConverter<WriteRawInConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, WriteRawInConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("Raw");
+            writer.WriteRawValue("Raw \" value");
+            writer.WritePropertyName("WriteValue");
+            writer.WriteValue("Write \" Value");
+            writer.WritePropertyName("WriteRawWithScrubbers");
+            writer.WriteRawValueWithScrubbers("Write \"\r\r\rRawWithScrubbers\r\r");
+            writer.WriteEndObject();
+        }
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsWrappedInSymbols()
     {
         var id = Guid.NewGuid();
         return Verify($"({id})")
@@ -655,22 +709,82 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInDash() =>
+    public Task ShouldScrubInlineGuidsStartingWithSymbol()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"/{id}")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsEndingWithSymbol()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"{id}/")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsWrappedInNewLine()
+    {
+        var id = Guid.NewGuid();
+        return Verify($@"
+{id}
+")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineGuidsWrappedWithSymbol()
+    {
+        var id = Guid.NewGuid();
+        return Verify($"/{id}/")
+            .ScrubInlineGuids();
+    }
+
+    [Fact]
+    public Task ShouldNotScrubInlineGuidsWrappedInDash() =>
         Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInLetters() =>
+    public Task ShouldNotScrubInlineGuidsWrappedInLetters() =>
         Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotExcludeInlineGuidsWrappedInNumber() =>
-        Verify("1087ea433-d83b-40b6-9e37-465211d95081")
+    public Task ShouldNotScrubInlineGuidsStartingInLetters() =>
+        Verify("before087ea433-d83b-40b6-9e37-465211d9508")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsStartingInNewline1() =>
+        Verify("\n087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsStartingInNewline2() =>
+        Verify("\r087ea433-d83b-40b6-9e37-465211d95081")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsEndingInNewline1() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081\n")
+            .ScrubInlineGuids();
+    [Fact]
+    public Task ShouldScrubInlineGuidsEndingInNewline2() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081\r")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldBeAbleToExcludeInlineGuids()
+    public Task ShouldNotScrubInlineGuidsEndingLetters() =>
+        Verify("087ea433-d83b-40b6-9e37-465211d95081after")
+            .ScrubInlineGuids();
+
+    [Fact]
+    public Task ShouldNotScrubInlineGuidsWrappedInNumber() =>
+        Verify("1087ea433-d83b-40b6-9e37-465211d950811")
+            .ScrubInlineGuids();
+
+    [Fact]
+    public Task ScrubInlineGuids()
     {
         var id = Guid.NewGuid();
         var product = new
@@ -722,7 +836,7 @@ public class SerializationTests
         #endregion
     }
 
-    void ScrubInlineGuids()
+    void ScrubInlineGuidsGlobal()
     {
         #region ScrubInlineGuids
 
@@ -864,11 +978,6 @@ public class SerializationTests
             altCurrentDirectoryTrailing = altCurrentDirectory + Path.AltDirectorySeparatorChar
         });
     }
-
-    [Fact]
-    public Task ScrubUserName() =>
-        Verify(Environment.UserName)
-        .ScrubUserName();
 
     [Fact]
     public Task MoreSpecificScrubberShouldOverride()
@@ -1153,6 +1262,117 @@ public class SerializationTests
                     {typeof(SerializationTests), "value"}
                 }
             });
+
+    [Fact]
+    public Task ScrubBeforeNewline() =>
+        Verify("Line1\nLine2")
+            .ScrubLinesContaining("Line1");
+
+    [Fact]
+    public Task ScrubEmptyLinesMiddle() =>
+        Verify("Line1\n\n\n\n\r\n\r\rLine2")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEnd() =>
+        Verify("\n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEndAndWhiteSpace() =>
+        Verify(" \n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r ")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStart() =>
+        Verify("\n\n\n\n\r\n\r\rLine")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLineEnd() =>
+        Verify("Line\n\n\n\n\r\n\r\r")
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartProperty() =>
+        Verify(
+                new
+                {
+                    Property = "\n\n\n\n\r\n\r\rLine"
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEndProperty() =>
+        Verify(
+                new
+                {
+                    Property = "\n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r"
+                })
+            .ScrubEmptyLines();
+    [Fact]
+    public Task ScrubEmptyLinesStartAndEndAndWhiteSpaceProperty() =>
+        Verify(
+                new
+                {
+                    Property = " \n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r "
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesEndProperty() =>
+        Verify(
+                new
+                {
+                    Property = "Line\n\n\n\n\r\n\r\r"
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubEmptyLinesMiddleProperty() =>
+        Verify(
+                new
+                {
+                    Property = "Line1\n\n\n\n\r\n\r\rLine2"
+                })
+            .ScrubEmptyLines();
+
+    [Fact]
+    public Task ScrubPropertyBeforeNewline() =>
+        Verify(
+                new {
+                    Property = @"Line1
+Line2"
+                })
+            .ScrubLinesContaining("Line1");
+
+    [Theory]
+    [InlineData(10, "NoMatch")]
+    [InlineData("Value", "Value")]
+    [InlineData("BeforeValue", "BeforeValue")]
+    [InlineData("BeforeValueAfter", "BeforeValueAfter")]
+    [InlineData("ValueAfter", "ValueAfter")]
+    [InlineData("Before\nValue", "BeforeValueWithNewLine")]
+    [InlineData("Before\nValue\nAfter", "BeforeValueAfterNewLine")]
+    [InlineData("Value\nAfter", "ValueAfterWithNewLine")]
+    public Task ScrubDictionaryValue(string value, string name) =>
+        Verify(new Dictionary<int, object>
+        {
+            {1, value},
+            {2, new StringWriter(new StringBuilder(value))},
+            {3, new StringWriter(new StringBuilder(value))},
+        })
+            .ScrubLinesContaining("Value")
+            .UseTextForParameters(name);
+
+    [Fact]
+    public Task NotScrubNonStringDictionaryValues() =>
+        Verify(new Dictionary<int, object>
+        {
+            {1, 1},
+            {2, true},
+            })
+            .ScrubLinesContaining("value");
 
     [Fact]
     public Task ShouldIgnoreEmptyList()

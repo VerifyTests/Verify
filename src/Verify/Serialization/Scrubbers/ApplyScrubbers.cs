@@ -49,9 +49,11 @@ static class ApplyScrubbers
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var altProfileDir = profileDir.ReplaceAltDirChar();
-            replacements[profileDir] = "{UserProfile}";
-            replacements[altProfileDir] = "{UserProfile}";
+            if (!string.IsNullOrWhiteSpace(profileDir)) {
+                var altProfileDir = profileDir.ReplaceAltDirChar();
+                replacements[profileDir] = "{UserProfile}";
+                replacements[altProfileDir] = "{UserProfile}";
+            }
         }
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
@@ -103,7 +105,7 @@ static class ApplyScrubbers
         }
     }
 
-    public static void Apply(string extension, StringBuilder target, VerifySettings settings)
+    public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings)
     {
         foreach (var scrubber in settings.InstanceScrubbers)
         {
@@ -131,20 +133,34 @@ static class ApplyScrubbers
             scrubber(target);
         }
 
-        if (VerifierSettings.ExtensionMappedGlobalScrubbers.TryGetValue(extension, out extensionBasedScrubbers))
+        foreach (var replace in replacements)
         {
-            foreach (var scrubber in extensionBasedScrubbers)
-            {
-                scrubber(target);
-            }
+            target.ReplaceIfLonger(replace.Key, replace.Value);
+        }
+
+        target.FixNewlines();
+    }
+
+    public static string ApplyForPropertyValue(string value, VerifySettings settings)
+    {
+        var builder = new StringBuilder(value);
+        foreach (var scrubber in settings.InstanceScrubbers)
+        {
+            scrubber(builder);
+        }
+
+        foreach (var scrubber in VerifierSettings.GlobalScrubbers)
+        {
+            scrubber(builder);
         }
 
         foreach (var replace in replacements)
         {
-            target.Replace(replace.Key, replace.Value);
+            builder.ReplaceIfLonger(replace.Key, replace.Value);
         }
 
-        target.FixNewlines();
+        builder.FixNewlines();
+        return builder.ToString();
     }
 
     static string CleanPath(string directory) =>

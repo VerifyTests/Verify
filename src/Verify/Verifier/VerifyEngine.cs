@@ -9,6 +9,7 @@ class VerifyEngine
     List<NewResult> @new = new();
     List<NotEqualResult> notEquals = new();
     List<FilePair> equal = new();
+    List<FilePair> autoVerified = new();
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
@@ -18,26 +19,25 @@ class VerifyEngine
         this.directory = directory;
         this.settings = settings;
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);;
+        delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
     }
 
     public IReadOnlyList<FilePair> Equal => equal;
+    public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
         if (target.IsStringBuilder)
         {
             var builder = target.StringBuilderData;
-            ApplyScrubbers.Apply(target.Extension, builder, settings);
             return await Comparer.Text(file, builder.ToString(), settings);
         }
 
         if (target.IsString)
         {
             var builder = new StringBuilder(target.StringData);
-            ApplyScrubbers.Apply(target.Extension, builder, settings);
             return await Comparer.Text(file, builder.ToString(), settings);
         }
 
@@ -184,6 +184,11 @@ class VerifyEngine
 
     Task RunDiffAutoCheck(FilePair file)
     {
+        if (settings.IsAutoVerify)
+        {
+            autoVerified.Add(file);
+        }
+
         if (BuildServerDetector.Detected)
         {
             return Task.CompletedTask;

@@ -4,11 +4,12 @@ public class VerifyJsonWriter :
     JsonTextWriter
 {
     StringBuilder builder;
-    internal SerializationSettings settings;
+    internal VerifySettings settings;
+    internal SerializationSettings serialization;
     public IReadOnlyDictionary<string, object> Context { get; }
     public Counter Counter { get; }
 
-    internal VerifyJsonWriter(StringBuilder builder, SerializationSettings settings, IReadOnlyDictionary<string, object> context, Counter counter) :
+    internal VerifyJsonWriter(StringBuilder builder, VerifySettings settings, Counter counter) :
         base(
             new StringWriter(builder)
             {
@@ -17,7 +18,8 @@ public class VerifyJsonWriter :
     {
         this.builder = builder;
         this.settings = settings;
-        Context = context;
+        this.serialization = settings.serialization;
+        Context = settings.Context;
         Counter = counter;
         if (!VerifierSettings.StrictJson)
         {
@@ -27,21 +29,32 @@ public class VerifyJsonWriter :
         }
     }
 
+    public void WriteRawValueWithScrubbers(string? value)
+    {
+        if (value is null or "")
+        {
+            base.WriteRawValue(value);
+            return;
+        }
+        value = ReplaceNewlinesAndScrub(value);
+        base.WriteRawValue(value);
+    }
+
     public override void WriteValue(string? value)
     {
-        if (value is null)
+        if (value is null or "")
         {
-            base.WriteValue(value);
+            base.WriteRawValue(value);
             return;
         }
 
-        if (settings.TryConvertString(Counter, value, out var result))
+        if (serialization.TryConvertString(Counter, value, out var result))
         {
             WriteRawValue(result);
             return;
         }
 
-        value = value.Replace("\r\n", "\n").Replace('\r', '\n');
+        value = ReplaceNewlinesAndScrub(value);
         if (VerifierSettings.StrictJson)
         {
             base.WriteValue(value);
@@ -52,10 +65,37 @@ public class VerifyJsonWriter :
         {
             base.Flush();
             var builderLength = builder.Length;
-            value = $"\n{value}";
+            if (!value.StartsWith('\n'))
+            {
+                value = $"\n{value}";
+            }
+
             WriteRawValue(value);
             base.Flush();
             builder.Remove(builderLength, 1);
+            return;
+        }
+
+        WriteRawValue(value);
+    }
+
+    string ReplaceNewlinesAndScrub(string value)
+    {
+        value = value.Replace("\r\n", "\n").Replace('\r', '\n');
+        return ApplyScrubbers.ApplyForPropertyValue(value, settings);
+    }
+
+    public void WriteSingleLineNoScrubbing(string value)
+    {
+        if (value is "")
+        {
+            base.WriteRawValue(value);
+            return;
+        }
+
+        if (VerifierSettings.StrictJson)
+        {
+            base.WriteValue(value);
             return;
         }
 
@@ -75,7 +115,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(DateTimeOffset value)
     {
-        if (settings.TryConvert(Counter, value, out var result))
+        if (serialization.TryConvert(Counter, value, out var result))
         {
             WriteRawValue(result);
             return;
@@ -92,7 +132,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(DateTime value)
     {
-        if (settings.TryConvert(Counter, value, out var result))
+        if (serialization.TryConvert(Counter, value, out var result))
         {
             WriteRawValue(result);
             return;
@@ -112,7 +152,7 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(Guid value)
     {
-        if (settings.TryConvert(Counter, value, out var result))
+        if (serialization.TryConvert(Counter, value, out var result))
         {
             WriteRawValue(result);
             return;
@@ -143,12 +183,12 @@ public class VerifyJsonWriter :
 
         var declaringType = target.GetType();
         var memberType = value.GetType();
-        if (settings.ShouldIgnore(declaringType, memberType, name))
+        if (serialization.ShouldIgnore(declaringType, memberType, name))
         {
             return;
         }
 
-        if (!settings.ShouldSerialize(value))
+        if (!serialization.ShouldSerialize(value))
         {
             return;
         }

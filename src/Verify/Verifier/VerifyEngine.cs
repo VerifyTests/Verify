@@ -9,6 +9,7 @@ class VerifyEngine
     List<NewResult> @new = new();
     List<NotEqualResult> notEquals = new();
     List<FilePair> equal = new();
+    List<FilePair> autoVerified = new();
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
@@ -24,6 +25,7 @@ class VerifyEngine
     }
 
     public IReadOnlyList<FilePair> Equal => equal;
+    public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
@@ -182,6 +184,11 @@ class VerifyEngine
 
     Task RunDiffAutoCheck(FilePair file)
     {
+        if (settings.IsAutoVerify)
+        {
+            autoVerified.Add(file);
+        }
+
         if (BuildServerDetector.Detected)
         {
             return Task.CompletedTask;

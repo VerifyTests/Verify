@@ -12,6 +12,8 @@
     <Using Include="Newtonsoft.Json.Serialization" />
     <Using Include="Newtonsoft.Json.Linq" />
     <Using Include="Newtonsoft.Json.Converters" />
+    <Using Include="System.Runtime.InteropServices" />
+    <Using Include="DiffEngine" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />

@@ -44,9 +44,6 @@ public partial class VerifySettings
     public void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch) =>
         instanceScrubbers.Insert(0, _ => _.RemoveLinesContaining(comparison, stringToMatch));
 
-    //TODO: should only do this when it is a string.
-    //and instead pass a bool to the json serializer for the object scenario
-    //Same for the static
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>

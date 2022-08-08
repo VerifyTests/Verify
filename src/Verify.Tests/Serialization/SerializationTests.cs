@@ -673,6 +673,34 @@ line3"
     }
 
     [Fact]
+    public Task WriteRawInConverterTest()
+    {
+        var target = new WriteRawInConverterTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter())).ScrubEmptyLines();
+    }
+
+    class WriteRawInConverterTarget
+    {
+    }
+
+    class WriteRawInConverter:
+        WriteOnlyJsonConverter<WriteRawInConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, WriteRawInConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("Raw");
+            writer.WriteRawValue("Raw \" value");
+            writer.WritePropertyName("WriteValue");
+            writer.WriteValue("Write \" Value");
+            writer.WritePropertyName("WriteRawWithScrubbers");
+            writer.WriteRawValueWithScrubbers("Write \"\r\r\rRawWithScrubbers\r\r");
+            writer.WriteEndObject();
+        }
+    }
+
+    [Fact]
     public Task ShouldScrubInlineGuidsWrappedInSymbols()
     {
         var id = Guid.NewGuid();

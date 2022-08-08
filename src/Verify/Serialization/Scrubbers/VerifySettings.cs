@@ -11,31 +11,73 @@ public partial class VerifySettings
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     public void ScrubMachineName() =>
-        AddScrubber(Scrubbers.ScrubMachineName);
+        ScrubMachineName(ScrubberLocation.First);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
+    /// </summary>
+    public void ScrubMachineName(ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(Scrubbers.ScrubMachineName, location);
 
     /// <summary>
     /// Remove the <see cref="Environment.UserName" /> from the test results.
     /// </summary>
     public void ScrubUserName() =>
-        AddScrubber(Scrubbers.ScrubUserName);
+        ScrubUserName(ScrubberLocation.First);
+
+    /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    public void ScrubUserName(ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(Scrubbers.ScrubUserName, location);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
     public void AddScrubber(Action<StringBuilder> scrubber) =>
-        instanceScrubbers.Insert(0, scrubber);
+        AddScrubber(scrubber, ScrubberLocation.First);
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public void AddScrubber(string extension, Action<StringBuilder> scrubber)
+    public void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    {
+        switch (location)
+        {
+            case ScrubberLocation.First:
+                instanceScrubbers.Insert(0, scrubber);
+                break;
+            case ScrubberLocation.Last:
+                instanceScrubbers.Add(scrubber);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public void AddScrubber(string extension, Action<StringBuilder> scrubber) =>
+        AddScrubber(extension, scrubber, ScrubberLocation.First);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public void AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         if (!extensionMappedInstanceScrubbers.TryGetValue(extension, out var values))
         {
             extensionMappedInstanceScrubbers[extension] = values = new();
         }
 
-        values.Add(scrubber);
+        switch (location)
+        {
+            case ScrubberLocation.First:
+                values.Insert(0, scrubber);
+                break;
+            case ScrubberLocation.Last:
+                values.Add(scrubber);
+                break;
+        }
     }
 
     /// <summary>

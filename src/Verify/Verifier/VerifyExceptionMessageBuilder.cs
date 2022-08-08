@@ -2,11 +2,10 @@
 {
     public static string Build(
         string directory,
-        List<NewResult> @new,
-        List<NotEqualResult> notEquals,
+        IReadOnlyCollection<NewResult> @new,
+        IReadOnlyCollection<NotEqualResult> notEquals,
         IReadOnlyCollection<string> delete,
-        IReadOnlyList<FilePair> equal,
-        IReadOnlyList<FilePair> autoVerified)
+        IReadOnlyCollection<FilePair> equal)
     {
         var builder = new StringBuilder($"Directory: {directory}");
         builder.AppendLine();
@@ -47,16 +46,6 @@
             }
         }
 
-
-        if (equal.Any())
-        {
-            builder.AppendLine("AutoVerified:");
-            foreach (var file in autoVerified)
-            {
-                AppendFile(builder, file);
-            }
-        }
-
         AppendContent(@new, notEquals, builder);
 
         return builder.ToString();
@@ -68,7 +57,7 @@
         builder.AppendLine($"    Verified: {file.VerifiedName}");
     }
 
-    static void AppendContent(IReadOnlyList<NewResult> @new, List<NotEqualResult> notEquals, StringBuilder builder)
+    static void AppendContent(IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {

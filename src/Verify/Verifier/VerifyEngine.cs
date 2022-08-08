@@ -131,7 +131,7 @@ class VerifyEngine
         await ProcessNotEquals();
         if (!settings.IsAutoVerify)
         {
-            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal, autoVerified);
+            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
         }
     }

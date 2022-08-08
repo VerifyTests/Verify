@@ -301,7 +301,7 @@ public class Tests
     [Fact]
     public async Task StringWithDifferingNewline()
     {
-        var fullPath = Path.GetFullPath("../../../Tests.StringWithDifferingNewline.verified.txt");
+        var fullPath = Path.Combine(AttributeReader.GetProjectDirectory(), "Tests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
         await Verify("a\r\nb");

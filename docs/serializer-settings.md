@@ -384,7 +384,7 @@ VerifierSettings.AddExtraSettings(
         _.TypeNameHandling = TypeNameHandling.All;
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L125' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L115-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -400,7 +400,7 @@ settings.AddExtraSettings(
         _.TypeNameHandling = TypeNameHandling.All;
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L127-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L125-L134' title='Snippet source file'>snippet source</a> | <a href='#snippet-extrasettingsinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -418,7 +418,7 @@ class CompanyConverter :
         writer.WriteMember(company, company.Name, "Name");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L152-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L150-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-companyconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
@@ -430,7 +430,7 @@ VerifierSettings.AddExtraSettings(
         _.Converters.Add(new CompanyConverter());
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L141-L149' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L139-L147' title='Snippet source file'>snippet source</a> | <a href='#snippet-jsonconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1201,7 +1201,7 @@ Extra types can be added to this mapping:
 VerifierSettings.TreatAsString<ClassWithToString>(
     (target, settings) => target.Property);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L50-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-treatasstring' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L48-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-treatasstring' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

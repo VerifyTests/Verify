@@ -518,10 +518,14 @@ public class Tests
     }
 
 #endif
-
+    
     [Fact]
     public async Task EnsureUtf8BomPreamble()
     {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
         var projectDirectory = AttributeReader.GetProjectDirectory();
         var file = Path.Combine(projectDirectory, $"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
         File.Delete(file);

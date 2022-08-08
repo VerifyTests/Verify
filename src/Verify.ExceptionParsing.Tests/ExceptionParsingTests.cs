@@ -197,7 +197,13 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         List<FilePair> equal,
         [CallerFilePath] string sourceFile = "")
     {
-        var exceptionMessage = VerifyExceptionMessageBuilder.Build(projectDirectory, @new, notEquals, delete, equal);
+        var exceptionMessage = VerifyExceptionMessageBuilder.Build(
+            projectDirectory,
+            @new,
+            notEquals,
+            delete,
+            equal,
+            Array.Empty<FilePair>());
 
         var result = Parser.Parse(exceptionMessage);
         return Verify(

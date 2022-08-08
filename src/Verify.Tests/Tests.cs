@@ -515,15 +515,21 @@ public class Tests
         var utf8 = Encoding.UTF8;
         var preambleBytes = utf8.GetPreamble();
         var preambleString = utf8.GetString(preambleBytes);
-        var result = await Verify($"{preambleString}a")
-            .UniqueForRuntimeAndVersion()
-            .AutoVerify();
-        await Verify("a")
-            .UniqueForRuntimeAndVersion()
-            .DisableRequireUniquePrefix();
-        var first = result.TextFiles.First();
-        var fileBytes = File.ReadAllBytes(first).Take(3);
-        Assert.Equal(preambleBytes, fileBytes);
+        try
+        {
+            await Verify($"{preambleString}a")
+                .UniqueForRuntimeAndVersion()
+                .AutoVerify();
+            await Verify("a")
+                .UniqueForRuntimeAndVersion()
+                .DisableRequireUniquePrefix();
+            var fileBytes = File.ReadAllBytes(file).Take(3);
+            Assert.Equal(preambleBytes, fileBytes);
+        }
+        finally
+        {
+            File.Delete(file);
+        }
     }
 
     [Fact]

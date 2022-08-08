@@ -42,32 +42,32 @@ public partial class VerifySettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch) =>
-        instanceScrubbers.Insert(0, _ => _.RemoveLinesContaining(comparison, stringToMatch));
+        AddScrubber(_ => _.RemoveLinesContaining(comparison, stringToMatch));
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
     public void ScrubInlineGuids() =>
-        instanceScrubbers.Insert(0, GuidScrubber.ReplaceGuids);
+        AddScrubber(GuidScrubber.ReplaceGuids);
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public void ScrubLines(Func<string, bool> removeLine) =>
-        instanceScrubbers.Insert(0, _ => _.FilterLines(removeLine));
+        AddScrubber(_ => _.FilterLines(removeLine));
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
-        instanceScrubbers.Insert(0, _ => _.ReplaceLines(replaceLine));
+        AddScrubber(_ => _.ReplaceLines(replaceLine));
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     public void ScrubEmptyLines() =>
-        instanceScrubbers.Insert(0, builder =>
+        AddScrubber(builder =>
         {
             builder.FilterLines(string.IsNullOrWhiteSpace);
             if (builder.FirstChar() is '\n')

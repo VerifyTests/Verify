@@ -84,31 +84,62 @@ public partial class VerifySettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch) =>
-        AddScrubber(_ => _.RemoveLinesContaining(comparison, stringToMatch));
+        ScrubLinesContaining(comparison, ScrubberLocation.First, stringToMatch);
+
+    /// <summary>
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
+    /// </summary>
+    public void ScrubLinesContaining(StringComparison comparison, ScrubberLocation location, params string[] stringToMatch) =>
+        AddScrubber(_ => _.RemoveLinesContaining(comparison, stringToMatch),location);
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.
     /// </summary>
     public void ScrubInlineGuids() =>
-        AddScrubber(GuidScrubber.ReplaceGuids);
+        ScrubInlineGuids(ScrubberLocation.First);
+
+    /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    public void ScrubInlineGuids(ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(GuidScrubber.ReplaceGuids, location);
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public void ScrubLines(Func<string, bool> removeLine) =>
-        AddScrubber(_ => _.FilterLines(removeLine));
+        ScrubLines(removeLine, ScrubberLocation.First);
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    public void ScrubLines(Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(_ => _.FilterLines(removeLine), location);
 
     /// <summary>
     /// Scrub lines with an optional replace.
     /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
     /// </summary>
     public void ScrubLinesWithReplace(Func<string, string?> replaceLine) =>
-        AddScrubber(_ => _.ReplaceLines(replaceLine));
+        ScrubLinesWithReplace(replaceLine, ScrubberLocation.First);
+
+    /// <summary>
+    /// Scrub lines with an optional replace.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
+    /// </summary>
+    public void ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(_ => _.ReplaceLines(replaceLine), location);
 
     /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     public void ScrubEmptyLines() =>
+        ScrubEmptyLines(ScrubberLocation.First);
+
+    /// <summary>
+    /// Remove any lines containing only whitespace from the test results.
+    /// </summary>
+    public void ScrubEmptyLines(ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(builder =>
         {
             builder.FilterLines(string.IsNullOrWhiteSpace);
@@ -127,5 +158,11 @@ public partial class VerifySettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(params string[] stringToMatch) =>
+        ScrubLinesContaining(ScrubberLocation.First, stringToMatch);
+
+    /// <summary>
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
+    /// </summary>
+    public void ScrubLinesContaining(ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch) =>
         ScrubLinesContaining(StringComparison.OrdinalIgnoreCase, stringToMatch);
 }

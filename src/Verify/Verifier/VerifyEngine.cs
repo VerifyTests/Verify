@@ -9,6 +9,7 @@ class VerifyEngine
     List<NewResult> @new = new();
     List<NotEqualResult> notEquals = new();
     List<FilePair> equal = new();
+    List<FilePair> autoVerified = new();
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
@@ -24,6 +25,7 @@ class VerifyEngine
     }
 
     public IReadOnlyList<FilePair> Equal => equal;
+    public IReadOnlyList<FilePair> AutoVerified => autoVerified;
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
@@ -129,7 +131,7 @@ class VerifyEngine
         await ProcessNotEquals();
         if (!settings.IsAutoVerify)
         {
-            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
+            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal, autoVerified);
             throw new VerifyException(message);
         }
     }
@@ -189,7 +191,7 @@ class VerifyEngine
 
         if (settings.IsAutoVerify)
         {
-            equal.Add(file);
+            autoVerified.Add(file);
             AcceptChanges(file);
             return Task.CompletedTask;
         }

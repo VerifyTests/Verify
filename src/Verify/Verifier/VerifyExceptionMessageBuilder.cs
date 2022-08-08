@@ -5,7 +5,8 @@
         List<NewResult> @new,
         List<NotEqualResult> notEquals,
         IReadOnlyCollection<string> delete,
-        IReadOnlyList<FilePair> equal)
+        IReadOnlyList<FilePair> equal,
+        IReadOnlyList<FilePair> autoVerified)
     {
         var builder = new StringBuilder($"Directory: {directory}");
         builder.AppendLine();
@@ -41,6 +42,16 @@
         {
             builder.AppendLine("Equal:");
             foreach (var file in equal)
+            {
+                AppendFile(builder, file);
+            }
+        }
+
+
+        if (equal.Any())
+        {
+            builder.AppendLine("AutoVerified:");
+            foreach (var file in autoVerified)
             {
                 AppendFile(builder, file);
             }

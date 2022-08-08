@@ -206,6 +206,13 @@ If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 snippet: ExceptionResult
 
 
+## CurrentFile
+
+Utility for finding paths based on the current file.
+
+snippet: CurrentFile.cs
+
+
 ## Versioning
 
 Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions). Small changes in the resulting snapshot files may be deployed in a minor version. As such nuget updates to `Verify.*` should be done as follows:

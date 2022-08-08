@@ -5,9 +5,9 @@ using FilePair = VerifyTests.FilePair;
 public class ExceptionParsingTests
 {
     static string projectDirectory = AttributeReader.GetProjectDirectory();
-    string fakeFilePrefix = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake");
-    string fakeReceivedTextFile = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake.recevied.txt");
-    string fakeReceivedBinFile = Path.Combine(projectDirectory, "ExceptionParsingTests.Fake.recevied.bin");
+    string fakeFilePrefix = CurrentFile.Relative("ExceptionParsingTests.Fake");
+    string fakeReceivedTextFile = CurrentFile.Relative("ExceptionParsingTests.Fake.recevied.txt");
+    string fakeReceivedBinFile = CurrentFile.Relative("ExceptionParsingTests.Fake.recevied.bin");
 
     [Fact]
     public Task Error_EmptyList() =>

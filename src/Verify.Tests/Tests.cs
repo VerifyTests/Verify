@@ -299,8 +299,7 @@ public class Tests
     [Fact]
     public async Task StringWithDifferingNewline()
     {
-        var projectDirectory = AttributeReader.GetProjectDirectory();
-        var fullPath = Path.Combine(projectDirectory, "Tests.StringWithDifferingNewline.verified.txt");
+        var fullPath = CurrentFile.Relative("Tests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
         await Verify("a\r\nb");
@@ -522,8 +521,8 @@ public class Tests
         {
             return;
         }
-        var projectDirectory = AttributeReader.GetProjectDirectory();
-        var file = Path.Combine(projectDirectory, $"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
+
+        var file = CurrentFile.Relative($"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
         File.Delete(file);
         await Verify("value")
             .UniqueForRuntimeAndVersion()
@@ -614,8 +613,7 @@ public class Tests
         }
         finally
         {
-            var projectDirectory = AttributeReader.GetProjectDirectory();
-            var file = Path.Combine(projectDirectory, $"Tests.ResultAutoVerifyMissingVerified.{Namer.RuntimeAndVersion}.verified.txt");
+            var file = CurrentFile.Relative($"Tests.ResultAutoVerifyMissingVerified.{Namer.RuntimeAndVersion}.verified.txt");
             File.Delete(file);
         }
     }

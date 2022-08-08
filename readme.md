@@ -415,7 +415,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L583-L592' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L580-L589' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
@@ -426,7 +426,37 @@ If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 var result = await Verifier.Throws(MethodThatThrows);
 Assert.NotNull(result.Exception);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L628-L633' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L624-L629' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## CurrentFile
+
+Utility for finding paths based on the current file.
+
+<!-- snippet: CurrentFile.cs -->
+<a id='snippet-CurrentFile.cs'></a>
+```cs
+using IOPath = System.IO.Path;
+
+namespace VerifyTests;
+
+public static class CurrentFile
+{
+    public static string Path([CallerFilePath] string file = "") =>
+        file;
+
+    public static string Directory([CallerFilePath] string file = "") =>
+        IOPath.GetDirectoryName(file)!;
+
+    public static string Relative(string relative, [CallerFilePath] string file = "")
+    {
+        var directory = IOPath.GetDirectoryName(file)!;
+        return IOPath.Combine(directory, relative);
+    }
+}
+```
+<sup><a href='/src/Verify/CurrentFile.cs#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentFile.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

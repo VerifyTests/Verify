@@ -517,19 +517,6 @@ public class Tests
 #endif
 
     [Fact]
-    public async Task EnsureUtf8BomPreamble()
-    {
-        var projectDirectory = AttributeReader.GetProjectDirectory();
-        var file = Path.Combine(projectDirectory, $"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
-        await Verify("value")
-            .UniqueForRuntimeAndVersion()
-            .AutoVerify();
-        var fileBytes = File.ReadAllBytes(file).Take(3);
-        var preambleBytes = Encoding.UTF8.GetPreamble();
-        Assert.Equal(preambleBytes, fileBytes);
-    }
-
-    [Fact]
     public Task StringExtension()
     {
         var settings = new VerifySettings();

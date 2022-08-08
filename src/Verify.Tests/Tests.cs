@@ -518,7 +518,7 @@ public class Tests
     }
 
 #endif
-    
+
     [Fact]
     public async Task EnsureUtf8BomPreamble()
     {

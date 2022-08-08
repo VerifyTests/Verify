@@ -505,32 +505,17 @@ public class Tests
         return Verifier.ThrowsTask(() => Verify(element, settings))
             .IgnoreStackTrace();
     }
-
+#if NET6_0
     [Fact]
     public async Task StringWithUtf8Bom()
     {
-        var projectDirectory = AttributeReader.GetProjectDirectory();
-        var file = Path.Combine(projectDirectory, $"Tests.StringWithUtf8Bom.{Namer.RuntimeAndVersion}.verified.txt");
-        File.Delete(file);
         var utf8 = Encoding.UTF8;
-        var preambleBytes = utf8.GetPreamble();
-        var preambleString = utf8.GetString(preambleBytes);
-        try
-        {
-            await Verify($"{preambleString}a")
-                .UniqueForRuntimeAndVersion()
-                .AutoVerify();
-            await Verify("a")
-                .UniqueForRuntimeAndVersion()
-                .DisableRequireUniquePrefix();
-            var fileBytes = File.ReadAllBytes(file).Take(3);
-            Assert.Equal(preambleBytes, fileBytes);
-        }
-        finally
-        {
-            File.Delete(file);
-        }
+        var preamble = utf8.GetString(utf8.GetPreamble());
+        await Verify($"{preamble}a").AutoVerify();
+        await Verify("a").DisableRequireUniquePrefix();
     }
+#endif
+
 
     [Fact]
     public Task StringExtension()

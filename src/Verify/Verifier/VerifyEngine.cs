@@ -189,6 +189,7 @@ class VerifyEngine
 
         if (settings.IsAutoVerify)
         {
+            equal.Add(file);
             AcceptChanges(file);
             return Task.CompletedTask;
         }

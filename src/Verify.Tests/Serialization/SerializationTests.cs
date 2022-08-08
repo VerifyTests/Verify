@@ -1,6 +1,4 @@
-﻿#if !NET461
-using System.Security.Claims;
-#endif
+﻿using System.Security.Claims;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -1055,7 +1053,6 @@ line3"
         #endregion
     }
 
-#if (!NETSTANDARD2_0 && !NET461)
     [Fact]
     public async Task NamedTuple()
     {
@@ -1073,7 +1070,6 @@ line3"
 
     #endregion
 
-#if !NET461
     [Fact]
     public async Task PartialNamedTuple()
     {
@@ -1081,7 +1077,6 @@ line3"
         PrefixUnique.Clear();
         await Verify(exception.Message);
     }
-#endif
 
     static (bool, string Member2, string Member3) MethodWithPartialNamedTuple() =>
         (true, "A", "B");
@@ -2388,8 +2383,6 @@ Line2"
 
     static (bool, string, string) MethodWithTuple() =>
         (true, "A", "B");
-
-#endif
 
     #region ScopedSerializer
 

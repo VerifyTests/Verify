@@ -587,14 +587,20 @@ public class Tests
     [Fact]
     public async Task ResultAutoVerifyMissingVerified()
     {
-        var projectDirectory = AttributeReader.GetProjectDirectory();
-        var file = Path.Combine(projectDirectory, $"Tests.ResultAutoVerifyMissingVerified.{Namer.RuntimeAndVersion}.verified.txt");
-        File.Delete(file);
-        var result = await Verify("Value")
-            .UniqueForRuntimeAndVersion()
-            .AutoVerify();
+        try
+        {
+            var result = await Verify("Value")
+                .UniqueForRuntimeAndVersion()
+                .AutoVerify();
 
-        Assert.Single(result.Files);
+            Assert.Single(result.Files);
+        }
+        finally
+        {
+            var projectDirectory = AttributeReader.GetProjectDirectory();
+            var file = Path.Combine(projectDirectory, $"Tests.ResultAutoVerifyMissingVerified.{Namer.RuntimeAndVersion}.verified.txt");
+            File.Delete(file);
+        }
     }
 
     [Fact]

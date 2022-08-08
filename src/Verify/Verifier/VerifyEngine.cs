@@ -184,6 +184,11 @@ class VerifyEngine
 
     Task RunDiffAutoCheck(FilePair file)
     {
+        if (settings.IsAutoVerify)
+        {
+            autoVerified.Add(file);
+        }
+
         if (BuildServerDetector.Detected)
         {
             return Task.CompletedTask;
@@ -191,7 +196,6 @@ class VerifyEngine
 
         if (settings.IsAutoVerify)
         {
-            autoVerified.Add(file);
             AcceptChanges(file);
             return Task.CompletedTask;
         }

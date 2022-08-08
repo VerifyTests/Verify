@@ -57,11 +57,10 @@
 
 #if NET461 || NET472 || NET48 || NETSTANDARD2_0
 
-    public static async Task WriteText(string path, string text)
+    public static Task WriteText(string path, string text)
     {
-        var encodedText = Utf8.GetBytes(text);
-        using var stream = OpenWrite(path);
-        await stream.WriteAsync(encodedText, 0, encodedText.Length);
+        File.WriteAllText(path, text, Utf8);
+        return Task.CompletedTask;
     }
 
 #else

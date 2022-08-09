@@ -35,7 +35,7 @@ public class VerifyJsonWriter :
             base.WriteRawValue(value);
             return;
         }
-        value = ReplaceNewlinesAndScrub(value);
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
         base.WriteRawValue(value);
     }
 
@@ -53,7 +53,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        value = ReplaceNewlinesAndScrub(value);
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
         if (VerifierSettings.StrictJson)
         {
             base.WriteValue(value);
@@ -76,12 +76,6 @@ public class VerifyJsonWriter :
         }
 
         WriteRawValue(value);
-    }
-
-    string ReplaceNewlinesAndScrub(string value)
-    {
-        value = value.FixNewlines();
-        return ApplyScrubbers.ApplyForPropertyValue(value, settings);
     }
 
     public void WriteSingleLineNoScrubbing(string value)

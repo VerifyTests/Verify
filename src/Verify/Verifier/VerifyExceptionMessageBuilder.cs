@@ -8,11 +8,11 @@
         IReadOnlyCollection<FilePair> equal)
     {
         var builder = new StringBuilder($"Directory: {directory}");
-        builder.AppendLine();
+        builder.AppendLineN();
 
         if (@new.Any())
         {
-            builder.AppendLine("New:");
+            builder.AppendLineN("New:");
             foreach (var file in @new)
             {
                 AppendFile(builder, file.File);
@@ -21,7 +21,7 @@
 
         if (notEquals.Any())
         {
-            builder.AppendLine("NotEqual:");
+            builder.AppendLineN("NotEqual:");
             foreach (var file in notEquals)
             {
                 AppendFile(builder, file.File);
@@ -30,16 +30,16 @@
 
         if (delete.Any())
         {
-            builder.AppendLine("Delete:");
+            builder.AppendLineN("Delete:");
             foreach (var file in delete)
             {
-                builder.AppendLine($"  - {Path.GetFileName(file)}");
+                builder.AppendLineN($"  - {Path.GetFileName(file)}");
             }
         }
 
         if (equal.Any())
         {
-            builder.AppendLine("Equal:");
+            builder.AppendLineN("Equal:");
             foreach (var file in equal)
             {
                 AppendFile(builder, file);
@@ -53,8 +53,8 @@
 
     static void AppendFile(StringBuilder builder, FilePair file)
     {
-        builder.AppendLine($"  - Received: {file.ReceivedName}");
-        builder.AppendLine($"    Verified: {file.VerifiedName}");
+        builder.AppendLineN($"  - Received: {file.ReceivedName}");
+        builder.AppendLineN($"    Verified: {file.VerifiedName}");
     }
 
     static void AppendContent(IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
@@ -73,32 +73,32 @@
             return;
         }
 
-        builder.AppendLine();
-        builder.AppendLine("FileContent:");
-        builder.AppendLine();
+        builder.AppendLineN();
+        builder.AppendLineN("FileContent:");
+        builder.AppendLineN();
 
         if (newContentFiles.Any())
         {
-            builder.AppendLine("New:");
-            builder.AppendLine();
+            builder.AppendLineN("New:");
+            builder.AppendLineN();
             foreach (var item in newContentFiles)
             {
-                builder.AppendLine($"Received: {item.File.ReceivedName}");
-                builder.AppendLine(item.ReceivedText);
-                builder.AppendLine();
+                builder.AppendLineN($"Received: {item.File.ReceivedName}");
+                builder.AppendLineN(item.ReceivedText);
+                builder.AppendLineN();
             }
         }
 
         if (notEqualContentFiles.Any())
         {
-            builder.AppendLine("NotEqual:");
-            builder.AppendLine();
+            builder.AppendLineN("NotEqual:");
+            builder.AppendLineN();
             foreach (var notEqual in notEqualContentFiles)
             {
                 if (notEqual.File.IsText || notEqual.Message != null)
                 {
                     AppendNotEqualContent(builder, notEqual);
-                    builder.AppendLine();
+                    builder.AppendLineN();
                 }
             }
         }
@@ -110,7 +110,7 @@
         var message = notEqual.Message;
         if (message is null)
         {
-            builder.AppendLine(
+            builder.AppendLineN(
                 $"""
                 Received: {item.ReceivedName}
                 {notEqual.ReceivedText}
@@ -120,7 +120,7 @@
         }
         else
         {
-            builder.AppendLine(
+            builder.AppendLineN(
                 $"""
                 Received: {item.ReceivedName}
                 Verified: {item.VerifiedName}

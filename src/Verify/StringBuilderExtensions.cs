@@ -11,7 +11,16 @@ public static class StringBuilderExtensions
     /// <summary>
     /// Appends a line with a `\n` as the newline character.
     /// </summary>
-    public static StringBuilder AppendLineN(this StringBuilder builder, string value)
+    public static StringBuilder AppendLineN(this StringBuilder builder)
+    {
+        builder.Append('\n');
+        return builder;
+    }
+
+    /// <summary>
+    /// Appends a line with a `\n` as the newline character.
+    /// </summary>
+    public static StringBuilder AppendLineN(this StringBuilder builder, string? value)
     {
         builder.Append(value);
         builder.Append('\n');

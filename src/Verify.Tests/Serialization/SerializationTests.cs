@@ -1492,6 +1492,15 @@ Line2"
             .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()));
     }
 
+    [Fact]
+    public Task TestConverterWithBadNewlineScrubEmptyLines()
+    {
+        var target = new ConverterWithBadNewlineTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()))
+            .ScrubEmptyLines();
+    }
+
     class ConverterWithBadNewlineTarget
     {
     }

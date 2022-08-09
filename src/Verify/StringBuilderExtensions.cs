@@ -1,9 +1,21 @@
-﻿static class StringBuilderExtensions
+﻿namespace VerifyTests;
+
+public static class StringBuilderExtensions
 {
     public static void FixNewlines(this StringBuilder builder)
     {
         builder.Replace("\r\n", "\n");
         builder.Replace('\r', '\n');
+    }
+
+    /// <summary>
+    /// Appends a line with a `\n` as the newline character.
+    /// </summary>
+    public static StringBuilder AppendLineN(this StringBuilder builder, string value)
+    {
+        builder.Append(value);
+        builder.Append('\n');
+        return builder;
     }
 
     public static void TrimEnd(this StringBuilder builder)

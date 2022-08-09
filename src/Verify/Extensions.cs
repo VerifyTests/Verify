@@ -11,6 +11,10 @@ static class Extensions
         return attribute?.Configuration;
     }
 
+    public static string FixNewlines(this string value) =>
+        value.Replace("\r\n", "\n")
+            .Replace('\r', '\n');
+
     public static char? FirstChar(this StringBuilder builder)
     {
         if (builder.Length > 0)

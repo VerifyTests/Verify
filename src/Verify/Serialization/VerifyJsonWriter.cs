@@ -80,7 +80,7 @@ public class VerifyJsonWriter :
 
     string ReplaceNewlinesAndScrub(string value)
     {
-        value = value.Replace("\r\n", "\n").Replace('\r', '\n');
+        value = value.FixNewlines();
         return ApplyScrubbers.ApplyForPropertyValue(value, settings);
     }
 

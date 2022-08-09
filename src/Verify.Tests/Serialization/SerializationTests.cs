@@ -1469,7 +1469,8 @@ Line2"
         {
             "Value"
         };
-        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
     }
 
     class EnumerableWithExistingConverterTarget: List<string>
@@ -1481,6 +1482,30 @@ Line2"
     {
         public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
             writer.Serialize("Content");
+    }
+
+    [Fact]
+    public Task TestConverterWithBadNewline()
+    {
+        var target = new ConverterWithBadNewlineTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()));
+    }
+
+    class ConverterWithBadNewlineTarget
+    {
+    }
+
+    class ConverterWithBadNewline:
+        WriteOnlyJsonConverter<ConverterWithBadNewlineTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterWithBadNewlineTarget target)
+        {
+            writer.WritePropertyName("Property1");
+            writer.WriteRawValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+            writer.WritePropertyName("Property2");
+            writer.WriteValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+        }
     }
 
     [Fact]

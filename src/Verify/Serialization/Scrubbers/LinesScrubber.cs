@@ -16,8 +16,7 @@
             var value = replaceLine(line);
             if (value is not null)
             {
-                input.Append(value);
-                input.Append('\n');
+                input.AppendLineN(value);
             }
         }
 
@@ -41,8 +40,7 @@
                 continue;
             }
 
-            input.Append(line);
-            input.Append('\n');
+            input.AppendLineN(line);
         }
 
         if (input.Length > 0 &&

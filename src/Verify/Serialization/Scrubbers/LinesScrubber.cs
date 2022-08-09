@@ -22,7 +22,7 @@
         }
 
         if (theString.Length > 0 &&
-            !theString.EndsWith("\n"))
+            !theString.EndsWith('\n'))
         {
             input.Length -= 1;
         }
@@ -46,7 +46,7 @@
         }
 
         if (input.Length > 0 &&
-            !theString.EndsWith("\n"))
+            !theString.EndsWith('\n'))
         {
             input.Length -= 1;
         }

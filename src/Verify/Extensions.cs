@@ -55,6 +55,17 @@ static class Extensions
 
         return value[0] == ch;
     }
+
+    public static bool EndsWith(this string value, char ch)
+    {
+        var lastPos = value.Length - 1;
+        if (lastPos >= value.Length)
+        {
+            return false;
+        }
+
+        return value[lastPos] == ch;
+    }
 #endif
 
     public static FrameworkName? FrameworkName(this Assembly assembly)

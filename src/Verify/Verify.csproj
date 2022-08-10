@@ -17,7 +17,7 @@
     <PackageReference Include="SimpleInfoName" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.79" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <Content Include="buildTransitive\Verify.props" PackagePath="buildTransitive\Verify.props" />
     <Content Include="buildTransitive\Verify.targets" PackagePath="buildTransitive\Verify.targets" />
     <Content Include="buildTransitive\Verify.props" PackagePath="build\Verify.props" />

@@ -1,6 +1,4 @@
-﻿#if !NET461
-using System.Security.Claims;
-#endif
+﻿using System.Security.Claims;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -1055,7 +1053,6 @@ line3"
         #endregion
     }
 
-#if (!NETSTANDARD2_0 && !NET461)
     [Fact]
     public async Task NamedTuple()
     {
@@ -1073,7 +1070,6 @@ line3"
 
     #endregion
 
-#if !NET461
     [Fact]
     public async Task PartialNamedTuple()
     {
@@ -1081,7 +1077,6 @@ line3"
         PrefixUnique.Clear();
         await Verify(exception.Message);
     }
-#endif
 
     static (bool, string Member2, string Member3) MethodWithPartialNamedTuple() =>
         (true, "A", "B");
@@ -1474,7 +1469,8 @@ Line2"
         {
             "Value"
         };
-        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
     }
 
     class EnumerableWithExistingConverterTarget: List<string>
@@ -1486,6 +1482,39 @@ Line2"
     {
         public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
             writer.Serialize("Content");
+    }
+
+    [Fact]
+    public Task TestConverterWithBadNewline()
+    {
+        var target = new ConverterWithBadNewlineTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()));
+    }
+
+    [Fact]
+    public Task TestConverterWithBadNewlineScrubEmptyLines()
+    {
+        var target = new ConverterWithBadNewlineTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()))
+            .ScrubEmptyLines();
+    }
+
+    class ConverterWithBadNewlineTarget
+    {
+    }
+
+    class ConverterWithBadNewline:
+        WriteOnlyJsonConverter<ConverterWithBadNewlineTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterWithBadNewlineTarget target)
+        {
+            writer.WritePropertyName("Property1");
+            writer.WriteRawValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+            writer.WritePropertyName("Property2");
+            writer.WriteValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+        }
     }
 
     [Fact]
@@ -2388,8 +2417,6 @@ Line2"
 
     static (bool, string, string) MethodWithTuple() =>
         (true, "A", "B");
-
-#endif
 
     #region ScopedSerializer
 

@@ -470,6 +470,12 @@ line3"
         return Verify(person, settings);
     }
 
+    [Fact]
+    public Task ScrubberDefaultOrder() =>
+        Verify("line")
+            .AddScrubber(_=>_.Append(" one"))
+            .AddScrubber(_=>_.Append(" two"));
+
     public static IEnumerable<object?[]> GetBoolData()
     {
         foreach (var boolean in new[] {true, false})

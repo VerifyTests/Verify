@@ -4,7 +4,10 @@ Scrubbers run on the final string before doing the verification action.
 
 Multiple scrubbers [can be defined at multiple levels](#Scrubber-levels).
 
-Scrubbers are executed in reverse order. So the most recent added method scrubber through to earliest added global scrubber.
+By default scrubber are executed in reverse order. So the most recent added method scrubber through to earliest added global scrubber. All scrubber APIs support a `ScrubberLocation location`. To execute a scrubber last use `ScrubberLocation.Last`.
+
+Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compoung multiple scrubbers together.
+
 
 
 ## Available Scrubbers

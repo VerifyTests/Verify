@@ -141,18 +141,19 @@ public partial class VerifySettings
     /// </summary>
     public void ScrubEmptyLines(ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(builder =>
-        {
-            builder.FilterLines(string.IsNullOrWhiteSpace);
-            if (builder.FirstChar() is '\n')
             {
-                builder.Remove(0, 1);
-            }
+                builder.FilterLines(string.IsNullOrWhiteSpace);
+                if (builder.FirstChar() is '\n')
+                {
+                    builder.Remove(0, 1);
+                }
 
-            if (builder.LastChar() is '\n')
-            {
-                builder.Length--;
-            }
-        });
+                if (builder.LastChar() is '\n')
+                {
+                    builder.Length--;
+                }
+            },
+            location);
 
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
@@ -164,5 +165,5 @@ public partial class VerifySettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch) =>
-        ScrubLinesContaining(StringComparison.OrdinalIgnoreCase, stringToMatch);
+        ScrubLinesContaining(StringComparison.OrdinalIgnoreCase, location, stringToMatch);
 }

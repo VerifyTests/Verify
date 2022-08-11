@@ -90,7 +90,7 @@ public partial class VerifySettings
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     public void ScrubLinesContaining(StringComparison comparison, ScrubberLocation location, params string[] stringToMatch) =>
-        AddScrubber(_ => _.RemoveLinesContaining(comparison, stringToMatch),location);
+        AddScrubber(_ => _.RemoveLinesContaining(comparison, stringToMatch), location);
 
     /// <summary>
     /// Replace inline <see cref="Guid" />s with a placeholder.

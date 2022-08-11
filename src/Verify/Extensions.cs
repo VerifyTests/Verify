@@ -35,6 +35,20 @@ static class Extensions
         return null;
     }
 
+    public static void RemoveEmptyLines(this StringBuilder builder)
+    {
+        builder.FilterLines(string.IsNullOrWhiteSpace);
+        if (builder.FirstChar() is '\n')
+        {
+            builder.Remove(0, 1);
+        }
+
+        if (builder.LastChar() is '\n')
+        {
+            builder.Length--;
+        }
+    }
+
     public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
     {
         if (builder.Length < oldValue.Length)

@@ -476,6 +476,12 @@ line3"
             .AddScrubber(_=>_.Append(" one"))
             .AddScrubber(_=>_.Append(" two"));
 
+    [Fact]
+    public Task ScrubberInvertOrder() =>
+        Verify("line")
+            .AddScrubber(_=>_.Append(" one"), ScrubberLocation.Last)
+            .AddScrubber(_=>_.Append(" two"), ScrubberLocation.Last);
+
     public static IEnumerable<object?[]> GetBoolData()
     {
         foreach (var boolean in new[] {true, false})

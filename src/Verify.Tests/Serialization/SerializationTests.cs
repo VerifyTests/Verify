@@ -1475,6 +1475,28 @@ Line2"
     }
 
     [Fact]
+    public Task SelfReferencingWithArray()
+    {
+        var target = new SelfReferencingWithArrayTarget
+        {
+            Property = "Value"
+        };
+        target.List = BuildEnumerable(target);
+        return Verify(target);
+    }
+
+    IEnumerable<SelfReferencingWithArrayTarget> BuildEnumerable(SelfReferencingWithArrayTarget target)
+    {
+        yield return target;
+    }
+
+    class SelfReferencingWithArrayTarget
+    {
+        public string Property { get; set; }
+        public IEnumerable<SelfReferencingWithArrayTarget> List { get; set; }
+    }
+
+    [Fact]
     public Task TestEnumerableWithExistingConverter()
     {
         var target = new EnumerableWithExistingConverterTarget

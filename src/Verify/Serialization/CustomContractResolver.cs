@@ -146,5 +146,4 @@
 
         return jsonArrayContract;
     }
-
 }

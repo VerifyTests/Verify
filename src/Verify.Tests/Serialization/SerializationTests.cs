@@ -324,6 +324,40 @@ line3"
         #endregion
     }
 
+    [Theory]
+    [InlineData(TypeNameHandling.All)]
+    [InlineData(TypeNameHandling.Arrays)]
+    [InlineData(TypeNameHandling.Auto)]
+    [InlineData(TypeNameHandling.None)]
+    [InlineData(TypeNameHandling.Objects)]
+    public Task TypeNameHandlingInArray(TypeNameHandling typeHandling)
+    {
+        var target = new TypeNameHandlingAutoInArrayTarget
+        {
+            Item = new[]
+            {
+                new TypeNameHandlingAutoInArrayItemChild()
+            }
+        };
+
+        return Verify(target)
+            .AddExtraSettings(_ => { _.TypeNameHandling = typeHandling; })
+            .UseParameters(typeHandling);
+    }
+
+    class TypeNameHandlingAutoInArrayTarget
+    {
+        public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = Array.Empty<TypeNameHandlingAutoInArrayItem>();
+    }
+
+    abstract class TypeNameHandlingAutoInArrayItem
+    {
+    }
+
+    class TypeNameHandlingAutoInArrayItemChild : TypeNameHandlingAutoInArrayItem
+    {
+    }
+
     [Fact]
     public void SettingsIsCloned()
     {

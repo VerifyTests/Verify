@@ -10,6 +10,15 @@
             return;
         }
 
+        var serializer = writer.Serializer;
+        var currentTypeHandling = serializer.TypeNameHandling;
+        if (currentTypeHandling == TypeNameHandling.Auto)
+        {
+            serializer.TypeNameHandling = TypeNameHandling.All;
+        }
+
         writer.Serialize(value);
+
+        serializer.TypeNameHandling = currentTypeHandling;
     }
 }

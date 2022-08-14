@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    internal List<string> ignoredByNameMembers = new();
+    List<string> ignoredByNameMembers = new();
 
     public void IgnoreMember(string name)
     {
@@ -19,6 +19,6 @@ partial class SerializationSettings
         }
     }
 
-    bool ShouldIgnoreByName(string name) =>
+    internal bool ShouldIgnoreByName(string name) =>
         ignoredByNameMembers.Contains(name);
 }

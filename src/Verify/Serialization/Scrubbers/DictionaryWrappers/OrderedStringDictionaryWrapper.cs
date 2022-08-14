@@ -3,9 +3,9 @@
     IDictionaryWrapper
     where TInner : IDictionary<string, TValue>
 {
-    public OrderedStringDictionaryWrapper(List<string> ignored, TInner inner) :
+    public OrderedStringDictionaryWrapper(Func<string, bool> shouldIgnore, TInner inner) :
         base(inner
-            .Where(_ => !ignored.Contains(_.Key))
+            .Where(_ => !shouldIgnore(_.Key))
             .OrderBy(_ => _.Key, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(_ => _.Key, _ => _.Value))
     {

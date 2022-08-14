@@ -32,14 +32,14 @@ class DictionaryConverter :
         var valueType = genericArguments.Last();
         var keyType = genericArguments.First();
         var definition = type.GetGenericTypeDefinition();
-        var ignoredByNameMembers = writer.serialization.ignoredByNameMembers;
+        Func<string, bool> shouldIgnoreByName = _ => writer.serialization.ShouldIgnoreByName(_);
         if (definition == typeof(SortedDictionary<,>) ||
             definition.Name == "ImmutableSortedDictionary`2")
         {
             if (keyType == typeof(string))
             {
                 var genericType = typeof(StringDictionaryWrapper<,>).MakeGenericType(valueType, type);
-                value = Activator.CreateInstance(genericType, ignoredByNameMembers, value)!;
+                value = Activator.CreateInstance(genericType, shouldIgnoreByName, value)!;
             }
             else
             {
@@ -52,7 +52,7 @@ class DictionaryConverter :
             if (keyType == typeof(string))
             {
                 var genericType = typeof(OrderedStringDictionaryWrapper<,>).MakeGenericType(valueType, type);
-                value = Activator.CreateInstance(genericType, ignoredByNameMembers, value)!;
+                value = Activator.CreateInstance(genericType, shouldIgnoreByName, value)!;
             }
             else
             {

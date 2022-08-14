@@ -369,7 +369,7 @@ line3"
         var ignoredInstances = new List<ShouldIgnore>();
         settings.ignoredInstances.Add(GetType(), ignoredInstances);
 
-        settings.ignoredByNameMembers.Add("ignored");
+        settings.IgnoreMember("ignored");
 
         var clone = new SerializationSettings(settings);
 
@@ -378,7 +378,7 @@ line3"
         Assert.NotSame(settings.ignoredMembers.First().Value, clone.ignoredMembers.First().Value);
         Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
         Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
-        Assert.NotSame(settings.ignoredByNameMembers, clone.ignoredByNameMembers);
+        Assert.True(clone.ShouldIgnoreByName("ignored"));
     }
 
     [Fact]

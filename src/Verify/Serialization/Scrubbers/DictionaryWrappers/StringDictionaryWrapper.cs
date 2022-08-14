@@ -3,9 +3,9 @@
     IDictionaryWrapper
     where TInner : IDictionary<string, TValue>
 {
-    public StringDictionaryWrapper(List<string> ignored, TInner inner) :
+    public StringDictionaryWrapper(Func<string, bool> shouldIgnore, TInner inner) :
         base(inner
-            .Where(_ => !ignored.Contains(_.Key))
+            .Where(_ => !shouldIgnore(_.Key))
             .ToDictionary(_ => _.Key, _ => _.Value))
     {
     }

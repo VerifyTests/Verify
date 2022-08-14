@@ -363,21 +363,22 @@ line3"
     {
         var settings = new SerializationSettings();
 
-        var ignoredMemberList = new List<string>();
-        settings.ignoredMembers.Add(GetType(), ignoredMemberList);
+        settings.IgnoreMember(GetType(), "ignored");
 
-        var ignoredInstances = new List<ShouldIgnore>();
-        settings.ignoredInstances.Add(GetType(), ignoredInstances);
+        settings.IgnoreInstance(GetType(), _ => _ == this);
 
         settings.IgnoreMember("ignored");
 
         var clone = new SerializationSettings(settings);
 
         Assert.NotSame(settings, clone);
-        Assert.NotSame(settings.ignoredMembers, clone.ignoredMembers);
-        Assert.NotSame(settings.ignoredMembers.First().Value, clone.ignoredMembers.First().Value);
-        Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
-        Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
+
+        Assert.True(clone.GetShouldIgnoreInstance(GetType(), out var shouldIgnores));
+        var shouldIgnore = shouldIgnores.Single();
+        Assert.True(shouldIgnore(this));
+        Assert.False(shouldIgnore("notIgnored"));
+        Assert.True(clone.ShouldIgnoreForMemberOfType(GetType(), "ignored"));
+        Assert.False(clone.ShouldIgnoreForMemberOfType(GetType(), "notIgnored"));
         Assert.True(clone.ShouldIgnoreByName("ignored"));
         Assert.False(clone.ShouldIgnoreByName("notIgnored"));
     }

@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    internal Dictionary<Type, List<ShouldIgnore>> ignoredInstances = new();
+    Dictionary<Type, List<ShouldIgnore>> ignoredInstances = new();
 
     public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull
@@ -25,6 +25,6 @@
         list.Add(shouldIgnore);
     }
 
-    bool GetShouldIgnoreInstance(Type memberType, [NotNullWhen(true)] out List<ShouldIgnore>? funcs) =>
+    internal bool GetShouldIgnoreInstance(Type memberType, [NotNullWhen(true)] out List<ShouldIgnore>? funcs) =>
         ignoredInstances.TryGetValue(memberType, out funcs);
 }

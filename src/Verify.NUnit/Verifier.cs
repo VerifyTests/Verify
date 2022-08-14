@@ -30,18 +30,18 @@ public static partial class Verifier
         }
 
         var fullName = test.FullName;
-        var isCustomFullName = fullName != $"{test.TypeInfo.FullName}.{test.Method.Name}";
+        var isCustomFullName = !fullName.StartsWith($"{test.TypeInfo.FullName}.{test.Method.Name}");
         if (isCustomFullName)
         {
             if (settings.typeName == null)
             {
                 var fullNameLength = fullName.Length - (test.Name.Length + 1);
-                settings.typeName = fullName[..fullNameLength];
+                settings.typeName = fullName[..fullNameLength].Replace("\"", "").ReplaceInvalidPathChars();
             }
 
             if (settings.methodName == null)
             {
-                settings.methodName = test.Name;
+                settings.methodName = test.Name.ReplaceInvalidPathChars();
             }
         }
 

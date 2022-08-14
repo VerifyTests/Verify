@@ -12,7 +12,8 @@ static class Extensions
     }
 
     public static string FixNewlines(this string value) =>
-        value.Replace("\r\n", "\n")
+        value
+            .Replace("\r\n", "\n")
             .Replace('\r', '\n');
 
     public static char? FirstChar(this StringBuilder builder)
@@ -122,7 +123,7 @@ static class Extensions
         builder.Replace(oldValue, newValue);
     }
 
-#if NET472 || NET461  || NET48 || NETSTANDARD2_0
+#if NET472 || NET461 || NET48 || NETSTANDARD2_0
     public static bool StartsWith(this string value, char ch)
     {
         if (value.Length == 0)

@@ -59,13 +59,7 @@ To ignore specific members for T, create a custom converter.");
         list.Add(name);
     }
 
-    bool ShouldIgnoreForMemberOfType(Type declaringType, string name)
-    {
-        if (ignoredMembers.TryGetValue(declaringType, out var names))
-        {
-            return names.Contains(name);
-        }
-
-        return false;
-    }
+    bool ShouldIgnoreForMemberOfType(Type declaringType, string name) =>
+        ignoredMembers.TryGetValue(declaringType, out var names)
+        && names.Contains(name);
 }

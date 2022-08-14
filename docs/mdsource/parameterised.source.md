@@ -61,6 +61,15 @@ snippet: xunitComplexMemberData
 snippet: NUnitTestCase
 
 
+### TestFixtureSourceUsage
+
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+
+snippet: TestFixtureSourceUsage.cs
+
+Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+
+
 ## MSTest
 
 MSTest does not expose the parameter values via its extensibility context. So parameter values must passed in via settings.

@@ -268,6 +268,55 @@ public Task TestCaseUsage(string arg) =>
 <!-- endSnippet -->
 
 
+### TestFixtureSourceUsage
+
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+
+<!-- snippet: TestFixtureSourceUsage.cs -->
+<a id='snippet-TestFixtureSourceUsage.cs'></a>
+```cs
+[TestFixtureSource(nameof(FixtureArgs))]
+public class TestFixtureSourceUsage
+{
+    string arg1;
+    int arg2;
+
+    public TestFixtureSourceUsage(string arg1, int arg2)
+    {
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+    }
+
+    [Test]
+    public Task Test() =>
+        Verify(
+            new
+            {
+                arg1,
+                arg2
+            });
+
+    static object[] FixtureArgs =
+    {
+        new object[]
+        {
+            "Value1",
+            1
+        },
+        new object[]
+        {
+            "Value2",
+            2
+        }
+    };
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+
+
 ## MSTest
 
 MSTest does not expose the parameter values via its extensibility context. So parameter values must passed in via settings.

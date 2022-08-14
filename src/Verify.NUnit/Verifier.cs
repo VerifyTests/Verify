@@ -1,4 +1,6 @@
-﻿namespace VerifyNUnit;
+﻿using NUnit.Framework.Interfaces;
+
+namespace VerifyNUnit;
 
 public static partial class Verifier
 {
@@ -18,7 +20,8 @@ public static partial class Verifier
         var context = TestContext.CurrentContext;
         var adapter = context.Test;
         var test = (Test) field.GetValue(adapter)!;
-        if (test.TypeInfo == null || test.Method is null)
+        var typeInfo = test.TypeInfo;
+        if (typeInfo == null || test.Method is null)
         {
             throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
         }
@@ -29,15 +32,51 @@ public static partial class Verifier
             settings.parameters = adapter.Arguments;
         }
 
-        var type = test.TypeInfo!.Type;
+        if (test.IsCustomName())
+        {
+            settings.typeName ??= test.GetTypeName();
+
+            settings.methodName ??= test.GetMethodName();
+        }
+
+        var type = typeInfo.Type;
         TargetAssembly.Assign(type.Assembly);
 
-        var method = test.Method!.MethodInfo;
+        var method = test.Method.MethodInfo;
         GetFileConvention fileConvention = (uniquenessForReceived, uniquenessForVerified) =>
             ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessForReceived, uniquenessForVerified);
 
         return new(sourceFile, settings, fileConvention);
     }
+
+    static string GetMethodName(this ITest test)
+    {
+        var displayNameWithArgs = TypeHelper.GetDisplayName(test.TypeInfo!.Type, test.Arguments);
+        var displayNameWithoutArgs = test.TypeInfo!.GetDisplayName().Length;
+        var argsString = displayNameWithArgs.Substring(displayNameWithoutArgs);
+        return test.Name
+            .TrimEnd(argsString)
+            .ReplaceInvalidPathChars();
+    }
+
+    static string GetTypeName(this Test test)
+    {
+        var fullName = test.FullName;
+        var fullNameLength = fullName.Length - (test.Name.Length + 1);
+        var typeName = fullName[..fullNameLength];
+        var typeInfo = test.TypeInfo!;
+        if (typeInfo.Namespace != null)
+        {
+            typeName = typeName[(typeInfo.Namespace.Length + 1)..];
+        }
+
+        return typeName
+            .Remove("\"")
+            .ReplaceInvalidPathChars();
+    }
+
+    static bool IsCustomName(this ITest test) =>
+        !test.FullName.StartsWith($"{test.TypeInfo!.FullName}.{test.Method!.Name}");
 
     static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {

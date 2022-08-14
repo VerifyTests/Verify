@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    internal Dictionary<Type, List<string>> ignoredMembers = new();
+    Dictionary<Type, List<string>> ignoredMembers = new();
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -59,7 +59,7 @@ To ignore specific members for T, create a custom converter.");
         list.Add(name);
     }
 
-    bool ShouldIgnoreForMemberOfType(Type declaringType, string name) =>
+    internal bool ShouldIgnoreForMemberOfType(Type declaringType, string name) =>
         ignoredMembers.TryGetValue(declaringType, out var names)
         && names.Contains(name);
 }

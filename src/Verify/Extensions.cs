@@ -4,7 +4,16 @@ static class Extensions
 {
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
+    
+    public static string TrimEnd(this string input, string suffixToRemove, StringComparison comparisonType = StringComparison.CurrentCulture)
+    {
+        if (input.EndsWith(suffixToRemove, comparisonType))
+        {
+            return input.Substring(0, input.Length - suffixToRemove.Length);
+        }
 
+        return input;
+    }
     public static string? Configuration(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();

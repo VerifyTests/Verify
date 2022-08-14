@@ -36,7 +36,7 @@ public static partial class Verifier
         {
             settings.typeName ??= test.GetTypeName();
 
-            settings.methodName ??= test.Name.ReplaceInvalidPathChars();
+            settings.methodName ??= test.GetMethodName();
         }
 
         var type = typeInfo.Type;
@@ -49,7 +49,17 @@ public static partial class Verifier
         return new(sourceFile, settings, fileConvention);
     }
 
-    static string GetTypeName(this ITest test)
+    static string GetMethodName(this ITest test)
+    {
+        var displayNameWithArgs = TypeHelper.GetDisplayName(test.TypeInfo!.Type, test.Arguments);
+        var displayNameWithoutArgs = test.TypeInfo!.GetDisplayName().Length;
+        var argsString = displayNameWithArgs.Substring(displayNameWithoutArgs);
+        return test.Name
+            .TrimEnd(argsString)
+            .ReplaceInvalidPathChars();
+    }
+
+    static string GetTypeName(this Test test)
     {
         var fullName = test.FullName;
         var fullNameLength = fullName.Length - (test.Name.Length + 1);

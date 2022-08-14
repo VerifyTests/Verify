@@ -127,7 +127,11 @@
             return property;
         }
 
-        property.ValueProvider = new CustomValueProvider(valueProvider, memberType, settings.ignoreMembersThatThrow, VerifierSettings.GetMemberConverter(member));
+        property.ValueProvider = new CustomValueProvider(
+            valueProvider,
+            memberType,
+            exception => settings.ShouldIgnoreException(exception),
+            VerifierSettings.GetMemberConverter(member));
         if (settings.TryGetShouldSerialize(memberType, property.ValueProvider.GetValue, out var shouldSerialize))
         {
             property.ShouldSerialize = shouldSerialize;

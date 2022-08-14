@@ -3,18 +3,18 @@
 {
     IValueProvider inner;
     Type memberType;
-    IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
+    Func<Exception, bool> shouldIgnoreException;
     ConvertTargetMember? membersConverter;
 
     public CustomValueProvider(
         IValueProvider inner,
         Type memberType,
-        IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
+        Func<Exception, bool> shouldIgnoreException,
         ConvertTargetMember? membersConverter)
     {
         this.inner = inner;
         this.memberType = memberType;
-        this.ignoreMembersThatThrow = ignoreMembersThatThrow;
+        this.shouldIgnoreException = shouldIgnoreException;
         this.membersConverter = membersConverter;
     }
 
@@ -41,12 +41,9 @@
                 throw;
             }
 
-            foreach (var func in ignoreMembersThatThrow)
+            if (shouldIgnoreException(innerException))
             {
-                if (func(innerException))
-                {
-                    return GetDefault();
-                }
+                return GetDefault();
             }
 
             throw;

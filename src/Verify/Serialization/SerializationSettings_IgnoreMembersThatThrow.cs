@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    internal List<Func<Exception, bool>> ignoreMembersThatThrow = new();
+    List<Func<Exception, bool>> ignoreMembersThatThrow = new();
 
     public void IgnoreMembersThatThrow<T>()
         where T : Exception =>
@@ -8,6 +8,9 @@
 
     public void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
         IgnoreMembersThatThrow<Exception>(item);
+
+    public bool ShouldIgnoreException(Exception exception) =>
+        ignoreMembersThatThrow.Any(func => func(exception));
 
     public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
         where T : Exception =>

@@ -4,6 +4,9 @@ partial class SerializationSettings
 {
     List<string> ignoredByNameMembers = new();
 
+    public void IgnoreStackTrace() =>
+        IgnoreMember("StackTrace");
+
     public void IgnoreMember(string name)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));

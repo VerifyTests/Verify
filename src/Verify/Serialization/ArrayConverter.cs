@@ -10,15 +10,18 @@
             return;
         }
 
-        var serializer = writer.Serializer;
-        var currentTypeHandling = serializer.TypeNameHandling;
-        if (currentTypeHandling == TypeNameHandling.Auto)
+        Type? type = null;
+
+        //HACK: to force typeNameHandling to be respected
+        var typeNameHandling = writer.Serializer.TypeNameHandling;
+        if (typeNameHandling is
+            TypeNameHandling.All or
+            TypeNameHandling.Objects or
+            TypeNameHandling.Auto)
         {
-            serializer.TypeNameHandling = TypeNameHandling.All;
+            type = typeof(ArrayConverter);
         }
 
-        writer.Serialize(value);
-
-        serializer.TypeNameHandling = currentTypeHandling;
+        writer.Serializer.Serialize(writer, value, type);
     }
 }

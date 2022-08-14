@@ -30,51 +30,6 @@ public static partial class VerifierSettings
     public static void NameForParameter<T>(ParameterToName<T> func) =>
         parameterToNameLookup[typeof(T)] = o => func((T) o);
 
-    static char[] invalidPathChars =
-    {
-        '"',
-        '\\',
-        '<',
-        '>',
-        '|',
-        '\u0000',
-        '\u0001',
-        '\u0002',
-        '\u0003',
-        '\u0004',
-        '\u0005',
-        '\u0006',
-        '\u0007',
-        '\b',
-        '\t',
-        '\n',
-        '\u000b',
-        '\f',
-        '\r',
-        '\u000e',
-        '\u000f',
-        '\u0010',
-        '\u0011',
-        '\u0012',
-        '\u0013',
-        '\u0014',
-        '\u0015',
-        '\u0016',
-        '\u0017',
-        '\u0018',
-        '\u0019',
-        '\u001a',
-        '\u001b',
-        '\u001c',
-        '\u001d',
-        '\u001e',
-        '\u001f',
-        ':',
-        '*',
-        '?',
-        '/'
-    };
-
     internal static string GetNameForParameter(object? parameter)
     {
         if (parameter is null)
@@ -111,20 +66,7 @@ public static partial class VerifierSettings
             throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
         }
 
-        var builder = new StringBuilder();
-        foreach (var ch in nameForParameter)
-        {
-            if (invalidPathChars.Contains(ch))
-            {
-                builder.Append('-');
-            }
-            else
-            {
-                builder.Append(ch);
-            }
-        }
-
-        return builder.ToString();
+        return nameForParameter.ReplaceInvalidPathChars();
     }
 
     /// <summary>

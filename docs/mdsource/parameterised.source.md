@@ -61,6 +61,13 @@ snippet: xunitComplexMemberData
 snippet: NUnitTestCase
 
 
+### TestFixtureSourceUsage
+
+snippet: TestFixtureSourceUsage
+
+`TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`
+
+
 ## MSTest
 
 MSTest does not expose the parameter values via its extensibility context. So parameter values must passed in via settings.

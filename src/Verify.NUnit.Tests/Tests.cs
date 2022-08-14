@@ -11,12 +11,12 @@ public class Tests
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
-    [TestCase("Value1",TestName = "CustomName")]
+    [TestCase("Value1", TestName = "CustomName")]
     public Task TestCaseWithName(string arg) =>
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
-    [TestCase("Value1",TestName = "Custom>Name")]
+    [TestCase("Value1", TestName = "Custom>Name")]
     public Task TestCaseWithNameAndInvalidChars(string arg) =>
         Verify(arg)
             .UseTextForParameters("TextForParameter");

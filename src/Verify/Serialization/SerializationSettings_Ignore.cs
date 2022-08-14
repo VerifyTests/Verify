@@ -30,14 +30,8 @@ To ignore specific members for T, create a custom converter.");
     }
 
     public void IgnoreMembers<T>(params string[] names)
-        where T : notnull
-    {
-        Guard.AgainstNullOrEmpty(names, nameof(names));
-        foreach (var name in names)
-        {
-            IgnoreMember(typeof(T), name);
-        }
-    }
+        where T : notnull =>
+        IgnoreMembers(typeof(T), names);
 
     public void IgnoreMember<T>(string name)
         where T : notnull
@@ -48,6 +42,7 @@ To ignore specific members for T, create a custom converter.");
 
     public void IgnoreMembers(Type declaringType, params string[] names)
     {
+        Guard.AgainstNullOrEmpty(names, nameof(names));
         foreach (var name in names)
         {
             IgnoreMember(declaringType, name);

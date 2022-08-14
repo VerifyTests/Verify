@@ -1,15 +1,10 @@
-﻿// ReSharper disable UseObjectOrCollectionInitializer
-
-partial class SerializationSettings
+﻿partial class SerializationSettings
 {
     internal bool ShouldIgnore(MemberInfo member)
     {
-        if (!includeObsoletes)
+        if (ShouldIgnoreIfObsolete(member))
         {
-            if (member.GetCustomAttribute<ObsoleteAttribute>(true) is not null)
-            {
-                return true;
-            }
+            return true;
         }
 
         return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
@@ -17,35 +12,19 @@ partial class SerializationSettings
 
     internal bool ShouldIgnore(Type declaringType, Type memberType, string name)
     {
-        if (ignoredTypes.Any(memberType.InheritsFrom))
+        if (ShouldIgnoreType(memberType))
         {
             return true;
         }
 
-        var typeFromNullable = Nullable.GetUnderlyingType(memberType);
-
-        if (typeFromNullable != null)
-        {
-            if (ignoredTypes.Any(_ => _.IsAssignableFrom(typeFromNullable)))
-            {
-                return true;
-            }
-        }
-
-        if (ignoredByNameMembers.Contains(name))
+        if (ShouldIgnoreByName(name))
         {
             return true;
         }
 
-        foreach (var pair in ignoredMembers)
+        if (ShouldIgnoreForMemberOfType(declaringType, name))
         {
-            if (pair.Value.Contains(name))
-            {
-                if (pair.Key.IsAssignableFrom(declaringType))
-                {
-                    return true;
-                }
-            }
+            return true;
         }
 
         return false;
@@ -54,7 +33,7 @@ partial class SerializationSettings
     internal bool ShouldSerialize(object value)
     {
         var memberType = value.GetType();
-        if (ignoredInstances.TryGetValue(memberType, out var funcs))
+        if (GetShouldIgnoreInstance(memberType, out var funcs))
         {
             return funcs.All(func => !func(value));
         }
@@ -72,7 +51,7 @@ partial class SerializationSettings
 
     internal bool TryGetShouldSerialize(Type memberType, Func<object, object?> getValue, out Predicate<object>? shouldSerialize)
     {
-        if (ignoredInstances.TryGetValue(memberType, out var funcs))
+        if (GetShouldIgnoreInstance(memberType, out var funcs))
         {
             shouldSerialize = declaringInstance =>
             {
@@ -112,8 +91,4 @@ partial class SerializationSettings
         shouldSerialize = null;
         return false;
     }
-
-    bool IsIgnoredCollection(Type memberType) =>
-        ignoreEmptyCollections &&
-        memberType.IsCollectionOrDictionary();
-}
+ }

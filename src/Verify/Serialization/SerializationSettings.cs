@@ -174,9 +174,4 @@ partial class SerializationSettings
             return jsonSerializer;
         }
     }
-
-    bool includeObsoletes;
-
-    public void IncludeObsoletes() =>
-        includeObsoletes = true;
 }

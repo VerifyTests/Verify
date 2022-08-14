@@ -3,7 +3,6 @@
 partial class SerializationSettings
 {
     internal Dictionary<Type, List<string>> ignoredMembers = new();
-    internal List<string> ignoredByNameMembers = new();
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -60,32 +59,19 @@ To ignore specific members for T, create a custom converter.");
         list.Add(name);
     }
 
-    public void IgnoreMember(string name)
+    bool ShouldIgnoreForMemberOfType(Type declaringType, string name)
     {
-        Guard.AgainstNullOrEmpty(name, nameof(name));
-        ignoredByNameMembers.Add(name);
-    }
-
-    public void IgnoreMembers(params string[] names)
-    {
-        Guard.AgainstNullOrEmpty(names, nameof(names));
-        foreach (var name in names)
+        foreach (var pair in ignoredMembers)
         {
-            IgnoreMember(name);
+            if (pair.Value.Contains(name))
+            {
+                if (pair.Key.IsAssignableFrom(declaringType))
+                {
+                    return true;
+                }
+            }
         }
+
+        return false;
     }
-
-    List<Type> ignoredTypes = new();
-
-    public void IgnoreMembersWithType<T>()
-        where T : notnull =>
-        ignoredTypes.Add(typeof(T));
-
-    public void IgnoreMembersWithType(Type type) =>
-        ignoredTypes.Add(type);
-
-    bool ignoreEmptyCollections = true;
-
-    public void DontIgnoreEmptyCollections() =>
-        ignoreEmptyCollections = false;
 }

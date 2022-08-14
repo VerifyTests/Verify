@@ -1,6 +1,4 @@
-﻿// ReSharper disable UseObjectOrCollectionInitializer
-
-partial class SerializationSettings
+﻿partial class SerializationSettings
 {
     internal Dictionary<Type, List<ShouldIgnore>> ignoredInstances = new();
 
@@ -26,4 +24,7 @@ partial class SerializationSettings
 
         list.Add(shouldIgnore);
     }
+
+    bool GetShouldIgnoreInstance(Type memberType, [NotNullWhen(true)] out List<ShouldIgnore>? funcs) =>
+        ignoredInstances.TryGetValue(memberType, out funcs);
 }

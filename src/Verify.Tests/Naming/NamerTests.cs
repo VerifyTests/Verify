@@ -379,6 +379,12 @@ public class NamerTests
         Verify("valueTheoryWithArray")
             .UseParameters(values);
 
+    [Theory]
+    [InlineData("The<Value")]
+    public Task ParametersWithBadPathChars(string value) =>
+        Verify(value)
+            .UseParameters(value);
+
     [Fact]
     public Task IgnoreParametersForVerified()
     {

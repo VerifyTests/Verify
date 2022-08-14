@@ -113,6 +113,9 @@ static class Extensions
         }
     }
 
+    public static string Remove(this string value, string toRemove) =>
+        value.Replace(toRemove, "");
+
     public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
     {
         if (builder.Length < oldValue.Length)

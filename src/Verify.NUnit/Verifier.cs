@@ -29,6 +29,22 @@ public static partial class Verifier
             settings.parameters = adapter.Arguments;
         }
 
+        var fullName = test.FullName;
+        var isCustomFullName = fullName != $"{test.TypeInfo.FullName}.{test.Method.Name}";
+        if (isCustomFullName)
+        {
+            if (settings.typeName == null)
+            {
+                var fullNameLength = fullName.Length - (test.Name.Length + 1);
+                settings.typeName = fullName[..fullNameLength];
+            }
+
+            if (settings.methodName == null)
+            {
+                settings.methodName = test.Name;
+            }
+        }
+
         var type = test.TypeInfo!.Type;
         TargetAssembly.Assign(type.Assembly);
 

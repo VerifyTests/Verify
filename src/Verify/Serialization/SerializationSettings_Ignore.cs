@@ -84,28 +84,6 @@ To ignore specific members for T, create a custom converter.");
     public void IgnoreMembersWithType(Type type) =>
         ignoredTypes.Add(type);
 
-    internal List<Func<Exception, bool>> ignoreMembersThatThrow = new();
-
-    public void IgnoreMembersThatThrow<T>()
-        where T : Exception =>
-        ignoreMembersThatThrow.Add(_ => _ is T);
-
-    public void IgnoreMembersThatThrow(Func<Exception, bool> item) =>
-        IgnoreMembersThatThrow<Exception>(item);
-
-    public void IgnoreMembersThatThrow<T>(Func<T, bool> item)
-        where T : Exception =>
-        ignoreMembersThatThrow.Add(
-            _ =>
-            {
-                if (_ is T exception)
-                {
-                    return item(exception);
-                }
-
-                return false;
-            });
-
     bool ignoreEmptyCollections = true;
 
     public void DontIgnoreEmptyCollections() =>

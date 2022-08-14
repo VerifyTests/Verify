@@ -13,8 +13,8 @@
         Type? type = null;
 
         //HACK: to force typeNameHandling to be respected
-        var typeNameHandling = writer.Serializer.TypeNameHandling;
-        if (typeNameHandling is
+        var handling = writer.Serializer.TypeNameHandling;
+        if (handling is
             TypeNameHandling.All or
             TypeNameHandling.Objects or
             TypeNameHandling.Auto)

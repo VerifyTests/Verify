@@ -342,9 +342,10 @@ Results in:
  * TheTest.UseTextForParametersFluent_Value1.verified.txt
  * TheTest.UseTextForParametersFluent_Value2.verified.txt
 
- ## Ignore parameters for verified filename
 
-By default, every parameterised case has a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overriden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
+## Ignore parameters for verified filename
+
+By default, every parameterised case has a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
 <!-- snippet: IgnoreParametersForVerified -->
 <a id='snippet-ignoreparametersforverified'></a>

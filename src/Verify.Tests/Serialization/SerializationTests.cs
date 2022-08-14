@@ -379,6 +379,7 @@ line3"
         Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
         Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
         Assert.True(clone.ShouldIgnoreByName("ignored"));
+        Assert.False(clone.ShouldIgnoreByName("notIgnored"));
     }
 
     [Fact]

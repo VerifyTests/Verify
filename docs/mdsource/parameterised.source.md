@@ -63,9 +63,11 @@ snippet: NUnitTestCase
 
 ### TestFixtureSourceUsage
 
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+
 snippet: TestFixtureSourceUsage
 
-`TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`
+Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
 
 
 ## MSTest

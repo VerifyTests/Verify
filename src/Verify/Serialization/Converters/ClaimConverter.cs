@@ -8,9 +8,9 @@ class ClaimConverter :
         writer.WriteStartObject();
 
         var type = claim.Type
-            .Replace("http://schemas.xmlsoap.org/ws/2009/09/identity/claims/", "")
-            .Replace("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/", "")
-            .Replace("http://schemas.microsoft.com/ws/2008/06/identity/claims/", "");
+            .Remove("http://schemas.xmlsoap.org/ws/2009/09/identity/claims/")
+            .Remove("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/")
+            .Remove("http://schemas.microsoft.com/ws/2008/06/identity/claims/");
         writer.WriteMember(claim, claim.Value, type);
 
         writer.WriteMember(claim, claim.Properties, "Properties");

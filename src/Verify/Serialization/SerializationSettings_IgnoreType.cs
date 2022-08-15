@@ -6,7 +6,7 @@ partial class SerializationSettings
 
     public void IgnoreMembersWithType<T>()
         where T : notnull =>
-        ignoredTypes.Add(typeof(T));
+        IgnoreMembersWithType(typeof(T));
 
     public void IgnoreMembersWithType(Type type) =>
         ignoredTypes.Add(type);

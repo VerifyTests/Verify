@@ -32,11 +32,8 @@ To ignore specific members for T, create a custom converter.");
         IgnoreMembers(typeof(T), names);
 
     public void IgnoreMember<T>(string name)
-        where T : notnull
-    {
-        Guard.AgainstNullOrEmpty(name, nameof(name));
+        where T : notnull =>
         IgnoreMember(typeof(T), name);
-    }
 
     public void IgnoreMembers(Type declaringType, params string[] names)
     {

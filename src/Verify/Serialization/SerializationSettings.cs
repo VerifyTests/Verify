@@ -1,5 +1,7 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
+using Formatting = Newtonsoft.Json.Formatting;
+
 partial class SerializationSettings
 {
     static JArrayConverter jArrayConverter = new();

@@ -384,6 +384,43 @@ line3"
     }
 
     [Fact]
+    public Task IgnoreOnInterfaceNamed() =>
+        Verify(
+                new IgnoreOnInterfaceChild
+                {
+                    Value = 10
+                })
+            .IgnoreMember("Value");
+
+    [Fact]
+    public Task IgnoreOnInterfaceTyped() =>
+        Verify(
+                new IgnoreOnInterfaceChild
+                {
+                    Value = 10
+                })
+            .IgnoreMember<IIgnoreOnInterface>("Value");
+
+    [Fact]
+    public Task IgnoreOnInterfaceChildTyped() =>
+        Verify(
+                new IgnoreOnInterfaceChild
+                {
+                    Value = 10
+                })
+            .IgnoreMember<IgnoreOnInterfaceChild>("Value");
+
+    interface IIgnoreOnInterface
+    {
+        public int Value { get; set; }
+    }
+
+    class IgnoreOnInterfaceChild : IIgnoreOnInterface
+    {
+        public int Value { get; set; }
+    }
+
+    [Fact]
     public async Task GuidScrubbingDisabled()
     {
         var target = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e");

@@ -57,6 +57,6 @@ To ignore specific members for T, create a custom converter.");
     }
 
     internal bool ShouldIgnoreForMemberOfType(Type declaringType, string name) =>
-        ignoredMembers.TryGetValue(declaringType, out var names)
-        && names.Contains(name);
+        ignoredMembers.Where(_ => _.Value.Contains(name))
+            .Any(_ => _.Key.IsAssignableFrom(declaringType));
 }

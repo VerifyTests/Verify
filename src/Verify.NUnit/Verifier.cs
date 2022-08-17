@@ -53,7 +53,7 @@ public static partial class Verifier
     {
         var displayNameWithArgs = TypeHelper.GetDisplayName(test.TypeInfo!.Type, test.Arguments);
         var displayNameWithoutArgs = test.TypeInfo!.GetDisplayName().Length;
-        var argsString = displayNameWithArgs.Substring(displayNameWithoutArgs);
+        var argsString = displayNameWithArgs[displayNameWithoutArgs..];
         return test.Name
             .TrimEnd(argsString)
             .ReplaceInvalidPathChars();

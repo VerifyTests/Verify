@@ -9,7 +9,7 @@ static class Extensions
     {
         if (input.EndsWith(suffixToRemove, comparisonType))
         {
-            return input.Substring(0, input.Length - suffixToRemove.Length);
+            return input[..^suffixToRemove.Length];
         }
 
         return input;

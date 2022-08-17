@@ -1,0 +1,4 @@
+﻿{
+  TestString: Test string,
+  SHA1: <Scrubbed>
+}

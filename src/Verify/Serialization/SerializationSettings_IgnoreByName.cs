@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    List<string> ignoredByNameMembers = new();
+    Dictionary<string, ScrubOrIgnore?> ignoredByNameMembers = new();
 
     public void IgnoreStackTrace() =>
         IgnoreMember("StackTrace");
@@ -10,7 +10,12 @@ partial class SerializationSettings
     public void IgnoreMember(string name)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
-        ignoredByNameMembers.Add(name);
+        ignoredByNameMembers[name] = ScrubOrIgnore.Ignore;
+    }
+    public void ScrubMember(string name)
+    {
+        Guard.AgainstNullOrEmpty(name, nameof(name));
+        ignoredByNameMembers[name] = ScrubOrIgnore.Ignore;
     }
 
     public void IgnoreMembers(params string[] names)
@@ -22,6 +27,15 @@ partial class SerializationSettings
         }
     }
 
-    internal bool ShouldIgnoreByName(string name) =>
-        ignoredByNameMembers.Contains(name);
+    public void ScrubMembers(params string[] names)
+    {
+        Guard.AgainstNullOrEmpty(names, nameof(names));
+        foreach (var name in names)
+        {
+            ScrubMember(name);
+        }
+    }
+
+    internal bool ShouldIgnoreByName(string name, [NotNullWhen(true)]  out ScrubOrIgnore? scrubOrIgnore) =>
+        ignoredByNameMembers.TryGetValue(name, out scrubOrIgnore);
 }

@@ -2,32 +2,43 @@
 
 partial class SerializationSettings
 {
-    List<Type> ignoredTypes = new();
+    Dictionary<Type, ScrubOrIgnore> ignoredTypes = new();
+
+    public void ScrubMembersWithType<T>()
+        where T : notnull =>
+        ScrubMembersWithType(typeof(T));
+
+    public void ScrubMembersWithType(Type type) =>
+        ignoredTypes[type]= ScrubOrIgnore.Scrub;
 
     public void IgnoreMembersWithType<T>()
         where T : notnull =>
-        IgnoreMembersWithType(typeof(T));
+        ScrubMembersWithType(typeof(T));
 
     public void IgnoreMembersWithType(Type type) =>
-        ignoredTypes.Add(type);
+        ignoredTypes[type]= ScrubOrIgnore.Ignore;
 
-    bool ShouldIgnoreType(Type memberType)
+    bool ShouldIgnoreType(Type memberType, [NotNullWhen(true)]out ScrubOrIgnore? scrubOrIgnore)
     {
-        if (ignoredTypes.Any(memberType.InheritsFrom))
+        foreach (var member in ignoredTypes)
         {
-            return true;
-        }
-
-        var typeFromNullable = Nullable.GetUnderlyingType(memberType);
-
-        if (typeFromNullable != null)
-        {
-            if (ignoredTypes.Any(_ => _.IsAssignableFrom(typeFromNullable)))
+            if (memberType.InheritsFrom(member.Key))
             {
+                scrubOrIgnore = member.Value;
+                return true;
+            }
+        }
+        var typeFromNullable = Nullable.GetUnderlyingType(memberType);
+        foreach (var member in ignoredTypes)
+        {
+            if (member.Key.IsAssignableFrom(typeFromNullable))
+            {
+                scrubOrIgnore = member.Value;
                 return true;
             }
         }
 
+        scrubOrIgnore = null;
         return false;
     }
 }

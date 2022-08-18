@@ -377,10 +377,12 @@ line3"
         var shouldIgnore = shouldIgnores.Single();
         Assert.True(shouldIgnore(this));
         Assert.False(shouldIgnore("notIgnored"));
-        Assert.True(clone.ShouldIgnoreForMemberOfType(GetType(), "ignored"));
-        Assert.False(clone.ShouldIgnoreForMemberOfType(GetType(), "notIgnored"));
-        Assert.True(clone.ShouldIgnoreByName("ignored"));
-        Assert.False(clone.ShouldIgnoreByName("notIgnored"));
+        Assert.True(clone.ShouldIgnoreForMemberOfType(GetType(), "ignored", out var scrubOrIgnore));
+        Assert.Equal(ScrubOrIgnore.Ignore, scrubOrIgnore);
+        Assert.False(clone.ShouldIgnoreForMemberOfType(GetType(), "notIgnored", out scrubOrIgnore));
+        Assert.True(clone.ShouldIgnoreByName("ignored", out scrubOrIgnore));
+        Assert.Equal(ScrubOrIgnore.Ignore, scrubOrIgnore);
+        Assert.False(clone.ShouldIgnoreByName("notIgnored", out scrubOrIgnore));
     }
 
     [Fact]

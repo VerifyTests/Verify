@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<Type, List<string>> ignoredMembers = new();
+    Dictionary<Type, Dictionary<string, ScrubOrIgnore>> ignoredMembers = new();
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -14,6 +14,10 @@ partial class SerializationSettings
     }
 
     public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
+        where T : notnull =>
+        IgnoreMember(expression, ScrubOrIgnore.Ignore);
+
+    public void IgnoreMember<T>(Expression<Func<T, object?>> expression,ScrubOrIgnore scrubOrIgnore)
         where T : notnull
     {
         var member = expression.FindMember();
@@ -24,7 +28,7 @@ partial class SerializationSettings
 To ignore specific members for T, create a custom converter.");
         }
 
-        IgnoreMember(declaringType, member.Name);
+        IgnoreMember(declaringType, member.Name,scrubOrIgnore);
     }
 
     public void IgnoreMembers<T>(params string[] names)
@@ -44,7 +48,10 @@ To ignore specific members for T, create a custom converter.");
         }
     }
 
-    public void IgnoreMember(Type declaringType, string name)
+    public void IgnoreMember(Type declaringType, string name) =>
+        IgnoreMember(declaringType, name, ScrubOrIgnore.Ignore);
+
+    void IgnoreMember(Type declaringType, string name, ScrubOrIgnore scrubOrIgnore)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
         Guard.AgainstNullable(declaringType, nameof(name));
@@ -53,10 +60,24 @@ To ignore specific members for T, create a custom converter.");
             ignoredMembers[declaringType] = list = new();
         }
 
-        list.Add(name);
+        list[name] = scrubOrIgnore;
     }
 
-    internal bool ShouldIgnoreForMemberOfType(Type declaringType, string name) =>
-        ignoredMembers.Where(_ => _.Value.Contains(name))
-            .Any(_ => _.Key.IsAssignableFrom(declaringType));
+    internal bool ShouldIgnoreForMemberOfType(Type declaringType, string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
+    {
+        foreach (var typeIgnores in ignoredMembers)
+        {
+            if (typeIgnores.Key.IsAssignableFrom(declaringType))
+            {
+                if (typeIgnores.Value.TryGetValue(name, out var innerScrubOrIgnore))
+                {
+                    scrubOrIgnore = innerScrubOrIgnore;
+                    return true;
+                }
+            }
+        }
+
+        scrubOrIgnore = null;
+        return false;
+    }
 }

@@ -103,6 +103,20 @@
             return property;
         }
 
+        if (settings.ShouldIgnore(member, out var scrubOrIgnore ))
+        {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                property.Ignored = true;
+            }
+            else
+            {
+                property.ValueProvider = new ScrubbedProvider();
+            }
+
+            return property;
+        }
+
         if (member.Name == "Message")
         {
             if (member.DeclaringType == typeof(ArgumentException))
@@ -119,12 +133,6 @@
         if (property.PropertyType == typeof(bool))
         {
             property.DefaultValueHandling = DefaultValueHandling.Include;
-        }
-
-        if (settings.ShouldIgnore(member))
-        {
-            property.Ignored = true;
-            return property;
         }
 
         property.ValueProvider = new CustomValueProvider(

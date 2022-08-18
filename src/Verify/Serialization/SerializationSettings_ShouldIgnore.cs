@@ -1,34 +1,20 @@
 ﻿partial class SerializationSettings
 {
-    internal bool ShouldIgnore(MemberInfo member)
+    internal bool ShouldIgnore(MemberInfo member, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {
         if (ShouldIgnoreIfObsolete(member))
         {
+            scrubOrIgnore = ScrubOrIgnore.Ignore;
             return true;
         }
 
-        return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name);
+        return ShouldIgnore(member.DeclaringType!, member.MemberType(), member.Name, out scrubOrIgnore);
     }
 
-    internal bool ShouldIgnore(Type declaringType, Type memberType, string name)
-    {
-        if (ShouldIgnoreType(memberType))
-        {
-            return true;
-        }
-
-        if (ShouldIgnoreByName(name))
-        {
-            return true;
-        }
-
-        if (ShouldIgnoreForMemberOfType(declaringType, name))
-        {
-            return true;
-        }
-
-        return false;
-    }
+    internal bool ShouldIgnore(Type declaringType, Type memberType, string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>
+        ShouldIgnoreType(memberType, out scrubOrIgnore) ||
+        ShouldIgnoreByName(name, out scrubOrIgnore) ||
+        ShouldIgnoreForMemberOfType(declaringType, name, out scrubOrIgnore);
 
     internal bool ShouldSerialize(object value)
     {

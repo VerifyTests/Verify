@@ -16,22 +16,37 @@
         ShouldIgnoreByName(name, out scrubOrIgnore) ||
         ShouldIgnoreForMemberOfType(declaringType, name, out scrubOrIgnore);
 
-    internal bool ShouldSerialize(object value)
+    internal bool ShouldSerialize(object value, [NotNullWhen(false)] out ScrubOrIgnore? scrubOrIgnore)
     {
         var memberType = value.GetType();
         if (GetShouldIgnoreInstance(memberType, out var funcs))
         {
-            return funcs.All(func => !func(value));
+            foreach (var func in funcs)
+            {
+                ScrubOrIgnore? orIgnore = func(value);
+                if (orIgnore != null)
+                {
+                    scrubOrIgnore = orIgnore;
+                    return false;
+                }
+            }
+
+            scrubOrIgnore = null;
+            return true;
         }
 
         if (IsIgnoredCollection(memberType))
         {
             // since inside IsCollection, it is safe to use IEnumerable
             var collection = (IEnumerable) value;
-
-            return collection.HasMembers();
+            if (!collection.HasMembers())
+            {
+                scrubOrIgnore = ScrubOrIgnore.Ignore;
+                return false;
+            }
         }
 
+        scrubOrIgnore = null;
         return true;
     }
 

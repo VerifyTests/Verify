@@ -43,11 +43,25 @@ public partial class VerifySettings
         serialization.IgnoreMembers(expressions);
     }
 
+    public void ScrubMembers<T>(params Expression<Func<T, object?>>[] expressions)
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.ScrubMembers(expressions);
+    }
+
     public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMembers(expression);
+    }
+
+    public void ScrubMember<T>(Expression<Func<T, object?>> expression)
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.ScrubMembers(expression);
     }
 
     public void IgnoreMembers<T>(params string[] names)
@@ -57,11 +71,25 @@ public partial class VerifySettings
         serialization.IgnoreMembers<T>(names);
     }
 
+    public void ScrubMembers<T>(params string[] names)
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.ScrubMembers<T>(names);
+    }
+
     public void IgnoreMember<T>(string name)
         where T : notnull
     {
         CloneSettings();
         serialization.IgnoreMember<T>(name);
+    }
+
+    public void ScrubMember<T>(string name)
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.ScrubMember<T>(name);
     }
 
     public void IgnoreMembers(Type declaringType, params string[] names)
@@ -70,10 +98,22 @@ public partial class VerifySettings
         serialization.IgnoreMembers(declaringType, names);
     }
 
+    public void ScrubMembers(Type declaringType, params string[] names)
+    {
+        CloneSettings();
+        serialization.ScrubMembers(declaringType, names);
+    }
+
     public void IgnoreMember(Type declaringType, string name)
     {
         CloneSettings();
         serialization.IgnoreMember(declaringType, name);
+    }
+
+    public void ScrubMember(Type declaringType, string name)
+    {
+        CloneSettings();
+        serialization.ScrubMember(declaringType, name);
     }
 
     public void IgnoreMember(string name)
@@ -82,10 +122,22 @@ public partial class VerifySettings
         serialization.IgnoreMember(name);
     }
 
+    public void ScrubMember(string name)
+    {
+        CloneSettings();
+        serialization.ScrubMember(name);
+    }
+
     public void IgnoreMembers(params string[] names)
     {
         CloneSettings();
         serialization.IgnoreMembers(names);
+    }
+
+    public void ScrubMembers(params string[] names)
+    {
+        CloneSettings();
+        serialization.ScrubMembers(names);
     }
 
     public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
@@ -95,10 +147,23 @@ public partial class VerifySettings
         serialization.IgnoreInstance(shouldIgnore);
     }
 
+    public void ScrubInstance<T>(Func<T, bool> shouldScrub)
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.ScrubInstance(shouldScrub);
+    }
+
     public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         CloneSettings();
         serialization.IgnoreInstance(type, shouldIgnore);
+    }
+
+    public void ScrubInstance(Type type, ShouldScrub shouldScrub)
+    {
+        CloneSettings();
+        serialization.ScrubInstance(type, shouldScrub);
     }
 
     public void IgnoreMembersWithType<T>()
@@ -108,10 +173,23 @@ public partial class VerifySettings
         serialization.IgnoreMembersWithType<T>();
     }
 
+    public void ScrubMembersWithType<T>()
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.ScrubMembersWithType<T>();
+    }
+
     public void IgnoreMembersWithType(Type type)
     {
         CloneSettings();
         serialization.IgnoreMembersWithType(type);
+    }
+
+    public void ScrubMembersWithType(Type type)
+    {
+        CloneSettings();
+        serialization.ScrubMembersWithType(type);
     }
 
     public void IgnoreMembersThatThrow<T>()

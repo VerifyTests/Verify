@@ -13,11 +13,24 @@ partial class SerializationSettings
         }
     }
 
+    public void ScrubMembers<T>(params Expression<Func<T, object?>>[] expressions)
+        where T : notnull
+    {
+        foreach (var expression in expressions)
+        {
+            ScrubMember(expression);
+        }
+    }
+
     public void IgnoreMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull =>
         IgnoreMember(expression, ScrubOrIgnore.Ignore);
 
-    public void IgnoreMember<T>(Expression<Func<T, object?>> expression,ScrubOrIgnore scrubOrIgnore)
+    public void ScrubMember<T>(Expression<Func<T, object?>> expression)
+        where T : notnull =>
+        IgnoreMember(expression, ScrubOrIgnore.Scrub);
+
+    void IgnoreMember<T>(Expression<Func<T, object?>> expression, ScrubOrIgnore scrubOrIgnore)
         where T : notnull
     {
         var member = expression.FindMember();
@@ -35,9 +48,17 @@ To ignore specific members for T, create a custom converter.");
         where T : notnull =>
         IgnoreMembers(typeof(T), names);
 
+    public void ScrubMembers<T>(params string[] names)
+        where T : notnull =>
+        ScrubMembers(typeof(T), names);
+
     public void IgnoreMember<T>(string name)
         where T : notnull =>
         IgnoreMember(typeof(T), name);
+
+    public void ScrubMember<T>(string name)
+        where T : notnull =>
+        ScrubMember(typeof(T), name);
 
     public void IgnoreMembers(Type declaringType, params string[] names)
     {
@@ -48,8 +69,20 @@ To ignore specific members for T, create a custom converter.");
         }
     }
 
+    public void ScrubMembers(Type declaringType, params string[] names)
+    {
+        Guard.AgainstNullOrEmpty(names, nameof(names));
+        foreach (var name in names)
+        {
+            ScrubMember(declaringType, name);
+        }
+    }
+
     public void IgnoreMember(Type declaringType, string name) =>
         IgnoreMember(declaringType, name, ScrubOrIgnore.Ignore);
+
+    public void ScrubMember(Type declaringType, string name) =>
+        IgnoreMember(declaringType, name, ScrubOrIgnore.Scrub);
 
     void IgnoreMember(Type declaringType, string name, ScrubOrIgnore scrubOrIgnore)
     {

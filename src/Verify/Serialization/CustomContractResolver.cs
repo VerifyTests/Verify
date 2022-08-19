@@ -103,7 +103,7 @@
             return property;
         }
 
-        if (settings.ShouldIgnore(member, out var scrubOrIgnore ))
+        if (settings.ShouldIgnore(member, out var scrubOrIgnore))
         {
             if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {

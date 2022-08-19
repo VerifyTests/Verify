@@ -149,6 +149,24 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task JTokenScrub()
+    {
+        var jToken = JToken.Parse(@"{
+  Include: 1,
+  Ignore: 2,
+  ""Memory Info"": {
+          fragmentedBytes: 208,
+          heapSizeBytes: 2479536,
+          highMemoryLoadThresholdBytes: 30821986713,
+          memoryLoadBytes: 14041127280,
+          totalAvailableMemoryBytes: 34246651904
+        }
+}");
+        return Verify(jToken)
+            .ScrubMembers("Ignore", "Memory Info");
+    }
+
+    [Fact]
     public Task JObjectIgnore()
     {
         var obj = new JObject(

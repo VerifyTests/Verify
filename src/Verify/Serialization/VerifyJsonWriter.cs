@@ -189,8 +189,16 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (!serialization.ShouldSerialize(value))
+        if (!serialization.ShouldSerialize(value, out scrubOrIgnore))
         {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteRawValue("{Scrubbed}");
+
             return;
         }
 

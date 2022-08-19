@@ -111,6 +111,7 @@
             }
             else
             {
+                property.PropertyType = typeof(string);
                 property.ValueProvider = new ScrubbedProvider();
             }
 

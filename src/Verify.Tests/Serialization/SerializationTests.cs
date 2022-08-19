@@ -1704,6 +1704,11 @@ Line2"
         VerifierSettings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 
         #endregion
+        #region AddScrubInstanceGlobal
+
+        VerifierSettings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
+
+        #endregion
     }
 
     #region AddIgnoreInstance
@@ -1743,6 +1748,47 @@ Line2"
         };
         return Verify(target)
             .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
+    }
+
+    #endregion
+
+    #region AddScrubInstance
+
+    [Fact]
+    public Task AddScrubInstance()
+    {
+        var target = new IgnoreInstanceTarget
+        {
+            ToIgnore = new()
+            {
+                Property = "Ignore"
+            },
+            ToInclude = new()
+            {
+                Property = "Include"
+            }
+        };
+        var settings = new VerifySettings();
+        settings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task AddScrubInstanceFluent()
+    {
+        var target = new IgnoreInstanceTarget
+        {
+            ToIgnore = new()
+            {
+                Property = "Ignore"
+            },
+            ToInclude = new()
+            {
+                Property = "Include"
+            }
+        };
+        return Verify(target)
+            .ScrubInstance<Instance>(_ => _.Property == "Ignore");
     }
 
     #endregion

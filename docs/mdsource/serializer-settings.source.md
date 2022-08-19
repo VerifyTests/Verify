@@ -195,6 +195,21 @@ Result:
 snippet: SerializationTests.IgnoreType.verified.txt
 
 
+## Scrub a type
+
+To scrub all members that match a certain type:
+
+snippet: AddScrubType
+
+Or globally:
+
+snippet: AddScrubTypeGlobal
+
+Result:
+
+snippet: SerializationTests.ScrubType.verified.txt
+
+
 ## Ignoring a instance
 
 To ignore instances of a type based on delegate:
@@ -208,6 +223,21 @@ snippet: AddIgnoreInstanceGlobal
 Result:
 
 snippet: SerializationTests.AddIgnoreInstance.verified.txt
+
+
+## Scrub a instance
+
+To scrub instances of a type based on delegate:
+
+snippet: AddScrubInstance
+
+Or globally:
+
+snippet: AddScrubInstanceGlobal
+
+Result:
+
+snippet: SerializationTests.AddScrubInstance.verified.txt
 
 
 ## Obsolete members ignored
@@ -251,6 +281,21 @@ Result:
 snippet: SerializationTests.IgnoreMemberByExpression.verified.txt
 
 
+## Scrub member by expressions
+
+To scrub members of a certain type using an expression:
+
+snippet: ScrubMemberByExpression
+
+Or globally
+
+snippet: ScrubMemberByExpressionGlobal
+
+Result:
+
+snippet: SerializationTests.ScrubMemberByExpression.verified.txt
+
+
 ## Ignore member by name
 
 To ignore members of a certain type using type and name:
@@ -264,6 +309,21 @@ snippet: IgnoreMemberByNameGlobal
 Result:
 
 snippet: SerializationTests.IgnoreMemberByName.verified.txt
+
+
+## Scrub member by name
+
+To scrub members of a certain type using type and name:
+
+snippet: ScrubMemberByName
+
+Or globally:
+
+snippet: ScrubMemberByNameGlobal
+
+Result:
+
+snippet: SerializationTests.ScrubMemberByName.verified.txt
 
 
 ## Members that throw

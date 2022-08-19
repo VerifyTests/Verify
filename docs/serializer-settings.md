@@ -474,7 +474,7 @@ public Task ScopedSerializerFluent()
         .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2839-L2866' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2885-L2912' title='Snippet source file'>snippet source</a> | <a href='#snippet-scopedserializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -602,7 +602,7 @@ public Task IgnoreTypeFluent()
         .IgnoreMembersWithType<ToIgnoreStruct>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1793-L1898' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1839-L1944' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretype' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -612,7 +612,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersWithType<ToIgnore>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1781-L1785' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretypeglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1827-L1831' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoretypeglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -636,6 +636,161 @@ Result:
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreType.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreType.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Scrub a type
+
+To scrub all members that match a certain type:
+
+<!-- snippet: AddScrubType -->
+<a id='snippet-addscrubtype'></a>
+```cs
+[Fact]
+public Task ScrubType()
+{
+    var target = new IgnoreTypeTarget
+    {
+        ToIgnore = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreNullable = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByInterface = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByBase = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByBaseGeneric = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByType = new()
+        {
+            Property = "Value"
+        },
+        ToInclude = new()
+        {
+            Property = "Value"
+        },
+        ToIncludeNullable = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreStruct = new("Value"),
+        ToIgnoreStructNullable = new("Value"),
+        ToIncludeStruct = new("Value"),
+        ToIncludeStructNullable = new("Value")
+    };
+    var settings = new VerifySettings();
+    settings.ScrubMembersWithType<ToIgnore>();
+    settings.ScrubMembersWithType<ToIgnoreByType>();
+    settings.ScrubMembersWithType<InterfaceToIgnore>();
+    settings.ScrubMembersWithType<BaseToIgnore>();
+    settings.ScrubMembersWithType(typeof(BaseToIgnoreGeneric<>));
+    settings.ScrubMembersWithType<ToIgnoreStruct>();
+    return Verify(target, settings);
+}
+
+[Fact]
+public Task ScrubTypeFluent()
+{
+    var target = new IgnoreTypeTarget
+    {
+        ToIgnore = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreNullable = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByInterface = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByBase = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByBaseGeneric = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreByType = new()
+        {
+            Property = "Value"
+        },
+        ToInclude = new()
+        {
+            Property = "Value"
+        },
+        ToIncludeNullable = new()
+        {
+            Property = "Value"
+        },
+        ToIgnoreStruct = new("Value"),
+        ToIgnoreStructNullable = new("Value"),
+        ToIncludeStruct = new("Value"),
+        ToIncludeStructNullable = new("Value")
+    };
+    return Verify(target)
+        .ScrubMembersWithType<ToIgnore>()
+        .ScrubMembersWithType<ToIgnoreByType>()
+        .ScrubMembersWithType<InterfaceToIgnore>()
+        .ScrubMembersWithType<BaseToIgnore>()
+        .ScrubMembersWithType(typeof(BaseToIgnoreGeneric<>))
+        .ScrubMembersWithType<ToIgnoreStruct>();
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1947-L2052' title='Snippet source file'>snippet source</a> | <a href='#snippet-addscrubtype' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: AddScrubTypeGlobal -->
+<a id='snippet-addscrubtypeglobal'></a>
+```cs
+VerifierSettings.ScrubMembersWithType<ToIgnore>();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1832-L1836' title='Snippet source file'>snippet source</a> | <a href='#snippet-addscrubtypeglobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: SerializationTests.ScrubType.verified.txt -->
+<a id='snippet-SerializationTests.ScrubType.verified.txt'></a>
+```txt
+{
+  ToIgnore: {Scrubbed},
+  ToIgnoreByType: {Scrubbed},
+  ToIgnoreByInterface: {Scrubbed},
+  ToIgnoreByBase: {Scrubbed},
+  ToIgnoreByBaseGeneric: {Scrubbed},
+  ToIgnoreNullable: {Scrubbed},
+  ToIgnoreStruct: {Scrubbed},
+  ToIgnoreStructNullable: {Scrubbed},
+  ToInclude: {
+    Property: Value
+  },
+  ToIncludeNullable: {
+    Property: Value
+  },
+  ToIncludeStruct: {
+    Property: Value
+  },
+  ToIncludeStructNullable: {
+    Property: Value
+  }
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubType.verified.txt#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubType.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -683,7 +838,7 @@ public Task AddIgnoreInstanceFluent()
         .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1709-L1748' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1714-L1753' title='Snippet source file'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -711,6 +866,68 @@ Result:
 <!-- endSnippet -->
 
 
+## Scrub a instance
+
+To scrub instances of a type based on delegate:
+
+<!-- snippet: AddScrubInstance -->
+<a id='snippet-addscrubinstance'></a>
+```cs
+[Fact]
+public Task AddScrubInstance()
+{
+    var target = new IgnoreInstanceTarget
+    {
+        ToIgnore = new()
+        {
+            Property = "Ignore"
+        },
+        ToInclude = new()
+        {
+            Property = "Include"
+        }
+    };
+    var settings = new VerifySettings();
+    settings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
+    return Verify(target, settings);
+}
+
+[Fact]
+public Task AddScrubInstanceFluent()
+{
+    var target = new IgnoreInstanceTarget
+    {
+        ToIgnore = new()
+        {
+            Property = "Ignore"
+        },
+        ToInclude = new()
+        {
+            Property = "Include"
+        }
+    };
+    return Verify(target)
+        .ScrubInstance<Instance>(_ => _.Property == "Ignore");
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1755-L1794' title='Snippet source file'>snippet source</a> | <a href='#snippet-addscrubinstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: AddScrubInstanceGlobal -->
+<a id='snippet-addscrubinstanceglobal'></a>
+```cs
+VerifierSettings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1707-L1711' title='Snippet source file'>snippet source</a> | <a href='#snippet-addscrubinstanceglobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+/snippet: SerializationTests.AddScrubInstance.verified.txt
+
+
 ## Obsolete members ignored
 
 Members with an [ObsoleteAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.obsoleteattribute) are ignored:
@@ -736,7 +953,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2805-L2825' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2851-L2871' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoleteprop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -784,7 +1001,7 @@ public Task WithObsoletePropIncludedFluent()
         .IncludeObsoletes();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2776-L2803' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2822-L2849' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -794,7 +1011,7 @@ Or globally:
 ```cs
 VerifierSettings.IncludeObsoletes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2769-L2773' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincludedglobally' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2815-L2819' title='Snippet source file'>snippet source</a> | <a href='#snippet-withobsoletepropincludedglobally' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -855,7 +1072,7 @@ public Task IgnoreMemberByExpressionFluent()
             _ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2217-L2256' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2263-L2302' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally
@@ -870,7 +1087,7 @@ VerifierSettings.IgnoreMembers<IgnoreExplicitTarget>(
     _ => _.GetOnlyProperty,
     _ => _.PropertyThatThrows);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2195-L2204' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpressionglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2241-L2250' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyexpressionglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -883,6 +1100,86 @@ Result:
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByExpression.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByExpression.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Scrub member by expressions
+
+To scrub members of a certain type using an expression:
+
+<!-- snippet: ScrubMemberByExpression -->
+<a id='snippet-scrubmemberbyexpression'></a>
+```cs
+[Fact]
+public Task ScrubMemberByExpression()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyWithPropertyName = "Value"
+    };
+    var settings = new VerifySettings();
+    settings.ScrubMembers<IgnoreExplicitTarget>(
+        _ => _.Property,
+        _ => _.PropertyWithPropertyName,
+        _ => _.Field,
+        _ => _.GetOnlyProperty,
+        _ => _.PropertyThatThrows);
+    return Verify(target, settings);
+}
+
+[Fact]
+public Task ScrubMemberByExpressionFluent()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value"
+    };
+    return Verify(target)
+        .ScrubMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2304-L2343' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmemberbyexpression' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally
+
+<!-- snippet: ScrubMemberByExpressionGlobal -->
+<a id='snippet-scrubmemberbyexpressionglobal'></a>
+```cs
+VerifierSettings.ScrubMembers<IgnoreExplicitTarget>(
+    _ => _.Property,
+    _ => _.PropertyWithPropertyName,
+    _ => _.Field,
+    _ => _.GetOnlyProperty,
+    _ => _.PropertyThatThrows);
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2251-L2260' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmemberbyexpressionglobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: SerializationTests.ScrubMemberByExpression.verified.txt -->
+<a id='snippet-SerializationTests.ScrubMemberByExpression.verified.txt'></a>
+```txt
+{
+  Include: Value,
+  Field: {Scrubbed},
+  Property: {Scrubbed},
+  _Custom: {Scrubbed},
+  GetOnlyProperty: {Scrubbed},
+  PropertyThatThrows: {Scrubbed}
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubMemberByExpression.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubMemberByExpression.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -944,7 +1241,7 @@ public Task IgnoreMemberByNameFluent()
         .IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2365-L2418' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2411-L2464' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -964,7 +1261,7 @@ VerifierSettings.IgnoreMember<IgnoreExplicitTarget>("Field");
 // For a specific type with expression
 VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2333-L2347' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbynameglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2379-L2393' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorememberbynameglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -978,6 +1275,104 @@ Result:
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.IgnoreMemberByName.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.IgnoreMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Scrub member by name
+
+To scrub members of a certain type using type and name:
+
+<!-- snippet: ScrubMemberByName -->
+<a id='snippet-scrubmemberbyname'></a>
+```cs
+[Fact]
+public Task ScrubMemberByName()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyByName = "Value"
+    };
+    var settings = new VerifySettings();
+
+    // For all types
+    settings.ScrubMember("PropertyByName");
+
+    // For a specific type
+    settings.ScrubMember(typeof(IgnoreExplicitTarget), "Property");
+
+    // For a specific type generic
+    settings.ScrubMember<IgnoreExplicitTarget>("Field");
+
+    // For a specific type with expression
+    settings.ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+
+    return Verify(target, settings);
+}
+
+[Fact]
+public Task ScrubMemberByNameFluent()
+{
+    var target = new IgnoreExplicitTarget
+    {
+        Include = "Value",
+        Field = "Value",
+        Property = "Value",
+        PropertyByName = "Value"
+    };
+    return Verify(target)
+        // For all types
+        .ScrubMember("PropertyByName")
+
+        // For a specific type
+        .ScrubMember(typeof(IgnoreExplicitTarget), "Property")
+
+        // For a specific type generic
+        .ScrubMember<IgnoreExplicitTarget>("Field")
+
+        // For a specific type with expression
+        .ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2466-L2519' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmemberbyname' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or globally:
+
+<!-- snippet: ScrubMemberByNameGlobal -->
+<a id='snippet-scrubmemberbynameglobal'></a>
+```cs
+// For all types
+VerifierSettings.ScrubMember("PropertyByName");
+
+// For a specific type
+VerifierSettings.ScrubMember(typeof(IgnoreExplicitTarget), "Property");
+
+// For a specific type generic
+VerifierSettings.ScrubMember<IgnoreExplicitTarget>("Field");
+
+// For a specific type with expression
+VerifierSettings.ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2394-L2408' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmemberbynameglobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+<!-- snippet: SerializationTests.ScrubMemberByName.verified.txt -->
+<a id='snippet-SerializationTests.ScrubMemberByName.verified.txt'></a>
+```txt
+{
+  Include: Value,
+  Field: {Scrubbed},
+  Property: {Scrubbed},
+  GetOnlyProperty: asd,
+  PropertyThatThrows: {Scrubbed}
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubMemberByName.verified.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1011,7 +1406,7 @@ public Task CustomExceptionPropFluent()
         .IgnoreMembersThatThrow<CustomException>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2662-L2681' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2708-L2727' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1021,7 +1416,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<CustomException>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2655-L2659' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2701-L2705' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1234,7 +1629,7 @@ public Task MemberConverterByExpression()
     return Verify(input);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2299-L2323' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2345-L2369' title='Snippet source file'>snippet source</a> | <a href='#snippet-memberconverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -13,7 +13,7 @@ partial class SerializationSettings
 
     public void IgnoreMembersWithType<T>()
         where T : notnull =>
-        ScrubMembersWithType(typeof(T));
+        IgnoreMembersWithType(typeof(T));
 
     public void IgnoreMembersWithType(Type type) =>
         ignoredTypes[type]= ScrubOrIgnore.Ignore;

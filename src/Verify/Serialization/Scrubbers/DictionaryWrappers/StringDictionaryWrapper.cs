@@ -4,13 +4,13 @@
     where TInner : IDictionary<string, TValue>
 {
     public StringDictionaryWrapper(Func<string, ScrubOrIgnore?> shouldIgnore, TInner inner) :
-        base(BuildInner(shouldIgnore, inner))
+        base(BuildInner(shouldIgnore, inner)
+            .ToDictionary(_ => _.Key, _ => _.Value))
     {
     }
 
-    static Dictionary<string, object?> BuildInner(Func<string, ScrubOrIgnore?> shouldIgnore, TInner inner)
+    static IEnumerable<(string Key, object? Value)> BuildInner(Func<string, ScrubOrIgnore?> shouldIgnore, TInner inner)
     {
-        var dictionary = new Dictionary<string, object?>();
         foreach (var pair in inner)
         {
             var key = pair.Key;
@@ -22,13 +22,11 @@
 
             if (scrubOrIgnore == ScrubOrIgnore.Scrub)
             {
-                dictionary.Add(key, "{Scrubbed}");
+                yield return (key, "{Scrubbed}");
                 continue;
             }
 
-            dictionary.Add(key, pair.Value);
+            yield return (key, pair.Value);
         }
-
-        return dictionary;
     }
 }

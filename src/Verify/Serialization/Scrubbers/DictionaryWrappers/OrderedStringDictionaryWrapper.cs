@@ -11,7 +11,8 @@
     static Dictionary<string, object?> BuildInner(Func<string, ScrubOrIgnore?> shouldIgnore, TInner inner)
     {
         var dictionary = new Dictionary<string, object?>();
-        foreach (var pair in inner)
+        foreach (var pair in inner
+                     .OrderBy(_ => _.Key, StringComparer.OrdinalIgnoreCase))
         {
             var key = pair.Key;
             var scrubOrIgnore = shouldIgnore(key);

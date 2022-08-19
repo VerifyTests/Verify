@@ -5,7 +5,7 @@
 
     public override void Write(VerifyJsonWriter writer, object value)
     {
-        if (!writer.serialization.ShouldSerialize(value, out  var scrubOrIgnore))
+        if (writer.serialization.TryGetScrubOrIgnoreByInstance(value, out  var scrubOrIgnore))
         {
             if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {

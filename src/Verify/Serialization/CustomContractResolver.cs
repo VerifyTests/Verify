@@ -103,7 +103,7 @@
             return property;
         }
 
-        if (settings.ShouldIgnore(member, out var scrubOrIgnore))
+        if (settings.TryGetScrubOrIgnore(member, out var scrubOrIgnore))
         {
             if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {
@@ -111,7 +111,7 @@
             }
             else
             {
-                property.ValueProvider = new ScrubbedProvider();
+                property.Converter = new ScrubbedConverter();
             }
 
             return property;
@@ -139,11 +139,8 @@
             valueProvider,
             memberType,
             exception => settings.ShouldIgnoreException(exception),
-            VerifierSettings.GetMemberConverter(member));
-        if (settings.TryGetShouldSerialize(memberType, property.ValueProvider.GetValue, out var shouldSerialize))
-        {
-            property.ShouldSerialize = shouldSerialize;
-        }
+            VerifierSettings.GetMemberConverter(member),
+            settings);
 
         return property;
     }

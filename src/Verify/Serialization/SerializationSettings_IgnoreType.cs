@@ -18,7 +18,7 @@ partial class SerializationSettings
     public void IgnoreMembersWithType(Type type) =>
         ignoredTypes[type]= ScrubOrIgnore.Ignore;
 
-    bool ShouldIgnoreType(Type memberType, [NotNullWhen(true)]out ScrubOrIgnore? scrubOrIgnore)
+    bool TryGetScrubOrIgnoreByType(Type memberType, [NotNullWhen(true)]out ScrubOrIgnore? scrubOrIgnore)
     {
         foreach (var member in ignoredTypes)
         {

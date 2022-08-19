@@ -34,7 +34,7 @@ class DictionaryConverter :
         var definition = type.GetGenericTypeDefinition();
         Func<string, ScrubOrIgnore?> shouldIgnoreByName = _ =>
         {
-            writer.serialization.ShouldIgnoreByName(_, out var scrubOrIgnore);
+            writer.serialization.TryGetScrubOrIgnoreByName(_, out var scrubOrIgnore);
             return scrubOrIgnore;
         };
 

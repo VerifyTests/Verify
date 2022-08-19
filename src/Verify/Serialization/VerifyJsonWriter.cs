@@ -176,7 +176,7 @@ public class VerifyJsonWriter :
 
         var declaringType = target.GetType();
         var memberType = value.GetType();
-        if (serialization.ShouldIgnore(declaringType, memberType, name, out var scrubOrIgnore))
+        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))
         {
             if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {
@@ -189,7 +189,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        if (!serialization.ShouldSerialize(value, out scrubOrIgnore))
+        if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
         {
             if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {

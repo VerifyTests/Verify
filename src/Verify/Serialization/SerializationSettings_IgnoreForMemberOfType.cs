@@ -96,7 +96,7 @@ To ignore specific members for T, create a custom converter.");
         list[name] = scrubOrIgnore;
     }
 
-    internal bool ShouldIgnoreForMemberOfType(Type declaringType, string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
+    internal bool TryGetScrubOrIgnoreByMemberOfType(Type declaringType, string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {
         foreach (var typeIgnores in ignoredMembers)
         {

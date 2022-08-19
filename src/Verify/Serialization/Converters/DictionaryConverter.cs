@@ -32,7 +32,12 @@ class DictionaryConverter :
         var valueType = genericArguments.Last();
         var keyType = genericArguments.First();
         var definition = type.GetGenericTypeDefinition();
-        Func<string, bool> shouldIgnoreByName = _ => writer.serialization.ShouldIgnoreByName(_);
+        Func<string, ScrubOrIgnore?> shouldIgnoreByName = _ =>
+        {
+            writer.serialization.TryGetScrubOrIgnoreByName(_, out var scrubOrIgnore);
+            return scrubOrIgnore;
+        };
+
         if (definition == typeof(SortedDictionary<,>) ||
             definition.Name == "ImmutableSortedDictionary`2")
         {

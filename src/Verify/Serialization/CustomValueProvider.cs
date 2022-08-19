@@ -5,17 +5,19 @@
     Type memberType;
     Func<Exception, bool> shouldIgnoreException;
     ConvertTargetMember? membersConverter;
+    SerializationSettings settings;
 
-    public CustomValueProvider(
-        IValueProvider inner,
+    public CustomValueProvider(IValueProvider inner,
         Type memberType,
         Func<Exception, bool> shouldIgnoreException,
-        ConvertTargetMember? membersConverter)
+        ConvertTargetMember? membersConverter,
+        SerializationSettings settings)
     {
         this.inner = inner;
         this.memberType = memberType;
         this.shouldIgnoreException = shouldIgnoreException;
         this.membersConverter = membersConverter;
+        this.settings = settings;
     }
 
     public void SetValue(object target, object? value) =>
@@ -31,7 +33,20 @@
 
         try
         {
-            return inner.GetValue(target);
+            var value = inner.GetValue(target);
+            if (value != null &&
+                settings.TryGetScrubOrIgnoreByInstance(value, out var scrubOrIgnore))
+            {
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                {
+                    return null;
+                }
+                if (scrubOrIgnore == ScrubOrIgnore.Scrub)
+                {
+                    return "{Scrubbed}";
+                }
+            }
+            return value;
         }
         catch (Exception exception)
         {

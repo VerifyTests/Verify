@@ -103,6 +103,21 @@
             return property;
         }
 
+        if (settings.TryGetScrubOrIgnore(member, out var scrubOrIgnore))
+        {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                property.Ignored = true;
+            }
+            else
+            {
+                property.PropertyType = typeof(string);
+                property.ValueProvider = new ScrubbedProvider();
+            }
+
+            return property;
+        }
+
         if (member.Name == "Message")
         {
             if (member.DeclaringType == typeof(ArgumentException))
@@ -121,21 +136,12 @@
             property.DefaultValueHandling = DefaultValueHandling.Include;
         }
 
-        if (settings.ShouldIgnore(member))
-        {
-            property.Ignored = true;
-            return property;
-        }
-
         property.ValueProvider = new CustomValueProvider(
             valueProvider,
             memberType,
             exception => settings.ShouldIgnoreException(exception),
-            VerifierSettings.GetMemberConverter(member));
-        if (settings.TryGetShouldSerialize(memberType, property.ValueProvider.GetValue, out var shouldSerialize))
-        {
-            property.ShouldSerialize = shouldSerialize;
-        }
+            VerifierSettings.GetMemberConverter(member),
+            settings);
 
         return property;
     }

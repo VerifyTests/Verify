@@ -5,9 +5,18 @@
 
     public override void Write(VerifyJsonWriter writer, object value)
     {
-        if (!writer.serialization.ShouldSerialize(value))
+        if (writer.serialization.TryGetScrubOrIgnoreByInstance(value, out  var scrubOrIgnore))
         {
-            return;
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            if (scrubOrIgnore == ScrubOrIgnore.Scrub)
+            {
+                writer.WriteRaw("{Scrubbed}");
+                return;
+            }
         }
 
         Type? type = null;

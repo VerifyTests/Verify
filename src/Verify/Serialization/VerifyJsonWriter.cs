@@ -176,13 +176,29 @@ public class VerifyJsonWriter :
 
         var declaringType = target.GetType();
         var memberType = value.GetType();
-        if (serialization.ShouldIgnore(declaringType, memberType, name))
+        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))
         {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteRawValue("{Scrubbed}");
+
             return;
         }
 
-        if (!serialization.ShouldSerialize(value))
+        if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
         {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteRawValue("{Scrubbed}");
+
             return;
         }
 

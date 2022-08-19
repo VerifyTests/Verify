@@ -925,7 +925,18 @@ VerifierSettings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
 
 Result:
 
-/snippet: SerializationTests.AddScrubInstance.verified.txt
+<!-- snippet: SerializationTests.AddScrubInstance.verified.txt -->
+<a id='snippet-SerializationTests.AddScrubInstance.verified.txt'></a>
+```txt
+{
+  ToIgnore: {Scrubbed},
+  ToInclude: {
+    Property: Include
+  }
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.AddScrubInstance.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.AddScrubInstance.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Obsolete members ignored

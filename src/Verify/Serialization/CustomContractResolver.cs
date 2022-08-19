@@ -111,7 +111,7 @@
             }
             else
             {
-                property.Converter = new ScrubbedConverter();
+                property.ValueProvider = new ScrubbedProvider();
             }
 
             return property;

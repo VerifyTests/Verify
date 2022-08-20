@@ -948,20 +948,6 @@ line3"
         #endregion
     }
 
-    [Fact]
-    public Task ThrowForDateTimeZoneHandling() =>
-        ThrowsTask(
-                () => Verify("foo")
-                    .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
-            .IgnoreStackTrace();
-
-    [Fact]
-    public Task ThrowForDateFormatString() =>
-        ThrowsTask(
-                () => Verify("foo")
-                    .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
-            .IgnoreStackTrace();
-
     Task DontScrubDateTimes()
     {
         #region DontScrubDateTimes

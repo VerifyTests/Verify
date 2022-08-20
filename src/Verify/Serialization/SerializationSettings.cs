@@ -1,6 +1,6 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
-using Formatting = Newtonsoft.Json.Formatting;
+using Formatting = Argon.Formatting;
 
 partial class SerializationSettings
 {
@@ -89,7 +89,6 @@ partial class SerializationSettings
             Formatting = Formatting.Indented,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             DefaultValueHandling = DefaultValueHandling.Ignore,
-            Culture = CultureInfo.InvariantCulture
         };
 
         #endregion
@@ -138,24 +137,10 @@ partial class SerializationSettings
         return settings;
     }
 
-    static void ValidateSettings(JsonSerializerSettings settings)
-    {
-        if (settings.DateFormatString != "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK")
-        {
-            throw new("Custom DateFormatString is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
-        }
-
-        if (settings.DateTimeZoneHandling != null)
-        {
-            throw new("Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
-        }
-    }
-
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         extraSettings.Add(action);
         action(jsonSettings);
-        ValidateSettings(jsonSettings);
         serializer = null;
     }
 

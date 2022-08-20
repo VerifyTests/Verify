@@ -144,12 +144,24 @@
 
     protected override JsonArrayContract CreateArrayContract(Type objectType)
     {
-        var jsonArrayContract = base.CreateArrayContract(objectType);
-        if (jsonArrayContract.ItemConverter == null)
+        var contract = base.CreateArrayContract(objectType);
+        if (contract.ItemConverter == null)
         {
-            jsonArrayContract.ItemConverter = new ArrayConverter();
+            contract.ShouldSerializeItem = item =>
+            {
+                if (item != null &&
+                    settings.TryGetScrubOrIgnoreByInstance(item, out var scrubOrIgnore))
+                {
+                    if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            };
         }
 
-        return jsonArrayContract;
+        return contract;
     }
 }

@@ -2951,4 +2951,38 @@ Line2"
     {
         public string Name { get; set; } = null!;
     }
+
+    Parent ListReferenceData()
+    {
+        var parent = new Parent();
+
+        var children = new List<Child>
+        {
+            new()
+            {
+                Parent = parent
+            },
+            new()
+            {
+                Parent = parent
+            }
+        };
+
+        parent.Children = children;
+        return parent;
+    }
+
+    [Fact]
+    public Task ListIgnoreLoopReference() =>
+        Verify(ListReferenceData());
+
+    public class Parent
+    {
+        public List<Child> Children { get; set; } = new();
+    }
+
+    public class Child
+    {
+        public Parent Parent { get; set; }
+    }
 }

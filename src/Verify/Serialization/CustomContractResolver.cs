@@ -12,7 +12,7 @@
         contract.DictionaryKeyResolver = value => ResolveDictionaryKey(contract, value);
         if (!typeof(IDictionaryWrapper).IsAssignableFrom(objectType))
         {
-            contract.SortItems = true;
+            contract.OrderByKey = true;
         }
         contract.ShouldSerializeItem = (key,value) =>
         {

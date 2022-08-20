@@ -35,7 +35,7 @@ partial class SerializationSettings
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
     static StringWriterConverter stringWriterConverter = new();
-    static DictionaryConverter dictionaryConverter = new();
+    //static DictionaryConverter dictionaryConverter = new();
 
     JsonSerializerSettings jsonSettings;
 
@@ -123,7 +123,7 @@ partial class SerializationSettings
         converters.Add(taskConverter);
         converters.Add(valueTaskConverter);
         converters.Add(claimsPrincipalConverter);
-        converters.Add(dictionaryConverter);
+        //converters.Add(dictionaryConverter);
         converters.Add(argonJArrayConverter);
         converters.Add(argonJObjectConverter);
         converters.Add(newtonsoftJArrayConverter);

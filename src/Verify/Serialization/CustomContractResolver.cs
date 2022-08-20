@@ -10,38 +10,24 @@
     {
         var contract = base.CreateDictionaryContract(objectType);
         contract.DictionaryKeyResolver = value => ResolveDictionaryKey(contract, value);
-        return contract;
-    }
-
-    protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-    {
-        var properties = base.CreateProperties(type, memberSerialization);
-        if (type.IsException())
+        if (!objectType.Name.StartsWith("DictionaryWrapper"))
         {
-            var stackTrace = properties.Single(_ => _.PropertyName == "StackTrace");
-            properties.Remove(stackTrace);
-            properties.Add(stackTrace);
-            properties.Insert(0,
-                new(typeof(string), typeof(Exception))
+            contract.SortItems = true;
+        }
+        contract.ShouldSerializeItem = (key,value) =>
+        {
+            if(key is string stringKey &&
+               settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))
+            {
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
                 {
-                    PropertyName = "Type",
-                    ValueProvider = new TypeNameProvider(type),
-                    Ignored = false,
-                    Readable = true,
-                    Writable = false
-                });
-        }
+                    return false;
+                }
+            }
 
-        if (VerifierSettings.sortPropertiesAlphabetically)
-        {
-            properties = properties
-                // Still honor explicit ordering
-                .OrderBy(p => p.Order ?? -1)
-                .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
-                .ToList();
-        }
-
-        return properties;
+            return true;
+        };
+        return contract;
     }
 
     string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
@@ -87,6 +73,37 @@
     }
 
     static FieldInfo exceptionMessageField = typeof(Exception).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+    protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+    {
+        var properties = base.CreateProperties(type, memberSerialization);
+        if (type.IsException())
+        {
+            var stackTrace = properties.Single(_ => _.PropertyName == "StackTrace");
+            properties.Remove(stackTrace);
+            properties.Add(stackTrace);
+            properties.Insert(0,
+                new(typeof(string), typeof(Exception))
+                {
+                    PropertyName = "Type",
+                    ValueProvider = new TypeNameProvider(type),
+                    Ignored = false,
+                    Readable = true,
+                    Writable = false
+                });
+        }
+
+        if (VerifierSettings.sortPropertiesAlphabetically)
+        {
+            properties = properties
+                // Still honor explicit ordering
+                .OrderBy(p => p.Order ?? -1)
+                .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
+                .ToList();
+        }
+
+        return properties;
+    }
 
     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization serialization)
     {
@@ -145,22 +162,19 @@
     protected override JsonArrayContract CreateArrayContract(Type objectType)
     {
         var contract = base.CreateArrayContract(objectType);
-        if (contract.ItemConverter == null)
+        contract.ShouldSerializeItem = item =>
         {
-            contract.ShouldSerializeItem = item =>
+            if (item != null &&
+                settings.TryGetScrubOrIgnoreByInstance(item, out var scrubOrIgnore))
             {
-                if (item != null &&
-                    settings.TryGetScrubOrIgnoreByInstance(item, out var scrubOrIgnore))
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
                 {
-                    if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
+            }
 
-                return true;
-            };
-        }
+            return true;
+        };
 
         return contract;
     }

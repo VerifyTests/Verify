@@ -1,4 +1,4 @@
 ﻿{
-  #text: 1,
-  @xmlns: 2
+  @xmlns: 2,
+  #text: 1
 }

@@ -1,8 +1,4 @@
-﻿using System.Numerics;
-using System.Xml;
-using System.Xml.Linq;
-
-// ReSharper disable RedundantSuppressNullableWarningExpression
+﻿// ReSharper disable RedundantSuppressNullableWarningExpression
 
 // ReSharper disable UnusedParameter.Local
 
@@ -106,7 +102,7 @@ public static partial class VerifierSettings
                 {
                     Indent = true,
                     IndentChars = "  ",
-                    NewLineChars = "\r\n",
+                    NewLineChars = "\n",
                     NewLineHandling = NewLineHandling.Replace
                 };
                 using (var writer = XmlWriter.Create(stringBuilder, writerSettings))

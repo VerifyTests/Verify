@@ -19,7 +19,7 @@ Given a method that returns a named tuple:
 static (bool Member1, string Member2, string Member3) MethodWithNamedTuple() =>
     (true, "A", "B");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1062-L1067' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1171-L1176' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Can be verified:
@@ -29,7 +29,7 @@ Can be verified:
 ```cs
 await VerifyTuple(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1055-L1059' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1164-L1168' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Resulting in:

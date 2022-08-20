@@ -1,0 +1,5 @@
+﻿enum ScrubOrIgnore
+{
+    Scrub,
+    Ignore
+}

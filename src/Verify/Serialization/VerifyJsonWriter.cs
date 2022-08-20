@@ -36,7 +36,7 @@ public class VerifyJsonWriter :
             base.WriteRawValue(value);
             return;
         }
-        value = ReplaceNewlinesAndScrub(value);
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
         base.WriteRawValue(value);
     }
 
@@ -54,7 +54,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        value = ReplaceNewlinesAndScrub(value);
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
         if (VerifierSettings.StrictJson)
         {
             base.WriteValue(value);
@@ -77,12 +77,6 @@ public class VerifyJsonWriter :
         }
 
         WriteRawValue(value);
-    }
-
-    string ReplaceNewlinesAndScrub(string value)
-    {
-        value = value.Replace("\r\n", "\n").Replace('\r', '\n');
-        return ApplyScrubbers.ApplyForPropertyValue(value, settings);
     }
 
     public void WriteSingleLineNoScrubbing(string value)
@@ -183,13 +177,29 @@ public class VerifyJsonWriter :
 
         var declaringType = target.GetType();
         var memberType = value.GetType();
-        if (serialization.ShouldIgnore(declaringType, memberType, name))
+        if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))
         {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteRawValue("{Scrubbed}");
+
             return;
         }
 
-        if (!serialization.ShouldSerialize(value))
+        if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
         {
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                return;
+            }
+
+            WritePropertyName(name);
+            WriteRawValue("{Scrubbed}");
+
             return;
         }
 

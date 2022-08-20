@@ -1,6 +1,4 @@
-﻿using DiffEngine;
-
-[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
+﻿[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {
     string directory;

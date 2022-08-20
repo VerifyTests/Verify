@@ -3,19 +3,21 @@
 {
     IValueProvider inner;
     Type memberType;
-    IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
+    Func<Exception, bool> shouldIgnoreException;
     ConvertTargetMember? membersConverter;
+    SerializationSettings settings;
 
-    public CustomValueProvider(
-        IValueProvider inner,
+    public CustomValueProvider(IValueProvider inner,
         Type memberType,
-        IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-        ConvertTargetMember? membersConverter)
+        Func<Exception, bool> shouldIgnoreException,
+        ConvertTargetMember? membersConverter,
+        SerializationSettings settings)
     {
         this.inner = inner;
         this.memberType = memberType;
-        this.ignoreMembersThatThrow = ignoreMembersThatThrow;
+        this.shouldIgnoreException = shouldIgnoreException;
         this.membersConverter = membersConverter;
+        this.settings = settings;
     }
 
     public void SetValue(object target, object? value) =>
@@ -31,7 +33,20 @@
 
         try
         {
-            return inner.GetValue(target);
+            var value = inner.GetValue(target);
+            if (value != null &&
+                settings.TryGetScrubOrIgnoreByInstance(value, out var scrubOrIgnore))
+            {
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                {
+                    return null;
+                }
+                if (scrubOrIgnore == ScrubOrIgnore.Scrub)
+                {
+                    return "{Scrubbed}";
+                }
+            }
+            return value;
         }
         catch (Exception exception)
         {
@@ -41,12 +56,9 @@
                 throw;
             }
 
-            foreach (var func in ignoreMembersThatThrow)
+            if (shouldIgnoreException(innerException))
             {
-                if (func(innerException))
-                {
-                    return GetDefault();
-                }
+                return GetDefault();
             }
 
             throw;

@@ -1,6 +1,4 @@
-﻿#if !NET461
-using System.Security.Claims;
-#endif
+﻿using System.Security.Claims;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -148,6 +146,24 @@ public class SerializationTests
 }");
         return Verify(jToken)
             .IgnoreMembers("Ignore", "Memory Info");
+    }
+
+    [Fact]
+    public Task JTokenScrub()
+    {
+        var jToken = JToken.Parse(@"{
+  Include: 1,
+  Ignore: 2,
+  ""Memory Info"": {
+          fragmentedBytes: 208,
+          heapSizeBytes: 2479536,
+          highMemoryLoadThresholdBytes: 30821986713,
+          memoryLoadBytes: 14041127280,
+          totalAvailableMemoryBytes: 34246651904
+        }
+}");
+        return Verify(jToken)
+            .ScrubMembers("Ignore", "Memory Info");
     }
 
     [Fact]
@@ -326,27 +342,102 @@ line3"
         #endregion
     }
 
+    [Theory]
+    [InlineData(TypeNameHandling.All)]
+    [InlineData(TypeNameHandling.Arrays)]
+    [InlineData(TypeNameHandling.Auto)]
+    [InlineData(TypeNameHandling.None)]
+    [InlineData(TypeNameHandling.Objects)]
+    public Task TypeNameHandlingInArray(TypeNameHandling typeHandling)
+    {
+        var target = new TypeNameHandlingAutoInArrayTarget
+        {
+            Item = new[]
+            {
+                new TypeNameHandlingAutoInArrayItemChild()
+            }
+        };
+
+        return Verify(target)
+            .AddExtraSettings(_ => { _.TypeNameHandling = typeHandling; })
+            .UseParameters(typeHandling);
+    }
+
+    class TypeNameHandlingAutoInArrayTarget
+    {
+        public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = Array.Empty<TypeNameHandlingAutoInArrayItem>();
+    }
+
+    abstract class TypeNameHandlingAutoInArrayItem
+    {
+    }
+
+    class TypeNameHandlingAutoInArrayItemChild : TypeNameHandlingAutoInArrayItem
+    {
+    }
+
     [Fact]
     public void SettingsIsCloned()
     {
         var settings = new SerializationSettings();
 
-        var ignoredMemberList = new List<string>();
-        settings.ignoredMembers.Add(GetType(), ignoredMemberList);
+        settings.IgnoreMember(GetType(), "ignored");
 
-        var ignoredInstances = new List<ShouldIgnore>();
-        settings.ignoredInstances.Add(GetType(), ignoredInstances);
+        settings.IgnoreInstance(GetType(), _ => _ == this);
 
-        settings.ignoredByNameMembers.Add("ignored");
+        settings.IgnoreMember("ignored");
 
         var clone = new SerializationSettings(settings);
 
         Assert.NotSame(settings, clone);
-        Assert.NotSame(settings.ignoredMembers, clone.ignoredMembers);
-        Assert.NotSame(settings.ignoredMembers.First().Value, clone.ignoredMembers.First().Value);
-        Assert.NotSame(settings.ignoredInstances, clone.ignoredInstances);
-        Assert.NotSame(settings.ignoredInstances.First().Value, clone.ignoredInstances.First().Value);
-        Assert.NotSame(settings.ignoredByNameMembers, clone.ignoredByNameMembers);
+
+        Assert.True(clone.GetShouldIgnoreInstance(GetType(), out var shouldIgnores));
+        var shouldIgnore = shouldIgnores.Single();
+        Assert.Equal(ScrubOrIgnore.Ignore, shouldIgnore(this));
+        Assert.Null(shouldIgnore("notIgnored"));
+        Assert.True(clone.TryGetScrubOrIgnoreByMemberOfType(GetType(), "ignored", out var scrubOrIgnore));
+        Assert.Equal(ScrubOrIgnore.Ignore, scrubOrIgnore);
+        Assert.False(clone.TryGetScrubOrIgnoreByMemberOfType(GetType(), "notIgnored", out scrubOrIgnore));
+        Assert.True(clone.TryGetScrubOrIgnoreByName("ignored", out scrubOrIgnore));
+        Assert.Equal(ScrubOrIgnore.Ignore, scrubOrIgnore);
+        Assert.False(clone.TryGetScrubOrIgnoreByName("notIgnored", out scrubOrIgnore));
+    }
+
+    [Fact]
+    public Task IgnoreOnInterfaceNamed() =>
+        Verify(
+                new IgnoreOnInterfaceChild
+                {
+                    Value = 10
+                })
+            .IgnoreMember("Value");
+
+    [Fact]
+    public Task IgnoreOnInterfaceTyped() =>
+        Verify(
+                new IgnoreOnInterfaceChild
+                {
+                    Value = 10
+                })
+            .IgnoreMember<IIgnoreOnInterface>("Value");
+
+    [Fact]
+    public Task IgnoreOnInterfaceChildTyped() =>
+        Verify(
+                new IgnoreOnInterfaceChild
+                {
+                    Value = 10
+                })
+            .IgnoreMember<IgnoreOnInterfaceChild>("Value");
+
+    interface IIgnoreOnInterface
+    {
+        public int Value { get; set; }
+    }
+
+    class IgnoreOnInterfaceChild : IIgnoreOnInterface
+    {
+        public int Value { get; set; }
     }
 
     [Fact]
@@ -471,6 +562,18 @@ line3"
         settings.AddScrubber(_ => _.Replace("Lane", "Street"));
         return Verify(person, settings);
     }
+
+    [Fact]
+    public Task ScrubberDefaultOrder() =>
+        Verify("line")
+            .AddScrubber(_=>_.Append(" one"))
+            .AddScrubber(_=>_.Append(" two"));
+
+    [Fact]
+    public Task ScrubberInvertOrder() =>
+        Verify("line")
+            .AddScrubber(_=>_.Append(" one"), ScrubberLocation.Last)
+            .AddScrubber(_=>_.Append(" two"), ScrubberLocation.Last);
 
     public static IEnumerable<object?[]> GetBoolData()
     {
@@ -1048,7 +1151,6 @@ line3"
         #endregion
     }
 
-#if (!NETSTANDARD2_0 && !NET461)
     [Fact]
     public async Task NamedTuple()
     {
@@ -1066,7 +1168,6 @@ line3"
 
     #endregion
 
-#if !NET461
     [Fact]
     public async Task PartialNamedTuple()
     {
@@ -1074,7 +1175,6 @@ line3"
         PrefixUnique.Clear();
         await Verify(exception.Message);
     }
-#endif
 
     static (bool, string Member2, string Member3) MethodWithPartialNamedTuple() =>
         (true, "A", "B");
@@ -1461,13 +1561,36 @@ Line2"
     }
 
     [Fact]
+    public Task SelfReferencingWithArray()
+    {
+        var target = new SelfReferencingWithArrayTarget
+        {
+            Property = "Value"
+        };
+        target.List = BuildEnumerable(target);
+        return Verify(target);
+    }
+
+    IEnumerable<SelfReferencingWithArrayTarget> BuildEnumerable(SelfReferencingWithArrayTarget target)
+    {
+        yield return target;
+    }
+
+    class SelfReferencingWithArrayTarget
+    {
+        public string Property { get; set; }
+        public IEnumerable<SelfReferencingWithArrayTarget> List { get; set; }
+    }
+
+    [Fact]
     public Task TestEnumerableWithExistingConverter()
     {
         var target = new EnumerableWithExistingConverterTarget
         {
             "Value"
         };
-        return Verify(target).AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
     }
 
     class EnumerableWithExistingConverterTarget: List<string>
@@ -1479,6 +1602,39 @@ Line2"
     {
         public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
             writer.Serialize("Content");
+    }
+
+    [Fact]
+    public Task TestConverterWithBadNewline()
+    {
+        var target = new ConverterWithBadNewlineTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()));
+    }
+
+    [Fact]
+    public Task TestConverterWithBadNewlineScrubEmptyLines()
+    {
+        var target = new ConverterWithBadNewlineTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterWithBadNewline()))
+            .ScrubEmptyLines();
+    }
+
+    class ConverterWithBadNewlineTarget
+    {
+    }
+
+    class ConverterWithBadNewline:
+        WriteOnlyJsonConverter<ConverterWithBadNewlineTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterWithBadNewlineTarget target)
+        {
+            writer.WritePropertyName("Property1");
+            writer.WriteRawValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+            writer.WritePropertyName("Property2");
+            writer.WriteValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+        }
     }
 
     [Fact]
@@ -1541,6 +1697,11 @@ Line2"
         VerifierSettings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 
         #endregion
+        #region AddScrubInstanceGlobal
+
+        VerifierSettings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
+
+        #endregion
     }
 
     #region AddIgnoreInstance
@@ -1584,6 +1745,47 @@ Line2"
 
     #endregion
 
+    #region AddScrubInstance
+
+    [Fact]
+    public Task AddScrubInstance()
+    {
+        var target = new IgnoreInstanceTarget
+        {
+            ToIgnore = new()
+            {
+                Property = "Ignore"
+            },
+            ToInclude = new()
+            {
+                Property = "Include"
+            }
+        };
+        var settings = new VerifySettings();
+        settings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task AddScrubInstanceFluent()
+    {
+        var target = new IgnoreInstanceTarget
+        {
+            ToIgnore = new()
+            {
+                Property = "Ignore"
+            },
+            ToInclude = new()
+            {
+                Property = "Include"
+            }
+        };
+        return Verify(target)
+            .ScrubInstance<Instance>(_ => _.Property == "Ignore");
+    }
+
+    #endregion
+
     [Fact]
     public Task AddIgnoreInstanceInList()
     {
@@ -1618,6 +1820,11 @@ Line2"
         #region AddIgnoreTypeGlobal
 
         VerifierSettings.IgnoreMembersWithType<ToIgnore>();
+
+        #endregion
+        #region AddScrubTypeGlobal
+
+        VerifierSettings.ScrubMembersWithType<ToIgnore>();
 
         #endregion
     }
@@ -1729,6 +1936,114 @@ Line2"
 
     #endregion
 
+
+    #region AddScrubType
+
+    [Fact]
+    public Task ScrubType()
+    {
+        var target = new IgnoreTypeTarget
+        {
+            ToIgnore = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByInterface = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBase = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBaseGeneric = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByType = new()
+            {
+                Property = "Value"
+            },
+            ToInclude = new()
+            {
+                Property = "Value"
+            },
+            ToIncludeNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreStruct = new("Value"),
+            ToIgnoreStructNullable = new("Value"),
+            ToIncludeStruct = new("Value"),
+            ToIncludeStructNullable = new("Value")
+        };
+        var settings = new VerifySettings();
+        settings.ScrubMembersWithType<ToIgnore>();
+        settings.ScrubMembersWithType<ToIgnoreByType>();
+        settings.ScrubMembersWithType<InterfaceToIgnore>();
+        settings.ScrubMembersWithType<BaseToIgnore>();
+        settings.ScrubMembersWithType(typeof(BaseToIgnoreGeneric<>));
+        settings.ScrubMembersWithType<ToIgnoreStruct>();
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task ScrubTypeFluent()
+    {
+        var target = new IgnoreTypeTarget
+        {
+            ToIgnore = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByInterface = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBase = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByBaseGeneric = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreByType = new()
+            {
+                Property = "Value"
+            },
+            ToInclude = new()
+            {
+                Property = "Value"
+            },
+            ToIncludeNullable = new()
+            {
+                Property = "Value"
+            },
+            ToIgnoreStruct = new("Value"),
+            ToIgnoreStructNullable = new("Value"),
+            ToIncludeStruct = new("Value"),
+            ToIncludeStructNullable = new("Value")
+        };
+        return Verify(target)
+            .ScrubMembersWithType<ToIgnore>()
+            .ScrubMembersWithType<ToIgnoreByType>()
+            .ScrubMembersWithType<InterfaceToIgnore>()
+            .ScrubMembersWithType<BaseToIgnore>()
+            .ScrubMembersWithType(typeof(BaseToIgnoreGeneric<>))
+            .ScrubMembersWithType<ToIgnoreStruct>();
+    }
+
+    #endregion
+
     [Fact]
     public Task IgnoreMembersNullable()
     {
@@ -1736,6 +2051,15 @@ Line2"
 
         return Verify(toIgnoreStruct)
             .IgnoreMembers<ToIgnoreStruct>(_ => _.Property);
+    }
+
+    [Fact]
+    public Task ScrubMembersNullable()
+    {
+        ToIgnoreStruct? toIgnoreStruct = new ToIgnoreStruct("Value");
+
+        return Verify(toIgnoreStruct)
+            .ScrubMembers<ToIgnoreStruct>(_ => _.Property);
     }
 
     [Fact]
@@ -1748,6 +2072,18 @@ Line2"
 
         return Verify(target)
             .IgnoreMembers<IgnoreMembersNullableNestedTarget>(_ => _.ToIgnoreStruct);
+    }
+
+    [Fact]
+    public Task ScrubMembersNullableNested()
+    {
+        var target = new IgnoreMembersNullableNestedTarget
+        {
+            ToIgnoreStruct = new ToIgnoreStruct("Value")
+        };
+
+        return Verify(target)
+            .ScrubMembers<IgnoreMembersNullableNestedTarget>(_ => _.ToIgnoreStruct);
     }
 
     class IgnoreMembersNullableNestedTarget
@@ -1905,6 +2241,16 @@ Line2"
             _ => _.PropertyThatThrows);
 
         #endregion
+        #region ScrubMemberByExpressionGlobal
+
+        VerifierSettings.ScrubMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.PropertyWithPropertyName,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
+
+        #endregion
     }
 
     #region IgnoreMemberByExpression
@@ -1940,6 +2286,47 @@ Line2"
         };
         return Verify(target)
             .IgnoreMembers<IgnoreExplicitTarget>(
+                _ => _.Property,
+                _ => _.Field,
+                _ => _.GetOnlyProperty,
+                _ => _.PropertyThatThrows);
+    }
+
+    #endregion
+
+    #region ScrubMemberByExpression
+
+    [Fact]
+    public Task ScrubMemberByExpression()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyWithPropertyName = "Value"
+        };
+        var settings = new VerifySettings();
+        settings.ScrubMembers<IgnoreExplicitTarget>(
+            _ => _.Property,
+            _ => _.PropertyWithPropertyName,
+            _ => _.Field,
+            _ => _.GetOnlyProperty,
+            _ => _.PropertyThatThrows);
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task ScrubMemberByExpressionFluent()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value"
+        };
+        return Verify(target)
+            .ScrubMembers<IgnoreExplicitTarget>(
                 _ => _.Property,
                 _ => _.Field,
                 _ => _.GetOnlyProperty,
@@ -1995,6 +2382,21 @@ Line2"
 
         // For a specific type with expression
         VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+
+        #endregion
+        #region ScrubMemberByNameGlobal
+
+        // For all types
+        VerifierSettings.ScrubMember("PropertyByName");
+
+        // For a specific type
+        VerifierSettings.ScrubMember(typeof(IgnoreExplicitTarget), "Property");
+
+        // For a specific type generic
+        VerifierSettings.ScrubMember<IgnoreExplicitTarget>("Field");
+
+        // For a specific type with expression
+        VerifierSettings.ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 
         #endregion
     }
@@ -2054,6 +2456,61 @@ Line2"
 
     #endregion
 
+    #region ScrubMemberByName
+
+    [Fact]
+    public Task ScrubMemberByName()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        var settings = new VerifySettings();
+
+        // For all types
+        settings.ScrubMember("PropertyByName");
+
+        // For a specific type
+        settings.ScrubMember(typeof(IgnoreExplicitTarget), "Property");
+
+        // For a specific type generic
+        settings.ScrubMember<IgnoreExplicitTarget>("Field");
+
+        // For a specific type with expression
+        settings.ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task ScrubMemberByNameFluent()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value",
+            PropertyByName = "Value"
+        };
+        return Verify(target)
+            // For all types
+            .ScrubMember("PropertyByName")
+
+            // For a specific type
+            .ScrubMember(typeof(IgnoreExplicitTarget), "Property")
+
+            // For a specific type generic
+            .ScrubMember<IgnoreExplicitTarget>("Field")
+
+            // For a specific type with expression
+            .ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
+    }
+
+    #endregion
+
     public class IgnoreTargetBase
     {
         public string Property { get; set; }
@@ -2086,6 +2543,24 @@ Line2"
 }";
         var target = JToken.Parse(json);
         return Verify(target).IgnoreMember("Ignore1");
+    }
+    [Fact]
+    public Task ScrubJTokenByName()
+    {
+        var json = @"{
+  'short': {
+    'key': {
+      'code': 0,
+      'msg': 'No action taken'
+    },
+    'Ignore1': {
+      'code': 2,
+      'msg': 'ignore this'
+    }
+  }
+}";
+        var target = JToken.Parse(json);
+        return Verify(target).ScrubMember("Ignore1");
     }
 
     [Fact]
@@ -2179,6 +2654,25 @@ Line2"
         };
         return Verify(target)
             .IgnoreMember("Ignore");
+    }
+
+    [Fact]
+    public Task ScrubDictionaryKeyByName()
+    {
+        var target = new Dictionary<string, object>
+        {
+            {
+                "Include", new Dictionary<string, string>
+                {
+                    {"Ignore", "Value1"},
+                    {"Key1", "Value2"}
+                }
+            },
+            {"Ignore", "Value3"},
+            {"Key2", "Value4"}
+        };
+        return Verify(target)
+            .ScrubMember("Ignore");
     }
 
     class IgnoreExplicitTarget
@@ -2309,7 +2803,6 @@ Line2"
         public Guid NotImplementedExceptionProperty => throw new NotSupportedException();
     }
 
-
     void WithObsoletePropIncludedGlobally()
     {
         #region WithObsoletePropIncludedGlobally
@@ -2381,8 +2874,6 @@ Line2"
 
     static (bool, string, string) MethodWithTuple() =>
         (true, "A", "B");
-
-#endif
 
     #region ScopedSerializer
 

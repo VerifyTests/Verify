@@ -70,8 +70,7 @@
 
     static bool IsInvalidChar(char ch) =>
         char.IsLetter(ch) ||
-        char.IsNumber(ch) ||
-        ch is '-';
+        char.IsNumber(ch);
 
     static bool IsInvalidStartingChar(char ch) =>
         IsInvalidChar(ch) &&

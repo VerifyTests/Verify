@@ -1,5 +1,7 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
+using Formatting = Newtonsoft.Json.Formatting;
+
 partial class SerializationSettings
 {
     static ArgonJArrayConverter argonJArrayConverter = new();
@@ -173,9 +175,4 @@ partial class SerializationSettings
             return jsonSerializer;
         }
     }
-
-    bool includeObsoletes;
-
-    public void IncludeObsoletes() =>
-        includeObsoletes = true;
 }

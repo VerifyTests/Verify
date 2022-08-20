@@ -22,6 +22,7 @@
         var builder = new StringBuilder();
         using var writer = new VerifyJsonWriter(builder, settings, counter);
         settings.Serializer.Serialize(writer, input);
+        builder.FixNewlines();
         return builder;
     }
 }

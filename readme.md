@@ -42,7 +42,13 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 
 ## Usage
 
+
+### ImplicitUsings
+
 **All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**
+
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.
+
 
 
 ### Class being tested
@@ -349,7 +355,7 @@ public Task VerifyJsonJToken()
     return VerifyJson(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2131-L2163' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2613-L2645' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

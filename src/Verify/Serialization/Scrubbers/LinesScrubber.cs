@@ -16,13 +16,12 @@
             var value = replaceLine(line);
             if (value is not null)
             {
-                input.Append(value);
-                input.Append('\n');
+                input.AppendLineN(value);
             }
         }
 
         if (theString.Length > 0 &&
-            !theString.EndsWith("\n"))
+            !theString.EndsWith('\n'))
         {
             input.Length -= 1;
         }
@@ -41,12 +40,11 @@
                 continue;
             }
 
-            input.Append(line);
-            input.Append('\n');
+            input.AppendLineN(line);
         }
 
         if (input.Length > 0 &&
-            !theString.EndsWith("\n"))
+            !theString.EndsWith('\n'))
         {
             input.Length -= 1;
         }

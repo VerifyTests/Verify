@@ -188,7 +188,7 @@ public class Namer
 
         if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
         {
-            var version = Version.Parse(description.Replace(".NET Framework ", ""));
+            var version = Version.Parse(description.Remove(".NET Framework "));
             return ("Net", version);
         }
 

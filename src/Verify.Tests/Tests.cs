@@ -407,21 +407,21 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
 
-        File.WriteAllText(file, "a\r\n");
+        await File.WriteAllTextAsync(file, "a\r\n");
         await Verify("a\r\n", settings);
         await Verify("a\n", settings);
         await Verify("a", settings);
 
-        File.WriteAllText(file, "a\r\n\r\n");
+        await File.WriteAllTextAsync(file, "a\r\n\r\n");
         await Verify("a\r\n\r\n", settings);
         await Verify("a\n\n", settings);
         await Verify("a\n", settings);
 
-        File.WriteAllText(file, "a\n");
+        await File.WriteAllTextAsync(file, "a\n");
         await Verify("a\n", settings);
         await Verify("a", settings);
 
-        File.WriteAllText(file, "a\n\n");
+        await File.WriteAllTextAsync(file, "a\n\n");
         await Verify("a\n\n", settings);
         await Verify("a\n", settings);
         File.Delete(file);

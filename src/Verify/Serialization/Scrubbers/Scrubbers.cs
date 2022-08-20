@@ -94,8 +94,7 @@ public static class Scrubbers
             line = line.TrimStart();
             if (!line.StartsWith("at "))
             {
-                builder.Append(line);
-                builder.Append('\n');
+                builder.AppendLineN(line);
                 continue;
             }
 
@@ -132,8 +131,7 @@ public static class Scrubbers
 
             line = line.Replace(" (", "(");
             line = line.Replace('+', '.');
-            builder.Append(line);
-            builder.Append('\n');
+            builder.AppendLineN(line);
         }
 
         builder.TrimEnd();

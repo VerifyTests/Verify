@@ -1,3 +1,3 @@
 ﻿namespace VerifyTests;
 
-public delegate bool ShouldIgnore(object memberType);
+public delegate bool ShouldIgnore(object instance);

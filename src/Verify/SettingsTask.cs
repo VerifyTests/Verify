@@ -89,33 +89,6 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Modify the resulting test content using custom code.
-    /// </summary>
-    public SettingsTask AddScrubber(Action<StringBuilder> scrubber)
-    {
-        CurrentSettings.AddScrubber(scrubber);
-        return this;
-    }
-
-    /// <summary>
-    /// Modify the resulting test content using custom code.
-    /// </summary>
-    public SettingsTask AddScrubber(string extension, Action<StringBuilder> scrubber)
-    {
-        CurrentSettings.AddScrubber(extension, scrubber);
-        return this;
-    }
-
-    /// <summary>
-    /// Replace inline <see cref="Guid" />s with a placeholder.
-    /// </summary>
-    public SettingsTask ScrubInlineGuids()
-    {
-        CurrentSettings.ScrubInlineGuids();
-        return this;
-    }
-
     public SettingsTask UseStreamComparer(StreamCompare compare)
     {
         CurrentSettings.UseStreamComparer(compare);
@@ -286,70 +259,6 @@ public partial class SettingsTask
     public SettingsTask UniqueForOSPlatform()
     {
         CurrentSettings.UniqueForOSPlatform();
-        return this;
-    }
-
-    /// <summary>
-    /// Remove the <see cref="Environment.MachineName" /> from the test results.
-    /// </summary>
-    public SettingsTask ScrubMachineName()
-    {
-        CurrentSettings.ScrubMachineName();
-        return this;
-    }
-
-    /// <summary>
-    /// Remove the <see cref="Environment.UserName" /> from the test results.
-    /// </summary>
-    public SettingsTask ScrubUserName()
-    {
-        CurrentSettings.ScrubUserName();
-        return this;
-    }
-
-    /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
-    /// </summary>
-    public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
-    {
-        CurrentSettings.ScrubLinesContaining(comparison, stringToMatch);
-        return this;
-    }
-
-    /// <summary>
-    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
-    /// </summary>
-    public SettingsTask ScrubLines(Func<string, bool> removeLine)
-    {
-        CurrentSettings.ScrubLines(removeLine);
-        return this;
-    }
-
-    /// <summary>
-    /// Scrub lines with an optional replace.
-    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
-    /// </summary>
-    public SettingsTask ScrubLinesWithReplace(Func<string, string?> replaceLine)
-    {
-        CurrentSettings.ScrubLinesWithReplace(replaceLine);
-        return this;
-    }
-
-    /// <summary>
-    /// Remove any lines containing only whitespace from the test results.
-    /// </summary>
-    public SettingsTask ScrubEmptyLines()
-    {
-        CurrentSettings.ScrubEmptyLines();
-        return this;
-    }
-
-    /// <summary>
-    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
-    /// </summary>
-    public SettingsTask ScrubLinesContaining(params string[] stringToMatch)
-    {
-        CurrentSettings.ScrubLinesContaining(stringToMatch);
         return this;
     }
 

@@ -33,10 +33,24 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask ScrubMembers<T>(params Expression<Func<T, object?>>[] expressions)
+        where T : notnull
+    {
+        CurrentSettings.ScrubMembers(expressions);
+        return this;
+    }
+
     public SettingsTask IgnoreMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull
     {
         CurrentSettings.IgnoreMembers(expression);
+        return this;
+    }
+
+    public SettingsTask ScrubMember<T>(Expression<Func<T, object?>> expression)
+        where T : notnull
+    {
+        CurrentSettings.ScrubMembers(expression);
         return this;
     }
 
@@ -47,10 +61,24 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask ScrubMembers<T>(params string[] names)
+        where T : notnull
+    {
+        CurrentSettings.ScrubMembers<T>(names);
+        return this;
+    }
+
     public SettingsTask IgnoreMember<T>(string name)
         where T : notnull
     {
         CurrentSettings.IgnoreMember<T>(name);
+        return this;
+    }
+
+    public SettingsTask ScrubMember<T>(string name)
+        where T : notnull
+    {
+        CurrentSettings.ScrubMember<T>(name);
         return this;
     }
 
@@ -60,9 +88,21 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask ScrubMembers(Type declaringType, params string[] names)
+    {
+        CurrentSettings.ScrubMembers(declaringType, names);
+        return this;
+    }
+
     public SettingsTask IgnoreMember(Type declaringType, string name)
     {
         CurrentSettings.IgnoreMember(declaringType, name);
+        return this;
+    }
+
+    public SettingsTask ScrubMember(Type declaringType, string name)
+    {
+        CurrentSettings.ScrubMember(declaringType, name);
         return this;
     }
 
@@ -72,9 +112,21 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask ScrubMember(string name)
+    {
+        CurrentSettings.ScrubMember(name);
+        return this;
+    }
+
     public SettingsTask IgnoreMembers(params string[] names)
     {
         CurrentSettings.IgnoreMembers(names);
+        return this;
+    }
+
+    public SettingsTask ScrubMembers(params string[] names)
+    {
+        CurrentSettings.ScrubMembers(names);
         return this;
     }
 
@@ -85,9 +137,22 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask ScrubInstance<T>(Func<T, bool> shouldScrub)
+        where T : notnull
+    {
+        CurrentSettings.ScrubInstance(shouldScrub);
+        return this;
+    }
+
     public SettingsTask IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         CurrentSettings.IgnoreInstance(type, shouldIgnore);
+        return this;
+    }
+
+    public SettingsTask ScrubInstance(Type type, ShouldScrub shouldScrub)
+    {
+        CurrentSettings.ScrubInstance(type, shouldScrub);
         return this;
     }
 
@@ -98,9 +163,22 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask ScrubMembersWithType<T>()
+        where T : notnull
+    {
+        CurrentSettings.ScrubMembersWithType<T>();
+        return this;
+    }
+
     public SettingsTask IgnoreMembersWithType(Type type)
     {
         CurrentSettings.IgnoreMembersWithType(type);
+        return this;
+    }
+
+    public SettingsTask ScrubMembersWithType(Type type)
+    {
+        CurrentSettings.ScrubMembersWithType(type);
         return this;
     }
 

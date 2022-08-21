@@ -21,7 +21,6 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     {
         var builder = new StringBuilder();
 
-
         AppendTargetFramework(namer, builder);
 
         AppendAssemblyConfiguration(namer, builder);

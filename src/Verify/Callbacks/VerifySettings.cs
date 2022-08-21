@@ -19,8 +19,7 @@ public static partial class VerifierSettings
             return Task.CompletedTask;
         }
 
-        //TODO: pass in text
-        return handleOnFirstVerify(item.File);
+        return handleOnFirstVerify(item.File, item.ReceivedText);
     }
 
     static VerifyMismatch? handleOnVerifyMismatch;

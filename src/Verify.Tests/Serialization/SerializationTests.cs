@@ -96,30 +96,6 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task SymbolOrdering1()
-    {
-        var target = new Dictionary<string, int>
-        {
-            {"#", 1},
-            {"@", 2}
-        };
-
-        return Verify(target);
-    }
-
-    [Fact]
-    public Task SymbolOrdering2()
-    {
-        var target = new Dictionary<string, int>
-        {
-            {"@", 2},
-            {"#", 1}
-        };
-
-        return Verify(target);
-    }
-
-    [Fact]
     public Task JObjectOrdering1()
     {
         var obj = new JObject(

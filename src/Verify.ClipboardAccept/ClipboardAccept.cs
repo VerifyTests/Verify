@@ -16,10 +16,10 @@ public static class ClipboardAccept
     {
         VerifierSettings.OnFirstVerify(AppendMove);
         VerifierSettings.OnDelete(AppendDelete);
-        VerifierSettings.OnVerifyMismatch((file, _) => AppendMove(file));
+        VerifierSettings.OnVerifyMismatch((file, _) => AppendMove(file, null));
     }
 
-    static Task AppendMove(FilePair file) =>
+    static Task AppendMove(FilePair file, string? receivedText) =>
         Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
 
     static ClipboardAccept()

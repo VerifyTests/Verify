@@ -9,7 +9,7 @@
     <Using Include="NUnit.Framework" />
     <Using Include="NUnit.Framework.Internal" />
     <Using Include="VerifyTests" />
-    <Using Include="Newtonsoft.Json.Linq" />
+    <Using Include="Argon" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />

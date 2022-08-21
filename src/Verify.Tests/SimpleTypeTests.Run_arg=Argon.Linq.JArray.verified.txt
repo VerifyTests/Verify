@@ -1,0 +1,5 @@
+﻿[
+  Small,
+  Medium,
+  Large
+]

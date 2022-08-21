@@ -47,7 +47,7 @@ module Tests
 open Xunit
 open VerifyTests
 open VerifyXunit
-open Newtonsoft.Json
+open Argon
 
 VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- NullValueHandling.Include)
 

@@ -5,7 +5,7 @@
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="Newtonsoft.Json.Serialization" />
+    <Using Include="Argon" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="FSharp.Core" Version="6.0.5" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />

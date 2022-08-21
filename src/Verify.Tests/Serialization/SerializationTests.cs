@@ -96,30 +96,6 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task SymbolOrdering1()
-    {
-        var target = new Dictionary<string, int>
-        {
-            {"#", 1},
-            {"@", 2}
-        };
-
-        return Verify(target);
-    }
-
-    [Fact]
-    public Task SymbolOrdering2()
-    {
-        var target = new Dictionary<string, int>
-        {
-            {"@", 2},
-            {"#", 1}
-        };
-
-        return Verify(target);
-    }
-
-    [Fact]
     public Task JObjectOrdering1()
     {
         var obj = new JObject(
@@ -947,27 +923,6 @@ line3"
 
         #endregion
     }
-
-    [Fact]
-    public Task ThrowForDateFormatHandling() =>
-        ThrowsTask(
-                () => Verify("foo")
-                    .AddExtraSettings(_ => _.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat))
-            .IgnoreStackTrace();
-
-    [Fact]
-    public Task ThrowForDateTimeZoneHandling() =>
-        ThrowsTask(
-                () => Verify("foo")
-                    .AddExtraSettings(_ => _.DateTimeZoneHandling = DateTimeZoneHandling.Unspecified))
-            .IgnoreStackTrace();
-
-    [Fact]
-    public Task ThrowForDateFormatString() =>
-        ThrowsTask(
-                () => Verify("foo")
-                    .AddExtraSettings(_ => _.DateFormatString = "DateFormatHandling.MicrosoftDateFormat"))
-            .IgnoreStackTrace();
 
     Task DontScrubDateTimes()
     {
@@ -2971,5 +2926,39 @@ Line2"
     class StaticConverterTarget
     {
         public string Name { get; set; } = null!;
+    }
+
+    Parent ListReferenceData()
+    {
+        var parent = new Parent();
+
+        var children = new List<Child>
+        {
+            new()
+            {
+                Parent = parent
+            },
+            new()
+            {
+                Parent = parent
+            }
+        };
+
+        parent.Children = children;
+        return parent;
+    }
+
+    [Fact]
+    public Task ListIgnoreLoopReference() =>
+        Verify(ListReferenceData());
+
+    public class Parent
+    {
+        public List<Child> Children { get; set; } = new();
+    }
+
+    public class Child
+    {
+        public Parent Parent { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using Argon;
 
 namespace TheTests;
 // Non-nullable field is uninitialized

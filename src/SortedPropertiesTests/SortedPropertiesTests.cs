@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using Argon;
 
 #region SortProperties
 

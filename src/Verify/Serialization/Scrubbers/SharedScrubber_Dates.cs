@@ -110,7 +110,7 @@
     {
         if (scrubDateTimes)
         {
-            if (DateTime.TryParseExact(value, jsonSettings.DateFormatString, null, DateTimeStyles.None, out var dateTime))
+            if (DateTime.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", null, DateTimeStyles.None, out var dateTime))
             {
                 result = Convert(counter, dateTime);
                 return true;
@@ -134,7 +134,7 @@
     {
         if (scrubDateTimes)
         {
-            if (DateTimeOffset.TryParseExact(value, jsonSettings.DateFormatString, null, DateTimeStyles.None, out var dateTimeOffset))
+            if (DateTimeOffset.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", null, DateTimeStyles.None, out var dateTimeOffset))
             {
                 result = Convert(counter, dateTimeOffset);
                 return true;
@@ -142,7 +142,7 @@
 
             foreach (var format in datetimeOffsetFormats)
             {
-                if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset))
+                if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out  dateTimeOffset))
                 {
                     result = Convert(counter, dateTimeOffset);
                     return true;

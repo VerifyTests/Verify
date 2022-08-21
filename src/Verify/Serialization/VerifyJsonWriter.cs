@@ -23,7 +23,8 @@ public class VerifyJsonWriter :
         Counter = counter;
         if (!VerifierSettings.StrictJson)
         {
-            QuoteChar = '\'';
+            QuoteValue = false;
+            EscapeHandling = EscapeHandling.None;
             QuoteName = false;
         }
     }

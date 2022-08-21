@@ -1,10 +1,13 @@
 ﻿// ReSharper disable UseObjectOrCollectionInitializer
 
-using Formatting = Newtonsoft.Json.Formatting;
+using Formatting = Argon.Formatting;
 
 partial class SerializationSettings
 {
-    static JArrayConverter jArrayConverter = new();
+    static ArgonJArrayConverter argonJArrayConverter = new();
+    static ArgonJObjectConverter argonJObjectConverter = new();
+    static NewtonsoftJArrayConverter newtonsoftJArrayConverter = new();
+    static NewtonsoftJObjectConverter newtonsoftJObjectConverter = new();
     static FileInfoConverter fileInfoConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
@@ -27,13 +30,12 @@ partial class SerializationSettings
     static AggregateExceptionConverter aggregateExceptionConverter = new();
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
-    static JObjectConverter jObjectConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
     static StringBuilderConverter stringBuilderConverter = new();
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
     static StringWriterConverter stringWriterConverter = new();
-    static DictionaryConverter dictionaryConverter = new();
+    //static DictionaryConverter dictionaryConverter = new();
 
     JsonSerializerSettings jsonSettings;
 
@@ -87,7 +89,6 @@ partial class SerializationSettings
             Formatting = Formatting.Indented,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             DefaultValueHandling = DefaultValueHandling.Ignore,
-            Culture = CultureInfo.InvariantCulture
         };
 
         #endregion
@@ -122,9 +123,11 @@ partial class SerializationSettings
         converters.Add(taskConverter);
         converters.Add(valueTaskConverter);
         converters.Add(claimsPrincipalConverter);
-        converters.Add(dictionaryConverter);
-        converters.Add(jArrayConverter);
-        converters.Add(jObjectConverter);
+        //converters.Add(dictionaryConverter);
+        converters.Add(argonJArrayConverter);
+        converters.Add(argonJObjectConverter);
+        converters.Add(newtonsoftJArrayConverter);
+        converters.Add(newtonsoftJObjectConverter);
         converters.Add(nameValueCollectionConverter);
         foreach (var extraSetting in extraSettings)
         {
@@ -134,29 +137,10 @@ partial class SerializationSettings
         return settings;
     }
 
-    static void ValidateSettings(JsonSerializerSettings settings)
-    {
-        if (settings.DateFormatHandling != DateFormatHandling.IsoDateFormat)
-        {
-            throw new("Custom DateFormatHandling is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
-        }
-
-        if (settings.DateFormatString != "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK")
-        {
-            throw new("Custom DateFormatString is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
-        }
-
-        if (settings.DateTimeZoneHandling != DateTimeZoneHandling.RoundtripKind)
-        {
-            throw new("Custom RoundtripKind is not supported. Instead use VerifierSettings.TreatAsString<DateTime>(func) to define custom handling.");
-        }
-    }
-
     public void AddExtraSettings(Action<JsonSerializerSettings> action)
     {
         extraSettings.Add(action);
         action(jsonSettings);
-        ValidateSettings(jsonSettings);
         serializer = null;
     }
 

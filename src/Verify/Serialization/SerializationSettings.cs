@@ -62,7 +62,7 @@ partial class SerializationSettings
         settings.SerializationBinder = ShortNameBinder.Instance;
 
         settings.ContractResolver = new CustomContractResolver(this);
-        settings.Converters.AddRange(Converters);
+        settings.Converters.AddRange(covnerters);
         foreach (var extraSetting in extraSettings)
         {
             extraSetting(settings);

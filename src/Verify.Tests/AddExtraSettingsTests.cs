@@ -3,7 +3,11 @@ public class AddExtraSettingsTests
 {
     [ModuleInitializer]
     public static void Init() =>
-        VerifierSettings.AddConverter<SingleUseConverter>();
+        VerifierSettings
+            .AddExtraSettings(serializer =>
+            {
+                serializer.Converters.Add(new SingleUseConverter());
+            });
 
     [Fact]
     public Task Test1() =>

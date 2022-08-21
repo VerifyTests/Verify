@@ -59,7 +59,7 @@ public Task OnHandlersSample()
             Debug.WriteLine("after");
         });
     VerifierSettings.OnFirstVerify(
-        receivedFile =>
+        (receivedFile, receivedText) =>
         {
             Debug.WriteLine(receivedFile);
             return Task.CompletedTask;

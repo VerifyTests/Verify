@@ -14,19 +14,19 @@
         {
             contract.OrderByKey = true;
         }
-
-        contract.ShouldSerializeItem = (key, _) =>
+        contract.ShouldSerializeItem = (key,value) =>
         {
-            if (key is string stringKey &&
-                settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore) &&
-                scrubOrIgnore == ScrubOrIgnore.Ignore)
+            if(key is string stringKey &&
+               settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))
             {
-                return false;
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                {
+                    return false;
+                }
             }
 
             return true;
         };
-
         return contract;
     }
 

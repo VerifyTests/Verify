@@ -3,6 +3,6 @@ class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
     public override void Write(VerifyJsonWriter writer, TimeOnly value) =>
-        writer.WriteRawValue(value.ToString("h:mm tt"));
+        writer.WriteRawValue(value.ToString("h:mm tt", CultureInfo.InvariantCulture));
 }
 #endif

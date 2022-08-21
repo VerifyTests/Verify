@@ -155,16 +155,6 @@ public class VerifyJsonWriter :
         WriteRawValue(value.ToString("D", CultureInfo.InvariantCulture));
     }
 
-    //TODO: remove generics in next major
-    /// <summary>
-    /// Writes a property name and value while respecting other custom serialization settings.
-    /// </summary>
-    [Obsolete("Use WriteMember", true)]
-    public void WriteProperty<T, TMember>(T target, TMember? value, string name)
-        where TMember : notnull
-        where T : notnull =>
-        WriteMember(target, value, name);
-
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>

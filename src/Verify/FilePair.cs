@@ -11,12 +11,6 @@ public readonly struct FilePair
     public string Name { get; }
     public bool IsText { get; }
 
-    [Obsolete("Use FilePair(string extension, string prefixReceived, string prefixVerified)", true)]
-    public FilePair(string extension, string prefix)
-        : this(extension, prefix, prefix)
-    {
-    }
-
     public FilePair(string extension, string prefixReceived, string prefixVerified)
     {
         Extension = extension;

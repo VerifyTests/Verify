@@ -262,10 +262,6 @@ public partial class SettingsTask
         return this;
     }
 
-    [Obsolete("Use IgnoreStackTrace", error:true)]
-    public SettingsTask IgnoreStackTrack() =>
-        IgnoreStackTrace();
-
     public SettingsTask IgnoreStackTrace()
     {
         CurrentSettings.IgnoreStackTrace();

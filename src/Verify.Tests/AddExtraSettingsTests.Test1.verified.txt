@@ -1,1 +1,4 @@
-﻿Value1
+﻿{
+  $type: dynamic,
+  Property: Value2
+}

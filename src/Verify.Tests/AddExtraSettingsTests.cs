@@ -7,23 +7,21 @@ public class AddExtraSettingsTests
 
     [Fact]
     public Task Test1() =>
-        Verify(
-                new
-                {
-                    Property = "Value2"
-                })
+        Verify(new
+            {
+                Property = "Value2"
+            })
             .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 
     [Fact]
     public Task Test2() =>
-        Verify(
-                new
-                {
-                    Property = "Value2"
-                })
+        Verify(new
+            {
+                Property = "Value2"
+            })
             .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 
-    class SingleUseConverter : WriteOnlyJsonConverter
+    class SingleUseConverter : JsonConverter
     {
         static bool used;
 
@@ -37,10 +35,14 @@ public class AddExtraSettingsTests
             used = true;
         }
 
-        public override void Write(VerifyJsonWriter writer, object value) =>
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+            throw new NotImplementedException();
+
+        public override object? ReadJson(JsonReader reader, Type type, object? existingValue, JsonSerializer serializer) =>
             throw new NotImplementedException();
 
         public override bool CanConvert(Type type) =>
             false;
     }
 }
+

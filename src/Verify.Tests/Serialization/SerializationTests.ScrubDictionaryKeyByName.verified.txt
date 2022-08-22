@@ -1,6 +1,8 @@
 ﻿{
   Include: {
-    Key1: Value2
+    Key1: Value2,
+    Scrub: {Scrubbed}
   },
-  Key2: Value4
+  Key2: Value4,
+  Scrub: {Scrubbed}
 }

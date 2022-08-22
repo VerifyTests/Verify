@@ -129,7 +129,7 @@ public class SerializationTests
     {
         var jToken = JToken.Parse(@"{
   Include: 1,
-  Ignore: 2,
+  Scrub: 2,
   ""Memory Info"": {
           fragmentedBytes: 208,
           heapSizeBytes: 2479536,
@@ -139,7 +139,7 @@ public class SerializationTests
         }
 }");
         return Verify(jToken)
-            .ScrubMembers("Ignore", "Memory Info");
+            .ScrubMembers("Scrub", "Memory Info");
     }
 
     [Fact]
@@ -2506,6 +2506,7 @@ Line2"
         var target = JToken.Parse(json);
         return Verify(target).IgnoreMember("Ignore1");
     }
+
     [Fact]
     public Task ScrubJTokenByName()
     {
@@ -2515,14 +2516,14 @@ Line2"
       'code': 0,
       'msg': 'No action taken'
     },
-    'Ignore1': {
+    'Scrub': {
       'code': 2,
       'msg': 'ignore this'
     }
   }
 }";
         var target = JToken.Parse(json);
-        return Verify(target).ScrubMember("Ignore1");
+        return Verify(target).ScrubMember("Scrub");
     }
 
     [Fact]
@@ -2626,15 +2627,15 @@ Line2"
             {
                 "Include", new Dictionary<string, string>
                 {
-                    {"Ignore", "Value1"},
+                    {"Scrub", "Value1"},
                     {"Key1", "Value2"}
                 }
             },
-            {"Ignore", "Value3"},
+            {"Scrub", "Value3"},
             {"Key2", "Value4"}
         };
         return Verify(target)
-            .ScrubMember("Ignore");
+            .ScrubMember("Scrub");
     }
 
     class IgnoreExplicitTarget

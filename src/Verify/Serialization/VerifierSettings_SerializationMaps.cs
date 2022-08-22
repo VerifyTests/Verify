@@ -83,7 +83,7 @@ public static partial class VerifierSettings
         serialization.IgnoreMembers( names);
 
     public static void ScrubMembers(params string[] names) =>
-        serialization.IgnoreMembers( names);
+        serialization.ScrubMembers( names);
 
     public static void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull =>

@@ -12,10 +12,11 @@ partial class SerializationSettings
         Guard.AgainstNullOrEmpty(name, nameof(name));
         ignoredByNameMembers[name] = ScrubOrIgnore.Ignore;
     }
+
     public void ScrubMember(string name)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
-        ignoredByNameMembers[name] = ScrubOrIgnore.Ignore;
+        ignoredByNameMembers[name] = ScrubOrIgnore.Scrub;
     }
 
     public void IgnoreMembers(params string[] names)

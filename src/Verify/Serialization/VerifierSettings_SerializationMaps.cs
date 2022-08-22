@@ -8,6 +8,9 @@ public static partial class VerifierSettings
     public static void AddExtraDateFormat(string format) =>
         SerializationSettings.dateFormats.Add(format);
 
+    public static void AddExtraTimeFormat(string format) =>
+        SerializationSettings.timeFormats.Add(format);
+
     public static void AddExtraDatetimeFormat(string format) =>
         SerializationSettings.datetimeFormats.Add(format);
 

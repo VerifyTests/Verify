@@ -595,9 +595,24 @@ line3"
     }
 
 #if NET6_0_OR_GREATER
+
+    [Fact]
+    public Task TimeOnly() =>
+        Verify(new TimeOnly(10, 10));
+
     [Fact]
     public Task TimeOnlyNested() =>
         Verify(new {value = new TimeOnly(10, 10)});
+
+    [Fact]
+    public Task TimeOnlyNestedWithNoScrubbing() =>
+        Verify(new {value = new TimeOnly(10, 10)})
+            .DontScrubDateTimes();
+
+    [Fact]
+    public Task TimeOnlyWithNoScrubbing() =>
+        Verify(new TimeOnly(10, 10))
+            .DontScrubDateTimes();
 
     [Fact]
     public Task ShouldIgnoreDatetimeDefaults()

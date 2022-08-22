@@ -14,20 +14,34 @@
         {
             contract.OrderByKey = true;
         }
-        contract.ShouldSerializeItem = (key,value) =>
+
+        contract.InterceptSerializeItem = (key, value) =>
         {
-            if(key is string stringKey &&
-               settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))
+            if (key is string stringKey &&
+                settings.TryGetScrubOrIgnoreByName(stringKey, out var scrubOrIgnore))
             {
-                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-                {
-                    return false;
-                }
+                return ToInterceptResult(scrubOrIgnore.Value);
             }
 
-            return true;
+            if (value != null &&
+                settings.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
+            {
+                return ToInterceptResult(scrubOrIgnore.Value);
+            }
+
+            return InterceptResult.Default;
         };
         return contract;
+    }
+
+    static InterceptResult ToInterceptResult(ScrubOrIgnore scrubOrIgnore)
+    {
+        if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+        {
+            return InterceptResult.Ignore;
+        }
+
+        return InterceptResult.Replace("{Scrubbed}");
     }
 
     string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
@@ -162,18 +176,15 @@
     protected override JsonArrayContract CreateArrayContract(Type objectType)
     {
         var contract = base.CreateArrayContract(objectType);
-        contract.ShouldSerializeItem = item =>
+        contract.InterceptSerializeItem = item =>
         {
             if (item != null &&
                 settings.TryGetScrubOrIgnoreByInstance(item, out var scrubOrIgnore))
             {
-                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-                {
-                    return false;
-                }
+                return ToInterceptResult(scrubOrIgnore.Value);
             }
 
-            return true;
+            return InterceptResult.Default;
         };
 
         return contract;

@@ -1378,11 +1378,12 @@ Result:
   Include: Value,
   Field: {Scrubbed},
   Property: {Scrubbed},
+  PropertyByName: {Scrubbed},
   GetOnlyProperty: asd,
   PropertyThatThrows: {Scrubbed}
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubMemberByName.verified.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ScrubMemberByName.verified.txt#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ScrubMemberByName.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

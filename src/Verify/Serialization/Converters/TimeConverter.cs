@@ -2,7 +2,15 @@
 class TimeConverter :
     WriteOnlyJsonConverter<TimeOnly>
 {
-    public override void Write(VerifyJsonWriter writer, TimeOnly value) =>
+    public override void Write(VerifyJsonWriter writer, TimeOnly value)
+    {
+        if (writer.serialization.TryConvert(writer.Counter, value, out var result))
+        {
+            writer.WriteRawValue(result);
+            return;
+        }
+
         writer.WriteRawValue(value.ToString("h:mm tt", CultureInfo.InvariantCulture));
+    }
 }
 #endif

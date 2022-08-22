@@ -1,6 +1,7 @@
 ﻿partial class SerializationSettings
 {
     internal static List<string> dateFormats = new() {"d"};
+    internal static List<string> timeFormats = new() {"h:mm tt"};
     internal static List<string> datetimeFormats = new();
     internal static List<string> datetimeOffsetFormats = new();
 
@@ -60,6 +61,51 @@
         }
 
         return counter.NextString(date);
+    }
+
+    bool TryParseConvertTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    {
+        if (scrubDateTimes)
+        {
+            foreach (var format in timeFormats)
+            {
+                if (TimeOnly.TryParseExact(value, format, null, DateTimeStyles.None, out var time))
+                {
+                    result = Convert(counter, time);
+                    return true;
+                }
+            }
+        }
+
+        result = null;
+        return false;
+    }
+
+    internal bool TryConvert(Counter counter, TimeOnly value, [NotNullWhen(true)] out string? result)
+    {
+        if (!scrubDateTimes)
+        {
+            result = null;
+            return false;
+        }
+
+        result = Convert(counter, value);
+        return true;
+    }
+
+    static string Convert(Counter counter, TimeOnly time)
+    {
+        if (time == TimeOnly.MaxValue)
+        {
+            return "Date_MaxValue";
+        }
+
+        if (time == TimeOnly.MinValue)
+        {
+            return "Date_MinValue";
+        }
+
+        return counter.NextString(time);
     }
 
 #endif

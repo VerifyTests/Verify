@@ -1,4 +1,4 @@
-{
+﻿{
   Type: SerializationTests,
   Dynamic: dynamic
 }

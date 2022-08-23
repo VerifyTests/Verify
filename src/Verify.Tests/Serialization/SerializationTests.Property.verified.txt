@@ -1,1 +1,1 @@
-SerializationTests.MyProperty
+﻿SerializationTests.MyProperty

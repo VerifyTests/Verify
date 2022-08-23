@@ -1,4 +1,4 @@
-{
+﻿{
   PixelFormat: Format8bppIndexed,
   Size: 473, 355
 }

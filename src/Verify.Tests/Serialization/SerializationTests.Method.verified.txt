@@ -1,1 +1,1 @@
-SerializationTests.Method()
+﻿SerializationTests.Method()

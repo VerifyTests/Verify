@@ -1,4 +1,4 @@
-{
+﻿{
   Type: ParseException,
   Message: Empty 'Directory' Ensure the current stable of Verify is being used.
 }

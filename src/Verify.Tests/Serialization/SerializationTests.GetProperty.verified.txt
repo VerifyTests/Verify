@@ -1,1 +1,1 @@
-SerializationTests.get_MyProperty()
+﻿SerializationTests.get_MyProperty()

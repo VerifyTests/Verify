@@ -5,3 +5,7 @@
 *.tif binary
 
 src/Verify/EmptyFiles/* binary
+
+*.verified.txt text eol=lf
+*.verified.xml text eol=lf
+*.verified.json text eol=lf

@@ -1,4 +1,4 @@
-{
+﻿{
   ProjectDirectory: {ProjectDirectory},
   ProjectDirectoryInferred: {ProjectDirectory},
   SolutionDirectory: {SolutionDirectory},

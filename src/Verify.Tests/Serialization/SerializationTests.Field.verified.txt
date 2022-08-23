@@ -1,1 +1,1 @@
-SerializationTests.MyField
+﻿SerializationTests.MyField

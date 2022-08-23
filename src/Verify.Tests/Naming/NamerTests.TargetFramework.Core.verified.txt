@@ -1,1 +1,1 @@
-FooTargetFramework
+﻿FooTargetFramework

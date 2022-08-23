@@ -1,4 +1,4 @@
-{
+﻿{
   short: {
     key: {
       code: 0,

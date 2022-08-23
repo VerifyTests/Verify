@@ -1,4 +1,4 @@
-{
+﻿{
   key: {
     msg: No action taken
   }

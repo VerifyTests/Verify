@@ -1,2 +1,2 @@
-                        LineA
+﻿                        LineA
                         LineC

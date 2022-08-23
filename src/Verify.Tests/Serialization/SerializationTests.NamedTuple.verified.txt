@@ -1,4 +1,4 @@
-{
+﻿{
   Member1: true,
   Member2: A,
   Member3: B

@@ -1,4 +1,4 @@
-{
+﻿{
   DelegateProperty: {
     Type: Action,
     Target: SerializationTests.WithDelegate.<>c,

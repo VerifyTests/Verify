@@ -1,1 +1,1 @@
-{UserProfile}/SomePath
+﻿{UserProfile}/SomePath

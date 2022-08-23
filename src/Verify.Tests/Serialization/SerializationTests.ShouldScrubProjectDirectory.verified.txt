@@ -1,4 +1,4 @@
-{
+﻿{
   path: {ProjectDirectory}Foo,
   trimmed: {ProjectDirectory}Foo,
   altPath: {ProjectDirectory}Foo,

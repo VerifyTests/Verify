@@ -1,1 +1,1 @@
-FooTargetFrameworkWithAssembly
+﻿FooTargetFrameworkWithAssembly

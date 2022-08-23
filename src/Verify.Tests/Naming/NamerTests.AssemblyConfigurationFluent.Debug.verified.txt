@@ -1,1 +1,1 @@
-FooAssemblyConfigurationFluent
+﻿FooAssemblyConfigurationFluent

@@ -1,4 +1,4 @@
-{
+﻿{
   codeBaseLocation: {CurrentDirectory},
   altCodeBaseLocation: {CurrentDirectory}
 }

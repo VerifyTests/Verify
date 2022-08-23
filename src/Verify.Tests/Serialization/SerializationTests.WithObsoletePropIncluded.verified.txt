@@ -1,4 +1,4 @@
-{
+﻿{
   ObsoleteProperty: value1,
   OtherProperty: value2
 }

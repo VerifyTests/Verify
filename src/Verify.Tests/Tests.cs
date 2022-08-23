@@ -57,6 +57,19 @@ public class Tests
             Property = "F\roo"
         });
 
+    // [Fact]
+    // public async Task FixNewline()
+    // {
+    //     foreach (var file in Directory.EnumerateFiles(
+    //                  AttributeReader.GetSolutionDirectory(),
+    //                  "*.received.xml",
+    //                  SearchOption.AllDirectories))
+    //     {
+    //         var text = await IoHelpers.ReadStringWithFixedLines(file);
+    //         await IoHelpers.WriteText(file, text);
+    //     }
+    // }
+
     [ModuleInitializer]
     public static void TreatAsStringInit() =>
         VerifierSettings.TreatAsString<ClassWithToString>(

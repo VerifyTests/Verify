@@ -430,7 +430,7 @@ public class Tests
     }
 #endif
 
-    [Fact(Skip = "TODO")]
+    [Fact]
     public async Task TrailingNewlinesObject()
     {
         var file = CurrentFile.Relative("Tests.TrailingNewlinesObject.verified.txt");

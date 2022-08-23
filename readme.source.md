@@ -186,10 +186,34 @@ Results in:
 snippet: SerializationTests.VerifyJsonString.verified.txt
 
 
-## Received and Verified
+## Source control: Received and Verified files
 
- * **All `*.verified.*` files should be committed to source control.**
+
+### Received
+
  * **All `*.received.*` files should be excluded from source control.**
+
+eg. add the following to `.gitignore`
+
+```
+*.received.*
+```
+
+
+### Verified
+
+All `*.verified.*` files should be committed to source control.
+
+All text extensions of  `*.verified.*` and have eol set to `lf`.
+
+eg add the following to `.gitattributes`
+
+```
+*.verified.txt text eol=lf
+*.verified.xml text eol=lf
+*.verified.json text eol=lf
+```
+
 
 
 ## Static settings

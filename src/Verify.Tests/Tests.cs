@@ -108,7 +108,7 @@ public class Tests
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
-            (filePair, receivedText) =>
+            (filePair, _) =>
             {
                 if (filePair.Name.Contains("OnVerifyMismatch"))
                 {
@@ -146,7 +146,7 @@ public class Tests
         var onFirstVerifyCalled = false;
         var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
-            (filePair, receivedText) =>
+            (filePair, _) =>
             {
                 if (filePair.Name.Contains("OnFirstVerify"))
                 {

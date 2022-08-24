@@ -1,0 +1,18 @@
+﻿{
+  Type: VerifyException,
+  Message:
+Directory: {ProjectDirectory}Comparer
+New:
+  - Received: ComparerTests.Static_with_message_temp.DotNet6_0.received.staticComparerExtMessage
+    Verified: ComparerTests.Static_with_message_temp.verified.staticComparerExtMessage
+
+FileContent:
+
+New:
+
+Received: ComparerTests.Static_with_message_temp.DotNet6_0.received.staticComparerExtMessage
+TheText
+
+,
+  StackTrace: 
+}

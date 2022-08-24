@@ -1,18 +1,6 @@
 ﻿[UsesVerify]
 public class ComparerTests
 {
-#if NET6_0
-    [Fact]
-    public async Task Instance_with_message()
-    {
-        var settings = new VerifySettings();
-        settings.UseStringComparer(CompareWithMessage);
-        settings.DisableDiff();
-        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify("NotTheText", settings));
-        Assert.Contains("theMessage", exception.Message);
-    }
-#endif
-
     [Fact]
     public async Task Instance()
     {
@@ -23,7 +11,18 @@ public class ComparerTests
         await Verify("thetext", settings);
     }
 
-#if(Release)
+#if NET6_0
+
+    [Fact]
+    public async Task Instance_with_message()
+    {
+        var settings = new VerifySettings();
+        settings.UseStringComparer(CompareWithMessage);
+        settings.DisableDiff();
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify("NotTheText", settings));
+        Assert.Contains("theMessage", exception.Message);
+    }
+
     [Fact]
     public async Task Static_with_message()
     {
@@ -32,16 +31,13 @@ public class ComparerTests
         var settings = new VerifySettings();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("TheText", settings));
-        Assert.Equal(
-            @"Results do not match.
-Differences:
-Received: ComparerTests.Static_with_message.received.staticComparerExtMessage
-Verified: ComparerTests.Static_with_message.verified.staticComparerExtMessage
-Compare Result:
-theMessage".Replace("\r\n", "\n"),
-            exception.Message.Trim().Replace("\r\n", "\n").Replace("Use DiffEngineTray to verify files.\n",""));
+        settings.UseMethodName("Static_with_message_temp");
+        await ThrowsTask(() => Verify("TheText", settings));
     }
+
+    static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary) =>
+        Task.FromResult(CompareResult.NotEqual("theMessage"));
+
 #endif
 
     [Fact]
@@ -58,7 +54,4 @@ theMessage".Replace("\r\n", "\n"),
 
     static Task<CompareResult> Compare(string received, string verified, IReadOnlyDictionary<string, object> context) =>
         Task.FromResult(new CompareResult(string.Equals(received, received, StringComparison.OrdinalIgnoreCase)));
-
-    static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary) =>
-        Task.FromResult(CompareResult.NotEqual("theMessage"));
 }

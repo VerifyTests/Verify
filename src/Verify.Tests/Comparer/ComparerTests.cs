@@ -32,7 +32,7 @@ public class ComparerTests
         var settings = new VerifySettings();
         settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verifier.Verify("TheText", settings));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("TheText", settings));
         Assert.Equal(
             @"Results do not match.
 Differences:

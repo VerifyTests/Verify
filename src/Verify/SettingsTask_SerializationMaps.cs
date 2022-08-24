@@ -14,6 +14,12 @@ public partial class SettingsTask
         return this;
     }
 
+    public SettingsTask DontSortDictionaries()
+    {
+        CurrentSettings.DontSortDictionaries();
+        return this;
+    }
+
     public SettingsTask IncludeObsoletes()
     {
         CurrentSettings.IncludeObsoletes();

@@ -10,7 +10,8 @@
     {
         var contract = base.CreateDictionaryContract(objectType);
         contract.DictionaryKeyResolver = value => ResolveDictionaryKey(contract, value);
-        if (!typeof(IDictionaryWrapper).IsAssignableFrom(objectType))
+        if (settings.SortDictionaries &&
+            !typeof(IDictionaryWrapper).IsAssignableFrom(objectType))
         {
             contract.OrderByKey = true;
         }

@@ -160,4 +160,9 @@ partial class SerializationSettings
             return jsonSerializer;
         }
     }
+
+    internal bool SortDictionaries = true;
+
+    public void DontSortDictionaries() =>
+        SortDictionaries = false;
 }

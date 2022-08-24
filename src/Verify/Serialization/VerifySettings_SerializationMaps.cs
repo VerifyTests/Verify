@@ -14,6 +14,12 @@ public partial class VerifySettings
         serialization.DontScrubDateTimes();
     }
 
+    public void DontSortDictionaries()
+    {
+        CloneSettings();
+        serialization.DontSortDictionaries();
+    }
+
     public void IgnoreStackTrace()
     {
         CloneSettings();

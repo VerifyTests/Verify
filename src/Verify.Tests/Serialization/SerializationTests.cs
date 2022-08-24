@@ -179,6 +179,24 @@ public class SerializationTests
             .IgnoreMember("ignored");
     }
 
+    #region DontSortDictionaries
+
+    [Fact]
+    public Task DontSortDictionaries()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {"Entry_1", "1234"},
+            {"Entry_3", "1234"},
+            {"Entry_2", "5678"}
+        };
+
+        return Verify(dictionary)
+            .DontSortDictionaries();
+    }
+
+    #endregion
+
     [Fact]
     public Task DictionaryOrderInt()
     {

@@ -23,6 +23,9 @@ public static partial class VerifierSettings
     public static void DontScrubDateTimes() =>
         serialization.DontScrubDateTimes();
 
+    public static void DontSortDictionaries() =>
+        serialization.DontSortDictionaries();
+
     public static void IncludeObsoletes() =>
         serialization.IncludeObsoletes();
 

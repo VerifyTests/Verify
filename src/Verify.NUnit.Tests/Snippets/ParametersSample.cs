@@ -45,6 +45,7 @@ public class ParametersSample
 
     #endregion
 
+    // ReSharper disable UnusedParameter.Local
     static int MethodBeingTested(int stable, string random1, string random2) =>
         stable;
 }

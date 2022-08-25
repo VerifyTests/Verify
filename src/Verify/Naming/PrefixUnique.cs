@@ -86,10 +86,14 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendRuntime(Namer namer, StringBuilder receivedBuilder, StringBuilder verifiedBuilder)
     {
-        receivedBuilder.Append($".{Namer.RuntimeAndVersion}");
+        var uniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion ||
+                                         VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion;
+        if (uniqueForRuntimeAndVersion || TargetAssembly.TargetsMultipleFramework)
+        {
+            receivedBuilder.Append($".{Namer.RuntimeAndVersion}");
+        }
 
-        if (namer.UniqueForRuntimeAndVersion ||
-            VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion)
+        if (uniqueForRuntimeAndVersion)
         {
             verifiedBuilder.Append($".{Namer.RuntimeAndVersion}");
             return;

@@ -4,8 +4,8 @@ public class Tests
     [Fact]
     public async Task Simple()
     {
-        var verified = CurrentFile.Relative($"Tests.Simple.{Namer.RuntimeAndVersion}.verified.txt");
-        var received = CurrentFile.Relative($"Tests.Simple.{Namer.RuntimeAndVersion}.received.txt");
+        var verified = CurrentFile.Relative("Tests.Simple.verified.txt");
+        var received = CurrentFile.Relative("Tests.Simple.received.txt");
         File.Delete(verified);
         File.Delete(received);
         var settings = new VerifySettings();

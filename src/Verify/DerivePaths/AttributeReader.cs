@@ -2,6 +2,18 @@
 
 public static class AttributeReader
 {
+    public static string GetTargetFrameworks() =>
+        GetTargetFrameworks(Assembly.GetCallingAssembly());
+
+    public static string GetTargetFrameworks(Assembly assembly) =>
+        GetValue(assembly, "Verify.TargetFrameworks");
+
+    public static bool TryGetTargetFrameworks([NotNullWhen(true)] out string? targetFrameworks) =>
+        TryGetTargetFrameworks(Assembly.GetCallingAssembly(), out targetFrameworks);
+
+    public static bool TryGetTargetFrameworks(Assembly assembly, [NotNullWhen(true)] out string? targetFrameworks) =>
+        TryGetValue(assembly, "Verify.TargetFrameworks", out targetFrameworks);
+
     public static string GetProjectDirectory() =>
         GetProjectDirectory(Assembly.GetCallingAssembly());
 

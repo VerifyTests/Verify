@@ -15,6 +15,10 @@
     </PropertyGroup>
     <ItemGroup>
       <Attributes Include="System.Reflection.AssemblyMetadata">
+        <_Parameter1>Verify.TargetFrameworks</_Parameter1>
+        <_Parameter2>$(TargetFrameworks)</_Parameter2>
+      </Attributes>
+      <Attributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.ProjectDirectory</_Parameter1>
         <_Parameter2>$(ProjectDir)</_Parameter2>
       </Attributes>

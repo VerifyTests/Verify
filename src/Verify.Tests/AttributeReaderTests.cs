@@ -1,4 +1,6 @@
-﻿[UsesVerify]
+﻿#if DEBUG
+
+[UsesVerify]
 public class AttributeReaderTests
 {
     [Fact]
@@ -8,6 +10,8 @@ public class AttributeReaderTests
         return Verify(
             new
             {
+                TargetFrameworks = AttributeReader.GetTargetFrameworks(assembly),
+                TargetFrameworksInferred = AttributeReader.GetTargetFrameworks(),
                 ProjectDirectory = AttributeReader.GetProjectDirectory(assembly),
                 ProjectDirectoryInferred = AttributeReader.GetProjectDirectory(),
                 SolutionDirectory = AttributeReader.GetSolutionDirectory(assembly),
@@ -15,3 +19,5 @@ public class AttributeReaderTests
             });
     }
 }
+
+#endif

@@ -1,23 +1,24 @@
 ﻿[UsesVerify]
 public class Tests
 {
-    static Tests()
-    {
-        #region StaticAutoVerify
-
-        VerifierSettings.AutoVerify();
-
-        #endregion
-    }
-
-
     [Fact]
     public async Task Simple()
     {
-        var path = CurrentFile.Relative("Tests.Simple.verified.txt");
-        var fullPath = Path.GetFullPath(path);
-        File.Delete(fullPath);
-        await Verify("Foo");
-        File.Delete(fullPath);
+        var verified = CurrentFile.Relative($"Tests.Simple.{Namer.RuntimeAndVersion}.verified.txt");
+        var received = CurrentFile.Relative($"Tests.Simple.{Namer.RuntimeAndVersion}.received.txt");
+        File.Delete(verified);
+        File.Delete(received);
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        try
+        {
+            await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
+            Assert.True(File.Exists(received));
+        }
+        finally
+        {
+            File.Delete(verified);
+            File.Delete(received);
+        }
     }
 }

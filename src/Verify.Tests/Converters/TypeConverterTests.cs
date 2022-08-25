@@ -1,6 +1,4 @@
 ﻿#if NET6_0 && DEBUG
-using System.Drawing;
-using System.Drawing.Imaging;
 
 [UsesVerify]
 public class TypeConverterTests

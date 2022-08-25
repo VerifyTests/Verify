@@ -10,6 +10,8 @@
   <ItemGroup>
     <Using Include="Argon" />
     <Using Include="DiffEngine" />
+    <Using Include="System.Drawing" />
+    <Using Include="System.Drawing.Imaging" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />

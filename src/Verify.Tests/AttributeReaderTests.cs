@@ -1,4 +1,6 @@
-﻿[UsesVerify]
+﻿#if DEBUG
+
+[UsesVerify]
 public class AttributeReaderTests
 {
     [Fact]
@@ -17,3 +19,5 @@ public class AttributeReaderTests
             });
     }
 }
+
+#endif

@@ -72,6 +72,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullComparer", "NullCompare
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoVerifyTests", "AutoVerifyTests\AutoVerifyTests.csproj", "{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleTfmTests", "SingleTfmTests\SingleTfmTests.csproj", "{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +192,10 @@ Global
 		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E3F9E6E-72D9-4D40-90EE-933B4B1C26DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,4 @@
 ﻿#if DEBUG && NET6_0
-using System.Drawing;
-using System.Drawing.Imaging;
 
 // ReSharper disable UnusedParameter.Local
 

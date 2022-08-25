@@ -13,6 +13,8 @@
     <Using Include="System.Numerics" />
     <Using Include="System.Xml.Linq" />
     <Using Include="System.Xml" />
+    <Using Include="System.Runtime.Versioning" />
+    <Using Include="System.Runtime.InteropServices" />
     
     <PackageReference Include="DiffEngine" Version="10.0.0" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />

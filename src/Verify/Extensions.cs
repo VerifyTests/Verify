@@ -1,6 +1,4 @@
-﻿using System.Runtime.Versioning;
-
-static class Extensions
+﻿static class Extensions
 {
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
@@ -20,6 +18,7 @@ static class Extensions
 
         return input;
     }
+
     public static string? Configuration(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();

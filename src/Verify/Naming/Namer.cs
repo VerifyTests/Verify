@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 
 namespace VerifyTests;
 

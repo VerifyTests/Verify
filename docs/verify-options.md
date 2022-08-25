@@ -33,6 +33,11 @@ Or globally
 VerifierSettings.AutoVerify();
 ```
 <sup><a href='/src/AutoVerifyTests/Tests.cs#L6-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-staticautoverify-1'></a>
+```cs
+VerifierSettings.AutoVerify();
+```
+<sup><a href='/src/SingleTfmTests/Tests.cs#L6-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.

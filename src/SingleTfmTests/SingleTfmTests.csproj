@@ -18,10 +18,4 @@
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
-  <!--Work around: https://github.com/dotnet/sdk/issues/21006-->
-  <Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <Analyzer Remove="@(Analyzer)" />
-    </ItemGroup>
-  </Target>
 </Project>

@@ -441,7 +441,6 @@ public class Tests
         await Verify("a\n", settings);
         File.Delete(file);
     }
-#endif
 
     [Fact]
     public async Task TrailingNewlinesObject()
@@ -465,6 +464,8 @@ public class Tests
         File.WriteAllText(file, "{\n  s: a\n}\r\n");
         await Verify(target, settings);
     }
+
+#endif
 
     [Fact]
     public async Task DanglingFiles()

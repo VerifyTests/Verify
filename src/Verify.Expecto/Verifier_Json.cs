@@ -56,16 +56,6 @@ public static partial class Verifier
 
     public static Task VerifyJson(
         string name,
-        JToken target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
-    }
-
-    public static Task VerifyJson(
-        string name,
         Stream target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")

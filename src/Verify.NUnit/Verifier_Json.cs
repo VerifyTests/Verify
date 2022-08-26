@@ -33,12 +33,6 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyJson(target));
 
     public static SettingsTask VerifyJson(
-        JToken target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyJson(target));
-
-    public static SettingsTask VerifyJson(
         Stream target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

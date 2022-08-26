@@ -5,7 +5,7 @@
 
     static object[] parameters =
     {
-        typeof(Dictionary<string, object>)
+        typeof(OrderedDictionary)
     };
 
     public override void Write(VerifyJsonWriter writer, object value)

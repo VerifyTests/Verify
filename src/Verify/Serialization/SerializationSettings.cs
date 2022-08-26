@@ -9,6 +9,7 @@ partial class SerializationSettings
     static NewtonsoftJArrayConverter newtonsoftJArrayConverter = new();
     static NewtonsoftJObjectConverter newtonsoftJObjectConverter = new();
     static FileInfoConverter fileInfoConverter = new();
+    static KeyValuePairConverter keyValuePairConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
     static DateConverter dateConverter = new();
@@ -129,6 +130,7 @@ partial class SerializationSettings
         converters.Add(newtonsoftJArrayConverter);
         converters.Add(newtonsoftJObjectConverter);
         converters.Add(nameValueCollectionConverter);
+        converters.Add(keyValuePairConverter);
         foreach (var extraSetting in extraSettings)
         {
             extraSetting(settings);

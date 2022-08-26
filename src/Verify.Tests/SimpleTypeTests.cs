@@ -54,6 +54,8 @@ public class SimpleTypeTests
 
         yield return new object[] {xmlDocument};
 
+        yield return new object[] {new KeyValuePair<string,int>("theKey",10)};
+
         var xDocument = XDocument.Parse(xml);
 
         yield return new object[] {xDocument};

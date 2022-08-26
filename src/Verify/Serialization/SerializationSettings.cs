@@ -4,11 +4,10 @@ using Formatting = Argon.Formatting;
 
 partial class SerializationSettings
 {
-    static ArgonJArrayConverter argonJArrayConverter = new();
-    static ArgonJObjectConverter argonJObjectConverter = new();
-    static NewtonsoftJArrayConverter newtonsoftJArrayConverter = new();
-    static NewtonsoftJObjectConverter newtonsoftJObjectConverter = new();
+    static JArrayConverter jArrayConverter = new();
+    static JObjectConverter jObjectConverter = new();
     static FileInfoConverter fileInfoConverter = new();
+    static KeyValuePairConverter keyValuePairConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
     static DateConverter dateConverter = new();
@@ -124,11 +123,10 @@ partial class SerializationSettings
         converters.Add(valueTaskConverter);
         converters.Add(claimsPrincipalConverter);
         //converters.Add(dictionaryConverter);
-        converters.Add(argonJArrayConverter);
-        converters.Add(argonJObjectConverter);
-        converters.Add(newtonsoftJArrayConverter);
-        converters.Add(newtonsoftJObjectConverter);
+        converters.Add(jArrayConverter);
+        converters.Add(jObjectConverter);
         converters.Add(nameValueCollectionConverter);
+        converters.Add(keyValuePairConverter);
         foreach (var extraSetting in extraSettings)
         {
             extraSetting(settings);

@@ -54,6 +54,8 @@ public class SimpleTypeTests
 
         yield return new object[] {xmlDocument};
 
+        yield return new object[] {new KeyValuePair<string,int>("theKey",10)};
+
         var xDocument = XDocument.Parse(xml);
 
         yield return new object[] {xDocument};
@@ -73,9 +75,6 @@ public class SimpleTypeTests
         var argonJToken = JToken.Parse(json);
         yield return new object[] {argonJToken};
 
-        var newtonsoftJToken = Newtonsoft.Json.Linq.JToken.Parse(json);
-        yield return new object[] {newtonsoftJToken};
-
         var jsonArray = @"[
   'Small',
   'Medium',
@@ -84,8 +83,6 @@ public class SimpleTypeTests
 
         var argonJArray = JArray.Parse(jsonArray);
         yield return new object[] {argonJArray};
-        var newtonsoftJArray = Newtonsoft.Json.Linq.JArray.Parse(jsonArray);
-        yield return new object[] {newtonsoftJArray};
         yield return new object[] {"theString"};
         yield return new object[] {true};
         yield return new object[] {(long) 1};

@@ -1,13 +1,10 @@
 ﻿static class JsonFormatter
 {
-    static JsonFormatter() =>
-        TypeNameConverter.AddRedirect(typeof(IDictionaryWrapper), _ => _.GetGenericArguments().Last());
-
     public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, Counter counter)
     {
         if (appends.Any())
         {
-            var dictionary = new DictionaryWrapper<string, object>
+            var dictionary = new OrderedDictionary
             {
                 {"target", input ?? "null"}
             };

@@ -1,4 +1,4 @@
-﻿class ArgonJArrayConverter :
+﻿class JArrayConverter :
     WriteOnlyJsonConverter<JArray>
 {
     public override void Write(VerifyJsonWriter writer, JArray value)

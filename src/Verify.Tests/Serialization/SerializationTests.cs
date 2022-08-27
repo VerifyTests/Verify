@@ -2628,7 +2628,7 @@ Line2"
     {
         var json = "{'key': {'msg': 'No action taken'}}";
         var target = JToken.Parse(json);
-        return VerifyJson(target);
+        return Verify(target);
     }
 
     #endregion

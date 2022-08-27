@@ -352,7 +352,7 @@ public Task VerifyJsonJToken()
 {
     var json = "{'key': {'msg': 'No action taken'}}";
     var target = JToken.Parse(json);
-    return VerifyJson(target);
+    return Verify(target);
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2602-L2634' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>

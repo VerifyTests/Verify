@@ -77,7 +77,7 @@ public partial class VerifySettings
 
     /// <summary>
     /// Use a custom class name for the test results.
-    /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
+    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public void UseTypeName(string name)
@@ -92,7 +92,7 @@ public partial class VerifySettings
 
     /// <summary>
     /// Use a custom method name for the test results.
-    /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
+    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public void UseMethodName(string name)
@@ -108,7 +108,7 @@ public partial class VerifySettings
     /// <summary>
     /// Use a file name for the test results.
     /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
-    /// Where the new file format is `{Directory}/{FileName}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
+    /// Where the new file format is `{CurrentDirectory}/{FileName}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
     public void UseFileName(string fileName)

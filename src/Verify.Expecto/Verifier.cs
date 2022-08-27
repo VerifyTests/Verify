@@ -38,6 +38,7 @@ public static partial class Verifier
             });
     }
 
+    [DoesNotReturn]
     static void ThrowNotSupported(string api) =>
         throw new($"Expect does not support `{api}()`. Change the `name` parameter instead.");
 

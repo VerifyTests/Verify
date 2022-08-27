@@ -212,7 +212,7 @@ public partial class SettingsTask
     /// <summary>
     /// Use a file name for the test results.
     /// Overrides the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file naming.
-    /// Where the file format is `{Directory}/{TestClassName}.{TestMethodName}_{Parameters}.{UniqueFor1}.{UniqueFor2}.{UniqueForX}.verified.{extension}`.
+    /// Where the new file format is `{Directory}/{FileName}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
     /// </summary>
     /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
     public SettingsTask UseFileName(string fileName)

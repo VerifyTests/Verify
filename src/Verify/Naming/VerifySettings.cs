@@ -119,6 +119,19 @@ public partial class VerifySettings
         this.fileName = fileName;
     }
 
+    internal bool useDirectory;
+
+    /// <summary>
+    /// Use a directory for the test results.
+    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/result.verified.{extension}`.
+    /// </summary>
+    public void UseDirectory()
+    {
+        ThrowIfMethodOrTypeNameDefined();
+
+        this.useDirectory = true;
+    }
+
     void ThrowIfMethodOrTypeNameDefined()
     {
         if (methodName != null ||

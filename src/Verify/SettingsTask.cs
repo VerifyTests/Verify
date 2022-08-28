@@ -225,9 +225,9 @@ public partial class SettingsTask
     /// Use a directory for the test results.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/result.verified.{extension}`.
     /// </summary>
-    public SettingsTask UseDirectory()
+    public SettingsTask UseUniqueDirectory()
     {
-        CurrentSettings.UseDirectory();
+        CurrentSettings.UseUniqueDirectory();
         return this;
     }
 

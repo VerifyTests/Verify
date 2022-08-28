@@ -4,5 +4,6 @@
     <Using Include="VerifyExpecto" />
     <Using Include="Expecto.CSharp" />
     <Using Include="Expecto" />
+    <Using Include="VerifyExpecto.Verifier" Static="True" />
   </ItemGroup>
 </Project>

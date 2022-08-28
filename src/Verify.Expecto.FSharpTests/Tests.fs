@@ -8,7 +8,7 @@ open VerifyExpecto
 let tests =
     testTask "findPerson" {
         let person = ClassBeingTested.FindPerson()
-        do! Verifier.Verify("findPerson", person)
+        do! Verify("findPerson", person)
     }
 // end-snippet
 
@@ -19,6 +19,6 @@ let uniqueTests =
     testTask "unique" {
         let settings = new VerifySettings()
         settings.UniqueForRuntime()
-        do! Verifier.Verify("unique", "value1", settings)
+        do! Verify("unique", "value1", settings)
     }
 // end-snippet

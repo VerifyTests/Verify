@@ -129,7 +129,7 @@ public partial class VerifySettings
 
     void ThrowIfMethodOrTypeNameDefined()
     {
-        if (methodName != null ||
+        if (methodName is not null ||
             typeName is not null)
         {
             throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");

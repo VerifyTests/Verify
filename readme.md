@@ -146,7 +146,7 @@ open VerifyExpecto
 let tests =
     testTask "findPerson" {
         let person = ClassBeingTested.FindPerson()
-        do! Verify("findPerson", person)
+        do! Verifier.Verify("findPerson", person)
     }
 ```
 <sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>

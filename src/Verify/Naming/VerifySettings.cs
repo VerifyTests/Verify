@@ -103,6 +103,14 @@ public partial class VerifySettings
         methodName = name;
     }
 
+    void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
+    {
+        if (fileName is not null)
+        {
+            throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
+        }
+    }
+
     internal string? fileName;
 
     /// <summary>
@@ -125,14 +133,6 @@ public partial class VerifySettings
             typeName is not null)
         {
             throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");
-        }
-    }
-
-    void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
-    {
-        if (fileName is not null)
-        {
-            throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
         }
     }
 

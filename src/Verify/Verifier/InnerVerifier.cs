@@ -6,11 +6,10 @@
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
     List<string> verifiedFiles;
-    Counter counter;
+    Counter counter = Counter.Start();
 
     public InnerVerifier(string sourceFile, VerifySettings settings, GetFileConvention fileConvention)
     {
-        counter = Counter.Start();
         this.settings = settings;
 
         var (uniquenessForReceived, uniquenessForVerified) = PrefixUnique.GetUniqueness(settings.Namer);

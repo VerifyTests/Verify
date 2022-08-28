@@ -2,5 +2,5 @@
 {
     [Tests] public static Test tests = Runner.TestCase(
         "myTest",
-        () => Verifier.Verify("myTest", "value"));
+        () => Verify("myTest", "value"));
 }

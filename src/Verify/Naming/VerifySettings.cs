@@ -149,14 +149,6 @@ public partial class VerifySettings
         useUniqueDirectory = true;
     }
 
-    void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
-    {
-        if (fileName is not null)
-        {
-            throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
-        }
-    }
-
     /// <summary>
     /// Use the current runtime and runtime version to make the test results unique.
     /// Used when a test produces different results based on runtime and runtime version.

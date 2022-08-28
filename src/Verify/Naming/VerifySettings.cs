@@ -144,8 +144,6 @@ public partial class VerifySettings
     /// </summary>
     public void UseUniqueDirectory()
     {
-        ThrowIfMethodOrTypeNameDefined();
-
         useUniqueDirectory = true;
     }
 

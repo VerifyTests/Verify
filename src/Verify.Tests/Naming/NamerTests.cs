@@ -197,6 +197,18 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseUniqueDirectory()
+    {
+        #region UseUniqueDirectory
+
+        var settings = new VerifySettings();
+        settings.UseUniqueDirectory();
+        await Verify("valueUseFileName", settings);
+
+        #endregion
+    }
+
+    [Fact]
     public async Task UseTypeName()
     {
         #region UseTypeName

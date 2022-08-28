@@ -43,7 +43,7 @@
             }
 
             var parent = Directory.GetParent(currentDirectory);
-            if (parent == null)
+            if (parent is null)
             {
                 break;
             }

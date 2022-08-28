@@ -25,7 +25,7 @@ public abstract class WriteOnlyJsonConverter<T> :
             return true;
         }
 
-        return nullableType != null &&
+        return nullableType is not null &&
                nullableType == type;
     }
 }

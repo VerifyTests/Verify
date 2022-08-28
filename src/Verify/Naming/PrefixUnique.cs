@@ -44,7 +44,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             var assembly = namer.UniqueForTargetFrameworkAssembly ??
                            VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
 
-            if (assembly == null)
+            if (assembly is null)
             {
                 builder.Append($".{Namer.TargetFrameworkNameAndVersion}");
                 return;
@@ -52,7 +52,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
             var name = assembly.FrameworkName();
 
-            if (name == null)
+            if (name is null)
             {
                 throw new($"UniqueForTargetFrameworkAndVersion used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
             }
@@ -67,7 +67,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             var assembly = namer.UniqueForTargetFrameworkAssembly ??
                            VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
 
-            if (assembly == null)
+            if (assembly is null)
             {
                 builder.Append($".{Namer.TargetFrameworkName}");
                 return;
@@ -75,7 +75,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
             var name = assembly.FrameworkName();
 
-            if (name == null)
+            if (name is null)
             {
                 throw new($"UniqueForTargetFramework used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
             }
@@ -117,7 +117,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         var assembly = namer.UniqueForAssemblyConfigurationAssembly ??
                        VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationAssembly;
 
-        if (assembly == null)
+        if (assembly is null)
         {
             builder.Append($".{Namer.AssemblyConfig}");
             return;
@@ -125,7 +125,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
         var config = assembly.Configuration();
 
-        if (config == null)
+        if (config is null)
         {
             throw new($"UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found in {assembly.FullName}.");
         }

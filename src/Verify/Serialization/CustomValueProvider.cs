@@ -34,7 +34,7 @@
         try
         {
             var value = inner.GetValue(target);
-            if (value != null &&
+            if (value is not null &&
                 settings.TryGetScrubOrIgnoreByInstance(value, out var scrubOrIgnore))
             {
                 if (scrubOrIgnore == ScrubOrIgnore.Ignore)

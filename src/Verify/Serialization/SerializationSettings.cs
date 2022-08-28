@@ -150,7 +150,7 @@ partial class SerializationSettings
         get
         {
             var jsonSerializer = serializer;
-            if (jsonSerializer == null)
+            if (jsonSerializer is null)
             {
                 return serializer = JsonSerializer.Create(jsonSettings);
             }

@@ -63,7 +63,7 @@
     {
         var typeFromNullable = Nullable.GetUnderlyingType(type);
 
-        if (typeFromNullable != null)
+        if (typeFromNullable is not null)
         {
             throw new ArgumentException("Nullable types not supported", argumentName);
         }
@@ -138,7 +138,7 @@
 
     public static void AgainstBadTargetName(string? value, string argumentName)
     {
-        if (value == null)
+        if (value is null)
         {
             return;
         }

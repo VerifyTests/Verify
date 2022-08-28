@@ -66,7 +66,7 @@
 
         var newContentFiles = @new.Where(_ => _.File.IsText).ToList();
         var notEqualContentFiles = notEquals
-            .Where(_ => _.File.IsText || _.Message != null)
+            .Where(_ => _.File.IsText || _.Message is not null)
             .ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
@@ -95,7 +95,7 @@
             builder.AppendLineN();
             foreach (var notEqual in notEqualContentFiles)
             {
-                if (notEqual.File.IsText || notEqual.Message != null)
+                if (notEqual.File.IsText || notEqual.Message is not null)
                 {
                     AppendNotEqualContent(builder, notEqual);
                     builder.AppendLineN();

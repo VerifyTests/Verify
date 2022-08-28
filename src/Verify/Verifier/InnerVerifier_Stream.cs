@@ -32,7 +32,7 @@
 
     static async Task<List<Target>> GetTargets(Stream stream, string? extension)
     {
-        if (extension != null &&
+        if (extension is not null &&
             EmptyFiles.Extensions.IsText(extension))
         {
             return new()

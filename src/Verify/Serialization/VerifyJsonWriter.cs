@@ -194,10 +194,10 @@ public class VerifyJsonWriter :
         }
 
         var converter = VerifierSettings.GetMemberConverter(declaringType, name);
-        if (converter != null)
+        if (converter is not null)
         {
             var converted = converter(target, value);
-            if (converted == null)
+            if (converted is null)
             {
                 return;
             }

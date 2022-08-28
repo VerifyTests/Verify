@@ -36,7 +36,7 @@
         Type? current = type;
         while (true)
         {
-            if (current == null)
+            if (current is null)
             {
                 return false;
             }

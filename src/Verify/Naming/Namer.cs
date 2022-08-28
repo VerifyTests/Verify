@@ -8,7 +8,7 @@ public class Namer
     {
         get
         {
-            if (assemblyConfig != null)
+            if (assemblyConfig is not null)
             {
                 return assemblyConfig;
             }
@@ -23,7 +23,7 @@ public class Namer
 
         var frameworkName = assembly.FrameworkName();
 
-        if (frameworkName != null)
+        if (frameworkName is not null)
         {
             targetFrameworkName = GetSimpleFrameworkName(frameworkName);
             targetFrameworkNameAndVersion = $"{targetFrameworkName}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
@@ -76,7 +76,7 @@ public class Namer
     {
         get
         {
-            if (targetFrameworkNameAndVersion != null)
+            if (targetFrameworkNameAndVersion is not null)
             {
                 return targetFrameworkNameAndVersion;
             }
@@ -89,7 +89,7 @@ public class Namer
     {
         get
         {
-            if (targetFrameworkName != null)
+            if (targetFrameworkName is not null)
             {
                 return targetFrameworkName;
             }

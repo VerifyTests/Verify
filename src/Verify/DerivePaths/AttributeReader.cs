@@ -43,7 +43,7 @@ public static class AttributeReader
         value = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
             .SingleOrDefault(_ => _.Key == key)
             ?.Value;
-        return value != null;
+        return value is not null;
     }
 
     static string GetValue(Assembly assembly, string key)

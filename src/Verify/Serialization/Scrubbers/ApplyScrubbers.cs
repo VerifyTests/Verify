@@ -71,7 +71,7 @@ static class ApplyScrubbers
         var projectDirTrimmed = projectDir.TrimEnd('/', '\\');
 
         if (!VerifierSettings.scrubSolutionDir ||
-            solutionDir == null)
+            solutionDir is null)
         {
             replacements[projectDir] = "{ProjectDirectory}";
             replacements[projectDirTrimmed] = "{ProjectDirectory}";

@@ -15,6 +15,6 @@ public class UsesVerifyAttribute :
     internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
     {
         info = local.Value;
-        return info != null;
+        return info is not null;
     }
 }

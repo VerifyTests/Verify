@@ -23,7 +23,7 @@
                 return ToInterceptResult(scrubOrIgnore.Value);
             }
 
-            if (value != null &&
+            if (value is not null &&
                 settings.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
             {
                 return ToInterceptResult(scrubOrIgnore.Value);
@@ -125,7 +125,7 @@
 
         var valueProvider = property.ValueProvider;
         var memberType = property.PropertyType;
-        if (memberType == null || valueProvider is null)
+        if (memberType is null || valueProvider is null)
         {
             return property;
         }
@@ -178,7 +178,7 @@
         var contract = base.CreateArrayContract(objectType);
         contract.InterceptSerializeItem = item =>
         {
-            if (item != null &&
+            if (item is not null &&
                 settings.TryGetScrubOrIgnoreByInstance(item, out var scrubOrIgnore))
             {
                 return ToInterceptResult(scrubOrIgnore.Value);

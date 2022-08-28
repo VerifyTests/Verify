@@ -21,12 +21,12 @@ public static partial class Verifier
         var adapter = context.Test;
         var test = (Test) field.GetValue(adapter)!;
         var typeInfo = test.TypeInfo;
-        if (typeInfo == null || test.Method is null)
+        if (typeInfo is null || test.Method is null)
         {
             throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
         }
 
-        if (settings.parameters == null &&
+        if (settings.parameters is null &&
             adapter.Arguments.Any())
         {
             settings.parameters = adapter.Arguments;
@@ -65,7 +65,7 @@ public static partial class Verifier
         var fullNameLength = fullName.Length - (test.Name.Length + 1);
         var typeName = fullName[..fullNameLength];
         var typeInfo = test.TypeInfo!;
-        if (typeInfo.Namespace != null)
+        if (typeInfo.Namespace is not null)
         {
             typeName = typeName[(typeInfo.Namespace.Length + 1)..];
         }

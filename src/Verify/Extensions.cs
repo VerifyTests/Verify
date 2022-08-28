@@ -166,7 +166,7 @@
     public static FrameworkName? FrameworkName(this Assembly assembly)
     {
         var targetFrameworkAttribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
-        if (targetFrameworkAttribute == null)
+        if (targetFrameworkAttribute is null)
         {
             return null;
         }

@@ -24,7 +24,7 @@
             foreach (var func in funcs)
             {
                 ScrubOrIgnore? orIgnore = func(value);
-                if (orIgnore != null)
+                if (orIgnore is not null)
                 {
                     scrubOrIgnore = orIgnore;
                     return true;

@@ -42,7 +42,7 @@
         {
             var name = target.Name;
             string suffix;
-            if (name == null)
+            if (name is null)
             {
                 suffix = $"{index:D2}";
             }

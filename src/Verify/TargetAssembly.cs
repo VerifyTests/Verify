@@ -7,7 +7,7 @@
 
     public static void Assign(Assembly assembly)
     {
-        if (TargetAssembly.assembly != null)
+        if (TargetAssembly.assembly is not null)
         {
             return;
         }

@@ -21,7 +21,7 @@ public readonly struct Target
         }
     }
 
-    public bool IsStream => streamData != null;
+    public bool IsStream => streamData is not null;
 
     public string StringData
     {
@@ -36,7 +36,7 @@ public readonly struct Target
         }
     }
 
-    public bool IsString => stringData != null;
+    public bool IsString => stringData is not null;
 
     public StringBuilder StringBuilderData
     {
@@ -51,7 +51,7 @@ public readonly struct Target
         }
     }
 
-    public bool IsStringBuilder => stringBuilderData != null;
+    public bool IsStringBuilder => stringBuilderData is not null;
 
     public Target(string extension, Stream streamData, string? name = null)
     {

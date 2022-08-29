@@ -12,7 +12,7 @@
         var nameWithParent = type.NameWithParent();
         var methodName = method.Name;
 
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, nameWithParent, type, method, methodName);
+        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, nameWithParent, methodName);
         var directory = settings.Directory ?? pathInfo.Directory;
 
         if (settings.fileName is not null)

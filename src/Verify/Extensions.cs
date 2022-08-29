@@ -3,7 +3,7 @@
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
 
-    public static List<string> MethodNames(this MethodInfo method) =>
+    public static List<string> ParameterNames(this MethodInfo method) =>
         method.GetParameters()
             .Select(_ => _.Name!)
             .ToList();

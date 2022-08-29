@@ -20,7 +20,7 @@
         }
 
         var typeAndMethod = GetTypeAndMethod(method, type, settings, pathInfo);
-        var parameterText = GetParameterText(method.MethodNames(), settings);
+        var parameterText = GetParameterText(method.ParameterNames(), settings);
 
         if (settings.ignoreParametersForVerified)
         {

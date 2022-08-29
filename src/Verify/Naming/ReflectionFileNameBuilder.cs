@@ -12,7 +12,19 @@
         var nameWithParent = type.NameWithParent();
         var methodName = method.Name;
 
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, nameWithParent, methodName);
+        return FileNamePrefix(methodName, nameWithParent, sourceFile, settings, uniquenessReceived, uniquenessVerified, methodParameters);
+    }
+
+    public static (string receivedPrefix, string verifiedPrefix, string? directory) FileNamePrefix(
+        string methodName,
+        string typeName,
+        string sourceFile,
+        VerifySettings settings,
+        string uniquenessReceived,
+        string uniquenessVerified,
+        List<string> methodParameters)
+    {
+        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
         var directory = settings.Directory ?? pathInfo.Directory;
 
         if (settings.fileName is not null)
@@ -23,7 +35,7 @@
                 directory);
         }
 
-        var resolvedTypeName = settings.typeName ?? pathInfo.TypeName ?? nameWithParent;
+        var resolvedTypeName = settings.typeName ?? pathInfo.TypeName ?? typeName;
         var resolvedMethodName = settings.methodName ?? pathInfo.MethodName ?? methodName;
         var typeAndMethod = (string) $"{resolvedTypeName}.{resolvedMethodName}";
         var parameterText = GetParameterText(methodParameters, settings);

@@ -6,16 +6,16 @@ public static partial class VerifierSettings
 {
     #region defaultDerivePathInfo
 
-    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
+    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method, methodName) =>
         new(
             directory: Path.GetDirectoryName(sourceFile)!,
             typeName: type.NameWithParent(),
-            methodName: method.Name);
+            methodName: methodName);
 
     #endregion
 
-    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
-        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
+    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method, string methodName) =>
+        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method, methodName);
 
     /// <summary>
     /// Use custom path information for `.verified.` files.

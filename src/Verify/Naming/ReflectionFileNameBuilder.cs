@@ -8,7 +8,11 @@
         string uniquenessForReceived,
         string uniquenessForVerified)
     {
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
+        var methodParameters = method.ParameterNames();
+        var nameWithParent = type.NameWithParent();
+
+        var name = method.Name;
+        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method, name);
         var directory = settings.Directory ?? pathInfo.Directory;
 
         if (settings.fileName is not null)
@@ -19,8 +23,10 @@
                 directory);
         }
 
-        var typeAndMethod = GetTypeAndMethod(method, type, settings, pathInfo);
-        var parameterText = GetParameterText(method.ParameterNames(), settings);
+        var resolvedTypeName = settings.typeName ?? pathInfo.TypeName ?? nameWithParent;
+        var resolvedMethodName = settings.methodName ?? pathInfo.MethodName ?? name;
+        var typeAndMethod = (string) $"{resolvedTypeName}.{resolvedMethodName}";
+        var parameterText = GetParameterText(methodParameters, settings);
 
         if (settings.ignoreParametersForVerified)
         {
@@ -34,14 +40,6 @@
             $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
             $"{typeAndMethod}{parameterText}{uniquenessForVerified}",
             directory);
-    }
-
-    static string GetTypeAndMethod(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
-    {
-        var typeName = settings.typeName ?? pathInfo.TypeName ?? type.NameWithParent();
-        var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
-
-        return $"{typeName}.{methodName}";
     }
 
     static string GetParameterText(List<string> methodParameters, VerifySettings settings)

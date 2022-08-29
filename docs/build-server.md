@@ -94,7 +94,7 @@ if (BuildServerDetector.Detected)
 {
     var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
     VerifierSettings.DerivePathInfo(
-        (sourceFile, projectDirectory, type, method) =>
+        (sourceFile, projectDirectory, type, method, methodName) =>
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;
             var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);

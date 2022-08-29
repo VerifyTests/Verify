@@ -10,9 +10,9 @@
     {
         var methodParameters = method.ParameterNames();
         var nameWithParent = type.NameWithParent();
+        var methodName = method.Name;
 
-        var name = method.Name;
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method, name);
+        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method, methodName,nameWithParent);
         var directory = settings.Directory ?? pathInfo.Directory;
 
         if (settings.fileName is not null)
@@ -24,7 +24,7 @@
         }
 
         var resolvedTypeName = settings.typeName ?? pathInfo.TypeName ?? nameWithParent;
-        var resolvedMethodName = settings.methodName ?? pathInfo.MethodName ?? name;
+        var resolvedMethodName = settings.methodName ?? pathInfo.MethodName ?? methodName;
         var typeAndMethod = (string) $"{resolvedTypeName}.{resolvedMethodName}";
         var parameterText = GetParameterText(methodParameters, settings);
 

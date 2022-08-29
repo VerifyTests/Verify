@@ -33,12 +33,12 @@ public static partial class Verifier
     static void ThrowNotSupported(string api) =>
         throw new($"Expect does not support `{api}()`. Change the `name` parameter instead.");
 
-    static async Task Verify(VerifySettings? settings, Assembly assembly, string sourceFile, string name, Func<InnerVerifier, Task> verify)
+    static async Task<VerifyResult> Verify(VerifySettings? settings, Assembly assembly, string sourceFile, string name, Func<InnerVerifier, Task<VerifyResult>> verify)
     {
         TargetAssembly.Assign(assembly);
         settings ??= new();
         Guard.AgainstBadSourceFile(sourceFile);
         using var verifier = GetVerifier(settings, sourceFile, name);
-        await verify(verifier);
+        return await verify(verifier);
     }
 }

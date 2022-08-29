@@ -20,7 +20,7 @@
         }
 
         var typeAndMethod = GetTypeAndMethod(method, type, settings, pathInfo);
-        var parameterText = GetParameterText(method, settings);
+        var parameterText = GetParameterText(method.MethodNames(), settings);
 
         if (settings.ignoreParametersForVerified)
         {
@@ -44,23 +44,22 @@
         return $"{typeName}.{methodName}";
     }
 
-    static string GetParameterText(MethodInfo method, VerifySettings settings)
+    static string GetParameterText(List<string> methodParameters, VerifySettings settings)
     {
         if (settings.parametersText is not null)
         {
             return $"_{settings.parametersText}";
         }
 
-        var methodParameters = method.GetParameters();
         var settingsParameters = settings.parameters;
         if (methodParameters.IsEmpty() || settingsParameters is null)
         {
             return "";
         }
 
-        if (settingsParameters.Length > methodParameters.Length)
+        if (settingsParameters.Length > methodParameters.Count)
         {
-            throw new($"The number of passed in parameters ({settingsParameters.Length}) must be fewer than the number of parameters for the method ({methodParameters.Length}).");
+            throw new($"The number of passed in parameters ({settingsParameters.Length}) must be fewer than the number of parameters for the method ({methodParameters.Count}).");
         }
 
         var dictionary = new Dictionary<string, object?>();
@@ -68,7 +67,7 @@
         {
             var parameter = methodParameters[index];
             var value = settingsParameters[index];
-            dictionary[parameter.Name!] = value;
+            dictionary[parameter] = value;
         }
 
         var concat = ParameterBuilder.Concat(dictionary);

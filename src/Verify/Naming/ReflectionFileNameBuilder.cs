@@ -1,12 +1,12 @@
 ﻿static class ReflectionFileNameBuilder
 {
-    public static (string receivedFileNamePrefix, string verifiedFileNamePrefix, string? directory) FileNamePrefix(
+    public static (string receivedPrefix, string verifiedPrefix, string? directory) FileNamePrefix(
         MethodInfo method,
         Type type,
         string sourceFile,
         VerifySettings settings,
-        string uniquenessForReceived,
-        string uniquenessForVerified)
+        string uniquenessReceived,
+        string uniquenessVerified)
     {
         var methodParameters = method.ParameterNames();
         var nameWithParent = type.NameWithParent();
@@ -18,8 +18,8 @@
         if (settings.fileName is not null)
         {
             return (
-                settings.fileName + uniquenessForReceived,
-                settings.fileName + uniquenessForVerified,
+                settings.fileName + uniquenessReceived,
+                settings.fileName + uniquenessVerified,
                 directory);
         }
 
@@ -31,14 +31,14 @@
         if (settings.ignoreParametersForVerified)
         {
             return (
-                $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
-                $"{typeAndMethod}{uniquenessForVerified}",
+                $"{typeAndMethod}{parameterText}{uniquenessReceived}",
+                $"{typeAndMethod}{uniquenessVerified}",
                 directory);
         }
 
         return (
-            $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
-            $"{typeAndMethod}{parameterText}{uniquenessForVerified}",
+            $"{typeAndMethod}{parameterText}{uniquenessReceived}",
+            $"{typeAndMethod}{parameterText}{uniquenessVerified}",
             directory);
     }
 

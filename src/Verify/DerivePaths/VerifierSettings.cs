@@ -7,21 +7,10 @@ public static partial class VerifierSettings
     #region defaultDerivePathInfo
 
     static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-    {
-        static string GetTypeName(Type type)
-        {
-            if (type.IsNested)
-            {
-                return $"{type.ReflectedType!.Name}.{type.Name}";
-            }
-
-            return type.Name;
-        }
-
-        var typeName = GetTypeName(type);
-
-        return new(Path.GetDirectoryName(sourceFile)!, typeName, method.Name);
-    };
+        new(
+            directory: Path.GetDirectoryName(sourceFile)!,
+            typeName: type.NameWithParent(),
+            methodName: method.Name);
 
     #endregion
 

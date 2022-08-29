@@ -19,6 +19,16 @@
         return input;
     }
 
+    public static string NameWithParent(this Type type)
+    {
+        if (type.IsNested)
+        {
+            return $"{type.ReflectedType!.Name}.{type.Name}";
+        }
+
+        return type.Name;
+    }
+
     public static string? Configuration(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();

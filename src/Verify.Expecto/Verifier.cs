@@ -24,18 +24,12 @@ public static partial class Verifier
             ThrowNotSupported(nameof(VerifySettings.UseTextForParameters));
         }
 
-        return new(
-            sourceFile,
-            settings,
-            (uniquenessReceived, uniquenessVerified) =>
-            {
-                var directory = settings.Directory ?? Path.GetDirectoryName(sourceFile)!;
-                var fileName = Path.GetFileNameWithoutExtension(sourceFile);
-                return (
-                    receivedPrefix: $"{fileName}.{name}{uniquenessReceived}",
-                    verifiedPrefix: $"{fileName}.{name}{uniquenessVerified}",
-                    directory);
-            });
+        var fileName = Path.GetFileNameWithoutExtension(sourceFile);
+
+        GetFileConvention fileConvention = (uniquenessReceived, uniquenessVerified) =>
+            ReflectionFileNameBuilder.FileNamePrefix(name, fileName, sourceFile, settings, uniquenessReceived, uniquenessVerified, new());
+
+        return new(sourceFile, settings, fileConvention);
     }
 
     [DoesNotReturn]

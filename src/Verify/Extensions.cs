@@ -4,7 +4,9 @@
         new(original);
 
     public static List<string> MethodNames(this MethodInfo method) =>
-        method.GetParameters().Select(_=>_.Name!).ToList();
+        method.GetParameters()
+            .Select(_ => _.Name!)
+            .ToList();
 
     public static Dictionary<TKey, TValue>  Clone<TKey, TValue>(this Dictionary<TKey, TValue> original)
         where TValue : struct where TKey : notnull => new(original);

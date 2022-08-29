@@ -572,11 +572,11 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 <!-- snippet: defaultDerivePathInfo -->
 <a id='snippet-defaultderivepathinfo'></a>
 ```cs
-static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, typeName, methodName) =>
+static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
     new(
         directory: Path.GetDirectoryName(sourceFile)!,
-        typeName: typeName,
-        methodName: methodName);
+        typeName: type,
+        methodName: method);
 ```
 <sup><a href='/src/Verify/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-defaultderivepathinfo-1'></a>

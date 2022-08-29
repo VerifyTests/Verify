@@ -43,8 +43,8 @@ public static partial class Verifier
         TargetAssembly.Assign(type.Assembly);
 
         var method = test.Method.MethodInfo;
-        GetFileConvention fileConvention = (uniquenessForReceived, uniquenessForVerified) =>
-            ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessForReceived, uniquenessForVerified);
+        GetFileConvention fileConvention = (uniquenessReceived, uniquenessVerified) =>
+            ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessReceived, uniquenessVerified);
 
         return new(sourceFile, settings, fileConvention);
     }

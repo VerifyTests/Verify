@@ -1,12 +1,12 @@
-﻿class ReflectionFileNameBuilder
+﻿static class ReflectionFileNameBuilder
 {
-    public static (string receivedFileNamePrefix, string verifiedFileNamePrefix, string? directory) FileNamePrefix(
+    public static (string receivedPrefix, string verifiedPrefix, string? directory) FileNamePrefix(
         MethodInfo method,
         Type type,
         string sourceFile,
         VerifySettings settings,
-        string uniquenessForReceived,
-        string uniquenessForVerified)
+        string uniquenessReceived,
+        string uniquenessVerified)
     {
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, type, method);
         var directory = settings.Directory ?? pathInfo.Directory;
@@ -14,8 +14,8 @@
         if (settings.fileName is not null)
         {
             return (
-                settings.fileName + uniquenessForReceived,
-                settings.fileName + uniquenessForVerified,
+                settings.fileName + uniquenessReceived,
+                settings.fileName + uniquenessVerified,
                 directory);
         }
 
@@ -25,20 +25,20 @@
         if (settings.ignoreParametersForVerified)
         {
             return (
-                $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
-                $"{typeAndMethod}{uniquenessForVerified}",
+                $"{typeAndMethod}{parameterText}{uniquenessReceived}",
+                $"{typeAndMethod}{uniquenessVerified}",
                 directory);
         }
 
         return (
-            $"{typeAndMethod}{parameterText}{uniquenessForReceived}",
-            $"{typeAndMethod}{parameterText}{uniquenessForVerified}",
+            $"{typeAndMethod}{parameterText}{uniquenessReceived}",
+            $"{typeAndMethod}{parameterText}{uniquenessVerified}",
             directory);
     }
 
     static string GetTypeAndMethod(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
     {
-        var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
+        var typeName = settings.typeName ?? pathInfo.TypeName ?? type.NameWithParent();
         var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
         return $"{typeName}.{methodName}";
@@ -73,15 +73,5 @@
 
         var concat = ParameterBuilder.Concat(dictionary);
         return $"_{concat}";
-    }
-
-    static string GetTypeName(Type type)
-    {
-        if (type.IsNested)
-        {
-            return $"{type.ReflectedType!.Name}.{type.Name}";
-        }
-
-        return type.Name;
     }
 }

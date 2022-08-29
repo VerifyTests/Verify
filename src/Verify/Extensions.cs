@@ -3,10 +3,10 @@
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
 
-    public static Dictionary<TKey, TValue>  Clone<TKey, TValue>(this Dictionary<TKey, TValue> original)
+    public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this Dictionary<TKey, TValue> original)
         where TValue : struct where TKey : notnull => new(original);
 
-    public static Dictionary<TKey, TValue?>  Clone<TKey, TValue>(this Dictionary<TKey, TValue?> original)
+    public static Dictionary<TKey, TValue?> Clone<TKey, TValue>(this Dictionary<TKey, TValue?> original)
         where TValue : struct where TKey : notnull => new(original);
 
     public static string TrimEnd(this string input, string suffixToRemove, StringComparison comparisonType = StringComparison.CurrentCulture)
@@ -18,6 +18,20 @@
 
         return input;
     }
+
+    #region defaultDerivePathInfo
+
+    public static string NameWithParent(this Type type)
+    {
+        if (type.IsNested)
+        {
+            return $"{type.ReflectedType!.Name}.{type.Name}";
+        }
+
+        return type.Name;
+    }
+
+    #endregion
 
     public static string? Configuration(this Assembly assembly)
     {

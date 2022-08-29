@@ -32,8 +32,8 @@ public abstract partial class VerifyBase
             throw new($"Could not find method `{type.Name}.{testName}`.");
         }
 
-        GetFileConvention fileConvention = (uniquenessForReceived, uniquenessForVerified) =>
-            ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessForReceived, uniquenessForVerified);
+        GetFileConvention fileConvention = (uniquenessReceived, uniquenessVerified) =>
+            ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessReceived, uniquenessVerified);
         return new(sourceFile, settings, fileConvention);
     }
 

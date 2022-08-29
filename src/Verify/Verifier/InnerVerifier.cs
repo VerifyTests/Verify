@@ -12,8 +12,8 @@
     {
         this.settings = settings;
 
-        var (uniquenessForReceived, uniquenessForVerified) = PrefixUnique.GetUniqueness(settings.Namer);
-        var (namePrefixReceived, namePrefixVerified, directory) = fileConvention(uniquenessForReceived, uniquenessForVerified);
+        var (uniquenessReceived, uniquenessVerified) = PrefixUnique.GetUniqueness(settings.Namer);
+        var (namePrefixReceived, namePrefixVerified, directory) = fileConvention(uniquenessReceived, uniquenessVerified);
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
         if (directory is null)

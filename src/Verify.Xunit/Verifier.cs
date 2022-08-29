@@ -20,8 +20,9 @@ public static partial class Verifier
         return new(
             sourceFile,
             settings,
-            (uniquenessReceived, uniquenessVerified) =>
-                ReflectionFileNameBuilder.FileNamePrefix(methodName, typeName, sourceFile, settings, uniquenessReceived, uniquenessVerified,methodParameters));
+            typeName,
+            methodName,
+            methodParameters);
     }
 
     static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)

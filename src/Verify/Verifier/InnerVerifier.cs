@@ -8,12 +8,17 @@
     List<string> verifiedFiles;
     Counter counter = Counter.Start();
 
-    public InnerVerifier(string sourceFile, VerifySettings settings, GetFileConvention fileConvention)
+    public InnerVerifier(
+        string sourceFile,
+        VerifySettings settings,
+        string typeName,
+        string methodName,
+        List<string> methodParameters)
     {
         this.settings = settings;
 
         var (uniquenessReceived, uniquenessVerified) = PrefixUnique.GetUniqueness(settings.Namer);
-        var (namePrefixReceived, namePrefixVerified, directory) = fileConvention(uniquenessReceived, uniquenessVerified);
+        var (namePrefixReceived, namePrefixVerified, directory) = ReflectionFileNameBuilder.FileNamePrefix(methodName, typeName, sourceFile, settings, uniquenessReceived, uniquenessVerified, methodParameters);
 
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
         if (directory is null)

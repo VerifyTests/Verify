@@ -2,7 +2,7 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string name)
+    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName)
     {
         if (settings.typeName is not null)
         {
@@ -26,10 +26,7 @@ public static partial class Verifier
 
         var fileName = Path.GetFileNameWithoutExtension(sourceFile);
 
-        GetFileConvention fileConvention = (uniquenessReceived, uniquenessVerified) =>
-            ReflectionFileNameBuilder.FileNamePrefix(name, fileName, sourceFile, settings, uniquenessReceived, uniquenessVerified, new());
-
-        return new(sourceFile, settings, fileConvention);
+        return new(sourceFile, settings, fileName, methodName, new());
     }
 
     [DoesNotReturn]

@@ -44,14 +44,12 @@ public static partial class Verifier
 
         var method = test.Method.MethodInfo;
 
-        var methodParameters = method.ParameterNames();
-        var typeName = type.NameWithParent();
-        var methodName = method.Name;
-
-        GetFileConvention fileConvention = (uniquenessReceived, uniquenessVerified) =>
-            ReflectionFileNameBuilder.FileNamePrefix(methodName, typeName, sourceFile, settings, uniquenessReceived, uniquenessVerified, methodParameters);
-
-        return new(sourceFile, settings, fileConvention);
+        return new(
+            sourceFile,
+            settings,
+            type.NameWithParent(),
+            method.Name,
+            method.ParameterNames());
     }
 
     static string GetMethodName(this ITest test)

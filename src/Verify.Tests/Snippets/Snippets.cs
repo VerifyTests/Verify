@@ -63,7 +63,7 @@ public class Snippets
         #region DerivePathInfo
 
         VerifierSettings.DerivePathInfo(
-            (sourceFile, projectDirectory, type, method, methodName, typeName) => new(
+            (sourceFile, projectDirectory, typeName, type, method, methodName) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,
                 methodName: method.Name));
@@ -79,7 +79,7 @@ public class Snippets
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
             VerifierSettings.DerivePathInfo(
-                (sourceFile, projectDirectory, type, method, methodName, typeName) =>
+                (sourceFile, projectDirectory, typeName, type, method, methodName) =>
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;
                     var testDirectorySuffix = testDirectory.Replace(projectDirectory, string.Empty);

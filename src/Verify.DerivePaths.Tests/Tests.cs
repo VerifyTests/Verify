@@ -5,7 +5,7 @@ public class Tests
     public Task Test()
     {
         VerifierSettings.DerivePathInfo(
-            (sourceFile, projectDirectory, type, method, methodName, typeName) =>
+            (sourceFile, projectDirectory, methodName, typeName, type, method) =>
             {
                 Assert.True(File.Exists(sourceFile));
                 Assert.True(Directory.Exists(projectDirectory));

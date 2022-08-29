@@ -17,7 +17,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     public static void Clear() =>
         prefixList = new();
 
-    public static (string uniquenessForReceived, string uniquenessForVerified)  GetUniqueness(Namer namer)
+    public static (string uniquenessReceived, string uniquenessVerified)  GetUniqueness(Namer namer)
     {
         var builder = new StringBuilder();
 

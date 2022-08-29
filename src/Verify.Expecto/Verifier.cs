@@ -27,13 +27,13 @@ public static partial class Verifier
         return new(
             sourceFile,
             settings,
-            (uniquenessForReceived, uniquenessForVerified) =>
+            (uniquenessReceived, uniquenessVerified) =>
             {
                 var directory = settings.Directory ?? Path.GetDirectoryName(sourceFile)!;
                 var fileName = Path.GetFileNameWithoutExtension(sourceFile);
                 return (
-                    receivedFileNamePrefix: $"{fileName}.{name}{uniquenessForReceived}",
-                    verifiedFileNamePrefix: $"{fileName}.{name}{uniquenessForVerified}",
+                    receivedPrefix: $"{fileName}.{name}{uniquenessReceived}",
+                    verifiedPrefix: $"{fileName}.{name}{uniquenessVerified}",
                     directory);
             });
     }

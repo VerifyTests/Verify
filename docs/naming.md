@@ -579,6 +579,19 @@ static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, meth
         methodName: method.Name);
 ```
 <sup><a href='/src/Verify/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-defaultderivepathinfo-1'></a>
+```cs
+public static string NameWithParent(this Type type)
+{
+    if (type.IsNested)
+    {
+        return $"{type.ReflectedType!.Name}.{type.Name}";
+    }
+
+    return type.Name;
+}
+```
+<sup><a href='/src/Verify/Extensions.cs#L22-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

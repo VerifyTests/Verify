@@ -19,6 +19,8 @@
         return input;
     }
 
+    #region defaultDerivePathInfo
+
     public static string NameWithParent(this Type type)
     {
         if (type.IsNested)
@@ -28,6 +30,8 @@
 
         return type.Name;
     }
+
+    #endregion
 
     public static string? Configuration(this Assembly assembly)
     {

@@ -1,4 +1,4 @@
-﻿class ReflectionFileNameBuilder
+﻿static class ReflectionFileNameBuilder
 {
     public static (string receivedFileNamePrefix, string verifiedFileNamePrefix, string? directory) FileNamePrefix(
         MethodInfo method,
@@ -38,7 +38,7 @@
 
     static string GetTypeAndMethod(MethodInfo method, Type type, VerifySettings settings, PathInfo pathInfo)
     {
-        var typeName = settings.typeName ?? pathInfo.TypeName ?? GetTypeName(type);
+        var typeName = settings.typeName ?? pathInfo.TypeName ?? type.NameWithParent();
         var methodName = settings.methodName ?? pathInfo.MethodName ?? method.Name;
 
         return $"{typeName}.{methodName}";
@@ -72,15 +72,5 @@
 
         var concat = ParameterBuilder.Concat(dictionary);
         return $"_{concat}";
-    }
-
-    static string GetTypeName(Type type)
-    {
-        if (type.IsNested)
-        {
-            return $"{type.ReflectedType!.Name}.{type.Name}";
-        }
-
-        return type.Name;
     }
 }

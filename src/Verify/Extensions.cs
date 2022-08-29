@@ -24,6 +24,20 @@
         return input;
     }
 
+    #region defaultDerivePathInfo
+
+    public static string NameWithParent(this Type type)
+    {
+        if (type.IsNested)
+        {
+            return $"{type.ReflectedType!.Name}.{type.Name}";
+        }
+
+        return type.Name;
+    }
+
+    #endregion
+
     public static string? Configuration(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();

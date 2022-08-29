@@ -6,11 +6,11 @@ public static partial class VerifierSettings
 {
     #region defaultDerivePathInfo
 
-    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, typeName, methodName) =>
+    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
         new(
             directory: Path.GetDirectoryName(sourceFile)!,
-            typeName: typeName,
-            methodName: methodName);
+            typeName: type,
+            methodName: method);
 
     #endregion
 

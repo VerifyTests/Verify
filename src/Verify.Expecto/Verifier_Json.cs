@@ -4,7 +4,7 @@ namespace VerifyExpecto;
 
 public static partial class Verifier
 {
-    public static Task Verify<T>(
+    public static Task<VerifyResult> Verify<T>(
         string name,
         Task<T> target,
         VerifySettings? settings = null,
@@ -14,7 +14,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
-    public static Task Verify<T>(
+    public static Task<VerifyResult> Verify<T>(
         string name,
         ValueTask<T> target,
         VerifySettings? settings = null,
@@ -24,7 +24,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
-    public static Task Verify<T>(
+    public static Task<VerifyResult> Verify<T>(
         string name,
         IAsyncEnumerable<T> target,
         VerifySettings? settings = null,
@@ -34,7 +34,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
-    public static Task Verify<T>(
+    public static Task<VerifyResult> Verify<T>(
         string name,
         T target,
         VerifySettings? settings = null,
@@ -44,7 +44,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
-    public static Task VerifyJson(
+    public static Task<VerifyResult> VerifyJson(
         string name,
         string target,
         VerifySettings? settings = null,
@@ -54,7 +54,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
     }
 
-    public static Task VerifyJson(
+    public static Task<VerifyResult> VerifyJson(
         string name,
         Stream target,
         VerifySettings? settings = null,

@@ -1,21 +1,6 @@
 ﻿static class ReflectionFileNameBuilder
 {
     public static (string receivedPrefix, string verifiedPrefix, string? directory) FileNamePrefix(
-        MethodInfo method,
-        Type type,
-        string sourceFile,
-        VerifySettings settings,
-        string uniquenessReceived,
-        string uniquenessVerified)
-    {
-        var methodParameters = method.ParameterNames();
-        var nameWithParent = type.NameWithParent();
-        var methodName = method.Name;
-
-        return FileNamePrefix(methodName, nameWithParent, sourceFile, settings, uniquenessReceived, uniquenessVerified, methodParameters);
-    }
-
-    public static (string receivedPrefix, string verifiedPrefix, string? directory) FileNamePrefix(
         string methodName,
         string typeName,
         string sourceFile,

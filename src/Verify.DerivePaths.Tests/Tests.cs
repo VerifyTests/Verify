@@ -5,12 +5,12 @@ public class Tests
     public Task Test()
     {
         VerifierSettings.DerivePathInfo(
-            (sourceFile, projectDirectory, type, method) =>
+            (sourceFile, projectDirectory, methodName, typeName) =>
             {
                 Assert.True(File.Exists(sourceFile));
                 Assert.True(Directory.Exists(projectDirectory));
-                Assert.NotNull(method);
-                Assert.NotNull(type);
+                Assert.NotNull(methodName);
+                Assert.NotNull(typeName);
                 Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
                 Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");

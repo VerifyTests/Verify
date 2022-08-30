@@ -43,7 +43,6 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.
 
 
-
 ### Class being tested
 
 Given a class to be tested:
@@ -78,12 +77,8 @@ snippet: SampleTestExpecto
 
 Due to the nature of the Expecto implementation, the following APIs in Verify are not supported.
 
- * `settings.UseTypeName()`
- * `settings.UseMethodName()`
  * `settings.UseParameters()`
  * `settings.UseTextForParameters()`
-
-Instead use a custom `name` parameter.
 
 
 ### MSTest
@@ -91,6 +86,7 @@ Instead use a custom `name` parameter.
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 snippet: SampleTestMSTest
+
 
 ### Initial Verification
 
@@ -213,7 +209,6 @@ eg add the following to `.gitattributes`
 *.verified.xml text eol=lf
 *.verified.json text eol=lf
 ```
-
 
 
 ## Static settings

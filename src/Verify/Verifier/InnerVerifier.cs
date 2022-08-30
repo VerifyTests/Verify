@@ -21,8 +21,7 @@
         var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(methodName, typeName, settings, methodParameters, pathInfo);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
-        
-        
+
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
         // intentionally do not validate filePathPrefixVerified

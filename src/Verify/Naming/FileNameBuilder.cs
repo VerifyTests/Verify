@@ -15,9 +15,7 @@
                 settings.fileName + uniquenessVerified);
         }
 
-        var resolvedTypeName = settings.typeName ?? pathInfo.TypeName ?? typeName;
-        var resolvedMethodName = settings.methodName ?? pathInfo.MethodName ?? methodName;
-        var typeAndMethod = $"{resolvedTypeName}.{resolvedMethodName}";
+        var typeAndMethod = GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = GetParameterText(methodParameters, settings);
 
         if (settings.ignoreParametersForVerified)
@@ -30,6 +28,13 @@
         return (
             $"{typeAndMethod}{parameterText}{uniquenessReceived}",
             $"{typeAndMethod}{parameterText}{uniquenessVerified}");
+    }
+
+    static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
+    {
+        var resolvedType = settings.typeName ?? pathInfo.TypeName ?? type;
+        var resolvedMethod = settings.methodName ?? pathInfo.MethodName ?? method;
+        return $"{resolvedType}.{resolvedMethod}";
     }
 
     static string GetParameterText(List<string> methodParameters, VerifySettings settings)

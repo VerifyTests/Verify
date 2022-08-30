@@ -28,21 +28,23 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         AppendArchitecture(namer, builder);
 
         AppendOsPlatform(namer, builder);
+
         var verifiedBuilder = new StringBuilder(builder.Length);
         verifiedBuilder.Append(builder);
-        var receivedBuilder = builder;
-        AppendRuntime(namer, receivedBuilder, verifiedBuilder);
+        AppendRuntimeForVerified(namer, verifiedBuilder);
+
+        var receivedBuilder = new StringBuilder(builder.Length);
+        receivedBuilder.Append(builder);
+        AppendRuntimeForReceived(namer, receivedBuilder);
 
         return (receivedBuilder.ToString(), verifiedBuilder.ToString());
     }
 
     static void AppendTargetFramework(Namer namer, StringBuilder builder)
     {
-        if (namer.UniqueForTargetFrameworkAndVersion ||
-            VerifierSettings.SharedNamer.UniqueForTargetFrameworkAndVersion)
+        if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
-            var assembly = namer.UniqueForTargetFrameworkAssembly ??
-                           VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+            var assembly = namer.ResolveUniqueForTargetFrameworkAssembly();
 
             if (assembly is null)
             {
@@ -61,11 +63,9 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             return;
         }
 
-        if (namer.UniqueForTargetFramework ||
-            VerifierSettings.SharedNamer.UniqueForTargetFramework)
+        if (namer.ResolveUniqueForTargetFramework())
         {
-            var assembly = namer.UniqueForTargetFrameworkAssembly ??
-                           VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+            var assembly = namer.ResolveUniqueForTargetFrameworkAssembly();
 
             if (assembly is null)
             {
@@ -84,38 +84,37 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         }
     }
 
-    static void AppendRuntime(Namer namer, StringBuilder receivedBuilder, StringBuilder verifiedBuilder)
+    static void AppendRuntimeForReceived(Namer namer, StringBuilder builder)
     {
-        var uniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion ||
-                                         VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion;
-        if (uniqueForRuntimeAndVersion || TargetAssembly.TargetsMultipleFramework)
+        if (namer.ResolveUniqueForRuntimeAndVersion() ||
+            TargetAssembly.TargetsMultipleFramework)
         {
-            receivedBuilder.Append($".{Namer.RuntimeAndVersion}");
+            builder.Append($".{Namer.RuntimeAndVersion}");
         }
+    }
 
-        if (uniqueForRuntimeAndVersion)
+    static void AppendRuntimeForVerified(Namer namer, StringBuilder builder)
+    {
+        if (namer.ResolveUniqueForRuntimeAndVersion())
         {
-            verifiedBuilder.Append($".{Namer.RuntimeAndVersion}");
+            builder.Append($".{Namer.RuntimeAndVersion}");
             return;
         }
 
-        if (namer.UniqueForRuntime ||
-            VerifierSettings.SharedNamer.UniqueForRuntime)
+        if (namer.ResolveUniqueForRuntime())
         {
-            verifiedBuilder.Append($".{Namer.Runtime}");
+            builder.Append($".{Namer.Runtime}");
         }
     }
 
     static void AppendAssemblyConfiguration(Namer namer, StringBuilder builder)
     {
-        if (!namer.UniqueForAssemblyConfiguration &&
-            !VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
+        if (!namer.ResolveUniqueForAssemblyConfiguration())
         {
             return;
         }
 
-        var assembly = namer.UniqueForAssemblyConfigurationAssembly ??
-                       VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationAssembly;
+        var assembly = namer.ResolveUniqueForAssemblyConfigurationAssembly();
 
         if (assembly is null)
         {
@@ -135,22 +134,17 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendArchitecture(Namer namer, StringBuilder builder)
     {
-        if (!namer.UniqueForArchitecture &&
-            !VerifierSettings.SharedNamer.UniqueForArchitecture)
+        if (namer.ResolveUniqueForArchitecture())
         {
-            return;
+            builder.Append($".{Namer.Architecture}");
         }
-
-        builder.Append($".{Namer.Architecture}");
     }
 
     static void AppendOsPlatform(Namer namer, StringBuilder builder)
     {
-        if (!namer.UniqueForOSPlatform && !VerifierSettings.SharedNamer.UniqueForOSPlatform)
+        if (namer.ResolveUniqueForOSPlatform())
         {
-            return;
+            builder.Append($".{Namer.OperatingSystemPlatform}");
         }
-
-        builder.Append($".{Namer.OperatingSystemPlatform}");
     }
 }

@@ -552,10 +552,10 @@ For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` 
 <a id='snippet-derivepathinfo'></a>
 ```cs
 VerifierSettings.DerivePathInfo(
-    (sourceFile, projectDirectory, type, method) => new(
+    (sourceFile, projectDirectory, typeName, methodName) => new(
         directory: Path.Combine(projectDirectory, "Snapshots"),
-        typeName: type.Name,
-        methodName: method.Name));
+        typeName: typeName,
+        methodName: methodName));
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L63-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -575,8 +575,8 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
     new(
         directory: Path.GetDirectoryName(sourceFile)!,
-        typeName: type.NameWithParent(),
-        methodName: method.Name);
+        typeName: type,
+        methodName: method);
 ```
 <sup><a href='/src/Verify/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-defaultderivepathinfo-1'></a>
@@ -591,7 +591,7 @@ public static string NameWithParent(this Type type)
     return type.Name;
 }
 ```
-<sup><a href='/src/Verify/Extensions.cs#L22-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Extensions.cs#L27-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

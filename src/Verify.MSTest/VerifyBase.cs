@@ -32,9 +32,12 @@ public abstract partial class VerifyBase
             throw new($"Could not find method `{type.Name}.{testName}`.");
         }
 
-        GetFileConvention fileConvention = (uniquenessReceived, uniquenessVerified) =>
-            ReflectionFileNameBuilder.FileNamePrefix(method, type, sourceFile, settings, uniquenessReceived, uniquenessVerified);
-        return new(sourceFile, settings, fileConvention);
+        return new(
+            sourceFile,
+            settings,
+            type.NameWithParent(),
+            method.Name,
+            method.ParameterNames());
     }
 
     SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)

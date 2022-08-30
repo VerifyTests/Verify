@@ -142,10 +142,8 @@ public partial class VerifySettings
     /// Use a directory for the test results.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/result.verified.{extension}`.
     /// </summary>
-    public void UseUniqueDirectory()
-    {
+    public void UseUniqueDirectory() =>
         useUniqueDirectory = true;
-    }
 
     /// <summary>
     /// Use the current runtime and runtime version to make the test results unique.

@@ -20,7 +20,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("ExtensionConversionStringBuilder");
 
     [ModuleInitializer]
@@ -40,7 +40,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionMultipleTargets() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("ExtensionConversionMultipleTargets");
 
     [ModuleInitializer]
@@ -60,7 +60,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionNamedTarget() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("ExtensionConversionNamedTarget");
 
     [ModuleInitializer]
@@ -80,7 +80,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionNamedMixedTarget() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("ExtensionConversionNamedMixedTarget");
 
     [ModuleInitializer]
@@ -91,7 +91,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversion() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("ExtensionConversion");
 
     [ModuleInitializer]
@@ -102,7 +102,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task AsyncExtensionConversion() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("AsyncExtensionConversion");
 
     [ModuleInitializer]
@@ -120,7 +120,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task WithInfo() =>
-        Verify(new MemoryStream())
+        Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("WithInfo");
 
     [ModuleInitializer]

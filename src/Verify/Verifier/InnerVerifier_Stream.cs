@@ -15,6 +15,10 @@
         await using (stream)
 #endif
         {
+            if (stream.Length == 0)
+            {
+                throw new("Empty data is not allowed.");
+            }
             if (extension is not null)
             {
                 if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))

@@ -518,14 +518,21 @@ line3"
             property = new Dictionary<string, string>()
         });
 
-
     [Fact]
     public Task ByteArray() =>
+        Verify(new byte[] {1});
+
+    [Fact]
+    public Task NestedByteArray() =>
         Verify(
             new
             {
                 bytes = new byte[] {1}
             });
+
+    [Fact]
+    public Task EmptyBinary() =>
+        Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>()));
 
     [Fact]
     public Task ExampleNonDefaults()

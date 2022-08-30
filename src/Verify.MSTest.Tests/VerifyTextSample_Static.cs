@@ -1,8 +1,7 @@
 namespace TheTests;
 
 [TestClass]
-public class VerifyTextSample :
-    VerifyBase
+public class VerifyTextSample_Static
 {
     [TestMethod]
     public Task Simple() =>

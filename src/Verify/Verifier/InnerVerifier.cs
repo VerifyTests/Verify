@@ -21,6 +21,8 @@
         var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(methodName, typeName, settings, methodParameters, pathInfo);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
+        
+        
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
         // intentionally do not validate filePathPrefixVerified
@@ -31,16 +33,7 @@
         getFileNames = target => new(target.Extension, pathPrefixReceived, pathPrefixVerified);
         getIndexedFileNames = (target, index) =>
         {
-            var name = target.Name;
-            string suffix;
-            if (name is null)
-            {
-                suffix = $"{index:D2}";
-            }
-            else
-            {
-                suffix = $"{index:D2}{name}";
-            }
+            var suffix = GetIndexedSuffix(target, index);
             return new(
                 target.Extension,
                 $"{pathPrefixReceived}.{suffix}",
@@ -50,6 +43,17 @@
         DeleteReceivedFiles(receivedPrefix, directory);
 
         VerifierSettings.RunBeforeCallbacks();
+    }
+
+    static string GetIndexedSuffix(Target target, int index)
+    {
+        var name = target.Name;
+        if (name is null)
+        {
+            return $"{index:D2}";
+        }
+
+        return $"{index:D2}{name}";
     }
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)

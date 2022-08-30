@@ -4,16 +4,6 @@ public static partial class Verifier
 {
     static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string name)
     {
-        if (settings.typeName is not null)
-        {
-            ThrowNotSupported(nameof(VerifySettings.UseTypeName));
-        }
-
-        if (settings.methodName is not null)
-        {
-            ThrowNotSupported(nameof(VerifySettings.UseMethodName));
-        }
-
         if (settings.parameters is not null)
         {
             ThrowNotSupported(nameof(VerifySettings.UseParameters));

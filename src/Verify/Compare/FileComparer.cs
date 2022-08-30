@@ -59,20 +59,20 @@
                 return new(Equality.Equal, compareResult.Message, null, null);
             }
 
-            receivedStream.Position = 0;
+            receivedStream.MoveToStart();
             await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }
 
         if (receivedStream.CanSeek)
         {
-            receivedStream.Position = 0;
+            receivedStream.MoveToStart();
             return await EqualityResult(receivedStream, verifiedStream);
         }
 
         using var memoryStream = new MemoryStream();
         await receivedStream.CopyToAsync(memoryStream);
-        memoryStream.Position = 0;
+        memoryStream.MoveToStart();
 
         return await EqualityResult(memoryStream, verifiedStream);
     }

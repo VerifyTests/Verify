@@ -38,11 +38,9 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendTargetFramework(Namer namer, StringBuilder builder)
     {
-        if (namer.UniqueForTargetFrameworkAndVersion ||
-            VerifierSettings.SharedNamer.UniqueForTargetFrameworkAndVersion)
+        if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
-            var assembly = namer.UniqueForTargetFrameworkAssembly ??
-                           VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+            var assembly = namer.ResolveUniqueForTargetFrameworkAssembly();
 
             if (assembly is null)
             {
@@ -61,11 +59,9 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             return;
         }
 
-        if (namer.UniqueForTargetFramework ||
-            VerifierSettings.SharedNamer.UniqueForTargetFramework)
+        if (namer.ResolveUniqueForTargetFramework())
         {
-            var assembly = namer.UniqueForTargetFrameworkAssembly ??
-                           VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+            var assembly = namer.ResolveUniqueForTargetFrameworkAssembly();
 
             if (assembly is null)
             {
@@ -86,8 +82,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendRuntime(Namer namer, StringBuilder receivedBuilder, StringBuilder verifiedBuilder)
     {
-        var uniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion ||
-                                         VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion;
+        var uniqueForRuntimeAndVersion = namer.ResolveUniqueForRuntimeAndVersion();
         if (uniqueForRuntimeAndVersion || TargetAssembly.TargetsMultipleFramework)
         {
             receivedBuilder.Append($".{Namer.RuntimeAndVersion}");
@@ -99,8 +94,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             return;
         }
 
-        if (namer.UniqueForRuntime ||
-            VerifierSettings.SharedNamer.UniqueForRuntime)
+        if (namer.ResolveUniqueForRuntime())
         {
             verifiedBuilder.Append($".{Namer.Runtime}");
         }
@@ -108,14 +102,12 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendAssemblyConfiguration(Namer namer, StringBuilder builder)
     {
-        if (!namer.UniqueForAssemblyConfiguration &&
-            !VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration)
+        if (!namer.ResolveUniqueForAssemblyConfiguration())
         {
             return;
         }
 
-        var assembly = namer.UniqueForAssemblyConfigurationAssembly ??
-                       VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationAssembly;
+        var assembly = namer.ResolveUniqueForAssemblyConfigurationAssembly();
 
         if (assembly is null)
         {
@@ -135,22 +127,17 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendArchitecture(Namer namer, StringBuilder builder)
     {
-        if (!namer.UniqueForArchitecture &&
-            !VerifierSettings.SharedNamer.UniqueForArchitecture)
+        if (namer.ResolveUniqueForArchitecture())
         {
-            return;
+            builder.Append($".{Namer.Architecture}");
         }
-
-        builder.Append($".{Namer.Architecture}");
     }
 
     static void AppendOsPlatform(Namer namer, StringBuilder builder)
     {
-        if (!namer.UniqueForOSPlatform && !VerifierSettings.SharedNamer.UniqueForOSPlatform)
+        if (namer.ResolveUniqueForOSPlatform())
         {
-            return;
+            builder.Append($".{Namer.OperatingSystemPlatform}");
         }
-
-        builder.Append($".{Namer.OperatingSystemPlatform}");
     }
 }

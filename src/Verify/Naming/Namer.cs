@@ -61,14 +61,59 @@ public class Namer
     }
 
     internal bool UniqueForRuntime;
+
+    internal bool ResolveUniqueForRuntime() =>
+        UniqueForRuntime ||
+        VerifierSettings.SharedNamer.UniqueForRuntime;
+
     internal bool UniqueForTargetFramework;
+
+    internal bool ResolveUniqueForTargetFramework() =>
+        UniqueForTargetFramework ||
+        VerifierSettings.SharedNamer.UniqueForTargetFramework;
+
     internal Assembly? UniqueForTargetFrameworkAssembly;
+
+    internal Assembly? ResolveUniqueForTargetFrameworkAssembly() =>
+        UniqueForTargetFrameworkAssembly ??
+        VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+
     internal bool UniqueForAssemblyConfiguration;
+
+    internal bool ResolveUniqueForAssemblyConfiguration() =>
+        UniqueForAssemblyConfiguration ||
+        VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration;
+
     internal Assembly? UniqueForAssemblyConfigurationAssembly;
+
+    internal Assembly? ResolveUniqueForAssemblyConfigurationAssembly() =>
+        UniqueForAssemblyConfigurationAssembly ??
+        VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationAssembly;
+
     internal bool UniqueForRuntimeAndVersion;
+
+    internal bool ResolveUniqueForRuntimeAndVersion() =>
+        UniqueForRuntimeAndVersion ||
+        VerifierSettings.SharedNamer.UniqueForRuntimeAndVersion;
+
     internal bool UniqueForTargetFrameworkAndVersion;
+
+    internal bool ResolveUniqueForTargetFrameworkAndVersion() =>
+        UniqueForTargetFrameworkAndVersion ||
+        VerifierSettings.SharedNamer.UniqueForTargetFrameworkAndVersion;
+
     internal bool UniqueForArchitecture;
+
+    internal bool ResolveUniqueForArchitecture() =>
+        UniqueForArchitecture ||
+        VerifierSettings.SharedNamer.UniqueForArchitecture;
+
     internal bool UniqueForOSPlatform;
+
+    internal bool ResolveUniqueForOSPlatform() =>
+        UniqueForOSPlatform ||
+        VerifierSettings.SharedNamer.UniqueForOSPlatform;
+
     static string? targetFrameworkName;
     static string? targetFrameworkNameAndVersion;
 

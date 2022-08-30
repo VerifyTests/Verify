@@ -28,10 +28,14 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         AppendArchitecture(namer, builder);
 
         AppendOsPlatform(namer, builder);
+
         var verifiedBuilder = new StringBuilder(builder.Length);
         verifiedBuilder.Append(builder);
-        var receivedBuilder = builder;
-        AppendRuntime(namer, receivedBuilder, verifiedBuilder);
+        AppendRuntimeForVerified(namer, verifiedBuilder);
+
+        var receivedBuilder = new StringBuilder(builder.Length);
+        receivedBuilder.Append(builder);
+        AppendRuntimeForReceived(namer, receivedBuilder);
 
         return (receivedBuilder.ToString(), verifiedBuilder.ToString());
     }
@@ -80,23 +84,26 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         }
     }
 
-    static void AppendRuntime(Namer namer, StringBuilder receivedBuilder, StringBuilder verifiedBuilder)
+    static void AppendRuntimeForReceived(Namer namer, StringBuilder builder)
     {
-        var uniqueForRuntimeAndVersion = namer.ResolveUniqueForRuntimeAndVersion();
-        if (uniqueForRuntimeAndVersion || TargetAssembly.TargetsMultipleFramework)
+        if (namer.ResolveUniqueForRuntimeAndVersion() ||
+            TargetAssembly.TargetsMultipleFramework)
         {
-            receivedBuilder.Append($".{Namer.RuntimeAndVersion}");
+            builder.Append($".{Namer.RuntimeAndVersion}");
         }
+    }
 
-        if (uniqueForRuntimeAndVersion)
+    static void AppendRuntimeForVerified(Namer namer, StringBuilder builder)
+    {
+        if (namer.ResolveUniqueForRuntimeAndVersion())
         {
-            verifiedBuilder.Append($".{Namer.RuntimeAndVersion}");
+            builder.Append($".{Namer.RuntimeAndVersion}");
             return;
         }
 
         if (namer.ResolveUniqueForRuntime())
         {
-            verifiedBuilder.Append($".{Namer.Runtime}");
+            builder.Append($".{Namer.Runtime}");
         }
     }
 

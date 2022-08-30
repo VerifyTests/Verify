@@ -19,6 +19,14 @@
         }
     }
 
+    public static void ThrowIfEmpty(this Stream stream)
+    {
+        if (stream.Length== 0)
+        {
+            throw new("Empty data not supported.");
+        }
+    }
+
     static FileStream OpenWrite(string path) =>
         new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
 

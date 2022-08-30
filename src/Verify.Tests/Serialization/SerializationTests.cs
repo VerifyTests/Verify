@@ -531,8 +531,11 @@ line3"
             });
 
     [Fact]
-    public Task EmptyBinary() =>
-        Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>()));
+    public async Task EmptyBinary()
+    {
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>()));
+        Assert.Equal("Empty data is not allowed.", exception.Message);
+    }
 
     [Fact]
     public Task ExampleNonDefaults()

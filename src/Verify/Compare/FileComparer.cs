@@ -40,6 +40,7 @@
 
         if (receivedStream is FileStream fileStream)
         {
+            fileStream.ThrowIfEmpty();
             var compareResult = await func(fileStream, verifiedStream);
             if (compareResult.IsEqual)
             {
@@ -60,6 +61,7 @@
             }
 
             receivedStream.MoveToStart();
+            receivedStream.ThrowIfEmpty();
             await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }

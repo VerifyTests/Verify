@@ -19,15 +19,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     public static (string uniquenessReceived, string uniquenessVerified) GetUniqueness(Namer namer)
     {
-        var builder = new StringBuilder();
-
-        AppendTargetFramework(namer, builder);
-
-        AppendAssemblyConfiguration(namer, builder);
-
-        AppendArchitecture(namer, builder);
-
-        AppendOsPlatform(namer, builder);
+        var builder = SharedUniqueness(namer);
 
         var verifiedBuilder = new StringBuilder(builder.Length);
         verifiedBuilder.Append(builder);
@@ -38,6 +30,20 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         AppendRuntimeForReceived(namer, receivedBuilder);
 
         return (receivedBuilder.ToString(), verifiedBuilder.ToString());
+    }
+
+    static StringBuilder SharedUniqueness(Namer namer)
+    {
+        var builder = new StringBuilder();
+
+        AppendTargetFramework(namer, builder);
+
+        AppendAssemblyConfiguration(namer, builder);
+
+        AppendArchitecture(namer, builder);
+
+        AppendOsPlatform(namer, builder);
+        return builder;
     }
 
     static void AppendTargetFramework(Namer namer, StringBuilder builder)

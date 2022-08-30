@@ -19,6 +19,22 @@ let uniqueTests =
     testTask "unique" {
         let settings = new VerifySettings()
         settings.UniqueForRuntime()
-        do! Verifier.Verify("unique", "value1", settings)
+        do! Verifier.Verify("unique", "value", settings)
     }
 // end-snippet
+
+[<Tests>]
+let typeNameTests =
+    testTask "typeNameTests" {
+        let settings = new VerifySettings()
+        settings.UseTypeName("CustomTypeName")
+        do! Verifier.Verify("typeNameTests", "Value", settings)
+    }
+
+[<Tests>]
+let methodNameTests =
+    testTask "methodNameTests" {
+        let settings = new VerifySettings()
+        settings.UseMethodName("CustomMethodName")
+        do! Verifier.Verify("methodNameTests", "Value", settings)
+    }

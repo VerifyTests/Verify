@@ -17,8 +17,8 @@
         await stream1.CopyToAsync(stream2);
         stream2.Position = 100;
         stream2.WriteByte(8);
-        stream2.Position = 0;
-        stream1.Position = 0;
+        stream2.MoveToStart();
+        stream1.MoveToStart();
 
         var result = await StreamComparer.AreEqual(stream1, stream2);
         Assert.False(result.IsEqual);
@@ -30,7 +30,7 @@
         using var stream1 = File.OpenRead("sample.bmp");
         using var stream2 = new MemoryStream();
         stream2.WriteByte(8);
-        stream2.Position = 0;
+        stream2.MoveToStart();
         var result = await StreamComparer.AreEqual(stream1, stream2);
         Assert.False(result.IsEqual);
     }

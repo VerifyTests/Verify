@@ -17,7 +17,7 @@
 
         var resolvedTypeName = settings.typeName ?? pathInfo.TypeName ?? typeName;
         var resolvedMethodName = settings.methodName ?? pathInfo.MethodName ?? methodName;
-        var typeAndMethod = (string) $"{resolvedTypeName}.{resolvedMethodName}";
+        var typeAndMethod = $"{resolvedTypeName}.{resolvedMethodName}";
         var parameterText = GetParameterText(methodParameters, settings);
 
         if (settings.ignoreParametersForVerified)

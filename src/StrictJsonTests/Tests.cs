@@ -22,7 +22,7 @@ public class Tests
     {
     }
 
-    class WriteRawInConverter:
+    class WriteRawInConverter :
         WriteOnlyJsonConverter<WriteRawInConverterTarget>
     {
         public override void Write(VerifyJsonWriter writer, WriteRawInConverterTarget target)
@@ -58,7 +58,7 @@ public class Tests
 
     [Fact]
     public Task Dynamic() =>
-        Verify(new {value = "Foo"});
+        Verify(new { value = "Foo" });
 
     [Fact]
     public async Task Object()
@@ -77,20 +77,20 @@ public class Tests
     [Theory]
     [InlineData("null-value-default", null)]
     [InlineData("null-value-populate", null)]
-    [InlineData("empty-string","")]    
+    [InlineData("empty-string", "")]
     public async Task NullOrEmptyString(string scenario, string value)
     {
+        var settings = new VerifySettings();
+        if (scenario == "null-value-populate")
+        {
+            settings.AddExtraSettings(x => x.DefaultValueHandling = Argon.DefaultValueHandling.Populate);
+        }
+
         var target = new TheTarget
         {
             Value = value
         };
-        if(scenario == "null-value-populate")
-        {
-            VerifierSettings
-                .AddExtraSettings(_ => _.DefaultValueHandling = Argon.DefaultValueHandling.Populate);
-        }
-
-        await Verify(target).UseParameters(scenario);
+        await Verify(target, settings).UseParameters(scenario);
     }
 
     [Fact]

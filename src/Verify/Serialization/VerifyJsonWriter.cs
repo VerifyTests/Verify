@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public class VerifyJsonWriter :
     JsonTextWriter
@@ -44,7 +44,15 @@ public class VerifyJsonWriter :
     {
         if (value is null or "")
         {
-            base.WriteRawValue(value);
+            if (VerifierSettings.StrictJson)
+            {
+                base.WriteValue(value);
+            }
+            else
+            {
+                base.WriteRawValue(value);
+            }
+
             return;
         }
 

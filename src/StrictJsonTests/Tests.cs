@@ -1,4 +1,4 @@
-﻿[UsesVerify]
+[UsesVerify]
 public class Tests
 {
     static Tests()
@@ -72,6 +72,25 @@ public class Tests
         await Verify(target);
 
         #endregion
+    }
+
+    [Theory]
+    [InlineData("null-value-default", null)]
+    [InlineData("null-value-populate", null)]
+    [InlineData("empty-string","")]    
+    public async Task NullOrEmptyString(string scenario, string value)
+    {
+        var target = new TheTarget
+        {
+            Value = value
+        };
+        if(scenario == "null-value-populate")
+        {
+            VerifierSettings
+                .AddExtraSettings(_ => _.DefaultValueHandling = Argon.DefaultValueHandling.Populate);
+        }
+
+        await Verify(target).UseParameters(scenario);
     }
 
     [Fact]

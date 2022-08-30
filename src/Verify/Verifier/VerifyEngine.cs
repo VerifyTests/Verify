@@ -35,8 +35,7 @@ class VerifyEngine
 
         if (target.IsString)
         {
-            var builder = new StringBuilder(target.StringData);
-            return await Comparer.Text(file, builder.ToString(), settings);
+            return await Comparer.Text(file, target.StringData, settings);
         }
 
         var stream = target.StreamData;

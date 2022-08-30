@@ -47,13 +47,12 @@
 
     static string GetIndexedSuffix(Target target, int index)
     {
-        var name = target.Name;
-        if (name is null)
+        if (target.Name is null)
         {
             return $"{index:D2}";
         }
 
-        return $"{index:D2}{name}";
+        return $"{index:D2}{target.Name}";
     }
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)

@@ -203,7 +203,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseUniqueDirectory();
-        await Verify("valueUseFileName", settings);
+        await Verify("UniqueDirectoryName", settings);
 
         #endregion
     }

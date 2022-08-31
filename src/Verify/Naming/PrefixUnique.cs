@@ -17,22 +17,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     public static void Clear() =>
         prefixList = new();
 
-    public static (string uniquenessReceived, string uniquenessVerified) GetUniqueness(Namer namer)
-    {
-        var builder = SharedUniqueness(namer);
-
-        var verifiedBuilder = new StringBuilder(builder.Length);
-        verifiedBuilder.Append(builder);
-        AppendRuntimeForVerified(namer, verifiedBuilder);
-
-        var receivedBuilder = new StringBuilder(builder.Length);
-        receivedBuilder.Append(builder);
-        AppendRuntimeForReceived(namer, receivedBuilder);
-
-        return (receivedBuilder.ToString(), verifiedBuilder.ToString());
-    }
-
-    static StringBuilder SharedUniqueness(Namer namer)
+    public static StringBuilder SharedUniqueness(Namer namer)
     {
         var builder = new StringBuilder();
 
@@ -90,7 +75,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         }
     }
 
-    static void AppendRuntimeForReceived(Namer namer, StringBuilder builder)
+    public static void AppendRuntimeForReceived(Namer namer, StringBuilder builder)
     {
         if (namer.ResolveUniqueForRuntimeAndVersion() ||
             TargetAssembly.TargetsMultipleFramework)
@@ -99,7 +84,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         }
     }
 
-    static void AppendRuntimeForVerified(Namer namer, StringBuilder builder)
+    public static void AppendRuntimeForVerified(Namer namer, StringBuilder builder)
     {
         if (namer.ResolveUniqueForRuntimeAndVersion())
         {

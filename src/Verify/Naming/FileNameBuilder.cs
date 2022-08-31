@@ -5,9 +5,22 @@
         string typeName,
         VerifySettings settings,
         List<string> methodParameters,
-        PathInfo pathInfo)
+        PathInfo pathInfo,
+        string typeAndMethod,
+        string parameterText)
     {
-        var (uniquenessReceived, uniquenessVerified) = PrefixUnique.GetUniqueness(settings.Namer);
+        var builder = PrefixUnique.SharedUniqueness(settings.Namer);
+
+        var verifiedBuilder = new StringBuilder(builder.Length);
+        verifiedBuilder.Append(builder);
+        PrefixUnique.AppendRuntimeForVerified(settings.Namer, verifiedBuilder);
+
+        var receivedBuilder = new StringBuilder(builder.Length);
+        receivedBuilder.Append(builder);
+        PrefixUnique.AppendRuntimeForReceived(settings.Namer, receivedBuilder);
+        
+        var uniquenessReceived = receivedBuilder.ToString();
+        var uniquenessVerified = verifiedBuilder.ToString();
         if (settings.fileName is not null)
         {
             return (
@@ -15,8 +28,6 @@
                 settings.fileName + uniquenessVerified);
         }
 
-        var typeAndMethod = GetTypeAndMethod(methodName, typeName, settings, pathInfo);
-        var parameterText = GetParameterText(methodParameters, settings);
 
         if (settings.ignoreParametersForVerified)
         {
@@ -30,14 +41,14 @@
             $"{typeAndMethod}{parameterText}{uniquenessVerified}");
     }
 
-    static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
+    public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
         var resolvedType = settings.typeName ?? pathInfo.TypeName ?? type;
         var resolvedMethod = settings.methodName ?? pathInfo.MethodName ?? method;
         return $"{resolvedType}.{resolvedMethod}";
     }
 
-    static string GetParameterText(List<string> methodParameters, VerifySettings settings)
+    public  static string GetParameterText(List<string> methodParameters, VerifySettings settings)
     {
         if (settings.parametersText is not null)
         {

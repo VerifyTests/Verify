@@ -22,12 +22,22 @@
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
 
-        directory = ResolveDirectory(sourceFile, settings, pathInfo);
-
         var namer = settings.Namer;
 
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
 
+        if (settings.useUniqueDirectory)
+        {
+            
+            return;
+        }
+        
+        directory = ResolveDirectory(sourceFile, settings, pathInfo);
+        
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
         var uniquenessVerified = sharedUniqueness;
         if (namer.ResolveUniqueForRuntimeAndVersion())
         {
@@ -106,13 +116,7 @@
             return sourceFileDirectory;
         }
 
-        var directory = Path.Combine(sourceFileDirectory, settingOrPathInfoDirectory);
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-
-        return directory;
+        return Path.Combine(sourceFileDirectory, settingOrPathInfoDirectory);
     }
 
     static void DeleteReceivedFiles(string receivedFileNamePrefix, string directory)

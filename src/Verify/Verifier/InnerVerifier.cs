@@ -15,12 +15,57 @@
         string methodName,
         List<string> methodParameters)
     {
+        VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
-        var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(methodName, typeName, settings, methodParameters, pathInfo);
+        var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
+        var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
+
+        var namer = settings.Namer;
+
+        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
+
+        var uniquenessVerified = sharedUniqueness;
+        if (namer.ResolveUniqueForRuntimeAndVersion())
+        {
+            uniquenessVerified += $".{Namer.RuntimeAndVersion}";
+        }
+        else
+        {
+            if (namer.ResolveUniqueForRuntime())
+            {
+                uniquenessVerified += $".{Namer.Runtime}";
+            }
+        }
+
+        var uniquenessReceived = sharedUniqueness;
+        if (namer.ResolveUniqueForRuntimeAndVersion() ||
+            TargetAssembly.TargetsMultipleFramework)
+        {
+            uniquenessReceived += $".{Namer.RuntimeAndVersion}";
+        }
+
+        string receivedPrefix;
+        string verifiedPrefix;
+        if (settings.fileName is not null)
+        {
+            receivedPrefix = settings.fileName + uniquenessReceived;
+            verifiedPrefix = settings.fileName + uniquenessVerified;
+        }
+        else if (settings.ignoreParametersForVerified)
+        {
+            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+            verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
+        }
+        else
+        {
+            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+            verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+        }
+
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
@@ -40,8 +85,6 @@
         };
 
         DeleteReceivedFiles(receivedPrefix, directory);
-
-        VerifierSettings.RunBeforeCallbacks();
     }
 
     static string GetIndexedSuffix(Target target, int index)

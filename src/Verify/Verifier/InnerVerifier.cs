@@ -15,6 +15,7 @@
         string methodName,
         List<string> methodParameters)
     {
+        VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
@@ -56,8 +57,6 @@
         };
 
         DeleteReceivedFiles(receivedPrefix, directory);
-
-        VerifierSettings.RunBeforeCallbacks();
     }
 
     static string GetIndexedSuffix(Target target, int index)

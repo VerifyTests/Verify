@@ -22,18 +22,31 @@
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
 
-        var builder = PrefixUnique.SharedUniqueness(settings.Namer);
+        directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
-        var verifiedBuilder = new StringBuilder(builder.Length);
-        verifiedBuilder.Append(builder);
-        PrefixUnique.AppendRuntimeForVerified(settings.Namer, verifiedBuilder);
+        var namer = settings.Namer;
 
-        var receivedBuilder = new StringBuilder(builder.Length);
-        receivedBuilder.Append(builder);
-        PrefixUnique.AppendRuntimeForReceived(settings.Namer, receivedBuilder);
+        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
 
-        var uniquenessReceived = receivedBuilder.ToString();
-        var uniquenessVerified = verifiedBuilder.ToString();
+        var uniquenessVerified = sharedUniqueness;
+        if (namer.ResolveUniqueForRuntimeAndVersion())
+        {
+            uniquenessVerified += $".{Namer.RuntimeAndVersion}";
+        }
+        else
+        {
+            if (namer.ResolveUniqueForRuntime())
+            {
+                uniquenessVerified += $".{Namer.Runtime}";
+            }
+        }
+
+        var uniquenessReceived = sharedUniqueness;
+        if (namer.ResolveUniqueForRuntimeAndVersion() ||
+            TargetAssembly.TargetsMultipleFramework)
+        {
+            uniquenessReceived += $".{Namer.RuntimeAndVersion}";
+        }
 
         string receivedPrefix;
         string verifiedPrefix;
@@ -53,7 +66,6 @@
             verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
         }
 
-        directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);

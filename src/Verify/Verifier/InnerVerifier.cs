@@ -52,7 +52,7 @@
             receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
             verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
         }
-        
+
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);

@@ -3,27 +3,16 @@
     public static (string receivedPrefix, string verifiedPrefix) Build(
         VerifySettings settings,
         string typeAndMethod,
-        string parameterText)
+        string parameterText,
+        string uniquenessReceived,
+        string uniquenessVerified)
     {
-        var builder = PrefixUnique.SharedUniqueness(settings.Namer);
-
-        var verifiedBuilder = new StringBuilder(builder.Length);
-        verifiedBuilder.Append(builder);
-        PrefixUnique.AppendRuntimeForVerified(settings.Namer, verifiedBuilder);
-
-        var receivedBuilder = new StringBuilder(builder.Length);
-        receivedBuilder.Append(builder);
-        PrefixUnique.AppendRuntimeForReceived(settings.Namer, receivedBuilder);
-
-        var uniquenessReceived = receivedBuilder.ToString();
-        var uniquenessVerified = verifiedBuilder.ToString();
         if (settings.fileName is not null)
         {
             return (
                 settings.fileName + uniquenessReceived,
                 settings.fileName + uniquenessVerified);
         }
-
 
         if (settings.ignoreParametersForVerified)
         {

@@ -20,7 +20,21 @@
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
-        var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(settings, typeAndMethod, parameterText);
+
+        var builder = PrefixUnique.SharedUniqueness(settings.Namer);
+
+        var verifiedBuilder = new StringBuilder(builder.Length);
+        verifiedBuilder.Append(builder);
+        PrefixUnique.AppendRuntimeForVerified(settings.Namer, verifiedBuilder);
+
+        var receivedBuilder = new StringBuilder(builder.Length);
+        receivedBuilder.Append(builder);
+        PrefixUnique.AppendRuntimeForReceived(settings.Namer, receivedBuilder);
+
+        var uniquenessReceived = receivedBuilder.ToString();
+        var uniquenessVerified = verifiedBuilder.ToString();
+
+        var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(settings, typeAndMethod, parameterText, uniquenessReceived,uniquenessVerified);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 

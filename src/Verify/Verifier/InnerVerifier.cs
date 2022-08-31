@@ -35,8 +35,24 @@
         var uniquenessReceived = receivedBuilder.ToString();
         var uniquenessVerified = verifiedBuilder.ToString();
 
-        var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(settings, typeAndMethod, parameterText, uniquenessReceived,uniquenessVerified);
-
+        string receivedPrefix;
+        string verifiedPrefix;
+        if (settings.fileName is not null)
+        {
+            receivedPrefix = settings.fileName + uniquenessReceived;
+            verifiedPrefix = settings.fileName + uniquenessVerified;
+        }
+        else if (settings.ignoreParametersForVerified)
+        {
+            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+            verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
+        }
+        else
+        {
+            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+            verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+        }
+        
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);

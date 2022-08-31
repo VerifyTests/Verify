@@ -1,31 +1,5 @@
 ﻿static class FileNameBuilder
 {
-    public static (string receivedPrefix, string verifiedPrefix) Build(
-        VerifySettings settings,
-        string typeAndMethod,
-        string parameterText,
-        string uniquenessReceived,
-        string uniquenessVerified)
-    {
-        if (settings.fileName is not null)
-        {
-            return (
-                settings.fileName + uniquenessReceived,
-                settings.fileName + uniquenessVerified);
-        }
-
-        if (settings.ignoreParametersForVerified)
-        {
-            return (
-                $"{typeAndMethod}{parameterText}{uniquenessReceived}",
-                $"{typeAndMethod}{uniquenessVerified}");
-        }
-
-        return (
-            $"{typeAndMethod}{parameterText}{uniquenessReceived}",
-            $"{typeAndMethod}{parameterText}{uniquenessVerified}");
-    }
-
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
         var resolvedType = settings.typeName ?? pathInfo.TypeName ?? type;

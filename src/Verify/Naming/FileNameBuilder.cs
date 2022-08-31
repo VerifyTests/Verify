@@ -1,11 +1,7 @@
 ﻿static class FileNameBuilder
 {
     public static (string receivedPrefix, string verifiedPrefix) Build(
-        string methodName,
-        string typeName,
         VerifySettings settings,
-        List<string> methodParameters,
-        PathInfo pathInfo,
         string typeAndMethod,
         string parameterText)
     {
@@ -18,7 +14,7 @@
         var receivedBuilder = new StringBuilder(builder.Length);
         receivedBuilder.Append(builder);
         PrefixUnique.AppendRuntimeForReceived(settings.Namer, receivedBuilder);
-        
+
         var uniquenessReceived = receivedBuilder.ToString();
         var uniquenessVerified = verifiedBuilder.ToString();
         if (settings.fileName is not null)

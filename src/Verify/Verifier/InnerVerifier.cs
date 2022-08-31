@@ -20,7 +20,7 @@
         var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
-        var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(methodName, typeName, settings, methodParameters, pathInfo, typeAndMethod, parameterText);
+        var (receivedPrefix, verifiedPrefix) = FileNameBuilder.Build(settings, typeAndMethod, parameterText);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 

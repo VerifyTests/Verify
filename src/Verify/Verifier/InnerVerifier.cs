@@ -82,6 +82,9 @@
         }
     }
 
+    public Task<VerifyResult> Verify(object? target, Func<Task>? cleanup, IEnumerable<Target> targets) =>
+        VerifyInner(target, cleanup, targets);
+
     static void ValidatePrefix(VerifySettings settings, string filePathPrefix)
     {
         if (settings.UniquePrefixDisabled || VerifierSettings.UniquePrefixDisabled)

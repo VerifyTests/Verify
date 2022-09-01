@@ -64,11 +64,7 @@
         }
 
         var directory = Path.Combine(sourceFileDirectory, settingOrPathInfoDirectory);
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-
+        IoHelpers.CreateDirectory(directory);
         return directory;
     }
 

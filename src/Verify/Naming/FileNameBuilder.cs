@@ -7,7 +7,7 @@
         return $"{resolvedType}.{resolvedMethod}";
     }
 
-    public  static string GetParameterText(List<string> methodParameters, VerifySettings settings)
+    public static string GetParameterText(List<string> methodParameters, VerifySettings settings)
     {
         if (settings.parametersText is not null)
         {

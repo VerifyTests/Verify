@@ -28,10 +28,7 @@
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
 
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
+        IoHelpers.CreateDirectory(directory);
 
         var uniquenessVerified = sharedUniqueness;
         if (namer.ResolveUniqueForRuntimeAndVersion())
@@ -64,10 +61,7 @@
 
             string subDirectory = Path.Combine(directory,verifiedPrefix);
 
-            if (!Directory.Exists(subDirectory))
-            {
-                Directory.CreateDirectory(subDirectory);
-            }
+            IoHelpers.CreateDirectory(subDirectory);
 
             verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
 

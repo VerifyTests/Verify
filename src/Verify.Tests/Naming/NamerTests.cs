@@ -209,6 +209,41 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseUniqueDirectoryFluent()
+    {
+        #region UseUniqueDirectoryFluent
+
+        await Verify("UniqueDirectoryName")
+            .UseUniqueDirectory();
+
+        #endregion
+    }
+
+    [Fact]
+    public Task UseUniqueDirectory_TyeName() =>
+        Verify("UniqueDirectoryName")
+            .UseUniqueDirectory()
+            .UseTypeName("TheTypeName");
+
+    [Fact]
+    public Task UseUniqueDirectory_MethodName() =>
+        Verify("UniqueDirectoryName")
+            .UseUniqueDirectory()
+            .UseMethodName("TheMethodName");
+
+    [Fact]
+    public Task UseUniqueDirectory_Parameter() =>
+        Verify("UniqueDirectoryName")
+            .UseUniqueDirectory()
+            .UseParameters("Parameter");
+
+    [Fact]
+    public Task UseUniqueDirectory_FileName() =>
+        Verify("UniqueDirectoryName")
+            .UseUniqueDirectory()
+            .UseFileName("TheFileName");
+
+    [Fact]
     public async Task UseTypeName()
     {
         #region UseTypeName

@@ -59,7 +59,7 @@
                 verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
             }
 
-            string subDirectory = Path.Combine(directory,verifiedPrefix);
+            var subDirectory = Path.Combine(directory,verifiedPrefix);
 
             IoHelpers.CreateDirectory(subDirectory);
 

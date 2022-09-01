@@ -16,4 +16,14 @@ public abstract partial class VerifyBase
         this.settings = settings;
         this.sourceFile = sourceFile;
     }
+
+    public SettingsTask Verify(
+        object? target,
+        Func<Task>? cleanup,
+        IEnumerable<Target> targets,
+        VerifySettings? settings = null)
+    {
+        settings ??= this.settings;
+        return Verifier.Verify(target, cleanup, targets, settings, sourceFile);
+    }
 }

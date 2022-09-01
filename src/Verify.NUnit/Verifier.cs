@@ -92,4 +92,15 @@ public static partial class Verifier
                 return await verify(verifier);
             });
     }
+
+    public static SettingsTask Verify(
+        object? target,
+        Func<Task>? cleanup,
+        IEnumerable<Target> targets,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.Verify(target, cleanup, targets));
 }

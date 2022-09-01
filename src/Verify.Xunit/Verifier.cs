@@ -25,6 +25,17 @@ public static partial class Verifier
             methodParameters);
     }
 
+    public static SettingsTask Verify(
+        object? target,
+        Func<Task>? cleanup,
+        IEnumerable<Target> targets,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.Verify(target, cleanup, targets));
+
     static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {
         Guard.AgainstBadSourceFile(sourceFile);

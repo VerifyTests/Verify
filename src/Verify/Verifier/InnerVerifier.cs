@@ -26,18 +26,13 @@
 
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
 
-        if (settings.useUniqueDirectory)
-        {
-            
-            return;
-        }
-        
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
-        
+
         if (!Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
         }
+
         var uniquenessVerified = sharedUniqueness;
         if (namer.ResolveUniqueForRuntimeAndVersion())
         {
@@ -51,50 +46,91 @@
             }
         }
 
-        var uniquenessReceived = sharedUniqueness;
-        if (namer.ResolveUniqueForRuntimeAndVersion() ||
-            TargetAssembly.TargetsMultipleFramework)
+        if (settings.useUniqueDirectory)
         {
-            uniquenessReceived += $".{Namer.RuntimeAndVersion}";
-        }
+            string verifiedPrefix;
+            if (settings.fileName is not null)
+            {
+                verifiedPrefix = settings.fileName + uniquenessVerified;
+            }
+            else if (settings.ignoreParametersForVerified)
+            {
+                verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
+            }
+            else
+            {
+                verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+            }
 
-        string receivedPrefix;
-        string verifiedPrefix;
-        if (settings.fileName is not null)
-        {
-            receivedPrefix = settings.fileName + uniquenessReceived;
-            verifiedPrefix = settings.fileName + uniquenessVerified;
-        }
-        else if (settings.ignoreParametersForVerified)
-        {
-            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
-            verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
+            string subDirectory = Path.Combine(directory,verifiedPrefix);
+
+            if (!Directory.Exists(subDirectory))
+            {
+                Directory.CreateDirectory(subDirectory);
+            }
+
+            verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
+
+            var prefix = Path.Combine(subDirectory, "target");
+            getFileNames = target => new(target.Extension, prefix, prefix);
+            getIndexedFileNames = (target, index) =>
+            {
+                var suffix = GetIndexedSuffix(target, index);
+                return new(
+                    target.Extension,
+                    $"{prefix}.{suffix}",
+                    $"{prefix}.{suffix}");
+            };
+
+            //DeleteReceivedFiles(receivedPrefix, directory);
         }
         else
         {
-            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
-            verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+            var uniquenessReceived = sharedUniqueness;
+            if (namer.ResolveUniqueForRuntimeAndVersion() ||
+                TargetAssembly.TargetsMultipleFramework)
+            {
+                uniquenessReceived += $".{Namer.RuntimeAndVersion}";
+            }
+
+            string receivedPrefix;
+            string verifiedPrefix;
+            if (settings.fileName is not null)
+            {
+                receivedPrefix = settings.fileName + uniquenessReceived;
+                verifiedPrefix = settings.fileName + uniquenessVerified;
+            }
+            else if (settings.ignoreParametersForVerified)
+            {
+                receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+                verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
+            }
+            else
+            {
+                receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+                verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+            }
+
+
+            var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
+            var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
+            // intentionally do not validate filePathPrefixVerified
+            ValidatePrefix(settings, pathPrefixReceived);
+
+            verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
+
+            getFileNames = target => new(target.Extension, pathPrefixReceived, pathPrefixVerified);
+            getIndexedFileNames = (target, index) =>
+            {
+                var suffix = GetIndexedSuffix(target, index);
+                return new(
+                    target.Extension,
+                    $"{pathPrefixReceived}.{suffix}",
+                    $"{pathPrefixVerified}.{suffix}");
+            };
+
+            DeleteReceivedFiles(receivedPrefix, directory);
         }
-
-
-        var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
-        var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
-        // intentionally do not validate filePathPrefixVerified
-        ValidatePrefix(settings, pathPrefixReceived);
-
-        verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
-
-        getFileNames = target => new(target.Extension, pathPrefixReceived, pathPrefixVerified);
-        getIndexedFileNames = (target, index) =>
-        {
-            var suffix = GetIndexedSuffix(target, index);
-            return new(
-                target.Extension,
-                $"{pathPrefixReceived}.{suffix}",
-                $"{pathPrefixVerified}.{suffix}");
-        };
-
-        DeleteReceivedFiles(receivedPrefix, directory);
     }
 
     static string GetIndexedSuffix(Target target, int index)

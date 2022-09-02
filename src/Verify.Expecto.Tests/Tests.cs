@@ -1,6 +1,9 @@
 ﻿public class Tests
 {
-    [Tests] public static Test tests = Runner.TestCase(
+    [Tests]
+    public static Test myTest = Runner.TestCase(
         "myTest",
-        () => Verify("myTest", "value"));
+        () => Verify(
+            name: nameof(myTest),
+            target: "value"));
 }

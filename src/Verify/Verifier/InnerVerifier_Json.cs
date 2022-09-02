@@ -72,8 +72,8 @@
         if (typeof(T).ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) target;
-            var streams = enumerable.Cast<Stream>().Select(ToTarget);
-            return await VerifyInner(null, null, streams);
+            var targets = enumerable.Cast<Stream>().Select(ToTarget);
+            return await VerifyInner(null, null, targets);
         }
 
         AssertExtensionIsNull();

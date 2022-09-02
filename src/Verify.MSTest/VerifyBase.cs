@@ -40,6 +40,19 @@ public abstract partial class VerifyBase
             method.ParameterNames());
     }
 
+    public SettingsTask Verify(
+        object? target,
+        IEnumerable<Target> rawTargets,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.Verify(target, rawTargets));
+
+    public SettingsTask Verify(
+        IEnumerable<Target> targets,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.Verify(targets));
+
     SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {
         Guard.AgainstBadSourceFile(sourceFile);

@@ -27,14 +27,13 @@ public static partial class Verifier
 
     public static SettingsTask Verify(
         object? target,
-        Func<Task>? cleanup,
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
             settings,
             sourceFile,
-            _ => _.Verify(target, cleanup, targets));
+            _ => _.Verify(target, null, targets));
 
     static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {

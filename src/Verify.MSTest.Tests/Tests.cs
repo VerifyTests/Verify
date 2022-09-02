@@ -22,4 +22,17 @@ public class Tests :
     public Task UseTextForParameters(string arg) =>
         Verify(arg)
             .UseTextForParameters("TextForParameter");
+
+    [TestMethod]
+    public Task WithTargets() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            null,
+            new[]
+            {
+                new Target("txt", "TextTarget")
+            });
 }

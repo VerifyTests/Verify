@@ -31,4 +31,15 @@ public static partial class Verifier
         using var verifier = GetVerifier(settings, sourceFile, name);
         return await verify(verifier);
     }
+
+    public Task<VerifyResult> Verify(
+        string name,
+        object? target,
+        IEnumerable<Target> targets,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target, null, targets));
+    }
 }

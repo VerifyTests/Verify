@@ -20,4 +20,17 @@ public class Tests
     public Task TestCaseWithNameAndInvalidChars(string arg) =>
         Verify(arg)
             .UseTextForParameters("TextForParameter");
+
+    [Test]
+    public Task WithTargets() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            null,
+            new[]
+            {
+                new Target("txt", "TextTarget")
+            });
 }

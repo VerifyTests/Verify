@@ -42,11 +42,10 @@ public abstract partial class VerifyBase
 
     public SettingsTask Verify(
         object? target,
-        Func<Task>? cleanup,
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.Verify(target, cleanup, targets));
+        Verify(settings, sourceFile, _ => _.Verify(target, null, targets));
 
     SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
     {

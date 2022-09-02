@@ -11,6 +11,14 @@
         }
     }
 
+    public static void CreateDirectory(string directory)
+    {
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+    }
+
     public static void MoveToStart(this Stream stream)
     {
         if (stream.CanSeek)

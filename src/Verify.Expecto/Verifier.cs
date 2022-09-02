@@ -2,18 +2,8 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string name)
+    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName)
     {
-        if (settings.typeName is not null)
-        {
-            ThrowNotSupported(nameof(VerifySettings.UseTypeName));
-        }
-
-        if (settings.methodName is not null)
-        {
-            ThrowNotSupported(nameof(VerifySettings.UseMethodName));
-        }
-
         if (settings.parameters is not null)
         {
             ThrowNotSupported(nameof(VerifySettings.UseParameters));
@@ -24,18 +14,9 @@ public static partial class Verifier
             ThrowNotSupported(nameof(VerifySettings.UseTextForParameters));
         }
 
-        return new(
-            sourceFile,
-            settings,
-            (uniquenessReceived, uniquenessVerified) =>
-            {
-                var directory = settings.Directory ?? Path.GetDirectoryName(sourceFile)!;
-                var fileName = Path.GetFileNameWithoutExtension(sourceFile);
-                return (
-                    receivedPrefix: $"{fileName}.{name}{uniquenessReceived}",
-                    verifiedPrefix: $"{fileName}.{name}{uniquenessVerified}",
-                    directory);
-            });
+        var fileName = Path.GetFileNameWithoutExtension(sourceFile);
+
+        return new(sourceFile, settings, fileName, methodName, new());
     }
 
     [DoesNotReturn]

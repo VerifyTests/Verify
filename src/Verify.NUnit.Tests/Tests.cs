@@ -34,7 +34,7 @@ public class Tests
             {
                 new Target(
                     extension: "txt",
-                    stringData: "Raw target value",
+                    data: "Raw target value",
                     name: "targetName")
             });
 

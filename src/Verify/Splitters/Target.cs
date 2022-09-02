@@ -53,7 +53,7 @@ public readonly struct Target
 
     public bool IsStringBuilder => stringBuilderData is not null;
 
-    public Target(string extension, Stream streamData, string? name = null)
+    public Target(string extension, Stream data, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
 
@@ -64,12 +64,12 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
-        this.streamData = streamData;
+        this.streamData = data;
         stringData = null;
         stringBuilderData = null;
     }
 
-    public Target(string extension, StringBuilder stringBuilderData, string? name = null)
+    public Target(string extension, StringBuilder data, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
         if (!EmptyFiles.Extensions.IsText(extension))
@@ -81,10 +81,10 @@ public readonly struct Target
         Name = name;
         stringData = null;
         streamData = null;
-        this.stringBuilderData = stringBuilderData;
+        this.stringBuilderData = data;
     }
 
-    public Target(string extension, string stringData, string? name = null)
+    public Target(string extension, string data, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
         Guard.AgainstBadTargetName(name, nameof(name));
@@ -95,7 +95,7 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
-        this.stringData = stringData;
+        this.stringData = data;
         streamData = null;
         stringBuilderData = null;
     }

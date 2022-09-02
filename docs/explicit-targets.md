@@ -28,7 +28,7 @@ public Task WithTargets() =>
         {
             new Target(
                 extension: "txt",
-                stringData: "Raw target value",
+                data: "Raw target value",
                 name: "targetName")
         });
 ```
@@ -52,7 +52,7 @@ public Task WithTargets() =>
         {
             new Target(
                 extension: "txt",
-                stringData: "Raw target value",
+                data: "Raw target value",
                 name: "targetName")
         });
 ```
@@ -76,7 +76,7 @@ public Task WithTargets() =>
         {
             new Target(
                 extension: "txt",
-                stringData: "Raw target value",
+                data: "Raw target value",
                 name: "targetName")
         });
 ```

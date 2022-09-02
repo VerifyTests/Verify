@@ -26,12 +26,11 @@ public class Tests :
     [TestMethod]
     public Task WithTargets() =>
         Verify(
-            new
+            target: new
             {
                 Property = "Value"
             },
-            null,
-            new[]
+            rawTargets: new[]
             {
                 new Target("txt", "TextTarget")
             });

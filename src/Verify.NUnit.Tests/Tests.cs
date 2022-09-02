@@ -28,7 +28,6 @@ public class Tests
             {
                 Property = "Value"
             },
-            null,
             new[]
             {
                 new Target("txt", "TextTarget")

@@ -82,8 +82,11 @@
         }
     }
 
-    public Task<VerifyResult> Verify(object? target, Func<Task>? cleanup, IEnumerable<Target> targets) =>
-        VerifyInner(target, cleanup, targets);
+    public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
+        VerifyInner(target, null, rawTargets);
+
+    public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>
+        VerifyInner(null, null, targets);
 
     static void ValidatePrefix(VerifySettings settings, string filePathPrefix)
     {

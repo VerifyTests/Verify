@@ -11,5 +11,13 @@
     public static Test withTargets = Runner.TestCase(
         "withTargets",
         () => Verify(
-            nameof(withTargets), "value"));
+            name: nameof(withTargets),
+            target: new
+            {
+                Property = "Value"
+            },
+            rawTargets: new[]
+            {
+                new Target("txt", "TextTarget")
+            }));
 }

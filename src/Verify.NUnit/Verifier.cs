@@ -95,12 +95,20 @@ public static partial class Verifier
 
     public static SettingsTask Verify(
         object? target,
-        Func<Task>? cleanup,
+        IEnumerable<Target> rawTargets,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.Verify(target, rawTargets));
+
+    public static SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(
             settings,
             sourceFile,
-            _ => _.Verify(target, cleanup, targets));
+            _ => _.Verify(targets));
 }

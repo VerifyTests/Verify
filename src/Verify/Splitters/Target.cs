@@ -77,6 +77,18 @@ public readonly struct Target
             throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");
         }
 
+        if (name != null)
+        {
+            Guard.AgainstEmpty(name, nameof(name));
+            if (name.Contains('.'))
+            {
+                throw new ArgumentException("Name cannot contain '.'.");
+            }
+            if (char.IsNumber(name.First()))
+            {
+                throw new ArgumentException("Name cannot start with a number.");
+            }
+        }
         Extension = extension;
         Name = name;
         stringData = null;

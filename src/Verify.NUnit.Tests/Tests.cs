@@ -21,6 +21,8 @@ public class Tests
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
+    #region ExplicitTargetsNunit
+
     [Test]
     public Task WithTargets() =>
         Verify(
@@ -30,6 +32,11 @@ public class Tests
             },
             new[]
             {
-                new Target("txt", "TextTarget")
+                new Target(
+                    extension: "txt",
+                    stringData: "Raw target value",
+                    name: "targetName")
             });
+
+    #endregion
 }

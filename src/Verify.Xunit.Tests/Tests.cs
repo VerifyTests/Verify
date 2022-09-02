@@ -12,17 +12,6 @@ public class Tests
         Verify(arg)
             .UseFileName("UseFileNameWithParam");
 
-    [Fact]
-    public Task WithTargets() =>
-        Verify(
-            new
-            {
-                Property = "Value"
-            },
-            new[]
-            {
-                new Target("txt", "TextTarget")
-            });
 
     public static IEnumerable<object[]> GetData() =>
         new[]
@@ -32,4 +21,23 @@ public class Tests
                 "Value1"
             }
         };
+
+    #region ExplicitTargetsXunit
+
+    [Fact]
+    public Task WithTargets() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            new[]
+            {
+                new Target(
+                    extension: "txt",
+                    stringData: "Raw target value",
+                    name: "targetName")
+            });
+
+    #endregion
 }

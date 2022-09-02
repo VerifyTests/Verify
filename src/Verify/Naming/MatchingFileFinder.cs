@@ -4,28 +4,42 @@
     {
         foreach (var file in Directory.EnumerateFiles(directory, $"{fileNamePrefix}.*.*"))
         {
-            var name = Path.GetFileNameWithoutExtension(file);
-            if (!name.EndsWith(suffix))
-            {
-                continue;
-            }
-
-            var nameLength = name.Length - fileNamePrefix.Length;
-            var prefixRemoved = name
-                .Substring(fileNamePrefix.Length, nameLength);
-            if (prefixRemoved == suffix)
-            {
-                yield return file;
-                continue;
-            }
-
-            var numberPart = prefixRemoved
-                .Substring(1, prefixRemoved.Length - suffix.Length - 1);
-
-            if (ushort.TryParse(numberPart, out _))
+            if (ShouldInclude(fileNamePrefix, suffix, file))
             {
                 yield return file;
             }
         }
+    }
+
+    public static bool ShouldInclude(string fileNamePrefix, string suffix, string file)
+    {
+        var name = Path.GetFileNameWithoutExtension(file);
+        if (!name.EndsWith(suffix))
+        {
+            return false;
+        }
+
+        var nameWithoutSuffix = name[..^suffix.Length];
+        if (nameWithoutSuffix == fileNamePrefix)
+        {
+            return true;
+        }
+
+        var nameLength = nameWithoutSuffix.Length - fileNamePrefix.Length;
+        var potentialIndexPart = nameWithoutSuffix
+            .Substring(fileNamePrefix.Length, nameLength);
+
+        if (!potentialIndexPart.StartsWith('.'))
+        {
+            return false;
+        }
+
+        if (ushort.TryParse(new(potentialIndexPart.Skip(1).Take(2).ToArray()), out _))
+        {
+            var potentialPrefix = nameWithoutSuffix[..^potentialIndexPart.Length];
+            return fileNamePrefix == potentialPrefix;
+        }
+
+        return false;
     }
 }

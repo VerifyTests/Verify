@@ -23,6 +23,8 @@ public class Tests :
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
+    #region ExplicitTargetsMsTest
+
     [TestMethod]
     public Task WithTargets() =>
         Verify(
@@ -32,6 +34,11 @@ public class Tests :
             },
             rawTargets: new[]
             {
-                new Target("txt", "TextTarget")
+                new Target(
+                    extension: "txt",
+                    data: "Raw target value",
+                    name: "targetName")
             });
+
+    #endregion
 }

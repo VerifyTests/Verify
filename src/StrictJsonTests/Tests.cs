@@ -87,7 +87,7 @@ public class Tests
                 };
                 return new(info, "txt", "content");
             });
-        return Verify(new MemoryStream())
+        return Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("foo");
     }
 }

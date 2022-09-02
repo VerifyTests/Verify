@@ -518,14 +518,24 @@ line3"
             property = new Dictionary<string, string>()
         });
 
-
     [Fact]
     public Task ByteArray() =>
+        Verify(new byte[] {1});
+
+    [Fact]
+    public Task NestedByteArray() =>
         Verify(
             new
             {
                 bytes = new byte[] {1}
             });
+
+    [Fact]
+    public async Task EmptyBinary()
+    {
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>()));
+        Assert.Equal("Empty data is not allowed.", exception.Message);
+    }
 
     [Fact]
     public Task ExampleNonDefaults()

@@ -150,7 +150,7 @@
             return $"{index:D2}";
         }
 
-        return $"{index:D2}.{target.Name}";
+        return target.Name;
     }
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)

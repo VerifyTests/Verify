@@ -1,1 +1,1 @@
-﻿UniqueDirectoryName
+﻿TheValue

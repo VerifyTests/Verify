@@ -1,1 +1,1 @@
-﻿UniqueDirectoryName
+﻿UseUniqueDirectory_TyeName

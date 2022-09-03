@@ -203,7 +203,7 @@ public class NamerTests
 
         var settings = new VerifySettings();
         settings.UseUniqueDirectory();
-        await Verify("UniqueDirectoryName", settings);
+        await Verify("TheValue", settings);
 
         #endregion
     }
@@ -213,7 +213,7 @@ public class NamerTests
     {
         #region UseUniqueDirectoryFluent
 
-        await Verify("UniqueDirectoryName")
+        await Verify("TheValue")
             .UseUniqueDirectory();
 
         #endregion
@@ -221,25 +221,37 @@ public class NamerTests
 
     [Fact]
     public Task UseUniqueDirectory_TyeName() =>
-        Verify("UniqueDirectoryName")
+        Verify("UseUniqueDirectory_TyeName")
             .UseUniqueDirectory()
             .UseTypeName("TheTypeName");
 
     [Fact]
+    public Task UseUniqueDirectory_UniqueForRuntime() =>
+        Verify("UseUniqueDirectory_UniqueForRuntime")
+            .UseUniqueDirectory()
+            .UniqueForRuntime();
+
+    [Fact]
+    public Task UseUniqueDirectory_UniqueForTargetFrameworkAndVersion() =>
+        Verify("UseUniqueDirectory_UniqueForTargetFrameworkAndVersion")
+            .UseUniqueDirectory()
+            .UniqueForTargetFrameworkAndVersion();
+
+    [Fact]
     public Task UseUniqueDirectory_MethodName() =>
-        Verify("UniqueDirectoryName")
+        Verify("UseUniqueDirectory_MethodName")
             .UseUniqueDirectory()
             .UseMethodName("TheMethodName");
 
     [Fact]
     public Task UseUniqueDirectory_Parameter() =>
-        Verify("UniqueDirectoryName")
+        Verify("UseUniqueDirectory_Parameter")
             .UseUniqueDirectory()
             .UseParameters("Parameter");
 
     [Fact]
     public Task UseUniqueDirectory_FileName() =>
-        Verify("UniqueDirectoryName")
+        Verify("UseUniqueDirectory_FileName")
             .UseUniqueDirectory()
             .UseFileName("TheFileName");
 

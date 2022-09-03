@@ -15,6 +15,7 @@ public partial class VerifySettings
         diffEnabled = settings.diffEnabled;
         methodName = settings.methodName;
         typeName = settings.typeName;
+        useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
         serialization = settings.serialization;

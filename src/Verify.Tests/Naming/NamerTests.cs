@@ -197,6 +197,65 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseUniqueDirectory()
+    {
+        #region UseUniqueDirectory
+
+        var settings = new VerifySettings();
+        settings.UseUniqueDirectory();
+        await Verify("TheValue", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseUniqueDirectoryFluent()
+    {
+        #region UseUniqueDirectoryFluent
+
+        await Verify("TheValue")
+            .UseUniqueDirectory();
+
+        #endregion
+    }
+
+    [Fact]
+    public Task UseUniqueDirectory_TyeName() =>
+        Verify("UseUniqueDirectory_TyeName")
+            .UseUniqueDirectory()
+            .UseTypeName("TheTypeName");
+
+    [Fact]
+    public Task UseUniqueDirectory_UniqueForRuntime() =>
+        Verify("UseUniqueDirectory_UniqueForRuntime")
+            .UseUniqueDirectory()
+            .UniqueForRuntime();
+
+    [Fact]
+    public Task UseUniqueDirectory_UniqueForTargetFrameworkAndVersion() =>
+        Verify("UseUniqueDirectory_UniqueForTargetFrameworkAndVersion")
+            .UseUniqueDirectory()
+            .UniqueForTargetFrameworkAndVersion();
+
+    [Fact]
+    public Task UseUniqueDirectory_MethodName() =>
+        Verify("UseUniqueDirectory_MethodName")
+            .UseUniqueDirectory()
+            .UseMethodName("TheMethodName");
+
+    [Fact]
+    public Task UseUniqueDirectory_Parameter() =>
+        Verify("UseUniqueDirectory_Parameter")
+            .UseUniqueDirectory()
+            .UseParameters("Parameter");
+
+    [Fact]
+    public Task UseUniqueDirectory_FileName() =>
+        Verify("UseUniqueDirectory_FileName")
+            .UseUniqueDirectory()
+            .UseFileName("TheFileName");
+
+    [Fact]
     public async Task UseTypeName()
     {
         #region UseTypeName

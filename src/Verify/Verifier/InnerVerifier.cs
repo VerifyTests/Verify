@@ -56,14 +56,14 @@
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)
     {
-        var settingOrPathInfoDirectory = settings.Directory ?? pathInfo.Directory;
+        var settingsOrInfoDirectory = settings.Directory ?? pathInfo.Directory;
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-        if (settingOrPathInfoDirectory is null)
+        if (settingsOrInfoDirectory is null)
         {
             return sourceFileDirectory;
         }
 
-        var directory = Path.Combine(sourceFileDirectory, settingOrPathInfoDirectory);
+        var directory = Path.Combine(sourceFileDirectory, settingsOrInfoDirectory);
         IoHelpers.CreateDirectory(directory);
         return directory;
     }

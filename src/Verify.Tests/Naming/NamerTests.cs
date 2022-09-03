@@ -220,6 +220,26 @@ public class NamerTests
     }
 
     [Fact]
+    public Task UseUniqueDirectory_Target() =>
+        Verify(
+                "UseUniqueDirectory_Target",
+                new []
+                {
+                    new Target("txt", "data")
+                })
+            .UseUniqueDirectory();
+
+    [Fact]
+    public Task UseUniqueDirectory_TargetWithName() =>
+        Verify(
+                "UseUniqueDirectory_Target",
+                new []
+                {
+                    new Target("txt", "data", "name")
+                })
+            .UseUniqueDirectory();
+
+    [Fact]
     public Task UseUniqueDirectory_TyeName() =>
         Verify("UseUniqueDirectory_TyeName")
             .UseUniqueDirectory()

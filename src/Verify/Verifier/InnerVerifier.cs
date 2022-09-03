@@ -134,19 +134,21 @@
             return $"{index:D2}";
         }
 
-        return $"{index:D2}{target.Name}";
+        return $"{index:D2}.{target.Name}";
     }
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)
     {
-        var settingOrPathInfoDirectory = settings.Directory ?? pathInfo.Directory;
+        var settingsOrInfoDirectory = settings.Directory ?? pathInfo.Directory;
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
-        if (settingOrPathInfoDirectory is null)
+        if (settingsOrInfoDirectory is null)
         {
             return sourceFileDirectory;
         }
 
-        return Path.Combine(sourceFileDirectory, settingOrPathInfoDirectory);
+        var directory = Path.Combine(sourceFileDirectory, settingsOrInfoDirectory);
+        IoHelpers.CreateDirectory(directory);
+        return directory;
     }
 
     static void DeleteReceivedFiles(string receivedFileNamePrefix, string directory)

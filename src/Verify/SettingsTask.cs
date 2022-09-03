@@ -223,7 +223,7 @@ public partial class SettingsTask
 
     /// <summary>
     /// Use a directory for the test results.
-    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/result.verified.{extension}`.
+    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/{targetName}.verified.{extension}`.
     /// </summary>
     public SettingsTask UseUniqueDirectory()
     {

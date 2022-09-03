@@ -179,3 +179,19 @@ snippet: defaultDerivePathInfo
 
 Snapshot file names have to be unique. If a duplicate name is used, then an exception will be throw. This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation
 
+
+## UseUniqueDirectory
+
+An alternative to the "unique file name in the current test directory".
+
+This approach uses "a unique directory in the current test directory".
+
+Useful when many test produce many files, and it is desirable to have them grouped in a directory.
+
+The file format is:
+
+```
+{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}/{targetName}.verified.{extension}
+```
+
+snippet: UseUniqueDirectory

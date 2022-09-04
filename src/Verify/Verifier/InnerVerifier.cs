@@ -68,7 +68,7 @@
         getFileNames = target => new(target.Extension, prefix, prefix);
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = GetIndexedSuffix(target, index);
+            var suffix = target.IndexOrName(index);
             return new(
                 target.Extension,
                 $"{prefix}.{suffix}",
@@ -115,7 +115,7 @@
         getFileNames = target => new(target.Extension, pathPrefixReceived, pathPrefixVerified);
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = GetIndexedSuffix(target, index);
+            var suffix = target.IndexOrName(index);
             return new(
                 target.Extension,
                 $"{pathPrefixReceived}.{suffix}",
@@ -143,16 +143,6 @@
         return uniquenessVerified;
     }
 
-    static string GetIndexedSuffix(Target target, int index)
-    {
-        if (target.Name is null)
-        {
-            return $"{index:D2}";
-        }
-
-        return target.Name;
-    }
-
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)
     {
         var settingsOrInfoDirectory = settings.Directory ?? pathInfo.Directory;
@@ -171,13 +161,7 @@
     {
         foreach (var file in MatchingFileFinder.Find(receivedFileNamePrefix, ".received", directory))
         {
-            try
-            {
-                File.Delete(file);
-            }
-            catch
-            {
-            }
+            IoHelpers.Delete(file);
         }
     }
 

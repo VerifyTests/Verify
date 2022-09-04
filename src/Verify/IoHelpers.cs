@@ -11,6 +11,17 @@
         }
     }
 
+    public static void Delete(string file)
+    {
+        try
+        {
+            File.Delete(file);
+        }
+        catch
+        {
+        }
+    }
+
     public static void CreateDirectory(string directory)
     {
         if (!Directory.Exists(directory))
@@ -29,7 +40,7 @@
 
     public static void ThrowIfEmpty(this Stream stream)
     {
-        if (stream.Length== 0)
+        if (stream.Length == 0)
         {
             throw new("Empty data not supported.");
         }

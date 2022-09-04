@@ -29,15 +29,19 @@
         var potentialIndexPart = nameWithoutSuffix
             .Substring(fileNamePrefix.Length, nameLength);
 
-        if (!potentialIndexPart.StartsWith('.'))
-        {
-            return false;
-        }
-
-        if (ushort.TryParse(new(potentialIndexPart.Skip(1).Take(2).ToArray()), out _))
+        if (potentialIndexPart.StartsWith('#'))
         {
             var potentialPrefix = nameWithoutSuffix[..^potentialIndexPart.Length];
             return fileNamePrefix == potentialPrefix;
+        }
+
+        if (potentialIndexPart.StartsWith('.'))
+        {
+            if (ushort.TryParse(new(potentialIndexPart.Skip(1).Take(2).ToArray()), out _))
+            {
+                var potentialPrefix = nameWithoutSuffix[..^potentialIndexPart.Length];
+                return fileNamePrefix == potentialPrefix;
+            }
         }
 
         return false;

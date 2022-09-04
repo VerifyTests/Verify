@@ -371,14 +371,14 @@ public Task UseTextForParameters(string arg)
 {
     var settings = new VerifySettings();
     settings.UseTextForParameters(arg);
-    return Verify(arg+"UseTextForParameters", settings);
+    return Verify(arg + "UseTextForParameters", settings);
 }
 
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
 public Task UseTextForParametersFluent(string arg) =>
-    Verify(arg+"UseTextForParametersFluent")
+    Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L361-L380' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>

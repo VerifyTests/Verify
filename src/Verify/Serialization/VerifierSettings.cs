@@ -16,13 +16,19 @@ public static partial class VerifierSettings
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
         #region typeToStringMapping
-
         {typeof(ParameterInfo), (target, _) => ((ParameterInfo) target).SimpleName()},
         {typeof(ConstructorInfo), (target, _) => ((ConstructorInfo) target).SimpleName()},
         {typeof(MethodInfo), (target, _) => ((MethodInfo) target).SimpleName()},
         {typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
         {typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},
         {typeof(Type), (target, _) => ((Type) target).SimpleName()},
+#if !NETFRAMEWORK
+        {Type.GetType("System.Reflection.RuntimeParameterInfo")!, (target, _) => ((ParameterInfo) target).SimpleName()},
+        {Type.GetType("System.Reflection.RuntimeConstructorInfo")!, (target, _) => ((ConstructorInfo) target).SimpleName()},
+        {Type.GetType("System.Reflection.RuntimeMethodInfo")!, (target, _) => ((MethodInfo) target).SimpleName()},
+        {Type.GetType("System.Reflection.RuntimePropertyInfo")!, (target, _) => ((PropertyInfo) target).SimpleName()},
+        {Type.GetType("System.Reflection.RuntimeFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
+#endif
         {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},

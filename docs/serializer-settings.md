@@ -1507,6 +1507,13 @@ The default mapping is:
 {typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
 {typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},
 {typeof(Type), (target, _) => ((Type) target).SimpleName()},
+#if !NETFRAMEWORK
+{Type.GetType("System.Reflection.RuntimeParameterInfo")!, (target, _) => ((ParameterInfo) target).SimpleName()},
+{Type.GetType("System.Reflection.RuntimeConstructorInfo")!, (target, _) => ((ConstructorInfo) target).SimpleName()},
+{Type.GetType("System.Reflection.RuntimeMethodInfo")!, (target, _) => ((MethodInfo) target).SimpleName()},
+{Type.GetType("System.Reflection.RuntimePropertyInfo")!, (target, _) => ((PropertyInfo) target).SimpleName()},
+{Type.GetType("System.Reflection.RuntimeFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
+#endif
 {typeof(string), (target, _) => (string) target},
 {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
 {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
@@ -1598,7 +1605,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L18-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L18-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

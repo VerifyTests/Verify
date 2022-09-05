@@ -223,7 +223,7 @@ public class NamerTests
     public Task UseUniqueDirectory_Target() =>
         Verify(
                 "UseUniqueDirectory_Target",
-                new []
+                new[]
                 {
                     new Target("txt", "data")
                 })
@@ -233,7 +233,7 @@ public class NamerTests
     public Task UseUniqueDirectory_TargetWithName() =>
         Verify(
                 "UseUniqueDirectory_Target",
-                new []
+                new[]
                 {
                     new Target("txt", "data", "name")
                 })
@@ -367,14 +367,14 @@ public class NamerTests
     {
         var settings = new VerifySettings();
         settings.UseTextForParameters(arg);
-        return Verify(arg+"UseTextForParameters", settings);
+        return Verify(arg + "UseTextForParameters", settings);
     }
 
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
     public Task UseTextForParametersFluent(string arg) =>
-        Verify(arg+"UseTextForParametersFluent")
+        Verify(arg + "UseTextForParametersFluent")
             .UseTextForParameters(arg);
 
     #endregion
@@ -471,4 +471,52 @@ public class NamerTests
         var settings = new VerifySettings();
         return Verify("valueIgnoreParametersForVerified", settings);
     }
+
+    [Fact]
+    public Task SingleTarget() =>
+        Verify(
+            null,
+            new[]
+            {
+                new Target("txt", "data")
+            });
+
+    [Fact]
+    public Task SingleTargetWithName() =>
+        Verify(
+            null,
+            new[]
+            {
+                new Target("txt", "data", "theNameA")
+            });
+
+    [Fact]
+    public Task MultipleTarget() =>
+        Verify(
+            null,
+            new[]
+            {
+                new Target("txt", "data"),
+                new Target("txt", "data")
+            });
+
+    [Fact]
+    public Task MultipleTargetWithName() =>
+        Verify(
+            null,
+            new[]
+            {
+                new Target("txt", "data", "theNameA"),
+                new Target("txt", "data", "theNameB")
+            });
+
+    [Fact]
+    public Task MultipleTargetWithDuplicateName() =>
+        Verify(
+            null,
+            new[]
+            {
+                new Target("txt", "data", "theNameA"),
+                new Target("txt", "data", "theNameA")
+            });
 }

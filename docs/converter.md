@@ -28,20 +28,20 @@ Both the following examples take an input tiff and convert it to:
 
 The info file:
 
-<!-- snippet: ConverterSnippets.Type.00.verified.txt -->
-<a id='snippet-ConverterSnippets.Type.00.verified.txt'></a>
+<!-- snippet: ConverterSnippets.Type.verified.txt -->
+<a id='snippet-ConverterSnippets.Type.verified.txt'></a>
 ```txt
 {
   PixelFormat: Format8bppIndexed,
   Size: 473, 355
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.Type.00.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConverterSnippets.Type.00.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.Type.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-ConverterSnippets.Type.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Multiple png files:
 
-<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.01.verified.png" alt="Converter page one verified" width="200"><img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.02.verified.png" alt="Converter page one verified" width="200">
+<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type#01.verified.png" alt="Converter page one verified" width="200"><img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type#02.verified.png" alt="Converter page one verified" width="200">
 
 
 ### Typed converter

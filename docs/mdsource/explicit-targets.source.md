@@ -22,6 +22,6 @@ snippet: ExplicitTargetsXunit
 
 ## Result
 
-snippet: Verify.MSTest.Tests/Tests.WithTargets.00.verified.txt
+snippet: Verify.MSTest.Tests/Tests.WithTargets.verified.txt
 
-snippet: Verify.MSTest.Tests/Tests.WithTargets.targetName.verified.txt
+snippet: Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt

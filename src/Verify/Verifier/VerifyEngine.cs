@@ -52,6 +52,7 @@ class VerifyEngine
 
     public async Task HandleResults(List<Target> targetList)
     {
+
         if (targetList.Count == 1)
         {
             var target = targetList.Single();
@@ -62,11 +63,11 @@ class VerifyEngine
         }
 
         var textHasFailed = false;
-        for (var index = 0; index < targetList.Count; index++)
+
+        async Task Inner(FilePair file, Target target)
         {
-            var target = targetList[index];
-            var file = getIndexedFileNames(target, index);
             var result = await GetResult(settings, file, target, textHasFailed);
+
             if (file.IsText &&
                 result.Equality != Equality.Equal)
             {
@@ -74,6 +75,25 @@ class VerifyEngine
             }
 
             HandleCompareResult(result, file);
+        }
+
+        foreach (var group in targetList.GroupBy(_ => $"{_.Name}:{_.Extension}"))
+        {
+            var targets = group.ToList();
+            if (targets.Count == 1)
+            {
+                var target = targets[0];
+                var file = getFileNames(target);
+                await Inner(file, target);
+                continue;
+            }
+
+            for (var index = 0; index < targets.Count; index++)
+            {
+                var target = targets[index];
+                var file = getIndexedFileNames(target, index);
+                await Inner(file, target);
+            }
         }
     }
 

@@ -14,32 +14,9 @@
     public static bool ShouldInclude(string fileNamePrefix, string suffix, string file)
     {
         var name = Path.GetFileNameWithoutExtension(file);
-        if (!name.EndsWith(suffix))
-        {
-            return false;
-        }
 
-        var nameWithoutSuffix = name[..^suffix.Length];
-        if (nameWithoutSuffix == fileNamePrefix)
-        {
-            return true;
-        }
-
-        var nameLength = nameWithoutSuffix.Length - fileNamePrefix.Length;
-        var potentialIndexPart = nameWithoutSuffix
-            .Substring(fileNamePrefix.Length, nameLength);
-
-        if (!potentialIndexPart.StartsWith('.'))
-        {
-            return false;
-        }
-
-        if (ushort.TryParse(new(potentialIndexPart.Skip(1).Take(2).ToArray()), out _))
-        {
-            var potentialPrefix = nameWithoutSuffix[..^potentialIndexPart.Length];
-            return fileNamePrefix == potentialPrefix;
-        }
-
-        return false;
+        return (name.StartsWith(fileNamePrefix + ".") ||
+                name.StartsWith(fileNamePrefix + '#')) &&
+               name.EndsWith(suffix);
     }
 }

@@ -65,10 +65,32 @@
         verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
 
         var prefix = Path.Combine(subDirectory, "target");
-        getFileNames = target => new(target.Extension, prefix, prefix);
+        getFileNames = target =>
+        {
+            string? suffix;
+            if (target.Name is not null)
+            {
+                suffix = $"#{target.Name}";
+            }
+            else
+            {
+                suffix = "";
+            }
+
+            return new(target.Extension, prefix+suffix, prefix+suffix);
+        };
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = target.IndexOrName(index);
+            string suffix;
+            if (target.Name is null)
+            {
+                suffix = $"#{index:D2}";
+            }
+            else
+            {
+                suffix = $"#{target.Name}.{index:D2}";
+            }
+
             return new(
                 target.Extension,
                 $"{prefix}.{suffix}",
@@ -112,14 +134,36 @@
 
         verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
 
-        getFileNames = target => new(target.Extension, pathPrefixReceived, pathPrefixVerified);
+        getFileNames = target =>
+        {
+            string? suffix;
+            if (target.Name is not null)
+            {
+                suffix = $"#{target.Name}";
+            }
+            else
+            {
+                suffix = "";
+            }
+
+            return new(target.Extension, $"{pathPrefixReceived}{suffix}", $"{pathPrefixVerified}{suffix}");
+        };
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = target.IndexOrName(index);
+            string suffix;
+            if (target.Name is null)
+            {
+                suffix = $"#{index:D2}";
+            }
+            else
+            {
+                suffix = $"#{target.Name}.{index:D2}";
+            }
+
             return new(
                 target.Extension,
-                $"{pathPrefixReceived}.{suffix}",
-                $"{pathPrefixVerified}.{suffix}");
+                $"{pathPrefixReceived}{suffix}",
+                $"{pathPrefixVerified}{suffix}");
         };
 
         DeleteReceivedFiles(receivedPrefix, directory);

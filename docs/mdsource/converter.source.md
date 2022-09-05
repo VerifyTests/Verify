@@ -21,11 +21,11 @@ Both the following examples take an input tiff and convert it to:
 
 The info file:
 
-snippet: ConverterSnippets.Type.00.verified.txt
+snippet: ConverterSnippets.Type.verified.txt
 
 Multiple png files:
 
-<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.01.verified.png" alt="Converter page one verified" width="200"><img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type.02.verified.png" alt="Converter page one verified" width="200">
+<img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type#01.verified.png" alt="Converter page one verified" width="200"><img src="../src/Verify.Tests/Snippets/ConverterSnippets.Type#02.verified.png" alt="Converter page one verified" width="200">
 
 
 ### Typed converter

@@ -93,8 +93,8 @@
 
             return new(
                 target.Extension,
-                $"{prefix}.{suffix}",
-                $"{prefix}.{suffix}");
+                $"{prefix}{suffix}",
+                $"{prefix}{suffix}");
         };
 
         //DeleteReceivedFiles(receivedPrefix, directory);

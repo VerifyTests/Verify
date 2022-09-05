@@ -25,32 +25,4 @@
         //file is not locked
         return false;
     }
-
-    public static string GetProjectDirectory([CallerFilePath] string file = "") =>
-        FindDirectory(file, "*.csproj");
-
-    public static string GetSolutionDirectory([CallerFilePath] string file = "") =>
-        FindDirectory(file, "*.sln");
-
-    static string FindDirectory(string file, string extension)
-    {
-        var currentDirectory = new FileInfo(file).Directory!.FullName;
-        do
-        {
-            if (Directory.GetFiles(currentDirectory, extension).Any())
-            {
-                return currentDirectory;
-            }
-
-            var parent = Directory.GetParent(currentDirectory);
-            if (parent is null)
-            {
-                break;
-            }
-
-            currentDirectory = parent.FullName;
-        } while (true);
-
-        throw new();
-    }
 }

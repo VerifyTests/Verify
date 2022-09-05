@@ -1265,7 +1265,7 @@ line3"
     [Fact]
     public Task ShouldScrubProjectDirectory()
     {
-        var projectDirectory = FileEx.GetProjectDirectory();
+        var projectDirectory = AttributeReader.GetProjectDirectory();
         var path = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
         var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(
@@ -1281,7 +1281,7 @@ line3"
     [Fact]
     public Task ShouldScrubSolutionDirectory()
     {
-        var solutionDirectory = FileEx.GetSolutionDirectory();
+        var solutionDirectory = AttributeReader.GetSolutionDirectory();
         var path = Path.GetFullPath(Path.Combine(solutionDirectory, "Foo"));
         var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(

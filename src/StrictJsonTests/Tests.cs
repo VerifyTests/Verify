@@ -34,6 +34,30 @@ public class Tests
         Verify("Foo");
 
     [Fact]
+    public void ValidateJson()
+    {
+        foreach (var file in Directory.EnumerateFiles(AttributeReader.GetProjectDirectory(), "*.json"))
+        {
+            try
+            {
+                var readAllText = File.ReadAllText(file);
+                if (readAllText.StartsWith('['))
+                {
+                    JArray.Parse(readAllText);
+                }
+                else
+                {
+                    JObject.Parse(readAllText);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new(file, exception);
+            }
+        }
+    }
+
+    [Fact]
     public Task VerifyJsonString()
     {
         var json = "{'key': {'msg': 'No action taken'}}";
@@ -80,17 +104,6 @@ public class Tests
             });
         return Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("foo");
-    }
-
-    [Fact]
-    public void DuplicateSerializationTests()
-    {
-        var projectDirectory = AttributeReader.GetProjectDirectory();
-        var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        File.Copy(
-            Path.Combine(solutionDirectory, @"Verify.Tests\Serialization\SerializationTests.cs"),
-            Path.Combine(projectDirectory, @"Serialization\SerializationTests.cs"),
-            true);
     }
 }
 

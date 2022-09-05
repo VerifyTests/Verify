@@ -1,0 +1,7 @@
+﻿{
+  "Item": [
+    {
+      "$type": "SerializationTests.TypeNameHandlingAutoInArrayItemChild"
+    }
+  ]
+}

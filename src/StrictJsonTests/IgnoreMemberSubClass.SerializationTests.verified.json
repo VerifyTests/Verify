@@ -1,0 +1,4 @@
+﻿{
+  "Type": "Exception",
+  "Message": "IgnoreMember<T> can only be used on the type that defines the member.\nTo ignore specific members for T, create a custom converter."
+}

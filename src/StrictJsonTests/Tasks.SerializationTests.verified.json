@@ -1,0 +1,35 @@
+﻿{
+  "finished": {
+    "Status": "RanToCompletion"
+  },
+  "running": {
+    "Status": "WaitingForActivation"
+  },
+  "withResult": {
+    "Status": "RanToCompletion",
+    "Result": "Value"
+  },
+  "withException": {
+    "Status": "Faulted",
+    "Exception": {
+      "Type": "AggregateException",
+      "InnerException": {
+        "Type": "Exception",
+        "Message": "the exception"
+      }
+    }
+  },
+  "withExceptionAndResult": {
+    "Status": "Faulted",
+    "Exception": {
+      "Type": "AggregateException",
+      "InnerException": {
+        "Type": "Exception",
+        "Message": "the exception"
+      }
+    }
+  },
+  "canceledAndResult": {
+    "Status": "Canceled"
+  }
+}

@@ -3,8 +3,13 @@
     #region UseStrictJson
 
     [ModuleInitializer]
-    public static void Init() =>
+    public static void Init()
+    {
         VerifierSettings.UseStrictJson();
 
-    #endregion
+        #endregion
+        VerifierSettings.DerivePathInfo(
+            (_, _, methodName, typeName) => new(AttributeReader.GetProjectDirectory(), typeName, methodName));
+    }
+
 }

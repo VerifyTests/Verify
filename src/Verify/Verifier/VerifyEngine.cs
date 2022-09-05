@@ -77,7 +77,7 @@ class VerifyEngine
             HandleCompareResult(result, file);
         }
 
-        foreach (var group in targetList.GroupBy(_ => _.Name))
+        foreach (var group in targetList.GroupBy(_ => $"{_.Name}:{_.Extension}"))
         {
             var targets = group.ToList();
             if (targets.Count == 1)

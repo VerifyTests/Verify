@@ -417,9 +417,9 @@ If the target is a stream or binary file:
 
 snippet: JsonAppenderStream
 
-Then the appended content will be added to the `*.00.verified.txt` file:
+Then the appended content will be added to the `.verified.txt` file:
 
-snippet: JsonAppenderTests.Stream.00.verified.txt
+snippet: JsonAppenderTests.Stream.verified.txt
 
 See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.
 

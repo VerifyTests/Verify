@@ -21,16 +21,6 @@ public readonly struct Target
         }
     }
 
-    public string IndexOrName(int index)
-    {
-        if (Name is null)
-        {
-            return $"{index:D2}";
-        }
-
-        return Name;
-    }
-
     public bool IsStream => streamData is not null;
 
     public string StringData

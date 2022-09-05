@@ -31,9 +31,11 @@ To use strict json call `VerifierSettings.UseStrictJson`:
 <!-- snippet: UseStrictJson -->
 <a id='snippet-usestrictjson'></a>
 ```cs
-VerifierSettings.UseStrictJson();
+[ModuleInitializer]
+public static void Init() =>
+    VerifierSettings.UseStrictJson();
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L6-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/ModuleInit.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then this result in 
@@ -53,7 +55,7 @@ var target = new TheTarget
 };
 await Verify(target);
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L66-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/Tests.cs#L57-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The resulting file will be:

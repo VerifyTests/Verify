@@ -1,15 +1,6 @@
 ﻿[UsesVerify]
 public class Tests
 {
-    static Tests()
-    {
-        #region UseStrictJson
-
-        VerifierSettings.UseStrictJson();
-
-        #endregion
-    }
-
     [Fact]
     public Task WriteRawInConverterTest()
     {

@@ -86,20 +86,20 @@ public Task WithTargets() =>
 
 ## Result
 
-<!-- snippet: Verify.MSTest.Tests/Tests.WithTargets.00.verified.txt -->
-<a id='snippet-Verify.MSTest.Tests/Tests.WithTargets.00.verified.txt'></a>
+<!-- snippet: Verify.MSTest.Tests/Tests.WithTargets.verified.txt -->
+<a id='snippet-Verify.MSTest.Tests/Tests.WithTargets.verified.txt'></a>
 ```txt
 {
   Property: Value
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.WithTargets.00.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.MSTest.Tests/Tests.WithTargets.00.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.WithTargets.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.MSTest.Tests/Tests.WithTargets.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-<!-- snippet: Verify.MSTest.Tests/Tests.WithTargets.targetName.verified.txt -->
-<a id='snippet-Verify.MSTest.Tests/Tests.WithTargets.targetName.verified.txt'></a>
+<!-- snippet: Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt -->
+<a id='snippet-Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt'></a>
 ```txt
 Raw target value
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.WithTargets.targetName.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.MSTest.Tests/Tests.WithTargets.targetName.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.MSTest.Tests/Tests.WithTargets#targetName.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

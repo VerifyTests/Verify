@@ -154,7 +154,7 @@ public class ExtensionConverterTests
             () => Verify(File.OpenRead("sample2.png"))
                 .UseExtension("WithInfoAndBinary")
                 .DisableRequireUniquePrefix().DisableDiff());
-        var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.01.received.png");
+        var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.received.png");
         Assert.True(File.Exists(file));
     }
 

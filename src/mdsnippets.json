@@ -6,5 +6,6 @@
     "Icon"
   ],
   "MaxWidth": 140,
-  "ValidateContent": true
+  "ValidateContent": true,
+  "ExcludeSnippetDirectories": [ "StrictJsonTests\\Serialization" ],
 }

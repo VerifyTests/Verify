@@ -81,6 +81,17 @@ public class Tests
         return Verify(new MemoryStream(new byte[]{1}))
             .UseExtension("foo");
     }
+
+    [Fact]
+    public void DuplicateSerializationTests()
+    {
+        var projectDirectory = AttributeReader.GetProjectDirectory();
+        var solutionDirectory = AttributeReader.GetSolutionDirectory();
+        File.Copy(
+            Path.Combine(solutionDirectory, @"Verify.Tests\Serialization\SerializationTests.cs"),
+            Path.Combine(projectDirectory, @"Serialization\SerializationTests.cs"),
+            true);
+    }
 }
 
 public class TheTarget

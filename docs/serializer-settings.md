@@ -1502,7 +1502,6 @@ The default mapping is:
 ```cs
 {typeof(ParameterInfo), (target, _) => ((ParameterInfo) target).SimpleName()},
 {typeof(ConstructorInfo), (target, _) => ((ConstructorInfo) target).SimpleName()},
-{Type.GetType("System.ReflectionRuntimeConstructorInfo")!, (target, _) => ((ConstructorInfo) target).SimpleName()},
 {typeof(MethodInfo), (target, _) => ((MethodInfo) target).SimpleName()},
 {typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
 {typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},

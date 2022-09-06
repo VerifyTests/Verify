@@ -1723,12 +1723,25 @@ Line2"
     [Fact]
     public Task ExpressionString()
     {
+        var expression = BuildExpression();
+        return Verify(expression)
+            .UniqueForRuntime();
+    }
+
+    [Fact]
+    public Task ExpressionStringNested()
+    {
+        var expression = BuildExpression();
+        return Verify(new {expression})
+            .UniqueForRuntime();
+    }
+
+    static Expression<Func<Exception, object>> BuildExpression()
+    {
         var parameter = Expression.Parameter(typeof(Exception), "source");
         var property = Expression.Property(parameter, "Message");
         var convert = Expression.Convert(property, typeof(object));
-        var expression = Expression.Lambda<Func<Exception, object>>(convert, parameter);
-        return Verify(expression)
-            .UniqueForRuntime();
+        return Expression.Lambda<Func<Exception, object>>(convert, parameter);
     }
 
     class WithExceptionIgnoreMessage

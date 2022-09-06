@@ -39,6 +39,7 @@ public static partial class VerifierSettings
         {Type.GetType("System.Reflection.RtFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
 #endif
         {typeof(string), (target, _) => (string) target},
+        {typeof(Expression), (target, _) => ((Expression) target).ToString()},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
         {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},

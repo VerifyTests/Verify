@@ -29,16 +29,33 @@ public class VerifyJsonWriter :
         }
     }
 
+    public void WriteRawValueIfNoStrict(string value)
+    {
+        if (VerifierSettings.StrictJson)
+        {
+            base.WriteValue(value);
+            return;
+        }
+
+        base.WriteRawValue(value);
+    }
+
     public void WriteRawValueWithScrubbers(string? value)
     {
         if (value is null or "")
         {
+            if (VerifierSettings.StrictJson)
+            {
+                base.WriteValue(value);
+                return;
+            }
+
             base.WriteRawValue(value);
             return;
         }
 
         value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
-        base.WriteRawValue(value);
+        WriteRawValueIfNoStrict(value);
     }
 
     public override void WriteValue(string? value)

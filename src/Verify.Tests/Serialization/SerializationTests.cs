@@ -850,7 +850,7 @@ line3"
         {
             writer.WriteStartObject();
             writer.WritePropertyName("Raw");
-            writer.WriteRawValue("Raw \" value");
+            writer.WriteRawValueIfNoStrict("Raw \" value");
             writer.WritePropertyName("WriteValue");
             writer.WriteValue("Write \" Value");
             writer.WritePropertyName("WriteRawWithScrubbers");
@@ -1675,7 +1675,7 @@ Line2"
         public override void Write(VerifyJsonWriter writer, ConverterWithBadNewlineTarget target)
         {
             writer.WritePropertyName("Property1");
-            writer.WriteRawValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+            writer.WriteRawValueIfNoStrict("\n\r\r\nA\n\r\r\nB\n\r\r\n");
             writer.WritePropertyName("Property2");
             writer.WriteValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
         }

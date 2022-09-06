@@ -20,7 +20,7 @@ public class Tests
         {
             writer.WriteStartObject();
             writer.WritePropertyName("Raw");
-            writer.WriteRawValue("Raw \" value");
+            writer.WriteRawValueIfNoStrict("Raw \" value");
             writer.WritePropertyName("WriteValue");
             writer.WriteValue("Write \" Value");
             writer.WritePropertyName("WriteRawWithScrubbers");

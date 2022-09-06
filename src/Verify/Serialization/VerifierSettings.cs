@@ -10,8 +10,16 @@ public static partial class VerifierSettings
 
     public static bool TryGetToString<T>(
         T target,
-        [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString) =>
-        typeToString.TryGetValue(target!.GetType(), out toString);
+        [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
+    {
+        if (target is Encoding encoding)
+        {
+            toString = (_, _) => encoding.EncodingName;
+            return true;
+        }
+
+        return typeToString.TryGetValue(target!.GetType(), out toString);
+    }
 
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
@@ -30,7 +38,6 @@ public static partial class VerifierSettings
         {Type.GetType("System.Reflection.RuntimeFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
         {Type.GetType("System.Reflection.RtFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
 #endif
-        {typeof(Encoding), (target, _) => ((Encoding) target).EncodingName},
         {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},

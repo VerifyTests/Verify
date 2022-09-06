@@ -967,13 +967,14 @@ line3"
         #endregion
     }
 
+    [Fact]
     Task DontScrubDateTimes()
     {
         #region DontScrubDateTimes
 
         var target = new
         {
-            Date = DateTime.Now
+            Date = new DateTime(2020, 10, 10)
         };
 
         var settings = new VerifySettings();
@@ -984,13 +985,14 @@ line3"
         #endregion
     }
 
+    [Fact]
     Task DontScrubDateTimesFluent()
     {
         #region DontScrubDateTimesFluent
 
         var target = new
         {
-            Date = DateTime.Now
+            Date = new DateTime(2020, 10, 10)
         };
 
         return Verify(target)

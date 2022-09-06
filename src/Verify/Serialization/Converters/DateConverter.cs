@@ -10,7 +10,7 @@ class DateConverter :
             return;
         }
 
-        writer.WriteRawValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+        writer.WriteRawValueWithScrubbers(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
     }
 }
 #endif

@@ -1724,6 +1724,7 @@ Line2"
     public Task ExpressionString()
     {
         var expression = BuildExpression();
+        var fullName = expression.GetType().FullName;
         return Verify(expression)
             .UniqueForRuntime();
     }
@@ -1802,7 +1803,7 @@ Line2"
         WriteOnlyJsonConverter<EnumerableWithExistingConverterTarget>
     {
         public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
-            writer.Serialize("Content");
+            writer.Serialize(new{value = "Content"});
     }
 
     [Fact]
@@ -1831,10 +1832,12 @@ Line2"
     {
         public override void Write(VerifyJsonWriter writer, ConverterWithBadNewlineTarget target)
         {
+            writer.WriteStartObject();
             writer.WritePropertyName("Property1");
             writer.WriteRawValueIfNoStrict("\n\r\r\nA\n\r\r\nB\n\r\r\n");
             writer.WritePropertyName("Property2");
             writer.WriteValue("\n\r\r\nA\n\r\r\nB\n\r\r\n");
+            writer.WriteEndObject();
         }
     }
 

@@ -1,8 +1,0 @@
-﻿{
-  "$type": "SerializationTests.TypeNameHandlingAutoInArrayTarget",
-  "Item": [
-    {
-      "$type": "SerializationTests.TypeNameHandlingAutoInArrayItemChild"
-    }
-  ]
-}

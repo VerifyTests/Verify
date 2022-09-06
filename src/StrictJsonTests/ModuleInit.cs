@@ -9,7 +9,7 @@
 
         #endregion
         VerifierSettings.DerivePathInfo(
-            (_, _, methodName, typeName) => new(AttributeReader.GetProjectDirectory(), typeName, methodName));
+            (_, _, typeName, methodName) => new(AttributeReader.GetProjectDirectory(), typeName: typeName, methodName));
     }
 
 }

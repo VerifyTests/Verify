@@ -1,6 +1,5 @@
 ﻿{
-  "Raw": Raw " value,
+  "Raw": "Raw \" value",
   "WriteValue": "Write \" Value",
-  "WriteRawWithScrubbers": Write "
-RawWithScrubbers
+  "WriteRawWithScrubbers": "Write \"\nRawWithScrubbers"
 }

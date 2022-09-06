@@ -1,0 +1,11 @@
+﻿{
+  "DateTime": "Date_MaxValue",
+  "DateTimeNullable": "Date_MaxValue",
+  "DateOnly": "Date_MaxValue",
+  "DateOnlyNullable": "Date_MaxValue",
+  "DateTimeOffset": "Date_MaxValue",
+  "DateTimeOffsetNullable": "Date_MaxValue",
+  "DateTimeString": "Date_MaxValue",
+  "DateTimeOffsetString": "Date_MaxValue",
+  "DateOnlyString": "Date_MaxValue"
+}

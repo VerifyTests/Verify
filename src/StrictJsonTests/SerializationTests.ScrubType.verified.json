@@ -1,0 +1,22 @@
+﻿{
+  "ToIgnore": "{Scrubbed}",
+  "ToIgnoreByType": "{Scrubbed}",
+  "ToIgnoreByInterface": "{Scrubbed}",
+  "ToIgnoreByBase": "{Scrubbed}",
+  "ToIgnoreByBaseGeneric": "{Scrubbed}",
+  "ToIgnoreNullable": "{Scrubbed}",
+  "ToIgnoreStruct": "{Scrubbed}",
+  "ToIgnoreStructNullable": "{Scrubbed}",
+  "ToInclude": {
+    "Property": "Value"
+  },
+  "ToIncludeNullable": {
+    "Property": "Value"
+  },
+  "ToIncludeStruct": {
+    "Property": "Value"
+  },
+  "ToIncludeStructNullable": {
+    "Property": "Value"
+  }
+}

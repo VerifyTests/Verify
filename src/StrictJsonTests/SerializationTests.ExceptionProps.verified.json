@@ -1,0 +1,5 @@
+﻿{
+  "Type": "Exception",
+  "Message": "Exception of type 'System.Exception' was thrown.",
+  "StackTrace": "at SerializationTests.ExceptionProps()"
+}

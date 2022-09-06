@@ -65,25 +65,10 @@
         verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
 
         var prefix = Path.Combine(subDirectory, "target");
-        getFileNames = target =>
-        {
-            var suffix = GetSuffix(target);
 
-            return new(target.Extension, prefix+suffix, prefix+suffix);
-        };
-        getIndexedFileNames = (target, index) =>
-        {
-            var suffix = GetIndexSuffix(target, index);
-
-            return new(
-                target.Extension,
-                $"{prefix}{suffix}",
-                $"{prefix}{suffix}");
-        };
-
+        InitGetFileNames(prefix, prefix);
         //DeleteReceivedFiles(receivedPrefix, directory);
     }
-
 
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameterText)
     {
@@ -119,6 +104,13 @@
 
         verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
 
+        InitGetFileNames(pathPrefixReceived, pathPrefixVerified);
+
+        DeleteReceivedFiles(receivedPrefix, directory);
+    }
+
+    void InitGetFileNames(string pathPrefixReceived, string pathPrefixVerified)
+    {
         getFileNames = target =>
         {
             var suffix = GetSuffix(target);
@@ -134,8 +126,6 @@
                 $"{pathPrefixReceived}{suffix}",
                 $"{pathPrefixVerified}{suffix}");
         };
-
-        DeleteReceivedFiles(receivedPrefix, directory);
     }
 
     static string GetSuffix(Target target)

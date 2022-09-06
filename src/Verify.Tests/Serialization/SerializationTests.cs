@@ -318,6 +318,7 @@ line3"
         Verify(
                 new
                 {
+                    time = new TimeOnly(10, 1, 1),
                     value = new DateOnly(2000, 1, 1),
                 })
             .DontScrubDateTimes()

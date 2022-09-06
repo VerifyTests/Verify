@@ -1501,21 +1501,6 @@ The default mapping is:
 <!-- snippet: typeToStringMapping -->
 <a id='snippet-typetostringmapping'></a>
 ```cs
-{typeof(ParameterInfo), (target, _) => ((ParameterInfo) target).SimpleName()},
-{typeof(ConstructorInfo), (target, _) => ((ConstructorInfo) target).SimpleName()},
-{typeof(MethodInfo), (target, _) => ((MethodInfo) target).SimpleName()},
-{typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
-{typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},
-{typeof(Type), (target, _) => ((Type) target).SimpleName()},
-#if !NETFRAMEWORK
-{Type.GetType("System.Reflection.RuntimeParameterInfo")!, (target, _) => ((ParameterInfo) target).SimpleName()},
-{Type.GetType("System.Reflection.RuntimeConstructorInfo")!, (target, _) => ((ConstructorInfo) target).SimpleName()},
-{Type.GetType("System.Reflection.RuntimeMethodInfo")!, (target, _) => ((MethodInfo) target).SimpleName()},
-{Type.GetType("System.Reflection.RuntimePropertyInfo")!, (target, _) => ((PropertyInfo) target).SimpleName()},
-{Type.GetType("System.Reflection.RuntimeFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
-{Type.GetType("System.Reflection.RtFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
-#endif
-{Type.GetType("System.RuntimeType")!, (target, _) => ((Type) target).SimpleName()},
 {typeof(string), (target, _) => (string) target},
 {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
 {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
@@ -1607,7 +1592,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L31-L138' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L44-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

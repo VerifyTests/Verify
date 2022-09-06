@@ -12,14 +12,27 @@ public static partial class VerifierSettings
         T target,
         [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
     {
+        if (target is null)
+        {
+            toString = null;
+            return false;
+        }
+
         if (target is Encoding encoding)
         {
             toString = (_, _) => encoding.EncodingName;
             return true;
         }
+
         if (target is Expression expression)
         {
             toString = (_, _) => expression.ToString();
+            return true;
+        }
+
+        if (TypeNameConverter.TryGetSimpleName(target, out var name))
+        {
+            toString = (_, _) => name;
             return true;
         }
 
@@ -29,21 +42,6 @@ public static partial class VerifierSettings
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
         #region typeToStringMapping
-        {typeof(ParameterInfo), (target, _) => ((ParameterInfo) target).SimpleName()},
-        {typeof(ConstructorInfo), (target, _) => ((ConstructorInfo) target).SimpleName()},
-        {typeof(MethodInfo), (target, _) => ((MethodInfo) target).SimpleName()},
-        {typeof(PropertyInfo), (target, _) => ((PropertyInfo) target).SimpleName()},
-        {typeof(FieldInfo), (target, _) => ((FieldInfo) target).SimpleName()},
-        {typeof(Type), (target, _) => ((Type) target).SimpleName()},
-#if !NETFRAMEWORK
-        {Type.GetType("System.Reflection.RuntimeParameterInfo")!, (target, _) => ((ParameterInfo) target).SimpleName()},
-        {Type.GetType("System.Reflection.RuntimeConstructorInfo")!, (target, _) => ((ConstructorInfo) target).SimpleName()},
-        {Type.GetType("System.Reflection.RuntimeMethodInfo")!, (target, _) => ((MethodInfo) target).SimpleName()},
-        {Type.GetType("System.Reflection.RuntimePropertyInfo")!, (target, _) => ((PropertyInfo) target).SimpleName()},
-        {Type.GetType("System.Reflection.RuntimeFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
-        {Type.GetType("System.Reflection.RtFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
-#endif
-        {Type.GetType("System.RuntimeType")!, (target, _) => ((Type) target).SimpleName()},
         {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},

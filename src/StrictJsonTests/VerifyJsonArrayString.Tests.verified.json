@@ -1,0 +1,12 @@
+﻿[
+  {
+    "key": {
+      "msg": "This is a proper json string"
+    }
+  },
+  {
+    "key": {
+      "msg": "Foo"
+    }
+  }
+]

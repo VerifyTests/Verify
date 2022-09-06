@@ -2,5 +2,5 @@
     WriteOnlyJsonConverter<DirectoryInfo>
 {
     public override void Write(VerifyJsonWriter writer, DirectoryInfo value) =>
-        writer.WriteSingleLineNoScrubbing(value.ToString().Replace('\\', '/'));
+        writer.WriteRawValueIfNoStrict(value.ToString().Replace('\\', '/'));
 }

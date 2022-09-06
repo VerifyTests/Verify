@@ -1,7 +1,7 @@
 ﻿{
   "commitments": [
     {
-      "id": Guid_1,
+      "id": "Guid_1",
       "title": "Commitment1"
     }
   ]

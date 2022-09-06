@@ -64,21 +64,24 @@
 
         verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
 
-        var prefix = Path.Combine(subDirectory, "target");
         getFileNames = target =>
         {
-            var suffix = GetSuffix(target);
-
-            return new(target.Extension, prefix+suffix, prefix+suffix);
+            var path = Path.Combine(subDirectory, target.Name ?? "target");
+            return new(target.Extension, path, path);
         };
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = GetIndexSuffix(target, index);
+            string path;
+            if (target.Name is null)
+            {
+                path = Path.Combine(subDirectory, $"target#{index:D2}");
+            }
+            else
+            {
+                path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
+            }
 
-            return new(
-                target.Extension,
-                $"{prefix}{suffix}",
-                $"{prefix}{suffix}");
+            return new(target.Extension,path,path);
         };
 
         IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*"));
@@ -120,13 +123,29 @@
 
         getFileNames = target =>
         {
-            var suffix = GetSuffix(target);
+            string suffix;
+            if (target.Name is not null)
+            {
+                suffix = $"#{target.Name}";
+            }
+            else
+            {
+                suffix = "";
+            }
 
             return new(target.Extension, $"{pathPrefixReceived}{suffix}", $"{pathPrefixVerified}{suffix}");
         };
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = GetIndexSuffix(target, index);
+            string suffix;
+            if (target.Name is null)
+            {
+                suffix = $"#{index:D2}";
+            }
+            else
+            {
+                suffix = $"#{target.Name}.{index:D2}";
+            }
 
             return new(
                 target.Extension,
@@ -135,26 +154,6 @@
         };
 
         IoHelpers.Delete(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
-    }
-
-    static string GetSuffix(Target target)
-    {
-        if (target.Name is not null)
-        {
-            return $"#{target.Name}";
-        }
-
-        return "";
-    }
-
-    static string GetIndexSuffix(Target target, int index)
-    {
-        if (target.Name is null)
-        {
-            return $"#{index:D2}";
-        }
-
-        return $"#{target.Name}.{index:D2}";
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)

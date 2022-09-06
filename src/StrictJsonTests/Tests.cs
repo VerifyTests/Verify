@@ -20,7 +20,7 @@ public class Tests
         {
             writer.WriteStartObject();
             writer.WritePropertyName("Raw");
-            writer.WriteRawValue("Raw \" value");
+            writer.WriteRawValueIfNoStrict("Raw \" value");
             writer.WritePropertyName("WriteValue");
             writer.WriteValue("Write \" Value");
             writer.WritePropertyName("WriteRawWithScrubbers");
@@ -32,6 +32,30 @@ public class Tests
     [Fact]
     public Task String() =>
         Verify("Foo");
+
+    [Fact]
+    public void ValidateJson()
+    {
+        foreach (var file in Directory.EnumerateFiles(AttributeReader.GetProjectDirectory(), "*.json"))
+        {
+            try
+            {
+                var readAllText = File.ReadAllText(file);
+                if (readAllText.StartsWith('['))
+                {
+                    JArray.Parse(readAllText);
+                }
+                else
+                {
+                    JObject.Parse(readAllText);
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new(file, exception);
+            }
+        }
+    }
 
     [Fact]
     public Task VerifyJsonString()

@@ -1,0 +1,14 @@
+﻿{
+  "guid": {
+    "Guid_1": "value"
+  },
+  "dateTime": {
+    "DateTime_1": "value"
+  },
+  "dateTimeOffset": {
+    "DateTimeOffset_1": "value"
+  },
+  "type": {
+    "SerializationTests": "value"
+  }
+}

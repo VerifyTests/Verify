@@ -29,29 +29,40 @@ public class VerifyJsonWriter :
         }
     }
 
+    public void WriteRawValueIfNoStrict(string? value)
+    {
+        if (VerifierSettings.StrictJson)
+        {
+            base.WriteValue(value);
+            return;
+        }
+
+        base.WriteRawValue(value);
+    }
+
     public void WriteRawValueWithScrubbers(string? value)
     {
         if (value is null or "")
         {
-            base.WriteRawValue(value);
+            WriteRawValueIfNoStrict(value);
             return;
         }
 
         value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
-        base.WriteRawValue(value);
+        WriteRawValueIfNoStrict(value);
     }
 
     public override void WriteValue(string? value)
     {
         if (value is null or "")
         {
-            base.WriteRawValue(value);
+            WriteRawValueIfNoStrict(value);
             return;
         }
 
         if (serialization.TryConvertString(Counter, value, out var result))
         {
-            WriteRawValue(result);
+            WriteRawValueIfNoStrict(result);
             return;
         }
 
@@ -77,24 +88,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValue(value);
-    }
-
-    public void WriteSingleLineNoScrubbing(string value)
-    {
-        if (value is "")
-        {
-            base.WriteRawValue(value);
-            return;
-        }
-
-        if (VerifierSettings.StrictJson)
-        {
-            base.WriteValue(value);
-            return;
-        }
-
-        WriteRawValue(value);
+        WriteRawValueIfNoStrict(value);
     }
 
     public override void WriteValue(byte[]? value)
@@ -105,14 +99,14 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValue(Convert.ToBase64String(value));
+        WriteRawValueIfNoStrict(Convert.ToBase64String(value));
     }
 
     public override void WriteValue(DateTimeOffset value)
     {
         if (serialization.TryConvert(Counter, value, out var result))
         {
-            WriteRawValue(result);
+            WriteRawValueIfNoStrict(result);
             return;
         }
 
@@ -129,7 +123,7 @@ public class VerifyJsonWriter :
     {
         if (serialization.TryConvert(Counter, value, out var result))
         {
-            WriteRawValue(result);
+            WriteRawValueIfNoStrict(result);
             return;
         }
 
@@ -143,13 +137,13 @@ public class VerifyJsonWriter :
     }
 
     public override void WriteValue(TimeSpan value) =>
-        WriteRawValue(value.ToString());
+        WriteRawValueIfNoStrict(value.ToString());
 
     public override void WriteValue(Guid value)
     {
         if (serialization.TryConvert(Counter, value, out var result))
         {
-            WriteRawValue(result);
+            WriteRawValueIfNoStrict(result);
             return;
         }
 
@@ -176,7 +170,7 @@ public class VerifyJsonWriter :
             }
 
             WritePropertyName(name);
-            WriteRawValue("{Scrubbed}");
+            WriteRawValueIfNoStrict("Scrubbed");
 
             return;
         }
@@ -189,7 +183,7 @@ public class VerifyJsonWriter :
             }
 
             WritePropertyName(name);
-            WriteRawValue("{Scrubbed}");
+            WriteRawValueIfNoStrict("Scrubbed");
 
             return;
         }

@@ -17,6 +17,11 @@ public static partial class VerifierSettings
             toString = (_, _) => encoding.EncodingName;
             return true;
         }
+        if (target is Expression expression)
+        {
+            toString = (_, _) => expression.ToString();
+            return true;
+        }
 
         return typeToString.TryGetValue(target!.GetType(), out toString);
     }
@@ -38,8 +43,8 @@ public static partial class VerifierSettings
         {Type.GetType("System.Reflection.RuntimeFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
         {Type.GetType("System.Reflection.RtFieldInfo")!, (target, _) => ((FieldInfo) target).SimpleName()},
 #endif
+        {Type.GetType("System.RuntimeType")!, (target, _) => ((Type) target).SimpleName()},
         {typeof(string), (target, _) => (string) target},
-        {typeof(Expression), (target, _) => ((Expression) target).ToString()},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
         {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},

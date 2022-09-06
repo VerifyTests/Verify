@@ -4,13 +4,28 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Using Include="Argon" />
+    <PackageReference Include="Fody" Version="6.6.3" PrivateAssets="all" />
+    <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <PackageReference Include="Xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Verify.Tests\Serialization\SerializationTests.cs">
+      <Link>Serialization\SerializationTests.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Verify.Tests\sample.jpg">
+      <Link>sample.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

@@ -2,5 +2,5 @@
     WriteOnlyJsonConverter<FieldInfo>
 {
     public override void Write(VerifyJsonWriter writer, FieldInfo value) =>
-        writer.WriteRawValue(value.SimpleName());
+        writer.WriteRawValueIfNoStrict(value.SimpleName());
 }

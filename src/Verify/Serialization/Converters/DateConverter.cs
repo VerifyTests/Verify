@@ -6,7 +6,7 @@ class DateConverter :
     {
         if (writer.serialization.TryConvert(writer.Counter, value, out var result))
         {
-            writer.WriteRawValue(result);
+            writer.WriteRawValueIfNoStrict(result);
             return;
         }
 

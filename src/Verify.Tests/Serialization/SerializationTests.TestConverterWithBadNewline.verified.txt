@@ -1,4 +1,5 @@
-﻿Property1: 
+﻿{
+  Property1: 
 
 
 A
@@ -8,7 +9,7 @@ B
 
 
 ,
-Property2:
+  Property2:
 
 
 A
@@ -17,3 +18,5 @@ A
 B
 
 
+
+}

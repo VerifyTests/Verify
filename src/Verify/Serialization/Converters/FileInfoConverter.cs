@@ -2,5 +2,5 @@
     WriteOnlyJsonConverter<FileInfo>
 {
     public override void Write(VerifyJsonWriter writer, FileInfo value) =>
-        writer.WriteSingleLineNoScrubbing(value.ToString().Replace('\\', '/'));
+        writer.WriteRawValueIfNoStrict(value.ToString().Replace('\\', '/'));
 }

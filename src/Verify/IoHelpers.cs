@@ -11,6 +11,14 @@
         }
     }
 
+    public static void Delete(IEnumerable<string> files)
+    {
+        foreach (var file in files)
+        {
+            Delete(file);
+        }
+    }
+
     public static void Delete(string file)
     {
         try

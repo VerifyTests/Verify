@@ -81,9 +81,8 @@
                 $"{prefix}{suffix}");
         };
 
-        //DeleteReceivedFiles(receivedPrefix, directory);
+        IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*"));
     }
-
 
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameterText)
     {
@@ -135,7 +134,7 @@
                 $"{pathPrefixVerified}{suffix}");
         };
 
-        DeleteReceivedFiles(receivedPrefix, directory);
+        IoHelpers.Delete(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
     }
 
     static string GetSuffix(Target target)
@@ -188,14 +187,6 @@
         var directory = Path.Combine(sourceFileDirectory, settingsOrInfoDirectory);
         IoHelpers.CreateDirectory(directory);
         return directory;
-    }
-
-    static void DeleteReceivedFiles(string receivedFileNamePrefix, string directory)
-    {
-        foreach (var file in MatchingFileFinder.Find(receivedFileNamePrefix, ".received", directory))
-        {
-            IoHelpers.Delete(file);
-        }
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>

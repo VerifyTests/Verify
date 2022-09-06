@@ -340,7 +340,10 @@ public Task VerifyJsonStream()
 public Task StreamMember()
 {
     var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
-    return Verify(new{stream});
+    return Verify(new
+    {
+        stream
+    });
 }
 
 [Fact]
@@ -351,7 +354,7 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2652-L2684' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2803-L2838' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

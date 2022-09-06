@@ -51,13 +51,13 @@ public class SerializationTests
         genericCompletionSource.TrySetCanceled();
         var canceledAndResult = genericCompletionSource.Task;
         return Verify(
-            new
-            {
-                withResult,
-                withException,
-                withExceptionAndResult,
-                canceledAndResult
-            })
+                new
+                {
+                    withResult,
+                    withException,
+                    withExceptionAndResult,
+                    canceledAndResult
+                })
             .UniqueForRuntime();
     }
 #endif
@@ -88,8 +88,12 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<int, string>(new DescendingComparer<int>())
         {
-            {1, "1234"},
-            {2, "5678"}
+            {
+                1, "1234"
+            },
+            {
+                2, "5678"
+            }
         };
 
         return Verify(dictionary);
@@ -170,9 +174,15 @@ public class SerializationTests
     {
         var dictionary = new SortedDictionary<string, string>(new DescendingComparer<string>())
         {
-            {"Entry_1", "1234"},
-            {"ignored", "1234"},
-            {"Entry_2", "5678"}
+            {
+                "Entry_1", "1234"
+            },
+            {
+                "ignored", "1234"
+            },
+            {
+                "Entry_2", "5678"
+            }
         };
 
         return Verify(dictionary)
@@ -186,9 +196,15 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            {"Entry_1", "1234"},
-            {"Entry_3", "1234"},
-            {"Entry_2", "5678"}
+            {
+                "Entry_1", "1234"
+            },
+            {
+                "Entry_3", "1234"
+            },
+            {
+                "Entry_2", "5678"
+            }
         };
 
         return Verify(dictionary)
@@ -247,7 +263,9 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            {"ignored", "1234"}
+            {
+                "ignored", "1234"
+            }
         };
 
         if (DateTime.UtcNow.Ticks % 2 == 0)
@@ -304,9 +322,9 @@ line3"
                 new
                 {
                     dateTimeNoTime = new DateTime(2000, 1, 1),
-                    dateTimeWithTimeTime = new DateTime(2000, 1, 1,1,1,1),
-                    dateTimeOffsetNoTime =  new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.Zero),
-                    dateTimeOffsetWithTime =  new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1))
+                    dateTimeWithTimeTime = new DateTime(2000, 1, 1, 1, 1, 1),
+                    dateTimeOffsetNoTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.Zero),
+                    dateTimeOffsetWithTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1))
                 })
             .DontScrubDateTimes()
             .ScrubLinesWithReplace(_ => "replaced");
@@ -381,7 +399,10 @@ line3"
         };
 
         return Verify(target)
-            .AddExtraSettings(_ => { _.TypeNameHandling = typeHandling; })
+            .AddExtraSettings(_ =>
+            {
+                _.TypeNameHandling = typeHandling;
+            })
             .UseParameters(typeHandling);
     }
 
@@ -531,14 +552,66 @@ line3"
         Verify(
             new
             {
-                item1 = new NameValueCollection {{null, null}},
-                item2 = new NameValueCollection {{"key", null}},
-                item3 = new NameValueCollection {{null, "value"}},
-                item4 = new NameValueCollection {{"key", "value"}},
-                item5 = new NameValueCollection {{"key", "value1"}, {"key", "value2"}},
-                item6 = new NameValueCollection {{"key", null}, {"key", "value2"}},
-                item7 = new NameValueCollection {{"key", "value1"}, {"key", null}},
-                item8 = new NameValueCollection {{"key1", "value1"}, {"key2", "value2"}}
+                item1 = new NameValueCollection
+                {
+                    {
+                        null, null
+                    }
+                },
+                item2 = new NameValueCollection
+                {
+                    {
+                        "key", null
+                    }
+                },
+                item3 = new NameValueCollection
+                {
+                    {
+                        null, "value"
+                    }
+                },
+                item4 = new NameValueCollection
+                {
+                    {
+                        "key", "value"
+                    }
+                },
+                item5 = new NameValueCollection
+                {
+                    {
+                        "key", "value1"
+                    },
+                    {
+                        "key", "value2"
+                    }
+                },
+                item6 = new NameValueCollection
+                {
+                    {
+                        "key", null
+                    },
+                    {
+                        "key", "value2"
+                    }
+                },
+                item7 = new NameValueCollection
+                {
+                    {
+                        "key", "value1"
+                    },
+                    {
+                        "key", null
+                    }
+                },
+                item8 = new NameValueCollection
+                {
+                    {
+                        "key1", "value1"
+                    },
+                    {
+                        "key2", "value2"
+                    }
+                }
             });
 
     [Fact]
@@ -558,14 +631,20 @@ line3"
 
     [Fact]
     public Task ByteArray() =>
-        Verify(new byte[] {1});
+        Verify(new byte[]
+        {
+            1
+        });
 
     [Fact]
     public Task NestedByteArray() =>
         Verify(
             new
             {
-                bytes = new byte[] {1}
+                bytes = new byte[]
+                {
+                    1
+                }
             });
 
     [Fact]
@@ -608,20 +687,33 @@ line3"
     [Fact]
     public Task ScrubberDefaultOrder() =>
         Verify("line")
-            .AddScrubber(_=>_.Append(" one"))
-            .AddScrubber(_=>_.Append(" two"));
+            .AddScrubber(_ => _.Append(" one"))
+            .AddScrubber(_ => _.Append(" two"));
 
     [Fact]
     public Task ScrubberInvertOrder() =>
         Verify("line")
-            .AddScrubber(_=>_.Append(" one"), ScrubberLocation.Last)
-            .AddScrubber(_=>_.Append(" two"), ScrubberLocation.Last);
+            .AddScrubber(_ => _.Append(" one"), ScrubberLocation.Last)
+            .AddScrubber(_ => _.Append(" two"), ScrubberLocation.Last);
 
     public static IEnumerable<object?[]> GetBoolData()
     {
-        foreach (var boolean in new[] {true, false})
-        foreach (var nullableBoolean in new bool?[] {true, false, null})
-        foreach (var includeDefault in new[] {true, false})
+        foreach (var boolean in new[]
+                 {
+                     true,
+                     false
+                 })
+        foreach (var nullableBoolean in new bool?[]
+                 {
+                     true,
+                     false,
+                     null
+                 })
+        foreach (var includeDefault in new[]
+                 {
+                     true,
+                     false
+                 })
         {
             yield return new object?[]
             {
@@ -648,7 +740,11 @@ line3"
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new() {"Sam", "Mary"},
+            Children = new()
+            {
+                "Sam",
+                "Mary"
+            },
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -668,11 +764,17 @@ line3"
 
     [Fact]
     public Task TimeOnlyNested() =>
-        Verify(new {value = new TimeOnly(10, 10)});
+        Verify(new
+        {
+            value = new TimeOnly(10, 10)
+        });
 
     [Fact]
     public Task TimeOnlyNestedWithNoScrubbing() =>
-        Verify(new {value = new TimeOnly(10, 10)})
+        Verify(new
+            {
+                value = new TimeOnly(10, 10)
+            })
             .DontScrubDateTimes();
 
     [Fact]
@@ -844,7 +946,7 @@ line3"
     {
     }
 
-    class WriteRawInConverter:
+    class WriteRawInConverter :
         WriteOnlyJsonConverter<WriteRawInConverterTarget>
     {
         public override void Write(VerifyJsonWriter writer, WriteRawInConverterTarget target)
@@ -916,18 +1018,22 @@ line3"
     public Task ShouldNotScrubInlineGuidsStartingInLetters() =>
         Verify("before087ea433-d83b-40b6-9e37-465211d9508")
             .ScrubInlineGuids();
+
     [Fact]
     public Task ShouldScrubInlineGuidsStartingInNewline1() =>
         Verify("\n087ea433-d83b-40b6-9e37-465211d95081")
             .ScrubInlineGuids();
+
     [Fact]
     public Task ShouldScrubInlineGuidsStartingInNewline2() =>
         Verify("\r087ea433-d83b-40b6-9e37-465211d95081")
             .ScrubInlineGuids();
+
     [Fact]
     public Task ShouldScrubInlineGuidsEndingInNewline1() =>
         Verify("087ea433-d83b-40b6-9e37-465211d95081\n")
             .ScrubInlineGuids();
+
     [Fact]
     public Task ShouldScrubInlineGuidsEndingInNewline2() =>
         Verify("087ea433-d83b-40b6-9e37-465211d95081\r")
@@ -1050,7 +1156,10 @@ line3"
 
     [Fact]
     public Task NewLineNotEscapedInProperty() =>
-        Verify(new {Property = "a\r\nb\\nc"});
+        Verify(new
+        {
+            Property = "a\r\nb\\nc"
+        });
 
     void List()
     {
@@ -1160,7 +1269,11 @@ line3"
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory!.TrimEnd('/', '\\');
         var altBaseDirectory = baseDirectory.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verify(new {baseDirectory, altBaseDirectory});
+        return Verify(new
+        {
+            baseDirectory,
+            altBaseDirectory
+        });
     }
 
     class TypeTarget
@@ -1184,7 +1297,10 @@ line3"
     {
         #region type
 
-        var foo = new {x = 1};
+        var foo = new
+        {
+            x = 1
+        };
         var target = new TypeTarget
         {
             Type = GetType(),
@@ -1235,6 +1351,13 @@ line3"
     [Fact]
     public Task EncodingValue() =>
         Verify(Encoding.UTF8);
+
+    [Fact]
+    public Task EncodingValueNested() =>
+        Verify(new
+        {
+            encoding = Encoding.UTF8
+        });
 
     [Fact]
     public Task ClaimWithClaimType() =>
@@ -1392,19 +1515,27 @@ line3"
             {
                 guid = new Dictionary<Guid, string>
                 {
-                    {Guid.NewGuid(), "value"}
+                    {
+                        Guid.NewGuid(), "value"
+                    }
                 },
                 dateTime = new Dictionary<DateTime, string>
                 {
-                    {DateTime.Now, "value"}
+                    {
+                        DateTime.Now, "value"
+                    }
                 },
                 dateTimeOffset = new Dictionary<DateTimeOffset, string>
                 {
-                    {DateTimeOffset.Now, "value"}
+                    {
+                        DateTimeOffset.Now, "value"
+                    }
                 },
                 type = new Dictionary<Type, string>
                 {
-                    {typeof(SerializationTests), "value"}
+                    {
+                        typeof(SerializationTests), "value"
+                    }
                 }
             });
 
@@ -1455,6 +1586,7 @@ line3"
                     Property = "\n\n\n\n\r\n\r\rLine\n\n\n\n\r\n\r\r"
                 })
             .ScrubEmptyLines();
+
     [Fact]
     public Task ScrubEmptyLinesStartAndEndAndWhiteSpaceProperty() =>
         Verify(
@@ -1485,7 +1617,8 @@ line3"
     [Fact]
     public Task ScrubPropertyBeforeNewline() =>
         Verify(
-                new {
+                new
+                {
                     Property = @"Line1
 Line2"
                 })
@@ -1502,20 +1635,30 @@ Line2"
     [InlineData("Value\nAfter", "ValueAfterWithNewLine")]
     public Task ScrubDictionaryValue(string value, string name) =>
         Verify(new Dictionary<int, object>
-        {
-            {1, value},
-            {2, new StringWriter(new StringBuilder(value))},
-            {3, new StringWriter(new StringBuilder(value))},
-        })
+            {
+                {
+                    1, value
+                },
+                {
+                    2, new StringWriter(new StringBuilder(value))
+                },
+                {
+                    3, new StringWriter(new StringBuilder(value))
+                },
+            })
             .ScrubLinesContaining("Value")
             .UseTextForParameters(name);
 
     [Fact]
     public Task NotScrubNonStringDictionaryValues() =>
         Verify(new Dictionary<int, object>
-        {
-            {1, 1},
-            {2, true},
+            {
+                {
+                    1, 1
+                },
+                {
+                    2, true
+                },
             })
             .ScrubLinesContaining("value");
 
@@ -1638,11 +1781,11 @@ Line2"
             .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
     }
 
-    class EnumerableWithExistingConverterTarget: List<string>
+    class EnumerableWithExistingConverterTarget : List<string>
     {
     }
 
-    class EnumerableWithExistingConverter:
+    class EnumerableWithExistingConverter :
         WriteOnlyJsonConverter<EnumerableWithExistingConverterTarget>
     {
         public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
@@ -1670,7 +1813,7 @@ Line2"
     {
     }
 
-    class ConverterWithBadNewline:
+    class ConverterWithBadNewline :
         WriteOnlyJsonConverter<ConverterWithBadNewlineTarget>
     {
         public override void Write(VerifyJsonWriter writer, ConverterWithBadNewlineTarget target)
@@ -1698,7 +1841,7 @@ Line2"
     {
     }
 
-    class EnumerableWithExistingItemConverter:
+    class EnumerableWithExistingItemConverter :
         WriteOnlyJsonConverter<string>
     {
         public override void Write(VerifyJsonWriter writer, string target) =>
@@ -1729,11 +1872,14 @@ Line2"
             exception = e;
         }
 
-        return Verify(new {exception});
+        return Verify(new
+        {
+            exception
+        });
     }
 
     public static void MethodThatThrows() =>
-        throw new ("the message");
+        throw new("the message");
 
     void AddIgnoreInstanceGlobal()
     {
@@ -1742,6 +1888,7 @@ Line2"
         VerifierSettings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 
         #endregion
+
         #region AddScrubInstanceGlobal
 
         VerifierSettings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
@@ -1867,6 +2014,7 @@ Line2"
         VerifierSettings.IgnoreMembersWithType<ToIgnore>();
 
         #endregion
+
         #region AddScrubTypeGlobal
 
         VerifierSettings.ScrubMembersWithType<ToIgnore>();
@@ -2263,6 +2411,7 @@ Line2"
     class BaseToIgnore
     {
     }
+
     class ToIgnoreByBaseGeneric :
         BaseToIgnoreGeneric<int>
     {
@@ -2286,6 +2435,7 @@ Line2"
             _ => _.PropertyThatThrows);
 
         #endregion
+
         #region ScrubMemberByExpressionGlobal
 
         VerifierSettings.ScrubMembers<IgnoreExplicitTarget>(
@@ -2429,6 +2579,7 @@ Line2"
         VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 
         #endregion
+
         #region ScrubMemberByNameGlobal
 
         // For all types
@@ -2670,7 +2821,10 @@ Line2"
     public Task StreamMember()
     {
         var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
-        return Verify(new{stream});
+        return Verify(new
+        {
+            stream
+        });
     }
 
     [Fact]
@@ -2691,12 +2845,20 @@ Line2"
             {
                 "Include", new Dictionary<string, string>
                 {
-                    {"Ignore", "Value1"},
-                    {"Key1", "Value2"}
+                    {
+                        "Ignore", "Value1"
+                    },
+                    {
+                        "Key1", "Value2"
+                    }
                 }
             },
-            {"Ignore", "Value3"},
-            {"Key2", "Value4"}
+            {
+                "Ignore", "Value3"
+            },
+            {
+                "Key2", "Value4"
+            }
         };
         return Verify(target)
             .IgnoreMember("Ignore");
@@ -2710,12 +2872,20 @@ Line2"
             {
                 "Include", new Dictionary<string, string>
                 {
-                    {"Scrub", "Value1"},
-                    {"Key1", "Value2"}
+                    {
+                        "Scrub", "Value1"
+                    },
+                    {
+                        "Key1", "Value2"
+                    }
                 }
             },
-            {"Scrub", "Value3"},
-            {"Key2", "Value4"}
+            {
+                "Scrub", "Value3"
+            },
+            {
+                "Key2", "Value4"
+            }
         };
         return Verify(target)
             .ScrubMember("Scrub");
@@ -2891,7 +3061,8 @@ Line2"
 
     class WithObsolete
     {
-        [Obsolete] public string ObsoleteProperty { get; set; }
+        [Obsolete]
+        public string ObsoleteProperty { get; set; }
 
         public string OtherProperty { get; set; }
     }
@@ -2952,17 +3123,26 @@ Line2"
 
     [Fact]
     public Task WithConverter() =>
-        Verify(new ConverterTarget {Name = "The name"})
+        Verify(new ConverterTarget
+            {
+                Name = "The name"
+            })
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
 
     [Fact]
     public Task WithConverterAndNewline() =>
-        Verify(new ConverterTarget {Name = "A\rB\nC\r\nD"})
+        Verify(new ConverterTarget
+            {
+                Name = "A\rB\nC\r\nD"
+            })
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
 
     [Fact]
     public Task WithConverterAndIgnore() =>
-        Verify(new ConverterTarget {Name = "The name"})
+        Verify(new ConverterTarget
+            {
+                Name = "The name"
+            })
             .IgnoreMember("Name")
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
 
@@ -2990,7 +3170,10 @@ Line2"
         VerifierSettings.MemberConverter<StaticConverterTarget, string>(
             target => target.Name,
             (target, value) => "New Value");
-        return Verify(new StaticConverterTarget {Name = "The name"})
+        return Verify(new StaticConverterTarget
+            {
+                Name = "The name"
+            })
             .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
     }
 

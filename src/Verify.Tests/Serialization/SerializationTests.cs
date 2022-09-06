@@ -298,6 +298,33 @@ line3"
                 })
             .DontScrubDateTimes();
 
+    [Fact]
+    public Task DatetimeScrubbingDisabled_ExplicitScrubber() =>
+        Verify(
+                new
+                {
+                    dateTimeNoTime = new DateTime(2000, 1, 1),
+                    dateTimeWithTimeTime = new DateTime(2000, 1, 1,1,1,1),
+                    dateTimeOffsetNoTime =  new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.Zero),
+                    dateTimeOffsetWithTime =  new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1))
+                })
+            .DontScrubDateTimes()
+            .ScrubLinesWithReplace(_ => "replaced");
+
+#if NET6_0_OR_GREATER
+
+    [Fact]
+    public Task DateScrubbingDisabled_ExplicitScrubber() =>
+        Verify(
+                new
+                {
+                    value = new DateOnly(2000, 1, 1),
+                })
+            .DontScrubDateTimes()
+            .ScrubLinesWithReplace(_ => "replaced");
+
+#endif
+
     #region AddExtraSettings
 
     [Fact]
@@ -460,6 +487,16 @@ line3"
 
         #endregion
     }
+
+    [Fact]
+    public Task GuidScrubbingDisabled_ExplicitScrubber() =>
+        Verify(
+                new
+                {
+                    value = Guid.Parse("b6993f86-c1b9-44db-bfc5-33ed9e5c048e")
+                })
+            .DontScrubGuids()
+            .ScrubLinesWithReplace(_ => "replaced");
 
     [Fact]
     public Task GuidScrubbingDisabledNested() =>

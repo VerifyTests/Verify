@@ -10,7 +10,7 @@ class TimeConverter :
             return;
         }
 
-        writer.WriteRawValue(value.ToString("h:mm tt", CultureInfo.InvariantCulture));
+        writer.WriteRawValueWithScrubbers(value.ToString("h:mm tt", CultureInfo.InvariantCulture));
     }
 }
 #endif

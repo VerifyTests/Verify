@@ -67,29 +67,13 @@
         var prefix = Path.Combine(subDirectory, "target");
         getFileNames = target =>
         {
-            string? suffix;
-            if (target.Name is not null)
-            {
-                suffix = $"#{target.Name}";
-            }
-            else
-            {
-                suffix = "";
-            }
+            var suffix = GetSuffix(target);
 
             return new(target.Extension, prefix+suffix, prefix+suffix);
         };
         getIndexedFileNames = (target, index) =>
         {
-            string suffix;
-            if (target.Name is null)
-            {
-                suffix = $"#{index:D2}";
-            }
-            else
-            {
-                suffix = $"#{target.Name}.{index:D2}";
-            }
+            var suffix = GetIndexSuffix(target, index);
 
             return new(
                 target.Extension,
@@ -99,6 +83,7 @@
 
         //DeleteReceivedFiles(receivedPrefix, directory);
     }
+
 
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameterText)
     {
@@ -136,29 +121,13 @@
 
         getFileNames = target =>
         {
-            string? suffix;
-            if (target.Name is not null)
-            {
-                suffix = $"#{target.Name}";
-            }
-            else
-            {
-                suffix = "";
-            }
+            var suffix = GetSuffix(target);
 
             return new(target.Extension, $"{pathPrefixReceived}{suffix}", $"{pathPrefixVerified}{suffix}");
         };
         getIndexedFileNames = (target, index) =>
         {
-            string suffix;
-            if (target.Name is null)
-            {
-                suffix = $"#{index:D2}";
-            }
-            else
-            {
-                suffix = $"#{target.Name}.{index:D2}";
-            }
+            var suffix = GetIndexSuffix(target, index);
 
             return new(
                 target.Extension,
@@ -167,6 +136,26 @@
         };
 
         DeleteReceivedFiles(receivedPrefix, directory);
+    }
+
+    static string GetSuffix(Target target)
+    {
+        if (target.Name is not null)
+        {
+            return $"#{target.Name}";
+        }
+
+        return "";
+    }
+
+    static string GetIndexSuffix(Target target, int index)
+    {
+        if (target.Name is null)
+        {
+            return $"#{index:D2}";
+        }
+
+        return $"#{target.Name}.{index:D2}";
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)

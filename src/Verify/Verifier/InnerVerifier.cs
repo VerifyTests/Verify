@@ -84,7 +84,7 @@
             return new(target.Extension,path,path);
         };
 
-        IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*"));
+        IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*", SearchOption.AllDirectories));
     }
 
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameterText)

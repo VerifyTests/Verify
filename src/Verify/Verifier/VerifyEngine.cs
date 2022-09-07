@@ -52,7 +52,6 @@ class VerifyEngine
 
     public async Task HandleResults(List<Target> targetList)
     {
-
         if (targetList.Count == 1)
         {
             var target = targetList.Single();

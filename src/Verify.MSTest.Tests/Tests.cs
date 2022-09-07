@@ -41,4 +41,14 @@ public class Tests :
             });
 
     #endregion
+
+    static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
+
+    #region VerifyDirectoryMsTest
+
+    [TestMethod]
+    public Task WithDirectory() =>
+        VerifyDirectory(directoryPathToVerify);
+
+    #endregion
 }

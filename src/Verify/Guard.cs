@@ -9,6 +9,15 @@
         }
     }
 
+    public static void DirectoryExists(string path, string argumentName)
+    {
+        AgainstNullOrEmpty(path, argumentName);
+        if (!Directory.Exists(path))
+        {
+            throw new ArgumentException($"Directory not found. Path: {path}", argumentName);
+        }
+    }
+
     static char[] invalidFileChars = Path.GetInvalidFileNameChars();
 
     public static void BadFileNameNullable(string? name, string argumentName)

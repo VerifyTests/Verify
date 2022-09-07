@@ -618,7 +618,7 @@ public static string NameWithParent(this Type type)
     return type.Name;
 }
 ```
-<sup><a href='/src/Verify/Extensions.cs#L27-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-4' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Extensions.cs#L38-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-4' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

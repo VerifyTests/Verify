@@ -3,6 +3,7 @@
     public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include)
     {
         Guard.DirectoryExists(path, nameof(path));
+        path = Path.GetFullPath(path);
         var targets = await GetTargets(path, include?? (_ => true) ).ToList();
         return await VerifyInner(null, null, targets);
     }
@@ -16,7 +17,15 @@
                 continue;
             }
 
-            var name = Path.GetFileNameWithoutExtension(file);
+            var indexOfPeriod = file.LastIndexOf('.');
+            var name = file;
+            if (indexOfPeriod > -1)
+            {
+                name = file[..^(file.Length - indexOfPeriod)];
+            }
+
+            name = name[path.Length..];
+            name = name.TrimStart(Path.DirectorySeparatorChar);
             var extension = Path.GetExtension(file)[1..];
             if (EmptyFiles.Extensions.IsText(extension))
             {

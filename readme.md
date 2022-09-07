@@ -401,6 +401,21 @@ eg add the following to `.gitattributes`
 ```
 
 
+## VerifyDirectory
+
+Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
+
+<!-- snippet: VerifyDirectoryXunit -->
+<a id='snippet-verifydirectoryxunit'></a>
+```cs
+[Fact]
+public Task WithDirectory() =>
+    VerifyDirectory(directoryPathToVerify);
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L45-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Static settings
 
 Most settings are available at the both global level and at the instance level.

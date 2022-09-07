@@ -211,6 +211,13 @@ eg add the following to `.gitattributes`
 ```
 
 
+## VerifyDirectory
+
+Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
+
+snippet: VerifyDirectoryXunit
+
+
 ## Static settings
 
 Most settings are available at the both global level and at the instance level.

@@ -7,4 +7,4 @@
 /// <param name="projectDirectory">The directory of the project that the test was compile from.</param>
 /// <param name="type">The class the test method exists in.</param>
 /// <param name="method">The test method.</param>
-public delegate PathInfo DerivePathInfo(string sourceFile, string projectDirectory, string type, string method);
+public delegate PathInfo DerivePathInfo(string sourceFile, string projectDirectory, string type, MethodInfo method);

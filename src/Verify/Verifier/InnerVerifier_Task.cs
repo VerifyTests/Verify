@@ -16,11 +16,7 @@
 
     public async Task<VerifyResult> Verify<T>(IAsyncEnumerable<T> target)
     {
-        var list = new List<T>();
-        await foreach (var item in target)
-        {
-            list.Add(item);
-        }
+        var list = await target.ToList();
 
         try
         {

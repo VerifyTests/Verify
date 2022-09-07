@@ -1,5 +1,16 @@
 ﻿static class Extensions
 {
+    public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
+    {
+        var list = new List<T>();
+        await foreach (var item in target)
+        {
+            list.Add(item);
+        }
+
+        return list;
+    }
+
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
 

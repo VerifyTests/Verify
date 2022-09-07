@@ -2,7 +2,7 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile)
+    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
         if (!UsesVerifyAttribute.TryGet(out var method))
         {
@@ -10,6 +10,10 @@ public static partial class Verifier
             throw new($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
         }
 
+        if (useUniqueDirectory)
+        {
+            settings.UseUniqueDirectory();
+        }
         var type = method.ReflectedType!;
         TargetAssembly.Assign(type.Assembly);
 
@@ -44,14 +48,14 @@ public static partial class Verifier
             sourceFile,
             _ => _.Verify(targets));
 
-    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
+    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify, bool useUniqueDirectory = false)
     {
         Guard.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
             async verifySettings =>
             {
-                using var verifier = GetVerifier(verifySettings, sourceFile);
+                using var verifier = GetVerifier(verifySettings, sourceFile, useUniqueDirectory);
                 return await verify(verifier);
             });
     }

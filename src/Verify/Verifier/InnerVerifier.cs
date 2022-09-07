@@ -13,12 +13,12 @@
         VerifySettings settings,
         string typeName,
         string methodName,
-        List<string> methodParameters)
+        List<string> methodParameters,
+        PathInfo pathInfo)
     {
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
 

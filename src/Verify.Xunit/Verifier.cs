@@ -17,12 +17,14 @@ public static partial class Verifier
         var typeName = type.NameWithParent();
         var methodName = method.Name;
 
+        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
         return new(
             sourceFile,
             settings,
             typeName,
             methodName,
-            methodParameters);
+            methodParameters,
+            pathInfo);
     }
 
     public static SettingsTask Verify(

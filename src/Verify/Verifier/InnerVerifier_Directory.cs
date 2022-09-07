@@ -10,7 +10,7 @@
 
     static async IAsyncEnumerable<Target> GetTargets(string path, Func<string, bool> include)
     {
-        foreach (var file in Directory.EnumerateFiles(path))
+        foreach (var file in Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories))
         {
             if (!include(file))
             {
@@ -26,7 +26,9 @@
 
             name = name[path.Length..];
             name = name.TrimStart(Path.DirectorySeparatorChar);
+
             var extension = Path.GetExtension(file)[1..];
+
             if (EmptyFiles.Extensions.IsText(extension))
             {
                 yield return new(

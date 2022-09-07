@@ -94,14 +94,18 @@
 
     public static Task WriteText(string path, string text)
     {
+        CreateDirectory(Path.GetDirectoryName(path));
         File.WriteAllText(path, text, Utf8);
         return Task.CompletedTask;
     }
 
 #else
 
-    public static Task WriteText(string path, string text) =>
-        File.WriteAllTextAsync(path, text, Utf8);
+    public static Task WriteText(string path, string text)
+    {
+        CreateDirectory(Path.GetDirectoryName(path)!);
+        return File.WriteAllTextAsync(path, text, Utf8);
+    }
 
 #endif
 
@@ -115,6 +119,7 @@
 
     public static async Task WriteStream(string path, Stream stream)
     {
+        CreateDirectory(Path.GetDirectoryName(path)!);
         if (!TryCopyFileStream(path, stream))
         {
             await using var targetStream = OpenWrite(path);
@@ -132,6 +137,7 @@
 
     public static async Task WriteStream(string path, Stream stream)
     {
+        CreateDirectory(Path.GetDirectoryName(path));
         if (!TryCopyFileStream(path, stream))
         {
             using var targetStream = OpenWrite(path);

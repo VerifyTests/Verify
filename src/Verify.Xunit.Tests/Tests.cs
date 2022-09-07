@@ -40,13 +40,13 @@ public class Tests
 
     #endregion
 
-    static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
+    static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
     #region VerifyDirectoryXunit
 
     [Fact]
     public Task WithDirectory() =>
-        VerifyDirectory(directoryToVerify);
+        VerifyDirectory(directoryPathToVerify);
 
     #endregion
 }

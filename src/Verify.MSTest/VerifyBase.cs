@@ -5,10 +5,14 @@ public abstract partial class VerifyBase
 {
     public TestContext TestContext { get; set; } = null!;
 
-    InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile)
+    InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
         var type = GetType();
 
+        if (useUniqueDirectory)
+        {
+            settings.UseUniqueDirectory();
+        }
         var testName = TestContext.TestName;
         var indexOf = testName.IndexOf('(');
         if (indexOf > 0)
@@ -55,14 +59,18 @@ public abstract partial class VerifyBase
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(targets));
 
-    SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
+    SettingsTask Verify(
+        VerifySettings? settings,
+        string sourceFile,
+        Func<InnerVerifier, Task<VerifyResult>> verify,
+        bool useUniqueDirectory = false)
     {
         Guard.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
             async verifySettings =>
             {
-                using var verifier = BuildVerifier(verifySettings, sourceFile);
+                using var verifier = BuildVerifier(verifySettings, sourceFile, useUniqueDirectory);
                 return await verify(verifier);
             });
     }

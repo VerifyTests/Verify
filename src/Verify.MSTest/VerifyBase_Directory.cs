@@ -1,15 +1,15 @@
-﻿namespace VerifyXunit;
+﻿namespace VerifyMSTest;
 
-public static partial class Verifier
+public partial class VerifyBase
 {
-    public static SettingsTask VerifyDirectory(
+    public SettingsTask VerifyDirectory(
         string path,
         Func<string, bool>? include = null,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include), true);
 
-    public static SettingsTask VerifyDirectory(
+    public SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,
         VerifySettings? settings = null,

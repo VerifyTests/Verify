@@ -14,9 +14,13 @@ public static partial class Verifier
         field = temp ?? throw new("Could not find field `_test` on TestContext.TestAdapter.");
     }
 
-    static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings)
+    static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory)
     {
         Guard.AgainstBadSourceFile(sourceFile);
+        if (useUniqueDirectory)
+        {
+            settings.UseUniqueDirectory();
+        }
         var context = TestContext.CurrentContext;
         var adapter = context.Test;
         var test = (Test) field.GetValue(adapter)!;
@@ -83,14 +87,18 @@ public static partial class Verifier
     static bool IsCustomName(this ITest test) =>
         !test.FullName.StartsWith($"{test.TypeInfo!.FullName}.{test.Method!.Name}");
 
-    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify)
+    static SettingsTask Verify(
+        VerifySettings? settings,
+        string sourceFile,
+        Func<InnerVerifier, Task<VerifyResult>> verify,
+        bool useUniqueDirectory = false)
     {
         Guard.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
             async verifySettings =>
             {
-                using var verifier = BuildVerifier(sourceFile, verifySettings);
+                using var verifier = BuildVerifier(sourceFile, verifySettings, useUniqueDirectory);
                 return await verify(verifier);
             });
     }

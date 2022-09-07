@@ -2,7 +2,7 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName)
+    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory)
     {
         if (settings.parameters is not null)
         {
@@ -12,6 +12,11 @@ public static partial class Verifier
         if (settings.parametersText is not null)
         {
             ThrowNotSupported(nameof(VerifySettings.UseTextForParameters));
+        }
+
+        if (useUniqueDirectory)
+        {
+            settings.UseUniqueDirectory();
         }
 
         var fileName = Path.GetFileNameWithoutExtension(sourceFile);
@@ -24,12 +29,18 @@ public static partial class Verifier
     static void ThrowNotSupported(string api) =>
         throw new($"Expect does not support `{api}()`. Change the `name` parameter instead.");
 
-    static async Task<VerifyResult> Verify(VerifySettings? settings, Assembly assembly, string sourceFile, string name, Func<InnerVerifier, Task<VerifyResult>> verify)
+    static async Task<VerifyResult> Verify(
+        VerifySettings? settings,
+        Assembly assembly,
+        string sourceFile,
+        string name,
+        Func<InnerVerifier, Task<VerifyResult>> verify,
+        bool useUniqueDirectory = false)
     {
         TargetAssembly.Assign(assembly);
         settings ??= new();
         Guard.AgainstBadSourceFile(sourceFile);
-        using var verifier = GetVerifier(settings, sourceFile, name);
+        using var verifier = GetVerifier(settings, sourceFile, name, useUniqueDirectory);
         return await verify(verifier);
     }
 

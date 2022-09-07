@@ -14,6 +14,7 @@ public static partial class Verifier
         {
             settings.UseUniqueDirectory();
         }
+
         var type = method.ReflectedType!;
         TargetAssembly.Assign(type.Assembly);
 
@@ -48,7 +49,11 @@ public static partial class Verifier
             sourceFile,
             _ => _.Verify(targets));
 
-    static SettingsTask Verify(VerifySettings? settings, string sourceFile, Func<InnerVerifier, Task<VerifyResult>> verify, bool useUniqueDirectory = false)
+    static SettingsTask Verify(
+        VerifySettings? settings,
+        string sourceFile,
+        Func<InnerVerifier, Task<VerifyResult>> verify,
+        bool useUniqueDirectory = false)
     {
         Guard.AgainstBadSourceFile(sourceFile);
         return new(

@@ -16,7 +16,8 @@ public static partial class Verifier
 
         var fileName = Path.GetFileNameWithoutExtension(sourceFile);
 
-        return new(sourceFile, settings, fileName, methodName, new());
+        var pathInfo = GetPathInfo(sourceFile, fileName, methodName);
+        return new(sourceFile, settings, fileName, methodName, new(), pathInfo);
     }
 
     [DoesNotReturn]

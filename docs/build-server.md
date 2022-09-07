@@ -93,7 +93,7 @@ For example a possible implementation for [AppVeyor](https://www.appveyor.com/) 
 if (BuildServerDetector.Detected)
 {
     var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-    VerifierSettings.DerivePathInfo(
+    Verifier.DerivePathInfo(
         (sourceFile, projectDirectory, typeName, methodName) =>
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;

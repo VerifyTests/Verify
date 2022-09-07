@@ -1,21 +1,21 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
-namespace VerifyTests;
+namespace VerifyXunit;
 
-public static partial class VerifierSettings
+public partial class Verifier
 {
     #region defaultDerivePathInfo
 
     static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
         new(
             directory: Path.GetDirectoryName(sourceFile)!,
-            typeName: type,
-            methodName: method);
+            typeName: type.NameWithParent(),
+            methodName: method.Name);
 
     #endregion
 
-    internal static PathInfo GetPathInfo(string sourceFile, string typeName, string methodName) =>
-        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, typeName, methodName);
+    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
+        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
 
     /// <summary>
     /// Use custom path information for `.verified.` files.
@@ -26,5 +26,5 @@ public static partial class VerifierSettings
     /// </remarks>
     /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
     public static void DerivePathInfo(DerivePathInfo derivePathInfo) =>
-        VerifierSettings.derivePathInfo = derivePathInfo;
+        Verifier.derivePathInfo = derivePathInfo;
 }

@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+﻿namespace VerifyExpecto;
 
 /// <summary>
 /// Signature for deriving a custom path information for `.verified.` files.

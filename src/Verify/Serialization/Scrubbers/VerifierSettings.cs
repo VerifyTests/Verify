@@ -82,7 +82,6 @@ public static partial class VerifierSettings
     public static void ScrubLinesWithReplace(Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(_ => _.ReplaceLines(replaceLine), location);
 
-
     /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>

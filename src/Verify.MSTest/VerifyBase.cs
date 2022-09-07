@@ -32,13 +32,11 @@ public abstract partial class VerifyBase
             throw new($"Could not find method `{type.Name}.{testName}`.");
         }
 
-        var typeName = type.NameWithParent();
-
-        var pathInfo = GetPathInfo(sourceFile, typeName, method);
+        var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
             settings,
-            typeName,
+            type.NameWithParent(),
             method.Name,
             method.ParameterNames(),
             pathInfo);

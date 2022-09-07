@@ -14,13 +14,12 @@ public static partial class Verifier
         TargetAssembly.Assign(type.Assembly);
 
         var methodParameters = method.ParameterNames();
-        var typeName = type.NameWithParent();
 
-        var pathInfo = GetPathInfo(sourceFile, typeName, method);
+        var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
             settings,
-            typeName,
+            type.NameWithParent(),
             method.Name,
             methodParameters,
             pathInfo);

@@ -9,13 +9,13 @@ public partial class Verifier
     static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
         new(
             directory: Path.GetDirectoryName(sourceFile)!,
-            typeName: type,
+            typeName: type.NameWithParent(),
             methodName: method.Name);
 
     #endregion
 
-    internal static PathInfo GetPathInfo(string sourceFile, string typeName, MethodInfo method) =>
-        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, typeName, method);
+    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
+        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
 
     /// <summary>
     /// Use custom path information for `.verified.` files.

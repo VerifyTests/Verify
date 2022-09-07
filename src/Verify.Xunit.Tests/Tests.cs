@@ -40,13 +40,32 @@ public class Tests
 
     #endregion
 
-    static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
+    static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
     #region VerifyDirectoryXunit
 
     [Fact]
     public Task WithDirectory() =>
-        VerifyDirectory(directoryPathToVerify);
+        VerifyDirectory(directoryToVerify);
 
     #endregion
+
+#if NET6_0_OR_GREATER
+
+    #region VerifyDirectoryFilterXunit
+
+    [Fact]
+    public Task WithDirectoryFiltered() =>
+        VerifyDirectory(
+            directoryToVerify,
+            include: filePath => filePath.Contains("Doc"),
+            pattern: "*.txt",
+            options: new()
+            {
+                RecurseSubdirectories = false
+            });
+
+    #endregion
+
+#endif
 }

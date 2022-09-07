@@ -218,6 +218,11 @@ Verified all files in a directory. This approach combines [UseUniqueDirectory](/
 snippet: VerifyDirectoryXunit
 
 
+### Filtering
+
+snippet: VerifyDirectoryFilterXunit
+
+
 ## Static settings
 
 Most settings are available at the both global level and at the instance level.

@@ -1,16 +1,55 @@
 ﻿partial class InnerVerifier
 {
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include)
+#if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
+
+    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, EnumerationOptions? option)
     {
         Guard.DirectoryExists(path, nameof(path));
         path = Path.GetFullPath(path);
-        var targets = await GetTargets(path, include?? (_ => true) ).ToList();
+        pattern ??= "*";
+        option ??= new()
+        {
+            RecurseSubdirectories = true
+        };
+        var targets = await ToTargets(
+                path,
+                include,
+                Directory.EnumerateFiles(
+                    path,
+                    pattern,
+                    option))
+            .ToList();
         return await VerifyInner(null, null, targets);
     }
 
-    static async IAsyncEnumerable<Target> GetTargets(string path, Func<string, bool> include)
+#else
+
+    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option)
     {
-        foreach (var file in Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories))
+        Guard.DirectoryExists(path, nameof(path));
+        path = Path.GetFullPath(path);
+        pattern ??= "*";
+        var targets = await ToTargets(
+                path,
+                include,
+                Directory.EnumerateFiles(
+                    path,
+                    pattern,
+                    option))
+            .ToList();
+        return await VerifyInner(null, null, targets);
+    }
+
+#endif
+
+    static async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles)
+    {
+        if (include == null)
+        {
+            include = _ => true;
+        }
+
+        foreach (var file in enumerateFiles)
         {
             if (!include(file))
             {
@@ -45,7 +84,4 @@
             }
         }
     }
-
-    public Task<VerifyResult> VerifyDirectory(DirectoryInfo target, Func<string, bool>? include) =>
-        VerifyDirectory(target.FullName, include);
 }

@@ -63,10 +63,10 @@ public class Snippets
         #region DerivePathInfo
 
         Verifier.DerivePathInfo(
-            (sourceFile, projectDirectory, typeName, methodName) => new(
+            (sourceFile, projectDirectory, typeName, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: typeName,
-                methodName: methodName));
+                methodName: method.Name));
 
         #endregion
     }

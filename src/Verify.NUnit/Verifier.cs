@@ -44,14 +44,13 @@ public static partial class Verifier
 
         var method = test.Method.MethodInfo;
 
-        var methodName = method.Name;
         var typeName = type.NameWithParent();
-        var pathInfo = GetPathInfo(sourceFile, typeName, methodName);
+        var pathInfo = GetPathInfo(sourceFile, typeName, method);
         return new(
             sourceFile,
             settings,
             typeName,
-            methodName,
+            method.Name,
             method.ParameterNames(),
             pathInfo);
     }

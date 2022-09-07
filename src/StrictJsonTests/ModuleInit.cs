@@ -9,6 +9,6 @@
 
         #endregion
         DerivePathInfo(
-            (_, _, typeName, methodName) => new(AttributeReader.GetProjectDirectory(), typeName: typeName, methodName));
+            (_, _, typeName, method) => new(AttributeReader.GetProjectDirectory(), typeName: typeName, method.Name));
     }
 }

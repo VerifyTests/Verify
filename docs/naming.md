@@ -552,10 +552,10 @@ For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` 
 <a id='snippet-derivepathinfo'></a>
 ```cs
 Verifier.DerivePathInfo(
-    (sourceFile, projectDirectory, typeName, methodName) => new(
+    (sourceFile, projectDirectory, typeName, method) => new(
         directory: Path.Combine(projectDirectory, "Snapshots"),
         typeName: typeName,
-        methodName: methodName));
+        methodName: method.Name));
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L63-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -603,7 +603,7 @@ static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, meth
     new(
         directory: Path.GetDirectoryName(sourceFile)!,
         typeName: type,
-        methodName: method);
+        methodName: method.Name);
 ```
 <sup><a href='/src/Verify.Xunit/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-3' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-defaultderivepathinfo-4'></a>

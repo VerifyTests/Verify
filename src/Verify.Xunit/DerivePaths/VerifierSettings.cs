@@ -1,8 +1,8 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
-namespace VerifyTests;
+namespace VerifyXunit;
 
-public static partial class VerifierSettings
+public partial class Verifier
 {
     #region defaultDerivePathInfo
 
@@ -26,5 +26,5 @@ public static partial class VerifierSettings
     /// </remarks>
     /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
     public static void DerivePathInfo(DerivePathInfo derivePathInfo) =>
-        VerifierSettings.derivePathInfo = derivePathInfo;
+        Verifier.derivePathInfo = derivePathInfo;
 }

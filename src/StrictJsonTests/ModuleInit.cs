@@ -8,8 +8,7 @@
         VerifierSettings.UseStrictJson();
 
         #endregion
-        VerifierSettings.DerivePathInfo(
+        DerivePathInfo(
             (_, _, typeName, methodName) => new(AttributeReader.GetProjectDirectory(), typeName: typeName, methodName));
     }
-
 }

@@ -35,7 +35,7 @@ public abstract partial class VerifyBase
         var typeName = type.NameWithParent();
         var methodName = method.Name;
 
-        var pathInfo = VerifierSettings.GetPathInfo(sourceFile, typeName, methodName);
+        var pathInfo = GetPathInfo(sourceFile, typeName, methodName);
         return new(
             sourceFile,
             settings,

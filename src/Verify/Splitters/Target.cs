@@ -64,7 +64,7 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
-        this.streamData = data;
+        streamData = data;
         stringData = null;
         stringBuilderData = null;
     }
@@ -93,7 +93,7 @@ public readonly struct Target
         Name = name;
         stringData = null;
         streamData = null;
-        this.stringBuilderData = data;
+        stringBuilderData = data;
     }
 
     public Target(string extension, string data, string? name = null)
@@ -107,7 +107,7 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
-        this.stringData = data;
+        stringData = data;
         streamData = null;
         stringBuilderData = null;
     }

@@ -1,5 +1,5 @@
 ﻿[UsesVerify]
-public class WithAttributeTests
+public class NestedTypeTests
 {
     [Fact]
     public Task ShouldPass() =>

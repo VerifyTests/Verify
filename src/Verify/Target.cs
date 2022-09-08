@@ -72,23 +72,12 @@ public readonly struct Target
     public Target(string extension, StringBuilder data, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstEmpty(name, nameof(name));
         if (!EmptyFiles.Extensions.IsText(extension))
         {
             throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");
         }
 
-        if (name != null)
-        {
-            Guard.AgainstEmpty(name, nameof(name));
-            if (name.Contains('.'))
-            {
-                throw new ArgumentException("Name cannot contain '.'.");
-            }
-            if (char.IsNumber(name.First()))
-            {
-                throw new ArgumentException("Name cannot start with a number.");
-            }
-        }
         Extension = extension;
         Name = name;
         stringData = null;
@@ -99,7 +88,7 @@ public readonly struct Target
     public Target(string extension, string data, string? name = null)
     {
         Guard.AgainstBadExtension(extension, nameof(extension));
-        Guard.AgainstBadTargetName(name, nameof(name));
+        Guard.AgainstEmpty(name, nameof(name));
         if (!EmptyFiles.Extensions.IsText(extension))
         {
             throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream streamData)`.");

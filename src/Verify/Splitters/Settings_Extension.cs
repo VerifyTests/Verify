@@ -18,7 +18,7 @@ public static partial class VerifierSettings
         string fromExtension,
         AsyncConversion<Stream> conversion)
     {
-        Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
+        Guard.AgainstBadExtension(fromExtension);
         extensionConverters[fromExtension] = conversion;
     }
 }

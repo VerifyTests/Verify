@@ -25,7 +25,6 @@ public class Tests :
 
     #region ExplicitTargetsMsTest
 
-    [TestMethod]
     public Task WithTargets() =>
         Verify(
             target: new

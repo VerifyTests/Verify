@@ -12,9 +12,9 @@ public readonly struct PathInfo
         string? typeName = null,
         string? methodName = null)
     {
-        Guard.BadDirectoryName(directory, nameof(directory));
-        Guard.BadFileNameNullable(typeName, nameof(typeName));
-        Guard.BadFileNameNullable(methodName, nameof(methodName));
+        Guard.BadDirectoryName(directory);
+        Guard.BadFileNameNullable(typeName);
+        Guard.BadFileNameNullable(methodName);
         TypeName = typeName;
         MethodName = methodName;
         Directory = directory;

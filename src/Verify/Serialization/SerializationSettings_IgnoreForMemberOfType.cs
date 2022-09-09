@@ -62,7 +62,7 @@ To ignore specific members for T, create a custom converter.");
 
     public void IgnoreMembers(Type declaringType, params string[] names)
     {
-        Guard.AgainstNullOrEmpty(names, nameof(names));
+        Guard.AgainstNullOrEmpty(names);
         foreach (var name in names)
         {
             IgnoreMember(declaringType, name);
@@ -71,7 +71,7 @@ To ignore specific members for T, create a custom converter.");
 
     public void ScrubMembers(Type declaringType, params string[] names)
     {
-        Guard.AgainstNullOrEmpty(names, nameof(names));
+        Guard.AgainstNullOrEmpty(names);
         foreach (var name in names)
         {
             ScrubMember(declaringType, name);
@@ -86,8 +86,8 @@ To ignore specific members for T, create a custom converter.");
 
     void IgnoreMember(Type declaringType, string name, ScrubOrIgnore scrubOrIgnore)
     {
-        Guard.AgainstNullOrEmpty(name, nameof(name));
-        Guard.AgainstNullable(declaringType, nameof(name));
+        Guard.AgainstNullOrEmpty(name);
+        Guard.AgainstNullable(declaringType);
         if (!ignoredMembers.TryGetValue(declaringType, out var list))
         {
             ignoredMembers[declaringType] = list = new();

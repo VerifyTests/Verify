@@ -2,7 +2,7 @@
 {
     public Task<VerifyResult> VerifyFile(string path)
     {
-        Guard.FileExists(path, nameof(path));
+        Guard.FileExists(path);
         settings.extension ??= EmptyFiles.Extensions.GetExtension(path);
         return VerifyStream(IoHelpers.OpenRead(path));
     }

@@ -17,7 +17,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 <!-- snippet: ExplicitTargetsMsTest -->
 <a id='snippet-explicittargetsmstest'></a>
 ```cs
-[TestMethod]
 public Task WithTargets() =>
     Verify(
         target: new
@@ -32,7 +31,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L26-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L26-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

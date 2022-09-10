@@ -69,7 +69,7 @@
             IoHelpers.CreateDirectory(verifiedDirectory);
             IoHelpers.CreateDirectory(receivedDirectory);
 
-            verifiedFiles = Directory.EnumerateFiles(verifiedDirectory, "*").ToList();
+            verifiedFiles = Directory.EnumerateFiles(verifiedDirectory, "*", SearchOption.AllDirectories).ToList();
 
             getFileNames = target =>
             {
@@ -99,7 +99,7 @@
         }
         else
         {
-            verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
+            verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*", SearchOption.AllDirectories).ToList();
 
             getFileNames = target =>
             {

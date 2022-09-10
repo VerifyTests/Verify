@@ -11,15 +11,22 @@
         }
     }
 
-    public static void Delete(IEnumerable<string> files)
+    public static void DeleteFiles(string directory, string pattern) =>
+        DeleteFiles(Files(directory, pattern));
+
+    public static List<string> Files(string directory, string pattern) =>
+        Directory.EnumerateFiles(directory, pattern, SearchOption.AllDirectories)
+            .ToList();
+
+    public static void DeleteFiles(IEnumerable<string> files)
     {
         foreach (var file in files)
         {
-            Delete(file);
+            DeleteFiles(file);
         }
     }
 
-    public static void Delete(string file)
+    public static void DeleteFiles(string file)
     {
         try
         {

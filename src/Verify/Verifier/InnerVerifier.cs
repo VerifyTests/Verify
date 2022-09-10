@@ -69,13 +69,13 @@
             IoHelpers.CreateDirectory(verifiedDirectory);
             IoHelpers.CreateDirectory(receivedDirectory);
 
-            verifiedFiles = Directory.EnumerateFiles(verifiedDirectory, "*", SearchOption.AllDirectories).ToList();
+            verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
 
             getFileNames = target =>
             {
                 var verifiedPath = Path.Combine(verifiedDirectory, target.Name ?? "target");
                 var receivedPath = Path.Combine(receivedDirectory, target.Name ?? "target");
-                return new(target.Extension, verifiedPath, receivedPath);
+                return new(target.Extension, receivedPath, verifiedPath);
             };
             getIndexedFileNames = (target, index) =>
             {
@@ -92,14 +92,14 @@
                     receivedPath = Path.Combine(receivedDirectory, $"{target.Name}#{index:D2}");
                 }
 
-                return new(target.Extension, verifiedPath, receivedPath);
+                return new(target.Extension, receivedPath, verifiedPath);
             };
 
-            IoHelpers.Delete(Directory.EnumerateFiles(receivedDirectory, "*", SearchOption.AllDirectories));
+            IoHelpers.DeleteFiles(receivedDirectory, "*");
         }
         else
         {
-            verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*", SearchOption.AllDirectories).ToList();
+            verifiedFiles = IoHelpers.Files(subDirectory, "*.verified.*");
 
             getFileNames = target =>
             {
@@ -121,7 +121,7 @@
                 return new(target.Extension, path, path);
             };
 
-            IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*", SearchOption.AllDirectories));
+            IoHelpers.DeleteFiles(subDirectory, "*.received.*");
         }
     }
 
@@ -191,7 +191,7 @@
                 $"{pathPrefixVerified}{suffix}");
         };
 
-        IoHelpers.Delete(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
+        IoHelpers.DeleteFiles(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)

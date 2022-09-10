@@ -164,28 +164,43 @@ public class VerifyJsonWriter :
         var memberType = value.GetType();
         if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Scrub)
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {
-                WritePropertyName(name);
-                WriteRawValueIfNoStrict("Scrubbed");
+                return;
             }
+
+            WritePropertyName(name);
+            WriteRawValueIfNoStrict("Scrubbed");
+
+            return;
         }
 
         if (serialization.TryGetScrubOrIgnoreByInstance(value, out scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Scrub)
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
             {
-                WritePropertyName(name);
-                WriteRawValueIfNoStrict("Scrubbed");
+                return;
             }
+
+            WritePropertyName(name);
+            WriteRawValueIfNoStrict("Scrubbed");
+
+            return;
         }
 
         var converter = VerifierSettings.GetMemberConverter(declaringType, name);
-        var converted = converter?.Invoke(target, value);
-        if (converted != null)
+        if (converter is not null)
         {
+            var converted = converter(target, value);
+            if (converted is null)
+            {
+                return;
+            }
+
             WritePropertyName(name);
             WriteOrSerialize(converted);
+
+            return;
         }
 
         WritePropertyName(name);

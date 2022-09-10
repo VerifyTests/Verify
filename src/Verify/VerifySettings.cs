@@ -70,7 +70,7 @@ public partial class VerifySettings
     /// </summary>
     public void UseTextForParameters(string parametersText)
     {
-        Guard.AgainstBadExtension(parametersText);
+        Guard.AgainstBadExtension(parametersText, nameof(parametersText));
 
         if (parameters is not null)
         {
@@ -88,7 +88,7 @@ public partial class VerifySettings
     /// </summary>
     public void UseExtension(string extension)
     {
-        Guard.AgainstBadExtension(extension);
+        Guard.AgainstBadExtension(extension, nameof(extension));
         this.extension = extension;
     }
 

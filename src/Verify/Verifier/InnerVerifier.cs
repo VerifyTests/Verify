@@ -81,7 +81,7 @@
                 path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
             }
 
-            return new(target.Extension, path, path);
+            return new(target.Extension,path,path);
         };
 
         IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*", SearchOption.AllDirectories));

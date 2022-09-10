@@ -77,6 +77,15 @@ public static partial class VerifierSettings
         SharedNamer.UniqueForRuntime = true;
 
     /// <summary>
+    /// Use the current runtime to make the test results unique.
+    /// Used when a test produces different results based on runtime.
+    /// </summary>
+    public static void UseSplitModeForUniqueDirectory() =>
+        UseUniqueDirectorySplitMode = true;
+
+    internal static bool UseUniqueDirectorySplitMode;
+
+    /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>

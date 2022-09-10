@@ -62,29 +62,64 @@
 
         IoHelpers.CreateDirectory(subDirectory);
 
-        verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
-
-        getFileNames = target =>
+        if (VerifierSettings.UseUniqueDirectorySplitMode)
         {
-            var path = Path.Combine(subDirectory, target.Name ?? "target");
-            return new(target.Extension, path, path);
-        };
-        getIndexedFileNames = (target, index) =>
+            var verifiedDirectory = Path.Combine(directory, ".verified");
+            var receivedDirectory = Path.Combine(directory, ".received");
+            verifiedFiles = Directory.EnumerateFiles(verifiedDirectory, "*").ToList();
+
+            getFileNames = target =>
+            {
+                var verifiedPath = Path.Combine(subDirectory, target.Name ?? "target");
+                var receivedPath = Path.Combine(subDirectory, target.Name ?? "target");
+                return new(target.Extension, verifiedPath, receivedPath);
+            };
+            getIndexedFileNames = (target, index) =>
+            {
+                string verifiedPath;
+                string receivedPath;
+                if (target.Name is null)
+                {
+                    verifiedPath = Path.Combine(subDirectory, $"target#{index:D2}");
+                    receivedPath = Path.Combine(subDirectory, $"target#{index:D2}");
+                }
+                else
+                {
+                    verifiedPath = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
+                    receivedPath = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
+                }
+
+                return new(target.Extension, verifiedPath, path);
+            };
+
+            IoHelpers.Delete(Directory.EnumerateFiles(receivedDirectory, "*", SearchOption.AllDirectories));
+        }
+        else
         {
-            string path;
-            if (target.Name is null)
-            {
-                path = Path.Combine(subDirectory, $"target#{index:D2}");
-            }
-            else
-            {
-                path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
-            }
+            verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
 
-            return new(target.Extension, path, path);
-        };
+            getFileNames = target =>
+            {
+                var path = Path.Combine(subDirectory, target.Name ?? "target");
+                return new(target.Extension, path, path);
+            };
+            getIndexedFileNames = (target, index) =>
+            {
+                string path;
+                if (target.Name is null)
+                {
+                    path = Path.Combine(subDirectory, $"target#{index:D2}");
+                }
+                else
+                {
+                    path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
+                }
 
-        IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*", SearchOption.AllDirectories));
+                return new(target.Extension, path, path);
+            };
+
+            IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*", SearchOption.AllDirectories));
+        }
     }
 
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameterText)

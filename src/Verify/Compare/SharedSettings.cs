@@ -27,13 +27,13 @@ public static partial class VerifierSettings
 
     public static void RegisterStreamComparer(string extension, StreamCompare compare)
     {
-        Guard.AgainstBadExtension(extension);
+        Guard.AgainstBadExtension(extension, nameof(extension));
         streamComparers[extension] = compare;
     }
 
     public static void RegisterStringComparer(string extension, StringCompare compare)
     {
-        Guard.AgainstBadExtension(extension);
+        Guard.AgainstBadExtension(extension, nameof(extension));
         stringComparers[extension] = compare;
     }
 

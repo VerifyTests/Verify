@@ -26,7 +26,7 @@ public partial class VerifySettings
 
     public void UseParameters(params object?[] parameters)
     {
-        Guard.AgainstNullOrEmpty(parameters);
+        Guard.AgainstNullOrEmpty(parameters, nameof(parameters));
         ThrowIfFileNameDefined();
         if (parametersText is not null)
         {

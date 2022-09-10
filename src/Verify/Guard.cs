@@ -11,22 +11,23 @@ namespace System.Runtime.CompilerServices
         public string ParameterName { get; }
     }
 }
+
 #endif
 
 static class Guard
 {
-    public static void FileExists(string path, [CallerArgumentExpression("path")] string? paramName = null)
+    public static void FileExists(string path, [CallerArgumentExpression("path")] string paramName = "")
     {
-        AgainstNullOrEmpty(path, paramName!);
+        AgainstNullOrEmpty(path, paramName);
         if (!File.Exists(path))
         {
             throw new ArgumentException($"File not found. Path: {path}", paramName);
         }
     }
 
-    public static void DirectoryExists(string path, [CallerArgumentExpression("path")] string? paramName = null)
+    public static void DirectoryExists(string path, [CallerArgumentExpression("path")] string paramName = "")
     {
-        AgainstNullOrEmpty(path, paramName!);
+        AgainstNullOrEmpty(path, paramName);
         if (!Directory.Exists(path))
         {
             throw new ArgumentException($"Directory not found. Path: {path}", paramName);
@@ -35,7 +36,7 @@ static class Guard
 
     static char[] invalidFileChars = Path.GetInvalidFileNameChars();
 
-    public static void BadFileNameNullable(string? name, [CallerArgumentExpression("name")] string? paramName = null)
+    public static void BadFileNameNullable(string? name, [CallerArgumentExpression("name")] string paramName = "")
     {
         if (name is null)
         {
@@ -45,7 +46,7 @@ static class Guard
         BadFileName(name, paramName);
     }
 
-    public static void BadFileName(string name, [CallerArgumentExpression("name")] string? paramName = null)
+    public static void BadFileName(string name, [CallerArgumentExpression("name")] string paramName = "")
     {
         AgainstNullOrEmpty(name, paramName);
         foreach (var invalidChar in invalidFileChars)
@@ -64,7 +65,7 @@ static class Guard
         .Distinct()
         .ToArray();
 
-    public static void BadDirectoryName(string? name, [CallerArgumentExpression("name")] string? paramName = null)
+    public static void BadDirectoryName(string? name, [CallerArgumentExpression("name")] string paramName = "")
     {
         if (name is null)
         {
@@ -83,7 +84,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullable(Type type, [CallerArgumentExpression("type")] string? paramName = null)
+    public static void AgainstNullable(Type type, [CallerArgumentExpression("type")] string paramName = "")
     {
         var typeFromNullable = Nullable.GetUnderlyingType(type);
 
@@ -93,7 +94,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullOrEmpty(string value, [CallerArgumentExpression("value")] string? paramName = null)
+    public static void AgainstNullOrEmpty(string value, [CallerArgumentExpression("value")] string paramName = "")
     {
         if (string.IsNullOrWhiteSpace(value))
         {
@@ -111,7 +112,7 @@ static class Guard
         }
     }
 
-    public static void AgainstEmpty(string? value, [CallerArgumentExpression("value")] string? paramName = null)
+    public static void AgainstEmpty(string? value, [CallerArgumentExpression("value")] string paramName = "")
     {
         if (value is null)
         {
@@ -124,7 +125,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullOrEmpty(object?[] value, [CallerArgumentExpression("value")] string? paramName = null)
+    public static void AgainstNullOrEmpty(object?[] value, [CallerArgumentExpression("value")] string paramName = "")
     {
         if (value is null)
         {
@@ -137,7 +138,7 @@ static class Guard
         }
     }
 
-    public static void AgainstNullOrEmpty<T>(T[] value, [CallerArgumentExpression("value")] string? paramName = null)
+    public static void AgainstNullOrEmpty<T>(T[] value, [CallerArgumentExpression("value")] string paramName = "")
     {
         if (value is null)
         {
@@ -150,7 +151,7 @@ static class Guard
         }
     }
 
-    public static void AgainstBadExtension(string value, [CallerArgumentExpression("value")] string? paramName = null)
+    public static void AgainstBadExtension(string value, [CallerArgumentExpression("value")] string paramName = "")
     {
         AgainstNullOrEmpty(value, paramName);
 

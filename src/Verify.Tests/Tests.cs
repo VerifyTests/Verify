@@ -110,7 +110,7 @@ public class Tests
         VerifierSettings.OnFirstVerify(
             (filePair, _) =>
             {
-                if (filePair.Name.Contains("OnVerifyMismatch"))
+                if (filePair.VerifiedPath.Contains("OnVerifyMismatch"))
                 {
                     onFirstVerifyCalled = true;
                 }
@@ -120,7 +120,7 @@ public class Tests
         VerifierSettings.OnVerifyMismatch(
             (filePair, _) =>
             {
-                if (filePair.Name.Contains("OnVerifyMismatch"))
+                if (filePair.VerifiedPath.Contains("OnVerifyMismatch"))
                 {
                     Assert.NotEmpty(filePair.ReceivedPath);
                     Assert.NotNull(filePair.ReceivedPath);
@@ -148,7 +148,7 @@ public class Tests
         VerifierSettings.OnFirstVerify(
             (filePair, _) =>
             {
-                if (filePair.Name.Contains("OnFirstVerify"))
+                if (filePair.VerifiedPath.Contains("OnFirstVerify"))
                 {
                     Assert.NotEmpty(filePair.ReceivedPath);
                     Assert.NotNull(filePair.ReceivedPath);
@@ -160,7 +160,7 @@ public class Tests
         VerifierSettings.OnVerifyMismatch(
             (filePair, _) =>
             {
-                if (filePair.Name.Contains("OnFirstVerify"))
+                if (filePair.VerifiedPath.Contains("OnFirstVerify"))
                 {
                     onVerifyMismatchCalled = true;
                 }

@@ -195,8 +195,7 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         IReadOnlyCollection<NewResult> @new,
         IReadOnlyCollection<NotEqualResult> notEquals,
         IReadOnlyCollection<string> delete,
-        IReadOnlyCollection<FilePair> equal,
-        [CallerFilePath] string sourceFile = "")
+        IReadOnlyCollection<FilePair> equal)
     {
         var exceptionMessage = VerifyExceptionMessageBuilder.Build(
             projectDirectory,
@@ -211,7 +210,6 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
             {
                 exceptionMessage,
                 result
-            },
-            sourceFile: sourceFile);
+            });
     }
 }

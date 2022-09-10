@@ -1,5 +1,5 @@
 ﻿{
-  exceptionMessage:
+  message:
 Directory: {ProjectDirectory}
 New:
   - Received: ExceptionParsingTests.Fake.received.txt
@@ -12,8 +12,8 @@ NotEqual:
   - Received: ExceptionParsingTests.Fake.received.bin
     Verified: ExceptionParsingTests.Fake.verified.bin
 Delete:
-  - ExceptionParsingTests.Fake.recevied.txt
-  - ExceptionParsingTests.Fake.recevied.bin
+  - ExceptionParsingTests.Fake.received.txt
+  - ExceptionParsingTests.Fake.received.bin
 Equal:
   - Received: ExceptionParsingTests.Fake.received.txt
     Verified: ExceptionParsingTests.Fake.verified.txt
@@ -57,8 +57,8 @@ verifiedText
       }
     ],
     Delete: [
-      {ProjectDirectory}ExceptionParsingTests.Fake.recevied.txt,
-      {ProjectDirectory}ExceptionParsingTests.Fake.recevied.bin
+      {ProjectDirectory}ExceptionParsingTests.Fake.received.txt,
+      {ProjectDirectory}ExceptionParsingTests.Fake.received.bin
     ],
     Equal: [
       {

@@ -6,8 +6,8 @@ public class ExceptionParsingTests
 {
     static string projectDirectory = AttributeReader.GetProjectDirectory();
     string fakeFilePrefix = CurrentFile.Relative("ExceptionParsingTests.Fake");
-    string fakeReceivedTextFile = CurrentFile.Relative("ExceptionParsingTests.Fake.recevied.txt");
-    string fakeReceivedBinFile = CurrentFile.Relative("ExceptionParsingTests.Fake.recevied.bin");
+    string fakeReceivedTextFile = CurrentFile.Relative("ExceptionParsingTests.Fake.received.txt");
+    string fakeReceivedBinFile = CurrentFile.Relative("ExceptionParsingTests.Fake.received.bin");
 
     [Fact]
     public Task Error_EmptyList() =>
@@ -195,23 +195,21 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         IReadOnlyCollection<NewResult> @new,
         IReadOnlyCollection<NotEqualResult> notEquals,
         IReadOnlyCollection<string> delete,
-        IReadOnlyCollection<FilePair> equal,
-        [CallerFilePath] string sourceFile = "")
+        IReadOnlyCollection<FilePair> equal)
     {
-        var exceptionMessage = VerifyExceptionMessageBuilder.Build(
+        var message = VerifyExceptionMessageBuilder.Build(
             projectDirectory,
             @new,
             notEquals,
             delete,
             equal);
 
-        var result = Parser.Parse(exceptionMessage);
+        var result = Parser.Parse(message);
         return Verify(
             new
             {
-                exceptionMessage,
+                message,
                 result
-            },
-            sourceFile: sourceFile);
+            });
     }
 }

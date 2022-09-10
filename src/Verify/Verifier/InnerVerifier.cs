@@ -64,14 +64,17 @@
 
         if (VerifierSettings.UseUniqueDirectorySplitMode)
         {
-            var verifiedDirectory = Path.Combine(directory, ".verified");
-            var receivedDirectory = Path.Combine(directory, ".received");
+            var verifiedDirectory = Path.Combine(subDirectory, ".verified");
+            var receivedDirectory = Path.Combine(subDirectory, ".received");
+            IoHelpers.CreateDirectory(verifiedDirectory);
+            IoHelpers.CreateDirectory(receivedDirectory);
+
             verifiedFiles = Directory.EnumerateFiles(verifiedDirectory, "*").ToList();
 
             getFileNames = target =>
             {
-                var verifiedPath = Path.Combine(subDirectory, target.Name ?? "target");
-                var receivedPath = Path.Combine(subDirectory, target.Name ?? "target");
+                var verifiedPath = Path.Combine(verifiedDirectory, target.Name ?? "target");
+                var receivedPath = Path.Combine(receivedDirectory, target.Name ?? "target");
                 return new(target.Extension, verifiedPath, receivedPath);
             };
             getIndexedFileNames = (target, index) =>
@@ -80,16 +83,16 @@
                 string receivedPath;
                 if (target.Name is null)
                 {
-                    verifiedPath = Path.Combine(subDirectory, $"target#{index:D2}");
-                    receivedPath = Path.Combine(subDirectory, $"target#{index:D2}");
+                    verifiedPath = Path.Combine(verifiedDirectory, $"target#{index:D2}");
+                    receivedPath = Path.Combine(receivedDirectory, $"target#{index:D2}");
                 }
                 else
                 {
-                    verifiedPath = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
-                    receivedPath = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
+                    verifiedPath = Path.Combine(verifiedDirectory, $"{target.Name}#{index:D2}");
+                    receivedPath = Path.Combine(receivedDirectory, $"{target.Name}#{index:D2}");
                 }
 
-                return new(target.Extension, verifiedPath, path);
+                return new(target.Extension, verifiedPath, receivedPath);
             };
 
             IoHelpers.Delete(Directory.EnumerateFiles(receivedDirectory, "*", SearchOption.AllDirectories));

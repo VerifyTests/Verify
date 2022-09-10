@@ -73,8 +73,9 @@
 
             getFileNames = target =>
             {
-                var verifiedPath = Path.Combine(verifiedDirectory, target.Name ?? "target");
-                var receivedPath = Path.Combine(receivedDirectory, target.Name ?? "target");
+                var name = target.Name ?? "target";
+                var verifiedPath = Path.Combine(verifiedDirectory, name);
+                var receivedPath = Path.Combine(receivedDirectory, name);
                 return new(target.Extension, receivedPath, verifiedPath);
             };
             getIndexedFileNames = (target, index) =>

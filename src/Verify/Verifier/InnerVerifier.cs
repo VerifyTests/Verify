@@ -58,7 +58,6 @@
             verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
         }
 
-
         if (VerifierSettings.UseUniqueDirectorySplitMode)
         {
             var directoryPrefix = Path.Combine(directory, verifiedPrefix);
@@ -71,35 +70,19 @@
 
             getFileNames = target =>
             {
-                var name = target.Name ?? "target";
-                var verifiedPath = Path.Combine(verifiedDirectory, name);
-                var receivedPath = Path.Combine(receivedDirectory, name);
+                var fileName = $"{target.NameOrTarget}.{target.Extension}";
                 return new(
                     target.Extension,
-                    $"{receivedPath}.{target.Extension}",
-                    $"{verifiedPath}.{target.Extension}");
+                    Path.Combine(receivedDirectory, fileName),
+                    Path.Combine(verifiedDirectory, fileName));
             };
             getIndexedFileNames = (target, index) =>
             {
-                string verifiedPath;
-                string receivedPath;
-                if (target.Name is null)
-                {
-                    var fileName = $"target#{index:D2}";
-                    receivedPath = Path.Combine(receivedDirectory, fileName);
-                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
-                }
-                else
-                {
-                    var fileName = $"{target.Name}#{index:D2}";
-                    receivedPath = Path.Combine(receivedDirectory, fileName);
-                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
-                }
-
+                var fileName = $"{target.NameOrTarget}#{index:D2}.{target.Extension}";
                 return new(
                     target.Extension,
-                    $"{receivedPath}.{target.Extension}",
-                    $"{verifiedPath}.{target.Extension}");
+                    Path.Combine(receivedDirectory, fileName),
+                    Path.Combine(verifiedDirectory, fileName));
             };
 
             IoHelpers.DeleteFiles(receivedDirectory, "*");
@@ -112,7 +95,7 @@
 
             getFileNames = target =>
             {
-                var path = Path.Combine(subDirectory, target.Name ?? "target");
+                var path = Path.Combine(subDirectory, target.NameOrTarget);
                 return new(
                     target.Extension,
                     $"{path}.received.{target.Extension}",
@@ -120,15 +103,7 @@
             };
             getIndexedFileNames = (target, index) =>
             {
-                string path;
-                if (target.Name is null)
-                {
-                    path = Path.Combine(subDirectory, $"target#{index:D2}");
-                }
-                else
-                {
-                    path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
-                }
+                var path = Path.Combine(subDirectory, $"{target.NameOrTarget}#{index:D2}");
 
                 return new(
                     target.Extension,
@@ -176,32 +151,15 @@
 
         getFileNames = target =>
         {
-            string suffix;
-            if (target.Name is not null)
-            {
-                suffix = $"#{target.Name}";
-            }
-            else
-            {
-                suffix = "";
-            }
-
-            return new(target.Extension,
+            var suffix = target.Name is null ? "" : $"#{target.Name}";
+            return new(
+                target.Extension,
                 $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
                 $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
         getIndexedFileNames = (target, index) =>
         {
-            string suffix;
-            if (target.Name is null)
-            {
-                suffix = $"#{index:D2}";
-            }
-            else
-            {
-                suffix = $"#{target.Name}.{index:D2}";
-            }
-
+            var suffix = target.Name is null ? $"#{index:D2}" : $"#{target.Name}.{index:D2}";
             return new(
                 target.Extension,
                 $"{pathPrefixReceived}{suffix}.received.{target.Extension}",

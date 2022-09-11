@@ -82,13 +82,15 @@
                 string receivedPath;
                 if (target.Name is null)
                 {
-                    verifiedPath = Path.Combine(verifiedDirectory, $"target#{index:D2}");
-                    receivedPath = Path.Combine(receivedDirectory, $"target#{index:D2}");
+                    var fileName = $"target#{index:D2}";
+                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
+                    receivedPath = Path.Combine(receivedDirectory, fileName);
                 }
                 else
                 {
-                    verifiedPath = Path.Combine(verifiedDirectory, $"{target.Name}#{index:D2}");
-                    receivedPath = Path.Combine(receivedDirectory, $"{target.Name}#{index:D2}");
+                    var fileName = $"{target.Name}#{index:D2}";
+                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
+                    receivedPath = Path.Combine(receivedDirectory, fileName);
                 }
 
                 return new(target.Extension, receivedPath, verifiedPath);

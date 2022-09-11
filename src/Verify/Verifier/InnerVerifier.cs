@@ -58,14 +58,12 @@
             verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
         }
 
-        var subDirectory = Path.Combine(directory, verifiedPrefix);
-
-        IoHelpers.CreateDirectory(subDirectory);
 
         if (VerifierSettings.UseUniqueDirectorySplitMode)
         {
-            var verifiedDirectory = Path.Combine(subDirectory, ".verified");
-            var receivedDirectory = Path.Combine(subDirectory, ".received");
+            var directoryPrefix = Path.Combine(directory, verifiedPrefix);
+            var verifiedDirectory = $"{directoryPrefix}.verified";
+            var receivedDirectory = $"{directoryPrefix}.received";
             IoHelpers.CreateDirectory(verifiedDirectory);
             IoHelpers.CreateDirectory(receivedDirectory);
 
@@ -100,6 +98,8 @@
         }
         else
         {
+            var subDirectory = Path.Combine(directory, verifiedPrefix);
+            IoHelpers.CreateDirectory(subDirectory);
             verifiedFiles = IoHelpers.Files(subDirectory, "*.verified.*");
 
             getFileNames = target =>

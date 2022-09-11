@@ -7,7 +7,6 @@
         IReadOnlyCollection<string> delete,
         IReadOnlyCollection<FilePair> equal)
     {
-        var directoryLength = directory.Length;
         var builder = new StringBuilder($"Directory: {directory}");
         builder.AppendLineN();
 
@@ -16,7 +15,7 @@
             builder.AppendLineN("New:");
             foreach (var file in @new)
             {
-                AppendFile(directoryLength, builder, file.File);
+                AppendFile(builder, file.File);
             }
         }
 
@@ -25,7 +24,7 @@
             builder.AppendLineN("NotEqual:");
             foreach (var file in notEquals)
             {
-                AppendFile(directoryLength, builder, file.File);
+                AppendFile(builder, file.File);
             }
         }
 
@@ -34,7 +33,7 @@
             builder.AppendLineN("Delete:");
             foreach (var file in delete)
             {
-                builder.AppendLineN($"  - {file[directoryLength..]}");
+                builder.AppendLineN($"  - {Path.GetFileName(file)}");
             }
         }
 
@@ -43,22 +42,22 @@
             builder.AppendLineN("Equal:");
             foreach (var file in equal)
             {
-                AppendFile(directoryLength, builder, file);
+                AppendFile(builder, file);
             }
         }
 
-        AppendContent(directoryLength, @new, notEquals, builder);
+        AppendContent(@new, notEquals, builder);
 
         return builder.ToString();
     }
 
-    static void AppendFile(int directoryLength, StringBuilder builder, FilePair file)
+    static void AppendFile(StringBuilder builder, FilePair file)
     {
-        builder.AppendLineN($"  - Received: {file.ReceivedPath[directoryLength..]}");
-        builder.AppendLineN($"    Verified: {file.VerifiedPath[directoryLength..]}");
+        builder.AppendLineN($"  - Received: {file.ReceivedName}");
+        builder.AppendLineN($"    Verified: {file.VerifiedName}");
     }
 
-    static void AppendContent(int directoryLength, IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
+    static void AppendContent(IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {
@@ -67,11 +66,9 @@
 
         var newContentFiles = @new.Where(_ => _.File.IsText).ToList();
         var notEqualContentFiles = notEquals
-            .Where(_ => _.File.IsText ||
-                        _.Message is not null)
+            .Where(_ => _.File.IsText || _.Message is not null)
             .ToList();
-        if (newContentFiles.IsEmpty() &&
-            notEqualContentFiles.IsEmpty())
+        if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
             return;
         }
@@ -86,7 +83,7 @@
             builder.AppendLineN();
             foreach (var item in newContentFiles)
             {
-                builder.AppendLineN($"Received: {item.File.ReceivedPath[directoryLength..]}");
+                builder.AppendLineN($"Received: {item.File.ReceivedName}");
                 builder.AppendLineN(item.ReceivedText);
                 builder.AppendLineN();
             }
@@ -98,17 +95,16 @@
             builder.AppendLineN();
             foreach (var notEqual in notEqualContentFiles)
             {
-                if (notEqual.File.IsText ||
-                    notEqual.Message is not null)
+                if (notEqual.File.IsText || notEqual.Message is not null)
                 {
-                    AppendNotEqualContent(directoryLength, builder, notEqual);
+                    AppendNotEqualContent(builder, notEqual);
                     builder.AppendLineN();
                 }
             }
         }
     }
 
-    static void AppendNotEqualContent(int directoryLength, StringBuilder builder, NotEqualResult notEqual)
+    static void AppendNotEqualContent(StringBuilder builder, NotEqualResult notEqual)
     {
         var item = notEqual.File;
         var message = notEqual.Message;
@@ -116,9 +112,9 @@
         {
             builder.AppendLineN(
                 $"""
-                Received: {item.ReceivedPath[directoryLength..]}
+                Received: {item.ReceivedName}
                 {notEqual.ReceivedText}
-                Verified: {item.VerifiedPath[directoryLength..]}
+                Verified: {item.VerifiedName}
                 {notEqual.VerifiedText}
                 """);
         }
@@ -126,8 +122,8 @@
         {
             builder.AppendLineN(
                 $"""
-                Received: {item.ReceivedPath[directoryLength..]}
-                Verified: {item.VerifiedPath[directoryLength..]}
+                Received: {item.ReceivedName}
+                Verified: {item.VerifiedName}
                 Compare Result:
                 {message}
                 """);

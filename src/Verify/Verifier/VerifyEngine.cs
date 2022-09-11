@@ -90,7 +90,7 @@ class VerifyEngine
             for (var index = 0; index < targets.Count; index++)
             {
                 var target = targets[index];
-                var file = getIndexedFileNames(target, index);
+                var file = getIndexedFileNames(target, index.ToString("D2"));
                 await Inner(file, target);
             }
         }

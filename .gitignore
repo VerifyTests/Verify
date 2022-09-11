@@ -6,6 +6,8 @@ obj/
 *.DotSettings.user
 .idea/
 *.received.*
+
+*.received/
 nugets/
 src/Verify.Tests/Tests.StreamNegative.verified.bin
 src/Verify.Tests/Tests.StreamMultipleNegative.00.verified.bin

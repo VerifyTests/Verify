@@ -650,3 +650,75 @@ await Verify("TheValue", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L202-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-useuniquedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### UseSplitModeForUniqueDirectory
+
+`UseSplitModeForUniqueDirectory` is a global option that changes the behavior of all `UseUniqueDirectory` uses.
+
+The `received` and `verified` are split and each exist in their own directory.
+
+The file format is:
+
+For received files:
+
+```
+{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.received/{targetName}.{extension}
+```
+
+For verified files:
+
+```
+{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified/{targetName}.{extension}
+```
+
+<!-- snippet: UseSplitModeForUniqueDirectory -->
+<a id='snippet-usesplitmodeforuniquedirectory'></a>
+```cs
+[ModuleInitializer]
+public static void Init() =>
+    VerifierSettings.UseSplitModeForUniqueDirectory();
+```
+<sup><a href='/src/SplitUniqueDirectoryMode/Tests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-usesplitmodeforuniquedirectory' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+**Also exclude `*.received/` from source control.**
+
+eg. add the following to `.gitignore`
+
+`*.received/`
+
+
+## VerifyDirectory
+
+Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
+
+<!-- snippet: VerifyDirectoryXunit -->
+<a id='snippet-verifydirectoryxunit'></a>
+```cs
+[Fact]
+public Task WithDirectory() =>
+    VerifyDirectory(directoryToVerify);
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L45-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Filtering
+
+<!-- snippet: VerifyDirectoryFilterXunit -->
+<a id='snippet-verifydirectoryfilterxunit'></a>
+```cs
+[Fact]
+public Task WithDirectoryFiltered() =>
+    VerifyDirectory(
+        directoryToVerify,
+        include: filePath => filePath.Contains("Doc"),
+        pattern: "*.txt",
+        options: new()
+        {
+            RecurseSubdirectories = false
+        });
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L55-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

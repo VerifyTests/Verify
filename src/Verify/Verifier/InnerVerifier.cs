@@ -42,12 +42,12 @@
         }
     }
 
-    void InitForDirectoryConvention(string uniquenessVerified, string typeAndMethod, string parameterText)
+    void InitForDirectoryConvention(string uniquenessVerified, string typeAndMethod, string parameters)
     {
         string verifiedPrefix;
         if (settings.fileName is not null)
         {
-            verifiedPrefix = settings.fileName + uniquenessVerified;
+            verifiedPrefix = $"{settings.fileName}{uniquenessVerified}";
         }
         else if (settings.ignoreParametersForVerified)
         {
@@ -55,39 +55,59 @@
         }
         else
         {
-            verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+            verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
         }
 
-        var subDirectory = Path.Combine(directory, verifiedPrefix);
-
-        IoHelpers.CreateDirectory(subDirectory);
-
-        verifiedFiles = Directory.EnumerateFiles(subDirectory, "*.verified.*").ToList();
-
-        getFileNames = target =>
+        if (VerifierSettings.UseUniqueDirectorySplitMode)
         {
-            var path = Path.Combine(subDirectory, target.Name ?? "target");
-            return new(target.Extension, path, path);
-        };
-        getIndexedFileNames = (target, index) =>
+            var directoryPrefix = Path.Combine(directory, verifiedPrefix);
+            var verifiedDirectory = $"{directoryPrefix}.verified";
+            var receivedDirectory = $"{directoryPrefix}.received";
+            IoHelpers.CreateDirectory(verifiedDirectory);
+
+            verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
+
+            getFileNames = target =>
+            {
+                var fileName = $"{target.NameOrTarget}.{target.Extension}";
+                return new(
+                    target.Extension,
+                    Path.Combine(receivedDirectory, fileName),
+                    Path.Combine(verifiedDirectory, fileName));
+            };
+            getIndexedFileNames = (target, index) =>
+            {
+                var fileName = $"{target.NameOrTarget}#{index}.{target.Extension}";
+                return new(
+                    target.Extension,
+                    Path.Combine(receivedDirectory, fileName),
+                    Path.Combine(verifiedDirectory, fileName));
+            };
+
+            IoHelpers.DeleteDirectory(receivedDirectory);
+        }
+        else
         {
-            string path;
-            if (target.Name is null)
-            {
-                path = Path.Combine(subDirectory, $"target#{index:D2}");
-            }
-            else
-            {
-                path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
-            }
+            var subDirectory = Path.Combine(directory, verifiedPrefix);
+            IoHelpers.CreateDirectory(subDirectory);
+            verifiedFiles = IoHelpers.Files(subDirectory, "*.verified.*");
 
-            return new(target.Extension, path, path);
-        };
+            getFileNames = target =>
+                new(
+                    target.Extension,
+                    Path.Combine(subDirectory, $"{target.NameOrTarget}.received.{target.Extension}"),
+                    Path.Combine(subDirectory, $"{target.NameOrTarget}.verified.{target.Extension}"));
+            getIndexedFileNames = (target, index) =>
+                new(
+                    target.Extension,
+                    Path.Combine(subDirectory, $"{target.NameOrTarget}#{index}.received.{target.Extension}"),
+                    Path.Combine(subDirectory, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"));
 
-        IoHelpers.Delete(Directory.EnumerateFiles(subDirectory, "*.received.*", SearchOption.AllDirectories));
+            IoHelpers.DeleteFiles(subDirectory, "*.received.*");
+        }
     }
 
-    void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameterText)
+    void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameters)
     {
         var uniquenessReceived = sharedUniqueness;
         if (namer.ResolveUniqueForRuntimeAndVersion() ||
@@ -105,13 +125,13 @@
         }
         else if (settings.ignoreParametersForVerified)
         {
-            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
+            receivedPrefix = $"{typeAndMethod}{parameters}{uniquenessReceived}";
             verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
         }
         else
         {
-            receivedPrefix = $"{typeAndMethod}{parameterText}{uniquenessReceived}";
-            verifiedPrefix = $"{typeAndMethod}{parameterText}{uniquenessVerified}";
+            receivedPrefix = $"{typeAndMethod}{parameters}{uniquenessReceived}";
+            verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
         }
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
@@ -123,37 +143,22 @@
 
         getFileNames = target =>
         {
-            string suffix;
-            if (target.Name is not null)
-            {
-                suffix = $"#{target.Name}";
-            }
-            else
-            {
-                suffix = "";
-            }
-
-            return new(target.Extension, $"{pathPrefixReceived}{suffix}", $"{pathPrefixVerified}{suffix}");
+            var suffix = target.Name is null ? "" : $"#{target.Name}";
+            return new(
+                target.Extension,
+                $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
+                $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
         getIndexedFileNames = (target, index) =>
         {
-            string suffix;
-            if (target.Name is null)
-            {
-                suffix = $"#{index:D2}";
-            }
-            else
-            {
-                suffix = $"#{target.Name}.{index:D2}";
-            }
-
+            var suffix = target.Name is null ? $"#{index}" : $"#{target.Name}.{index}";
             return new(
                 target.Extension,
-                $"{pathPrefixReceived}{suffix}",
-                $"{pathPrefixVerified}{suffix}");
+                $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
+                $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
 
-        IoHelpers.Delete(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
+        IoHelpers.DeleteFiles(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)

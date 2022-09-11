@@ -7,6 +7,7 @@ public readonly struct Target
     readonly Stream? streamData;
     public string Extension { get; }
     public string? Name { get; } = null;
+    public string NameOrTarget => Name ?? "target";
 
     public Stream StreamData
     {

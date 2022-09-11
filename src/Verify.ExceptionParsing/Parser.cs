@@ -82,10 +82,7 @@ public static class Parser
                     continue;
                 }
 
-                if (lineHandler is not null)
-                {
-                    lineHandler.Invoke(line, enumerator);
-                }
+                lineHandler?.Invoke(line, enumerator);
             }
         }
 

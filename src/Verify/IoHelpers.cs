@@ -2,7 +2,15 @@
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
 
-    public static void DeleteIfEmpty(string path)
+    public static void DeleteDirectory(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            Directory.Delete(path, true);
+        }
+    }
+
+    public static void DeleteFileIfEmpty(string path)
     {
         var info = new FileInfo(path);
         if (info.Exists && info.Length == 0)
@@ -11,15 +19,29 @@
         }
     }
 
-    public static void Delete(IEnumerable<string> files)
+    public static void DeleteFiles(string directory, string pattern)
+    {
+        if (!Directory.Exists(directory))
+        {
+            return;
+        }
+
+        DeleteFiles(Files(directory, pattern));
+    }
+
+    public static List<string> Files(string directory, string pattern) =>
+        Directory.EnumerateFiles(directory, pattern, SearchOption.AllDirectories)
+            .ToList();
+
+    public static void DeleteFiles(IEnumerable<string> files)
     {
         foreach (var file in files)
         {
-            Delete(file);
+            DeleteFiles(file);
         }
     }
 
-    public static void Delete(string file)
+    public static void DeleteFiles(string file)
     {
         try
         {
@@ -94,7 +116,7 @@
 
     public static Task WriteText(string path, string text)
     {
-        CreateDirectory(Path.GetDirectoryName(path));
+        CreateDirectory(Path.GetDirectoryName(path)!);
         File.WriteAllText(path, text, Utf8);
         return Task.CompletedTask;
     }
@@ -108,6 +130,19 @@
     }
 
 #endif
+
+    public static string GetRelativePath(string directory, string file)
+    {
+        var fullPath = Path.Combine(directory, file);
+        if (directory.EndsWith(Path.DirectorySeparatorChar) ||
+            directory.EndsWith(Path.AltDirectorySeparatorChar))
+        {
+            return fullPath[directory.Length..];
+        }
+
+        return fullPath[(directory.Length+1)..];
+
+    }
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 

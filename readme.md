@@ -385,6 +385,10 @@ eg. add the following to `.gitignore`
 *.received.*
 ```
 
+If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniquedirectory) also include:
+
+`*.received/`
+
 
 ### Verified
 
@@ -399,41 +403,6 @@ eg add the following to `.gitattributes`
 *.verified.xml text eol=lf
 *.verified.json text eol=lf
 ```
-
-
-## VerifyDirectory
-
-Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
-
-<!-- snippet: VerifyDirectoryXunit -->
-<a id='snippet-verifydirectoryxunit'></a>
-```cs
-[Fact]
-public Task WithDirectory() =>
-    VerifyDirectory(directoryToVerify);
-```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L45-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Filtering
-
-<!-- snippet: VerifyDirectoryFilterXunit -->
-<a id='snippet-verifydirectoryfilterxunit'></a>
-```cs
-[Fact]
-public Task WithDirectoryFiltered() =>
-    VerifyDirectory(
-        directoryToVerify,
-        include: filePath => filePath.Contains("Doc"),
-        pattern: "*.txt",
-        options: new()
-        {
-            RecurseSubdirectories = false
-        });
-```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L55-L68' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
 
 
 ## Static settings

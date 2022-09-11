@@ -195,6 +195,10 @@ eg. add the following to `.gitignore`
 *.received.*
 ```
 
+If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniquedirectory) also include:
+
+`*.received/`
+
 
 ### Verified
 
@@ -209,18 +213,6 @@ eg add the following to `.gitattributes`
 *.verified.xml text eol=lf
 *.verified.json text eol=lf
 ```
-
-
-## VerifyDirectory
-
-Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
-
-snippet: VerifyDirectoryXunit
-
-
-### Filtering
-
-snippet: VerifyDirectoryFilterXunit
 
 
 ## Static settings

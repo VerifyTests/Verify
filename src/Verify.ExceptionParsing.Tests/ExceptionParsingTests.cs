@@ -5,9 +5,13 @@ using FilePair = VerifyTests.FilePair;
 public class ExceptionParsingTests
 {
     static string projectDirectory = AttributeReader.GetProjectDirectory();
-    string fakeFilePrefix = CurrentFile.Relative("ExceptionParsingTests.Fake");
-    string fakeReceivedTextFile = CurrentFile.Relative("ExceptionParsingTests.Fake.received.txt");
-    string fakeReceivedBinFile = CurrentFile.Relative("ExceptionParsingTests.Fake.received.bin");
+    static string fakeFilePrefix = CurrentFile.Relative("ExceptionParsingTests.Fake");
+    static string receivedBin = $"{fakeFilePrefix}.received.bin";
+    static string verifiedBin = $"{fakeFilePrefix}.verified.bin";
+    static string receivedTxt = $"{fakeFilePrefix}.received.txt";
+    static string verifiedTxt = $"{fakeFilePrefix}.verified.txt";
+    static string fakeReceivedTextFile = CurrentFile.Relative("ExceptionParsingTests.Fake.received.txt");
+    static string fakeReceivedBinFile = CurrentFile.Relative("ExceptionParsingTests.Fake.received.bin");
 
     [Fact]
     public Task Error_EmptyList() =>
@@ -38,8 +42,8 @@ public class ExceptionParsingTests
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), "TheMessage", "receivedText", "verifiedText"),
-            new(new("bin", fakeFilePrefix, fakeFilePrefix), "TheMessage", null, null)
+            new(new("txt", receivedTxt, verifiedTxt), "TheMessage", "receivedText", "verifiedText"),
+            new(new("bin", receivedBin, verifiedBin), "TheMessage", null, null)
         };
 
         return ParseVerify(
@@ -54,7 +58,7 @@ public class ExceptionParsingTests
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix, fakeFilePrefix)
+            new("txt", receivedTxt, verifiedTxt)
         };
 
         return ParseVerify(
@@ -69,7 +73,7 @@ public class ExceptionParsingTests
     {
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), "contents")
+            new(new("txt", receivedTxt, verifiedTxt), "contents")
         };
 
         return ParseVerify(
@@ -117,7 +121,7 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText")
+            new(new("txt", receivedTxt, verifiedTxt), null, "receivedText", "verifiedText")
         };
 
         return ParseVerify(
@@ -132,18 +136,18 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix, fakeFilePrefix),
-            new("bin", fakeFilePrefix, fakeFilePrefix)
+            new("txt", receivedTxt, verifiedTxt),
+            new("bin", receivedBin, verifiedBin)
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), "the content"),
-            new(new("bin", fakeFilePrefix, fakeFilePrefix), null)
+            new(new("txt", receivedTxt, verifiedTxt), "the content"),
+            new(new("bin", receivedBin, verifiedBin), null)
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText"),
-            new(new("bin", fakeFilePrefix, fakeFilePrefix), null, null, null)
+            new(new("txt", receivedTxt, verifiedTxt), null, "receivedText", "verifiedText"),
+            new(new("bin", receivedBin, verifiedBin), null, null, null)
         };
         var delete = new List<string>
         {
@@ -159,15 +163,15 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var equal = new List<FilePair>
         {
-            new("txt", fakeFilePrefix, fakeFilePrefix)
+            new("txt", receivedTxt, verifiedTxt)
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), "the content")
+            new(new("txt", receivedTxt, verifiedTxt), "the content")
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", fakeFilePrefix, fakeFilePrefix), null, "receivedText", "verifiedText")
+            new(new("txt", receivedTxt, verifiedTxt), null, "receivedText", "verifiedText")
         };
         var delete = new List<string>
         {

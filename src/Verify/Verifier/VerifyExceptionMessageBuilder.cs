@@ -8,6 +8,7 @@
         IReadOnlyCollection<FilePair> equal)
     {
         var builder = new StringBuilder($"Directory: {directory}");
+
         builder.AppendLineN();
 
         if (@new.Any())
@@ -15,7 +16,7 @@
             builder.AppendLineN("New:");
             foreach (var file in @new)
             {
-                AppendFile(builder, file.File);
+                AppendFile(directory, builder, file.File);
             }
         }
 
@@ -24,7 +25,7 @@
             builder.AppendLineN("NotEqual:");
             foreach (var file in notEquals)
             {
-                AppendFile(builder, file.File);
+                AppendFile(directory, builder, file.File);
             }
         }
 
@@ -42,22 +43,24 @@
             builder.AppendLineN("Equal:");
             foreach (var file in equal)
             {
-                AppendFile(builder, file);
+                AppendFile(directory, builder, file);
             }
         }
 
-        AppendContent(@new, notEquals, builder);
+        AppendContent(directory, @new, notEquals, builder);
 
         return builder.ToString();
     }
 
-    static void AppendFile(StringBuilder builder, FilePair file)
+    static void AppendFile(string directory, StringBuilder builder, FilePair file)
     {
-        builder.AppendLineN($"  - Received: {file.ReceivedName}");
-        builder.AppendLineN($"    Verified: {file.VerifiedName}");
+        var receivedPath = IoHelpers.GetRelativePath(directory, file.ReceivedPath);
+        var verifiedPath = IoHelpers.GetRelativePath(directory, file.VerifiedPath);
+        builder.AppendLineN($"  - Received: {receivedPath}");
+        builder.AppendLineN($"    Verified: {verifiedPath}");
     }
 
-    static void AppendContent(IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
+    static void AppendContent(string directory, IReadOnlyCollection<NewResult> @new, IReadOnlyCollection<NotEqualResult> notEquals, StringBuilder builder)
     {
         if (VerifierSettings.omitContentFromException)
         {
@@ -66,7 +69,8 @@
 
         var newContentFiles = @new.Where(_ => _.File.IsText).ToList();
         var notEqualContentFiles = notEquals
-            .Where(_ => _.File.IsText || _.Message is not null)
+            .Where(_ => _.File.IsText ||
+                        _.Message is not null)
             .ToList();
         if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
         {
@@ -83,7 +87,8 @@
             builder.AppendLineN();
             foreach (var item in newContentFiles)
             {
-                builder.AppendLineN($"Received: {item.File.ReceivedName}");
+                var receivedPath = IoHelpers.GetRelativePath(directory, item.File.ReceivedName);
+                builder.AppendLineN($"Received: {receivedPath}");
                 builder.AppendLineN(item.ReceivedText);
                 builder.AppendLineN();
             }
@@ -95,38 +100,41 @@
             builder.AppendLineN();
             foreach (var notEqual in notEqualContentFiles)
             {
-                if (notEqual.File.IsText || notEqual.Message is not null)
+                if (notEqual.File.IsText ||
+                    notEqual.Message is not null)
                 {
-                    AppendNotEqualContent(builder, notEqual);
+                    AppendNotEqualContent(directory, builder, notEqual);
                     builder.AppendLineN();
                 }
             }
         }
     }
 
-    static void AppendNotEqualContent(StringBuilder builder, NotEqualResult notEqual)
+    static void AppendNotEqualContent(string directory, StringBuilder builder, NotEqualResult notEqual)
     {
         var item = notEqual.File;
         var message = notEqual.Message;
+        var receivedPath = IoHelpers.GetRelativePath(directory, item.ReceivedPath);
+        var verifiedPath = IoHelpers.GetRelativePath(directory, item.VerifiedPath);
         if (message is null)
         {
             builder.AppendLineN(
                 $"""
-                Received: {item.ReceivedName}
+                Received: {receivedPath}
                 {notEqual.ReceivedText}
-                Verified: {item.VerifiedName}
+                Verified: {verifiedPath}
                 {notEqual.VerifiedText}
-                """);
+                """ );
         }
         else
         {
             builder.AppendLineN(
                 $"""
-                Received: {item.ReceivedName}
-                Verified: {item.VerifiedName}
+                Received: {receivedPath}
+                Verified: {verifiedPath}
                 Compare Result:
                 {message}
-                """);
+                """ );
         }
     }
 }

@@ -101,7 +101,7 @@
 
     public static Task WriteText(string path, string text)
     {
-        CreateDirectory(Path.GetDirectoryName(path));
+        CreateDirectory(Path.GetDirectoryName(path)!);
         File.WriteAllText(path, text, Utf8);
         return Task.CompletedTask;
     }
@@ -115,6 +115,19 @@
     }
 
 #endif
+
+    public static string GetRelativePath(string directory, string file)
+    {
+        var fullPath = Path.Combine(directory, file);
+        if (directory.EndsWith(Path.DirectorySeparatorChar) ||
+            directory.EndsWith(Path.AltDirectorySeparatorChar))
+        {
+            return fullPath[directory.Length..];
+        }
+
+        return fullPath[(directory.Length+1)..];
+
+    }
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 

@@ -7,11 +7,11 @@ public readonly struct FilePair
     public string VerifiedPath { get; }
     public bool IsText { get; }
 
-    public FilePair(string extension, string prefixReceived, string prefixVerified)
+    public FilePair(string extension, string receivedPath, string verifiedPath)
     {
         Extension = extension;
-        ReceivedPath = $"{prefixReceived}.received.{extension}";
-        VerifiedPath = $"{prefixVerified}.verified.{extension}";
+        ReceivedPath = receivedPath;
+        VerifiedPath = verifiedPath;
         IsText = EmptyFiles.Extensions.IsText(extension);
     }
 }

@@ -74,7 +74,10 @@
                 var name = target.Name ?? "target";
                 var verifiedPath = Path.Combine(verifiedDirectory, name);
                 var receivedPath = Path.Combine(receivedDirectory, name);
-                return new(target.Extension, receivedPath, verifiedPath);
+                return new(
+                    target.Extension,
+                    $"{receivedPath}.received.{target.Extension}",
+                    $"{verifiedPath}.verified.{target.Extension}");
             };
             getIndexedFileNames = (target, index) =>
             {
@@ -83,17 +86,20 @@
                 if (target.Name is null)
                 {
                     var fileName = $"target#{index:D2}";
-                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
                     receivedPath = Path.Combine(receivedDirectory, fileName);
+                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
                 }
                 else
                 {
                     var fileName = $"{target.Name}#{index:D2}";
-                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
                     receivedPath = Path.Combine(receivedDirectory, fileName);
+                    verifiedPath = Path.Combine(verifiedDirectory, fileName);
                 }
 
-                return new(target.Extension, receivedPath, verifiedPath);
+                return new(
+                    target.Extension,
+                    $"{receivedPath}.received.{target.Extension}",
+                    $"{verifiedPath}.verified.{target.Extension}");
             };
 
             IoHelpers.DeleteFiles(receivedDirectory, "*");
@@ -107,7 +113,10 @@
             getFileNames = target =>
             {
                 var path = Path.Combine(subDirectory, target.Name ?? "target");
-                return new(target.Extension, path, path);
+                return new(
+                    target.Extension,
+                    $"{path}.received.{target.Extension}",
+                    $"{path}.verified.{target.Extension}");
             };
             getIndexedFileNames = (target, index) =>
             {
@@ -121,7 +130,10 @@
                     path = Path.Combine(subDirectory, $"{target.Name}#{index:D2}");
                 }
 
-                return new(target.Extension, path, path);
+                return new(
+                    target.Extension,
+                    $"{path}.received.{target.Extension}",
+                    $"{path}.verified.{target.Extension}");
             };
 
             IoHelpers.DeleteFiles(subDirectory, "*.received.*");
@@ -174,7 +186,9 @@
                 suffix = "";
             }
 
-            return new(target.Extension, $"{pathPrefixReceived}{suffix}", $"{pathPrefixVerified}{suffix}");
+            return new(target.Extension,
+                $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
+                $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
         getIndexedFileNames = (target, index) =>
         {
@@ -190,8 +204,8 @@
 
             return new(
                 target.Extension,
-                $"{pathPrefixReceived}{suffix}",
-                $"{pathPrefixVerified}{suffix}");
+                $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
+                $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
 
         IoHelpers.DeleteFiles(MatchingFileFinder.Find(receivedPrefix, ".received", directory));

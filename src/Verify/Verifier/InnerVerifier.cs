@@ -47,7 +47,7 @@
         string verifiedPrefix;
         if (settings.fileName is not null)
         {
-            verifiedPrefix = settings.fileName + uniquenessVerified;
+            verifiedPrefix = $"{settings.fileName}{uniquenessVerified}";
         }
         else if (settings.ignoreParametersForVerified)
         {

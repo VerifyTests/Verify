@@ -195,3 +195,44 @@ The file format is:
 ```
 
 snippet: UseUniqueDirectory
+
+
+### UseSplitModeForUniqueDirectory
+
+`UseSplitModeForUniqueDirectory` is a global option that changes the behavior of all `UseUniqueDirectory` uses.
+
+The `received` and `verified` are split and each exist in their own directory.
+
+The file format is:
+
+For received files:
+
+```
+{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.received/{targetName}.{extension}
+```
+
+For verified files:
+
+```
+{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified/{targetName}.{extension}
+```
+
+snippet: UseSplitModeForUniqueDirectory
+
+**Also exclude `*.received/` from source control.**
+
+eg. add the following to `.gitignore`
+
+`*.received/`
+
+
+## VerifyDirectory
+
+Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
+
+snippet: VerifyDirectoryXunit
+
+
+### Filtering
+
+snippet: VerifyDirectoryFilterXunit

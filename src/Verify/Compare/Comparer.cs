@@ -2,7 +2,7 @@
 {
     public static async Task<EqualityResult> Text(FilePair filePair, string receivedText, VerifySettings settings)
     {
-        IoHelpers.DeleteIfEmpty(filePair.VerifiedPath);
+        IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
         if (!File.Exists(filePair.VerifiedPath))
         {
             await IoHelpers.WriteText(filePair.ReceivedPath, receivedText);

@@ -2,7 +2,15 @@
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
 
-    public static void DeleteIfEmpty(string path)
+    public static void DeleteDirectory(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            Directory.Delete(path, true);
+        }
+    }
+
+    public static void DeleteFileIfEmpty(string path)
     {
         var info = new FileInfo(path);
         if (info.Exists && info.Length == 0)
@@ -11,8 +19,15 @@
         }
     }
 
-    public static void DeleteFiles(string directory, string pattern) =>
+    public static void DeleteFiles(string directory, string pattern)
+    {
+        if (!Directory.Exists(directory))
+        {
+            return;
+        }
+
         DeleteFiles(Files(directory, pattern));
+    }
 
     public static List<string> Files(string directory, string pattern) =>
         Directory.EnumerateFiles(directory, pattern, SearchOption.AllDirectories)

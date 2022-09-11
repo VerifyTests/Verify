@@ -64,7 +64,6 @@
             var verifiedDirectory = $"{directoryPrefix}.verified";
             var receivedDirectory = $"{directoryPrefix}.received";
             IoHelpers.CreateDirectory(verifiedDirectory);
-            IoHelpers.CreateDirectory(receivedDirectory);
 
             verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
 
@@ -85,7 +84,7 @@
                     Path.Combine(verifiedDirectory, fileName));
             };
 
-            IoHelpers.DeleteFiles(receivedDirectory, "*");
+            IoHelpers.DeleteDirectory(receivedDirectory);
         }
         else
         {

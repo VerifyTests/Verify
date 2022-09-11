@@ -87,7 +87,7 @@
             builder.AppendLineN();
             foreach (var item in newContentFiles)
             {
-                var receivedPath = IoHelpers.GetRelativePath(directory, item.File.ReceivedName);
+                var receivedPath = IoHelpers.GetRelativePath(directory, item.File.ReceivedPath);
                 builder.AppendLineN($"Received: {receivedPath}");
                 builder.AppendLineN(item.ReceivedText);
                 builder.AppendLineN();

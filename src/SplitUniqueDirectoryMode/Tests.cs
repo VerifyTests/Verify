@@ -69,5 +69,4 @@ public class Tests
         Verify("FileName")
             .UseUniqueDirectory()
             .UseFileName("TheFileName");
-
 }

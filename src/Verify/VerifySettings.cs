@@ -12,7 +12,9 @@ public partial class VerifySettings
         instanceScrubbers = new(settings.instanceScrubbers);
         extensionMappedInstanceScrubbers = new(settings.extensionMappedInstanceScrubbers);
         extension = settings.extension;
+#if DiffEngine
         diffEnabled = settings.diffEnabled;
+#endif
         methodName = settings.methodName;
         typeName = settings.typeName;
         useUniqueDirectory = settings.useUniqueDirectory;
@@ -122,8 +124,11 @@ public partial class VerifySettings
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
+    // ReSharper disable once UnusedParameter.Global
+    // ReSharper disable once MemberCanBeMadeStatic.Global
     public void AutoVerify(bool includeBuildServer = true)
     {
+#if DiffEngine
         if (includeBuildServer)
         {
             autoVerify = true;
@@ -135,5 +140,6 @@ public partial class VerifySettings
                 autoVerify = true;
             }
         }
+#endif
     }
 }

@@ -1,13 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;net472;net48</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0;net6.0-android;net6.0-ios</TargetFrameworks>
+    <DiffEngine>true</DiffEngine>
+    <DiffEngine Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' ">false</DiffEngine>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(DiffEngine)">
+    <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
     <Using Include="Argon" />
     <Using Include="VerifyTests" />
-    <Using Include="DiffEngine" />
+    <Using Include="DiffEngine" Condition="$(DiffEngine)" />
     <Using Include="EmptyFiles" />
     <Using Include="SimpleInfoName" />
     <Using Include="System.Numerics" />
@@ -16,11 +22,12 @@
     <Using Include="System.Runtime.Versioning" />
     <Using Include="System.Runtime.InteropServices" />
     
-    <PackageReference Include="DiffEngine" Version="10.0.3" />
+    <PackageReference Include="DiffEngine" Version="10.0.3" Condition="$(DiffEngine)" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.2.0" />
     <PackageReference Include="Argon" Version="0.1.0-beta.18" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"
+                      Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <Content Include="buildTransitive\Verify.props" PackagePath="buildTransitive\Verify.props" />
     <Content Include="buildTransitive\Verify.targets" PackagePath="buildTransitive\Verify.targets" />

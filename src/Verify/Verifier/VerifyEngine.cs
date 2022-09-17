@@ -1,4 +1,6 @@
-﻿[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
+﻿// ReSharper disable ConvertToUsingDeclaration
+// ReSharper disable UseAwaitUsing
+[DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {
     string directory;
@@ -29,23 +31,12 @@ class VerifyEngine
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
-        if (target.IsStringBuilder)
+        if (target.TryGetString(out var stringValue))
         {
-            var builder = target.StringBuilderData;
-            return await Comparer.Text(file, builder.ToString(), settings);
+            return await Comparer.Text(file, stringValue, settings);
         }
 
-        if (target.IsString)
-        {
-            return await Comparer.Text(file, target.StringData, settings);
-        }
-
-        var stream = target.StreamData;
-#if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
-        using (stream)
-#else
-        await using (stream)
-#endif
+        using (var stream = target.StreamData)
         {
             stream.MoveToStart();
             return await FileComparer.DoCompare(settings, file, previousTextFailed, stream);

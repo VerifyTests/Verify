@@ -52,6 +52,24 @@ public readonly struct Target
         }
     }
 
+    internal bool TryGetString([NotNullWhen(true)]out string? value)
+    {
+        if (stringBuilderData is { } builder)
+        {
+            value = builder.ToString();
+            return true;
+        }
+
+        if (stringData is { } stringValue)
+        {
+            value = stringValue;
+            return true;
+        }
+
+        value = null;
+        return false;
+    }
+
     public bool IsStringBuilder => stringBuilderData is not null;
 
     public Target(string extension, Stream data, string? name = null)

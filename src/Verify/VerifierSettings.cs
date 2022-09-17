@@ -10,8 +10,10 @@ public static partial class VerifierSettings
     /// <summary>
     /// Automatically accept the results of all tests.
     /// </summary>
+    // ReSharper disable once UnusedParameter.Global
     public static void AutoVerify(bool includeBuildServer = true)
     {
+#if DiffEngine
         if (includeBuildServer)
         {
             autoVerify = true;
@@ -23,6 +25,7 @@ public static partial class VerifierSettings
                 autoVerify = true;
             }
         }
+#endif
     }
 
     internal static bool autoVerify;

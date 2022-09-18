@@ -16,12 +16,13 @@ public class ExtensionConverterTests
                     }));
         VerifierSettings.RegisterFileConverter(
             "level2",
-            (stream, _) =>
-                new("level2Info",
+            async (stream, _) =>
+                new(
+                    "level2Info",
                     new List<Target>
                     {
                         new("txt", "text from level2"),
-                        new("txt", stream)
+                        new("txt", await stream.ReadString())
                     }));
     }
 

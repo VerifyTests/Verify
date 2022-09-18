@@ -30,6 +30,16 @@ public class ExtensionConverterTests
     public Task Nested() =>
         Verify(IoHelpers.OpenRead("sample.level1"));
 
+    [Fact]
+    public Task NestedTarget()
+    {
+        IEnumerable<Target> targets = new[]
+        {
+            new Target("level1", new MemoryStream())
+        };
+        return Verify(targets);
+    }
+
     [ModuleInitializer]
     public static void TextSplitInit() =>
         VerifierSettings.RegisterFileConverter(

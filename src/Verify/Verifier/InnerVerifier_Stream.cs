@@ -9,6 +9,11 @@
     async Task<VerifyResult> VerifyStream(Stream stream)
     {
         var extension = settings.extension;
+        if (extension == null &&
+            stream is FileStream fileStream)
+        {
+            extension = EmptyFiles.Extensions.GetExtension(fileStream.Name);
+        }
 #if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
         using (stream)
 #else

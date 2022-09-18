@@ -21,10 +21,28 @@
             }
             if (extension is not null)
             {
-                if (VerifierSettings.TryGetExtensionConverter(extension, out var conversion))
+                if (VerifierSettings.HasExtensionConverter(extension))
                 {
-                    var result = await conversion(stream, settings.Context);
-                    return await VerifyInner(result.Info, result.Cleanup, result.Targets);
+                    var (infos, convertedTargets, cleanups) = await DoExtensionConversion(extension, stream);
+                    object? info = null;
+                    if (infos.Count == 1)
+                    {
+                        info = infos[0];
+                    }
+                    else if(infos.Count >1)
+                    {
+                        info = infos;
+                    }
+                    return await VerifyInner(
+                        info,
+                        async () =>
+                        {
+                            foreach (var cleanup in cleanups)
+                            {
+                                await cleanup();
+                            }
+                        },
+                        convertedTargets);
                 }
             }
 
@@ -32,6 +50,44 @@
 
             return await VerifyInner(null, null, targets);
         }
+    }
+
+    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(string extension, Stream stream)
+    {
+        var infos = new List<object>();
+        var targets = new List<Target>();
+        var cleanups = new List<Func<Task>>();
+
+        var queue = new Queue<Target>();
+        queue.Enqueue(new(extension,stream));
+
+        while (queue.Count>0)
+        {
+            var target = queue.Dequeue();
+
+            if (!VerifierSettings.TryGetExtensionConverter(target.Extension, out var conversion))
+            {
+                targets.Add(target);
+                continue;
+            }
+
+            var result = await conversion(target.StreamData,settings.Context);
+            if (result.Info != null)
+            {
+                infos.Add(result.Info);
+            }
+            if (result.Cleanup != null)
+            {
+                cleanups.Add(result.Cleanup);
+            }
+
+            foreach (var innerTarget in result.Targets)
+            {
+                queue.Enqueue(innerTarget);
+            }
+        }
+
+        return (infos, targets, cleanups);
     }
 
     static async Task<List<Target>> GetTargets(Stream stream, string? extension)

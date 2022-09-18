@@ -27,8 +27,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task Nested() =>
-        Verify(IoHelpers.OpenRead("sample.level1"))
-            .UseExtension("txt");
+        Verify(IoHelpers.OpenRead("sample.level1"));
 
     [ModuleInitializer]
     public static void TextSplitInit() =>

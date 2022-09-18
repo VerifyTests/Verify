@@ -6,6 +6,8 @@ public static partial class VerifierSettings
 
     internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter) =>
         extensionConverters.TryGetValue(extension, out converter);
+    internal static bool HasExtensionConverter(string extension) =>
+        extensionConverters.ContainsKey(extension);
 
     public static void RegisterFileConverter(
         string fromExtension,

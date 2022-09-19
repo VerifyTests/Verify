@@ -34,9 +34,9 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 
-    public static Task<VerifyResult> Verify<T>(
+    public static Task<VerifyResult> Verify(
         string name,
-        T target,
+        object? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {

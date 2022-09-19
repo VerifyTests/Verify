@@ -42,6 +42,17 @@ public class Tests :
 
     #endregion
 
+    [TestMethod]
+    public Task EnumerableTargets() =>
+        Verify(
+            new[]
+            {
+                new Target(
+                    extension: "txt",
+                    data: "Raw target value",
+                    name: "targetName")
+            });
+
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
     #region VerifyDirectoryMsTest

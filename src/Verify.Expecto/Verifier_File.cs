@@ -33,6 +33,9 @@ public static partial class Verifier
             });
     }
 
+    /// <summary>
+    /// Verifies the contents of <param name="path"/>.
+    /// </summary>
     public static Task<VerifyResult> VerifyFile(
         string name,
         string path,
@@ -43,6 +46,10 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path));
     }
 
+    /// <summary>
+    /// Verifies the contents of <param name="path"/>.
+    /// Differs from <code>Verify(FileInfo path)</code> which will verify the full path.
+    /// </summary>
     public static Task<VerifyResult> VerifyFile(
         string name,
         FileInfo path,

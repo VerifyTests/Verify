@@ -26,8 +26,8 @@ public partial class VerifyBase
         return Verifier.Verify(target, settings, sourceFile);
     }
 
-    public SettingsTask Verify<T>(
-        T target,
+    public SettingsTask Verify(
+        object? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;

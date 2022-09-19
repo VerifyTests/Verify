@@ -8,8 +8,8 @@ public static partial class VerifierSettings
 {
     internal static SerializationSettings serialization = new();
 
-    public static bool TryGetToString<T>(
-        T target,
+    public static bool TryGetToString(
+        object? target,
         [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
     {
         if (target is null)

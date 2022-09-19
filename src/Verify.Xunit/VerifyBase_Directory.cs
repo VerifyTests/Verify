@@ -5,6 +5,9 @@ public partial class VerifyBase
 
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
+    /// <summary>
+    /// Verifies the contents of <param name="path"/>.
+    /// </summary>
     public SettingsTask VerifyDirectory(
         string path,
         Func<string, bool>? include = null,
@@ -16,6 +19,10 @@ public partial class VerifyBase
         return Verifier.VerifyDirectory(path,include, pattern, options, settings, sourceFile);
     }
 
+    /// <summary>
+    /// Verifies the contents of <param name="path"/>.
+    /// Differs from <code>Verify(DirectoryInfo path)</code> which will verify the full path.
+    /// </summary>
     public SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,
@@ -29,6 +36,9 @@ public partial class VerifyBase
 
 #else
 
+    /// <summary>
+    /// Verifies the contents of <param name="path"/>.
+    /// </summary>
     public SettingsTask VerifyDirectory(
         string path,
         Func<string, bool>? include = null,
@@ -40,6 +50,10 @@ public partial class VerifyBase
         return Verifier.VerifyDirectory(path,include, pattern, option, settings, sourceFile);
     }
 
+    /// <summary>
+    /// Verifies the contents of <param name="path"/>.
+    /// Differs from <code>Verify(DirectoryInfo path)</code> which will verify the full path.
+    /// </summary>
     public SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,
@@ -52,5 +66,4 @@ public partial class VerifyBase
     }
 
 #endif
-
 }

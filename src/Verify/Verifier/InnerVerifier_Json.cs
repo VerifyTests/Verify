@@ -33,12 +33,17 @@
         return VerifyInner(target, null, emptyTargets);
     }
 
-    public async Task<VerifyResult> Verify<T>(T target)
+    public async Task<VerifyResult> Verify(object? target)
     {
         if (target is null)
         {
             AssertExtensionIsNull();
             return await VerifyInner("null", null, emptyTargets);
+        }
+
+        if (target is byte[] bytes)
+        {
+            return await VerifyStream(new MemoryStream(bytes));
         }
 
         if (VerifierSettings.TryGetToString(target, out var toString))
@@ -69,7 +74,7 @@
             return await VerifyStream(stream);
         }
 
-        if (typeof(T).ImplementsStreamEnumerable())
+        if (target.GetType().ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) target;
             var targets = enumerable.Cast<Stream>().Select(ToTarget);

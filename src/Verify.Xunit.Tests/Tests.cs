@@ -40,6 +40,17 @@ public class Tests
 
     #endregion
 
+    [Fact]
+    public Task EnumerableTargets() =>
+        Verify(
+            new[]
+            {
+                new Target(
+                    extension: "txt",
+                    data: "Raw target value",
+                    name: "targetName")
+            });
+
     static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
     #region VerifyDirectoryXunit

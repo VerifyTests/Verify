@@ -20,8 +20,8 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target));
 
-    public static SettingsTask Verify<T>(
-        T target,
+    public static SettingsTask Verify(
+        object? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target));

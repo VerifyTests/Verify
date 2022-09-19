@@ -1,11 +1,5 @@
 ﻿partial class InnerVerifier
 {
-    public Task<VerifyResult> Verify(byte[] target)
-    {
-        var stream = new MemoryStream(target);
-        return VerifyStream(stream);
-    }
-
     async Task<VerifyResult> VerifyStream(Stream stream)
     {
         var extension = settings.extension;

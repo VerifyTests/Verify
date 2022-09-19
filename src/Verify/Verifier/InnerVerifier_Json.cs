@@ -41,6 +41,11 @@
             return await VerifyInner("null", null, emptyTargets);
         }
 
+        if (target is byte[] bytes)
+        {
+            return await VerifyStream(new MemoryStream(bytes));
+        }
+
         if (VerifierSettings.TryGetToString(target, out var toString))
         {
             var stringResult = toString(target, settings.Context);

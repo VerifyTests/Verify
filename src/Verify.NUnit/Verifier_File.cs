@@ -2,25 +2,6 @@
 
 public static partial class Verifier
 {
-    public static SettingsTask Verify(
-        byte[] target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.Verify(target));
-
-    public static SettingsTask Verify(
-        Task<byte[]> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(
-            settings,
-            sourceFile,
-            async _ =>
-            {
-                var bytes = await target;
-                return await _.Verify(bytes);
-            });
-
     public static SettingsTask VerifyFile(
         string path,
         VerifySettings? settings = null,

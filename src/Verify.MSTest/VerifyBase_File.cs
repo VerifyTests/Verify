@@ -2,21 +2,6 @@
 
 public partial class VerifyBase
 {
-    public SettingsTask Verify(
-        byte[] target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.Verify(target));
-
-    public SettingsTask Verify(
-        Task<byte[]> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(
-            settings,
-            sourceFile,
-            async _ => await _.Verify(await target));
-
     public SettingsTask VerifyFile(
         string path,
         VerifySettings? settings = null,

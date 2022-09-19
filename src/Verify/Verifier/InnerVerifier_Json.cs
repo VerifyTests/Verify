@@ -33,7 +33,7 @@
         return VerifyInner(target, null, emptyTargets);
     }
 
-    public async Task<VerifyResult> Verify<T>(T target)
+    public async Task<VerifyResult> Verify(object? target)
     {
         if (target is null)
         {
@@ -74,7 +74,7 @@
             return await VerifyStream(stream);
         }
 
-        if (typeof(T).ImplementsStreamEnumerable())
+        if (target.GetType().ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) target;
             var targets = enumerable.Cast<Stream>().Select(ToTarget);

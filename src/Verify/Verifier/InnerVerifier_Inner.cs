@@ -1,12 +1,12 @@
 ﻿partial class InnerVerifier
 {
-    async Task<VerifyResult> VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
         var targetList = GetTargetList(fileTargets).ToList();
 
-        if (TryGetTargetBuilder(target, out var builder, out var extension))
+        if (TryGetTargetBuilder(root, out var builder, out var extension))
         {
-            if (target is string &&
+            if (root is string &&
                 targetList.Any(_ => _.IsStream))
             {
                 // if there are stream targets, extension applies to stream, and "target" is just text metadata.
@@ -30,7 +30,7 @@
         }
 
         await engine.ThrowIfRequired();
-        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), target);
+        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)

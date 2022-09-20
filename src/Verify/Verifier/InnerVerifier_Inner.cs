@@ -12,6 +12,17 @@
                 // if there are stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
             }
+            else if (extension is null)
+            {
+                if (VerifierSettings.StrictJson)
+                {
+                    extension = "json";
+                }
+                else
+                {
+                    extension = "txt";
+                }
+            }
 
             var received = builder.ToString();
             var stream = new Target(extension, received);
@@ -49,8 +60,9 @@
         }
     }
 
-    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, [NotNullWhen(true)] out string? extension)
+    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, out string? extension)
     {
+        extension = null;
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Any();
@@ -60,18 +72,10 @@
             if (!hasAppends)
             {
                 builder = null;
-                extension = null;
                 return false;
             }
 
-            extension = "txt";
-            if (VerifierSettings.StrictJson)
-            {
-                extension = "json";
-            }
-
             builder = JsonFormatter.AsJson(null, appends, settings, counter);
-
             return true;
         }
 
@@ -86,13 +90,6 @@
                 ApplyScrubbers.ApplyForExtension(extension, builder, settings);
                 return true;
             }
-        }
-
-        extension = "txt";
-
-        if (VerifierSettings.StrictJson)
-        {
-            extension = "json";
         }
 
         builder = JsonFormatter.AsJson(target, appends, settings, counter);

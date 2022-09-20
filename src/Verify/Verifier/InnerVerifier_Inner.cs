@@ -37,14 +37,8 @@
     {
         foreach (var target in targets)
         {
-            if (target.IsStringBuilder)
+            if (target.TryGetStringBuilder(out var builder))
             {
-                ApplyScrubbers.ApplyForExtension(target.Extension, target.StringBuilderData, settings);
-                yield return new(target.Extension, target.StringBuilderData, target.Name);
-            }
-            else if (target.IsString)
-            {
-                var builder = new StringBuilder(target.StringData);
                 ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
                 yield return new(target.Extension, builder, target.Name);
             }

@@ -52,7 +52,7 @@ public readonly struct Target
         }
     }
 
-    internal bool TryGetString([NotNullWhen(true)]out string? value)
+    internal bool TryGetString([NotNullWhen(true)] out string? value)
     {
         if (stringBuilderData is { } builder)
         {
@@ -63,6 +63,24 @@ public readonly struct Target
         if (stringData is { } stringValue)
         {
             value = stringValue;
+            return true;
+        }
+
+        value = null;
+        return false;
+    }
+
+    internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)
+    {
+        if (stringBuilderData is { } builder)
+        {
+            value = builder;
+            return true;
+        }
+
+        if (stringData is { } stringValue)
+        {
+            value = new(stringValue);
             return true;
         }
 

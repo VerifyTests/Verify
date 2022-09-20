@@ -11,6 +11,9 @@
         return list;
     }
 
+    public static string TrimPreamble(this string text) =>
+        text.TrimStart('\uFEFF');
+
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
 

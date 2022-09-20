@@ -1,16 +1,27 @@
 ﻿partial class InnerVerifier
 {
-    async Task<VerifyResult> VerifyInner(object? target, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
         var targetList = GetTargetList(fileTargets).ToList();
 
-        if (TryGetTargetBuilder(target, out var builder, out var extension))
+        if (TryGetTargetBuilder(root, out var builder, out var extension))
         {
-            if (target is string &&
+            if (root is string &&
                 targetList.Any(_ => _.IsStream))
             {
                 // if there are stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
+            }
+            else if (extension is null)
+            {
+                if (VerifierSettings.StrictJson)
+                {
+                    extension = "json";
+                }
+                else
+                {
+                    extension = "txt";
+                }
             }
 
             var received = builder.ToString();
@@ -30,21 +41,15 @@
         }
 
         await engine.ThrowIfRequired();
-        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), target);
+        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
     {
         foreach (var target in targets)
         {
-            if (target.IsStringBuilder)
+            if (target.TryGetStringBuilder(out var builder))
             {
-                ApplyScrubbers.ApplyForExtension(target.Extension, target.StringBuilderData, settings);
-                yield return new(target.Extension, target.StringBuilderData, target.Name);
-            }
-            else if (target.IsString)
-            {
-                var builder = new StringBuilder(target.StringData);
                 ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
                 yield return new(target.Extension, builder, target.Name);
             }
@@ -55,8 +60,9 @@
         }
     }
 
-    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, [NotNullWhen(true)] out string? extension)
+    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, out string? extension)
     {
+        extension = null;
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Any();
@@ -66,18 +72,10 @@
             if (!hasAppends)
             {
                 builder = null;
-                extension = null;
                 return false;
             }
 
-            extension = "txt";
-            if (VerifierSettings.StrictJson)
-            {
-                extension = "json";
-            }
-
             builder = JsonFormatter.AsJson(null, appends, settings, counter);
-
             return true;
         }
 
@@ -92,13 +90,6 @@
                 ApplyScrubbers.ApplyForExtension(extension, builder, settings);
                 return true;
             }
-        }
-
-        extension = "txt";
-
-        if (VerifierSettings.StrictJson)
-        {
-            extension = "json";
         }
 
         builder = JsonFormatter.AsJson(target, appends, settings, counter);

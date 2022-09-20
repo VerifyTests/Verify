@@ -18,20 +18,26 @@
             {
                 throw new("Empty data is not allowed.");
             }
+
             if (extension is not null)
             {
                 if (VerifierSettings.HasExtensionConverter(extension))
                 {
-                    var (infos, convertedTargets, cleanups) = await DoExtensionConversion(extension, stream);
+                    var (infos, convertedTargets, cleanups) = await DoExtensionConversion(
+                        new()
+                        {
+                            new(extension, stream)
+                        });
                     object? info = null;
                     if (infos.Count == 1)
                     {
                         info = infos[0];
                     }
-                    else if(infos.Count >1)
+                    else if (infos.Count > 1)
                     {
                         info = infos;
                     }
+
                     return await VerifyInner(
                         info,
                         async () =>
@@ -51,44 +57,6 @@
         }
     }
 
-    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(string extension, Stream stream)
-    {
-        var infos = new List<object>();
-        var targets = new List<Target>();
-        var cleanups = new List<Func<Task>>();
-
-        var queue = new Queue<Target>();
-        queue.Enqueue(new(extension,stream));
-
-        while (queue.Count>0)
-        {
-            var target = queue.Dequeue();
-
-            if (!VerifierSettings.TryGetExtensionConverter(target.Extension, out var conversion))
-            {
-                targets.Add(target);
-                continue;
-            }
-
-            var result = await conversion(target.StreamData,settings.Context);
-            if (result.Info != null)
-            {
-                infos.Add(result.Info);
-            }
-            if (result.Cleanup != null)
-            {
-                cleanups.Add(result.Cleanup);
-            }
-
-            foreach (var innerTarget in result.Targets)
-            {
-                queue.Enqueue(innerTarget);
-            }
-        }
-
-        return (infos, targets, cleanups);
-    }
-
     static async Task<List<Target>> GetTargets(Stream stream, string? extension)
     {
         if (extension is not null &&
@@ -104,5 +72,43 @@
         {
             new(extension ?? "bin", stream)
         };
+    }
+
+    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(List<Target> list)
+    {
+        var infos = new List<object>();
+        var outputTargets = new List<Target>();
+        var cleanups = new List<Func<Task>>();
+
+        var queue = new Queue<Target>(list);
+
+        while (queue.Count > 0)
+        {
+            var target = queue.Dequeue();
+
+            if (!VerifierSettings.TryGetExtensionConverter(target.Extension, out var conversion))
+            {
+                outputTargets.Add(target);
+                continue;
+            }
+
+            var result = await conversion(target.StreamData, settings.Context);
+            if (result.Info != null)
+            {
+                infos.Add(result.Info);
+            }
+
+            if (result.Cleanup != null)
+            {
+                cleanups.Add(result.Cleanup);
+            }
+
+            foreach (var innerTarget in result.Targets)
+            {
+                queue.Enqueue(innerTarget);
+            }
+        }
+
+        return (infos, outputTargets, cleanups);
     }
 }

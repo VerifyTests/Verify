@@ -33,7 +33,7 @@ public class ExtensionConverterTests
     [Fact]
     public Task NestedTarget()
     {
-        IEnumerable<Target> targets = new[]
+        var targets = new[]
         {
             new Target("level1", new MemoryStream())
         };

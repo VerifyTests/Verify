@@ -7,9 +7,9 @@
         if (TryGetTargetBuilder(target, out var builder, out var extension))
         {
             if (target is string &&
-                targetList.Any(item => item.IsStream))
+                targetList.Any(_ => _.IsStream))
             {
-                // if we have stream targets, extension applies to stream, and "target" is just text metadata.
+                // if there are stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
             }
 
@@ -83,7 +83,7 @@
 
         if (target is string stringTarget)
         {
-            target = stringTarget = TrimPreamble(stringTarget);
+            target = stringTarget = stringTarget.TrimPreamble();
 
             if (!hasAppends)
             {
@@ -105,7 +105,4 @@
 
         return true;
     }
-
-    static string TrimPreamble(string text) =>
-        text.TrimStart('\uFEFF');
 }

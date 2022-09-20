@@ -23,13 +23,13 @@ build_script:
 - dotnet build src --configuration Release --nologo
 - dotnet test src --configuration Release --no-build --no-restore --nologo
 
-- pwsh: |
-    if ($isWindows) {
-      Set-Culture -CultureInfo de-DE
-      dotnet test src --configuration Release --no-build --no-restore --nologo
-      Set-TimeZone -Name "Russia TZ 2 Standard Time"
-      dotnet test src --configuration Release --no-build --no-restore --nologo
-    }
+#- pwsh: |
+#    if ($isWindows) {
+#      Set-Culture -CultureInfo de-DE
+#      dotnet test src --configuration Release --no-build --no-restore --nologo
+#      Set-TimeZone -Name "Russia TZ 2 Standard Time"
+#      dotnet test src --configuration Release --no-build --no-restore --nologo
+#    }
 # begin-snippet: AppVeyorArtifacts
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }

@@ -9,7 +9,7 @@
             if (target is string &&
                 targetList.Any(_ => _.IsStream))
             {
-                // if we have stream targets, extension applies to stream, and "target" is just text metadata.
+                // if there are stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
             }
 

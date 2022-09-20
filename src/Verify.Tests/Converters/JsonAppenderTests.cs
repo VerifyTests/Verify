@@ -55,7 +55,10 @@ public class JsonAppenderTests : IDisposable
 
     [Fact]
     public Task Anon() =>
-        Verify(new {foo = "bar"});
+        Verify(new
+        {
+            foo = "bar"
+        });
 
     #region JsonAppenderStream
 
@@ -64,6 +67,19 @@ public class JsonAppenderTests : IDisposable
         Verify(IoHelpers.OpenRead("sample.txt"));
 
     #endregion
+
+    [Fact]
+    public Task StringInfoAndStreamTarget() =>
+        Verify(
+            "info",
+            new[]
+            {
+                new Target("bin",
+                    new MemoryStream(new byte[]
+                    {
+                        1
+                    }))
+            });
 
     [Fact]
     public Task File() =>

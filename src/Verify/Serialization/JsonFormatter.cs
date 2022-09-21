@@ -4,15 +4,13 @@
     {
         if (appends.Any())
         {
-            var dictionary = new OrderedDictionary
-            {
-                {"target", input ?? "null"}
-            };
+            var infoBuilder = new InfoBuilder();
+            infoBuilder.Add("target", input ?? "null");
 
-            input = dictionary;
+            input = infoBuilder;
             foreach (var append in appends)
             {
-                dictionary[append.Name] = append.Data;
+                infoBuilder.Add(append.Name, append.Data);
             }
         }
 

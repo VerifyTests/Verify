@@ -8,6 +8,7 @@ partial class SerializationSettings
     static JObjectConverter jObjectConverter = new();
     static FileInfoConverter fileInfoConverter = new();
     static KeyValuePairConverter keyValuePairConverter = new();
+    static InfoBuilder.Converter infoConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
     static DateConverter dateConverter = new();
@@ -98,6 +99,7 @@ partial class SerializationSettings
         var converters = settings.Converters;
         converters.Add(aggregateExceptionConverter);
         converters.Add(stringBuilderConverter);
+        converters.Add(infoConverter);
         converters.Add(stringWriterConverter);
 #if NET6_0_OR_GREATER
         converters.Add(dateConverter);

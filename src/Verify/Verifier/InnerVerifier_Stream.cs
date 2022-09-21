@@ -8,11 +8,8 @@
         {
             extension = EmptyFiles.Extensions.GetExtension(fileStream.Name);
         }
-#if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
+
         using (stream)
-#else
-        await using (stream)
-#endif
         {
             if (stream.Length == 0)
             {

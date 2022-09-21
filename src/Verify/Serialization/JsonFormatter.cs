@@ -4,13 +4,13 @@
     {
         if (appends.Any())
         {
-            var dictionary = new MultiValueDictionary();
-            dictionary.Add("target", input ?? "null");
+            var infoBuilder = new InfoBuilder();
+            infoBuilder.Add("target", input ?? "null");
 
-            input = dictionary;
+            input = infoBuilder;
             foreach (var append in appends)
             {
-                dictionary.Add(append.Name, append.Data);
+                infoBuilder.Add(append.Name, append.Data);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿class MultiValueDictionary
+﻿class InfoBuilder
 {
     List<Item> inner = new();
 
@@ -32,9 +32,9 @@
     }
 
     public class Converter :
-        WriteOnlyJsonConverter<MultiValueDictionary>
+        WriteOnlyJsonConverter<InfoBuilder>
     {
-        public override void Write(VerifyJsonWriter writer, MultiValueDictionary value)
+        public override void Write(VerifyJsonWriter writer, InfoBuilder value)
         {
             if (value.inner.Count == 1)
             {

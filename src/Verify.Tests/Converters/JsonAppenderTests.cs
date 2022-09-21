@@ -50,6 +50,12 @@ public class JsonAppenderTests : IDisposable
     #endregion
 
     [Fact]
+    public Task WithDuplicate() =>
+        Verify("TheValue")
+            .AppendValue("duplicate", "value1")
+            .AppendValue("duplicate", "value2");
+
+    [Fact]
     public Task NullText() =>
         Verify((string) null!);
 

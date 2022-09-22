@@ -631,10 +631,12 @@ line3"
 
     [Fact]
     public Task ByteArray() =>
-        Verify(new byte[]
-        {
-            1
-        });
+        Verify(
+            new byte[]
+            {
+                1
+            },
+            "bin");
 
     [Fact]
     public Task NestedByteArray() =>
@@ -650,7 +652,7 @@ line3"
     [Fact]
     public async Task EmptyBinary()
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>()));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>(), "bin"));
         Assert.Equal("Empty data is not allowed.", exception.Message);
     }
 
@@ -907,8 +909,7 @@ line3"
 
     [Fact]
     public Task VerifyBytes() =>
-        Verify(File.ReadAllBytes("sample.jpg"))
-            .UseExtension("jpg");
+        Verify(File.ReadAllBytes("sample.jpg"), "jpg");
 
     [Fact]
     public Task ShouldNotScrubInlineGuidsByDefault()
@@ -1733,7 +1734,10 @@ Line2"
     public Task ExpressionStringNested()
     {
         var expression = BuildExpression();
-        return Verify(new {expression})
+        return Verify(new
+            {
+                expression
+            })
             .UniqueForRuntime();
     }
 
@@ -1803,7 +1807,10 @@ Line2"
         WriteOnlyJsonConverter<EnumerableWithExistingConverterTarget>
     {
         public override void Write(VerifyJsonWriter writer, EnumerableWithExistingConverterTarget target) =>
-            writer.Serialize(new{value = "Content"});
+            writer.Serialize(new
+            {
+                value = "Content"
+            });
     }
 
     [Fact]

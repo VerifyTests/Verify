@@ -181,18 +181,6 @@ public class Tests
             (_, _, _) => Task.FromResult(new CompareResult(true)));
 
     [Fact]
-    public Task SettingsArePassed()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("SettingsArePassed");
-        return Verify(new MemoryStream(new byte[]
-            {
-                1
-            }), settings)
-            .UseExtension("SettingsArePassed");
-    }
-
-    [Fact]
     public Task Throws() =>
         Verifier.Throws(MethodThatThrows);
 
@@ -345,10 +333,12 @@ public class Tests
 
     [Fact]
     public Task Stream() =>
-        Verify(new MemoryStream(new byte[]
+        Verify(
+            new MemoryStream(new byte[]
         {
             1
-        }));
+        }),
+            "bin");
 
     [Fact]
     public Task StreamNotAtStart()
@@ -361,7 +351,7 @@ public class Tests
             4
         });
         stream.Position = 2;
-        return Verify(stream);
+        return Verify(stream, "bin");
     }
 
     [Fact]
@@ -369,7 +359,7 @@ public class Tests
     {
         var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
         stream.Position = 2;
-        return Verify(stream).UseExtension("txt");
+        return Verify(stream, "txt");
     }
 
     [Fact]
@@ -385,7 +375,8 @@ public class Tests
                 {
                     2
                 })
-            });
+            },
+            "bin");
 
     [Fact]
     public Task StreamsWithNull() =>
@@ -397,7 +388,8 @@ public class Tests
                     1
                 }),
                 null
-            });
+            },
+            "bin");
 
     [Fact]
     public async Task ShouldNotIgnoreCase()

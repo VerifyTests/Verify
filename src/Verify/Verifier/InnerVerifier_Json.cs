@@ -43,7 +43,7 @@
 
         if (target is byte[] bytes)
         {
-            return await VerifyStream(new MemoryStream(bytes));
+            throw new("Use Verify(byte[] bytes, string extension)");
         }
 
         if (VerifierSettings.TryGetToString(target, out var toString))
@@ -71,14 +71,12 @@
 
         if (target is Stream stream)
         {
-            return await VerifyStream(stream);
+            throw new("Use Verify(Stream stream, string extension)");
         }
 
         if (target.GetType().ImplementsStreamEnumerable())
         {
-            var enumerable = (IEnumerable) target;
-            var targets = enumerable.Cast<Stream>().Select(ToTarget);
-            return await VerifyInner(null, null, targets);
+            throw new("Use Verify(IEnumerable<Stream> streams, string extension)");
         }
 
         AssertExtensionIsNull();

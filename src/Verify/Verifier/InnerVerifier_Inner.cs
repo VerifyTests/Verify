@@ -1,6 +1,6 @@
 ﻿partial class InnerVerifier
 {
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
+    Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
         var targetList = GetTargetList(fileTargets).ToList();
 
@@ -31,17 +31,7 @@
 
         targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
-
-        await engine.HandleResults(targetList);
-
-        if (cleanup is not null)
-        {
-            await cleanup();
-        }
-
-        await engine.ThrowIfRequired();
-        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
+        return RunEngine(root, cleanup, targetList);
     }
 
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
@@ -95,5 +85,20 @@
         builder = JsonFormatter.AsJson(target, appends, settings, counter);
 
         return true;
+    }
+
+    async Task<VerifyResult> RunEngine(object? root, Func<Task>? cleanup, List<Target> targetList)
+    {
+        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
+
+        await engine.HandleResults(targetList);
+
+        if (cleanup is not null)
+        {
+            await cleanup();
+        }
+
+        await engine.ThrowIfRequired();
+        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 }

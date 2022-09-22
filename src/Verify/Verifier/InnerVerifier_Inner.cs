@@ -14,14 +14,7 @@
             }
             else if (extension is null)
             {
-                if (VerifierSettings.StrictJson)
-                {
-                    extension = "json";
-                }
-                else
-                {
-                    extension = "txt";
-                }
+                extension = VerifierSettings.TxtOrJson;
             }
 
             var received = builder.ToString();

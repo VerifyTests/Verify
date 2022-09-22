@@ -1,6 +1,6 @@
 ﻿partial class InnerVerifier
 {
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
+    Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
         var targetList = GetTargetList(fileTargets).ToList();
 
@@ -31,33 +31,7 @@
 
         targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
-        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
-
-        await engine.HandleResults(targetList);
-
-        if (cleanup is not null)
-        {
-            await cleanup();
-        }
-
-        await engine.ThrowIfRequired();
-        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
-    }
-
-    IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
-    {
-        foreach (var target in targets)
-        {
-            if (target.TryGetStringBuilder(out var builder))
-            {
-                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
-                yield return new(target.Extension, builder, target.Name);
-            }
-            else
-            {
-                yield return target;
-            }
-        }
+        return RunEngine(root, cleanup, targetList);
     }
 
     bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, out string? extension)
@@ -95,5 +69,36 @@
         builder = JsonFormatter.AsJson(target, appends, settings, counter);
 
         return true;
+    }
+
+    IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
+    {
+        foreach (var target in targets)
+        {
+            if (target.TryGetStringBuilder(out var builder))
+            {
+                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
+                yield return new(target.Extension, builder, target.Name);
+            }
+            else
+            {
+                yield return target;
+            }
+        }
+    }
+
+    async Task<VerifyResult> RunEngine(object? root, Func<Task>? cleanup, List<Target> targetList)
+    {
+        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
+
+        await engine.HandleResults(targetList);
+
+        if (cleanup is not null)
+        {
+            await cleanup();
+        }
+
+        await engine.ThrowIfRequired();
+        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 }

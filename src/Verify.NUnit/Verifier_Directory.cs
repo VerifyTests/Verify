@@ -18,7 +18,7 @@ public static partial class Verifier
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
-    /// Differs from <code>Verify(DirectoryInfo path)</code> which will verify the full path.
+    /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public static SettingsTask VerifyDirectory(
         DirectoryInfo path,
@@ -45,7 +45,7 @@ public static partial class Verifier
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
-    /// Differs from <code>Verify(DirectoryInfo path)</code> which will verify the full path.
+    /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public static SettingsTask VerifyDirectory(
         DirectoryInfo path,

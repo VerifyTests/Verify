@@ -13,7 +13,7 @@ public static partial class Verifier
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
-    /// Differs from <code>Verify(FileInfo path)</code> which will verify the full path.
+    /// Differs from passing <see cref="FileInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public static SettingsTask VerifyFile(
         FileInfo path,

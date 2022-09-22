@@ -41,7 +41,7 @@
             return await VerifyInner("null", null, emptyTargets);
         }
 
-        if (target is byte[] bytes)
+        if (target is byte[])
         {
             throw new("Use Verify(byte[] bytes, string extension)");
         }
@@ -69,7 +69,7 @@
             return await VerifyInner(result.Info, result.Cleanup, result.Targets);
         }
 
-        if (target is Stream stream)
+        if (target is Stream)
         {
             throw new("Use Verify(Stream stream, string extension)");
         }
@@ -81,16 +81,6 @@
 
         AssertExtensionIsNull();
         return await VerifyInner(target, null, emptyTargets);
-    }
-
-    Target ToTarget(Stream? stream)
-    {
-        if (stream is null)
-        {
-            return new(settings.ExtensionOrTxt(), "null");
-        }
-
-        return new(settings.ExtensionOrBin(), stream);
     }
 
     void AssertExtensionIsNull()

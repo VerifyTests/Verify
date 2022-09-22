@@ -335,9 +335,9 @@ public class Tests
     public Task Stream() =>
         Verify(
             new MemoryStream(new byte[]
-        {
-            1
-        }),
+            {
+                1
+            }),
             "bin");
 
     [Fact]
@@ -704,12 +704,8 @@ public class Tests
 
 #if !NETFRAMEWORK
     [Fact]
-    public Task VerifyBytesAsync()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("jpg");
-        return Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
-    }
+    public Task VerifyBytesAsync() =>
+        Verify(File.ReadAllBytesAsync("sample.jpg"), "jpg");
 #endif
 
 #if NET6_0

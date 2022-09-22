@@ -25,10 +25,19 @@
         return await VerifyStream(stream, extension);
     }
 
-    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension)
+    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T?> streams, string extension)
         where T : Stream
     {
-        var targets = streams.Select(_ => new Target(extension, _));
+        var targets = streams.Select(_ =>
+        {
+            if (_ == null)
+            {
+                return new("txt", "null");
+            }
+
+            return new Target(extension, _);
+        });
+
         return await VerifyInner(null, null, targets);
     }
 

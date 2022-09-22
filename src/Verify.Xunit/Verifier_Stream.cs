@@ -30,7 +30,7 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyStream(stream, extension));
 
     public static SettingsTask Verify<T>(
-        IEnumerable<T> streams,
+        IEnumerable<T?> streams,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")

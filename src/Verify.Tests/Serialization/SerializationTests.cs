@@ -1724,7 +1724,6 @@ Line2"
     public Task ExpressionString()
     {
         var expression = BuildExpression();
-        var fullName = expression.GetType().FullName;
         return Verify(expression)
             .UniqueForRuntime();
     }

@@ -34,7 +34,7 @@ static Task<CompareResult> CompareImages(
     return Task.FromResult(result);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L37-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L35-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -52,17 +52,15 @@ public Task InstanceComparer()
 {
     var settings = new VerifySettings();
     settings.UseStreamComparer(CompareImages);
-    settings.UseExtension("png");
     return VerifyFile("sample.png", settings);
 }
 
 [Fact]
 public Task InstanceComparerFluent() =>
     VerifyFile("sample.png")
-        .UseStreamComparer(CompareImages)
-        .UseExtension("png");
+        .UseStreamComparer(CompareImages);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L6-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L6-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +74,7 @@ VerifierSettings.RegisterStreamComparer(
     compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L27-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L25-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

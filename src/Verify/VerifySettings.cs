@@ -11,7 +11,6 @@ public partial class VerifySettings
 
         instanceScrubbers = new(settings.instanceScrubbers);
         extensionMappedInstanceScrubbers = new(settings.extensionMappedInstanceScrubbers);
-        extension = settings.extension;
 #if DiffEngine
         diffEnabled = settings.diffEnabled;
 #endif
@@ -82,38 +81,41 @@ public partial class VerifySettings
         this.parametersText = parametersText;
     }
 
-    internal string? extension;
+    [Obsolete(@"An explicit `extension` parameter has been added to all
+    overloads that require it:
+ * Verify(Stream stream, string extension)
+ * Verify(byte[] bytes, string extension)
+ * Verify(string target, string extension)
+", true)]
+    public void UseExtension(string extension) =>
+        throw new();
 
-    /// <summary>
-    /// Use a custom file extension for the test results.
-    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
-    /// </summary>
-    public void UseExtension(string extension)
-    {
-        Guard.AgainstBadExtension(extension, nameof(extension));
-        this.extension = extension;
-    }
+    [Obsolete(@"An explicit `extension` parameter has been added to all
+    overloads that require it:
+ * Verify(Stream stream, string extension)
+ * Verify(byte[] bytes, string extension)
+ * Verify(string target, string extension)
+", true)]
+    public bool TryGetExtension([NotNullWhen(true)] out string? extension) =>
+        throw new();
 
-    /// <summary>
-    /// Retrieves the value passed into <see cref="UseExtension" />, if it exists.
-    /// </summary>
-    public bool TryGetExtension([NotNullWhen(true)] out string? extension)
-    {
-        if (this.extension is null)
-        {
-            extension = null;
-            return false;
-        }
-
-        extension = this.extension;
-        return true;
-    }
-
+    [Obsolete(@"An explicit `extension` parameter has been added to all
+    overloads that require it:
+ * Verify(Stream stream, string extension)
+ * Verify(byte[] bytes, string extension)
+ * Verify(string target, string extension)
+", true)]
     internal string ExtensionOrTxt(string defaultValue = "txt") =>
-        extension ?? defaultValue;
+        throw new();
 
+    [Obsolete(@"An explicit `extension` parameter has been added to all
+    overloads that require it:
+ * Verify(Stream stream, string extension)
+ * Verify(byte[] bytes, string extension)
+ * Verify(string target, string extension)
+", true)]
     internal string ExtensionOrBin() =>
-        extension ?? "bin";
+        throw new();
 
     internal bool IsAutoVerify =>
         VerifierSettings.autoVerify ||

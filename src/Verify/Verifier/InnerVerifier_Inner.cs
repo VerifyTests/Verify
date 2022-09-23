@@ -53,8 +53,7 @@
             if (!hasAppends)
             {
                 builder = new(stringTarget);
-                extension = settings.ExtensionOrTxt();
-                ApplyScrubbers.ApplyForExtension(extension, builder, settings);
+                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
                 return true;
             }
         }

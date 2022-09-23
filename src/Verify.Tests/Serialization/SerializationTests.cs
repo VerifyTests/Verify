@@ -542,9 +542,8 @@ line3"
     public Task ExtensionAwareScrubbers()
     {
         var settings = new VerifySettings();
-        settings.UseExtension("html");
         settings.AddScrubber("html", _ => _.Replace("a", "b"));
-        return Verify("a", settings);
+        return Verify("a", "html", settings);
     }
 
     [Fact]

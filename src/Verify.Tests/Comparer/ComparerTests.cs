@@ -29,10 +29,9 @@ public class ComparerTests
         EmptyFiles.Extensions.AddTextExtension("staticComparerExtMessage");
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
         var settings = new VerifySettings();
-        settings.UseExtension("staticComparerExtMessage");
         settings.DisableDiff();
         settings.UseMethodName("Static_with_message_temp");
-        await ThrowsTask(() => Verify("TheText", settings));
+        await ThrowsTask(() => Verify("TheText", "staticComparerExtMessage", settings));
     }
 
     static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary) =>
@@ -45,11 +44,9 @@ public class ComparerTests
     {
         EmptyFiles.Extensions.AddTextExtension("staticComparerExt");
         VerifierSettings.RegisterStringComparer("staticComparerExt", Compare);
-        var settings = new VerifySettings();
-        settings.UseExtension("staticComparerExt");
-        await Verify("TheText", settings);
+        await Verify("TheText", "staticComparerExt");
         PrefixUnique.Clear();
-        await Verify("thetext", settings);
+        await Verify("thetext", "staticComparerExt");
     }
 
     static Task<CompareResult> Compare(string received, string verified, IReadOnlyDictionary<string, object> context) =>

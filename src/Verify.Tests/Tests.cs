@@ -482,20 +482,6 @@ public class Tests
         public string? Id { get; set; }
     }
 
-    [Fact]
-    public Task ShouldThrowForExtensionOnSerialization()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("json");
-        settings.UseMethodName("Foo");
-        settings.IgnoreStackTrace();
-        settings.DisableDiff();
-
-        var element = new Element();
-        return Verifier.ThrowsTask(() => Verify(element, settings))
-            .IgnoreStackTrace();
-    }
-
 #if NET6_0
 
     [Fact]
@@ -528,13 +514,8 @@ public class Tests
     }
 
     [Fact]
-    public Task StringExtension()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("xml");
-
-        return Verify("<a>b</a>", settings);
-    }
+    public Task StringExtension() =>
+        Verify("<a>b</a>", "xml");
 
     [Fact]
     public Task TaskResult()

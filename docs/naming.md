@@ -446,28 +446,16 @@ Usage:
 [UsesVerify]
 public class ExtensionSample
 {
-    VerifySettings classLevelSettings;
-
-    public ExtensionSample()
-    {
-        classLevelSettings = new();
-        classLevelSettings.UseExtension("json");
-    }
-
     [Fact]
-    public Task AtMethod()
-    {
-        var settings = new VerifySettings(classLevelSettings);
-        settings.UseExtension("xml");
-        return Verify(
+    public Task AtMethod() =>
+        Verify(
             target: @"
 <note>
   <to>Joe</to>
   <from>Kim</from>
   <heading>Reminder</heading>
 </note>",
-            settings: settings);
-    }
+            extension: "xml");
 
     [Fact]
     public Task AtMethodFluent() =>
@@ -478,37 +466,13 @@ public class ExtensionSample
   <from>Kim</from>
   <heading>Reminder</heading>
 </note>",
-                settings: classLevelSettings)
-            .UseExtension("xml");
-
-    [Fact]
-    public Task SharedClassLevelSettings() =>
-        Verify(
-            target: @"
-{
-  fruit: 'Apple',
-  size: 'Large',
-  color: 'Red'
-}",
-            settings: classLevelSettings);
+                extension: "xml");
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Result in two files:
-
-<!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json -->
-<a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json'></a>
-```json
-{
-  fruit: 'Apple',
-  size: 'Large',
-  color: 'Red'
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
+Result in:
 
 <!-- snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml -->
 <a id='snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml'></a>

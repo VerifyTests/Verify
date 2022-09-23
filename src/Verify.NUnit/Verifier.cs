@@ -104,7 +104,7 @@ public static partial class Verifier
     }
 
     public static SettingsTask Verify(
-        object? target,
+        object target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

@@ -20,16 +20,8 @@ public class SimpleTypeTests
         Verify(Task.FromResult("theString"));
 
     [Fact]
-    public Task NullWrappedInTask() =>
-        Verify(Task.FromResult<object?>(null));
-
-    [Fact]
     public Task StringEmptyWrappedInTask() =>
-        Verify(Task.FromResult<object?>(string.Empty));
-
-    [Fact]
-    public Task Null() =>
-        Verify((string) null!);
+        Verify(Task.FromResult<object>(string.Empty));
 
     [Fact]
     public Task StringEmpty() =>

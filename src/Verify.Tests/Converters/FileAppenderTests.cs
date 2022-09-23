@@ -28,10 +28,6 @@ public class FileAppenderTests :
         Verify("Foo");
 
     [Fact]
-    public Task NullText() =>
-        Verify((string) null!);
-
-    [Fact]
     public Task EmptyString() =>
         Verify(string.Empty);
 

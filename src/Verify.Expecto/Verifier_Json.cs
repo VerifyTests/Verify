@@ -9,6 +9,7 @@ public static partial class Verifier
         Task<T> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
+        where T : notnull
     {
         var assembly = Assembly.GetCallingAssembly()!;
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
@@ -19,6 +20,7 @@ public static partial class Verifier
         ValueTask<T> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
+        where T : notnull
     {
         var assembly = Assembly.GetCallingAssembly()!;
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
@@ -29,6 +31,7 @@ public static partial class Verifier
         IAsyncEnumerable<T> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
+        where T : notnull
     {
         var assembly = Assembly.GetCallingAssembly()!;
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
@@ -36,7 +39,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> Verify(
         string name,
-        object? target,
+        object target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {

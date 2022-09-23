@@ -47,7 +47,7 @@ public abstract partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        object? target,
+        object target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

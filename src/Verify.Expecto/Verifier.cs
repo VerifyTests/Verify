@@ -46,7 +46,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> Verify(
         string name,
-        object? target,
+        object target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")

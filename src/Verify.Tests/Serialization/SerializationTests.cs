@@ -2329,7 +2329,7 @@ Line2"
     [Fact]
     public Task Property()
     {
-        var target = typeof(SerializationTests).GetProperty("MyProperty");
+        var target = typeof(SerializationTests).GetProperty("MyProperty")!;
         return Verify(target);
     }
 

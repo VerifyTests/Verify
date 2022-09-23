@@ -28,7 +28,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify<T>(
-        IEnumerable<T?> streams,
+        IEnumerable<T> streams,
         string extension,
         VerifySettings? settings = null)
         where T : Stream

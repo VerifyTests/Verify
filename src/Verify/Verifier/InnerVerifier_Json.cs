@@ -56,7 +56,7 @@
 
         if (target.GetType().ImplementsStreamEnumerable())
         {
-            throw new("Use Verify(IEnumerable<Stream> streams, string extension)");
+            throw new("Use Verify(IEnumerable<T> streams, string extension)");
         }
 
         AssertExtensionIsNull();

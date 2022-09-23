@@ -6,28 +6,8 @@
 
         if (TryGetTargetBuilder(root, out var builder, out var extension))
         {
-            if (extension is null)
-            {
-                extension = VerifierSettings.TxtOrJson;
-            }
-
-            var received = builder.ToString();
-            var stream = new Target(extension, received);
-            targetList.Insert(0, stream);
-        }
-
-        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
-
-        return RunEngine(root, cleanup, targetList);
-    }
-
-    Task<VerifyResult> VerifyInner(string? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
-    {
-        var targetList = GetTargetList(fileTargets).ToList();
-
-        if (TryGetTargetBuilderString(root, out var builder, out var extension))
-        {
-            if (targetList.Any(_ => _.IsStream))
+            if (root is string &&
+                targetList.Any(_ => _.IsStream))
             {
                 // if there are stream targets, extension applies to stream, and "target" is just text metadata.
                 extension = "txt";
@@ -66,38 +46,17 @@
             return true;
         }
 
-        builder = JsonFormatter.AsJson(target, appends, settings, counter);
-
-        return true;
-    }
-
-    bool TryGetTargetBuilderString(string? target, [NotNullWhen(true)] out StringBuilder? builder, out string? extension)
-    {
-        extension = null;
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        if (target is null)
+        if (target is string stringTarget)
         {
+            target = stringTarget = stringTarget.TrimPreamble();
+
             if (!hasAppends)
             {
-                builder = null;
-                return false;
+                builder = new(stringTarget);
+                extension = settings.ExtensionOrTxt();
+                ApplyScrubbers.ApplyForExtension(extension, builder, settings);
+                return true;
             }
-
-            builder = JsonFormatter.AsJson(null, appends, settings, counter);
-            return true;
-        }
-
-        target = target.TrimPreamble();
-
-        if (!hasAppends)
-        {
-            builder = new(target);
-            extension = settings.ExtensionOrTxt();
-            ApplyScrubbers.ApplyForExtension(extension, builder, settings);
-            return true;
         }
 
         builder = JsonFormatter.AsJson(target, appends, settings, counter);

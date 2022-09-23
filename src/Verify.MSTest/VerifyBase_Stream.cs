@@ -3,51 +3,51 @@
 public partial class VerifyBase
 {
     public SettingsTask Verify(
-        byte[] bytes,
+        byte[] target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(bytes, extension));
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension));
 
     public SettingsTask Verify(
-        Task<byte[]> bytes,
+        Task<byte[]> target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(bytes, extension));
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension));
 
     public SettingsTask Verify(
-        FileStream stream,
+        FileStream target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(stream));
+        Verify(settings, sourceFile, _ => _.VerifyStream(target));
 
     public SettingsTask Verify(
-        Task<FileStream> stream,
+        Task<FileStream> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(stream));
+        Verify(settings, sourceFile, _ => _.VerifyStream(target));
 
     public SettingsTask Verify(
-        Stream stream,
+        Stream target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(stream, extension));
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension));
 
     public SettingsTask Verify<T>(
-        Task<T> stream,
+        Task<T> target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(stream, extension));
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension));
 
     public SettingsTask Verify<T>(
-        IEnumerable<T> streams,
+        IEnumerable<T> targets,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStreams(streams, extension));
+        Verify(settings, sourceFile, _ => _.VerifyStreams(targets, extension));
 }

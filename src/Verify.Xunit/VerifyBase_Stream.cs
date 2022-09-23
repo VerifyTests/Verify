@@ -3,65 +3,65 @@
 public partial class VerifyBase
 {
     public SettingsTask Verify(
-        FileStream stream,
+        FileStream target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
-        return Verifier.Verify(stream, settings, sourceFile);
+        return Verifier.Verify(target, settings, sourceFile);
     }
 
     public SettingsTask Verify(
-        Task<FileStream> stream,
+        Task<FileStream> target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
-        return Verifier.Verify(stream, settings, sourceFile);
+        return Verifier.Verify(target, settings, sourceFile);
     }
 
     public SettingsTask Verify(
-        Stream stream,
+        Stream target,
         string extension,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
-        return Verifier.Verify(stream, extension, settings, sourceFile);
+        return Verifier.Verify(target, extension, settings, sourceFile);
     }
 
     public SettingsTask Verify<T>(
-        Task<T> stream,
+        Task<T> target,
         string extension,
         VerifySettings? settings = null)
         where T : Stream
     {
         settings ??= this.settings;
-        return Verifier.Verify(stream, extension, settings, sourceFile);
+        return Verifier.Verify(target, extension, settings, sourceFile);
     }
 
     public SettingsTask Verify<T>(
-        IEnumerable<T> streams,
+        IEnumerable<T> targets,
         string extension,
         VerifySettings? settings = null)
         where T : Stream
     {
         settings ??= this.settings;
-        return Verifier.Verify(streams, extension, settings, sourceFile);
+        return Verifier.Verify(targets, extension, settings, sourceFile);
     }
 
     public SettingsTask Verify(
-        byte[] bytes,
+        byte[] target,
         string extension,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
-        return Verifier.Verify(bytes, extension, settings, sourceFile);
+        return Verifier.Verify(target, extension, settings, sourceFile);
     }
 
     public SettingsTask Verify(
-        Task<byte[]> bytes,
+        Task<byte[]> target,
         string extension,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
-        return Verifier.Verify(bytes, extension, settings, sourceFile);
+        return Verifier.Verify(target, extension, settings, sourceFile);
     }
 }

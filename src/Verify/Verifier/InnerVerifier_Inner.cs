@@ -64,6 +64,51 @@
         return true;
     }
 
+    bool TryGetTargetWithAppends(object? target, [NotNullWhen(true)] out object? result)
+    {
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+
+        var hasAppends = appends.Any();
+
+        if (target is null)
+        {
+            if (!hasAppends)
+            {
+                result = null;
+                return false;
+            }
+
+            var infoBuilder = new InfoBuilder();
+
+            foreach (var append in appends)
+            {
+                infoBuilder.Add(append.Name, append.Data);
+            }
+
+            result = infoBuilder;
+            return true;
+        }
+        else
+        {
+            if (!hasAppends)
+            {
+                result = target;
+                return true;
+            }
+
+            var infoBuilder = new InfoBuilder();
+            infoBuilder.Add("target", target);
+
+            foreach (var append in appends)
+            {
+                infoBuilder.Add(append.Name, append.Data);
+            }
+
+            result = infoBuilder;
+            return true;
+        }
+    }
+
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
     {
         foreach (var target in targets)

@@ -484,7 +484,6 @@ public class NamerTests
     [Fact]
     public Task SingleTarget() =>
         Verify(
-            null,
             new[]
             {
                 new Target("txt", "data")
@@ -493,7 +492,6 @@ public class NamerTests
     [Fact]
     public Task SingleTargetWithName() =>
         Verify(
-            null,
             new[]
             {
                 new Target("txt", "data", "theNameA")
@@ -502,7 +500,6 @@ public class NamerTests
     [Fact]
     public Task MultipleTarget() =>
         Verify(
-            null,
             new[]
             {
                 new Target("txt", "data"),
@@ -512,7 +509,6 @@ public class NamerTests
     [Fact]
     public Task MultipleTargetWithName() =>
         Verify(
-            null,
             new[]
             {
                 new Target("txt", "data", "theNameA"),
@@ -522,7 +518,6 @@ public class NamerTests
     [Fact]
     public Task MultipleTargetWithDuplicateName() =>
         Verify(
-            null,
             new[]
             {
                 new Target("txt", "data", "theNameA"),

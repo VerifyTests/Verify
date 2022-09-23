@@ -71,13 +71,8 @@ public static class Scrubbers
         }
     }
 
-    public static string? ScrubStackTrace(string? stackTrace, bool removeParams = false)
+    public static string ScrubStackTrace(string stackTrace, bool removeParams = false)
     {
-        if (stackTrace is null)
-        {
-            return null;
-        }
-
         var builder = new StringBuilder();
         using var reader = new StringReader(stackTrace);
         while (reader.ReadLine() is { } line)

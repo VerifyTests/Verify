@@ -379,19 +379,6 @@ public class Tests
             "bin");
 
     [Fact]
-    public Task StreamsWithNull() =>
-        Verify(
-            new List<Stream?>
-            {
-                new MemoryStream(new byte[]
-                {
-                    1
-                }),
-                null
-            },
-            "bin");
-
-    [Fact]
     public async Task ShouldNotIgnoreCase()
     {
         await Verify("A");

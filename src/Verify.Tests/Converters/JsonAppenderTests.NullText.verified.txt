@@ -1,4 +1,0 @@
-﻿{
-  target: null,
-  theData: theValue
-}

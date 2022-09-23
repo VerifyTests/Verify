@@ -2,45 +2,25 @@
 {
     static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
 
-    public Task<VerifyResult> VerifyJson(string? target)
+    public Task<VerifyResult> VerifyJson(string target) =>
+        VerifyJson(JToken.Parse(target));
+
+    public async Task<VerifyResult> VerifyJson(Stream target)
     {
-        if (target is null)
-        {
-            AssertExtensionIsNull();
-            return VerifyInner("null", null, emptyTargets);
-        }
-
-        return VerifyJson(JToken.Parse(target));
-    }
-
-    public async Task<VerifyResult> VerifyJson(Stream? target)
-    {
-        if (target is null)
-        {
-            AssertExtensionIsNull();
-            return await VerifyInner("null", null, emptyTargets);
-        }
-
         using var reader = new StreamReader(target);
         using var textReader = new JsonTextReader(reader);
         var json = await JToken.LoadAsync(textReader);
         return await VerifyJson(json);
     }
 
-    public Task<VerifyResult> VerifyJson(JToken? target)
+    public Task<VerifyResult> VerifyJson(JToken target)
     {
         AssertExtensionIsNull();
         return VerifyInner(target, null, emptyTargets);
     }
 
-    public async Task<VerifyResult> Verify(object? target)
+    public async Task<VerifyResult> Verify(object target)
     {
-        if (target is null)
-        {
-            AssertExtensionIsNull();
-            return await VerifyInner("null", null, emptyTargets);
-        }
-
         if (target is byte[] bytes)
         {
             return await VerifyStream(new MemoryStream(bytes));
@@ -77,22 +57,13 @@
         if (target.GetType().ImplementsStreamEnumerable())
         {
             var enumerable = (IEnumerable) target;
-            var targets = enumerable.Cast<Stream>().Select(ToTarget);
+            var targets = enumerable.Cast<Stream>()
+                .Select<Stream, Target>(_ => new(settings.ExtensionOrBin(), _));
             return await VerifyInner(null, null, targets);
         }
 
         AssertExtensionIsNull();
         return await VerifyInner(target, null, emptyTargets);
-    }
-
-    Target ToTarget(Stream? stream)
-    {
-        if (stream is null)
-        {
-            return new(settings.ExtensionOrTxt(), "null");
-        }
-
-        return new(settings.ExtensionOrBin(), stream);
     }
 
     void AssertExtensionIsNull()

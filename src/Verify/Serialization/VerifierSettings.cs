@@ -9,15 +9,9 @@ public static partial class VerifierSettings
     internal static SerializationSettings serialization = new();
 
     public static bool TryGetToString(
-        object? target,
+        object target,
         [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
     {
-        if (target is null)
-        {
-            toString = null;
-            return false;
-        }
-
         if (target is Encoding encoding)
         {
             toString = (_, _) => encoding.EncodingName;
@@ -137,16 +131,9 @@ public static partial class VerifierSettings
     };
 
     public static void TreatAsString<T>(AsString<T>? toString = null)
+        where T : notnull
     {
-        toString ??= (target, _) =>
-        {
-            if (target is null)
-            {
-                return new("null");
-            }
-
-            return new(target.ToString()!);
-        };
+        toString ??= (target, _) => new(target.ToString()!);
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 

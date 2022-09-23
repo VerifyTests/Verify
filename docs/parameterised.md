@@ -164,7 +164,7 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
-    public Task ComplexMemberNullableData(ComplexData? arg)
+    public Task ComplexMemberNullableData(ComplexData arg)
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
@@ -173,7 +173,7 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberData))]
-    public Task ComplexMemberNullableDataFluent(ComplexData? arg) =>
+    public Task ComplexMemberNullableDataFluent(ComplexData arg) =>
         Verify(arg)
             .UseParameters(arg);
 
@@ -211,7 +211,7 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
-    public Task ComplexMemberNullableStructData(ComplexStructData? arg)
+    public Task ComplexMemberNullableStructData(ComplexStructData arg)
     {
         var settings = new VerifySettings();
         settings.UseParameters(arg);
@@ -220,7 +220,7 @@ public class ComplexParametersSample
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]
-    public Task ComplexMemberNullableStructDataFluent(ComplexStructData? arg) =>
+    public Task ComplexMemberNullableStructDataFluent(ComplexStructData arg) =>
         Verify(arg)
             .UseParameters(arg);
 

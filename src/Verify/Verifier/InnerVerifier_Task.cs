@@ -1,6 +1,7 @@
 ﻿partial class InnerVerifier
 {
     public async Task<VerifyResult> Verify<T>(Task<T> task)
+        where T : notnull
     {
         var target = await task;
 
@@ -15,6 +16,7 @@
     }
 
     public async Task<VerifyResult> Verify<T>(IAsyncEnumerable<T> target)
+        where T : notnull
     {
         var list = await target.ToList();
 
@@ -31,13 +33,9 @@
         }
     }
 
-    static async Task DoDispose<T>(T? target)
+    static async Task DoDispose<T>(T target)
+        where T : notnull
     {
-        if (target is null)
-        {
-            return;
-        }
-
         if (target is IAsyncDisposable asyncDisposable)
         {
             await asyncDisposable.DisposeAsync();
@@ -49,6 +47,7 @@
     }
 
     public async Task<VerifyResult> Verify<T>(ValueTask<T> task)
+        where T : notnull
     {
         var target = await task;
 

@@ -6,16 +6,7 @@
 
         if (TryGetTargetBuilder(root, out var builder, out var extension))
         {
-            if (root is string &&
-                targetList.Any(_ => _.IsStream))
-            {
-                // if there are stream targets, extension applies to stream, and "target" is just text metadata.
-                extension = "txt";
-            }
-            else if (extension is null)
-            {
-                extension = VerifierSettings.TxtOrJson;
-            }
+            extension = VerifierSettings.TxtOrJson;
 
             var received = builder.ToString();
             var stream = new Target(extension, received);
@@ -34,7 +25,7 @@
 
         var hasAppends = appends.Any();
 
-        if (target is null)
+        if (target is null) 
         {
             if (!hasAppends)
             {
@@ -44,18 +35,6 @@
 
             builder = JsonFormatter.AsJson(null, appends, settings, counter);
             return true;
-        }
-
-        if (target is string stringTarget)
-        {
-            target = stringTarget = stringTarget.TrimPreamble();
-
-            if (!hasAppends)
-            {
-                builder = new(stringTarget);
-                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
-                return true;
-            }
         }
 
         builder = JsonFormatter.AsJson(target, appends, settings, counter);
@@ -90,6 +69,7 @@
         {
             new(extension, received)
         };
+
         targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
         return RunEngine(root, null, targetList);

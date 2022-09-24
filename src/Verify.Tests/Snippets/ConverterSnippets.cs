@@ -14,7 +14,7 @@ public class ConverterSnippets
 
             #region ConverterCanConvert
 
-            canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
+            canConvert: (target, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 
             #endregion
 

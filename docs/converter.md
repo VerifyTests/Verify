@@ -53,7 +53,7 @@ This sample uses a typed approach. So the converter acts on an in memory instanc
 ```cs
 VerifierSettings.RegisterFileConverter<Image>(
 
-    canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
+    canConvert: (target, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 
     conversion: (image, settings) =>
     {
@@ -95,7 +95,7 @@ Note that this sample also uses the optional `canConvert` to ensure that only `I
 <!-- snippet: ConverterCanConvert -->
 <a id='snippet-convertercanconvert'></a>
 ```cs
-canConvert: (target, extension, context) => Equals(target.RawFormat, ImageFormat.Tiff),
+canConvert: (target, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 ```
 <sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L15-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

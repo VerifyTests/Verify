@@ -321,7 +321,7 @@ public class UniqueForSample
 [<Tests>]
 let uniqueTests =
     testTask "unique" {
-        let settings = new VerifySettings()
+        let settings = VerifySettings()
         settings.UniqueForRuntime()
         do! Verifier.Verify("unique", "value", settings)
     }

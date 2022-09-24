@@ -17,7 +17,7 @@ let tests =
 [<Tests>]
 let uniqueTests =
     testTask "unique" {
-        let settings = new VerifySettings()
+        let settings = VerifySettings()
         settings.UniqueForRuntime()
         do! Verifier.Verify("unique", "value", settings)
     }
@@ -26,7 +26,7 @@ let uniqueTests =
 [<Tests>]
 let typeNameTests =
     testTask "typeNameTests" {
-        let settings = new VerifySettings()
+        let settings = VerifySettings()
         settings.UseTypeName("CustomTypeName")
         do! Verifier.Verify("typeNameTests", "Value", settings)
     }
@@ -34,7 +34,7 @@ let typeNameTests =
 [<Tests>]
 let methodNameTests =
     testTask "methodNameTests" {
-        let settings = new VerifySettings()
+        let settings = VerifySettings()
         settings.UseMethodName("CustomMethodName")
         do! Verifier.Verify("methodNameTests", "Value", settings)
     }

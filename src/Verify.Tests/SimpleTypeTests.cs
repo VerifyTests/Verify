@@ -75,7 +75,6 @@ public class SimpleTypeTests
 
         var argonJArray = JArray.Parse(jsonArray);
         yield return new object[] {argonJArray};
-        yield return new object[] {"theString"};
         yield return new object[] {true};
         yield return new object[] {(long) 1};
         yield return new object[] {(short) 1};

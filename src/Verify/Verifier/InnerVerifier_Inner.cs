@@ -2,29 +2,25 @@
 {
     Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
-        var targetList = GetTargetList(fileTargets).ToList();
+        var targetList = new List<Target>();
 
-        if (TryGetTargetBuilder(root, out var builder, out var extension))
+        if (TryGetTargetBuilder(root, out var builder))
         {
-            extension = VerifierSettings.TxtOrJson;
-
             var received = builder.ToString();
-            var stream = new Target(extension, received);
-            targetList.Insert(0, stream);
+            targetList.Add(new(VerifierSettings.TxtOrJson, received));
         }
 
-
+        targetList.AddRange(GetTargetList(fileTargets));
         return RunEngine(root, cleanup, targetList);
     }
 
-    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, out string? extension)
+    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder)
     {
-        extension = null;
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Any();
 
-        if (target is null) 
+        if (target is null)
         {
             if (!hasAppends)
             {
@@ -43,7 +39,7 @@
 
     Task<VerifyResult> VerifyInnerString(string root)
     {
-        string target = root;
+        var target = root;
         StringBuilder builder;
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
@@ -51,6 +47,7 @@
 
         target = target.TrimPreamble();
 
+        var extension = VerifierSettings.TxtOrJson;
         if (hasAppends)
         {
             builder = JsonFormatter.AsJson(target, appends, settings, counter);
@@ -58,15 +55,13 @@
         else
         {
             builder = new(target);
+            extension = "txt";
             ApplyScrubbers.ApplyForExtension("txt", builder, settings);
         }
 
-        var extension = VerifierSettings.TxtOrJson;
-
-        var received = builder.ToString();
         var targetList = new List<Target>
         {
-            new(extension, received)
+            new(extension, builder.ToString())
         };
 
         return RunEngine(root, null, targetList);

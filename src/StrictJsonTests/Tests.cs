@@ -36,7 +36,7 @@ public class Tests
     [Fact]
     public void ValidateJson()
     {
-        foreach (var file in Directory.EnumerateFiles(AttributeReader.GetProjectDirectory(), "*.json"))
+        foreach (var file in Directory.EnumerateFiles(AttributeReader.GetProjectDirectory(), "*.verified.json"))
         {
             try
             {

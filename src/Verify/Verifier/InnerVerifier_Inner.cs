@@ -2,34 +2,20 @@
 {
     Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
-        var targetList = GetTargetList(fileTargets).ToList();
+        var targetList = new List<Target>();
 
-        if (TryGetTargetBuilder(root, out var builder, out var extension))
+        if (TryGetTargetBuilder(root, out var builder))
         {
-            if (root is string &&
-                targetList.Any(_ => _.IsStream))
-            {
-                // if there are stream targets, extension applies to stream, and "target" is just text metadata.
-                extension = "txt";
-            }
-            else if (extension is null)
-            {
-                extension = VerifierSettings.TxtOrJson;
-            }
-
             var received = builder.ToString();
-            var stream = new Target(extension, received);
-            targetList.Insert(0, stream);
+            targetList.Add(new(VerifierSettings.TxtOrJson, received));
         }
 
-        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
-
+        targetList.AddRange(GetTargetList(fileTargets));
         return RunEngine(root, cleanup, targetList);
     }
 
-    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder, out string? extension)
+    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder)
     {
-        extension = null;
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Any();
@@ -46,22 +32,84 @@
             return true;
         }
 
-        if (target is string stringTarget)
-        {
-            target = stringTarget = stringTarget.TrimPreamble();
-
-            if (!hasAppends)
-            {
-                builder = new(stringTarget);
-                extension = settings.ExtensionOrTxt();
-                ApplyScrubbers.ApplyForExtension(extension, builder, settings);
-                return true;
-            }
-        }
-
         builder = JsonFormatter.AsJson(target, appends, settings, counter);
 
         return true;
+    }
+
+    Task<VerifyResult> VerifyInnerString(string root)
+    {
+        var target = root;
+        StringBuilder builder;
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+
+        var hasAppends = appends.Any();
+
+        target = target.TrimPreamble();
+
+        var extension = VerifierSettings.TxtOrJson;
+        if (hasAppends)
+        {
+            builder = JsonFormatter.AsJson(target, appends, settings, counter);
+        }
+        else
+        {
+            builder = new(target);
+            extension = "txt";
+            ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+        }
+
+        var targetList = new List<Target>
+        {
+            new(extension, builder.ToString())
+        };
+
+        return RunEngine(root, null, targetList);
+    }
+
+    bool TryGetTargetWithAppends(object? target, [NotNullWhen(true)] out object? result)
+    {
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+
+        var hasAppends = appends.Any();
+
+        if (target is null)
+        {
+            if (!hasAppends)
+            {
+                result = null;
+                return false;
+            }
+
+            var infoBuilder = new InfoBuilder();
+
+            foreach (var append in appends)
+            {
+                infoBuilder.Add(append.Name, append.Data);
+            }
+
+            result = infoBuilder;
+            return true;
+        }
+        else
+        {
+            if (!hasAppends)
+            {
+                result = target;
+                return true;
+            }
+
+            var infoBuilder = new InfoBuilder();
+            infoBuilder.Add("target", target);
+
+            foreach (var append in appends)
+            {
+                infoBuilder.Add(append.Name, append.Data);
+            }
+
+            result = infoBuilder;
+            return true;
+        }
     }
 
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
@@ -82,6 +130,7 @@
 
     async Task<VerifyResult> RunEngine(object? root, Func<Task>? cleanup, List<Target> targetList)
     {
+        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
         await engine.HandleResults(targetList);

@@ -22,11 +22,14 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Retrieves the value passed into <see cref="UseExtension" />, if it exists.
-    /// </summary>
+    [Obsolete(@"An explicit `extension` parameter has been added to all
+    overloads that require it:
+ * Verify(Stream stream, string extension)
+ * Verify(byte[] bytes, string extension)
+ * Verify(string target, string extension)
+", true)]
     public bool TryGetExtension([NotNullWhen(true)] out string? extension) =>
-        CurrentSettings.TryGetExtension(out extension);
+        throw new();
 
     /// <summary>
     /// Append a key-value pair to the serialized target.
@@ -298,15 +301,15 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Use a custom file extension for the test results.
-    /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.
-    /// </summary>
-    public SettingsTask UseExtension(string extension)
-    {
-        CurrentSettings.UseExtension(extension);
-        return this;
-    }
+
+    [Obsolete(@"An explicit `extension` parameter has been added to all
+    overloads that require it:
+ * Verify(Stream stream, string extension)
+ * Verify(byte[] bytes, string extension)
+ * Verify(string target, string extension)
+", true)]
+    public SettingsTask UseExtension(string extension) =>
+        throw new();
 
     public VerifySettings CurrentSettings => settings ??= new();
 

@@ -87,7 +87,7 @@ public class TypeConverterTests
     public static void ConvertWithCanConvert_InvalidInit() =>
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
             (instance, _) => new(null, "txt", instance.Value),
-            (inner, _, _) => inner.Value == "Valid");
+            (inner, _) => inner.Value == "Valid");
 
     [Fact]
     public Task ConvertWithCanConvert_Invalid()
@@ -103,7 +103,7 @@ public class TypeConverterTests
     public static void ConvertWithCanConvert_ValidInit() =>
         VerifierSettings.RegisterFileConverter<CanConvertTarget>(
             (instance, _) => new(null, "txt", instance.Value),
-            (inner, _, _) => inner.Value == "Valid");
+            (inner, _) => inner.Value == "Valid");
 
     [Fact]
     public Task ConvertWithCanConvert_Valid()
@@ -132,8 +132,8 @@ public class TypeConverterTests
                 };
                 return new(info, targets.Select(_ => new Target("png", _)));
             },
-            (_, _, context) => context.ContainsKey("name") &&
-                               (string) context["name"] == nameof(WithInfo));
+            (_, context) => context.ContainsKey("name") &&
+                            (string) context["name"] == nameof(WithInfo));
 
     [Fact]
     public Task WithInfo()
@@ -152,7 +152,7 @@ public class TypeConverterTests
     [ModuleInitializer]
     public static void WithInfoShouldRespectSettingsInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, _, context) =>
+            canConvert: (target, context) =>
                 context.ContainsKey("name") &&
                 (string) context["name"] == nameof(WithInfoShouldRespectSettings) &&
                 Equals(target.RawFormat, ImageFormat.Bmp),
@@ -184,7 +184,7 @@ public class TypeConverterTests
     [ModuleInitializer]
     public static void TypeConversionInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, _, context) =>
+            canConvert: (target, context) =>
                 context.ContainsKey("name") &&
                 (string) context["name"] == nameof(TypeConversion) &&
                 Equals(target.RawFormat, ImageFormat.Bmp),

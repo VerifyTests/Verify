@@ -9,8 +9,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task TextSplit() =>
-        Verify(IoHelpers.OpenRead("sample.split"))
-            .UseExtension("txt");
+        Verify(IoHelpers.OpenRead("sample.split"), "txt");
 
     [ModuleInitializer]
     public static void ExtensionConversionStringBuilderInit() =>
@@ -20,8 +19,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("ExtensionConversionStringBuilder");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "ExtensionConversionStringBuilder");
 
     [ModuleInitializer]
     public static void ExtensionConversionMultipleTargetsInit() =>
@@ -40,8 +41,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionMultipleTargets() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("ExtensionConversionMultipleTargets");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "ExtensionConversionMultipleTargets");
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedTargetInit() =>
@@ -60,8 +63,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionNamedTarget() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("ExtensionConversionNamedTarget");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "ExtensionConversionNamedTarget");
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedMixedTargetInit() =>
@@ -80,8 +85,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionNamedMixedTarget() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("ExtensionConversionNamedMixedTarget");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "ExtensionConversionNamedMixedTarget");
 
     [ModuleInitializer]
     public static void ExtensionConversionInit() =>
@@ -91,8 +98,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversion() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("ExtensionConversion");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "ExtensionConversion");
 
     [ModuleInitializer]
     public static void AsyncExtensionConversionInit() =>
@@ -102,8 +111,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task AsyncExtensionConversion() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("AsyncExtensionConversion");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "AsyncExtensionConversion");
 
     [ModuleInitializer]
     public static void WithInfoInit() =>
@@ -120,8 +131,10 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task WithInfo() =>
-        Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("WithInfo");
+        Verify(new MemoryStream(new byte[]
+        {
+            1
+        }), "WithInfo");
 
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit() =>
@@ -138,21 +151,18 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task WithInfoAndBinary() =>
-        Verify(File.OpenRead("sample.png"))
-            .UseExtension("WithInfoAndBinary");
+        Verify(File.OpenRead("sample.png"), "WithInfoAndBinary");
 
 #if NET6_0
 
     [Fact]
     public async Task WithInfoAndModifiedBinary()
     {
-        await Verify(File.OpenRead("sample.png"))
-            .UseExtension("WithInfoAndBinary")
+        await Verify(File.OpenRead("sample.png"), "WithInfoAndBinary")
             .AutoVerify();
 
         await Assert.ThrowsAsync<VerifyException>(
-            () => Verify(File.OpenRead("sample2.png"))
-                .UseExtension("WithInfoAndBinary")
+            () => Verify(File.OpenRead("sample2.png"), "WithInfoAndBinary")
                 .DisableRequireUniquePrefix().DisableDiff());
         var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.received.png");
         Assert.True(File.Exists(file));

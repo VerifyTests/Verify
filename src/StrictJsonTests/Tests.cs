@@ -36,7 +36,7 @@ public class Tests
     [Fact]
     public void ValidateJson()
     {
-        foreach (var file in Directory.EnumerateFiles(AttributeReader.GetProjectDirectory(), "*.json"))
+        foreach (var file in Directory.EnumerateFiles(AttributeReader.GetProjectDirectory(), "*.verified.json"))
         {
             try
             {
@@ -102,8 +102,7 @@ public class Tests
                 };
                 return new(info, "txt", "content");
             });
-        return Verify(new MemoryStream(new byte[]{1}))
-            .UseExtension("foo");
+        return Verify(new MemoryStream(new byte[]{1}), "foo");
     }
 }
 

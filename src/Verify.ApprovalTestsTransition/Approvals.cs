@@ -35,8 +35,7 @@ public class Approvals
     {
     }
 
-    [Obsolete(@"Use Verifier.Verify(text)
-.UseExtension(fileExtensionWithDot)
+    [Obsolete(@"Use Verifier.Verify(text, fileExtensionWithDot)
 .AddScrubber(scrubber)", true)]
     public static void VerifyWithExtension(string text, string fileExtensionWithDot, Func<string, string>? scrubber = null)
     {
@@ -96,17 +95,17 @@ public class Approvals
     public static void VerifyAll<K, V>(IDictionary<K, V> dictionary, Func<K, V, string> formatter) =>
         VerifyAll(dictionary.OrderBy(p => p.Key), p => formatter(p.Key, p.Value));
 
-    [Obsolete("Use Verifier.Verify(byte[]).UseExtension(\"ext\")", true)]
+    [Obsolete("Use Verifier.Verify(byte[], \"ext\")", true)]
     public static void VerifyBinaryFile(byte[] bytes, string fileExtensionWithDot)
     {
     }
 
-    [Obsolete("Use Verifier.Verify(string).UseExtension(\"html\")", true)]
+    [Obsolete("Use Verifier.Verify(string, \"html\")", true)]
     public static void VerifyHtml(string html)
     {
     }
 
-    [Obsolete("Use Verifier.Verify(string).UseExtension(\"xml\")", true)]
+    [Obsolete("Use Verifier.Verify(string, \"xml\")", true)]
     public static void VerifyXml(string xml)
     {
     }

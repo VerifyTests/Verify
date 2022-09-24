@@ -136,9 +136,7 @@ Usage:
 
 snippet: XunitExtensionSample
 
-Result in two files:
-
-snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.SharedClassLevelSettings.verified.json
+Result in:
 
 snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml
 

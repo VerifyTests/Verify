@@ -13,34 +13,29 @@
         return await VerifyJson(json);
     }
 
-    public Task<VerifyResult> VerifyJson(JToken target)
-    {
-        AssertExtensionIsNull();
-        return VerifyInner(target, null, emptyTargets);
-    }
+    public Task<VerifyResult> VerifyJson(JToken target) =>
+        VerifyInner(target, null, emptyTargets);
 
     public async Task<VerifyResult> Verify(object target)
     {
-        if (target is byte[] bytes)
+        if (target is byte[])
         {
-            return await VerifyStream(new MemoryStream(bytes));
+            throw new("Use Verify(byte[] target, string extension)");
+        }
+        if (target is string)
+        {
+            throw new("Use Verify(string target, string extension)");
         }
 
         if (VerifierSettings.TryGetToString(target, out var toString))
         {
             var stringResult = toString(target, settings.Context);
-            if (stringResult.Extension is not null)
+            if (stringResult.Extension is null)
             {
-                settings.UseExtension(stringResult.Extension);
+                return await VerifyString(stringResult.Value);
             }
 
-            var value = stringResult.Value;
-            if (value == string.Empty)
-            {
-                return await VerifyInner("emptyString", null, emptyTargets);
-            }
-
-            return await VerifyInner(value, null, emptyTargets);
+            return await VerifyString(stringResult.Value, stringResult.Extension);
         }
 
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
@@ -49,32 +44,16 @@
             return await VerifyInner(result.Info, result.Cleanup, result.Targets);
         }
 
-        if (target is Stream stream)
+        if (target is Stream)
         {
-            return await VerifyStream(stream);
+            throw new("Use Verify(Stream target, string extension)");
         }
 
         if (target.GetType().ImplementsStreamEnumerable())
         {
-            var enumerable = (IEnumerable) target;
-            var targets = enumerable.Cast<Stream>()
-                .Select<Stream, Target>(_ => new(settings.ExtensionOrBin(), _));
-            return await VerifyInner(null, null, targets);
+            throw new("Use Verify(IEnumerable<T> targets, string extension)");
         }
 
-        AssertExtensionIsNull();
         return await VerifyInner(target, null, emptyTargets);
-    }
-
-    void AssertExtensionIsNull()
-    {
-        if (settings.extension is null)
-        {
-            return;
-        }
-
-        throw new($@"{nameof(VerifySettings)}.{nameof(VerifySettings.UseExtension)}() should only be used for text, for streams, or for converter discovery.
-When serializing an instance the default is txt.
-To use json as an extension when serializing use {nameof(VerifierSettings)}.{nameof(VerifierSettings.UseStrictJson)}().");
     }
 }

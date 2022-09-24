@@ -181,18 +181,6 @@ public class Tests
             (_, _, _) => Task.FromResult(new CompareResult(true)));
 
     [Fact]
-    public Task SettingsArePassed()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("SettingsArePassed");
-        return Verify(new MemoryStream(new byte[]
-            {
-                1
-            }), settings)
-            .UseExtension("SettingsArePassed");
-    }
-
-    [Fact]
     public Task Throws() =>
         Verifier.Throws(MethodThatThrows);
 
@@ -344,11 +332,17 @@ public class Tests
 #endif
 
     [Fact]
+    public Task FileStream() =>
+        Verify(File.OpenRead("sample.txt"));
+
+    [Fact]
     public Task Stream() =>
-        Verify(new MemoryStream(new byte[]
-        {
-            1
-        }));
+        Verify(
+            new MemoryStream(new byte[]
+            {
+                1
+            }),
+            "bin");
 
     [Fact]
     public Task StreamNotAtStart()
@@ -361,7 +355,7 @@ public class Tests
             4
         });
         stream.Position = 2;
-        return Verify(stream);
+        return Verify(stream, "bin");
     }
 
     [Fact]
@@ -369,7 +363,7 @@ public class Tests
     {
         var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
         stream.Position = 2;
-        return Verify(stream).UseExtension("txt");
+        return Verify(stream, "txt");
     }
 
     [Fact]
@@ -385,7 +379,8 @@ public class Tests
                 {
                     2
                 })
-            });
+            },
+            "bin");
 
     [Fact]
     public async Task ShouldNotIgnoreCase()
@@ -491,20 +486,6 @@ public class Tests
         public string? Id { get; set; }
     }
 
-    [Fact]
-    public Task ShouldThrowForExtensionOnSerialization()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("json");
-        settings.UseMethodName("Foo");
-        settings.IgnoreStackTrace();
-        settings.DisableDiff();
-
-        var element = new Element();
-        return Verifier.ThrowsTask(() => Verify(element, settings))
-            .IgnoreStackTrace();
-    }
-
 #if NET6_0
 
     [Fact]
@@ -537,13 +518,8 @@ public class Tests
     }
 
     [Fact]
-    public Task StringExtension()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("xml");
-
-        return Verify("<a>b</a>", settings);
-    }
+    public Task StringExtension() =>
+        Verify("<a>b</a>", "xml");
 
     [Fact]
     public Task TaskResult()
@@ -700,12 +676,8 @@ public class Tests
 
 #if !NETFRAMEWORK
     [Fact]
-    public Task VerifyBytesAsync()
-    {
-        var settings = new VerifySettings();
-        settings.UseExtension("jpg");
-        return Verify(File.ReadAllBytesAsync("sample.jpg"), settings);
-    }
+    public Task VerifyBytesAsync() =>
+        Verify(File.ReadAllBytesAsync("sample.jpg"), "jpg");
 #endif
 
 #if NET6_0

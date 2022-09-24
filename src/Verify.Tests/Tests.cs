@@ -332,6 +332,10 @@ public class Tests
 #endif
 
     [Fact]
+    public Task FileStream() =>
+        Verify(File.OpenRead("sample.txt"));
+
+    [Fact]
     public Task Stream() =>
         Verify(
             new MemoryStream(new byte[]

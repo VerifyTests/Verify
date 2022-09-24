@@ -2,6 +2,45 @@
 public class ExtensionConverterTests
 {
     [ModuleInitializer]
+    public static void NestedInit()
+    {
+        VerifierSettings.RegisterFileConverter(
+            "level1",
+            (stream, _) =>
+                new(
+                    "level1Info",
+                    new List<Target>
+                    {
+                        new("txt", "text from level1"),
+                        new("level2", stream)
+                    }));
+        VerifierSettings.RegisterFileConverter(
+            "level2",
+            async (stream, _) =>
+                new(
+                    "level2Info",
+                    new List<Target>
+                    {
+                        new("txt", "text from level2"),
+                        new("txt", await stream.ReadString())
+                    }));
+    }
+
+    [Fact]
+    public Task Nested() =>
+        Verify(IoHelpers.OpenRead("sample.level1"));
+
+    [Fact]
+    public Task NestedTarget()
+    {
+        var targets = new[]
+        {
+            new Target("level1", new MemoryStream())
+        };
+        return Verify(targets);
+    }
+
+    [ModuleInitializer]
     public static void TextSplitInit() =>
         VerifierSettings.RegisterFileConverter(
             "split",

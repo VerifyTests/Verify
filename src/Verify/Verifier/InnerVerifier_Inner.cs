@@ -63,6 +63,38 @@
         return true;
     }
 
+    Task<VerifyResult> VerifyInnerString(string root)
+    {
+        string target = root;
+        StringBuilder builder;
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+
+        var hasAppends = appends.Any();
+
+        target = target.TrimPreamble();
+
+        if (hasAppends)
+        {
+            builder = JsonFormatter.AsJson(target, appends, settings, counter);
+        }
+        else
+        {
+            builder = new(target);
+            ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+        }
+
+        var extension = VerifierSettings.TxtOrJson;
+
+        var received = builder.ToString();
+        var targetList = new List<Target>
+        {
+            new(extension, received)
+        };
+        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
+
+        return RunEngine(root, null, targetList);
+    }
+
     bool TryGetTargetWithAppends(object? target, [NotNullWhen(true)] out object? result)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);

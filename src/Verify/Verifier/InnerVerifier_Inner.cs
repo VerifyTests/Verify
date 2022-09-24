@@ -13,7 +13,6 @@
             targetList.Insert(0, stream);
         }
 
-        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
         return RunEngine(root, cleanup, targetList);
     }
@@ -69,8 +68,6 @@
         {
             new(extension, received)
         };
-
-        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
 
         return RunEngine(root, null, targetList);
     }
@@ -138,6 +135,7 @@
 
     async Task<VerifyResult> RunEngine(object? root, Func<Task>? cleanup, List<Target> targetList)
     {
+        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
         await engine.HandleResults(targetList);

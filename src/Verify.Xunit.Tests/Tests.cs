@@ -40,6 +40,33 @@ public class Tests
 
     #endregion
 
+    [ModuleInitializer]
+    public static void InitWithTargetsAndConverter() =>
+        VerifierSettings.RegisterFileConverter("WithTargetsAndConverter",
+            (_, _) =>
+                new(
+                    "theInfo",
+                    new List<Target>
+                    {
+                        new("txt", "text from converter")
+                    }));
+
+    [Fact]
+    public Task WithTargetsAndConverter() =>
+        Verify(
+            new
+            {
+                Property = "Value"
+            },
+            new[]
+            {
+                new Target(
+                    extension: "WithTargetsAndConverter",
+                    data: new MemoryStream(),
+                    name: "targetName")
+            });
+
+
     [Fact]
     public Task EnumerableTargets() =>
         Verify(

@@ -1,119 +1,58 @@
 ﻿partial class InnerVerifier
 {
-    Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
     {
-        var targetList = new List<Target>();
+        var targetList = GetTargets(root, fileTargets)
+            .ToList();
+        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
-        if (TryGetTargetBuilder(root, out var builder))
+        await engine.HandleResults(targetList);
+
+        if (cleanup is not null)
         {
-            var received = builder.ToString();
-            targetList.Add(new(VerifierSettings.TxtOrJson, received));
+            await cleanup();
         }
 
-        targetList.AddRange(GetTargetList(fileTargets));
-        return RunEngine(root, cleanup, targetList);
+        await engine.ThrowIfRequired();
+        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
-    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder)
+    IEnumerable<Target> GetTargets(object? root, IEnumerable<Target> targets)
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
         var hasAppends = appends.Any();
 
-        if (target is null)
+        if (root is null)
         {
-            if (!hasAppends)
+            if (hasAppends)
             {
-                builder = null;
-                return false;
+                var builder = JsonFormatter.AsJson(null, appends, settings, counter);
+                var received = builder.ToString();
+                yield return new(VerifierSettings.TxtOrJson, received);
             }
-
-            builder = JsonFormatter.AsJson(null, appends, settings, counter);
-            return true;
         }
-
-        builder = JsonFormatter.AsJson(target, appends, settings, counter);
-
-        return true;
-    }
-
-    Task<VerifyResult> VerifyInnerString(string root)
-    {
-        var target = root;
-        StringBuilder builder;
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        target = target.TrimPreamble();
-
-        var extension = VerifierSettings.TxtOrJson;
-        if (hasAppends)
+        else if (root is string stringRoot)
         {
-            builder = JsonFormatter.AsJson(target, appends, settings, counter);
+            stringRoot = stringRoot.TrimPreamble();
+
+            if (hasAppends)
+            {
+                var builder = JsonFormatter.AsJson(stringRoot, appends, settings, counter);
+                yield return new(VerifierSettings.TxtOrJson, builder.ToString());
+            }
+            else
+            {
+                var builder = new StringBuilder(stringRoot);
+                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+                yield return new("txt", builder.ToString());
+            }
         }
         else
         {
-            builder = new(target);
-            extension = "txt";
-            ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+            yield return new(VerifierSettings.TxtOrJson, JsonFormatter.AsJson(root, appends, settings, counter));
         }
 
-        var targetList = new List<Target>
-        {
-            new(extension, builder.ToString())
-        };
-
-        return RunEngine(root, null, targetList);
-    }
-
-    bool TryGetTargetWithAppends(object? target, [NotNullWhen(true)] out object? result)
-    {
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        if (target is null)
-        {
-            if (!hasAppends)
-            {
-                result = null;
-                return false;
-            }
-
-            var infoBuilder = new InfoBuilder();
-
-            foreach (var append in appends)
-            {
-                infoBuilder.Add(append.Name, append.Data);
-            }
-
-            result = infoBuilder;
-            return true;
-        }
-        else
-        {
-            if (!hasAppends)
-            {
-                result = target;
-                return true;
-            }
-
-            var infoBuilder = new InfoBuilder();
-            infoBuilder.Add("target", target);
-
-            foreach (var append in appends)
-            {
-                infoBuilder.Add(append.Name, append.Data);
-            }
-
-            result = infoBuilder;
-            return true;
-        }
-    }
-
-    IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)
-    {
         foreach (var target in targets)
         {
             if (target.TryGetStringBuilder(out var builder))
@@ -126,21 +65,10 @@
                 yield return target;
             }
         }
-    }
 
-    async Task<VerifyResult> RunEngine(object? root, Func<Task>? cleanup, List<Target> targetList)
-    {
-        targetList.AddRange(VerifierSettings.GetFileAppenders(settings));
-        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
-
-        await engine.HandleResults(targetList);
-
-        if (cleanup is not null)
+        foreach (var target in VerifierSettings.GetFileAppenders(settings))
         {
-            await cleanup();
+            yield return target;
         }
-
-        await engine.ThrowIfRequired();
-        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 }

@@ -3,7 +3,7 @@
 public partial class VerifyBase
 {
     public SettingsTask Verify(
-        string target,
+        string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyString(target));
@@ -15,7 +15,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyString(target));
 
     public SettingsTask Verify(
-        string target,
+        string? target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

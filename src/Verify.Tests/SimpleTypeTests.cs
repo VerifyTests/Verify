@@ -24,8 +24,15 @@ public class SimpleTypeTests
         Verify(Task.FromResult(string.Empty));
 
     [Fact]
+    public Task StringNullWrappedInTask() =>
+        Verify(Task.FromResult((string)null!));
+
+    [Fact]
     public Task StringEmpty() =>
         Verify(string.Empty);
+    [Fact]
+    public Task StringNull() =>
+        Verify((string?)null);
 
 #if NET5_0_OR_GREATER
     [Fact]

@@ -3,7 +3,7 @@
 public partial class VerifyBase
 {
     public SettingsTask Verify(
-        string target,
+        string? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
@@ -19,7 +19,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        string target,
+        string? target,
         string extension,
         VerifySettings? settings = null)
     {

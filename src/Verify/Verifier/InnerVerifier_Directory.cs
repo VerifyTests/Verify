@@ -56,17 +56,24 @@
                 continue;
             }
 
-            var indexOfPeriod = file.LastIndexOf('.');
             var name = file;
-            if (indexOfPeriod > -1)
+
+            var extension = Path.GetExtension(file).Replace(".", string.Empty);
+            if (string.IsNullOrEmpty(extension))
             {
-                name = file[..^(file.Length - indexOfPeriod)];
+                extension = "noextension";
+            }
+            else
+            {
+                var indexOfPeriod = file.LastIndexOf('.');
+                if (indexOfPeriod > -1)
+                {
+                    name = file[..^(file.Length - indexOfPeriod)];
+                }
             }
 
             name = name[path.Length..];
             name = name.TrimStart(Path.DirectorySeparatorChar);
-
-            var extension = Path.GetExtension(file)[1..];
 
             if (EmptyFiles.Extensions.IsText(extension))
             {

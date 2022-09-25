@@ -50,11 +50,12 @@
                 {
                     writer.Serialize(value.root);
                 }
+
                 return;
             }
 
             writer.WriteStartObject();
-                writer.WritePropertyName("target");
+            writer.WritePropertyName("target");
             if (value.root == null)
             {
                 writer.WriteValue("null");

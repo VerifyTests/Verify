@@ -9,7 +9,7 @@
     public Task<VerifyResult> VerifyString(string? value)
     {
         value = OrEmptyOrNull(value);
-        return VerifyInnerString(value);
+        return VerifyInner(value, null, Enumerable.Empty<Target>());
     }
 
     public async Task<VerifyResult> VerifyString(Task<string> task, string extension)

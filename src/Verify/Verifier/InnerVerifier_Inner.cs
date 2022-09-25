@@ -4,112 +4,45 @@
     {
         var targetList = new List<Target>();
 
-        if (TryGetTargetBuilder(root, out var builder))
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+
+        var hasAppends = appends.Any();
+
+        if (root is null)
         {
+            if (hasAppends)
+            {
+                var builder = JsonFormatter.AsJson(null, appends, settings, counter);
+                var received = builder.ToString();
+                targetList.Add(new(VerifierSettings.TxtOrJson, received));
+            }
+        }
+        else if (root is string stringRoot)
+        {
+            stringRoot = stringRoot.TrimPreamble();
+
+            if (hasAppends)
+            {
+                var builder = JsonFormatter.AsJson(stringRoot, appends, settings, counter);
+                targetList.Add(new(VerifierSettings.TxtOrJson, builder.ToString()));
+            }
+            else
+            {
+                StringBuilder builder = new(stringRoot);
+                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+                targetList.Add(new("txt", builder.ToString()));
+            }
+        }
+        else
+        {
+            var builder = JsonFormatter.AsJson(root, appends, settings, counter);
+
             var received = builder.ToString();
             targetList.Add(new(VerifierSettings.TxtOrJson, received));
         }
 
         targetList.AddRange(GetTargetList(fileTargets));
         return RunEngine(root, cleanup, targetList);
-    }
-
-    bool TryGetTargetBuilder(object? target, [NotNullWhen(true)] out StringBuilder? builder)
-    {
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        if (target is null)
-        {
-            if (!hasAppends)
-            {
-                builder = null;
-                return false;
-            }
-
-            builder = JsonFormatter.AsJson(null, appends, settings, counter);
-            return true;
-        }
-
-        builder = JsonFormatter.AsJson(target, appends, settings, counter);
-
-        return true;
-    }
-
-    Task<VerifyResult> VerifyInnerString(string root)
-    {
-        var target = root;
-        StringBuilder builder;
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        target = target.TrimPreamble();
-
-        var extension = VerifierSettings.TxtOrJson;
-        if (hasAppends)
-        {
-            builder = JsonFormatter.AsJson(target, appends, settings, counter);
-        }
-        else
-        {
-            builder = new(target);
-            extension = "txt";
-            ApplyScrubbers.ApplyForExtension("txt", builder, settings);
-        }
-
-        var targetList = new List<Target>
-        {
-            new(extension, builder.ToString())
-        };
-
-        return RunEngine(root, null, targetList);
-    }
-
-    bool TryGetTargetWithAppends(object? target, [NotNullWhen(true)] out object? result)
-    {
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        if (target is null)
-        {
-            if (!hasAppends)
-            {
-                result = null;
-                return false;
-            }
-
-            var infoBuilder = new InfoBuilder();
-
-            foreach (var append in appends)
-            {
-                infoBuilder.Add(append.Name, append.Data);
-            }
-
-            result = infoBuilder;
-            return true;
-        }
-        else
-        {
-            if (!hasAppends)
-            {
-                result = target;
-                return true;
-            }
-
-            var infoBuilder = new InfoBuilder();
-            infoBuilder.Add("target", target);
-
-            foreach (var append in appends)
-            {
-                infoBuilder.Add(append.Name, append.Data);
-            }
-
-            result = infoBuilder;
-            return true;
-        }
     }
 
     IEnumerable<Target> GetTargetList(IEnumerable<Target> targets)

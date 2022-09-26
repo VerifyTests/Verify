@@ -28,8 +28,7 @@
             if (hasAppends)
             {
                 var builder = JsonFormatter.AsJson(null, appends, settings, counter);
-                var received = builder.ToString();
-                yield return new(VerifierSettings.TxtOrJson, received);
+                yield return new(VerifierSettings.TxtOrJson, builder);
             }
         }
         else if (root is string stringRoot)
@@ -43,13 +42,13 @@
             if (hasAppends)
             {
                 var builder = JsonFormatter.AsJson(stringRoot, appends, settings, counter);
-                yield return new(VerifierSettings.TxtOrJson, builder.ToString());
+                yield return new(VerifierSettings.TxtOrJson, builder);
             }
             else
             {
                 var builder = new StringBuilder(stringRoot);
                 ApplyScrubbers.ApplyForExtension("txt", builder, settings);
-                yield return new("txt", builder.ToString());
+                yield return new("txt", builder);
             }
         }
         else

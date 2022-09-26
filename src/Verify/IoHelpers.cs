@@ -129,12 +129,25 @@
         return Task.CompletedTask;
     }
 
+    public static Task WriteText(string path, StringBuilder text)
+    {
+        CreateDirectory(Path.GetDirectoryName(path)!);
+        File.WriteAllText(path, text.ToString(), Utf8);
+        return Task.CompletedTask;
+    }
+
 #else
 
     public static Task WriteText(string path, string text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
         return File.WriteAllTextAsync(path, text, Utf8);
+    }
+
+    public static Task WriteText(string path, StringBuilder text)
+    {
+        CreateDirectory(Path.GetDirectoryName(path)!);
+        return File.WriteAllTextAsync(path, text.ToString(), Utf8);
     }
 
 #endif

@@ -6,19 +6,19 @@
         IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
         if (!File.Exists(filePair.VerifiedPath))
         {
-            await IoHelpers.WriteText(filePair.ReceivedPath, receivedText);
+            await IoHelpers.WriteText(filePair.ReceivedPath, received);
             return new(Equality.New, null, received, null);
         }
 
-        var verifiedText = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
-        var result = await CompareStrings(filePair.Extension, received , verifiedText, settings);
+        var verified = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
+        var result = await CompareStrings(filePair.Extension, received , verified, settings);
         if (result.IsEqual)
         {
-            return new(Equality.Equal, null, received, verifiedText);
+            return new(Equality.Equal, null, received, verified);
         }
 
-        await IoHelpers.WriteText(filePair.ReceivedPath, receivedText);
-        return new(Equality.NotEqual, result.Message, received, verifiedText);
+        await IoHelpers.WriteText(filePair.ReceivedPath, received);
+        return new(Equality.NotEqual, result.Message, received, verified);
     }
 
     static Task<CompareResult> CompareStrings(string extension, StringBuilder received, StringBuilder verified, VerifySettings settings)

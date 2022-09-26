@@ -42,7 +42,7 @@ public class ExceptionParsingTests
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), "TheMessage", "receivedText", "verifiedText"),
+            new(new("txt", receivedTxt, verifiedTxt), "TheMessage", new("receivedText"),new( "verifiedText")),
             new(new("bin", receivedBin, verifiedBin), "TheMessage", null, null)
         };
 
@@ -73,7 +73,7 @@ public class ExceptionParsingTests
     {
         var @new = new List<NewResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), "contents")
+            new(new("txt", receivedTxt, verifiedTxt), new("contents"))
         };
 
         return ParseVerify(
@@ -121,7 +121,7 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
     {
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, "receivedText", "verifiedText")
+            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText"))
         };
 
         return ParseVerify(
@@ -141,12 +141,12 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), "the content"),
+            new(new("txt", receivedTxt, verifiedTxt), new("the content")),
             new(new("bin", receivedBin, verifiedBin), null)
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, "receivedText", "verifiedText"),
+            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText")),
             new(new("bin", receivedBin, verifiedBin), null, null, null)
         };
         var delete = new List<string>
@@ -167,11 +167,11 @@ Verified: XAMLCombinerTests.TestOutput.verified.xaml
         };
         var @new = new List<NewResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), "the content")
+            new(new("txt", receivedTxt, verifiedTxt), new("the content"))
         };
         var notEquals = new List<NotEqualResult>
         {
-            new(new("txt", receivedTxt, verifiedTxt), null, "receivedText", "verifiedText")
+            new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText"))
         };
         var delete = new List<string>
         {

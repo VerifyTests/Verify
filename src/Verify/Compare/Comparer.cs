@@ -3,6 +3,11 @@
     public static async Task<EqualityResult> Text(FilePair filePair, string receivedText, VerifySettings settings)
     {
         var received = new StringBuilder(receivedText);
+        return await Text(filePair, received, settings);
+    }
+
+    public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings)
+    {
         IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
         if (!File.Exists(filePair.VerifiedPath))
         {
@@ -11,7 +16,7 @@
         }
 
         var verified = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
-        var result = await CompareStrings(filePair.Extension, received , verified, settings);
+        var result = await CompareStrings(filePair.Extension, received, verified, settings);
         if (result.IsEqual)
         {
             return new(Equality.Equal, null, received, verified);
@@ -30,14 +35,12 @@
             verified.Length -= 1;
         }
 
-        var verifiedString = verified.ToString();
         var isEqual = verified.Equals(received);
-
 
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
-            return compare(received.ToString(), verifiedString, settings.Context);
+            return compare(received.ToString(), verified.ToString(), settings.Context);
         }
 
         return Task.FromResult(new CompareResult(isEqual));

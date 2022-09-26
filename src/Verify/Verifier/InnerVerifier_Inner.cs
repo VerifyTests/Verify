@@ -2,11 +2,16 @@
 {
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
-        var targetList = GetTargets(root, targets)
-            .ToList();
+        var resultTargets = new List<Target>();
+        if (TryGetRootTarget(root, out var rootTarget))
+        {
+            resultTargets.Add(rootTarget.Value);
+        }
+
+        resultTargets.AddRange(GetTargets(targets));
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
-        await engine.HandleResults(targetList);
+        await engine.HandleResults(resultTargets);
 
         if (cleanup is not null)
         {
@@ -17,52 +22,8 @@
         return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
-    IEnumerable<Target> GetTargets(object? root, IEnumerable<Target> targets)
+    IEnumerable<Target> GetTargets(IEnumerable<Target> targets)
     {
-        var appends = VerifierSettings.GetJsonAppenders(settings);
-
-        var hasAppends = appends.Any();
-
-        if (root is null)
-        {
-            if (hasAppends)
-            {
-                var infoBuilder = new InfoBuilder(null, appends);
-                yield return new(
-                    VerifierSettings.TxtOrJson,
-                    JsonFormatter.AsJson(settings, counter, infoBuilder));
-            }
-        }
-        else if (root is string stringRoot)
-        {
-            stringRoot = stringRoot.TrimPreamble();
-            if (stringRoot.Length == 0)
-            {
-                stringRoot = "emptyString";
-            }
-
-            if (hasAppends)
-            {
-                var infoBuilder = new InfoBuilder(stringRoot, appends);
-                yield return new(
-                    VerifierSettings.TxtOrJson,
-                    JsonFormatter.AsJson(settings, counter, infoBuilder));
-            }
-            else
-            {
-                var builder = new StringBuilder(stringRoot);
-                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
-                yield return new("txt", builder);
-            }
-        }
-        else
-        {
-            var infoBuilder = new InfoBuilder(root, appends);
-            yield return new(
-                VerifierSettings.TxtOrJson,
-                JsonFormatter.AsJson(settings, counter, infoBuilder));
-        }
-
         foreach (var target in targets.Concat(VerifierSettings.GetFileAppenders(settings)))
         {
             if (target.TryGetStringBuilder(out var builder))
@@ -75,5 +36,58 @@
                 yield return target;
             }
         }
+    }
+
+    bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)
+    {
+        var appends = VerifierSettings.GetJsonAppenders(settings);
+
+        var hasAppends = appends.Any();
+
+        if (root is null)
+        {
+            if (hasAppends)
+            {
+                target = new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter,
+                        new InfoBuilder(null, appends)));
+                return true;
+            }
+
+            target = null;
+            return false;
+        }
+
+        if (root is string stringRoot)
+        {
+            stringRoot = stringRoot.TrimPreamble();
+            if (stringRoot.Length == 0)
+            {
+                stringRoot = "emptyString";
+            }
+
+            if (hasAppends)
+            {
+                target = new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter,
+                        new InfoBuilder(stringRoot, appends)));
+            }
+            else
+            {
+                var builder = new StringBuilder(stringRoot);
+                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+                target = new("txt", builder);
+            }
+
+            return true;
+        }
+
+        target = new(
+            VerifierSettings.TxtOrJson,
+            JsonFormatter.AsJson(settings, counter,
+                new InfoBuilder(root, appends)));
+        return true;
     }
 }

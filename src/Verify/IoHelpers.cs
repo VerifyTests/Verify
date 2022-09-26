@@ -100,6 +100,14 @@
         return builder.ToString();
     }
 
+    static async Task<StringBuilder> ReadStringBuilderWithFixedLines(this Stream stream)
+    {
+        var stringValue = await stream.ReadString();
+        var builder = new StringBuilder(stringValue);
+        builder.FixNewlines();
+        return builder;
+    }
+
     static bool TryCopyFileStream(string path, Stream stream)
     {
         if (stream is not FileStream fileStream)
@@ -152,6 +160,12 @@
         return await stream.ReadStringWithFixedLines();
     }
 
+    public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
+    {
+        await using var stream = OpenRead(path);
+        return await stream.ReadStringBuilderWithFixedLines();
+    }
+
     public static async Task WriteStream(string path, Stream stream)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
@@ -168,6 +182,12 @@
     {
         using var stream = OpenRead(path);
         return await stream.ReadStringWithFixedLines();
+    }
+
+    public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
+    {
+        using var stream = OpenRead(path);
+        return await stream.ReadStringBuilderWithFixedLines();
     }
 
     public static async Task WriteStream(string path, Stream stream)

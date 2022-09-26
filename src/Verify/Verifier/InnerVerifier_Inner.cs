@@ -27,8 +27,10 @@
         {
             if (hasAppends)
             {
-                var builder = JsonFormatter.AsJson(null, appends, settings, counter);
-                yield return new(VerifierSettings.TxtOrJson, builder);
+                var infoBuilder = new InfoBuilder(null, appends);
+                yield return new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, infoBuilder));
             }
         }
         else if (root is string stringRoot)
@@ -41,8 +43,10 @@
 
             if (hasAppends)
             {
-                var builder = JsonFormatter.AsJson(stringRoot, appends, settings, counter);
-                yield return new(VerifierSettings.TxtOrJson, builder);
+                var infoBuilder = new InfoBuilder(stringRoot, appends);
+                yield return new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, infoBuilder));
             }
             else
             {
@@ -53,7 +57,10 @@
         }
         else
         {
-            yield return new(VerifierSettings.TxtOrJson, JsonFormatter.AsJson(root, appends, settings, counter));
+            var infoBuilder = new InfoBuilder(root, appends);
+            yield return new(
+                VerifierSettings.TxtOrJson,
+                JsonFormatter.AsJson(settings, counter, infoBuilder));
         }
 
         foreach (var target in targets.Concat(VerifierSettings.GetFileAppenders(settings)))

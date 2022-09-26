@@ -1,16 +1,10 @@
 ﻿static class JsonFormatter
 {
-    public static StringBuilder AsJson(object? input, List<ToAppend> appends, VerifySettings settings, Counter counter)
+    public static StringBuilder AsJson(VerifySettings settings, Counter counter, object value)
     {
-        var infoBuilder = new InfoBuilder(input);
-        foreach (var append in appends)
-        {
-            infoBuilder.Add(append.Name, append.Data);
-        }
-
         var builder = new StringBuilder();
         using var writer = new VerifyJsonWriter(builder, settings, counter);
-        settings.Serializer.Serialize(writer, infoBuilder);
+        settings.Serializer.Serialize(writer, value);
         builder.FixNewlines();
         return builder;
     }

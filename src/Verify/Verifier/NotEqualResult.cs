@@ -2,10 +2,10 @@
 {
     public FilePair File { get; }
     public string? Message { get; }
-    public string? ReceivedText { get; }
-    public string? VerifiedText { get; }
+    public StringBuilder? ReceivedText { get; }
+    public StringBuilder? VerifiedText { get; }
 
-    public NotEqualResult(in FilePair file, in string? message, in string? receivedText, in string? verifiedText)
+    public NotEqualResult(in FilePair file, in string? message, in StringBuilder? receivedText, in StringBuilder? verifiedText)
     {
         File = file;
         Message = message;

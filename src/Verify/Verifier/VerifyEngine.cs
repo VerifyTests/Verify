@@ -31,9 +31,9 @@ class VerifyEngine
 
     static async Task<EqualityResult> GetResult(VerifySettings settings, FilePair file, Target target, bool previousTextFailed)
     {
-        if (target.TryGetString(out var stringValue))
+        if (target.TryGetStringBuilder(out var value))
         {
-            return await Comparer.Text(file, stringValue, settings);
+            return await Comparer.Text(file, value, settings);
         }
 
         using (var stream = target.StreamData)

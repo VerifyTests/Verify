@@ -1,11 +1,5 @@
 ﻿static class Comparer
 {
-    public static async Task<EqualityResult> Text(FilePair filePair, string receivedText, VerifySettings settings)
-    {
-        var received = new StringBuilder(receivedText);
-        return await Text(filePair, received, settings);
-    }
-
     public static async Task<EqualityResult> Text(FilePair filePair, StringBuilder received, VerifySettings settings)
     {
         IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
@@ -35,13 +29,24 @@
             verified.Length -= 1;
         }
 
+        // StringBuilder is broken on older .net https://github.com/dotnet/runtime/issues/27684
+#if NETCOREAPP3_0_OR_GREATER
         var isEqual = verified.Equals(received);
-
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
             return compare(received.ToString(), verified.ToString(), settings.Context);
         }
+#else
+        var receivedString = received.ToString();
+        var verifiedString = verified.ToString();
+        var isEqual = receivedString.Equals(verifiedString);
+        if (!isEqual &&
+            settings.TryFindStringComparer(extension, out var compare))
+        {
+            return compare(receivedString, verifiedString, settings.Context);
+        }
+#endif
 
         return Task.FromResult(new CompareResult(isEqual));
     }

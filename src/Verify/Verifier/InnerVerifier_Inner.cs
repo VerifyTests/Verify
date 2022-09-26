@@ -56,7 +56,7 @@
             yield return new(VerifierSettings.TxtOrJson, JsonFormatter.AsJson(root, appends, settings, counter));
         }
 
-        foreach (var target in targets)
+        foreach (var target in targets.Concat(VerifierSettings.GetFileAppenders(settings)))
         {
             if (target.TryGetStringBuilder(out var builder))
             {
@@ -67,11 +67,6 @@
             {
                 yield return target;
             }
-        }
-
-        foreach (var target in VerifierSettings.GetFileAppenders(settings))
-        {
-            yield return target;
         }
     }
 }

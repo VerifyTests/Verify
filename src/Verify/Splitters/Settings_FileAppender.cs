@@ -8,10 +8,10 @@ public static partial class VerifierSettings
     {
         foreach (var appender in fileAppenders)
         {
-            var stream = appender(settings.Context);
-            if (stream is not null)
+            var target = appender(settings.Context);
+            if (target.HasValue)
             {
-                yield return (Target) stream;
+                yield return target.Value;
             }
         }
     }

@@ -3,10 +3,16 @@
     object? root;
     List<Item> inner = new();
 
-    public InfoBuilder(object? root) =>
+    public InfoBuilder(object? root, List<ToAppend> appends)
+    {
         this.root = root;
+        foreach (var append in appends)
+        {
+            Add(append.Name, append.Data);
+        }
+    }
 
-    public void Add(string name, object value)
+    void Add(string name, object value)
     {
         var item = inner.SingleOrDefault(_ => _.Key == name);
         if (item == null)
@@ -19,7 +25,7 @@
         }
     }
 
-    public class Item
+    class Item
     {
         public string Key { get; }
 

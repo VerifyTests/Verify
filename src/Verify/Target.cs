@@ -37,8 +37,6 @@ public readonly struct Target
         }
     }
 
-    public bool IsString => stringData is not null;
-
     public StringBuilder StringBuilderData
     {
         get
@@ -50,24 +48,6 @@ public readonly struct Target
 
             return stringBuilderData;
         }
-    }
-
-    internal bool TryGetString([NotNullWhen(true)] out string? value)
-    {
-        if (stringBuilderData is { } builder)
-        {
-            value = builder.ToString();
-            return true;
-        }
-
-        if (stringData is { } stringValue)
-        {
-            value = stringValue;
-            return true;
-        }
-
-        value = null;
-        return false;
     }
 
     internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)

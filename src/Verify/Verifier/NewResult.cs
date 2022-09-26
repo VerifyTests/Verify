@@ -1,9 +1,9 @@
 ﻿readonly struct NewResult
 {
     public FilePair File { get; }
-    public string? ReceivedText { get; }
+    public StringBuilder? ReceivedText { get; }
 
-    public NewResult(in FilePair file, in string? receivedText)
+    public NewResult(in FilePair file, in StringBuilder? receivedText)
     {
         File = file;
         ReceivedText = receivedText;

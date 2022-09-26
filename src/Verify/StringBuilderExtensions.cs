@@ -27,6 +27,20 @@ public static class StringBuilderExtensions
         return builder;
     }
 
+    /// <summary>
+    /// Appends a line with a `\n` as the newline character.
+    /// </summary>
+    public static StringBuilder AppendLineN(this StringBuilder builder, StringBuilder? value)
+    {
+        if (value != null)
+        {
+            builder.Append(value);
+        }
+
+        builder.Append('\n');
+        return builder;
+    }
+
     public static void TrimEnd(this StringBuilder builder)
     {
         if (builder.Length == 0)

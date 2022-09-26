@@ -1,7 +1,14 @@
 ﻿partial class InnerVerifier
 {
-    public Task<VerifyResult> VerifyStream(FileStream stream) =>
-        VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name));
+    public Task<VerifyResult> VerifyStream(FileStream? stream)
+    {
+        if (stream is null)
+        {
+            return VerifyInner(null, null, emptyTargets);
+        }
+
+        return VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name));
+    }
 
     public async Task<VerifyResult> VerifyStream(Task<FileStream> task)
     {
@@ -9,8 +16,15 @@
         return await VerifyStream(stream);
     }
 
-    public Task<VerifyResult> VerifyStream(byte[] bytes, string extension) =>
-        VerifyStream(new MemoryStream(bytes), extension);
+    public Task<VerifyResult> VerifyStream(byte[]? bytes, string extension)
+    {
+        if (bytes is null)
+        {
+            return VerifyInner(null, null, emptyTargets);
+        }
+
+        return VerifyStream(new MemoryStream(bytes), extension);
+    }
 
     public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension)
     {
@@ -32,8 +46,13 @@
         return await VerifyInner(null, null, targets);
     }
 
-    public async Task<VerifyResult> VerifyStream(Stream stream, string extension)
+    public async Task<VerifyResult> VerifyStream(Stream? stream, string extension)
     {
+        if (stream is null)
+        {
+            return await VerifyInner(null, null, emptyTargets);
+        }
+
         using (stream)
         {
             if (stream.Length == 0)

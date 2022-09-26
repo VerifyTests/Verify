@@ -5,38 +5,35 @@ public partial class VerifyBase
     public SettingsTask Verify<T>(
         Task<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-        where T : notnull =>
+        [CallerFilePath] string sourceFile = "")=>
         Verify(settings, sourceFile, _ => _.Verify(target));
 
     public SettingsTask Verify<T>(
         ValueTask<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-        where T : notnull =>
+        [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target));
 
     public SettingsTask Verify<T>(
         IAsyncEnumerable<T> target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-        where T : notnull =>
+        [CallerFilePath] string sourceFile = "")=>
         Verify(settings, sourceFile, _ => _.Verify(target));
 
     public SettingsTask Verify(
-        object target,
+        object? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target));
 
     public SettingsTask VerifyJson(
-        string target,
+        string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyJson(target));
 
     public SettingsTask VerifyJson(
-        Stream target,
+        Stream? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyJson(target));

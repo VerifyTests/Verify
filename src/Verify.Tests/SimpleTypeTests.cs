@@ -34,6 +34,14 @@ public class SimpleTypeTests
     public Task StringNull() =>
         Verify((string?)null);
 
+    [Fact]
+    public Task Null() =>
+        Verify((object?)null);
+
+    [Fact]
+    public Task NullWrappedInTask() =>
+        Verify(Task.FromResult<int?>(null!));
+
 #if NET5_0_OR_GREATER
     [Fact]
     public Task DateTimeWrappedInTask() =>

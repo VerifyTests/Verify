@@ -30,7 +30,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        object target,
+        object? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
@@ -38,7 +38,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask VerifyJson(
-        string target,
+        string? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
@@ -46,7 +46,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask VerifyJson(
-        Stream target,
+        Stream? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;

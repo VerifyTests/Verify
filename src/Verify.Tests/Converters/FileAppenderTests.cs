@@ -36,6 +36,10 @@ public class FileAppenderTests :
         Verify(new {foo = "bar"});
 
     [Fact]
+    public Task NullText() =>
+        Verify((string?) null);
+
+    [Fact]
     public Task Stream() =>
         Verify(IoHelpers.OpenRead("sample.txt"));
 

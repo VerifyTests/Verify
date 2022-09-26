@@ -6,11 +6,8 @@
         return await VerifyString(value);
     }
 
-    public Task<VerifyResult> VerifyString(string? value)
-    {
-        value = OrEmptyOrNull(value);
-        return VerifyInner(value, null, Enumerable.Empty<Target>());
-    }
+    public Task<VerifyResult> VerifyString(string? value) =>
+        VerifyInner(value, null, Enumerable.Empty<Target>());
 
     public async Task<VerifyResult> VerifyString(Task<string> task, string extension)
     {
@@ -18,30 +15,12 @@
         return await VerifyString(value, extension);
     }
 
-    public Task<VerifyResult> VerifyString(string? value, string extension)
-    {
-        value = OrEmptyOrNull(value);
-        return VerifyInner(
+    public Task<VerifyResult> VerifyString(string? value, string extension) =>
+        VerifyInner(
             null,
             null,
             new[]
             {
-                new Target(extension, value)
+                new Target(extension, value ?? "null")
             });
-    }
-
-    static string OrEmptyOrNull(string? value)
-    {
-        if (value is null)
-        {
-            return "null";
-        }
-
-        if (value.Length == 0)
-        {
-            return "emptyString";
-        }
-
-        return value;
-    }
 }

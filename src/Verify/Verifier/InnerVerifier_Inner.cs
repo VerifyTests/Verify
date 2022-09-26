@@ -35,6 +35,10 @@
         else if (root is string stringRoot)
         {
             stringRoot = stringRoot.TrimPreamble();
+            if (stringRoot.Length == 0)
+            {
+                stringRoot = "emptyString";
+            }
 
             if (hasAppends)
             {

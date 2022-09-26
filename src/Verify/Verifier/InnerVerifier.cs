@@ -193,7 +193,7 @@
         return directory;
     }
 
-    public Task<VerifyResult> Verify(object target, IEnumerable<Target> rawTargets) =>
+    public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
         VerifyInner(target, null, rawTargets);
 
     public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>

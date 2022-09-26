@@ -56,6 +56,10 @@ public class JsonAppenderTests : IDisposable
             .AppendValue("duplicate", "value2");
 
     [Fact]
+    public Task NullText() =>
+        Verify((string) null!);
+
+    [Fact]
     public Task Anon() =>
         Verify(new
         {

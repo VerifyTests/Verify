@@ -1,6 +1,10 @@
 ﻿class InfoBuilder
 {
+    object? root;
     List<Item> inner = new();
+
+    public InfoBuilder(object? root) =>
+        this.root = root;
 
     public void Add(string name, object value)
     {
@@ -36,13 +40,31 @@
     {
         public override void Write(VerifyJsonWriter writer, InfoBuilder value)
         {
-            if (value.inner.Count == 1)
+            if (value.inner.Count == 0)
             {
-                writer.Serialize(value.inner.Single());
+                if (value.root == null)
+                {
+                    writer.Serialize("null");
+                }
+                else
+                {
+                    writer.Serialize(value.root);
+                }
+
                 return;
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("target");
+            if (value.root == null)
+            {
+                writer.WriteValue("null");
+            }
+            else
+            {
+                writer.Serialize(value.root);
+            }
+
             foreach (var item in value.inner)
             {
                 writer.WritePropertyName(item.Key);

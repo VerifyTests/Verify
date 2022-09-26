@@ -9,33 +9,35 @@
             return new(Equality.New, null, receivedText, null);
         }
 
-        var verifiedText = await IoHelpers.ReadStringWithFixedLines(filePair.VerifiedPath);
+        var verifiedText = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
         var result = await CompareStrings(filePair.Extension, receivedText, verifiedText, settings);
+        var verifiedString = verifiedText.ToString();
         if (result.IsEqual)
         {
-            return new(Equality.Equal, null, receivedText, verifiedText);
+            return new(Equality.Equal, null, receivedText, verifiedString);
         }
 
         await IoHelpers.WriteText(filePair.ReceivedPath, receivedText);
-        return new(Equality.NotEqual, result.Message, receivedText, verifiedText);
+        return new(Equality.NotEqual, result.Message, receivedText, verifiedString);
     }
 
-    static Task<CompareResult> CompareStrings(string extension, string received, string verified, VerifySettings settings)
+    static Task<CompareResult> CompareStrings(string extension, string received, StringBuilder verified, VerifySettings settings)
     {
         if (verified.Length > 0 &&
             verified.Length - 1 == received.Length &&
-            verified[^1] == '\n')
+            verified.LastChar() == '\n')
         {
-            verified = verified[..^1];
+            verified.Length -= 1;
         }
 
-        var isEqual = string.Equals(verified, received, StringComparison.Ordinal);
+        var verifiedString = verified.ToString();
+        var isEqual = string.Equals(verifiedString, received, StringComparison.Ordinal);
 
 
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
-            return compare(received, verified, settings.Context);
+            return compare(received, verifiedString, settings.Context);
         }
 
         return Task.FromResult(new CompareResult(isEqual));

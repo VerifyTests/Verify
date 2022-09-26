@@ -89,12 +89,7 @@
             {
                 var receivedPath = IoHelpers.GetRelativePath(directory, item.File.ReceivedPath);
                 builder.AppendLineN($"Received: {receivedPath}");
-
-                if (item.ReceivedText != null)
-                {
-                    builder.AppendLineN(item.ReceivedText.ToString());
-                }
-
+                builder.AppendLineN(item.ReceivedText);
                 builder.AppendLineN();
             }
         }

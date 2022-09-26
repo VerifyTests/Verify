@@ -5,11 +5,11 @@
     public string? ReceivedText { get; }
     public string? VerifiedText { get; }
 
-    public EqualityResult(in Equality equality, in string? message, in string? receivedText, in string? verifiedText)
+    public EqualityResult(in Equality equality, in string? message, in string? receivedText, in StringBuilder? verifiedText)
     {
         Equality = equality;
         Message = message;
         ReceivedText = receivedText;
-        VerifiedText = verifiedText;
+        VerifiedText = verifiedText?.ToString();
     }
 }

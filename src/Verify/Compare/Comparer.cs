@@ -11,14 +11,13 @@
 
         var verifiedText = await IoHelpers.ReadStringBuilderWithFixedLines(filePair.VerifiedPath);
         var result = await CompareStrings(filePair.Extension, receivedText, verifiedText, settings);
-        var verifiedString = verifiedText.ToString();
         if (result.IsEqual)
         {
-            return new(Equality.Equal, null, receivedText, verifiedString);
+            return new(Equality.Equal, null, receivedText, verifiedText);
         }
 
         await IoHelpers.WriteText(filePair.ReceivedPath, receivedText);
-        return new(Equality.NotEqual, result.Message, receivedText, verifiedString);
+        return new(Equality.NotEqual, result.Message, receivedText, verifiedText);
     }
 
     static Task<CompareResult> CompareStrings(string extension, string received, StringBuilder verified, VerifySettings settings)

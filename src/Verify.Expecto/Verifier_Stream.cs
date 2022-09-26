@@ -6,7 +6,7 @@ public static partial class Verifier
 {
     public static Task<VerifyResult> Verify(
         string name,
-        byte[] target,
+        byte[]? target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
@@ -28,7 +28,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> Verify(
         string name,
-        FileStream target,
+        FileStream? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {
@@ -48,7 +48,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> Verify(
         string name,
-        Stream target,
+        Stream? target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")

@@ -3,7 +3,7 @@
 public partial class VerifyBase
 {
     public SettingsTask Verify(
-        FileStream target,
+        FileStream? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
@@ -19,7 +19,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        Stream target,
+        Stream? target,
         string extension,
         VerifySettings? settings = null)
     {
@@ -48,7 +48,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        byte[] target,
+        byte[]? target,
         string extension,
         VerifySettings? settings = null)
     {

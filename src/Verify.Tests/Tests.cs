@@ -524,7 +524,7 @@ public class Tests
     [Fact]
     public Task TaskResult()
     {
-        var target = Task.FromResult("value");
+        var target = Task.FromResult<string>("value");
         return Verify(target);
     }
 

@@ -3,7 +3,7 @@
 public partial class VerifyBase
 {
     public SettingsTask Verify(
-        byte[] target,
+        byte[]? target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -17,7 +17,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension));
 
     public SettingsTask Verify(
-        FileStream target,
+        FileStream? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target));
@@ -29,7 +29,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyStream(target));
 
     public SettingsTask Verify(
-        Stream target,
+        Stream? target,
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

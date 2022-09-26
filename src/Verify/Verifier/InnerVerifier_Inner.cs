@@ -1,8 +1,8 @@
 ﻿partial class InnerVerifier
 {
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> fileTargets)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
-        var targetList = GetTargets(root, fileTargets)
+        var targetList = GetTargets(root, targets)
             .ToList();
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 

@@ -2,14 +2,14 @@
 {
     public Equality Equality { get; }
     public string? Message { get; }
-    public string? ReceivedText { get; }
-    public string? VerifiedText { get; }
+    public StringBuilder? ReceivedText { get; }
+    public StringBuilder? VerifiedText { get; }
 
-    public EqualityResult(in Equality equality, in string? message, in string? receivedText, in StringBuilder? verifiedText)
+    public EqualityResult(in Equality equality, in string? message, in StringBuilder? receivedText, in StringBuilder? verifiedText)
     {
         Equality = equality;
         Message = message;
         ReceivedText = receivedText;
-        VerifiedText = verifiedText?.ToString();
+        VerifiedText = verifiedText;
     }
 }

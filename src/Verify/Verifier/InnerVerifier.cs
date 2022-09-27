@@ -197,7 +197,7 @@
         VerifyInner(target, null, rawTargets);
 
     public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>
-        VerifyInner(null, null, targets);
+        VerifyInner(targets);
 
     static void ValidatePrefix(VerifySettings settings, string filePathPrefix)
     {

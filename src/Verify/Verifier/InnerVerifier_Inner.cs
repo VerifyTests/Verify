@@ -1,5 +1,8 @@
 ﻿partial class InnerVerifier
 {
+    Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
+        VerifyInner(null, null, targets);
+
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
         var resultTargets = new List<Target>();

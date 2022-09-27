@@ -4,7 +4,7 @@
     {
         if (stream is null)
         {
-            return VerifyInner(null, null, emptyTargets);
+            return VerifyInner(emptyTargets);
         }
 
         return VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name));
@@ -20,7 +20,7 @@
     {
         if (bytes is null)
         {
-            return VerifyInner(null, null, emptyTargets);
+            return VerifyInner(emptyTargets);
         }
 
         return VerifyStream(new MemoryStream(bytes), extension);
@@ -43,14 +43,14 @@
         where T : Stream
     {
         var targets = streams.Select(_ => new Target(extension, _));
-        return await VerifyInner(null, null, targets);
+        return await VerifyInner(targets);
     }
 
     public async Task<VerifyResult> VerifyStream(Stream? stream, string extension)
     {
         if (stream is null)
         {
-            return await VerifyInner(null, null, emptyTargets);
+            return await VerifyInner(emptyTargets);
         }
 
         using (stream)
@@ -69,10 +69,11 @@
 
             var target = await GetTarget(stream, extension);
 
-            return await VerifyInner(null, null, new[]
-            {
-                target
-            });
+            return await VerifyInner(
+                new[]
+                {
+                    target
+                });
         }
     }
 

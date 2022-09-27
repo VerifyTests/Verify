@@ -32,12 +32,9 @@
             if (target.TryGetStringBuilder(out var builder))
             {
                 ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
-                yield return new(target.Extension, builder, target.Name);
             }
-            else
-            {
-                yield return target;
-            }
+
+            yield return target;
         }
     }
 

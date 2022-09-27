@@ -83,26 +83,20 @@
                     convertedTargets);
             }
 
-            var targets = await GetTargets(stream, extension);
+            var target = await GetTargets(stream, extension);
 
-            return await VerifyInner(null, null, targets);
+            return await VerifyInner(null, null, new[]{target});
         }
     }
 
-    static async Task<List<Target>> GetTargets(Stream stream, string extension)
+    static async Task<Target> GetTargets(Stream stream, string extension)
     {
         if (EmptyFiles.Extensions.IsText(extension))
         {
-            return new()
-            {
-                new(extension, await stream.ReadString())
-            };
+            return new(extension, await stream.ReadString());
         }
 
-        return new()
-        {
-            new(extension, stream)
-        };
+        return new(extension, stream);
     }
 
     async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(string extension, Stream stream)

@@ -29,7 +29,13 @@
     {
         var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
             .ToList();
+        var result = new List<Target>();
         foreach (var target in list)
+        {
+            result.Add(target);
+        }
+
+        foreach (var target in result)
         {
             if (target.TryGetStringBuilder(out var builder))
             {
@@ -37,7 +43,7 @@
             }
         }
 
-        return list;
+        return result;
     }
 
     bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)

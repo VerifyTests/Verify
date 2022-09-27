@@ -67,13 +67,16 @@
                 return await VerifyInner(info, cleanup, converted);
             }
 
-            var target = await GetTargets(stream, extension);
+            var target = await GetTarget(stream, extension);
 
-            return await VerifyInner(null, null, new[]{target});
+            return await VerifyInner(null, null, new[]
+            {
+                target
+            });
         }
     }
 
-    static async Task<Target> GetTargets(Stream stream, string extension)
+    static async Task<Target> GetTarget(Stream stream, string extension)
     {
         if (EmptyFiles.Extensions.IsText(extension))
         {

@@ -65,7 +65,7 @@ public static partial class Verifier
         var argsString = displayNameWithArgs[displayNameWithoutArgs..];
         return test.Name
             .TrimEnd(argsString)
-            .ReplaceInvalidPathChars();
+            .ReplaceInvalidFileNameChars();
     }
 
     static string GetTypeName(this Test test)
@@ -81,7 +81,7 @@ public static partial class Verifier
 
         return typeName
             .Remove("\"")
-            .ReplaceInvalidPathChars();
+            .ReplaceInvalidFileNameChars();
     }
 
     static bool IsCustomName(this ITest test) =>

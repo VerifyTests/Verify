@@ -76,7 +76,7 @@
         return null;
     }
 
-    static char[] invalidPathChars =
+    static char[] invalidFileNameChars =
     {
         '"',
         '\\',
@@ -121,12 +121,12 @@
         '/'
     };
 
-    public static string ReplaceInvalidPathChars(this string value)
+    public static string ReplaceInvalidFileNameChars(this string value)
     {
         var builder = new StringBuilder();
         foreach (var ch in value)
         {
-            if (invalidPathChars.Contains(ch))
+            if (invalidFileNameChars.Contains(ch))
             {
                 builder.Append('-');
             }

@@ -11,24 +11,26 @@
             resultTargets.Add(rootTarget.Value);
         }
 
-        resultTargets.AddRange(await GetTargets(targets, doExpressionConversion));
+        cleanup ??= () => Task.CompletedTask;
+
+        var (extraTargets, extraCleanup) = await GetTargets(targets, doExpressionConversion);
+        cleanup += extraCleanup;
+        resultTargets.AddRange(extraTargets);
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
         await engine.HandleResults(resultTargets);
 
-        if (cleanup is not null)
-        {
-            await cleanup();
-        }
+        await cleanup();
 
         await engine.ThrowIfRequired();
         return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
-    async Task<List<Target>> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)
+    async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)
     {
         var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
             .ToList();
+        Func<Task> cleanup = () => Task.CompletedTask;
         if (doExpressionConversion)
         {
             var result = new List<Target>();
@@ -36,7 +38,18 @@
             {
                 if (VerifierSettings.HasExtensionConverter(target.Extension))
                 {
-                    var (info, converted, cleanup) = await DoExtensionConversion(target.Extension, target.StreamData);
+                    var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData);
+                    cleanup += itemCleanup;
+                    if (info != null)
+                    {
+                        result.Add(
+                            new(
+                                VerifierSettings.TxtOrJson,
+                                JsonFormatter.AsJson(
+                                    settings,
+                                    counter,
+                                    info)));
+                    }
 
                     result.AddRange(converted);
                 }
@@ -57,7 +70,7 @@
             }
         }
 
-        return list;
+        return (list, cleanup);
     }
 
     bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)

@@ -50,7 +50,9 @@
             {
                 target = new(
                     VerifierSettings.TxtOrJson,
-                    JsonFormatter.AsJson(settings, counter,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
                         new InfoBuilder(null, appends)));
                 return true;
             }
@@ -71,7 +73,9 @@
             {
                 target = new(
                     VerifierSettings.TxtOrJson,
-                    JsonFormatter.AsJson(settings, counter,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
                         new InfoBuilder(stringRoot, appends)));
             }
             else
@@ -86,7 +90,9 @@
 
         target = new(
             VerifierSettings.TxtOrJson,
-            JsonFormatter.AsJson(settings, counter,
+            JsonFormatter.AsJson(
+                settings,
+                counter,
                 new InfoBuilder(root, appends)));
         return true;
     }

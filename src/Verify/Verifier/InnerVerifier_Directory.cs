@@ -19,7 +19,7 @@
                     pattern,
                     option))
             .ToList();
-        return await VerifyInner(null, null, targets);
+        return await VerifyInner(targets);
     }
 
 #else
@@ -37,7 +37,7 @@
                     pattern,
                     option))
             .ToList();
-        return await VerifyInner(null, null, targets);
+        return await VerifyInner(targets);
     }
 
 #endif

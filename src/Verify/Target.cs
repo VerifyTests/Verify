@@ -2,7 +2,6 @@
 
 public readonly struct Target
 {
-    readonly string? stringData;
     readonly StringBuilder? stringBuilderData;
     readonly Stream? streamData;
     public string Extension { get; }
@@ -22,34 +21,6 @@ public readonly struct Target
         }
     }
 
-    public bool IsStream => streamData is not null;
-
-    public string StringData
-    {
-        get
-        {
-            if (stringData is null)
-            {
-                throw new("Use StreamData or StringBuilderData.");
-            }
-
-            return stringData;
-        }
-    }
-
-    public StringBuilder StringBuilderData
-    {
-        get
-        {
-            if (stringBuilderData is null)
-            {
-                throw new("Use StreamData or StringData.");
-            }
-
-            return stringBuilderData;
-        }
-    }
-
     internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)
     {
         if (stringBuilderData is { } builder)
@@ -58,17 +29,9 @@ public readonly struct Target
             return true;
         }
 
-        if (stringData is { } stringValue)
-        {
-            value = new(stringValue);
-            return true;
-        }
-
         value = null;
         return false;
     }
-
-    public bool IsStringBuilder => stringBuilderData is not null;
 
     public Target(string extension, Stream data, string? name = null)
     {
@@ -82,7 +45,6 @@ public readonly struct Target
         Extension = extension;
         Name = name;
         streamData = data;
-        stringData = null;
         stringBuilderData = null;
     }
 
@@ -97,7 +59,6 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
-        stringData = null;
         streamData = null;
         stringBuilderData = data;
     }
@@ -113,8 +74,7 @@ public readonly struct Target
 
         Extension = extension;
         Name = name;
-        stringData = data;
+        stringBuilderData = new(data);
         streamData = null;
-        stringBuilderData = null;
     }
 }

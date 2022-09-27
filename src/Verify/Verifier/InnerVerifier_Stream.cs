@@ -4,7 +4,7 @@
     {
         if (stream is null)
         {
-            return VerifyInner(null, null, emptyTargets);
+            return VerifyInner(emptyTargets);
         }
 
         return VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name));
@@ -20,7 +20,7 @@
     {
         if (bytes is null)
         {
-            return VerifyInner(null, null, emptyTargets);
+            return VerifyInner(emptyTargets);
         }
 
         return VerifyStream(new MemoryStream(bytes), extension);
@@ -43,14 +43,14 @@
         where T : Stream
     {
         var targets = streams.Select(_ => new Target(extension, _));
-        return await VerifyInner(null, null, targets);
+        return await VerifyInner(targets);
     }
 
     public async Task<VerifyResult> VerifyStream(Stream? stream, string extension)
     {
         if (stream is null)
         {
-            return await VerifyInner(null, null, emptyTargets);
+            return await VerifyInner(emptyTargets);
         }
 
         using (stream)
@@ -60,36 +60,23 @@
                 throw new("Empty data is not allowed.");
             }
 
-            if (VerifierSettings.HasExtensionConverter(extension))
+            var result = await DoExtensionConversion(extension, stream);
+            if (result != null)
             {
-                var (infos, convertedTargets, cleanups) = await DoExtensionConversion(extension, stream);
-
-                var info = infos.Count switch
-                {
-                    1 => infos[0],
-                    > 1 => infos,
-                    _ => null
-                };
-
-                return await VerifyInner(
-                    info,
-                    async () =>
-                    {
-                        foreach (var cleanup in cleanups)
-                        {
-                            await cleanup();
-                        }
-                    },
-                    convertedTargets);
+                return await VerifyInner(result.Value.info, result.Value.cleanup, result.Value.targets);
             }
 
-            var target = await GetTargets(stream, extension);
+            var target = await GetTarget(stream, extension);
 
-            return await VerifyInner(null, null, new[]{target});
+            return await VerifyInner(
+                new[]
+                {
+                    target
+                });
         }
     }
 
-    static async Task<Target> GetTargets(Stream stream, string extension)
+    static async Task<Target> GetTarget(Stream stream, string extension)
     {
         if (EmptyFiles.Extensions.IsText(extension))
         {
@@ -99,14 +86,18 @@
         return new(extension, stream);
     }
 
-    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(string extension, Stream stream)
+    async Task<(object? info, List<Target> targets, Func<Task> cleanup)?> DoExtensionConversion(
+        string extension,
+        Stream stream)
     {
-        var infos = new List<object>();
-        var outputTargets = new List<Target>();
-        var cleanups = new List<Func<Task>>
+        if (!VerifierSettings.HasExtensionConverter(extension))
         {
-            stream.DisposeAsyncEx
-        };
+            return null;
+        }
+
+        Func<Task> cleanup = stream.DisposeAsyncEx;
+        var infos = new List<object>();
+        var targets = new List<Target>();
 
         var queue = new Queue<Target>();
         queue.Enqueue(new(extension, stream));
@@ -117,7 +108,7 @@
 
             if (!VerifierSettings.TryGetExtensionConverter(target.Extension, out var conversion))
             {
-                outputTargets.Add(target);
+                targets.Add(target);
                 continue;
             }
 
@@ -129,12 +120,18 @@
 
             if (result.Cleanup != null)
             {
-                cleanups.Add(result.Cleanup);
+                cleanup += result.Cleanup;
             }
 
             queue.Enqueue(result.Targets);
         }
 
-        return (infos, outputTargets, cleanups);
+        var info = infos.Count switch
+        {
+            1 => infos[0],
+            > 1 => infos,
+            _ => null
+        };
+        return (info, targets, cleanup);
     }
 }

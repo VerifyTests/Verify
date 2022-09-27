@@ -1,5 +1,8 @@
 ﻿partial class InnerVerifier
 {
+    Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
+        VerifyInner(null, null, targets);
+
     async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets)
     {
         var resultTargets = new List<Target>();
@@ -29,12 +32,9 @@
             if (target.TryGetStringBuilder(out var builder))
             {
                 ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
-                yield return new(target.Extension, builder, target.Name);
             }
-            else
-            {
-                yield return target;
-            }
+
+            yield return target;
         }
     }
 

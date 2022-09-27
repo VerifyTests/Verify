@@ -60,11 +60,10 @@
                 throw new("Empty data is not allowed.");
             }
 
-            if (VerifierSettings.HasExtensionConverter(extension))
+            var result = await DoExtensionConversion(extension, stream);
+            if (result != null)
             {
-                var (info, converted, cleanup) = await DoExtensionConversion(extension, stream);
-
-                return await VerifyInner(info, cleanup, converted);
+                return await VerifyInner(result.Value.info, result.Value.cleanup, result.Value.targets);
             }
 
             var target = await GetTarget(stream, extension);
@@ -87,8 +86,15 @@
         return new(extension, stream);
     }
 
-    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream)
+    async Task<(object? info, List<Target> targets, Func<Task> cleanup)?> DoExtensionConversion(
+        string extension,
+        Stream stream)
     {
+        if (!VerifierSettings.HasExtensionConverter(extension))
+        {
+            return null;
+        }
+
         Func<Task> cleanup = stream.DisposeAsyncEx;
         var infos = new List<object>();
         var targets = new List<Target>();

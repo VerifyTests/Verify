@@ -66,7 +66,6 @@ public class Tests
                     name: "targetName")
             });
 
-
     [Fact]
     public Task EnumerableTargets() =>
         Verify(

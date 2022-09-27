@@ -2,6 +2,14 @@
 
 Binary data can be verified by passing a stream.
 
+To know how to treat the stream, an extension needs to be provided:
+
+snippet: StreamWithExtension
+
+For a `FileStream` the extension is not required:
+
+snippet: FileStream
+
 
 ## DiffTool
 

@@ -331,9 +331,6 @@ public class Tests
     }
 #endif
 
-    [Fact]
-    public Task FileStream() =>
-        Verify(File.OpenRead("sample.txt"));
 
     [Fact]
     public Task Stream() =>
@@ -343,6 +340,25 @@ public class Tests
                 1
             }),
             "bin");
+
+    #region StreamWithExtension
+
+    [Fact]
+    public Task StreamWithExtension()
+    {
+        var stream = new MemoryStream(File.ReadAllBytes("sample.png"));
+        return Verify(stream, "png");
+    }
+
+    #endregion
+
+    #region FileStream
+
+    [Fact]
+    public Task FileStream() =>
+        Verify(File.OpenRead("sample.txt"));
+
+    #endregion
 
     [Fact]
     public Task StreamNotAtStart()

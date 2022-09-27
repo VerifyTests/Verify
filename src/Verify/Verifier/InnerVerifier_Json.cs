@@ -6,7 +6,7 @@
     {
         if (target is null)
         {
-            return VerifyInner(target, null, emptyTargets);
+            return VerifyInner(target, null, emptyTargets, true);
         }
 
         return VerifyJson(JToken.Parse(target));
@@ -16,7 +16,7 @@
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets);
+            return await VerifyInner(target, null, emptyTargets, true);
         }
 
         using var reader = new StreamReader(target);
@@ -26,7 +26,7 @@
     }
 
     public Task<VerifyResult> VerifyJson(JToken target) =>
-        VerifyInner(target, null, emptyTargets);
+        VerifyInner(target, null, emptyTargets, true);
 
     public async Task<VerifyResult> Verify(object? target)
     {
@@ -47,7 +47,7 @@
 
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets);
+            return await VerifyInner(target, null, emptyTargets, true);
         }
 
         if (target.GetType().ImplementsStreamEnumerable())
@@ -69,9 +69,9 @@
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
             var result = await converter.Conversion(target, settings.Context);
-            return await VerifyInner(result.Info, result.Cleanup, result.Targets);
+            return await VerifyInner(result.Info, result.Cleanup, result.Targets, true);
         }
 
-        return await VerifyInner(target, null, emptyTargets);
+        return await VerifyInner(target, null, emptyTargets, true);
     }
 }

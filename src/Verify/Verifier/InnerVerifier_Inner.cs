@@ -1,9 +1,9 @@
 ﻿partial class InnerVerifier
 {
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
-        VerifyInner(null, null, targets);
+        VerifyInner(null, null, targets, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExpressionConversion)
     {
         var resultTargets = new List<Target>();
         if (TryGetRootTarget(root, out var rootTarget))
@@ -11,31 +11,66 @@
             resultTargets.Add(rootTarget.Value);
         }
 
-        resultTargets.AddRange(GetTargets(targets));
+        cleanup ??= () => Task.CompletedTask;
+
+        var (extraTargets, extraCleanup) = await GetTargets(targets, doExpressionConversion);
+        cleanup += extraCleanup;
+        resultTargets.AddRange(extraTargets);
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
         await engine.HandleResults(resultTargets);
 
-        if (cleanup is not null)
-        {
-            await cleanup();
-        }
+        await cleanup();
 
         await engine.ThrowIfRequired();
         return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
-    IEnumerable<Target> GetTargets(IEnumerable<Target> targets)
+    async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)
     {
-        foreach (var target in targets.Concat(VerifierSettings.GetFileAppenders(settings)))
+        var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
+            .ToList();
+        Func<Task> cleanup = () => Task.CompletedTask;
+        if (doExpressionConversion)
+        {
+            var result = new List<Target>();
+            foreach (var target in list)
+            {
+                if (VerifierSettings.HasExtensionConverter(target.Extension))
+                {
+                    var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData);
+                    cleanup += itemCleanup;
+                    if (info != null)
+                    {
+                        result.Add(
+                            new(
+                                VerifierSettings.TxtOrJson,
+                                JsonFormatter.AsJson(
+                                    settings,
+                                    counter,
+                                    info)));
+                    }
+
+                    result.AddRange(converted);
+                }
+                else
+                {
+                    result.Add(target);
+                }
+            }
+
+            list = result;
+        }
+
+        foreach (var target in list)
         {
             if (target.TryGetStringBuilder(out var builder))
             {
                 ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
             }
-
-            yield return target;
         }
+
+        return (list, cleanup);
     }
 
     bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)

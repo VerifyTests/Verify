@@ -64,7 +64,7 @@
             {
                 var (info, converted, cleanup) = await DoExtensionConversion(extension, stream);
 
-                return await VerifyInner(info, cleanup, converted);
+                return await VerifyInner(info, cleanup, converted, false);
             }
 
             var target = await GetTarget(stream, extension);

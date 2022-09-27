@@ -66,7 +66,7 @@ public static partial class VerifierSettings
             throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
         }
 
-        return nameForParameter.ReplaceInvalidPathChars();
+        return nameForParameter.ReplaceInvalidFileNameChars();
     }
 
     /// <summary>

@@ -138,10 +138,7 @@
                 cleanups.Add(result.Cleanup);
             }
 
-            foreach (var innerTarget in result.Targets)
-            {
-                queue.Enqueue(innerTarget);
-            }
+            queue.Enqueue(result.Targets);
         }
 
         return (infos, outputTargets, cleanups);

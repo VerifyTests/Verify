@@ -14,6 +14,14 @@
     public static string TrimPreamble(this string text) =>
         text.TrimStart('\uFEFF');
 
+    public static void Enqueue<T>(this Queue<T> queue, IEnumerable<T> items)
+    {
+        foreach (var item in items)
+        {
+            queue.Enqueue(item);
+        }
+    }
+
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
 
@@ -68,7 +76,7 @@
         return null;
     }
 
-    static char[] invalidPathChars =
+    static char[] invalidFileNameChars =
     {
         '"',
         '\\',
@@ -113,12 +121,12 @@
         '/'
     };
 
-    public static string ReplaceInvalidPathChars(this string value)
+    public static string ReplaceInvalidFileNameChars(this string value)
     {
         var builder = new StringBuilder();
         foreach (var ch in value)
         {
-            if (invalidPathChars.Contains(ch))
+            if (invalidFileNameChars.Contains(ch))
             {
                 builder.Append('-');
             }

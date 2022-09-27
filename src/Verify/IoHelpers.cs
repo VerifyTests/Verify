@@ -76,6 +76,17 @@
         }
     }
 
+#if !NETCOREAPP3_0_OR_GREATER
+    public static Task DisposeAsyncEx(this Stream stream)
+    {
+        stream.Dispose();
+        return Task.CompletedTask;
+    }
+#else
+    public static async Task DisposeAsyncEx(this Stream stream) =>
+        await stream.DisposeAsync();
+#endif
+
     static FileStream OpenWrite(string path) =>
         new(path, FileMode.Create, FileAccess.Write, FileShare.Read, bufferSize: 4096, useAsync: true);
 

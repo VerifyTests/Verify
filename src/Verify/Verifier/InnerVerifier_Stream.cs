@@ -62,20 +62,14 @@
 
             if (VerifierSettings.HasExtensionConverter(extension))
             {
-                var (infos, convertedTargets, cleanups) = await DoExtensionConversion(
-                    new()
-                    {
-                        new(extension, stream)
-                    });
-                object? info = null;
-                if (infos.Count == 1)
+                var (infos, convertedTargets, cleanups) = await DoExtensionConversion(extension, stream);
+
+                var info = infos.Count switch
                 {
-                    info = infos[0];
-                }
-                else if (infos.Count > 1)
-                {
-                    info = infos;
-                }
+                    1 => infos[0],
+                    > 1 => infos,
+                    _ => null
+                };
 
                 return await VerifyInner(
                     info,
@@ -111,13 +105,17 @@
         };
     }
 
-    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(List<Target> list)
+    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(string extension, Stream stream)
     {
         var infos = new List<object>();
         var outputTargets = new List<Target>();
-        var cleanups = new List<Func<Task>>();
+        var cleanups = new List<Func<Task>>
+        {
+            stream.DisposeAsyncEx
+        };
 
-        var queue = new Queue<Target>(list);
+        var queue = new Queue<Target>();
+        queue.Enqueue(new(extension, stream));
 
         while (queue.Count > 0)
         {

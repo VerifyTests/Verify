@@ -62,12 +62,9 @@
 
             if (VerifierSettings.HasExtensionConverter(extension))
             {
-                var (info, convertedTargets, cleanup) = await DoExtensionConversion(extension, stream);
+                var (info, converted, cleanup) = await DoExtensionConversion(extension, stream);
 
-                return await VerifyInner(
-                    info,
-                    cleanup,
-                    convertedTargets);
+                return await VerifyInner(info, cleanup, converted);
             }
 
             var target = await GetTargets(stream, extension);
@@ -90,7 +87,7 @@
     {
         Func<Task> cleanup = stream.DisposeAsyncEx;
         var infos = new List<object>();
-        var outputTargets = new List<Target>();
+        var targets = new List<Target>();
 
         var queue = new Queue<Target>();
         queue.Enqueue(new(extension, stream));
@@ -101,7 +98,7 @@
 
             if (!VerifierSettings.TryGetExtensionConverter(target.Extension, out var conversion))
             {
-                outputTargets.Add(target);
+                targets.Add(target);
                 continue;
             }
 
@@ -125,6 +122,6 @@
             > 1 => infos,
             _ => null
         };
-        return (info, outputTargets, cleanup);
+        return (info, targets, cleanup);
     }
 }

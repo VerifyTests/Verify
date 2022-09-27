@@ -20,7 +20,7 @@
 
         try
         {
-            return await VerifyInner(list, null, emptyTargets);
+            return await VerifyInner(list, null, emptyTargets, true);
         }
         finally
         {

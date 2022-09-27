@@ -194,7 +194,7 @@
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
-        VerifyInner(target, null, rawTargets);
+        VerifyInner(target, null, rawTargets, true);
 
     public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>
         VerifyInner(targets);

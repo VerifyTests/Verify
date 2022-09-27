@@ -42,7 +42,8 @@ public class Tests
 
     [ModuleInitializer]
     public static void InitWithTargetsAndConverter() =>
-        VerifierSettings.RegisterFileConverter("WithTargetsAndConverter",
+        VerifierSettings.RegisterFileConverter(
+            "WithTargetsAndConverter",
             (_, _) =>
                 new(
                     "theInfo",

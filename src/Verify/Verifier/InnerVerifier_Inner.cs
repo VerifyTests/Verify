@@ -1,9 +1,9 @@
 ﻿partial class InnerVerifier
 {
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
-        VerifyInner(null, null, targets);
+        VerifyInner(null, null, targets, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExpressionConversion)
     {
         var resultTargets = new List<Target>();
         if (TryGetRootTarget(root, out var rootTarget))
@@ -11,7 +11,7 @@
             resultTargets.Add(rootTarget.Value);
         }
 
-        resultTargets.AddRange(GetTargets(targets));
+        resultTargets.AddRange(await GetTargets(targets, doExpressionConversion));
         var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
 
         await engine.HandleResults(resultTargets);
@@ -25,17 +25,31 @@
         return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
-    List<Target> GetTargets(IEnumerable<Target> targets)
+    async Task<List<Target>> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)
     {
         var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
             .ToList();
-        var result = new List<Target>();
-        foreach (var target in list)
+        if (doExpressionConversion)
         {
-            result.Add(target);
+            var result = new List<Target>();
+            foreach (var target in list)
+            {
+                if (VerifierSettings.HasExtensionConverter(target.Extension))
+                {
+                    var (info, converted, cleanup) = await DoExtensionConversion(target.Extension, target.StreamData);
+
+                    result.AddRange(converted);
+                }
+                else
+                {
+                    result.Add(target);
+                }
+            }
+
+            list = result;
         }
 
-        foreach (var target in result)
+        foreach (var target in list)
         {
             if (target.TryGetStringBuilder(out var builder))
             {
@@ -43,7 +57,7 @@
             }
         }
 
-        return result;
+        return list;
     }
 
     bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)

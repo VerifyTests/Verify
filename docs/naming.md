@@ -664,7 +664,7 @@ Verified all files in a directory. This approach combines [UseUniqueDirectory](/
 public Task WithDirectory() =>
     VerifyDirectory(directoryToVerify);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L83-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L82-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -684,5 +684,5 @@ public Task WithDirectoryFiltered() =>
             RecurseSubdirectories = false
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L93-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L92-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

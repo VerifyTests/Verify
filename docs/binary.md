@@ -9,6 +9,33 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Binary data can be verified by passing a stream.
 
+To know how to treat the stream, an extension needs to be provided:
+
+<!-- snippet: StreamWithExtension -->
+<a id='snippet-streamwithextension'></a>
+```cs
+[Fact]
+public Task StreamWithExtension()
+{
+    var stream = new MemoryStream(File.ReadAllBytes("sample.png"));
+    return Verify(stream, "png");
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L344-L353' title='Snippet source file'>snippet source</a> | <a href='#snippet-streamwithextension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+For a `FileStream` the extension is not required:
+
+<!-- snippet: FileStream -->
+<a id='snippet-filestream'></a>
+```cs
+[Fact]
+public Task FileStream() =>
+    Verify(File.OpenRead("sample.txt"));
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L355-L361' title='Snippet source file'>snippet source</a> | <a href='#snippet-filestream' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 ## DiffTool
 

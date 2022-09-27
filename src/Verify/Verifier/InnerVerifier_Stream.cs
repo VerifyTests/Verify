@@ -62,24 +62,11 @@
 
             if (VerifierSettings.HasExtensionConverter(extension))
             {
-                var (infos, convertedTargets, cleanups) = await DoExtensionConversion(extension, stream);
-
-                var info = infos.Count switch
-                {
-                    1 => infos[0],
-                    > 1 => infos,
-                    _ => null
-                };
+                var (info, convertedTargets, cleanup) = await DoExtensionConversion(extension, stream);
 
                 return await VerifyInner(
                     info,
-                    async () =>
-                    {
-                        foreach (var cleanup in cleanups)
-                        {
-                            await cleanup();
-                        }
-                    },
+                    cleanup,
                     convertedTargets);
             }
 
@@ -99,14 +86,11 @@
         return new(extension, stream);
     }
 
-    async Task<(List<object> infos, List<Target> targets, List<Func<Task>> cleanups)> DoExtensionConversion(string extension, Stream stream)
+    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream)
     {
+        Func<Task> cleanup = stream.DisposeAsyncEx;
         var infos = new List<object>();
         var outputTargets = new List<Target>();
-        var cleanups = new List<Func<Task>>
-        {
-            stream.DisposeAsyncEx
-        };
 
         var queue = new Queue<Target>();
         queue.Enqueue(new(extension, stream));
@@ -129,12 +113,18 @@
 
             if (result.Cleanup != null)
             {
-                cleanups.Add(result.Cleanup);
+                cleanup += result.Cleanup;
             }
 
             queue.Enqueue(result.Targets);
         }
 
-        return (infos, outputTargets, cleanups);
+        var info = infos.Count switch
+        {
+            1 => infos[0],
+            > 1 => infos,
+            _ => null
+        };
+        return (info, outputTargets, cleanup);
     }
 }

@@ -25,17 +25,19 @@
         return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
     }
 
-    IEnumerable<Target> GetTargets(IEnumerable<Target> targets)
+    List<Target> GetTargets(IEnumerable<Target> targets)
     {
-        foreach (var target in targets.Concat(VerifierSettings.GetFileAppenders(settings)))
+        var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
+            .ToList();
+        foreach (var target in list)
         {
             if (target.TryGetStringBuilder(out var builder))
             {
                 ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
             }
-
-            yield return target;
         }
+
+        return list;
     }
 
     bool TryGetRootTarget(object? root, [NotNullWhen(true)] out Target? target)

@@ -712,6 +712,10 @@ public class Tests
         VerifyFile("sample.txt")
             .AppendValue("key", "value");
 
+    [Fact]
+    public Task OnlyExtension() =>
+        VerifyFile(".sample");
+
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()
     //{

@@ -36,7 +36,17 @@ public class Counter
             return (value, $"Guid_{value}");
         });
 
-    ConcurrentDictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new();
+    ConcurrentDictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(new DateTimeOffsetComparer());
+
+    class DateTimeOffsetComparer :
+        IEqualityComparer<DateTimeOffset>
+    {
+        public bool Equals(DateTimeOffset x, DateTimeOffset y) =>
+            x == y && x.Offset == y.Offset;
+
+        public int GetHashCode(DateTimeOffset obj) =>
+            obj.GetHashCode() + (int) obj.Offset.TotalMinutes;
+    }
     int currentDateTimeOffset;
 
     public int Next(DateTimeOffset input) =>
@@ -52,7 +62,17 @@ public class Counter
             return (value, $"DateTimeOffset_{value}");
         });
 
-    ConcurrentDictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new();
+    ConcurrentDictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(new DateTimeComparer());
+
+    class DateTimeComparer : IEqualityComparer<DateTime>
+    {
+        public bool Equals(DateTime x, DateTime y) =>
+            x == y && x.Kind == y.Kind;
+
+        public int GetHashCode(DateTime obj) =>
+            obj.GetHashCode() + (int) obj.Kind;
+    }
+
     int currentDateTime;
 
     public int Next(DateTime input) =>

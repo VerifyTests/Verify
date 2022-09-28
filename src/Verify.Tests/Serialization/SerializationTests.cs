@@ -871,6 +871,36 @@ line3"
     }
 
     [Fact]
+    public Task DatetimeDifferByKind()
+    {
+        var dateTimeLocal = new DateTime(2000, 10, 10, 1, 1, 1, DateTimeKind.Local);
+        var dateTimeUtc = new DateTime(2000, 10, 10, 1, 1, 1, DateTimeKind.Utc);
+        var dateTimeUnspecified = new DateTime(2000, 10, 10, 1, 1, 1, DateTimeKind.Unspecified);
+        var target = new
+        {
+            dateTimeLocal,
+            dateTimeUtc,
+            dateTimeUnspecified
+        };
+
+        return Verify(target);
+    }
+
+    [Fact]
+    public Task DatetimeOffsetDifferOffset()
+    {
+        var dateTime1 = new DateTimeOffset(new DateTime(2000, 10, 10,1,0,0),TimeSpan.FromHours(1));
+        var dateTime2 = new DateTimeOffset(new DateTime(2000, 10, 10,2,0,0),TimeSpan.FromHours(2));
+        var target = new
+        {
+            dateTime1,
+            dateTime2
+        };
+
+        return Verify(target);
+    }
+
+    [Fact]
     public Task ShouldScrubDatetime()
     {
         var dateTime = DateTime.Now;

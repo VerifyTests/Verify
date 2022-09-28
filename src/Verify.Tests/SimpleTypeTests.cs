@@ -30,6 +30,7 @@ public class SimpleTypeTests
     [Fact]
     public Task StringEmpty() =>
         Verify(string.Empty);
+
     [Fact]
     public Task StringNull() =>
         Verify((string?)null);
@@ -91,6 +92,9 @@ public class SimpleTypeTests
         var argonJArray = JArray.Parse(jsonArray);
         yield return new object[] {argonJArray};
         yield return new object[] {true};
+        yield return new object[] {"stringValue"};
+        yield return new object[] {File.OpenRead("sample.png")};
+        yield return new object[] {new byte[]{1}};
         yield return new object[] {(long) 1};
         yield return new object[] {(short) 1};
         yield return new object[] {1};

@@ -36,7 +36,6 @@ public static partial class VerifierSettings
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
         #region typeToStringMapping
-        {typeof(string), (target, _) => (string) target},
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
         {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
         {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},

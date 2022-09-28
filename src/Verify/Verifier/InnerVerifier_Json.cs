@@ -30,14 +30,14 @@
 
     public async Task<VerifyResult> Verify(object? target)
     {
-        if (target is byte[])
+        if (target is string stringTarget)
         {
-            throw new("Use Verify(byte[] target, string extension)");
+            return await VerifyString(stringTarget);
         }
 
-        if (target is string)
+        if (target is FileStream fileStream)
         {
-            throw new("Use Verify(string target, string extension)");
+            return await VerifyStream(fileStream);
         }
 
         if (target is Stream)

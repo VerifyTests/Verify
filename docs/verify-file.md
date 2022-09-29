@@ -33,5 +33,5 @@ public Task VerifyFileWithInfo() =>
         "sample.txt",
         info: "the info");
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L719-L727' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L718-L726' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

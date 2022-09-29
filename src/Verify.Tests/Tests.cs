@@ -696,10 +696,18 @@ public class Tests
         Verify(File.ReadAllBytesAsync("sample.jpg"), "jpg");
 #endif
 
+    #region VerifyFile
+
+    [Fact]
+    public Task VerifyFilePath() =>
+        VerifyFile("sample.txt");
+
+    #endregion
+
 #if NET6_0
 
     [Fact]
-    public async Task VerifyFilePath()
+    public async Task VerifyFileNotLocked()
     {
         await VerifyFile("sample.txt");
         Assert.False(FileEx.IsFileLocked("sample.txt"));
@@ -707,9 +715,15 @@ public class Tests
 
 #endif
 
+    #region VerifyFileWithInfo
+
     [Fact]
     public Task VerifyFileWithInfo() =>
-        VerifyFile("sample.txt", info: "the info");
+        VerifyFile(
+            "sample.txt",
+            info: "the info");
+
+    #endregion
 
     [Fact]
     public Task VerifyFileWithAppend() =>

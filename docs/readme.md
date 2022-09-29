@@ -10,6 +10,8 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
+  * [VerifyDirectory](/docs/verify-directory.md)
+  * [VerifyFile](/docs/verify-file.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
   * [Parameterised tests](/docs/parameterised.md)

@@ -88,6 +88,16 @@ public class Tests
 
     #endregion
 
+    #region VerifyDirectoryWithInfo
+
+    [Fact]
+    public Task VerifyDirectoryWithInfo() =>
+        VerifyDirectory(
+            directoryToVerify,
+            info: "the info");
+
+    #endregion
+
 #if NET6_0_OR_GREATER
 
     #region VerifyDirectoryFilterXunit

@@ -13,7 +13,8 @@ public partial class VerifyBase
         Func<string, bool>? include = null,
         string? pattern = null,
         EnumerationOptions? options = null,
-        VerifySettings? settings = null)
+        VerifySettings? settings = null,
+        object? info = null)
     {
         settings ??= this.settings;
         return Verifier.VerifyDirectory(path,include, pattern, options, settings, sourceFile);
@@ -28,7 +29,8 @@ public partial class VerifyBase
         Func<string, bool>? include = null,
         string? pattern = null,
         EnumerationOptions? options = null,
-        VerifySettings? settings = null)
+        VerifySettings? settings = null,
+        object? info = null)
     {
         settings ??= this.settings;
         return Verifier.VerifyDirectory(path.FullName, include, pattern, options, settings, sourceFile);
@@ -44,7 +46,8 @@ public partial class VerifyBase
         Func<string, bool>? include = null,
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
-        VerifySettings? settings = null)
+        VerifySettings? settings = null,
+        object? info = null)
     {
         settings ??= this.settings;
         return Verifier.VerifyDirectory(path,include, pattern, option, settings, sourceFile);
@@ -59,7 +62,8 @@ public partial class VerifyBase
         Func<string, bool>? include = null,
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
-        VerifySettings? settings = null)
+        VerifySettings? settings = null,
+        object? info = null)
     {
         settings ??= this.settings;
         return Verifier.VerifyDirectory(path.FullName, include, pattern, option, settings, sourceFile);

@@ -2,7 +2,7 @@
 {
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, EnumerationOptions? option)
+    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, EnumerationOptions? option, object? info)
     {
         Guard.DirectoryExists(path, nameof(path));
         path = Path.GetFullPath(path);
@@ -17,14 +17,15 @@
                 Directory.EnumerateFiles(
                     path,
                     pattern,
-                    option))
+                    option),
+                info)
             .ToList();
         return await VerifyInner(targets);
     }
 
 #else
 
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option)
+    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option, object? info)
     {
         Guard.DirectoryExists(path, nameof(path));
         path = Path.GetFullPath(path);
@@ -35,15 +36,25 @@
                 Directory.EnumerateFiles(
                     path,
                     pattern,
-                    option))
+                    option),
+                info)
             .ToList();
         return await VerifyInner(targets);
     }
 
 #endif
 
-    static async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles)
+    async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info)
     {
+        if (info is not null)
+        {
+            yield return new(
+                VerifierSettings.TxtOrJson,
+                JsonFormatter.AsJson(
+                settings,
+                counter,
+                info));
+        }
         if (include == null)
         {
             include = _ => true;

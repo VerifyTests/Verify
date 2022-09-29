@@ -16,10 +16,11 @@ public static partial class Verifier
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, options), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, options, info), true);
     }
 
     /// <summary>
@@ -33,6 +34,7 @@ public static partial class Verifier
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
         VerifyDirectory(name, path.FullName, include, pattern, options, settings, sourceFile);
 
@@ -48,10 +50,11 @@ public static partial class Verifier
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, option), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, option, info), true);
     }
 
     /// <summary>
@@ -65,6 +68,7 @@ public static partial class Verifier
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
         VerifyDirectory(name, path.FullName, include, pattern, option, settings, sourceFile);
 

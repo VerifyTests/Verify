@@ -7,6 +7,11 @@ public class VerifyDirectoryTests
     public Task WithDirectory() =>
         VerifyDirectory(directoryPathToVerify);
 
+    [Fact]
+    public Task WithDirectoryWithInfo() =>
+        VerifyDirectory(directoryPathToVerify,
+            info: "the Info");
+
     [ModuleInitializer]
     public static void Init() =>
         VerifierSettings.RegisterFileConverter(

@@ -686,3 +686,9 @@ public Task WithDirectoryFiltered() =>
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L93-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Optional Info
+
+An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
+

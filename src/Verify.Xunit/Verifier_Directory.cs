@@ -13,8 +13,9 @@ public static partial class Verifier
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options), true);
+        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -26,6 +27,7 @@ public static partial class Verifier
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
         VerifyDirectory(path.FullName, include, pattern, options, settings, sourceFile);
 
@@ -40,8 +42,9 @@ public static partial class Verifier
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option), true);
+        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -53,6 +56,7 @@ public static partial class Verifier
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
         VerifyDirectory(path.FullName, include, pattern, option, settings, sourceFile);
 

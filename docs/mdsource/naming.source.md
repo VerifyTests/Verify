@@ -234,3 +234,9 @@ snippet: VerifyDirectoryXunit
 ### Filtering
 
 snippet: VerifyDirectoryFilterXunit
+
+
+### Optional Info
+
+An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
+

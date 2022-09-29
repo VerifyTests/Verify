@@ -38,7 +38,7 @@
             {
                 if (VerifierSettings.HasExtensionConverter(target.Extension))
                 {
-                    var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData);
+                    var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null);
                     cleanup += itemCleanup;
                     if (info != null)
                     {

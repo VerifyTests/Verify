@@ -8,8 +8,9 @@ public partial class VerifyBase
     public SettingsTask VerifyFile(
         string path,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyFile(path));
+        Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -18,6 +19,7 @@ public partial class VerifyBase
     public SettingsTask VerifyFile(
         FileInfo path,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyFile(path));
+        Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
 }

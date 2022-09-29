@@ -1,56 +1,71 @@
 ﻿partial class InnerVerifier
 {
-    public Task<VerifyResult> VerifyStream(FileStream? stream)
+    public Task<VerifyResult> VerifyStream(FileStream? stream, object? info)
     {
         if (stream is null)
         {
-            return VerifyInner(emptyTargets);
+            if (info == null)
+            {
+                return VerifyInner(emptyTargets);
+            }
+
+            return Verify(info);
         }
 
-        return VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name));
+        return VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name), info);
     }
 
-    public async Task<VerifyResult> VerifyStream(Task<FileStream> task)
+    public async Task<VerifyResult> VerifyStream(Task<FileStream> task, object? info)
     {
         var stream = await task;
-        return await VerifyStream(stream);
+        return await VerifyStream(stream, info);
     }
 
-    public Task<VerifyResult> VerifyStream(byte[]? bytes, string extension)
+    public Task<VerifyResult> VerifyStream(byte[]? bytes, string extension, object? info)
     {
         if (bytes is null)
         {
-            return VerifyInner(emptyTargets);
+            if (info == null)
+            {
+                return VerifyInner(emptyTargets);
+            }
+
+            return Verify(info);
         }
 
-        return VerifyStream(new MemoryStream(bytes), extension);
+        return VerifyStream(new MemoryStream(bytes), extension, info);
     }
 
-    public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension)
+    public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info)
     {
         var bytes = await task;
-        return await VerifyStream(bytes, extension);
+        return await VerifyStream(bytes, extension, info);
     }
 
-    public async Task<VerifyResult> VerifyStream<T>(Task<T> task, string extension)
+    public async Task<VerifyResult> VerifyStream<T>(Task<T> task, string extension, object? info)
         where T : Stream
     {
         var stream = await task;
-        return await VerifyStream(stream, extension);
+        return await VerifyStream(stream, extension, info);
     }
 
-    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension)
+    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? inf)
         where T : Stream
     {
         var targets = streams.Select(_ => new Target(extension, _));
         return await VerifyInner(targets);
     }
 
-    public async Task<VerifyResult> VerifyStream(Stream? stream, string extension)
+    public async Task<VerifyResult> VerifyStream(Stream? stream, string extension, object? info)
     {
         if (stream is null)
         {
-            return await VerifyInner(emptyTargets);
+            if (info is null)
+            {
+                return await VerifyInner(emptyTargets);
+            }
+
+            return await Verify(info);
         }
 
         using (stream)
@@ -62,18 +77,25 @@
 
             if (VerifierSettings.HasExtensionConverter(extension))
             {
-                var (info, converted, cleanup) = await DoExtensionConversion(extension, stream);
+                var (newInfo, converted, cleanup) = await DoExtensionConversion(extension, stream, info);
 
-                return await VerifyInner(info, cleanup, converted, false);
+                return await VerifyInner(newInfo, cleanup, converted, false);
             }
 
             var target = await GetTarget(stream, extension);
 
-            return await VerifyInner(
-                new[]
-                {
-                    target
-                });
+            var targets = new List<Target>();
+
+            if (info is not null)
+            {
+                targets.Add(
+                    new(
+                        VerifierSettings.TxtOrJson,
+                        JsonFormatter.AsJson(settings, counter, info)));
+            }
+
+            targets.Add(target);
+            return await VerifyInner(targets);
         }
     }
 
@@ -87,10 +109,14 @@
         return new(extension, stream);
     }
 
-    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream)
+    async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream, object? info)
     {
         Func<Task> cleanup = stream.DisposeAsyncEx;
         var infos = new List<object>();
+        if (info != null)
+        {
+            infos.Add(info);
+        }
         var targets = new List<Target>();
 
         var queue = new Queue<Target>();
@@ -120,12 +146,12 @@
             queue.Enqueue(result.Targets);
         }
 
-        var info = infos.Count switch
+        var newInfo = infos.Count switch
         {
             1 => infos[0],
             > 1 => infos,
             _ => null
         };
-        return (info, targets, cleanup);
+        return (newInfo, targets, cleanup);
     }
 }

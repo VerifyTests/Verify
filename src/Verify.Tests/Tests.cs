@@ -708,6 +708,10 @@ public class Tests
 #endif
 
     [Fact]
+    public Task VerifyFileWithInfo() =>
+        VerifyFile("sample.txt", info: "the info");
+
+    [Fact]
     public Task VerifyFileWithAppend() =>
         VerifyFile("sample.txt")
             .AppendValue("key", "value");

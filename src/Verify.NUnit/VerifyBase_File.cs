@@ -7,10 +7,11 @@ public partial class VerifyBase
     /// </summary>
     public SettingsTask VerifyFile(
         string path,
-        VerifySettings? settings = null)
+        VerifySettings? settings = null,
+        object? info = null)
     {
         settings ??= this.settings;
-        return Verifier.VerifyFile(path, settings, sourceFile);
+        return Verifier.VerifyFile(path, settings, info, sourceFile);
     }
 
     /// <summary>
@@ -19,9 +20,10 @@ public partial class VerifyBase
     /// </summary>
     public SettingsTask VerifyFile(
         FileInfo path,
-        VerifySettings? settings = null)
+        VerifySettings? settings = null,
+        object? info = null)
     {
         settings ??= this.settings;
-        return Verifier.VerifyFile(path, settings, sourceFile);
+        return Verifier.VerifyFile(path, settings, info, sourceFile);
     }
 }

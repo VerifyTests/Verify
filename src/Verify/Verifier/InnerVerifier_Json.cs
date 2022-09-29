@@ -37,7 +37,7 @@
 
         if (target is FileStream fileStream)
         {
-            return await VerifyStream(fileStream);
+            return await VerifyStream(fileStream, null);
         }
 
         if (target is Stream)

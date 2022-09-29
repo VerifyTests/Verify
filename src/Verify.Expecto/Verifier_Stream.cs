@@ -9,10 +9,11 @@ public static partial class Verifier
         byte[]? target,
         string extension,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
     public static Task<VerifyResult> Verify(
@@ -20,30 +21,33 @@ public static partial class Verifier
         Task<byte[]> target,
         string extension,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
     public static Task<VerifyResult> Verify(
         string name,
         FileStream? target,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
     }
 
     public static Task<VerifyResult> Verify(
         string name,
         Task<FileStream> target,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, info));
     }
 
     public static Task<VerifyResult> Verify(
@@ -51,10 +55,11 @@ public static partial class Verifier
         Stream? target,
         string extension,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
     public static Task<VerifyResult> Verify<T>(
@@ -62,11 +67,12 @@ public static partial class Verifier
         Task<T> target,
         string extension,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStream(target, extension, info));
     }
 
     public static Task<VerifyResult> Verify<T>(
@@ -74,10 +80,11 @@ public static partial class Verifier
         IEnumerable<T> targets,
         string extension,
         VerifySettings? settings = null,
+        object? info = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStreams(targets, extension));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyStreams(targets, extension, info));
     }
 }

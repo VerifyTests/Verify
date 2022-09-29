@@ -9,7 +9,8 @@ public class VerifyDirectoryTests
 
     [Fact]
     public Task WithDirectoryWithInfo() =>
-        VerifyDirectory(directoryPathToVerify,
+        VerifyDirectory(
+            directoryPathToVerify,
             info: "the Info");
 
     [ModuleInitializer]

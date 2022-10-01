@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # VerifyDirectory
 
-Verified all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
+Verifies all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
 
 <!-- snippet: VerifyDirectoryXunit -->
 <a id='snippet-verifydirectoryxunit'></a>
@@ -43,3 +43,15 @@ public Task WithDirectoryFiltered() =>
 ## Optional Info
 
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
+
+<!-- snippet: VerifyDirectoryWithInfo -->
+<a id='snippet-verifydirectorywithinfo'></a>
+```cs
+[Fact]
+public Task VerifyDirectoryWithInfo() =>
+    VerifyDirectory(
+        directoryToVerify,
+        info: "the info");
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L91-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithinfo' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

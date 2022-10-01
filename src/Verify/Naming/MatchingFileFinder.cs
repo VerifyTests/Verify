@@ -2,7 +2,11 @@
 {
     public static IEnumerable<string> Find(string fileNamePrefix, string suffix, string directory)
     {
-        foreach (var file in Directory.EnumerateFiles(directory, $"{fileNamePrefix}.*.*"))
+        var nonIndexedPattern = $"{fileNamePrefix}.*.*";
+        var indexedPattern = $"{fileNamePrefix}#??.*.*";
+        var files = Directory.EnumerateFiles(directory, nonIndexedPattern)
+            .Concat(Directory.EnumerateFiles(directory, indexedPattern));
+        foreach (var file in files)
         {
             if (ShouldInclude(fileNamePrefix, suffix, file))
             {

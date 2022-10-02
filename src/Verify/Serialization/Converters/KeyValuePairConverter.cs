@@ -17,8 +17,9 @@
     {
         writer.WriteStartObject();
 
-        var keyMember = value.GetType().GetProperty("Key")!.GetMethod!.Invoke(value, null)!;
-        var valueMember = value.GetType().GetProperty("Value")!.GetMethod!.Invoke(value, null);
+        var type = value.GetType();
+        var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(value, null)!;
+        var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(value, null);
         writer.WriteMember(value, valueMember, (string) keyMember);
 
         writer.WriteEndObject();

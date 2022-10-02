@@ -119,6 +119,10 @@ public class VerifyJsonWriter :
         {
             stringValue = value.ToString("yyyy-MM-dd'T'HH:mmzzz", CultureInfo.InvariantCulture);
         }
+        else if (value.Millisecond == 0)
+        {
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:sszzz", CultureInfo.InvariantCulture);
+        }
         else
         {
             stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFzzz", CultureInfo.InvariantCulture);
@@ -143,6 +147,10 @@ public class VerifyJsonWriter :
         else if (value.Second == 0 && value.Millisecond == 0)
         {
             stringValue = value.ToString("yyyy-MM-dd'T'HH:mmzzz", CultureInfo.InvariantCulture);
+        }
+        else if (value.Millisecond == 0)
+        {
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:sszzz", CultureInfo.InvariantCulture);
         }
         else
         {

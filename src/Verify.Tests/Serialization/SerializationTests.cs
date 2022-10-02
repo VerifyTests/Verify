@@ -309,18 +309,6 @@ line3"
             .ScrubLinesContaining("line2");
 
     [Fact]
-    public Task DatetimeScrubbingDisabled() =>
-        Verify(
-                new
-                {
-                    noTime = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                    withTime = new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
-                    withTimeZeroSeconds = new DateTime(2000, 1, 1, 1, 1, 0, DateTimeKind.Utc),
-                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999, DateTimeKind.Utc),
-                })
-            .DontScrubDateTimes();
-
-    [Fact]
     public Task DatetimeScrubbingDisabled_ExplicitScrubber() =>
         Verify(
                 new
@@ -1144,6 +1132,19 @@ line3"
 
         #endregion
     }
+#if NET6_0
+
+      [Fact]
+    public Task DatetimeScrubbingDisabled() =>
+        Verify(
+                new
+                {
+                    noTime = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    withTime = new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
+                    withTimeZeroSeconds = new DateTime(2000, 1, 1, 1, 1, 0, DateTimeKind.Utc),
+                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999, DateTimeKind.Utc),
+                })
+            .DontScrubDateTimes();
 
     [Fact]
     Task DontScrubDateTimes()
@@ -1178,6 +1179,7 @@ line3"
 
         #endregion
     }
+#endif
 
     void DontScrubDateTimesGlobal()
     {

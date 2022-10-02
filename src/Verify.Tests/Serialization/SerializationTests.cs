@@ -290,7 +290,8 @@ public class SerializationTests
                 {
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1)),
-                    withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1))
+                    withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1,0), TimeSpan.FromHours(1)),
+                    withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1)),
                 })
             .DontScrubDateTimes();
 
@@ -312,9 +313,10 @@ line3"
         Verify(
                 new
                 {
-                    noTime = new DateTime(2000, 1, 1),
-                    withTime = new DateTime(2000, 1, 1, 1, 1, 1),
-                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999)
+                    noTime = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    withTime = new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
+                    withTimeZeroSeconds = new DateTime(2000, 1, 1, 1, 1, 0, DateTimeKind.Utc),
+                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999, DateTimeKind.Utc),
                 })
             .DontScrubDateTimes();
 
@@ -1150,7 +1152,7 @@ line3"
 
         var target = new
         {
-            Date = new DateTime(2020, 10, 10)
+            Date = new DateTime(2020, 10, 10, 0, 0, 0, DateTimeKind.Utc)
         };
 
         var settings = new VerifySettings();
@@ -1168,7 +1170,7 @@ line3"
 
         var target = new
         {
-            Date = new DateTime(2020, 10, 10)
+            Date = new DateTime(2020, 10, 10, 0, 0, 0, DateTimeKind.Utc)
         };
 
         return Verify(target)

@@ -47,6 +47,7 @@ public class Counter
         public int GetHashCode(DateTimeOffset obj) =>
             obj.GetHashCode() + (int) obj.Offset.TotalMinutes;
     }
+
     int currentDateTimeOffset;
 
     public int Next(DateTimeOffset input) =>

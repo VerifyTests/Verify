@@ -289,7 +289,8 @@ public class SerializationTests
                 new
                 {
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
-                    withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1))
+                    withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1)),
+                    withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1))
                 })
             .DontScrubDateTimes();
 
@@ -312,7 +313,8 @@ line3"
                 new
                 {
                     noTime = new DateTime(2000, 1, 1),
-                    withTime = new DateTime(2000, 1, 1, 1, 1, 1)
+                    withTime = new DateTime(2000, 1, 1, 1, 1, 1),
+                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999)
                 })
             .DontScrubDateTimes();
 

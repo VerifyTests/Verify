@@ -1,4 +1,5 @@
 ﻿{
   noTime: 2000-01-01,
-  withTime: 2000-01-01T01:01:01
+  withTime: 2000-01-01T01:01:01,
+  withTimeMilliSeconds: 2000-01-01T01:01:01.999
 }

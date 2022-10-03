@@ -113,19 +113,24 @@ public class VerifyJsonWriter :
         string stringValue;
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            stringValue = value.ToString("yyyy-MM-ddzzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
         else if (value.Second == 0 && value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mmzzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm", CultureInfo.InvariantCulture);
         }
         else if (value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:sszzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
         }
         else
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFzzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+        }
+
+        if (value.Offset != TimeSpan.Zero)
+        {
+            stringValue += value.ToString("zzz");
         }
 
         WriteRawValueWithScrubbers(stringValue);
@@ -142,19 +147,24 @@ public class VerifyJsonWriter :
         string stringValue;
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            stringValue = value.ToString("yyyy-MM-ddzzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
         else if (value.Second == 0 && value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mmzzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm", CultureInfo.InvariantCulture);
         }
         else if (value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:sszzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
         }
         else
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFzzz", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+        }
+
+        if (value.Kind != DateTimeKind.Utc)
+        {
+            stringValue += value.ToString("zzz");
         }
 
         stringValue += " " + value.Kind;

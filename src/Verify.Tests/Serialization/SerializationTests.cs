@@ -288,7 +288,7 @@ public class SerializationTests
         Verify(
                 new
                 {
-                    noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1)),
+                    noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1.5)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1)),
                     withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1,0), TimeSpan.FromHours(1)),
                     withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1)),

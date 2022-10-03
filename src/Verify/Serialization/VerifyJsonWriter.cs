@@ -117,20 +117,20 @@ public class VerifyJsonWriter :
         }
         else if (value.Second == 0 && value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
         }
         else if (value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         }
         else
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
         }
 
         if (value.Offset != TimeSpan.Zero)
         {
-            stringValue += value.ToString("zzz");
+            stringValue += GetDateOffset(value);
         }
 
         WriteRawValueWithScrubbers(stringValue);
@@ -151,25 +151,34 @@ public class VerifyJsonWriter :
         }
         else if (value.Second == 0 && value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
         }
         else if (value.Millisecond == 0)
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         }
         else
         {
-            stringValue = value.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+            stringValue = value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
         }
 
         if (value.Kind != DateTimeKind.Utc)
         {
-            stringValue += value.ToString("zzz");
+            stringValue += GetDateOffset(value);
         }
 
-        stringValue += " " + value.Kind;
+        stringValue += $" {value.Kind}";
 
         WriteRawValueWithScrubbers(stringValue);
+    }
+
+    static string GetDateOffset(IFormattable value)
+    {
+        var offset = value.ToString("zzz", CultureInfo.InvariantCulture)
+            .Replace(":00", "")
+            .Replace("+0", "+")
+            .Replace("-0", "-");
+        return $" {offset}";
     }
 
     public override void WriteValue(TimeSpan value) =>

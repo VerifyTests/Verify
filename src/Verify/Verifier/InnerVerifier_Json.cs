@@ -19,8 +19,8 @@
 
         using var reader = new StreamReader(target);
         using var textReader = new JsonTextReader(reader);
-        var json = await JToken.LoadAsync(textReader);
-        return await VerifyJson(json);
+        var token = await JToken.LoadAsync(textReader);
+        return await VerifyJson(token);
     }
 
     public Task<VerifyResult> VerifyJson(JToken target) =>

@@ -22,7 +22,7 @@
     <Using Include="System.Runtime.Versioning" />
     <Using Include="System.Runtime.InteropServices" />
     
-    <PackageReference Include="DiffEngine" Version="10.2.0" Condition="$(DiffEngine)" />
+    <PackageReference Include="DiffEngine" Version="10.3.0" Condition="$(DiffEngine)" />
     <PackageReference Include="EmptyFiles" Version="2.8.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="1.2.0" />
     <PackageReference Include="Argon" Version="0.1.0" />

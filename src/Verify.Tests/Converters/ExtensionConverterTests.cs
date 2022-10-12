@@ -13,7 +13,8 @@ public class ExtensionConverterTests
                         new("recursive", stream)
                     }));
 
-    //[Fact]
+    // eg when a converter is getting info from a png
+    [Fact]
     public Task Recursive() =>
         Verify(IoHelpers.OpenRead("sample.recursive"));
 

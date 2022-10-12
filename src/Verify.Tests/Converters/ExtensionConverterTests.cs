@@ -2,6 +2,22 @@
 public class ExtensionConverterTests
 {
     [ModuleInitializer]
+    public static void RecursiveInit() =>
+        VerifierSettings.RegisterFileConverter(
+            "recursive",
+            (stream, _) =>
+                new(
+                    "recursiveInfo",
+                    new List<Target>
+                    {
+                        new("recursive", stream)
+                    }));
+
+    //[Fact]
+    public Task Recursive() =>
+        Verify(IoHelpers.OpenRead("sample.recursive"));
+
+    [ModuleInitializer]
     public static void NestedInit()
     {
         VerifierSettings.RegisterFileConverter(

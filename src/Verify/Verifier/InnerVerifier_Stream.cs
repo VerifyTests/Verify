@@ -145,6 +145,7 @@
             if (resultTargets.Count == 1)
             {
                 var single = resultTargets.Single();
+                if (single.Extension == target.Extension)
                 {
                     targets.Add(single);
                     continue;

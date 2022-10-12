@@ -132,10 +132,24 @@
                 continue;
             }
 
-            var result = await conversion(target.StreamData, settings.Context);
+            var targetStream = target.StreamData;
+            var result = await conversion(targetStream, settings.Context);
             if (result.Info != null)
             {
                 infos.Add(result.Info);
+            }
+
+            var resultTargets = result.Targets.ToList();
+
+            // if the same stream is returned. no need to re process
+            if (resultTargets.Count == 1)
+            {
+                var single = resultTargets.Single();
+                if (single.IsStream && single.StreamData == targetStream)
+                {
+                    targets.Add(single);
+                    continue;
+                }
             }
 
             if (result.Cleanup != null)
@@ -143,7 +157,7 @@
                 cleanup += result.Cleanup;
             }
 
-            queue.Enqueue(result.Targets);
+            queue.Enqueue(resultTargets);
         }
 
         var newInfo = infos.Count switch

@@ -21,6 +21,9 @@ public readonly struct Target
         }
     }
 
+    public bool IsStream => streamData is not null;
+    public bool IsString => stringBuilderData is not null;
+
     internal bool TryGetStringBuilder([NotNullWhen(true)] out StringBuilder? value)
     {
         if (stringBuilderData is { } builder)

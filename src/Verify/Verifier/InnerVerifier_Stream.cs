@@ -145,7 +145,6 @@
             if (resultTargets.Count == 1)
             {
                 var single = resultTargets.Single();
-                if (single.IsStream && single.StreamData == targetStream)
                 {
                     targets.Add(single);
                     continue;

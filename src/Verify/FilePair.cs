@@ -12,6 +12,6 @@ public readonly struct FilePair
         Extension = extension;
         ReceivedPath = receivedPath;
         VerifiedPath = verifiedPath;
-        IsText = EmptyFiles.Extensions.IsText(extension);
+        IsText = FileExtensions.IsText(extension);
     }
 }

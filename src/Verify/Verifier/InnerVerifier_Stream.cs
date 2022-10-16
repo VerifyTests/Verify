@@ -12,7 +12,7 @@
             return Verify(info);
         }
 
-        return VerifyStream(stream, EmptyFiles.Extensions.GetExtension(stream.Name), info);
+        return VerifyStream(stream, FileExtensions.GetExtension(stream.Name), info);
     }
 
     public async Task<VerifyResult> VerifyStream(Task<FileStream> task, object? info)
@@ -101,7 +101,7 @@
 
     static async Task<Target> GetTarget(Stream stream, string extension)
     {
-        if (EmptyFiles.Extensions.IsText(extension))
+        if (FileExtensions.IsText(extension))
         {
             return new(extension, await stream.ReadString());
         }

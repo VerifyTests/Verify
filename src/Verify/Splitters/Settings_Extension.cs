@@ -22,7 +22,7 @@ public static partial class VerifierSettings
         AsyncConversion<Stream> conversion)
     {
         Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
-        if (EmptyFiles.Extensions.IsText(fromExtension))
+        if (FileExtensions.IsText(fromExtension))
         {
             throw new("RegisterFileConverter is only supported for non-text extensions");
         }

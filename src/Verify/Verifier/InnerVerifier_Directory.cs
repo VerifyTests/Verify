@@ -86,7 +86,7 @@
             name = name[path.Length..];
             name = name.TrimStart(Path.DirectorySeparatorChar);
 
-            if (EmptyFiles.Extensions.IsText(extension))
+            if (FileExtensions.IsText(extension))
             {
                 yield return new(
                     extension,

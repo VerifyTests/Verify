@@ -10,6 +10,7 @@
   <ItemGroup>
     <Using Include="Argon" />
     <Using Include="DiffEngine" />
+    <Using Include="EmptyFiles" />
     <Using Include="System.Drawing" />
     <Using Include="System.Drawing.Imaging" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all" />

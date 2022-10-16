@@ -5,6 +5,9 @@
     <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0</TargetFrameworks>
     <DiffEngine>true</DiffEngine>
     <DiffEngine Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' ">false</DiffEngine>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">10.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21</SupportedOSPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="$(DiffEngine)">
     <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>

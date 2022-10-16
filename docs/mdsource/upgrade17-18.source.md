@@ -103,7 +103,7 @@ VerifierSettings.OnFirstVerify(
 ```
 
 
-## Use # to delineate name/index
+## Use `#` to delineate name/index
 
 https://github.com/VerifyTests/Verify/pull/637
 
@@ -157,3 +157,10 @@ After
 ```
 
 So snapshots containing dates will need to be re-verified.
+
+
+## Dictionary order
+
+Previously no order was applied to `IDictionary` members. This proved problematic since the order is not guaranteed.
+
+`IDictionary` members are now ordered based on key.

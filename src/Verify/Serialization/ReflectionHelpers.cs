@@ -58,25 +58,6 @@
         }
     }
 
-    public static bool ImplementsStreamEnumerable(this Type type) =>
-        type.GetInterfaces()
-            .Any(_ => _.IsStreamEnumerable());
-
-    static bool IsStreamEnumerable(this Type type)
-    {
-        if (!type.IsGenericType)
-        {
-            return false;
-        }
-
-        if (type.GetGenericTypeDefinition() != typeof(IEnumerable<>))
-        {
-            return false;
-        }
-
-        return type.GetGenericArguments()[0] == typeof(Stream);
-    }
-
     public static Type MemberType(this MemberInfo member)
     {
         if (member is PropertyInfo property)

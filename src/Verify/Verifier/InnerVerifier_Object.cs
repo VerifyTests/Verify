@@ -24,7 +24,7 @@
             return await VerifyInner(target, null, emptyTargets, true);
         }
 
-        if (target.GetType().ImplementsStreamEnumerable())
+        if (target is IEnumerable<Stream>)
         {
             throw new("Use Verify(IEnumerable<T> targets, string extension)");
         }

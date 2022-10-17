@@ -261,12 +261,7 @@ public class SerializationTests
     [Fact]
     public Task DictionaryOrderString()
     {
-        var dictionary = new Dictionary<string, string>
-        {
-            {
-                "ignored", "1234"
-            }
-        };
+        var dictionary = new Dictionary<string, string>();
 
         if (DateTime.UtcNow.Ticks % 2 == 0)
         {
@@ -278,6 +273,19 @@ public class SerializationTests
             dictionary.Add("Entry_2", "5678");
             dictionary.Add("Entry_1", "1234");
         }
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task DictionaryOrderStringAndIgnore()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {"ignored", "1234"},
+            {"Entry_2", "5678"},
+            {"Entry_1", "1234"}
+        };
 
         return Verify(dictionary)
             .IgnoreMember("ignored");

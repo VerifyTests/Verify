@@ -30,10 +30,10 @@
     <PackageReference Include="Argon" Version="0.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
-    <Content Include="buildTransitive\Verify.props" PackagePath="buildTransitive\Verify.props" />
-    <Content Include="buildTransitive\Verify.targets" PackagePath="buildTransitive\Verify.targets" />
-    <Content Include="buildTransitive\Verify.props" PackagePath="build\Verify.props" />
-    <Content Include="buildTransitive\Verify.targets" PackagePath="build\Verify.targets" />
+    <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
+    <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />
+    <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\Verify.props" />
+    <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="build\Verify.targets" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'net48' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'">

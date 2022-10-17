@@ -1740,12 +1740,12 @@ Line2"
 
     class CollectionTarget
     {
+        public IReadOnlyList<string> ReadOnlyList;
         public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;
         public IEnumerable<string> EnumerableAsList;
         public IEnumerable<string> EnumerableStaticEmpty;
         public string[] Array;
-        public IReadOnlyList<string> ReadOnlyList;
         public IReadOnlyCollection<string> ReadOnlyCollection;
         public IReadOnlyDictionary<int, string> IReadOnlyDictionary;
     }

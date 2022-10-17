@@ -72,4 +72,74 @@
 
         throw new($"No supported MemberType: {member.MemberType}");
     }
+
+    public static bool IsEmptyCollectionOrDictionary(this object target)
+    {
+        if (target is string)
+        {
+            return false;
+        }
+
+        if (target is ICollection collection)
+        {
+            if (collection.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        if (target is not IEnumerable enumerable)
+        {
+            return false;
+        }
+
+        var type = target.GetType();
+
+        if (type.IsEnumerableEmpty())
+        {
+            return true;
+        }
+
+        if (type.IsGenericCollection())
+        {
+            var enumerator = enumerable.GetEnumerator();
+            return !enumerator.MoveNext();
+        }
+
+        return false;
+    }
+
+    static bool IsEnumerableEmpty(this Type type) =>
+        type.FullName?.StartsWith("System.Linq.EmptyPartition") == true;
+
+    static bool IsGenericCollection(this Type type)
+    {
+        if (type.ImplementsGenericCollection())
+        {
+            return true;
+        }
+
+        var interfaces = type.GetInterfaces();
+
+        if (interfaces.Any(ImplementsGenericCollection))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    static bool ImplementsGenericCollection(this Type x)
+    {
+        if (!x.IsGenericType)
+        {
+            return false;
+        }
+
+        var definition = x.GetGenericTypeDefinition();
+        return definition == typeof(ICollection<>) ||
+               definition == typeof(IReadOnlyCollection<>);
+    }
 }

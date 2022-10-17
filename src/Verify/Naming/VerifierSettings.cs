@@ -44,6 +44,7 @@ public static partial class VerifierSettings
                 return parameterToName.Value(parameter);
             }
         }
+
         if (parameter is string stringParameter)
         {
             return stringParameter.ReplaceInvalidFileNameChars();

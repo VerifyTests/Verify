@@ -37,18 +37,7 @@
 
         if (ignoreEmptyCollections)
         {
-            if (value is IDictionary {Count: 0})
-            {
-                scrubOrIgnore = ScrubOrIgnore.Ignore;
-                return true;
-            }
-            if (value is ICollection {Count: 0})
-            {
-                scrubOrIgnore = ScrubOrIgnore.Ignore;
-                return true;
-            }
-
-            if (memberType.FullName?.StartsWith("System.Linq.EmptyPartition") == true)
+            if (value.IsEmptyCollectionOrDictionary())
             {
                 scrubOrIgnore = ScrubOrIgnore.Ignore;
                 return true;

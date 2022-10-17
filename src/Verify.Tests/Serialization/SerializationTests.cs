@@ -1737,9 +1737,9 @@ Line2"
 
         public string this[int index] => inner[index];
     }
+
     class CollectionTarget
     {
-
         public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;
         public IEnumerable<string> EnumerableAsList;

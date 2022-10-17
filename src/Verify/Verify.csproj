@@ -8,14 +8,11 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">10.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21</SupportedOSPlatformVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="$(DiffEngine)">
-    <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
-  </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
     <Using Include="Argon" />
     <Using Include="VerifyTests" />
-    <Using Include="DiffEngine" Condition="$(DiffEngine)" />
+    <Using Include="DiffEngine" />
     <Using Include="EmptyFiles" />
     <Using Include="SimpleInfoName" />
     <Using Include="System.Numerics" />

@@ -44,12 +44,15 @@ public static partial class VerifierSettings
                 return parameterToName.Value(parameter);
             }
         }
+        if (parameter is string stringParameter)
+        {
+            return stringParameter.ReplaceInvalidFileNameChars();
+        }
 
-        if (parameter is IEnumerable enumerable &&
-            parameter.GetType().IsCollection())
+        if (parameter is ICollection collection)
         {
             var innerBuilder = new StringBuilder();
-            foreach (var item in enumerable)
+            foreach (var item in collection)
             {
                 innerBuilder.Append(GetNameForParameter(item));
                 innerBuilder.Append(',');

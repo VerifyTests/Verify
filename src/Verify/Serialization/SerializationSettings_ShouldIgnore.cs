@@ -35,11 +35,20 @@
             return false;
         }
 
-        if (IsIgnoredCollection(memberType))
+        if (ignoreEmptyCollections)
         {
-            // since inside IsCollection, it is safe to use IEnumerable
-            var collection = (IEnumerable) value;
-            if (!collection.HasMembers())
+            if (value is IDictionary {Count: 0})
+            {
+                scrubOrIgnore = ScrubOrIgnore.Ignore;
+                return true;
+            }
+            if (value is ICollection {Count: 0})
+            {
+                scrubOrIgnore = ScrubOrIgnore.Ignore;
+                return true;
+            }
+
+            if (memberType.FullName?.StartsWith("System.Linq.EmptyPartition") == true)
             {
                 scrubOrIgnore = ScrubOrIgnore.Ignore;
                 return true;

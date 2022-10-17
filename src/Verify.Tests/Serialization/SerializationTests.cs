@@ -1705,6 +1705,8 @@ Line2"
         {
             DictionaryProperty = new(),
             IReadOnlyDictionary = new Dictionary<int, string>(),
+            EnumerableAsList = new List<string>(),
+            EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new List<string>(),
             ListProperty = new(),
             ReadOnlyCollection = new List<string>(),
@@ -1717,6 +1719,8 @@ Line2"
     {
         public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;
+        public IEnumerable<string> EnumerableAsList;
+        public IEnumerable<string> EnumerableStaticEmpty;
         public string[] Array;
         public IReadOnlyList<string> ReadOnlyList;
         public IReadOnlyCollection<string> ReadOnlyCollection;

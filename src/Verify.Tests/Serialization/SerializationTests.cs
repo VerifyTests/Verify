@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.ObjectModel;
+using System.Security.Claims;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -1712,19 +1713,33 @@ Line2"
         var target = new CollectionTarget
         {
             DictionaryProperty = new(),
-            IReadOnlyDictionary = new Dictionary<int, string>(),
+            IReadOnlyDictionary = new ReadOnlyDictionary<int, string>(new Dictionary<int, string>()),
             EnumerableAsList = new List<string>(),
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
-            ReadOnlyList = new List<string>(),
+            ReadOnlyList = new ReadOnlyList(),
             ListProperty = new(),
-            ReadOnlyCollection = new List<string>(),
+            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]{}),
             Array = Array.Empty<string>()
         };
         return Verify(target);
     }
 
+    class ReadOnlyList: IReadOnlyList<string>
+    {
+        List<string> inner = new();
+        public IEnumerator<string> GetEnumerator() =>
+            inner.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() =>
+            inner.GetEnumerator();
+
+        public int Count => inner.Count;
+
+        public string this[int index] => inner[index];
+    }
     class CollectionTarget
     {
+
         public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;
         public IEnumerable<string> EnumerableAsList;

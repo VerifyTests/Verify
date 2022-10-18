@@ -18,7 +18,7 @@ public class VerifyJsonWriter :
     {
         this.builder = builder;
         this.settings = settings;
-        this.serialization = settings.serialization;
+        serialization = settings.serialization;
         Context = settings.Context;
         Counter = counter;
         if (!VerifierSettings.StrictJson)
@@ -110,7 +110,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToString(value));
+        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
     }
 
     public override void WriteValue(DateTime value)
@@ -121,7 +121,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToString(value));
+        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
     }
 
     public override void WriteValue(TimeSpan value) =>

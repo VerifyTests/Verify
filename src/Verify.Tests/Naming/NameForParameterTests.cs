@@ -44,6 +44,7 @@ public class NameForParameterTests
             {
                 "value"
             }));
+
     [Fact]
     public Task ListMultiple() =>
         Verify(VerifierSettings.GetNameForParameter(
@@ -51,6 +52,24 @@ public class NameForParameterTests
             {
                 "value1",
                 "value2"
+            }));
+
+    [Fact]
+    public Task Nested() =>
+        Verify(VerifierSettings.GetNameForParameter(
+            new List<object>
+            {
+                "value1",
+                new Dictionary<string, int>
+                {
+                    {
+                        "value2", 10
+                    },
+                    {
+                        "value3", 20
+                    }
+                },
+                "value4"
             }));
 
     [Fact]
@@ -66,6 +85,7 @@ public class NameForParameterTests
                     "value", 10
                 }
             }));
+
     [Fact]
     public Task DictionaryMultiple() =>
         Verify(VerifierSettings.GetNameForParameter(

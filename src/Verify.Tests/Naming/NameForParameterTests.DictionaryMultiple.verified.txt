@@ -1,1 +1,1 @@
-﻿[value1=10,value2=11]
+﻿value1=10,value2=11

@@ -32,42 +32,59 @@ public static partial class VerifierSettings
 
     internal static string GetNameForParameter(object? parameter)
     {
+        var builder = new StringBuilder();
+        GetNameForParameter(parameter, builder, true);
+        return builder.ToString();
+    }
+
+    static void GetNameForParameter(object? parameter, StringBuilder builder, bool isRoot)
+    {
         if (parameter is null)
         {
-            return "null";
+            builder.Append("null");
+            return;
         }
 
         foreach (var parameterToName in parameterToNameLookup)
         {
             if (parameterToName.Key.IsInstanceOfType(parameter))
             {
-                return parameterToName.Value(parameter);
+                builder.Append(parameterToName.Value(parameter));
+                return;
             }
         }
 
         if (parameter is string stringParameter)
         {
-            return stringParameter.ReplaceInvalidFileNameChars();
+            builder.Append(stringParameter.ReplaceInvalidFileNameChars());
+            return;
         }
 
         if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
         {
             if (isEmpty.Value)
             {
-                return "[]";
+                builder.Append("[]");
+                return;
             }
 
-            var innerBuilder = new StringBuilder("[");
+            if (!isRoot)
+            {
+                builder.Append('[');
+            }
             foreach (var item in enumerable)
             {
-                innerBuilder.Append(GetNameForParameter(item));
-                innerBuilder.Append(',');
+                GetNameForParameter(item,builder, false);
+                builder.Append(',');
             }
 
-            innerBuilder.Length--;
+            builder.Length--;
 
-            innerBuilder.Append(']');
-            return innerBuilder.ToString();
+            if (!isRoot)
+            {
+                builder.Append(']');
+            }
+            return;
         }
 
         var type = parameter.GetType();
@@ -77,7 +94,8 @@ public static partial class VerifierSettings
             {
                 var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
                 var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-                return $"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}";
+                builder.Append($"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}");
+                return;
             }
         }
 
@@ -88,7 +106,7 @@ public static partial class VerifierSettings
             throw new($"{type.FullName} returned a null for `ToString()`.");
         }
 
-        return nameForParameter.ReplaceInvalidFileNameChars();
+        builder.Append(nameForParameter.ReplaceInvalidFileNameChars());
     }
 
     /// <summary>

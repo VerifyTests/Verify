@@ -28,6 +28,7 @@ public class NameForParameterTests
     public Task Time() =>
         Verify(VerifierSettings.GetNameForParameter(new DateOnly(2000, 10, 1)));
 #endif
+
     [Fact]
     public Task DateTime() =>
         Verify(VerifierSettings.GetNameForParameter(new DateTime(2000, 10, 1)));
@@ -93,6 +94,7 @@ public class NameForParameterTests
             {
                 "value"
             }));
+
     [Fact]
     public Task ArrayMultiple() =>
         Verify(VerifierSettings.GetNameForParameter(

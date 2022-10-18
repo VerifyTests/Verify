@@ -50,24 +50,42 @@ public static partial class VerifierSettings
             return stringParameter.ReplaceInvalidFileNameChars();
         }
 
-        if (parameter is ICollection collection)
+        if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
         {
-            var innerBuilder = new StringBuilder();
-            foreach (var item in collection)
+            if (isEmpty.Value)
+            {
+                return "[]";
+            }
+
+            var innerBuilder = new StringBuilder("[");
+            foreach (var item in enumerable)
             {
                 innerBuilder.Append(GetNameForParameter(item));
                 innerBuilder.Append(',');
             }
+
             innerBuilder.Length--;
 
+            innerBuilder.Append(']');
             return innerBuilder.ToString();
+        }
+
+        var type = parameter.GetType();
+        if (type.IsGenericType)
+        {
+            if (type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+            {
+                var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
+                var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
+                return $"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}";
+            }
         }
 
         var nameForParameter = parameter.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         if (nameForParameter is null)
         {
-            throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+            throw new($"{type.FullName} returned a null for `ToString()`.");
         }
 
         return nameForParameter.ReplaceInvalidFileNameChars();

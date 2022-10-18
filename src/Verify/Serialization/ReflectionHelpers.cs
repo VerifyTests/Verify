@@ -111,6 +111,50 @@
         return false;
     }
 
+    public static bool TryGetCollectionOrDictionary(this object target, [NotNullWhen(true)] out bool? isEmpty, [NotNullWhen(true)] out IEnumerable? enumerable)
+    {
+        if (target is string)
+        {
+            enumerable = null;
+            isEmpty = null;
+            return false;
+        }
+
+        if (target is ICollection collection)
+        {
+            enumerable = collection;
+            isEmpty = collection.Count == 0;
+            return true;
+        }
+
+        if (target is not IEnumerable enumerableTarget)
+        {
+            enumerable = null;
+            isEmpty = null;
+            return false;
+        }
+
+        var type = target.GetType();
+
+        if (type.IsEnumerableEmpty())
+        {
+            enumerable = enumerableTarget;
+            isEmpty = true;
+            return true;
+        }
+
+        if (type.IsGenericCollection())
+        {
+            enumerable = enumerableTarget;
+            isEmpty = !enumerableTarget.GetEnumerator().MoveNext();
+            return true;
+        }
+
+        enumerable = null;
+        isEmpty = null;
+        return false;
+    }
+
     static bool IsEnumerableEmpty(this Type type) =>
         type.FullName?.StartsWith("System.Linq.EmptyPartition") == true;
 

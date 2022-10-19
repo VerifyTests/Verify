@@ -39,7 +39,7 @@ public class ExtensionConverterTests
                     new List<Target>
                     {
                         new("txt", "text from level2"),
-                        new("txt", await stream.ReadString())
+                        new("txt", await stream.ReadStringBuilderWithFixedLines())
                     }));
     }
 

@@ -96,25 +96,11 @@
     public static long Length(string file) =>
         new FileInfo(file).Length;
 
-    public static async Task<string> ReadString(this Stream stream)
+    public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(this Stream stream)
     {
         stream.MoveToStart();
         using var reader = new StreamReader(stream);
-        return await reader.ReadToEndAsync();
-    }
-
-    static async Task<string> ReadStringWithFixedLines(this Stream stream)
-    {
-        var stringValue = await stream.ReadString();
-        var builder = new StringBuilder(stringValue);
-        builder.FixNewlines();
-        return builder.ToString();
-    }
-
-    static async Task<StringBuilder> ReadStringBuilderWithFixedLines(this Stream stream)
-    {
-        var stringValue = await stream.ReadString();
-        var builder = new StringBuilder(stringValue);
+        var builder = new StringBuilder(await reader.ReadToEndAsync());
         builder.FixNewlines();
         return builder;
     }
@@ -129,7 +115,6 @@
         File.Copy(fileStream.Name, path, true);
         return true;
     }
-
 
 #if NET461 || NET472 || NET48 || NETSTANDARD2_0
 
@@ -178,12 +163,6 @@
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 
-    public static async Task<string> ReadStringWithFixedLines(string path)
-    {
-        await using var stream = OpenRead(path);
-        return await stream.ReadStringWithFixedLines();
-    }
-
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {
         await using var stream = OpenRead(path);
@@ -201,12 +180,6 @@
     }
 
 #else
-
-    public static async Task<string> ReadStringWithFixedLines(string path)
-    {
-        using var stream = OpenRead(path);
-        return await stream.ReadStringWithFixedLines();
-    }
 
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {

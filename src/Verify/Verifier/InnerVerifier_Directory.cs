@@ -90,7 +90,7 @@
             {
                 yield return new(
                     extension,
-                    await IoHelpers.ReadStringWithFixedLines(file),
+                    await IoHelpers.ReadStringBuilderWithFixedLines(file),
                     name);
             }
             else

@@ -103,7 +103,7 @@
     {
         if (FileExtensions.IsText(extension))
         {
-            return new(extension, await stream.ReadString());
+            return new(extension, await stream.ReadStringBuilderWithFixedLines());
         }
 
         return new(extension, stream);

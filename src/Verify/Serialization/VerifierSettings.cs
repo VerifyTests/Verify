@@ -69,20 +69,8 @@ public static partial class VerifierSettings
         {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
         {typeof(Guid), (target, _) => ((Guid) target).ToString()},
-        {
-            typeof(DateTime), (target, _) =>
-            {
-                var dateTime = (DateTime) target;
-                return dateTime.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz");
-            }
-        },
-        {
-            typeof(DateTimeOffset), (target, _) =>
-            {
-                var dateTimeOffset = (DateTimeOffset) target;
-                return dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFFz", CultureInfo.InvariantCulture);
-            }
-        },
+        {typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)},
+        {typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)},
         {
             typeof(XmlNode), (target, _) =>
             {

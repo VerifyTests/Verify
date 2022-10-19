@@ -14,8 +14,9 @@ public static partial class Verifier
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info), true);
+        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -28,8 +29,9 @@ public static partial class Verifier
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(path.FullName, include, pattern, options, settings, sourceFile);
+        VerifyDirectory(path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
 
 #else
 
@@ -43,8 +45,9 @@ public static partial class Verifier
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info), true);
+        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -57,8 +60,9 @@ public static partial class Verifier
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(path.FullName, include, pattern, option, settings, sourceFile);
+        VerifyDirectory(path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
 
 #endif
 }

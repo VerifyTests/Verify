@@ -2,7 +2,13 @@
 {
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, EnumerationOptions? option, object? info)
+    public async Task<VerifyResult> VerifyDirectory(
+        string path,
+        Func<string, bool>? include,
+        string? pattern,
+        EnumerationOptions? option,
+        object? info,
+        FileScrubber? fileScrubber)
     {
         Guard.DirectoryExists(path, nameof(path));
         path = Path.GetFullPath(path);
@@ -18,14 +24,15 @@
                     path,
                     pattern,
                     option),
-                info)
+                info,
+                fileScrubber)
             .ToList();
         return await VerifyInner(targets);
     }
 
 #else
 
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option, object? info)
+    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option, object? info, FileScrubber? fileScrubber)
     {
         Guard.DirectoryExists(path, nameof(path));
         path = Path.GetFullPath(path);
@@ -37,24 +44,26 @@
                     path,
                     pattern,
                     option),
-                info)
+                info,
+                fileScrubber)
             .ToList();
         return await VerifyInner(targets);
     }
 
 #endif
 
-    async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info)
+    async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
     {
         if (info is not null)
         {
             yield return new(
                 VerifierSettings.TxtOrJson,
                 JsonFormatter.AsJson(
-                settings,
-                counter,
-                info));
+                    settings,
+                    counter,
+                    info));
         }
+
         if (include == null)
         {
             include = _ => true;
@@ -88,9 +97,11 @@
 
             if (FileExtensions.IsText(extension))
             {
+                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(file);
+                fileScrubber?.Invoke(file, builder);
                 yield return new(
                     extension,
-                    await IoHelpers.ReadStringBuilderWithFixedLines(file),
+                    builder,
                     name);
             }
             else

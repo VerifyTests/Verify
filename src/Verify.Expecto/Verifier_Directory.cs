@@ -17,10 +17,11 @@ public static partial class Verifier
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, options, info), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
     }
 
     /// <summary>
@@ -35,8 +36,9 @@ public static partial class Verifier
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(name, path.FullName, include, pattern, options, settings, sourceFile);
+        VerifyDirectory(name, path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
 
 #else
 
@@ -51,10 +53,11 @@ public static partial class Verifier
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, option, info), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
     }
 
     /// <summary>
@@ -69,8 +72,9 @@ public static partial class Verifier
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null,
+        FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(name, path.FullName, include, pattern, option, settings, sourceFile);
+        VerifyDirectory(name, path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
 
 #endif
 

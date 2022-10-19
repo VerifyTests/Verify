@@ -13,9 +13,10 @@ public partial class VerifyBase
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "",
-        object? info = null) =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info), true);
+        object? info = null,
+        FileScrubber? fileScrubber = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -27,9 +28,10 @@ public partial class VerifyBase
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "",
-        object? info = null) =>
-        VerifyDirectory(path.FullName, include, pattern, options, settings, sourceFile);
+        object? info = null,
+        FileScrubber? fileScrubber = null,
+        [CallerFilePath] string sourceFile = "") =>
+        VerifyDirectory(path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
 #else
 
     /// <summary>
@@ -41,9 +43,10 @@ public partial class VerifyBase
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "",
-        object? info = null) =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info), true);
+        object? info = null,
+        FileScrubber? fileScrubber = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -55,8 +58,9 @@ public partial class VerifyBase
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "",
-        object? info = null) =>
-        VerifyDirectory(path.FullName, include, pattern, option, settings, sourceFile);
+        object? info = null,
+        FileScrubber? fileScrubber = null,
+        [CallerFilePath] string sourceFile = "") =>
+        VerifyDirectory(path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
 #endif
 }

@@ -23,8 +23,8 @@ public static partial class VerifierSettings
 #endif
         {typeof(float), _ => ((float) _).ToString(CultureInfo.InvariantCulture)},
         {typeof(double), _ => ((double) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(DateTime), _ => ((DateTime) _).ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFFz")},
-        {typeof(DateTimeOffset), _ => ((DateTimeOffset) _).ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFFz", CultureInfo.InvariantCulture)}
+        {typeof(DateTime), _ => DateFormatter.ToParameterString((DateTime) _)},
+        {typeof(DateTimeOffset), _ => DateFormatter.ToParameterString((DateTimeOffset) _)}
     };
 
     public static void NameForParameter<T>(ParameterToName<T> func) =>
@@ -32,45 +32,81 @@ public static partial class VerifierSettings
 
     internal static string GetNameForParameter(object? parameter)
     {
+        var builder = new StringBuilder();
+        GetNameForParameter(parameter, builder, true);
+        return builder.ToString();
+    }
+
+    static void GetNameForParameter(object? parameter, StringBuilder builder, bool isRoot)
+    {
         if (parameter is null)
         {
-            return "null";
+            builder.Append("null");
+            return;
         }
 
         foreach (var parameterToName in parameterToNameLookup)
         {
             if (parameterToName.Key.IsInstanceOfType(parameter))
             {
-                return parameterToName.Value(parameter);
+                builder.Append(parameterToName.Value(parameter));
+                return;
             }
         }
 
         if (parameter is string stringParameter)
         {
-            return stringParameter.ReplaceInvalidFileNameChars();
+            builder.Append(stringParameter.ReplaceInvalidFileNameChars());
+            return;
         }
 
-        if (parameter is ICollection collection)
+        if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
         {
-            var innerBuilder = new StringBuilder();
-            foreach (var item in collection)
+            if (isEmpty.Value)
             {
-                innerBuilder.Append(GetNameForParameter(item));
-                innerBuilder.Append(',');
+                builder.Append("[]");
+                return;
             }
-            innerBuilder.Length--;
 
-            return innerBuilder.ToString();
+            if (!isRoot)
+            {
+                builder.Append('[');
+            }
+            foreach (var item in enumerable)
+            {
+                GetNameForParameter(item,builder, false);
+                builder.Append(',');
+            }
+
+            builder.Length--;
+
+            if (!isRoot)
+            {
+                builder.Append(']');
+            }
+            return;
+        }
+
+        var type = parameter.GetType();
+        if (type.IsGenericType)
+        {
+            if (type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
+            {
+                var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
+                var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
+                builder.Append($"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}");
+                return;
+            }
         }
 
         var nameForParameter = parameter.ToString();
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         if (nameForParameter is null)
         {
-            throw new($"{parameter.GetType().FullName} returned a null for `ToString()`.");
+            throw new($"{type.FullName} returned a null for `ToString()`.");
         }
 
-        return nameForParameter.ReplaceInvalidFileNameChars();
+        builder.Append(nameForParameter.ReplaceInvalidFileNameChars());
     }
 
     /// <summary>

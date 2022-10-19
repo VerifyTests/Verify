@@ -98,6 +98,23 @@ public class Tests
 
     #endregion
 
+    #region VerifyDirectoryWithFileScrubber
+
+    [Fact]
+    public Task VerifyDirectoryWithFileScrubber() =>
+        VerifyDirectory(
+            directoryToVerify,
+            fileScrubber: (path, builder) =>
+            {
+                if (Path.GetFileName(path) == "TextDoc.txt")
+                {
+                    builder.Clear();
+                    builder.Append("New text");
+                }
+            });
+
+    #endregion
+
 #if NET6_0_OR_GREATER
 
     #region VerifyDirectoryFilterXunit

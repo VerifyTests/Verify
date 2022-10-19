@@ -36,7 +36,7 @@ public Task WithDirectoryFiltered() =>
             RecurseSubdirectories = false
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L103-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L120-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -55,3 +55,28 @@ public Task VerifyDirectoryWithInfo() =>
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L91-L99' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## FileScrubber
+
+`VerifyDirectory` has an optional parameter `fileScrubber` that allows file specific scrubbing:
+
+<!-- snippet: VerifyDirectoryWithFileScrubber -->
+<a id='snippet-verifydirectorywithfilescrubber'></a>
+```cs
+[Fact]
+public Task VerifyDirectoryWithFileScrubber() =>
+    VerifyDirectory(
+        directoryToVerify,
+        fileScrubber: (path, builder) =>
+        {
+            if (Path.GetFileName(path) == "TextDoc.txt")
+            {
+                builder.Clear();
+                builder.Append("New text");
+            }
+        });
+```
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L101-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithfilescrubber' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+

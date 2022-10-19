@@ -30,12 +30,18 @@ public class NameForParameterTests
 #endif
 
     [Fact]
-    public Task DateTime() =>
-        Verify(VerifierSettings.GetNameForParameter(new DateTime(2000, 10, 1)));
+    public Task DateTime()
+    {
+        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        return Verify(VerifierSettings.GetNameForParameter(dateTime));
+    }
 
     [Fact]
-    public Task DateTimeOffset() =>
-        Verify(VerifierSettings.GetNameForParameter(new DateTimeOffset(new(2000, 10, 1))));
+    public Task DateTimeOffset()
+    {
+        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        return Verify(VerifierSettings.GetNameForParameter(new DateTimeOffset(dateTime)));
+    }
 
     [Fact]
     public Task List() =>

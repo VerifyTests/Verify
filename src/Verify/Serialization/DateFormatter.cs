@@ -1,6 +1,4 @@
-﻿namespace VerifyTests;
-
-static class DateFormatter
+﻿static class DateFormatter
 {
     public static string ToJsonString(DateTimeOffset value)
     {
@@ -96,6 +94,7 @@ static class DateFormatter
         {
             stringValue += $" {value.Kind}";
         }
+
         return stringValue;
     }
 
@@ -135,9 +134,35 @@ static class DateFormatter
         return stringValue;
     }
 
-    static string GetDateOffset(IFormattable value) =>
-        value.ToString("zzz", CultureInfo.InvariantCulture)
-            .Replace(":00", "")
-            .Replace("+0", "+")
-            .Replace("-0", "-");
+    static string GetDateOffset(DateTime value)
+    {
+        var offset = TimeZoneInfo.Local.GetUtcOffset(value);
+        return GetDateOffset(offset);
+    }
+
+    static string GetDateOffset(DateTimeOffset value) =>
+        GetDateOffset(value.Offset);
+
+    static string GetDateOffset(TimeSpan offset)
+    {
+        var hours = offset.Hours;
+        var minutes = offset.Minutes;
+
+        if (offset > TimeSpan.Zero)
+        {
+            if (minutes == 0)
+            {
+                return $"+{hours}";
+            }
+
+            return $"+{hours}:{minutes}";
+        }
+
+        if (minutes == 0)
+        {
+            return $"-{hours}";
+        }
+
+        return $"-{hours}:{minutes}";
+    }
 }

@@ -30,14 +30,42 @@ public class NameForParameterTests
 #endif
 
     [Fact]
-    public Task DateTime()
+    public Task DateTimeLocal()
+    {
+        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
+        return Verify(VerifierSettings.GetNameForParameter(dateTime));
+    }
+
+    [Fact]
+    public Task DateTimeOffsetLocal()
+    {
+        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
+        return Verify(VerifierSettings.GetNameForParameter(new DateTimeOffset(dateTime)));
+    }
+
+    [Fact]
+    public Task DateTimeUnspecified()
+    {
+        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
+        return Verify(VerifierSettings.GetNameForParameter(dateTime));
+    }
+
+    [Fact]
+    public Task DateTimeOffsetUnspecified()
+    {
+        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
+        return Verify(VerifierSettings.GetNameForParameter(new DateTimeOffset(dateTime)));
+    }
+
+    [Fact]
+    public Task DateTimeUtc()
     {
         var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
         return Verify(VerifierSettings.GetNameForParameter(dateTime));
     }
 
     [Fact]
-    public Task DateTimeOffset()
+    public Task DateTimeOffsetUtc()
     {
         var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
         return Verify(VerifierSettings.GetNameForParameter(new DateTimeOffset(dateTime)));

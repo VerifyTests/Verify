@@ -85,15 +85,7 @@
             }
         }
 
-        if (value.Kind != DateTimeKind.Utc)
-        {
-            stringValue += $" {GetDateOffset(value)}";
-        }
-
-        if (value.Kind != DateTimeKind.Unspecified)
-        {
-            stringValue += $" {value.Kind}";
-        }
+        stringValue += $" {GetOffsetOrKind(value)}";
 
         return stringValue;
     }
@@ -121,29 +113,40 @@
             }
         }
 
-        if (value.Kind != DateTimeKind.Utc)
-        {
-            stringValue += GetDateOffset(value);
-        }
-
-        if (value.Kind != DateTimeKind.Unspecified)
-        {
-            stringValue += value.Kind;
-        }
+        stringValue += GetOffsetOrKind(value);
 
         return stringValue;
     }
 
-    static string GetDateOffset(DateTime value)
+    static string GetOffsetOrKind(DateTime value)
     {
-        var offset = TimeZoneInfo.Local.GetUtcOffset(value);
-        return GetDateOffset(offset);
+        if (value.Kind == DateTimeKind.Unspecified)
+        {
+            var offset = TimeZoneInfo.Local.GetUtcOffset(value);
+            return GetOffsetText(offset);
+        }
+
+        return value.Kind.ToString();
     }
 
-    static string GetDateOffset(DateTimeOffset value) =>
-        GetDateOffset(value.Offset);
+    static TimeSpan machineOffset = DateTimeOffset.Now.Offset;
+    static string GetDateOffset(DateTimeOffset value)
+    {
+        var offset = value.Offset;
+        if (offset == TimeSpan.Zero)
+        {
+            return "Utc";
+        }
 
-    static string GetDateOffset(TimeSpan offset)
+        if (offset == machineOffset)
+        {
+            return "Local";
+        }
+
+        return GetOffsetText(offset);
+    }
+
+    static string GetOffsetText(TimeSpan offset)
     {
         var hours = offset.Hours;
         var minutes = offset.Minutes;

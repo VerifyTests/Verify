@@ -4,43 +4,36 @@ public class DateFormatterTests
     [Fact]
     public Task DateTimeOtherTimeZoneToParameterString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Unspecified);
-        return Verify(DateFormatter.ToParameterString(new DateTimeOffset(dateTime, TimeSpan.FromHours(1.5))));
-    }
-
-    [Fact]
-    public Task DateTimeOffsetCustomLocalToParameterString()
-    {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToParameterString(new DateTimeOffset(dateTime, TimeSpan.FromHours(1.5))));
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
     [Fact]
     public Task DateTimeLocalToJsonString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToJsonString(dateTime));
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
     [Fact]
     public Task DateTimeLocalToParameterString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToParameterString(dateTime));
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
     [Fact]
     public Task DateTimeOffsetLocalToJsonString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToJsonString(new DateTimeOffset(dateTime)));
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
     [Fact]
     public Task DateTimeOffsetLocalToParameterString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToParameterString(new DateTimeOffset(dateTime)));
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
     [Fact]
@@ -55,20 +48,6 @@ public class DateFormatterTests
     {
         var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
         return Verify(DateFormatter.ToParameterString(dateTime));
-    }
-
-    [Fact]
-    public Task DateTimeOffsetUnspecifiedToJsonString()
-    {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
-        return Verify(DateFormatter.ToJsonString(new DateTimeOffset(dateTime)));
-    }
-
-    [Fact]
-    public Task DateTimeOffsetUnspecifiedToParameterString()
-    {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
-        return Verify(DateFormatter.ToParameterString(new DateTimeOffset(dateTime)));
     }
 
     [Fact]
@@ -88,14 +67,14 @@ public class DateFormatterTests
     [Fact]
     public Task DateTimeOffsetUtcToJsonString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToJsonString(new DateTimeOffset(dateTime)));
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
     [Fact]
     public Task DateTimeOffsetUtcToParameterString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToParameterString(new DateTimeOffset(dateTime)));
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 }

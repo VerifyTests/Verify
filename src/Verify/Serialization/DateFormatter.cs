@@ -23,10 +23,7 @@
             }
         }
 
-        if (value.Offset != TimeSpan.Zero)
-        {
-            stringValue += $" {GetDateOffset(value)}";
-        }
+        stringValue += $" {GetDateOffset(value)}";
 
         return stringValue;
     }
@@ -54,10 +51,7 @@
             }
         }
 
-        if (value.Offset != TimeSpan.Zero)
-        {
-            stringValue += GetDateOffset(value);
-        }
+        stringValue += GetDateOffset(value);
 
         return stringValue;
     }

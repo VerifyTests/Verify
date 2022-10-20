@@ -140,25 +140,6 @@ Will now become:
 This rename should be automatically handled when a pending change is accepted.
 
 
-## Change in date format
-
-Date formats have changed to include the kind and simplify the offset
-
-Before
-
-```
-2000-01-01T01:01
-```
-
-After
-
-```
-2000-01-01 01:01 +11 Local
-```
-
-So snapshots containing dates will need to be re-verified.
-
-
 ## Dictionary order
 
 Previously no order was applied to `IDictionary` members. This proved problematic since the order is not guaranteed.

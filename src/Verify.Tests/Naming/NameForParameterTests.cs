@@ -39,8 +39,8 @@ public class NameForParameterTests
     [Fact]
     public Task DateTimeOffsetLocal()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(VerifierSettings.GetNameForParameter(new DateTimeOffset(dateTime)));
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
+        return Verify(VerifierSettings.GetNameForParameter(date));
     }
 
     [Fact]

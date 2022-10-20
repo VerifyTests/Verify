@@ -2,6 +2,13 @@
 public class DateFormatterTests
 {
     [Fact]
+    public Task DateTimeOtherTimeZoneToJsonString()
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));
+        return Verify(DateFormatter.ToJsonString(date));
+    }
+
+    [Fact]
     public Task DateTimeOtherTimeZoneToParameterString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));

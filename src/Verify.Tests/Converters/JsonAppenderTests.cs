@@ -23,7 +23,7 @@ public class JsonAppenderTests : IDisposable
     }
 
     // ReSharper disable once UnusedParameter.Local
-    static bool ShouldInclude(IReadOnlyDictionary<string, object> context) =>
+    static bool ShouldInclude(IVerifySettings settings) =>
         isInThisTest.Value;
 
     public JsonAppenderTests() =>

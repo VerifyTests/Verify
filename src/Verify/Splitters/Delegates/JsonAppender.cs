@@ -1,3 +1,3 @@
 ﻿namespace VerifyTests;
 
-public delegate ToAppend? JsonAppender(IReadOnlyDictionary<string, object> context);
+public delegate ToAppend? JsonAppender(IVerifySettings settings);

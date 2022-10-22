@@ -22,7 +22,7 @@ For samples purposes only the image sizes will be compared:
 static Task<CompareResult> CompareImages(
     Stream received,
     Stream verified,
-    IReadOnlyDictionary<string, object> context)
+    IVerifySettings settings)
 {
     // Fake comparison
     if (received.Length == verified.Length)

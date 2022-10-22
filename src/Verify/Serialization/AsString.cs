@@ -1,4 +1,4 @@
 ﻿namespace VerifyTests;
 
-public delegate AsStringResult AsString<in T>(T target, IReadOnlyDictionary<string, object> context)
+public delegate AsStringResult AsString<in T>(T target, VerifySettings context)
     where T: notnull;

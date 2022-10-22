@@ -9,7 +9,7 @@ public static partial class VerifierSettings
         var list = new List<ToAppend>();
         foreach (var appender in jsonAppenders)
         {
-            var data = appender(settings.Context);
+            var data = appender(settings);
             if (data is not null)
             {
                 list.Add(data.Value);

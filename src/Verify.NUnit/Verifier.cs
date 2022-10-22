@@ -38,9 +38,9 @@ public static partial class Verifier
 
         if (test.IsCustomName())
         {
-            settings.typeName ??= test.GetTypeName();
+            settings.TypeName ??= test.GetTypeName();
 
-            settings.methodName ??= test.GetMethodName();
+            settings.MethodName ??= test.GetMethodName();
         }
 
         var type = typeInfo.Type;

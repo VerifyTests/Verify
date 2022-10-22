@@ -29,4 +29,12 @@ public static partial class VerifierSettings
     }
 
     internal static bool autoVerify;
+
+    public static void IncludeDateOffset() =>
+        includeDateOffset = true;
+    internal static bool includeDateOffset;
+
+    public static void IncludeDateKind() =>
+        includeDateKind = true;
+    internal static bool includeDateKind;
 }

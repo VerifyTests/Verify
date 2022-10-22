@@ -1,6 +1,7 @@
 ﻿namespace VerifyTests;
 
-public partial class VerifySettings
+public partial class VerifySettings :
+    IVerifySettings
 {
     public VerifySettings(VerifySettings? settings)
     {
@@ -14,8 +15,8 @@ public partial class VerifySettings
 #if DiffEngine
         diffEnabled = settings.diffEnabled;
 #endif
-        methodName = settings.methodName;
-        typeName = settings.typeName;
+        MethodName = settings.MethodName;
+        TypeName = settings.TypeName;
         useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
@@ -25,7 +26,7 @@ public partial class VerifySettings
         parameters = settings.parameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
         parametersText = settings.parametersText;
-        fileName = settings.fileName;
+        FileName = settings.FileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
         Namer = new(settings.Namer);
         foreach (var append in settings.Appends)
@@ -52,6 +53,8 @@ public partial class VerifySettings
             }
         }
     }
+
+    IReadOnlyDictionary<string, object> IVerifySettings.Context => Context;
 
     /// <summary>
     /// Allows extensions to Verify to pass config via <see cref="VerifySettings" />.
@@ -117,7 +120,7 @@ public partial class VerifySettings
     internal string ExtensionOrBin() =>
         throw new();
 
-    internal bool IsAutoVerify =>
+    public bool IsAutoVerify =>
         VerifierSettings.autoVerify ||
         autoVerify;
 

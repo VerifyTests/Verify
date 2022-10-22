@@ -133,7 +133,7 @@
             }
 
             var targetStream = target.StreamData;
-            var result = await conversion(targetStream, settings.Context);
+            var result = await conversion(targetStream, settings);
             if (result.Info != null)
             {
                 infos.Add(result.Info);

@@ -8,7 +8,7 @@ public static partial class VerifierSettings
     {
         foreach (var appender in fileAppenders)
         {
-            var target = appender(settings.Context);
+            var target = appender(settings);
             if (target.HasValue)
             {
                 yield return target.Value;

@@ -3,6 +3,7 @@
 public partial class VerifySettings
 {
 #if DiffEngine
+    public bool IsDiffEnabled => diffEnabled;
     internal bool diffEnabled = !DiffRunner.Disabled;
 
     /// <summary>

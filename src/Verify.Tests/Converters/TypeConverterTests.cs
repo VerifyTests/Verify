@@ -132,8 +132,12 @@ public class TypeConverterTests
                 };
                 return new(info, targets.Select(_ => new Target("png", _)));
             },
-            (_, context) => context.ContainsKey("name") &&
-                            (string) context["name"] == nameof(WithInfo));
+            (_, settings) =>
+            {
+                var context = settings.Context;
+                return context.ContainsKey("name") &&
+                       (string) context["name"] == nameof(WithInfo);
+            });
 
     [Fact]
     public Task WithInfo()
@@ -152,10 +156,13 @@ public class TypeConverterTests
     [ModuleInitializer]
     public static void WithInfoShouldRespectSettingsInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, context) =>
-                context.ContainsKey("name") &&
-                (string) context["name"] == nameof(WithInfoShouldRespectSettings) &&
-                Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, settings) =>
+            {
+                var context = settings.Context;
+                return context.ContainsKey("name") &&
+                       (string) context["name"] == nameof(WithInfoShouldRespectSettings) &&
+                       Equals(target.RawFormat, ImageFormat.Bmp);
+            },
             conversion: (bitmap1, _) =>
             {
                 var targets = ConvertBmpTpPngStreams(bitmap1);
@@ -184,10 +191,13 @@ public class TypeConverterTests
     [ModuleInitializer]
     public static void TypeConversionInit() =>
         VerifierSettings.RegisterFileConverter<Bitmap>(
-            canConvert: (target, context) =>
-                context.ContainsKey("name") &&
-                (string) context["name"] == nameof(TypeConversion) &&
-                Equals(target.RawFormat, ImageFormat.Bmp),
+            canConvert: (target, settings) =>
+            {
+                var context = settings.Context;
+                return context.ContainsKey("name") &&
+                       (string) context["name"] == nameof(TypeConversion) &&
+                       Equals(target.RawFormat, ImageFormat.Bmp);
+            },
             conversion: (bitmap1, _) =>
             {
                 var streams = ConvertBmpTpPngStreams(bitmap1);

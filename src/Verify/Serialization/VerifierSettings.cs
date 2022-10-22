@@ -10,7 +10,7 @@ public static partial class VerifierSettings
 
     public static bool TryGetToString(
         object target,
-        [NotNullWhen(true)] out Func<object, IReadOnlyDictionary<string, object>, AsStringResult>? toString)
+        [NotNullWhen(true)] out Func<object, VerifySettings, AsStringResult>? toString)
     {
         if (target is Encoding encoding)
         {
@@ -33,7 +33,7 @@ public static partial class VerifierSettings
         return typeToString.TryGetValue(target!.GetType(), out toString);
     }
 
-    static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
+    static Dictionary<Type, Func<object, VerifySettings, AsStringResult>> typeToString = new()
     {
         #region typeToStringMapping
         {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},

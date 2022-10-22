@@ -42,7 +42,7 @@
 
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
-            var result = await converter.Conversion(target, settings.Context);
+            var result = await converter.Conversion(target, settings);
             return await VerifyInner(result.Info, result.Cleanup, result.Targets, true);
         }
 

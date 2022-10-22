@@ -1,6 +1,7 @@
 ﻿namespace VerifyTests;
 
-public partial class VerifySettings
+public partial class VerifySettings :
+    IVerifySettings
 {
     public VerifySettings(VerifySettings? settings)
     {
@@ -52,6 +53,8 @@ public partial class VerifySettings
             }
         }
     }
+
+    IReadOnlyDictionary<string, object> IVerifySettings.Context => Context;
 
     /// <summary>
     /// Allows extensions to Verify to pass config via <see cref="VerifySettings" />.
@@ -117,7 +120,7 @@ public partial class VerifySettings
     internal string ExtensionOrBin() =>
         throw new();
 
-    internal bool IsAutoVerify =>
+    public bool IsAutoVerify =>
         VerifierSettings.autoVerify ||
         autoVerify;
 

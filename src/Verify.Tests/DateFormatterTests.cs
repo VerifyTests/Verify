@@ -11,7 +11,7 @@ public class DateFormatterTests
             .UseParameters( offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData( true)]
     [InlineData( false)]
     public Task DateTimeOtherTimeZoneToParameterString(bool offset)
@@ -21,7 +21,7 @@ public class DateFormatterTests
             .UseParameters(offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true, true)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -33,7 +33,7 @@ public class DateFormatterTests
             .UseParameters(kind, offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true, true)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -45,7 +45,7 @@ public class DateFormatterTests
             .UseParameters(kind, offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true)]
     public Task DateTimeOffsetLocalToJsonString(bool offset)
     {
@@ -54,7 +54,7 @@ public class DateFormatterTests
             .UseParameters(offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public Task DateTimeOffsetLocalToParameterString(bool offset)
@@ -64,7 +64,7 @@ public class DateFormatterTests
             .UseParameters(offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true, true)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -76,7 +76,7 @@ public class DateFormatterTests
             .UseParameters(kind, offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true, true)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -88,7 +88,7 @@ public class DateFormatterTests
             .UseParameters(kind, offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true, true)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -100,7 +100,7 @@ public class DateFormatterTests
             .UseParameters(kind, offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true, true)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -112,7 +112,7 @@ public class DateFormatterTests
             .UseParameters(kind, offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public Task DateTimeOffsetUtcToJsonString(bool offset)
@@ -122,7 +122,7 @@ public class DateFormatterTests
             .UseParameters(offset);
     }
 
-    [Fact]
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public Task DateTimeOffsetUtcToParameterString(bool offset)

@@ -2,6 +2,8 @@
 
 public partial class VerifySettings
 {
+    IReadOnlyCollection<object?>? IVerifySettings.Parameters => parameters;
+
     internal object?[]? parameters;
 
     /// <summary>
@@ -47,4 +49,5 @@ public partial class VerifySettings
         UseParameters(parameters);
         ignoreParametersForVerified = true;
     }
+
 }

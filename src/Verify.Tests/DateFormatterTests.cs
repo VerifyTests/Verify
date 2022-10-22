@@ -46,29 +46,29 @@ public class DateFormatterTests
     [Fact]
     public Task DateTimeUnspecifiedToJsonString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
-        return Verify(DateFormatter.ToJsonString(dateTime));
+        var date = new DateTime(2000, 10, 1, 0, 0, 0);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
     [Fact]
     public Task DateTimeUnspecifiedToParameterString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0);
-        return Verify(DateFormatter.ToParameterString(dateTime));
+        var date = new DateTime(2000, 10, 1, 0, 0, 0);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
     [Fact]
     public Task DateTimeUtcToJsonString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToJsonString(dateTime));
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
     [Fact]
     public Task DateTimeUtcToParameterString()
     {
-        var dateTime = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToParameterString(dateTime));
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
     [Fact]

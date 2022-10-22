@@ -83,7 +83,7 @@ public class DateFormatterTests
     [InlineData(false, false)]
     public Task DateTimeUnspecifiedToParameterString(bool kind, bool offset)
     {
-        var date = new DateTime(2000, 10, 1, 0, 0, 0);
+        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Unspecified);
         return Verify(DateFormatter.ToParameterString(date, kind, offset))
             .UseParameters(kind, offset);
     }

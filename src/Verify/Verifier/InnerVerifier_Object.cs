@@ -31,7 +31,7 @@
 
         if (VerifierSettings.TryGetToString(target, out var toString))
         {
-            var stringResult = toString(target, settings.Context);
+            var stringResult = toString(target, settings);
             if (stringResult.Extension is null)
             {
                 return await VerifyString(stringResult.Value);

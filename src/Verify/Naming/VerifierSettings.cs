@@ -4,40 +4,40 @@ public static partial class VerifierSettings
 {
     internal static Namer SharedNamer = new();
 
-    static Dictionary<Type, Func<object, string>> parameterToNameLookup = new()
+    static Dictionary<Type, Func<VerifySettings, object, string>> parameterToNameLookup = new()
     {
-        {typeof(bool), _ => ((bool) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(short), _ => ((short) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(ushort), _ => ((ushort) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(int), _ => ((int) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(uint), _ => ((uint) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(long), _ => ((long) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(ulong), _ => ((ulong) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(decimal), _ => ((decimal) _).ToString(CultureInfo.InvariantCulture)},
+        {typeof(bool), (_, value) => ((bool) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(short), (_, value) => ((short) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(ushort), (_, value) => ((ushort) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(int), (_, value) => ((int) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(uint), (_, value) => ((uint) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(long), (_, value) => ((long) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(ulong), (_, value) => ((ulong) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(decimal), (_, value) => ((decimal) value).ToString(CultureInfo.InvariantCulture)},
 #if NET5_0_OR_GREATER
-        {typeof(Half), _ => ((Half) _).ToString(CultureInfo.InvariantCulture)},
+        {typeof(Half), (_, value) => ((Half) value).ToString(CultureInfo.InvariantCulture)},
 #endif
 #if NET6_0_OR_GREATER
-        {typeof(DateOnly), _ => ((DateOnly) _).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)},
-        {typeof(TimeOnly), _ => ((TimeOnly) _).ToString("h-mm-tt", CultureInfo.InvariantCulture)},
+        {typeof(DateOnly), (_, value) => ((DateOnly) value).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)},
+        {typeof(TimeOnly), (_, value) => ((TimeOnly) value).ToString("h-mm-tt", CultureInfo.InvariantCulture)},
 #endif
-        {typeof(float), _ => ((float) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(double), _ => ((double) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(DateTime), _ => DateFormatter.ToParameterString((DateTime) _)},
-        {typeof(DateTimeOffset), _ => DateFormatter.ToParameterString((DateTimeOffset) _)}
+        {typeof(float), (_, value) => ((float) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(double), (_, value) => ((double) value).ToString(CultureInfo.InvariantCulture)},
+        {typeof(DateTime), (_, value) => DateFormatter.ToParameterString((DateTime) value)},
+        {typeof(DateTimeOffset), (_, value) => DateFormatter.ToParameterString((DateTimeOffset) value)}
     };
 
     public static void NameForParameter<T>(ParameterToName<T> func) =>
-        parameterToNameLookup[typeof(T)] = o => func((T) o);
+        parameterToNameLookup[typeof(T)] = (settings, value) => func(settings, (T) value);
 
-    internal static string GetNameForParameter(object? parameter)
+    internal static string GetNameForParameter(VerifySettings settings, object? parameter)
     {
         var builder = new StringBuilder();
-        GetNameForParameter(parameter, builder, true);
+        GetNameForParameter(settings, parameter, builder, true);
         return builder.ToString();
     }
 
-    static void GetNameForParameter(object? parameter, StringBuilder builder, bool isRoot)
+    static void GetNameForParameter(VerifySettings settings, object? parameter, StringBuilder builder, bool isRoot)
     {
         if (parameter is null)
         {
@@ -49,7 +49,7 @@ public static partial class VerifierSettings
         {
             if (parameterToName.Key.IsInstanceOfType(parameter))
             {
-                builder.Append(parameterToName.Value(parameter));
+                builder.Append(parameterToName.Value(settings, parameter));
                 return;
             }
         }
@@ -74,7 +74,7 @@ public static partial class VerifierSettings
             }
             foreach (var item in enumerable)
             {
-                GetNameForParameter(item,builder, false);
+                GetNameForParameter(settings, item, builder, false);
                 builder.Append(',');
             }
 
@@ -94,7 +94,7 @@ public static partial class VerifierSettings
             {
                 var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
                 var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-                builder.Append($"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}");
+                builder.Append($"{GetNameForParameter(settings, keyMember)}={GetNameForParameter(settings, valueMember)}");
                 return;
             }
         }

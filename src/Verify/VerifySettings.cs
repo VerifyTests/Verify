@@ -128,13 +128,13 @@ public partial class VerifySettings :
 
     bool autoVerify;
 
-    internal bool IsIncludeDateOffset =>
+    public bool IsIncludeDateOffset =>
         VerifierSettings.includeDateOffset ||
         includeDateOffset;
 
     bool includeDateOffset;
 
-    internal bool IsIncludeDateKind =>
+    public bool IsIncludeDateKind =>
         VerifierSettings.includeDateKind ||
         includeDateKind;
 

@@ -73,6 +73,7 @@ public partial class VerifySettings
         Directory = directory;
     }
 
+    string? IVerifySettings.TypeName => typeName;
     internal string? typeName;
 
     /// <summary>
@@ -88,6 +89,7 @@ public partial class VerifySettings
         typeName = name;
     }
 
+    string? IVerifySettings.MethodName => methodName;
     internal string? methodName;
 
     /// <summary>
@@ -110,6 +112,8 @@ public partial class VerifySettings
             throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
         }
     }
+
+    string? IVerifySettings.FileName => fileName;
 
     internal string? fileName;
 

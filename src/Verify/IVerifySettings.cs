@@ -9,6 +9,10 @@ public interface IVerifySettings
     internal IReadOnlyCollection<object?>? Parameters{ get; }
 
     bool IgnoreParametersForVerified { get; }
+    string? FileName { get; }
+    string? MethodName { get; }
+    string? TypeName { get; }
+    string? Directory { get; }
 #if DiffEngine
     bool IsDiffEnabled { get; }
 #endif

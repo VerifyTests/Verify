@@ -73,8 +73,7 @@ public partial class VerifySettings
         Directory = directory;
     }
 
-    string? IVerifySettings.TypeName => typeName;
-    internal string? typeName;
+    public string? TypeName { get; internal set; }
 
     /// <summary>
     /// Use a custom class name for the test results.
@@ -86,11 +85,10 @@ public partial class VerifySettings
         Guard.BadFileName(name, nameof(name));
         ThrowIfFileNameDefined();
 
-        typeName = name;
+        TypeName = name;
     }
 
-    string? IVerifySettings.MethodName => methodName;
-    internal string? methodName;
+    public string? MethodName { get; internal set; }
 
     /// <summary>
     /// Use a custom method name for the test results.
@@ -102,20 +100,18 @@ public partial class VerifySettings
         Guard.BadFileName(name, nameof(name));
         ThrowIfFileNameDefined();
 
-        methodName = name;
+        MethodName = name;
     }
 
     void ThrowIfFileNameDefined([CallerMemberName] string caller = "")
     {
-        if (fileName is not null)
+        if (FileName is not null)
         {
             throw new($"{caller} is not compatible with {nameof(UseFileName)}.");
         }
     }
 
-    string? IVerifySettings.FileName => fileName;
-
-    internal string? fileName;
+    public string? FileName { get; internal set; }
 
     /// <summary>
     /// Use a file name for the test results.
@@ -128,13 +124,13 @@ public partial class VerifySettings
         Guard.BadFileName(fileName, nameof(fileName));
         ThrowIfMethodOrTypeNameDefined();
 
-        this.fileName = fileName;
+        this.FileName = fileName;
     }
 
     void ThrowIfMethodOrTypeNameDefined()
     {
-        if (methodName is not null ||
-            typeName is not null)
+        if (MethodName is not null ||
+            TypeName is not null)
         {
             throw new($"{nameof(UseFileName)} is not compatible with {nameof(UseMethodName)} or {nameof(UseTypeName)}.");
         }

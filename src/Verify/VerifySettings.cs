@@ -15,8 +15,8 @@ public partial class VerifySettings :
 #if DiffEngine
         diffEnabled = settings.diffEnabled;
 #endif
-        methodName = settings.methodName;
-        typeName = settings.typeName;
+        MethodName = settings.MethodName;
+        TypeName = settings.TypeName;
         useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
@@ -26,7 +26,7 @@ public partial class VerifySettings :
         parameters = settings.parameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
         parametersText = settings.parametersText;
-        fileName = settings.fileName;
+        FileName = settings.FileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
         Namer = new(settings.Namer);
         foreach (var append in settings.Appends)

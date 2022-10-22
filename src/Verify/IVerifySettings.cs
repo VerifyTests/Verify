@@ -8,6 +8,7 @@ public interface IVerifySettings
 
     internal IReadOnlyCollection<object?>? Parameters{ get; }
 
+    bool IgnoreParametersForVerified { get; }
 #if DiffEngine
     bool IsDiffEnabled { get; }
 #endif

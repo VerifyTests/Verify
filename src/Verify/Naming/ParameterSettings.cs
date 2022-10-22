@@ -38,6 +38,7 @@ public partial class VerifySettings
         this.parameters = parameters;
     }
 
+    bool IVerifySettings.IgnoreParametersForVerified => ignoreParametersForVerified;
     internal bool ignoreParametersForVerified;
 
     /// <summary>

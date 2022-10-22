@@ -4,4 +4,8 @@ public interface IVerifySettings
 {
     public IReadOnlyDictionary<string, object> Context { get; }
     bool IsAutoVerify { get; }
+
+#if DiffEngine
+    bool IsDiffEnabled { get; }
+#endif
 }

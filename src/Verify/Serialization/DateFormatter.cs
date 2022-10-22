@@ -134,9 +134,25 @@
         return value.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
     }
 
-    static string GetDateOffset(IFormattable value) =>
-        value.ToString("zzz", CultureInfo.InvariantCulture)
+    static string GetDateOffset(IFormattable value)
+    {
+        var dateOffset = value.ToString("zzz", CultureInfo.InvariantCulture)
             .Replace(":00", "")
             .Replace("+0", "+")
             .Replace("-0", "-");
+        return dateOffset;
+    }
+
+    static string GetDateOffset(DateTime value)
+    {
+        if(value.Kind == DateTimeKind.Utc)
+        {
+            return "+0";
+        }
+        var dateOffset = value.ToString("zzz", CultureInfo.InvariantCulture)
+            .Replace(":00", "")
+            .Replace("+0", "+")
+            .Replace("-0", "-");
+        return dateOffset;
+    }
 }

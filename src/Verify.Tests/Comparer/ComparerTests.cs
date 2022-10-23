@@ -34,7 +34,7 @@ public class ComparerTests
         await ThrowsTask(() => Verify("TheText", "staticComparerExtMessage", settings));
     }
 
-    static Task<CompareResult> CompareWithMessage(string stream, string received, IVerifySettings settings) =>
+    static Task<CompareResult> CompareWithMessage(string stream, string received, IReadOnlyDictionary<string, object> readOnlyDictionary) =>
         Task.FromResult(CompareResult.NotEqual("theMessage"));
 
 #endif
@@ -49,6 +49,6 @@ public class ComparerTests
         await Verify("thetext", "staticComparerExt");
     }
 
-    static Task<CompareResult> Compare(string received, string verified, IVerifySettings settings) =>
+    static Task<CompareResult> Compare(string received, string verified, IReadOnlyDictionary<string, object> context) =>
         Task.FromResult(new CompareResult(string.Equals(received, received, StringComparison.OrdinalIgnoreCase)));
 }

@@ -17,7 +17,7 @@
         if (!previousTextFailed &&
             settings.TryFindStreamComparer(file.Extension, out var compare))
         {
-            return await InnerCompare(file, receivedStream, (s1, s2) => compare(s1, s2, settings));
+            return await InnerCompare(file, receivedStream, (s1, s2) => compare(s1, s2, settings.Context));
         }
 
         if (receivedStream.CanSeek &&

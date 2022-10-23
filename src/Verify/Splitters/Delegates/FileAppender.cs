@@ -1,3 +1,3 @@
 ﻿namespace VerifyTests;
 
-public delegate Target? FileAppender(IVerifySettings settings);
+public delegate Target? FileAppender(IReadOnlyDictionary<string, object> context);

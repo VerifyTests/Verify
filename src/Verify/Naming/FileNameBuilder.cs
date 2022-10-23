@@ -2,8 +2,8 @@
 {
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
-        var resolvedType = settings.TypeName ?? pathInfo.TypeName ?? type;
-        var resolvedMethod = settings.MethodName ?? pathInfo.MethodName ?? method;
+        var resolvedType = settings.typeName ?? pathInfo.TypeName ?? type;
+        var resolvedMethod = settings.methodName ?? pathInfo.MethodName ?? method;
         return $"{resolvedType}.{resolvedMethod}";
     }
 

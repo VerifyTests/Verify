@@ -31,7 +31,7 @@
 
         if (VerifierSettings.TryGetToString(target, out var toString))
         {
-            var stringResult = toString(target, settings);
+            var stringResult = toString(target, settings.Context);
             if (stringResult.Extension is null)
             {
                 return await VerifyString(stringResult.Value);
@@ -42,7 +42,7 @@
 
         if (VerifierSettings.TryGetTypedConverter(target, settings, out var converter))
         {
-            var result = await converter.Conversion(target, settings);
+            var result = await converter.Conversion(target, settings.Context);
             return await VerifyInner(result.Info, result.Cleanup, result.Targets, true);
         }
 

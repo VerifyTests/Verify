@@ -37,7 +37,7 @@ public class ComparerSnippets
     static Task<CompareResult> CompareImages(
         Stream received,
         Stream verified,
-        IVerifySettings settings)
+        IReadOnlyDictionary<string, object> context)
     {
         // Fake comparison
         if (received.Length == verified.Length)

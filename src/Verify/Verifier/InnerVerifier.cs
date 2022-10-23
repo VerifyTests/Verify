@@ -45,9 +45,9 @@
     void InitForDirectoryConvention(string uniquenessVerified, string typeAndMethod, string parameters)
     {
         string verifiedPrefix;
-        if (settings.FileName is not null)
+        if (settings.fileName is not null)
         {
-            verifiedPrefix = $"{settings.FileName}{uniquenessVerified}";
+            verifiedPrefix = $"{settings.fileName}{uniquenessVerified}";
         }
         else if (settings.ignoreParametersForVerified)
         {
@@ -118,11 +118,10 @@
 
         string receivedPrefix;
         string verifiedPrefix;
-        var fileName = settings.FileName;
-        if (fileName is not null)
+        if (settings.fileName is not null)
         {
-            receivedPrefix = fileName + uniquenessReceived;
-            verifiedPrefix = fileName + uniquenessVerified;
+            receivedPrefix = settings.fileName + uniquenessReceived;
+            verifiedPrefix = settings.fileName + uniquenessVerified;
         }
         else if (settings.ignoreParametersForVerified)
         {

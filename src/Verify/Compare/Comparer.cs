@@ -35,7 +35,7 @@
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
-            return compare(received.ToString(), verified.ToString(), settings);
+            return compare(received.ToString(), verified.ToString(), settings.Context);
         }
 #else
         var receivedString = received.ToString();
@@ -44,7 +44,7 @@
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
-            return compare(receivedString, verifiedString, settings);
+            return compare(receivedString, verifiedString, settings.Context);
         }
 #endif
 

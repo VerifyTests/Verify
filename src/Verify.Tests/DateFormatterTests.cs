@@ -30,20 +30,6 @@ public class DateFormatterTests
     }
 
     [Fact]
-    public Task DateTimeOffsetLocalToJsonString()
-    {
-        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
-        return Verify(DateFormatter.ToJsonString(date));
-    }
-
-    [Fact]
-    public Task DateTimeOffsetLocalToParameterString()
-    {
-        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
-        return Verify(DateFormatter.ToParameterString(date));
-    }
-
-    [Fact]
     public Task DateTimeUnspecifiedToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0);

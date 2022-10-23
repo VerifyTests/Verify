@@ -164,12 +164,14 @@ public partial class VerifySettings :
 
     /// <summary>
     /// Include <see cref="DateTime.Kind"/> in snapshot and parameter name.
+    /// Requires <see cref="DontScrubDateTimes"/>.
     /// </summary>
     public void IncludeDateKind() =>
         includeDateKind = true;
 
     /// <summary>
-    /// Include offset of <see cref="DateTime"/> and <see cref="DateTimeOffset"/> in snapshot and parameter name.
+    /// Include <see cref="DateTimeOffset.Offset"/> in snapshot and parameter name.
+    /// Requires <see cref="DontScrubDateTimes"/>.
     /// </summary>
     public void IncludeDateOffset() =>
         includeDateOffset = true;

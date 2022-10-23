@@ -291,6 +291,26 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Include <see cref="DateTimeOffset.Offset"/> in snapshot and parameter name.
+    /// Requires <see cref="DontScrubDateTimes"/>.
+    /// </summary>
+    public SettingsTask IncludeDateOffset()
+    {
+        CurrentSettings.IncludeDateOffset();
+        return this;
+    }
+
+    /// <summary>
+    /// Include <see cref="DateTime.Kind"/> in snapshot and parameter name.
+    /// Requires <see cref="DontScrubDateTimes"/>.
+    /// </summary>
+    public SettingsTask IncludeDateKind()
+    {
+        CurrentSettings.IncludeDateKind();
+        return this;
+    }
+
+    /// <summary>
     /// Use a custom text for the `Parameters` part of the file name.
     /// Not compatible with <see cref="UseParameters" />.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.

@@ -30,10 +30,18 @@ public static partial class VerifierSettings
 
     internal static bool autoVerify;
 
+    /// <summary>
+    /// Include <see cref="DateTimeOffset.Offset"/> in snapshot and parameter name.
+    /// Requires <see cref="DontScrubDateTimes"/>.
+    /// </summary>
     public static void IncludeDateOffset() =>
         includeDateOffset = true;
     internal static bool includeDateOffset;
 
+    /// <summary>
+    /// Include <see cref="DateTime.Kind"/> in snapshot and parameter name.
+    /// Requires <see cref="DontScrubDateTimes"/>.
+    /// </summary>
     public static void IncludeDateKind() =>
         includeDateKind = true;
     internal static bool includeDateKind;

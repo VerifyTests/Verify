@@ -43,25 +43,6 @@ public class DateFormatterTests
 
     [Theory]
     [InlineData(true)]
-    public Task DateTimeOffsetLocalToJsonString(bool offset)
-    {
-        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
-        return Verify(DateFormatter.ToJsonString(date, offset))
-            .UseParameters(offset);
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeOffsetLocalToParameterString(bool offset)
-    {
-        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
-        return Verify(DateFormatter.ToParameterString(date, offset))
-            .UseParameters(offset);
-    }
-
-    [Theory]
-    [InlineData(true)]
     [InlineData(false)]
     public Task DateTimeUnspecifiedToJsonString(bool kind)
     {

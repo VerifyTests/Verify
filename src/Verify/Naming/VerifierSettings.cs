@@ -23,8 +23,14 @@ public static partial class VerifierSettings
 #endif
         {typeof(float), (_, value) => ((float) value).ToString(CultureInfo.InvariantCulture)},
         {typeof(double), (_, value) => ((double) value).ToString(CultureInfo.InvariantCulture)},
-        {typeof(DateTime), (_, value) => DateFormatter.ToParameterString((DateTime) value)},
-        {typeof(DateTimeOffset), (_, value) => DateFormatter.ToParameterString((DateTimeOffset) value)}
+        {typeof(DateTime), (settings, value) =>
+            DateFormatter.ToParameterString(
+                (DateTime) value,
+                settings.IsIncludeDateOffset)},
+        {typeof(DateTimeOffset), (settings, value) =>
+            DateFormatter.ToParameterString(
+                (DateTimeOffset) value,
+                settings.IsIncludeDateOffset)}
     };
 
     public static void NameForParameter<T>(ParameterToName<T> func) =>

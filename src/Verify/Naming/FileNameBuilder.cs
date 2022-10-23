@@ -33,7 +33,7 @@
             dictionary[parameter] = value;
         }
 
-        var concat = ParameterBuilder.Concat(settings, dictionary);
+        var concat = ParameterBuilder.Concat(dictionary);
         return $"_{concat}";
     }
 }

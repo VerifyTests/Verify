@@ -152,18 +152,3 @@ This rename should be automatically handled when a pending change is accepted.
 Previously no order was applied to `IDictionary` members. This proved problematic since the order is not guaranteed.
 
 `IDictionary` members are now ordered based on key.
-
-
-## NameForParameter no passes VerifySettings
-
-Before
-
-```
-VerifierSettings.NameForParameter<ComplexData>((parameter) => parameter.Value);
-```
-
-After
-
-```
-VerifierSettings.NameForParameter<ComplexData>((settings, parameter) => parameter.Value);
-```

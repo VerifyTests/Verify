@@ -143,8 +143,8 @@ public class ComplexParametersSample
     [ModuleInitializer]
     public static void Initialize()
     {
-        VerifierSettings.NameForParameter<ComplexData>((settings, parameter) => parameter.Value);
-        VerifierSettings.NameForParameter<ComplexStructData>((settings, parameter) => parameter.Value);
+        VerifierSettings.NameForParameter<ComplexData>(_ => _.Value);
+        VerifierSettings.NameForParameter<ComplexStructData>(_ => _.Value);
     }
 
     [Theory]

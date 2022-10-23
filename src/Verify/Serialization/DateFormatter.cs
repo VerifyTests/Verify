@@ -44,15 +44,15 @@
 
         if (value.Second == 0 && value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm", CultureInfo.InvariantCulture);
         }
 
         if (value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm-ss", CultureInfo.InvariantCulture);
         }
 
-        return value.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", CultureInfo.InvariantCulture);
     }
 
     public static string ToJsonString(DateTime value)
@@ -108,15 +108,15 @@
 
         if (value.Second == 0 && value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm", CultureInfo.InvariantCulture);
         }
 
         if (value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm-ss", CultureInfo.InvariantCulture);
         }
 
-        return value.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", CultureInfo.InvariantCulture);
     }
 
     static string GetDateOffset(DateTimeOffset value)
@@ -130,7 +130,7 @@
                 return $"+{offset.TotalHours:0}";
             }
 
-            return $"+{offset.Hours:0}:{offset.Minutes:00}";
+            return $"+{offset.Hours:0}-{offset.Minutes:00}";
         }
 
         if (offset < TimeSpan.Zero)
@@ -140,7 +140,7 @@
                 return $"-{offset.Hours:0}";
             }
 
-            return $"-{offset.Hours:0}:{offset.Minutes:00}";
+            return $"-{offset.Hours:0}-{offset.Minutes:00}";
         }
 
         return "+0";

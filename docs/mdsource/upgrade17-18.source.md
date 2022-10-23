@@ -145,3 +145,80 @@ This rename should be automatically handled when a pending change is accepted.
 Previously no order was applied to `IDictionary` members. This proved problematic since the order is not guaranteed.
 
 `IDictionary` members are now ordered based on key.
+
+
+## Date changes
+
+ * Trailing zeros in time will be ignored
+ * DateTime offset will be replaces with either `Local` or `Utc`. `Unspecified` will not be included
+
+
+
+### In Json
+
+
+#### DateTime Before
+
+```
+2020-01-01T00:00:00+1
+2020-01-01T01:01:00+0
+```
+
+
+#### DateTime After
+
+```
+2020-01-01T00:00:00 Local
+2020-01-01 01:01 Utc
+```
+
+
+#### DateTimeOffset Before
+
+```
+2020-01-01T00:00:00+1
+2020-01-01T01:01:00+0
+```
+
+
+#### DateTimeOffset After
+
+```
+2020-01-01 +1
+2020-01-01 01:01 +0
+```
+
+
+### In Parameters
+
+
+#### DateTime Before
+
+```
+2020-01-01T00-00-00+11
+2020-01-01T01-01-00+0
+```
+
+
+#### DateTime After
+
+```
+2020-01-01Local
+2020-01-01T01-01Local
+```
+
+
+#### DateTimeOffset Before
+
+```
+2020-01-01T00-00-00+1
+2020-01-01T01-01-00+0
+```
+
+
+#### DateTimeOffset After
+
+```
+2020-01-01+1
+2020-01-01T01-01Utc
+```

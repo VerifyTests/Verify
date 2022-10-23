@@ -26,8 +26,7 @@ public static partial class VerifierSettings
         {typeof(DateTime), (settings, value) =>
             DateFormatter.ToParameterString(
                 (DateTime) value,
-                settings.IsIncludeDateOffset,
-                settings.IsIncludeDateKind)},
+                settings.IsIncludeDateOffset)},
         {typeof(DateTimeOffset), (settings, value) =>
             DateFormatter.ToParameterString(
                 (DateTimeOffset) value,

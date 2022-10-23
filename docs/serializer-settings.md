@@ -1534,11 +1534,8 @@ The default mapping is:
 {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(Guid), (target, _) => ((Guid) target).ToString()},
-{typeof(DateTime), (target, settings) => DateFormatter.ToJsonString((DateTime) target,
-    settings.IsIncludeDateOffset,
-    settings.IsIncludeDateKind)},
-{typeof(DateTimeOffset), (target, settings) => DateFormatter.ToJsonString((DateTimeOffset) target,
-    settings.IsIncludeDateOffset)},
+{typeof(DateTime), (target, settings) => DateFormatter.ToJsonString((DateTime) target, settings.IsIncludeDateKind)},
+{typeof(DateTimeOffset), (target, settings) => DateFormatter.ToJsonString((DateTimeOffset) target, settings.IsIncludeDateOffset)},
 {
     typeof(XmlNode), (target, _) =>
     {
@@ -1582,7 +1579,7 @@ The default mapping is:
     }
 }
 ```
-<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L38-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Serialization/VerifierSettings.cs#L38-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-typetostringmapping' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This bypasses the Guid and DateTime scrubbing mentioned above.

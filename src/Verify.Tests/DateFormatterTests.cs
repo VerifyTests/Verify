@@ -1,103 +1,87 @@
 ﻿[UsesVerify]
 public class DateFormatterTests
 {
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeOtherTimeZoneToJsonString(bool offset)
+    [Fact]
+    public Task DateTimeOtherTimeZoneToJsonString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));
-        return Verify(DateFormatter.ToJsonString(date, offset))
-            .UseParameters( offset);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
-    [Theory]
-    [InlineData( true)]
-    [InlineData( false)]
-    public Task DateTimeOtherTimeZoneToParameterString(bool offset)
+    [Fact]
+    public Task DateTimeOtherTimeZoneToParameterString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(1.5));
-        return Verify(DateFormatter.ToParameterString(date, offset))
-            .UseParameters(offset);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeLocalToJsonString(bool kind)
+    [Fact]
+    public Task DateTimeLocalToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToJsonString(date, kind))
-            .UseParameters(kind);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeLocalToParameterString(bool kind)
+    [Fact]
+    public Task DateTimeLocalToParameterString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);
-        return Verify(DateFormatter.ToParameterString(date, kind))
-            .UseParameters(kind);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeUnspecifiedToJsonString(bool kind)
+    [Fact]
+    public Task DateTimeOffsetLocalToJsonString()
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
+        return Verify(DateFormatter.ToJsonString(date));
+    }
+
+    [Fact]
+    public Task DateTimeOffsetLocalToParameterString()
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, DateTimeOffset.Now.Offset);
+        return Verify(DateFormatter.ToParameterString(date));
+    }
+
+    [Fact]
+    public Task DateTimeUnspecifiedToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0);
-        return Verify(DateFormatter.ToJsonString(date, kind))
-            .UseParameters(kind);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeUnspecifiedToParameterString(bool kind)
+    [Fact]
+    public Task DateTimeUnspecifiedToParameterString()
     {
-        var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Unspecified);
-        return Verify(DateFormatter.ToParameterString(date, kind))
-            .UseParameters(kind);
+        var date = new DateTime(2000, 10, 1, 0, 0, 0);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeUtcToJsonString(bool kind)
+    [Fact]
+    public Task DateTimeUtcToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToJsonString(date, kind))
-            .UseParameters(kind);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeUtcToParameterString(bool kind)
+    [Fact]
+    public Task DateTimeUtcToParameterString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        return Verify(DateFormatter.ToParameterString(date, kind))
-            .UseParameters(kind);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeOffsetUtcToJsonString(bool offset)
+    [Fact]
+    public Task DateTimeOffsetUtcToJsonString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
-        return Verify(DateFormatter.ToJsonString(date, offset))
-            .UseParameters(offset);
+        return Verify(DateFormatter.ToJsonString(date));
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public Task DateTimeOffsetUtcToParameterString(bool offset)
+    [Fact]
+    public Task DateTimeOffsetUtcToParameterString()
     {
         var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
-        return Verify(DateFormatter.ToParameterString(date, offset))
-            .UseParameters(offset);
+        return Verify(DateFormatter.ToParameterString(date));
     }
 }

@@ -110,7 +110,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value, settings.IsIncludeDateOffset));
+        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
     }
 
     public override void WriteValue(DateTime value)
@@ -121,7 +121,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value, settings.IsIncludeDateKind));
+        WriteRawValueWithScrubbers(DateFormatter.ToJsonString(value));
     }
 
     public override void WriteValue(TimeSpan value) =>

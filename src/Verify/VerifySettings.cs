@@ -20,8 +20,6 @@ public partial class VerifySettings :
         useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;
-        includeDateOffset = settings.includeDateOffset;
-        includeDateKind = settings.includeDateKind;
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
@@ -128,18 +126,6 @@ public partial class VerifySettings :
 
     bool autoVerify;
 
-    public bool IsIncludeDateOffset =>
-        VerifierSettings.includeDateOffset ||
-        includeDateOffset;
-
-    bool includeDateOffset;
-
-    public bool IsIncludeDateKind =>
-        VerifierSettings.includeDateKind ||
-        includeDateKind;
-
-    bool includeDateKind;
-
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
@@ -161,18 +147,4 @@ public partial class VerifySettings :
         }
 #endif
     }
-
-    /// <summary>
-    /// Include <see cref="DateTime.Kind"/> in snapshot and parameter name.
-    /// Requires <see cref="DontScrubDateTimes"/>.
-    /// </summary>
-    public void IncludeDateKind() =>
-        includeDateKind = true;
-
-    /// <summary>
-    /// Include <see cref="DateTimeOffset.Offset"/> in snapshot and parameter name.
-    /// Requires <see cref="DontScrubDateTimes"/>.
-    /// </summary>
-    public void IncludeDateOffset() =>
-        includeDateOffset = true;
 }

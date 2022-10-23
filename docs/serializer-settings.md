@@ -1534,8 +1534,8 @@ The default mapping is:
 {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
 {typeof(Guid), (target, _) => ((Guid) target).ToString()},
-{typeof(DateTime), (target, settings) => DateFormatter.ToJsonString((DateTime) target, settings.IsIncludeDateKind)},
-{typeof(DateTimeOffset), (target, settings) => DateFormatter.ToJsonString((DateTimeOffset) target, settings.IsIncludeDateOffset)},
+{typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)},
+{typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)},
 {
     typeof(XmlNode), (target, _) =>
     {

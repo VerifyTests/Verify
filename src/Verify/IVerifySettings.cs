@@ -9,10 +9,6 @@ public interface IVerifySettings
     internal IReadOnlyCollection<object?>? Parameters{ get; }
 
     bool IgnoreParametersForVerified { get; }
-
-    bool IsIncludeDateKind { get; }
-
-    bool IsIncludeDateOffset { get; }
     string? FileName { get; }
     string? MethodName { get; }
     string? TypeName { get; }

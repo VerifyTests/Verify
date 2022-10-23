@@ -1,17 +1,6 @@
 ﻿static class DateFormatter
 {
-    public static string ToJsonString(DateTimeOffset value, bool offset)
-    {
-        var result = GetJsonDatePart(value);
-        if (offset)
-        {
-            result += $" {GetDateOffset(value)}";
-        }
-
-        return result;
-    }
-
-    static string GetJsonDatePart(DateTimeOffset value)
+    public static string ToJsonString(DateTimeOffset value)
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
@@ -31,18 +20,7 @@
         return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
     }
 
-    public static string ToParameterString(DateTimeOffset value, bool offset)
-    {
-        var result = GetParameterDatePart(value);
-        if (offset)
-        {
-            result += GetDateOffset(value);
-        }
-
-        return result;
-    }
-
-    static string GetParameterDatePart(DateTimeOffset value)
+    public static string ToParameterString(DateTimeOffset value)
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
@@ -62,19 +40,7 @@
         return value.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
     }
 
-    public static string ToJsonString(DateTime value, bool kind)
-    {
-        var result = GetJsonDatePart(value);
-
-        if (kind)
-        {
-            result += $" {value.Kind}";
-        }
-
-        return result;
-    }
-
-    static string GetJsonDatePart(DateTime value)
+    public static string ToJsonString(DateTime value)
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
@@ -94,19 +60,7 @@
         return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
     }
 
-    public static string ToParameterString(DateTime value, bool kind)
-    {
-        var result = GetParameterDatePart(value);
-
-        if (kind)
-        {
-            result += value.Kind;
-        }
-
-        return result;
-    }
-
-    static string GetParameterDatePart(DateTime value)
+    public static string ToParameterString(DateTime value)
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
@@ -124,30 +78,5 @@
         }
 
         return value.ToString("yyyy-MM-ddTHH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
-    }
-
-    static string GetDateOffset(DateTimeOffset value)
-    {
-        var offset = value.Offset;
-
-        if (offset > TimeSpan.Zero)
-        {
-            if(offset.Minutes == 0)
-            {
-                return $"+{offset.TotalHours:0}";
-            }
-            return $"+{offset.Hours:0}:{offset.Minutes:00}";
-        }
-
-        if (offset < TimeSpan.Zero)
-        {
-            if(offset.Minutes == 0)
-            {
-                return $"-{offset.Hours:0}";
-            }
-            return $"-{offset.Hours:0}:{offset.Minutes:00}";
-        }
-
-        return "+0";
     }
 }

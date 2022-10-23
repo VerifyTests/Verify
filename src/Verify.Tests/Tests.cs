@@ -699,8 +699,8 @@ public class Tests
     [Fact]
     public async Task VerifyFileNotLocked()
     {
-        await VerifyFile("sample.txt");
-        Assert.False(FileEx.IsFileLocked("sample.txt"));
+        await VerifyFile("sampleNotLocked.txt");
+        Assert.False(FileEx.IsFileLocked("sampleNotLocked.txt"));
     }
 
 #endif

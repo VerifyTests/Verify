@@ -157,7 +157,7 @@ Previously no order was applied to `IDictionary` members. This proved problemati
 ## Date changes
 
  * Trailing zeros in time will be ignored
- * DateTime offset will be replaces with either `Local` or `Utc`. `Unspecified` will not be included
+ * DateTime offset will be replaced with either `Local` or `Utc`. `Unspecified` will not be included
 
 
 
@@ -198,6 +198,7 @@ Previously no order was applied to `IDictionary` members. This proved problemati
 
 ### In Parameters
 
+If affected by this change, the new verified file will need to be accpted and the old verified files will need to be manually cleaned up. 
 
 #### DateTime Before
 

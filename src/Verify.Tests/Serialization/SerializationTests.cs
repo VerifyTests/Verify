@@ -2841,7 +2841,31 @@ Line2"
   }
 }";
         var target = JToken.Parse(json);
-        return Verify(target).ScrubMember("Scrub");
+        return Verify(target)
+            .ScrubMember("Scrub");
+    }
+
+    [Fact]
+    public Task VerifyXmlTest()
+    {
+        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
+        return VerifyXml(xml);
+    }
+
+    [Fact]
+    public Task VerifyXmlIgnoreMember()
+    {
+        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
+        return VerifyXml(xml)
+            .IgnoreMember("node");
+    }
+
+    [Fact]
+    public Task VerifyXmlScrubMember()
+    {
+        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
+        return VerifyXml(xml)
+            .ScrubMember("node");
     }
 
     [Fact]

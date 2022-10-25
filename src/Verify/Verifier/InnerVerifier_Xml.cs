@@ -25,6 +25,27 @@
         return await VerifyXml(token);
     }
 
-    public Task<VerifyResult> VerifyXml(XDocument target) =>
-        VerifyInner(target, null, emptyTargets, true);
+    public Task<VerifyResult> VerifyXml(XDocument target)
+    {
+        var serialization = settings.serialization;
+        var xElements = target.Descendants().ToList();
+        foreach (var node in xElements)
+        {
+            if (!serialization.TryGetScrubOrIgnoreByName(node.Name.LocalName, out var scrubOrIgnore))
+            {
+                continue;
+            }
+
+            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            {
+                node.Remove();
+            }
+            else
+            {
+                node.Value = "Scrubbed";
+            }
+        }
+
+        return Verify(target);
+    }
 }

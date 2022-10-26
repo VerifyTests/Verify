@@ -46,23 +46,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        Task<XDocument> target,
-        VerifySettings? settings = null)
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, sourceFile);
-    }
-
-    public SettingsTask Verify(
         XmlNode? target,
-        VerifySettings? settings = null)
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, sourceFile);
-    }
-
-    public SettingsTask Verify(
-        Task<XmlDocument> target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;

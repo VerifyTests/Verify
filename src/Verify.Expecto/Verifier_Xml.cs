@@ -58,27 +58,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> Verify(
         string name,
-        Task<XDocument> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
-    }
-
-    public static Task<VerifyResult> Verify(
-        string name,
         XmlNode? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
-    }
-
-    public static Task<VerifyResult> Verify(
-        string name,
-        Task<XmlDocument> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {

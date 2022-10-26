@@ -31,9 +31,6 @@
         return await VerifyXml(document);
     }
 
-    public async Task<VerifyResult> VerifyXml(Task<XmlDocument> task) =>
-        await VerifyXml(await task);
-
     public async Task<VerifyResult> VerifyXml(XmlNode? target)
     {
         if (target is null)
@@ -47,9 +44,6 @@
         return await VerifyXml(XDocument.Load(nodeReader));
     }
 
-    public async Task<VerifyResult> VerifyXml(Task<XDocument> task) =>
-        await VerifyXml(await task);
-
     public async Task<VerifyResult> VerifyXml(XDocument? target)
     {
         if (target is null)
@@ -58,8 +52,8 @@
         }
 
         var serialization = settings.serialization;
-        var xElements = target.Descendants().ToList();
-        foreach (var node in xElements)
+        var nodes = target.Descendants().ToList();
+        foreach (var node in nodes)
         {
             if (!serialization.TryGetScrubOrIgnoreByName(node.Name.LocalName, out var scrubOrIgnore))
             {
@@ -76,7 +70,6 @@
             }
         }
 
-        var isText = FileExtensions.IsText("xml");
         return await VerifyString(target.ToString(), "xml");
     }
 }

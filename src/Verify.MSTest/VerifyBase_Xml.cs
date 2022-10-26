@@ -12,19 +12,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyXml(target));
 
     public SettingsTask VerifyXml(
-        Task<string> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public SettingsTask VerifyXml(
         Stream? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public SettingsTask VerifyXml(
-        Task<Stream> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyXml(target));
@@ -36,19 +24,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyXml(target));
 
     public SettingsTask Verify(
-        Task<XDocument> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public SettingsTask Verify(
         XmlNode? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public SettingsTask Verify(
-        Task<XmlDocument> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyXml(target));

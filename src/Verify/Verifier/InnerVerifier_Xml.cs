@@ -1,5 +1,8 @@
 ﻿partial class InnerVerifier
 {
+    public async Task<VerifyResult> VerifyXml(Task<string> task) =>
+        await VerifyXml(await task);
+
     public Task<VerifyResult> VerifyXml(string? target)
     {
         if (target is null)
@@ -9,6 +12,9 @@
 
         return VerifyXml(XDocument.Parse(target));
     }
+
+    public async Task<VerifyResult> VerifyXml(Task<Stream> task) =>
+        await VerifyXml(await task);
 
     public async Task<VerifyResult> VerifyXml(Stream? target)
     {
@@ -25,6 +31,9 @@
         return await VerifyXml(document);
     }
 
+    public async Task<VerifyResult> VerifyXml(Task<XmlDocument> task) =>
+        await VerifyXml(await task);
+
     public async Task<VerifyResult> VerifyXml(XmlDocument? target)
     {
         if (target is null)
@@ -33,9 +42,13 @@
         }
 
         using var nodeReader = new XmlNodeReader(target);
-        await nodeReader.MoveToContentAsync();
+        // ReSharper disable once MethodHasAsyncOverload
+        nodeReader.MoveToContent();
         return await VerifyXml(XDocument.Load(nodeReader));
     }
+
+    public async Task<VerifyResult> VerifyXml(Task<XDocument> task) =>
+        await VerifyXml(await task);
 
     public async Task<VerifyResult> VerifyXml(XDocument? target)
     {
@@ -43,6 +56,7 @@
         {
             return await VerifyInner(target, null, emptyTargets, true);
         }
+
         var serialization = settings.serialization;
         var xElements = target.Descendants().ToList();
         foreach (var node in xElements)

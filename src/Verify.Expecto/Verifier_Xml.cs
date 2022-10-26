@@ -16,10 +16,29 @@ public static partial class Verifier
         var assembly = Assembly.GetCallingAssembly()!;
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
     }
+    public static Task<VerifyResult> VerifyXml(
+        string name,
+        Task<string> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
+    }
 
     public static Task<VerifyResult> VerifyXml(
         string name,
         Stream? target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
+    }
+
+    public static Task<VerifyResult> VerifyXml(
+        string name,
+        Task<Stream> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {
@@ -34,7 +53,17 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
+    }
+
+    public static Task<VerifyResult> Verify(
+        string name,
+        Task<XDocument> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
     }
 
     public static Task<VerifyResult> Verify(
@@ -44,6 +73,16 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
+    }
+
+    public static Task<VerifyResult> Verify(
+        string name,
+        Task<XmlDocument> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
     }
 }

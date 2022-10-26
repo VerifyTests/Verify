@@ -14,7 +14,23 @@ public partial class VerifyBase
     }
 
     public SettingsTask VerifyXml(
+        Task<string> target,
+        VerifySettings? settings = null)
+    {
+        settings ??= this.settings;
+        return Verifier.VerifyXml(target, settings, sourceFile);
+    }
+
+    public SettingsTask VerifyXml(
         Stream? target,
+        VerifySettings? settings = null)
+    {
+        settings ??= this.settings;
+        return Verifier.VerifyXml(target, settings, sourceFile);
+    }
+
+    public SettingsTask VerifyXml(
+        Task<Stream> target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
@@ -30,7 +46,23 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
+        Task<XDocument> target,
+        VerifySettings? settings = null)
+    {
+        settings ??= this.settings;
+        return Verifier.Verify(target, settings, sourceFile);
+    }
+
+    public SettingsTask Verify(
         XmlDocument? target,
+        VerifySettings? settings = null)
+    {
+        settings ??= this.settings;
+        return Verifier.Verify(target, settings, sourceFile);
+    }
+
+    public SettingsTask Verify(
+        Task<XmlDocument> target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;

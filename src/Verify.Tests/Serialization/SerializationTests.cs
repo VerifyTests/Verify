@@ -2845,28 +2845,21 @@ Line2"
             .ScrubMember("Scrub");
     }
 
-    [Fact]
-    public Task VerifyXmlTest()
-    {
-        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
-        return VerifyXml(xml);
-    }
+    string xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
 
     [Fact]
-    public Task VerifyXmlIgnoreMember()
-    {
-        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
-        return VerifyXml(xml)
+    public Task Xml() =>
+        VerifyXml(xml);
+
+    [Fact]
+    public Task XmlIgnoreMember() =>
+        VerifyXml(xml)
             .IgnoreMember("node");
-    }
 
     [Fact]
-    public Task VerifyXmlScrubMember()
-    {
-        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
-        return VerifyXml(xml)
+    public Task XmlScrubMember() =>
+        VerifyXml(xml)
             .ScrubMember("node");
-    }
 
     [Fact]
     public Task VerifyJsonGuid()

@@ -42,7 +42,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyXml(target));
 
     public SettingsTask Verify(
-        XmlDocument? target,
+        XmlNode? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyXml(target));

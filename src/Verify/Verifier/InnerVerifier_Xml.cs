@@ -34,7 +34,7 @@
     public async Task<VerifyResult> VerifyXml(Task<XmlDocument> task) =>
         await VerifyXml(await task);
 
-    public async Task<VerifyResult> VerifyXml(XmlDocument? target)
+    public async Task<VerifyResult> VerifyXml(XmlNode? target)
     {
         if (target is null)
         {

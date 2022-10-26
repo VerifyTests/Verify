@@ -1,7 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-
-[UsesVerify]
+﻿[UsesVerify]
 public class SimpleTypeTests
 {
 #if NET5_0_OR_GREATER

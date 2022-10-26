@@ -68,7 +68,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> Verify(
         string name,
-        XmlDocument? target,
+        XmlNode? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {

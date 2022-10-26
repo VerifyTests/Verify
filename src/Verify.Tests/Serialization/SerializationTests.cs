@@ -2872,6 +2872,14 @@ Line2"
     }
 
     [Fact]
+    public Task XmlElement()
+    {
+        var document = new XmlDocument();
+        document.LoadXml(xml);
+        return Verify(document.DocumentElement);
+    }
+
+    [Fact]
     public Task XmlDocIgnoreMember()
     {
         var document = new XmlDocument();
@@ -2892,6 +2900,10 @@ Line2"
     [Fact]
     public Task XDoc() =>
         Verify(XDocument.Parse(xml));
+
+    [Fact]
+    public Task XElement() =>
+        Verify(XDocument.Parse(xml).Root);
 
     [Fact]
     public Task XDocIgnoreMember() =>

@@ -18,7 +18,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyXml(target));
 
     public SettingsTask Verify(
-        XDocument? target,
+        XContainer? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyXml(target));

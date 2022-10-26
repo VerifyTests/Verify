@@ -22,7 +22,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        XDocument? target,
+        XContainer? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;
@@ -30,7 +30,7 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        XmlDocument? target,
+        XmlNode? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;

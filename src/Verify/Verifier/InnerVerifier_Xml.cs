@@ -38,13 +38,13 @@
             return await VerifyInner(target, null, emptyTargets, true);
         }
 
-        using var nodeReader = new XmlNodeReader(target);
+        using var reader = new XmlNodeReader(target);
         // ReSharper disable once MethodHasAsyncOverload
-        nodeReader.MoveToContent();
-        return await VerifyXml(XDocument.Load(nodeReader));
+        reader.MoveToContent();
+        return await VerifyXml(XDocument.Load(reader));
     }
 
-    public async Task<VerifyResult> VerifyXml(XDocument? target)
+    public async Task<VerifyResult> VerifyXml(XContainer? target)
     {
         if (target is null)
         {

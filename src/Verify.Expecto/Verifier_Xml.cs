@@ -16,15 +16,6 @@ public static partial class Verifier
         var assembly = Assembly.GetCallingAssembly()!;
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
     }
-    public static Task<VerifyResult> VerifyXml(
-        string name,
-        Task<string> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
-    }
 
     public static Task<VerifyResult> VerifyXml(
         string name,
@@ -36,19 +27,9 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
     }
 
-    public static Task<VerifyResult> VerifyXml(
-        string name,
-        Task<Stream> target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
-    }
-
     public static Task<VerifyResult> Verify(
         string name,
-        XDocument? target,
+        XContainer? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "")
     {

@@ -14,14 +14,6 @@ public partial class VerifyBase
     }
 
     public SettingsTask VerifyXml(
-        Task<string> target,
-        VerifySettings? settings = null)
-    {
-        settings ??= this.settings;
-        return Verifier.VerifyXml(target, settings, sourceFile);
-    }
-
-    public SettingsTask VerifyXml(
         Stream? target,
         VerifySettings? settings = null)
     {
@@ -29,16 +21,8 @@ public partial class VerifyBase
         return Verifier.VerifyXml(target, settings, sourceFile);
     }
 
-    public SettingsTask VerifyXml(
-        Task<Stream> target,
-        VerifySettings? settings = null)
-    {
-        settings ??= this.settings;
-        return Verifier.VerifyXml(target, settings, sourceFile);
-    }
-
     public SettingsTask Verify(
-        XDocument? target,
+        XContainer? target,
         VerifySettings? settings = null)
     {
         settings ??= this.settings;

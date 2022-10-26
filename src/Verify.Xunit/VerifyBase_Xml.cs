@@ -1,7 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 public partial class VerifyBase
 {
@@ -19,21 +16,5 @@ public partial class VerifyBase
     {
         settings ??= this.settings;
         return Verifier.VerifyXml(target, settings, sourceFile);
-    }
-
-    public SettingsTask Verify(
-        XContainer? target,
-        VerifySettings? settings = null)
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, sourceFile);
-    }
-
-    public SettingsTask Verify(
-        XmlNode? target,
-        VerifySettings? settings = null)
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, sourceFile);
     }
 }

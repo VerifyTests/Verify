@@ -1,7 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-
-namespace VerifyMSTest;
+﻿namespace VerifyMSTest;
 
 public partial class VerifyBase
 {
@@ -13,18 +10,6 @@ public partial class VerifyBase
 
     public SettingsTask VerifyXml(
         Stream? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public SettingsTask Verify(
-        XContainer? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public SettingsTask Verify(
-        XmlNode? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyXml(target));

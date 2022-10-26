@@ -1,7 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 public static partial class Verifier
 {
@@ -13,18 +10,6 @@ public static partial class Verifier
 
     public static SettingsTask VerifyXml(
         Stream? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public static SettingsTask Verify(
-        XContainer? target,
-        VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyXml(target));
-
-    public static SettingsTask Verify(
-        XmlNode? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyXml(target));

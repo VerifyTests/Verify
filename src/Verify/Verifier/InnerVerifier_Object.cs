@@ -9,6 +9,16 @@
             return await VerifyString(stringTarget);
         }
 
+        if (target is XContainer container)
+        {
+            return await VerifyXml(container);
+        }
+
+        if (target is XmlNode node)
+        {
+            return await VerifyXml(node);
+        }
+
         if (target is FileStream fileStream)
         {
             return await VerifyStream(fileStream, null);

@@ -56,19 +56,7 @@ public class SimpleTypeTests
 
     public static IEnumerable<object[]> GetData()
     {
-        var xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
-        var xmlDocument = new XmlDocument();
-        xmlDocument.LoadXml(xml);
-
-        yield return new object[] {xmlDocument};
-
         yield return new object[] {new KeyValuePair<string,int>("theKey",10)};
-
-        var xDocument = XDocument.Parse(xml);
-
-        yield return new object[] {xDocument};
-
-        yield return new object[] {xDocument.Root!};
 
         var json = @"{
   'short': {

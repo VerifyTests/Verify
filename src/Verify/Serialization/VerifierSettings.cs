@@ -80,39 +80,12 @@ public static partial class VerifierSettings
             }
         },
         {
-            typeof(XDocument), (target, _) =>
-            {
-                var converted = (XDocument) target;
-                return new(converted.ToString(), "xml");
-            }
-        },
-        {
             typeof(XElement), (target, settings) =>
             {
                 var converted = (XElement) target;
                 return new(converted.ToString(), "xml");
             }
         },
-        {
-            typeof(XmlDocument), (target, _) =>
-            {
-                var xmlDocument = (XmlDocument) target;
-                var stringBuilder = new StringBuilder();
-                var writerSettings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    IndentChars = "  ",
-                    NewLineChars = "\n",
-                    NewLineHandling = NewLineHandling.Replace
-                };
-                using (var writer = XmlWriter.Create(stringBuilder, writerSettings))
-                {
-                    xmlDocument.Save(writer);
-                }
-
-                return new(stringBuilder.ToString(), "xml");
-            }
-        }
 
         #endregion
     };

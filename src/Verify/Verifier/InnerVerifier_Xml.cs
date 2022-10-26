@@ -76,6 +76,7 @@
             }
         }
 
-        return await Verify(target);
+        var isText = FileExtensions.IsText("xml");
+        return await VerifyString(target.ToString(), "xml");
     }
 }

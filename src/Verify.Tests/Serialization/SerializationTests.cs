@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Security.Claims;
+using System.Xml;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -2860,6 +2861,32 @@ Line2"
     public Task XmlScrubMember() =>
         VerifyXml(xml)
             .ScrubMember("node");
+
+    [Fact]
+    public Task XmlDoc()
+    {
+        var document = new XmlDocument();
+        document.LoadXml(xml);
+        return Verify(document);
+    }
+
+    [Fact]
+    public Task XmlDocIgnoreMember()
+    {
+        var document = new XmlDocument();
+        document.LoadXml(xml);
+        return Verify(document)
+            .IgnoreMember("node");
+    }
+
+    [Fact]
+    public Task XmlDocScrubMember()
+    {
+        var document = new XmlDocument();
+        document.LoadXml(xml);
+        return Verify(document)
+            .ScrubMember("node");
+    }
 
     [Fact]
     public Task VerifyJsonGuid()

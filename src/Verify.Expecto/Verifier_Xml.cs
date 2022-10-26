@@ -1,3 +1,6 @@
+using System.Xml;
+using System.Xml.Linq;
+
 namespace VerifyExpecto;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
@@ -11,7 +14,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
     }
 
     public static Task<VerifyResult> VerifyXml(
@@ -21,6 +24,26 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
+    }
+
+    public static Task<VerifyResult> Verify(
+        string name,
+        XDocument? target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+    }
+
+    public static Task<VerifyResult> Verify(
+        string name,
+        XmlDocument? target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly()!;
+        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
     }
 }

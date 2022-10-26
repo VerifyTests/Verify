@@ -18,15 +18,31 @@
         }
 
 #if NET5_0_OR_GREATER
-        var token = await XDocument.LoadAsync(target, LoadOptions.None, default);
+        var document = await XDocument.LoadAsync(target, LoadOptions.None, default);
 #else
-        var token = XDocument.Load(target, LoadOptions.None);
+        var document = XDocument.Load(target, LoadOptions.None);
 #endif
-        return await VerifyXml(token);
+        return await VerifyXml(document);
     }
 
-    public Task<VerifyResult> VerifyXml(XDocument target)
+    public async Task<VerifyResult> VerifyXml(XmlDocument? target)
     {
+        if (target is null)
+        {
+            return await VerifyInner(target, null, emptyTargets, true);
+        }
+
+        using var nodeReader = new XmlNodeReader(target);
+        await nodeReader.MoveToContentAsync();
+        return await VerifyXml(XDocument.Load(nodeReader));
+    }
+
+    public async Task<VerifyResult> VerifyXml(XDocument? target)
+    {
+        if (target is null)
+        {
+            return await VerifyInner(target, null, emptyTargets, true);
+        }
         var serialization = settings.serialization;
         var xElements = target.Descendants().ToList();
         foreach (var node in xElements)
@@ -46,6 +62,6 @@
             }
         }
 
-        return Verify(target);
+        return await Verify(target);
     }
 }

@@ -1,7 +1,7 @@
 [UsesVerify]
-public class VerifyTextSample
+public class NCrunchTests
 {
     [Fact]
     public Task Simple() =>
-        Verify("Value");
+        Verify("Value2");
 }

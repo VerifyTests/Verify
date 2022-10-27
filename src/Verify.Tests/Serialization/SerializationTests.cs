@@ -281,6 +281,25 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task DictionaryOrderOrdinalFailure()
+    {
+        var dictionary = new Dictionary<string, string>();
+
+        if (DateTime.UtcNow.Ticks % 2 == 0)
+        {
+            dictionary.Add("+", "plus");
+            dictionary.Add("-", "minus");
+        }
+        else
+        {
+            dictionary.Add("-", "minus");
+            dictionary.Add("+", "plus");
+        }
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
     public Task DictionaryOrderStringAndIgnore()
     {
         var dictionary = new Dictionary<string, string>

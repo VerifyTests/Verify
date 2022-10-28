@@ -281,7 +281,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task DictionaryOrderOrdinalFailure()
+    public Task DictionaryOrderOrdinal()
     {
         var dictionary = new Dictionary<string, string>();
 

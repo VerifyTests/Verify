@@ -15,3 +15,4 @@ src/Verify.Tests/Tests.StreamMultipleNegative.01.verified.bin
 src/Verify.Tests/Tests.TextNegative.verified.tmp
 *.ncrunchproject
 *nCrunchTemp*
+*.cache

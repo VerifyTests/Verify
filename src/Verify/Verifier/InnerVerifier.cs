@@ -1,4 +1,4 @@
-﻿partial class InnerVerifier :
+partial class InnerVerifier :
     IDisposable
 {
     VerifySettings settings;
@@ -181,8 +181,18 @@
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)
     {
-        var settingsOrInfoDirectory = settings.Directory ?? pathInfo.Directory;
         var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+        var pathInfoDirectory = pathInfo.Directory;
+        if (ContinuousTestingDetector.IsNCrunch)
+        {
+            var ncrunchProjectDirectory = ContinuousTestingDetector.NCrunchOriginalProjectDirectory;
+            var projectDirectory = ProjectDirectoryFinder.Find(sourceFileDirectory);
+            sourceFileDirectory = sourceFileDirectory.Replace(projectDirectory, ncrunchProjectDirectory);
+            pathInfoDirectory = pathInfoDirectory?.Replace(projectDirectory, ncrunchProjectDirectory);
+        }
+
+        var settingsOrInfoDirectory = settings.Directory ?? pathInfoDirectory;
+
         if (settingsOrInfoDirectory is null)
         {
             return sourceFileDirectory;

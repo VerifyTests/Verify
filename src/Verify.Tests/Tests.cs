@@ -1,4 +1,4 @@
-﻿// Non-nullable field is uninitialized.
+// Non-nullable field is uninitialized.
 
 using System.Runtime.InteropServices;
 
@@ -589,6 +589,10 @@ public class Tests
     [Fact]
     public async Task ResultAutoVerifyMissingVerified()
     {
+        if (ContinuousTestingDetector.Detected)
+        {
+            return;
+        }
         try
         {
             var result = await Verify("Value")

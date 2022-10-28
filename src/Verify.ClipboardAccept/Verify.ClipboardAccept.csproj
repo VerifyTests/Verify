@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
-    <PackageReference Include="DiffEngine" Version="10.4.1" />
+    <PackageReference Include="DiffEngine" Version="10.4.3" />
     <PackageReference Include="TextCopy" Version="6.1.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

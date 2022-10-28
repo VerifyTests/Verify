@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Security.Claims;
-using System.Xml;
-using System.Xml.Linq;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -275,6 +273,25 @@ public class SerializationTests
         {
             dictionary.Add("Entry_2", "5678");
             dictionary.Add("Entry_1", "1234");
+        }
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task DictionaryOrderOrdinal()
+    {
+        var dictionary = new Dictionary<string, string>();
+
+        if (DateTime.UtcNow.Ticks % 2 == 0)
+        {
+            dictionary.Add("+", "plus");
+            dictionary.Add("-", "minus");
+        }
+        else
+        {
+            dictionary.Add("-", "minus");
+            dictionary.Add("+", "plus");
         }
 
         return Verify(dictionary);
@@ -2846,74 +2863,6 @@ Line2"
         return Verify(target)
             .ScrubMember("Scrub");
     }
-
-    string xml = @"<?xml version=""1.0"" encoding=""UTF-8""?><body><node>text</node></body>";
-
-    [Fact]
-    public Task Xml() =>
-        VerifyXml(xml);
-
-    [Fact]
-    public Task XmlIgnoreMember() =>
-        VerifyXml(xml)
-            .IgnoreMember("node");
-
-    [Fact]
-    public Task XmlScrubMember() =>
-        VerifyXml(xml)
-            .ScrubMember("node");
-
-    [Fact]
-    public Task XmlDoc()
-    {
-        var document = new XmlDocument();
-        document.LoadXml(xml);
-        return Verify(document);
-    }
-
-    [Fact]
-    public Task XmlElement()
-    {
-        var document = new XmlDocument();
-        document.LoadXml(xml);
-        return Verify(document.DocumentElement);
-    }
-
-    [Fact]
-    public Task XmlDocIgnoreMember()
-    {
-        var document = new XmlDocument();
-        document.LoadXml(xml);
-        return Verify(document)
-            .IgnoreMember("node");
-    }
-
-    [Fact]
-    public Task XmlDocScrubMember()
-    {
-        var document = new XmlDocument();
-        document.LoadXml(xml);
-        return Verify(document)
-            .ScrubMember("node");
-    }
-
-    [Fact]
-    public Task XDoc() =>
-        Verify(XDocument.Parse(xml));
-
-    [Fact]
-    public Task XElement() =>
-        Verify(XDocument.Parse(xml).Root);
-
-    [Fact]
-    public Task XDocIgnoreMember() =>
-        Verify(XDocument.Parse(xml))
-            .IgnoreMember("node");
-
-    [Fact]
-    public Task XDocScrubMember() =>
-        Verify(XDocument.Parse(xml))
-            .ScrubMember("node");
 
     [Fact]
     public Task VerifyJsonGuid()

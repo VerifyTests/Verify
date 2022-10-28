@@ -12,6 +12,7 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Verify options](/docs/verify-options.md)
   * [VerifyDirectory](/docs/verify-directory.md)
   * [VerifyFile](/docs/verify-file.md)
+  * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
   * [Parameterised tests](/docs/parameterised.md)

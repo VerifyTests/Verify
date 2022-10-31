@@ -658,6 +658,14 @@ line3"
             "bin");
 
     [Fact]
+    public Task ByteArrayNoExtension() =>
+        Verify(
+            new byte[]
+            {
+                1
+            });
+
+    [Fact]
     public Task NestedByteArray() =>
         Verify(
             new

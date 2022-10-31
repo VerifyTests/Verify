@@ -21,6 +21,9 @@
         return await VerifyStream(stream, info);
     }
 
+    public Task<VerifyResult> VerifyStream(byte[]? bytes, object? info) =>
+        VerifyStream(bytes, "bin", info);
+
     public Task<VerifyResult> VerifyStream(byte[]? bytes, string extension, object? info)
     {
         if (bytes is null)
@@ -36,11 +39,18 @@
         return VerifyStream(new MemoryStream(bytes), extension, info);
     }
 
+    public Task<VerifyResult> VerifyStream(Task<byte[]> task, object? info) =>
+        VerifyStream(task, "bin", info);
+
     public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info)
     {
         var bytes = await task;
         return await VerifyStream(bytes, extension, info);
     }
+
+    public Task<VerifyResult> VerifyStream<T>(Task<T> task, object? info)
+        where T : Stream =>
+        VerifyStream(task, "bin", info);
 
     public async Task<VerifyResult> VerifyStream<T>(Task<T> task, string extension, object? info)
         where T : Stream
@@ -55,6 +65,9 @@
         var targets = streams.Select(_ => new Target(extension, _));
         return await VerifyInner(targets);
     }
+
+    public Task<VerifyResult> VerifyStream(Stream? stream, object? info) =>
+        VerifyStream(stream, "bin", info);
 
     public async Task<VerifyResult> VerifyStream(Stream? stream, string extension, object? info)
     {

@@ -54,6 +54,13 @@ public partial class VerifyBase
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
+    public SettingsTask Verify(
+        Stream? target,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+
     public SettingsTask Verify<T>(
         Task<T> target,
         string extension,
@@ -62,6 +69,14 @@ public partial class VerifyBase
         [CallerFilePath] string sourceFile = "")
         where T : Stream =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+
+    public SettingsTask Verify<T>(
+        Task<T> target,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "")
+        where T : Stream =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
 
     public SettingsTask Verify<T>(
         IEnumerable<T> targets,

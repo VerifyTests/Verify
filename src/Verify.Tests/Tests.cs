@@ -358,7 +358,7 @@ public class Tests
             4
         });
         stream.Position = 2;
-        return Verify(stream, "bin");
+        return Verify(stream);
     }
 
     [Fact]

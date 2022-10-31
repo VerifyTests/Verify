@@ -30,6 +30,15 @@ public partial class VerifyBase
         return Verifier.Verify(target, extension, settings, info, sourceFile);
     }
 
+    public SettingsTask Verify(
+        Stream? target,
+        VerifySettings? settings = null,
+        object? info = null)
+    {
+        settings ??= this.settings;
+        return Verifier.Verify(target, settings, info, sourceFile);
+    }
+
     public SettingsTask Verify<T>(
         IEnumerable<T> targets,
         string extension,
@@ -50,6 +59,16 @@ public partial class VerifyBase
     {
         settings ??= this.settings;
         return Verifier.Verify(target, extension, settings, info, sourceFile);
+    }
+
+    public SettingsTask Verify<T>(
+        Task<T> target,
+        VerifySettings? settings = null,
+        object? info = null)
+        where T : Stream
+    {
+        settings ??= this.settings;
+        return Verifier.Verify(target, settings, info, sourceFile);
     }
 
     public SettingsTask Verify(

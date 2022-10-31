@@ -11,6 +11,20 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
     public SettingsTask Verify(
+        byte[]? target,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+
+    public SettingsTask Verify(
+        Task<byte[]> target,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+
+    public SettingsTask Verify(
         Task<byte[]> target,
         string extension,
         VerifySettings? settings = null,

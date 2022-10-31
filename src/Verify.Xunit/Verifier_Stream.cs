@@ -51,10 +51,24 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
     public static SettingsTask Verify(
+        byte[]? target,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+
+    public static SettingsTask Verify(
         Task<byte[]> target,
         string extension,
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+
+    public static SettingsTask Verify(
+        Task<byte[]> target,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
 }

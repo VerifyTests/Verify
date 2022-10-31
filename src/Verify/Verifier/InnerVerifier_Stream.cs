@@ -21,6 +21,9 @@
         return await VerifyStream(stream, info);
     }
 
+    public Task<VerifyResult> VerifyStream(byte[]? bytes, object? info) =>
+        VerifyStream(bytes, "bin", info);
+
     public Task<VerifyResult> VerifyStream(byte[]? bytes, string extension, object? info)
     {
         if (bytes is null)
@@ -35,6 +38,9 @@
 
         return VerifyStream(new MemoryStream(bytes), extension, info);
     }
+
+    public Task<VerifyResult> VerifyStream(Task<byte[]> task, object? info) =>
+        VerifyStream(task, "bin", info);
 
     public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info)
     {

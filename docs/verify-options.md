@@ -82,3 +82,17 @@ public Task OnHandlersSample()
 ## OmitContentFromException
 
 By default, when a verify mismatch occurs for text, the content of the received and verified files is included in the exception that is thrown. This results in that text being included in test runners and build output. To omit the content use `VerifierSettings.OmitContentFromException`.
+
+
+## DisableDiff
+
+To disable diff launching:
+
+<!-- snippet: DisableDiff -->
+<a id='snippet-disablediff'></a>
+```cs
+var settings = new VerifySettings();
+settings.DisableDiff();
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L105-L110' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

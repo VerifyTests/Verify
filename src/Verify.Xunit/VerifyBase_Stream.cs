@@ -12,15 +12,6 @@ public partial class VerifyBase
     }
 
     public SettingsTask Verify(
-        Task<FileStream> target,
-        VerifySettings? settings = null,
-        object? info = null)
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, info, sourceFile);
-    }
-
-    public SettingsTask Verify(
         Stream? target,
         string extension,
         VerifySettings? settings = null,
@@ -48,16 +39,6 @@ public partial class VerifyBase
     {
         settings ??= this.settings;
         return Verifier.Verify(target, extension, settings, info, sourceFile);
-    }
-
-    public SettingsTask Verify<T>(
-        Task<T> target,
-        VerifySettings? settings = null,
-        object? info = null)
-        where T : Stream
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, info, sourceFile);
     }
 
     public SettingsTask Verify<T>(
@@ -98,14 +79,5 @@ public partial class VerifyBase
     {
         settings ??= this.settings;
         return Verifier.Verify(target, extension, settings, info, sourceFile);
-    }
-
-    public SettingsTask Verify(
-        Task<byte[]> target,
-        VerifySettings? settings = null,
-        object? info = null)
-    {
-        settings ??= this.settings;
-        return Verifier.Verify(target, settings, info, sourceFile);
     }
 }

@@ -24,9 +24,14 @@
             return await VerifyStream(fileStream, null);
         }
 
-        if (target is Stream)
+        if (target is Stream stream)
         {
-            throw new("Use Verify(Stream target, string extension)");
+            return await VerifyStream(stream, null);
+        }
+
+        if (target is byte[] bytes)
+        {
+            return await VerifyStream(bytes, null);
         }
 
         if (target is null)

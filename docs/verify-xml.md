@@ -19,7 +19,7 @@ Verifies Xml:
 public Task VerifyFilePath() =>
     VerifyFile("sample.txt");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L127-L133' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L124-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -38,7 +38,7 @@ This code:
 public Task Xml() =>
     VerifyXml(xml);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/XmlTests.cs#L9-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyxml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L9-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyxml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -50,7 +50,7 @@ Will produce
   <node>text</node>
 </body>
 ```
-<sup><a href='/src/Verify.Tests/Serialization/XmlTests.Xml.verified.xml#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlTests.Xml.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.Xml.verified.xml#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlTests.Xml.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -66,7 +66,7 @@ public Task XmlIgnoreMember() =>
     VerifyXml(xml)
         .IgnoreMember("node");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/XmlTests.cs#L22-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-xmlignoremember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L22-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-xmlignoremember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -76,7 +76,7 @@ Will produce
 ```xml
 <body />
 ```
-<sup><a href='/src/Verify.Tests/Serialization/XmlTests.XmlIgnoreMember.verified.xml#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlTests.XmlIgnoreMember.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.XmlIgnoreMember.verified.xml#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlTests.XmlIgnoreMember.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -92,7 +92,7 @@ public Task XmlScrubMember() =>
     VerifyXml(xml)
         .ScrubMember("node");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/XmlTests.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-xmlscrubmember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-xmlscrubmember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -104,5 +104,5 @@ Will produce
   <node>Scrubbed</node>
 </body>
 ```
-<sup><a href='/src/Verify.Tests/Serialization/XmlTests.XmlScrubMember.verified.xml#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlTests.XmlScrubMember.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.XmlScrubMember.verified.xml#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlTests.XmlScrubMember.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

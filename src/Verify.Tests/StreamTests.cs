@@ -1,7 +1,3 @@
-// Non-nullable field is uninitialized.
-
-#pragma warning disable CS8618
-
 [UsesVerify]
 public class StreamTests
 {
@@ -12,6 +8,7 @@ public class StreamTests
             {
                 1
             }));
+
     [Fact]
     public Task ByteArray() =>
         Verify(
@@ -49,6 +46,7 @@ public class StreamTests
         var exception = await Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>(), "bin"));
         Assert.Equal("Empty data is not allowed.", exception.Message);
     }
+
     [Fact]
     public Task NestedByteArray() =>
         Verify(
@@ -116,7 +114,6 @@ public class StreamTests
                 })
             },
             "bin");
-
 
 #if !NETFRAMEWORK
     [Fact]

@@ -10,12 +10,28 @@ public class StreamTests
             }));
 
     [Fact]
+    public Task StreamTask() =>
+        Verify(
+           Task.FromResult( new MemoryStream(new byte[]
+           {
+               1
+           })));
+
+    [Fact]
     public Task ByteArray() =>
         Verify(
             new byte[]
             {
                 1
             });
+
+    [Fact]
+    public Task ByteArrayTask() =>
+        Verify(
+            Task.FromResult( new byte[]
+            {
+                1
+            }));
 
     [Fact]
     public Task ByteArrayWithExtension() =>
@@ -76,6 +92,10 @@ public class StreamTests
         Verify(File.OpenRead("sample.txt"));
 
     #endregion
+
+    [Fact]
+    public Task FileStreamTask() =>
+        Verify(Task.FromResult(File.OpenRead("sample.txt")));
 
     [Fact]
     public Task StreamNotAtStart()

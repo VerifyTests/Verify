@@ -16,7 +16,7 @@ Verifies the contents of a file.
 public Task VerifyFilePath() =>
     VerifyFile("sample.txt");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L124-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L145-L151' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -33,5 +33,5 @@ public Task VerifyFileWithInfo() =>
         "sample.txt",
         info: "the info");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L143-L151' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L164-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

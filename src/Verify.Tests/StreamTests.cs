@@ -12,7 +12,8 @@ public class StreamTests
     [Fact]
     public Task StreamTask() =>
         Verify(
-           Task.FromResult( new MemoryStream(new byte[]
+           Task.FromResult(
+               new MemoryStream(new byte[]
            {
                1
            })));

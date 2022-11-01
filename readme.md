@@ -344,13 +344,13 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2892-L2917' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.cs#L169-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
 
-<!-- snippet: SerializationTests.VerifyJsonString.verified.txt -->
-<a id='snippet-SerializationTests.VerifyJsonString.verified.txt'></a>
+<!-- snippet: JsonTests.VerifyJsonString.verified.txt -->
+<a id='snippet-JsonTests.VerifyJsonString.verified.txt'></a>
 ```txt
 {
   key: {
@@ -358,7 +358,7 @@ Results in:
   }
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.VerifyJsonString.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.VerifyJsonString.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.VerifyJsonString.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonTests.VerifyJsonString.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

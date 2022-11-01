@@ -179,7 +179,7 @@ snippet: VerifyJson
 
 Results in:
 
-snippet: SerializationTests.VerifyJsonString.verified.txt
+snippet: JsonTests.VerifyJsonString.verified.txt
 
 
 ## Source control: Received and Verified files

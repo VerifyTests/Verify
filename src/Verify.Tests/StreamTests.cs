@@ -4,19 +4,20 @@ public class StreamTests
     [Fact]
     public Task Stream() =>
         Verify(
-            new MemoryStream(new byte[]
-            {
-                1
-            }));
+            new MemoryStream(
+                new byte[]
+                {
+                    1
+                }));
 
     [Fact]
     public Task StreamTask() =>
         Verify(
-           Task.FromResult(
-               new MemoryStream(new byte[]
-           {
-               1
-           })));
+            Task.FromResult(
+                new MemoryStream(new byte[]
+                {
+                    1
+                })));
 
     [Fact]
     public Task ByteArray() =>
@@ -29,10 +30,11 @@ public class StreamTests
     [Fact]
     public Task ByteArrayTask() =>
         Verify(
-            Task.FromResult( new byte[]
-            {
-                1
-            }));
+            Task.FromResult(
+                new byte[]
+                {
+                    1
+                }));
 
     [Fact]
     public Task ByteArrayWithExtension() =>
@@ -47,10 +49,11 @@ public class StreamTests
     public Task StreamMember()
     {
         var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
-        return Verify(new
-        {
-            stream
-        });
+        return Verify(
+            new
+            {
+                stream
+            });
     }
 
     [Fact]

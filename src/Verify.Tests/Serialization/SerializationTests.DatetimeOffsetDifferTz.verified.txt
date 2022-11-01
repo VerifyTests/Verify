@@ -1,4 +1,0 @@
-﻿{
-  dateTime1: DateTimeOffset_1,
-  dateTime2: DateTimeOffset_2
-}

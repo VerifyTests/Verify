@@ -11,8 +11,54 @@ public class StreamTests
             new MemoryStream(new byte[]
             {
                 1
-            }),
+            }));
+    [Fact]
+    public Task ByteArray() =>
+        Verify(
+            new byte[]
+            {
+                1
+            });
+
+    [Fact]
+    public Task ByteArrayWithExtension() =>
+        Verify(
+            new byte[]
+            {
+                1
+            },
             "bin");
+
+    [Fact]
+    public Task StreamMember()
+    {
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
+        return Verify(new
+        {
+            stream
+        });
+    }
+
+    [Fact]
+    public Task VerifyBytes() =>
+        Verify(File.ReadAllBytes("sample.jpg"), "jpg");
+
+    [Fact]
+    public async Task EmptyBinary()
+    {
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify(Array.Empty<byte>(), "bin"));
+        Assert.Equal("Empty data is not allowed.", exception.Message);
+    }
+    [Fact]
+    public Task NestedByteArray() =>
+        Verify(
+            new
+            {
+                bytes = new byte[]
+                {
+                    1
+                }
+            });
 
     #region StreamWithExtension
 

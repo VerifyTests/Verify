@@ -14,7 +14,7 @@
     <Using Remove="System.Net.Http" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="FSharp.Core" Version="6.0.6" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.81" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="3.0.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.2" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net461' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

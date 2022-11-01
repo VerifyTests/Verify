@@ -16,7 +16,7 @@ public class NewLineTests
     [Fact]
     public async Task StringWithDifferingNewline()
     {
-        var fullPath = CurrentFile.Relative("Tests.StringWithDifferingNewline.verified.txt");
+        var fullPath = CurrentFile.Relative("NewLineTests.StringWithDifferingNewline.verified.txt");
         File.Delete(fullPath);
         File.WriteAllText(fullPath, "a\r\nb");
         await Verify("a\r\nb");
@@ -53,7 +53,7 @@ public class NewLineTests
     [Fact]
     public async Task TrailingNewlinesRaw()
     {
-        var file = CurrentFile.Relative("Tests.TrailingNewlinesRaw.verified.txt");
+        var file = CurrentFile.Relative("NewLineTests.TrailingNewlinesRaw.verified.txt");
         File.Delete(file);
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
@@ -81,7 +81,7 @@ public class NewLineTests
     [Fact]
     public async Task TrailingNewlinesObject()
     {
-        var file = CurrentFile.Relative("Tests.TrailingNewlinesObject.verified.txt");
+        var file = CurrentFile.Relative("NewLineTests.TrailingNewlinesObject.verified.txt");
         var settings = new VerifySettings();
         settings.DisableRequireUniquePrefix();
         var target = new

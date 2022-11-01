@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.81" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <PackageReference Include="AutoFixture.NUnit3" Version="4.17.0" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.NUnit\Verify.NUnit.csproj" />

@@ -14,7 +14,7 @@
     <Using Include="Argon" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.2" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.81" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="3.0.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

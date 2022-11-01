@@ -2881,19 +2881,13 @@ Line2"
         VerifyJson("{}");
 
     [Fact]
-    public Task VerifyJsonRespectSerializerSettings() =>
-        VerifyJson("{'key': 'value', '$ref': '#/no/ref'}")
+    public Task VerifyJsonRefRespectSerializerSettings() =>
+        VerifyJson("{'$ref': '#/no/ref'}")
             .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
 
     [Fact]
-    public Task VerifyJsonIgnored() =>
-        VerifyJson("{'key': 'value', '$ref': '#/no/ref'}")
-            .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore)
-            .IgnoreMember("key");
-
-    [Fact]
-    public Task VerifyJsonOnlyIgnoredRef() =>
-        VerifyJson("{'$ref': '#/no/ref'}")
+    public Task VerifyJsonTypeRespectSerializerSettings() =>
+        VerifyJson("{ '$type': 'MyNamespace.User, MyAssembly'}")
             .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
 
     [Fact]

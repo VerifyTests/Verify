@@ -2873,11 +2873,33 @@ Line2"
     }
 
     [Fact]
-    public Task VerifyJsonGuid()
-    {
-        var json = "{'key': 'c572ff75-e1a2-49bd-99b9-4550697946c3'}";
-        return VerifyJson(json);
-    }
+    public Task VerifyJsonGuid() =>
+        VerifyJson("{'key': 'c572ff75-e1a2-49bd-99b9-4550697946c3'}");
+
+    [Fact]
+    public Task VerifyJsonEmpty() =>
+        VerifyJson("{}");
+
+    [Fact]
+    public Task VerifyJsonRespectSerializerSettings() =>
+        VerifyJson("{'key': 'value', '$ref': '#/no/ref'}")
+            .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
+
+    [Fact]
+    public Task VerifyJsonIgnored() =>
+        VerifyJson("{'key': 'value', '$ref': '#/no/ref'}")
+            .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore)
+            .IgnoreMember("key");
+
+    [Fact]
+    public Task VerifyJsonOnlyIgnoredRef() =>
+        VerifyJson("{'$ref': '#/no/ref'}")
+            .AddExtraSettings(s => s.MetadataPropertyHandling = MetadataPropertyHandling.Ignore);
+
+    [Fact]
+    public Task VerifyJsonOnlyIgnoredMember() =>
+        VerifyJson("{'key': 'value'}")
+            .IgnoreMember("key");
 
     [Fact]
     public Task VerifyJsonDateTime()

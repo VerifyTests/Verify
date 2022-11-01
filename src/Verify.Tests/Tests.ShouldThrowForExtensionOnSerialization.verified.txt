@@ -1,7 +1,0 @@
-﻿{
-  Type: Exception,
-  Message:
-VerifySettings.UseExtension() should only be used for text, for streams, or for converter discovery.
-When serializing an instance the default is txt.
-To use json as an extension when serializing use VerifierSettings.UseStrictJson().
-}

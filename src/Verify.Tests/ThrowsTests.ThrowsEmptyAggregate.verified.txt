@@ -1,0 +1,4 @@
+﻿{
+  Type: AggregateException,
+  StackTrace: at ThrowsTests.MethodThatThrowsEmptyAggregate()
+}

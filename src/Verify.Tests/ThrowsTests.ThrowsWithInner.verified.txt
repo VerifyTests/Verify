@@ -6,5 +6,5 @@
     Type: Exception,
     Message: Inner
   },
-  StackTrace: at Tests.MethodThatThrowsWithInner()
+  StackTrace: at ThrowsTests.MethodThatThrowsWithInner()
 }

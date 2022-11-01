@@ -2,5 +2,5 @@
   Type: ArgumentException,
   Message: The Message,
   ParamName: The parameter,
-  StackTrace: at Tests.MethodThatThrowsArgumentException()
+  StackTrace: at ThrowsTests.MethodThatThrowsArgumentException()
 }

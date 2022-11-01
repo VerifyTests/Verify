@@ -2,5 +2,5 @@
   Type: ArgumentNullException,
   Message: The Message,
   ParamName: The parameter,
-  StackTrace: at Tests.MethodThatThrowsArgumentNullException()
+  StackTrace: at ThrowsTests.MethodThatThrowsArgumentNullException()
 }

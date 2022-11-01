@@ -168,94 +168,6 @@ public class Tests
             (_, _, _) => Task.FromResult(new CompareResult(true)));
 
     [Fact]
-    public Task Throws() =>
-        Verifier.Throws(MethodThatThrows);
-
-    static void MethodThatThrows() =>
-        throw new("The Message");
-
-    [Fact]
-    public Task ThrowsNested() =>
-        Verifier.Throws(Nested.MethodThatThrows);
-
-    static class Nested
-    {
-        public static void MethodThatThrows() =>
-            throw new("The Message");
-    }
-
-    [Fact]
-    public Task ThrowsArgumentException() =>
-        Verifier.Throws(MethodThatThrowsArgumentException);
-
-    static void MethodThatThrowsArgumentException() =>
-        throw new ArgumentException("The Message", "The parameter");
-
-    [Fact]
-    public Task ThrowsInheritedArgumentException() =>
-        Verifier.Throws(MethodThatThrowsArgumentNullException);
-
-    static void MethodThatThrowsArgumentNullException() =>
-        throw new ArgumentNullException("The parameter", "The Message");
-
-    [Fact]
-    public Task ThrowsAggregate() =>
-        Verifier.Throws(MethodThatThrowsAggregate);
-
-    static void MethodThatThrowsAggregate() =>
-        throw new AggregateException(new Exception("The Message1"), new Exception("The Message2"));
-
-    [Fact]
-    public Task ThrowsEmptyAggregate() =>
-        Verifier.Throws(MethodThatThrowsEmptyAggregate);
-
-    static void MethodThatThrowsEmptyAggregate() =>
-        throw new AggregateException();
-
-    [Fact]
-    public Task ThrowsTask() =>
-        Verifier.ThrowsTask(TaskMethodThatThrows)
-            .UniqueForRuntime()
-            .ScrubLinesContaining("ThrowsAsync");
-
-    static Task TaskMethodThatThrows() =>
-        throw new("The Message");
-
-    [Fact]
-    public Task ThrowsWithInner() =>
-        Verifier.Throws(MethodThatThrowsWithInner);
-
-    static void MethodThatThrowsWithInner() =>
-        throw new("The Message", new("Inner"));
-
-    [Fact]
-    public Task ThrowsTaskGeneric() =>
-        Verifier.ThrowsTask(TaskMethodThatThrowsGeneric)
-            .UniqueForRuntime()
-            .ScrubLinesContaining("ThrowsAsync");
-
-    static Task<string> TaskMethodThatThrowsGeneric() =>
-        throw new("The Message");
-
-    [Fact]
-    public Task ThrowsValueTask() =>
-        Verifier.ThrowsValueTask(ValueTaskMethodThatThrows)
-            .UniqueForRuntime()
-            .ScrubLinesContaining("ThrowsAsync");
-
-    static ValueTask ValueTaskMethodThatThrows() =>
-        throw new("The Message");
-
-    [Fact]
-    public Task ThrowsValueTaskGeneric() =>
-        Verifier.ThrowsValueTask(ValueTaskMethodThatThrowsGeneric)
-            .UniqueForRuntime()
-            .ScrubLinesContaining("ThrowsAsync");
-
-    static ValueTask<string> ValueTaskMethodThatThrowsGeneric() =>
-        throw new("The Message");
-
-    [Fact]
     public Task StringBuilder() =>
         Verify(new StringBuilder("value"));
 
@@ -318,73 +230,6 @@ public class Tests
     }
 #endif
 
-
-    [Fact]
-    public Task Stream() =>
-        Verify(
-            new MemoryStream(new byte[]
-            {
-                1
-            }),
-            "bin");
-
-    #region StreamWithExtension
-
-    [Fact]
-    public Task StreamWithExtension()
-    {
-        var stream = new MemoryStream(File.ReadAllBytes("sample.png"));
-        return Verify(stream, "png");
-    }
-
-    #endregion
-
-    #region FileStream
-
-    [Fact]
-    public Task FileStream() =>
-        Verify(File.OpenRead("sample.txt"));
-
-    #endregion
-
-    [Fact]
-    public Task StreamNotAtStart()
-    {
-        var stream = new MemoryStream(new byte[]
-        {
-            1,
-            2,
-            3,
-            4
-        });
-        stream.Position = 2;
-        return Verify(stream);
-    }
-
-    [Fact]
-    public Task StreamNotAtStartAsText()
-    {
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
-        stream.Position = 2;
-        return Verify(stream, "txt");
-    }
-
-    [Fact]
-    public Task Streams() =>
-        Verify(
-            new List<Stream>
-            {
-                new MemoryStream(new byte[]
-                {
-                    1
-                }),
-                new MemoryStream(new byte[]
-                {
-                    2
-                })
-            },
-            "bin");
-
     [Fact]
     public async Task ShouldNotIgnoreCase()
     {
@@ -427,7 +272,7 @@ public class Tests
         await Verify("a\n", settings);
         File.Delete(file);
     }
-
+    
     [Fact]
     public async Task TrailingNewlinesObject()
     {
@@ -608,19 +453,6 @@ public class Tests
         }
     }
 
-    [Fact]
-    public async Task ExceptionResult()
-    {
-        #region ExceptionResult
-
-        var result = await Verifier.Throws(MethodThatThrows);
-        Assert.NotNull(result.Exception);
-
-        #endregion
-
-        Assert.NotNull(result.Target);
-    }
-
     static async IAsyncEnumerable<AsyncDisposableTarget> AsyncEnumerableAsyncDisposableMethod(AsyncDisposableTarget target)
     {
         await Task.Delay(1);
@@ -683,50 +515,6 @@ public class Tests
         public void Dispose() =>
             Disposed = true;
     }
-
-#if !NETFRAMEWORK
-    [Fact]
-    public Task VerifyBytesAsync() =>
-        Verify(File.ReadAllBytesAsync("sample.jpg"), "jpg");
-#endif
-
-    #region VerifyFile
-
-    [Fact]
-    public Task VerifyFilePath() =>
-        VerifyFile("sample.txt");
-
-    #endregion
-
-#if NET6_0
-
-    [Fact]
-    public async Task VerifyFileNotLocked()
-    {
-        await VerifyFile("sampleNotLocked.txt");
-        Assert.False(FileEx.IsFileLocked("sampleNotLocked.txt"));
-    }
-
-#endif
-
-    #region VerifyFileWithInfo
-
-    [Fact]
-    public Task VerifyFileWithInfo() =>
-        VerifyFile(
-            "sample.txt",
-            info: "the info");
-
-    #endregion
-
-    [Fact]
-    public Task VerifyFileWithAppend() =>
-        VerifyFile("sample.txt")
-            .AppendValue("key", "value");
-
-    [Fact]
-    public Task OnlyExtension() =>
-        VerifyFile(".sample");
 
     //[Fact(Skip = "explicit")]
     //public async Task ShouldUseExtraSettings()

@@ -1,5 +1,5 @@
 ﻿{
   Type: Exception,
   Message: The Message,
-  StackTrace: at Tests.TaskMethodThatThrows()
+  StackTrace: at ThrowsTests.MethodThatThrows()
 }

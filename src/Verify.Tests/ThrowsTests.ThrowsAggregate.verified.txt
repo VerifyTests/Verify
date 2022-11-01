@@ -10,5 +10,5 @@
       Message: The Message2
     }
   ],
-  StackTrace: at Tests.MethodThatThrowsAggregate()
+  StackTrace: at ThrowsTests.MethodThatThrowsAggregate()
 }

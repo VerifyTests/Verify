@@ -15,12 +15,6 @@
         return VerifyStream(stream, FileExtensions.GetExtension(stream.Name), info);
     }
 
-    public async Task<VerifyResult> VerifyStream(Task<FileStream> task, object? info)
-    {
-        var stream = await task;
-        return await VerifyStream(stream, info);
-    }
-
     public Task<VerifyResult> VerifyStream(byte[]? bytes, object? info) =>
         VerifyStream(bytes, "bin", info);
 

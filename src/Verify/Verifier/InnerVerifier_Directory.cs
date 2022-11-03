@@ -53,7 +53,7 @@
 
 #endif
 
-    async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
+    async IAsyncEnumerable<Target> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
     {
         if (info is not null)
         {
@@ -65,10 +65,7 @@
                     info));
         }
 
-        if (include == null)
-        {
-            include = _ => true;
-        }
+        include ??= _ => true;
 
         foreach (var file in enumerateFiles)
         {

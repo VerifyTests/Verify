@@ -84,13 +84,7 @@ public class Tests
 
     [Fact]
     public Task WithDirectory() =>
-        VerifyDirectory(
-            directoryToVerify,
-            options: new()
-            {
-                RecurseSubdirectories = true,
-                AttributesToSkip = FileAttributes.System
-            });
+        VerifyDirectory(directoryToVerify);
 
     #endregion
 
@@ -100,11 +94,6 @@ public class Tests
     public Task VerifyDirectoryWithInfo() =>
         VerifyDirectory(
             directoryToVerify,
-            options: new()
-            {
-                RecurseSubdirectories = true,
-                AttributesToSkip = FileAttributes.System
-            },
             info: "the info");
 
     #endregion
@@ -115,11 +104,6 @@ public class Tests
     public Task VerifyDirectoryWithFileScrubber() =>
         VerifyDirectory(
             directoryToVerify,
-            options: new()
-            {
-                RecurseSubdirectories = true,
-                AttributesToSkip = FileAttributes.System
-            },
             fileScrubber: (path, builder) =>
             {
                 if (Path.GetFileName(path) == "TextDoc.txt")

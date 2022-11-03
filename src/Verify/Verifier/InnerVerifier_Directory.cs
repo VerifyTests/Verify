@@ -52,7 +52,7 @@
 
 #endif
 
-    async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
+    async IAsyncEnumerable<Target> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
     {
         if (info is not null)
         {
@@ -89,7 +89,7 @@
                 }
             }
 
-            var relativePath = name[path.Length..].TrimStart(Path.DirectorySeparatorChar);
+            var relativePath = name[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
             if (FileExtensions.IsText(extension))
             {

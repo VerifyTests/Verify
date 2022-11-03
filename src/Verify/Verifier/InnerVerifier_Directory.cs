@@ -76,15 +76,13 @@
             var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
             var fileDirectoryPath = Path.GetDirectoryName(filePath)!;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
+            var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
             if (string.IsNullOrEmpty(extension))
             {
                 extension = "noextension";
             }
-
-            var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
-            var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
-
             if (FileExtensions.IsText(extension))
             {
                 var builder = await IoHelpers.ReadStringBuilderWithFixedLines(filePath);
@@ -96,6 +94,7 @@
             }
             else
             {
+
                 yield return new(
                     extension,
                     File.OpenRead(filePath),

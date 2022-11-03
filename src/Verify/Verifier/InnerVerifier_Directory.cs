@@ -15,7 +15,8 @@
         pattern ??= "*";
         option ??= new()
         {
-            RecurseSubdirectories = true
+            RecurseSubdirectories = true,
+            AttributesToSkip = 0
         };
         var targets = await ToTargets(
                 path,

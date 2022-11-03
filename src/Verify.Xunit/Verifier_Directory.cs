@@ -16,7 +16,7 @@ public static partial class Verifier
         object? info = null,
         FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
+        Verify(settings, IoHelpers.GetMappedBuildPath(sourceFile), _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.

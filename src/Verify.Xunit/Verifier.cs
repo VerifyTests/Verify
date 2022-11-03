@@ -37,7 +37,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(
             settings,
-            sourceFile,
+            IoHelpers.GetMappedBuildPath(sourceFile),
             _ => _.Verify(target, rawTargets));
 
     public static SettingsTask Verify(
@@ -46,7 +46,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(
             settings,
-            sourceFile,
+            IoHelpers.GetMappedBuildPath(sourceFile),
             _ => _.Verify(targets));
 
     static SettingsTask Verify(

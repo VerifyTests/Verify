@@ -161,6 +161,58 @@
 
     }
 
+    static bool? AppearsToBeWslRun;
+
+    public static string GetMappedBuildPath(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            return path;
+        }
+
+        AppearsToBeWslRun ??= !path.Contains(Path.DirectorySeparatorChar) && path.Contains("\\");
+
+        if (!AppearsToBeWslRun.Value)
+        {
+            return path;
+        }
+
+        string currentDir = Environment.CurrentDirectory;
+        const string wslMountDir = "/mnt/";
+        if (!currentDir.StartsWith(wslMountDir, StringComparison.CurrentCultureIgnoreCase))
+        {
+            AppearsToBeWslRun = false;
+            return path;
+        }
+
+        currentDir = currentDir.Substring(wslMountDir.Length);
+
+        string currentVolume = currentDir.Substring(0, currentDir.IndexOf(Path.DirectorySeparatorChar));
+        if (!path.StartsWith(currentVolume, StringComparison.CurrentCultureIgnoreCase) || path.Length < 3)
+        {
+            return path;
+        }
+
+        // Path.GetPathRoot(path) cannot be used - due to having different platform rules
+        string buildVolume = path.Substring(0, 3);
+        if (!(buildVolume[1] == ':' && buildVolume[2] == '\\'))
+        {
+            return path;
+        }
+
+        string mappedPath =
+            wslMountDir +
+            currentVolume +
+            Path.DirectorySeparatorChar +
+            path.Substring(buildVolume.Length).Replace('\\', Path.DirectorySeparatorChar);
+        if (!File.Exists(mappedPath) && !Directory.Exists(mappedPath))
+        {
+            return path;
+        }
+
+        return mappedPath;
+    }
+
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)

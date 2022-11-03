@@ -66,47 +66,46 @@
 
         include ??= _ => true;
 
-        foreach (var file in enumerateFiles)
+        foreach (var filePath in enumerateFiles)
         {
-            if (!include(file))
+            if (!include(filePath))
             {
                 continue;
             }
 
-            var name = file;
+            var name = filePath;
 
-            var extension = Path.GetExtension(file).Replace(".", string.Empty);
+            var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
             if (string.IsNullOrEmpty(extension))
             {
                 extension = "noextension";
             }
             else
             {
-                var indexOfPeriod = file.LastIndexOf('.');
+                var indexOfPeriod = filePath.LastIndexOf('.');
                 if (indexOfPeriod > -1)
                 {
-                    name = file[..^(file.Length - indexOfPeriod)];
+                    name = filePath[..^(filePath.Length - indexOfPeriod)];
                 }
             }
 
-            name = name[path.Length..];
-            name = name.TrimStart(Path.DirectorySeparatorChar);
+            var relativePath = name[path.Length..].TrimStart(Path.DirectorySeparatorChar);
 
             if (FileExtensions.IsText(extension))
             {
-                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(file);
-                fileScrubber?.Invoke(file, builder);
+                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(filePath);
+                fileScrubber?.Invoke(filePath, builder);
                 yield return new(
                     extension,
                     builder,
-                    name);
+                    relativePath);
             }
             else
             {
                 yield return new(
                     extension,
-                    File.OpenRead(file),
-                    name);
+                    File.OpenRead(filePath),
+                    relativePath);
             }
         }
     }

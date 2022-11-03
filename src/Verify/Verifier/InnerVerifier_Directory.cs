@@ -64,10 +64,7 @@
                     info));
         }
 
-        if (include == null)
-        {
-            include = _ => true;
-        }
+        include ??= _ => true;
 
         foreach (var file in enumerateFiles)
         {

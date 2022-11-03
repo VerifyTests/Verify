@@ -73,23 +73,17 @@
                 continue;
             }
 
-            var name = filePath;
-
             var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
+            var fileDirectoryPath = Path.GetDirectoryName(filePath)!;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+
             if (string.IsNullOrEmpty(extension))
             {
                 extension = "noextension";
             }
-            else
-            {
-                var indexOfPeriod = filePath.LastIndexOf('.');
-                if (indexOfPeriod > -1)
-                {
-                    name = filePath[..^(filePath.Length - indexOfPeriod)];
-                }
-            }
 
-            var relativePath = name[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
+            var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
+            var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
             if (FileExtensions.IsText(extension))
             {

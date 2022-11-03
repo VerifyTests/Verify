@@ -15,7 +15,8 @@
         pattern ??= "*";
         option ??= new()
         {
-            RecurseSubdirectories = true
+            RecurseSubdirectories = true,
+            AttributesToSkip = 0
         };
         var targets = await ToTargets(
                 path,
@@ -94,6 +95,8 @@
 
             name = name[path.Length..];
             name = name.TrimStart(Path.DirectorySeparatorChar);
+
+            name = string.IsNullOrEmpty(name) ? null : name;
 
             if (FileExtensions.IsText(extension))
             {

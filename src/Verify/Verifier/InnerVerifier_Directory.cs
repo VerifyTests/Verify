@@ -15,7 +15,8 @@
         pattern ??= "*";
         option ??= new()
         {
-            RecurseSubdirectories = true
+            RecurseSubdirectories = true,
+            AttributesToSkip = FileAttributes.System
         };
         var targets = await ToTargets(
                 path,

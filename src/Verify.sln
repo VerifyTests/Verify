@@ -76,6 +76,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleTfmTests", "SingleTfm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitUniqueDirectoryMode", "SplitUniqueDirectoryMode\SplitUniqueDirectoryMode.csproj", "{02684D47-1A14-4D1A-9B26-387E3F45FEFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortedJsonTest", "SortedJsonTest\SortedJsonTest.csproj", "{DEC5A717-0914-4798-B68C-F848B6205B64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -202,6 +204,10 @@ Global
 		{02684D47-1A14-4D1A-9B26-387E3F45FEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02684D47-1A14-4D1A-9B26-387E3F45FEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02684D47-1A14-4D1A-9B26-387E3F45FEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC5A717-0914-4798-B68C-F848B6205B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC5A717-0914-4798-B68C-F848B6205B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC5A717-0914-4798-B68C-F848B6205B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC5A717-0914-4798-B68C-F848B6205B64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

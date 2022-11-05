@@ -129,4 +129,9 @@ public static partial class VerifierSettings
 
     public static void SortPropertiesAlphabetically() =>
         sortPropertiesAlphabetically = true;
+
+    internal static bool sortJsonObjects;
+
+    public static void SortJsonObjects() =>
+        sortJsonObjects = true;
 }

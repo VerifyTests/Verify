@@ -397,6 +397,15 @@ To disable use:
 snippet: DontSortDictionaries
 
 
+## Json/JObject sorting
+
+Json and JObject are not sorted.
+
+To enable sorting use:
+
+snippet: SortJsonObjects
+
+
 ## JsonAppender
 
 A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.

@@ -3,8 +3,17 @@
 {
     public override void Write(VerifyJsonWriter writer, JObject value)
     {
-        var dictionary = value
-            .ToObject<OrderedDictionary>(writer.Serializer)!;
-        writer.Serialize(dictionary);
+        if (VerifierSettings.sortJsonObjects)
+        {
+            var dictionary = value
+                .ToObject<Dictionary<string,object>>(writer.Serializer)!;
+            writer.Serialize(dictionary);
+        }
+        else
+        {
+            var dictionary = value
+                .ToObject<OrderedDictionary>(writer.Serializer)!;
+            writer.Serialize(dictionary);
+        }
     }
 }

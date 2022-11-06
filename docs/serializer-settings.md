@@ -1653,6 +1653,26 @@ public Task DontSortDictionaries()
 <!-- endSnippet -->
 
 
+## Json/JObject sorting
+
+Json and JObject are not sorted.
+
+To enable sorting use:
+
+<!-- snippet: SortJsonObjects -->
+<a id='snippet-sortjsonobjects'></a>
+```cs
+static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.SortJsonObjects();
+}
+```
+<sup><a href='/src/SortedJsonTest/SortedJsonTests.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-sortjsonobjects' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## JsonAppender
 
 A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.

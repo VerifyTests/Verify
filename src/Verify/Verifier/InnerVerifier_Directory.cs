@@ -15,7 +15,8 @@
         pattern ??= "*";
         option ??= new()
         {
-            RecurseSubdirectories = true
+            RecurseSubdirectories = true,
+            AttributesToSkip = FileAttributes.System
         };
         var targets = await ToTargets(
                 path,
@@ -52,7 +53,7 @@
 
 #endif
 
-    async IAsyncEnumerable<Target> ToTargets(string path, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
+    async IAsyncEnumerable<Target> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
     {
         if (info is not null)
         {
@@ -64,52 +65,45 @@
                     info));
         }
 
-        if (include == null)
-        {
-            include = _ => true;
-        }
+        include ??= _ => true;
 
-        foreach (var file in enumerateFiles)
+        foreach (var filePath in enumerateFiles)
         {
-            if (!include(file))
+            if (!include(filePath))
             {
                 continue;
             }
 
-            var name = file;
+            var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
+            var fileDirectoryPath = Path.GetDirectoryName(filePath)!;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            if (string.IsNullOrEmpty(fileNameWithoutExtension))
+            {
+                fileNameWithoutExtension = "nofileName";
+            }
+            var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
+            var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
-            var extension = Path.GetExtension(file).Replace(".", string.Empty);
             if (string.IsNullOrEmpty(extension))
             {
                 extension = "noextension";
             }
-            else
-            {
-                var indexOfPeriod = file.LastIndexOf('.');
-                if (indexOfPeriod > -1)
-                {
-                    name = file[..^(file.Length - indexOfPeriod)];
-                }
-            }
-
-            name = name[path.Length..];
-            name = name.TrimStart(Path.DirectorySeparatorChar);
-
             if (FileExtensions.IsText(extension))
             {
-                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(file);
-                fileScrubber?.Invoke(file, builder);
+                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(filePath);
+                fileScrubber?.Invoke(filePath, builder);
                 yield return new(
                     extension,
                     builder,
-                    name);
+                    relativePath);
             }
             else
             {
+
                 yield return new(
                     extension,
-                    File.OpenRead(file),
-                    name);
+                    File.OpenRead(filePath),
+                    relativePath);
             }
         }
     }

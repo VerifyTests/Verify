@@ -7,7 +7,7 @@
   <ItemGroup>
     <Using Include="Argon" />
     <PackageReference Include="Expecto" Version="9.0.4" />
-    <PackageReference Include="FSharp.Core" Version="6.0.6" />
+    <PackageReference Include="FSharp.Core" Version="7.0.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
   </ItemGroup>

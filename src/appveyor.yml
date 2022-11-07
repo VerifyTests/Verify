@@ -22,6 +22,7 @@ build_script:
     }
 - dotnet workload restore src/Verify.sln --include-previews
 - dotnet workload install wasm-tools
+- dotnet workload install macos
 - dotnet build src --configuration Release --nologo
 - dotnet test src --configuration Release --no-build --no-restore --nologo
 

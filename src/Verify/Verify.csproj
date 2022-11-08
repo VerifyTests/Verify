@@ -29,7 +29,7 @@
     <PackageReference Include="SimpleInfoName" Version="2.0.0" />
     <PackageReference Include="Argon" Version="0.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\Verify.props" />
@@ -39,7 +39,7 @@
   <ItemGroup Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net462' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'net48' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'">
     <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
     <PackageReference Include="Nullable" Version="1.3.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@ public class ComparerTests
         await Verify("thetext", settings);
     }
 
-#if NET6_0
+#if NET7_0_OR_GREATER
 
     [Fact]
     public async Task Instance_with_message()

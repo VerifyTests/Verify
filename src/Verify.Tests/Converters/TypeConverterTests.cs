@@ -1,4 +1,4 @@
-﻿#if NET6_0 && DEBUG
+﻿#if NET6_0_OR_GREATER && DEBUG
 
 [UsesVerify]
 public class TypeConverterTests

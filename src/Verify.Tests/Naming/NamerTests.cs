@@ -1,7 +1,7 @@
 ﻿[UsesVerify]
 public class NamerTests
 {
-#if NET6_0 && DEBUG
+#if NET6_0_OR_GREATER && DEBUG
     // [Fact]
     // public async Task ThrowOnConflict()
     // {

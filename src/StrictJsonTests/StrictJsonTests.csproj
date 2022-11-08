@@ -15,13 +15,9 @@
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\Verify.Tests\Serialization\SerializationTests.cs">
       <Link>Serialization\SerializationTests.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Verify.Tests\sample.jpg">
       <Link>sample.jpg</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

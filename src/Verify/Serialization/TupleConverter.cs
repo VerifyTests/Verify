@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NET461
+﻿#if !NETSTANDARD2_0 && !NET462
 static class TupleConverter
 {
     public static Dictionary<string, object?> ExpressionToDictionary(Expression<Func<ITuple>> expression)

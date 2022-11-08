@@ -24,7 +24,7 @@
     <Using Include="System.Runtime.Versioning" />
     <Using Include="System.Runtime.InteropServices" />
     
-    <PackageReference Include="DiffEngine" Version="10.4.5" />
+    <PackageReference Include="DiffEngine" Version="11.0.0" />
     <PackageReference Include="EmptyFiles" Version="4.0.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="2.0.0" />
     <PackageReference Include="Argon" Version="0.1.0" />

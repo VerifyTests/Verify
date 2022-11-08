@@ -41,6 +41,22 @@ public class SerializationTests
             });
     }
 
+    #region AddExtraDatetimeFormat
+
+    [ModuleInitializer]
+    public static void UseAddExtraDatetimeFormat() =>
+        VerifierSettings.AddExtraDatetimeFormat("yyyy-MM-dd");
+
+    [Fact]
+    public Task WithExtraDatetimeFormat() =>
+        Verify(
+            new
+            {
+                date = "2022-11-08"
+            });
+
+    #endregion
+
 #if NET5_0_OR_GREATER || net48
     [Fact]
     public Task ValueTasks()

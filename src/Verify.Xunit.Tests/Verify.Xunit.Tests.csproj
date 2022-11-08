@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net7.0</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -12,7 +12,7 @@
     <PackageReference Include="PublicApiGenerator" Version="10.3.0" />
     <PackageReference Include="Xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
     <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />

@@ -12,7 +12,7 @@ public class NewLineTests
             Property = "F\roo"
         });
 
-#if NET6_0
+#if NET6_0_OR_GREATER
     [Fact]
     public async Task StringWithDifferingNewline()
     {
@@ -49,7 +49,7 @@ public class NewLineTests
     public Task Newlines() =>
         Verify("a\r\nb\nc\rd\r\n");
 
-#if NET6_0
+#if NET6_0_OR_GREATER
     [Fact]
     public async Task TrailingNewlinesRaw()
     {

@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net7.0</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
     <PackageReference Include="AutoFixture.NUnit3" Version="4.17.0" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.NUnit\Verify.NUnit.csproj" />

@@ -209,7 +209,7 @@ public class ExtensionConverterTests
     public Task WithInfoAndBinary() =>
         Verify(File.OpenRead("sample.png"), "WithInfoAndBinary");
 
-#if NET6_0
+#if NET6_0_OR_GREATER
 
     [Fact]
     public async Task WithInfoAndModifiedBinary()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <IsPackageProject>false</IsPackageProject>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
@@ -11,7 +11,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <PackageReference Include="Xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

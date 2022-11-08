@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
   </ItemGroup>

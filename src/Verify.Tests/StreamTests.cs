@@ -153,7 +153,7 @@ public class StreamTests
 
     #endregion
 
-#if NET6_0
+#if NET6_0_OR_GREATER
 
     [Fact]
     public async Task VerifyFileNotLocked()

@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="Argon" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="FSharp.Core" Version="7.0.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

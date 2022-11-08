@@ -1,7 +1,0 @@
-﻿{
-  "exception": {
-    "Type": "Exception",
-    "Message": "the message",
-    "StackTrace": "at SerializationTests.MethodThatThrows()"
-  }
-}

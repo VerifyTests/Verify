@@ -116,7 +116,7 @@ public class Tests
         Assert.True(onVerifyMismatchCalled);
     }
 
-#if NET6_0
+#if NET6_0_OR_GREATER
 
     [Fact]
     public async Task OnFirstVerify()
@@ -239,7 +239,7 @@ public class Tests
         public string? Id { get; set; }
     }
 
-#if NET6_0
+#if NET6_0_OR_GREATER
 
     [Fact]
     public async Task StringWithUtf8Bom()

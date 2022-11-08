@@ -115,7 +115,7 @@ public class Tests
 
     #endregion
 
-#if NET6_0_OR_GREATER
+#if !NET48
 
     #region VerifyDirectoryFilterXunit
 

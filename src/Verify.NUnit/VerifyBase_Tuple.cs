@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NET461
+﻿#if !NETSTANDARD2_0 && !NET462
 namespace VerifyNUnit
 {
     public partial class VerifyBase

@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NET461
+﻿#if !NETSTANDARD2_0 && !NET462
 partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyTuple(Expression<Func<ITuple>> target)

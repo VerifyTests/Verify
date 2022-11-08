@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <OutputType Condition=" '$(OS)' == 'Windows_NT' ">WinExe</OutputType>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net461;net48</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net462;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0;netcoreapp3.1;netcoreapp3.0;netcoreapp2.1</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>

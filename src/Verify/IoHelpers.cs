@@ -116,7 +116,7 @@
         return true;
     }
 
-#if NET461 || NET472 || NET48 || NETSTANDARD2_0
+#if NET462 || NET472 || NET48 || NETSTANDARD2_0
 
     public static Task WriteText(string path, string text)
     {

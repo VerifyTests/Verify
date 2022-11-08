@@ -15,18 +15,22 @@ build_script:
       dotnet workload install macos
       dotnet workload install ios
     }
-    else {
+    if ($isMacOS) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
-      if ($isMacOS) {
-        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
-      } else {
-        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
-      }
+      sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
       sudo dotnet workload restore src/Verify.sln --include-previews
       sudo dotnet workload install wasm-tools
       sudo dotnet workload install macos
       sudo dotnet workload install ios
+    }
+    if ($isLinux) {
+      Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
+      sudo chmod u+x dotnet-install.sh
+      sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
+      sudo dotnet workload restore src/Verify.sln --include-previews
+      sudo dotnet workload install wasm-tools
+      sudo dotnet workload install macos
     }
 - dotnet build src --configuration Release --nologo
 - dotnet test src --configuration Release --no-build --no-restore --nologo

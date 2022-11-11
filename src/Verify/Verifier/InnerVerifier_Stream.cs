@@ -1,5 +1,11 @@
 ﻿partial class InnerVerifier
 {
+    public async Task<VerifyResult> VerifyStream(Task<FileStream> task, object? info) =>
+        await VerifyStream(await task, info);
+
+    public async Task<VerifyResult> VerifyStream(ValueTask<FileStream> task, object? info) =>
+        await VerifyStream(await task, info);
+
     public Task<VerifyResult> VerifyStream(FileStream? stream, object? info)
     {
         if (stream is null)
@@ -33,11 +39,11 @@
         return VerifyStream(new MemoryStream(bytes), extension, info);
     }
 
-    public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info)
-    {
-        var bytes = await task;
-        return await VerifyStream(bytes, extension, info);
-    }
+    public async Task<VerifyResult> VerifyStream(ValueTask<byte[]> task, string extension, object? info) =>
+        await VerifyStream(await task, extension, info);
+
+    public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info) =>
+        await VerifyStream(await task, extension, info);
 
     public async Task<VerifyResult> VerifyStream<T>(Task<T> task, string extension, object? info)
         where T : Stream

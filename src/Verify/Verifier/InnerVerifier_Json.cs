@@ -1,5 +1,11 @@
 ﻿partial class InnerVerifier
 {
+    public async Task<VerifyResult> VerifyJson(ValueTask<string?> task) =>
+        await VerifyJson(await task);
+
+    public async Task<VerifyResult> VerifyJson(Task<string?> task) =>
+        await VerifyJson(await task);
+
     public Task<VerifyResult> VerifyJson(string? target)
     {
         if (target is null)
@@ -9,6 +15,12 @@
 
         return VerifyJson(JToken.Parse(target));
     }
+
+    public async Task<VerifyResult> VerifyJson(ValueTask<Stream?> task) =>
+        await VerifyJson(await task);
+
+    public async Task<VerifyResult> VerifyJson(Task<Stream?> task) =>
+        await VerifyJson(await task);
 
     public async Task<VerifyResult> VerifyJson(Stream? target)
     {

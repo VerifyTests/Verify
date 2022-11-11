@@ -1,19 +1,19 @@
 ﻿partial class InnerVerifier
 {
-    public async Task<VerifyResult> VerifyString(Task<string> task)
-    {
-        var value = await task;
-        return await VerifyString(value);
-    }
+    public async Task<VerifyResult> VerifyString(ValueTask<string> task) =>
+        await VerifyString(await task);
+
+    public async Task<VerifyResult> VerifyString(Task<string> task) =>
+        await VerifyString(await task);
 
     public Task<VerifyResult> VerifyString(string? value) =>
         VerifyInner(value, null, emptyTargets, true);
 
-    public async Task<VerifyResult> VerifyString(Task<string> task, string extension)
-    {
-        var value = await task;
-        return await VerifyString(value, extension);
-    }
+    public async Task<VerifyResult> VerifyString(ValueTask<string> task, string extension) =>
+        await VerifyString(await task, extension);
+
+    public async Task<VerifyResult> VerifyString(Task<string> task, string extension) =>
+        await VerifyString(await task, extension);
 
     public Task<VerifyResult> VerifyString(string? value, string extension) =>
         VerifyInner(

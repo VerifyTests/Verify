@@ -3,6 +3,24 @@
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
     public async Task<VerifyResult> VerifyDirectory(
+        Task<string> task,
+        Func<string, bool>? include,
+        string? pattern,
+        EnumerationOptions? option,
+        object? info,
+        FileScrubber? fileScrubber) =>
+        await VerifyDirectory(await task, include, pattern, option, info, fileScrubber);
+
+    public async Task<VerifyResult> VerifyDirectory(
+        ValueTask<string> task,
+        Func<string, bool>? include,
+        string? pattern,
+        EnumerationOptions? option,
+        object? info,
+        FileScrubber? fileScrubber) =>
+        await VerifyDirectory(await task, include, pattern, option, info, fileScrubber);
+
+    public async Task<VerifyResult> VerifyDirectory(
         string path,
         Func<string, bool>? include,
         string? pattern,
@@ -33,7 +51,31 @@
 
 #else
 
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option, object? info, FileScrubber? fileScrubber)
+    public async Task<VerifyResult> VerifyDirectory(
+        Task<string> task,
+        Func<string, bool>? include,
+        string? pattern,
+        SearchOption option,
+        object? info,
+        FileScrubber? fileScrubber) =>
+        await VerifyDirectory(await task, include, pattern, option, info, fileScrubber);
+
+    public async Task<VerifyResult> VerifyDirectory(
+        ValueTask<string> task,
+        Func<string, bool>? include,
+        string? pattern,
+        SearchOption option,
+        object? info,
+        FileScrubber? fileScrubber) =>
+        await VerifyDirectory(await task, include, pattern, option, info, fileScrubber);
+
+    public async Task<VerifyResult> VerifyDirectory(
+        string path,
+        Func<string, bool>? include,
+        string? pattern,
+        SearchOption option,
+        object? info,
+        FileScrubber? fileScrubber)
     {
         Guard.DirectoryExists(path, nameof(path));
         path = Path.GetFullPath(path);

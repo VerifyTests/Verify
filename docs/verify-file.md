@@ -35,3 +35,35 @@ public Task VerifyFileWithInfo() =>
 ```
 <sup><a href='/src/Verify.Tests/StreamTests.cs#L184-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Verify a file without using a unit test
+
+Use the functionality of VerifyTests outside of a unit test.
+
+<!-- snippet: VerifyFileWithoutUnitTest -->
+<a id='snippet-verifyfilewithoutunittest'></a>
+```cs
+public async Task VerifyExternalFile()
+{
+    var solutionDirectory = AttributeReader.GetSolutionDirectory();
+    var settings = new VerifySettings();
+    settings.DisableRequireUniquePrefix();
+
+    var sourceFile = Path.Combine(solutionDirectory, "Verify.Tests", "sample.txt");
+
+    Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.VerifyFile(sourceFile, null);
+    await new SettingsTask(
+        settings,
+        async verifySettings =>
+        {
+            using var verifier = new InnerVerifier(
+                sourceFile,
+                verifySettings
+            );
+            return await verify(verifier);
+        });
+}
+```
+<sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L16-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithoutunittest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

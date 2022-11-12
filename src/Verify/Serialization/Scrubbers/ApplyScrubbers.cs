@@ -1,10 +1,10 @@
-﻿// ReSharper disable RedundantSuppressNullableWarningExpression
+// ReSharper disable RedundantSuppressNullableWarningExpression
 
 static class ApplyScrubbers
 {
     static char dirSeparator = Path.DirectorySeparatorChar;
     static char altDirSeparator = Path.AltDirectorySeparatorChar;
-    static List<KeyValuePair<string, string>> replacements = null!;
+    static List<KeyValuePair<string, string>> replacements = new();
 
     static string ReplaceAltDirChar(this string directory) =>
         directory.Replace(dirSeparator, altDirSeparator);

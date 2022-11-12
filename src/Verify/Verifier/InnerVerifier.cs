@@ -70,6 +70,43 @@ public partial class InnerVerifier :
         }
     }
 
+    /// <summary>
+    /// Initialize a new instance of the <see cref="InnerVerifier"/> class for verifying the entire file (not just a specific type)
+    /// </summary>
+    /// <remarks>This constructor is used by 3rd party clients</remarks>
+    // ReSharper disable once UnusedMember.Global
+    public InnerVerifier(string sourceFile, VerifySettings settings)
+    {
+        Guard.AgainstEmpty(sourceFile);
+
+        this.settings = settings;
+        directory = ResolveDirectory(sourceFile, settings, new());
+
+        counter = Counter.Start(
+#if NET6_0_OR_GREATER
+            settings.namedDates,
+            settings.namedTimes,
+#endif
+            settings.namedDateTimes,
+            settings.namedGuids,
+            settings.namedDateTimeOffsets
+        );
+
+        IoHelpers.CreateDirectory(directory);
+
+        ValidatePrefix(settings, directory);
+
+        verifiedFiles = new List<string> { Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(sourceFile)}.verified.{FileExtensions.GetExtension(sourceFile)}") };
+
+        getFileNames = target => new(
+            target.Extension,
+            sourceFile,
+            Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(sourceFile)}.verified.{target.Extension}")
+        );
+
+        getIndexedFileNames = (_, _) => throw new NotImplementedException();
+    }
+
     void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
     {
         var verifiedPrefix = PrefixForDirectoryConvention(namer, typeAndMethod, parameters);

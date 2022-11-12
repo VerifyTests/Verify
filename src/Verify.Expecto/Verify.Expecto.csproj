@@ -15,7 +15,7 @@
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="FSharp.Core" Version="7.0.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="4.0.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.2" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net462' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />

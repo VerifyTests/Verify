@@ -137,10 +137,10 @@
         {
             if (offset.Minutes == 0)
             {
-                return $"-{offset.Hours:0}";
+                return $"{offset.Hours:0}";
             }
 
-            return $"-{offset.Hours:0}-{offset.Minutes:00}";
+            return $"{offset.Hours:0}{offset.Minutes:00}";
         }
 
         return "+0";

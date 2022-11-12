@@ -16,6 +16,20 @@ public class DateFormatterTests
     }
 
     [Fact]
+    public Task DateTimeOtherTimeZoneNegativeToJsonString()
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(-1.5));
+        return Verify(DateFormatter.ToJsonString(date));
+    }
+
+    [Fact]
+    public Task DateTimeOtherTimeZoneNegativeToParameterString()
+    {
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.FromHours(-1.5));
+        return Verify(DateFormatter.ToParameterString(date));
+    }
+
+    [Fact]
     public Task DateTimeLocalToJsonString()
     {
         var date = new DateTime(2000, 10, 1, 0, 0, 0, DateTimeKind.Local);

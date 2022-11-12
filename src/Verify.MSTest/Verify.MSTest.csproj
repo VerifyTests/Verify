@@ -12,7 +12,7 @@
     <Using Include="VerifyTests" />
     <Using Include="Argon" />
     <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="4.0.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

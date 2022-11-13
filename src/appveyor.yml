@@ -14,6 +14,7 @@ build_script:
       dotnet workload install wasm-tools
       dotnet workload install macos
       dotnet workload install ios
+      dotnet workload install android
     }
     if ($isMacOS) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
@@ -23,6 +24,7 @@ build_script:
       sudo dotnet workload install wasm-tools
       sudo dotnet workload install macos
       sudo dotnet workload install ios
+      sudo dotnet workload install android
     }
     if ($isLinux) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
@@ -31,6 +33,7 @@ build_script:
       sudo dotnet workload restore src/Verify.sln --include-previews
       sudo dotnet workload install wasm-tools
       sudo dotnet workload install macos
+      sudo dotnet workload install android
     }
 - dotnet build src --configuration Release --nologo
 - dotnet test src --configuration Release --no-build --no-restore --nologo

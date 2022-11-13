@@ -41,7 +41,7 @@ public partial class VerifyBase
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null) =>
-        Verifier.VerifyDirectory(path,include, pattern, option, settings ?? this.settings, sourceFile);
+        Verifier.VerifyDirectory(path,include, pattern, option, settings ?? this.settings, info: info, sourceFile: sourceFile);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -54,8 +54,7 @@ public partial class VerifyBase
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
         object? info = null) =>
-        Verifier.VerifyDirectory(path.FullName, include, pattern, option, settings ?? this.settings, sourceFile);
+        Verifier.VerifyDirectory(path.FullName, include, pattern, option, settings ?? this.settings, info: info, sourceFile: sourceFile);
 
 #endif
-
 }

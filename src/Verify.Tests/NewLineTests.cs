@@ -12,6 +12,25 @@ public class NewLineTests
             Property = "F\roo"
         });
 
+    [Fact]
+    public async Task WithRootNewlineAddedByScrubber()
+    {
+        var result = await Verify("value")
+            .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
+        Assert.False(File.ReadAllText(result.Files.Single()).Contains("\r"));
+    }
+
+    [Fact]
+    public async Task WithNestedNewlineAddedByScrubber()
+    {
+        var result = await Verify(new
+            {
+                Property = "value"
+            })
+            .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
+        Assert.False(File.ReadAllText(result.Files.Single()).Contains("\r"));
+    }
+
 #if NET6_0_OR_GREATER
     [Fact]
     public async Task StringWithDifferingNewline()

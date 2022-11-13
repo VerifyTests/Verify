@@ -10,7 +10,7 @@ build_script:
     if ($isWindows) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
       ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
-      dotnet workload restore src/Verify.sln --include-previews
+      dotnet workload restore src/Verify.sln
       dotnet workload install wasm-tools
       dotnet workload install macos
       dotnet workload install ios
@@ -20,7 +20,7 @@ build_script:
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
-      sudo dotnet workload restore src/Verify.sln --include-previews
+      sudo dotnet workload restore src/Verify.sln
       sudo dotnet workload install wasm-tools
       sudo dotnet workload install macos
       sudo dotnet workload install ios
@@ -30,7 +30,7 @@ build_script:
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
-      sudo dotnet workload restore src/Verify.sln --include-previews
+      sudo dotnet workload restore src/Verify.sln
       sudo dotnet workload install wasm-tools
       sudo dotnet workload install macos
       sudo dotnet workload install android

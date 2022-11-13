@@ -17,10 +17,10 @@
     }
 
     public async Task<VerifyResult> VerifyXml(Task<Stream> target) =>
-        await VerifyJson(await target);
+        await VerifyXml(await target);
 
     public async Task<VerifyResult> VerifyXml(ValueTask<Stream> target) =>
-        await VerifyJson(await target);
+        await VerifyXml(await target);
 
     public async Task<VerifyResult> VerifyXml(Stream? target)
     {

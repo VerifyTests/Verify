@@ -8,19 +8,41 @@ public static partial class Verifier
         string name,
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+
+    public static Task<VerifyResult> VerifyXml(
+        string name,
+        Task<string> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+
+    public static Task<VerifyResult> VerifyXml(
+        string name,
+        ValueTask<string> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 
     public static Task<VerifyResult> VerifyXml(
         string name,
         Stream? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyXml(target));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+
+    public static Task<VerifyResult> VerifyXml(
+        string name,
+        Task<Stream> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
+
+    public static Task<VerifyResult> VerifyXml(
+        string name,
+        ValueTask<Stream> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyXml(target));
 }

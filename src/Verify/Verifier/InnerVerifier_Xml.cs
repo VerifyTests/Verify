@@ -1,5 +1,11 @@
 ﻿partial class InnerVerifier
 {
+    public async Task<VerifyResult> VerifyXml(Task<string> target) =>
+        await VerifyXml(await target);
+
+    public async Task<VerifyResult> VerifyXml(ValueTask<string> target) =>
+        await VerifyXml(await target);
+
     public Task<VerifyResult> VerifyXml(string? target)
     {
         if (target is null)
@@ -9,6 +15,12 @@
 
         return VerifyXml(XDocument.Parse(target));
     }
+
+    public async Task<VerifyResult> VerifyXml(Task<Stream> target) =>
+        await VerifyXml(await target);
+
+    public async Task<VerifyResult> VerifyXml(ValueTask<Stream> target) =>
+        await VerifyXml(await target);
 
     public async Task<VerifyResult> VerifyXml(Stream? target)
     {

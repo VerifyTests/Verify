@@ -8,19 +8,41 @@ public static partial class Verifier
         string name,
         string? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
+
+    public static Task<VerifyResult> VerifyJson(
+        string name,
+        Task<string> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
+
+    public static Task<VerifyResult> VerifyJson(
+        string name,
+        ValueTask<string> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 
     public static Task<VerifyResult> VerifyJson(
         string name,
         Stream? target,
         VerifySettings? settings = null,
-        [CallerFilePath] string sourceFile = "")
-    {
-        var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyJson(target));
-    }
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
+
+    public static Task<VerifyResult> VerifyJson(
+        string name,
+        Task<Stream> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
+
+    public static Task<VerifyResult> VerifyJson(
+        string name,
+        ValueTask<Stream> target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, Assembly.GetCallingAssembly()!, sourceFile, name, _ => _.VerifyJson(target));
 }

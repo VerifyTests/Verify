@@ -46,10 +46,21 @@
         return await VerifyStream(stream, extension, info);
     }
 
-    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? inf)
+    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? info)
         where T : Stream
     {
-        var targets = streams.Select(_ => new Target(extension, _));
+        var targets = streams.Select(_ => new Target(extension, _))
+            .ToList();
+
+        if (info is not null)
+        {
+            targets.Insert(
+                0,
+                new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(settings, counter, info)));
+        }
+
         return await VerifyInner(targets);
     }
 

@@ -37,6 +37,14 @@ public partial class VerifyBase
         where T : Stream =>
         Verifier.Verify(target, extension, settings, info, sourceFile);
 
+    public SettingsTask Verify<T>(
+        ValueTask<T> target,
+        string extension,
+        VerifySettings? settings = null,
+        object? info = null)
+        where T : Stream =>
+        Verifier.Verify(target, extension, settings, info, sourceFile);
+
     public SettingsTask Verify(
         byte[]? target,
         string extension,
@@ -52,6 +60,13 @@ public partial class VerifyBase
 
     public SettingsTask Verify(
         Task<byte[]> target,
+        string extension,
+        VerifySettings? settings = null,
+        object? info = null) =>
+        Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
+
+    public SettingsTask Verify(
+        ValueTask<byte[]> target,
         string extension,
         VerifySettings? settings = null,
         object? info = null) =>

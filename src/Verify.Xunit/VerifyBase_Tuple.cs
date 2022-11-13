@@ -5,11 +5,8 @@ namespace VerifyXunit
     {
         public SettingsTask VerifyTuple(
             Expression<Func<ITuple>> target,
-            VerifySettings? settings = null)
-        {
-            settings ??= this.settings;
-            return Verifier.VerifyTuple(target, settings, sourceFile);
-        }
+            VerifySettings? settings = null) =>
+            Verifier.VerifyTuple(target, settings ?? this.settings, sourceFile);
     }
 }
 #endif

@@ -14,11 +14,8 @@ public partial class VerifyBase
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
-        object? info = null)
-    {
-        settings ??= this.settings;
-        return Verifier.VerifyDirectory(path,include, pattern, options, settings, sourceFile);
-    }
+        object? info = null) =>
+        Verifier.VerifyDirectory(path,include, pattern, options, settings ?? this.settings, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -30,11 +27,8 @@ public partial class VerifyBase
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
-        object? info = null)
-    {
-        settings ??= this.settings;
-        return Verifier.VerifyDirectory(path.FullName, include, pattern, options, settings, sourceFile);
-    }
+        object? info = null) =>
+        Verifier.VerifyDirectory(path.FullName, include, pattern, options, settings ?? this.settings, sourceFile);
 
 #else
 
@@ -47,11 +41,8 @@ public partial class VerifyBase
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
-        object? info = null)
-    {
-        settings ??= this.settings;
-        return Verifier.VerifyDirectory(path,include, pattern, option, settings, sourceFile);
-    }
+        object? info = null) =>
+        Verifier.VerifyDirectory(path,include, pattern, option, settings ?? this.settings, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -63,11 +54,8 @@ public partial class VerifyBase
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
-        object? info = null)
-    {
-        settings ??= this.settings;
-        return Verifier.VerifyDirectory(path.FullName, include, pattern, option, settings, sourceFile);
-    }
+        object? info = null) =>
+        Verifier.VerifyDirectory(path.FullName, include, pattern, option, settings ?? this.settings, sourceFile);
 
 #endif
 }

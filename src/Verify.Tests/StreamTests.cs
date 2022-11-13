@@ -139,6 +139,23 @@ public class StreamTests
             },
             "bin");
 
+    [Fact]
+    public Task StreamsWithInfo() =>
+        Verify(
+            new List<Stream>
+            {
+                new MemoryStream(new byte[]
+                {
+                    1
+                }),
+                new MemoryStream(new byte[]
+                {
+                    2
+                })
+            },
+            "bin",
+            info: "info");
+
 #if !NETFRAMEWORK
     [Fact]
     public Task VerifyBytesAsync() =>

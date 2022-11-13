@@ -33,18 +33,19 @@
         return VerifyStream(new MemoryStream(bytes), extension, info);
     }
 
-    public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info)
-    {
-        var bytes = await task;
-        return await VerifyStream(bytes, extension, info);
-    }
+    public async Task<VerifyResult> VerifyStream(Task<byte[]> task, string extension, object? info) =>
+        await VerifyStream(await task, extension, info);
+
+    public async Task<VerifyResult> VerifyStream(ValueTask<byte[]> task, string extension, object? info) =>
+        await VerifyStream(await task, extension, info);
 
     public async Task<VerifyResult> VerifyStream<T>(Task<T> task, string extension, object? info)
-        where T : Stream
-    {
-        var stream = await task;
-        return await VerifyStream(stream, extension, info);
-    }
+        where T : Stream =>
+        await VerifyStream(await task, extension, info);
+
+    public async Task<VerifyResult> VerifyStream<T>(ValueTask<T> task, string extension, object? info)
+        where T : Stream =>
+        await VerifyStream(await task, extension, info);
 
     public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? info)
         where T : Stream
@@ -128,6 +129,7 @@
         {
             infos.Add(info);
         }
+
         var targets = new List<Target>();
 
         var queue = new Queue<Target>();

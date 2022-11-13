@@ -34,6 +34,15 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
     public static SettingsTask Verify<T>(
+        ValueTask<T> target,
+        string extension,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "")
+        where T : Stream  =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+
+    public static SettingsTask Verify<T>(
         IEnumerable<T> targets,
         string extension,
         VerifySettings? settings = null,
@@ -59,6 +68,14 @@ public static partial class Verifier
 
     public static SettingsTask Verify(
         Task<byte[]> target,
+        string extension,
+        VerifySettings? settings = null,
+        object? info = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+
+    public static SettingsTask Verify(
+        ValueTask<byte[]> target,
         string extension,
         VerifySettings? settings = null,
         object? info = null,

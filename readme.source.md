@@ -257,6 +257,8 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 
 ## Media
 
+ * [Unit testing assertions are now easier than ever with Verify Snapshot tool - 
+Rana Krishnrajsinh (20 October 2022)](https://www.youtube.com/watch?v=T1ZPGi_dHFM)
  * [Testing C# code reliably by freezing it in time - 
 Nick Chapsas (1 August 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
  * [Snapshot Testing in .NET with Verify - Dan Clarke (21 July 2022)](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)

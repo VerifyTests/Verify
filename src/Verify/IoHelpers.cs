@@ -13,7 +13,7 @@
     public static void DeleteFileIfEmpty(string path)
     {
         var info = new FileInfo(path);
-        if (info.Exists && info.Length == 0)
+        if (info is {Exists: true, Length: 0})
         {
             info.Delete();
         }

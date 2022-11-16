@@ -14,7 +14,7 @@
             return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
-        if (value.Second == 0 && value.Millisecond == 0)
+        if (value is {Second: 0, Millisecond: 0})
         {
             return value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
         }
@@ -42,7 +42,7 @@
             return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
-        if (value.Second == 0 && value.Millisecond == 0)
+        if (value is {Second: 0, Millisecond: 0})
         {
             return value.ToString("yyyy-MM-ddTHH-mm", CultureInfo.InvariantCulture);
         }
@@ -74,7 +74,7 @@
             return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
-        if (value.Second == 0 && value.Millisecond == 0)
+        if (value is {Second: 0, Millisecond: 0})
         {
             return value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
         }
@@ -106,7 +106,7 @@
             return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
-        if (value.Second == 0 && value.Millisecond == 0)
+        if (value is {Second: 0, Millisecond: 0})
         {
             return value.ToString("yyyy-MM-ddTHH-mm", CultureInfo.InvariantCulture);
         }

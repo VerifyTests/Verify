@@ -77,12 +77,14 @@
             var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
             var fileDirectoryPath = Path.GetDirectoryName(filePath)!;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-            if (string.IsNullOrEmpty(fileNameWithoutExtension))
-            {
-                fileNameWithoutExtension = "nofileName";
-            }
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
             var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
+
+            //This is a case of file without filename contained inside a directory - so let's not mix directory name with filename
+            if (string.IsNullOrEmpty(fileNameWithoutExtension) && !string.IsNullOrEmpty(relativePath))
+            {
+                relativePath += Path.DirectorySeparatorChar;
+            }
 
             if (string.IsNullOrEmpty(extension))
             {

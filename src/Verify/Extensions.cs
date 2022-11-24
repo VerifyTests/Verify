@@ -166,6 +166,18 @@
     public static string Remove(this string value, string toRemove) =>
         value.Replace(toRemove, "");
 
+    public static string RemoveLast(this string value, string pattern)
+    {
+        int place = value.LastIndexOf(pattern, StringComparison.OrdinalIgnoreCase);
+
+        if (place == -1)
+        {
+            return value;
+        }
+
+        return value.Remove(place, pattern.Length);
+    }
+
     public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
     {
         if (builder.Length < oldValue.Length)

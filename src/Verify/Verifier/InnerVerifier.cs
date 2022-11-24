@@ -64,7 +64,7 @@ partial class InnerVerifier :
             var verifiedDirectory = $"{directoryPrefix}.verified";
             var receivedDirectory = $"{directoryPrefix}.received";
             IoHelpers.CreateDirectory(verifiedDirectory);
-
+            IoHelpers.DeleteFiles(verifiedDirectory, "nofilename.*");
             verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
 
             getFileNames = target =>
@@ -90,6 +90,7 @@ partial class InnerVerifier :
         {
             var subDirectory = Path.Combine(directory, verifiedPrefix);
             IoHelpers.CreateDirectory(subDirectory);
+            IoHelpers.DeleteFiles(subDirectory, "nofilename.verified.*");
             verifiedFiles = IoHelpers.Files(subDirectory, "*.verified.*");
 
             getFileNames = target =>

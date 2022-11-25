@@ -39,7 +39,7 @@
 
             if (renameConflictResolution == RenameConflictResolution.Overwrite)
             {
-                File.Move(file, newFileName, true);
+                File.Replace(file, newFileName, null);
             }
             else if (File.Exists(newFileName))
             {

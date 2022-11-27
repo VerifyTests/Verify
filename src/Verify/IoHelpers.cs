@@ -19,6 +19,48 @@
         }
     }
 
+    public enum RenameConflictResolution
+    {
+        NoAction,
+        Overwrite,
+        Delete
+    }
+
+    public static void RenameFiles(string directory, string pattern, Func<string, string> rename, RenameConflictResolution renameConflictResolution = RenameConflictResolution.NoAction)
+    {
+        if (!Directory.Exists(directory))
+        {
+            return;
+        }
+
+        foreach (var file in Files(directory, pattern))
+        {
+            string newFileName = rename(file);
+
+            if (renameConflictResolution == RenameConflictResolution.Overwrite)
+            {
+                File.Replace(file, newFileName, null);
+            }
+            else if (File.Exists(newFileName))
+            {
+                switch (renameConflictResolution)
+                {
+                    case RenameConflictResolution.NoAction:
+                        continue;
+                    case RenameConflictResolution.Delete:
+                        DeleteFiles(file);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                File.Move(file, newFileName);
+            }
+        }
+    }
+
     public static void DeleteFiles(string directory, string pattern)
     {
         if (!Directory.Exists(directory))

@@ -1,4 +1,6 @@
-﻿partial class InnerVerifier
+﻿namespace VerifyTests;
+
+partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyFile(string path, object? info)
     {

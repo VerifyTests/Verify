@@ -1,4 +1,6 @@
-﻿partial class InnerVerifier
+﻿namespace VerifyTests;
+
+partial class InnerVerifier
 {
     Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
         VerifyInner(null, null, targets, true);

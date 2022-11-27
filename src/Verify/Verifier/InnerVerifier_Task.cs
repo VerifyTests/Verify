@@ -1,4 +1,6 @@
-﻿partial class InnerVerifier
+﻿namespace VerifyTests;
+
+partial class InnerVerifier
 {
     public async Task<VerifyResult> Verify<T>(Task<T> task)
     {

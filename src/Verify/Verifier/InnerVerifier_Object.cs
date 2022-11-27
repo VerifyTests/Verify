@@ -1,4 +1,6 @@
-﻿partial class InnerVerifier
+﻿namespace VerifyTests;
+
+partial class InnerVerifier
 {
     static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
 

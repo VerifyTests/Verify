@@ -35,28 +35,28 @@
 
         foreach (var file in Files(directory, pattern))
         {
-            string newFileName = rename(file);
+            var newFileName = rename(file);
 
             if (renameConflictResolution == RenameConflictResolution.Overwrite)
             {
                 File.Replace(file, newFileName, null);
+                continue;
             }
-            else if (File.Exists(newFileName))
-            {
-                switch (renameConflictResolution)
-                {
-                    case RenameConflictResolution.NoAction:
-                        continue;
-                    case RenameConflictResolution.Delete:
-                        DeleteFiles(file);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
+
+            if (!File.Exists(newFileName))
             {
                 File.Move(file, newFileName);
+                continue;
+            }
+
+            if (renameConflictResolution == RenameConflictResolution.NoAction)
+            {
+                continue;
+            }
+
+            if (renameConflictResolution == RenameConflictResolution.Delete)
+            {
+                DeleteFiles(file);
             }
         }
     }

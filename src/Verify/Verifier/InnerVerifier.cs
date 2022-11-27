@@ -1,4 +1,6 @@
-partial class InnerVerifier :
+namespace VerifyTests;
+
+public partial class InnerVerifier :
     IDisposable
 {
     VerifySettings settings;

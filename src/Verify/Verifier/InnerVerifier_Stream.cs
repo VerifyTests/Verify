@@ -1,4 +1,6 @@
-﻿partial class InnerVerifier
+﻿namespace VerifyTests;
+
+partial class InnerVerifier
 {
     public Task<VerifyResult> VerifyStream(FileStream? stream, object? info)
     {

@@ -1,4 +1,6 @@
-﻿partial class InnerVerifier
+﻿namespace VerifyTests;
+
+partial class InnerVerifier
 {
     public async Task<VerifyResult> VerifyXml(Task<string> target) =>
         await VerifyXml(await target);
@@ -32,7 +34,7 @@
 #if NET5_0_OR_GREATER
         var document = await XDocument.LoadAsync(target, LoadOptions.None, default);
 #else
-        var document = XDocument.Load(target, LoadOptions.None);
+            var document = XDocument.Load(target, LoadOptions.None);
 #endif
         return await VerifyXml(document);
     }

@@ -19,4 +19,14 @@ public readonly struct PathInfo
         MethodName = methodName;
         Directory = directory;
     }
+
+    internal static PathInfo DeriveDefault(
+        string sourceFile,
+        string projectDirectory,
+        Type type,
+        MethodInfo method) =>
+        new(
+            directory: IoHelpers.GetDirectoryName(sourceFile)!,
+            typeName: type.NameWithParent(),
+            methodName: method.Name);
 }

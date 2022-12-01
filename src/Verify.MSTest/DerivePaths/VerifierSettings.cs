@@ -6,11 +6,7 @@ public partial class VerifyBase
 {
     #region defaultDerivePathInfo
 
-    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-        new(
-            directory: Path.GetDirectoryName(sourceFile)!,
-            typeName: type.NameWithParent(),
-            methodName: method.Name);
+    static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
 
     #endregion
 

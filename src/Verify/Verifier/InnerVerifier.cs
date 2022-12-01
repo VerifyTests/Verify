@@ -192,7 +192,7 @@ public partial class InnerVerifier :
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)
     {
-        var sourceFileDirectory = Path.GetDirectoryName(sourceFile)!;
+        var sourceFileDirectory = IoHelpers.GetDirectoryName(sourceFile)!;
         var pathInfoDirectory = pathInfo.Directory;
         if (ContinuousTestingDetector.IsNCrunch)
         {
@@ -203,6 +203,7 @@ public partial class InnerVerifier :
         }
 
         var settingsOrInfoDirectory = settings.Directory ?? pathInfoDirectory;
+        settingsOrInfoDirectory = IoHelpers.GetMappedBuildPath(settingsOrInfoDirectory);
 
         if (settingsOrInfoDirectory is null)
         {

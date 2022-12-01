@@ -18,37 +18,41 @@ public static class AttributeReader
         GetProjectDirectory(Assembly.GetCallingAssembly());
 
     public static string GetProjectDirectory(Assembly assembly) =>
-        GetValue(assembly, "Verify.ProjectDirectory");
+        GetValue(assembly, "Verify.ProjectDirectory", true);
 
     public static bool TryGetProjectDirectory([NotNullWhen(true)] out string? projectDirectory) =>
         TryGetProjectDirectory(Assembly.GetCallingAssembly(), out projectDirectory);
 
     public static bool TryGetProjectDirectory(Assembly assembly, [NotNullWhen(true)] out string? projectDirectory) =>
-        TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory);
+        TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory, true);
 
     public static string GetSolutionDirectory() =>
         GetSolutionDirectory(Assembly.GetCallingAssembly());
 
     public static string GetSolutionDirectory(Assembly assembly) =>
-        GetValue(assembly, "Verify.SolutionDirectory");
+        GetValue(assembly, "Verify.SolutionDirectory", true);
 
     public static bool TryGetSolutionDirectory([NotNullWhen(true)] out string? solutionDirectory) =>
         TryGetSolutionDirectory(Assembly.GetCallingAssembly(), out solutionDirectory);
 
     public static bool TryGetSolutionDirectory(Assembly assembly, [NotNullWhen(true)] out string? solutionDirectory) =>
-        TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory);
+        TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory, true);
 
-    static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value)
+    static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value, bool isSourcePath = false)
     {
         value = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
             .SingleOrDefault(_ => _.Key == key)
             ?.Value;
+        if (isSourcePath)
+        {
+            value = value == null ? null : IoHelpers.GetMappedBuildPath(value);
+        }
         return value is not null;
     }
 
-    static string GetValue(Assembly assembly, string key)
+    static string GetValue(Assembly assembly, string key, bool isSourcePath = false)
     {
-        if (TryGetValue(assembly, key, out var value))
+        if (TryGetValue(assembly, key, out var value, isSourcePath))
         {
             return value;
         }

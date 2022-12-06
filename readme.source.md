@@ -257,7 +257,7 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 
 ## Media
 
- * [Compare object values in xUnit C# with Verify](https://goatreview.com/compare-object-values-xunit-csharp-verify/) - Pierre Belin
+ * [Compare object values in xUnit C# with Verify - Pierre Belin](https://goatreview.com/compare-object-values-xunit-csharp-verify/)
  * [Unit testing assertions are now easier than ever with Verify Snapshot tool - 
 Rana Krishnrajsinh (20 October 2022)](https://www.youtube.com/watch?v=T1ZPGi_dHFM)
  * [The easiest way to Unit Test with Verify in C# - 

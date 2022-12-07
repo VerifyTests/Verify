@@ -3,24 +3,25 @@
     public static IEnumerable<string> Find(string fileNamePrefix, string suffix, string directory)
     {
         var nonIndexedPattern = $"{fileNamePrefix}.*.*";
-        var indexedPattern = $"{fileNamePrefix}#??.*.*";
-        var files = Directory.EnumerateFiles(directory, nonIndexedPattern)
-            .Concat(Directory.EnumerateFiles(directory, indexedPattern));
-        foreach (var file in files)
+        var nonIndexedPrefix = $"{fileNamePrefix}.";
+        foreach (var file in Directory.EnumerateFiles(directory, nonIndexedPattern))
         {
-            if (ShouldInclude(fileNamePrefix, suffix, file))
+            var name = Path.GetFileNameWithoutExtension(file);
+            if (name.StartsWith(nonIndexedPrefix) && name.EndsWith(suffix))
             {
                 yield return file;
             }
         }
-    }
 
-    public static bool ShouldInclude(string fileNamePrefix, string suffix, string file)
-    {
-        var name = Path.GetFileNameWithoutExtension(file);
-
-        return (name.StartsWith(fileNamePrefix + ".") ||
-                name.StartsWith(fileNamePrefix + '#')) &&
-               name.EndsWith(suffix);
+        var indexedPattern = $"{fileNamePrefix}#??.*.*";
+        var indexedPrefix = $"{fileNamePrefix}#";
+        foreach (var file in Directory.EnumerateFiles(directory, indexedPattern))
+        {
+            var name = Path.GetFileNameWithoutExtension(file);
+            if (name.StartsWith(indexedPrefix) && name.EndsWith(suffix))
+            {
+                yield return file;
+            }
+        }
     }
 }

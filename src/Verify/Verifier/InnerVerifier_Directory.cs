@@ -103,7 +103,6 @@ partial class InnerVerifier
             }
             else
             {
-
                 yield return new(
                     extension,
                     File.OpenRead(filePath),

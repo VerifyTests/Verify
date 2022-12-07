@@ -150,7 +150,7 @@ public partial class InnerVerifier :
         // intentionally do not validate filePathPrefixVerified
         ValidatePrefix(settings, pathPrefixReceived);
 
-        verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
+        verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory).ToList();
 
         getFileNames = target =>
         {

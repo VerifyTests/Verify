@@ -204,16 +204,13 @@ public class Tests
     public async Task DanglingFiles()
     {
         var receivedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
-        var verifiedOldFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.01.verified.txt");
         var verifiedNewFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}#01.verified.txt");
         File.WriteAllText(receivedFile, "");
-        File.WriteAllText(verifiedOldFile, "");
         File.WriteAllText(verifiedNewFile, "");
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
         Assert.False(File.Exists(receivedFile));
-        Assert.False(File.Exists(verifiedOldFile));
         Assert.False(File.Exists(verifiedNewFile));
     }
 

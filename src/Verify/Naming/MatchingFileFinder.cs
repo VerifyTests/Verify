@@ -3,7 +3,7 @@
     public static IEnumerable<string> FindReceived(string fileNamePrefix, string directory)
     {
         var nonIndexedPattern = $"{fileNamePrefix}.received.*";
-        foreach (var file in Directory.GetFiles(directory, nonIndexedPattern))
+        foreach (var file in Directory.EnumerateFiles(directory, nonIndexedPattern))
         {
             yield return file;
         }
@@ -18,7 +18,7 @@
     public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory)
     {
         var nonIndexedPattern = $"{fileNamePrefix}.verified.*";
-        foreach (var file in Directory.GetFiles(directory, nonIndexedPattern))
+        foreach (var file in Directory.EnumerateFiles(directory, nonIndexedPattern))
         {
             yield return file;
         }

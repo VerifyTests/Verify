@@ -150,7 +150,7 @@ public partial class InnerVerifier :
         // intentionally do not validate filePathPrefixVerified
         ValidatePrefix(settings, pathPrefixReceived);
 
-        verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
+        verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory).ToList();
 
         getFileNames = target =>
         {
@@ -169,7 +169,7 @@ public partial class InnerVerifier :
                 $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
 
-        IoHelpers.DeleteFiles(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
+        IoHelpers.DeleteFiles(MatchingFileFinder.FindReceived(receivedPrefix, directory));
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)

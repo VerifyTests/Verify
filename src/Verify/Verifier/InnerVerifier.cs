@@ -169,7 +169,7 @@ public partial class InnerVerifier :
                 $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
 
-        IoHelpers.DeleteFiles(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
+        IoHelpers.DeleteFiles(MatchingFileFinder.FindReceived(receivedPrefix, directory));
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)

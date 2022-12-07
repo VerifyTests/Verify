@@ -1,25 +1,17 @@
 ﻿static class MatchingFileFinder
 {
-    public static IEnumerable<string> Find(string fileNamePrefix, string suffix, string directory)
+    public static IEnumerable<string> FindReceived(string fileNamePrefix, string directory)
     {
-        var nonIndexedPattern = $"{fileNamePrefix}.*.*";
+        var nonIndexedPattern = $"{fileNamePrefix}.received.*";
         foreach (var file in Directory.GetFiles(directory, nonIndexedPattern))
         {
-            var name = Path.GetFileNameWithoutExtension(file);
-            if (name.EndsWith(suffix))
-            {
-                yield return file;
-            }
+            yield return file;
         }
 
-        var indexedPattern = $"{fileNamePrefix}#??.*.*";
+        var indexedPattern = $"{fileNamePrefix}#??.received.*";
         foreach (var file in Directory.EnumerateFiles(directory, indexedPattern))
         {
-            var name = Path.GetFileNameWithoutExtension(file);
-            if (name.EndsWith(suffix))
-            {
-                yield return file;
-            }
+            yield return file;
         }
     }
 

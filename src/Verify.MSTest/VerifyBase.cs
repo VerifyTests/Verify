@@ -13,7 +13,13 @@ public abstract partial class VerifyBase
         {
             settings.UseUniqueDirectory();
         }
+
         var testName = TestContext.TestName;
+        if (testName == null)
+        {
+            throw new("TestContext.TestName is null. Ensure being used inside a test");
+        }
+
         var indexOf = testName.IndexOf('(');
         if (indexOf > 0)
         {

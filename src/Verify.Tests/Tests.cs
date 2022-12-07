@@ -221,8 +221,8 @@ public class Tests
     [InlineData("param")]
     public async Task DanglingFilesIgnoreParametersForVerified(string param)
     {
-        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}.01.received.txt");
-        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}.01.verified.txt");
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}#01.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}#01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
         await Verify("value")

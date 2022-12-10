@@ -15,7 +15,7 @@ static class ProjectDirectoryFinder
         var currentDirectory = testDirectory;
         do
         {
-            if (Directory.GetFiles(currentDirectory, "*.csproj").Any())
+            if (ContainsProject(currentDirectory))
             {
                 path = currentDirectory;
                 return true;
@@ -31,4 +31,9 @@ static class ProjectDirectoryFinder
             currentDirectory = parent.FullName;
         } while (true);
     }
+
+    static bool ContainsProject(string currentDirectory) =>
+        Directory.GetFiles(currentDirectory, "*.csproj").Any() ||
+        Directory.GetFiles(currentDirectory, "*.fsproj").Any() ||
+        Directory.GetFiles(currentDirectory, "*.vbproj").Any();
 }

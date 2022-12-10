@@ -1,26 +1,32 @@
 ﻿static class MatchingFileFinder
 {
-    public static IEnumerable<string> Find(string fileNamePrefix, string suffix, string directory)
+    public static IEnumerable<string> FindReceived(string fileNamePrefix, string directory)
     {
-        var nonIndexedPattern = $"{fileNamePrefix}.*.*";
-        var indexedPattern = $"{fileNamePrefix}#??.*.*";
-        var files = Directory.EnumerateFiles(directory, nonIndexedPattern)
-            .Concat(Directory.EnumerateFiles(directory, indexedPattern));
-        foreach (var file in files)
+        var nonIndexedPattern = $"{fileNamePrefix}.received.*";
+        foreach (var file in Directory.EnumerateFiles(directory, nonIndexedPattern))
         {
-            if (ShouldInclude(fileNamePrefix, suffix, file))
-            {
-                yield return file;
-            }
+            yield return file;
+        }
+
+        var indexedPattern = $"{fileNamePrefix}#??.received.*";
+        foreach (var file in Directory.EnumerateFiles(directory, indexedPattern))
+        {
+            yield return file;
         }
     }
 
-    public static bool ShouldInclude(string fileNamePrefix, string suffix, string file)
+    public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory)
     {
-        var name = Path.GetFileNameWithoutExtension(file);
+        var nonIndexedPattern = $"{fileNamePrefix}.verified.*";
+        foreach (var file in Directory.EnumerateFiles(directory, nonIndexedPattern))
+        {
+            yield return file;
+        }
 
-        return (name.StartsWith(fileNamePrefix + ".") ||
-                name.StartsWith(fileNamePrefix + '#')) &&
-               name.EndsWith(suffix);
+        var indexedPattern = $"{fileNamePrefix}#??.verified.*";
+        foreach (var file in Directory.EnumerateFiles(directory, indexedPattern))
+        {
+            yield return file;
+        }
     }
 }

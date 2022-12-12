@@ -1,8 +1,13 @@
 ﻿{
   "DateTime": "DateTime_1",
+  "NamedDateTime": "namedDateTime",
   "DateTimeNullable": "DateTime_2",
   "DateOnly": "Date_1",
+  "NamedDateOnly": "Date_1",
+  "TimeOnly": "Time_1",
+  "NamedTimeOnly": "namedTime",
   "DateOnlyNullable": "Date_2",
+  "NamedDateTimeOffset": "namedDateTimeOffset",
   "DateTimeOffset": "DateTimeOffset_1",
   "DateTimeOffsetNullable": "DateTimeOffset_2",
   "DateTimeString": "DateTimeOffset_3",

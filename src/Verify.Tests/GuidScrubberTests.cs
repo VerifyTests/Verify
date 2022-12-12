@@ -5,7 +5,7 @@ public class GuidScrubberTests
 
     [ModuleInitializer]
     public static void Init() =>
-        Counter.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
+        Counter.AddNamed(new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 
     #endregion
 

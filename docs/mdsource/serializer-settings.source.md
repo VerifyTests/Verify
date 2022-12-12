@@ -107,7 +107,7 @@ To disable this behavior globally use:
 snippet: DontScrubGuidsGlobal
 
 
-### NamedGuid
+### Named Guid
 
 Specific Guids can be named.
 
@@ -146,7 +146,7 @@ snippet: DontScrubDateTimesGlobal
 snipper: AddExtraDatetimeFormat
 
 
-### Named
+### Named Date and Times
 
 Specific date or times can be named.
 

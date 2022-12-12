@@ -1,7 +1,12 @@
 [UsesVerify]
 public class GuidScrubberTests
 {
+    [ModuleInitializer]
+    public static void Init() =>
+        Counter.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
+
     [Theory]
+    [InlineData("c8eeaf99-d5c4-4341-8543-4597c3fd40c9", "named")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c", "simple")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c}", "curly")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c", "start-curly")]

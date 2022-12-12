@@ -21,20 +21,31 @@ public class Counter
         });
 
     ConcurrentDictionary<Guid, (int intValue, string stringValue)> guidCache = new();
+    static Dictionary<Guid, string> namedGuids = new();
     int currentGuid;
 
     public int Next(Guid input) =>
         NextValue(input).intValue;
 
+    public static void AddNamedGuid(Guid guid, string name) =>
+        namedGuids.Add(guid, name);
+
     public string NextString(Guid input) =>
         NextValue(input).stringValue;
 
-    (int intValue, string stringValue) NextValue(Guid input) =>
-        guidCache.GetOrAdd(input, _ =>
+    (int intValue, string stringValue) NextValue(Guid input)
+    {
+        if (namedGuids.TryGetValue(input, out var value))
+        {
+            return new(0, value);
+        }
+
+        return guidCache.GetOrAdd(input, _ =>
         {
             var value = Interlocked.Increment(ref currentGuid);
             return (value, $"Guid_{value}");
         });
+    }
 
     ConcurrentDictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(new DateTimeOffsetComparer());
 
@@ -89,6 +100,30 @@ public class Counter
             return (value, $"DateTime_{value}");
         });
 
+    public static Counter Current
+    {
+        get
+        {
+            var context = local.Value;
+            if (context is null)
+            {
+                throw new("No current context");
+            }
+
+            return context;
+        }
+    }
+
+    internal static Counter Start()
+    {
+        var context = new Counter();
+        local.Value = context;
+        return context;
+    }
+
+    internal static void Stop() =>
+        local.Value = null;
+
 #if NET6_0_OR_GREATER
 
     ConcurrentDictionary<DateOnly, (int intValue, string stringValue)> dateCache = new();
@@ -124,28 +159,4 @@ public class Counter
         });
 
 #endif
-
-    public static Counter Current
-    {
-        get
-        {
-            var context = local.Value;
-            if (context is null)
-            {
-                throw new("No current context");
-            }
-
-            return context;
-        }
-    }
-
-    internal static Counter Start()
-    {
-        var context = new Counter();
-        local.Value = context;
-        return context;
-    }
-
-    internal static void Stop() =>
-        local.Value = null;
 }

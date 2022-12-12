@@ -107,6 +107,15 @@ To disable this behavior globally use:
 snippet: DontScrubGuidsGlobal
 
 
+### NamedGuid
+
+Specific Guids can be named.
+
+snippet: NamedGuid
+
+Now when `c8eeaf99-d5c4-4341-8543-4597c3fd40c9` is found, it will be replaced with `guidName`.
+
+
 ## Dates are scrubbed
 
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.

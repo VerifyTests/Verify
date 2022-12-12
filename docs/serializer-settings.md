@@ -245,7 +245,7 @@ VerifierSettings.DontScrubGuids();
 <!-- endSnippet -->
 
 
-### NamedGuid
+### Named Guid
 
 Specific Guids can be named.
 
@@ -361,7 +361,7 @@ VerifierSettings.DontScrubDateTimes();
 snipper: AddExtraDatetimeFormat
 
 
-### Named
+### Named Date and Times
 
 Specific date or times can be named.
 

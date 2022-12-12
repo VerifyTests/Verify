@@ -9,17 +9,17 @@ public partial class Counter
     public int Next(Guid input) =>
         NextValue(input).intValue;
 
-    public static void AddNamedGuid(Guid guid, string name) =>
-        namedGuids.Add(guid, name);
+    public static void AddNamed(Guid value, string name) =>
+        namedGuids.Add(value, name);
 
     public string NextString(Guid input) =>
         NextValue(input).stringValue;
 
     (int intValue, string stringValue) NextValue(Guid input)
     {
-        if (namedGuids.TryGetValue(input, out var value))
+        if (namedGuids.TryGetValue(input, out var name))
         {
-            return new(0, value);
+            return new(0, name);
         }
 
         return guidCache.GetOrAdd(input, _ =>

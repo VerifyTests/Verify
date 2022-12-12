@@ -839,6 +839,15 @@ line3"
         return Verify(target);
     }
 
+    [ModuleInitializer]
+    public static void InitShouldScrubDatetime()
+    {
+        Counter.AddNamed(new DateTime(2030, 1, 1), "namedDateTime");
+        Counter.AddNamed(new TimeOnly(1, 1), "namedDateTime");
+        Counter.AddNamed(new DateOnly(2030, 1, 1), "namedDateOnly");
+        Counter.AddNamed(new DateTimeOffset(new(2030, 1, 1)), "namedDateTimeOffset");
+    }
+
     [Fact]
     public Task ShouldScrubDatetime()
     {
@@ -847,12 +856,17 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
+            NamedDateTime = new(2030,1,1),
+            NamedDateTimeOffset = new DateTime(2030,1,1),
             DateTimeNullable = dateTime.AddDays(1),
             DateTimeString = dateTime.AddDays(2).ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
+            TimeOnly = new(10, 10),
+            NamedTimeOnly = new(1, 1),
             DateOnly = new(2020, 10, 10),
+            NamedDateOnly = new(2020, 10, 10),
             DateOnlyNullable = new(2020, 10, 12),
             DateOnlyString = new DateOnly(2020, 10, 12).ToString()
         };
@@ -863,9 +877,14 @@ line3"
     class DateTimeTarget
     {
         public DateTime DateTime;
+        public DateTime NamedDateTime;
         public DateTime? DateTimeNullable;
         public DateOnly DateOnly;
+        public DateOnly NamedDateOnly;
+        public TimeOnly TimeOnly;
+        public TimeOnly NamedTimeOnly;
         public DateOnly? DateOnlyNullable;
+        public DateTimeOffset NamedDateTimeOffset;
         public DateTimeOffset DateTimeOffset;
         public DateTimeOffset? DateTimeOffsetNullable;
         public string DateTimeString;

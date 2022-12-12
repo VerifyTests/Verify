@@ -3,6 +3,7 @@
 public partial class Counter
 {
     ConcurrentDictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(new DateTimeOffsetComparer());
+    static Dictionary<DateTimeOffset, string> namedDateTimeOffsets = new();
 
     class DateTimeOffsetComparer :
         IEqualityComparer<DateTimeOffset>
@@ -16,16 +17,26 @@ public partial class Counter
 
     int currentDateTimeOffset;
 
+    public static void AddNamed(DateTimeOffset value, string name) =>
+        namedDateTimeOffsets.Add(value, name);
+
     public int Next(DateTimeOffset input) =>
         NextValue(input).intValue;
 
     public string NextString(DateTimeOffset input) =>
         NextValue(input).stringValue;
 
-    (int intValue, string stringValue) NextValue(DateTimeOffset input) =>
-        dateTimeOffsetCache.GetOrAdd(input, _ =>
+    (int intValue, string stringValue) NextValue(DateTimeOffset input)
+    {
+        if (namedDateTimeOffsets.TryGetValue(input, out var name))
+        {
+            return new(0, name);
+        }
+
+        return dateTimeOffsetCache.GetOrAdd(input, _ =>
         {
             var value = Interlocked.Increment(ref currentDateTimeOffset);
             return (value, $"DateTimeOffset_{value}");
         });
+    }
 }

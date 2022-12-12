@@ -33,10 +33,16 @@ public static class AttributeReader
         GetValue(assembly, "Verify.SolutionDirectory", true);
 
     public static bool TryGetSolutionDirectory([NotNullWhen(true)] out string? solutionDirectory) =>
-        TryGetSolutionDirectory(Assembly.GetCallingAssembly(), out solutionDirectory);
+        TryGetSolutionDirectory(Assembly.GetCallingAssembly(), true, out solutionDirectory);
 
     public static bool TryGetSolutionDirectory(Assembly assembly, [NotNullWhen(true)] out string? solutionDirectory) =>
-        TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory, true);
+        TryGetSolutionDirectory(assembly, true, out solutionDirectory);
+
+    internal static bool TryGetSolutionDirectory(bool mapPathForVirtualizedRun, [NotNullWhen(true)] out string? solutionDirectory) =>
+        TryGetSolutionDirectory(Assembly.GetCallingAssembly(), mapPathForVirtualizedRun, out solutionDirectory);
+
+    internal static bool TryGetSolutionDirectory(Assembly assembly, bool mapPathForVirtualizedRun, [NotNullWhen(true)] out string? solutionDirectory) =>
+        TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory, mapPathForVirtualizedRun);
 
     static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value, bool isSourcePath = false)
     {
@@ -45,7 +51,7 @@ public static class AttributeReader
             ?.Value;
         if (isSourcePath)
         {
-            value = value == null ? null : IoHelpers.GetMappedBuildPath(value);
+            value = value == null ? null : IoHelpers.GetMappedBuildPath(value, assembly);
         }
         return value is not null;
     }

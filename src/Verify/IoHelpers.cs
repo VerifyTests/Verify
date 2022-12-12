@@ -203,56 +203,19 @@
 
     }
 
-    private static bool? appearsToBeWslRun;
+    static VirtualizedRunHelper? virtualizedRunHelper;
 
-    internal static string? GetMappedBuildPath(string? path)
+    internal static void MapPathsForCallingAssembly(Assembly assembly) =>
+        virtualizedRunHelper = new(assembly);
+
+    internal static string? GetMappedBuildPath(string? path, Assembly? assembly = null)
     {
-        if (path == null || string.IsNullOrEmpty(path))
+        if (virtualizedRunHelper == null && assembly != null)
         {
-            return path;
+            virtualizedRunHelper = new(assembly);
         }
 
-        appearsToBeWslRun ??= !path.Contains(Path.DirectorySeparatorChar) && path.Contains("\\");
-
-        if (!appearsToBeWslRun.Value)
-        {
-            return path;
-        }
-
-        string currentDir = Environment.CurrentDirectory;
-        const string wslMountDir = "/mnt/";
-        if (!currentDir.StartsWith(wslMountDir, StringComparison.CurrentCultureIgnoreCase))
-        {
-            appearsToBeWslRun = false;
-            return path;
-        }
-
-        currentDir = currentDir.Substring(wslMountDir.Length);
-
-        string currentVolume = currentDir.Substring(0, currentDir.IndexOf(Path.DirectorySeparatorChar));
-        if (!path.StartsWith(currentVolume, StringComparison.CurrentCultureIgnoreCase) || path.Length < 3)
-        {
-            return path;
-        }
-
-        // Path.GetPathRoot(path) cannot be used - due to having different platform rules
-        string buildVolume = path.Substring(0, 3);
-        if (!(buildVolume[1] == ':' && buildVolume[2] == '\\'))
-        {
-            return path;
-        }
-
-        string mappedPath =
-            wslMountDir +
-            currentVolume +
-            Path.DirectorySeparatorChar +
-            path.Substring(buildVolume.Length).Replace('\\', Path.DirectorySeparatorChar);
-        if (!File.Exists(mappedPath) && !Directory.Exists(mappedPath))
-        {
-            return path;
-        }
-
-        return mappedPath;
+        return virtualizedRunHelper == null ? path : virtualizedRunHelper.GetMappedBuildPath(path);
     }
 
     public static string? GetDirectoryName(string? path) =>

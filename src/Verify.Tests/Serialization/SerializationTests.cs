@@ -308,8 +308,8 @@ line3"
         Verify(
                 new
                 {
-                    time = new TimeOnly(10, 1, 1),
-                    value = new DateOnly(2000, 1, 1),
+                    time = new Time(10, 1, 1),
+                    value = new Date(2000, 1, 1),
                 })
             .DontScrubDateTimes()
             .ScrubLinesWithReplace(_ => "replaced");
@@ -705,27 +705,27 @@ line3"
 #if NET6_0_OR_GREATER
 
     [Fact]
-    public Task TimeOnly() =>
-        Verify(new TimeOnly(10, 10));
+    public Task Time() =>
+        Verify(new Time(10, 10));
 
     [Fact]
-    public Task TimeOnlyNested() =>
+    public Task TimeNested() =>
         Verify(new
         {
-            value = new TimeOnly(10, 10)
+            value = new Time(10, 10)
         });
 
     [Fact]
-    public Task TimeOnlyNestedWithNoScrubbing() =>
+    public Task TimeNestedWithNoScrubbing() =>
         Verify(new
             {
-                value = new TimeOnly(10, 10)
+                value = new Time(10, 10)
             })
             .DontScrubDateTimes();
 
     [Fact]
-    public Task TimeOnlyWithNoScrubbing() =>
-        Verify(new TimeOnly(10, 10))
+    public Task TimeWithNoScrubbing() =>
+        Verify(new Time(10, 10))
             .DontScrubDateTimes();
 
     [Fact]
@@ -741,7 +741,7 @@ line3"
     {
         var target = new
         {
-            DateOnly = new DateOnly(2020, 10, 10)
+            Date = new Date(2020, 10, 10)
         };
 
         await Verify(target)
@@ -758,9 +758,9 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = new(dateTime.Year, dateTime.Month, dateTime.Day),
-            DateOnlyNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
-            DateOnlyString = new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
+            Date = new(dateTime.Year, dateTime.Month, dateTime.Day),
+            DateNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
+            DateString = new Date(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -781,9 +781,9 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = DateOnly.MinValue,
-            DateOnlyNullable = DateOnly.MinValue,
-            DateOnlyString = DateOnly.MinValue.ToString(),
+            Date = Date.MinValue,
+            DateNullable = Date.MinValue,
+            DateString = Date.MinValue.ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -802,9 +802,9 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = DateOnly.MaxValue,
-            DateOnlyNullable = DateOnly.MaxValue,
-            DateOnlyString = DateOnly.MaxValue.ToString(),
+            Date = Date.MaxValue,
+            DateNullable = Date.MaxValue,
+            DateString = Date.MaxValue.ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
             DateTimeOffset = dateTimeOffset,
@@ -851,8 +851,8 @@ line3"
     public static void AddNamedDatesAndTimes()
     {
         Counter.AddNamed(new DateTime(2030, 1, 1), "namedDateTime");
-        Counter.AddNamed(new TimeOnly(1, 1), "namedTime");
-        Counter.AddNamed(new DateOnly(2030, 1, 1), "namedDate");
+        Counter.AddNamed(new Time(1, 1), "namedTime");
+        Counter.AddNamed(new Date(2030, 1, 1), "namedDate");
         Counter.AddNamed(new DateTimeOffset(new(2030, 1, 1)), "namedDateTimeOffset");
     }
 
@@ -873,12 +873,12 @@ line3"
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
-            TimeOnly = new(10, 10),
-            NamedTimeOnly = new(1, 1),
-            DateOnly = new(2020, 10, 10),
-            NamedDateOnly = new(2020, 10, 10),
-            DateOnlyNullable = new(2020, 10, 12),
-            DateOnlyString = new DateOnly(2020, 10, 12).ToString()
+            Time = new(10, 10),
+            NamedTime = new(1, 1),
+            Date = new(2020, 10, 10),
+            NamedDate = new(2020, 10, 10),
+            DateNullable = new(2020, 10, 12),
+            DateString = new Date(2020, 10, 12).ToString()
         };
 
         return Verify(target);
@@ -889,17 +889,17 @@ line3"
         public DateTime DateTime;
         public DateTime NamedDateTime;
         public DateTime? DateTimeNullable;
-        public DateOnly DateOnly;
-        public DateOnly NamedDateOnly;
-        public TimeOnly TimeOnly;
-        public TimeOnly NamedTimeOnly;
-        public DateOnly? DateOnlyNullable;
+        public Date Date;
+        public Date NamedDate;
+        public Time Time;
+        public Time NamedTime;
+        public Date? DateNullable;
         public DateTimeOffset NamedDateTimeOffset;
         public DateTimeOffset DateTimeOffset;
         public DateTimeOffset? DateTimeOffsetNullable;
         public string DateTimeString;
         public string DateTimeOffsetString;
-        public string DateOnlyString;
+        public string DateString;
     }
 
 #endif

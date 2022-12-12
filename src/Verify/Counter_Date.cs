@@ -4,20 +4,20 @@ public partial class Counter
 {
 #if NET6_0_OR_GREATER
 
-    ConcurrentDictionary<DateOnly, (int intValue, string stringValue)> dateCache = new();
-    static Dictionary<DateOnly, string> namedDates = new();
+    ConcurrentDictionary<Date, (int intValue, string stringValue)> dateCache = new();
+    static Dictionary<Date, string> namedDates = new();
     int currentDate;
 
-    public static void AddNamed(DateOnly value, string name) =>
+    public static void AddNamed(Date value, string name) =>
         namedDates.Add(value, name);
 
-    public int Next(DateOnly input) =>
+    public int Next(Date input) =>
         NextValue(input).intValue;
 
-    public string NextString(DateOnly input) =>
+    public string NextString(Date input) =>
         NextValue(input).stringValue;
 
-    (int intValue, string stringValue) NextValue(DateOnly input)
+    (int intValue, string stringValue) NextValue(Date input)
     {
         if (namedDates.TryGetValue(input, out var name))
         {

@@ -4,20 +4,20 @@ public partial class Counter
 {
 #if NET6_0_OR_GREATER
 
-    ConcurrentDictionary<TimeOnly, (int intValue, string stringValue)> timeCache = new();
-    static Dictionary<TimeOnly, string> namedTimes = new();
+    ConcurrentDictionary<Time, (int intValue, string stringValue)> timeCache = new();
+    static Dictionary<Time, string> namedTimes = new();
     int currentTime;
 
-    public static void AddNamed(TimeOnly time, string name) =>
+    public static void AddNamed(Time time, string name) =>
         namedTimes.Add(time, name);
 
-    public int Next(TimeOnly input) =>
+    public int Next(Time input) =>
         NextValue(input).intValue;
 
-    public string NextString(TimeOnly input) =>
+    public string NextString(Time input) =>
         NextValue(input).stringValue;
 
-    (int intValue, string stringValue) NextValue(TimeOnly input)
+    (int intValue, string stringValue) NextValue(Time input)
     {
         if (namedTimes.TryGetValue(input, out var name))
         {

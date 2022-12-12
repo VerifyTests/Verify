@@ -19,8 +19,4 @@
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework) == 'net6.0' OR $(TargetFramework) == 'net7.0' ">
-    <Using Include="System.DateOnly" Alias="Date" />
-    <Using Include="System.TimeOnly" Alias="Time" />
-  </ItemGroup>
 </Project>

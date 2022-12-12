@@ -274,9 +274,9 @@ var dateTimeOffset = DateTimeOffset.Now;
 var target = new DateTimeTarget
 {
     DateTime = dateTime,
-    DateOnly = new(dateTime.Year, dateTime.Month, dateTime.Day),
-    DateOnlyNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
-    DateOnlyString = new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
+    Date = new(dateTime.Year, dateTime.Month, dateTime.Day),
+    DateNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
+    DateString = new Date(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
     DateTimeNullable = dateTime,
     DateTimeString = dateTime.ToString("F"),
     DateTimeOffset = dateTimeOffset,
@@ -297,13 +297,13 @@ Results in the following:
 {
   DateTime: DateTime_1,
   DateTimeNullable: DateTime_1,
-  DateOnly: Date_1,
-  DateOnlyNullable: Date_1,
+  Date: Date_1,
+  DateNullable: Date_1,
   DateTimeOffset: DateTimeOffset_1,
   DateTimeOffsetNullable: DateTimeOffset_1,
   DateTimeString: DateTimeOffset_2,
   DateTimeOffsetString: DateTimeOffset_2,
-  DateOnlyString: Date_1
+  DateString: Date_1
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseDatetime.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseDatetime.verified.txt' title='Start of snippet'>anchor</a></sup>
@@ -372,8 +372,8 @@ Specific date or times can be named.
 public static void AddNamedDatesAndTimes()
 {
     Counter.AddNamed(new DateTime(2030, 1, 1), "namedDateTime");
-    Counter.AddNamed(new TimeOnly(1, 1), "namedTime");
-    Counter.AddNamed(new DateOnly(2030, 1, 1), "namedDate");
+    Counter.AddNamed(new Time(1, 1), "namedTime");
+    Counter.AddNamed(new Date(2030, 1, 1), "namedDate");
     Counter.AddNamed(new DateTimeOffset(new(2030, 1, 1)), "namedDateTimeOffset");
 }
 ```

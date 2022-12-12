@@ -1,8 +1,8 @@
 ﻿#if NET6_0_OR_GREATER
 class DateConverter :
-    WriteOnlyJsonConverter<DateOnly>
+    WriteOnlyJsonConverter<Date>
 {
-    public override void Write(VerifyJsonWriter writer, DateOnly value)
+    public override void Write(VerifyJsonWriter writer, Date value)
     {
         if (writer.serialization.TryConvert(writer.Counter, value, out var result))
         {

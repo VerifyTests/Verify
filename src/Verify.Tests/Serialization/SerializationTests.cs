@@ -248,9 +248,15 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            {"ignored", "1234"},
-            {"Entry_2", "5678"},
-            {"Entry_1", "1234"}
+            {
+                "ignored", "1234"
+            },
+            {
+                "Entry_2", "5678"
+            },
+            {
+                "Entry_1", "1234"
+            }
         };
 
         return Verify(dictionary)
@@ -264,7 +270,7 @@ public class SerializationTests
                 {
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1.5)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1)),
-                    withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1,0), TimeSpan.FromHours(1)),
+                    withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 0), TimeSpan.FromHours(1)),
                     withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1)),
                 })
             .DontScrubDateTimes();
@@ -828,8 +834,8 @@ line3"
     [Fact]
     public Task DatetimeOffsetDifferOffset()
     {
-        var dateTime1 = new DateTimeOffset(new DateTime(2000, 10, 10,1,0,0),TimeSpan.FromHours(1));
-        var dateTime2 = new DateTimeOffset(new DateTime(2000, 10, 10,2,0,0),TimeSpan.FromHours(2));
+        var dateTime1 = new DateTimeOffset(new DateTime(2000, 10, 10, 1, 0, 0), TimeSpan.FromHours(1));
+        var dateTime2 = new DateTimeOffset(new DateTime(2000, 10, 10, 2, 0, 0), TimeSpan.FromHours(2));
         var target = new
         {
             dateTime1,
@@ -839,14 +845,18 @@ line3"
         return Verify(target);
     }
 
+    #region AddNamedDatesAndTimes
+
     [ModuleInitializer]
-    public static void InitShouldScrubDatetime()
+    public static void AddNamedDatesAndTimes()
     {
         Counter.AddNamed(new DateTime(2030, 1, 1), "namedDateTime");
-        Counter.AddNamed(new TimeOnly(1, 1), "namedDateTime");
-        Counter.AddNamed(new DateOnly(2030, 1, 1), "namedDateOnly");
+        Counter.AddNamed(new TimeOnly(1, 1), "namedTime");
+        Counter.AddNamed(new DateOnly(2030, 1, 1), "namedDate");
         Counter.AddNamed(new DateTimeOffset(new(2030, 1, 1)), "namedDateTimeOffset");
     }
+
+    #endregion
 
     [Fact]
     public Task ShouldScrubDatetime()
@@ -856,8 +866,8 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            NamedDateTime = new(2030,1,1),
-            NamedDateTimeOffset = new DateTime(2030,1,1),
+            NamedDateTime = new(2030, 1, 1),
+            NamedDateTimeOffset = new DateTime(2030, 1, 1),
             DateTimeNullable = dateTime.AddDays(1),
             DateTimeString = dateTime.AddDays(2).ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -1672,15 +1682,18 @@ Line2"
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = new(),
-            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]{}),
+            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]
+            {
+            }),
             Array = Array.Empty<string>()
         };
         return Verify(target);
     }
 
-    class ReadOnlyList: IReadOnlyList<string>
+    class ReadOnlyList : IReadOnlyList<string>
     {
         List<string> inner = new();
+
         public IEnumerator<string> GetEnumerator() =>
             inner.GetEnumerator();
 

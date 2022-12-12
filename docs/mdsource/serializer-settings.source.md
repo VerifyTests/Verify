@@ -118,7 +118,7 @@ Now when `c8eeaf99-d5c4-4341-8543-4597c3fd40c9` is found, it will be replaced wi
 
 ## Dates are scrubbed
 
-By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
+By default dates and times (`DateTime`, `DateTimeOffset`, `DateOnly`, and `TimeOnly`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
 snippet: Date
 
@@ -144,6 +144,15 @@ snippet: DontScrubDateTimesGlobal
 `AddExtraDatetimeFormat` allows specifiying custom date formats to be scrubbed.
 
 snipper: AddExtraDatetimeFormat
+
+
+### Named
+
+Specific date or times can be named.
+
+snippet: AddNamedDatesAndTimes
+
+Now when any of those values are found, they will be matched with the corresponding name.
 
 
 ## Change defaults at the verification level

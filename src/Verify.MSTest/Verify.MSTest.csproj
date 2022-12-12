@@ -11,7 +11,7 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
     <Using Include="VerifyTests" />
     <Using Include="Argon" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.83" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.0" />
     <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />

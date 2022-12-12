@@ -24,7 +24,7 @@
         {
             foreach (var format in dateFormats)
             {
-                if (DateOnly.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
+                if (Date.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
                 {
                     result = Convert(counter, date);
                     return true;
@@ -50,12 +50,12 @@
 
     static string Convert(Counter counter, Date date)
     {
-        if (date == DateOnly.MaxValue)
+        if (date == Date.MaxValue)
         {
             return "Date_MaxValue";
         }
 
-        if (date == DateOnly.MinValue)
+        if (date == Date.MinValue)
         {
             return "Date_MinValue";
         }

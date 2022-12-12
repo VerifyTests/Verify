@@ -18,8 +18,8 @@ public static partial class VerifierSettings
         {typeof(Half), _ => ((Half) _).ToString(CultureInfo.InvariantCulture)},
 #endif
 #if NET6_0_OR_GREATER
-        {typeof(DateOnly), _ => ((Date) _).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)},
-        {typeof(TimeOnly), _ => ((Time) _).ToString("h-mm-tt", CultureInfo.InvariantCulture)},
+        {typeof(Date), _ => ((Date) _).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)},
+        {typeof(Time), _ => ((Time) _).ToString("h-mm-tt", CultureInfo.InvariantCulture)},
 #endif
         {typeof(float), _ => ((float) _).ToString(CultureInfo.InvariantCulture)},
         {typeof(double), _ => ((double) _).ToString(CultureInfo.InvariantCulture)},

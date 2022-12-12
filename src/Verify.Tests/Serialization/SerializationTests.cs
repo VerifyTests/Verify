@@ -737,7 +737,7 @@ line3"
     }
 
     [Fact]
-    public async Task DateOnlyWithNoScrubbing()
+    public async Task DateWithNoScrubbing()
     {
         var target = new
         {

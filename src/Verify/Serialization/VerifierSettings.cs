@@ -52,16 +52,16 @@ public static partial class VerifierSettings
 #endif
 #if NET6_0_OR_GREATER
         {
-            typeof(DateOnly), (target, _) =>
+            typeof(Date), (target, _) =>
             {
-                var date = (DateOnly) target;
+                var date = (Date) target;
                 return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
         },
         {
-            typeof(TimeOnly), (target, _) =>
+            typeof(Time), (target, _) =>
             {
-                var time = (TimeOnly) target;
+                var time = (Time) target;
                 return time.ToString("h:mm tt", CultureInfo.InvariantCulture);
             }
         },

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <ItemGroup Condition="$(TargetFramework) == 'net6.0' OR $(TargetFramework) == 'net7.0' ">
+  <ItemGroup Condition="$(TargetFramework) == 'net6.0' OR $(TargetFramework) == 'net6.0-ios' OR $(TargetFramework) == 'net6.0-android' OR $(TargetFramework) == 'net7.0' ">
     <Using Include="System.DateOnly" Alias="Date" />
     <Using Include="System.TimeOnly" Alias="Time" />
   </ItemGroup>

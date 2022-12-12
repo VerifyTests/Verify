@@ -245,6 +245,23 @@ VerifierSettings.DontScrubGuids();
 <!-- endSnippet -->
 
 
+### NamedGuid
+
+Specific Guids can be named.
+
+<!-- snippet: NamedGuid -->
+<a id='snippet-namedguid'></a>
+```cs
+[ModuleInitializer]
+public static void Init() =>
+    Counter.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguid' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Now when `c8eeaf99-d5c4-4341-8543-4597c3fd40c9` is found, it will be replaced with `guidName`.
+
+
 ## Dates are scrubbed
 
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.

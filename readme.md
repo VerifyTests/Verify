@@ -495,6 +495,25 @@ Verify follows [Semantic Versioning](https://semver.org/). The same applies for 
 Snapshot changes do not trigger a major version change to avoid causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
 
 
+## Unit testing inside virtualized environment
+
+Unit tests referencing `Verify` (including unit tests within this repository as well as any other code referencing `Verify`) can be run and debugged on a local virtualized environment supported by [Visual Studio Remote Testing](https://learn.microsoft.com/en-us/visualstudio/test/remote-testing?view=vs-2022).
+Initial configurations have been added for `WSL` and net 7.0 linux docker via `testenvironments.json` (for third party code, the file needs to be copied or recreated next to the `.sln` solution file for solution to leverage the functionality).
+Upon opening the Tests Explorrer the advanced environments ara available in the GUI: 
+
+![TestExplorrerEnvironments](/docs/TestExplorrerEnvironments.png)
+
+This readme will not discuss definitive list of details of proper setup of the environments instead we deffer reader to following information sources and warn about particular gotchas:
+
+ * Install [WSL](/windows/wsl/about).
+ * Install the [distribution](https://aka.ms/wslstore) of your choice.
+ * For docker runs, install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+ * Third party test runners might not support this feature. Use Visual Studio Test Explorrer.
+ * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)  
+
+
+
+
 ## Media
 
  * [Unit testing assertions are now easier than ever with Verify Snapshot tool - 

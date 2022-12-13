@@ -499,17 +499,20 @@ Snapshot changes do not trigger a major version change to avoid causing [Diamond
 
 Unit tests referencing `Verify` (including unit tests within this repository as well as any other code referencing `Verify`) can be run and debugged on a local virtualized environment supported by [Visual Studio Remote Testing](https://learn.microsoft.com/en-us/visualstudio/test/remote-testing?view=vs-2022).
 Initial configurations have been added for `WSL` and net 7.0 linux docker via `testenvironments.json` (for third party code, the file needs to be copied or recreated next to the `.sln` solution file for solution to leverage the functionality).
-Upon opening the Tests Explorrer the advanced environments are available in the GUI: 
+Upon opening the Tests Explorer the advanced environments are available in the GUI: 
 
-![TestExplorrerEnvironments](/docs/TestExplorrerEnvironments.png)
+![TestExplorerEnvironments](/docs/TestExplorerEnvironments.png)
 
-This readme will not discuss definitive list of details of proper setup of the environments instead we deffer reader to the following information sources and warn about particular gotchas:
+This readme will not discuss definitive list of details for proper setup of the environments instead we defer reader to the following information sources and warn about particular gotchas:
 
- * Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/about).
- * Install the [distribution](https://aka.ms/wslstore) of your choice.
- * For docker runs, install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
- * Third party test runners might not support this feature. Use [Visual Studio Test Explorrer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
- * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)  
+ * WSL runs
+   * Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/about).
+   * Install the [distribution](https://aka.ms/wslstore) of your choice.
+   * [Install .NET Runtime](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu)
+ * Docker runs
+   * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+   * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)  
+ * Third party test runners might not support this feature. Use [Visual Studio Test Explorer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
 
 
 

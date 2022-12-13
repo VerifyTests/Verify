@@ -55,24 +55,28 @@ public class SimpleTypeTests
     {
         yield return new object[] {new KeyValuePair<string,int>("theKey",10)};
 
-        var json = @"{
-  'short': {
-    'original': 'http://www.foo.com/',
-    'short': 'foo',
-    'error': {
-      'code': 0,
-      'msg': 'No action taken'
-    }
-  }
-}";
+        var json = """
+            {
+              'short': {
+                'original': 'http://www.foo.com/',
+                'short': 'foo',
+                'error': {
+                  'code': 0,
+                  'msg': 'No action taken'
+                }
+              }
+            }
+            """;
         var argonJToken = JToken.Parse(json);
         yield return new object[] {argonJToken};
 
-        var jsonArray = @"[
-  'Small',
-  'Medium',
-  'Large'
-]";
+        var jsonArray = """
+            [
+              'Small',
+              'Medium',
+              'Large'
+            ]
+            """;
 
         var argonJArray = JArray.Parse(jsonArray);
         yield return new object[] {argonJArray};

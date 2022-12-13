@@ -74,18 +74,20 @@ public class JsonTests
     [Fact]
     public Task IgnoreJTokenByName()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    },
-    'Ignore1': {
-      'code': 2,
-      'msg': 'ignore this'
-    }
-  }
-}";
+        var json = """
+            {
+              'short': {
+                'key': {
+                  'code': 0,
+                  'msg': 'No action taken'
+                },
+                'Ignore1': {
+                  'code': 2,
+                  'msg': 'ignore this'
+                }
+              }
+            }
+            """;
         var target = JToken.Parse(json);
         return Verify(target).IgnoreMember("Ignore1");
     }
@@ -93,18 +95,20 @@ public class JsonTests
     [Fact]
     public Task ScrubJTokenByName()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    },
-    'Scrub': {
-      'code': 2,
-      'msg': 'ignore this'
-    }
-  }
-}";
+        var json = """
+            {
+              'short': {
+                'key': {
+                  'code': 0,
+                  'msg': 'No action taken'
+                },
+                'Scrub': {
+                  'code': 2,
+                  'msg': 'ignore this'
+                }
+              }
+            }
+            """;
         var target = JToken.Parse(json);
         return Verify(target)
             .ScrubMember("Scrub");
@@ -143,26 +147,30 @@ public class JsonTests
     [Fact]
     public Task VerifyJsonWithArray()
     {
-        var json = @"{
-    commitments: [
-      {
-        id: '9585dadf-551a-43eb-960c-18b935993cc3',
-        title: 'Commitment1'
-      }
-    ]
-    }";
+        var json = """
+            {
+                commitments: [
+                  {
+                    id: '9585dadf-551a-43eb-960c-18b935993cc3',
+                    title: 'Commitment1'
+                  }
+                ]
+            }
+            """;
         return VerifyJson(json);
     }
 
     [Fact]
     public Task VerifyJsonWithArrayAtRoot()
     {
-        var json = @"[
-      {
-        id: '9585dadf-551a-43eb-960c-18b935993cc3',
-        title: 'Commitment1'
-      }
-    ]";
+        var json = """
+            [
+                {
+                    id: '9585dadf-551a-43eb-960c-18b935993cc3',
+                    title: 'Commitment1'
+                }
+            ]
+            """;
         return VerifyJson(json);
     }
 

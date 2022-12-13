@@ -280,10 +280,11 @@ public class SerializationTests
         Verify(
                 new
                 {
-                    property = @"
-line1
-line2
-line3"
+                    property = """
+                        line1
+                        line2
+                        line3
+                        """
                 })
             .ScrubLinesContaining("property")
             .ScrubLinesContaining("line2");
@@ -1628,8 +1629,10 @@ line3"
         Verify(
                 new
                 {
-                    Property = @"Line1
-Line2"
+                    Property = """
+                        Line1
+                        Line2
+                        """
                 })
             .ScrubLinesContaining("Line1");
 

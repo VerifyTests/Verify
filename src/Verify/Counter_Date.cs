@@ -1,9 +1,8 @@
-﻿namespace VerifyTests;
+﻿#if NET6_0_OR_GREATER
+namespace VerifyTests;
 
 public partial class Counter
 {
-#if NET6_0_OR_GREATER
-
     ConcurrentDictionary<Date, (int intValue, string stringValue)> dateCache = new();
     static Dictionary<Date, string> namedDates = new();
     int currentDate;
@@ -30,5 +29,5 @@ public partial class Counter
             return (value, $"Date_{value}");
         });
     }
-#endif
 }
+#endif

@@ -1,9 +1,8 @@
-﻿namespace VerifyTests;
+﻿#if NET6_0_OR_GREATER
+namespace VerifyTests;
 
 public partial class Counter
 {
-#if NET6_0_OR_GREATER
-
     ConcurrentDictionary<Time, (int intValue, string stringValue)> timeCache = new();
     static Dictionary<Time, string> namedTimes = new();
     int currentTime;
@@ -30,6 +29,5 @@ public partial class Counter
             return (value, $"Time_{value}");
         });
     }
-
-#endif
 }
+#endif

@@ -26,25 +26,13 @@
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <None Update="sample*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Binary*.*.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Update="sample*.*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Binary*.*.txt" CopyToOutputDirectory="PreserveNewest" />
     <Folder Include="Naming\CustomDirectory\" />
-    <None Update="EmptyFiles\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="sample.level1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update=".sample">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="sample.recursive">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Update="EmptyFiles\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="sample.level1" CopyToOutputDirectory="PreserveNewest" />
+    <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

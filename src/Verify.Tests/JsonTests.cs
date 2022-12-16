@@ -15,17 +15,19 @@ public class JsonTests
     [Fact]
     public Task JTokenIgnore()
     {
-        var jToken = JToken.Parse(@"{
-  Include: 1,
-  Ignore: 2,
-  ""Memory Info"": {
-          fragmentedBytes: 208,
-          heapSizeBytes: 2479536,
-          highMemoryLoadThresholdBytes: 30821986713,
-          memoryLoadBytes: 14041127280,
-          totalAvailableMemoryBytes: 34246651904
-        }
-}");
+        var jToken = JToken.Parse("""
+            {
+              Include: 1,
+              Ignore: 2,
+              "Memory Info": {
+                      fragmentedBytes: 208,
+                      heapSizeBytes: 2479536,
+                      highMemoryLoadThresholdBytes: 30821986713,
+                      memoryLoadBytes: 14041127280,
+                      totalAvailableMemoryBytes: 34246651904
+                    }
+            }
+            """);
         return Verify(jToken)
             .IgnoreMembers("Ignore", "Memory Info");
     }
@@ -33,17 +35,19 @@ public class JsonTests
     [Fact]
     public Task JTokenScrub()
     {
-        var jToken = JToken.Parse(@"{
-  Include: 1,
-  Scrub: 2,
-  ""Memory Info"": {
-          fragmentedBytes: 208,
-          heapSizeBytes: 2479536,
-          highMemoryLoadThresholdBytes: 30821986713,
-          memoryLoadBytes: 14041127280,
-          totalAvailableMemoryBytes: 34246651904
-        }
-}");
+        var jToken = JToken.Parse("""
+            {
+              Include: 1,
+              Scrub: 2,
+              "Memory Info": {
+                      fragmentedBytes: 208,
+                      heapSizeBytes: 2479536,
+                      highMemoryLoadThresholdBytes: 30821986713,
+                      memoryLoadBytes: 14041127280,
+                      totalAvailableMemoryBytes: 34246651904
+                    }
+            }
+            """);
         return Verify(jToken)
             .ScrubMembers("Scrub", "Memory Info");
     }

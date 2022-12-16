@@ -35,11 +35,11 @@ public class GuidScrubberTests
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c1", "end-numbers")]
     public async Task Run(string guid, string name)
     {
-        Counter.Start();
+        var counter = Counter.Start();
         try
         {
             var builder = new StringBuilder(guid);
-            GuidScrubber.ReplaceGuids(builder, Counter.Start());
+            GuidScrubber.ReplaceGuids(builder, counter);
             await Verify(builder)
                 .UseTextForParameters(name);
         }

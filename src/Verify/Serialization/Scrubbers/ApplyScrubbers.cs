@@ -110,7 +110,7 @@ static class ApplyScrubbers
             scrubber(target);
         }
 
-        if (settings.extensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
+        if (settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {
             foreach (var scrubber in extensionBasedInstanceScrubbers)
             {

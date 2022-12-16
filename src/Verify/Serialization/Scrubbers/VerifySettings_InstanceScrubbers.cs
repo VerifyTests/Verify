@@ -2,10 +2,7 @@
 
 public partial class VerifySettings
 {
-    List<Action<StringBuilder>> instanceScrubbers = new();
-    internal Dictionary<string, List<Action<StringBuilder>>> extensionMappedInstanceScrubbers = new();
-
-    public IReadOnlyList<Action<StringBuilder>> InstanceScrubbers => instanceScrubbers;
+    internal List<Action<StringBuilder>> InstanceScrubbers = new();
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
@@ -27,31 +24,10 @@ public partial class VerifySettings
         switch (location)
         {
             case ScrubberLocation.First:
-                instanceScrubbers.Insert(0, scrubber);
+                InstanceScrubbers.Insert(0, scrubber);
                 break;
             case ScrubberLocation.Last:
-                instanceScrubbers.Add(scrubber);
-                break;
-        }
-    }
-
-    /// <summary>
-    /// Modify the resulting test content using custom code.
-    /// </summary>
-    public void AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
-    {
-        if (!extensionMappedInstanceScrubbers.TryGetValue(extension, out var values))
-        {
-            extensionMappedInstanceScrubbers[extension] = values = new();
-        }
-
-        switch (location)
-        {
-            case ScrubberLocation.First:
-                values.Insert(0, scrubber);
-                break;
-            case ScrubberLocation.Last:
-                values.Add(scrubber);
+                InstanceScrubbers.Add(scrubber);
                 break;
         }
     }

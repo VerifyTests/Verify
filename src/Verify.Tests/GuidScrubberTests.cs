@@ -39,7 +39,7 @@ public class GuidScrubberTests
         try
         {
             var builder = new StringBuilder(guid);
-            GuidScrubber.ReplaceGuids(builder);
+            GuidScrubber.ReplaceGuids(builder, Counter.Start());
             await Verify(builder)
                 .UseTextForParameters(name);
         }

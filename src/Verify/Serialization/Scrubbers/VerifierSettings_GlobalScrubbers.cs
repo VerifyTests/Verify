@@ -2,12 +2,18 @@
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder>> GlobalScrubbers = new();
+    internal static List<Action<StringBuilder, Counter>> GlobalScrubbers = new();
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public static void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public static void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber((builder, _) => scrubber(builder), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public static void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         switch (location)
         {

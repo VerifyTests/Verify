@@ -2,7 +2,7 @@
 
 public partial class VerifySettings
 {
-    internal List<Action<StringBuilder>> InstanceScrubbers = new();
+    internal List<Action<StringBuilder, Counter>> InstanceScrubbers = new();
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
@@ -19,7 +19,13 @@ public partial class VerifySettings
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public void AddScrubber(Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber((builder, _) => scrubber(builder), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public void AddScrubber(Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         switch (location)
         {

@@ -68,7 +68,7 @@ partial class InnerVerifier
         {
             if (target.TryGetStringBuilder(out var builder))
             {
-                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings);
+                ApplyScrubbers.ApplyForExtension(target.Extension, builder, settings, counter);
             }
         }
 
@@ -118,7 +118,7 @@ partial class InnerVerifier
             else
             {
                 var builder = new StringBuilder(stringRoot);
-                ApplyScrubbers.ApplyForExtension("txt", builder, settings);
+                ApplyScrubbers.ApplyForExtension("txt", builder, settings, counter);
                 target = new("txt", builder);
             }
 

@@ -3,7 +3,7 @@
 public partial class Counter
 {
     ConcurrentDictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(new DateTimeComparer());
-    static Dictionary<DateTime, string> namedDateTimes = new();
+    static Dictionary<DateTime, string> globalNamedDateTimes = new();
 
     class DateTimeComparer : IEqualityComparer<DateTime>
     {
@@ -17,7 +17,7 @@ public partial class Counter
     int currentDateTime;
 
     public static void AddNamed(DateTime value, string name) =>
-        namedDateTimes.Add(value, name);
+        globalNamedDateTimes.Add(value, name);
 
     public int Next(DateTime input) =>
         NextValue(input).intValue;
@@ -27,7 +27,7 @@ public partial class Counter
 
     (int intValue, string stringValue) NextValue(DateTime input)
     {
-        if (namedDateTimes.TryGetValue(input, out var name))
+        if (globalNamedDateTimes.TryGetValue(input, out var name))
         {
             return new(0, name);
         }

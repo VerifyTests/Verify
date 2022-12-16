@@ -2,12 +2,18 @@
 
 public static partial class VerifierSettings
 {
-    internal static Dictionary<string, List<Action<StringBuilder>>> ExtensionMappedGlobalScrubbers = new();
+    internal static Dictionary<string, List<Action<StringBuilder, Counter>>> ExtensionMappedGlobalScrubbers = new();
 
     /// <summary>
     /// Modify the resulting test content using custom code.
     /// </summary>
-    public static void AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First)
+    public static void AddScrubber(string extension, Action<StringBuilder> scrubber, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(extension, (builder, _) => scrubber(builder), location);
+
+    /// <summary>
+    /// Modify the resulting test content using custom code.
+    /// </summary>
+    public static void AddScrubber(string extension, Action<StringBuilder, Counter> scrubber, ScrubberLocation location = ScrubberLocation.First)
     {
         if (!ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var values))
         {

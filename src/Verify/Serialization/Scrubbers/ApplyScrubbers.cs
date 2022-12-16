@@ -103,18 +103,18 @@ static class ApplyScrubbers
         }
     }
 
-    public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings)
+    public static void ApplyForExtension(string extension, StringBuilder target, VerifySettings settings, Counter counter)
     {
         foreach (var scrubber in settings.InstanceScrubbers)
         {
-            scrubber(target);
+            scrubber(target, counter);
         }
 
         if (settings.ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var extensionBasedInstanceScrubbers))
         {
             foreach (var scrubber in extensionBasedInstanceScrubbers)
             {
-                scrubber(target);
+                scrubber(target, counter);
             }
         }
 
@@ -122,13 +122,13 @@ static class ApplyScrubbers
         {
             foreach (var scrubber in extensionBasedScrubbers)
             {
-                scrubber(target);
+                scrubber(target, counter);
             }
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
         {
-            scrubber(target);
+            scrubber(target, counter);
         }
 
         foreach (var replace in replacements)
@@ -139,17 +139,17 @@ static class ApplyScrubbers
         target.FixNewlines();
     }
 
-    public static string ApplyForPropertyValue(string value, VerifySettings settings)
+    public static string ApplyForPropertyValue(string value, VerifySettings settings, Counter counter)
     {
         var builder = new StringBuilder(value);
         foreach (var scrubber in settings.InstanceScrubbers)
         {
-            scrubber(builder);
+            scrubber(builder, counter);
         }
 
         foreach (var scrubber in VerifierSettings.GlobalScrubbers)
         {
-            scrubber(builder);
+            scrubber(builder, counter);
         }
 
         foreach (var replace in replacements)

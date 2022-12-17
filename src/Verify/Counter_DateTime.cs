@@ -16,7 +16,7 @@ public partial class Counter
 
     int currentDateTime;
 
-    public static void AddNamed(DateTime value, string name) =>
+    internal static void AddNamed(DateTime value, string name) =>
         globalNamedDateTimes.Add(value, name);
 
     public int Next(DateTime input) =>

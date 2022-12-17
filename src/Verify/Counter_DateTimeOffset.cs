@@ -17,7 +17,7 @@ public partial class Counter
 
     int currentDateTimeOffset;
 
-    public static void AddNamed(DateTimeOffset value, string name) =>
+    internal static void AddNamed(DateTimeOffset value, string name) =>
         globalNamedDateTimeOffsets.Add(value, name);
 
     public int Next(DateTimeOffset input) =>

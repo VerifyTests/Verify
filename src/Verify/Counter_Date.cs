@@ -7,7 +7,7 @@ public partial class Counter
     static Dictionary<Date, string> globalNamedDates = new();
     int currentDate;
 
-    public static void AddNamed(Date value, string name) =>
+    internal static void AddNamed(Date value, string name) =>
         globalNamedDates.Add(value, name);
 
     public int Next(Date input) =>

@@ -7,7 +7,7 @@ public partial class Counter
     static Dictionary<Time, string> globalNamedTimes = new();
     int currentTime;
 
-    public static void AddNamed(Time time, string name) =>
+    internal static void AddNamed(Time time, string name) =>
         globalNamedTimes.Add(time, name);
 
     public int Next(Time input) =>

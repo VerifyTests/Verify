@@ -9,7 +9,7 @@ public partial class Counter
     public int Next(Guid input) =>
         NextValue(input).intValue;
 
-    public static void AddNamed(Guid value, string name) =>
+    internal static void AddNamed(Guid value, string name) =>
         globalNamedGuids.Add(value, name);
 
     public string NextString(Guid input) =>

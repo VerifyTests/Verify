@@ -851,16 +851,16 @@ public class SerializationTests
     [ModuleInitializer]
     public static void AddNamedDatesAndTimes()
     {
-        Counter.AddNamed(new DateTime(2030, 1, 1), "namedDateTime");
-        Counter.AddNamed(new Time(1, 1), "namedTime");
-        Counter.AddNamed(new Date(2030, 1, 1), "namedDate");
-        Counter.AddNamed(new DateTimeOffset(new(2030, 1, 1)), "namedDateTimeOffset");
+        VerifierSettings.AddNamedDateTime(new(2030, 1, 1), "namedDateTime");
+        VerifierSettings.AddNamedTime(new(1, 1), "namedTime");
+        VerifierSettings.AddNamedDate(new(2030, 1, 1), "namedDate");
+        VerifierSettings.AddNamedDateTimeOffset(new(new(2030, 1, 1)), "namedDateTimeOffset");
     }
 
     #endregion
 
     [Fact]
-    public Task ShouldScrubDatetime()
+    public async Task ShouldScrubDatetime()
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
@@ -868,7 +868,9 @@ public class SerializationTests
         {
             DateTime = dateTime,
             NamedDateTime = new(2030, 1, 1),
+            InstanceNamedDateTime = new(2030, 1, 2),
             NamedDateTimeOffset = new DateTime(2030, 1, 1),
+            InstanceNamedDateTimeOffset = new DateTime(2030, 1, 2),
             DateTimeNullable = dateTime.AddDays(1),
             DateTimeString = dateTime.AddDays(2).ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -876,26 +878,38 @@ public class SerializationTests
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
             Time = new(10, 10),
             NamedTime = new(1, 1),
+            InstanceNamedTime = new(1, 2),
             Date = new(2020, 10, 10),
             NamedDate = new(2020, 10, 10),
+            InstanceNamedDate = new(2020, 10, 11),
             DateNullable = new(2020, 10, 12),
             DateString = new Date(2020, 10, 12).ToString()
         };
 
-        return Verify(target);
+        #region AddInstanceNamedDatesAndTimes
+        await Verify(target)
+            .AddNamedDate(new(2020, 10, 11), "instanceNamedDate")
+            .AddNamedTime(new(1, 2), "instanceTime")
+            .AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime")
+            .AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
+        #endregion
     }
 
     class DateTimeTarget
     {
         public DateTime DateTime;
         public DateTime NamedDateTime;
+        public DateTime InstanceNamedDateTime;
         public DateTime? DateTimeNullable;
         public Date Date;
         public Date NamedDate;
+        public Date InstanceNamedDate;
         public Time Time;
         public Time NamedTime;
+        public Time InstanceNamedTime;
         public Date? DateNullable;
         public DateTimeOffset NamedDateTimeOffset;
+        public DateTimeOffset InstanceNamedDateTimeOffset;
         public DateTimeOffset DateTimeOffset;
         public DateTimeOffset? DateTimeOffsetNullable;
         public string DateTimeString;

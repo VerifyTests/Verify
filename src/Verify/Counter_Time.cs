@@ -4,11 +4,11 @@ namespace VerifyTests;
 public partial class Counter
 {
     ConcurrentDictionary<Time, (int intValue, string stringValue)> timeCache = new();
-    static Dictionary<Time, string> namedTimes = new();
+    static Dictionary<Time, string> globalNamedTimes = new();
     int currentTime;
 
-    public static void AddNamed(Time time, string name) =>
-        namedTimes.Add(time, name);
+    internal static void AddNamed(Time time, string name) =>
+        globalNamedTimes.Add(time, name);
 
     public int Next(Time input) =>
         NextValue(input).intValue;
@@ -18,7 +18,8 @@ public partial class Counter
 
     (int intValue, string stringValue) NextValue(Time input)
     {
-        if (namedTimes.TryGetValue(input, out var name))
+        if (namedTimes.TryGetValue(input, out var name) ||
+            globalNamedTimes.TryGetValue(input, out name))
         {
             return new(0, name);
         }

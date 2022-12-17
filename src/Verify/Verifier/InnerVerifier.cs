@@ -8,7 +8,7 @@ public partial class InnerVerifier :
     GetFileNames getFileNames = null!;
     GetIndexedFileNames getIndexedFileNames = null!;
     List<string> verifiedFiles = null!;
-    Counter counter = Counter.Start();
+    Counter counter;
 
     public InnerVerifier(
         string sourceFile,
@@ -29,6 +29,15 @@ public partial class InnerVerifier :
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
+        counter = Counter.Start(
+#if NET6_0_OR_GREATER
+            settings.namedDates,
+            settings.namedTimes,
+#endif
+            settings.namedDateTimes,
+            settings.namedGuids,
+            settings.namedDateTimeOffsets
+        );
 
         IoHelpers.CreateDirectory(directory);
 

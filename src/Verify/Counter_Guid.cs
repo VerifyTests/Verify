@@ -3,21 +3,22 @@
 public partial class Counter
 {
     ConcurrentDictionary<Guid, (int intValue, string stringValue)> guidCache = new();
-    static Dictionary<Guid, string> namedGuids = new();
+    static Dictionary<Guid, string> globalNamedGuids = new();
     int currentGuid;
 
     public int Next(Guid input) =>
         NextValue(input).intValue;
 
-    public static void AddNamed(Guid value, string name) =>
-        namedGuids.Add(value, name);
+    internal static void AddNamed(Guid value, string name) =>
+        globalNamedGuids.Add(value, name);
 
     public string NextString(Guid input) =>
         NextValue(input).stringValue;
 
     (int intValue, string stringValue) NextValue(Guid input)
     {
-        if (namedGuids.TryGetValue(input, out var name))
+        if (namedGuids.TryGetValue(input, out var name) ||
+            globalNamedGuids.TryGetValue(input, out name))
         {
             return new(0, name);
         }

@@ -18,7 +18,8 @@ public partial class Counter
 
     (int intValue, string stringValue) NextValue(Time input)
     {
-        if (globalNamedTimes.TryGetValue(input, out var name))
+        if (namedTimes.TryGetValue(input, out var name) ||
+            globalNamedTimes.TryGetValue(input, out name))
         {
             return new(0, name);
         }

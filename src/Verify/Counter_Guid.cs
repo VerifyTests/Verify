@@ -17,7 +17,8 @@ public partial class Counter
 
     (int intValue, string stringValue) NextValue(Guid input)
     {
-        if (globalNamedGuids.TryGetValue(input, out var name))
+        if (namedGuids.TryGetValue(input, out var name) ||
+            globalNamedGuids.TryGetValue(input, out name))
         {
             return new(0, name);
         }

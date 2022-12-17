@@ -148,11 +148,17 @@ snipper: AddExtraDatetimeFormat
 
 ### Named Date and Times
 
-Specific date or times can be named.
+Specific date or times can be named. When any of those values are found, they will be matched with the corresponding name.
+
+
+#### Instance
+
+snippet: AddInstanceNamedDatesAndTimes
+
+
+#### Globally
 
 snippet: AddNamedDatesAndTimes
-
-Now when any of those values are found, they will be matched with the corresponding name.
 
 
 ## Change defaults at the verification level

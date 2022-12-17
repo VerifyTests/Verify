@@ -5,12 +5,11 @@ public class GuidScrubberTests
 
     [ModuleInitializer]
     public static void Init() =>
-        Counter.AddNamed(new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
+        VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 
     #endregion
 
     [Theory]
-    [InlineData("c8eeaf99-d5c4-4341-8543-4597c3fd40c9", "named")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c", "simple")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c}", "curly")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c", "start-curly")]
@@ -48,4 +47,15 @@ public class GuidScrubberTests
             Counter.Stop();
         }
     }
+
+    [Theory]
+    [InlineData("c8eeaf99-d5c4-4341-8543-4597c3fd40c9", "named")]
+    [InlineData("c8eeaf99-d5c4-4341-8543-4597c3fd40d9", "instanceNamed")]
+    public Task NamedGuids(string guid, string name) =>
+        Verify(new
+            {
+                value = new Guid(guid)
+            })
+            .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed")
+            .UseTextForParameters(name);
 }

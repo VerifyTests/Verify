@@ -28,7 +28,8 @@ public partial class Counter
 
     (int intValue, string stringValue) NextValue(DateTimeOffset input)
     {
-        if (globalNamedDateTimeOffsets.TryGetValue(input, out var name))
+        if (namedDateTimeOffsets.TryGetValue(input, out var name) ||
+            globalNamedDateTimeOffsets.TryGetValue(input, out name))
         {
             return new(0, name);
         }

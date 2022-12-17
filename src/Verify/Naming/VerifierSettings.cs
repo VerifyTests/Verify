@@ -74,7 +74,7 @@ public static partial class VerifierSettings
             }
             foreach (var item in enumerable)
             {
-                GetNameForParameter(item,builder, false);
+                GetNameForParameter(item, builder, false);
                 builder.Append(',');
             }
 

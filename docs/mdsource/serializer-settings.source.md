@@ -109,11 +109,17 @@ snippet: DontScrubGuidsGlobal
 
 ### Named Guid
 
-Specific Guids can be named.
+Specific Guids can be named. When those Guids found, it will be replaced with the supplied name.
+
+
+#### Instance
+
+snippet: InstanceNamedGuid
+
+
+#### Globally
 
 snippet: NamedGuid
-
-Now when `c8eeaf99-d5c4-4341-8543-4597c3fd40c9` is found, it will be replaced with `guidName`.
 
 
 ## Dates are scrubbed

@@ -58,4 +58,17 @@ public class GuidScrubberTests
             })
             .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed")
             .UseTextForParameters(name);
+
+    #region InstanceNamedGuid
+
+    [Fact]
+    public Task InstanceNamedGuid() =>
+        Verify(
+                new
+                {
+                    value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+                })
+            .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+
+    #endregion
 }

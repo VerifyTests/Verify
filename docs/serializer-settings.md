@@ -247,7 +247,28 @@ VerifierSettings.DontScrubGuids();
 
 ### Named Guid
 
-Specific Guids can be named.
+Specific Guids can be named. When those Guids found, it will be replaced with the supplied name.
+
+
+#### Instance
+
+<!-- snippet: InstanceNamedGuid -->
+<a id='snippet-instancenamedguid'></a>
+```cs
+[Fact]
+public Task InstanceNamedGuid() =>
+    Verify(
+            new
+            {
+                value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+            })
+        .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L62-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancenamedguid' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Globally
 
 <!-- snippet: NamedGuid -->
 <a id='snippet-namedguid'></a>
@@ -258,8 +279,6 @@ public static void Init() =>
 ```
 <sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-Now when `c8eeaf99-d5c4-4341-8543-4597c3fd40c9` is found, it will be replaced with `guidName`.
 
 
 ## Dates are scrubbed

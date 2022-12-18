@@ -46,7 +46,7 @@ public static partial class VerifierSettings
 
     public static void ScrubMember<T>(Expression<Func<T, object?>> expression)
         where T : notnull =>
-        serialization.IgnoreMembers(expression);
+        serialization.ScrubMember(expression);
 
     public static void IgnoreMembers<T>(params string[] names)
         where T : notnull =>

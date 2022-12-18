@@ -24,7 +24,7 @@ public partial class InnerVerifier :
         var stackTrace = new StackTrace(1, false);
         var method = stackTrace.GetFrame(1)!.GetMethod()!;
         var type = method.DeclaringType;
-        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is don ina [ModuleInitializer].");
+        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer].");
     }
 
     public InnerVerifier(

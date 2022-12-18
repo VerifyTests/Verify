@@ -627,7 +627,7 @@ public class ScrubberLevelsSample
         Verify("One Two Three", classLevelSettings)
             .AddScrubber(_ => _.Replace("Two", "B"));
 
-    [OneTimeSetUp]
+    [ModuleInitializer]
     public static void Setup() =>
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }

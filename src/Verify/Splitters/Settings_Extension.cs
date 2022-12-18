@@ -12,15 +12,19 @@ public static partial class VerifierSettings
 
     public static void RegisterFileConverter(
         string fromExtension,
-        Conversion<Stream> conversion) =>
+        Conversion<Stream> conversion)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterFileConverter(
             fromExtension,
             (stream, context) => Task.FromResult(conversion(stream, context)));
+    }
 
     public static void RegisterFileConverter(
         string fromExtension,
         AsyncConversion<Stream> conversion)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
         if (FileExtensions.IsText(fromExtension))
         {

@@ -9,6 +9,15 @@ public partial class InnerVerifier :
     GetIndexedFileNames getIndexedFileNames = null!;
     List<string> verifiedFiles = null!;
     Counter counter;
+    static bool verifyHasBeenRun;
+
+    public static void ThrowIfVerifyHasBeenRun([CallerMemberName] string member = "")
+    {
+        if (verifyHasBeenRun)
+        {
+            throw new($"The API '{member}' must be called prior to any Verify has run. Usually this is don ina [ModuleInitializer].");
+        }
+    }
 
     public InnerVerifier(
         string sourceFile,
@@ -18,6 +27,7 @@ public partial class InnerVerifier :
         List<string> methodParameters,
         PathInfo pathInfo)
     {
+        verifyHasBeenRun = true;
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 

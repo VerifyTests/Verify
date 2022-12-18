@@ -4,11 +4,17 @@ public static partial class VerifierSettings
 {
     static FirstVerify? handleOnFirstVerify;
 
-    public static void OnFirstVerify(FirstVerify firstVerify) =>
+    public static void OnFirstVerify(FirstVerify firstVerify)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         handleOnFirstVerify += firstVerify;
+    }
 
-    public static void OnDelete(VerifyDelete verifyDelete) =>
+    public static void OnDelete(VerifyDelete verifyDelete)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         handleOnVerifyDelete += verifyDelete;
+    }
 
     static VerifyDelete? handleOnVerifyDelete;
 

@@ -97,8 +97,11 @@ public static partial class VerifierSettings
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
-    public static void UseStrictJson() =>
+    public static void UseStrictJson()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         StrictJson = true;
+    }
 
     public static bool StrictJson { get; private set; }
 
@@ -117,21 +120,33 @@ public static partial class VerifierSettings
 
     internal static bool scrubProjectDir = true;
 
-    public static void DontScrubProjectDirectory() =>
+    public static void DontScrubProjectDirectory()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         scrubProjectDir = false;
+    }
 
     internal static bool scrubSolutionDir = true;
 
-    public static void DontScrubSolutionDirectory() =>
+    public static void DontScrubSolutionDirectory()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         scrubSolutionDir = false;
+    }
 
     internal static bool sortPropertiesAlphabetically;
 
-    public static void SortPropertiesAlphabetically() =>
+    public static void SortPropertiesAlphabetically()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         sortPropertiesAlphabetically = true;
+    }
 
     internal static bool sortJsonObjects;
 
-    public static void SortJsonObjects() =>
+    public static void SortJsonObjects()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         sortJsonObjects = true;
+    }
 }

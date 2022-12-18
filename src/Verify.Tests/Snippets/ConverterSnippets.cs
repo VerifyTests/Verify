@@ -55,8 +55,8 @@ public class ConverterSnippets
         #endregion
     }
 
-    [Fact]
-    public async Task Extension()
+    [ModuleInitializer]
+    public static void ExtensionInit()
     {
         #region RegisterFileConverterExtension
 
@@ -87,7 +87,11 @@ public class ConverterSnippets
             });
 
         #endregion
+    }
 
+    [Fact]
+    public async Task Extension()
+    {
         #region FileConverterExtensionVerify
 
         await VerifyFile("sample.tif");

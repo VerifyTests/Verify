@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 [UsesVerify]
 public class Tests
 {
+
     [ModuleInitializer]
     public static void Initialize()
     {
@@ -80,19 +81,18 @@ public class Tests
         return Verify("Value");
     }
 
-    [Fact]
-    public async Task OnVerifyMismatch()
+    static bool onFirstVerifyCalled2;
+    static bool onVerifyMismatchCalled2;
+
+    [ModuleInitializer]
+    public static void OnVerifyMismatchInit()
     {
-        var settings = new VerifySettings();
-        settings.DisableDiff();
-        var onFirstVerifyCalled = false;
-        var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
             (filePair, _) =>
             {
                 if (filePair.VerifiedPath.Contains("OnVerifyMismatch"))
                 {
-                    onFirstVerifyCalled = true;
+                    onFirstVerifyCalled2 = true;
                 }
 
                 return Task.CompletedTask;
@@ -106,25 +106,30 @@ public class Tests
                     Assert.NotNull(filePair.ReceivedPath);
                     Assert.NotEmpty(filePair.VerifiedPath);
                     Assert.NotNull(filePair.VerifiedPath);
-                    onVerifyMismatchCalled = true;
+                    onVerifyMismatchCalled2 = true;
                 }
 
                 return Task.CompletedTask;
             });
+    }
+
+    [Fact]
+    public async Task OnVerifyMismatch()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
         await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
-        Assert.False(onFirstVerifyCalled);
-        Assert.True(onVerifyMismatchCalled);
+        Assert.False(onFirstVerifyCalled2);
+        Assert.True(onVerifyMismatchCalled2);
     }
 
 #if NET6_0_OR_GREATER
 
-    [Fact]
-    public async Task OnFirstVerify()
+    static bool onFirstVerifyCalled;
+    static bool onVerifyMismatchCalled;
+    [ModuleInitializer]
+    public static void OnFirstVerifyInit()
     {
-        var settings = new VerifySettings();
-        settings.DisableDiff();
-        var onFirstVerifyCalled = false;
-        var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
             (filePair, _) =>
             {
@@ -147,6 +152,13 @@ public class Tests
 
                 return Task.CompletedTask;
             });
+    }
+
+    [Fact]
+    public async Task OnFirstVerify()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
         await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);

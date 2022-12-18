@@ -16,6 +16,9 @@ public static partial class VerifierSettings
         }
     }
 
-    public static void RegisterFileAppender(FileAppender appender) =>
+    public static void RegisterFileAppender(FileAppender appender)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         fileAppenders.Add(appender);
+    }
 }

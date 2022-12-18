@@ -154,16 +154,16 @@ If cleanup needs to occur after verification a callback can be passes to `Conver
 <a id='snippet-conversionresultwithcleanup'></a>
 ```cs
 return new(
-    info: info,
+    info: null,
     "bin",
-    stream: File.OpenRead(filePath),
+    stream: File.OpenRead(withStreamRequiringCleanupPath),
     cleanup: () =>
     {
-        File.Delete(filePath);
+        File.Delete(withStreamRequiringCleanupPath);
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L39-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L35-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

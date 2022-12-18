@@ -2794,9 +2794,24 @@ public class SerializationTests
     {
     }
 
+    static Exception ignoreMemberSubClass;
+
+    [ModuleInitializer]
+    public static void IgnoreMemberSubClassInit()
+    {
+        try
+        {
+            VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property);
+        }
+        catch (Exception e)
+        {
+            ignoreMemberSubClass = e;
+        }
+    }
+
     [Fact]
     public Task IgnoreMemberSubClass() =>
-        Throws(() => VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property))
+        Verify(ignoreMemberSubClass)
             .IgnoreStackTrace();
 
     [Fact]

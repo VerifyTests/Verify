@@ -27,35 +27,38 @@ public class TypeConverterTests
     {
     }
 
-    [Fact]
-    public async Task WithStreamRequiringCleanup()
-    {
-        object? info = null;
-        var filePath = "WithStreamRequiringCleanup.tmp";
-        await File.WriteAllTextAsync(filePath, "FileContent");
+    [ModuleInitializer]
+    public static void WithStreamRequiringCleanupInit() =>
         VerifierSettings.RegisterFileConverter<TargetForCleanup>(
             (_, _) =>
             {
                 #region ConversionResultWithCleanup
 
                 return new(
-                    info: info,
+                    info: null,
                     "bin",
-                    stream: File.OpenRead(filePath),
+                    stream: File.OpenRead(withStreamRequiringCleanupPath),
                     cleanup: () =>
                     {
-                        File.Delete(filePath);
+                        File.Delete(withStreamRequiringCleanupPath);
                         return Task.CompletedTask;
                     });
 
                 #endregion
             });
+
+    static string withStreamRequiringCleanupPath = "WithStreamRequiringCleanup.tmp";
+
+    [Fact]
+    public async Task WithStreamRequiringCleanup()
+    {
+        await File.WriteAllTextAsync(withStreamRequiringCleanupPath, "FileContent");
         var target = new TargetForCleanup
         {
             Value = "line1"
         };
         await Verify(target);
-        Assert.False(File.Exists(filePath));
+        Assert.False(File.Exists(withStreamRequiringCleanupPath));
     }
 
     class TargetForCleanup

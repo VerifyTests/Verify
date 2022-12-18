@@ -87,7 +87,7 @@ public static partial class VerifierSettings
         where T : notnull
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        serialization.IgnoreMembers(expression);
+        serialization.ScrubMember(expression);
     }
 
     public static void IgnoreMembers<T>(params string[] names)

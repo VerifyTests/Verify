@@ -1,3 +1,5 @@
+using StackTrace = System.Diagnostics.StackTrace;
+
 namespace VerifyTests;
 
 public partial class InnerVerifier :
@@ -11,12 +13,18 @@ public partial class InnerVerifier :
     Counter counter;
     static bool verifyHasBeenRun;
 
-    public static void ThrowIfVerifyHasBeenRun([CallerMemberName] string member = "")
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ThrowIfVerifyHasBeenRun()
     {
-        if (verifyHasBeenRun)
+        if (!verifyHasBeenRun)
         {
-            throw new($"The API '{member}' must be called prior to any Verify has run. Usually this is don ina [ModuleInitializer].");
+            return;
         }
+
+        var stackTrace = new StackTrace(1, false);
+        var method = stackTrace.GetFrame(1)!.GetMethod()!;
+        var type = method.DeclaringType;
+        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is don ina [ModuleInitializer].");
     }
 
     public InnerVerifier(

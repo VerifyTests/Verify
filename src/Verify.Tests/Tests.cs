@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 [UsesVerify]
 public class Tests
 {
-
     [ModuleInitializer]
     public static void Initialize()
     {

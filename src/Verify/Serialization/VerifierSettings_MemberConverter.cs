@@ -28,6 +28,7 @@ public static partial class VerifierSettings
         Expression<Func<TTarget, TMember?>> expression,
         ConvertTargetMember<TTarget, TMember?> converter)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         var member = expression.FindMember();
         MemberConverter(
             member.DeclaringType!,
@@ -39,6 +40,7 @@ public static partial class VerifierSettings
         Expression<Func<TTarget, TMember?>> expression,
         ConvertMember<TMember?> converter)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         var member = expression.FindMember();
         MemberConverter(
             member.DeclaringType!,
@@ -48,6 +50,7 @@ public static partial class VerifierSettings
 
     public static void MemberConverter(Type declaringType, string name, ConvertTargetMember converter)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         Guard.AgainstNullOrEmpty(name, nameof(name));
         if (!membersConverters.TryGetValue(declaringType, out var list))
         {
@@ -59,6 +62,7 @@ public static partial class VerifierSettings
 
     public static void MemberConverter(Type declaringType, string name, ConvertMember converter)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         Guard.AgainstNullOrEmpty(name, nameof(name));
         if (!membersConverters.TryGetValue(declaringType, out var list))
         {

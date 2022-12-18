@@ -21,6 +21,9 @@ public static partial class VerifierSettings
         return list;
     }
 
-    public static void RegisterJsonAppender(JsonAppender appender) =>
+    public static void RegisterJsonAppender(JsonAppender appender)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         jsonAppenders.Add(appender);
+    }
 }

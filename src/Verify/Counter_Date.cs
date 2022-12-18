@@ -7,8 +7,11 @@ public partial class Counter
     static Dictionary<Date, string> globalNamedDates = new();
     int currentDate;
 
-    internal static void AddNamed(Date value, string name) =>
+    internal static void AddNamed(Date value, string name)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         globalNamedDates.Add(value, name);
+    }
 
     public int Next(Date input) =>
         NextValue(input).intValue;

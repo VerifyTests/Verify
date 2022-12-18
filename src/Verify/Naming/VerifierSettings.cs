@@ -27,8 +27,11 @@ public static partial class VerifierSettings
         {typeof(DateTimeOffset), _ => DateFormatter.ToParameterString((DateTimeOffset) _)}
     };
 
-    public static void NameForParameter<T>(ParameterToName<T> func) =>
+    public static void NameForParameter<T>(ParameterToName<T> func)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         parameterToNameLookup[typeof(T)] = o => func((T) o);
+    }
 
     internal static string GetNameForParameter(object? parameter)
     {
@@ -113,15 +116,21 @@ public static partial class VerifierSettings
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
-    public static void UniqueForRuntime() =>
+    public static void UniqueForRuntime()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForRuntime = true;
+    }
 
     /// <summary>
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>
-    public static void UseSplitModeForUniqueDirectory() =>
+    public static void UseSplitModeForUniqueDirectory()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         UseUniqueDirectorySplitMode = true;
+    }
 
     internal static bool UseUniqueDirectorySplitMode;
 
@@ -129,22 +138,31 @@ public static partial class VerifierSettings
     /// Use the current test assembly TargetFrameworkAttribute to make the test results unique.
     /// Used when a test produces different results based on TargetFramework.
     /// </summary>
-    public static void UniqueForTargetFramework() =>
+    public static void UniqueForTargetFramework()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForTargetFramework = true;
+    }
 
     /// <summary>
     /// Use the current test assembly TargetFrameworkAttribute name and version to make the test results unique.
     /// Used when a test produces different results based on TargetFramework and TargetFramework version.
     /// </summary>
-    public static void UniqueForTargetFrameworkAndVersion() =>
+    public static void UniqueForTargetFrameworkAndVersion()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForTargetFrameworkAndVersion = true;
+    }
 
     /// <summary>
     /// Use the current test assembly configuration (debug/release) to make the test results unique.
     /// Used when a test produces different results based on assembly configuration.
     /// </summary>
-    public static void UniqueForAssemblyConfiguration() =>
+    public static void UniqueForAssemblyConfiguration()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForAssemblyConfiguration = true;
+    }
 
     /// <summary>
     /// Use <paramref name="assembly" /> TargetFrameworkAttribute to make the test results unique.
@@ -152,6 +170,7 @@ public static partial class VerifierSettings
     /// </summary>
     public static void UniqueForTargetFramework(Assembly assembly)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForTargetFramework = true;
         SharedNamer.UniqueForTargetFrameworkAssembly = assembly;
     }
@@ -162,6 +181,7 @@ public static partial class VerifierSettings
     /// </summary>
     public static void UniqueForTargetFrameworkAndVersion(Assembly assembly)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForTargetFrameworkAndVersion = true;
         SharedNamer.UniqueForTargetFrameworkAssembly = assembly;
     }
@@ -172,6 +192,7 @@ public static partial class VerifierSettings
     /// </summary>
     public static void UniqueForAssemblyConfiguration(Assembly assembly)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForAssemblyConfiguration = true;
         SharedNamer.UniqueForAssemblyConfigurationAssembly = assembly;
     }
@@ -180,28 +201,40 @@ public static partial class VerifierSettings
     /// Use the current runtime and runtime version to make the test results unique.
     /// Used when a test produces different results based on runtime and runtime version.
     /// </summary>
-    public static void UniqueForRuntimeAndVersion() =>
+    public static void UniqueForRuntimeAndVersion()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForRuntimeAndVersion = true;
+    }
 
     /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
     /// Used when a test produces different results based on processor architecture.
     /// </summary>
-    public static void UniqueForArchitecture() =>
+    public static void UniqueForArchitecture()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForArchitecture = true;
+    }
 
     /// <summary>
     /// Use the operating system family (Linux/Windows/OSX) to make the test results unique.
     /// Used when a test produces different results based on operating system family.
     /// </summary>
-    public static void UniqueForOSPlatform() =>
+    public static void UniqueForOSPlatform()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForOSPlatform = true;
+    }
 
     internal static bool UniquePrefixDisabled;
 
     /// <summary>
     /// Allow multiple tests to map to the same snapshot file prefix.
     /// </summary>
-    public static void DisableRequireUniquePrefix() =>
+    public static void DisableRequireUniquePrefix()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         UniquePrefixDisabled = true;
+    }
 }

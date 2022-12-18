@@ -2605,15 +2605,9 @@ public class SerializationTests
 
     #region MemberConverter
 
-    [Fact]
-    public Task MemberConverterByExpression()
+    [ModuleInitializer]
+    public static void MemberConverterByExpressionInit()
     {
-        var input = new MemberTarget
-        {
-            Field = "FieldValue",
-            Property = "PropertyValue"
-        };
-
         // using only the member
         VerifierSettings.MemberConverter<MemberTarget, string>(
             expression: _ => _.Field,
@@ -2623,6 +2617,16 @@ public class SerializationTests
         VerifierSettings.MemberConverter<MemberTarget, string>(
             expression: _ => _.Property,
             converter: (target, member) => $"{target}_{member}_Suffix");
+    }
+
+    [Fact]
+    public Task MemberConverterByExpression()
+    {
+        var input = new MemberTarget
+        {
+            Field = "FieldValue",
+            Property = "PropertyValue"
+        };
 
         return Verify(input);
     }
@@ -3122,18 +3126,19 @@ public class SerializationTests
         public string Name { get; set; } = null!;
     }
 
-    [Fact]
-    public Task WithConverterAndMemberConverter()
-    {
+    [ModuleInitializer]
+    public static void WithConverterAndMemberConverterInit() =>
         VerifierSettings.MemberConverter<StaticConverterTarget, string>(
             target => target.Name,
             (target, value) => "New Value");
-        return Verify(new StaticConverterTarget
+
+    [Fact]
+    public Task WithConverterAndMemberConverter() =>
+        Verify(new StaticConverterTarget
             {
                 Name = "The name"
             })
             .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
-    }
 
     class StaticConverter :
         WriteOnlyJsonConverter<StaticConverterTarget>

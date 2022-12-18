@@ -16,8 +16,11 @@ public partial class Counter
 
     int currentDateTime;
 
-    internal static void AddNamed(DateTime value, string name) =>
+    internal static void AddNamed(DateTime value, string name)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         globalNamedDateTimes.Add(value, name);
+    }
 
     public int Next(DateTime input) =>
         NextValue(input).intValue;

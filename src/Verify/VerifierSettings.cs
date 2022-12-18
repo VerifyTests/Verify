@@ -13,6 +13,7 @@ public static partial class VerifierSettings
     // ReSharper disable once UnusedParameter.Global
     public static void AutoVerify(bool includeBuildServer = true)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
 #if DiffEngine
         if (includeBuildServer)
         {

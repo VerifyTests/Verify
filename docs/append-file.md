@@ -20,7 +20,7 @@ public Task BinaryFluent() =>
     Verify("Foo", settings)
         .AppendFile("sample.png");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -34,5 +34,5 @@ public Task TextFluent() =>
     Verify("Foo")
         .AppendFile("extra content");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L25-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-textfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-textfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

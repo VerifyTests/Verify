@@ -13,6 +13,11 @@ public class InstanceFileAppenderTests
     public Task Text() =>
         Verify("Foo", settings);
 
+    [Fact]
+    public Task WithName() =>
+        Verify("Foo", settings)
+            .AppendFile("extra content", name: "theName");
+
     #region BinaryFluent
 
     [Fact]

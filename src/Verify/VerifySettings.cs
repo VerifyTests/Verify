@@ -16,6 +16,7 @@ public partial class VerifySettings
 #endif
         methodName = settings.methodName;
         typeName = settings.typeName;
+        appendedFiles = settings.appendedFiles;
         useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;
         autoVerify = settings.autoVerify;

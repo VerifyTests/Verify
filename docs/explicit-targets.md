@@ -32,7 +32,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L26-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L30-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -56,7 +56,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L24-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L28-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -80,7 +80,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L24-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L28-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

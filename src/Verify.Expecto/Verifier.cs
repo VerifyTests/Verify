@@ -64,4 +64,14 @@ public static partial class Verifier
         var assembly = Assembly.GetCallingAssembly();
         return Verify(settings, assembly, sourceFile, name, _ => _.Verify(targets));
     }
+
+    public static Task<VerifyResult> Verify(
+        string name,
+        Target target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "")
+    {
+        var assembly = Assembly.GetCallingAssembly();
+        return Verify(settings, assembly, sourceFile, name, _ => _.Verify(target));
+    }
 }

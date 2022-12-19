@@ -2,14 +2,21 @@
 {
     [Tests]
     public static Test myTest = Runner.TestCase(
-        "myTest",
+        nameof(myTest),
         () => Verify(
             name: nameof(myTest),
             target: "value"));
 
     [Tests]
+    public static Test stringTarget = Runner.TestCase(
+        nameof(stringTarget),
+        () => Verify(
+            name: nameof(stringTarget),
+            target: new Target("txt", "Value")));
+
+    [Tests]
     public static Test withTargets = Runner.TestCase(
-        "withTargets",
+        nameof(withTargets),
         () => Verify(
             name: nameof(withTargets),
             target: new

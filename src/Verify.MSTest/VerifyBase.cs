@@ -65,6 +65,12 @@ public abstract partial class VerifyBase
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(targets));
 
+    public SettingsTask Verify(
+        Target target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.Verify(target));
+
     SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,

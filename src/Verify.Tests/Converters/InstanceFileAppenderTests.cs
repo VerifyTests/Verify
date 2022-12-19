@@ -37,6 +37,16 @@ public class InstanceFileAppenderTests
     #endregion
 
     [Fact]
+    public Task WithScrubbing() =>
+        Verify("Foo")
+            .AppendFile("""
+                line1
+                line2
+                line3
+                """)
+            .ScrubLinesContaining("line2");
+
+    [Fact]
     public Task TextBytesFluent() =>
         Verify("Foo")
             .AppendFile(Encoding.UTF8.GetBytes("appendedFile"));

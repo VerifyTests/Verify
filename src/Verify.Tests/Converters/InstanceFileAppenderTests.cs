@@ -23,7 +23,7 @@ public class InstanceFileAppenderTests
     [Fact]
     public Task BinaryFluent() =>
         Verify("Foo", settings)
-            .AppendFile("sample.png");
+            .AppendFile(File.OpenRead("sample.png"));
 
     #endregion
 

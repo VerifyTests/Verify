@@ -18,7 +18,7 @@ Allows extra files to be verified in addition to the primary target.
 [Fact]
 public Task BinaryFluent() =>
     Verify("Foo", settings)
-        .AppendFile("sample.png");
+        .AppendFile(File.OpenRead("sample.png"));
 ```
 <sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

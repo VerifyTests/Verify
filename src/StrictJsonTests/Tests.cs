@@ -90,8 +90,11 @@ public class Tests
     }
 
     [Fact]
-    public Task WithInfo()
-    {
+    public Task WithInfo() =>
+        Verify(new MemoryStream(new byte[]{1}), "foo");
+
+    [ModuleInitializer]
+    public static void WithInfoInit() =>
         VerifierSettings.RegisterFileConverter(
             "foo",
             (_, _) =>
@@ -102,8 +105,6 @@ public class Tests
                 };
                 return new(info, "txt", "content");
             });
-        return Verify(new MemoryStream(new byte[]{1}), "foo");
-    }
 }
 
 public class TheTarget

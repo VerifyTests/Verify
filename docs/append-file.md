@@ -10,29 +10,39 @@ To change this file edit the source file and then run MarkdownSnippets.
 Allows extra files to be verified in addition to the primary target.
 
 
-## Binary
+## AppendFile
 
-<!-- snippet: BinaryFluent -->
-<a id='snippet-binaryfluent'></a>
+<!-- snippet: AppendFile -->
+<a id='snippet-appendfile'></a>
 ```cs
 [Fact]
-public Task BinaryFluent() =>
+public Task AppendFile() =>
     Verify("Foo", settings)
-        .AppendFile(File.OpenRead("sample.png"));
+        .AppendFile("sample.png");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Will result in two files being verified:
 
-## Text
+ * `Tests.AppendFile#00.verified.txt` containing `Foo`
+ * `Tests.AppendFile#sample.verified.png`
 
-<!-- snippet: TextFluent -->
-<a id='snippet-textfluent'></a>
+
+## AppendContentAsFile
+
+<!-- snippet: AppendContentAsFile -->
+<a id='snippet-appendcontentasfile'></a>
 ```cs
 [Fact]
-public Task TextFluent() =>
+public Task AppendContentAsFile() =>
     Verify("Foo")
         .AppendContentAsFile("extra content");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-textfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendcontentasfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Will result in two files being verified:
+
+ * `Tests.AppendContentAsFile#00.verified.txt` containing `Foo`
+ * `Tests.AppendContentAsFile#01.verified.txt` containing `extra content`

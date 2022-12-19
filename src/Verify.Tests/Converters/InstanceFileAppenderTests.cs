@@ -18,19 +18,19 @@ public class InstanceFileAppenderTests
         Verify("Foo", settings)
             .AppendContentAsFile("extra content", name: "theName");
 
-    #region BinaryFluent
+    #region AppendFile
 
     [Fact]
-    public Task BinaryFluent() =>
+    public Task AppendFile() =>
         Verify("Foo", settings)
-            .AppendFile(File.OpenRead("sample.png"));
+            .AppendFile("sample.png");
 
     #endregion
 
-    #region TextFluent
+    #region AppendContentAsFile
 
     [Fact]
-    public Task TextFluent() =>
+    public Task AppendContentAsFile() =>
         Verify("Foo")
             .AppendContentAsFile("extra content");
 

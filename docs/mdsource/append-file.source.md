@@ -3,11 +3,21 @@
 Allows extra files to be verified in addition to the primary target.
 
 
-## Binary
+## AppendFile
 
-snippet: BinaryFluent
+snippet: AppendFile
+
+Will result in two files being verified:
+
+ * `Tests.AppendFile#00.verified.txt` containing `Foo`
+ * `Tests.AppendFile#sample.verified.png`
 
 
-## Text
+## AppendContentAsFile
 
-snippet: TextFluent
+snippet: AppendContentAsFile
+
+Will result in two files being verified:
+
+ * `Tests.AppendContentAsFile#00.verified.txt` containing `Foo`
+ * `Tests.AppendContentAsFile#01.verified.txt` containing `extra content`

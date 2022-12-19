@@ -5,12 +5,12 @@ Source File: /docs/mdsource/append-file.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# AppendFile and AppendTextFile
+# AppendFile
 
 Allows extra files to be verified in addition to the primary target.
 
 
-## AppendFile
+## Binary
 
 <!-- snippet: BinaryFluent -->
 <a id='snippet-binaryfluent'></a>
@@ -18,13 +18,13 @@ Allows extra files to be verified in addition to the primary target.
 [Fact]
 public Task BinaryFluent() =>
     Verify("Foo", settings)
-        .AppendFile(File.OpenRead("sample.png"));
+        .AppendFile("sample.png");
 ```
 <sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-binaryfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
-## AppendTextFile
+## Text
 
 <!-- snippet: TextFluent -->
 <a id='snippet-textfluent'></a>
@@ -32,7 +32,7 @@ public Task BinaryFluent() =>
 [Fact]
 public Task TextFluent() =>
     Verify("Foo")
-        .AppendTextFile("appendedFile");
+        .AppendFile("extra content");
 ```
 <sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L25-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-textfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -6,7 +6,7 @@ public class InstanceFileAppenderTests
     public InstanceFileAppenderTests()
     {
         settings = new();
-        settings.AppendTextFile("appendedFile");
+        settings.AppendFile("appendedFile");
     }
 
     [Fact]
@@ -27,17 +27,17 @@ public class InstanceFileAppenderTests
     [Fact]
     public Task TextFluent() =>
         Verify("Foo")
-            .AppendTextFile("extra content");
+            .AppendFile("extra content");
 
     #endregion
 
     [Fact]
     public Task TextBytesFluent() =>
         Verify("Foo")
-            .AppendTextFile(Encoding.UTF8.GetBytes("appendedFile"));
+            .AppendFile(Encoding.UTF8.GetBytes("appendedFile"));
 
     [Fact]
     public Task TextStreamFluent() =>
         Verify("Foo")
-            .AppendTextFile(new MemoryStream(Encoding.UTF8.GetBytes("appendedFile")));
+            .AppendFile(new MemoryStream(Encoding.UTF8.GetBytes("appendedFile")));
 }

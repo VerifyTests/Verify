@@ -1,13 +1,13 @@
-# AppendFile and AppendTextFile
+# AppendFile
 
 Allows extra files to be verified in addition to the primary target.
 
 
-## AppendFile
+## Binary
 
 snippet: BinaryFluent
 
 
-## AppendTextFile
+## Text
 
 snippet: TextFluent

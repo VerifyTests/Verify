@@ -32,80 +32,71 @@ public partial class VerifySettings
 {
     internal List<Target> appendedFiles = new();
 
-    public void AppendTextFile(string content, string extension = "txt") =>
+    public void AppendFile(string content, string extension = "txt") =>
         appendedFiles.Add(new(extension, content));
 
-    public void AppendTextFile(StringBuilder content, string extension = "txt") =>
+    public void AppendFile(StringBuilder content, string extension = "txt") =>
         appendedFiles.Add(new(extension, content));
 
-    public void AppendTextFile(byte[] content, string extension = "txt") =>
-        appendedFiles.Add(new(extension, Encoding.UTF8.GetString(content)));
-
-    public void AppendTextFile(Stream content, string extension = "txt")
+    public void AppendFile(byte[] content, string extension = "txt")
     {
-        content.MoveToStart();
-        using var reader = new StreamReader(content, Encoding.UTF8);
-        appendedFiles.Add(new(extension, reader.ReadToEnd()));
+        if (FileExtensions.IsText(extension))
+        {
+            appendedFiles.Add(new(extension, Encoding.UTF8.GetString(content)));
+        }
+        else
+        {
+            appendedFiles.Add(new(extension, new MemoryStream(content)));
+        }
     }
 
-    public void AppendTextFile(FileStream content)
+    public void AppendFile(FileStream stream) =>
+        AppendFile(stream, stream.Extension());
+
+    public void AppendFile(Stream stream, string extension = "txt")
     {
-        content.MoveToStart();
-        using var reader = new StreamReader(content, Encoding.UTF8);
-        AppendTextFile(content, content.Extension());
+        stream.MoveToStart();
+        if (FileExtensions.IsText(extension))
+        {
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            appendedFiles.Add(new(extension, reader.ReadToEnd()));
+        }
+        else
+        {
+            appendedFiles.Add(new(extension, stream));
+        }
     }
-
-    public void AppendFile(string extension, byte[] content) =>
-        AppendFile(extension, new MemoryStream(content));
-
-    public void AppendFile(FileStream content) =>
-        AppendFile(content.Extension(), content);
-
-    public void AppendFile(string extension, Stream content) =>
-        appendedFiles.Add(new(extension, content));
 }
 
 public partial class SettingsTask
 {
-    public SettingsTask AppendTextFile(StringBuilder content, string extension = "txt")
+    public SettingsTask AppendFile(StringBuilder content, string extension = "txt")
     {
-        CurrentSettings.AppendTextFile(content, extension);
+        CurrentSettings.AppendFile(content, extension);
         return this;
     }
 
-    public SettingsTask AppendTextFile(string content, string extension = "txt")
+    public SettingsTask AppendFile(string content, string extension = "txt")
     {
-        CurrentSettings.AppendTextFile(content, extension);
+        CurrentSettings.AppendFile(content, extension);
         return this;
     }
 
-    public SettingsTask AppendTextFile(byte[] content, string extension = "txt")
+    public SettingsTask AppendFile(byte[] content, string extension = "txt")
     {
-        CurrentSettings.AppendTextFile(content, extension);
+        CurrentSettings.AppendFile(content, extension);
         return this;
     }
 
-    public SettingsTask AppendTextFile(Stream content, string extension = "txt")
+    public SettingsTask AppendFile(FileStream stream)
     {
-        CurrentSettings.AppendTextFile(content, extension);
+        CurrentSettings.AppendFile(stream);
         return this;
     }
 
-    public SettingsTask AppendFile(string extension, byte[] content)
+    public SettingsTask AppendFile(Stream stream, string extension = "txt")
     {
-        CurrentSettings.AppendFile(extension, content);
-        return this;
-    }
-
-    public SettingsTask AppendFile(FileStream content)
-    {
-        CurrentSettings.AppendFile(content);
-        return this;
-    }
-
-    public SettingsTask AppendFile(string extension, Stream content)
-    {
-        CurrentSettings.AppendFile(extension, content);
+        CurrentSettings.AppendFile(stream);
         return this;
     }
 }

@@ -13,14 +13,23 @@ public class InstanceFileAppenderTests
     public Task Text() =>
         Verify("Foo", settings);
 
+    #region BinaryFluent
+
     [Fact]
     public Task BinaryFluent() =>
-        Verify("Foo", settings).AppendFile(File.OpenRead("sample.png"));
+        Verify("Foo", settings)
+            .AppendFile("sample.png");
+
+    #endregion
+
+    #region TextFluent
 
     [Fact]
     public Task TextFluent() =>
         Verify("Foo")
-            .AppendTextFile("appendedFile");
+            .AppendTextFile("extra content");
+
+    #endregion
 
     [Fact]
     public Task TextBytesFluent() =>

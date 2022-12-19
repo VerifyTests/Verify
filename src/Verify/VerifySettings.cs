@@ -81,42 +81,6 @@ public partial class VerifySettings
         this.parametersText = parametersText;
     }
 
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    public void UseExtension(string extension) =>
-        throw new();
-
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    public bool TryGetExtension([NotNullWhen(true)] out string? extension) =>
-        throw new();
-
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    internal string ExtensionOrTxt(string defaultValue = "txt") =>
-        throw new();
-
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    internal string ExtensionOrBin() =>
-        throw new();
-
     internal bool IsAutoVerify =>
         VerifierSettings.autoVerify ||
         autoVerify;

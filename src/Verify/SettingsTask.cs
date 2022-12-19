@@ -22,15 +22,6 @@ public partial class SettingsTask
         return this;
     }
 
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    public bool TryGetExtension([NotNullWhen(true)] out string? extension) =>
-        throw new();
-
     /// <summary>
     /// Append a key-value pair to the serialized target.
     /// </summary>
@@ -300,16 +291,6 @@ public partial class SettingsTask
         CurrentSettings.UseTextForParameters(parametersText);
         return this;
     }
-
-
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    public SettingsTask UseExtension(string extension) =>
-        throw new();
 
     public VerifySettings CurrentSettings => settings ??= new();
 

@@ -121,4 +121,13 @@ public static partial class Verifier
             settings,
             sourceFile,
             _ => _.Verify(targets));
+
+    public static SettingsTask Verify(
+        Target target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.Verify(target));
 }

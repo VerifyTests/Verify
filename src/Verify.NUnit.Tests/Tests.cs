@@ -21,6 +21,10 @@ public class Tests
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
+    [Test]
+    public Task StringTarget() =>
+        Verify(new Target("txt", "Value"));
+
     #region ExplicitTargetsNunit
 
     [Test]

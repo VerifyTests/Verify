@@ -23,6 +23,10 @@ public class Tests :
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
+    [TestMethod]
+    public Task StringTarget() =>
+        Verify(new Target("txt", "Value"));
+
     #region ExplicitTargetsMsTest
 
     [TestMethod]

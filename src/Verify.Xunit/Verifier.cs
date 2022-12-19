@@ -49,6 +49,16 @@ public static partial class Verifier
             sourceFile,
             _ => _.Verify(targets));
 
+
+    public static SettingsTask Verify(
+        Target target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.Verify(target));
+
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,

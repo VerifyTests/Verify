@@ -32,7 +32,7 @@ public Task BinaryFluent() =>
 [Fact]
 public Task TextFluent() =>
     Verify("Foo")
-        .AppendFile("extra content");
+        .AppendContentAsFile("extra content");
 ```
 <sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-textfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

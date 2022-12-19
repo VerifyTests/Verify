@@ -6,7 +6,7 @@ public class InstanceFileAppenderTests
     public InstanceFileAppenderTests()
     {
         settings = new();
-        settings.AppendFile("appendedFile");
+        settings.AppendContentAsFile("appendedFile");
     }
 
     [Fact]
@@ -16,7 +16,7 @@ public class InstanceFileAppenderTests
     [Fact]
     public Task WithName() =>
         Verify("Foo", settings)
-            .AppendFile("extra content", name: "theName");
+            .AppendContentAsFile("extra content", name: "theName");
 
     #region BinaryFluent
 
@@ -32,14 +32,14 @@ public class InstanceFileAppenderTests
     [Fact]
     public Task TextFluent() =>
         Verify("Foo")
-            .AppendFile("extra content");
+            .AppendContentAsFile("extra content");
 
     #endregion
 
     [Fact]
     public Task WithScrubbing() =>
         Verify("Foo")
-            .AppendFile("""
+            .AppendContentAsFile("""
                 line1
                 line2
                 line3
@@ -49,7 +49,7 @@ public class InstanceFileAppenderTests
     [Fact]
     public Task TextBytesFluent() =>
         Verify("Foo")
-            .AppendFile(Encoding.UTF8.GetBytes("appendedFile"));
+            .AppendContentAsFile(Encoding.UTF8.GetBytes("appendedFile"));
 
     [Fact]
     public Task TextStreamFluent() =>

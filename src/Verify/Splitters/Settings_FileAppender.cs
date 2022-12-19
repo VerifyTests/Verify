@@ -32,13 +32,13 @@ public partial class VerifySettings
 {
     internal List<Target> appendedFiles = new();
 
-    public void AppendFile(string content, string extension = "txt", string? name = null) =>
+    public void AppendContentAsFile(string content, string extension = "txt", string? name = null) =>
         appendedFiles.Add(new(extension, content, name));
 
-    public void AppendFile(StringBuilder content, string extension = "txt", string? name = null) =>
+    public void AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null) =>
         appendedFiles.Add(new(extension, content, name));
 
-    public void AppendFile(byte[] content, string extension = "txt", string? name = null)
+    public void AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
         if (FileExtensions.IsText(extension))
         {
@@ -49,6 +49,12 @@ public partial class VerifySettings
             appendedFiles.Add(new(extension, new MemoryStream(content), name));
         }
     }
+
+    public void AppendFile(string file, string? name = null) =>
+        AppendFile(IoHelpers.OpenRead(file), name);
+
+    public void AppendFile(FileInfo file, string? name = null) =>
+        AppendFile(file.FullName, name);
 
     public void AppendFile(FileStream stream, string? name = null) =>
         AppendFile(stream, stream.Extension(), name??Path.GetFileNameWithoutExtension(stream.Name));
@@ -70,21 +76,21 @@ public partial class VerifySettings
 
 public partial class SettingsTask
 {
-    public SettingsTask AppendFile(StringBuilder content, string extension = "txt", string? name = null)
+    public SettingsTask AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null)
     {
-        CurrentSettings.AppendFile(content, extension, name);
+        CurrentSettings.AppendContentAsFile(content, extension, name);
         return this;
     }
 
-    public SettingsTask AppendFile(string content, string extension = "txt", string? name = null)
+    public SettingsTask AppendContentAsFile(string content, string extension = "txt", string? name = null)
     {
-        CurrentSettings.AppendFile(content, extension, name);
+        CurrentSettings.AppendContentAsFile(content, extension, name);
         return this;
     }
 
-    public SettingsTask AppendFile(byte[] content, string extension = "txt", string? name = null)
+    public SettingsTask AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
-        CurrentSettings.AppendFile(content, extension, name);
+        CurrentSettings.AppendContentAsFile(content, extension, name);
         return this;
     }
 
@@ -97,6 +103,18 @@ public partial class SettingsTask
     public SettingsTask AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
         CurrentSettings.AppendFile(stream, extension, name);
+        return this;
+    }
+
+    public SettingsTask AppendFile(string file, string? name = null)
+    {
+        CurrentSettings.AppendFile(file, name);
+        return this;
+    }
+
+    public SettingsTask AppendFile(FileInfo file, string? name = null)
+    {
+        CurrentSettings.AppendFile(file, name);
         return this;
     }
 }

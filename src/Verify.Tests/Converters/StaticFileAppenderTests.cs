@@ -1,12 +1,11 @@
 ﻿[UsesVerify]
-public class FileAppenderWithScrubberTests :
+public class StaticFileAppenderTests :
     IDisposable
 {
     static AsyncLocal<bool> isInThisTest = new();
 
     [ModuleInitializer]
-    public static void Initialize()
-    {
+    public static void Initialize() =>
         VerifierSettings.RegisterFileAppender(
             _ =>
             {
@@ -17,19 +16,8 @@ public class FileAppenderWithScrubberTests :
 
                 return new("txt", "data");
             });
-        VerifierSettings.AddScrubber(
-            "txt", _ =>
-            {
-                if (!isInThisTest.Value)
-                {
-                    return;
-                }
 
-                _.Append("Appended");
-            });
-    }
-
-    public FileAppenderWithScrubberTests() =>
+    public StaticFileAppenderTests() =>
         isInThisTest.Value = true;
 
     public void Dispose() =>
@@ -38,4 +26,24 @@ public class FileAppenderWithScrubberTests :
     [Fact]
     public Task Text() =>
         Verify("Foo");
+
+    [Fact]
+    public Task EmptyString() =>
+        Verify(string.Empty);
+
+    [Fact]
+    public Task Anon() =>
+        Verify(new {foo = "bar"});
+
+    [Fact]
+    public Task NullText() =>
+        Verify((string?) null);
+
+    [Fact]
+    public Task Stream() =>
+        Verify(IoHelpers.OpenRead("sample.txt"));
+
+    [Fact]
+    public Task File() =>
+        VerifyFile("sample.txt");
 }

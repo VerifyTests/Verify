@@ -1,5 +1,8 @@
 ﻿static class Extensions
 {
+    public static string Extension(this FileStream file) =>
+        FileExtensions.GetExtension(file.Name);
+
     public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
     {
         var list = new List<T>();

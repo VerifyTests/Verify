@@ -15,6 +15,7 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
+  * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)

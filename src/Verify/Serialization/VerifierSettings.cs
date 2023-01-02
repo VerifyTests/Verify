@@ -30,7 +30,7 @@ public static partial class VerifierSettings
             return true;
         }
 
-        return typeToString.TryGetValue(target!.GetType(), out toString);
+        return typeToString.TryGetValue(target.GetType(), out toString);
     }
 
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()

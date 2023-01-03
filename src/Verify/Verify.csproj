@@ -26,7 +26,7 @@
     
     <PackageReference Include="DiffEngine" Version="11.0.0" />
     <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
-    <PackageReference Include="SimpleInfoName" Version="2.0.0" />
+    <PackageReference Include="SimpleInfoName" Version="2.1.0" />
     <PackageReference Include="Argon" Version="0.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />

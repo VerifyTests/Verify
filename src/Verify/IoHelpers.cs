@@ -1,4 +1,4 @@
-﻿static class IoHelpers
+static class IoHelpers
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
 
@@ -236,6 +236,8 @@
         {
             using var targetStream = OpenWrite(path);
             await stream.CopyToAsync(targetStream);
+            //stream.CopyTo(targetStream);
+            await Task.CompletedTask;
         }
     }
 

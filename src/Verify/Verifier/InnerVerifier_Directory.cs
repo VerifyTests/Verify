@@ -28,8 +28,7 @@ partial class InnerVerifier
                     pattern,
                     option),
                 info,
-                fileScrubber)
-            .ToList();
+                fileScrubber);
         return await VerifyInner(targets);
     }
 
@@ -48,23 +47,23 @@ partial class InnerVerifier
                     pattern,
                     option),
                 info,
-                fileScrubber)
-            .ToList();
+                fileScrubber);
         return await VerifyInner(targets);
     }
 
 #endif
 
-    async IAsyncEnumerable<Target> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
+    async Task<List<Target>> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
     {
+        var targets = new List<Target>();
         if (info is not null)
         {
-            yield return new(
+            targets.Add(new(
                 VerifierSettings.TxtOrJson,
                 JsonFormatter.AsJson(
                     settings,
                     counter,
-                    info));
+                    info)));
         }
 
         include ??= _ => true;
@@ -92,22 +91,25 @@ partial class InnerVerifier
             {
                 extension = "noextension";
             }
+
             if (FileExtensions.IsText(extension))
             {
                 var builder = await IoHelpers.ReadStringBuilderWithFixedLines(filePath);
                 fileScrubber?.Invoke(filePath, builder);
-                yield return new(
+                targets.Add(new(
                     extension,
                     builder,
-                    relativePath);
+                    relativePath));
             }
             else
             {
-                yield return new(
+                targets.Add(new(
                     extension,
                     File.OpenRead(filePath),
-                    relativePath);
+                    relativePath));
             }
         }
+
+        return targets;
     }
 }

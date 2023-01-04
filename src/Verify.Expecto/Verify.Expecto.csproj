@@ -13,6 +13,8 @@
     <Using Include="VerifyTests" />
     <Using Remove="System.Net.Http" />
     <PackageReference Include="Expecto" Version="9.0.4" />
+    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="FSharp.Core" Version="7.0.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />

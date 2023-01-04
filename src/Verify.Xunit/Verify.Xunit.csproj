@@ -12,7 +12,7 @@
     <Using Include="Xunit.Sdk" />
     <Using Include="VerifyTests" />
     <Using Include="Argon" />
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
+    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.2" />

@@ -25,7 +25,7 @@
     <Using Include="System.Runtime.InteropServices" />
     <PackageReference Include="DiffEngine" Version="11.0.0" />
     <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
+    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="SimpleInfoName" Version="2.1.0" />
     <PackageReference Include="Argon" Version="0.1.0" />

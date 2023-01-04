@@ -5,7 +5,7 @@
   <ItemGroup>
     <Using Remove="System.Net.Http" />
     <PackageReference Include="DiffEngine" Version="11.0.0" />
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
+    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
     <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />

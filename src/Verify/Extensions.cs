@@ -6,7 +6,7 @@
     public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
     {
         var list = new List<T>();
-        await foreach (var item in target.ConfigureAwait(false))
+        await foreach (var item in target)
         {
             list.Add(item);
         }

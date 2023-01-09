@@ -23,6 +23,15 @@ public class ComparerTests
         Assert.Contains("theMessage", exception.Message);
     }
 
+    [Fact]
+    public async Task Instance_with_message_Fluent()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        var exception = await Assert.ThrowsAsync<VerifyException>(() => Verify("NotTheText", settings).UseStringComparer(CompareWithMessage));
+        Assert.Contains("theMessage", exception.Message);
+    }
+
     [ModuleInitializer]
     public static void Static_with_messageInit()
     {

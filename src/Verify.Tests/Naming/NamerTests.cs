@@ -77,6 +77,7 @@ public class NamerTests
     public Task UseSplitModeForUniqueDirectory()
     {
         var settings = new VerifySettings();
+        settings.UseUniqueDirectory();
         settings.UseSplitModeForUniqueDirectory();
         return Verify("Value", settings);
     }
@@ -87,7 +88,9 @@ public class NamerTests
 
     [Fact]
     public Task UseSplitModeForUniqueDirectoryFluent() =>
-        Verify("Value").UseSplitModeForUniqueDirectory();
+        Verify("Value")
+            .UseUniqueDirectory()
+            .UseSplitModeForUniqueDirectory();
 
     #endregion
 

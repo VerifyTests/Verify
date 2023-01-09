@@ -6,8 +6,12 @@ public static class ModuleInit
     public static void Init()
     {
         VerifierSettings.UseStrictJson();
-    //}
-        #endregion
+    }
+    #endregion
+    
+    [ModuleInitializer]
+    public static void InitDerivePathInfo()
+    {
         DerivePathInfo(
             (_, _, type, method) => new(AttributeReader.GetProjectDirectory(), typeName: type.Name, method.Name));
     }

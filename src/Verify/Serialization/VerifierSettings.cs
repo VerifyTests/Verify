@@ -93,6 +93,7 @@ public static partial class VerifierSettings
     public static void TreatAsString<T>(AsString<T>? toString = null)
         where T : notnull
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         toString ??= (target, _) => new(target.ToString()!);
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }

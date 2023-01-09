@@ -50,8 +50,11 @@ public static partial class VerifierSettings
         return handleOnVerifyMismatch(item, message);
     }
 
-    public static void OnVerifyMismatch(VerifyMismatch verifyMismatch) =>
+    public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         handleOnVerifyMismatch += verifyMismatch;
+    }
 
     public static void OnVerify(Action before, Action after)
     {

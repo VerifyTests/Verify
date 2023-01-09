@@ -292,6 +292,16 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <summary>
+    /// Use the current runtime to make the test results unique.
+    /// Used when a test produces different results based on runtime.
+    /// </summary>
+    public SettingsTask UseSplitModeForUniqueDirectory()
+    {
+        CurrentSettings.UseSplitModeForUniqueDirectory();
+        return this;
+    }
+
     public VerifySettings CurrentSettings => settings ??= new();
 
     public Task<VerifyResult> ToTask() =>

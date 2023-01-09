@@ -28,6 +28,7 @@ public partial class VerifySettings
         parametersText = settings.parametersText;
         fileName = settings.fileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
+        UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;
         Namer = new(settings.Namer);
         foreach (var append in settings.Appends)
         {

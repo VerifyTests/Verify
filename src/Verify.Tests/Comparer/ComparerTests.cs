@@ -23,11 +23,16 @@ public class ComparerTests
         Assert.Contains("theMessage", exception.Message);
     }
 
-    [Fact]
-    public async Task Static_with_message()
+    [ModuleInitializer]
+    public static void Static_with_messageInit()
     {
         FileExtensions.AddTextExtension("staticComparerExtMessage");
         VerifierSettings.RegisterStringComparer("staticComparerExtMessage", CompareWithMessage);
+    }
+
+    [Fact]
+    public async Task Static_with_message()
+    {
         var settings = new VerifySettings();
         settings.DisableDiff();
         settings.UseMethodName("Static_with_message_temp");
@@ -39,11 +44,16 @@ public class ComparerTests
 
 #endif
 
-    [Fact]
-    public async Task Static()
+    [ModuleInitializer]
+    public static void StaticInit()
     {
         FileExtensions.AddTextExtension("staticComparerExt");
         VerifierSettings.RegisterStringComparer("staticComparerExt", Compare);
+    }
+
+    [Fact]
+    public async Task Static()
+    {
         await Verify("TheText", "staticComparerExt");
         PrefixUnique.Clear();
         await Verify("thetext", "staticComparerExt");

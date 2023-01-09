@@ -27,16 +27,21 @@ public static partial class VerifierSettings
 
     public static void RegisterStreamComparer(string extension, StreamCompare compare)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         Guard.AgainstBadExtension(extension, nameof(extension));
         streamComparers[extension] = compare;
     }
 
     public static void RegisterStringComparer(string extension, StringCompare compare)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         Guard.AgainstBadExtension(extension, nameof(extension));
         stringComparers[extension] = compare;
     }
 
-    public static void SetDefaultStringComparer(StringCompare compare) =>
+    public static void SetDefaultStringComparer(StringCompare compare)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         defaultStringComparer = compare;
+    }
 }

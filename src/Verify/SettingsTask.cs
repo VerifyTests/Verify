@@ -302,6 +302,16 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <summary>
+    /// Dont use the current runtime to make the test results unique.
+    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory"/>.
+    /// </summary>
+    public SettingsTask DontUseSplitModeForUniqueDirectory()
+    {
+        CurrentSettings.DontUseSplitModeForUniqueDirectory();
+        return this;
+    }
+
     public VerifySettings CurrentSettings => settings ??= new();
 
     public Task<VerifyResult> ToTask() =>

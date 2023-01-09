@@ -181,5 +181,12 @@ public partial class VerifySettings
     public void UseSplitModeForUniqueDirectory() =>
         UseUniqueDirectorySplitMode = true;
 
-    internal bool UseUniqueDirectorySplitMode;
+    /// <summary>
+    /// Dont use the current runtime to make the test results unique.
+    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory"/>.
+    /// </summary>
+    public void DontUseSplitModeForUniqueDirectory() =>
+        UseUniqueDirectorySplitMode = false;
+
+    internal bool? UseUniqueDirectorySplitMode;
 }

@@ -87,7 +87,7 @@ public partial class InnerVerifier :
             verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
         }
 
-        if (VerifierSettings.UseUniqueDirectorySplitMode)
+        if (ShouldUseUniqueDirectorySplitMode(settings))
         {
             var directoryPrefix = Path.Combine(directory, verifiedPrefix);
             var verifiedDirectory = $"{directoryPrefix}.verified";
@@ -143,6 +143,16 @@ public partial class InnerVerifier :
 
             IoHelpers.DeleteFiles(subDirectory, "*.received.*");
         }
+    }
+
+    static bool ShouldUseUniqueDirectorySplitMode(VerifySettings settings)
+    {
+        if (settings.UseUniqueDirectorySplitMode == null)
+        {
+            return VerifierSettings.UseUniqueDirectorySplitMode;
+        }
+
+        return settings.UseUniqueDirectorySplitMode.Value;
     }
 
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameters)

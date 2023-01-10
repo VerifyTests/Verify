@@ -1,5 +1,10 @@
-# Pick TestFramework
+# Pick Test Framework
 
+Selected OS: Win
+
+Selected IDE: Other
+
+Options:
  * Other
  * [xUnit](result_Win_Other_xUnit.md)
  * Other

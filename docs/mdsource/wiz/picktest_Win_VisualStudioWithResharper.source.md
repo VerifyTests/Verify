@@ -1,5 +1,10 @@
-# Pick TestFramework
+# Pick Test Framework
 
+Selected OS: Win
+
+Selected IDE: VisualStudioWithResharper
+
+Options:
  * VisualStudioWithResharper
  * [xUnit](result_Win_VisualStudioWithResharper_xUnit.md)
  * VisualStudioWithResharper

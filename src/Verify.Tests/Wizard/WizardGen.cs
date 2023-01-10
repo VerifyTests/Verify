@@ -1,6 +1,4 @@
-﻿#if NET7_0
-
-public class WizardGen
+﻿public class WizardGen
 {
     string wizardDir;
 
@@ -32,7 +30,14 @@ public class WizardGen
     {
         pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
-        var pickIdeBuilder = new StringBuilder("# Pick IDE\n\n");
+        var pickIdeBuilder = new StringBuilder($"""
+            # Pick IDE
+            
+            Selected OS: {os}
+
+            Options:
+
+            """);
         foreach (var ide in GetIdesForOs(os))
         {
             await ProcessIde(os, ide, pickIdeBuilder);
@@ -41,34 +46,20 @@ public class WizardGen
         await File.WriteAllTextAsync(pickIdeFile, pickIdeBuilder.ToString());
     }
 
-    static Ide[] GetIdesForOs(Os os) =>
-        os switch
-        {
-            Os.Win => new[]
-            {
-                Ide.VisualStudio,
-                Ide.VisualStudioWithResharper,
-                Ide.Rider,
-                Ide.Other,
-            },
-            Os.Mac => new[]
-            {
-                Ide.Rider,
-                Ide.VisualStudioMac,
-                Ide.Other,
-            },
-            Os.Linux => new[]
-            {
-                Ide.Other,
-            },
-            _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
-        };
-
     async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
     {
         pickIdeBuilder.AppendLine($" * [{ide}](picktest_{os}_{ide}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
-        var pickTestFrameworkBuilder = new StringBuilder("# Pick TestFramework\n\n");
+        var pickTestFrameworkBuilder = new StringBuilder($"""
+            # Pick Test Framework
+
+            Selected OS: {os}
+
+            Selected IDE: {ide}
+
+            Options:
+
+            """);
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
@@ -100,5 +91,27 @@ public class WizardGen
             File.Delete(file);
         }
     }
+
+    static Ide[] GetIdesForOs(Os os) =>
+        os switch
+        {
+            Os.Win => new[]
+            {
+                Ide.VisualStudio,
+                Ide.VisualStudioWithResharper,
+                Ide.Rider,
+                Ide.Other,
+            },
+            Os.Mac => new[]
+            {
+                Ide.Rider,
+                Ide.VisualStudioMac,
+                Ide.Other,
+            },
+            Os.Linux => new[]
+            {
+                Ide.Other,
+            },
+            _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
+        };
 }
-#endif

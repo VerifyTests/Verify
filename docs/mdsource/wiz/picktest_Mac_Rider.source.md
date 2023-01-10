@@ -1,5 +1,10 @@
-# Pick TestFramework
+# Pick Test Framework
 
+Selected OS: Mac
+
+Selected IDE: Rider
+
+Options:
  * Rider
  * [xUnit](result_Mac_Rider_xUnit.md)
  * Rider

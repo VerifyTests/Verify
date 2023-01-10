@@ -1,5 +1,10 @@
-# Pick TestFramework
+# Pick Test Framework
 
+Selected OS: Win
+
+Selected IDE: VisualStudio
+
+Options:
  * VisualStudio
  * [xUnit](result_Win_VisualStudio_xUnit.md)
  * VisualStudio

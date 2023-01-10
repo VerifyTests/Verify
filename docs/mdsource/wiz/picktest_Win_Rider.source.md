@@ -1,5 +1,10 @@
-# Pick TestFramework
+# Pick Test Framework
 
+Selected OS: Win
+
+Selected IDE: Rider
+
+Options:
  * Rider
  * [xUnit](result_Win_Rider_xUnit.md)
  * Rider

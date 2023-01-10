@@ -1,5 +1,10 @@
-# Pick TestFramework
+# Pick Test Framework
 
+Selected OS: Mac
+
+Selected IDE: VisualStudioMac
+
+Options:
  * VisualStudioMac
  * [xUnit](result_Mac_VisualStudioMac_xUnit.md)
  * VisualStudioMac

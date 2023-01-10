@@ -28,7 +28,7 @@ public class WizardGen
 
     async Task ProcessOs(Os os, StringBuilder pickOsBuilder)
     {
-        pickOsBuilder.AppendLine($" * [{os}](pickide_{os})");
+        pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
         var pickIdeBuilder = new StringBuilder("# Pick IDE\n\n");
         foreach (var ide in Enum.GetValues<Ide>())
@@ -41,8 +41,8 @@ public class WizardGen
 
     async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
     {
-        pickIdeBuilder.AppendLine($" * [{ide}]()");
-        var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md".ToLower());
+        pickIdeBuilder.AppendLine($" * [{ide}](picktest_{os}_{ide}.md)");
+        var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
         var pickTestFrameworkBuilder = new StringBuilder("# Pick TestFramework\n\n");
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
@@ -56,8 +56,8 @@ public class WizardGen
 
     async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder testFrameworkBuilder)
     {
-        testFrameworkBuilder.AppendLine($" * {testFramework}");
-        var file = Path.Combine(wizardDir, $"result_{os}_{ide}_{testFramework}.source.md".ToLower());
+        testFrameworkBuilder.AppendLine($" * [{testFramework}](result_{os}_{ide}_{testFramework}.md)");
+        var file = Path.Combine(wizardDir, $"result_{os}_{ide}_{testFramework}.source.md");
         var builder = new StringBuilder("");
 
         await File.WriteAllTextAsync(file, builder.ToString());

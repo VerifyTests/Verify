@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Restart](/docs/readme.md)
+[Restart](/docs/wiz/readme.md)
 
 * Selected OS: Mac
 * Selected IDE: Rider

@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Restart](/docs/readme.md)
+[Restart](/docs/wiz/readme.md)
 
 * Selected OS: Win
 * Selected IDE: VisualStudioWithResharper

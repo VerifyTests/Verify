@@ -5,3 +5,10 @@ Source File: /docs/mdsource/wiz/result_Win_VisualStudio_xUnit.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
+[Restart](/docs/wiz/readme.md)
+
+* Selected OS: Win
+* Selected IDE: VisualStudio
+* Selected Test Framework: xUnit

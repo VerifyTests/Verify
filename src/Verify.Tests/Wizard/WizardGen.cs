@@ -60,7 +60,7 @@
         var pickTestFrameworkBuilder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Restart](/docs/readme.md)
+            [Restart](/docs/wiz/readme.md)
 
             * Selected OS: {os}
             * Selected IDE: {ide}
@@ -83,7 +83,16 @@
     {
         testFrameworkBuilder.AppendLine($" * [{testFramework}](result_{os}_{ide}_{testFramework}.md)");
         var file = Path.Combine(wizardDir, $"result_{os}_{ide}_{testFramework}.source.md");
-        var builder = new StringBuilder("");
+        var builder = new StringBuilder($"""
+            # Getting Started Wizard
+
+            [Restart](/docs/wiz/readme.md)
+
+            * Selected OS: {os}
+            * Selected IDE: {ide}
+            * Selected Test Framework: {testFramework}
+
+            """);
 
         await File.WriteAllTextAsync(file, builder.ToString());
     }

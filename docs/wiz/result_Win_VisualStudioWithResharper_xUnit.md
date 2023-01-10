@@ -5,3 +5,10 @@ Source File: /docs/mdsource/wiz/result_Win_VisualStudioWithResharper_xUnit.sourc
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
+[Restart](/docs/wiz/readme.md)
+
+* Selected OS: Win
+* Selected IDE: VisualStudioWithResharper
+* Selected Test Framework: xUnit

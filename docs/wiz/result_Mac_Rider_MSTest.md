@@ -5,3 +5,10 @@ Source File: /docs/mdsource/wiz/result_Mac_Rider_MSTest.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
+[Restart](/docs/wiz/readme.md)
+
+* Selected OS: Mac
+* Selected IDE: Rider
+* Selected Test Framework: MSTest

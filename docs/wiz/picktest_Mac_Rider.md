@@ -5,8 +5,15 @@ Source File: /docs/mdsource/wiz/picktest_Mac_Rider.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Pick TestFramework
+[Restart](/docs/pickos.md)
 
+# Pick Test Framework
+
+Selected OS: Mac
+
+Selected IDE: Rider
+
+Options:
  * Rider
  * [xUnit](result_Mac_Rider_xUnit.md)
  * Rider

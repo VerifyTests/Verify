@@ -5,8 +5,13 @@ Source File: /docs/mdsource/wiz/pickide_Win.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+[Restart](/docs/pickos.md)
+
 # Pick IDE
 
+Selected OS: Win
+
+Options:
  * [VisualStudio](picktest_Win_VisualStudio.md)
  * [VisualStudioWithResharper](picktest_Win_VisualStudioWithResharper.md)
  * [Rider](picktest_Win_Rider.md)

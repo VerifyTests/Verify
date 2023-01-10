@@ -5,8 +5,15 @@ Source File: /docs/mdsource/wiz/picktest_Mac_Other.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Pick TestFramework
+[Restart](/docs/pickos.md)
 
+# Pick Test Framework
+
+Selected OS: Mac
+
+Selected IDE: Other
+
+Options:
  * Other
  * [xUnit](result_Mac_Other_xUnit.md)
  * Other

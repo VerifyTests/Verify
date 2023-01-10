@@ -5,8 +5,15 @@ Source File: /docs/mdsource/wiz/picktest_Mac_VisualStudioMac.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Pick TestFramework
+[Restart](/docs/pickos.md)
 
+# Pick Test Framework
+
+Selected OS: Mac
+
+Selected IDE: VisualStudioMac
+
+Options:
  * VisualStudioMac
  * [xUnit](result_Mac_VisualStudioMac_xUnit.md)
  * VisualStudioMac

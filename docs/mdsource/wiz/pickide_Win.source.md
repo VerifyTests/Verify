@@ -1,3 +1,5 @@
+[Restart](/docs/pickos.md)
+
 # Pick IDE
 
 Selected OS: Win

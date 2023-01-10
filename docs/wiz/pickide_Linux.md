@@ -5,6 +5,11 @@ Source File: /docs/mdsource/wiz/pickide_Linux.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+[Restart](/docs/pickos.md)
+
 # Pick IDE
 
+Selected OS: Linux
+
+Options:
  * [Other](picktest_Linux_Other.md)

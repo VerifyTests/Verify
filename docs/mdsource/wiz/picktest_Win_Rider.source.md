@@ -1,3 +1,5 @@
+[Restart](/docs/pickos.md)
+
 # Pick Test Framework
 
 Selected OS: Win

@@ -5,8 +5,15 @@ Source File: /docs/mdsource/wiz/picktest_Win_VisualStudio.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Pick TestFramework
+[Restart](/docs/pickos.md)
 
+# Pick Test Framework
+
+Selected OS: Win
+
+Selected IDE: VisualStudio
+
+Options:
  * VisualStudio
  * [xUnit](result_Win_VisualStudio_xUnit.md)
  * VisualStudio

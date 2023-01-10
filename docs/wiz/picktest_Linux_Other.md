@@ -5,8 +5,15 @@ Source File: /docs/mdsource/wiz/picktest_Linux_Other.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Pick TestFramework
+[Restart](/docs/pickos.md)
 
+# Pick Test Framework
+
+Selected OS: Linux
+
+Selected IDE: Other
+
+Options:
  * Other
  * [xUnit](result_Linux_Other_xUnit.md)
  * Other

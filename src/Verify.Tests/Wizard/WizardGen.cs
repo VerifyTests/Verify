@@ -31,6 +31,8 @@
         pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
         var pickIdeBuilder = new StringBuilder($"""
+            [Restart](/docs/pickos.md)
+
             # Pick IDE
             
             Selected OS: {os}
@@ -51,6 +53,8 @@
         pickIdeBuilder.AppendLine($" * [{ide}](picktest_{os}_{ide}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
         var pickTestFrameworkBuilder = new StringBuilder($"""
+            [Restart](/docs/pickos.md)
+
             # Pick Test Framework
 
             Selected OS: {os}

@@ -9,8 +9,10 @@ public class WizardGen
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         var repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
+        var wizardRealDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
         Directory.CreateDirectory(wizardDir);
         PurgeDirectory(wizardDir);
+        PurgeDirectory(wizardRealDir);
     }
 
     [Fact]
@@ -31,13 +33,36 @@ public class WizardGen
         pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
         var pickIdeBuilder = new StringBuilder("# Pick IDE\n\n");
-        foreach (var ide in Enum.GetValues<Ide>())
+        foreach (var ide in GetIdesForOs(os))
         {
             await ProcessIde(os, ide, pickIdeBuilder);
         }
 
         await File.WriteAllTextAsync(pickIdeFile, pickIdeBuilder.ToString());
     }
+
+    static Ide[] GetIdesForOs(Os os) =>
+        os switch
+        {
+            Os.Win => new[]
+            {
+                Ide.VisualStudio,
+                Ide.VisualStudioWithResharper,
+                Ide.Rider,
+                Ide.Other,
+            },
+            Os.Mac => new[]
+            {
+                Ide.Rider,
+                Ide.VisualStudioMac,
+                Ide.Other,
+            },
+            Os.Linux => new[]
+            {
+                Ide.Other,
+            },
+            _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
+        };
 
     async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
     {

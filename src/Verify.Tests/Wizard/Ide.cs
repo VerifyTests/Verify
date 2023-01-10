@@ -2,7 +2,7 @@
 {
     VisualStudio,
     VisualStudioWithResharper,
-    VisualStudioMac,
+    VisualStudioForMac,
     Rider,
     Other
 }

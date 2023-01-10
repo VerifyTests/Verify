@@ -1,9 +1,3 @@
 # Getting Started Wizard
 
-[Restart](/docs/wiz/readme.md)
-
-## Selected
-
-* OS: Linux
-* IDE: Other
-* Test Framework: Expecto
+[Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > [Other](picktest_Linux_Other.md) > Expecto

@@ -1,6 +1,6 @@
 # Getting Started Wizard            
 
 ## Pick OS
- * [Win](pickide_Win.md)
- * [Mac](pickide_Mac.md)
+ * [Windows](pickide_Windows.md)
+ * [MacOS](pickide_MacOS.md)
  * [Linux](pickide_Linux.md)

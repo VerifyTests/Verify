@@ -7,12 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Restart](/docs/wiz/readme.md)
-
-## Selected
-
-* OS: Linux
-* IDE: Other
+[Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > Other
 
 ## Pick Test Framework
 

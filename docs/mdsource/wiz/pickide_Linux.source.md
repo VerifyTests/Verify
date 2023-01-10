@@ -1,10 +1,6 @@
 # Getting Started Wizard
 
-[Restart](/docs/wiz/readme.md)
-
-## Selected
-
-* OS: Linux
+[Home](/docs/wiz/readme.md) > Linux
 
 ## Pick IDE
  * [Other](picktest_Linux_Other.md)

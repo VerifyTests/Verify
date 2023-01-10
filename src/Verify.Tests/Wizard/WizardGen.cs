@@ -38,11 +38,7 @@
         var pickIdeBuilder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Restart](/docs/wiz/readme.md)
-
-            ## Selected
-
-            * OS: {os}
+            [Home](/docs/wiz/readme.md) > {os}
 
             ## Pick IDE
 
@@ -62,12 +58,7 @@
         var pickTestFrameworkBuilder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Restart](/docs/wiz/readme.md)
-
-            ## Selected
-
-            * OS: {os}
-            * IDE: {ide}
+            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > {ide}
 
             ## Pick Test Framework
 
@@ -90,13 +81,7 @@
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Restart](/docs/wiz/readme.md)
-
-            ## Selected
-
-            * OS: {os}
-            * IDE: {ide}
-            * Test Framework: {testFramework}
+            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > [{ide}](picktest_{os}_{ide}.md) > {testFramework}
 
             """);
 
@@ -119,17 +104,17 @@
     static Ide[] GetIdesForOs(Os os) =>
         os switch
         {
-            Os.Win => new[]
+            Os.Windows => new[]
             {
                 Ide.VisualStudio,
                 Ide.VisualStudioWithResharper,
                 Ide.Rider,
                 Ide.Other,
             },
-            Os.Mac => new[]
+            Os.MacOS => new[]
             {
                 Ide.Rider,
-                Ide.VisualStudioMac,
+                Ide.VisualStudioForMac,
                 Ide.Other,
             },
             Os.Linux => new[]

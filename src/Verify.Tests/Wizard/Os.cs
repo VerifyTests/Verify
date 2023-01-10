@@ -1,6 +1,6 @@
 ﻿public enum Os
 {
-    Win,
-    Mac,
+    Windows,
+    MacOS,
     Linux
 }

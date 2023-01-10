@@ -1,10 +1,10 @@
+# Getting Started Wizard
+
 [Restart](/docs/wiz/readme.md)
 
-# Pick IDE
+* Selected OS: Win
 
-Selected OS: Win
-
-Options:
+## Pick IDE
  * [VisualStudio](picktest_Win_VisualStudio.md)
  * [VisualStudioWithResharper](picktest_Win_VisualStudioWithResharper.md)
  * [Rider](picktest_Win_Rider.md)

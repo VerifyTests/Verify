@@ -5,20 +5,17 @@ Source File: /docs/mdsource/wiz/picktest_Win_VisualStudioWithResharper.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
 [Restart](/docs/readme.md)
 
-# Pick Test Framework
+* Selected OS: Win
+* Selected IDE: VisualStudioWithResharper
 
-Selected OS: Win
-
-Selected IDE: VisualStudioWithResharper
+## Pick Test Framework
 
 Options:
- * VisualStudioWithResharper
  * [xUnit](result_Win_VisualStudioWithResharper_xUnit.md)
- * VisualStudioWithResharper
  * [NUnit](result_Win_VisualStudioWithResharper_NUnit.md)
- * VisualStudioWithResharper
  * [MSTest](result_Win_VisualStudioWithResharper_MSTest.md)
- * VisualStudioWithResharper
  * [Expecto](result_Win_VisualStudioWithResharper_Expecto.md)

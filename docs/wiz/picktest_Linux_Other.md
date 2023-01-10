@@ -5,20 +5,17 @@ Source File: /docs/mdsource/wiz/picktest_Linux_Other.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
 [Restart](/docs/readme.md)
 
-# Pick Test Framework
+* Selected OS: Linux
+* Selected IDE: Other
 
-Selected OS: Linux
-
-Selected IDE: Other
+## Pick Test Framework
 
 Options:
- * Other
  * [xUnit](result_Linux_Other_xUnit.md)
- * Other
  * [NUnit](result_Linux_Other_NUnit.md)
- * Other
  * [MSTest](result_Linux_Other_MSTest.md)
- * Other
  * [Expecto](result_Linux_Other_Expecto.md)

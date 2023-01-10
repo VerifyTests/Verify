@@ -5,13 +5,13 @@ Source File: /docs/mdsource/wiz/pickide_Mac.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
 [Restart](/docs/wiz/readme.md)
 
-# Pick IDE
+* Selected OS: Mac
 
-Selected OS: Mac
-
-Options:
+## Pick IDE
  * [Rider](picktest_Mac_Rider.md)
  * [VisualStudioMac](picktest_Mac_VisualStudioMac.md)
  * [Other](picktest_Mac_Other.md)

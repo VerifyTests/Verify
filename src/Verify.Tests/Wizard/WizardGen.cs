@@ -17,7 +17,12 @@
     public async Task Run()
     {
         var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
-        var pickOsBuilder = new StringBuilder("# Pick OS\n\n");
+        var pickOsBuilder = new StringBuilder("""
+            # Getting Started Wizard            
+
+            ## Pick OS
+            
+            """);
         foreach (var os in Enum.GetValues<Os>())
         {
             await ProcessOs(os, pickOsBuilder);
@@ -31,13 +36,13 @@
         pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
         var pickIdeBuilder = new StringBuilder($"""
+            # Getting Started Wizard
+
             [Restart](/docs/wiz/readme.md)
 
-            # Pick IDE
-            
-            Selected OS: {os}
+            * Selected OS: {os}
 
-            Options:
+            ## Pick IDE
 
             """);
         foreach (var ide in GetIdesForOs(os))
@@ -53,13 +58,14 @@
         pickIdeBuilder.AppendLine($" * [{ide}](picktest_{os}_{ide}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
         var pickTestFrameworkBuilder = new StringBuilder($"""
+            # Getting Started Wizard
+
             [Restart](/docs/readme.md)
 
-            # Pick Test Framework
+            * Selected OS: {os}
+            * Selected IDE: {ide}
 
-            Selected OS: {os}
-
-            Selected IDE: {ide}
+            ## Pick Test Framework
 
             Options:
 
@@ -67,7 +73,6 @@
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
-            pickTestFrameworkBuilder.AppendLine($" * {ide}");
             await ProcessTestFramework(os, ide, testFramework, pickTestFrameworkBuilder);
         }
 

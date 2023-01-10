@@ -5,20 +5,17 @@ Source File: /docs/mdsource/wiz/picktest_Mac_Rider.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
 [Restart](/docs/readme.md)
 
-# Pick Test Framework
+* Selected OS: Mac
+* Selected IDE: Rider
 
-Selected OS: Mac
-
-Selected IDE: Rider
+## Pick Test Framework
 
 Options:
- * Rider
  * [xUnit](result_Mac_Rider_xUnit.md)
- * Rider
  * [NUnit](result_Mac_Rider_NUnit.md)
- * Rider
  * [MSTest](result_Mac_Rider_MSTest.md)
- * Rider
  * [Expecto](result_Mac_Rider_Expecto.md)

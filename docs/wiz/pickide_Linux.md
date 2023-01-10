@@ -5,11 +5,11 @@ Source File: /docs/mdsource/wiz/pickide_Linux.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
+# Getting Started Wizard
+
 [Restart](/docs/wiz/readme.md)
 
-# Pick IDE
+* Selected OS: Linux
 
-Selected OS: Linux
-
-Options:
+## Pick IDE
  * [Other](picktest_Linux_Other.md)

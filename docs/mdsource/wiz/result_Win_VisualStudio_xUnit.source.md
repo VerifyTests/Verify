@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: VisualStudio
-* Selected Test Framework: xUnit
+## Selected
+
+* OS: Win
+* IDE: VisualStudio
+* Test Framework: xUnit

@@ -9,7 +9,9 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Linux
+## Selected
+
+* OS: Linux
 
 ## Pick IDE
  * [Other](picktest_Linux_Other.md)

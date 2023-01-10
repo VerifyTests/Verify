@@ -9,6 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: VisualStudio
-* Selected Test Framework: Expecto
+## Selected
+
+* OS: Win
+* IDE: VisualStudio
+* Test Framework: Expecto

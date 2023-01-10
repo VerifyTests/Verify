@@ -9,6 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: VisualStudioWithResharper
-* Selected Test Framework: xUnit
+## Selected
+
+* OS: Win
+* IDE: VisualStudioWithResharper
+* Test Framework: xUnit

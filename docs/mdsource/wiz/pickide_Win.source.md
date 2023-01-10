@@ -2,7 +2,9 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
+## Selected
+
+* OS: Win
 
 ## Pick IDE
  * [VisualStudio](picktest_Win_VisualStudio.md)

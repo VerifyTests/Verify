@@ -9,8 +9,10 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Mac
-* Selected IDE: Other
+## Selected
+
+* OS: Mac
+* IDE: Other
 
 ## Pick Test Framework
 

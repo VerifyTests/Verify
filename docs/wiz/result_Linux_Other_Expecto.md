@@ -9,6 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Linux
-* Selected IDE: Other
-* Selected Test Framework: Expecto
+## Selected
+
+* OS: Linux
+* IDE: Other
+* Test Framework: Expecto

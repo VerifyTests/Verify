@@ -2,8 +2,10 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: Rider
+## Selected
+
+* OS: Win
+* IDE: Rider
 
 ## Pick Test Framework
 

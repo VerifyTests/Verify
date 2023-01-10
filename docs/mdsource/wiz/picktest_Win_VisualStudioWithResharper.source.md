@@ -2,8 +2,10 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: VisualStudioWithResharper
+## Selected
+
+* OS: Win
+* IDE: VisualStudioWithResharper
 
 ## Pick Test Framework
 

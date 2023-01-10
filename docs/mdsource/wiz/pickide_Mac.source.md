@@ -2,7 +2,9 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Mac
+## Selected
+
+* OS: Mac
 
 ## Pick IDE
  * [Rider](picktest_Mac_Rider.md)

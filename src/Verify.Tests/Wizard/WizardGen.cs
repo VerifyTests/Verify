@@ -40,7 +40,9 @@
 
             [Restart](/docs/wiz/readme.md)
 
-            * Selected OS: {os}
+            ## Selected
+
+            * OS: {os}
 
             ## Pick IDE
 
@@ -62,8 +64,10 @@
 
             [Restart](/docs/wiz/readme.md)
 
-            * Selected OS: {os}
-            * Selected IDE: {ide}
+            ## Selected
+
+            * OS: {os}
+            * IDE: {ide}
 
             ## Pick Test Framework
 
@@ -88,9 +92,11 @@
 
             [Restart](/docs/wiz/readme.md)
 
-            * Selected OS: {os}
-            * Selected IDE: {ide}
-            * Selected Test Framework: {testFramework}
+            ## Selected
+
+            * OS: {os}
+            * IDE: {ide}
+            * Test Framework: {testFramework}
 
             """);
 

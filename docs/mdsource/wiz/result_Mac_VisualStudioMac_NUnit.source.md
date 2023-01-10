@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Mac
-* Selected IDE: VisualStudioMac
-* Selected Test Framework: NUnit
+## Selected
+
+* OS: Mac
+* IDE: VisualStudioMac
+* Test Framework: NUnit

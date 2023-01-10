@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: VisualStudio
-* Selected Test Framework: MSTest
+## Selected
+
+* OS: Win
+* IDE: VisualStudio
+* Test Framework: MSTest

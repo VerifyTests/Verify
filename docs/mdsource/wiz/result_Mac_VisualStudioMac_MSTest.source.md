@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Mac
-* Selected IDE: VisualStudioMac
-* Selected Test Framework: MSTest
+## Selected
+
+* OS: Mac
+* IDE: VisualStudioMac
+* Test Framework: MSTest

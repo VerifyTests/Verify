@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Mac
-* Selected IDE: Other
-* Selected Test Framework: xUnit
+## Selected
+
+* OS: Mac
+* IDE: Other
+* Test Framework: xUnit

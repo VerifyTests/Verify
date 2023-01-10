@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Mac
-* Selected IDE: Other
-* Selected Test Framework: Expecto
+## Selected
+
+* OS: Mac
+* IDE: Other
+* Test Framework: Expecto

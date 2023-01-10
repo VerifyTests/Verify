@@ -2,6 +2,8 @@
 
 [Restart](/docs/wiz/readme.md)
 
-* Selected OS: Win
-* Selected IDE: Other
-* Selected Test Framework: Expecto
+## Selected
+
+* OS: Win
+* IDE: Other
+* Test Framework: Expecto

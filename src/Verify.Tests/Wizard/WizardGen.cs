@@ -3,43 +3,47 @@
 public class WizardGen
 {
     string wizardDir;
+
     public WizardGen()
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         var repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
-        wizardDir = Path.Combine(repoRoot, "docs", "mdsource","wiz");
+        wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
         Directory.CreateDirectory(wizardDir);
         PurgeDirectory(wizardDir);
     }
+
     [Fact]
     public async Task Run()
     {
         var pickOsFile = Path.Combine(wizardDir, "pickos.source.md");
-        var pickOsBuilder = new StringBuilder("# Pick OS");
+        var pickOsBuilder = new StringBuilder("# Pick OS\n\n");
         foreach (var os in Enum.GetValues<Os>())
         {
             await ProcessOs(os, pickOsBuilder);
         }
+
         await File.WriteAllTextAsync(pickOsFile, pickOsBuilder.ToString());
     }
 
     async Task ProcessOs(Os os, StringBuilder pickOsBuilder)
     {
-        pickOsBuilder.AppendLine($" * {os}");
-        var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}_.source.md".ToLower());
-        var pickIdeBuilder = new StringBuilder("# Pick IDE");
+        pickOsBuilder.AppendLine($" * [{os}](pickide_{os})");
+        var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
+        var pickIdeBuilder = new StringBuilder("# Pick IDE\n\n");
         foreach (var ide in Enum.GetValues<Ide>())
         {
             await ProcessIde(os, ide, pickIdeBuilder);
         }
+
         await File.WriteAllTextAsync(pickIdeFile, pickIdeBuilder.ToString());
     }
 
     async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
     {
-        pickIdeBuilder.AppendLine($" * {ide}");
+        pickIdeBuilder.AppendLine($" * [{ide}]()");
         var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md".ToLower());
-        var pickTestFrameworkBuilder = new StringBuilder("# Pick TestFramework");
+        var pickTestFrameworkBuilder = new StringBuilder("# Pick TestFramework\n\n");
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
@@ -59,7 +63,7 @@ public class WizardGen
         await File.WriteAllTextAsync(file, builder.ToString());
     }
 
-    public static void PurgeDirectory(string directory)
+    static void PurgeDirectory(string directory)
     {
         foreach (var subDirectory in Directory.EnumerateDirectories(directory))
         {
@@ -71,6 +75,5 @@ public class WizardGen
             File.Delete(file);
         }
     }
-
 }
 #endif

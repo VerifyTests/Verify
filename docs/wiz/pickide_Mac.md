@@ -5,7 +5,7 @@ Source File: /docs/mdsource/wiz/pickide_Mac.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-[Restart](/docs/pickos.md)
+[Restart](/docs/wiz/readme.md)
 
 # Pick IDE
 

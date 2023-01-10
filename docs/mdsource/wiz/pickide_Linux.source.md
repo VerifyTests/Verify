@@ -1,4 +1,4 @@
-[Restart](/docs/pickos.md)
+[Restart](/docs/wiz/readme.md)
 
 # Pick IDE
 

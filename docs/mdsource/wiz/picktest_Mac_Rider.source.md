@@ -1,4 +1,4 @@
-[Restart](/docs/pickos.md)
+[Restart](/docs/readme.md)
 
 # Pick Test Framework
 

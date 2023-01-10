@@ -5,7 +5,7 @@ Source File: /docs/mdsource/wiz/picktest_Mac_Other.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-[Restart](/docs/pickos.md)
+[Restart](/docs/readme.md)
 
 # Pick Test Framework
 

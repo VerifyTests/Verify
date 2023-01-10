@@ -16,7 +16,7 @@
     [Fact]
     public async Task Run()
     {
-        var pickOsFile = Path.Combine(wizardDir, "pickos.source.md");
+        var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
         var pickOsBuilder = new StringBuilder("# Pick OS\n\n");
         foreach (var os in Enum.GetValues<Os>())
         {
@@ -31,7 +31,7 @@
         pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
         var pickIdeBuilder = new StringBuilder($"""
-            [Restart](/docs/pickos.md)
+            [Restart](/docs/wiz/readme.md)
 
             # Pick IDE
             
@@ -53,7 +53,7 @@
         pickIdeBuilder.AppendLine($" * [{ide}](picktest_{os}_{ide}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
         var pickTestFrameworkBuilder = new StringBuilder($"""
-            [Restart](/docs/pickos.md)
+            [Restart](/docs/readme.md)
 
             # Pick Test Framework
 

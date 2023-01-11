@@ -83,6 +83,31 @@ Provides a mechanism for contextually accepting or rejecting snapshot changes in
 
 This is optional, but recommended.
 
+## DiffPlex
+
+The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
+and the verified contents as part of the exception. This can be noisy when verifying large strings.
+
+[Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to be more highlighting text changes inline.
+
+This is optional, but recommended.
+
+
+### Add the NuGet
+
+```
+<PackageReference Include="Verify.DiffPlex" Version="*" />
+```
+
+
+### Enable
+
+```
+[ModuleInitializer]
+public static void Initialize() =>
+    VerifyDiffPlex.Initialize();
+```
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

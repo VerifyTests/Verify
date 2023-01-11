@@ -248,6 +248,7 @@
             },
             Os.Linux => new[]
             {
+                Ide.Rider,
                 Ide.Other,
             },
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)

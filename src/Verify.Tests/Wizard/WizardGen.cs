@@ -1,4 +1,6 @@
-﻿public class WizardGen
+﻿using System.ComponentModel;
+
+public class WizardGen
 {
     string wizardDir = null!;
     string repoRoot = null!;
@@ -26,7 +28,13 @@
         }
 
         await File.WriteAllTextAsync(pickOsFile, pickOsBuilder.ToString());
-        Process.Start("mdsnippets", repoRoot);
+        try
+        {
+            Process.Start("mdsnippets", repoRoot);
+        }
+        catch (Win32Exception)
+        {
+        }
     }
 
     async Task ProcessOs(Os os, StringBuilder pickOsBuilder)

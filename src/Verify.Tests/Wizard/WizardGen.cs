@@ -93,7 +93,14 @@
 
         AppendReSharper(ide, builder);
 
+        AppendDiffTool(os, builder);
+
         await File.WriteAllTextAsync(file, builder.ToString());
+    }
+
+    void AppendDiffTool(Os os, StringBuilder builder)
+    {
+        
     }
 
     static void AppendNugets(StringBuilder builder, TestFramework testFramework) =>

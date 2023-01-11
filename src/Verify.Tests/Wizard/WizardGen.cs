@@ -83,13 +83,25 @@
 
             """);
 
+        AppendImplicitUsings(builder);
+
         AppendDiffEngineTray(os, builder);
 
         AppendRider(ide, builder);
+
         AppendReSharper(ide, builder);
 
         await File.WriteAllTextAsync(file, builder.ToString());
     }
+
+    static void AppendImplicitUsings(StringBuilder builder) =>
+        builder.Append("""
+            
+            ### ImplicitUsings
+            
+            include: implicit-usings
+
+            """);
 
     static void AppendDiffEngineTray(Os os, StringBuilder builder)
     {

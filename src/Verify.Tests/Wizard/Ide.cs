@@ -1,7 +1,7 @@
 ﻿public enum Ide
 {
     VisualStudio,
-    VisualStudioWithResharper,
+    VisualStudioWithReSharper,
     VisualStudioForMac,
     Rider,
     Other

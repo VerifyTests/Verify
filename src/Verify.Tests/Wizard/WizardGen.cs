@@ -1,21 +1,18 @@
 ﻿public class WizardGen
 {
-    string wizardDir;
+    string wizardDir = null!;
+    string repoRoot = null!;
 
-    public WizardGen()
+    [Fact]
+    public async Task Run()
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
-        var repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
+        repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
         var wizardRealDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
         Directory.CreateDirectory(wizardDir);
         PurgeDirectory(wizardDir);
         PurgeDirectory(wizardRealDir);
-    }
-
-    [Fact]
-    public async Task Run()
-    {
         var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
         var pickOsBuilder = new StringBuilder("""
             # Getting Started Wizard            
@@ -29,6 +26,7 @@
         }
 
         await File.WriteAllTextAsync(pickOsFile, pickOsBuilder.ToString());
+        Process.Start("mdsnippets", repoRoot);
     }
 
     async Task ProcessOs(Os os, StringBuilder pickOsBuilder)
@@ -85,7 +83,73 @@
 
             """);
 
+        AppendDiffEngineTray(os, builder);
+
+        AppendRider(ide, builder);
+        AppendReSharper(ide, builder);
+
         await File.WriteAllTextAsync(file, builder.ToString());
+    }
+
+    static void AppendDiffEngineTray(Os os, StringBuilder builder)
+    {
+        if (os != Os.Windows)
+        {
+            return;
+        }
+
+        builder.Append("""
+                
+                ## DiffEngineTray
+
+                Install [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)
+
+                DiffEngineTray sits in the Windows tray. It monitors pending changes in snapshots, and provides a mechanism for accepting or rejecting those changes.
+
+                ```
+                dotnet tool install -g DiffEngineTray
+                ```
+
+                This is optional, but recommended.
+                """);
+    }
+
+    static void AppendReSharper(Ide ide, StringBuilder builder)
+    {
+        if (ide != Ide.VisualStudioWithReSharper)
+        {
+            return;
+        }
+
+        builder.Append("""
+                
+                ## ReSharper Plugin
+
+                Install [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
+
+                Provides a mechanism for contextually accepting or rejecting snapshot changes inside the ReSharper test runner.
+
+                This is optional, but recommended.
+                """);
+    }
+
+    static void AppendRider(Ide ide, StringBuilder builder)
+    {
+        if (ide != Ide.Rider)
+        {
+            return;
+        }
+
+        builder.Append("""
+                
+                ## Rider Plugin
+
+                Install [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
+
+                Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
+
+                This is optional, but recommended.
+                """);
     }
 
     static void PurgeDirectory(string directory)
@@ -107,7 +171,7 @@
             Os.Windows => new[]
             {
                 Ide.VisualStudio,
-                Ide.VisualStudioWithResharper,
+                Ide.VisualStudioWithReSharper,
                 Ide.Rider,
                 Ide.Other,
             },

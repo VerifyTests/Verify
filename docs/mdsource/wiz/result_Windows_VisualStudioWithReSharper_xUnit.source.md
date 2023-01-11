@@ -12,6 +12,16 @@ snippet: xUnit-nugets
 
 include: implicit-usings
 
+### Includes/Excludes
+
+include: include-exclude
+
+
+### Line Endings
+
+include: line-endings
+
+
 ## DiffEngineTray
 
 Install [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)

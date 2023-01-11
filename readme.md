@@ -368,9 +368,9 @@ Results in:
 ## Source control: Received and Verified files
 
 
-### Received
+### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.**
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/include-exclude.include.md -->
 
 eg. add the following to `.gitignore`
 
@@ -383,11 +383,12 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 `*.received/`
 
 
-### Verified
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
-All `*.verified.*` files should be committed to source control.
 
-All text extensions of  `*.verified.*` and have eol set to `lf`.
+### Line Endings
+
+All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/line-endings.include.md -->
 
 eg add the following to `.gitattributes`
 
@@ -396,6 +397,7 @@ eg add the following to `.gitattributes`
 *.verified.xml text eol=lf
 *.verified.json text eol=lf
 ```
+<!-- endInclude -->
 
 
 ## Static settings

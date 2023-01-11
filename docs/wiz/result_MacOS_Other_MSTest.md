@@ -29,6 +29,38 @@ Add the following packages to the test project:
 **All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
+
+### Includes/Excludes
+
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/include-exclude.include.md -->
+
+eg. add the following to `.gitignore`
+
+```
+*.received.*
+```
+
+If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniquedirectory) also include:
+
+`*.received/`
+
+
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
+
+
+### Line Endings
+
+All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/line-endings.include.md -->
+
+eg add the following to `.gitattributes`
+
+```
+*.verified.txt text eol=lf
+*.verified.xml text eol=lf
+*.verified.json text eol=lf
+```
+<!-- endInclude -->
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

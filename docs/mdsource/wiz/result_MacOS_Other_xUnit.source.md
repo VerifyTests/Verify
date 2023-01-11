@@ -11,6 +11,16 @@ snippet: xUnit-nugets
 ## Implicit Usings
 
 include: implicit-usings
+
+### Includes/Excludes
+
+include: include-exclude
+
+
+### Line Endings
+
+include: line-endings
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

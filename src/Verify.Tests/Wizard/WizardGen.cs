@@ -86,6 +86,7 @@
         AppendNugets(builder, testFramework);
 
         AppendImplicitUsings(builder);
+        AppendSourceControlSettings(builder);
 
         AppendDiffEngineTray(os, builder);
 
@@ -97,6 +98,20 @@
 
         await File.WriteAllTextAsync(file, builder.ToString());
     }
+
+    static void AppendSourceControlSettings(StringBuilder builder) =>
+        builder.AppendLine("""
+            
+            ### Includes/Excludes
+            
+            include: include-exclude
+            
+            
+            ### Line Endings
+            
+            include: line-endings
+            
+            """);
 
     static void AppendDiffTool(Os os, StringBuilder builder)
     {

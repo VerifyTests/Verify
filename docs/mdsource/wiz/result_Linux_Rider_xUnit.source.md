@@ -12,6 +12,16 @@ snippet: xUnit-nugets
 
 include: implicit-usings
 
+### Includes/Excludes
+
+include: include-exclude
+
+
+### Line Endings
+
+include: line-endings
+
+
 ## Rider Plugin
 
 Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)

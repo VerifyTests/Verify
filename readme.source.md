@@ -186,34 +186,14 @@ snippet: JsonTests.VerifyJsonString.verified.txt
 ## Source control: Received and Verified files
 
 
-### Received
+### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.**
-
-eg. add the following to `.gitignore`
-
-```
-*.received.*
-```
-
-If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniquedirectory) also include:
-
-`*.received/`
+include: include-exclude
 
 
-### Verified
+### Line Endings
 
-All `*.verified.*` files should be committed to source control.
-
-All text extensions of  `*.verified.*` and have eol set to `lf`.
-
-eg add the following to `.gitattributes`
-
-```
-*.verified.txt text eol=lf
-*.verified.xml text eol=lf
-*.verified.json text eol=lf
-```
+include: line-endings
 
 
 ## Static settings

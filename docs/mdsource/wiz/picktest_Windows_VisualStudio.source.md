@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > VisualStudio
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > Visual Studio
 
 ## Pick Test Framework
 

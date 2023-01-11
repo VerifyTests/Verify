@@ -1,8 +1,14 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [VisualStudio](picktest_Windows_VisualStudio.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio](picktest_Windows_VisualStudio.md) > MSTest
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+snippet: MSTest-nugets
+
+### Implicit Usings
 
 include: implicit-usings
 

@@ -7,9 +7,24 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [VisualStudioWithReSharper](picktest_Windows_VisualStudioWithReSharper.md) > xUnit
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio with ReSharper](picktest_Windows_VisualStudioWithReSharper.md) > xUnit
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+<!-- snippet: xUnit-nugets -->
+<a id='snippet-xunit-nugets'></a>
+```csproj
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+<PackageReference Include="Verify.Xunit" Version="19.6.0" />
+<PackageReference Include="Xunit" Version="2.4.2" />
+<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
+```
+<sup><a href='/src/NugetUsage/XunitNugetUsage/XunitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunit-nugets' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+### Implicit Usings
 
 **All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 

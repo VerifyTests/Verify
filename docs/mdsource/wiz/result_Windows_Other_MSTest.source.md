@@ -2,7 +2,13 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Other](picktest_Windows_Other.md) > MSTest
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+snippet: MSTest-nugets
+
+### Implicit Usings
 
 include: implicit-usings
 

@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > VisualStudioWithReSharper
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > Visual Studio with ReSharper
 
 ## Pick Test Framework
 

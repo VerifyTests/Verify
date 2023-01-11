@@ -9,7 +9,22 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > [Other](picktest_Linux_Other.md) > NUnit
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+<!-- snippet: NUnit-nugets -->
+<a id='snippet-nunit-nugets'></a>
+```csproj
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+<PackageReference Include="NUnit" Version="3.13.3" />
+<PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+<PackageReference Include="Verify.NUnit" Version="19.6.0" />
+```
+<sup><a href='/src/NugetUsage/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+### Implicit Usings
 
 **All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 

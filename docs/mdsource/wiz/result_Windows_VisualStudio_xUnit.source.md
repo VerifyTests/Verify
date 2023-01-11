@@ -1,8 +1,14 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [VisualStudio](picktest_Windows_VisualStudio.md) > xUnit
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio](picktest_Windows_VisualStudio.md) > xUnit
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+snippet: xUnit-nugets
+
+### Implicit Usings
 
 include: implicit-usings
 

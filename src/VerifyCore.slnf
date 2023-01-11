@@ -2,6 +2,10 @@
   "solution": {
     "path": "Verify.sln",
     "projects": [
+      "NugetUsage\\ExpectoNugetUsage\\ExpectoNugetUsage.fsproj",
+      "NugetUsage\\MSTestNugetUsage\\MSTestNugetUsage.csproj",
+      "NugetUsage\\NUnitNugetUsage\\NUnitNugetUsage.csproj",
+      "NugetUsage\\XunitNugetUsage\\XunitNugetUsage.csproj",
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.ClipboardAccept\\Verify.ClipboardAccept.csproj",
       "Verify.Tests\\Verify.Tests.csproj",

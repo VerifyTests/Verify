@@ -1,8 +1,14 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [VisualStudioWithReSharper](picktest_Windows_VisualStudioWithReSharper.md) > NUnit
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio with ReSharper](picktest_Windows_VisualStudioWithReSharper.md) > NUnit
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+snippet: NUnit-nugets
+
+### Implicit Usings
 
 include: implicit-usings
 

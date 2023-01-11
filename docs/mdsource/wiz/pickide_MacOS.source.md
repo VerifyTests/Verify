@@ -3,6 +3,5 @@
 [Home](/docs/wiz/readme.md) > MacOS
 
 ## Pick IDE
- * [Rider](picktest_MacOS_Rider.md)
- * [VisualStudioForMac](picktest_MacOS_VisualStudioForMac.md)
+ * [JetBrains Rider](picktest_MacOS_Rider.md)
  * [Other](picktest_MacOS_Other.md)

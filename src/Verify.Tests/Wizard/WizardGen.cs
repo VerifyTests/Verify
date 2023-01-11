@@ -51,12 +51,12 @@
 
     async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
     {
-        pickIdeBuilder.AppendLine($" * [{ide}](picktest_{os}_{ide}.md)");
+        pickIdeBuilder.AppendLine($" * [{GetName(ide)}](picktest_{os}_{ide}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
         var pickTestFrameworkBuilder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > {ide}
+            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > {GetName(ide)}
 
             ## Pick Test Framework
 
@@ -79,9 +79,11 @@
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > [{ide}](picktest_{os}_{ide}.md) > {testFramework}
+            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > [{GetName(ide)}](picktest_{os}_{ide}.md) > {testFramework}
 
             """);
+
+        AppendNugets(builder, testFramework);
 
         AppendImplicitUsings(builder);
 
@@ -94,10 +96,31 @@
         await File.WriteAllTextAsync(file, builder.ToString());
     }
 
+    static void AppendNugets(StringBuilder builder, TestFramework testFramework) =>
+        builder.Append($"""
+
+            ### Add NuGet packages
+
+            Add the following packages to the test project:
+
+            snippet: {testFramework}-nugets
+            
+            """);
+
+    static string GetName(Ide ide) =>
+        ide switch
+        {
+            Ide.VisualStudio => "Visual Studio",
+            Ide.VisualStudioWithReSharper => "Visual Studio with ReSharper",
+            Ide.Rider => "JetBrains Rider",
+            Ide.Other => "Other",
+            _ => throw new ArgumentOutOfRangeException(nameof(ide), ide, null)
+        };
+
     static void AppendImplicitUsings(StringBuilder builder) =>
         builder.Append("""
             
-            ### ImplicitUsings
+            ### Implicit Usings
             
             include: implicit-usings
 
@@ -190,7 +213,6 @@
             Os.MacOS => new[]
             {
                 Ide.Rider,
-                Ide.VisualStudioForMac,
                 Ide.Other,
             },
             Os.Linux => new[]

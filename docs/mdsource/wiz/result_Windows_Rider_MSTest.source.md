@@ -1,8 +1,14 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Rider](picktest_Windows_Rider.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [JetBrains Rider](picktest_Windows_Rider.md) > MSTest
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+snippet: MSTest-nugets
+
+### Implicit Usings
 
 include: implicit-usings
 

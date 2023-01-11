@@ -7,9 +7,24 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Rider](picktest_Windows_Rider.md) > Expecto
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [JetBrains Rider](picktest_Windows_Rider.md) > Expecto
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+<!-- snippet: Expecto-nugets -->
+<a id='snippet-expecto-nugets'></a>
+```fsproj
+<PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.13.3" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+<PackageReference Include="Expecto" Version="9.0.4" />
+<PackageReference Include="Verify.Expecto" Version="19.6.0" />
+```
+<sup><a href='/src/NugetUsage/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+### Implicit Usings
 
 **All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 

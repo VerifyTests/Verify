@@ -1,8 +1,14 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [VisualStudio](picktest_Windows_VisualStudio.md) > Expecto
+[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio](picktest_Windows_VisualStudio.md) > Expecto
 
-### ImplicitUsings
+### Add NuGet packages
+
+Add the following packages to the test project:
+
+snippet: Expecto-nugets
+
+### Implicit Usings
 
 include: implicit-usings
 

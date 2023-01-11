@@ -13,10 +13,11 @@ snippet: NUnit-nugets
 include: implicit-usings
 ## Diff Tool
 
-Verify supports a number of [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
 While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
 
 Tool supported by MacOS:
+
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [Kaleidoscope](https://www.kaleidoscopeapp.com/)

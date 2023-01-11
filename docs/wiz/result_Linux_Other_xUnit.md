@@ -29,3 +29,18 @@ Add the following packages to the test project:
 **All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
+## Diff Tool
+
+Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
+
+Tool supported by Linux:
+
+ * [BeyondCompare](https://www.scootersoftware.com)
+ * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
+ * [DiffMerge](https://www.sourcegear.com/diffmerge/)
+ * [Rider](https://www.jetbrains.com/rider/)
+ * [Neovim](https://neovim.io/)
+ * [Meld](https://meldmerge.org/)
+ * [SublimeMerge](https://www.sublimemerge.com/)
+ * [VisualStudioCode](https://code.visualstudio.com)

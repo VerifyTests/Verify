@@ -29,3 +29,25 @@ Add the following packages to the test project:
 **All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
+## Diff Tool
+
+Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
+
+Tool supported by MacOS:
+
+ * [BeyondCompare](https://www.scootersoftware.com)
+ * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
+ * [Kaleidoscope](https://www.kaleidoscopeapp.com/)
+ * [DeltaWalker](https://www.deltawalker.com/)
+ * [DiffMerge](https://www.sourcegear.com/diffmerge/)
+ * [KDiff3](https://github.com/KDE/kdiff3)
+ * [TkDiff](https://sourceforge.net/projects/tkdiff/)
+ * [Guiffy](https://www.guiffy.com/)
+ * [Rider](https://www.jetbrains.com/rider/)
+ * [Vim](https://www.vim.org/)
+ * [Neovim](https://neovim.io/)
+ * [AraxisMerge](https://www.araxis.com/merge)
+ * [Meld](https://meldmerge.org/)
+ * [SublimeMerge](https://www.sublimemerge.com/)
+ * [VisualStudioCode](https://code.visualstudio.com)

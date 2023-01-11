@@ -100,14 +100,14 @@
 
     static void AppendDiffTool(Os os, StringBuilder builder)
     {
-        builder.Append($"""
+        builder.AppendLine($"""
             ## Diff Tool
             
-            Verify supports a number of [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+            Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
             While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
 
             Tool supported by {os}:
-            
+
             """);
         foreach (var tool in ToolsForOs(os))
         {
@@ -161,7 +161,7 @@
             return;
         }
 
-        builder.Append("""
+        builder.AppendLine("""
                 
                 ## DiffEngineTray
 
@@ -174,6 +174,7 @@
                 ```
 
                 This is optional, but recommended.
+
                 """);
     }
 
@@ -184,7 +185,7 @@
             return;
         }
 
-        builder.Append("""
+        builder.AppendLine("""
                 
                 ## ReSharper Plugin
 
@@ -193,6 +194,7 @@
                 Provides a mechanism for contextually accepting or rejecting snapshot changes inside the ReSharper test runner.
 
                 This is optional, but recommended.
+
                 """);
     }
 
@@ -203,7 +205,7 @@
             return;
         }
 
-        builder.Append("""
+        builder.AppendLine("""
                 
                 ## Rider Plugin
 
@@ -212,6 +214,7 @@
                 Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
 
                 This is optional, but recommended.
+
                 """);
     }
 

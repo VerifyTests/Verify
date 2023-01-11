@@ -23,18 +23,23 @@ dotnet tool install -g DiffEngineTray
 ```
 
 This is optional, but recommended.
+
+
 ## Rider Plugin
 
 Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
 
 Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
 
-This is optional, but recommended.## Diff Tool
+This is optional, but recommended.
 
-Verify supports a number of [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+## Diff Tool
+
+Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
 While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
 
 Tool supported by Windows:
+
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)

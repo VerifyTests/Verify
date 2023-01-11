@@ -22,7 +22,7 @@ DiffEngineTray sits in the Windows tray. It monitors pending changes in snapshot
 dotnet tool install -g DiffEngineTray
 ```
 
-This is optional, but recommended.
+This is optional, but recommended. Also consider enabling [Run at startup](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#run-at-startup).
 
 
 ## ReSharper Plugin

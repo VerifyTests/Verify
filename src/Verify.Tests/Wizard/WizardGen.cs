@@ -105,6 +105,8 @@ public class WizardGen
 
         AppendDiffPlex(builder);
 
+        AppendSample(testFramework, builder);
+
         AppendDiffTool(os, builder);
 
         await File.WriteAllTextAsync(file, builder.ToString());
@@ -151,6 +153,15 @@ public class WizardGen
             
             include: line-endings
             
+            """);
+
+    static void AppendSample(TestFramework testFramework, StringBuilder builder) =>
+        builder.AppendLine($"""
+            
+            ## Sample Test
+
+            snippet: SampleTest{testFramework}
+
             """);
 
     static void AppendDiffTool(Os os, StringBuilder builder)

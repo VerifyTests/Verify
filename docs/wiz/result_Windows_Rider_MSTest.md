@@ -108,6 +108,27 @@ public static void Initialize() =>
     VerifyDiffPlex.Initialize();
 ```
 
+
+## Sample Test
+
+<!-- snippet: SampleTestMSTest -->
+<a id='snippet-sampletestmstest'></a>
+```cs
+[TestClass]
+public class Sample :
+    VerifyBase
+{
+    [TestMethod]
+    public Task Test()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

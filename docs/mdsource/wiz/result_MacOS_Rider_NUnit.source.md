@@ -55,6 +55,11 @@ public static void Initialize() =>
     VerifyDiffPlex.Initialize();
 ```
 
+
+## Sample Test
+
+snippet: SampleTestNUnit
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

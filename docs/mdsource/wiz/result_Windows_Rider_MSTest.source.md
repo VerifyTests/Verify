@@ -12,12 +12,12 @@ snippet: MSTest-nugets
 
 include: implicit-usings
 
-### Includes/Excludes
+## Includes/Excludes
 
 include: include-exclude
 
 
-### Line Endings
+## Line Endings
 
 include: line-endings
 

@@ -86,6 +86,7 @@
         AppendNugets(builder, testFramework);
 
         AppendImplicitUsings(builder);
+
         AppendSourceControlSettings(builder);
 
         AppendDiffEngineTray(os, builder);
@@ -102,12 +103,12 @@
     static void AppendSourceControlSettings(StringBuilder builder) =>
         builder.AppendLine("""
             
-            ### Includes/Excludes
+            ## Includes/Excludes
             
             include: include-exclude
             
             
-            ### Line Endings
+            ## Line Endings
             
             include: line-endings
             

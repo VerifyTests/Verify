@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- begin-snippet: mstest-nugets -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+    <PackageReference Include="Verify.MSTest" Version="19.6.0" />
+    <!-- end-snippet -->
+  </ItemGroup>
+</Project>

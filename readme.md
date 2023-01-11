@@ -46,9 +46,9 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 
 ### ImplicitUsings
 
-**All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 
-If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
 ### Class being tested

@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>net6.0;net7.0;netcoreapp3.1;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;netcoreapp3.1;$(TargetFrameworks)</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
@@ -33,6 +33,9 @@
     <None Update="sample.level1" CopyToOutputDirectory="PreserveNewest" />
     <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup  Condition="$(TargetFramework) != 'net7.0'">
+    <Compile Remove="Wizard\WizardGen.cs" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

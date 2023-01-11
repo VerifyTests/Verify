@@ -98,10 +98,31 @@
         await File.WriteAllTextAsync(file, builder.ToString());
     }
 
-    void AppendDiffTool(Os os, StringBuilder builder)
+    static void AppendDiffTool(Os os, StringBuilder builder)
     {
-        
+        builder.Append($"""
+            ## Diff Tool
+            
+            Verify supports a number of [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+            While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
+
+            Tool supported by {os}:
+            
+            """);
+        foreach (var tool in ToolsForOs(os))
+        {
+            builder.AppendLine($" * [{tool.Tool}]({tool.Url})");
+        }
     }
+
+    static IEnumerable<Definition> ToolsForOs(Os os) =>
+        os switch
+        {
+            Os.Windows => Definitions.Tools.Where(_ => _.OsSupport.Windows != null),
+            Os.MacOS => Definitions.Tools.Where(_ => _.OsSupport.Osx != null),
+            Os.Linux => Definitions.Tools.Where(_ => _.OsSupport.Linux != null),
+            _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
+        };
 
     static void AppendNugets(StringBuilder builder, TestFramework testFramework) =>
         builder.Append($"""

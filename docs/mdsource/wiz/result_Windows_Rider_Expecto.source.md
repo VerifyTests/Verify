@@ -48,7 +48,7 @@ This is optional, but recommended.
 The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
 and the verified contents as part of the exception. This can be noisy when verifying large strings.
 
-[Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to be more highlighting text changes inline.
+[Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to highlighting text differences inline.
 
 This is optional, but recommended.
 
@@ -88,7 +88,6 @@ Tool supported by Windows:
  * [Guiffy](https://www.guiffy.com/)
  * [ExamDiff](https://www.prestosoft.com/edp_examdiffpro.asp)
  * [Diffinity](https://truehumandesign.se/s_diffinity.php)
- * [Rider](https://www.jetbrains.com/rider/)
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
  * [AraxisMerge](https://www.araxis.com/merge)
@@ -96,4 +95,3 @@ Tool supported by Windows:
  * [SublimeMerge](https://www.sublimemerge.com/)
  * [CodeCompare](https://www.devart.com/codecompare/)
  * [VisualStudioCode](https://code.visualstudio.com)
- * [VisualStudio](https://docs.microsoft.com/en-us/visualstudio/ide/reference/diff)

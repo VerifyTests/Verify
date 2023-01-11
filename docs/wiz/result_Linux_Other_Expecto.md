@@ -66,7 +66,7 @@ eg add the following to `.gitattributes`
 The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
 and the verified contents as part of the exception. This can be noisy when verifying large strings.
 
-[Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to be more highlighting text changes inline.
+[Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to highlighting text differences inline.
 
 This is optional, but recommended.
 
@@ -96,7 +96,6 @@ Tool supported by Linux:
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DiffMerge](https://www.sourcegear.com/diffmerge/)
- * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
  * [Meld](https://meldmerge.org/)
  * [SublimeMerge](https://www.sublimemerge.com/)

@@ -2,13 +2,13 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio with ReSharper](picktest_Windows_VisualStudioWithReSharper.md) > MSTest
 
-### Add NuGet packages
+## Add NuGet packages
 
 Add the following packages to the test project:
 
 snippet: MSTest-nugets
 
-### Implicit Usings
+## Implicit Usings
 
 include: implicit-usings
 
@@ -25,7 +25,7 @@ dotnet tool install -g DiffEngineTray
 This is optional, but recommended.
 ## ReSharper Plugin
 
-Install [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
+Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
 
 Provides a mechanism for contextually accepting or rejecting snapshot changes inside the ReSharper test runner.
 

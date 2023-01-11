@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > [Other](picktest_Linux_Other.md) > xUnit
 
-### Add NuGet packages
+## Add NuGet packages
 
 Add the following packages to the test project:
 
@@ -24,8 +24,8 @@ Add the following packages to the test project:
 <sup><a href='/src/NugetUsage/XunitNugetUsage/XunitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-### Implicit Usings
+## Implicit Usings
 
-**All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
 
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->

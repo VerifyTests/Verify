@@ -2,13 +2,13 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Other](picktest_Windows_Other.md) > Expecto
 
-### Add NuGet packages
+## Add NuGet packages
 
 Add the following packages to the test project:
 
 snippet: Expecto-nugets
 
-### Implicit Usings
+## Implicit Usings
 
 include: implicit-usings
 

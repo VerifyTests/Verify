@@ -99,7 +99,7 @@
     static void AppendNugets(StringBuilder builder, TestFramework testFramework) =>
         builder.Append($"""
 
-            ### Add NuGet packages
+            ## Add NuGet packages
 
             Add the following packages to the test project:
 
@@ -120,7 +120,7 @@
     static void AppendImplicitUsings(StringBuilder builder) =>
         builder.Append("""
             
-            ### Implicit Usings
+            ## Implicit Usings
             
             include: implicit-usings
 
@@ -160,7 +160,7 @@
                 
                 ## ReSharper Plugin
 
-                Install [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
+                Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
 
                 Provides a mechanism for contextually accepting or rejecting snapshot changes inside the ReSharper test runner.
 
@@ -179,7 +179,7 @@
                 
                 ## Rider Plugin
 
-                Install [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
+                Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
 
                 Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
 

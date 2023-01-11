@@ -2,13 +2,13 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > [Visual Studio](picktest_Windows_VisualStudio.md) > MSTest
 
-### Add NuGet packages
+## Add NuGet packages
 
 Add the following packages to the test project:
 
 snippet: MSTest-nugets
 
-### Implicit Usings
+## Implicit Usings
 
 include: implicit-usings
 

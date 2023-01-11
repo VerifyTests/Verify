@@ -43,6 +43,8 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 
 ## Usage
 
+[Getting started wizard](/docs/wiz/readme.md).
+
 
 ### ImplicitUsings
 

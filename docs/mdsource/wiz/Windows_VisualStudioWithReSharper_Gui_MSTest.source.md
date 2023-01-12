@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](Windows_VisualStudioWithReSharper_Gui_MSTest_AppVeyor.md)
- * [GitHubActions](Windows_VisualStudioWithReSharper_Gui_MSTest_GitHubActions.md)
- * [AzureDevOps](Windows_VisualStudioWithReSharper_Gui_MSTest_AzureDevOps.md)
- * [None](Windows_VisualStudioWithReSharper_Gui_MSTest_None.md)
+ * [GitHub Actions](Windows_VisualStudioWithReSharper_Gui_MSTest_GitHubActions.md)
+ * [Azure DevOps](Windows_VisualStudioWithReSharper_Gui_MSTest_AzureDevOps.md)
+ * [No build server](Windows_VisualStudioWithReSharper_Gui_MSTest_None.md)

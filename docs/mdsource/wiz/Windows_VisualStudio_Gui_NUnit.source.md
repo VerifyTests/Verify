@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](Windows_VisualStudio_Gui_NUnit_AppVeyor.md)
- * [GitHubActions](Windows_VisualStudio_Gui_NUnit_GitHubActions.md)
- * [AzureDevOps](Windows_VisualStudio_Gui_NUnit_AzureDevOps.md)
- * [None](Windows_VisualStudio_Gui_NUnit_None.md)
+ * [GitHub Actions](Windows_VisualStudio_Gui_NUnit_GitHubActions.md)
+ * [Azure DevOps](Windows_VisualStudio_Gui_NUnit_AzureDevOps.md)
+ * [No build server](Windows_VisualStudio_Gui_NUnit_None.md)

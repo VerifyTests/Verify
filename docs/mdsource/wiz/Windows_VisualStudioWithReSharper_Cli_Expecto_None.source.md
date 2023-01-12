@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [Expecto](Windows_VisualStudioWithReSharper_Cli_Expecto.md) > None
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [Expecto](Windows_VisualStudioWithReSharper_Cli_Expecto.md) > No build server
 
 ## Add NuGet packages
 

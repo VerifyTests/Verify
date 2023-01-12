@@ -13,6 +13,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [AppVeyor](Linux_Other_Cli_NUnit_AppVeyor.md)
- * [GitHubActions](Linux_Other_Cli_NUnit_GitHubActions.md)
- * [AzureDevOps](Linux_Other_Cli_NUnit_AzureDevOps.md)
- * [None](Linux_Other_Cli_NUnit_None.md)
+ * [GitHub Actions](Linux_Other_Cli_NUnit_GitHubActions.md)
+ * [Azure DevOps](Linux_Other_Cli_NUnit_AzureDevOps.md)
+ * [No build server](Linux_Other_Cli_NUnit_None.md)

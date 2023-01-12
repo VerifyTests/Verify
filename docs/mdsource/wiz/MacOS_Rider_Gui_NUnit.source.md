@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](MacOS_Rider_Gui_NUnit_AppVeyor.md)
- * [GitHubActions](MacOS_Rider_Gui_NUnit_GitHubActions.md)
- * [AzureDevOps](MacOS_Rider_Gui_NUnit_AzureDevOps.md)
- * [None](MacOS_Rider_Gui_NUnit_None.md)
+ * [GitHub Actions](MacOS_Rider_Gui_NUnit_GitHubActions.md)
+ * [Azure DevOps](MacOS_Rider_Gui_NUnit_AzureDevOps.md)
+ * [No build server](MacOS_Rider_Gui_NUnit_None.md)

@@ -13,6 +13,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [AppVeyor](Linux_Rider_Cli_Expecto_AppVeyor.md)
- * [GitHubActions](Linux_Rider_Cli_Expecto_GitHubActions.md)
- * [AzureDevOps](Linux_Rider_Cli_Expecto_AzureDevOps.md)
- * [None](Linux_Rider_Cli_Expecto_None.md)
+ * [GitHub Actions](Linux_Rider_Cli_Expecto_GitHubActions.md)
+ * [Azure DevOps](Linux_Rider_Cli_Expecto_AzureDevOps.md)
+ * [No build server](Linux_Rider_Cli_Expecto_None.md)

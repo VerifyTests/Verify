@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [MSTest](MacOS_Other_Gui_MSTest.md) > AzureDevOps
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [MSTest](MacOS_Other_Gui_MSTest.md) > Azure DevOps
 
 ## Add NuGet packages
 

@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](Windows_Other_Cli_MSTest_AppVeyor.md)
- * [GitHubActions](Windows_Other_Cli_MSTest_GitHubActions.md)
- * [AzureDevOps](Windows_Other_Cli_MSTest_AzureDevOps.md)
- * [None](Windows_Other_Cli_MSTest_None.md)
+ * [GitHub Actions](Windows_Other_Cli_MSTest_GitHubActions.md)
+ * [Azure DevOps](Windows_Other_Cli_MSTest_AzureDevOps.md)
+ * [No build server](Windows_Other_Cli_MSTest_None.md)

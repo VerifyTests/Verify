@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](MacOS_Other_Gui_MSTest_AppVeyor.md)
- * [GitHubActions](MacOS_Other_Gui_MSTest_GitHubActions.md)
- * [AzureDevOps](MacOS_Other_Gui_MSTest_AzureDevOps.md)
- * [None](MacOS_Other_Gui_MSTest_None.md)
+ * [GitHub Actions](MacOS_Other_Gui_MSTest_GitHubActions.md)
+ * [Azure DevOps](MacOS_Other_Gui_MSTest_AzureDevOps.md)
+ * [No build server](MacOS_Other_Gui_MSTest_None.md)

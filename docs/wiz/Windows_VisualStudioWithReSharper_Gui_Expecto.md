@@ -13,6 +13,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [AppVeyor](Windows_VisualStudioWithReSharper_Gui_Expecto_AppVeyor.md)
- * [GitHubActions](Windows_VisualStudioWithReSharper_Gui_Expecto_GitHubActions.md)
- * [AzureDevOps](Windows_VisualStudioWithReSharper_Gui_Expecto_AzureDevOps.md)
- * [None](Windows_VisualStudioWithReSharper_Gui_Expecto_None.md)
+ * [GitHub Actions](Windows_VisualStudioWithReSharper_Gui_Expecto_GitHubActions.md)
+ * [Azure DevOps](Windows_VisualStudioWithReSharper_Gui_Expecto_AzureDevOps.md)
+ * [No build server](Windows_VisualStudioWithReSharper_Gui_Expecto_None.md)

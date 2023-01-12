@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > [NUnit](MacOS_Rider_Gui_NUnit.md) > None
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > [NUnit](MacOS_Rider_Gui_NUnit.md) > No build server
 
 ## Add NuGet packages
 

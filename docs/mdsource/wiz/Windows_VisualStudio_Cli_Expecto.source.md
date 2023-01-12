@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](Windows_VisualStudio_Cli_Expecto_AppVeyor.md)
- * [GitHubActions](Windows_VisualStudio_Cli_Expecto_GitHubActions.md)
- * [AzureDevOps](Windows_VisualStudio_Cli_Expecto_AzureDevOps.md)
- * [None](Windows_VisualStudio_Cli_Expecto_None.md)
+ * [GitHub Actions](Windows_VisualStudio_Cli_Expecto_GitHubActions.md)
+ * [Azure DevOps](Windows_VisualStudio_Cli_Expecto_AzureDevOps.md)
+ * [No build server](Windows_VisualStudio_Cli_Expecto_None.md)

@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](Linux_Rider_Cli_NUnit_AppVeyor.md)
- * [GitHubActions](Linux_Rider_Cli_NUnit_GitHubActions.md)
- * [AzureDevOps](Linux_Rider_Cli_NUnit_AzureDevOps.md)
- * [None](Linux_Rider_Cli_NUnit_None.md)
+ * [GitHub Actions](Linux_Rider_Cli_NUnit_GitHubActions.md)
+ * [Azure DevOps](Linux_Rider_Cli_NUnit_AzureDevOps.md)
+ * [No build server](Linux_Rider_Cli_NUnit_None.md)

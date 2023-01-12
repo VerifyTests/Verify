@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > [NUnit](Windows_Other_Cli_NUnit.md) > GitHubActions
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > [NUnit](Windows_Other_Cli_NUnit.md) > GitHub Actions
 
 ## Add NuGet packages
 

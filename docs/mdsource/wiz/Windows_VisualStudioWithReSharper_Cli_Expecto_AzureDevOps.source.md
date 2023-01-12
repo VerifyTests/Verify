@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [Expecto](Windows_VisualStudioWithReSharper_Cli_Expecto.md) > AzureDevOps
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [Expecto](Windows_VisualStudioWithReSharper_Cli_Expecto.md) > Azure DevOps
 
 ## Add NuGet packages
 

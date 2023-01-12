@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer CLI](Windows_Rider_Cli.md) > [Expecto](Windows_Rider_Cli_Expecto.md) > None
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer CLI](Windows_Rider_Cli.md) > [Expecto](Windows_Rider_Cli_Expecto.md) > No build server
 
 ## Add NuGet packages
 

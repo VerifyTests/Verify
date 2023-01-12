@@ -87,8 +87,9 @@ public class WizardGen
     async Task ProcessIde(Os os, Ide ide, CliPreference current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{current}";
-        nav += $" > [{GetName(current)}]({fileName}.md)";
-        parentBuilder.AppendLine($" * [{GetName(current)}]({fileName}.md)");
+        var name = GetName(current);
+        nav += $" > [{name}]({fileName}.md)";
+        parentBuilder.AppendLine($" * [{name}]({fileName}.md)");
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
@@ -138,9 +139,10 @@ public class WizardGen
 
     async Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{current}";
-        nav += $" > {current}";
-        parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
+        var fileName = $"{parentFileName}_{current}";;
+        var name = GetName(current);
+        nav += $" > {name}";
+        parentBuilder.AppendLine($" * [{name}]({fileName}.md)");
 
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
 
@@ -155,6 +157,16 @@ public class WizardGen
 
         await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
+
+    static string GetName(BuildServer preference) =>
+        preference switch
+        {
+            BuildServer.AppVeyor => "AppVeyor",
+            BuildServer.GitHubActions => "GitHub Actions",
+            BuildServer.AzureDevOps => "Azure DevOps",
+            BuildServer.None => "No build server",
+            _ => throw new ArgumentOutOfRangeException(nameof(preference), preference, null)
+        };
 
     static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework,BuildServer buildServer, StringBuilder builder)
     {

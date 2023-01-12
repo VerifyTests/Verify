@@ -6,6 +6,6 @@
 
 Options:
  * [AppVeyor](Linux_Rider_Cli_MSTest_AppVeyor.md)
- * [GitHubActions](Linux_Rider_Cli_MSTest_GitHubActions.md)
- * [AzureDevOps](Linux_Rider_Cli_MSTest_AzureDevOps.md)
- * [None](Linux_Rider_Cli_MSTest_None.md)
+ * [GitHub Actions](Linux_Rider_Cli_MSTest_GitHubActions.md)
+ * [Azure DevOps](Linux_Rider_Cli_MSTest_AzureDevOps.md)
+ * [No build server](Linux_Rider_Cli_MSTest_None.md)

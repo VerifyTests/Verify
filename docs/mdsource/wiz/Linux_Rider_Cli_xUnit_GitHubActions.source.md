@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [xUnit](Linux_Rider_Cli_xUnit.md) > GitHubActions
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [xUnit](Linux_Rider_Cli_xUnit.md) > GitHub Actions
 
 ## Add NuGet packages
 

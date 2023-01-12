@@ -13,6 +13,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [AppVeyor](Windows_Rider_Gui_NUnit_AppVeyor.md)
- * [GitHubActions](Windows_Rider_Gui_NUnit_GitHubActions.md)
- * [AzureDevOps](Windows_Rider_Gui_NUnit_AzureDevOps.md)
- * [None](Windows_Rider_Gui_NUnit_None.md)
+ * [GitHub Actions](Windows_Rider_Gui_NUnit_GitHubActions.md)
+ * [Azure DevOps](Windows_Rider_Gui_NUnit_AzureDevOps.md)
+ * [No build server](Windows_Rider_Gui_NUnit_None.md)

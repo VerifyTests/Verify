@@ -201,7 +201,7 @@ public class WizardGen
         };
 
     static void AppendNugets(StringBuilder builder, TestFramework testFramework) =>
-        builder.Append($"""
+        builder.AppendLine($"""
 
             ## Add NuGet packages
 
@@ -222,7 +222,7 @@ public class WizardGen
         };
 
     static void AppendImplicitUsings(StringBuilder builder) =>
-        builder.Append("""
+        builder.AppendLine("""
 
             ## Implicit Usings
 

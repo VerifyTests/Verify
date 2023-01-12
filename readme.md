@@ -20,9 +20,9 @@ Verify is a snapshot tool that simplifies the assertion of complex data models a
 Verify is called on the test result during the assertion phase. It serializes that result and stores it in a file that matches the test name. On the next test execution, the result is again serialized and compared to the existing file. The test will fail if the two snapshots do not match: either the change is unexpected, or the reference snapshot needs to be updated to the new result.
 
 
-## [Getting started wizard](/docs/wiz/readme.md).
+## [Getting started wizard](/docs/wiz/readme.md)
 
-Get customized instructions for the specific combination of Operating System / IDE / Test Framework / Build Server.
+Get customized instructions for the specific combination of Operating System, IDE, Test Framework, and Build Server.
 
 [Start wizard](/docs/wiz/readme.md).
 

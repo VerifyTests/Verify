@@ -73,14 +73,14 @@ This is optional, but recommended.
 
 ### Add the NuGet
 
-```
+```xml
 <PackageReference Include="Verify.DiffPlex" Version="*" />
 ```
 
 
 ### Enable
 
-```
+```cs
 [ModuleInitializer]
 public static void Initialize() =>
     VerifyDiffPlex.Initialize();

@@ -126,14 +126,14 @@ public class WizardGen
 
             ### Add the NuGet
 
-            ```
+            ```xml
             <PackageReference Include="Verify.DiffPlex" Version="*" />
             ```
 
 
             ### Enable
 
-            ```
+            ```cs
             [ModuleInitializer]
             public static void Initialize() =>
                 VerifyDiffPlex.Initialize();

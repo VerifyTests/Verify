@@ -2,10 +2,8 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md)
 
-## Pick Test Framework
+## Pick Cli
 
 Options:
- * [xUnit](result_MacOS_Other_xUnit.md)
- * [NUnit](result_MacOS_Other_NUnit.md)
- * [MSTest](result_MacOS_Other_MSTest.md)
- * [Expecto](result_MacOS_Other_Expecto.md)
+ * [Prefer CLI](MacOS_Other_Cli.md)
+ * [Prefer GUI](MacOS_Other_Gui.md)

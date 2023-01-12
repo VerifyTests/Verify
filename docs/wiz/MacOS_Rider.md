@@ -9,10 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md)
 
-## Pick Test Framework
+## Pick Cli
 
 Options:
- * [xUnit](result_MacOS_Rider_xUnit.md)
- * [NUnit](result_MacOS_Rider_NUnit.md)
- * [MSTest](result_MacOS_Rider_MSTest.md)
- * [Expecto](result_MacOS_Rider_Expecto.md)
+ * [Prefer CLI](MacOS_Rider_Cli.md)
+ * [Prefer GUI](MacOS_Rider_Gui.md)

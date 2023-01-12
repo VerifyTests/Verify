@@ -9,10 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md)
 
-## Pick Test Framework
+## Pick Cli
 
 Options:
- * [xUnit](result_Linux_Other_xUnit.md)
- * [NUnit](result_Linux_Other_NUnit.md)
- * [MSTest](result_Linux_Other_MSTest.md)
- * [Expecto](result_Linux_Other_Expecto.md)
+ * [Prefer CLI](Linux_Other_Cli.md)
+ * [Prefer GUI](Linux_Other_Gui.md)

@@ -15,7 +15,7 @@ public class WizardGen
         PurgeDirectory(wizardDir);
         var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
         PurgeDirectory(wizardRealDir);
-        var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
+        var sourceFile = Path.Combine(wizardDir, "readme.source.md");
         var builder = new StringBuilder("""
             # Getting Started Wizard
 
@@ -27,7 +27,7 @@ public class WizardGen
             await ProcessOs(os, builder);
         }
 
-        await File.WriteAllTextAsync(pickOsFile, builder.ToString());
+        await File.WriteAllTextAsync(sourceFile, builder.ToString());
         try
         {
             Process.Start("mdsnippets", repoRoot);
@@ -42,7 +42,7 @@ public class WizardGen
         var fileName = $"{current}";
         var nav = $"[Home](/docs/wiz/readme.md) > [{current}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
-        var pickIdeFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
@@ -56,7 +56,7 @@ public class WizardGen
             await ProcessCli(current, ide, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(pickIdeFile, builder.ToString());
+        await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
     async Task ProcessCli(Os os, Ide current, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -64,7 +64,7 @@ public class WizardGen
         var fileName = $"{parentFileName}_{current}";
         nav += $" > [{GetName(current)}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{GetName(current)}]({fileName}.md)");
-        var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
@@ -81,7 +81,7 @@ public class WizardGen
             await ProcessIde(os, current, cli, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(pickTestFile, builder.ToString());
+        await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
     async Task ProcessIde(Os os, Ide ide, CliPreference current, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -89,7 +89,7 @@ public class WizardGen
         var fileName = $"{parentFileName}_{current}";
         nav += $" > [{GetName(current)}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{GetName(current)}]({fileName}.md)");
-        var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
@@ -106,7 +106,7 @@ public class WizardGen
             await ProcessTestFramework(os, ide, current, testFramework, builder, fileName, nav);
         }
 
-        await File.WriteAllTextAsync(pickTestFile, builder.ToString());
+        await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
     async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework current, StringBuilder parentBuilder, string parentFileName, string nav)
@@ -115,7 +115,7 @@ public class WizardGen
         nav += $" > {current}";
         parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
 
-        var file = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
 
         var builder = new StringBuilder($"""
             # Getting Started Wizard
@@ -126,7 +126,7 @@ public class WizardGen
 
         AppendContents(os, ide, cli, current, builder);
 
-        await File.WriteAllTextAsync(file, builder.ToString());
+        await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
     static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework, StringBuilder builder)

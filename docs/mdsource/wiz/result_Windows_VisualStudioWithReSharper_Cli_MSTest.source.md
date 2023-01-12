@@ -61,8 +61,8 @@ This is optional, but recommended.
 
 ### Add the NuGet
 
-```xml
-<PackageReference Include="Verify.DiffPlex" Version="*" />
+```
+dotnet add package Verify.DiffPlex
 ```
 
 

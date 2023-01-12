@@ -134,7 +134,7 @@ public class WizardGen
 
         AppendReSharper(ide, builder);
 
-        AppendDiffPlex(builder);
+        AppendDiffPlex(builder, cli);
 
         AppendSample(testFramework, builder);
 
@@ -143,8 +143,27 @@ public class WizardGen
         await File.WriteAllTextAsync(file, builder.ToString());
     }
 
-    static void AppendDiffPlex(StringBuilder builder) =>
-        builder.AppendLine("""
+    static void AppendDiffPlex(StringBuilder builder, CliPreference cli)
+    {
+        string nugetSnippet;
+        if (cli == CliPreference.Cli)
+        {
+            nugetSnippet = """
+                ```
+                dotnet add package Verify.DiffPlex
+                ```
+                """;
+        }
+        else
+        {
+            nugetSnippet = """
+                ```xml
+                <PackageReference Include="Verify.DiffPlex" Version="*" />
+                ```
+                """;
+        }
+
+        builder.AppendLine($"""
             ## DiffPlex
 
             The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
@@ -157,9 +176,7 @@ public class WizardGen
 
             ### Add the NuGet
 
-            ```xml
-            <PackageReference Include="Verify.DiffPlex" Version="*" />
-            ```
+            {nugetSnippet}
 
 
             ### Enable
@@ -171,6 +188,7 @@ public class WizardGen
             ```
 
             """);
+    }
 
     static void AppendSourceControlSettings(StringBuilder builder) =>
         builder.AppendLine("""

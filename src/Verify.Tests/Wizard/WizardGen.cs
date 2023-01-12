@@ -111,7 +111,7 @@ public class WizardGen
 
     async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"result_{parentFileName}_{testFramework}";
+        var fileName = $"{parentFileName}_{testFramework}";
         nav += $" > {testFramework}";
         parentBuilder.AppendLine($" * [{testFramework}]({fileName}.md)");
 

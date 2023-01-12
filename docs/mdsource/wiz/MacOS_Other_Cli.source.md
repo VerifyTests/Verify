@@ -5,7 +5,7 @@
 ## Pick Test Framework
 
 Options:
- * [xUnit](result_MacOS_Other_Cli_xUnit.md)
- * [NUnit](result_MacOS_Other_Cli_NUnit.md)
- * [MSTest](result_MacOS_Other_Cli_MSTest.md)
- * [Expecto](result_MacOS_Other_Cli_Expecto.md)
+ * [xUnit](MacOS_Other_Cli_xUnit.md)
+ * [NUnit](MacOS_Other_Cli_NUnit.md)
+ * [MSTest](MacOS_Other_Cli_MSTest.md)
+ * [Expecto](MacOS_Other_Cli_Expecto.md)

@@ -12,7 +12,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Pick Test Framework
 
 Options:
- * [xUnit](result_MacOS_Other_Gui_xUnit.md)
- * [NUnit](result_MacOS_Other_Gui_NUnit.md)
- * [MSTest](result_MacOS_Other_Gui_MSTest.md)
- * [Expecto](result_MacOS_Other_Gui_Expecto.md)
+ * [xUnit](MacOS_Other_Gui_xUnit.md)
+ * [NUnit](MacOS_Other_Gui_NUnit.md)
+ * [MSTest](MacOS_Other_Gui_MSTest.md)
+ * [Expecto](MacOS_Other_Gui_Expecto.md)

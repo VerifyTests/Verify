@@ -5,7 +5,7 @@
 ## Pick Test Framework
 
 Options:
- * [xUnit](result_Linux_Other_Gui_xUnit.md)
- * [NUnit](result_Linux_Other_Gui_NUnit.md)
- * [MSTest](result_Linux_Other_Gui_MSTest.md)
- * [Expecto](result_Linux_Other_Gui_Expecto.md)
+ * [xUnit](Linux_Other_Gui_xUnit.md)
+ * [NUnit](Linux_Other_Gui_NUnit.md)
+ * [MSTest](Linux_Other_Gui_MSTest.md)
+ * [Expecto](Linux_Other_Gui_Expecto.md)

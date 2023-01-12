@@ -5,7 +5,7 @@
 ## Pick Test Framework
 
 Options:
- * [xUnit](result_Windows_VisualStudioWithReSharper_Gui_xUnit.md)
- * [NUnit](result_Windows_VisualStudioWithReSharper_Gui_NUnit.md)
- * [MSTest](result_Windows_VisualStudioWithReSharper_Gui_MSTest.md)
- * [Expecto](result_Windows_VisualStudioWithReSharper_Gui_Expecto.md)
+ * [xUnit](Windows_VisualStudioWithReSharper_Gui_xUnit.md)
+ * [NUnit](Windows_VisualStudioWithReSharper_Gui_NUnit.md)
+ * [MSTest](Windows_VisualStudioWithReSharper_Gui_MSTest.md)
+ * [Expecto](Windows_VisualStudioWithReSharper_Gui_Expecto.md)

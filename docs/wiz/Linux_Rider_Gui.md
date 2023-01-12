@@ -12,7 +12,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Pick Test Framework
 
 Options:
- * [xUnit](result_Linux_Rider_Gui_xUnit.md)
- * [NUnit](result_Linux_Rider_Gui_NUnit.md)
- * [MSTest](result_Linux_Rider_Gui_MSTest.md)
- * [Expecto](result_Linux_Rider_Gui_Expecto.md)
+ * [xUnit](Linux_Rider_Gui_xUnit.md)
+ * [NUnit](Linux_Rider_Gui_NUnit.md)
+ * [MSTest](Linux_Rider_Gui_MSTest.md)
+ * [Expecto](Linux_Rider_Gui_Expecto.md)

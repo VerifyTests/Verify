@@ -27,7 +27,9 @@ dotnet add package xunit.runner.visualstudio
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
-## Includes/Excludes
+## Source Control
+
+### Includes/Excludes
 
  * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
@@ -44,7 +46,7 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 
 All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
-## Line Endings
+### Line Endings
 
 All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/mdsource/line-endings.include.md -->
 

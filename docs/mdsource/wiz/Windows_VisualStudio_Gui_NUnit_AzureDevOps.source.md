@@ -15,11 +15,13 @@ snippet: NUnit-nugets
 include: implicit-usings
 
 
-## Includes/Excludes
+## Source Control
+
+### Includes/Excludes
 
 include: include-exclude
 
-## Line Endings
+### Line Endings
 
 include: line-endings
 

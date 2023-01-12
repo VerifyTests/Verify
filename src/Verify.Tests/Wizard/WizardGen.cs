@@ -11,7 +11,7 @@ public class WizardGen
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
-        var wizardRealDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
+        var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
         Directory.CreateDirectory(wizardDir);
         PurgeDirectory(wizardDir);
         PurgeDirectory(wizardRealDir);

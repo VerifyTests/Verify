@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer CLI](Linux_Other_Cli.md) > Expecto > AzureDevOps
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer CLI](Linux_Other_Cli.md) > [Expecto](Linux_Other_Cli_Expecto.md) > AzureDevOps
 
 ## Add NuGet packages
 

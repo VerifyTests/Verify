@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > xUnit > None
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [xUnit](Windows_Other_Gui_xUnit.md) > None
 
 ## Add NuGet packages
 

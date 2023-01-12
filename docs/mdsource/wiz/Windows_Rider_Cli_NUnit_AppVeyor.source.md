@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer CLI](Windows_Rider_Cli.md) > NUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer CLI](Windows_Rider_Cli.md) > [NUnit](Windows_Rider_Cli_NUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

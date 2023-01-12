@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > xUnit > GitHubActions
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > [xUnit](Linux_Other_Gui_xUnit.md) > GitHubActions
 
 ## Add NuGet packages
 

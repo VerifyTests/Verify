@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > [MSTest](Windows_Other_Cli_MSTest.md)
 
 ## Pick BuildServer
 

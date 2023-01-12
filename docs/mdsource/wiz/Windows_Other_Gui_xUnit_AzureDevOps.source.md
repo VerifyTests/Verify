@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > xUnit > AzureDevOps
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [xUnit](Windows_Other_Gui_xUnit.md) > AzureDevOps
 
 ## Add NuGet packages
 

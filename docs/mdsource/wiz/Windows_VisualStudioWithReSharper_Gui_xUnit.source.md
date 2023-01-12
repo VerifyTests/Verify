@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > xUnit
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [xUnit](Windows_VisualStudioWithReSharper_Gui_xUnit.md)
 
 ## Pick BuildServer
 

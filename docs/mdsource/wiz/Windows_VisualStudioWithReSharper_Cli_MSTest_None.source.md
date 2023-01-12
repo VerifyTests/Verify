@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > MSTest > None
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [MSTest](Windows_VisualStudioWithReSharper_Cli_MSTest.md) > None
 
 ## Add NuGet packages
 

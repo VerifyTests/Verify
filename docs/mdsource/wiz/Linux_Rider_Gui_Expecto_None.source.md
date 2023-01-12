@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > Expecto > None
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > [Expecto](Linux_Rider_Gui_Expecto.md) > None
 
 ## Add NuGet packages
 

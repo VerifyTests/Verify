@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > Expecto > None
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > [Expecto](Windows_VisualStudio_Cli_Expecto.md) > None
 
 ## Add NuGet packages
 

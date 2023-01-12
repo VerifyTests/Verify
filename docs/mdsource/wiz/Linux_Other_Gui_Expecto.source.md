@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > Expecto
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > [Expecto](Linux_Other_Gui_Expecto.md)
 
 ## Pick BuildServer
 

@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > Expecto > AppVeyor
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > [Expecto](MacOS_Rider_Cli_Expecto.md) > AppVeyor
 
 ## Add NuGet packages
 

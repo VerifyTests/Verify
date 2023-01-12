@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > xUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > [xUnit](Linux_Rider_Gui_xUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

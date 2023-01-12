@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > Expecto > AppVeyor
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [Expecto](Linux_Rider_Cli_Expecto.md) > AppVeyor
 
 ## Add NuGet packages
 

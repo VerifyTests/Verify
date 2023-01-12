@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > Expecto
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > [Expecto](MacOS_Rider_Gui_Expecto.md)
 
 ## Pick BuildServer
 

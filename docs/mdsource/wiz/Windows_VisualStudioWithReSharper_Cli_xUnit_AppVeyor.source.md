@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > xUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [xUnit](Windows_VisualStudioWithReSharper_Cli_xUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [MSTest](Windows_Rider_Gui_MSTest.md)
 
 ## Pick BuildServer
 

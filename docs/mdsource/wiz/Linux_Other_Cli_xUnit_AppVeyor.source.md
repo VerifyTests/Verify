@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer CLI](Linux_Other_Cli.md) > xUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer CLI](Linux_Other_Cli.md) > [xUnit](Linux_Other_Cli_xUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

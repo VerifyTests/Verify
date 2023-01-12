@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [MSTest](Linux_Rider_Cli_MSTest.md)
 
 ## Pick BuildServer
 

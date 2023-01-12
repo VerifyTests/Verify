@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer GUI](Windows_VisualStudio_Gui.md) > xUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer GUI](Windows_VisualStudio_Gui.md) > [xUnit](Windows_VisualStudio_Gui_xUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > xUnit > AzureDevOps
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > [xUnit](Linux_Rider_Gui_xUnit.md) > AzureDevOps
 
 ## Add NuGet packages
 

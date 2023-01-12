@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > NUnit > None
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > [NUnit](Linux_Other_Gui_NUnit.md) > None
 
 ## Add NuGet packages
 

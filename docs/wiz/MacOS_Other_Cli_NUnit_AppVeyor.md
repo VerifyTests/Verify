@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer CLI](MacOS_Other_Cli.md) > NUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer CLI](MacOS_Other_Cli.md) > [NUnit](MacOS_Other_Cli_NUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

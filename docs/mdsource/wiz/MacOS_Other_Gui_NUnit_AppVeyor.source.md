@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > NUnit > AppVeyor
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [NUnit](MacOS_Other_Gui_NUnit.md) > AppVeyor
 
 ## Add NuGet packages
 

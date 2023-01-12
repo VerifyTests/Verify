@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > Expecto > AzureDevOps
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [Expecto](Windows_Rider_Gui_Expecto.md) > AzureDevOps
 
 ## Add NuGet packages
 

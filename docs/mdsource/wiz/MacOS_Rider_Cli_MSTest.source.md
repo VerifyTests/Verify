@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > MSTest
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > [MSTest](MacOS_Rider_Cli_MSTest.md)
 
 ## Pick BuildServer
 

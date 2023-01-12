@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > NUnit
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md) > [NUnit](Windows_VisualStudioWithReSharper_Cli_NUnit.md)
 
 ## Pick BuildServer
 

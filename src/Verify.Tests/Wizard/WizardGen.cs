@@ -112,7 +112,7 @@ public class WizardGen
     async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{current}";
-        nav += $" > {current}";
+        nav += $" > [{current}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
 
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");

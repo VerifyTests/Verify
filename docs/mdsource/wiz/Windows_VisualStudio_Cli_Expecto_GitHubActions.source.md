@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > Expecto > GitHubActions
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > [Expecto](Windows_VisualStudio_Cli_Expecto.md) > GitHubActions
 
 ## Add NuGet packages
 

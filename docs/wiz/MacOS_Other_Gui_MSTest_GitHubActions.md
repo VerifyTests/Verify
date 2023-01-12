@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > MSTest > GitHubActions
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [MSTest](MacOS_Other_Gui_MSTest.md) > GitHubActions
 
 ## Add NuGet packages
 

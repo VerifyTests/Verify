@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > MSTest > AppVeyor
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > [MSTest](MacOS_Rider_Gui_MSTest.md) > AppVeyor
 
 ## Add NuGet packages
 

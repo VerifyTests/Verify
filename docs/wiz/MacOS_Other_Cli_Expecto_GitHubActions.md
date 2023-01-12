@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer CLI](MacOS_Other_Cli.md) > Expecto > GitHubActions
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer CLI](MacOS_Other_Cli.md) > [Expecto](MacOS_Other_Cli_Expecto.md) > GitHubActions
 
 ## Add NuGet packages
 

@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [MSTest](Windows_Other_Gui_MSTest.md)
 
 ## Pick BuildServer
 

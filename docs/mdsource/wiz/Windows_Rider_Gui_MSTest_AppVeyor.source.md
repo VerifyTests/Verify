@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > MSTest > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [MSTest](Windows_Rider_Gui_MSTest.md) > AppVeyor
 
 ## Add NuGet packages
 

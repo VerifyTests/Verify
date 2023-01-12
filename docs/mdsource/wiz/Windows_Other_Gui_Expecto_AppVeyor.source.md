@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > Expecto > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [Expecto](Windows_Other_Gui_Expecto.md) > AppVeyor
 
 ## Add NuGet packages
 

@@ -88,7 +88,7 @@ Tools supported by Windows:
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
 
-## Getting .received in output on AzureDevOps
+## Getting .received in output on Azure DevOps
 
 include: build-server-AzureDevOps
 

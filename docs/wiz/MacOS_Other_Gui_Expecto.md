@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [Expecto](MacOS_Other_Gui_Expecto.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](MacOS_Other_Gui_Expecto_AppVeyor.md)

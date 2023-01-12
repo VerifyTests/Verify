@@ -128,7 +128,7 @@ Tools supported by Linux:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
 
-## Getting .received in output on GitHubActions
+## Getting .received in output on GitHub Actions
 
 Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions#failure) condition to upload any `*.received.*` files if the build fails. <!-- include: build-server-githubactions. path: /docs/mdsource/build-server-githubactions.include.md -->
 

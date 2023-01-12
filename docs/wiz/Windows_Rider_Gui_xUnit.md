@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [xUnit](Windows_Rider_Gui_xUnit.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](Windows_Rider_Gui_xUnit_AppVeyor.md)

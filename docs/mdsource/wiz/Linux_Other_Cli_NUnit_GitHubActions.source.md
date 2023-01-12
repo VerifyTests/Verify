@@ -79,7 +79,7 @@ Tools supported by Linux:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
 
-## Getting .received in output on GitHubActions
+## Getting .received in output on GitHub Actions
 
 include: build-server-GitHubActions
 

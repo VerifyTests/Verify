@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > [xUnit](MacOS_Rider_Cli_xUnit.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](MacOS_Rider_Cli_xUnit_AppVeyor.md)

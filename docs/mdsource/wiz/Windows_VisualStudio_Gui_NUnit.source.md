@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer GUI](Windows_VisualStudio_Gui.md) > [NUnit](Windows_VisualStudio_Gui_NUnit.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](Windows_VisualStudio_Gui_NUnit_AppVeyor.md)

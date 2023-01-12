@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer GUI](Windows_VisualStudio_Gui.md) > [Expecto](Windows_VisualStudio_Gui_Expecto.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](Windows_VisualStudio_Gui_Expecto_AppVeyor.md)

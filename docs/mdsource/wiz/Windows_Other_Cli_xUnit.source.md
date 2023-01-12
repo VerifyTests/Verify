@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > [xUnit](Windows_Other_Cli_xUnit.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](Windows_Other_Cli_xUnit_AppVeyor.md)

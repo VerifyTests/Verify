@@ -123,7 +123,7 @@ public class WizardGen
 
             {nav}
 
-            ## Pick BuildServer
+            ## Pick Build Server
 
             Options:
 
@@ -201,7 +201,7 @@ public class WizardGen
         }
 
         builder.AppendLine($"""
-            ## Getting .received in output on {buildServer}
+            ## Getting .received in output on {GetName(buildServer)}
 
             include: build-server-{buildServer}
 

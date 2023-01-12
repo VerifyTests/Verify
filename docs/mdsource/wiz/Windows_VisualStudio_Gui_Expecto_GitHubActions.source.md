@@ -88,7 +88,7 @@ Tools supported by Windows:
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
 
-## Getting .received in output on GitHubActions
+## Getting .received in output on GitHub Actions
 
 include: build-server-GitHubActions
 

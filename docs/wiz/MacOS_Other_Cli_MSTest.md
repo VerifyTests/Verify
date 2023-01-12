@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer CLI](MacOS_Other_Cli.md) > [MSTest](MacOS_Other_Cli_MSTest.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](MacOS_Other_Cli_MSTest_AppVeyor.md)

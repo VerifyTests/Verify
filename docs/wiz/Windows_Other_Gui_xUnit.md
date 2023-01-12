@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [xUnit](Windows_Other_Gui_xUnit.md)
 
-## Pick BuildServer
+## Pick Build Server
 
 Options:
  * [AppVeyor](Windows_Other_Gui_xUnit_AppVeyor.md)

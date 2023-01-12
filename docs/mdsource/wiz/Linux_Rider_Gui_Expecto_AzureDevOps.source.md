@@ -73,7 +73,7 @@ Tools supported by Linux:
  * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
 
-## Getting .received in output on AzureDevOps
+## Getting .received in output on Azure DevOps
 
 include: build-server-AzureDevOps
 

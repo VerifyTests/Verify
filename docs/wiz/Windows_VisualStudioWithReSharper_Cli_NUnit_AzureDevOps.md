@@ -158,7 +158,7 @@ Tools supported by Windows:
  * [Vim](https://www.vim.org/)
  * [Neovim](https://neovim.io/)
 
-## Getting .received in output on AzureDevOps
+## Getting .received in output on Azure DevOps
 
 Directly after the test runner step add a build step to set a flag if the testrunner failed. This is done by using a [failed condition](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml). This flag will be evaluated in the CopyFiles and PublishBuildArtifacts steps below. <!-- include: build-server-azuredevops. path: /docs/mdsource/build-server-azuredevops.include.md -->
 

@@ -86,10 +86,10 @@ public class WizardGen
 
     async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{testFramework}";
+        var fileName = $"result_{parentFileName}_{testFramework}";
         nav += $" > {testFramework}";
-        parentBuilder.AppendLine($" * [{testFramework}](result_{fileName}.md)");
-        var file = Path.Combine(wizardDir, $"result_{fileName}.source.md");
+        parentBuilder.AppendLine($" * [{testFramework}]({fileName}.md)");
+        var file = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 

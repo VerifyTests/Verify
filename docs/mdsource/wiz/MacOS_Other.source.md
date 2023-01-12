@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](pickide_MacOS.md) > Other
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > Other
 
 ## Pick Test Framework
 

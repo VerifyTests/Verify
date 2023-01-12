@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](pickide_MacOS.md) > [JetBrains Rider](picktest_MacOS_Rider.md) > Expecto
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > Expecto
 
 ## Add NuGet packages
 

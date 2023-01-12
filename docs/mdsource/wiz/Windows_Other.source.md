@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > Other
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > Other
 
 ## Pick Test Framework
 

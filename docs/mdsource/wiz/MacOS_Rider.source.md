@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](pickide_MacOS.md) > JetBrains Rider
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > JetBrains Rider
 
 ## Pick Test Framework
 

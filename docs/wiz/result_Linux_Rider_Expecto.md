@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > [JetBrains Rider](picktest_Linux_Rider.md) > Expecto
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > Expecto
 
 ## Add NuGet packages
 

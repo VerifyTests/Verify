@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > [JetBrains Rider](picktest_Linux_Rider.md) > MSTest
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > MSTest
 
 ## Add NuGet packages
 

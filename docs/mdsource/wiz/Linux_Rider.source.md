@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](pickide_Linux.md) > JetBrains Rider
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > JetBrains Rider
 
 ## Pick Test Framework
 

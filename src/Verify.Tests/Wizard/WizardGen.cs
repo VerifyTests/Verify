@@ -39,8 +39,8 @@ public class WizardGen
 
     async Task ProcessOs(Os os, StringBuilder pickOsBuilder)
     {
-        pickOsBuilder.AppendLine($" * [{os}](pickide_{os}.md)");
-        var pickIdeFile = Path.Combine(wizardDir, $"pickide_{os}.source.md");
+        pickOsBuilder.AppendLine($" * [{os}]({os}.md)");
+        var pickIdeFile = Path.Combine(wizardDir, $"{os}.source.md");
         var pickIdeBuilder = new StringBuilder($"""
             # Getting Started Wizard
 
@@ -59,12 +59,12 @@ public class WizardGen
 
     async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
     {
-        pickIdeBuilder.AppendLine($" * [{GetName(ide)}](picktest_{os}_{ide}.md)");
-        var pickTestFile = Path.Combine(wizardDir, $"picktest_{os}_{ide}.source.md");
+        pickIdeBuilder.AppendLine($" * [{GetName(ide)}]({os}_{ide}.md)");
+        var pickTestFile = Path.Combine(wizardDir, $"{os}_{ide}.source.md");
         var pickTestFrameworkBuilder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > {GetName(ide)}
+            [Home](/docs/wiz/readme.md) > [{os}]({os}.md) > {GetName(ide)}
 
             ## Pick Test Framework
 
@@ -87,7 +87,7 @@ public class WizardGen
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > [{os}](pickide_{os}.md) > [{GetName(ide)}](picktest_{os}_{ide}.md) > {testFramework}
+            [Home](/docs/wiz/readme.md) > [{os}]({os}.md) > [{GetName(ide)}]({os}_{ide}.md) > {testFramework}
 
             """);
 

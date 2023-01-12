@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](pickide_Windows.md) > Visual Studio with ReSharper
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > Visual Studio with ReSharper
 
 ## Pick Test Framework
 

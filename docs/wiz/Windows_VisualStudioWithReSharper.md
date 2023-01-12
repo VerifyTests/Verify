@@ -9,10 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md)
 
-## Pick Test Framework
+## Pick Cli
 
 Options:
- * [xUnit](result_Windows_VisualStudioWithReSharper_xUnit.md)
- * [NUnit](result_Windows_VisualStudioWithReSharper_NUnit.md)
- * [MSTest](result_Windows_VisualStudioWithReSharper_MSTest.md)
- * [Expecto](result_Windows_VisualStudioWithReSharper_Expecto.md)
+ * [Prefer CLI](Windows_VisualStudioWithReSharper_Cli.md)
+ * [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md)

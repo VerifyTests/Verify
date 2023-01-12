@@ -2,10 +2,8 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md)
 
-## Pick Test Framework
+## Pick Cli
 
 Options:
- * [xUnit](result_Windows_VisualStudio_xUnit.md)
- * [NUnit](result_Windows_VisualStudio_NUnit.md)
- * [MSTest](result_Windows_VisualStudio_MSTest.md)
- * [Expecto](result_Windows_VisualStudio_Expecto.md)
+ * [Prefer CLI](Windows_VisualStudio_Cli.md)
+ * [Prefer GUI](Windows_VisualStudio_Gui.md)

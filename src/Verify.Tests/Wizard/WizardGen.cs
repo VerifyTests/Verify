@@ -114,7 +114,9 @@ public class WizardGen
         var fileName = $"result_{parentFileName}_{testFramework}";
         nav += $" > {testFramework}";
         parentBuilder.AppendLine($" * [{testFramework}]({fileName}.md)");
+
         var file = Path.Combine(wizardDir, $"{fileName}.source.md");
+
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
@@ -122,6 +124,13 @@ public class WizardGen
 
             """);
 
+        AppendContents(os, ide, cli, testFramework, builder);
+
+        await File.WriteAllTextAsync(file, builder.ToString());
+    }
+
+    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework, StringBuilder builder)
+    {
         AppendNugets(builder, testFramework, cli);
 
         AppendImplicitUsings(builder);
@@ -141,8 +150,6 @@ public class WizardGen
         AppendSample(testFramework, builder);
 
         AppendDiffTool(os, builder);
-
-        await File.WriteAllTextAsync(file, builder.ToString());
     }
 
     static void AppendDiffPlex(StringBuilder builder, CliPreference cli)

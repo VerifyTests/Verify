@@ -34,7 +34,7 @@
     <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-  <ItemGroup  Condition="$(TargetFramework) != 'net7.0'">
+  <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
     <Compile Remove="Wizard\WizardGen.cs" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

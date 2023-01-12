@@ -53,17 +53,42 @@ public class WizardGen
             """);
         foreach (var ide in GetIdesForOs(os))
         {
-            await ProcessIde(os, ide, builder, fileName, nav);
+            await ProcessCli(os, ide, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickIdeFile, builder.ToString());
     }
 
-    async Task ProcessIde(Os os, Ide ide, StringBuilder parentBuilder, string parentFileName, string nav)
+    async Task ProcessCli(Os os, Ide ide, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{ide}";
         nav += $" > [{GetName(ide)}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{GetName(ide)}]({fileName}.md)");
+        var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var builder = new StringBuilder($"""
+            # Getting Started Wizard
+
+            {nav}
+
+            ## Pick Cli
+
+            Options:
+
+            """);
+
+        foreach (var cli in Enum.GetValues<CliPreference>())
+        {
+            await ProcessIde(os, ide, cli, builder, fileName, nav);
+        }
+
+        await File.WriteAllTextAsync(pickTestFile, builder.ToString());
+    }
+
+    async Task ProcessIde(Os os, Ide ide, CliPreference cli, StringBuilder parentBuilder, string parentFileName, string nav)
+    {
+        var fileName = $"{parentFileName}_{cli}";
+        nav += $" > [{GetName(cli)}]({fileName}.md)";
+        parentBuilder.AppendLine($" * [{GetName(cli)}]({fileName}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
@@ -78,13 +103,13 @@ public class WizardGen
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
-            await ProcessTestFramework(os, ide, testFramework, builder, fileName, nav);
+            await ProcessTestFramework(os, ide, cli, testFramework, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickTestFile, builder.ToString());
     }
 
-    async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName, string nav)
+    async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"result_{parentFileName}_{testFramework}";
         nav += $" > {testFramework}";
@@ -97,7 +122,7 @@ public class WizardGen
 
             """);
 
-        AppendNugets(builder, testFramework);
+        AppendNugets(builder, testFramework, cli);
 
         AppendImplicitUsings(builder);
 
@@ -200,16 +225,75 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 
-    static void AppendNugets(StringBuilder builder, TestFramework testFramework) =>
-        builder.AppendLine($"""
-
+    static void AppendNugets(StringBuilder builder, TestFramework testFramework, CliPreference cli)
+    {
+        builder.AppendLine("""
+            
             ## Add NuGet packages
-
+            
             Add the following packages to the test project:
 
-            snippet: {testFramework}-nugets
-
             """);
+        switch (cli)
+        {
+            case CliPreference.Cli:
+                switch (testFramework)
+                {
+                    case TestFramework.xUnit:
+                        builder.AppendLine("""
+                            ```
+                            dotnet add package Microsoft.NET.Test.Sdk
+                            dotnet add package Verify.Xunit
+                            dotnet add package Xunit
+                            dotnet add package xunit.runner.visualstudio
+                            ```
+                            """);
+                        break;
+                    case TestFramework.NUnit:
+                        builder.AppendLine("""
+                            ```
+                            dotnet add package Microsoft.NET.Test.Sdk
+                            dotnet add package NUnit
+                            dotnet add package NUnit3TestAdapter
+                            dotnet add package Verify.NUnit
+                            ```
+                            """);
+                        break;
+                    case TestFramework.MSTest:
+                        builder.AppendLine("""
+                            ```
+                            dotnet add package Microsoft.NET.Test.Sdk
+                            dotnet add package MSTest.TestAdapter
+                            dotnet add package MSTest.TestFramework
+                            dotnet add package Verify.MSTest
+                            ```
+                            """);
+                        break;
+                    case TestFramework.Expecto:
+                        builder.AppendLine("""
+                            ```
+                            dotnet add package Microsoft.NET.Test.Sdk
+                            dotnet add package YoloDev.Expecto.TestSdk
+                            dotnet add package Expecto
+                            dotnet add package Verify.Expecto
+                            ```
+                            """);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(testFramework), testFramework, null);
+                }
+                break;
+            case CliPreference.Gui:
+                builder.AppendLine($"""
+                    
+                    snippet: {testFramework}-nugets
+
+                    """);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(cli), cli, null);
+        }
+    }
 
     static string GetName(Ide ide) =>
         ide switch
@@ -219,6 +303,14 @@ public class WizardGen
             Ide.Rider => "JetBrains Rider",
             Ide.Other => "Other",
             _ => throw new ArgumentOutOfRangeException(nameof(ide), ide, null)
+        };
+
+    static string GetName(CliPreference preference) =>
+        preference switch
+        {
+            CliPreference.Cli => "Prefer CLI",
+            CliPreference.Gui => "Prefer GUI",
+            _ => throw new ArgumentOutOfRangeException(nameof(preference), preference, null)
         };
 
     static void AppendImplicitUsings(StringBuilder builder) =>

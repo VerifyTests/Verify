@@ -122,14 +122,41 @@ public class WizardGen
 
             {nav}
 
+            ## Pick BuildServer
+
+            Options:
+
             """);
 
-        AppendContents(os, ide, cli, current, builder);
+        foreach (var buildServer in Enum.GetValues<BuildServer>())
+        {
+            await ProcessBuildServer(os, ide, cli, current, buildServer, builder, fileName, nav);
+        }
 
         await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
-    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework, StringBuilder builder)
+    async Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
+    {
+        var fileName = $"{parentFileName}_{current}";
+        nav += $" > {current}";
+        parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
+
+        var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+
+        var builder = new StringBuilder($"""
+            # Getting Started Wizard
+
+            {nav}
+
+            """);
+
+        AppendContents(os, ide, cli, testFramework, current, builder);
+
+        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+    }
+
+    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework,BuildServer buildServer, StringBuilder builder)
     {
         AppendNugets(builder, testFramework, cli);
 
@@ -150,6 +177,23 @@ public class WizardGen
         AppendSample(testFramework, builder);
 
         AppendDiffTool(os, builder);
+
+        AppendBuildServer(buildServer, builder);
+    }
+
+    static void AppendBuildServer(BuildServer buildServer, StringBuilder builder)
+    {
+        if (buildServer == BuildServer.None)
+        {
+            return;
+        }
+
+        builder.AppendLine($"""
+            ## Getting .received in output on {buildServer}
+
+            include: build-server-{buildServer}
+
+            """);
     }
 
     static void AppendDiffPlex(StringBuilder builder, CliPreference cli)
@@ -250,7 +294,7 @@ public class WizardGen
             Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
             While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
 
-            Tool supported by {os}:
+            Tools supported by {os}:
 
             """);
         foreach (var tool in ToolsForOs(os))
@@ -259,8 +303,11 @@ public class WizardGen
             {
                 continue;
             }
+
             builder.AppendLine($" * [{tool.Tool}]({tool.Url})");
         }
+
+        builder.AppendLine();
     }
 
     static IEnumerable<Definition> ToolsForOs(Os os) =>

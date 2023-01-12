@@ -48,7 +48,7 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 
 ### ImplicitUsings
 
-**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/implicit-usings.include.md -->
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
@@ -370,7 +370,7 @@ Results in:
 
 ### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/include-exclude.include.md -->
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
 eg. add the following to `.gitignore`
 
@@ -388,7 +388,7 @@ All `*.verified.*` files should be committed to source control. <!-- endInclude 
 
 ### Line Endings
 
-All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/line-endings.include.md -->
+All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/mdsource/line-endings.include.md -->
 
 eg add the following to `.gitattributes`
 

@@ -61,7 +61,8 @@ eg add the following to `.gitattributes`
 *.verified.xml text eol=lf
 *.verified.json text eol=lf
 ```
-<!-- endInclude -->
+
+Note that this is a suggested subset of verified text extension. Add others as required based on the file types being verified. <!-- endInclude -->
 
 
 ## DiffEngineTray

@@ -136,6 +136,8 @@ public class WizardGen
 
         AppendDiffPlex(builder, cli);
 
+        AppendTerminal(builder, cli);
+
         AppendSample(testFramework, builder);
 
         AppendDiffTool(os, builder);
@@ -185,6 +187,30 @@ public class WizardGen
             [ModuleInitializer]
             public static void Initialize() =>
                 VerifyDiffPlex.Initialize();
+            ```
+
+            """);
+    }
+
+    static void AppendTerminal(StringBuilder builder, CliPreference cli)
+    {
+        if (cli == CliPreference.Gui)
+        {
+            return;
+        }
+
+        builder.AppendLine("""
+            ## Verify.Terminal
+            
+            [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal) is a dotnet tool for managing snapshots from the command line.
+            
+            This is optional.
+
+
+            ### Install the tool
+            
+            ```
+            dotnet tool install -g verify.tool
             ```
 
             """);

@@ -92,6 +92,19 @@ public static void Initialize() =>
     VerifyDiffPlex.Initialize();
 ```
 
+## Verify.Terminal
+
+[Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal) is a dotnet tool for managing snapshots from the command line.
+
+This is optional.
+
+
+### Install the tool
+
+```
+dotnet tool install -g verify.tool
+```
+
 
 ## Sample Test
 

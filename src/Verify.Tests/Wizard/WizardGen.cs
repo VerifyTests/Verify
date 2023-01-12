@@ -78,21 +78,22 @@ public class WizardGen
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
-            await ProcessTestFramework(os, ide, testFramework, builder, fileName);
+            await ProcessTestFramework(os, ide, testFramework, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickTestFile, builder.ToString());
     }
 
-    async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName)
+    async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{testFramework}";
+        nav += $" > {testFramework}";
         parentBuilder.AppendLine($" * [{testFramework}](result_{fileName}.md)");
         var file = Path.Combine(wizardDir, $"result_{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > [{os}]({os}.md) > [{GetName(ide)}]({os}_{ide}.md) > {testFramework}
+            {nav}
 
             """);
 

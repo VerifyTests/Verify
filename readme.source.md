@@ -15,7 +15,7 @@ Verify is called on the test result during the assertion phase. It serializes th
 
 ## [Getting started wizard](/docs/wiz/readme.md)
 
-Get customized instructions for the specific combination of Operating System / IDE / Test Framework / Build Server.
+Get customized instructions for the specific combination of Operating System, IDE, Test Framework, and Build Server.
 
 [Start wizard](/docs/wiz/readme.md).
 

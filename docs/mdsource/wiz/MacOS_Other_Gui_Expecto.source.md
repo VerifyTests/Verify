@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [Expecto](MacOS_Other_Gui_Expecto.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](MacOS_Other_Gui_Expecto_AppVeyor.md)

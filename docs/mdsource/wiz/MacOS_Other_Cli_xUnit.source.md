@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer CLI](MacOS_Other_Cli.md) > [xUnit](MacOS_Other_Cli_xUnit.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](MacOS_Other_Cli_xUnit_AppVeyor.md)

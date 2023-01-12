@@ -19,7 +19,7 @@ public class WizardGen
         var builder = new StringBuilder("""
             # Getting Started Wizard
 
-            ## Pick OS
+            ## Select Operating System
 
             """);
         foreach (var os in Enum.GetValues<Os>())
@@ -48,7 +48,7 @@ public class WizardGen
 
             {nav}
 
-            ## Pick IDE
+            ## Select IDE
 
             """);
         foreach (var ide in GetIdesForOs(current))
@@ -70,7 +70,7 @@ public class WizardGen
 
             {nav}
 
-            ## Pick Cli
+            ## Select CLI preference
 
             Options:
 
@@ -96,7 +96,7 @@ public class WizardGen
 
             {nav}
 
-            ## Pick Test Framework
+            ## Select Test Framework
 
             Options:
 
@@ -123,7 +123,7 @@ public class WizardGen
 
             {nav}
 
-            ## Pick Build Server
+            ## Select Build Server
 
             Options:
 
@@ -139,7 +139,7 @@ public class WizardGen
 
     async Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{current}";;
+        var fileName = $"{parentFileName}_{current}";
         var name = GetName(current);
         nav += $" > {name}";
         parentBuilder.AppendLine($" * [{name}]({fileName}.md)");

@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [NUnit](Windows_Rider_Gui_NUnit.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Windows_Rider_Gui_NUnit_AppVeyor.md)

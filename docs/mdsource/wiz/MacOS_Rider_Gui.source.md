@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](MacOS_Rider_Gui_xUnit.md)

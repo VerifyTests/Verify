@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](Windows_VisualStudioWithReSharper_Gui_xUnit.md)

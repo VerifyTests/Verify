@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](MacOS_Rider_Cli_xUnit.md)

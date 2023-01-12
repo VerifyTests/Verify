@@ -2,6 +2,6 @@
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md)
 
-## Pick IDE
+## Select IDE
  * [JetBrains Rider](Linux_Rider.md)
  * [Other](Linux_Other.md)

@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](Linux_Other_Gui_xUnit.md)

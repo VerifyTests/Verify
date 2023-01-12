@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > [Expecto](Windows_VisualStudio_Cli_Expecto.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Windows_VisualStudio_Cli_Expecto_AppVeyor.md)

@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](MacOS_Other_Gui_xUnit.md)

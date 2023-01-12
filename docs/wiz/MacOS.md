@@ -9,6 +9,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md)
 
-## Pick IDE
+## Select IDE
  * [JetBrains Rider](MacOS_Rider.md)
  * [Other](MacOS_Other.md)

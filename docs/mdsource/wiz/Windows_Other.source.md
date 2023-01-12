@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md)
 
-## Pick Cli
+## Select CLI preference
 
 Options:
  * [Prefer CLI](Windows_Other_Cli.md)

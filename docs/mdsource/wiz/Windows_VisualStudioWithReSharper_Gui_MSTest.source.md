@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [MSTest](Windows_VisualStudioWithReSharper_Gui_MSTest.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Windows_VisualStudioWithReSharper_Gui_MSTest_AppVeyor.md)

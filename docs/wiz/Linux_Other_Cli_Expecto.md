@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer CLI](Linux_Other_Cli.md) > [Expecto](Linux_Other_Cli_Expecto.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Linux_Other_Cli_Expecto_AppVeyor.md)

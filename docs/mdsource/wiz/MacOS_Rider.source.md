@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md)
 
-## Pick Cli
+## Select CLI preference
 
 Options:
  * [Prefer CLI](MacOS_Rider_Cli.md)

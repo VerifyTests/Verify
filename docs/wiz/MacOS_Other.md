@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md)
 
-## Pick Cli
+## Select CLI preference
 
 Options:
  * [Prefer CLI](MacOS_Other_Cli.md)

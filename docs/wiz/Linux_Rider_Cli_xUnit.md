@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [xUnit](Linux_Rider_Cli_xUnit.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Linux_Rider_Cli_xUnit_AppVeyor.md)

@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md)
 
-## Pick Cli
+## Select CLI preference
 
 Options:
  * [Prefer CLI](Linux_Rider_Cli.md)

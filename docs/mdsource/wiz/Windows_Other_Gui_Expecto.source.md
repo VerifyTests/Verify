@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [Expecto](Windows_Other_Gui_Expecto.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Windows_Other_Gui_Expecto_AppVeyor.md)

@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > [NUnit](Linux_Other_Gui_NUnit.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](Linux_Other_Gui_NUnit_AppVeyor.md)

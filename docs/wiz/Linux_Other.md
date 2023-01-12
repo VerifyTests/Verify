@@ -9,7 +9,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 [Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md)
 
-## Pick Cli
+## Select CLI preference
 
 Options:
  * [Prefer CLI](Linux_Other_Cli.md)

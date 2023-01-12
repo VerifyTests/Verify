@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md)
 
-## Pick Cli
+## Select CLI preference
 
 Options:
  * [Prefer CLI](Windows_VisualStudio_Cli.md)

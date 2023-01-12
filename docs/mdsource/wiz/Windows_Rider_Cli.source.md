@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer CLI](Windows_Rider_Cli.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](Windows_Rider_Cli_xUnit.md)

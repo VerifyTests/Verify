@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](Windows_Other_Cli_xUnit.md)

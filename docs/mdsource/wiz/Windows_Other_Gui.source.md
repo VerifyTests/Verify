@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](Windows_Other_Gui_xUnit.md)

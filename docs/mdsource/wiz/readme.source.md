@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-## Pick OS
+## Select Operating System
  * [Windows](Windows.md)
  * [MacOS](MacOS.md)
  * [Linux](Linux.md)

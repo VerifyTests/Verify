@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md)
 
-## Pick Test Framework
+## Select Test Framework
 
 Options:
  * [xUnit](Windows_VisualStudio_Cli_xUnit.md)

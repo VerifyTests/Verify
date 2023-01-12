@@ -2,7 +2,7 @@
 
 [Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [Other](MacOS_Other.md) > [Prefer GUI](MacOS_Other_Gui.md) > [MSTest](MacOS_Other_Gui_MSTest.md)
 
-## Pick Build Server
+## Select Build Server
 
 Options:
  * [AppVeyor](MacOS_Other_Gui_MSTest_AppVeyor.md)

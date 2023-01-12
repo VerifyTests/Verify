@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > JetBrains Rider
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md)
 
 ## Pick Test Framework
 

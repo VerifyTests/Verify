@@ -53,21 +53,22 @@ public class WizardGen
             """);
         foreach (var ide in GetIdesForOs(os))
         {
-            await ProcessIde(os, ide, builder, fileName);
+            await ProcessIde(os, ide, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickIdeFile, builder.ToString());
     }
 
-    async Task ProcessIde(Os os, Ide ide, StringBuilder parentBuilder, string parentFileName)
+    async Task ProcessIde(Os os, Ide ide, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{ide}";
+        nav += $" > [{GetName(ide)}]({os}_{ide}.md)";
         parentBuilder.AppendLine($" * [{GetName(ide)}]({fileName}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > [{os}]({os}.md) > {GetName(ide)}
+            {nav}
 
             ## Pick Test Framework
 

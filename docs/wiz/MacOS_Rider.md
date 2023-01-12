@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > JetBrains Rider
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md)
 
 ## Pick Test Framework
 

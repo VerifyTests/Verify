@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > Other
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md)
 
 ## Pick Test Framework
 

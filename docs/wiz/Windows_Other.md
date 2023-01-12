@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > Other
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md)
 
 ## Pick Test Framework
 

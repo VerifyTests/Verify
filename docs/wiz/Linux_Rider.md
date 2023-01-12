@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > JetBrains Rider
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md)
 
 ## Pick Test Framework
 

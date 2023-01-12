@@ -2,5 +2,6 @@
 {
     AppVeyor,
     GitHubActions,
-    AzureDevOps
+    AzureDevOps,
+    None
 }

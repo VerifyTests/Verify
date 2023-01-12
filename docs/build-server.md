@@ -13,7 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 ### AppVeyor
 
-Use a [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).
+Use a [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact). <!-- include: build-server-appveyor. path: /docs/mdsource/build-server-appveyor.include.md -->
 
 <!-- snippet: AppVeyorArtifacts -->
 <a id='snippet-appveyorartifacts'></a>
@@ -24,12 +24,12 @@ on_failure:
 <sup><a href='/src/appveyor.yml#L48-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).
+See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts). <!-- endInclude -->
 
 
 ### GitHub Actions
 
-Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions#failure) condition to upload any `*.received.*` files if the build fails.
+Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions#failure) condition to upload any `*.received.*` files if the build fails. <!-- include: build-server-githubactions. path: /docs/mdsource/build-server-githubactions.include.md -->
 
 ```yaml
 - name: Upload Test Results
@@ -40,11 +40,12 @@ Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/re
     path: |
       **/*.received.*
 ```
+<!-- endInclude -->
 
 
 ### Azure DevOps YAML Pipeline
 
-Directly after the test runner step add a build step to set a flag if the testrunner failed. This is done by using a [failed condition](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml). This flag will be evaluated in the CopyFiles and PublishBuildArtifacts steps below.
+Directly after the test runner step add a build step to set a flag if the testrunner failed. This is done by using a [failed condition](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml). This flag will be evaluated in the CopyFiles and PublishBuildArtifacts steps below. <!-- include: build-server-azuredevops. path: /docs/mdsource/build-server-azuredevops.include.md -->
 
 ```yaml
 - task: CmdLine@2
@@ -67,7 +68,7 @@ Since the PublishBuildArtifacts step in DevOps does not allow a wildcard it is n
     overWrite: true
 ```
 
-Finally publish the staged files as a build artifact:
+Publish the staged files as a build artifact:
 
 ```yaml
 - task: PublishBuildArtifacts@1
@@ -79,6 +80,7 @@ Finally publish the staged files as a build artifact:
     ArtifactName: 'Verify'
     publishLocation: 'Container'
 ```
+<!-- endInclude -->
 
 
 ## Custom directory and file name

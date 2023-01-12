@@ -40,7 +40,7 @@ public class WizardGen
     async Task ProcessOs(Os os, StringBuilder parentBuilder)
     {
         var fileName = $"{os}";
-        var nav = $"[Home](/docs/wiz/readme.md) > [{os}]({os}.md)";
+        var nav = $"[Home](/docs/wiz/readme.md) > [{os}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{os}]({fileName}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""

@@ -11,9 +11,9 @@ public class WizardGen
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
-        var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
         Directory.CreateDirectory(wizardDir);
         PurgeDirectory(wizardDir);
+        var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
         PurgeDirectory(wizardRealDir);
         var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
         var builder = new StringBuilder("""

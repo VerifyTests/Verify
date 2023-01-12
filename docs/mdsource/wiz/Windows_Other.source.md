@@ -4,6 +4,8 @@
 
 ## Select CLI preference
 
+This will effect the approach to installing NuGet packages and snapshot management options. 
+
 Options:
  * [Prefer CLI](Windows_Other_Cli.md)
  * [Prefer GUI](Windows_Other_Gui.md)

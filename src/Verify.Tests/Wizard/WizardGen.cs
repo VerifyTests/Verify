@@ -177,7 +177,7 @@ public class WizardGen
             """);
         foreach (var tool in ToolsForOs(os))
         {
-            if (tool.Tool is DiffTool.Rider or DiffTool.VisualStudio)
+            if (tool.IsMdi)
             {
                 continue;
             }

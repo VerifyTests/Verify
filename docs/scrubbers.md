@@ -266,7 +266,7 @@ public class ScrubbersSample
         Verify(
                 target: @"
                         LineA
-                        
+
                         LineC
                         ")
             .ScrubEmptyLines();
@@ -391,7 +391,7 @@ public class ScrubbersSample
         Verify(
                 target: @"
                         LineA
-                        
+
                         LineC
                         ")
             .ScrubEmptyLines();
@@ -517,7 +517,7 @@ public class ScrubbersSample :
         Verify(
                 target: @"
                         LineA
-                        
+
                         LineC
                         ")
             .ScrubEmptyLines();

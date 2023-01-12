@@ -122,7 +122,7 @@ public class ScrubbersSample
         Verify(
                 target: @"
                         LineA
-                        
+
                         LineC
                         ")
             .ScrubEmptyLines();

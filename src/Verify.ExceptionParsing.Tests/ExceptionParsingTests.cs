@@ -91,11 +91,11 @@ public class ExceptionParsingTests
             NotEqual:
               - Received: XAMLCombinerTests.TestOutput.received.xaml
                 Verified: XAMLCombinerTests.TestOutput.verified.xaml
-            
+
             FileContent:
-            
+
             NotEqual:
-            
+
             Received: XAMLCombinerTests.TestOutput.received.xaml
             <?xml version="1.0" encoding="utf-8"?>
             <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:sys_0="clr-namespace:System;assembly=System.Runtime">

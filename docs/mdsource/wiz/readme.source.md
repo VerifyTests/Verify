@@ -1,4 +1,4 @@
-# Getting Started Wizard            
+# Getting Started Wizard
 
 ## Pick OS
  * [Windows](pickide_Windows.md)

@@ -5,7 +5,7 @@ Source File: /docs/mdsource/wiz/readme.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Getting Started Wizard            
+# Getting Started Wizard
 
 ## Pick OS
  * [Windows](pickide_Windows.md)

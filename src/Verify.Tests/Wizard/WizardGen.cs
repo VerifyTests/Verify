@@ -17,10 +17,10 @@ public class WizardGen
         PurgeDirectory(wizardRealDir);
         var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
         var pickOsBuilder = new StringBuilder("""
-            # Getting Started Wizard            
+            # Getting Started Wizard
 
             ## Pick OS
-            
+
             """);
         foreach (var os in Enum.GetValues<Os>())
         {
@@ -115,12 +115,12 @@ public class WizardGen
     static void AppendDiffPlex(StringBuilder builder) =>
         builder.AppendLine("""
             ## DiffPlex
-            
+
             The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
             and the verified contents as part of the exception. This can be noisy when verifying large strings.
 
             [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to highlighting text differences inline.
-            
+
             This is optional, but recommended.
 
 
@@ -143,21 +143,21 @@ public class WizardGen
 
     static void AppendSourceControlSettings(StringBuilder builder) =>
         builder.AppendLine("""
-            
+
             ## Includes/Excludes
-            
+
             include: include-exclude
-            
-            
+
+
             ## Line Endings
-            
+
             include: line-endings
-            
+
             """);
 
     static void AppendSample(TestFramework testFramework, StringBuilder builder) =>
         builder.AppendLine($"""
-            
+
             ## Sample Test
 
             snippet: SampleTest{testFramework}
@@ -168,7 +168,7 @@ public class WizardGen
     {
         builder.AppendLine($"""
             ## Diff Tool
-            
+
             Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
             While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
 
@@ -202,7 +202,7 @@ public class WizardGen
             Add the following packages to the test project:
 
             snippet: {testFramework}-nugets
-            
+
             """);
 
     static string GetName(Ide ide) =>
@@ -217,9 +217,9 @@ public class WizardGen
 
     static void AppendImplicitUsings(StringBuilder builder) =>
         builder.Append("""
-            
+
             ## Implicit Usings
-            
+
             include: implicit-usings
 
             """);
@@ -232,7 +232,7 @@ public class WizardGen
         }
 
         builder.AppendLine("""
-                
+
                 ## DiffEngineTray
 
                 Install [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)
@@ -256,7 +256,7 @@ public class WizardGen
         }
 
         builder.AppendLine("""
-                
+
                 ## ReSharper Plugin
 
                 Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
@@ -276,7 +276,7 @@ public class WizardGen
         }
 
         builder.AppendLine("""
-                
+
                 ## Rider Plugin
 
                 Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)

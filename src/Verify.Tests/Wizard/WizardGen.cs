@@ -16,7 +16,7 @@ public class WizardGen
         PurgeDirectory(wizardDir);
         PurgeDirectory(wizardRealDir);
         var pickOsFile = Path.Combine(wizardDir, "readme.source.md");
-        var pickOsBuilder = new StringBuilder("""
+        var builder = new StringBuilder("""
             # Getting Started Wizard
 
             ## Pick OS
@@ -24,10 +24,10 @@ public class WizardGen
             """);
         foreach (var os in Enum.GetValues<Os>())
         {
-            await ProcessOs(os, pickOsBuilder);
+            await ProcessOs(os, builder);
         }
 
-        await File.WriteAllTextAsync(pickOsFile, pickOsBuilder.ToString());
+        await File.WriteAllTextAsync(pickOsFile, builder.ToString());
         try
         {
             Process.Start("mdsnippets", repoRoot);
@@ -37,31 +37,34 @@ public class WizardGen
         }
     }
 
-    async Task ProcessOs(Os os, StringBuilder pickOsBuilder)
+    async Task ProcessOs(Os os, StringBuilder parentBuilder)
     {
-        pickOsBuilder.AppendLine($" * [{os}]({os}.md)");
-        var pickIdeFile = Path.Combine(wizardDir, $"{os}.source.md");
-        var pickIdeBuilder = new StringBuilder($"""
+        var fileName = $"{os}";
+        var nav = $"[Home](/docs/wiz/readme.md) > [{os}]({os}.md)";
+        parentBuilder.AppendLine($" * [{os}]({fileName}.md)");
+        var pickIdeFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var builder = new StringBuilder($"""
             # Getting Started Wizard
 
-            [Home](/docs/wiz/readme.md) > {os}
+            {nav}
 
             ## Pick IDE
 
             """);
         foreach (var ide in GetIdesForOs(os))
         {
-            await ProcessIde(os, ide, pickIdeBuilder);
+            await ProcessIde(os, ide, builder, fileName);
         }
 
-        await File.WriteAllTextAsync(pickIdeFile, pickIdeBuilder.ToString());
+        await File.WriteAllTextAsync(pickIdeFile, builder.ToString());
     }
 
-    async Task ProcessIde(Os os, Ide ide, StringBuilder pickIdeBuilder)
+    async Task ProcessIde(Os os, Ide ide, StringBuilder parentBuilder, string parentFileName)
     {
-        pickIdeBuilder.AppendLine($" * [{GetName(ide)}]({os}_{ide}.md)");
-        var pickTestFile = Path.Combine(wizardDir, $"{os}_{ide}.source.md");
-        var pickTestFrameworkBuilder = new StringBuilder($"""
+        var fileName = $"{parentFileName}_{ide}";
+        parentBuilder.AppendLine($" * [{GetName(ide)}]({fileName}.md)");
+        var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
+        var builder = new StringBuilder($"""
             # Getting Started Wizard
 
             [Home](/docs/wiz/readme.md) > [{os}]({os}.md) > {GetName(ide)}
@@ -74,16 +77,17 @@ public class WizardGen
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
-            await ProcessTestFramework(os, ide, testFramework, pickTestFrameworkBuilder);
+            await ProcessTestFramework(os, ide, testFramework, builder, fileName);
         }
 
-        await File.WriteAllTextAsync(pickTestFile, pickTestFrameworkBuilder.ToString());
+        await File.WriteAllTextAsync(pickTestFile, builder.ToString());
     }
 
-    async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder testFrameworkBuilder)
+    async Task ProcessTestFramework(Os os, Ide ide, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName)
     {
-        testFrameworkBuilder.AppendLine($" * [{testFramework}](result_{os}_{ide}_{testFramework}.md)");
-        var file = Path.Combine(wizardDir, $"result_{os}_{ide}_{testFramework}.source.md");
+        var fileName = $"{parentFileName}_{testFramework}";
+        parentBuilder.AppendLine($" * [{testFramework}](result_{fileName}.md)");
+        var file = Path.Combine(wizardDir, $"result_{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
 

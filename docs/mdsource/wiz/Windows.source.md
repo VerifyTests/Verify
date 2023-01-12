@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > Windows
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md)
 
 ## Pick IDE
  * [Visual Studio](Windows_VisualStudio.md)

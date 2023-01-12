@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > Linux
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md)
 
 ## Pick IDE
  * [JetBrains Rider](Linux_Rider.md)

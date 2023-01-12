@@ -22,7 +22,6 @@ include: implicit-usings
 
 include: include-exclude
 
-
 ## Line Endings
 
 include: line-endings
@@ -36,13 +35,11 @@ and the verified contents as part of the exception. This can be noisy when verif
 
 This is optional, but recommended.
 
-
 ### Add the NuGet
 
 ```
 dotnet add package Verify.DiffPlex
 ```
-
 
 ### Enable
 
@@ -57,7 +54,6 @@ public static void Initialize() =>
 [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal) is a dotnet tool for managing snapshots from the command line.
 
 This is optional.
-
 
 ### Install the tool
 

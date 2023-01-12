@@ -50,7 +50,6 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 
 All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
-
 ## Line Endings
 
 All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/line-endings.include.md -->
@@ -73,13 +72,11 @@ and the verified contents as part of the exception. This can be noisy when verif
 
 This is optional, but recommended.
 
-
 ### Add the NuGet
 
 ```xml
 <PackageReference Include="Verify.DiffPlex" Version="*" />
 ```
-
 
 ### Enable
 

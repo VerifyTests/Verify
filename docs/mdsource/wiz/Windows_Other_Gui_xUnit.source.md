@@ -19,7 +19,6 @@ include: implicit-usings
 
 include: include-exclude
 
-
 ## Line Endings
 
 include: line-endings
@@ -46,13 +45,11 @@ and the verified contents as part of the exception. This can be noisy when verif
 
 This is optional, but recommended.
 
-
 ### Add the NuGet
 
 ```xml
 <PackageReference Include="Verify.DiffPlex" Version="*" />
 ```
-
 
 ### Enable
 

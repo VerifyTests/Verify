@@ -44,7 +44,6 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 
 All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
-
 ## Line Endings
 
 All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/line-endings.include.md -->
@@ -76,13 +75,11 @@ and the verified contents as part of the exception. This can be noisy when verif
 
 This is optional, but recommended.
 
-
 ### Add the NuGet
 
 ```
 dotnet add package Verify.DiffPlex
 ```
-
 
 ### Enable
 
@@ -97,7 +94,6 @@ public static void Initialize() =>
 [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal) is a dotnet tool for managing snapshots from the command line.
 
 This is optional.
-
 
 ### Install the tool
 

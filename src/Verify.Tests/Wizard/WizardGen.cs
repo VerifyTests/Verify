@@ -37,11 +37,11 @@ public class WizardGen
         }
     }
 
-    async Task ProcessOs(Os os, StringBuilder parentBuilder)
+    async Task ProcessOs(Os current, StringBuilder parentBuilder)
     {
-        var fileName = $"{os}";
-        var nav = $"[Home](/docs/wiz/readme.md) > [{os}]({fileName}.md)";
-        parentBuilder.AppendLine($" * [{os}]({fileName}.md)");
+        var fileName = $"{current}";
+        var nav = $"[Home](/docs/wiz/readme.md) > [{current}]({fileName}.md)";
+        parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
         var pickIdeFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
@@ -51,19 +51,19 @@ public class WizardGen
             ## Pick IDE
 
             """);
-        foreach (var ide in GetIdesForOs(os))
+        foreach (var ide in GetIdesForOs(current))
         {
-            await ProcessCli(os, ide, builder, fileName, nav);
+            await ProcessCli(current, ide, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickIdeFile, builder.ToString());
     }
 
-    async Task ProcessCli(Os os, Ide ide, StringBuilder parentBuilder, string parentFileName, string nav)
+    async Task ProcessCli(Os os, Ide current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{ide}";
-        nav += $" > [{GetName(ide)}]({fileName}.md)";
-        parentBuilder.AppendLine($" * [{GetName(ide)}]({fileName}.md)");
+        var fileName = $"{parentFileName}_{current}";
+        nav += $" > [{GetName(current)}]({fileName}.md)";
+        parentBuilder.AppendLine($" * [{GetName(current)}]({fileName}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
@@ -78,17 +78,17 @@ public class WizardGen
 
         foreach (var cli in Enum.GetValues<CliPreference>())
         {
-            await ProcessIde(os, ide, cli, builder, fileName, nav);
+            await ProcessIde(os, current, cli, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickTestFile, builder.ToString());
     }
 
-    async Task ProcessIde(Os os, Ide ide, CliPreference cli, StringBuilder parentBuilder, string parentFileName, string nav)
+    async Task ProcessIde(Os os, Ide ide, CliPreference current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{cli}";
-        nav += $" > [{GetName(cli)}]({fileName}.md)";
-        parentBuilder.AppendLine($" * [{GetName(cli)}]({fileName}.md)");
+        var fileName = $"{parentFileName}_{current}";
+        nav += $" > [{GetName(current)}]({fileName}.md)";
+        parentBuilder.AppendLine($" * [{GetName(current)}]({fileName}.md)");
         var pickTestFile = Path.Combine(wizardDir, $"{fileName}.source.md");
         var builder = new StringBuilder($"""
             # Getting Started Wizard
@@ -103,17 +103,17 @@ public class WizardGen
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
-            await ProcessTestFramework(os, ide, cli, testFramework, builder, fileName, nav);
+            await ProcessTestFramework(os, ide, current, testFramework, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(pickTestFile, builder.ToString());
     }
 
-    async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework testFramework, StringBuilder parentBuilder, string parentFileName, string nav)
+    async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{testFramework}";
-        nav += $" > {testFramework}";
-        parentBuilder.AppendLine($" * [{testFramework}]({fileName}.md)");
+        var fileName = $"{parentFileName}_{current}";
+        nav += $" > {current}";
+        parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
 
         var file = Path.Combine(wizardDir, $"{fileName}.source.md");
 
@@ -124,7 +124,7 @@ public class WizardGen
 
             """);
 
-        AppendContents(os, ide, cli, testFramework, builder);
+        AppendContents(os, ide, cli, current, builder);
 
         await File.WriteAllTextAsync(file, builder.ToString());
     }
@@ -182,11 +182,9 @@ public class WizardGen
 
             This is optional, but recommended.
 
-
             ### Add the NuGet
 
             {nugetSnippet}
-
 
             ### Enable
 
@@ -213,7 +211,6 @@ public class WizardGen
             
             This is optional.
 
-
             ### Install the tool
             
             ```
@@ -229,7 +226,6 @@ public class WizardGen
             ## Includes/Excludes
 
             include: include-exclude
-
 
             ## Line Endings
 

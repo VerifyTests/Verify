@@ -39,7 +39,7 @@ public readonly struct PathInfo
         string typeName,
         string methodName) =>
         new(
-            directory: Path.GetDirectoryName(sourceFile)!,
+            directory: IoHelpers.GetDirectoryName(sourceFile)!,
             typeName: typeName,
             methodName: methodName);
 }

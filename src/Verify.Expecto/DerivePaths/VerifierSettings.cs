@@ -4,15 +4,7 @@ namespace VerifyExpecto;
 
 public partial class Verifier
 {
-    #region defaultDerivePathInfo
-
-    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-        new(
-            directory: Path.GetDirectoryName(sourceFile)!,
-            typeName: type,
-            methodName: method);
-
-    #endregion
+    static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
 
     internal static PathInfo GetPathInfo(string sourceFile, string typeName, string methodName) =>
         derivePathInfo(sourceFile, TargetAssembly.ProjectDir, typeName, methodName);

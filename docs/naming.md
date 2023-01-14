@@ -536,26 +536,17 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 <!-- snippet: defaultDerivePathInfo -->
 <a id='snippet-defaultderivepathinfo'></a>
 ```cs
-static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-    new(
-        directory: Path.GetDirectoryName(sourceFile)!,
-        typeName: type,
-        methodName: method);
-```
-<sup><a href='/src/Verify.Expecto/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-defaultderivepathinfo-1'></a>
-```cs
 internal static PathInfo DeriveDefault(
     string sourceFile,
     string projectDirectory,
     Type type,
     MethodInfo method) =>
     new(
-        directory: IoHelpers.GetDirectoryName(sourceFile)!,
+        directory: Path.GetDirectoryName(sourceFile)!,
         typeName: type.NameWithParent(),
         methodName: method.Name);
 ```
-<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Where `NameWithParent` is

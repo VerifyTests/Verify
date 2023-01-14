@@ -4,15 +4,7 @@ namespace VerifyMSTest;
 
 public partial class VerifyBase
 {
-    #region defaultDerivePathInfo
-
-    static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-        new(
-            directory: Path.GetDirectoryName(sourceFile)!,
-            typeName: type.NameWithParent(),
-            methodName: method.Name);
-
-    #endregion
+    static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
 
     internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
         derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);

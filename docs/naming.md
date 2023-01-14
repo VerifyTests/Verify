@@ -545,32 +545,18 @@ static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, meth
 <sup><a href='/src/Verify.Expecto/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-defaultderivepathinfo-1'></a>
 ```cs
-static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
+internal static PathInfo DeriveDefault(
+    string sourceFile,
+    string projectDirectory,
+    Type type,
+    MethodInfo method) =>
     new(
         directory: Path.GetDirectoryName(sourceFile)!,
         typeName: type.NameWithParent(),
         methodName: method.Name);
 ```
-<sup><a href='/src/Verify.MSTest/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-defaultderivepathinfo-2'></a>
-```cs
-static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-    new(
-        directory: Path.GetDirectoryName(sourceFile)!,
-        typeName: type.NameWithParent(),
-        methodName: method.Name);
-```
-<sup><a href='/src/Verify.NUnit/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-2' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-defaultderivepathinfo-3'></a>
-```cs
-static DerivePathInfo derivePathInfo = (sourceFile, projectDirectory, type, method) =>
-    new(
-        directory: Path.GetDirectoryName(sourceFile)!,
-        typeName: type.NameWithParent(),
-        methodName: method.Name);
-```
-<sup><a href='/src/Verify.Xunit/DerivePaths/VerifierSettings.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-3' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-defaultderivepathinfo-4'></a>
 ```cs
 public static string NameWithParent(this Type type)
 {
@@ -582,7 +568,7 @@ public static string NameWithParent(this Type type)
     return type.Name;
 }
 ```
-<sup><a href='/src/Verify/Extensions.cs#L52-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-4' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Extensions.cs#L52-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-2' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

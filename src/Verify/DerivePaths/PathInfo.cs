@@ -19,4 +19,18 @@ public readonly struct PathInfo
         MethodName = methodName;
         Directory = directory;
     }
+
+    #region defaultDerivePathInfo
+
+    internal static PathInfo DeriveDefault(
+        string sourceFile,
+        string projectDirectory,
+        Type type,
+        MethodInfo method) =>
+        new(
+            directory: Path.GetDirectoryName(sourceFile)!,
+            typeName: type.NameWithParent(),
+            methodName: method.Name);
+
+    #endregion
 }

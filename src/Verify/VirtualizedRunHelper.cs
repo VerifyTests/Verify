@@ -90,9 +90,6 @@ class VirtualizedRunHelper
         return path;
     }
 
-    public string? GetDirectoryName(string? path) =>
-        Path.GetDirectoryName(GetMappedBuildPath(path));
-
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {
         if (string.IsNullOrEmpty(path))

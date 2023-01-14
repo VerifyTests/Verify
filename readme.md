@@ -513,17 +513,16 @@ Upon opening the Tests Explorer the advanced environments are available in the G
 
 ![TestExplorerEnvironments](/docs/TestExplorerEnvironments.png)
 
-This readme will not discuss definitive list of details for proper setup of the environments instead we defer reader to the following information sources and warn about particular gotchas:
+This readme will not discuss definitive list of details for proper setup of the environments instead refer the following information sources and warn about particular gotchas:
 
  * WSL runs
    * Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/about).
-   * Install the [distribution](https://aka.ms/wslstore) of your choice.
+   * Install a [distribution](https://aka.ms/wslstore).
    * [Install .NET Runtime](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu)
  * Docker runs
    * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-   * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)  
+   * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)
  * Third party test runners might not support this feature. Use [Visual Studio Test Explorer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
-
 
 
 ## Media

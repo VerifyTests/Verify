@@ -551,11 +551,11 @@ internal static PathInfo DeriveDefault(
     Type type,
     MethodInfo method) =>
     new(
-        directory: Path.GetDirectoryName(sourceFile)!,
+        directory: IoHelpers.GetDirectoryName(sourceFile)!,
         typeName: type.NameWithParent(),
         methodName: method.Name);
 ```
-<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Where `NameWithParent` is

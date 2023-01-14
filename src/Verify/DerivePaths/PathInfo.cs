@@ -33,4 +33,14 @@ public readonly struct PathInfo
             methodName: method.Name);
 
     #endregion
+
+    internal static PathInfo DeriveDefault(
+        string sourceFile,
+        string projectDirectory,
+        string typeName,
+        string methodName) =>
+        new(
+            directory: Path.GetDirectoryName(sourceFile)!,
+            typeName: typeName,
+            methodName: methodName);
 }

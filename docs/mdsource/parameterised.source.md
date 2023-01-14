@@ -46,7 +46,7 @@ snippet: xunitMemberData
 
 ### Complex MemberData
 
-xUnit only exposes parameter names for certain types. For unknown types the parameter names cannot be retrieved from the xUnit context, and instead the parameter names to be explicitly specified. This is done by calling `NameForParameter()`.
+xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
 
 snippet: xunitComplexMemberData
 

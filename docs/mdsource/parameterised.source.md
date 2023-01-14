@@ -3,7 +3,7 @@
 
 ## Additions to file name
 
-Every parameterised case has a unique [file name](/docs/naming.md) with the parameters appended to the file name.
+Every parameterised case should have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This happens automatically for NUnit; xUnit and MSTest require the use of `UseParameters()` (see below).
 
 The appending format is `_ParamName=ParamValue` repeated for each parameter. 
 
@@ -18,9 +18,9 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 Characters that cannot be used for a file name will be replaced with a dash (`-`).
 
 
-## UseParameters
+## UseParameters()
 
-`UseParameters` is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
+`UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
 
 snippet: UseParameters
 
@@ -28,7 +28,7 @@ If not all parameters are required, a subset can be passed in. In this scenario,
 
 snippet: UseParametersSubSet
 
-If the number of parameters pass to `UseParameters` is greater than the number of parameters in the test method, an exception will be thrown.
+If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
 ## xUnit
@@ -46,11 +46,11 @@ snippet: xunitMemberData
 
 ### Complex MemberData
 
-xUnit only exposes parameter information when the types certain types. For unknown types the parameter information cannot be retrieved from the xUnit context, and instead the parameters need to be explicitly passed in. This is done by calling `UseParameters()`.
+xUnit only exposes parameter names for certain types. For unknown types the parameter names cannot be retrieved from the xUnit context, and instead the parameter names to be explicitly specified. This is done by calling `NameForParameter()`.
 
 snippet: xunitComplexMemberData
 
-`VerifierSettings.NameForParameter` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
+`VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
 ## NUnit
@@ -72,8 +72,6 @@ Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSo
 
 ## MSTest
 
-MSTest does not expose the parameter values via its extensibility context. So parameter values must passed in via settings.
-
 
 ### DataRow
 
@@ -82,7 +80,7 @@ snippet: MSTestDataRow
 
 ## Overriding text used for parameters
 
-`UseTextForParameters()` can be used to override the text used for `{Parameters}`.
+`UseTextForParameters()` can be used to override the substitution text used for `{Parameters}`.
 
 ```
 {Directory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}
@@ -100,7 +98,7 @@ Results in:
 
 ## Ignore parameters for verified filename
 
-By default, every parameterised case has a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
+By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
 snippet: IgnoreParametersForVerified
 

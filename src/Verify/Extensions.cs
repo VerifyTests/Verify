@@ -49,7 +49,7 @@
         return input;
     }
 
-    #region defaultDerivePathInfo
+    #region NameWithParent
 
     public static string NameWithParent(this Type type)
     {

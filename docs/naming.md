@@ -556,7 +556,12 @@ internal static PathInfo DeriveDefault(
         methodName: method.Name);
 ```
 <sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-1' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-defaultderivepathinfo-2'></a>
+<!-- endSnippet -->
+
+Where `NameWithParent` is
+
+<!-- snippet: NameWithParent -->
+<a id='snippet-namewithparent'></a>
 ```cs
 public static string NameWithParent(this Type type)
 {
@@ -568,7 +573,7 @@ public static string NameWithParent(this Type type)
     return type.Name;
 }
 ```
-<sup><a href='/src/Verify/Extensions.cs#L52-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo-2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Extensions.cs#L52-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-namewithparent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

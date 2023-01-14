@@ -172,6 +172,10 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 
 snippet: defaultDerivePathInfo
 
+Where `NameWithParent` is
+
+snippet: NameWithParent
+
 
 ## DisableRequireUniquePrefix
 

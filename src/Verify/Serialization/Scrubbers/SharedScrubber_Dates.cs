@@ -24,7 +24,7 @@
         {
             foreach (var format in dateFormats)
             {
-                if (DateOnly.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
+                if (Date.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
                 {
                     result = Convert(counter, date);
                     return true;
@@ -36,7 +36,7 @@
         return false;
     }
 
-    internal bool TryConvert(Counter counter, DateOnly value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(Counter counter, Date value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
         {
@@ -48,14 +48,14 @@
         return true;
     }
 
-    static string Convert(Counter counter, DateOnly date)
+    static string Convert(Counter counter, Date date)
     {
-        if (date == DateOnly.MaxValue)
+        if (date == Date.MaxValue)
         {
             return "Date_MaxValue";
         }
 
-        if (date == DateOnly.MinValue)
+        if (date == Date.MinValue)
         {
             return "Date_MinValue";
         }
@@ -69,7 +69,7 @@
         {
             foreach (var format in timeFormats)
             {
-                if (TimeOnly.TryParseExact(value, format, null, DateTimeStyles.None, out var time))
+                if (Time.TryParseExact(value, format, null, DateTimeStyles.None, out var time))
                 {
                     result = Convert(counter, time);
                     return true;
@@ -81,7 +81,7 @@
         return false;
     }
 
-    internal bool TryConvert(Counter counter, TimeOnly value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvert(Counter counter, Time value, [NotNullWhen(true)] out string? result)
     {
         if (!scrubDateTimes)
         {
@@ -93,16 +93,16 @@
         return true;
     }
 
-    static string Convert(Counter counter, TimeOnly time)
+    static string Convert(Counter counter, Time time)
     {
-        if (time == TimeOnly.MaxValue)
+        if (time == Time.MaxValue)
         {
-            return "Date_MaxValue";
+            return "Time_MaxValue";
         }
 
-        if (time == TimeOnly.MinValue)
+        if (time == Time.MinValue)
         {
-            return "Date_MinValue";
+            return "Time_MinValue";
         }
 
         return counter.NextString(time);

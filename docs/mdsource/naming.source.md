@@ -172,6 +172,10 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 
 snippet: defaultDerivePathInfo
 
+Where `NameWithParent` is
+
+snippet: NameWithParent
+
 
 ## DisableRequireUniquePrefix
 
@@ -222,3 +226,8 @@ snippet: UseSplitModeForUniqueDirectory
 eg. add the following to `.gitignore`
 
 `*.received/`
+
+
+## Received and multi-targetting
+
+When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks>net48;net7.0</TargetFrameworks>`) the runtime and version will be always be added as a uniqueness to the received file. This prevents file locking contenction when the tests from both target framework run in parallel.

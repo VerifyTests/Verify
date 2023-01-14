@@ -248,9 +248,15 @@ public class SerializationTests
     {
         var dictionary = new Dictionary<string, string>
         {
-            {"ignored", "1234"},
-            {"Entry_2", "5678"},
-            {"Entry_1", "1234"}
+            {
+                "ignored", "1234"
+            },
+            {
+                "Entry_2", "5678"
+            },
+            {
+                "Entry_1", "1234"
+            }
         };
 
         return Verify(dictionary)
@@ -264,7 +270,7 @@ public class SerializationTests
                 {
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1.5)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1)),
-                    withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1,0), TimeSpan.FromHours(1)),
+                    withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 0), TimeSpan.FromHours(1)),
                     withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1)),
                 })
             .DontScrubDateTimes();
@@ -274,10 +280,11 @@ public class SerializationTests
         Verify(
                 new
                 {
-                    property = @"
-line1
-line2
-line3"
+                    property = """
+                        line1
+                        line2
+                        line3
+                        """
                 })
             .ScrubLinesContaining("property")
             .ScrubLinesContaining("line2");
@@ -302,8 +309,8 @@ line3"
         Verify(
                 new
                 {
-                    time = new TimeOnly(10, 1, 1),
-                    value = new DateOnly(2000, 1, 1),
+                    time = new Time(10, 1, 1),
+                    value = new Date(2000, 1, 1),
                 })
             .DontScrubDateTimes()
             .ScrubLinesWithReplace(_ => "replaced");
@@ -699,27 +706,27 @@ line3"
 #if NET6_0_OR_GREATER
 
     [Fact]
-    public Task TimeOnly() =>
-        Verify(new TimeOnly(10, 10));
+    public Task Time() =>
+        Verify(new Time(10, 10));
 
     [Fact]
-    public Task TimeOnlyNested() =>
+    public Task TimeNested() =>
         Verify(new
         {
-            value = new TimeOnly(10, 10)
+            value = new Time(10, 10)
         });
 
     [Fact]
-    public Task TimeOnlyNestedWithNoScrubbing() =>
+    public Task TimeNestedWithNoScrubbing() =>
         Verify(new
             {
-                value = new TimeOnly(10, 10)
+                value = new Time(10, 10)
             })
             .DontScrubDateTimes();
 
     [Fact]
-    public Task TimeOnlyWithNoScrubbing() =>
-        Verify(new TimeOnly(10, 10))
+    public Task TimeWithNoScrubbing() =>
+        Verify(new Time(10, 10))
             .DontScrubDateTimes();
 
     [Fact]
@@ -731,11 +738,11 @@ line3"
     }
 
     [Fact]
-    public async Task DateOnlyWithNoScrubbing()
+    public async Task DateWithNoScrubbing()
     {
         var target = new
         {
-            DateOnly = new DateOnly(2020, 10, 10)
+            Date = new Date(2020, 10, 10)
         };
 
         await Verify(target)
@@ -752,9 +759,9 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = new(dateTime.Year, dateTime.Month, dateTime.Day),
-            DateOnlyNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
-            DateOnlyString = new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
+            Date = new(dateTime.Year, dateTime.Month, dateTime.Day),
+            DateNullable = new(dateTime.Year, dateTime.Month, dateTime.Day),
+            DateString = new Date(dateTime.Year, dateTime.Month, dateTime.Day).ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -775,9 +782,9 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = DateOnly.MinValue,
-            DateOnlyNullable = DateOnly.MinValue,
-            DateOnlyString = DateOnly.MinValue.ToString(),
+            Date = Date.MinValue,
+            DateNullable = Date.MinValue,
+            DateString = Date.MinValue.ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
@@ -796,9 +803,9 @@ line3"
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
-            DateOnly = DateOnly.MaxValue,
-            DateOnlyNullable = DateOnly.MaxValue,
-            DateOnlyString = DateOnly.MaxValue.ToString(),
+            Date = Date.MaxValue,
+            DateNullable = Date.MaxValue,
+            DateString = Date.MaxValue.ToString(),
             DateTimeNullable = dateTime,
             DateTimeString = dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"),
             DateTimeOffset = dateTimeOffset,
@@ -828,8 +835,8 @@ line3"
     [Fact]
     public Task DatetimeOffsetDifferOffset()
     {
-        var dateTime1 = new DateTimeOffset(new DateTime(2000, 10, 10,1,0,0),TimeSpan.FromHours(1));
-        var dateTime2 = new DateTimeOffset(new DateTime(2000, 10, 10,2,0,0),TimeSpan.FromHours(2));
+        var dateTime1 = new DateTimeOffset(new DateTime(2000, 10, 10, 1, 0, 0), TimeSpan.FromHours(1));
+        var dateTime2 = new DateTimeOffset(new DateTime(2000, 10, 10, 2, 0, 0), TimeSpan.FromHours(2));
         var target = new
         {
             dateTime1,
@@ -839,38 +846,75 @@ line3"
         return Verify(target);
     }
 
+    #region AddNamedDatesAndTimes
+
+    [ModuleInitializer]
+    public static void AddNamedDatesAndTimes()
+    {
+        VerifierSettings.AddNamedDateTime(new(2030, 1, 1), "namedDateTime");
+        VerifierSettings.AddNamedTime(new(1, 1), "namedTime");
+        VerifierSettings.AddNamedDate(new(2030, 1, 1), "namedDate");
+        VerifierSettings.AddNamedDateTimeOffset(new(new(2030, 1, 1)), "namedDateTimeOffset");
+    }
+
+    #endregion
+
     [Fact]
-    public Task ShouldScrubDatetime()
+    public async Task ShouldScrubDatetime()
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
         var target = new DateTimeTarget
         {
             DateTime = dateTime,
+            NamedDateTime = new(2030, 1, 1),
+            InstanceNamedDateTime = new(2030, 1, 2),
+            NamedDateTimeOffset = new DateTime(2030, 1, 1),
+            InstanceNamedDateTimeOffset = new DateTime(2030, 1, 2),
             DateTimeNullable = dateTime.AddDays(1),
             DateTimeString = dateTime.AddDays(2).ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
-            DateOnly = new(2020, 10, 10),
-            DateOnlyNullable = new(2020, 10, 12),
-            DateOnlyString = new DateOnly(2020, 10, 12).ToString()
+            Time = new(10, 10),
+            NamedTime = new(1, 1),
+            InstanceNamedTime = new(1, 2),
+            Date = new(2020, 10, 10),
+            NamedDate = new(2020, 10, 10),
+            InstanceNamedDate = new(2020, 10, 11),
+            DateNullable = new(2020, 10, 12),
+            DateString = new Date(2020, 10, 12).ToString()
         };
 
-        return Verify(target);
+        #region AddInstanceNamedDatesAndTimes
+        await Verify(target)
+            .AddNamedDate(new(2020, 10, 11), "instanceNamedDate")
+            .AddNamedTime(new(1, 2), "instanceTime")
+            .AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime")
+            .AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
+        #endregion
     }
 
     class DateTimeTarget
     {
         public DateTime DateTime;
+        public DateTime NamedDateTime;
+        public DateTime InstanceNamedDateTime;
         public DateTime? DateTimeNullable;
-        public DateOnly DateOnly;
-        public DateOnly? DateOnlyNullable;
+        public Date Date;
+        public Date NamedDate;
+        public Date InstanceNamedDate;
+        public Time Time;
+        public Time NamedTime;
+        public Time InstanceNamedTime;
+        public Date? DateNullable;
+        public DateTimeOffset NamedDateTimeOffset;
+        public DateTimeOffset InstanceNamedDateTimeOffset;
         public DateTimeOffset DateTimeOffset;
         public DateTimeOffset? DateTimeOffsetNullable;
         public string DateTimeString;
         public string DateTimeOffsetString;
-        public string DateOnlyString;
+        public string DateString;
     }
 
 #endif
@@ -1599,8 +1643,10 @@ line3"
         Verify(
                 new
                 {
-                    Property = @"Line1
-Line2"
+                    Property = """
+                        Line1
+                        Line2
+                        """
                 })
             .ScrubLinesContaining("Line1");
 
@@ -1653,15 +1699,18 @@ Line2"
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = new(),
-            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]{}),
+            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]
+            {
+            }),
             Array = Array.Empty<string>()
         };
         return Verify(target);
     }
 
-    class ReadOnlyList: IReadOnlyList<string>
+    class ReadOnlyList : IReadOnlyList<string>
     {
         List<string> inner = new();
+
         public IEnumerator<string> GetEnumerator() =>
             inner.GetEnumerator();
 
@@ -2556,15 +2605,9 @@ Line2"
 
     #region MemberConverter
 
-    [Fact]
-    public Task MemberConverterByExpression()
+    [ModuleInitializer]
+    public static void MemberConverterByExpressionInit()
     {
-        var input = new MemberTarget
-        {
-            Field = "FieldValue",
-            Property = "PropertyValue"
-        };
-
         // using only the member
         VerifierSettings.MemberConverter<MemberTarget, string>(
             expression: _ => _.Field,
@@ -2574,6 +2617,16 @@ Line2"
         VerifierSettings.MemberConverter<MemberTarget, string>(
             expression: _ => _.Property,
             converter: (target, member) => $"{target}_{member}_Suffix");
+    }
+
+    [Fact]
+    public Task MemberConverterByExpression()
+    {
+        var input = new MemberTarget
+        {
+            Field = "FieldValue",
+            Property = "PropertyValue"
+        };
 
         return Verify(input);
     }
@@ -2741,9 +2794,24 @@ Line2"
     {
     }
 
+    static Exception ignoreMemberSubClass;
+
+    [ModuleInitializer]
+    public static void IgnoreMemberSubClassInit()
+    {
+        try
+        {
+            VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property);
+        }
+        catch (Exception e)
+        {
+            ignoreMemberSubClass = e;
+        }
+    }
+
     [Fact]
     public Task IgnoreMemberSubClass() =>
-        Throws(() => VerifierSettings.IgnoreMember<IgnoreTargetSub>(_ => _.Property))
+        Verify(ignoreMemberSubClass)
             .IgnoreStackTrace();
 
     [Fact]
@@ -3073,18 +3141,19 @@ Line2"
         public string Name { get; set; } = null!;
     }
 
-    [Fact]
-    public Task WithConverterAndMemberConverter()
-    {
+    [ModuleInitializer]
+    public static void WithConverterAndMemberConverterInit() =>
         VerifierSettings.MemberConverter<StaticConverterTarget, string>(
             target => target.Name,
             (target, value) => "New Value");
-        return Verify(new StaticConverterTarget
+
+    [Fact]
+    public Task WithConverterAndMemberConverter() =>
+        Verify(new StaticConverterTarget
             {
                 Name = "The name"
             })
             .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
-    }
 
     class StaticConverter :
         WriteOnlyJsonConverter<StaticConverterTarget>

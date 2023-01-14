@@ -173,4 +173,20 @@ public partial class VerifySettings
     /// </summary>
     public void DisableRequireUniquePrefix() =>
         UniquePrefixDisabled = true;
+
+    /// <summary>
+    /// Use the current runtime to make the test results unique.
+    /// Used when a test produces different results based on runtime.
+    /// </summary>
+    public void UseSplitModeForUniqueDirectory() =>
+        UseUniqueDirectorySplitMode = true;
+
+    /// <summary>
+    /// Dont use the current runtime to make the test results unique.
+    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory"/>.
+    /// </summary>
+    public void DontUseSplitModeForUniqueDirectory() =>
+        UseUniqueDirectorySplitMode = false;
+
+    internal bool? UseUniqueDirectorySplitMode;
 }

@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;netcoreapp3.1;$(TargetFrameworks)</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
@@ -15,36 +15,27 @@
     <Using Include="System.Drawing.Imaging" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
-    <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.5.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.5.1" PrivateAssets="all" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" Condition="$(TargetFramework) == 'net6.0' OR $(TargetFramework) == 'net7.0'" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
     <PackageReference Include="Xunit" Version="2.4.2" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <None Update="sample*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Binary*.*.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Update="sample*.*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Binary*.*.txt" CopyToOutputDirectory="PreserveNewest" />
     <Folder Include="Naming\CustomDirectory\" />
-    <None Update="EmptyFiles\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="sample.level1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update=".sample">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="sample.recursive">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Update="EmptyFiles\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="sample.level1" CopyToOutputDirectory="PreserveNewest" />
+    <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
+    <Compile Remove="Wizard\WizardGen.cs" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

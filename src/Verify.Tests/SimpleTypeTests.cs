@@ -55,24 +55,28 @@ public class SimpleTypeTests
     {
         yield return new object[] {new KeyValuePair<string,int>("theKey",10)};
 
-        var json = @"{
-  'short': {
-    'original': 'http://www.foo.com/',
-    'short': 'foo',
-    'error': {
-      'code': 0,
-      'msg': 'No action taken'
-    }
-  }
-}";
+        var json = """
+            {
+              'short': {
+                'original': 'http://www.foo.com/',
+                'short': 'foo',
+                'error': {
+                  'code': 0,
+                  'msg': 'No action taken'
+                }
+              }
+            }
+            """;
         var argonJToken = JToken.Parse(json);
         yield return new object[] {argonJToken};
 
-        var jsonArray = @"[
-  'Small',
-  'Medium',
-  'Large'
-]";
+        var jsonArray = """
+            [
+              'Small',
+              'Medium',
+              'Large'
+            ]
+            """;
 
         var argonJArray = JArray.Parse(jsonArray);
         yield return new object[] {argonJArray};
@@ -93,8 +97,8 @@ public class SimpleTypeTests
         yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};
 #if NET6_0_OR_GREATER
         yield return new object[] {(Half) 10};
-        yield return new object[] {new DateOnly(2000, 1, 1)};
-        yield return new object[] {new TimeOnly(1, 1)};
+        yield return new object[] {new Date(2000, 1, 1)};
+        yield return new object[] {new Time(1, 1)};
 #endif
     }
 }

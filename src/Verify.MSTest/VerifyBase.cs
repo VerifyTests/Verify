@@ -13,7 +13,13 @@ public abstract partial class VerifyBase
         {
             settings.UseUniqueDirectory();
         }
+
         var testName = TestContext.TestName;
+        if (testName == null)
+        {
+            throw new("TestContext.TestName is null. Ensure being used inside a test");
+        }
+
         var indexOf = testName.IndexOf('(');
         if (indexOf > 0)
         {
@@ -58,6 +64,12 @@ public abstract partial class VerifyBase
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(targets));
+
+    public SettingsTask Verify(
+        Target target,
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.Verify(target));
 
     SettingsTask Verify(
         VerifySettings? settings,

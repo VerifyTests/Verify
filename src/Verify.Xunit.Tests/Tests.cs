@@ -21,6 +21,10 @@ public class Tests
             }
         };
 
+    [Fact]
+    public Task StringTarget() =>
+        Verify(new Target("txt", "Value"));
+
     #region ExplicitTargetsXunit
 
     [Fact]

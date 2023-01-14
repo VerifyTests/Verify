@@ -86,31 +86,30 @@ public class ExceptionParsingTests
     [Fact]
     public Task Nunit()
     {
-        var exceptionMessage = @$"VerifyException : Directory: {Environment.CurrentDirectory}
-NotEqual:
-  - Received: XAMLCombinerTests.TestOutput.received.xaml
-    Verified: XAMLCombinerTests.TestOutput.verified.xaml
+        var exceptionMessage = $"""
+            VerifyException : Directory: {Environment.CurrentDirectory}
+            NotEqual:
+              - Received: XAMLCombinerTests.TestOutput.received.xaml
+                Verified: XAMLCombinerTests.TestOutput.verified.xaml
 
-FileContent:
+            FileContent:
 
-NotEqual:
+            NotEqual:
 
-Received: XAMLCombinerTests.TestOutput.received.xaml
-<?xml version=""1.0"" encoding=""utf-8""?>
-<ResourceDictionary xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"" xmlns:sys=""clr-namespace:System;assembly=mscorlib"" xmlns:sys_0=""clr-namespace:System;assembly=System.Runtime"">
-  <Style x:Key=""Control1"" />
-  <Color x:Key=""Control1_Color"">#FF2B579A</Color>
-  <sys:String x:Key=""string1"">stringValue</sys:String>
-  <Style x:Key=""Control2"" />
-  <Color x:Key=""Control2_Color"">#FF2B579A</Color>
-  <sys:String x:Key=""string2"">stringValue</sys:String>
-  <sys_0:String x:Key=""string3"">stringValue</sys_0:String>
-  <Style TargetType=""Block"" />
-</ResourceDictionary>
-Verified: XAMLCombinerTests.TestOutput.verified.xaml
-
-
-";
+            Received: XAMLCombinerTests.TestOutput.received.xaml
+            <?xml version="1.0" encoding="utf-8"?>
+            <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:sys_0="clr-namespace:System;assembly=System.Runtime">
+              <Style x:Key="Control1" />
+              <Color x:Key="Control1_Color">#FF2B579A</Color>
+              <sys:String x:Key="string1">stringValue</sys:String>
+              <Style x:Key="Control2" />
+              <Color x:Key="Control2_Color">#FF2B579A</Color>
+              <sys:String x:Key="string2">stringValue</sys:String>
+              <sys_0:String x:Key="string3">stringValue</sys_0:String>
+              <Style TargetType="Block" />
+            </ResourceDictionary>
+            Verified: XAMLCombinerTests.TestOutput.verified.xaml
+            """;
 
         var result = Parser.Parse(exceptionMessage);
         return Verify(result);

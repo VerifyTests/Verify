@@ -20,6 +20,13 @@ Verify is a snapshot tool that simplifies the assertion of complex data models a
 Verify is called on the test result during the assertion phase. It serializes that result and stores it in a file that matches the test name. On the next test execution, the result is again serialized and compared to the existing file. The test will fail if the two snapshots do not match: either the change is unexpected, or the reference snapshot needs to be updated to the new result.
 
 
+## [Getting started wizard](/docs/wiz/readme.md)
+
+Get customized instructions for the specific combination of Operating System, IDE, Test Framework, and Build Server.
+
+[Start wizard](/docs/wiz/readme.md).
+
+
 ## NuGet packages
 
  * https://nuget.org/packages/Verify.Xunit/
@@ -46,9 +53,9 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 
 ### ImplicitUsings
 
-**All examples use [ImplicitUsings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
-If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
 ### Class being tested
@@ -345,7 +352,7 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/JsonTests.cs#L169-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.cs#L181-L206' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -366,9 +373,9 @@ Results in:
 ## Source control: Received and Verified files
 
 
-### Received
+### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.**
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
 eg. add the following to `.gitignore`
 
@@ -381,11 +388,12 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 `*.received/`
 
 
-### Verified
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
-All `*.verified.*` files should be committed to source control.
 
-All text extensions of  `*.verified.*` and have eol set to `lf`.
+### Line Endings
+
+All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/mdsource/line-endings.include.md -->
 
 eg add the following to `.gitattributes`
 
@@ -394,6 +402,8 @@ eg add the following to `.gitattributes`
 *.verified.xml text eol=lf
 *.verified.json text eol=lf
 ```
+
+Note that this is a suggested subset of verified text extension. Add others as required based on the file types being verified. <!-- endInclude -->
 
 
 ## Static settings
@@ -438,7 +448,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L313-L322' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L321-L330' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
@@ -518,20 +528,21 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ## Media
 
+ * [Compare object values in xUnit C# with Verify - Pierre Belin](https://goatreview.com/compare-object-values-xunit-csharp-verify/)
  * [Unit testing assertions are now easier than ever with Verify Snapshot tool - 
-Rana Krishnrajsinh (20 October 2022)](https://www.youtube.com/watch?v=T1ZPGi_dHFM)
+Rana Krishnrajsinh (20 Oct 2022)](https://www.youtube.com/watch?v=T1ZPGi_dHFM)
  * [The easiest way to Unit Test with Verify in C# - 
-Tomasz Juszczak (6 September 2022)](https://prographers.com/blog/the-easiest-way-to-unit-test-with-verify-in-c)
+Tomasz Juszczak (6 Sep 2022)](https://prographers.com/blog/the-easiest-way-to-unit-test-with-verify-in-c)
  * [Testing C# code reliably by freezing it in time - 
-Nick Chapsas (1 August 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
- * [Snapshot Testing in .NET with Verify - Dan Clarke (21 July 2022)](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
+Nick Chapsas (1 Aug 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
+ * [Snapshot Testing in .NET with Verify - Dan Clarke (21 Jul 2022)](https://www.youtube.com/watch?v=wA7oJDyvn4c&t=1s)
  * [Testing an incremental generator with snapshot testing (14 Dec 2021)](https://andrewlock.net/creating-a-source-generator-part-2-testing-an-incremental-generator-with-snapshot-testing/)
  * [Snapshot Testing with Verify - Dan Clarke (10 Dec 2021)](https://www.danclarke.com/snapshot-testing-with-verify)
  * [OSS Power-Ups: Verify (14 Jul 2021)](https://www.youtube.com/watch?v=ZD5-51iCmU0)
  * [Unhandled Exception podcast: Snapshot Testing (26 Nov 2021)](https://unhandledexceptionpodcast.com/posts/0029-snapshottesting/)
  * [5 helpful Nuget package for Unit Testing in .NET (16 Oct 2021)](https://medium.com/@niteshsinghal85/5-helpful-nuget-package-for-unit-testing-in-net-87c2e087c6d)
  * [5 open source .NET projects that deserve more attention (9 Sep 2021)](https://www.youtube.com/watch?v=mwHWPoKEmyY&t=515s)
- * [Verify: Snapshot Testing for C# (23rd Nov. 2020)](https://rowell.heria.uk/blog/2020/11/23/verify-snapshot-testing-for-c)
+ * [Verify: Snapshot Testing for C# (23 Nov 2020)](https://rowell.heria.uk/blog/2020/11/23/verify-snapshot-testing-for-c)
  * [Verify Xunit Intro (26 Apr 2020)](https://www.youtube.com/watch?v=uGVogEltSkY)
 
 
@@ -542,6 +553,7 @@ Nick Chapsas (1 August 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
  * [Verify.Aspose](https://github.com/VerifyTests/Verify.Aspose): Verification of documents (pdf, docx, xslx, and pptx) via Aspose.
  * [Verify.Blazor](https://github.com/VerifyTests/Verify.Blazor): Verification of [Blazor Component](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components) via [bunit](https://bunit.egilhansen.com) or via raw Blazor rendering.
  * [Verify.Cosmos](https://github.com/VerifyTests/Verify.Cosmos): Verification of [Azure CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/).
+ * Bunsen-Burner support: [BunsenBurner.Verify.NUnit](https://github.com/bmazzarol/Bunsen-Burner/blob/main/BunsenBurner.Verify.NUnit/README.md) / [BunsenBurner.Verify.Xunit](https://github.com/bmazzarol/Bunsen-Burner/blob/main/BunsenBurner.Verify.Xunit/README.md).
  * [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex): Comparison of text via [DiffPlex](https://github.com/mmanela/diffplex).
  * [Verify.DocNet](https://github.com/VerifyTests/Verify.DocNet): Verification of pdfs via [DocNet](https://github.com/GowenGit/docnet).
  * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework): Verification of EntityFramework bits.
@@ -576,6 +588,7 @@ Nick Chapsas (1 August 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
  * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.
  * [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions): Add an attribute driven file naming convention to Verify.
  * [Verify.Syncfusion](https://github.com/VerifyTests/Verify.Syncfusion): Verification of documents (pdf, docx, xslx, and pptx) via [Syncfusion File Formats](https://help.syncfusion.com/file-formats/introduction).
+ * [Verify.Wolverine](https://github.com/VerifyTests/Verify.Wolverine): Verifiable test context for [Wolverine](https://github.com/JasperFx/wolverine).
 
 
 ## More Documentation
@@ -588,6 +601,7 @@ Nick Chapsas (1 August 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
   * [File naming](/docs/naming.md)
+  * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)

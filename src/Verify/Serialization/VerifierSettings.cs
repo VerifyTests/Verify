@@ -30,7 +30,7 @@ public static partial class VerifierSettings
             return true;
         }
 
-        return typeToString.TryGetValue(target!.GetType(), out toString);
+        return typeToString.TryGetValue(target.GetType(), out toString);
     }
 
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
@@ -52,16 +52,16 @@ public static partial class VerifierSettings
 #endif
 #if NET6_0_OR_GREATER
         {
-            typeof(DateOnly), (target, _) =>
+            typeof(Date), (target, _) =>
             {
-                var date = (DateOnly) target;
+                var date = (Date) target;
                 return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
         },
         {
-            typeof(TimeOnly), (target, _) =>
+            typeof(Time), (target, _) =>
             {
-                var time = (TimeOnly) target;
+                var time = (Time) target;
                 return time.ToString("h:mm tt", CultureInfo.InvariantCulture);
             }
         },
@@ -93,12 +93,16 @@ public static partial class VerifierSettings
     public static void TreatAsString<T>(AsString<T>? toString = null)
         where T : notnull
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         toString ??= (target, _) => new(target.ToString()!);
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
-    public static void UseStrictJson() =>
+    public static void UseStrictJson()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         StrictJson = true;
+    }
 
     public static bool StrictJson { get; private set; }
 
@@ -117,21 +121,33 @@ public static partial class VerifierSettings
 
     internal static bool scrubProjectDir = true;
 
-    public static void DontScrubProjectDirectory() =>
+    public static void DontScrubProjectDirectory()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         scrubProjectDir = false;
+    }
 
     internal static bool scrubSolutionDir = true;
 
-    public static void DontScrubSolutionDirectory() =>
+    public static void DontScrubSolutionDirectory()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         scrubSolutionDir = false;
+    }
 
     internal static bool sortPropertiesAlphabetically;
 
-    public static void SortPropertiesAlphabetically() =>
+    public static void SortPropertiesAlphabetically()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         sortPropertiesAlphabetically = true;
+    }
 
     internal static bool sortJsonObjects;
 
-    public static void SortJsonObjects() =>
+    public static void SortJsonObjects()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         sortJsonObjects = true;
+    }
 }

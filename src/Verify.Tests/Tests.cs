@@ -80,19 +80,18 @@ public class Tests
         return Verify("Value");
     }
 
-    [Fact]
-    public async Task OnVerifyMismatch()
+    static bool onFirstVerifyCalled2;
+    static bool onVerifyMismatchCalled2;
+
+    [ModuleInitializer]
+    public static void OnVerifyMismatchInit()
     {
-        var settings = new VerifySettings();
-        settings.DisableDiff();
-        var onFirstVerifyCalled = false;
-        var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
             (filePair, _) =>
             {
                 if (filePair.VerifiedPath.Contains("OnVerifyMismatch"))
                 {
-                    onFirstVerifyCalled = true;
+                    onFirstVerifyCalled2 = true;
                 }
 
                 return Task.CompletedTask;
@@ -106,25 +105,30 @@ public class Tests
                     Assert.NotNull(filePair.ReceivedPath);
                     Assert.NotEmpty(filePair.VerifiedPath);
                     Assert.NotNull(filePair.VerifiedPath);
-                    onVerifyMismatchCalled = true;
+                    onVerifyMismatchCalled2 = true;
                 }
 
                 return Task.CompletedTask;
             });
+    }
+
+    [Fact]
+    public async Task OnVerifyMismatch()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
         await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
-        Assert.False(onFirstVerifyCalled);
-        Assert.True(onVerifyMismatchCalled);
+        Assert.False(onFirstVerifyCalled2);
+        Assert.True(onVerifyMismatchCalled2);
     }
 
 #if NET6_0_OR_GREATER
 
-    [Fact]
-    public async Task OnFirstVerify()
+    static bool onFirstVerifyCalled;
+    static bool onVerifyMismatchCalled;
+    [ModuleInitializer]
+    public static void OnFirstVerifyInit()
     {
-        var settings = new VerifySettings();
-        settings.DisableDiff();
-        var onFirstVerifyCalled = false;
-        var onVerifyMismatchCalled = false;
         VerifierSettings.OnFirstVerify(
             (filePair, _) =>
             {
@@ -147,6 +151,13 @@ public class Tests
 
                 return Task.CompletedTask;
             });
+    }
+
+    [Fact]
+    public async Task OnFirstVerify()
+    {
+        var settings = new VerifySettings();
+        settings.DisableDiff();
         await Assert.ThrowsAsync<VerifyException>(() => Verify("value", settings));
         Assert.True(onFirstVerifyCalled);
         Assert.False(onVerifyMismatchCalled);
@@ -204,16 +215,13 @@ public class Tests
     public async Task DanglingFiles()
     {
         var receivedFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.received.txt");
-        var verifiedOldFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}.01.verified.txt");
         var verifiedNewFile = CurrentFile.Relative($"Tests.DanglingFiles.{Namer.RuntimeAndVersion}#01.verified.txt");
         File.WriteAllText(receivedFile, "");
-        File.WriteAllText(verifiedOldFile, "");
         File.WriteAllText(verifiedNewFile, "");
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
         Assert.False(File.Exists(receivedFile));
-        Assert.False(File.Exists(verifiedOldFile));
         Assert.False(File.Exists(verifiedNewFile));
     }
 
@@ -221,8 +229,8 @@ public class Tests
     [InlineData("param")]
     public async Task DanglingFilesIgnoreParametersForVerified(string param)
     {
-        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}.01.received.txt");
-        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}.01.verified.txt");
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified_param=param.{Namer.RuntimeAndVersion}#01.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParametersForVerified.{Namer.RuntimeAndVersion}#01.verified.txt");
         File.WriteAllText(receivedFile, "");
         File.WriteAllText(verifiedFile, "");
         await Verify("value")

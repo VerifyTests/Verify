@@ -4,9 +4,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
-    <PackageReference Include="DiffEngine" Version="11.0.0" />
-    <PackageReference Include="TextCopy" Version="6.2.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.82" PrivateAssets="all" />
+    <PackageReference Include="DiffEngine" Version="11.1.0" />
+    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
+    <PackageReference Include="TextCopy" Version="6.2.1" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

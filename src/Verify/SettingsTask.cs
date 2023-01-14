@@ -22,15 +22,6 @@ public partial class SettingsTask
         return this;
     }
 
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    public bool TryGetExtension([NotNullWhen(true)] out string? extension) =>
-        throw new();
-
     /// <summary>
     /// Append a key-value pair to the serialized target.
     /// </summary>
@@ -301,15 +292,25 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <summary>
+    /// Use the current runtime to make the test results unique.
+    /// Used when a test produces different results based on runtime.
+    /// </summary>
+    public SettingsTask UseSplitModeForUniqueDirectory()
+    {
+        CurrentSettings.UseSplitModeForUniqueDirectory();
+        return this;
+    }
 
-    [Obsolete(@"An explicit `extension` parameter has been added to all
-    overloads that require it:
- * Verify(Stream stream, string extension)
- * Verify(byte[] bytes, string extension)
- * Verify(string target, string extension)
-", true)]
-    public SettingsTask UseExtension(string extension) =>
-        throw new();
+    /// <summary>
+    /// Dont use the current runtime to make the test results unique.
+    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory"/>.
+    /// </summary>
+    public SettingsTask DontUseSplitModeForUniqueDirectory()
+    {
+        CurrentSettings.DontUseSplitModeForUniqueDirectory();
+        return this;
+    }
 
     public VerifySettings CurrentSettings => settings ??= new();
 

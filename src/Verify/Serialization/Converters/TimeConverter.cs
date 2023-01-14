@@ -1,8 +1,8 @@
 ﻿#if NET6_0_OR_GREATER
 class TimeConverter :
-    WriteOnlyJsonConverter<TimeOnly>
+    WriteOnlyJsonConverter<Time>
 {
-    public override void Write(VerifyJsonWriter writer, TimeOnly value)
+    public override void Write(VerifyJsonWriter writer, Time value)
     {
         if (writer.serialization.TryConvert(writer.Counter, value, out var result))
         {

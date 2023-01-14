@@ -48,7 +48,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter);
         WriteRawValueIfNoStrict(value);
     }
 
@@ -66,7 +66,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        value = ApplyScrubbers.ApplyForPropertyValue(value, settings);
+        value = ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter);
         if (VerifierSettings.StrictJson)
         {
             base.WriteValue(value);

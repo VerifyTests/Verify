@@ -15,17 +15,19 @@ public class JsonTests
     [Fact]
     public Task JTokenIgnore()
     {
-        var jToken = JToken.Parse(@"{
-  Include: 1,
-  Ignore: 2,
-  ""Memory Info"": {
-          fragmentedBytes: 208,
-          heapSizeBytes: 2479536,
-          highMemoryLoadThresholdBytes: 30821986713,
-          memoryLoadBytes: 14041127280,
-          totalAvailableMemoryBytes: 34246651904
-        }
-}");
+        var jToken = JToken.Parse("""
+            {
+              Include: 1,
+              Ignore: 2,
+              "Memory Info": {
+                      fragmentedBytes: 208,
+                      heapSizeBytes: 2479536,
+                      highMemoryLoadThresholdBytes: 30821986713,
+                      memoryLoadBytes: 14041127280,
+                      totalAvailableMemoryBytes: 34246651904
+                    }
+            }
+            """);
         return Verify(jToken)
             .IgnoreMembers("Ignore", "Memory Info");
     }
@@ -33,17 +35,19 @@ public class JsonTests
     [Fact]
     public Task JTokenScrub()
     {
-        var jToken = JToken.Parse(@"{
-  Include: 1,
-  Scrub: 2,
-  ""Memory Info"": {
-          fragmentedBytes: 208,
-          heapSizeBytes: 2479536,
-          highMemoryLoadThresholdBytes: 30821986713,
-          memoryLoadBytes: 14041127280,
-          totalAvailableMemoryBytes: 34246651904
-        }
-}");
+        var jToken = JToken.Parse("""
+            {
+              Include: 1,
+              Scrub: 2,
+              "Memory Info": {
+                      fragmentedBytes: 208,
+                      heapSizeBytes: 2479536,
+                      highMemoryLoadThresholdBytes: 30821986713,
+                      memoryLoadBytes: 14041127280,
+                      totalAvailableMemoryBytes: 34246651904
+                    }
+            }
+            """);
         return Verify(jToken)
             .ScrubMembers("Scrub", "Memory Info");
     }
@@ -74,18 +78,20 @@ public class JsonTests
     [Fact]
     public Task IgnoreJTokenByName()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    },
-    'Ignore1': {
-      'code': 2,
-      'msg': 'ignore this'
-    }
-  }
-}";
+        var json = """
+            {
+              'short': {
+                'key': {
+                  'code': 0,
+                  'msg': 'No action taken'
+                },
+                'Ignore1': {
+                  'code': 2,
+                  'msg': 'ignore this'
+                }
+              }
+            }
+            """;
         var target = JToken.Parse(json);
         return Verify(target).IgnoreMember("Ignore1");
     }
@@ -93,18 +99,20 @@ public class JsonTests
     [Fact]
     public Task ScrubJTokenByName()
     {
-        var json = @"{
-  'short': {
-    'key': {
-      'code': 0,
-      'msg': 'No action taken'
-    },
-    'Scrub': {
-      'code': 2,
-      'msg': 'ignore this'
-    }
-  }
-}";
+        var json = """
+            {
+              'short': {
+                'key': {
+                  'code': 0,
+                  'msg': 'No action taken'
+                },
+                'Scrub': {
+                  'code': 2,
+                  'msg': 'ignore this'
+                }
+              }
+            }
+            """;
         var target = JToken.Parse(json);
         return Verify(target)
             .ScrubMember("Scrub");
@@ -143,26 +151,30 @@ public class JsonTests
     [Fact]
     public Task VerifyJsonWithArray()
     {
-        var json = @"{
-    commitments: [
-      {
-        id: '9585dadf-551a-43eb-960c-18b935993cc3',
-        title: 'Commitment1'
-      }
-    ]
-    }";
+        var json = """
+            {
+                commitments: [
+                  {
+                    id: '9585dadf-551a-43eb-960c-18b935993cc3',
+                    title: 'Commitment1'
+                  }
+                ]
+            }
+            """;
         return VerifyJson(json);
     }
 
     [Fact]
     public Task VerifyJsonWithArrayAtRoot()
     {
-        var json = @"[
-      {
-        id: '9585dadf-551a-43eb-960c-18b935993cc3',
-        title: 'Commitment1'
-      }
-    ]";
+        var json = """
+            [
+                {
+                    id: '9585dadf-551a-43eb-960c-18b935993cc3',
+                    title: 'Commitment1'
+                }
+            ]
+            """;
         return VerifyJson(json);
     }
 

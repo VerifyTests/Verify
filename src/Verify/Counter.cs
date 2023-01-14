@@ -1,129 +1,15 @@
 ﻿namespace VerifyTests;
 
-public class Counter
+public partial class Counter
 {
-    static AsyncLocal<Counter?> local = new();
-
-    ConcurrentDictionary<object, (int intValue, string stringValue)> idCache = new();
-    int currentId;
-
-    public int NextId(object input) =>
-        NextValue(input).intValue;
-
-    public string NextIdString(object input) =>
-        NextValue(input).stringValue;
-
-    (int intValue, string stringValue) NextValue(object input) =>
-        idCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentId);
-            return (value, $"Id_{value}");
-        });
-
-    ConcurrentDictionary<Guid, (int intValue, string stringValue)> guidCache = new();
-    int currentGuid;
-
-    public int Next(Guid input) =>
-        NextValue(input).intValue;
-
-    public string NextString(Guid input) =>
-        NextValue(input).stringValue;
-
-    (int intValue, string stringValue) NextValue(Guid input) =>
-        guidCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentGuid);
-            return (value, $"Guid_{value}");
-        });
-
-    ConcurrentDictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(new DateTimeOffsetComparer());
-
-    class DateTimeOffsetComparer :
-        IEqualityComparer<DateTimeOffset>
-    {
-        public bool Equals(DateTimeOffset x, DateTimeOffset y) =>
-            x == y && x.Offset == y.Offset;
-
-        public int GetHashCode(DateTimeOffset obj) =>
-            obj.GetHashCode() + (int) obj.Offset.TotalMinutes;
-    }
-
-    int currentDateTimeOffset;
-
-    public int Next(DateTimeOffset input) =>
-        NextValue(input).intValue;
-
-    public string NextString(DateTimeOffset input) =>
-        NextValue(input).stringValue;
-
-    (int intValue, string stringValue) NextValue(DateTimeOffset input) =>
-        dateTimeOffsetCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentDateTimeOffset);
-            return (value, $"DateTimeOffset_{value}");
-        });
-
-    ConcurrentDictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(new DateTimeComparer());
-
-    class DateTimeComparer : IEqualityComparer<DateTime>
-    {
-        public bool Equals(DateTime x, DateTime y) =>
-            x == y && x.Kind == y.Kind;
-
-        public int GetHashCode(DateTime obj) =>
-            obj.GetHashCode() + (int) obj.Kind;
-    }
-
-    int currentDateTime;
-
-    public int Next(DateTime input) =>
-        NextValue(input).intValue;
-
-    public string NextString(DateTime input) =>
-        NextValue(input).stringValue;
-
-    (int intValue, string stringValue) NextValue(DateTime input) =>
-        dateTimeCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentDateTime);
-            return (value, $"DateTime_{value}");
-        });
-
 #if NET6_0_OR_GREATER
-
-    ConcurrentDictionary<DateOnly, (int intValue, string stringValue)> dateCache = new();
-    int currentDate;
-
-    public int Next(DateOnly input) =>
-        NextValue(input).intValue;
-
-    public string NextString(DateOnly input) =>
-        NextValue(input).stringValue;
-
-    (int intValue, string stringValue) NextValue(DateOnly input) =>
-        dateCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentDate);
-            return (value, $"Date_{value}");
-        });
-
-    ConcurrentDictionary<TimeOnly, (int intValue, string stringValue)> timeCache = new();
-    int currentTime;
-
-    public int Next(TimeOnly input) =>
-        NextValue(input).intValue;
-
-    public string NextString(TimeOnly input) =>
-        NextValue(input).stringValue;
-
-    (int intValue, string stringValue) NextValue(TimeOnly input) =>
-        timeCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentTime);
-            return (value, $"Time_{value}");
-        });
-
+    Dictionary<DateOnly, string> namedDates;
+    Dictionary<TimeOnly, string> namedTimes;
 #endif
+    Dictionary<DateTime, string> namedDateTimes;
+    Dictionary<Guid, string> namedGuids;
+    Dictionary<DateTimeOffset, string> namedDateTimeOffsets;
+    static AsyncLocal<Counter?> local = new();
 
     public static Counter Current
     {
@@ -139,13 +25,136 @@ public class Counter
         }
     }
 
-    internal static Counter Start()
+    Counter(
+#if NET6_0_OR_GREATER
+        Dictionary<Date, string> namedDates,
+        Dictionary<Time, string> namedTimes,
+#endif
+        Dictionary<DateTime, string> namedDateTimes,
+        Dictionary<Guid, string> namedGuids,
+        Dictionary<DateTimeOffset, string> namedDateTimeOffsets)
     {
-        var context = new Counter();
+#if NET6_0_OR_GREATER
+        this.namedDates = namedDates;
+        this.namedTimes = namedTimes;
+#endif
+        this.namedDateTimes = namedDateTimes;
+        this.namedGuids = namedGuids;
+        this.namedDateTimeOffsets = namedDateTimeOffsets;
+    }
+
+    internal static Counter Start(
+#if NET6_0_OR_GREATER
+        Dictionary<Date, string>? namedDates = null,
+        Dictionary<Time, string>? namedTimes = null,
+#endif
+        Dictionary<DateTime, string>? namedDateTimes = null,
+        Dictionary<Guid, string>? namedGuids = null,
+        Dictionary<DateTimeOffset, string>? namedDateTimeOffsets = null)
+    {
+        var context = new Counter(
+#if NET6_0_OR_GREATER
+            namedDates ?? new(),
+            namedTimes ?? new(),
+#endif
+            namedDateTimes ?? new(),
+            namedGuids ?? new(),
+            namedDateTimeOffsets ?? new());
         local.Value = context;
         return context;
     }
 
     internal static void Stop() =>
         local.Value = null;
+}
+
+public partial class VerifySettings
+{
+#if NET6_0_OR_GREATER
+
+    internal Dictionary<Date, string> namedDates = new();
+
+    public void AddNamedDate(Date value, string name) =>
+        namedDates.Add(value, name);
+
+    internal Dictionary<Time, string> namedTimes = new();
+
+    public void AddNamedTime(Time value, string name) =>
+        namedTimes.Add(value, name);
+
+#endif
+
+    internal Dictionary<DateTime, string> namedDateTimes = new();
+
+    public void AddNamedDateTime(DateTime value, string name) =>
+        namedDateTimes.Add(value, name);
+
+    internal Dictionary<Guid, string> namedGuids = new();
+
+    public void AddNamedGuid(Guid value, string name) =>
+        namedGuids.Add(value, name);
+
+    internal Dictionary<DateTimeOffset, string> namedDateTimeOffsets = new();
+
+    public void AddNamedDateTimeOffset(DateTimeOffset value, string name) =>
+        namedDateTimeOffsets.Add(value, name);
+}
+
+public partial class SettingsTask
+{
+#if NET6_0_OR_GREATER
+
+    public SettingsTask AddNamedDate(Date value, string name)
+    {
+        CurrentSettings.AddNamedDate(value, name);
+        return this;
+    }
+
+    public SettingsTask AddNamedTime(Time value, string name)
+    {
+        CurrentSettings.AddNamedTime(value, name);
+        return this;
+    }
+
+#endif
+
+    public SettingsTask AddNamedDateTime(DateTime value, string name)
+    {
+        CurrentSettings.AddNamedDateTime(value, name);
+        return this;
+    }
+
+    public SettingsTask AddNamedDateTimeOffset(DateTimeOffset value, string name)
+    {
+        CurrentSettings.AddNamedDateTimeOffset(value, name);
+        return this;
+    }
+
+    public SettingsTask AddNamedGuid(Guid value, string name)
+    {
+        CurrentSettings.AddNamedGuid(value, name);
+        return this;
+    }
+}
+
+public partial class VerifierSettings
+{
+#if NET6_0_OR_GREATER
+
+    public static void AddNamedDate(Date value, string name) =>
+        Counter.AddNamed(value, name);
+
+    public static void AddNamedTime(Time value, string name) =>
+        Counter.AddNamed(value, name);
+
+#endif
+
+    public static void AddNamedDateTime(DateTime value, string name) =>
+        Counter.AddNamed(value, name);
+
+    public static void AddNamedGuid(Guid value, string name) =>
+        Counter.AddNamed(value, name);
+
+    public static void AddNamedDateTimeOffset(DateTimeOffset value, string name) =>
+        Counter.AddNamed(value, name);
 }

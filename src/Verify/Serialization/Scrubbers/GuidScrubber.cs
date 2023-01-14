@@ -1,6 +1,6 @@
 ﻿static class GuidScrubber
 {
-    public static void ReplaceGuids(StringBuilder builder)
+    public static void ReplaceGuids(StringBuilder builder, Counter counter)
     {
         //{173535ae-995b-4cc6-a74e-8cd4be57039c}
         if (builder.Length < 36)
@@ -57,7 +57,7 @@
                 continue;
             }
 
-            var convert = SerializationSettings.Convert(Counter.Current, guid);
+            var convert = SerializationSettings.Convert(counter, guid);
             builder.Append(convert);
             index += 35;
         }

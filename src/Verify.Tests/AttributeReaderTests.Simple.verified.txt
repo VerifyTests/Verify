@@ -1,6 +1,6 @@
 ﻿{
-  TargetFrameworks: net48;net6.0;net7.0;netcoreapp3.1,
-  TargetFrameworksInferred: net48;net6.0;net7.0;netcoreapp3.1,
+  TargetFrameworks: net7.0;net6.0;netcoreapp3.1;net48,
+  TargetFrameworksInferred: net7.0;net6.0;netcoreapp3.1;net48,
   ProjectDirectory: {ProjectDirectory},
   ProjectDirectoryInferred: {ProjectDirectory},
   SolutionDirectory: {SolutionDirectory},

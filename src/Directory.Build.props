@@ -2,9 +2,9 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013;msb3277;CS0436;CS1573</NoWarn>
-    <Version>19.3.0</Version>
+    <Version>19.6.0</Version>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>11</LangVersion>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
@@ -18,5 +18,9 @@
     <Using Include="System.Globalization" />
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net6')) OR $(TargetFramework.StartsWith('net7')) ">
+    <Using Include="System.DateOnly" Alias="Date" />
+    <Using Include="System.TimeOnly" Alias="Time" />
   </ItemGroup>
 </Project>

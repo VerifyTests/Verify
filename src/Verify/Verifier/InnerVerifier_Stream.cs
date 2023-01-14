@@ -14,7 +14,7 @@ partial class InnerVerifier
             return Verify(info);
         }
 
-        return VerifyStream(stream, FileExtensions.GetExtension(stream.Name), info);
+        return VerifyStream(stream, stream.Extension(), info);
     }
 
     public Task<VerifyResult> VerifyStream(byte[]? bytes, object? info) =>

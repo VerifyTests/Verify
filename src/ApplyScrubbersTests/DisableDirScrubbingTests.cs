@@ -18,11 +18,11 @@ public class ApplyScrubbersTests
         var extension = string.Empty;
         var builder = new StringBuilder(input);
         var settings = new VerifySettings();
-
+        var counter = Counter.Start();
         // Act
         ApplyScrubbers.UseAssembly(solutionDirectory, projectDirectory);
-        ApplyScrubbers.ApplyForExtension(extension, builder, settings);
-
+        ApplyScrubbers.ApplyForExtension(extension, builder, settings, counter);
+        Counter.Stop();
         // Assert
         Assert.Equal("{SolutionDirectory},{ProjectDirectory}", builder.ToString());
     }

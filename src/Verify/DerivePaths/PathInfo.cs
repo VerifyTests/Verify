@@ -20,6 +20,8 @@ public readonly struct PathInfo
         Directory = directory;
     }
 
+    #region defaultDerivePathInfo
+
     internal static PathInfo DeriveDefault(
         string sourceFile,
         string projectDirectory,
@@ -29,4 +31,5 @@ public readonly struct PathInfo
             directory: IoHelpers.GetDirectoryName(sourceFile)!,
             typeName: type.NameWithParent(),
             methodName: method.Name);
+    #endregion
 }

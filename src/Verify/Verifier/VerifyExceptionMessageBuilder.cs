@@ -124,7 +124,7 @@
                 {notEqual.ReceivedText}
                 Verified: {verifiedPath}
                 {notEqual.VerifiedText}
-                """ );
+                """);
         }
         else
         {
@@ -134,7 +134,7 @@
                 Verified: {verifiedPath}
                 Compare Result:
                 {message}
-                """ );
+                """);
         }
     }
 }

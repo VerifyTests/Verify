@@ -1,3 +1,5 @@
+using StackTrace = System.Diagnostics.StackTrace;
+
 namespace VerifyTests;
 
 public partial class InnerVerifier :
@@ -8,7 +10,22 @@ public partial class InnerVerifier :
     GetFileNames getFileNames = null!;
     GetIndexedFileNames getIndexedFileNames = null!;
     List<string> verifiedFiles = null!;
-    Counter counter = Counter.Start();
+    Counter counter;
+    static bool verifyHasBeenRun;
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void ThrowIfVerifyHasBeenRun()
+    {
+        if (!verifyHasBeenRun)
+        {
+            return;
+        }
+
+        var stackTrace = new StackTrace(1, false);
+        var method = stackTrace.GetFrame(1)!.GetMethod()!;
+        var type = method.DeclaringType;
+        throw new($"The API '{type}.{method.Name}' must be called prior to any Verify has run. Usually this is done in a [ModuleInitializer].");
+    }
 
     public InnerVerifier(
         string sourceFile,
@@ -18,6 +35,7 @@ public partial class InnerVerifier :
         List<string> methodParameters,
         PathInfo pathInfo)
     {
+        verifyHasBeenRun = true;
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
@@ -29,6 +47,15 @@ public partial class InnerVerifier :
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
+        counter = Counter.Start(
+#if NET6_0_OR_GREATER
+            settings.namedDates,
+            settings.namedTimes,
+#endif
+            settings.namedDateTimes,
+            settings.namedGuids,
+            settings.namedDateTimeOffsets
+        );
 
         IoHelpers.CreateDirectory(directory);
 
@@ -60,7 +87,7 @@ public partial class InnerVerifier :
             verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
         }
 
-        if (VerifierSettings.UseUniqueDirectorySplitMode)
+        if (ShouldUseUniqueDirectorySplitMode(settings))
         {
             var directoryPrefix = Path.Combine(directory, verifiedPrefix);
             var verifiedDirectory = $"{directoryPrefix}.verified";
@@ -118,6 +145,16 @@ public partial class InnerVerifier :
         }
     }
 
+    static bool ShouldUseUniqueDirectorySplitMode(VerifySettings settings)
+    {
+        if (settings.UseUniqueDirectorySplitMode == null)
+        {
+            return VerifierSettings.UseUniqueDirectorySplitMode;
+        }
+
+        return settings.UseUniqueDirectorySplitMode.Value;
+    }
+
     void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameters)
     {
         var uniquenessReceived = sharedUniqueness;
@@ -150,7 +187,7 @@ public partial class InnerVerifier :
         // intentionally do not validate filePathPrefixVerified
         ValidatePrefix(settings, pathPrefixReceived);
 
-        verifiedFiles = MatchingFileFinder.Find(verifiedPrefix, ".verified", directory).ToList();
+        verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory).ToList();
 
         getFileNames = target =>
         {
@@ -169,7 +206,7 @@ public partial class InnerVerifier :
                 $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
 
-        IoHelpers.DeleteFiles(MatchingFileFinder.Find(receivedPrefix, ".received", directory));
+        IoHelpers.DeleteFiles(MatchingFileFinder.FindReceived(receivedPrefix, directory));
     }
 
     static string GetUniquenessVerified(string sharedUniqueness, Namer namer)
@@ -217,6 +254,9 @@ public partial class InnerVerifier :
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
         VerifyInner(target, null, rawTargets, true);
+
+    public Task<VerifyResult> Verify(Target target) =>
+        VerifyInner(new []{target});
 
     public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>
         VerifyInner(targets);

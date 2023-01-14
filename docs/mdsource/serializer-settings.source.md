@@ -107,9 +107,24 @@ To disable this behavior globally use:
 snippet: DontScrubGuidsGlobal
 
 
+### Named Guid
+
+Specific Guids can be named. When those Guids found, it will be replaced with the supplied name.
+
+
+#### Instance
+
+snippet: InstanceNamedGuid
+
+
+#### Globally
+
+snippet: NamedGuid
+
+
 ## Dates are scrubbed
 
-By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
+By default dates and times (`DateTime`, `DateTimeOffset`, `DateOnly`, and `TimeOnly`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
 snippet: Date
 
@@ -135,6 +150,21 @@ snippet: DontScrubDateTimesGlobal
 `AddExtraDatetimeFormat` allows specifiying custom date formats to be scrubbed.
 
 snipper: AddExtraDatetimeFormat
+
+
+### Named Date and Times
+
+Specific date or times can be named. When any of those values are found, they will be matched with the corresponding name.
+
+
+#### Instance
+
+snippet: AddInstanceNamedDatesAndTimes
+
+
+#### Globally
+
+snippet: AddNamedDatesAndTimes
 
 
 ## Change defaults at the verification level

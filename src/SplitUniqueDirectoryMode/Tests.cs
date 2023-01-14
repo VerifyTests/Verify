@@ -69,4 +69,27 @@ public class Tests
         Verify("FileName")
             .UseUniqueDirectory()
             .UseFileName("TheFileName");
+
+    #region DontUseSplitModeForUniqueDirectory
+
+    [Fact]
+    public Task DontUseSplitModeForUniqueDirectory()
+    {
+        var settings = new VerifySettings();
+        settings.UseUniqueDirectory();
+        settings.DontUseSplitModeForUniqueDirectory();
+        return Verify("Value", settings);
+    }
+
+    #endregion
+
+    #region DontUseSplitModeForUniqueDirectory_Fluent
+
+    [Fact]
+    public Task DontUseSplitModeForUniqueDirectory_Fluent() =>
+        Verify("Value")
+            .UseUniqueDirectory()
+            .DontUseSplitModeForUniqueDirectory();
+
+    #endregion
 }

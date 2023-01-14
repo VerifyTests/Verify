@@ -4,11 +4,7 @@ namespace VerifyNUnit;
 
 public partial class Verifier
 {
-    #region defaultDerivePathInfo
-
     static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
-
-    #endregion
 
     internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
         derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);

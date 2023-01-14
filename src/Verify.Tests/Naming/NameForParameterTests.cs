@@ -22,11 +22,11 @@ public class NameForParameterTests
 #if NET6_0_OR_GREATER
     [Fact]
     public Task Date() =>
-        Verify(VerifierSettings.GetNameForParameter(new DateOnly(2000, 10, 1)));
+        Verify(VerifierSettings.GetNameForParameter(new Date(2000, 10, 1)));
 
     [Fact]
     public Task Time() =>
-        Verify(VerifierSettings.GetNameForParameter(new DateOnly(2000, 10, 1)));
+        Verify(VerifierSettings.GetNameForParameter(new Date(2000, 10, 1)));
 #endif
 
     [Fact]

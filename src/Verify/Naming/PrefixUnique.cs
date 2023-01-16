@@ -104,7 +104,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     {
         if (namer.ResolveUniqueForArchitecture())
         {
-            builder.Append(Namer.ArchitecturePattern);
+            builder.Append($".{Namer.Architecture}");
         }
     }
 
@@ -112,7 +112,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     {
         if (namer.ResolveUniqueForOSPlatform())
         {
-            builder.Append(Namer.OperatingSystemPlatformPattern);
+            builder.Append($".{Namer.OperatingSystemPlatform}");
         }
     }
 }

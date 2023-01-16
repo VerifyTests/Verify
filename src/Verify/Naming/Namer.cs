@@ -146,18 +146,10 @@ public class Namer
     static Namer()
     {
         var (runtime, version) = GetRuntimeAndVersion();
-
         Runtime = runtime;
-        RuntimePattern = '.' + Runtime;
-
         RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
-        RuntimeAndVersionPattern = '.' +  RuntimeAndVersion;
-
         Architecture = RuntimeInformation.ProcessArchitecture.ToString().ToLower();
-        ArchitecturePattern = '.' + Architecture;
-
         OperatingSystemPlatform = GetOSPlatform();
-        OperatingSystemPlatformPattern = '.' + OperatingSystemPlatform;
     }
 
     static string GetOSPlatform()
@@ -195,16 +187,12 @@ public class Namer
     }
 
     public static string Runtime { get; }
-    internal static string RuntimePattern { get; }
 
     public static string RuntimeAndVersion { get; }
-    internal static string RuntimeAndVersionPattern { get; }
 
     public static string Architecture { get; }
-    internal static string ArchitecturePattern { get; }
 
     public static string OperatingSystemPlatform { get; }
-    internal static string OperatingSystemPlatformPattern { get; }
 
     internal Namer()
     {

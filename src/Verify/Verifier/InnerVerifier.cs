@@ -155,7 +155,7 @@ public partial class InnerVerifier :
         if (namer.ResolveUniqueForRuntimeAndVersion() ||
             TargetAssembly.TargetsMultipleFramework)
         {
-            sharedUniqueness += Namer.RuntimeAndVersionPattern;
+            sharedUniqueness += $".{Namer.RuntimeAndVersion}";
         }
 
         string receivedPrefix;
@@ -208,13 +208,13 @@ public partial class InnerVerifier :
         var uniquenessVerified = sharedUniqueness;
         if (namer.ResolveUniqueForRuntimeAndVersion())
         {
-            uniquenessVerified += Namer.RuntimeAndVersionPattern;
+            uniquenessVerified += $".{Namer.RuntimeAndVersion}";
         }
         else
         {
             if (namer.ResolveUniqueForRuntime())
             {
-                uniquenessVerified += Namer.RuntimePattern;
+                uniquenessVerified += $".{Namer.Runtime}";
             }
         }
 

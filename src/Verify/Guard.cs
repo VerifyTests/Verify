@@ -146,7 +146,7 @@
         }
     }
 }
-#if(NETFRAMEWORK)
+#if (NETFRAMEWORK || NETSTANDARD)
 namespace System.Runtime.CompilerServices
 {
     [AttributeUsage(AttributeTargets.Parameter)]

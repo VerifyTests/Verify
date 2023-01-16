@@ -137,7 +137,6 @@
 
     public static void AgainstBadExtension(string value, [CallerArgumentExpression("value")] string argumentName = "")
     {
-        ArgumentNullException.ThrowIfNull();
         AgainstNullOrEmpty(value, argumentName);
 
         if (value.StartsWith("."))

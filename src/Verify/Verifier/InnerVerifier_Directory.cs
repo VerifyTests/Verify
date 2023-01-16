@@ -12,7 +12,7 @@ partial class InnerVerifier
         object? info,
         FileScrubber? fileScrubber)
     {
-        Guard.DirectoryExists(path, nameof(path));
+        Guard.DirectoryExists(path);
         path = Path.GetFullPath(path);
         pattern ??= "*";
         option ??= new()
@@ -36,7 +36,7 @@ partial class InnerVerifier
 
     public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option, object? info, FileScrubber? fileScrubber)
     {
-        Guard.DirectoryExists(path, nameof(path));
+        Guard.DirectoryExists(path);
         path = Path.GetFullPath(path);
         pattern ??= "*";
         var targets = await ToTargets(

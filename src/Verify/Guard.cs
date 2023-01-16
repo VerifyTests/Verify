@@ -1,6 +1,6 @@
 ﻿static class Guard
 {
-    public static void FileExists(string path, string argumentName)
+    public static void FileExists(string path, [CallerArgumentExpression("path")] string argumentName = "")
     {
         AgainstNullOrEmpty(path, argumentName);
         if (!File.Exists(path))
@@ -9,7 +9,7 @@
         }
     }
 
-    public static void DirectoryExists(string path, string argumentName)
+    public static void DirectoryExists(string path, [CallerArgumentExpression("path")] string argumentName = "")
     {
         AgainstNullOrEmpty(path, argumentName);
         if (!Directory.Exists(path))
@@ -20,7 +20,7 @@
 
     static char[] invalidFileChars = Path.GetInvalidFileNameChars();
 
-    public static void BadFileNameNullable(string? name, string argumentName)
+    public static void BadFileNameNullable(string? name, [CallerArgumentExpression("name")] string argumentName = "")
     {
         if (name is null)
         {
@@ -30,7 +30,7 @@
         BadFileName(name, argumentName);
     }
 
-    public static void BadFileName(string name, string argumentName)
+    public static void BadFileName(string name, [CallerArgumentExpression("name")] string argumentName = "")
     {
         AgainstNullOrEmpty(name, argumentName);
         foreach (var invalidChar in invalidFileChars)
@@ -49,7 +49,7 @@
         .Distinct()
         .ToArray();
 
-    public static void BadDirectoryName(string? name, string argumentName)
+    public static void BadDirectoryName(string? name, [CallerArgumentExpression("name")] string argumentName = "")
     {
         if (name is null)
         {
@@ -68,7 +68,7 @@
         }
     }
 
-    public static void AgainstNullable(Type type, string argumentName)
+    public static void AgainstNullable(Type type, [CallerArgumentExpression("type")] string argumentName = "")
     {
         var typeFromNullable = Nullable.GetUnderlyingType(type);
 
@@ -78,7 +78,7 @@
         }
     }
 
-    public static void AgainstNullOrEmpty(string value, string argumentName)
+    public static void AgainstNullOrEmpty(string value, [CallerArgumentExpression("value")] string argumentName = "")
     {
         if (string.IsNullOrWhiteSpace(value))
         {
@@ -96,7 +96,7 @@
         }
     }
 
-    public static void AgainstEmpty(string? value, string argumentName)
+    public static void AgainstEmpty(string? value, [CallerArgumentExpression("value")] string argumentName = "")
     {
         if (value is null)
         {
@@ -109,7 +109,7 @@
         }
     }
 
-    public static void AgainstNullOrEmpty(object?[] value, string argumentName)
+    public static void AgainstNullOrEmpty(object?[] value, [CallerArgumentExpression("value")] string argumentName = "")
     {
         if (value is null)
         {
@@ -122,7 +122,7 @@
         }
     }
 
-    public static void AgainstNullOrEmpty<T>(T[] value, string argumentName)
+    public static void AgainstNullOrEmpty<T>(T[] value, [CallerArgumentExpression("value")] string argumentName = "")
     {
         if (value is null)
         {
@@ -135,8 +135,9 @@
         }
     }
 
-    public static void AgainstBadExtension(string value, string argumentName)
+    public static void AgainstBadExtension(string value, [CallerArgumentExpression("value")] string argumentName = "")
     {
+        ArgumentNullException.ThrowIfNull();
         AgainstNullOrEmpty(value, argumentName);
 
         if (value.StartsWith("."))
@@ -145,3 +146,16 @@
         }
     }
 }
+#if(NETFRAMEWORK)
+namespace System.Runtime.CompilerServices
+{
+    [AttributeUsage(AttributeTargets.Parameter)]
+    sealed class CallerArgumentExpressionAttribute : Attribute
+    {
+        public CallerArgumentExpressionAttribute(string parameterName) =>
+            ParameterName = parameterName;
+
+        public string ParameterName { get; }
+    }
+}
+#endif

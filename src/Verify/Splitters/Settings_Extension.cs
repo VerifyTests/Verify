@@ -25,7 +25,7 @@ public static partial class VerifierSettings
         AsyncConversion<Stream> conversion)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Guard.AgainstBadExtension(fromExtension, nameof(fromExtension));
+        Guard.AgainstBadExtension(fromExtension);
         if (FileExtensions.IsText(fromExtension))
         {
             throw new("RegisterFileConverter is only supported for non-text extensions");

@@ -51,7 +51,7 @@ public static partial class VerifierSettings
     public static void MemberConverter(Type declaringType, string name, ConvertTargetMember converter)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Guard.AgainstNullOrEmpty(name, nameof(name));
+        Guard.AgainstNullOrEmpty(name);
         if (!membersConverters.TryGetValue(declaringType, out var list))
         {
             membersConverters[declaringType] = list = new();
@@ -63,7 +63,7 @@ public static partial class VerifierSettings
     public static void MemberConverter(Type declaringType, string name, ConvertMember converter)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Guard.AgainstNullOrEmpty(name, nameof(name));
+        Guard.AgainstNullOrEmpty(name);
         if (!membersConverters.TryGetValue(declaringType, out var list))
         {
             membersConverters[declaringType] = list = new();

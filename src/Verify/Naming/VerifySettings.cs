@@ -69,7 +69,7 @@ public partial class VerifySettings
     /// </summary>
     public void UseDirectory(string directory)
     {
-        Guard.BadDirectoryName(directory, nameof(directory));
+        Guard.BadDirectoryName(directory);
         Directory = directory;
     }
 
@@ -82,7 +82,7 @@ public partial class VerifySettings
     /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public void UseTypeName(string name)
     {
-        Guard.BadFileName(name, nameof(name));
+        Guard.BadFileName(name);
         ThrowIfFileNameDefined();
 
         typeName = name;
@@ -97,7 +97,7 @@ public partial class VerifySettings
     /// <remarks>Not compatible with <see cref="UseFileName" />.</remarks>
     public void UseMethodName(string name)
     {
-        Guard.BadFileName(name, nameof(name));
+        Guard.BadFileName(name);
         ThrowIfFileNameDefined();
 
         methodName = name;
@@ -121,7 +121,7 @@ public partial class VerifySettings
     /// <remarks>Not compatible with <see cref="UseTypeName" />, <see cref="UseMethodName" />, or <see cref="UseParameters" />.</remarks>
     public void UseFileName(string fileName)
     {
-        Guard.BadFileName(fileName, nameof(fileName));
+        Guard.BadFileName(fileName);
         ThrowIfMethodOrTypeNameDefined();
 
         this.fileName = fileName;

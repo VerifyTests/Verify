@@ -28,14 +28,14 @@ public static partial class VerifierSettings
     public static void RegisterStreamComparer(string extension, StreamCompare compare)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstBadExtension(extension);
         streamComparers[extension] = compare;
     }
 
     public static void RegisterStringComparer(string extension, StringCompare compare)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstBadExtension(extension);
         stringComparers[extension] = compare;
     }
 

@@ -38,7 +38,7 @@ public readonly struct Target
 
     public Target(string extension, Stream data, string? name = null)
     {
-        Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstBadExtension(extension);
 
         if (FileExtensions.IsText(extension))
         {
@@ -53,8 +53,8 @@ public readonly struct Target
 
     public Target(string extension, StringBuilder data, string? name = null)
     {
-        Guard.AgainstBadExtension(extension, nameof(extension));
-        Guard.AgainstEmpty(name, nameof(name));
+        Guard.AgainstBadExtension(extension);
+        Guard.AgainstEmpty(name);
         if (!FileExtensions.IsText(extension))
         {
             throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream data, string? name)`.");
@@ -68,7 +68,7 @@ public readonly struct Target
 
     public Target(string extension, string data, string? name = null)
     {
-        Guard.AgainstBadExtension(extension, nameof(extension));
+        Guard.AgainstBadExtension(extension);
         Guard.AgainstEmpty(name, nameof(name));
         if (!FileExtensions.IsText(extension))
         {

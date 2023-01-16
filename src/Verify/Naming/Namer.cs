@@ -151,7 +151,7 @@ public class Namer
         RuntimePattern = '.' + Runtime;
 
         RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
-        RuntimeAndVersionPattern = '.' +  RuntimeAndVersion;
+        RuntimeAndVersionPattern = '.' + RuntimeAndVersion;
 
         Architecture = RuntimeInformation.ProcessArchitecture.ToString().ToLower();
         ArchitecturePattern = '.' + Architecture;

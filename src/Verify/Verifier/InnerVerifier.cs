@@ -44,8 +44,6 @@ public partial class InnerVerifier :
 
         var namer = settings.Namer;
 
-        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
-
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
         counter = Counter.Start(
 #if NET6_0_OR_GREATER
@@ -59,20 +57,20 @@ public partial class InnerVerifier :
 
         IoHelpers.CreateDirectory(directory);
 
-        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
-
         if (settings.useUniqueDirectory)
         {
-            InitForDirectoryConvention(uniquenessVerified, typeAndMethod, parameterText);
+            InitForDirectoryConvention(namer, typeAndMethod, parameterText);
         }
         else
         {
-            InitForFileConvention(sharedUniqueness, namer, uniquenessVerified, typeAndMethod, parameterText);
+            InitForFileConvention(namer, typeAndMethod, parameterText);
         }
     }
 
-    void InitForDirectoryConvention(string uniquenessVerified, string typeAndMethod, string parameters)
+    void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
     {
+        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
+        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
         string verifiedPrefix;
         if (settings.fileName is not null)
         {
@@ -145,40 +143,36 @@ public partial class InnerVerifier :
         }
     }
 
-    static bool ShouldUseUniqueDirectorySplitMode(VerifySettings settings)
-    {
-        if (settings.UseUniqueDirectorySplitMode == null)
-        {
-            return VerifierSettings.UseUniqueDirectorySplitMode;
-        }
+    static bool ShouldUseUniqueDirectorySplitMode(VerifySettings settings) =>
+        settings.UseUniqueDirectorySplitMode
+            .GetValueOrDefault(VerifierSettings.UseUniqueDirectorySplitMode);
 
-        return settings.UseUniqueDirectorySplitMode.Value;
-    }
-
-    void InitForFileConvention(string sharedUniqueness, Namer namer, string uniquenessVerified, string typeAndMethod, string parameters)
+    void InitForFileConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var uniquenessReceived = sharedUniqueness;
+        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
+        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
+
         if (namer.ResolveUniqueForRuntimeAndVersion() ||
             TargetAssembly.TargetsMultipleFramework)
         {
-            uniquenessReceived += $".{Namer.RuntimeAndVersion}";
+            sharedUniqueness += $".{Namer.RuntimeAndVersion}";
         }
 
         string receivedPrefix;
         string verifiedPrefix;
         if (settings.fileName is not null)
         {
-            receivedPrefix = settings.fileName + uniquenessReceived;
+            receivedPrefix = settings.fileName + sharedUniqueness;
             verifiedPrefix = settings.fileName + uniquenessVerified;
         }
         else if (settings.ignoreParametersForVerified)
         {
-            receivedPrefix = $"{typeAndMethod}{parameters}{uniquenessReceived}";
+            receivedPrefix = $"{typeAndMethod}{parameters}{sharedUniqueness}";
             verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
         }
         else
         {
-            receivedPrefix = $"{typeAndMethod}{parameters}{uniquenessReceived}";
+            receivedPrefix = $"{typeAndMethod}{parameters}{sharedUniqueness}";
             verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
         }
 

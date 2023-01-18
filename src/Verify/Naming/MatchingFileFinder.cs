@@ -38,9 +38,9 @@
 
     static bool SubStringEquals(this string value, string match, int startIndex)
     {
-        for (var i = 0; i < match.Length; i++)
+        for (var index = 0; index < match.Length; index++)
         {
-            if (value[startIndex + i] != match[i])
+            if (value[startIndex + index] != match[index])
             {
                 return false;
             }

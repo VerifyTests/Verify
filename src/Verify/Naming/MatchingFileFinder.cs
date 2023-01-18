@@ -4,7 +4,7 @@
     {
         var nonIndexedPattern = $"{fileNamePrefix}.received.";
         var indexedPattern = $"{fileNamePrefix}#";
-        var startIndex = directory.Length+1;
+        var startIndex = directory.Length + 1;
         foreach (var file in Directory.GetFiles(directory, $"{fileNamePrefix}*.received.*"))
         {
             if (file.SubStringEquals(nonIndexedPattern, startIndex))
@@ -22,7 +22,7 @@
     {
         var nonIndexedPattern = $"{fileNamePrefix}.verified.";
         var indexedPattern = $"{fileNamePrefix}#";
-        var startIndex = directory.Length+1;
+        var startIndex = directory.Length + 1;
         foreach (var file in Directory.GetFiles(directory, $"{fileNamePrefix}*.verified.*"))
         {
             if (file.SubStringEquals(nonIndexedPattern, startIndex))
@@ -40,9 +40,7 @@
     {
         for (var i = 0; i < match.Length; i++)
         {
-            var c = value[startIndex + i];
-            var l = match[i];
-            if (c != l)
+            if (value[startIndex + i] != match[i])
             {
                 return false;
             }

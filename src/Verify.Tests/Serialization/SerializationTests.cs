@@ -326,9 +326,7 @@ public class SerializationTests
         settings
             .AddExtraSettings(
                 _ => _.Error = (currentObject, originalObject, location, exception, handled) =>
-                {
-                    Console.WriteLine(location.Member);
-                });
+                    Console.WriteLine(location.Member));
         return Verify("Value", settings);
     }
 
@@ -341,9 +339,7 @@ public class SerializationTests
         Verify("Value")
             .AddExtraSettings(
                 _ => _.Error = (currentObject, originalObject, location, exception, handled) =>
-                {
-                    Console.WriteLine(location.Member);
-                });
+                    Console.WriteLine(location.Member));
 
     #endregion
 

@@ -5,7 +5,25 @@
         var nonIndexedPattern = $"{fileNamePrefix}.received.";
         var indexedPattern = $"{fileNamePrefix}#";
         var startIndex = directory.Length+1;
-        foreach (var file in Directory.EnumerateFiles(directory,  $"{fileNamePrefix}*.received.*"))
+        foreach (var file in Directory.GetFiles(directory, $"{fileNamePrefix}*.received.*"))
+        {
+            if (file.SubStringEquals(nonIndexedPattern, startIndex))
+            {
+                yield return file;
+            }
+            else if (file.SubStringEquals(indexedPattern, startIndex))
+            {
+                yield return file;
+            }
+        }
+    }
+
+    public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory)
+    {
+        var nonIndexedPattern = $"{fileNamePrefix}.verified.";
+        var indexedPattern = $"{fileNamePrefix}#";
+        var startIndex = directory.Length+1;
+        foreach (var file in Directory.GetFiles(directory, $"{fileNamePrefix}*.verified.*"))
         {
             if (file.SubStringEquals(nonIndexedPattern, startIndex))
             {
@@ -20,7 +38,7 @@
 
     static bool SubStringEquals(this string value, string match, int startIndex)
     {
-        for (int i = 0; i < match.Length; i++)
+        for (var i = 0; i < match.Length; i++)
         {
             var c = value[startIndex + i];
             var l = match[i];
@@ -31,23 +49,5 @@
         }
 
         return true;
-    }
-
-    public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory)
-    {
-        var nonIndexedPattern = $"{fileNamePrefix}.verified.";
-        var indexedPattern = $"{fileNamePrefix}#";
-        var startIndex = directory.Length+1;
-        foreach (var file in Directory.EnumerateFiles(directory,  $"{fileNamePrefix}*.verified.*"))
-        {
-            if (file.SubStringEquals(nonIndexedPattern, startIndex))
-            {
-                yield return file;
-            }
-            else if (file.SubStringEquals(indexedPattern, startIndex))
-            {
-                yield return file;
-            }
-        }
     }
 }

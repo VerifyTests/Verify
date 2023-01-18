@@ -49,7 +49,7 @@ partial class InnerVerifier
         where T : Stream =>
         await VerifyStream(await task, extension, info);
 
-    public async Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? info)
+    public Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? info)
         where T : Stream
     {
         var targets = streams.Select(_ => new Target(extension, _))
@@ -64,7 +64,7 @@ partial class InnerVerifier
                     JsonFormatter.AsJson(settings, counter, info)));
         }
 
-        return await VerifyInner(targets);
+        return VerifyInner(targets);
     }
 
     public Task<VerifyResult> VerifyStream(Stream? stream, object? info) =>

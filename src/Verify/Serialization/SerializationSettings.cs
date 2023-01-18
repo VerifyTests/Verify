@@ -6,14 +6,12 @@ partial class SerializationSettings
 {
     static JArrayConverter jArrayConverter = new();
     static JObjectConverter jObjectConverter = new();
-    static FileInfoConverter fileInfoConverter = new();
     static KeyValuePairConverter keyValuePairConverter = new();
     static InfoBuilder.Converter infoConverter = new();
 #if NET6_0_OR_GREATER
     static TimeConverter timeConverter = new();
     static DateConverter dateConverter = new();
 #endif
-    static DirectoryInfoConverter directoryInfoConverter = new();
     static StringEnumConverter stringEnumConverter = new();
     static DelegateConverter delegateConverter = new();
     static TargetInvocationExceptionConverter targetInvocationExceptionConverter = new();
@@ -105,8 +103,6 @@ partial class SerializationSettings
         converters.Add(dateConverter);
         converters.Add(timeConverter);
 #endif
-        converters.Add(fileInfoConverter);
-        converters.Add(directoryInfoConverter);
         converters.Add(stringEnumConverter);
         converters.Add(expressionConverter);
         converters.Add(delegateConverter);

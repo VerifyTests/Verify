@@ -325,8 +325,8 @@ public class SerializationTests
         var settings = new VerifySettings();
         settings
             .AddExtraSettings(
-                _ => _.Error += (sender, args)
-                    => Console.WriteLine(args.ErrorContext.Member));
+                _ => _.Error = (currentObject, originalObject, location, exception, handled) =>
+                    Console.WriteLine(location.Member));
         return Verify("Value", settings);
     }
 
@@ -338,8 +338,8 @@ public class SerializationTests
     public Task AddExtraSettingsFluent() =>
         Verify("Value")
             .AddExtraSettings(
-                _ => _.Error += (sender, args)
-                    => Console.WriteLine(args.ErrorContext.Member));
+                _ => _.Error = (currentObject, originalObject, location, exception, handled) =>
+                    Console.WriteLine(location.Member));
 
     #endregion
 

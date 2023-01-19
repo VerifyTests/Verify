@@ -23,9 +23,8 @@ class DelegateConverter :
         var split = name.Split('<', '>', '(');
         if (split.Length > 2)
         {
-            var list = split.ToList();
-            list[2] = "(";
-            return string.Concat(list);
+            split[2] = "(";
+            return string.Concat(split);
         }
 
         return name;

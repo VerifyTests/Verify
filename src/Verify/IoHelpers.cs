@@ -204,19 +204,20 @@
     }
 
     static VirtualizedRunHelper? virtualizedRunHelper;
+    static ConcurrentDictionary<Assembly, VirtualizedRunHelper> virtualizedRunHelpers = new();
 
     internal static void MapPathsForCallingAssembly(Assembly assembly) =>
-        virtualizedRunHelper = new(assembly);
+        virtualizedRunHelper = GetForAssembly(assembly);
 
     internal static string? GetMappedBuildPath(string? path, Assembly? assembly = null)
     {
-        if (virtualizedRunHelper == null && assembly != null)
-        {
-            virtualizedRunHelper = new(assembly);
-        }
+        VirtualizedRunHelper? helper = assembly != null ? GetForAssembly(assembly) : virtualizedRunHelper;
 
-        return virtualizedRunHelper == null ? path : virtualizedRunHelper.GetMappedBuildPath(path);
+        return helper == null ? path : helper.GetMappedBuildPath(path);
     }
+
+    private static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
+        virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
 
     public static string? GetDirectoryName(string? path) =>
         Path.GetDirectoryName(GetMappedBuildPath(path));

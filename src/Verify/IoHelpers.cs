@@ -175,8 +175,9 @@
     public static string GetRelativePath(string directory, string file)
     {
         var fullPath = Path.Combine(directory, file);
-        if (directory.EndsWith(Path.DirectorySeparatorChar) ||
-            directory.EndsWith(Path.AltDirectorySeparatorChar))
+        var last = directory[^1];
+        if (last == Path.DirectorySeparatorChar ||
+            last == Path.AltDirectorySeparatorChar)
         {
             return fullPath[directory.Length..];
         }

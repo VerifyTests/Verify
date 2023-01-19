@@ -14,7 +14,7 @@ class VerifyEngine
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
 
-    public VerifyEngine(string directory, VerifySettings settings, List<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
+    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
     {
         this.directory = directory;
         this.settings = settings;

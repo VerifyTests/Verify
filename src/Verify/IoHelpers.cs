@@ -71,9 +71,8 @@
         DeleteFiles(Files(directory, pattern));
     }
 
-    public static List<string> Files(string directory, string pattern) =>
-        Directory.EnumerateFiles(directory, pattern, SearchOption.AllDirectories)
-            .ToList();
+    public static IEnumerable<string> Files(string directory, string pattern) =>
+        Directory.EnumerateFiles(directory, pattern, SearchOption.AllDirectories);
 
     public static void DeleteFiles(IEnumerable<string> files)
     {

@@ -11,7 +11,7 @@
 
         builder.AppendLineN();
 
-        if (@new.Any())
+        if (@new.Count > 0)
         {
             builder.AppendLineN("New:");
             foreach (var file in @new)
@@ -20,7 +20,7 @@
             }
         }
 
-        if (notEquals.Any())
+        if (notEquals.Count > 0)
         {
             builder.AppendLineN("NotEqual:");
             foreach (var file in notEquals)
@@ -29,7 +29,7 @@
             }
         }
 
-        if (delete.Any())
+        if (delete.Count > 0)
         {
             builder.AppendLineN("Delete:");
             foreach (var file in delete)
@@ -38,7 +38,7 @@
             }
         }
 
-        if (equal.Any())
+        if (equal.Count > 0)
         {
             builder.AppendLineN("Equal:");
             foreach (var file in equal)
@@ -87,7 +87,7 @@
         builder.AppendLineN("FileContent:");
         builder.AppendLineN();
 
-        if (newContentFiles.Any())
+        if (newContentFiles.Count > 0)
         {
             builder.AppendLineN("New:");
             builder.AppendLineN();
@@ -100,7 +100,7 @@
             }
         }
 
-        if (notEqualContentFiles.Any())
+        if (notEqualContentFiles.Count > 0)
         {
             builder.AppendLineN("NotEqual:");
             builder.AppendLineN();

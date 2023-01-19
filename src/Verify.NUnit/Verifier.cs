@@ -31,7 +31,7 @@ public static partial class Verifier
         }
 
         if (settings.parameters is null &&
-            adapter.Arguments.Any())
+            adapter.Arguments.Length > 0)
         {
             settings.parameters = adapter.Arguments;
         }

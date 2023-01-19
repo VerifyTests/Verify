@@ -85,7 +85,7 @@ partial class InnerVerifier
     {
         var appends = VerifierSettings.GetJsonAppenders(settings);
 
-        var hasAppends = appends.Any();
+        var hasAppends = appends.Count > 0;
 
         if (root is null)
         {

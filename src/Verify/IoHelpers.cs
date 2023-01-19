@@ -56,7 +56,7 @@
 
             if (renameConflictResolution == RenameConflictResolution.Delete)
             {
-                DeleteFiles(file);
+                DeleteFile(file);
             }
         }
     }
@@ -79,11 +79,11 @@
     {
         foreach (var file in files)
         {
-            DeleteFiles(file);
+            DeleteFile(file);
         }
     }
 
-    public static void DeleteFiles(string file)
+    public static void DeleteFile(string file)
     {
         try
         {
@@ -94,13 +94,8 @@
         }
     }
 
-    public static void CreateDirectory(string directory)
-    {
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-    }
+    public static void CreateDirectory(string directory) =>
+        Directory.CreateDirectory(directory);
 
     public static void MoveToStart(this Stream stream)
     {

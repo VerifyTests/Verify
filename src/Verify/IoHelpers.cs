@@ -155,13 +155,6 @@
 
 #if NET462 || NET472 || NET48 || NETSTANDARD2_0
 
-    public static Task WriteText(string path, string text)
-    {
-        CreateDirectory(Path.GetDirectoryName(path)!);
-        File.WriteAllText(path, text, Utf8);
-        return Task.CompletedTask;
-    }
-
     public static Task WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
@@ -170,12 +163,6 @@
     }
 
 #else
-
-    public static Task WriteText(string path, string text)
-    {
-        CreateDirectory(Path.GetDirectoryName(path)!);
-        return File.WriteAllTextAsync(path, text, Utf8);
-    }
 
     public static Task WriteText(string path, StringBuilder text)
     {

@@ -32,7 +32,7 @@ public partial class InnerVerifier :
         VerifySettings settings,
         string typeName,
         string methodName,
-        List<string> methodParameters,
+        IReadOnlyList<string>? methodParameters,
         PathInfo pathInfo)
     {
         verifyHasBeenRun = true;

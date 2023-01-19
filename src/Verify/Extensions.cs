@@ -28,10 +28,18 @@
     public static List<T> Clone<T>(this List<T> original) =>
         new(original);
 
-    public static List<string> ParameterNames(this MethodInfo method) =>
-        method.GetParameters()
+    public static IReadOnlyList<string>? ParameterNames(this MethodInfo method)
+    {
+        var parameters = method.GetParameters();
+        if (parameters.Length == 0)
+        {
+            return null;
+        }
+
+        return parameters
             .Select(_ => _.Name!)
             .ToList();
+    }
 
     public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this Dictionary<TKey, TValue> original)
         where TValue : struct where TKey : notnull => new(original);
@@ -227,7 +235,4 @@
 
     public static bool IsException(this Type type) =>
         typeof(Exception).IsAssignableFrom(type);
-
-    public static bool IsEmpty<T>(this IReadOnlyCollection<T> target) =>
-        !target.Any();
 }

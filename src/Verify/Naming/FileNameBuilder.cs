@@ -7,7 +7,7 @@
         return $"{resolvedType}.{resolvedMethod}";
     }
 
-    public static string GetParameterText(List<string> methodParameters, VerifySettings settings)
+    public static string GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings)
     {
         if (settings.parametersText is not null)
         {
@@ -15,7 +15,7 @@
         }
 
         var settingsParameters = settings.parameters;
-        if (methodParameters.IsEmpty() || settingsParameters is null)
+        if (methodParameters is null || settingsParameters is null)
         {
             return "";
         }

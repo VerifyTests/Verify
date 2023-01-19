@@ -67,12 +67,18 @@
             return;
         }
 
+        if (@new.Count == 0 && notEquals.Count == 0)
+        {
+            return;
+        }
+
         var newContentFiles = @new.Where(_ => _.File.IsText).ToList();
         var notEqualContentFiles = notEquals
             .Where(_ => _.File.IsText ||
                         _.Message is not null)
             .ToList();
-        if (newContentFiles.IsEmpty() && notEqualContentFiles.IsEmpty())
+
+        if (newContentFiles.Count == 0 && notEqualContentFiles.Count == 0)
         {
             return;
         }

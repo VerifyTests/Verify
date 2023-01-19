@@ -25,7 +25,13 @@ partial class InnerVerifier
         await cleanup();
 
         await engine.ThrowIfRequired();
-        return new(engine.Equal.Concat(engine.AutoVerified).ToList(), root);
+
+        var filePairs = new List<FilePair>(engine.Equal);
+        if (engine.AutoVerified.Count > 0)
+        {
+            filePairs.AddRange(engine.AutoVerified);
+        }
+        return new(filePairs, root);
     }
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)

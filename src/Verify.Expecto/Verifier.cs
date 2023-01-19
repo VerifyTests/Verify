@@ -22,7 +22,7 @@ public static partial class Verifier
         var fileName = Path.GetFileNameWithoutExtension(sourceFile);
 
         var pathInfo = GetPathInfo(sourceFile, fileName, methodName);
-        return new(sourceFile, settings, fileName, methodName, new(), pathInfo);
+        return new(sourceFile, settings, fileName, methodName, null, pathInfo);
     }
 
     [DoesNotReturn]

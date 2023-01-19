@@ -9,7 +9,7 @@ public partial class InnerVerifier :
     string directory;
     GetFileNames getFileNames = null!;
     GetIndexedFileNames getIndexedFileNames = null!;
-    List<string> verifiedFiles = null!;
+    IEnumerable<string> verifiedFiles = null!;
     Counter counter;
     static bool verifyHasBeenRun;
 
@@ -181,7 +181,7 @@ public partial class InnerVerifier :
         // intentionally do not validate filePathPrefixVerified
         ValidatePrefix(settings, pathPrefixReceived);
 
-        verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory).ToList();
+        verifiedFiles = MatchingFileFinder.FindVerified(verifiedPrefix, directory);
 
         getFileNames = target =>
         {

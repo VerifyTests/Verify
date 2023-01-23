@@ -16,14 +16,8 @@ public class Snippets
     public Task OnHandlersSample()
     {
         VerifierSettings.OnVerify(
-            before: () =>
-            {
-                Debug.WriteLine("before");
-            },
-            after: () =>
-            {
-                Debug.WriteLine("after");
-            });
+            before: () => Debug.WriteLine("before"),
+            after: () => Debug.WriteLine("after"));
         VerifierSettings.OnFirstVerify(
             (receivedFile, receivedText) =>
             {
@@ -115,10 +109,7 @@ public class Snippets
         #region ExtraSettingsGlobal
 
         VerifierSettings.AddExtraSettings(
-            _ =>
-            {
-                _.TypeNameHandling = TypeNameHandling.All;
-            });
+            _ => _.TypeNameHandling = TypeNameHandling.All);
 
         #endregion
 
@@ -126,10 +117,7 @@ public class Snippets
 
         var settings = new VerifySettings();
         settings.AddExtraSettings(
-            _ =>
-            {
-                _.TypeNameHandling = TypeNameHandling.All;
-            });
+            _ => _.TypeNameHandling = TypeNameHandling.All);
 
         #endregion
     }
@@ -139,10 +127,7 @@ public class Snippets
         #region JsonConverter
 
         VerifierSettings.AddExtraSettings(
-            _ =>
-            {
-                _.Converters.Add(new CompanyConverter());
-            });
+            _ => _.Converters.Add(new CompanyConverter()));
 
         #endregion
     }

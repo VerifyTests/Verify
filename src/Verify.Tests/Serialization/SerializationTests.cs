@@ -372,10 +372,7 @@ public class SerializationTests
         };
 
         return Verify(target)
-            .AddExtraSettings(_ =>
-            {
-                _.TypeNameHandling = typeHandling;
-            })
+            .AddExtraSettings(_ => _.TypeNameHandling = typeHandling)
             .UseParameters(typeHandling);
     }
 

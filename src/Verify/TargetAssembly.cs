@@ -13,6 +13,7 @@
         }
 
         Namer.UseAssembly(assembly);
+        IoHelpers.MapPathsForCallingAssembly(assembly);
         ProjectDir = AttributeReader.GetProjectDirectory(assembly);
         AttributeReader.TryGetSolutionDirectory(assembly, out var solutionDir);
         SolutionDir = solutionDir;

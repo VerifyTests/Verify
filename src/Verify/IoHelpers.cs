@@ -185,6 +185,25 @@
 
     }
 
+    static VirtualizedRunHelper? virtualizedRunHelper;
+    static ConcurrentDictionary<Assembly, VirtualizedRunHelper> virtualizedRunHelpers = new();
+
+    internal static void MapPathsForCallingAssembly(Assembly assembly) =>
+        virtualizedRunHelper = GetForAssembly(assembly);
+
+    internal static string? GetMappedBuildPath(string? path, Assembly? assembly = null)
+    {
+        VirtualizedRunHelper? helper = assembly != null ? GetForAssembly(assembly) : virtualizedRunHelper;
+
+        return helper == null ? path : helper.GetMappedBuildPath(path);
+    }
+
+    private static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
+        virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
+
+    public static string? GetDirectoryName(string? path) =>
+        Path.GetDirectoryName(GetMappedBuildPath(path));
+
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)

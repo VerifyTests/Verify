@@ -53,6 +53,7 @@ public static class AttributeReader
         {
             value = value == null ? null : IoHelpers.GetMappedBuildPath(value, assembly);
         }
+
         return value is not null;
     }
 

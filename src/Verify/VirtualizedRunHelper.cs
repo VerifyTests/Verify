@@ -1,28 +1,33 @@
 class VirtualizedRunHelper
 {
     // e.g. WSL or docker run (https://github.com/VerifyTests/Verify#unit-testing-inside-virtualized-environment)
-    readonly bool appearsToBeLocalVirtualizedRun;
-    readonly string originalCodeBaseRootAbsolute = string.Empty;
-    readonly string mappedCodeBaseRootAbsolute = string.Empty;
-    static readonly char[] Separators = { '\\', '/' };
+    bool appearsToBeLocalVirtualizedRun;
+    string originalCodeBaseRootAbsolute = string.Empty;
+    string mappedCodeBaseRootAbsolute = string.Empty;
+
+    static readonly char[] separators =
+    {
+        '\\',
+        '/'
+    };
 
     public VirtualizedRunHelper(Assembly userAssembly)
     {
         var originalCodeBaseRoot = AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var solutionDir)
             ? solutionDir
             : AttributeReader.GetProjectDirectory(userAssembly);
-        var appearsToBeBuiltOnDifferentPlatform =
+        var appearsBuiltOnDifferentPlatform =
             !string.IsNullOrEmpty(originalCodeBaseRoot) &&
             !originalCodeBaseRoot.Contains(Path.DirectorySeparatorChar) &&
             originalCodeBaseRoot.Contains("\\");
 
-        if (!appearsToBeBuiltOnDifferentPlatform)
+        if (!appearsBuiltOnDifferentPlatform)
         {
             return;
         }
 
-        string currentDir = Environment.CurrentDirectory;
-        string currentDirRelativeToAppRoot = currentDir.TrimStart(Separators);
+        var currentDir = Environment.CurrentDirectory;
+        var currentDirRelativeToAppRoot = currentDir.TrimStart(separators);
 
         // WSL paths mount to /mnt/<drive>/...
         // docker testing mounts to /mnt/approot/...
@@ -97,9 +102,9 @@ class VirtualizedRunHelper
             return false;
         }
 
-        path = path.TrimStart(Separators);
+        path = path.TrimStart(separators);
 
-        int nextSeparatorIdx = path.IndexOfAny(Separators);
+        int nextSeparatorIdx = path.IndexOfAny(separators);
         if (nextSeparatorIdx <= 0 || nextSeparatorIdx == path.Length - 1)
         {
             return false;

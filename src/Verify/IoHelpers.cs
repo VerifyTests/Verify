@@ -201,8 +201,15 @@
     private static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
         virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
 
-    public static string? GetDirectoryName(string? path) =>
-        Path.GetDirectoryName(GetMappedBuildPath(path));
+    public static string? GetDirectoryName(string? path)
+    {
+        var mappedPath = GetMappedBuildPath(path);
+        // Path remapping might not always be working (ex: you've built your project on Windows and you're running tests
+        // on the same assemblies but on another Linux machine). Always use / so that Path.GetDirectoryName does not
+        // return null on Unix systems.
+        mappedPath = mappedPath?.Replace("\\", "/");
+        return Path.GetDirectoryName(mappedPath);
+    }
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 

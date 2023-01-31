@@ -542,7 +542,7 @@ internal static PathInfo DeriveDefault(
     Type type,
     MethodInfo method) =>
     new(
-        directory: IoHelpers.GetDirectoryName(sourceFile)!,
+        directory: IoHelpers.GetDirectoryFromSourceFile(sourceFile),
         typeName: type.NameWithParent(),
         methodName: method.Name);
 ```

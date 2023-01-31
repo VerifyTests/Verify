@@ -1,6 +1,7 @@
 ﻿static class IoHelpers
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
+    static readonly char[] Separators = { '\\', '/' };
 
     public static void DeleteDirectory(string path)
     {
@@ -201,14 +202,24 @@
     private static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
         virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
 
-    public static string? GetDirectoryName(string? path)
+    /// <summary>
+    /// Get directory path from a given file path
+    /// </summary>
+    /// <remarks>
+    /// The method accepts input paths mixing / and \ separators
+    /// </remarks>
+    public static string GetDirectoryFromSourceFile(string? sourceFile)
     {
-        var mappedPath = GetMappedBuildPath(path);
-        // Path remapping might not always be working (ex: you've built your project on Windows and you're running tests
-        // on the same assemblies but on another Linux machine). Always use / so that Path.GetDirectoryName does not
-        // return null on Unix systems.
-        mappedPath = mappedPath?.Replace("\\", "/");
-        return Path.GetDirectoryName(mappedPath);
+        if (sourceFile is null)
+            return string.Empty;
+
+        var index = sourceFile.LastIndexOfAny(Separators);
+        if (index > 0)
+        {
+            return sourceFile.Substring(0, index);
+        }
+
+        return string.Empty;
     }
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER

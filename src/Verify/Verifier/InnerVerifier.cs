@@ -223,7 +223,7 @@ public partial class InnerVerifier :
 
     static string ResolveDirectory(string sourceFile, VerifySettings settings, PathInfo pathInfo)
     {
-        var sourceFileDirectory = IoHelpers.GetDirectoryName(sourceFile)!;
+        var sourceFileDirectory = IoHelpers.GetDirectoryFromSourceFile(sourceFile)!;
         var pathInfoDirectory = pathInfo.Directory;
         if (ContinuousTestingDetector.IsNCrunch)
         {

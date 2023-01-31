@@ -13,10 +13,9 @@ class VirtualizedRunHelper
 
     public VirtualizedRunHelper(Assembly userAssembly)
     {
-        var originalCodeBaseRoot = AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var solutionDir)
-            ? solutionDir
-            : AttributeReader.GetProjectDirectory(userAssembly);
         var appearsBuiltOnDifferentPlatform =
+            (AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var originalCodeBaseRoot) ||
+             AttributeReader.TryGetProjectDirectory(userAssembly, false, out originalCodeBaseRoot)) &&
             !string.IsNullOrEmpty(originalCodeBaseRoot) &&
             !originalCodeBaseRoot.Contains(Path.DirectorySeparatorChar) &&
             originalCodeBaseRoot.Contains("\\");
@@ -38,7 +37,7 @@ class VirtualizedRunHelper
         }
 
         //remove the drive info from the code root
-        var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
+        var mappedCodeBaseRootRelative = originalCodeBaseRoot!.Replace('\\', '/');
         if (!TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
         {
             return;

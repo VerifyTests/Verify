@@ -63,21 +63,57 @@ partial class InnerVerifier
         var nodes = target.Descendants().ToList();
         foreach (var node in nodes)
         {
-            if (!serialization.TryGetScrubOrIgnoreByName(node.Name.LocalName, out var scrubOrIgnore))
+            if (serialization.TryGetScrubOrIgnoreByName(node.Name.LocalName, out var scrubOrIgnore))
+            {
+                if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                {
+                    node.Remove();
+                }
+                else
+                {
+                    node.Value = "Scrubbed";
+                }
+
+                continue;
+            }
+
+            foreach (var attribute in node.Attributes().ToList())
+            {
+                if (serialization.TryGetScrubOrIgnoreByName(attribute.Name.LocalName, out scrubOrIgnore))
+                {
+                    if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+                    {
+                        attribute.Remove();
+                    }
+                    else
+                    {
+                        attribute.Value = "Scrubbed";
+                    }
+
+                    continue;
+                }
+
+                attribute.Value = ConvertValue(serialization, attribute.Value);
+            }
+
+            if (node.HasElements)
             {
                 continue;
             }
 
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
-            {
-                node.Remove();
-            }
-            else
-            {
-                node.Value = "Scrubbed";
-            }
+            node.Value = ConvertValue(serialization, node.Value);
         }
 
         return await VerifyString(target.ToString(), "xml");
+    }
+
+    string ConvertValue(SerializationSettings serialization, string value)
+    {
+        if (serialization.TryConvertString(counter, value, out var result))
+        {
+            return result;
+        }
+
+        return ApplyScrubbers.ApplyForPropertyValue(value, settings, counter);
     }
 }

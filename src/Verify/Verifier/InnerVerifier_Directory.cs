@@ -55,7 +55,7 @@ partial class InnerVerifier
 
     async Task<List<Target>> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
     {
-        var targets = new List<Target>();
+        var targets = new List<Target>(1);
         if (info is not null)
         {
             targets.Add(new(

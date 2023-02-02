@@ -98,7 +98,7 @@ partial class InnerVerifier
 
             var target = await GetTarget(stream, extension);
 
-            var targets = new List<Target>();
+            var targets = new List<Target>(1);
 
             if (info is not null)
             {

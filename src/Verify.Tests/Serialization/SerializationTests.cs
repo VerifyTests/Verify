@@ -874,6 +874,7 @@ public class SerializationTests
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
             Time = new(10, 10),
+            TimeString = new Time(10, 10).ToString(),
             NamedTime = new(1, 1),
             InstanceNamedTime = new(1, 2),
             Date = new(2020, 10, 10),
@@ -902,6 +903,7 @@ public class SerializationTests
         public Date NamedDate;
         public Date InstanceNamedDate;
         public Time Time;
+        public string TimeString;
         public Time NamedTime;
         public Time InstanceNamedTime;
         public Date? DateNullable;

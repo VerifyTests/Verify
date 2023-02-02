@@ -89,14 +89,14 @@ public class XmlTests
     [Fact]
     public Task ScrubAttribute()
     {
-        var document = XDocument.Parse($@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""value""/></body>");
+        var document = XDocument.Parse(@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""value""/></body>");
         return Verify(document).IgnoreMember("att");
     }
 
     [Fact]
     public Task IgnoreAttribute()
     {
-        var document = XDocument.Parse($@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""value""/></body>");
+        var document = XDocument.Parse(@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""value""/></body>");
         return Verify(document)
             .ScrubMember("att");
     }

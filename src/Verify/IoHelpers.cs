@@ -208,8 +208,10 @@
     /// <remarks>
     /// The method accepts input paths mixing / and \ separators
     /// </remarks>
-    public static string GetDirectoryFromSourceFile(string? sourceFile)
+    internal static string GetDirectoryFromSourceFile(string? sourceFile)
     {
+        sourceFile = GetMappedBuildPath(sourceFile);
+
         if (sourceFile is null)
             return string.Empty;
 

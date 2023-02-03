@@ -1,0 +1,7 @@
+﻿{
+  Guid_1: 1234,
+  DateTime_1: 1234,
+  DateTimeOffset_1: 1234,
+  Date_1: 1234,
+  Time_1: 1234
+}

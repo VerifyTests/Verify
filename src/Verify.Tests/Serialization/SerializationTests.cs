@@ -262,6 +262,102 @@ public class SerializationTests
         return Verify(dictionary)
             .IgnoreMember("ignored");
     }
+#if NET6_0_OR_GREATER
+
+    [Fact]
+    public Task DateKeys()
+    {
+        var dictionary = new Dictionary<Date, string>
+        {
+            {
+                new Date(10,1,2), "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task DateTimeKeys()
+    {
+        var dictionary = new Dictionary<DateTime, string>
+        {
+            {
+                DateTime.Now, "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task DateTimeOffsetKeys()
+    {
+        var dictionary = new Dictionary<DateTimeOffset, string>
+        {
+            {
+                DateTimeOffset.Now, "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task GuidKeys()
+    {
+        var dictionary = new Dictionary<Guid, string>
+        {
+            {
+                Guid.NewGuid(), "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task TimeKeys()
+    {
+        var dictionary = new Dictionary<Time, string>
+        {
+            {
+                new Time(10,1), "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task BoxedKeys()
+    {
+        var dictionary = new Dictionary<object, string>
+        {
+            {
+                Guid.NewGuid(), "1234"
+            },
+            {
+                DateTime.Now, "1234"
+            },
+            {
+                DateTimeOffset.Now, "1234"
+            },
+            {
+                new Date(10,1,2), "1234"
+            },
+            {
+                new Time(10,1), "1234"
+            },
+            {
+                "ignored", "5678"
+            }
+        };
+
+        return Verify(dictionary)
+            .IgnoreMember("ignored");
+    }
+#endif
 
     [Fact]
     public Task DatetimeOffsetScrubbingDisabled() =>

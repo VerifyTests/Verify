@@ -31,6 +31,7 @@
 
             return InterceptResult.Default;
         };
+
         return contract;
     }
 
@@ -48,8 +49,9 @@
     {
         var counter = Counter.Current;
         var keyType = contract.DictionaryKeyType;
+
 #if NET6_0_OR_GREATER
-        
+
         if (keyType == typeof(Date))
         {
             if (settings.TryParseConvertDate(counter, value, out var result))
@@ -65,7 +67,9 @@
                 return result;
             }
         }
+
 #endif
+
         if (keyType == typeof(Guid))
         {
             if (settings.TryParseConvertGuid(counter, value, out var result))

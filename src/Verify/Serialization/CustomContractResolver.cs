@@ -9,7 +9,7 @@
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        contract.DictionaryKeyResolver = (name, original) => ResolveDictionaryKey(contract, name);
+        contract.DictionaryKeyResolver = (name, original) => ResolveDictionaryKey(contract, name, original);
         if (settings.SortDictionaries)
         {
             contract.OrderByKey = true;
@@ -45,24 +45,24 @@
         return InterceptResult.Replace("{Scrubbed}");
     }
 
-    string ResolveDictionaryKey(JsonDictionaryContract contract, string value)
+    string ResolveDictionaryKey(JsonDictionaryContract contract, string name, object original)
     {
         var counter = Counter.Current;
         var keyType = contract.DictionaryKeyType;
 
 #if NET6_0_OR_GREATER
 
-        if (keyType == typeof(Date))
+        if (original is Date date)
         {
-            if (settings.TryParseConvertDate(counter, value, out var result))
+            if (settings.TryConvert(counter, date, out var result))
             {
                 return result;
             }
         }
 
-        if (keyType == typeof(Time))
+        if (original is Time time)
         {
-            if (settings.TryParseConvertTime(counter, value, out var result))
+            if (settings.TryConvert(counter, time, out var result))
             {
                 return result;
             }
@@ -70,25 +70,25 @@
 
 #endif
 
-        if (keyType == typeof(Guid))
+        if (original is Guid guid)
         {
-            if (settings.TryParseConvertGuid(counter, value, out var result))
+            if (settings.TryConvert(counter, guid, out var result))
             {
                 return result;
             }
         }
 
-        if (keyType == typeof(DateTimeOffset))
+        if (original is DateTime dateTime)
         {
-            if (settings.TryParseConvertDateTimeOffset(counter, value, out var result))
+            if (settings.TryConvert(counter, dateTime, out var result))
             {
                 return result;
             }
         }
 
-        if (keyType == typeof(DateTime))
+        if (original is DateTimeOffset dateTimeOffset)
         {
-            if (settings.TryParseConvertDateTime(counter, value, out var result))
+            if (settings.TryConvert(counter, dateTimeOffset, out var result))
             {
                 return result;
             }
@@ -96,16 +96,16 @@
 
         if (keyType == typeof(Type))
         {
-            var type = Type.GetType(value);
+            var type = Type.GetType(name);
             if (type is null)
             {
-                throw new($"Could not load type `{value}`.");
+                throw new($"Could not load type `{name}`.");
             }
 
             return type.SimpleName();
         }
 
-        return value;
+        return name;
     }
 
     static FieldInfo exceptionMessageField = typeof(Exception).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;

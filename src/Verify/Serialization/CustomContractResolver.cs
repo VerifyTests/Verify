@@ -9,7 +9,7 @@
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
-        contract.DictionaryKeyResolver = value => ResolveDictionaryKey(contract, value);
+        contract.DictionaryKeyResolver = (name, original) => ResolveDictionaryKey(contract, name);
         if (settings.SortDictionaries)
         {
             contract.OrderByKey = true;

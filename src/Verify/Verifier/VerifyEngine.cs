@@ -47,7 +47,7 @@ class VerifyEngine
     {
         if (targetList.Count == 1)
         {
-            var target = targetList.Single();
+            var target = targetList[0];
             var file = getFileNames(target);
             var result = await GetResult(settings, file, target, false);
             HandleCompareResult(result, file);

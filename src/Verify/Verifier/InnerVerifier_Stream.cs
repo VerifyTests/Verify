@@ -159,7 +159,7 @@ partial class InnerVerifier
             // if the same stream is returned. no need to re process
             if (resultTargets.Count == 1)
             {
-                var single = resultTargets.Single();
+                var single = resultTargets[0];
                 if (single.Extension == target.Extension)
                 {
                     targets.Add(single);

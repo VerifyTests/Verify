@@ -1,9 +1,11 @@
 class VirtualizedRunHelper
 {
     // e.g. WSL or docker run (https://github.com/VerifyTests/Verify#unit-testing-inside-virtualized-environment)
-    bool appearsToBeLocalVirtualizedRun;
-    string originalCodeBaseRootAbsolute = string.Empty;
-    string mappedCodeBaseRootAbsolute = string.Empty;
+    internal bool AppearsToBeLocalVirtualizedRun { get; }
+
+    string _originalCodeBaseRootAbsolute = string.Empty;
+    string _mappedCodeBaseRootAbsolute = string.Empty;
+    readonly Func<string,bool> _pathExists;
 
     static readonly char[] separators =
     {
@@ -12,13 +14,24 @@ class VirtualizedRunHelper
     };
 
     public VirtualizedRunHelper(Assembly userAssembly)
+        : this(GetOriginalCodeBaseRoot(userAssembly),
+            Environment.CurrentDirectory,
+            Path.DirectorySeparatorChar,
+            path => File.Exists(path) || Directory.Exists(path))
     {
-        var originalCodeBaseRoot = AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var solutionDir)
-            ? solutionDir
-            : AttributeReader.GetProjectDirectory(userAssembly);
-        var appearsBuiltOnDifferentPlatform =
+    }
+
+    private static string GetOriginalCodeBaseRoot(Assembly userAssembly) =>
+        AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var solutionDir)
+            ? solutionDir : AttributeReader.GetProjectDirectory(userAssembly);
+
+    internal VirtualizedRunHelper(string originalCodeBaseRoot, string currentDir, char runtimeSeparator, Func<string, bool> pathExists)
+    {
+        _pathExists = pathExists;
+
+       var appearsBuiltOnDifferentPlatform =
             !string.IsNullOrEmpty(originalCodeBaseRoot) &&
-            !originalCodeBaseRoot.Contains(Path.DirectorySeparatorChar) &&
+            !originalCodeBaseRoot.Contains(runtimeSeparator) &&
             originalCodeBaseRoot.Contains("\\");
 
         if (!appearsBuiltOnDifferentPlatform)
@@ -26,46 +39,30 @@ class VirtualizedRunHelper
             return;
         }
 
-        var currentDir = Environment.CurrentDirectory;
         var currentDirRelativeToAppRoot = currentDir.TrimStart(separators);
-
-        // WSL paths mount to /mnt/<drive>/...
-        // docker testing mounts to /mnt/approot/...
-        if (!TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot) ||
-            !TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot))
+        while (TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot))
         {
-            return;
-        }
-
-        //remove the drive info from the code root
-        var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
-        if (!TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
-        {
-            return;
-        }
-
-        // Move through the code base dir and try to see if it seems to be basePath for currentDir
-        while (!currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
-        {
-            //no more dirs in code base path - no match found - bail out.
-            if (!TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
+            //remove the drive info from the code root
+            var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
+            while (TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
             {
-                return;
+                if (currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    _mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
+
+                    // the start of paths to be mapped
+                    _originalCodeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
+
+                    var testMappedPath = Path.Combine(
+                        _mappedCodeBaseRootAbsolute,
+                        originalCodeBaseRoot[_originalCodeBaseRootAbsolute.Length..].Replace('\\', '/'));
+
+                    if (pathExists(testMappedPath))
+                    {
+                        AppearsToBeLocalVirtualizedRun = true;
+                    }
+                }
             }
-        }
-
-        mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
-
-        // the start of paths to be mapped
-        originalCodeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
-
-        var testMappedPath = Path.Combine(
-            mappedCodeBaseRootAbsolute,
-            originalCodeBaseRoot[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/'));
-
-        if (PathExists(testMappedPath))
-        {
-            appearsToBeLocalVirtualizedRun = true;
         }
     }
 
@@ -73,21 +70,21 @@ class VirtualizedRunHelper
     {
         if (path == null ||
             string.IsNullOrEmpty(path) ||
-            !appearsToBeLocalVirtualizedRun)
+            !AppearsToBeLocalVirtualizedRun)
         {
             return path;
         }
 
-        if (!path.StartsWith(originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
+        if (!path.StartsWith(_originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
         {
             return path;
         }
 
-        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
+        var mappedPathRelative = path[_originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
 
-        var mappedPath = Path.Combine(mappedCodeBaseRootAbsolute, mappedPathRelative);
+        var mappedPath = Path.Combine(_mappedCodeBaseRootAbsolute, mappedPathRelative);
 
-        if (PathExists(mappedPath))
+        if (_pathExists(mappedPath))
         {
             return mappedPath;
         }
@@ -114,7 +111,4 @@ class VirtualizedRunHelper
 
         return !string.IsNullOrWhiteSpace(path);
     }
-
-    static bool PathExists(string path) =>
-        File.Exists(path) || Directory.Exists(path);
 }

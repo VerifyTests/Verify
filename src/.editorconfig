@@ -128,6 +128,7 @@ csharp_style_pattern_matching_over_as_with_null_check = true:error
 csharp_style_inlined_variable_declaration = true:suggestion
 csharp_style_throw_expression = true:suggestion
 csharp_style_conditional_delegate_call = true:suggestion
+csharp_style_prefer_switch_expression = true:suggestion
 
 # Newline settings
 #csharp_new_line_before_open_brace = all:error

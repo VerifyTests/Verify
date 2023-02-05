@@ -8,6 +8,7 @@
       "NugetUsage\\XunitNugetUsage\\XunitNugetUsage.csproj",
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.ClipboardAccept\\Verify.ClipboardAccept.csproj",
+      "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",
       "Verify.Tests\\Verify.Tests.csproj",
       "Verify.Xunit.Tests\\Verify.Xunit.Tests.csproj",
       "Verify.Xunit\\Verify.Xunit.csproj",

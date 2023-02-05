@@ -1,22 +1,21 @@
-﻿public class PluginConventionTests :
+﻿
+#pragma warning disable CS0618
+public class PluginConventionTests :
     XunitContextBase
 {
- //   [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.InitializePlugins();
+    [ModuleInitializer]
+    public static void Init()
+    {
+        var method = Assembly.LoadWithPartialName("Verify.SamplePlugin")!
+            .GetType("VerifyTests.VerifySamplePlugin")!
+            .GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public)!;
+
+        method.Invoke(null, null);
+    }
 
     [Fact]
-    public void Find()
-    {
-#pragma warning disable CS0618
-        Assert.Same(typeof(VerifySamplePlugin).Assembly, Assembly.LoadWithPartialName("Verify.SamplePlugin"));
-#pragma warning restore CS0618
-        
-        var method = typeof(VerifySamplePlugin).GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public)!;
-        
-        method.Invoke(null, null);
+    public void Find() =>
         Assert.True(VerifySamplePlugin.Initialized);
-    }
     //
     // [Fact]
     // public void TryGetType()

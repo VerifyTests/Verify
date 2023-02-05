@@ -35,14 +35,15 @@ public static partial class VerifierSettings
             type = null;
             return false;
         }
-
-        var assembly = Assembly.Load(name);
+#pragma warning disable CS0618
+        var assembly = Assembly.LoadWithPartialName(name)!;
+#pragma warning restore CS0618
         var typeName = name.Replace("Verify.", "VerifyTests.Verify");
         type = assembly.GetType(typeName);
         return type != null;
     }
 
-    static void InvokeInitialize(Type type)
+    internal static void InvokeInitialize(Type type)
     {
         var method = type.GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public);
         if (method == null)
@@ -53,7 +54,7 @@ public static partial class VerifierSettings
         method.Invoke(null, null);
     }
 
-    static bool GetInitialized(Type type)
+    internal static bool GetInitialized(Type type)
     {
         var property = type.GetProperty("Initialized", BindingFlags.Static | BindingFlags.Public | BindingFlags.GetProperty);
         if (property == null)

@@ -14,16 +14,7 @@ public static partial class VerifierSettings
 
     static void ProcessFile(string file)
     {
-        var name = Path.GetFileNameWithoutExtension(file);
-        if (!name.StartsWith("Verify."))
-        {
-            return;
-        }
-
-        var assembly = Assembly.Load(name);
-        var typeName = name.Replace("Verify.", "VerifyTests.Verify");
-        var type = assembly.GetType(typeName);
-        if (type == null)
+        if (!TryGetType(file, out var type))
         {
             return;
         }
@@ -34,6 +25,21 @@ public static partial class VerifierSettings
         }
 
         InvokeInitialize(type);
+    }
+
+    internal static bool TryGetType(string file, [NotNullWhen(true)] out Type? type)
+    {
+        var name = Path.GetFileNameWithoutExtension(file);
+        if (!name.StartsWith("Verify."))
+        {
+            type = null;
+            return false;
+        }
+
+        var assembly = Assembly.Load(name);
+        var typeName = name.Replace("Verify.", "VerifyTests.Verify");
+        type = assembly.GetType(typeName);
+        return type != null;
     }
 
     static void InvokeInitialize(Type type)

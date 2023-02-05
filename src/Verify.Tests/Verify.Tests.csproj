@@ -8,6 +8,7 @@
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="XunitContext" Version="3.2.5" />
     <Using Include="Argon" />
     <Using Include="DiffEngine" />
     <Using Include="EmptyFiles" />

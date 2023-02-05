@@ -8,27 +8,32 @@ public static partial class VerifierSettings
         var directory = Path.GetDirectoryName(typeof(VerifierSettings).Assembly.Location)!;
         foreach (var file in Directory.EnumerateFiles(directory, "Verify.*.dll"))
         {
-            var name = Path.GetFileNameWithoutExtension(file);
-            if (!name.StartsWith("Verify."))
-            {
-                continue;
-            }
-
-            var assembly = Assembly.Load(name);
-            var typeName = name.Replace("Verify.", "VerifyTests.Verify");
-            var type = assembly.GetType(typeName);
-            if (type == null)
-            {
-                continue;
-            }
-
-            var initialized = GetInitialized(type);
-
-            if (!initialized)
-            {
-                InvokeInitialize(type);
-            }
+            ProcessFile(file);
         }
+    }
+
+    static void ProcessFile(string file)
+    {
+        var name = Path.GetFileNameWithoutExtension(file);
+        if (!name.StartsWith("Verify."))
+        {
+            return;
+        }
+
+        var assembly = Assembly.Load(name);
+        var typeName = name.Replace("Verify.", "VerifyTests.Verify");
+        var type = assembly.GetType(typeName);
+        if (type == null)
+        {
+            return;
+        }
+
+        if (GetInitialized(type))
+        {
+            return;
+        }
+
+        InvokeInitialize(type);
     }
 
     static void InvokeInitialize(Type type)

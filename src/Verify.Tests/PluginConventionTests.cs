@@ -1,7 +1,7 @@
 ﻿public class PluginConventionTests :
     XunitContextBase
 {
-    [ModuleInitializer]
+ //   [ModuleInitializer]
     public static void Init() =>
         VerifierSettings.InitializePlugins();
 
@@ -11,6 +11,10 @@
 #pragma warning disable CS0618
         Assert.Same(typeof(VerifySamplePlugin).Assembly, Assembly.LoadWithPartialName("Verify.SamplePlugin"));
 #pragma warning restore CS0618
+        
+        var method = typeof(VerifySamplePlugin).GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public)!;
+        
+        method.Invoke(null, null);
         Assert.True(VerifySamplePlugin.Initialized);
     }
     //

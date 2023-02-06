@@ -203,12 +203,10 @@
         virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
 
     /// <summary>
-    /// Get directory path from a given file path
+    /// Resolve directory path from a given source file path, this method will remap the path if the .dll was built on a
+    /// system (e.g. Windows) and the tests are run on another one (e.g. Linux though WSL or docker)
     /// </summary>
-    /// <remarks>
-    /// The method accepts input paths mixing / and \ separators
-    /// </remarks>
-    internal static string GetDirectoryFromSourceFile(string? sourceFile)
+    internal static string ResolveDirectoryFromSourceFile(string? sourceFile)
     {
         sourceFile = GetMappedBuildPath(sourceFile);
 

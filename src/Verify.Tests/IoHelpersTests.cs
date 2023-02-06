@@ -18,6 +18,6 @@ public class IoHelpersTests
             var directory = Path.GetDirectoryName(sourceFile) ?? "";
             Assert.Equal(expectedDirectory.Replace('/', '\\'), directory);
         }
-        Assert.Equal(expectedDirectory, IoHelpers.GetDirectoryFromSourceFile(sourceFile));
+        Assert.Equal(expectedDirectory, IoHelpers.ResolveDirectoryFromSourceFile(sourceFile));
     }
 }

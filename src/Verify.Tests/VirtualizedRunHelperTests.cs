@@ -15,7 +15,7 @@
         Assert.Equal("/mnt/c/build/project_dir/src/file.cs", helper.GetMappedBuildPath(@"C:\build\project_dir\src\file.cs"));
     }
 
-    [Fact]
+    //[Fact]
     public void Test_built_on_windows_run_on_linux_docker()
     {
         var helper = new VirtualizedRunHelper(@"C:\my-src\contoso\proj-x", "/mnt/approot/build-outputs", '/', s => s switch

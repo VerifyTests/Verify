@@ -98,7 +98,7 @@ partial class InnerVerifier
 
             var target = await GetTarget(stream, extension);
 
-            var targets = new List<Target>();
+            var targets = new List<Target>(1);
 
             if (info is not null)
             {
@@ -159,7 +159,7 @@ partial class InnerVerifier
             // if the same stream is returned. no need to re process
             if (resultTargets.Count == 1)
             {
-                var single = resultTargets.Single();
+                var single = resultTargets[0];
                 if (single.Extension == target.Extension)
                 {
                     targets.Add(single);

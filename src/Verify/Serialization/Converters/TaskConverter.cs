@@ -33,7 +33,7 @@
             return;
         }
 
-        var name = type.GenericTypeArguments.First().Name;
+        var name = type.GenericTypeArguments[0].Name;
         if (name == "VoidTaskResult")
         {
             return;

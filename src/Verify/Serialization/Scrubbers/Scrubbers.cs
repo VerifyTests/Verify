@@ -24,14 +24,14 @@ public static class Scrubbers
 
     static (Dictionary<string, string> exact, Dictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
     {
-        var replace = new Dictionary<string, string>();
+        var replace = new Dictionary<string, string>(validWrappingChars.Length * 2);
         foreach (var wrappingChar in validWrappingChars)
         {
             replace[wrappingChar + toReplace] = wrappingChar + toReplaceWith;
             replace[toReplace + wrappingChar] = toReplaceWith + wrappingChar;
         }
 
-        var exact = new Dictionary<string, string>
+        var exact = new Dictionary<string, string>(2 + validWrappingChars.Length * validWrappingChars.Length)
         {
             {
                 toReplace, toReplaceWith

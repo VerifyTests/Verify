@@ -18,7 +18,7 @@
     }
 
 #if NET6_0_OR_GREATER
-    bool TryParseConvertDate(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDate(Counter counter, string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -63,7 +63,7 @@
         return counter.NextString(date);
     }
 
-    bool TryParseConvertTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {

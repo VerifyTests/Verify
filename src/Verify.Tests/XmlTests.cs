@@ -8,7 +8,6 @@ public class XmlTests
 
     #region VerifyXml
 
-
     [Fact]
     public Task Xml() =>
         VerifyXml(xml);
@@ -78,6 +77,29 @@ public class XmlTests
     [Fact]
     public Task XElement() =>
         Verify(XDocument.Parse(xml).Root);
+
+    [Fact]
+    public Task Scrubbing()
+    {
+        var date = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK");
+        var document = XDocument.Parse($@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""{date}"">{date}</node></body>");
+        return Verify(document);
+    }
+
+    [Fact]
+    public Task ScrubAttribute()
+    {
+        var document = XDocument.Parse(@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""value""/></body>");
+        return Verify(document).IgnoreMember("att");
+    }
+
+    [Fact]
+    public Task IgnoreAttribute()
+    {
+        var document = XDocument.Parse(@"<?xml version=""1.0"" encoding=""UTF-8""?><body><node att=""value""/></body>");
+        return Verify(document)
+            .ScrubMember("att");
+    }
 
     [Fact]
     public Task XDocIgnoreMember() =>

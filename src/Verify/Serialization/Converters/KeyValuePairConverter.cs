@@ -10,7 +10,7 @@
 
         var definition = type.GetGenericTypeDefinition();
         return definition == typeof(KeyValuePair<,>) &&
-               type.GetGenericArguments().First() == typeof(string);
+               type.GetGenericArguments()[0] == typeof(string);
     }
 
     public override void Write(VerifyJsonWriter writer, object value)

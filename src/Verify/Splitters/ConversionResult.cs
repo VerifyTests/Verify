@@ -20,7 +20,7 @@ public readonly struct ConversionResult
         Guard.AgainstNullOrEmpty(extension);
         Info = info;
         Cleanup = cleanup;
-        Targets = new List<Target>
+        Targets = new List<Target>(1)
         {
             new(extension, stream)
         };
@@ -31,7 +31,7 @@ public readonly struct ConversionResult
         Guard.AgainstNullOrEmpty(extension);
         Info = info;
         Cleanup = cleanup;
-        Targets = new List<Target>
+        Targets = new List<Target>(1)
         {
             new(extension, data)
         };
@@ -42,7 +42,7 @@ public readonly struct ConversionResult
         Guard.AgainstNullOrEmpty(extension);
         Info = info;
         Cleanup = cleanup;
-        Targets = new List<Target>
+        Targets = new List<Target>(1)
         {
             new(extension, data)
         };

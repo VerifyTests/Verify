@@ -74,13 +74,14 @@
             foreach (var item in value.inner)
             {
                 writer.WritePropertyName(item.Key);
-                if (item.Values.Count == 1)
+                var values = item.Values;
+                if (values.Count == 1)
                 {
-                    writer.Serialize(item.Values.Single());
+                    writer.Serialize(values[0]);
                 }
                 else
                 {
-                    writer.Serialize(item.Values);
+                    writer.Serialize(values);
                 }
             }
 

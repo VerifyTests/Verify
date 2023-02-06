@@ -22,6 +22,11 @@
         {
             return true;
         }
+
+        if (TryParseConvertTime(counter, value, out result))
+        {
+            return true;
+        }
 #endif
 
         result = null;

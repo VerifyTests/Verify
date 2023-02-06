@@ -21,10 +21,10 @@ public static class AttributeReader
         GetValue(assembly, "Verify.ProjectDirectory", true);
 
     public static bool TryGetProjectDirectory([NotNullWhen(true)] out string? projectDirectory) =>
-        TryGetProjectDirectory(Assembly.GetCallingAssembly(), out projectDirectory);
+        TryGetProjectDirectory(Assembly.GetCallingAssembly(), true, out projectDirectory);
 
     public static bool TryGetProjectDirectory(Assembly assembly, [NotNullWhen(true)] out string? projectDirectory) =>
-        TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory, true);
+        TryGetProjectDirectory(assembly, true, out projectDirectory);
 
     public static string GetSolutionDirectory() =>
         GetSolutionDirectory(Assembly.GetCallingAssembly());
@@ -43,6 +43,9 @@ public static class AttributeReader
 
     internal static bool TryGetSolutionDirectory(Assembly assembly, bool mapPathForVirtualizedRun, [NotNullWhen(true)] out string? solutionDirectory) =>
         TryGetValue(assembly, "Verify.SolutionDirectory", out solutionDirectory, mapPathForVirtualizedRun);
+
+    internal static bool TryGetProjectDirectory(Assembly assembly, bool mapPathForVirtualizedRun, [NotNullWhen(true)] out string? projectDirectory) =>
+        TryGetValue(assembly, "Verify.ProjectDirectory", out projectDirectory, mapPathForVirtualizedRun);
 
     static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value, bool isSourcePath = false)
     {

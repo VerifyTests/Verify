@@ -25,7 +25,7 @@
             throw new($"The number of passed in parameters ({settingsParameters.Length}) must be fewer than the number of parameters for the method ({methodParameters.Count}).");
         }
 
-        var dictionary = new Dictionary<string, object?>();
+        var dictionary = new Dictionary<string, object?>(settingsParameters.Length);
         for (var index = 0; index < settingsParameters.Length; index++)
         {
             var parameter = methodParameters[index];

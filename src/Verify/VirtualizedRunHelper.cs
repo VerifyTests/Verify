@@ -22,14 +22,15 @@ class VirtualizedRunHelper
     }
 
     private static string GetOriginalCodeBaseRoot(Assembly userAssembly) =>
-        AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var solutionDir)
-            ? solutionDir : AttributeReader.GetProjectDirectory(userAssembly);
+        AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var originalCodeBaseRoot) ||
+        AttributeReader.TryGetProjectDirectory(userAssembly, false, out originalCodeBaseRoot)
+            ? originalCodeBaseRoot : string.Empty;
 
     internal VirtualizedRunHelper(string originalCodeBaseRoot, string currentDir, char directorySeparatorChar, Func<string, bool> pathExists)
     {
         this.pathExists = pathExists;
 
-       var appearsBuiltOnDifferentPlatform =
+        var appearsBuiltOnDifferentPlatform =
             !string.IsNullOrEmpty(originalCodeBaseRoot) &&
             !originalCodeBaseRoot.Contains(directorySeparatorChar) &&
             originalCodeBaseRoot.Contains("\\");

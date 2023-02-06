@@ -8,6 +8,7 @@
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="XunitContext" Version="3.2.5" />
     <Using Include="Argon" />
     <Using Include="DiffEngine" />
     <Using Include="EmptyFiles" />
@@ -24,6 +25,7 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
+    <ProjectReference Include="..\Verify.SamplePlugin\Verify.SamplePlugin.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <None Update="sample*.*" CopyToOutputDirectory="PreserveNewest" />

@@ -14,10 +14,11 @@ public static partial class VerifierSettings
 
     static string GetLocation()
     {
+        var assembly = typeof(VerifierSettings).Assembly;
 #if NET5_0_OR_GREATER
-        return typeof(VerifierSettings).Assembly.Location!;
+        return typeof(VerifierSettings).Assembly.Location;
 #else
-        return typeof(VerifierSettings).Assembly.CodeBase!;
+        return assembly.CodeBase!.Replace("file:///","");
 #endif
     }
 

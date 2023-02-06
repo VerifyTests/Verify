@@ -5,11 +5,20 @@ public static partial class VerifierSettings
     public static void InitializePlugins()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        var directory = Path.GetDirectoryName(typeof(VerifierSettings).Assembly.Location)!;
+        var directory = Path.GetDirectoryName(GetLocation())!;
         foreach (var file in Directory.EnumerateFiles(directory, "Verify.*.dll"))
         {
             ProcessFile(file);
         }
+    }
+
+    static string GetLocation()
+    {
+#if NET5_0_OR_GREATER
+        return typeof(VerifierSettings).Assembly.Location!;
+#else
+        return typeof(VerifierSettings).Assembly.CodeBase!;
+#endif
     }
 
     static void ProcessFile(string file)

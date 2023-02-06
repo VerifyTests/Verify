@@ -4,14 +4,8 @@ public class PluginConventionTests :
     XunitContextBase
 {
     [ModuleInitializer]
-    public static void Init()
-    {
-        var method = Assembly.LoadWithPartialName("Verify.SamplePlugin")!
-            .GetType("VerifyTests.VerifySamplePlugin")!
-            .GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public)!;
-
-        method.Invoke(null, null);
-    }
+    public static void Init() =>
+        VerifierSettings.InitializePlugins();
 
     [Fact]
     public void Find() =>

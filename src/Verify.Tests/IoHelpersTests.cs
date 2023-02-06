@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 
 public class IoHelpersTests
 {

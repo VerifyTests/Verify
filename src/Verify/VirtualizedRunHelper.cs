@@ -3,9 +3,9 @@ class VirtualizedRunHelper
     // e.g. WSL or docker run (https://github.com/VerifyTests/Verify#unit-testing-inside-virtualized-environment)
     internal bool AppearsToBeLocalVirtualizedRun { get; }
 
-    string _originalCodeBaseRootAbsolute = string.Empty;
-    string _mappedCodeBaseRootAbsolute = string.Empty;
-    readonly Func<string,bool> _pathExists;
+    string originalCodeBaseRootAbsolute = string.Empty;
+    string mappedCodeBaseRootAbsolute = string.Empty;
+    readonly Func<string,bool> pathExists;
 
     static readonly char[] separators =
     {
@@ -25,13 +25,13 @@ class VirtualizedRunHelper
         AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var solutionDir)
             ? solutionDir : AttributeReader.GetProjectDirectory(userAssembly);
 
-    internal VirtualizedRunHelper(string originalCodeBaseRoot, string currentDir, char runtimeSeparator, Func<string, bool> pathExists)
+    internal VirtualizedRunHelper(string originalCodeBaseRoot, string currentDir, char directorySeparatorChar, Func<string, bool> pathExists)
     {
-        _pathExists = pathExists;
+        this.pathExists = pathExists;
 
        var appearsBuiltOnDifferentPlatform =
             !string.IsNullOrEmpty(originalCodeBaseRoot) &&
-            !originalCodeBaseRoot.Contains(runtimeSeparator) &&
+            !originalCodeBaseRoot.Contains(directorySeparatorChar) &&
             originalCodeBaseRoot.Contains("\\");
 
         if (!appearsBuiltOnDifferentPlatform)
@@ -48,14 +48,14 @@ class VirtualizedRunHelper
             {
                 if (currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    _mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
+                    mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
 
                     // the start of paths to be mapped
-                    _originalCodeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
+                    originalCodeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
 
                     var testMappedPath = Path.Combine(
-                        _mappedCodeBaseRootAbsolute,
-                        originalCodeBaseRoot[_originalCodeBaseRootAbsolute.Length..].Replace('\\', '/'));
+                        mappedCodeBaseRootAbsolute,
+                        originalCodeBaseRoot[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/'));
 
                     if (pathExists(testMappedPath))
                     {
@@ -75,16 +75,16 @@ class VirtualizedRunHelper
             return path;
         }
 
-        if (!path.StartsWith(_originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
+        if (!path.StartsWith(originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
         {
             return path;
         }
 
-        var mappedPathRelative = path[_originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
+        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
 
-        var mappedPath = Path.Combine(_mappedCodeBaseRootAbsolute, mappedPathRelative);
+        var mappedPath = Path.Combine(mappedCodeBaseRootAbsolute, mappedPathRelative);
 
-        if (_pathExists(mappedPath))
+        if (pathExists(mappedPath))
         {
             return mappedPath;
         }

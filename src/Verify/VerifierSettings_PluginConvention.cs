@@ -15,12 +15,10 @@ public static partial class VerifierSettings
     static string GetLocation()
     {
         var assembly = typeof(VerifierSettings).Assembly;
-#if NET5_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER
-        return assembly.Location;
-#else
         // ReSharper disable once RedundantSuppressNullableWarningExpression
-        new Uri(assembly.CodeBase).LocalPath;
-#endif
+#pragma warning disable SYSLIB0012
+        return new Uri(assembly.CodeBase!).LocalPath;
+#pragma warning restore SYSLIB0012
     }
 
     static void ProcessFile(string file)

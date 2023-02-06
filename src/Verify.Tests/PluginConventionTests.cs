@@ -1,7 +1,6 @@
 ﻿
 #pragma warning disable CS0618
-public class PluginConventionTests :
-    XunitContextBase
+public class PluginConventionTests
 {
     [ModuleInitializer]
     public static void Init() =>
@@ -44,10 +43,5 @@ public class PluginConventionTests :
     public static class InitializedTarget
     {
         public static bool Initialized { get; set; }
-    }
-
-    public PluginConventionTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

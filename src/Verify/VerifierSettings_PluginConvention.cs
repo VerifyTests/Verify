@@ -25,7 +25,6 @@ public static partial class VerifierSettings
     {
         if (!TryGetType(file, out var type))
         {
-            Console.WriteLine($"Did not find type in {file}");
             return;
         }
 

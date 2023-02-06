@@ -19,7 +19,7 @@ public static partial class VerifierSettings
         return assembly.Location;
 #else
         // ReSharper disable once RedundantSuppressNullableWarningExpression
-        return assembly.CodeBase!.Replace("file:///","");
+        new Uri(assembly.CodeBase).LocalPath;
 #endif
     }
 

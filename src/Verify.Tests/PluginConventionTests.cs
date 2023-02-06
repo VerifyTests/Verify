@@ -33,6 +33,70 @@ public class PluginConventionTests
     }
 
     [Fact]
+    public void InvokeInitializeWithOptional()
+    {
+        VerifierSettings.InvokeInitialize(typeof(InitializeTargetWithOptional));
+        Assert.True(InitializeTargetWithOptional.Initialized);
+        Assert.True(InitializeTargetWithOptional.Param);
+    }
+
+    public static class InitializeTargetWithOptional
+    {
+        public static bool Initialized { get; set; }
+        public static bool Param { get; set; }
+
+        public static void Initialize(bool param = true)
+        {
+            Param = param;
+            Initialized = true;
+        }
+    }
+
+    [Fact]
+    public void InvokeInitializeWithAmbiguous()
+    {
+        VerifierSettings.InvokeInitialize(typeof(InitializeTargetWithAmbiguous));
+        Assert.True(InitializeTargetWithAmbiguous.Initialized);
+        Assert.False(InitializeTargetWithAmbiguous.Param);
+    }
+
+    public static class InitializeTargetWithAmbiguous
+    {
+        public static bool Initialized { get; set; }
+        public static bool Param { get; set; }
+
+        public static void Initialize() =>
+            Initialized = true;
+
+        public static void Initialize(bool param = true) =>
+            Param = param;
+    }
+
+    [Fact]
+    public void InvokeInitializeWithOneNotDefault()
+    {
+        VerifierSettings.InvokeInitialize(typeof(InitializeWithOneNotDefault));
+        Assert.True(InitializeWithOneNotDefault.Initialized);
+        Assert.True(InitializeWithOneNotDefault.Param);
+    }
+
+    public static class InitializeWithOneNotDefault
+    {
+        public static bool Initialized { get; set; }
+        public static bool Param { get; set; }
+
+        public static void Initialize(int x)
+        {
+        }
+
+        public static void Initialize(bool param = true)
+        {
+            Param = param;
+            Initialized = true;
+        }
+    }
+
+    [Fact]
     public void InvokeInitialized()
     {
         Assert.False(VerifierSettings.GetInitialized(typeof(InitializedTarget)));

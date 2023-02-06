@@ -54,13 +54,30 @@ public static partial class VerifierSettings
 
     internal static void InvokeInitialize(Type type)
     {
-        var method = type.GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public);
+        var method = type.GetMethods(BindingFlags.Static | BindingFlags.Public)
+            .Where(_ => _.Name == "Initialize" &&
+                        _.GetParameters().All(_ => _.HasDefaultValue))
+            .OrderBy(_ => _.GetParameters().Length)
+            .FirstOrDefault();
         if (method == null)
         {
             throw new($"Expected {type.Name} to have a method `public static void Initialize()`.");
         }
 
-        method.Invoke(null, null);
+        var parameters = method.GetParameters()
+            .Select(_ => _.DefaultValue)
+            .ToArray();
+        method.Invoke(null, parameters);
+    }
+
+    static object? DefaultValue(this Type type)
+    {
+        if (type.IsValueType)
+        {
+            return Activator.CreateInstance(type);
+        }
+
+        return null;
     }
 
     internal static bool GetInitialized(Type type)

@@ -18,6 +18,7 @@ public static partial class VerifierSettings
 #if NET5_0_OR_GREATER
         return typeof(VerifierSettings).Assembly.Location;
 #else
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
         return assembly.CodeBase!.Replace("file:///","");
 #endif
     }

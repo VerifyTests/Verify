@@ -15,8 +15,8 @@ public static partial class VerifierSettings
     static string GetLocation()
     {
         var assembly = typeof(VerifierSettings).Assembly;
-#if NET5_0_OR_GREATER
-        return typeof(VerifierSettings).Assembly.Location;
+#if NET5_0_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+        return assembly.Location;
 #else
         // ReSharper disable once RedundantSuppressNullableWarningExpression
         return assembly.CodeBase!.Replace("file:///","");

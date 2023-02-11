@@ -41,7 +41,8 @@ class VirtualizedRunHelper
             return path;
         }
 
-        if (!Initialized)
+        if (!Initialized &&
+            !path.Equals(originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
         {
             // If not initialized (the solution or project dir path might not have been set or they are
             //   not sufficient due to insufficient nesting and hence appearing to have no cross-section

@@ -89,34 +89,30 @@ class VirtualizedRunHelper
         if (!string.IsNullOrEmpty(originalCodeBaseRoot))
         {
             var currentDirRelativeToAppRoot = currentDir.TrimStart(separators);
+            //remove the drive info from the code root
+            var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
             while (TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot))
             {
-                //remove the drive info from the code root
-                var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
                 while (TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
                 {
-                    if (!currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
+                    if (currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        continue;
+                        mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
+
+                        // the start of paths to be mapped
+                        var codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
+
+                        var testMappedPath = Env.CombinePaths(
+                            mappedCodeBaseRootAbsolute,
+                            originalCodeBaseRoot[codeBaseRootAbsolute.Length..].Replace('\\', '/'));
+
+                        if (Env.PathExists(testMappedPath))
+                        {
+                            originalCodeBaseRootAbsolute = codeBaseRootAbsolute;
+                            AppearsToBeLocalVirtualizedRun = true;
+                            return true;
+                        }
                     }
-
-                    mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
-
-                    // the start of paths to be mapped
-                    var codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
-
-                    var testMappedPath = Env.CombinePaths(
-                        mappedCodeBaseRootAbsolute,
-                        originalCodeBaseRoot[codeBaseRootAbsolute.Length..].Replace('\\', '/'));
-
-                    if (!Env.PathExists(testMappedPath))
-                    {
-                        continue;
-                    }
-
-                    originalCodeBaseRootAbsolute = codeBaseRootAbsolute;
-                    AppearsToBeLocalVirtualizedRun = true;
-                    return true;
                 }
             }
         }
@@ -124,23 +120,7 @@ class VirtualizedRunHelper
         // Fallback attempt - via the existence of mapped build-time path within the run-time FS
 
         // 1) try to get relative if we can (if not, at least cut the first part - or not)
-        var buildTimePathRelative = buildTimePath;
-        if (!string.IsNullOrEmpty(originalCodeBaseRoot) &&
-            buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.CurrentCultureIgnoreCase))
-        {
-            buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
-            buildTimePathRelative = buildTimePathRelative.TrimStart(separators);
-            if (string.IsNullOrEmpty(buildTimePathRelative.Trim(separators)))
-            {
-                buildTimePathRelative = buildTimePath;
-            }
-        }
-
-        // path is actually absolute - let's remove the root
-        if (buildTimePathRelative == buildTimePath)
-        {
-            TryRemoveDirFromStartOfPath(ref buildTimePathRelative);
-        }
+        var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath);
 
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
@@ -164,6 +144,29 @@ class VirtualizedRunHelper
 
         AppearsToBeLocalVirtualizedRun = false;
         return false;
+    }
+
+    static string GetBuildTimePathRelative(string originalCodeBaseRoot, string buildTimePath)
+    {
+        var buildTimePathRelative = buildTimePath;
+        if (!string.IsNullOrEmpty(originalCodeBaseRoot) &&
+            buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.CurrentCultureIgnoreCase))
+        {
+            buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
+            buildTimePathRelative = buildTimePathRelative.TrimStart(separators);
+            if (string.IsNullOrEmpty(buildTimePathRelative.Trim(separators)))
+            {
+                buildTimePathRelative = buildTimePath;
+            }
+        }
+
+        // path is actually absolute - let's remove the root
+        if (buildTimePathRelative == buildTimePath)
+        {
+            TryRemoveDirFromStartOfPath(ref buildTimePathRelative);
+        }
+
+        return buildTimePathRelative;
     }
 
     static bool AppearsBuiltOnCurrentPlatform(string buildTimePath) =>

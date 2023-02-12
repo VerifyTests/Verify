@@ -80,7 +80,7 @@ class VirtualizedRunHelper
 
         var appearsBuiltOnCurrentPlatform =
             buildTimePath.Contains(Env.DirectorySeparatorChar) &&
-            !buildTimePath.Contains(separators.First(c => c != Env.DirectorySeparatorChar));
+            !buildTimePath.Contains(separators.First(_ => _ != Env.DirectorySeparatorChar));
 
         if (appearsBuiltOnCurrentPlatform)
         {

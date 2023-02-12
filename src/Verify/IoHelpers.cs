@@ -193,7 +193,7 @@
 
     internal static string? GetMappedBuildPath(string? path)
     {
-        if (virtualizedRunHelper == null)
+        if (virtualizedRunHelper == null || path == null)
         {
             return path;
         }
@@ -201,7 +201,7 @@
         return virtualizedRunHelper.GetMappedBuildPath(path);
     }
 
-    internal static string? GetMappedBuildPath(string path, Assembly assembly)
+    internal static string GetMappedBuildPath(string path, Assembly assembly)
     {
         var helper = GetForAssembly(assembly);
         return helper.GetMappedBuildPath(path);

@@ -52,9 +52,10 @@ public static class AttributeReader
         value = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
             .SingleOrDefault(_ => _.Key == key)
             ?.Value;
-        if (isSourcePath)
+        if (isSourcePath &&
+            value != null)
         {
-            value = value == null ? null : IoHelpers.GetMappedBuildPath(value, assembly);
+            value = IoHelpers.GetMappedBuildPath(value, assembly);
         }
 
         return value is not null;

@@ -32,14 +32,8 @@ class VirtualizedRunHelper
         }
     }
 
-    public string? GetMappedBuildPath(string? path)
+    public string GetMappedBuildPath(string path)
     {
-        if (path == null ||
-            string.IsNullOrEmpty(path))
-        {
-            return path;
-        }
-
         if (!Initialized &&
             !path.Equals(originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
         {

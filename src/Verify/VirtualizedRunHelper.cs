@@ -88,10 +88,10 @@ class VirtualizedRunHelper
         // First attempt - by the cross-section of the build-time path and run-time path
         if (!string.IsNullOrEmpty(originalCodeBaseRoot))
         {
-            if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var tempMappedCodeBaseRootAbsolute, out var codeBaseRootAbsolute))
+            if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var crossMapped, out var crossOriginal))
             {
-                mappedCodeBaseRootAbsolute = tempMappedCodeBaseRootAbsolute;
-                originalCodeBaseRootAbsolute = codeBaseRootAbsolute;
+                mappedCodeBaseRootAbsolute = crossMapped;
+                originalCodeBaseRootAbsolute = crossOriginal;
                 AppearsToBeLocalVirtualizedRun = true;
                 return true;
             }
@@ -100,29 +100,44 @@ class VirtualizedRunHelper
         // Fallback attempt - via the existence of mapped build-time path within the run-time FS
 
         // 1) try to get relative if we can (if not, at least cut the first part - or not)
+        if (TryGetRelative(originalCodeBaseRoot, buildTimePath, out var relativeMapped, out var relativeOriginal))
+        {
+            mappedCodeBaseRootAbsolute = relativeMapped;
+            originalCodeBaseRootAbsolute = relativeOriginal;
+            AppearsToBeLocalVirtualizedRun = true;
+            return true;
+        }
+
+        AppearsToBeLocalVirtualizedRun = false;
+        return false;
+    }
+
+    bool TryGetRelative(
+        string originalCodeBaseRoot,
+        string buildTimePath,
+        [NotNullWhen(true)] out string? codeBaseRootAbsolute,
+        [NotNullWhen(true)] out string? baseRootAbsolute)
+    {
         var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath);
 
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
         {
-            var codeBaseRootAbsolute = currentDir;
+            codeBaseRootAbsolute = Env.CurrentDirectory;
             do
             {
                 var testMappedPath = Env.CombinePaths(codeBaseRootAbsolute, buildTimePathRelative.Replace('\\', '/'));
-                if (!Env.PathExists(testMappedPath))
+                if (Env.PathExists(testMappedPath))
                 {
-                    continue;
+                    baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
+                    mappedCodeBaseRootAbsolute = codeBaseRootAbsolute;
+                    return true;
                 }
-
-                mappedCodeBaseRootAbsolute = codeBaseRootAbsolute;
-                originalCodeBaseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
-                AppearsToBeLocalVirtualizedRun = true;
-                return true;
-
             } while (TryRemoveDirFromEndOfPath(ref codeBaseRootAbsolute));
         } while (TryRemoveDirFromStartOfPath(ref buildTimePathRelative));
 
-        AppearsToBeLocalVirtualizedRun = false;
+        codeBaseRootAbsolute = null;
+        baseRootAbsolute = null;
         return false;
     }
 

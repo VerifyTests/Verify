@@ -35,6 +35,9 @@ public partial class InnerVerifier :
         IReadOnlyList<string>? methodParameters,
         PathInfo pathInfo)
     {
+        Guard.AgainstEmpty(sourceFile);
+        Guard.AgainstEmpty(typeName);
+        Guard.AgainstEmpty(methodName);
         verifyHasBeenRun = true;
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;

@@ -3,21 +3,21 @@ static class TupleConverter
 {
     public static Dictionary<string, object?> ExpressionToDictionary(Expression<Func<ITuple>> expression)
     {
-        var unaryExpression = (UnaryExpression) expression.Body;
-        var methodCallExpression = (MethodCallExpression) unaryExpression.Operand;
-        var method = methodCallExpression.Method;
-        var attribute = ReadTupleElementNamesAttribute(method);
-        var dictionary = new Dictionary<string, object?>(attribute.TransformNames.Count);
+        var unary = (UnaryExpression) expression.Body;
+        var methodCall = (MethodCallExpression) unary.Operand;
+        var attribute = ReadTupleElementNamesAttribute(methodCall.Method);
+        var transforms = attribute.TransformNames;
+        var dictionary = new Dictionary<string, object?>(transforms.Count);
         var result = expression.Compile().Invoke();
-        for (var index = 0; index < attribute.TransformNames.Count; index++)
+        for (var index = 0; index < transforms.Count; index++)
         {
-            var transformName = attribute.TransformNames[index];
-            if (transformName is null)
+            var transform = transforms[index];
+            if (transform is null)
             {
                 throw new("Only tuples with all parts are named can be used.");
             }
 
-            dictionary.Add(transformName, result[index]);
+            dictionary.Add(transform, result[index]);
         }
 
         return dictionary;
@@ -25,15 +25,15 @@ static class TupleConverter
 
     static TupleElementNamesAttribute ReadTupleElementNamesAttribute(MethodInfo method)
     {
-        var attribute = (TupleElementNamesAttribute?) method.ReturnTypeCustomAttributes
-            .GetCustomAttributes(typeof(TupleElementNamesAttribute), false)
-            .SingleOrDefault();
-        if (attribute is not null)
+        var attributes = method.ReturnTypeCustomAttributes
+            .GetCustomAttributes(typeof(TupleElementNamesAttribute), false);
+
+        if (attributes.Length == 0)
         {
-            return attribute;
+            throw new("Verify is only to be used on methods that return a tuple.");
         }
 
-        throw new("Verify is only to be used on methods that return a tuple.");
+        return (TupleElementNamesAttribute) attributes[0];
     }
 }
 #endif

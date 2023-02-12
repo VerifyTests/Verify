@@ -14,6 +14,7 @@ partial class SerializationSettings
             return false;
         }
 
-        return member.GetCustomAttribute<ObsoleteAttribute>(true) is not null;
+        var attributes = Attribute.GetCustomAttributes(member, typeof(ObsoleteAttribute), true);
+        return attributes.Length > 0;
     }
 }

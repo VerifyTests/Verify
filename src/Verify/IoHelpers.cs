@@ -216,17 +216,17 @@
     /// </summary>
     internal static string ResolveDirectoryFromSourceFile(string? sourceFile)
     {
-        sourceFile = GetMappedBuildPath(sourceFile);
+        var mappedFile = GetMappedBuildPath(sourceFile);
 
-        if (sourceFile is null)
+        if (mappedFile is null)
         {
             return string.Empty;
         }
 
-        var index = sourceFile.LastIndexOfAny(Separators);
+        var index = mappedFile.LastIndexOfAny(Separators);
         if (index > 0)
         {
-            return sourceFile[..index];
+            return mappedFile[..index];
         }
 
         return string.Empty;

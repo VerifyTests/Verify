@@ -179,7 +179,7 @@
 
     public static string RemoveLast(this string value, string pattern)
     {
-        int place = value.LastIndexOf(pattern, StringComparison.OrdinalIgnoreCase);
+        var place = value.LastIndexOf(pattern, StringComparison.OrdinalIgnoreCase);
 
         if (place == -1)
         {

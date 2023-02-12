@@ -33,7 +33,7 @@
             return false;
         }
 
-        Type? current = type;
+        var current = type;
         while (true)
         {
             if (current is null)
@@ -46,32 +46,24 @@
                 return true;
             }
 
-            if (parent.IsGenericTypeDefinition && current.IsGenericType)
+            if (parent.IsGenericTypeDefinition &&
+                current.IsGenericType &&
+                current.GetGenericTypeDefinition() == parent)
             {
-                if (current.GetGenericTypeDefinition() == parent)
-                {
-                    return true;
-                }
+                return true;
             }
 
             current = current.BaseType;
         }
     }
 
-    public static Type MemberType(this MemberInfo member)
-    {
-        if (member is PropertyInfo property)
+    public static Type MemberType(this MemberInfo member) =>
+        member switch
         {
-            return property.PropertyType;
-        }
-
-        if (member is FieldInfo field)
-        {
-            return field.FieldType;
-        }
-
-        throw new($"No supported MemberType: {member.MemberType}");
-    }
+            PropertyInfo property => property.PropertyType,
+            FieldInfo field => field.FieldType,
+            _ => throw new($"No supported MemberType: {member.MemberType}")
+        };
 
     public static bool IsEmptyCollectionOrDictionary(this object target)
     {
@@ -175,14 +167,14 @@
         return false;
     }
 
-    static bool ImplementsGenericCollection(this Type x)
+    static bool ImplementsGenericCollection(this Type type)
     {
-        if (!x.IsGenericType)
+        if (!type.IsGenericType)
         {
             return false;
         }
 
-        var definition = x.GetGenericTypeDefinition();
+        var definition = type.GetGenericTypeDefinition();
         return definition == typeof(ICollection<>) ||
                definition == typeof(IReadOnlyCollection<>);
     }

@@ -78,11 +78,7 @@ class VirtualizedRunHelper
             return false;
         }
 
-        var appearsBuiltOnCurrentPlatform =
-            buildTimePath.Contains(Env.DirectorySeparatorChar) &&
-            !buildTimePath.Contains(separators.First(_ => _ != Env.DirectorySeparatorChar));
-
-        if (appearsBuiltOnCurrentPlatform)
+        if (AppearsBuiltOnCurrentPlatform(buildTimePath))
         {
             AppearsToBeLocalVirtualizedRun = false;
             return true;
@@ -129,7 +125,8 @@ class VirtualizedRunHelper
 
         // 1) try to get relative if we can (if not, at least cut the first part - or not)
         var buildTimePathRelative = buildTimePath;
-        if (!string.IsNullOrEmpty(originalCodeBaseRoot) && buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.CurrentCultureIgnoreCase))
+        if (!string.IsNullOrEmpty(originalCodeBaseRoot) &&
+            buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.CurrentCultureIgnoreCase))
         {
             buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
             buildTimePathRelative = buildTimePathRelative.TrimStart(separators);
@@ -168,6 +165,10 @@ class VirtualizedRunHelper
         AppearsToBeLocalVirtualizedRun = false;
         return false;
     }
+
+    static bool AppearsBuiltOnCurrentPlatform(string buildTimePath) =>
+        buildTimePath.Contains(Env.DirectorySeparatorChar) &&
+        !buildTimePath.Contains(separators.First(_ => _ != Env.DirectorySeparatorChar));
 
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {

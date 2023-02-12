@@ -88,32 +88,12 @@ class VirtualizedRunHelper
         // First attempt - by the cross-section of the build-time path and run-time path
         if (!string.IsNullOrEmpty(originalCodeBaseRoot))
         {
-            var currentDirRelativeToAppRoot = currentDir.TrimStart(separators);
-            //remove the drive info from the code root
-            var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
-            while (TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot))
+            if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var tempMappedCodeBaseRootAbsolute, out var codeBaseRootAbsolute))
             {
-                while (TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
-                {
-                    if (currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        mappedCodeBaseRootAbsolute = currentDir[..^currentDirRelativeToAppRoot.Length];
-
-                        // the start of paths to be mapped
-                        var codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
-
-                        var testMappedPath = Env.CombinePaths(
-                            mappedCodeBaseRootAbsolute,
-                            originalCodeBaseRoot[codeBaseRootAbsolute.Length..].Replace('\\', '/'));
-
-                        if (Env.PathExists(testMappedPath))
-                        {
-                            originalCodeBaseRootAbsolute = codeBaseRootAbsolute;
-                            AppearsToBeLocalVirtualizedRun = true;
-                            return true;
-                        }
-                    }
-                }
+                mappedCodeBaseRootAbsolute = tempMappedCodeBaseRootAbsolute;
+                originalCodeBaseRootAbsolute = codeBaseRootAbsolute;
+                AppearsToBeLocalVirtualizedRun = true;
+                return true;
             }
         }
 
@@ -143,6 +123,45 @@ class VirtualizedRunHelper
         } while (TryRemoveDirFromStartOfPath(ref buildTimePathRelative));
 
         AppearsToBeLocalVirtualizedRun = false;
+        return false;
+    }
+
+    static bool TryFindByCrossSectionOfBuildRunPath(
+        string originalCodeBaseRoot,
+        [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
+        [NotNullWhen(true)] out string? codeBaseRootAbsolute)
+    {
+        var currentDirRelativeToAppRoot = Env.CurrentDirectory.TrimStart(separators);
+        //remove the drive info from the code root
+        var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
+        while (TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot))
+        {
+            while (TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
+            {
+                if (!currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    continue;
+                }
+
+                mappedCodeBaseRootAbsolute = Env.CurrentDirectory[..^currentDirRelativeToAppRoot.Length];
+
+                // the start of paths to be mapped
+
+                codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
+
+                var testMappedPath = Env.CombinePaths(
+                    mappedCodeBaseRootAbsolute,
+                    originalCodeBaseRoot[codeBaseRootAbsolute.Length..].Replace('\\', '/'));
+
+                if (Env.PathExists(testMappedPath))
+                {
+                    return true;
+                }
+            }
+        }
+
+        mappedCodeBaseRootAbsolute = null;
+        codeBaseRootAbsolute = null;
         return false;
     }
 

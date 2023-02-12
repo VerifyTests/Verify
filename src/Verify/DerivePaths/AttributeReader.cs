@@ -49,16 +49,30 @@ public static class AttributeReader
 
     static bool TryGetValue(Assembly assembly, string key, [NotNullWhen(true)] out string? value, bool isSourcePath = false)
     {
-        value = assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .SingleOrDefault(_ => _.Key == key)
-            ?.Value;
-        if (isSourcePath &&
-            value != null)
+        foreach (var attribute in Attribute.GetCustomAttributes(assembly, typeof(AssemblyMetadataAttribute), false))
         {
-            value = IoHelpers.GetMappedBuildPath(value, assembly);
+            var metaData = (AssemblyMetadataAttribute)attribute;
+            if (metaData.Key != key)
+            {
+                continue;
+            }
+
+            if (metaData.Value is null)
+            {
+                throw new($"Null value for `AssemblyMetadataAttribute` named `{key}`.");
+            }
+
+            value = metaData.Value;
+            if (isSourcePath)
+            {
+                value = IoHelpers.GetMappedBuildPath(value, assembly);
+            }
+
+            return true;
         }
 
-        return value is not null;
+        value = null;
+        return false;
     }
 
     static string GetValue(Assembly assembly, string key, bool isSourcePath = false)

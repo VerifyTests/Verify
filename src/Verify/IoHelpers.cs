@@ -199,7 +199,7 @@
         return helper == null ? path : helper.GetMappedBuildPath(path);
     }
 
-    private static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
+    static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
         virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
 
     /// <summary>
@@ -211,7 +211,9 @@
         sourceFile = GetMappedBuildPath(sourceFile);
 
         if (sourceFile is null)
+        {
             return string.Empty;
+        }
 
         var index = sourceFile.LastIndexOfAny(Separators);
         if (index > 0)

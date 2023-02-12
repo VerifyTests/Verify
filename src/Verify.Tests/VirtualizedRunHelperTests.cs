@@ -1,10 +1,11 @@
-public class VirtualizedRunHelperTests: IDisposable
+public class VirtualizedRunHelperTests :
+    IDisposable
 {
     [Fact]
-    public void Test_built_on_windows_run_on_linux_wsl()
+    public void Built_on_windows_run_on_linux_wsl()
     {
         VirtualizedRunHelper.Env = new TestEnv(
-            s => s switch
+            _ => _ switch
             {
                 "/mnt/c/build/project_dir" => true,
                 "/mnt/c/build/project_dir/src/file.cs" => true,
@@ -20,12 +21,11 @@ public class VirtualizedRunHelperTests: IDisposable
         Assert.Equal("/mnt/c/build/project_dir/src/file.cs", helper.GetMappedBuildPath(@"C:\build\project_dir\src\file.cs"));
     }
 
-
     [Fact]
-    public void Test_built_on_windows_run_on_linux_ci()
+    public void Built_on_windows_run_on_linux_ci()
     {
         VirtualizedRunHelper.Env = new TestEnv(
-            s => s switch
+            _ => _ switch
             {
                 "/ci/build/project_dir" => true,
                 "/ci/build/project_dir/src/file.cs" => true,
@@ -42,10 +42,10 @@ public class VirtualizedRunHelperTests: IDisposable
     }
 
     [Fact]
-    public void Test_built_on_windows_run_on_linux_docker()
+    public void Built_on_windows_run_on_linux_docker()
     {
         VirtualizedRunHelper.Env = new TestEnv(
-            s => s switch
+            _ => _ switch
             {
                 "/mnt/approot/build-outputs" => true,
                 "/mnt/approot/src/file.cs" => true,
@@ -65,10 +65,10 @@ public class VirtualizedRunHelperTests: IDisposable
     }
 
     [Fact]
-    public void Test_built_on_windows_run_on_windows()
+    public void Built_on_windows_run_on_windows()
     {
         VirtualizedRunHelper.Env = new TestEnv(
-            s => s switch
+            _ => _ switch
             {
                 "C:\\proj\\file.cs" => true,
                 "C:\\proj" => true,
@@ -88,9 +88,10 @@ public class VirtualizedRunHelperTests: IDisposable
     public void Dispose() =>
         VirtualizedRunHelper.Env = PhysicalEnvironment.Instance;
 
-    private class TestEnv: IEnvironment
+    class TestEnv : IEnvironment
     {
         Func<string, bool> pathExists;
+
         public TestEnv(Func<string, bool> pathExists, string currentDirectory, char directorySeparatorChar = '/')
         {
             this.pathExists = pathExists;
@@ -104,10 +105,6 @@ public class VirtualizedRunHelperTests: IDisposable
 
         // Make sure Path.Combine behaves as on Unix, even when executed on Windows
         public string CombinePaths(string path1, string path2) =>
-            Path.Combine(path1.TrimEnd(new[]
-            {
-                '\\',
-                '/'
-            }) + '/', path2);
+            Path.Combine(path1.TrimEnd('\\', '/') + '/', path2);
     }
 }

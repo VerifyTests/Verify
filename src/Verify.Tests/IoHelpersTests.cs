@@ -11,13 +11,15 @@ public class IoHelpersTests
     [InlineData(@"C:\MyFile.cs", @"C:")]
     [InlineData(@"MyFile.cs", "")]
     [InlineData(null, "")]
-    public void ResolveDirectoryNameFromSourceFileTests(string sourceFile, string expectedDirectory)
+    public void ResolveDirectoryNameFromSourceFileTests(string? sourceFile, string expectedDirectory)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && expectedDirectory != "C:")
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) &&
+            expectedDirectory != "C:")
         {
             var directory = Path.GetDirectoryName(sourceFile) ?? "";
             Assert.Equal(expectedDirectory.Replace('/', '\\'), directory);
         }
+
         Assert.Equal(expectedDirectory, IoHelpers.ResolveDirectoryFromSourceFile(sourceFile));
     }
 }

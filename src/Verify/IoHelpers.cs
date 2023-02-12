@@ -183,7 +183,6 @@
         }
 
         return fullPath[(directory.Length+1)..];
-
     }
 
     static VirtualizedRunHelper? virtualizedRunHelper;
@@ -200,7 +199,7 @@
     }
 
     static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
-        virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
+        virtualizedRunHelpers.GetOrAdd(assembly, _ => new(_));
 
     /// <summary>
     /// Resolve directory path from a given source file path, this method will remap the path if the .dll was built on a
@@ -218,7 +217,7 @@
         var index = sourceFile.LastIndexOfAny(Separators);
         if (index > 0)
         {
-            return sourceFile.Substring(0, index);
+            return sourceFile[..index];
         }
 
         return string.Empty;

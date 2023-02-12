@@ -214,19 +214,19 @@
     /// Resolve directory path from a given source file path, this method will remap the path if the .dll was built on a
     /// system (e.g. Windows) and the tests are run on another one (e.g. Linux though WSL or docker)
     /// </summary>
-    internal static string ResolveDirectoryFromSourceFile(string sourceFile)
+    internal static string ResolveDirectoryFromSourceFile(string? sourceFile)
     {
-        var mappedFile = GetMappedBuildPath(sourceFile);
+        sourceFile = GetMappedBuildPath(sourceFile);
 
-        if (mappedFile is null)
+        if (sourceFile is null)
         {
             return string.Empty;
         }
 
-        var index = mappedFile.LastIndexOfAny(Separators);
+        var index = sourceFile.LastIndexOfAny(Separators);
         if (index > 0)
         {
-            return mappedFile[..index];
+            return sourceFile[..index];
         }
 
         return string.Empty;

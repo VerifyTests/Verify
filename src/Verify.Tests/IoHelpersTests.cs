@@ -9,7 +9,6 @@ public class IoHelpersTests
     [InlineData(@"/mnt/MyFile.cs", "/mnt")]
     [InlineData(@"C:\Program Files/MyFile.cs", @"C:\Program Files")]
     [InlineData(@"C:\MyFile.cs", @"C:")]
-    [InlineData(@"MyFile.cs", "")]
     public void ResolveDirectoryNameFromSourceFileTests(string sourceFile, string expectedDirectory)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) &&

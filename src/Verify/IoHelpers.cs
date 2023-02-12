@@ -224,7 +224,7 @@
             return mappedFile[..index];
         }
 
-        return string.Empty;
+        throw new($"Unable to resolve directory. sourceFile: {sourceFile}");
     }
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER

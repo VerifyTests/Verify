@@ -115,36 +115,36 @@ class VirtualizedRunHelper
     bool TryGetRelative(
         string originalCodeBaseRoot,
         string buildTimePath,
-        [NotNullWhen(true)] out string? codeBaseRootAbsolute,
-        [NotNullWhen(true)] out string? baseRootAbsolute)
+        [NotNullWhen(true)] out string? relativeMapped,
+        [NotNullWhen(true)] out string? relativeOriginal)
     {
         var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath);
 
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
         {
-            codeBaseRootAbsolute = Env.CurrentDirectory;
+            relativeMapped = Env.CurrentDirectory;
             do
             {
-                var testMappedPath = Env.CombinePaths(codeBaseRootAbsolute, buildTimePathRelative.Replace('\\', '/'));
+                var testMappedPath = Env.CombinePaths(relativeMapped, buildTimePathRelative.Replace('\\', '/'));
                 if (Env.PathExists(testMappedPath))
                 {
-                    baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
-                    mappedCodeBaseRootAbsolute = codeBaseRootAbsolute;
+                    relativeOriginal = buildTimePath[..^buildTimePathRelative.Length];
+                    mappedCodeBaseRootAbsolute = relativeMapped;
                     return true;
                 }
-            } while (TryRemoveDirFromEndOfPath(ref codeBaseRootAbsolute));
+            } while (TryRemoveDirFromEndOfPath(ref relativeMapped));
         } while (TryRemoveDirFromStartOfPath(ref buildTimePathRelative));
 
-        codeBaseRootAbsolute = null;
-        baseRootAbsolute = null;
+        relativeMapped = null;
+        relativeOriginal = null;
         return false;
     }
 
     static bool TryFindByCrossSectionOfBuildRunPath(
         string originalCodeBaseRoot,
-        [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
-        [NotNullWhen(true)] out string? codeBaseRootAbsolute)
+        [NotNullWhen(true)] out string? crossMapped,
+        [NotNullWhen(true)] out string? crossOriginal)
     {
         var currentDirRelativeToAppRoot = Env.CurrentDirectory.TrimStart(separators);
         //remove the drive info from the code root
@@ -158,15 +158,15 @@ class VirtualizedRunHelper
                     continue;
                 }
 
-                mappedCodeBaseRootAbsolute = Env.CurrentDirectory[..^currentDirRelativeToAppRoot.Length];
+                crossMapped = Env.CurrentDirectory[..^currentDirRelativeToAppRoot.Length];
 
                 // the start of paths to be mapped
 
-                codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
+                crossOriginal = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
 
                 var testMappedPath = Env.CombinePaths(
-                    mappedCodeBaseRootAbsolute,
-                    originalCodeBaseRoot[codeBaseRootAbsolute.Length..].Replace('\\', '/'));
+                    crossMapped,
+                    originalCodeBaseRoot[crossOriginal.Length..].Replace('\\', '/'));
 
                 if (Env.PathExists(testMappedPath))
                 {
@@ -175,8 +175,8 @@ class VirtualizedRunHelper
             }
         }
 
-        mappedCodeBaseRootAbsolute = null;
-        codeBaseRootAbsolute = null;
+        crossMapped = null;
+        crossOriginal = null;
         return false;
     }
 

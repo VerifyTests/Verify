@@ -214,7 +214,7 @@
     /// Resolve directory path from a given source file path, this method will remap the path if the .dll was built on a
     /// system (e.g. Windows) and the tests are run on another one (e.g. Linux though WSL or docker)
     /// </summary>
-    internal static string ResolveDirectoryFromSourceFile(string? sourceFile)
+    internal static string ResolveDirectoryFromSourceFile(string sourceFile)
     {
         var mappedFile = GetMappedBuildPath(sourceFile);
 

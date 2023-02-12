@@ -237,16 +237,17 @@ public partial class InnerVerifier :
         }
 
         var settingsOrInfoDirectory = settings.Directory ?? pathInfoDirectory;
-        settingsOrInfoDirectory = IoHelpers.GetMappedBuildPath(settingsOrInfoDirectory);
 
         if (settingsOrInfoDirectory is null)
         {
             return sourceFileDirectory;
         }
 
-        var directory = Path.Combine(sourceFileDirectory, settingsOrInfoDirectory);
+        var mappedSettingsOrInfoDirectory = IoHelpers.GetMappedBuildPath(settingsOrInfoDirectory);
+        var directory = Path.Combine(sourceFileDirectory, mappedSettingsOrInfoDirectory);
         IoHelpers.CreateDirectory(directory);
         return directory;
+
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>

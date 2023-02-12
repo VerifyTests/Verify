@@ -191,9 +191,9 @@
     internal static void MapPathsForCallingAssembly(Assembly assembly) =>
         virtualizedRunHelper = GetForAssembly(assembly);
 
-    internal static string? GetMappedBuildPath(string? path)
+    internal static string GetMappedBuildPath(string path)
     {
-        if (virtualizedRunHelper == null || path == null)
+        if (virtualizedRunHelper == null)
         {
             return path;
         }
@@ -217,11 +217,6 @@
     internal static string ResolveDirectoryFromSourceFile(string sourceFile)
     {
         var mappedFile = GetMappedBuildPath(sourceFile);
-
-        if (mappedFile is null)
-        {
-            return string.Empty;
-        }
 
         var index = mappedFile.LastIndexOfAny(Separators);
         if (index > 0)

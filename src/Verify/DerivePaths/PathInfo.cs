@@ -28,7 +28,7 @@ public readonly struct PathInfo
         Type type,
         MethodInfo method) =>
         new(
-            directory: IoHelpers.GetDirectoryName(sourceFile)!,
+            directory: IoHelpers.ResolveDirectoryFromSourceFile(sourceFile),
             typeName: type.NameWithParent(),
             methodName: method.Name);
     #endregion
@@ -39,7 +39,7 @@ public readonly struct PathInfo
         string typeName,
         string methodName) =>
         new(
-            directory: IoHelpers.GetDirectoryName(sourceFile)!,
+            directory: IoHelpers.ResolveDirectoryFromSourceFile(sourceFile),
             typeName: typeName,
             methodName: methodName);
 }

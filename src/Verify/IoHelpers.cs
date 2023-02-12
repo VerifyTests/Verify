@@ -1,6 +1,7 @@
 ﻿static class IoHelpers
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
+    static readonly char[] Separators = { '\\', '/' };
 
     public static void DeleteDirectory(string path)
     {
@@ -201,8 +202,25 @@
     private static VirtualizedRunHelper GetForAssembly(Assembly assembly) =>
         virtualizedRunHelpers.GetOrAdd(assembly, a => new(a));
 
-    public static string? GetDirectoryName(string? path) =>
-        Path.GetDirectoryName(GetMappedBuildPath(path));
+    /// <summary>
+    /// Resolve directory path from a given source file path, this method will remap the path if the .dll was built on a
+    /// system (e.g. Windows) and the tests are run on another one (e.g. Linux though WSL or docker)
+    /// </summary>
+    internal static string ResolveDirectoryFromSourceFile(string? sourceFile)
+    {
+        sourceFile = GetMappedBuildPath(sourceFile);
+
+        if (sourceFile is null)
+            return string.Empty;
+
+        var index = sourceFile.LastIndexOfAny(Separators);
+        if (index > 0)
+        {
+            return sourceFile.Substring(0, index);
+        }
+
+        return string.Empty;
+    }
 
 #if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
 

@@ -178,7 +178,7 @@ class VirtualizedRunHelper
 
         path = path.TrimStart(separators);
 
-        int nextSeparatorIdx = path.IndexOfAny(separators);
+        var nextSeparatorIdx = path.IndexOfAny(separators);
         if (nextSeparatorIdx <= 0 || nextSeparatorIdx == path.Length - 1)
         {
             return false;

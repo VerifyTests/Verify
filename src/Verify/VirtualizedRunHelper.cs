@@ -17,19 +17,19 @@ class VirtualizedRunHelper
 
     public VirtualizedRunHelper(Assembly userAssembly)
         : this(
-            AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var sln) ? sln : string.Empty,
-            AttributeReader.TryGetProjectDirectory(userAssembly, false, out var proj) ? proj : string.Empty)
+            AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var sln) ? sln : null,
+            AttributeReader.TryGetProjectDirectory(userAssembly, false, out var proj) ? proj : null)
     {
     }
 
-    internal VirtualizedRunHelper(string solutionDir, string projectDir)
+    internal VirtualizedRunHelper(string? solutionDir, string? projectDir)
     {
-        if (!string.IsNullOrEmpty(solutionDir))
+        if (solutionDir != null)
         {
             Initialized = TryInitializeFromBuildTimePath(solutionDir, solutionDir);
             if (!Initialized)
             {
-                if (!string.IsNullOrEmpty(projectDir))
+                if (projectDir != null)
                 {
                     Initialized = TryInitializeFromBuildTimePath(solutionDir, projectDir);
                 }
@@ -38,7 +38,7 @@ class VirtualizedRunHelper
             return;
         }
 
-        if (!string.IsNullOrEmpty(projectDir))
+        if (projectDir != null)
         {
             Initialized = TryInitializeFromBuildTimePath(projectDir, projectDir);
         }

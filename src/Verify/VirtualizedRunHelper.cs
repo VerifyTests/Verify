@@ -85,11 +85,6 @@ class VirtualizedRunHelper
             return true;
         }
 
-        if (string.IsNullOrEmpty(buildTimePath))
-        {
-            return false;
-        }
-
         if (AppearsBuiltOnCurrentPlatform(buildTimePath))
         {
             AppearsToBeLocalVirtualizedRun = false;

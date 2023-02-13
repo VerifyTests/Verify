@@ -1576,7 +1576,6 @@ public class SerializationTests
             });
     }
 
-
     [Fact]
     public Task ShouldScrubGuid()
     {

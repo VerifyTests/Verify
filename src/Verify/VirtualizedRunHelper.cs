@@ -115,8 +115,6 @@ class VirtualizedRunHelper
             return true;
         }
 
-        mappedCodeBaseRootAbsolute = null;
-        originalCodeBaseRootAbsolute = null;
         return false;
     }
 

@@ -194,7 +194,7 @@ class VirtualizedRunHelper
         {
             buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
             buildTimePathRelative = buildTimePathRelative.TrimStart(separators);
-            if (string.IsNullOrEmpty(buildTimePathRelative.Trim(separators)))
+            if (buildTimePathRelative.Trim(separators) == string.Empty)
             {
                 buildTimePathRelative = buildTimePath;
             }
@@ -225,7 +225,7 @@ class VirtualizedRunHelper
 
         path = path[(nextSeparatorIdx + 1)..];
 
-        return path.Length > 0;
+        return path != string.Empty;
     }
 
     static bool TryRemoveDirFromEndOfPath(ref string path)
@@ -246,6 +246,6 @@ class VirtualizedRunHelper
 
         path = path[..nextSeparatorIdx];
 
-        return path.Length > 0;
+        return path != string.Empty;
     }
 }

@@ -6,7 +6,7 @@ class VirtualizedRunHelper
     internal bool AppearsToBeLocalVirtualizedRun { get; private set; }
     internal bool Initialized { get; private set; }
 
-    string originalCodeBaseRootAbsolute = string.Empty;
+    string? originalCodeBaseRootAbsolute;
     string? mappedCodeBaseRootAbsolute;
 
     static readonly char[] separators =
@@ -61,7 +61,7 @@ class VirtualizedRunHelper
             return path;
         }
 
-        if (originalCodeBaseRootAbsolute == string.Empty)
+        if (originalCodeBaseRootAbsolute == null)
         {
             return path;
         }
@@ -83,7 +83,7 @@ class VirtualizedRunHelper
         return path;
     }
 
-    bool TryInitializeFromBuildTimePath(string originalCodeBaseRoot, string buildTimePath)
+    bool TryInitializeFromBuildTimePath(string? originalCodeBaseRoot, string buildTimePath)
     {
         if (AppearsBuiltOnCurrentPlatform(buildTimePath))
         {
@@ -102,7 +102,7 @@ class VirtualizedRunHelper
     }
 
     static bool InnerTryInitializeFromBuildTimePath(
-        string originalCodeBaseRoot,
+        string? originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
         [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute)
@@ -124,7 +124,7 @@ class VirtualizedRunHelper
     }
 
     static bool TryGetRelative(
-        string originalCodeBaseRoot,
+        string? originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute,
         [NotNullWhen(true)] out string? baseRootAbsolute)
@@ -153,11 +153,11 @@ class VirtualizedRunHelper
     }
 
     static bool TryFindByCrossSectionOfBuildRunPath(
-        string originalCodeBaseRoot,
+        string? originalCodeBaseRoot,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute)
     {
-        if (string.IsNullOrEmpty(originalCodeBaseRoot))
+        if (originalCodeBaseRoot == null)
         {
             mappedCodeBaseRootAbsolute = null;
             codeBaseRootAbsolute = null;
@@ -198,10 +198,10 @@ class VirtualizedRunHelper
         return false;
     }
 
-    static string GetBuildTimePathRelative(string originalCodeBaseRoot, string buildTimePath)
+    static string GetBuildTimePathRelative(string? originalCodeBaseRoot, string buildTimePath)
     {
         var buildTimePathRelative = buildTimePath;
-        if (!string.IsNullOrEmpty(originalCodeBaseRoot) &&
+        if (originalCodeBaseRoot != null &&
             buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.OrdinalIgnoreCase))
         {
             buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];

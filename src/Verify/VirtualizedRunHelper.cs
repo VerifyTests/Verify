@@ -107,7 +107,6 @@ class VirtualizedRunHelper
             return true;
         }
 
-        AppearsToBeLocalVirtualizedRun = false;
         return false;
     }
 

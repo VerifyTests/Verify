@@ -230,7 +230,7 @@ class VirtualizedRunHelper
 
     static bool TryRemoveDirFromEndOfPath(ref string path)
     {
-        if (string.IsNullOrEmpty(path))
+        if (path == string.Empty)
         {
             return false;
         }

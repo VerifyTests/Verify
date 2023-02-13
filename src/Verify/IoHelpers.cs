@@ -94,6 +94,25 @@
         }
     }
 
+    [Conditional("DEBUG")]
+    public static void ValidateOsPathSeparators(string path, [CallerArgumentExpression("path")] string argumentName = "")
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            if (path.Contains('/'))
+            {
+                throw new($"Path '{argumentName}' should not contain / on windows: {path}");
+            }
+        }
+        else
+        {
+            if (path.Contains('\\'))
+            {
+                throw new($"Path '{argumentName}' should not contain \\ on mac/linux: {path}");
+            }
+        }
+    }
+
     public static void CreateDirectory(string directory) =>
         Directory.CreateDirectory(directory);
 

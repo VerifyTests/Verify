@@ -80,11 +80,6 @@ class VirtualizedRunHelper
 
     bool TryInitializeFromBuildTimePath(string originalCodeBaseRoot, string buildTimePath)
     {
-        if (Initialized)
-        {
-            return true;
-        }
-
         if (AppearsBuiltOnCurrentPlatform(buildTimePath))
         {
             AppearsToBeLocalVirtualizedRun = false;

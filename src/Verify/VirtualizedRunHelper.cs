@@ -215,11 +215,6 @@ class VirtualizedRunHelper
 
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {
-        if (string.IsNullOrEmpty(path))
-        {
-            return false;
-        }
-
         path = path.TrimStart(separators);
 
         var nextSeparatorIdx = path.IndexOfAny(separators);

@@ -1,6 +1,7 @@
 class VirtualizedRunHelper
 {
     internal static IEnvironment Env { private get; set; } = PhysicalEnvironment.Instance;
+
     // e.g. WSL or docker run (https://github.com/VerifyTests/Verify#unit-testing-inside-virtualized-environment)
     internal bool AppearsToBeLocalVirtualizedRun { get; private set; }
     internal bool Initialized { get; private set; }
@@ -18,7 +19,8 @@ class VirtualizedRunHelper
         : this(
             AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var sln) ? sln : string.Empty,
             AttributeReader.TryGetProjectDirectory(userAssembly, false, out var proj) ? proj : string.Empty)
-    { }
+    {
+    }
 
     internal VirtualizedRunHelper(string solutionDir, string projectDir)
     {
@@ -100,23 +102,19 @@ class VirtualizedRunHelper
     static bool InnerTryInitializeFromBuildTimePath(
         string originalCodeBaseRoot,
         string buildTimePath,
-        [NotNullWhen(true)]out string? mappedCodeBaseRootAbsolute,
-        [NotNullWhen(true)]out string? originalCodeBaseRootAbsolute)
+        [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
+        [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute)
     {
         // First attempt - by the cross-section of the build-time path and run-time path
-        if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var crossMapped, out var crossOriginal))
+        if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute))
         {
-            mappedCodeBaseRootAbsolute = crossMapped;
-            originalCodeBaseRootAbsolute = crossOriginal;
             return true;
         }
 
         // Fallback attempt - via the existence of mapped build-time path within the run-time FS
         // 1) try to get relative if we can (if not, at least cut the first part - or not)
-        if (TryGetRelative(originalCodeBaseRoot, buildTimePath, out var relativeMapped, out var relativeOriginal))
+        if (TryGetRelative(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute))
         {
-            mappedCodeBaseRootAbsolute = relativeMapped;
-            originalCodeBaseRootAbsolute = relativeOriginal;
             return true;
         }
 

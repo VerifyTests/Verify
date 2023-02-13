@@ -105,23 +105,13 @@ class VirtualizedRunHelper
         string? originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
-        [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute)
-    {
+        [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute) =>
         // First attempt - by the cross-section of the build-time path and run-time path
-        if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute))
-        {
-            return true;
-        }
+        TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute) ||
 
         // Fallback attempt - via the existence of mapped build-time path within the run-time FS
         // 1) try to get relative if we can (if not, at least cut the first part - or not)
-        if (TryGetRelative(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute))
-        {
-            return true;
-        }
-
-        return false;
-    }
+        TryGetRelative(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out originalCodeBaseRootAbsolute);
 
     static bool TryGetRelative(
         string? originalCodeBaseRoot,

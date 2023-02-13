@@ -61,6 +61,11 @@ class VirtualizedRunHelper
             return path;
         }
 
+        if (originalCodeBaseRootAbsolute == string.Empty)
+        {
+            return path;
+        }
+
         if (!path.StartsWith(originalCodeBaseRootAbsolute, StringComparison.OrdinalIgnoreCase))
         {
             return path;

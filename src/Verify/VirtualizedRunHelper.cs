@@ -225,7 +225,7 @@ class VirtualizedRunHelper
 
         path = path[(nextSeparatorIdx + 1)..];
 
-        return !string.IsNullOrWhiteSpace(path);
+        return path.Length > 0;
     }
 
     static bool TryRemoveDirFromEndOfPath(ref string path)
@@ -246,6 +246,6 @@ class VirtualizedRunHelper
 
         path = path[..nextSeparatorIdx];
 
-        return !string.IsNullOrWhiteSpace(path);
+        return path.Length > 0;
     }
 }

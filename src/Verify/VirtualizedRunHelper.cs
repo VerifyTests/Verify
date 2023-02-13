@@ -84,7 +84,6 @@ class VirtualizedRunHelper
             return true;
         }
 
-        var currentDir = Env.CurrentDirectory;
         // First attempt - by the cross-section of the build-time path and run-time path
         if (!string.IsNullOrEmpty(originalCodeBaseRoot))
         {

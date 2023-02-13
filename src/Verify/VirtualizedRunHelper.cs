@@ -6,8 +6,8 @@ class VirtualizedRunHelper
     internal bool AppearsToBeLocalVirtualizedRun { get; private set; }
     internal bool Initialized { get; private set; }
 
-    string originalCodeBaseRootAbsolute;
-    string mappedCodeBaseRootAbsolute = string.Empty;
+    string? originalCodeBaseRootAbsolute;
+    string? mappedCodeBaseRootAbsolute;
 
     static readonly char[] separators =
     {
@@ -17,20 +17,30 @@ class VirtualizedRunHelper
 
     public VirtualizedRunHelper(Assembly userAssembly)
         : this(
-            AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var sln) ? sln : string.Empty,
-            AttributeReader.TryGetProjectDirectory(userAssembly, false, out var proj) ? proj : string.Empty)
+            AttributeReader.TryGetSolutionDirectory(userAssembly, false, out var sln) ? sln : null,
+            AttributeReader.TryGetProjectDirectory(userAssembly, false, out var proj) ? proj : null)
     {
     }
 
-    internal VirtualizedRunHelper(string solutionDir, string projectDir)
+    internal VirtualizedRunHelper(string? solutionDir, string? projectDir)
     {
-        originalCodeBaseRootAbsolute = string.IsNullOrEmpty(solutionDir) ? projectDir : solutionDir;
-
-        if (!string.IsNullOrEmpty(originalCodeBaseRootAbsolute))
+        if (solutionDir != null)
         {
-            Initialized =
-                TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, solutionDir) ||
-                TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, projectDir);
+            Initialized = TryInitializeFromBuildTimePath(solutionDir, solutionDir);
+            if (!Initialized)
+            {
+                if (projectDir != null)
+                {
+                    Initialized = TryInitializeFromBuildTimePath(solutionDir, projectDir);
+                }
+            }
+
+            return;
+        }
+
+        if (projectDir != null)
+        {
+            Initialized = TryInitializeFromBuildTimePath(projectDir, projectDir);
         }
     }
 
@@ -51,6 +61,11 @@ class VirtualizedRunHelper
             return path;
         }
 
+        if (originalCodeBaseRootAbsolute == null)
+        {
+            return path;
+        }
+
         if (!path.StartsWith(originalCodeBaseRootAbsolute, StringComparison.OrdinalIgnoreCase))
         {
             return path;
@@ -58,7 +73,7 @@ class VirtualizedRunHelper
 
         var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
 
-        var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute, mappedPathRelative);
+        var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
 
         if (Env.PathExists(mappedPath))
         {
@@ -68,27 +83,16 @@ class VirtualizedRunHelper
         return path;
     }
 
-    bool TryInitializeFromBuildTimePath(string originalCodeBaseRoot, string buildTimePath)
+    bool TryInitializeFromBuildTimePath(string? originalCodeBaseRoot, string buildTimePath)
     {
-        if (Initialized)
-        {
-            return true;
-        }
-
-        if (string.IsNullOrEmpty(buildTimePath))
-        {
-            return false;
-        }
-
         if (AppearsBuiltOnCurrentPlatform(buildTimePath))
         {
             AppearsToBeLocalVirtualizedRun = false;
             return true;
         }
 
-        if (InnerTryInitializeFromBuildTimePath(originalCodeBaseRoot, buildTimePath, out var mappedAbsolute, out var originalAbsolute))
+        if (InnerTryInitializeFromBuildTimePath(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out var originalAbsolute))
         {
-            mappedCodeBaseRootAbsolute = mappedAbsolute;
             originalCodeBaseRootAbsolute = originalAbsolute;
             AppearsToBeLocalVirtualizedRun = true;
             return true;
@@ -98,7 +102,7 @@ class VirtualizedRunHelper
     }
 
     static bool InnerTryInitializeFromBuildTimePath(
-        string originalCodeBaseRoot,
+        string? originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
         [NotNullWhen(true)] out string? originalCodeBaseRootAbsolute)
@@ -120,7 +124,7 @@ class VirtualizedRunHelper
     }
 
     static bool TryGetRelative(
-        string originalCodeBaseRoot,
+        string? originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute,
         [NotNullWhen(true)] out string? baseRootAbsolute)
@@ -149,11 +153,11 @@ class VirtualizedRunHelper
     }
 
     static bool TryFindByCrossSectionOfBuildRunPath(
-        string originalCodeBaseRoot,
+        string? originalCodeBaseRoot,
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute)
     {
-        if (string.IsNullOrEmpty(originalCodeBaseRoot))
+        if (originalCodeBaseRoot == null)
         {
             mappedCodeBaseRootAbsolute = null;
             codeBaseRootAbsolute = null;
@@ -194,15 +198,15 @@ class VirtualizedRunHelper
         return false;
     }
 
-    static string GetBuildTimePathRelative(string originalCodeBaseRoot, string buildTimePath)
+    static string GetBuildTimePathRelative(string? originalCodeBaseRoot, string buildTimePath)
     {
         var buildTimePathRelative = buildTimePath;
-        if (!string.IsNullOrEmpty(originalCodeBaseRoot) &&
+        if (originalCodeBaseRoot != null &&
             buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.OrdinalIgnoreCase))
         {
             buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
             buildTimePathRelative = buildTimePathRelative.TrimStart(separators);
-            if (string.IsNullOrEmpty(buildTimePathRelative.Trim(separators)))
+            if (buildTimePathRelative.Trim(separators) == string.Empty)
             {
                 buildTimePathRelative = buildTimePath;
             }
@@ -223,11 +227,6 @@ class VirtualizedRunHelper
 
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {
-        if (string.IsNullOrEmpty(path))
-        {
-            return false;
-        }
-
         path = path.TrimStart(separators);
 
         var nextSeparatorIdx = path.IndexOfAny(separators);
@@ -238,12 +237,12 @@ class VirtualizedRunHelper
 
         path = path[(nextSeparatorIdx + 1)..];
 
-        return !string.IsNullOrWhiteSpace(path);
+        return path != string.Empty;
     }
 
     static bool TryRemoveDirFromEndOfPath(ref string path)
     {
-        if (string.IsNullOrEmpty(path))
+        if (path == string.Empty)
         {
             return false;
         }
@@ -259,6 +258,6 @@ class VirtualizedRunHelper
 
         path = path[..nextSeparatorIdx];
 
-        return !string.IsNullOrWhiteSpace(path);
+        return path != string.Empty;
     }
 }

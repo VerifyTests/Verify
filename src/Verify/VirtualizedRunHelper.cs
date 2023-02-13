@@ -124,16 +124,17 @@ class VirtualizedRunHelper
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
         {
-            codeBaseRootAbsolute = Env.CurrentDirectory;
+            var currentDir = Env.CurrentDirectory;
             do
             {
-                var testMappedPath = Env.CombinePaths(codeBaseRootAbsolute, buildTimePathRelative.Replace('\\', '/'));
+                var testMappedPath = Env.CombinePaths(currentDir, buildTimePathRelative.Replace('\\', '/'));
                 if (Env.PathExists(testMappedPath))
                 {
                     baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
+                    codeBaseRootAbsolute = currentDir;
                     return true;
                 }
-            } while (TryRemoveDirFromEndOfPath(ref codeBaseRootAbsolute));
+            } while (TryRemoveDirFromEndOfPath(ref currentDir));
         } while (TryRemoveDirFromStartOfPath(ref buildTimePathRelative));
 
         codeBaseRootAbsolute = null;

@@ -7,7 +7,7 @@ class VirtualizedRunHelper
     internal bool Initialized { get; private set; }
 
     string originalCodeBaseRootAbsolute = string.Empty;
-    string mappedCodeBaseRootAbsolute = string.Empty;
+    string? mappedCodeBaseRootAbsolute;
 
     static readonly char[] separators =
     {
@@ -68,7 +68,7 @@ class VirtualizedRunHelper
 
         var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
 
-        var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute, mappedPathRelative);
+        var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
 
         if (Env.PathExists(mappedPath))
         {
@@ -86,9 +86,8 @@ class VirtualizedRunHelper
             return true;
         }
 
-        if (InnerTryInitializeFromBuildTimePath(originalCodeBaseRoot, buildTimePath, out var mappedAbsolute, out var originalAbsolute))
+        if (InnerTryInitializeFromBuildTimePath(originalCodeBaseRoot, buildTimePath, out mappedCodeBaseRootAbsolute, out var originalAbsolute))
         {
-            mappedCodeBaseRootAbsolute = mappedAbsolute;
             originalCodeBaseRootAbsolute = originalAbsolute;
             AppearsToBeLocalVirtualizedRun = true;
             return true;

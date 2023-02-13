@@ -85,15 +85,12 @@ class VirtualizedRunHelper
         }
 
         // First attempt - by the cross-section of the build-time path and run-time path
-        if (!string.IsNullOrEmpty(originalCodeBaseRoot))
+        if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var crossMapped, out var crossOriginal))
         {
-            if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var crossMapped, out var crossOriginal))
-            {
-                mappedCodeBaseRootAbsolute = crossMapped;
-                originalCodeBaseRootAbsolute = crossOriginal;
-                AppearsToBeLocalVirtualizedRun = true;
-                return true;
-            }
+            mappedCodeBaseRootAbsolute = crossMapped;
+            originalCodeBaseRootAbsolute = crossOriginal;
+            AppearsToBeLocalVirtualizedRun = true;
+            return true;
         }
 
         // Fallback attempt - via the existence of mapped build-time path within the run-time FS
@@ -144,6 +141,13 @@ class VirtualizedRunHelper
         [NotNullWhen(true)] out string? mappedCodeBaseRootAbsolute,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute)
     {
+        if (string.IsNullOrEmpty(originalCodeBaseRoot))
+        {
+            mappedCodeBaseRootAbsolute = null;
+            codeBaseRootAbsolute = null;
+            return false;
+        }
+
         var currentDirRelativeToAppRoot = Env.CurrentDirectory.TrimStart(separators);
         //remove the drive info from the code root
         var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');

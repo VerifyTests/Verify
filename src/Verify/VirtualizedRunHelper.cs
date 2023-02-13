@@ -24,11 +24,23 @@ class VirtualizedRunHelper
     {
         originalCodeBaseRootAbsolute = string.IsNullOrEmpty(solutionDir) ? projectDir : solutionDir;
 
-        if (!string.IsNullOrEmpty(originalCodeBaseRootAbsolute))
+        if (string.IsNullOrEmpty(originalCodeBaseRootAbsolute))
         {
-            Initialized =
-                TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, solutionDir) ||
-                TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, projectDir);
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(solutionDir))
+        {
+            Initialized = TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, solutionDir);
+            if (Initialized)
+            {
+                return;
+            }
+        }
+
+        if (!string.IsNullOrEmpty(projectDir))
+        {
+            Initialized = TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, projectDir);
         }
     }
 

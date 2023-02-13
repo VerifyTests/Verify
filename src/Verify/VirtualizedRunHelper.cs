@@ -86,26 +86,42 @@ class VirtualizedRunHelper
             return true;
         }
 
+        if (InnerTryInitializeFromBuildTimePath(originalCodeBaseRoot, buildTimePath, out var mappedAbsolute, out var originalAbsolute))
+        {
+            mappedCodeBaseRootAbsolute = mappedAbsolute;
+            originalCodeBaseRootAbsolute = originalAbsolute;
+            AppearsToBeLocalVirtualizedRun = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    static bool InnerTryInitializeFromBuildTimePath(
+        string originalCodeBaseRoot,
+        string buildTimePath,
+        [NotNullWhen(true)]out string? mappedCodeBaseRootAbsolute,
+        [NotNullWhen(true)]out string? originalCodeBaseRootAbsolute)
+    {
         // First attempt - by the cross-section of the build-time path and run-time path
         if (TryFindByCrossSectionOfBuildRunPath(originalCodeBaseRoot, out var crossMapped, out var crossOriginal))
         {
             mappedCodeBaseRootAbsolute = crossMapped;
             originalCodeBaseRootAbsolute = crossOriginal;
-            AppearsToBeLocalVirtualizedRun = true;
             return true;
         }
 
         // Fallback attempt - via the existence of mapped build-time path within the run-time FS
-
         // 1) try to get relative if we can (if not, at least cut the first part - or not)
         if (TryGetRelative(originalCodeBaseRoot, buildTimePath, out var relativeMapped, out var relativeOriginal))
         {
             mappedCodeBaseRootAbsolute = relativeMapped;
             originalCodeBaseRootAbsolute = relativeOriginal;
-            AppearsToBeLocalVirtualizedRun = true;
             return true;
         }
 
+        mappedCodeBaseRootAbsolute = null;
+        originalCodeBaseRootAbsolute = null;
         return false;
     }
 

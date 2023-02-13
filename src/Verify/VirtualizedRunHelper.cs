@@ -6,7 +6,7 @@ class VirtualizedRunHelper
     internal bool AppearsToBeLocalVirtualizedRun { get; private set; }
     internal bool Initialized { get; private set; }
 
-    string originalCodeBaseRootAbsolute;
+    string originalCodeBaseRootAbsolute = string.Empty;
     string mappedCodeBaseRootAbsolute = string.Empty;
 
     static readonly char[] separators =
@@ -24,25 +24,23 @@ class VirtualizedRunHelper
 
     internal VirtualizedRunHelper(string solutionDir, string projectDir)
     {
-        originalCodeBaseRootAbsolute = string.IsNullOrEmpty(solutionDir) ? projectDir : solutionDir;
-
-        if (string.IsNullOrEmpty(originalCodeBaseRootAbsolute))
-        {
-            return;
-        }
-
         if (!string.IsNullOrEmpty(solutionDir))
         {
-            Initialized = TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, solutionDir);
-            if (Initialized)
+            Initialized = TryInitializeFromBuildTimePath(solutionDir, solutionDir);
+            if (!Initialized)
             {
-                return;
+                if (!string.IsNullOrEmpty(projectDir))
+                {
+                    Initialized = TryInitializeFromBuildTimePath(solutionDir, projectDir);
+                }
             }
+
+            return;
         }
 
         if (!string.IsNullOrEmpty(projectDir))
         {
-            Initialized = TryInitializeFromBuildTimePath(originalCodeBaseRootAbsolute, projectDir);
+            Initialized = TryInitializeFromBuildTimePath(projectDir, projectDir);
         }
     }
 

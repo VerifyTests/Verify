@@ -118,7 +118,7 @@ class VirtualizedRunHelper
         return false;
     }
 
-    bool TryGetRelative(
+    static bool TryGetRelative(
         string originalCodeBaseRoot,
         string buildTimePath,
         [NotNullWhen(true)] out string? codeBaseRootAbsolute,
@@ -136,7 +136,6 @@ class VirtualizedRunHelper
                 if (Env.PathExists(testMappedPath))
                 {
                     baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
-                    mappedCodeBaseRootAbsolute = codeBaseRootAbsolute;
                     return true;
                 }
             } while (TryRemoveDirFromEndOfPath(ref codeBaseRootAbsolute));

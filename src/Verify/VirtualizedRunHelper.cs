@@ -47,7 +47,7 @@ class VirtualizedRunHelper
     public string GetMappedBuildPath(string path)
     {
         if (!Initialized &&
-            !path.Equals(originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
+            !path.Equals(originalCodeBaseRootAbsolute, StringComparison.OrdinalIgnoreCase))
         {
             // If not initialized (the solution or project dir path might not have been set or they are
             //   not sufficient due to insufficient nesting and hence appearing to have no cross-section
@@ -61,7 +61,7 @@ class VirtualizedRunHelper
             return path;
         }
 
-        if (!path.StartsWith(originalCodeBaseRootAbsolute, StringComparison.CurrentCultureIgnoreCase))
+        if (!path.StartsWith(originalCodeBaseRootAbsolute, StringComparison.OrdinalIgnoreCase))
         {
             return path;
         }
@@ -154,7 +154,7 @@ class VirtualizedRunHelper
         {
             while (TryRemoveDirFromStartOfPath(ref mappedCodeBaseRootRelative))
             {
-                if (!currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.CurrentCultureIgnoreCase))
+                if (!currentDirRelativeToAppRoot.StartsWith(mappedCodeBaseRootRelative, StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
@@ -185,7 +185,7 @@ class VirtualizedRunHelper
     {
         var buildTimePathRelative = buildTimePath;
         if (!string.IsNullOrEmpty(originalCodeBaseRoot) &&
-            buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.CurrentCultureIgnoreCase))
+            buildTimePath.StartsWith(originalCodeBaseRoot, StringComparison.OrdinalIgnoreCase))
         {
             buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
             buildTimePathRelative = buildTimePathRelative.TrimStart(separators);

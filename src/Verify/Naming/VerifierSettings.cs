@@ -59,7 +59,7 @@ public static partial class VerifierSettings
 
         if (parameter is string stringParameter)
         {
-            builder.Append(stringParameter.ReplaceInvalidFileNameChars());
+            FileNameCleaner.AppendValid(builder, stringParameter);
             return;
         }
 
@@ -109,7 +109,7 @@ public static partial class VerifierSettings
             throw new($"{type.FullName} returned a null for `ToString()`.");
         }
 
-        builder.Append(nameForParameter.ReplaceInvalidFileNameChars());
+        FileNameCleaner.AppendValid(builder, nameForParameter);
     }
 
     /// <summary>

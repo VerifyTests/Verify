@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Interfaces;
-
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 public static partial class Verifier
 {
@@ -60,13 +58,15 @@ public static partial class Verifier
 
     static string GetMethodName(this ITest test)
     {
-        var info = test.TypeInfo!;
-        var displayNameWithArgs = TypeHelper.GetDisplayName(info.Type, test.Arguments);
-        var displayNameWithoutArgs = info.GetDisplayName().Length;
-        var argsString = displayNameWithArgs[displayNameWithoutArgs..];
-        return test.Name
-            .TrimEnd(argsString)
-            .ReplaceInvalidFileNameChars();
+        var name = test.Name;
+        var indexOf = name.IndexOf('(');
+
+        if (indexOf != -1)
+        {
+            name = name[..indexOf];
+        }
+
+        return name.ReplaceInvalidFileNameChars();
     }
 
     static string GetTypeName(this Test test)

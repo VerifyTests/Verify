@@ -11,6 +11,7 @@
     <Using Include="NUnit" />
     <Using Include="NUnit.Framework" />
     <Using Include="NUnit.Framework.Internal" />
+    <Using Include="NUnit.Framework.Interfaces" />
     <Using Include="VerifyTests" />
     <Using Include="Argon" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />

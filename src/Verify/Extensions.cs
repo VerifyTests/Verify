@@ -161,13 +161,13 @@
 
     public static FrameworkName? FrameworkName(this Assembly assembly)
     {
-        var targetFrameworkAttribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
-        if (targetFrameworkAttribute is null)
+        var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
+        if (attribute is null)
         {
             return null;
         }
 
-        return new(targetFrameworkAttribute.FrameworkName);
+        return new(attribute.FrameworkName);
     }
 
     public static bool IsException(this Type type) =>

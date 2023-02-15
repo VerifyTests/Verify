@@ -47,16 +47,6 @@
     public static Dictionary<TKey, TValue?> Clone<TKey, TValue>(this Dictionary<TKey, TValue?> original)
         where TValue : struct where TKey : notnull => new(original);
 
-    public static string TrimEnd(this string input, string suffixToRemove, StringComparison comparisonType = StringComparison.CurrentCulture)
-    {
-        if (input.EndsWith(suffixToRemove, comparisonType))
-        {
-            return input[..^suffixToRemove.Length];
-        }
-
-        return input;
-    }
-
     #region NameWithParent
 
     public static string NameWithParent(this Type type)

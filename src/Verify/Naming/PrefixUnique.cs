@@ -82,7 +82,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             return;
         }
 
-        var configuration = namer.ResolveUniqueForAssemblyConfigurationAssembly();
+        var configuration = namer.ResolveUniqueForAssemblyConfigurationValue();
 
         if (configuration is null)
         {

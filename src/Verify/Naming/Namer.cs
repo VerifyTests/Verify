@@ -98,7 +98,7 @@ public class Namer
         UniqueForAssemblyConfigurationValue = config;
     }
 
-    internal string? ResolveUniqueForAssemblyConfigurationAssembly() =>
+    internal string? ResolveUniqueForAssemblyConfigurationValue() =>
         UniqueForAssemblyConfigurationValue ??
         VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationValue;
 

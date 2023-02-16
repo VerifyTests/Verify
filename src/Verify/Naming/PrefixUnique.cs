@@ -54,7 +54,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
                 return;
             }
 
-            builder.Add(name.Name);
+            builder.Append($".{Namer.GetSimpleFrameworkName(name)}");
         }
     }
 

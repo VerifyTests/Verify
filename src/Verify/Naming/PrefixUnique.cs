@@ -82,22 +82,15 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
             return;
         }
 
-        var assembly = namer.ResolveUniqueForAssemblyConfigurationAssembly();
+        var configuration = namer.ResolveUniqueForAssemblyConfigurationAssembly();
 
-        if (assembly is null)
+        if (configuration is null)
         {
             builder.Append($".{Namer.AssemblyConfig}");
             return;
         }
 
-        var config = assembly.Configuration();
-
-        if (config is null)
-        {
-            throw new($"UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found in {assembly.FullName}.");
-        }
-
-        builder.Append($".{config}");
+        builder.Append($".{configuration}");
     }
 
     static void AppendArchitecture(Namer namer, StringBuilder builder)

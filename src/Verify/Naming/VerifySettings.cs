@@ -59,7 +59,7 @@ public partial class VerifySettings
     public void UniqueForAssemblyConfiguration(Assembly assembly)
     {
         Namer.UniqueForAssemblyConfiguration = true;
-        Namer.UniqueForAssemblyConfigurationAssembly = assembly;
+        Namer.SetUniqueForAssemblyConfiguration(assembly);
     }
 
     public string? Directory { get; internal set; }

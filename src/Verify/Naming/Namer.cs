@@ -84,11 +84,23 @@ public class Namer
         UniqueForAssemblyConfiguration ||
         VerifierSettings.SharedNamer.UniqueForAssemblyConfiguration;
 
-    internal Assembly? UniqueForAssemblyConfigurationAssembly;
+    internal string? UniqueForAssemblyConfigurationValue;
 
-    internal Assembly? ResolveUniqueForAssemblyConfigurationAssembly() =>
-        UniqueForAssemblyConfigurationAssembly ??
-        VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationAssembly;
+    internal void SetUniqueForAssemblyConfiguration(Assembly assembly)
+    {
+        var config = assembly.Configuration();
+
+        if (config is null)
+        {
+            throw new($"UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found in {assembly.FullName}.");
+        }
+
+        UniqueForAssemblyConfigurationValue = config;
+    }
+
+    internal string? ResolveUniqueForAssemblyConfigurationAssembly() =>
+        UniqueForAssemblyConfigurationValue ??
+        VerifierSettings.SharedNamer.UniqueForAssemblyConfigurationValue;
 
     internal bool UniqueForRuntimeAndVersion;
 
@@ -204,7 +216,7 @@ public class Namer
         UniqueForTargetFramework = namer.UniqueForTargetFramework;
         UniqueForTargetFrameworkAssembly = namer.UniqueForTargetFrameworkAssembly;
         UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
-        UniqueForAssemblyConfigurationAssembly = namer.UniqueForAssemblyConfigurationAssembly;
+        UniqueForAssemblyConfigurationValue = namer.UniqueForAssemblyConfigurationValue;
         UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;
         UniqueForTargetFrameworkAndVersion = namer.UniqueForTargetFrameworkAndVersion;
         UniqueForArchitecture = namer.UniqueForArchitecture;

@@ -194,7 +194,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForAssemblyConfiguration = true;
-        SharedNamer.UniqueForAssemblyConfigurationAssembly = assembly;
+        SharedNamer.SetUniqueForAssemblyConfiguration(assembly);
     }
 
     /// <summary>

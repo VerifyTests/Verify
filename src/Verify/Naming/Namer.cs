@@ -23,41 +23,13 @@ public class Namer
 
         var frameworkName = assembly.FrameworkName();
 
-        if (frameworkName is not null)
+        if (frameworkName is null)
         {
-            targetFrameworkName = GetSimpleFrameworkName(frameworkName);
-            targetFrameworkNameAndVersion = $"{targetFrameworkName}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
-        }
-    }
-
-    public static string GetSimpleFrameworkName(FrameworkName name)
-    {
-        var identifier = name.Identifier;
-
-        if (identifier.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Net";
+            return;
         }
 
-        if (string.Equals(identifier, ".NETCoreApp", StringComparison.OrdinalIgnoreCase))
-        {
-            if (name.Version.Major < 5)
-            {
-                return "Core";
-            }
-        }
-
-        if (identifier.StartsWith("NETCore", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Core";
-        }
-
-        if (identifier.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
-        {
-            return "DotNet";
-        }
-
-        throw new($"Could not resolve runtime for '{identifier}'.");
+        targetFrameworkName = frameworkName.Name;
+        targetFrameworkNameAndVersion = frameworkName.NameAndVersion;
     }
 
     internal bool UniqueForRuntime;

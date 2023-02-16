@@ -39,7 +39,7 @@ public partial class VerifySettings
     public void UniqueForTargetFramework(Assembly assembly)
     {
         Namer.UniqueForTargetFramework = true;
-        Namer.UniqueForTargetFrameworkAssembly = assembly;
+        Namer.SetUniqueForAssemblyFrameworkName(assembly);
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public partial class VerifySettings
     public void UniqueForTargetFrameworkAndVersion(Assembly assembly)
     {
         Namer.UniqueForTargetFrameworkAndVersion = true;
-        Namer.UniqueForTargetFrameworkAssembly = assembly;
+        Namer.SetUniqueForAssemblyFrameworkName(assembly);
     }
 
     /// <summary>

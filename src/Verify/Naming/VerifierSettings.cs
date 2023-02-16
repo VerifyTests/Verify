@@ -172,7 +172,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForTargetFramework = true;
-        SharedNamer.UniqueForTargetFrameworkAssembly = assembly;
+        SharedNamer.SetUniqueForAssemblyFrameworkName(assembly);
     }
 
     /// <summary>
@@ -183,7 +183,7 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SharedNamer.UniqueForTargetFrameworkAndVersion = true;
-        SharedNamer.UniqueForTargetFrameworkAssembly = assembly;
+        SharedNamer.SetUniqueForAssemblyFrameworkName(assembly);
     }
 
     /// <summary>

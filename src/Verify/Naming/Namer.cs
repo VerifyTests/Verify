@@ -72,11 +72,23 @@ public class Namer
         UniqueForTargetFramework ||
         VerifierSettings.SharedNamer.UniqueForTargetFramework;
 
-    internal Assembly? UniqueForTargetFrameworkAssembly;
+    internal FrameworkName? UniqueForTargetFrameworkName;
 
-    internal Assembly? ResolveUniqueForTargetFrameworkAssembly() =>
-        UniqueForTargetFrameworkAssembly ??
-        VerifierSettings.SharedNamer.UniqueForTargetFrameworkAssembly;
+    internal void SetUniqueForAssemblyFrameworkName(Assembly assembly)
+    {
+        var name = assembly.FrameworkName();
+
+        if (name is null)
+        {
+            throw new($"UniqueForTargetFrameworkAndVersion used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
+        }
+
+        UniqueForTargetFrameworkName = name;
+    }
+
+    internal FrameworkName? ResolveUniqueForTargetFrameworkName() =>
+        UniqueForTargetFrameworkName ??
+        VerifierSettings.SharedNamer.UniqueForTargetFrameworkName;
 
     internal bool UniqueForAssemblyConfiguration;
 
@@ -214,7 +226,7 @@ public class Namer
     {
         UniqueForRuntime = namer.UniqueForRuntime;
         UniqueForTargetFramework = namer.UniqueForTargetFramework;
-        UniqueForTargetFrameworkAssembly = namer.UniqueForTargetFrameworkAssembly;
+        UniqueForTargetFrameworkName = namer.UniqueForTargetFrameworkName;
         UniqueForAssemblyConfiguration = namer.UniqueForAssemblyConfiguration;
         UniqueForAssemblyConfigurationValue = namer.UniqueForAssemblyConfigurationValue;
         UniqueForRuntimeAndVersion = namer.UniqueForRuntimeAndVersion;

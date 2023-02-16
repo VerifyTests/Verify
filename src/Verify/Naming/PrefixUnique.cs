@@ -33,21 +33,13 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
     static void AppendTargetFramework(Namer namer, StringBuilder builder)
     {
+        var name = namer.UniqueForTargetFrameworkName;
         if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
-            var assembly = namer.ResolveUniqueForTargetFrameworkAssembly();
-
-            if (assembly is null)
+            if (name is null)
             {
                 builder.Append($".{Namer.TargetFrameworkNameAndVersion}");
                 return;
-            }
-
-            var name = assembly.FrameworkName();
-
-            if (name is null)
-            {
-                throw new($"UniqueForTargetFrameworkAndVersion used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
             }
 
             builder.Append($".{Namer.GetSimpleFrameworkName(name)}{name.Version.Major}_{name.Version.Minor}");
@@ -56,19 +48,10 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
         if (namer.ResolveUniqueForTargetFramework())
         {
-            var assembly = namer.ResolveUniqueForTargetFrameworkAssembly();
-
-            if (assembly is null)
+            if (name is null)
             {
                 builder.Append($".{Namer.TargetFrameworkName}");
                 return;
-            }
-
-            var name = assembly.FrameworkName();
-
-            if (name is null)
-            {
-                throw new($"UniqueForTargetFramework used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
             }
 
             builder.Append($".{Namer.GetSimpleFrameworkName(name)}");

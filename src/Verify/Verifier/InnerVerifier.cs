@@ -72,8 +72,8 @@ public partial class InnerVerifier :
 
     void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
-        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
+        var uniquenessVerifiedList = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
+        var uniquenessVerified = uniquenessVerifiedList.ToString();
         string verifiedPrefix;
         if (settings.fileName is not null)
         {
@@ -152,15 +152,17 @@ public partial class InnerVerifier :
 
     void InitForFileConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
-        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
+        var sharedUniquenessList = PrefixUnique.SharedUniqueness(namer);
+        var uniquenessVerifiedList = GetUniquenessVerified(sharedUniquenessList, namer);
 
         if (namer.ResolveUniqueForRuntimeAndVersion() ||
             TargetAssembly.TargetsMultipleFramework)
         {
-            sharedUniqueness += $".{Namer.RuntimeAndVersion}";
+            sharedUniquenessList.Add(Namer.RuntimeAndVersion);
         }
 
+        var sharedUniqueness = sharedUniquenessList.ToString();
+        var uniquenessVerified = uniquenessVerifiedList.ToString();
         string receivedPrefix;
         string verifiedPrefix;
         if (settings.fileName is not null)
@@ -206,18 +208,19 @@ public partial class InnerVerifier :
         IoHelpers.DeleteFiles(MatchingFileFinder.FindReceived(receivedPrefix, directory));
     }
 
-    static string GetUniquenessVerified(string sharedUniqueness, Namer namer)
+    static UniquenessList GetUniquenessVerified(UniquenessList sharedUniqueness, Namer namer)
     {
-        var uniquenessVerified = sharedUniqueness;
+        var uniquenessVerified = new UniquenessList(sharedUniqueness);
+
         if (namer.ResolveUniqueForRuntimeAndVersion())
         {
-            uniquenessVerified += $".{Namer.RuntimeAndVersion}";
+            uniquenessVerified.Add(Namer.RuntimeAndVersion);
         }
         else
         {
             if (namer.ResolveUniqueForRuntime())
             {
-                uniquenessVerified += $".{Namer.Runtime}";
+                uniquenessVerified.Add(Namer.Runtime);
             }
         }
 

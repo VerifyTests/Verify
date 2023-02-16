@@ -152,51 +152,12 @@
     public static FrameworkName? FrameworkName(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
-        if (attribute is not null)
+        if (attribute is null)
         {
-            var frameworkName = attribute.FrameworkName;
-            foreach (var value in frameworkName.Split(','))
-            {
-                if (value.StartsWith("Version="))
-                {
-                    var versionString = value[9..];
-                    var version = Version.Parse(versionString);
-                    var simpleName = GetSimpleFrameworkName(frameworkName, version);
-                    var nameAndVersion = $"{simpleName}{version.Major}_{version.Minor}";
-                    return new(simpleName, nameAndVersion);
-                }
-            }
+            return null;
         }
 
-        return null;
-    }
-
-    static string GetSimpleFrameworkName(string frameworkName, Version version)
-    {
-        if (frameworkName.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Net";
-        }
-
-        if (string.Equals(frameworkName, ".NETCoreApp", StringComparison.OrdinalIgnoreCase))
-        {
-            if (version.Major < 5)
-            {
-                return "Core";
-            }
-        }
-
-        if (frameworkName.StartsWith("NETCore", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Core";
-        }
-
-        if (frameworkName.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
-        {
-            return "DotNet";
-        }
-
-        throw new($"Could not resolve runtime for '{frameworkName}'.");
+        return new(attribute.FrameworkName);
     }
 
     public static bool IsException(this Type type) =>

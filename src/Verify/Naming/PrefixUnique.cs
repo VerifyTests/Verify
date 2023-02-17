@@ -42,7 +42,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
                 return;
             }
 
-            builder.Append($".{Namer.GetSimpleFrameworkName(name)}{name.Version.Major}_{name.Version.Minor}");
+            builder.Append($".{name.Name}{name.Version.Major}_{name.Version.Minor}");
             return;
         }
 
@@ -54,7 +54,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
                 return;
             }
 
-            builder.Append($".{Namer.GetSimpleFrameworkName(name)}");
+            builder.Append($".{name.Name}");
         }
     }
 

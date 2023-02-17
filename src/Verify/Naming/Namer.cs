@@ -1,5 +1,15 @@
 ﻿namespace VerifyTests;
+class FrameworkNameVersion
+{
+    public string Name { get; }
+    public Version Version { get; }
 
+    public FrameworkNameVersion(string name, Version version)
+    {
+        Name = name;
+        Version = version;
+    }
+}
 public class Namer
 {
     static string? assemblyConfig;
@@ -25,8 +35,8 @@ public class Namer
 
         if (frameworkName is not null)
         {
-            targetFrameworkName = GetSimpleFrameworkName(frameworkName);
-            targetFrameworkNameAndVersion = $"{targetFrameworkName}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
+            targetFrameworkName = frameworkName.Name;
+            targetFrameworkNameAndVersion = $"{frameworkName.Name}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
         }
     }
 
@@ -72,7 +82,7 @@ public class Namer
         UniqueForTargetFramework ||
         VerifierSettings.SharedNamer.UniqueForTargetFramework;
 
-    internal FrameworkName? UniqueForTargetFrameworkName;
+    internal FrameworkNameVersion? UniqueForTargetFrameworkName;
 
     internal void SetUniqueForAssemblyFrameworkName(Assembly assembly)
     {
@@ -86,7 +96,7 @@ public class Namer
         UniqueForTargetFrameworkName = name;
     }
 
-    internal FrameworkName? ResolveUniqueForTargetFrameworkName() =>
+    internal FrameworkNameVersion? ResolveUniqueForTargetFrameworkName() =>
         UniqueForTargetFrameworkName ??
         VerifierSettings.SharedNamer.UniqueForTargetFrameworkName;
 

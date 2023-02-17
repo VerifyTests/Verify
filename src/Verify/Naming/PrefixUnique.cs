@@ -42,7 +42,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
                 return;
             }
 
-            builder.Append($".{name.Name}{name.Version.Major}_{name.Version.Minor}");
+            builder.Append($".{name.NameAndVersion}");
             return;
         }
 

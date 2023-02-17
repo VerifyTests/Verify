@@ -159,7 +159,7 @@
 
         var frameworkName = new FrameworkName(attribute.FrameworkName);
         var name = Namer.GetSimpleFrameworkName(frameworkName);
-        return new (name, frameworkName.Version);
+        return new (name, $"{name}{frameworkName.Version.Major}_{frameworkName.Version.Minor}");
     }
 
     public static bool IsException(this Type type) =>

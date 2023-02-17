@@ -2,12 +2,12 @@
 class FrameworkNameVersion
 {
     public string Name { get; }
-    public Version Version { get; }
+    public string NameAndVersion { get; }
 
-    public FrameworkNameVersion(string name, Version version)
+    public FrameworkNameVersion(string name, string nameAndVersion)
     {
         Name = name;
-        Version = version;
+        NameAndVersion = nameAndVersion;
     }
 }
 public class Namer
@@ -36,7 +36,7 @@ public class Namer
         if (frameworkName is not null)
         {
             targetFrameworkName = frameworkName.Name;
-            targetFrameworkNameAndVersion = $"{frameworkName.Name}{frameworkName.Version.Major}_{frameworkName.Version.Minor}";
+            targetFrameworkNameAndVersion = frameworkName.NameAndVersion;
         }
     }
 

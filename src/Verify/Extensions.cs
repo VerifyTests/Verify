@@ -149,7 +149,7 @@
     }
 #endif
 
-    public static FrameworkName? FrameworkName(this Assembly assembly)
+    public static FrameworkNameVersion? FrameworkName(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
         if (attribute is null)
@@ -157,7 +157,9 @@
             return null;
         }
 
-        return new(attribute.FrameworkName);
+        var frameworkName = new FrameworkName(attribute.FrameworkName);
+        var name = Namer.GetSimpleFrameworkName(frameworkName);
+        return new (name, $"{name}{frameworkName.Version.Major}_{frameworkName.Version.Minor}");
     }
 
     public static bool IsException(this Type type) =>

@@ -54,7 +54,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
                 return;
             }
 
-            builder.Append($".{name.Name}");
+            builder.Add(name.Name);
         }
     }
 

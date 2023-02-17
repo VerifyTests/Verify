@@ -72,8 +72,7 @@ public partial class InnerVerifier :
 
     void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var uniquenessVerifiedList = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
-        var uniquenessVerified = uniquenessVerifiedList.ToString();
+        var uniquenessVerified = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
         string verifiedPrefix;
         if (settings.fileName is not null)
         {
@@ -152,17 +151,15 @@ public partial class InnerVerifier :
 
     void InitForFileConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var sharedUniquenessList = PrefixUnique.SharedUniqueness(namer);
-        var uniquenessVerifiedList = GetUniquenessVerified(sharedUniquenessList, namer);
+        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
+        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
 
         if (namer.ResolveUniqueForRuntimeAndVersion() ||
             TargetAssembly.TargetsMultipleFramework)
         {
-            sharedUniquenessList.Add(Namer.RuntimeAndVersion);
+            sharedUniqueness.Add(Namer.RuntimeAndVersion);
         }
 
-        var sharedUniqueness = sharedUniquenessList.ToString();
-        var uniquenessVerified = uniquenessVerifiedList.ToString();
         string receivedPrefix;
         string verifiedPrefix;
         if (settings.fileName is not null)

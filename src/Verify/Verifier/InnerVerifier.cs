@@ -72,25 +72,12 @@ public partial class InnerVerifier :
 
     void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
-        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
-        string verifiedPrefix;
-        if (settings.fileName is not null)
-        {
-            verifiedPrefix = $"{settings.fileName}{uniquenessVerified}";
-        }
-        else if (settings.ignoreParametersForVerified)
-        {
-            verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
-        }
-        else
-        {
-            verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
-        }
+        var verifiedPrefix = PrefixForDirectoryConvention(namer, typeAndMethod, parameters);
+
+        var directoryPrefix = Path.Combine(directory, verifiedPrefix);
 
         if (ShouldUseUniqueDirectorySplitMode(settings))
         {
-            var directoryPrefix = Path.Combine(directory, verifiedPrefix);
             var verifiedDirectory = $"{directoryPrefix}.verified";
             var receivedDirectory = $"{directoryPrefix}.received";
             IoHelpers.CreateDirectory(verifiedDirectory);
@@ -122,28 +109,44 @@ public partial class InnerVerifier :
         }
         else
         {
-            var subDirectory = Path.Combine(directory, verifiedPrefix);
-            IoHelpers.CreateDirectory(subDirectory);
+            IoHelpers.CreateDirectory(directoryPrefix);
             IoHelpers.RenameFiles(
-                subDirectory,
+                directoryPrefix,
                 "nofilename.verified.*",
                 filePath => filePath.RemoveLast("nofilename"),
                 IoHelpers.RenameConflictResolution.Delete);
-            verifiedFiles = IoHelpers.Files(subDirectory, "*.verified.*");
+            verifiedFiles = IoHelpers.Files(directoryPrefix, "*.verified.*");
 
             getFileNames = target =>
                 new(
                     target.Extension,
-                    Path.Combine(subDirectory, $"{target.NameOrTarget}.received.{target.Extension}"),
-                    Path.Combine(subDirectory, $"{target.NameOrTarget}.verified.{target.Extension}"));
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.received.{target.Extension}"),
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}.verified.{target.Extension}"));
             getIndexedFileNames = (target, index) =>
                 new(
                     target.Extension,
-                    Path.Combine(subDirectory, $"{target.NameOrTarget}#{index}.received.{target.Extension}"),
-                    Path.Combine(subDirectory, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"));
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.received.{target.Extension}"),
+                    Path.Combine(directoryPrefix, $"{target.NameOrTarget}#{index}.verified.{target.Extension}"));
 
-            IoHelpers.DeleteFiles(subDirectory, "*.received.*");
+            IoHelpers.DeleteFiles(directoryPrefix, "*.received.*");
         }
+    }
+
+    string PrefixForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
+    {
+        var uniquenessVerified = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
+
+        if (settings.fileName is not null)
+        {
+            return $"{settings.fileName}{uniquenessVerified}";
+        }
+
+        if (settings.ignoreParametersForVerified)
+        {
+            return $"{typeAndMethod}{uniquenessVerified}";
+        }
+
+        return $"{typeAndMethod}{parameters}{uniquenessVerified}";
     }
 
     static bool ShouldUseUniqueDirectorySplitMode(VerifySettings settings) =>
@@ -152,32 +155,7 @@ public partial class InnerVerifier :
 
     void InitForFileConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
-        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
-
-        if (namer.ResolveUniqueForRuntimeAndVersion() ||
-            TargetAssembly.TargetsMultipleFramework)
-        {
-            sharedUniqueness += $".{Namer.RuntimeAndVersion}";
-        }
-
-        string receivedPrefix;
-        string verifiedPrefix;
-        if (settings.fileName is not null)
-        {
-            receivedPrefix = settings.fileName + sharedUniqueness;
-            verifiedPrefix = settings.fileName + uniquenessVerified;
-        }
-        else if (settings.ignoreParametersForVerified)
-        {
-            receivedPrefix = $"{typeAndMethod}{parameters}{sharedUniqueness}";
-            verifiedPrefix = $"{typeAndMethod}{uniquenessVerified}";
-        }
-        else
-        {
-            receivedPrefix = $"{typeAndMethod}{parameters}{sharedUniqueness}";
-            verifiedPrefix = $"{typeAndMethod}{parameters}{uniquenessVerified}";
-        }
+        var (receivedPrefix, verifiedPrefix) = PrefixForFileConvention(namer, typeAndMethod, parameters);
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
@@ -206,18 +184,49 @@ public partial class InnerVerifier :
         IoHelpers.DeleteFiles(MatchingFileFinder.FindReceived(receivedPrefix, directory));
     }
 
-    static string GetUniquenessVerified(string sharedUniqueness, Namer namer)
+    (string receivedPrefix, string verifiedPrefix) PrefixForFileConvention(Namer namer, string typeAndMethod, string parameters)
     {
-        var uniquenessVerified = sharedUniqueness;
+        var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
+        var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
+
+        if (namer.ResolveUniqueForRuntimeAndVersion() ||
+            TargetAssembly.TargetsMultipleFramework)
+        {
+            sharedUniqueness.Add(Namer.RuntimeAndVersion);
+        }
+
+        if (settings.fileName is not null)
+        {
+            return (
+                settings.fileName + sharedUniqueness,
+                settings.fileName + uniquenessVerified);
+        }
+
+        if (settings.ignoreParametersForVerified)
+        {
+            return (
+                $"{typeAndMethod}{parameters}{sharedUniqueness}",
+                $"{typeAndMethod}{uniquenessVerified}");
+        }
+
+        return (
+            $"{typeAndMethod}{parameters}{sharedUniqueness}",
+            $"{typeAndMethod}{parameters}{uniquenessVerified}");
+    }
+
+    static UniquenessList GetUniquenessVerified(UniquenessList sharedUniqueness, Namer namer)
+    {
+        var uniquenessVerified = new UniquenessList(sharedUniqueness);
+
         if (namer.ResolveUniqueForRuntimeAndVersion())
         {
-            uniquenessVerified += $".{Namer.RuntimeAndVersion}";
+            uniquenessVerified.Add(Namer.RuntimeAndVersion);
         }
         else
         {
             if (namer.ResolveUniqueForRuntime())
             {
-                uniquenessVerified += $".{Namer.Runtime}";
+                uniquenessVerified.Add(Namer.Runtime);
             }
         }
 

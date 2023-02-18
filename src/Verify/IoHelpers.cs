@@ -27,7 +27,11 @@
         Delete
     }
 
-    public static void RenameFiles(string directory, string pattern, Func<string, string> rename, RenameConflictResolution renameConflictResolution = RenameConflictResolution.NoAction)
+    public static void RenameFiles(
+        string directory,
+        string pattern,
+        Func<string, string> rename,
+        RenameConflictResolution resolution = RenameConflictResolution.NoAction)
     {
         if (!Directory.Exists(directory))
         {

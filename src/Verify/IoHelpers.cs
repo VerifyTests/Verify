@@ -27,7 +27,11 @@
         Delete
     }
 
-    public static void RenameFiles(string directory, string pattern, Func<string, string> rename, RenameConflictResolution renameConflictResolution = RenameConflictResolution.NoAction)
+    public static void RenameFiles(
+        string directory,
+        string pattern,
+        Func<string, string> rename,
+        RenameConflictResolution resolution = RenameConflictResolution.NoAction)
     {
         if (!Directory.Exists(directory))
         {
@@ -38,7 +42,7 @@
         {
             var newFileName = rename(file);
 
-            if (renameConflictResolution == RenameConflictResolution.Overwrite)
+            if (resolution == RenameConflictResolution.Overwrite)
             {
                 File.Replace(file, newFileName, null);
                 continue;
@@ -50,12 +54,12 @@
                 continue;
             }
 
-            if (renameConflictResolution == RenameConflictResolution.NoAction)
+            if (resolution == RenameConflictResolution.NoAction)
             {
                 continue;
             }
 
-            if (renameConflictResolution == RenameConflictResolution.Delete)
+            if (resolution == RenameConflictResolution.Delete)
             {
                 DeleteFile(file);
             }

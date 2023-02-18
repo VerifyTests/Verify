@@ -55,4 +55,3 @@ after_build:
     if ($isWindows) {
       Get-ChildItem *.nupkg -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
     }
-    

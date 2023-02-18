@@ -42,7 +42,7 @@
         {
             var newFileName = rename(file);
 
-            if (renameConflictResolution == RenameConflictResolution.Overwrite)
+            if (resolution == RenameConflictResolution.Overwrite)
             {
                 File.Replace(file, newFileName, null);
                 continue;
@@ -54,12 +54,12 @@
                 continue;
             }
 
-            if (renameConflictResolution == RenameConflictResolution.NoAction)
+            if (resolution == RenameConflictResolution.NoAction)
             {
                 continue;
             }
 
-            if (renameConflictResolution == RenameConflictResolution.Delete)
+            if (resolution == RenameConflictResolution.Delete)
             {
                 DeleteFile(file);
             }

@@ -262,7 +262,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ## Media
 
- * [Compare object values in xUnit C# with Verify - Pierre Belin](https://goatreview.com/compare-object-values-xunit-csharp-verify/)
+ * [Compare object values in xUnit C# with Verify - Pierre Belin (18 Nov 2022)](https://goatreview.com/compare-object-values-xunit-csharp-verify/)
  * [Unit testing assertions are now easier than ever with Verify Snapshot tool - 
 Rana Krishnrajsinh (20 Oct 2022)](https://www.youtube.com/watch?v=T1ZPGi_dHFM)
  * [The easiest way to Unit Test with Verify in C# - 

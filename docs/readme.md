@@ -28,6 +28,6 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)
-  * [Explicit Targets](/docs/explicit-targets.md)
+  * [Explicit Targets](/docs/explicit.ms)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- endInclude -->

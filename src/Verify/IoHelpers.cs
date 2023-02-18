@@ -90,15 +90,15 @@
         }
     }
 
-#if !NETCOREAPP3_0_OR_GREATER
+#if NETCOREAPP3_0_OR_GREATER
+    public static async Task DisposeAsyncEx(this Stream stream) =>
+        await stream.DisposeAsync();
+#else
     public static Task DisposeAsyncEx(this Stream stream)
     {
         stream.Dispose();
         return Task.CompletedTask;
     }
-#else
-    public static async Task DisposeAsyncEx(this Stream stream) =>
-        await stream.DisposeAsync();
 #endif
 
     static FileStream OpenWrite(string path) =>

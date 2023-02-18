@@ -25,7 +25,7 @@ public static partial class Verifier
         var typeInfo = test.TypeInfo;
         if (typeInfo is null || test.Method is null)
         {
-            throw new("Expected Test.TypeInfo and Test.Method to not be null. Raise a Pull Request with a test that replicates this problem.");
+            throw new("Expected Test.TypeInfo and Test.Method to not be null. Submit a Pull Request with a test that replicates this problem.");
         }
 
         if (settings.parameters is null &&

@@ -17,9 +17,9 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
     public static void Clear() =>
         prefixList = new();
 
-    public static string SharedUniqueness(Namer namer)
+    public static UniquenessList SharedUniqueness(Namer namer)
     {
-        var builder = new StringBuilder();
+        var builder = new UniquenessList();
 
         AppendTargetFramework(namer, builder);
 
@@ -28,21 +28,21 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         AppendArchitecture(namer, builder);
 
         AppendOsPlatform(namer, builder);
-        return builder.ToString();
+        return builder;
     }
 
-    static void AppendTargetFramework(Namer namer, StringBuilder builder)
+    static void AppendTargetFramework(Namer namer, UniquenessList builder)
     {
         var name = namer.UniqueForTargetFrameworkName;
         if (namer.ResolveUniqueForTargetFrameworkAndVersion())
         {
             if (name is null)
             {
-                builder.Append($".{Namer.TargetFrameworkNameAndVersion}");
+                builder.Add(Namer.TargetFrameworkNameAndVersion);
                 return;
             }
 
-            builder.Append($".{name.NameAndVersion}");
+            builder.Add(name.NameAndVersion);
             return;
         }
 
@@ -50,15 +50,15 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         {
             if (name is null)
             {
-                builder.Append($".{Namer.TargetFrameworkName}");
+                builder.Add(Namer.TargetFrameworkName);
                 return;
             }
 
-            builder.Append($".{name.Name}");
+            builder.Add(name.Name);
         }
     }
 
-    static void AppendAssemblyConfiguration(Namer namer, StringBuilder builder)
+    static void AppendAssemblyConfiguration(Namer namer, UniquenessList builder)
     {
         if (!namer.ResolveUniqueForAssemblyConfiguration())
         {
@@ -69,26 +69,26 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
 
         if (configuration is null)
         {
-            builder.Append($".{Namer.AssemblyConfig}");
+            builder.Add(Namer.AssemblyConfig);
             return;
         }
 
-        builder.Append($".{configuration}");
+        builder.Add(configuration);
     }
 
-    static void AppendArchitecture(Namer namer, StringBuilder builder)
+    static void AppendArchitecture(Namer namer, UniquenessList builder)
     {
         if (namer.ResolveUniqueForArchitecture())
         {
-            builder.Append($".{Namer.Architecture}");
+            builder.Add(Namer.Architecture);
         }
     }
 
-    static void AppendOsPlatform(Namer namer, StringBuilder builder)
+    static void AppendOsPlatform(Namer namer, UniquenessList builder)
     {
         if (namer.ResolveUniqueForOSPlatform())
         {
-            builder.Append($".{Namer.OperatingSystemPlatform}");
+            builder.Add(Namer.OperatingSystemPlatform);
         }
     }
 }

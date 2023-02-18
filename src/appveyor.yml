@@ -36,7 +36,7 @@ build_script:
       sudo dotnet workload install android
     }
 - dotnet build src --configuration Release --nologo
-#- dotnet test src --configuration Release --no-build --no-restore --nologo
+- dotnet test src --configuration Release --no-build --no-restore --nologo
 
 #- pwsh: |
 #    if ($isWindows) {

@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.84" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.85" PrivateAssets="all" />
     <PackageReference Include="AutoFixture.NUnit3" Version="4.17.0" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.NUnit\Verify.NUnit.csproj" />

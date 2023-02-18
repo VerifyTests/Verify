@@ -256,7 +256,6 @@ public partial class InnerVerifier :
         var directory = Path.Combine(sourceFileDirectory, mappedSettingsOrInfoDirectory);
         IoHelpers.CreateDirectory(directory);
         return directory;
-
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>

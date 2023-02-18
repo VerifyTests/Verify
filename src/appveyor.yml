@@ -1,6 +1,6 @@
 image:
 - Previous Visual Studio 2022
-#- macOS
+- macOS
 - Ubuntu
 environment:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -50,5 +50,8 @@ on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 # end-snippet
 test: off
-artifacts:
-- path: nugets\*.nupkg
+after_build:
+- pwsh: |
+    if ($isWindows) {
+      Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+    }

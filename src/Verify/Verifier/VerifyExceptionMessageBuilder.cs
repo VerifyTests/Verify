@@ -7,9 +7,7 @@
         IReadOnlyCollection<string> delete,
         IReadOnlyCollection<FilePair> equal)
     {
-        var builder = new StringBuilder($"Directory: {directory}");
-
-        builder.AppendLineN();
+        var builder = new StringBuilder($"Directory: {directory}\n");
 
         if (@new.Count > 0)
         {

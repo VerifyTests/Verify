@@ -81,11 +81,6 @@ public partial class InnerVerifier :
             var verifiedDirectory = $"{directoryPrefix}.verified";
             var receivedDirectory = $"{directoryPrefix}.received";
             IoHelpers.CreateDirectory(verifiedDirectory);
-            IoHelpers.RenameFiles(
-                verifiedDirectory,
-                "nofilename.*",
-                filePath => filePath.RemoveLast("nofilename"),
-                IoHelpers.RenameConflictResolution.Delete);
             verifiedFiles = IoHelpers.Files(verifiedDirectory, "*");
 
             getFileNames = target =>
@@ -110,11 +105,6 @@ public partial class InnerVerifier :
         else
         {
             IoHelpers.CreateDirectory(directoryPrefix);
-            IoHelpers.RenameFiles(
-                directoryPrefix,
-                "nofilename.verified.*",
-                filePath => filePath.RemoveLast("nofilename"),
-                IoHelpers.RenameConflictResolution.Delete);
             verifiedFiles = IoHelpers.Files(directoryPrefix, "*.verified.*");
 
             getFileNames = target =>

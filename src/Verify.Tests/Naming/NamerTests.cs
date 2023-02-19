@@ -390,6 +390,18 @@ public class NamerTests
         Verify("FooAssemblyConfigurationFluentWithAssembly")
             .UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
 
+    [Fact]
+    public Task GetRuntimeAndVersion()
+    {
+        var runtimeAndVersion = Namer.GetRuntimeAndVersion();
+        return Verify(new
+            {
+                runtimeAndVersion.runtime,
+                runtimeAndVersion.Version
+            })
+            .UniqueForRuntimeAndVersion();
+    }
+
     #region UseTextForParameters
 
     [Theory]
@@ -554,5 +566,16 @@ public class NamerTests
         list.Add("foo");
         list.Add("foo");
         Assert.Equal(".foo", list.ToString());
+
+    [Fact]
+    public Task FrameworkName()
+    {
+        var name = GetType().Assembly.FrameworkName()!;
+        return Verify(new
+            {
+                name.Name,
+                name.NameAndVersion
+            })
+            .UniqueForRuntimeAndVersion();
     }
 }

@@ -49,6 +49,11 @@ public class Namer
             return "Net";
         }
 
+        if (identifier.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Net";
+        }
+
         if (string.Equals(identifier, ".NETCoreApp", StringComparison.OrdinalIgnoreCase))
         {
             if (name.Version.Major < 5)
@@ -245,7 +250,7 @@ public class Namer
         UniqueForOSPlatform = namer.UniqueForOSPlatform;
     }
 
-    static (string runtime, Version Version) GetRuntimeAndVersion()
+    internal static (string runtime, Version Version) GetRuntimeAndVersion()
     {
 #if NETCOREAPP2_1
         return ("Core", new(2, 1));
@@ -265,17 +270,23 @@ public class Namer
         if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
         {
             var version = Version.Parse(description.Remove(".NET Framework "));
-            return ("Net", version);
+            return ("Net", version.MajorMinor());
+        }
+
+        if (description.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
+        {
+            var version = Version.Parse(description.Remove(".NETFramework "));
+            return ("Net",  version.MajorMinor());
         }
 
         if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
         {
-            return ("DotNet", Environment.Version);
+            return ("DotNet", Environment.Version.MajorMinor());
         }
 
         if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
         {
-            return ("Mono", Environment.Version);
+            return ("Mono", Environment.Version.MajorMinor());
         }
 
         throw new($"Could not resolve runtime for '{description}'.");

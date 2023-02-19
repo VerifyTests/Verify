@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net462;net472;net48</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' AND $(Configuration) == 'Release' ">$(TargetFrameworks);net6.0-android;net6.0-ios</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0</TargetFrameworks>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">10.0</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
@@ -16,8 +13,8 @@
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.2" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.85" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.87" PrivateAssets="all" />
+    <PackageReference Include="EmptyFiles" Version="4.2.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />

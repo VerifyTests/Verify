@@ -1,0 +1,4 @@
+﻿{
+  Name: DotNet,
+  NameAndVersion: DotNet7_0
+}

@@ -272,6 +272,7 @@ public class Namer
             var version = Version.Parse(description.Remove(".NET Framework "));
             return ("Net", version);
         }
+
         if (description.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
         {
             var version = Version.Parse(description.Remove(".NETFramework "));

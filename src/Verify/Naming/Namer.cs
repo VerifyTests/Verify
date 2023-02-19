@@ -49,6 +49,11 @@ public class Namer
             return "Net";
         }
 
+        if (identifier.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Net";
+        }
+
         if (string.Equals(identifier, ".NETCoreApp", StringComparison.OrdinalIgnoreCase))
         {
             if (name.Version.Major < 5)
@@ -265,6 +270,11 @@ public class Namer
         if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
         {
             var version = Version.Parse(description.Remove(".NET Framework "));
+            return ("Net", version);
+        }
+        if (description.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
+        {
+            var version = Version.Parse(description.Remove(".NETFramework "));
             return ("Net", version);
         }
 

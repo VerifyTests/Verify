@@ -28,6 +28,7 @@ If that's not the case, and having multiple identical prefixes is acceptable, th
         AppendArchitecture(namer, builder);
 
         AppendOsPlatform(namer, builder);
+
         return builder;
     }
 

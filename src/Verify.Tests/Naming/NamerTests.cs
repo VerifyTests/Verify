@@ -560,6 +560,14 @@ public class NamerTests
             });
 
     [Fact]
+    public void DistinctUniquenessPrefixes()
+    {
+        var list = new UniquenessList();
+        list.Add("foo");
+        list.Add("foo");
+        Assert.Equal(".foo", list.ToString());
+
+    [Fact]
     public Task FrameworkName()
     {
         var name = GetType().Assembly.FrameworkName()!;

@@ -8,8 +8,13 @@
     public UniquenessList(UniquenessList value) =>
         inner = new(value.inner);
 
-    public void Add(string value) =>
-        inner.Add(value);
+    public void Add(string value)
+    {
+        if (!inner.Contains(value))
+        {
+            inner.Add(value);
+        }
+    }
 
     public override string ToString()
     {

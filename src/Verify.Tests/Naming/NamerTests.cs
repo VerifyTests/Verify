@@ -565,4 +565,25 @@ public class NamerTests
                 new Target("txt", "data", "theNameA"),
                 new Target("txt", "data", "theNameA")
             });
+
+    [Fact]
+    public void DistinctUniquenessPrefixes()
+    {
+        var list = new UniquenessList();
+        list.Add("foo");
+        list.Add("foo");
+        Assert.Equal(".foo", list.ToString());
+    }
+
+    [Fact]
+    public Task FrameworkName()
+    {
+        var name = GetType().Assembly.FrameworkName()!;
+        return Verify(new
+            {
+                name.Name,
+                name.NameAndVersion
+            })
+            .UniqueForRuntimeAndVersion();
+    }
 }

@@ -3,6 +3,7 @@ image:
 - macOS
 - Ubuntu
 environment:
+  DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 build_script:
@@ -10,40 +11,26 @@ build_script:
     if ($isWindows) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
       ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
-      dotnet workload restore src/Verify.sln
-      dotnet workload install wasm-tools
-      dotnet workload install macos
-      dotnet workload install ios
-      dotnet workload install android
     }
     if ($isMacOS) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
-      sudo dotnet workload restore src/Verify.sln
-      sudo dotnet workload install wasm-tools
-      sudo dotnet workload install macos
-      sudo dotnet workload install ios
-      sudo dotnet workload install android
     }
     if ($isLinux) {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
-      sudo dotnet workload restore src/Verify.sln
-      sudo dotnet workload install wasm-tools
-      sudo dotnet workload install macos
-      sudo dotnet workload install android
     }
-- dotnet build src --configuration Release --nologo
-- dotnet test src --configuration Release --no-build --no-restore --nologo
+- dotnet build src --configuration Release
+- dotnet test src --configuration Release --no-build --no-restore
 
 #- pwsh: |
 #    if ($isWindows) {
 #      Set-Culture -CultureInfo de-DE
-#      dotnet test src --configuration Release --no-build --no-restore --nologo
+#      dotnet test src --configuration Release --no-build --no-restore
 #      Set-TimeZone -Name "Russia TZ 2 Standard Time"
-#      dotnet test src --configuration Release --no-build --no-restore --nologo
+#      dotnet test src --configuration Release --no-build --no-restore
 #    }
 # begin-snippet: AppVeyorArtifacts
 on_failure:

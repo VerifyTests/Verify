@@ -188,8 +188,8 @@ public partial class InnerVerifier :
         if (settings.fileName is not null)
         {
             return (
-                settings.fileName + sharedUniqueness,
-                settings.fileName + uniquenessVerified);
+                $"{settings.fileName}{sharedUniqueness}",
+                $"{settings.fileName}{uniquenessVerified}");
         }
 
         if (settings.ignoreParametersForVerified)

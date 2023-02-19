@@ -1,4 +1,4 @@
 ﻿{
   runtime: DotNet,
-  Version: 7.0.3
+  Version: 7.0
 }

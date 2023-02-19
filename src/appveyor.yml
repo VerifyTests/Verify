@@ -22,15 +22,15 @@ build_script:
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
     }
-- dotnet build src --configuration Release --nologo
-- dotnet test src --configuration Release --no-build --no-restore --nologo
+- dotnet build src --configuration Release
+- dotnet test src --configuration Release --no-build --no-restore
 
 #- pwsh: |
 #    if ($isWindows) {
 #      Set-Culture -CultureInfo de-DE
-#      dotnet test src --configuration Release --no-build --no-restore --nologo
+#      dotnet test src --configuration Release --no-build --no-restore
 #      Set-TimeZone -Name "Russia TZ 2 Standard Time"
-#      dotnet test src --configuration Release --no-build --no-restore --nologo
+#      dotnet test src --configuration Release --no-build --no-restore
 #    }
 # begin-snippet: AppVeyorArtifacts
 on_failure:

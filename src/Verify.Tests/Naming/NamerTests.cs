@@ -390,6 +390,12 @@ public class NamerTests
         Verify("FooAssemblyConfigurationFluentWithAssembly")
             .UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
 
+    [Fact]
+    public Task UniqueForAssemblyConfigurationAndUniqueForTargetFrameworkAndVersion() =>
+        Verify("UniqueForAssemblyConfigurationAndUniqueForTargetFrameworkAndVersion")
+            .UniqueForAssemblyConfiguration()
+            .UniqueForTargetFrameworkAndVersion();
+
     #region UseTextForParameters
 
     [Theory]

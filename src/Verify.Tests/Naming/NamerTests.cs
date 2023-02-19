@@ -566,6 +566,7 @@ public class NamerTests
         list.Add("foo");
         list.Add("foo");
         Assert.Equal(".foo", list.ToString());
+    }
 
     [Fact]
     public Task FrameworkName()

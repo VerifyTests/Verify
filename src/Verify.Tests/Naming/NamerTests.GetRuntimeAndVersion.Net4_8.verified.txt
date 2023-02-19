@@ -1,4 +1,4 @@
 ﻿{
   runtime: Net,
-  Version: 4.8.9139.0
+  Version: 4.8
 }

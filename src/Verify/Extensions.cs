@@ -3,6 +3,9 @@
     public static string Extension(this FileStream file) =>
         FileExtensions.GetExtension(file.Name);
 
+    public static Version MajorMinor(this Version version) =>
+        new(version.Major, version.Minor);
+
     public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
     {
         var list = new List<T>();

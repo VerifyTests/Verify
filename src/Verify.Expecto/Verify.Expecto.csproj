@@ -16,7 +16,7 @@
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="FSharp.Core" Version="7.0.200" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.86" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.87" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.2.0" PrivateAssets="None" />
     <PackageReference Include="IndexRange" Version="1.0.2" Condition="$(TargetFramework) == 'netstandard2.0' OR $(TargetFramework) == 'net462' OR $(TargetFramework) == 'net472' OR $(TargetFramework) == 'netcoreapp2.2' OR $(TargetFramework) == 'netcoreapp2.1'" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

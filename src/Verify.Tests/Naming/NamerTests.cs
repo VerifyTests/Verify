@@ -390,6 +390,18 @@ public class NamerTests
         Verify("FooAssemblyConfigurationFluentWithAssembly")
             .UniqueForAssemblyConfiguration(typeof(ClassBeingTested).Assembly);
 
+    [Fact]
+    public Task GetRuntimeAndVersion()
+    {
+        var runtimeAndVersion = Namer.GetRuntimeAndVersion();
+        return Verify(new
+            {
+                runtimeAndVersion.runtime,
+                runtimeAndVersion.Version
+            })
+            .UniqueForRuntimeAndVersion();
+    }
+
     #region UseTextForParameters
 
     [Theory]

@@ -281,12 +281,14 @@ public class Namer
 
         if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
         {
-            return ("DotNet", Environment.Version);
+            var version = Environment.Version;
+            return ("DotNet", new(version.Major, version.Minor));
         }
 
         if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
         {
-            return ("Mono", Environment.Version);
+            var version = Environment.Version;
+            return ("Mono", new(version.Major, version.Minor));
         }
 
         throw new($"Could not resolve runtime for '{description}'.");

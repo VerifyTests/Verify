@@ -179,8 +179,7 @@ public partial class InnerVerifier :
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
         var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
 
-        if (namer.ResolveUniqueForRuntimeAndVersion() ||
-            TargetAssembly.TargetsMultipleFramework)
+        if (TargetAssembly.TargetsMultipleFramework)
         {
             sharedUniqueness.Add(Namer.RuntimeAndVersion);
         }

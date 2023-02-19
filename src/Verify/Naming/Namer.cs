@@ -245,7 +245,7 @@ public class Namer
         UniqueForOSPlatform = namer.UniqueForOSPlatform;
     }
 
-    static (string runtime, Version Version) GetRuntimeAndVersion()
+    internal static (string runtime, Version Version) GetRuntimeAndVersion()
     {
 #if NETCOREAPP2_1
         return ("Core", new(2, 1));

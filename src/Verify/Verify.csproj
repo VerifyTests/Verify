@@ -24,13 +24,13 @@
     <Using Include="System.Runtime.Versioning" />
     <Using Include="System.Runtime.InteropServices" />
     <PackageReference Include="DiffEngine" Version="11.1.0" />
-    <PackageReference Include="EmptyFiles" Version="4.1.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="4.2.0" PrivateAssets="None" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="SimpleInfoName" Version="2.1.0" />
     <PackageReference Include="Argon" Version="0.4.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.85" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.86" PrivateAssets="all" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\Verify.props" />

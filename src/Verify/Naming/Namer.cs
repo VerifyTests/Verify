@@ -270,25 +270,23 @@ public class Namer
         if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
         {
             var version = Version.Parse(description.Remove(".NET Framework "));
-            return ("Net", version);
+            return ("Net", version.MajorMinor());
         }
 
         if (description.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
         {
             var version = Version.Parse(description.Remove(".NETFramework "));
-            return ("Net", version);
+            return ("Net",  version.MajorMinor());
         }
 
         if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
         {
-            var version = Environment.Version;
-            return ("DotNet", new(version.Major, version.Minor));
+            return ("DotNet", Environment.Version.MajorMinor());
         }
 
         if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
         {
-            var version = Environment.Version;
-            return ("Mono", new(version.Major, version.Minor));
+            return ("Mono", Environment.Version.MajorMinor());
         }
 
         throw new($"Could not resolve runtime for '{description}'.");

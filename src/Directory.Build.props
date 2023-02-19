@@ -10,7 +10,6 @@
     <PackageTags>Json, Testing, Verify, Snapshot, Approvals</PackageTags>
     <Description>Enables verification of complex models and documents.</Description>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
-    <AndroidGenerateResourceDesigner>false</AndroidGenerateResourceDesigner>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
   <ItemGroup>

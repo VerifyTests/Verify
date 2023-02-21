@@ -15,7 +15,7 @@
     <Using Include="System.Drawing.Imaging" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="all" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.5.1" PrivateAssets="all" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" Condition="$(TargetFramework) == 'net6.0' OR $(TargetFramework) == 'net7.0'" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />

@@ -196,7 +196,7 @@ public class Sample :
 No existing `.verified.` file.
 
 ```mermaid
-graph LR
+graph TD
 run(Run test and<br/>create Received file)
 failTest(Fail Test<br/>and show Diff)
 closeDiff(Close Diff)
@@ -255,7 +255,7 @@ This will result in the `Sample.Test.verified.txt` being created:
 Existing `.verified.` file.
 
 ```mermaid
-graph LR
+graph TD
 run(Run test and<br/>create Received file)
 closeDiff(Close Diff)
 failTest(Fail Test<br/>and show Diff)

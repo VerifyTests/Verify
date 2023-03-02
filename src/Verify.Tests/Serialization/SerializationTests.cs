@@ -764,6 +764,35 @@ public class SerializationTests
         }
     }
 
+    [Fact]
+    public Task BoolDefault()
+    {
+        var target = new BoolModel();
+        return Verify(target);
+    }
+
+    [Fact]
+    public Task BoolFalse()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = false,
+            NullableBoolMember = false
+        };
+        return Verify(target);
+    }
+
+    [Fact]
+    public Task BoolTrue()
+    {
+        var target = new BoolModel
+        {
+            BoolMember = true,
+            NullableBoolMember = true
+        };
+        return Verify(target);
+    }
+
     class BoolModel
     {
         public bool BoolMember;

@@ -89,17 +89,9 @@ public class Namer
 
     internal FrameworkNameVersion? UniqueForTargetFrameworkName;
 
-    internal void SetUniqueForAssemblyFrameworkName(Assembly assembly)
-    {
-        var name = assembly.FrameworkName();
-
-        if (name is null)
-        {
-            throw new($"UniqueForTargetFrameworkAndVersion used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
-        }
-
-        UniqueForTargetFrameworkName = name;
-    }
+    internal void SetUniqueForAssemblyFrameworkName(Assembly assembly) =>
+        UniqueForTargetFrameworkName = assembly.FrameworkName() ??
+                                       throw new($"UniqueForTargetFrameworkAndVersion used but no `TargetFrameworkAttribute` found in {assembly.FullName}.");
 
     internal FrameworkNameVersion? ResolveUniqueForTargetFrameworkName() =>
         UniqueForTargetFrameworkName ??
@@ -113,17 +105,9 @@ public class Namer
 
     internal string? UniqueForAssemblyConfigurationValue;
 
-    internal void SetUniqueForAssemblyConfiguration(Assembly assembly)
-    {
-        var config = assembly.Configuration();
-
-        if (config is null)
-        {
-            throw new($"UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found in {assembly.FullName}.");
-        }
-
-        UniqueForAssemblyConfigurationValue = config;
-    }
+    internal void SetUniqueForAssemblyConfiguration(Assembly assembly) =>
+        UniqueForAssemblyConfigurationValue = assembly.Configuration() ??
+                                              throw new($"UniqueForAssemblyConfiguration used but no `AssemblyConfigurationAttribute` found in {assembly.FullName}.");
 
     internal string? ResolveUniqueForAssemblyConfigurationValue() =>
         UniqueForAssemblyConfigurationValue ??

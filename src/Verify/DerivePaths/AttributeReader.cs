@@ -57,12 +57,7 @@ public static class AttributeReader
                 continue;
             }
 
-            if (metaData.Value is null)
-            {
-                throw new($"Null value for `AssemblyMetadataAttribute` named `{key}`.");
-            }
-
-            value = metaData.Value;
+            value = metaData.Value ?? throw new($"Null value for `AssemblyMetadataAttribute` named `{key}`.");
             if (isSourcePath)
             {
                 value = IoHelpers.GetMappedBuildPath(value, assembly);

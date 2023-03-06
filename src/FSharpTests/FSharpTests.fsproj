@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <GenerateProgramFile>false</GenerateProgramFile>
-        <LangVersion>preview</LangVersion>
-    </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="Tests.fs" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-        <PackageReference Include="xunit" Version="2.4.2" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-        <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
-        <ProjectReference Include="..\Verify\Verify.csproj" />
-        <PackageReference Update="FSharp.Core" Version="7.0.200" />
-    </ItemGroup>
-    <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
-    <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+      <GenerateProgramFile>false</GenerateProgramFile>
+      <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Tests.fs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
+    <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
+    <ProjectReference Include="..\Verify\Verify.csproj" />
+    <PackageReference Update="FSharp.Core" Version="7.0.200" />
+  </ItemGroup>
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
 </Project>

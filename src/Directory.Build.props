@@ -18,7 +18,7 @@
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net6')) OR $(TargetFramework.StartsWith('net7')) ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net6')) OR $(TargetFramework.StartsWith('net7')) OR $(TargetFramework.StartsWith('net8')) ">
     <Using Include="System.DateOnly" Alias="Date" />
     <Using Include="System.TimeOnly" Alias="Time" />
   </ItemGroup>

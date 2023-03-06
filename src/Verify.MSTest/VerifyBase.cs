@@ -20,27 +20,21 @@ public abstract partial class VerifyBase
             throw new("TestContext.TestName is null. Ensure being used inside a test");
         }
 
-        var indexOf = testName.IndexOf('(');
+        var testNameSpan = testName.AsSpan();
+        var indexOf = testNameSpan.IndexOf('(');
         if (indexOf > 0)
         {
-            testName = testName[..indexOf];
+            testNameSpan = testNameSpan[..indexOf];
         }
 
-        indexOf = testName.IndexOf('.');
+        indexOf = testNameSpan.IndexOf('.');
         if (indexOf > 0)
         {
-            testName = testName[(indexOf + 1)..];
+            testNameSpan = testNameSpan[(indexOf + 1)..];
         }
 
         TargetAssembly.Assign(type.Assembly);
-        var method = type
-            .GetMethods(BindingFlags.Instance | BindingFlags.Public)
-            .FirstOrDefault(_ => _.Name == testName);
-
-        if (method is null)
-        {
-            throw new($"Could not find method `{type.Name}.{testName}`.");
-        }
+        var method = FindMethod(type, testNameSpan);
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
@@ -50,6 +44,20 @@ public abstract partial class VerifyBase
             method.Name,
             method.ParameterNames(),
             pathInfo);
+    }
+
+    static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
+    {
+        foreach (var method in type
+                     .GetMethods(BindingFlags.Instance | BindingFlags.Public))
+        {
+            if (testName.SequenceEqual(method.Name))
+            {
+                return method;
+            }
+        }
+
+        throw new($"Could not find method `{type.Name}.{testName.ToString()}`.");
     }
 
     public SettingsTask Verify(

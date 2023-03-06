@@ -152,6 +152,30 @@
     }
 #endif
 
+#if NET462 || NET472 || NET48 || NETSTANDARD2_0
+
+    public static bool SequenceEqual(this CharSpan value1, string value2)
+    {
+        if (value1.Length != value2.Length)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < value1.Length; index++)
+        {
+            var ch1 = value1[index];
+            var ch2 = value2[index];
+            if (ch1 != ch2)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+#endif
+
     public static FrameworkNameVersion? FrameworkName(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();

@@ -47,9 +47,18 @@
 
     public static string ReplaceInvalidFileNameChars(this string value)
     {
-        var builder = new StringBuilder();
-        AppendValid(builder, value);
-        return builder.ToString();
+        var chars = value.ToCharArray();
+
+        for (var index = 0; index < chars.Length; index++)
+        {
+            var ch = chars[index];
+            if (invalidFileNameChars.Contains(ch))
+            {
+                chars[index] = '-';
+            }
+        }
+
+        return new(chars);
     }
 
     public static void AppendValid(StringBuilder builder, string value)

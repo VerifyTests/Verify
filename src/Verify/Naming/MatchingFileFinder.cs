@@ -1,51 +1,39 @@
 ﻿static class MatchingFileFinder
 {
-    public static IEnumerable<string> FindReceived(string fileNamePrefix, string directory)
+    public static IEnumerable<string> FindReceived(string fileNamePrefix, string directory) =>
+        Find(directory,
+            searchPattern: $"{fileNamePrefix}*.received.*",
+            nonIndexedPattern: $"{fileNamePrefix}.received.",
+            indexedPattern: $"{fileNamePrefix}#");
+
+    public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory) =>
+        Find(directory,
+            searchPattern: $"{fileNamePrefix}*.verified.*",
+            nonIndexedPattern: $"{fileNamePrefix}.verified.",
+            indexedPattern: $"{fileNamePrefix}#");
+
+    static IEnumerable<string> Find(string directory, string searchPattern, string nonIndexedPattern, string indexedPattern)
     {
-        var nonIndexedPattern = $"{fileNamePrefix}.received.";
-        var indexedPattern = $"{fileNamePrefix}#";
         var startIndex = directory.Length + 1;
-        foreach (var file in Directory.GetFiles(directory, $"{fileNamePrefix}*.received.*"))
+        var list = new List<string>();
+        var nonIndexedPatternSpan = nonIndexedPattern.AsSpan();
+        var indexedPatternSpan = indexedPattern.AsSpan();
+        foreach (var file in Directory.GetFiles(directory, searchPattern))
         {
-            if (file.SubStringEquals(nonIndexedPattern, startIndex))
+            var fileSpan = file.AsSpan();
+            if (fileSpan.SubStringEquals(nonIndexedPatternSpan, startIndex) ||
+                fileSpan.SubStringEquals(indexedPatternSpan, startIndex))
             {
-                yield return file;
-            }
-            else if (file.SubStringEquals(indexedPattern, startIndex))
-            {
-                yield return file;
+                list.Add(file);
             }
         }
+
+        return list;
     }
 
-    public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory)
+    static bool SubStringEquals(this CharSpan value, CharSpan match, int start)
     {
-        var nonIndexedPattern = $"{fileNamePrefix}.verified.";
-        var indexedPattern = $"{fileNamePrefix}#";
-        var startIndex = directory.Length + 1;
-        foreach (var file in Directory.GetFiles(directory, $"{fileNamePrefix}*.verified.*"))
-        {
-            if (file.SubStringEquals(nonIndexedPattern, startIndex))
-            {
-                yield return file;
-            }
-            else if (file.SubStringEquals(indexedPattern, startIndex))
-            {
-                yield return file;
-            }
-        }
-    }
-
-    static bool SubStringEquals(this string value, string match, int startIndex)
-    {
-        for (var index = 0; index < match.Length; index++)
-        {
-            if (value[startIndex + index] != match[index])
-            {
-                return false;
-            }
-        }
-
-        return true;
+        var slice = value.Slice(start, match.Length);
+        return slice.SequenceEqual(match);
     }
 }

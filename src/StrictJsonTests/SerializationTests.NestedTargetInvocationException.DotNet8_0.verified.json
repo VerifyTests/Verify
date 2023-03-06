@@ -1,0 +1,7 @@
+﻿{
+  "exception": {
+    "Type": "Exception",
+    "Message": "the message",
+    "StackTrace": "at SerializationTests.MethodThatThrows()\nat System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)\nat System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)"
+  }
+}

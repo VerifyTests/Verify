@@ -31,7 +31,11 @@ public class NewLineTests
         Assert.False(File.ReadAllText(result.Files.Single()).Contains("\r"));
     }
 
-#if NET7_0
+    [Fact]
+    public Task Newlines() =>
+        Verify("a\r\nb\nc\rd\r\n");
+
+#if NET8_0
     [Fact]
     public async Task StringWithDifferingNewline()
     {
@@ -62,13 +66,7 @@ public class NewLineTests
         PrefixUnique.Clear();
         await Verify("a\nb");
     }
-#endif
 
-    [Fact]
-    public Task Newlines() =>
-        Verify("a\r\nb\nc\rd\r\n");
-
-#if NET7_0
     [Fact]
     public async Task TrailingNewlinesRaw()
     {

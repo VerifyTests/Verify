@@ -1,0 +1,10 @@
+﻿{
+  exception: {
+    Type: Exception,
+    Message: the message,
+    StackTrace:
+at SerializationTests.MethodThatThrows()
+at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+at System.Reflection.MethodInvoker.Invoke(Object obj, IntPtr* args, BindingFlags invokeAttr)
+  }
+}

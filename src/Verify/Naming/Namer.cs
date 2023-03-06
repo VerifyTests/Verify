@@ -250,7 +250,7 @@ public class Namer
         if (description.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
         {
             var version = Version.Parse(description.Remove(".NETFramework "));
-            return ("Net",  version.MajorMinor());
+            return ("Net", version.MajorMinor());
         }
 
         if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))

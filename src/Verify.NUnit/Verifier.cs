@@ -80,7 +80,7 @@ public static partial class Verifier
             typeName = typeName[(typeInfo.Namespace.Length + 1)..];
         }
 
-        return typeName
+        return typeName.AsSpan().ToString()
             .Remove("\"")
             .ReplaceInvalidFileNameChars();
     }

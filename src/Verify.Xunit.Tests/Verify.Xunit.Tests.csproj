@@ -11,7 +11,7 @@
     <PackageReference Include="PublicApiGenerator" Version="11.0.0" />
     <PackageReference Include="Xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.87" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.88" PrivateAssets="all" />
     <PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />

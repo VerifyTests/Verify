@@ -21,8 +21,6 @@ partial class SerializationSettings
     static FieldInfoConverter fieldInfoConverter = new();
     static ConstructorInfoConverter constructorInfoConverter = new();
     static ParameterInfoConverter parameterInfoConverter = new();
-    static VersionConverter versionConverter = new();
-    static EncodingConverter encodingConverter = new();
     static PropertyInfoConverter propertyInfoConverter = new();
     static ClaimConverter claimConverter = new();
     static AggregateExceptionConverter aggregateExceptionConverter = new();
@@ -33,7 +31,6 @@ partial class SerializationSettings
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
     static StringWriterConverter stringWriterConverter = new();
-    //static DictionaryConverter dictionaryConverter = new();
 
     JsonSerializerSettings jsonSettings;
 
@@ -107,8 +104,6 @@ partial class SerializationSettings
         converters.Add(expressionConverter);
         converters.Add(delegateConverter);
         converters.Add(targetInvocationExceptionConverter);
-        converters.Add(versionConverter);
-        converters.Add(encodingConverter);
         converters.Add(typeJsonConverter);
         converters.Add(methodInfoConverter);
         converters.Add(fieldInfoConverter);
@@ -120,7 +115,6 @@ partial class SerializationSettings
         converters.Add(taskConverter);
         converters.Add(valueTaskConverter);
         converters.Add(claimsPrincipalConverter);
-        //converters.Add(dictionaryConverter);
         converters.Add(jArrayConverter);
         converters.Add(jObjectConverter);
         converters.Add(nameValueCollectionConverter);

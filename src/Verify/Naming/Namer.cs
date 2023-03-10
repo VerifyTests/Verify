@@ -238,10 +238,10 @@ public class Namer
         return ("Net", new(4, 6));
 #elif NET472
         return ("Net", new(4, 7));
-#elif NET472
-        return ("Net", new(4, 8));
 #elif NET48
         return ("Net", new(4, 8));
+#elif NET5_0
+        return ("DotNet", new(5, 0));
 #elif NET6_0
         return ("DotNet", new(6, 0));
 #elif NET7_0
@@ -249,7 +249,31 @@ public class Namer
 #elif NET8_0
         return ("DotNet", new(8, 0));
 #else
-        throw new($"Could not resolve runtime for '{RuntimeInformation.FrameworkDescription}'.");
+        var description = RuntimeInformation.FrameworkDescription;
+
+        if (description.StartsWith(".NET Framework", StringComparison.OrdinalIgnoreCase))
+        {
+            var version = Version.Parse(description.Remove(".NET Framework "));
+            return ("Net", version.MajorMinor());
+        }
+
+        if (description.StartsWith(".NETFramework", StringComparison.OrdinalIgnoreCase))
+        {
+            var version = Version.Parse(description.Remove(".NETFramework "));
+            return ("Net", version.MajorMinor());
+        }
+
+        if (description.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
+        {
+            return ("DotNet", Environment.Version.MajorMinor());
+        }
+
+        if (description.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
+        {
+            return ("Mono", Environment.Version.MajorMinor());
+        }
+
+        throw new($"Could not resolve runtime for '{description}'.");
 #endif
     }
 }

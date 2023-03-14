@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="ProjectDefaults" Version="1.0.89" PrivateAssets="all" />
+        <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />
     </ItemGroup>
 
 </Project>

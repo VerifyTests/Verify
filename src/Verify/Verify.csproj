@@ -8,7 +8,7 @@
     <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="0.9.0" PrivateAssets="All" />
+    <PackageReference Include="Polyfill" Version="0.10.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard' OR '$(TargetFrameworkIdentifier)' == '.NETFramework'" />
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
     <Using Remove="System.Net.Http" />

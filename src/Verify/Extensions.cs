@@ -129,29 +129,6 @@
         builder.Replace(oldValue, newValue);
     }
 
-#if NET472 || NET462 || NET48 || NETSTANDARD2_0
-    public static bool StartsWith(this string value, char ch)
-    {
-        if (value.Length == 0)
-        {
-            return false;
-        }
-
-        return value[0] == ch;
-    }
-
-    public static bool EndsWith(this string value, char ch)
-    {
-        var lastPos = value.Length - 1;
-        if (lastPos >= value.Length)
-        {
-            return false;
-        }
-
-        return value[lastPos] == ch;
-    }
-#endif
-
 #if NET462 || NET472 || NET48 || NETSTANDARD2_0
 
     public static bool SequenceEqual(this CharSpan value1, string value2)

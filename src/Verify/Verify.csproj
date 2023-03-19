@@ -8,7 +8,7 @@
     <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="0.16.0" PrivateAssets="All" />
+    <PackageReference Include="Polyfill" Version="0.21.0" PrivateAssets="all" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard' OR '$(TargetFrameworkIdentifier)' == '.NETCOREAPP'" />
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
     <Using Remove="System.Net.Http" />
@@ -16,7 +16,6 @@
     <Using Include="VerifyTests" />
     <Using Include="DiffEngine" />
     <Using Include="EmptyFiles" />
-    <Using Include="Polyfill" />
     <Using Include="SimpleInfoName" />
     <Using Include="System.Numerics" />
     <Using Include="System.Xml.Linq" />

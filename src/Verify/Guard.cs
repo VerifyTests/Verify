@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-static class Guard
+﻿static class Guard
 {
     public static void FileExists(string path, [CallerArgumentExpression("path")] string argumentName = "")
     {

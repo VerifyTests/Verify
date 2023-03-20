@@ -8,7 +8,6 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
     <Using Include="VerifyTests" />
     <Using Include="Argon" />
-    <Using Include="Polyfill" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />

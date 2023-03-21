@@ -8,7 +8,7 @@
     <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="0.21.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="0.24.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory"
                       Version="4.5.5"
                       Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or

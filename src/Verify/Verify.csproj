@@ -8,12 +8,8 @@
     <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="0.24.0" PrivateAssets="All" />
-    <PackageReference Include="System.Memory"
-                      Version="4.5.5"
-                      Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or
-                                 $(TargetFrameworkIdentifier) == '.NETFramework' or
-                                 $(TargetFramework.StartsWith('netcoreapp2'))" />
+    <PackageReference Include="Polyfill" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
     <Using Remove="System.Net.Http" />
     <Using Include="Argon" />
@@ -31,12 +27,10 @@
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
     <PackageReference Include="SimpleInfoName" Version="2.1.1" />
-    <PackageReference Include="Argon" Version="0.5.0" />
+    <PackageReference Include="Argon" Version="0.5.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />
-    <PackageReference Include="System.ValueTuple"
-                      Version="4.5.0"
-                      Condition="$(TargetFramework.StartsWith('net46'))" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" Condition="$(TargetFramework.StartsWith('net46'))" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\Verify.props" />

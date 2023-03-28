@@ -95,7 +95,7 @@ public class DateFormatterTests
         foreach (var hour in bools)
         foreach (var minute in bools)
         foreach (var second in bools)
-        foreach (var tick in bools)
+        foreach (var secondFraction in bools)
         {
             var name = new StringBuilder();
             var timeSpan = TimeSpan.Zero;
@@ -121,14 +121,15 @@ public class DateFormatterTests
             if (second)
             {
                 name.Append("_second");
-                value = value.AddMinutes(4);
+                value = value.AddSeconds(4);
             }
 
-            if (tick)
+            if (secondFraction)
             {
-                name.Append("_tick");
-                value = value.AddTicks(6);
+                name.Append("_secondFraction");
+                value = value.AddSeconds(.5);
             }
+
 
             jsonValues.Add(name.ToString(), DateFormatter.ToJsonString(value));
             parameterValues.Add(name.ToString(), DateFormatter.ToParameterString(value));
@@ -147,7 +148,7 @@ public class DateFormatterTests
         foreach (var hour in bools)
         foreach (var minute in bools)
         foreach (var second in bools)
-        foreach (var tick in bools)
+        foreach (var secondFraction in bools)
         {
             var name = new StringBuilder(kind.ToString());
             var value = new DateTime(2020, 1, 1, 0, 0, 0,kind);
@@ -166,13 +167,13 @@ public class DateFormatterTests
             if (second)
             {
                 name.Append("_second");
-                value = value.AddMinutes(4);
+                value = value.AddSeconds(4);
             }
 
-            if (tick)
+            if (secondFraction)
             {
-                name.Append("_tick");
-                value = value.AddTicks(6);
+                name.Append("_secondFraction");
+                value = value.AddSeconds(.5);
             }
 
             jsonValues.Add(name.ToString(), DateFormatter.ToJsonString(value));

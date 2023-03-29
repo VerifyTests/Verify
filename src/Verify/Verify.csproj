@@ -11,7 +11,6 @@
     <PackageReference Include="Polyfill" Version="1.8.0" PrivateAssets="all" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
-    <Using Remove="System.Net.Http" />
     <Using Include="Argon" />
     <Using Include="VerifyTests" />
     <Using Include="DiffEngine" />

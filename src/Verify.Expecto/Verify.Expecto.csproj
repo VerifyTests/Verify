@@ -8,7 +8,6 @@
     <Using Include="Expecto" />
     <Using Include="Argon" />
     <Using Include="VerifyTests" />
-    <Using Remove="System.Net.Http" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />

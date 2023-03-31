@@ -679,6 +679,35 @@ public class SerializationTests
                 }
             });
 
+
+    [Fact]
+    public Task StringDictionary() =>
+        Verify(
+            new
+            {
+                item2 = new StringDictionary
+                {
+                    {
+                        "key", null
+                    }
+                },
+                item4 = new StringDictionary
+                {
+                    {
+                        "key", "value"
+                    }
+                },
+                item8 = new StringDictionary
+                {
+                    {
+                        "key1", "value1"
+                    },
+                    {
+                        "key2", "value2"
+                    }
+                }
+            });
+
     [Fact]
     public Task Timespan() =>
         Verify(

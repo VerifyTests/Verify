@@ -27,6 +27,7 @@ partial class SerializationSettings
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
+    static StringDictionaryConverter stringDictionaryConverter = new();
     static StringBuilderConverter stringBuilderConverter = new();
     static TaskConverter taskConverter = new();
     static ValueTaskConverter valueTaskConverter = new();
@@ -118,6 +119,7 @@ partial class SerializationSettings
         converters.Add(jArrayConverter);
         converters.Add(jObjectConverter);
         converters.Add(nameValueCollectionConverter);
+        converters.Add(stringDictionaryConverter);
         converters.Add(keyValuePairConverter);
         foreach (var extraSetting in extraSettings)
         {

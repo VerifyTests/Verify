@@ -376,7 +376,23 @@ VerifierSettings.DontScrubDateTimes();
 
 `AddExtraDatetimeFormat` allows specifiying custom date formats to be scrubbed.
 
-snipper: AddExtraDatetimeFormat
+<!-- snippet: AddExtraDatetimeFormat -->
+<a id='snippet-addextradatetimeformat'></a>
+```cs
+[ModuleInitializer]
+public static void UseAddExtraDatetimeFormat() =>
+    VerifierSettings.AddExtraDatetimeFormat("yyyy-MM-dd");
+
+[Fact]
+public Task WithExtraDatetimeFormat() =>
+    Verify(
+        new
+        {
+            date = "2022-11-08"
+        });
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L44-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-addextradatetimeformat' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### Named Date and Times

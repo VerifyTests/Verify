@@ -129,12 +129,12 @@ public static class Parser
 
         var trimmed = next.Substring(prefix.Length);
 
-        if (string.IsNullOrWhiteSpace(trimmed))
+        if (!string.IsNullOrWhiteSpace(trimmed))
         {
-            throw new ParseException($"Expected line to have content after prefix `{prefix}` is trimmed . Line: {next}");
+            return trimmed;
         }
 
-        return trimmed;
+        throw new ParseException($"Expected line to have content after prefix `{prefix}` is trimmed . Line: {next}");
     }
 
     static void AddFilePair(string directory, string line, IEnumerator<string> scopedEnumerator, List<FilePair> filePairs)

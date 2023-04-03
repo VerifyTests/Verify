@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net462;net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
@@ -8,7 +8,7 @@
     <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="1.8.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="1.10.0" PrivateAssets="all" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
     <Using Include="Argon" />

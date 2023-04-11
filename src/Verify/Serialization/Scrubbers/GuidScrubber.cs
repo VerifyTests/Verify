@@ -8,11 +8,12 @@
             return;
         }
 
-        var value = builder.ToString();
-        if (!value.Contains('-'))
+        if (!builder.Contains('-'))
         {
             return;
         }
+    
+        var value = builder.ToString();
 
         builder.Clear();
         for (var index = 0; index <= value.Length; index++)

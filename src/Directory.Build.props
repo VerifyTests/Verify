@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013;msb3277;CS0436;CS1573</NoWarn>
-    <Version>19.12.1</Version>
+    <Version>19.12.2</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>11</LangVersion>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>

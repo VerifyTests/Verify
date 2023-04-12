@@ -12,7 +12,7 @@
         {
             return;
         }
-    
+
         var value = builder.ToString();
 
         builder.Clear();

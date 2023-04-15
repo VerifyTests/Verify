@@ -101,7 +101,7 @@ public static class Parser
 
         if (firstLine.StartsWith("VerifyException : Directory: "))
         {
-            var directory = firstLine.Substring(29);
+            var directory = firstLine[29..];
 
             ThrowIfEmpty(directory);
 
@@ -110,7 +110,7 @@ public static class Parser
 
         if (firstLine.StartsWith("Directory: "))
         {
-            var directory = firstLine.Substring(11);
+            var directory = firstLine[11..];
 
             ThrowIfEmpty(directory);
 
@@ -127,7 +127,7 @@ public static class Parser
             throw new ParseException($"Expected line to start with `{prefix}`. Line: {next}");
         }
 
-        var trimmed = next.Substring(prefix.Length);
+        var trimmed = next[prefix.Length..];
 
         if (!string.IsNullOrWhiteSpace(trimmed))
         {

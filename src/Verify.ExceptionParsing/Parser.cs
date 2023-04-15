@@ -39,7 +39,7 @@ public static class Parser
             }
 
             var firstLine = enumerator.Current!;
-            //MsTest exceptiosn start with "Test method..." so lets swallow them
+            //MsTest exception start with "Test method..." so lets swallow them
             if (firstLine.StartsWith("Test method"))
             {
                 if (!enumerator.MoveNext())

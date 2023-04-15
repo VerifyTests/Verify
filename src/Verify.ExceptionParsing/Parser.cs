@@ -39,6 +39,17 @@ public static class Parser
             }
 
             var firstLine = enumerator.Current!;
+            //MsTest exceptiosn start with "Test method..." so lets swallow them
+            if (firstLine.StartsWith("Test method"))
+            {
+                if (!enumerator.MoveNext())
+                {
+                    throw new ParseException("No content");
+                }
+
+                firstLine = enumerator.Current!;
+            }
+
             var directory = GetDirectory(firstLine);
 
             while (enumerator.MoveNext())

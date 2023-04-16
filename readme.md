@@ -405,21 +405,6 @@ eg add the following to `.gitattributes`
 
 Note that this is a suggested subset of verified text extension. Add others as required based on the file types being verified. <!-- endInclude -->
 
-## .editorconfig
-
-When saving `.verified.txt` files in `.editorconfig` enabled editors you may experience problems like final newline being added. To avoid this, add the following snippet to your .editorconfig:
-
-```
-# ignore Verify.Xunit files
-[*.{received,verified}.txt]
-charset = unset
-end_of_line = lf
-indent_size = unset
-indent_style = unset
-insert_final_newline = false
-tab_width = unset
-trim_trailing_whitespace = false
-```
 
 ## Static settings
 

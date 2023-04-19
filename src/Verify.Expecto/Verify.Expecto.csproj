@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net462;net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);netstandard2.0;netstandard2.1;netcoreapp3.1;netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
@@ -10,7 +10,7 @@
     <Using Include="VerifyTests" />
     <PackageReference Include="Expecto" Version="9.0.4" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.6.4" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.7.0" PrivateAssets="All" />
     <PackageReference Include="FSharp.Core" Version="7.0.200" />
     <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />

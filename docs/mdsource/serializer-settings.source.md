@@ -1,5 +1,7 @@
 # Serializer settings
 
+Verify uses [Argon](https://github.com/SimonCropp/Argon) for serialization. See [Default Settings](#default-settings) for on how Argon is used and instructions on how to control that usage.
+
 Serialization settings can be customized at three levels:
 
  * Method: Will run the verification in the current test method.
@@ -39,6 +41,12 @@ snippet: Tests.Object.verified.json
 
 
 ## Default settings
+
+Verify uses [Argon](https://github.com/SimonCropp/Argon) for serialization.
+
+> Argon is a JSON framework for .NET. It is a hard fork of Newtonsoft.Json.
+
+See [Argon documentation](https://github.com/SimonCropp/Argon/blob/main/docs/readme.md)
 
 The default `JsonSerializerSettings` are:
 

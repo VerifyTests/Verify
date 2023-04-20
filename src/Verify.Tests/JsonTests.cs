@@ -15,7 +15,8 @@ public class JsonTests
     [Fact]
     public Task JTokenIgnore()
     {
-        var jToken = JToken.Parse("""
+        var jToken = JToken.Parse(
+            """
             {
               Include: 1,
               Ignore: 2,
@@ -35,7 +36,8 @@ public class JsonTests
     [Fact]
     public Task JTokenScrub()
     {
-        var jToken = JToken.Parse("""
+        var jToken = JToken.Parse(
+            """
             {
               Include: 1,
               Scrub: 2,

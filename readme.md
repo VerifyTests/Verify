@@ -352,7 +352,7 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/JsonTests.cs#L181-L206' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.cs#L183-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

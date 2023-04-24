@@ -1,10 +1,15 @@
 ﻿static class MatchingFileFinder
 {
-    public static IEnumerable<string> FindReceived(string fileNamePrefix, string directory) =>
-        Find(directory,
-            searchPattern: $"{fileNamePrefix}*.received.*",
-            nonIndexedPattern: $"{fileNamePrefix}.received.",
-            indexedPattern: $"{fileNamePrefix}#");
+    public static void DeleteReceived(string fileNamePrefix, string directory)
+    {
+        foreach (var file in Find(directory,
+                     searchPattern: $"{fileNamePrefix}*.received.*",
+                     nonIndexedPattern: $"{fileNamePrefix}.received.",
+                     indexedPattern: $"{fileNamePrefix}#"))
+        {
+            IoHelpers.DeleteFile(file);
+        }
+    }
 
     public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory) =>
         Find(directory,

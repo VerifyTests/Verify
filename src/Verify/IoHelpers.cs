@@ -41,7 +41,7 @@
         }
     }
 
-    static void DeleteFile(string file)
+    public static void DeleteFile(string file)
     {
         try
         {

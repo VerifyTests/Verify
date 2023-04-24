@@ -171,7 +171,7 @@ public partial class InnerVerifier :
                 $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
         };
 
-        IoHelpers.DeleteFiles(MatchingFileFinder.FindReceived(receivedPrefix, directory));
+        MatchingFileFinder.DeleteReceived(receivedPrefix, directory);
     }
 
     (string receivedPrefix, string verifiedPrefix) PrefixForFileConvention(Namer namer, string typeAndMethod, string parameters)

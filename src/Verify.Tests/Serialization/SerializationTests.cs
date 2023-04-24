@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Security.Claims;
+using BindingFlags = System.Reflection.BindingFlags;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
 // ReSharper disable UnusedParameter.Local
@@ -2517,7 +2518,7 @@ public class SerializationTests
     [Fact]
     public Task Field()
     {
-        var target = Info.OfField<SerializationTests>("MyField");
+        var target = typeof(SerializationTests).GetField("MyField")!;
         return Verify(target);
     }
 
@@ -2526,15 +2527,15 @@ public class SerializationTests
     [Fact]
     public Task GetProperty()
     {
-        var target = Info.OfPropertyGet<SerializationTests>("MyProperty");
-        return Verify(target);
+        var target = typeof(SerializationTests).GetProperty("MyProperty")!;
+        return Verify(target.GetMethod);
     }
 
     [Fact]
     public Task SetProperty()
     {
-        var target = Info.OfPropertySet<SerializationTests>("MyProperty");
-        return Verify(target);
+        var target = typeof(SerializationTests).GetProperty("MyProperty")!;
+        return Verify(target.SetMethod);
     }
 
     [Fact]
@@ -2548,25 +2549,25 @@ public class SerializationTests
 
     [Fact]
     public Task Method() =>
-        Verify(Info.OfMethod<SerializationTests>("Method"));
+        Verify(typeof(SerializationTests).GetMethod("Method"));
 
     [Fact]
     public Task Constructor() =>
-        Verify(Info.OfConstructor<SerializationTests>());
+        Verify(typeof(SerializationTests).GetConstructor(BindingFlags.Static,Array.Empty<Type>()));
 
     [Fact]
     public Task Parameter()
     {
-        var method = Info.OfMethod<SerializationTests>("MyMethodWithParameters");
+        var method = typeof(SerializationTests).GetMethod("MyMethodWithParameters")!;
         return Verify(method.GetParameters().First());
     }
 
     [Fact]
     public Task MethodWithParameters() =>
-        Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
+        Verify(typeof(SerializationTests).GetMethod("MyMethodWithParameters"));
 
     // ReSharper disable UnusedParameter.Local
-    void MyMethodWithParameters(int x, string y)
+    public void MyMethodWithParameters(int x, string y)
         // ReSharper restore UnusedParameter.Local
     {
     }

@@ -234,12 +234,6 @@ public class Namer
         return ("Core", new(3, 0));
 #elif NETCOREAPP3_1
         return ("Core", new(3, 1));
-#elif NET462
-        return ("Net", new(4, 6));
-#elif NET472
-        return ("Net", new(4, 7));
-#elif NET48
-        return ("Net", new(4, 8));
 #elif NET5_0
         return ("DotNet", new(5, 0));
 #elif NET6_0
@@ -248,6 +242,27 @@ public class Namer
         return ("DotNet", new(7, 0));
 #elif NET8_0
         return ("DotNet", new(8, 0));
+#elif NETFRAMEWORK
+
+        // Mono can only be detected at runtime, and will use .NET Framework targets, so we have to check it first.
+        if (RuntimeInformation.FrameworkDescription.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
+        {
+            return ("Mono", Environment.Version.MajorMinor());
+        }
+
+        // It's one of the .NET Framework versions we're explicitly targeting.
+#if NET462
+        return ("Net", new(4, 6));
+#elif NET472
+        return ("Net", new(4, 7));
+#elif NET48
+        return ("Net", new(4, 8));
+#endif
+
+        // It's only possible to get here if we've started compiling Verify for a new .NET Framework target
+        // and forgot to add it to the list above.  Thus "not implemented" is appropriate.
+        throw new NotImplementedException();
+
 #else
         var description = RuntimeInformation.FrameworkDescription;
 

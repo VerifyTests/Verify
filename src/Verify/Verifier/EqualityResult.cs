@@ -5,7 +5,7 @@
     public StringBuilder? ReceivedText { get; }
     public StringBuilder? VerifiedText { get; }
 
-    public EqualityResult(in Equality equality, in string? message, in StringBuilder? receivedText, in StringBuilder? verifiedText)
+    public EqualityResult(Equality equality, string? message, StringBuilder? receivedText, StringBuilder? verifiedText)
     {
         Equality = equality;
         Message = message;

@@ -3,7 +3,7 @@
     public FilePair File { get; }
     public StringBuilder? ReceivedText { get; }
 
-    public NewResult(in FilePair file, in StringBuilder? receivedText)
+    public NewResult(FilePair file, StringBuilder? receivedText)
     {
         File = file;
         ReceivedText = receivedText;

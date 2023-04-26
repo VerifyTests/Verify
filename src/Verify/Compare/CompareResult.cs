@@ -6,7 +6,7 @@ public readonly struct CompareResult
     public bool IsEqual { get; }
     public string? Message { get; }
 
-    CompareResult(in bool isEqual, in string? message = null)
+    CompareResult(in bool isEqual, string? message = null)
     {
         IsEqual = isEqual;
         Message = message;

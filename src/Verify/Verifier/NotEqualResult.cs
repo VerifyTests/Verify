@@ -5,7 +5,7 @@
     public StringBuilder? ReceivedText { get; }
     public StringBuilder? VerifiedText { get; }
 
-    public NotEqualResult(in FilePair file, in string? message, in StringBuilder? receivedText, in StringBuilder? verifiedText)
+    public NotEqualResult(FilePair file, string? message, StringBuilder? receivedText, StringBuilder? verifiedText)
     {
         File = file;
         Message = message;

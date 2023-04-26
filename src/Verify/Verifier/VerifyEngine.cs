@@ -89,7 +89,7 @@ class VerifyEngine
         }
     }
 
-    void HandleCompareResult(EqualityResult result, in FilePair file)
+    void HandleCompareResult(EqualityResult result, FilePair file)
     {
         switch (result.Equality)
         {

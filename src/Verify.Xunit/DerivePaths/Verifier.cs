@@ -19,4 +19,14 @@ public partial class Verifier
     /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
     public static void DerivePathInfo(DerivePathInfo derivePathInfo) =>
         Verifier.derivePathInfo = derivePathInfo;
+
+    /// <summary>
+    /// Use a directory relative to the project directory for storing for `.verified.` files.
+    /// </summary>
+    public static void UseProjectRelativeDirectory(string directory) =>
+        DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) => new(
+                directory: Path.Combine(projectDirectory, directory),
+                typeName: type.NameWithParent(),
+                methodName: method.Name));
 }

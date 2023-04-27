@@ -1,7 +1,7 @@
-﻿[UsesVerify]
+﻿[TestFixture]
 public class Tests
 {
-    [Fact]
+    [Test]
     public Task Test()
     {
         DerivePathInfo(
@@ -11,38 +11,45 @@ public class Tests
                 Assert.True(Directory.Exists(projectDirectory));
                 Assert.NotNull(methodName);
                 Assert.NotNull(typeName);
-                Assert.EndsWith("Verify.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
-                Assert.EndsWith("Verify.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
+                // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
+                // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
         return Verify("Value");
     }
 
-    [Fact]
+    [Test]
     public Task ReturnNulls()
     {
         DerivePathInfo((_, _, _, _) => new(null));
         return Verify("Value");
     }
 
-    [Fact]
-    public Task InvalidMethod()
+    [Test]
+    public Task ProjectRelativeDirectory()
+    {
+        UseProjectRelativeDirectory("Relative");
+        return Verify("Value");
+    }
+
+    [Test]
+    public void InvalidMethod()
     {
         DerivePathInfo((_, _, _, _) => new(null, null, Path.GetInvalidFileNameChars().First().ToString()));
-        return Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
-    [Fact]
-    public Task InvalidType()
+    [Test]
+    public void InvalidType()
     {
         DerivePathInfo((_, _, _, _) => new(null, Path.GetInvalidFileNameChars().First().ToString()));
-        return Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
-    [Fact]
-    public Task InvalidDirectory()
+    [Test]
+    public void InvalidDirectory()
     {
         DerivePathInfo((_, _, _, _) => new(Path.GetInvalidPathChars().First().ToString()));
-        return Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 }

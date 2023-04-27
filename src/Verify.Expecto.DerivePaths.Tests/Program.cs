@@ -1,0 +1,1 @@
+﻿return Runner.RunTestsInAssembly(Runner.DefaultConfig, args);

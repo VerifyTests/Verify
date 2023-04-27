@@ -261,7 +261,9 @@ public class Namer
 
         // It's only possible to get here if we've started compiling Verify for a new .NET Framework target
         // and forgot to add it to the list above.  Thus "not implemented" is appropriate.
+#pragma warning disable CS0162
         throw new NotImplementedException();
+#pragma warning restore CS0162
 
 #else
         var description = RuntimeInformation.FrameworkDescription;

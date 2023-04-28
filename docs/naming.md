@@ -568,6 +568,17 @@ public static string NameWithParent(this Type type)
 <!-- endSnippet -->
 
 
+### UseProjectRelativeDirectory
+
+`Verifier.UseProjectRelativeDirectory` is a wrapper around `DerivePathInfo` that stores all `.verified.` files in a directory relative to the project directory.
+
+For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
+
+```
+Verifier.UseProjectRelativeDirectory("Snapshots");
+```
+
+
 ## DisableRequireUniquePrefix
 
 Snapshot file names have to be unique. If a duplicate name is used, then an exception will be throw. This is mostly caused by a conflicting combination of `Verifier.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`. If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation

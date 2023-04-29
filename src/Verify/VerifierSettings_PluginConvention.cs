@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
@@ -47,7 +47,7 @@ public static partial class VerifierSettings
 #pragma warning disable CS0618
         var assembly = Assembly.LoadWithPartialName(name)!;
 #pragma warning restore CS0618
-        var typeName = name.Replace("Verify.", "VerifyTests.Verify");
+        var typeName = $"VerifyTests.{name.Replace(".", "")}";
         type = assembly.GetType(typeName);
         return type != null;
     }

@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
@@ -38,19 +38,22 @@ public static partial class VerifierSettings
 
     internal static bool TryGetType(string file, [NotNullWhen(true)] out Type? type)
     {
-        var name = Path.GetFileNameWithoutExtension(file);
-        if (!name.StartsWith("Verify."))
+        var assemblyName = Path.GetFileNameWithoutExtension(file);
+        if (!assemblyName.StartsWith("Verify."))
         {
             type = null;
             return false;
         }
 #pragma warning disable CS0618
-        var assembly = Assembly.LoadWithPartialName(name)!;
+        var assembly = Assembly.LoadWithPartialName(assemblyName)!;
 #pragma warning restore CS0618
-        var typeName = name.Replace("Verify.", "VerifyTests.Verify");
+        var typeName = GetTypeName(assemblyName);
         type = assembly.GetType(typeName);
         return type != null;
     }
+
+    internal static string GetTypeName(string assemblyName) =>
+        $"VerifyTests.{assemblyName.Replace(".", "")}";
 
     internal static void InvokeInitialize(Type type)
     {

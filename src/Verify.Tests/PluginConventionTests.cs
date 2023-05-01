@@ -1,4 +1,4 @@
-﻿
+
 #pragma warning disable CS0618
 public class PluginConventionTests
 {
@@ -16,6 +16,12 @@ public class PluginConventionTests
         Assert.True(VerifierSettings.TryGetType(typeof(VerifySamplePlugin).Assembly.Location, out var type));
         Assert.Same(typeof(VerifySamplePlugin), type);
     }
+
+    [Theory]
+    [InlineData("VerifySamplePlugin", "VerifyTests.VerifySamplePlugin")]
+    [InlineData("Verify.ICSharpCode.Decompiler", "VerifyTests.VerifyICSharpCodeDecompiler")]
+    public void GetTypeName(string assemblyName, string expectedTypeName) =>
+        Assert.Equal(expectedTypeName, VerifierSettings.GetTypeName(assemblyName));
 
     [Fact]
     public void InvokeInitialize()

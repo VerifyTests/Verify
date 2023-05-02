@@ -255,7 +255,7 @@ Result:
 snippet: SerializationTests.ScrubType.verified.txt
 
 
-## Ignoring a instance
+## Ignoring an instance
 
 To ignore instances of a type based on delegate:
 

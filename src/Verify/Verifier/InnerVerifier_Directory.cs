@@ -82,14 +82,18 @@ partial class InnerVerifier
             var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
             //This is a case of file without filename contained inside a directory - so let's not mix directory name with filename
-            if (string.IsNullOrEmpty(fileNameWithoutExtension) && !string.IsNullOrEmpty(relativePath))
+            if (fileNameWithoutExtension.Length == 0 && relativePath.Length != 0)
             {
                 relativePath += Path.DirectorySeparatorChar;
             }
 
-            if (string.IsNullOrEmpty(extension))
+            if (extension.Length == 0)
             {
-                extension = "noextension";
+                targets.Add(new(
+                    "noextension",
+                    File.OpenRead(filePath),
+                    relativePath));
+                continue;
             }
 
             if (FileExtensions.IsText(extension))
@@ -100,14 +104,13 @@ partial class InnerVerifier
                     extension,
                     builder,
                     relativePath));
+                continue;
             }
-            else
-            {
-                targets.Add(new(
-                    extension,
-                    File.OpenRead(filePath),
-                    relativePath));
-            }
+
+            targets.Add(new(
+                extension,
+                File.OpenRead(filePath),
+                relativePath));
         }
 
         return targets;

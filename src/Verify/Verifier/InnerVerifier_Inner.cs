@@ -38,33 +38,32 @@ partial class InnerVerifier
     {
         var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
             .ToList();
-        Func<Task> cleanup = () => Task.CompletedTask;
+        var cleanup = () => Task.CompletedTask;
         if (doExpressionConversion)
         {
             var result = new List<Target>();
             foreach (var target in list)
             {
-                if (VerifierSettings.HasExtensionConverter(target.Extension))
-                {
-                    var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null);
-                    cleanup += itemCleanup;
-                    if (info != null)
-                    {
-                        result.Add(
-                            new(
-                                VerifierSettings.TxtOrJson,
-                                JsonFormatter.AsJson(
-                                    settings,
-                                    counter,
-                                    info)));
-                    }
-
-                    result.AddRange(converted);
-                }
-                else
+                if (!VerifierSettings.HasExtensionConverter(target.Extension))
                 {
                     result.Add(target);
+                    continue;
                 }
+
+                var (info, converted, itemCleanup) = await DoExtensionConversion(target.Extension, target.StreamData, null);
+                cleanup += itemCleanup;
+                if (info != null)
+                {
+                    result.Add(
+                        new(
+                            VerifierSettings.TxtOrJson,
+                            JsonFormatter.AsJson(
+                                settings,
+                                counter,
+                                info)));
+                }
+
+                result.AddRange(converted);
             }
 
             list = result;

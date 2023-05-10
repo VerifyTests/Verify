@@ -196,7 +196,7 @@ snippet: JsonTests.VerifyJsonString.verified.txt
 include: include-exclude
 
 
-### Line Endings
+### Text file settings
 
 include: text-file-settings
 

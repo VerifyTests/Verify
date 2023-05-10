@@ -60,8 +60,7 @@ public static partial class VerifierSettings
         var method = type.GetMethods(BindingFlags.Static | BindingFlags.Public)
             .Where(_ => _.Name == "Initialize" &&
                         _.GetParameters().All(_ => _.HasDefaultValue))
-            .OrderBy(_ => _.GetParameters().Length)
-            .FirstOrDefault();
+            .MinBy(_ => _.GetParameters().Length);
         if (method == null)
         {
             throw new($"Expected {type.Name} to have a method `public static void Initialize()`.");

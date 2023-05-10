@@ -391,36 +391,9 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
 
-### Line Endings
+### Text file settings
 
-All text extensions of `*.verified.*` and have eol set to `lf`. <!-- include: line-endings. path: /docs/mdsource/line-endings.include.md -->
-
-eg add the following to `.gitattributes`
-
-```
-*.verified.txt text eol=lf
-*.verified.xml text eol=lf
-*.verified.json text eol=lf
-```
-
-Note that this is a suggested subset of verified text extension. Add others as required based on the file types being verified. <!-- endInclude -->
-
-
-## .editorconfig
-
-When saving `.verified.txt` files in `.editorconfig` enabled editors, a newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
-
-```
-# Verify settings
-[*.{received,verified}.txt]
-charset = unset
-end_of_line = lf
-indent_size = unset
-indent_style = unset
-insert_final_newline = false
-tab_width = unset
-trim_trailing_whitespace = false
-```
+include: text-file-settings
 
 
 ## Static settings

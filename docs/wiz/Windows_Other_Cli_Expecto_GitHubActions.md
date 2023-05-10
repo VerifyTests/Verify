@@ -89,7 +89,7 @@ trim_trailing_whitespace = false
 ```
 
 
-*Note that the above are suggested for subset of text extension. Add others as required based on the file types being verified.* <!-- endInclude -->
+*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.* <!-- endInclude -->
 
 
 ## DiffEngineTray

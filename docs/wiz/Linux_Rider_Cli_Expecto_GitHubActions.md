@@ -48,7 +48,16 @@ All `*.verified.*` files should be committed to source control. <!-- endInclude 
 
 ### Text file settings
 
-**Source control settings** <!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
+Text variants of verified and received have the following characteristics: <!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
+
+ * UTF8 with a [Byte order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark)
+ * Newlines as line-feed (lf)
+ * No trailing newline
+
+This manifests in several ways:
+
+
+**Source control settings**
 
 All text extensions of `*.verified.*` should have:
 
@@ -63,9 +72,9 @@ eg add the following to `.gitattributes`
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 ```
 
-**EditorConfig**
+**EditorConfig settings**
 
-https://editorconfig.org/
+If modifying text verified/received files in an editor, it is desirable for the editor to respect the above conventions. For [EditorConfig](https://editorconfig.org/) enabled the following can be used:
 
 ```
 # Verify settings
@@ -80,7 +89,7 @@ trim_trailing_whitespace = false
 ```
 
 
-*Note that this is a suggested subset of text extension. Add others as required based on the file types being verified.* <!-- endInclude -->
+*Note that the above are suggested for subset of text extension. Add others as required based on the file types being verified.* <!-- endInclude -->
 
 
 ## Rider Plugin

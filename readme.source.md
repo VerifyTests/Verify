@@ -201,7 +201,6 @@ include: include-exclude
 include: text-file-settings
 
 
-
 ## Static settings
 
 Most settings are available at the both global level and at the instance level.

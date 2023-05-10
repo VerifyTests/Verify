@@ -391,7 +391,7 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
 
-### Text file settings
+## Text file settings
 
 Text variants of verified and received have the following characteristics: <!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
 

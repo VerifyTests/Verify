@@ -206,7 +206,7 @@ include: line-endings
 When saving `.verified.txt` files in `.editorconfig` enabled editors, a newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
 
 ```
-# ignore Verify.Xunit files
+# Verify settings
 [*.{received,verified}.txt]
 charset = unset
 end_of_line = lf

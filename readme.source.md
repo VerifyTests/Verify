@@ -203,7 +203,7 @@ include: line-endings
 
 ## .editorconfig
 
-When saving `.verified.txt` files in `.editorconfig` enabled editors, aa newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
+When saving `.verified.txt` files in `.editorconfig` enabled editors, a newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
 
 ```
 # ignore Verify.Xunit files

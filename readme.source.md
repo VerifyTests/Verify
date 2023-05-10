@@ -198,14 +198,8 @@ include: include-exclude
 
 ### Line Endings
 
-include: line-endings
+include: text-file-settings
 
-
-## .editorconfig
-
-When saving `.verified.*` files in `.editorconfig` enabled editors, a newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
-
-snippet: editorconfig
 
 
 ## Static settings

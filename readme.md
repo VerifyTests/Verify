@@ -408,10 +408,10 @@ Note that this is a suggested subset of verified text extension. Add others as r
 
 ## .editorconfig
 
-When saving `.verified.txt` files in `.editorconfig` enabled editors, aa newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
+When saving `.verified.txt` files in `.editorconfig` enabled editors, a newline may be incorrectly added. To avoid this, add the following snippet to `.editorconfig`:
 
 ```
-# ignore Verify.Xunit files
+# Verify settings
 [*.{received,verified}.txt]
 charset = unset
 end_of_line = lf

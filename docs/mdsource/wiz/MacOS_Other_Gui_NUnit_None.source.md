@@ -21,9 +21,9 @@ include: implicit-usings
 
 include: include-exclude
 
-### Line Endings
+### Text file settings
 
-include: line-endings
+include: text-file-settings
 
 ## DiffPlex
 

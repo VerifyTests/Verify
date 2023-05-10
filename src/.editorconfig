@@ -6,6 +6,19 @@ root = true
 [*]
 indent_style = space
 
+# begin-snippet: editorconfig
+
+# Verify settings
+[*.{received,verified}.{txt,xml,json}]
+charset = "utf-8-bom"
+end_of_line = lf
+indent_size = unset
+indent_style = unset
+insert_final_newline = false
+tab_width = unset
+trim_trailing_whitespace = false
+
+# end-snippet
 
 [*.cs]
 indent_size = 4

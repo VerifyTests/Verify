@@ -20,17 +20,6 @@ VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- 
 <sup><a href='/src/FSharpTests/Tests.fs#L9-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-## Discriminated unions
-
-Since version [19.7.0](https://github.com/VerifyTests/Verify/pull/767), the converter for F# discriminated unions is no longer added by default.  
-Without this converter, F# unions are serialized as empty objects since they use fields as their internal representation and fields are ignored by the serializer.
-
-To serialize F# unions properly, add the converter:
-
-```fs
-VerifierSettings.AddExtraSettings(fun settings -> settings.Converters.Add(Argon.DiscriminatedUnionConverter()))
-```
-
 
 ## Async Qwerks
 

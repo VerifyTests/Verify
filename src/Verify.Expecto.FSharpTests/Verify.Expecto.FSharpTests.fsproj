@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
@@ -10,7 +10,7 @@
         <Compile Include="Tests.fs" />
         <Compile Include="Main.fs" />
         <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.13.3" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
         <PackageReference Include="Expecto" Version="9.0.4" />
         <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
         <ProjectReference Include="..\Verify\Verify.csproj" />

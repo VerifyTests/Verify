@@ -1,6 +1,20 @@
 ﻿[TestFixture]
 public class Tests
 {
+    // ReSharper disable once UnusedMember.Local
+    void DerivePathInfo()
+    {
+        #region DerivePathInfoNunit
+
+        Verifier.DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) => new(
+                directory: Path.Combine(projectDirectory, "Snapshots"),
+                typeName: type.Name,
+                methodName: method.Name));
+
+        #endregion
+    }
+
     [TestCase("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)

@@ -510,10 +510,17 @@ Debug.WriteLine(Namer.RuntimeAndVersion);
  * `type`: The class the test method exists in.
  * `method`: The test method.
 
+Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
+
+`DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
+
 For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
 
-<!-- snippet: DerivePathInfo -->
-<a id='snippet-derivepathinfo'></a>
+
+### Xunit
+
+<!-- snippet: DerivePathInfoXUnit -->
+<a id='snippet-derivepathinfoxunit'></a>
 ```cs
 Verifier.DerivePathInfo(
     (sourceFile, projectDirectory, type, method) => new(
@@ -521,16 +528,44 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L61-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
 
-`DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
+### NUnit
+
+<!-- snippet: DerivePathInfoNunit -->
+<a id='snippet-derivepathinfonunit'></a>
+```cs
+Verifier.DerivePathInfo(
+    (sourceFile, projectDirectory, type, method) => new(
+        directory: Path.Combine(projectDirectory, "Snapshots"),
+        typeName: type.Name,
+        methodName: method.Name));
+```
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### MSTest
+
+<!-- snippet: DerivePathInfoMSTest -->
+<a id='snippet-derivepathinfomstest'></a>
+```cs
+VerifyBase.DerivePathInfo(
+    (sourceFile, projectDirectory, type, method) => new(
+        directory: Path.Combine(projectDirectory, "Snapshots"),
+        typeName: type.Name,
+        methodName: method.Name));
+```
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L12-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfomstest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### As a nuget
 
 A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.
 
-_Note: `DerivePathInfo` is on the `Verifier` type for Verify.XUnit, Verify.Expecto, and Verify.NUnit. For MSTest use `VerifierBase`. Refer to [this changelog](https://github.com/VerifyTests/Verify/blob/main/docs/upgrade17-18.md#verifiersettingsderivepathinfo-moved)._
 
 ### Default DerivePathInfo
 

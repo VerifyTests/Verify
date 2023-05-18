@@ -6,6 +6,20 @@ namespace TheTests;
 public class Tests :
     VerifyBase
 {
+    // ReSharper disable once UnusedMember.Local
+    void DerivePathInfo()
+    {
+        #region DerivePathInfoMSTest
+
+        VerifyBase.DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) => new(
+                directory: Path.Combine(projectDirectory, "Snapshots"),
+                typeName: type.Name,
+                methodName: method.Name));
+
+        #endregion
+    }
+
     [DataTestMethod]
     [DataRow("Value1")]
     public Task MissingParameter(string arg) =>

@@ -157,17 +157,32 @@ snippet: AccessNamerRuntimeAndVersion
  * `type`: The class the test method exists in.
  * `method`: The test method.
 
-For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
-
-snippet: DerivePathInfo
-
 Return null to any of the values to use the standard behavior. The returned path can be relative to the directory sourceFile exists in.
 
 `DerivePathInfo` can also be useful when deriving the storage directory on a [build server](build-server.md#custom-directory-and-file-name)
 
+For example to place all `.verified.` files in a `{ProjectDirectory}\Snapshots` the following could be used:
+
+
+### Xunit
+
+snippet: DerivePathInfoXUnit
+
+
+### NUnit
+
+snippet: DerivePathInfoNunit
+
+
+### MSTest
+
+snippet: DerivePathInfoMSTest
+
+
+### As a nuget
+
 A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.
 
-_Note: `DerivePathInfo` is on the `Verifier` type for Verify.XUnit, Verify.Expecto, and Verify.NUnit. For MSTest use `VerifierBase`. Refer to [this changelog](https://github.com/VerifyTests/Verify/blob/main/docs/upgrade17-18.md#verifiersettingsderivepathinfo-moved)._
 
 ### Default DerivePathInfo
 

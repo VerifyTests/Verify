@@ -1,6 +1,20 @@
 ﻿[UsesVerify]
 public class Tests
 {
+    // ReSharper disable once UnusedMember.Local
+    void DerivePathInfo()
+    {
+        #region DerivePathInfoXUnit
+
+        Verifier.DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) => new(
+                directory: Path.Combine(projectDirectory, "Snapshots"),
+                typeName: type.Name,
+                methodName: method.Name));
+
+        #endregion
+    }
+
     [Theory]
     [InlineData("Value1")]
     public Task MissingParameter(string arg) =>

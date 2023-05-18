@@ -56,22 +56,9 @@ public class Snippets
     }
 
     // ReSharper disable once UnusedMember.Local
-    void DerivePathInfo()
-    {
-        #region DerivePathInfo
-
-        Verifier.DerivePathInfo(
-            (sourceFile, projectDirectory, type, method) => new(
-                directory: Path.Combine(projectDirectory, "Snapshots"),
-                typeName: type.Name,
-                methodName: method.Name));
-
-        #endregion
-    }
-
-    // ReSharper disable once UnusedMember.Local
     void DerivePathInfoAppVeyor()
     {
+        // ReSharper disable once ArrangeStaticMemberQualifier
         #region DerivePathInfoAppVeyor
 
         if (BuildServerDetector.Detected)

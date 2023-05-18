@@ -72,6 +72,7 @@ public static partial class VerifierSettings
         method.Invoke(null, parameters);
     }
 
+    // ReSharper disable once UnusedMember.Local
     static object? DefaultValue(this Type type)
     {
         if (type.IsValueType)

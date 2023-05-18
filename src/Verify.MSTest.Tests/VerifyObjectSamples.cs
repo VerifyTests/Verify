@@ -8,6 +8,7 @@ namespace TheTests;
 public class VerifyObjectSamples :
     VerifyBase
 {
+    // ReSharper disable once UnusedMember.Local
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
@@ -44,6 +45,7 @@ public class VerifyObjectSamples :
         return Verify(person, settings);
     }
 
+    // ReSharper disable once UnusedMember.Local
     async Task Before()
     {
         #region Before
@@ -91,6 +93,7 @@ public class VerifyObjectSamples :
 
     #endregion
 
+    // ReSharper disable once UnusedMember.Local
     async Task After()
     {
         #region After

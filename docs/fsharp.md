@@ -7,6 +7,14 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Usage in FSharp
 
+Argon ships F# support in a separate nuget [Argon.FSharp](https://www.nuget.org/packages/Argon.FSharp/).
+
+To serialize F# types properly, add the converters:
+
+```fs
+VerifierSettings.AddExtraSettings(fun settings -> settings.AddFSharpConverters())
+```
+
 
 ## NullValueHandling
 

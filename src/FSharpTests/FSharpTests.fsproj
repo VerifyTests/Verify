@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
       <GenerateProgramFile>false</GenerateProgramFile>
@@ -7,7 +7,7 @@
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <PackageReference Include="Argon.FSharp" Version="0.7.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />

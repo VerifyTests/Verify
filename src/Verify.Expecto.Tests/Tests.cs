@@ -1,5 +1,18 @@
 ﻿public class Tests
 {
+    // ReSharper disable once UnusedMember.Local
+    void DerivePathInfo()
+    {
+        #region DerivePathInfoExpecto
+
+        Verifier.DerivePathInfo(
+            (sourceFile, projectDirectory, type, method) => new(
+                directory: Path.Combine(projectDirectory, "Snapshots"),
+                typeName: type,
+                methodName: method));
+
+        #endregion
+    }
     [Tests]
     public static Test myTest = Runner.TestCase(
         nameof(myTest),

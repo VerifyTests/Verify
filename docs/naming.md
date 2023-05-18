@@ -562,6 +562,21 @@ VerifyBase.DerivePathInfo(
 <!-- endSnippet -->
 
 
+### Expecto
+
+<!-- snippet: DerivePathInfoExpecto -->
+<a id='snippet-derivepathinfoexpecto'></a>
+```cs
+Verifier.DerivePathInfo(
+    (sourceFile, projectDirectory, type, method) => new(
+        directory: Path.Combine(projectDirectory, "Snapshots"),
+        typeName: type,
+        methodName: method));
+```
+<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L6-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoexpecto' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### As a nuget
 
 A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.

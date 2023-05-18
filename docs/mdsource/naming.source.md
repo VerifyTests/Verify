@@ -179,6 +179,11 @@ snippet: DerivePathInfoNunit
 snippet: DerivePathInfoMSTest
 
 
+### Expecto
+
+snippet: DerivePathInfoExpecto
+
+
 ### As a nuget
 
 A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.

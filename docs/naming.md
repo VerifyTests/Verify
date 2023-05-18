@@ -530,6 +530,7 @@ Return null to any of the values to use the standard behavior. The returned path
 
 A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Verify.Extensions](https://github.com/spectresystems/spectre.verify.extensions) which adds an attribute driven file naming convention to Verify.
 
+_Note: `DerivePathInfo` is on the `Verifier` type for Verify.XUnit, Verify.Expecto, and Verify.NUnit. For MSTest use `VerifierBase`. Refer to [this changelog](https://github.com/VerifyTests/Verify/blob/main/docs/upgrade17-18.md#verifiersettingsderivepathinfo-moved)._
 
 ### Default DerivePathInfo
 

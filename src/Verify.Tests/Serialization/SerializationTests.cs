@@ -441,6 +441,7 @@ public class SerializationTests
     #endregion
 
 
+    // ReSharper disable once UnusedMember.Local
     void AddExtraSettingsGlobal()
     {
         #region AddExtraSettingsGlobal
@@ -1229,6 +1230,7 @@ public class SerializationTests
             .ScrubInlineGuids();
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DontIgnoreEmptyCollections()
     {
         #region DontIgnoreEmptyCollections
@@ -1238,6 +1240,7 @@ public class SerializationTests
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DontScrubGuids()
     {
         #region DontScrubGuidsGlobal
@@ -1247,6 +1250,7 @@ public class SerializationTests
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DontScrubProjectDirectory()
     {
         #region DontScrubProjectDirectory
@@ -1256,6 +1260,7 @@ public class SerializationTests
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DontScrubSolutionDirectory()
     {
         #region DontScrubSolutionDirectory
@@ -1265,6 +1270,7 @@ public class SerializationTests
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void ScrubInlineGuidsGlobal()
     {
         #region ScrubInlineGuids
@@ -1323,6 +1329,7 @@ public class SerializationTests
     }
 #endif
 
+    // ReSharper disable once UnusedMember.Local
     void DontScrubDateTimesGlobal()
     {
         #region DontScrubDateTimesGlobal
@@ -1339,6 +1346,7 @@ public class SerializationTests
             Property = "a\r\nb\\nc"
         });
 
+    // ReSharper disable once UnusedMember.Local
     void List()
     {
         var verifySettings = new VerifySettings();
@@ -1888,6 +1896,7 @@ public class SerializationTests
     }
 #pragma warning disable 612
 
+    // ReSharper disable once UnusedMember.Local
     void ExceptionMessagePropGlobal()
     {
         #region IgnoreMembersThatThrowExpressionGlobal
@@ -1949,6 +1958,7 @@ public class SerializationTests
 
     class WithExceptionIgnoreMessage
     {
+        // ReSharper disable once UnusedMember.Local
         public Guid ExceptionMessageProperty => throw new("Ignore");
     }
 
@@ -1961,6 +1971,7 @@ public class SerializationTests
 
     class WithNotImplementedException
     {
+        // ReSharper disable once UnusedMember.Local
         public Guid NotImplementedExceptionProperty => throw new NotImplementedException();
     }
 
@@ -2107,6 +2118,7 @@ public class SerializationTests
     public static void MethodThatThrows() =>
         throw new("the message");
 
+    // ReSharper disable once UnusedMember.Local
     void AddIgnoreInstanceGlobal()
     {
         #region AddIgnoreInstanceGlobal
@@ -2233,6 +2245,7 @@ public class SerializationTests
         public string Property;
     }
 
+    // ReSharper disable once UnusedMember.Local
     void AddIgnoreTypeGlobal()
     {
         #region AddIgnoreTypeGlobal
@@ -2565,9 +2578,8 @@ public class SerializationTests
     public Task MethodWithParameters() =>
         Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
 
-    // ReSharper disable UnusedParameter.Local
+    // ReSharper disable once UnusedMember.Local
     void MyMethodWithParameters(int x, string y)
-        // ReSharper restore UnusedParameter.Local
     {
     }
 
@@ -2649,6 +2661,7 @@ public class SerializationTests
     {
     }
 
+    // ReSharper disable once UnusedMember.Local
     void IgnoreMemberByExpressionGlobal()
     {
         #region IgnoreMemberByExpressionGlobal
@@ -2792,6 +2805,7 @@ public class SerializationTests
         public string Field;
     }
 
+    // ReSharper disable once UnusedMember.Local
     void IgnoreMemberByNameGlobal()
     {
         #region IgnoreMemberByNameGlobal
@@ -3035,6 +3049,7 @@ public class SerializationTests
         public string Field;
     }
 
+    // ReSharper disable once UnusedMember.Local
     void CustomExceptionPropGlobal()
     {
         #region IgnoreMembersThatThrowGlobal
@@ -3065,6 +3080,7 @@ public class SerializationTests
 
     #endregion
 
+    // ReSharper disable UnusedMember.Local
     class WithCustomException
     {
         public Guid CustomExceptionGuid => throw new CustomException();
@@ -3073,6 +3089,7 @@ public class SerializationTests
 
         public List<string> CustomExceptionList => throw new CustomException();
     }
+    // ReSharper restore UnusedMember.Local
 
     [Fact]
     public Task ExceptionProps()
@@ -3100,6 +3117,7 @@ public class SerializationTests
 
     class WithException
     {
+        // ReSharper disable once UnusedMember.Local
         public Guid ExceptionProperty => throw new();
     }
 
@@ -3115,6 +3133,7 @@ public class SerializationTests
 
     class WithExceptionNotIgnoreMessage
     {
+        // ReSharper disable once UnusedMember.Local
         public Guid ExceptionMessageProperty => throw new("NotIgnore");
     }
 
@@ -3127,6 +3146,7 @@ public class SerializationTests
 
     class WithDelegate
     {
+        // ReSharper disable once UnusedMember.Local
         public Action DelegateProperty => () =>
         {
         };
@@ -3146,9 +3166,11 @@ public class SerializationTests
 
     class WithNotSupportedException
     {
+        // ReSharper disable once UnusedMember.Local
         public Guid NotImplementedExceptionProperty => throw new NotSupportedException();
     }
 
+    // ReSharper disable once UnusedMember.Local
     void WithObsoletePropIncludedGlobally()
     {
         #region WithObsoletePropIncludedGlobally

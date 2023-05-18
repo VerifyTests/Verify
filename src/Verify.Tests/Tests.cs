@@ -244,6 +244,7 @@ public class Tests
 
     class Element
     {
+        // ReSharper disable once UnusedMember.Local
         public string? Id { get; set; }
     }
 

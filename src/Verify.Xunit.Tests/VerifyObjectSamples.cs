@@ -6,6 +6,7 @@
 [UsesVerify]
 public class VerifyObjectSamples
 {
+    // ReSharper disable once UnusedMember.Local
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerificationXunit
@@ -32,6 +33,7 @@ public class VerifyObjectSamples
         return Verify(person, settings);
     }
 
+    // ReSharper disable once UnusedMember.Local
     async Task Before()
     {
         #region Before
@@ -79,6 +81,7 @@ public class VerifyObjectSamples
 
     #endregion
 
+    // ReSharper disable once UnusedMember.Local
     async Task After()
     {
         #region After

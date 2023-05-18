@@ -6,6 +6,7 @@
 [TestFixture]
 public class VerifyObjectSamples
 {
+    // ReSharper disable once UnusedMember.Local
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
@@ -49,6 +50,7 @@ public class VerifyObjectSamples
             .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
+    // ReSharper disable once UnusedMember.Local
     async Task Before()
     {
         #region Before
@@ -96,6 +98,7 @@ public class VerifyObjectSamples
 
     #endregion
 
+    // ReSharper disable once UnusedMember.Local
     async Task After()
     {
         #region After

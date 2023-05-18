@@ -2,6 +2,7 @@
 
 public class Snippets
 {
+    // ReSharper disable once UnusedMember.Local
     void EnableClipboard()
     {
         #region EnableClipboard
@@ -37,6 +38,7 @@ public class Snippets
 
     #endregion
 
+    // ReSharper disable once UnusedMember.Local
     void TreatAsString()
     {
         #region TreatAsString
@@ -47,11 +49,13 @@ public class Snippets
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     class ClassWithToString
     {
         public string Property { get; } = null!;
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DerivePathInfo()
     {
         #region DerivePathInfo
@@ -65,6 +69,7 @@ public class Snippets
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DerivePathInfoAppVeyor()
     {
         #region DerivePathInfoAppVeyor
@@ -84,6 +89,7 @@ public class Snippets
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void AutoVerify()
     {
         #region AutoVerify
@@ -94,6 +100,7 @@ public class Snippets
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void DisableDiff()
     {
         #region DisableDiff
@@ -104,6 +111,7 @@ public class Snippets
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettingsGlobal
@@ -122,6 +130,7 @@ public class Snippets
         #endregion
     }
 
+    // ReSharper disable once UnusedMember.Local
     void Converter()
     {
         #region JsonConverter

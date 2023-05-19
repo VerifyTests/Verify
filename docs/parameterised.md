@@ -428,3 +428,28 @@ And for the second test:
 * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
 * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
 * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+
+## UseParametersHash
+
+`UseParametersHash`() is an alternative to the `UseParameters`() method that will use a hash of the parameters instead stringifying the parameters. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
+
+<!-- snippet: UseParametersHash -->
+<a id='snippet-useparametershash'></a>
+```cs
+[TestClass]
+public class ParametersHashSample :
+    VerifyBase
+{
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task ParametersHashUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParametersHash(arg);
+        return Verify(arg, settings);
+    }
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershash' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

@@ -1,4 +1,6 @@
-﻿namespace VerifyTests;
+using System.Security.Cryptography;
+
+namespace VerifyTests;
 
 public partial class VerifySettings
 {
@@ -46,5 +48,42 @@ public partial class VerifySettings
     {
         UseParameters(parameters);
         ignoreParametersForVerified = true;
+    }
+
+    public void UseParametersHash(params object?[] parameters)
+    {
+        Guard.AgainstNullOrEmpty(parameters);
+        ThrowIfFileNameDefined();
+        if (parametersText is not null)
+        {
+            throw new($"{nameof(UseParametersHash)} is not compatible with {nameof(UseTextForParameters)}.");
+        }
+
+        StringBuilder paramsToHash = new();
+
+        foreach (object? value in parameters)
+        {
+            string? s = value switch
+            {
+                null => "null",
+                string[] a => string.Join(",", a),
+                IEnumerable<object> e => string.Join(",", e.Select(x => x.ToString())),
+                _ => value.ToString()
+            };
+
+            paramsToHash.Append(s);
+        }
+
+        using SHA256 hasher = SHA256.Create();
+        byte[] data = hasher.ComputeHash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
+
+        StringBuilder hashBuilder = new();
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            hashBuilder.Append(data[i].ToString("x2"));
+        }
+
+        UseTextForParameters(hashBuilder.ToString());
     }
 }

@@ -1,4 +1,4 @@
-﻿[UsesVerify]
+[UsesVerify]
 public class NamerTests
 {
 #if NET6_0_OR_GREATER && DEBUG
@@ -585,5 +585,15 @@ public class NamerTests
                 name.NameAndVersion
             })
             .UniqueForRuntimeAndVersion();
+    }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, false)]
+    public Task MultipleParamsHashed(bool a, bool b)
+    {
+        var settings = new VerifySettings();
+        settings.UseParametersHash(a, b);
+        return Verify("contentMultipleParamsHashed", settings);
     }
 }

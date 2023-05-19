@@ -419,22 +419,26 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 
 Results in:
 
-* NamerTests.IgnoreParametersForVerified_arg=One.received.txt
-* NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
-* NamerTests.IgnoreParametersForVerified.verified.txt
+ * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerified.verified.txt
 
 And for the second test:
 
-* NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
-* NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
-* NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+
 
 ## UseParametersHash
 
 `UseParametersHash`() is an alternative to the `UseParameters`() method that will use a hash of the parameters instead stringifying the parameters. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
 
-<!-- snippet: UseParametersHash -->
-<a id='snippet-useparametershash'></a>
+
+### MsTest
+
+<!-- snippet: UseParametersHashMsTest -->
+<a id='snippet-useparametershashmstest'></a>
 ```cs
 [TestClass]
 public class ParametersHashSample :
@@ -443,13 +447,39 @@ public class ParametersHashSample :
     [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
-    public Task ParametersHashUsage(string arg)
+    public Task UseHashedParametersUsage(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParametersHash(arg);
+        settings.UseHashedParameters(arg);
         return Verify(arg, settings);
     }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task UseHashedParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseHashedParameters(arg);
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task HashParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task HashParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseParameters(arg)
+            .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershash' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

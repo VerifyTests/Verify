@@ -104,18 +104,22 @@ snippet: IgnoreParametersForVerified
 
 Results in:
 
-* NamerTests.IgnoreParametersForVerified_arg=One.received.txt
-* NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
-* NamerTests.IgnoreParametersForVerified.verified.txt
+ * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerified.verified.txt
 
 And for the second test:
 
-* NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
-* NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
-* NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+
 
 ## UseParametersHash
 
 `UseParametersHash`() is an alternative to the `UseParameters`() method that will use a hash of the parameters instead stringifying the parameters. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
 
-snippet: UseParametersHash
+
+### MsTest
+
+snippet: UseParametersHashMsTest

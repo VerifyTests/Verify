@@ -62,7 +62,7 @@ static class FileNameBuilder
             {
                 null => "null",
                 string[] array => string.Join(",", array),
-                IEnumerable<object> e => string.Join(",", e.Select(x => x.ToString())),
+                IEnumerable<object> e => string.Join(",", e),
                 _ => value.ToString()
             };
 

@@ -250,9 +250,9 @@ public partial class SettingsTask
     /// Hash parameters together to and pass to <see cref="UseTextForParameters"/>.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>
-    public SettingsTask UseParametersHash(params object?[] parameters)
+    public SettingsTask UseHashedParameters(params object?[] parameters)
     {
-        CurrentSettings.UseParametersHash(parameters);
+        CurrentSettings.UseHashedParameters(parameters);
         return this;
     }
 

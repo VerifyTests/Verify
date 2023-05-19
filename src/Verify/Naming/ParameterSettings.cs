@@ -69,7 +69,7 @@ public partial class VerifySettings
     /// Hash parameters together to and pass to <see cref="UseTextForParameters"/>.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>
-    public void UseParametersHash(params object?[] parameters)
+    public void UseHashedParameters(params object?[] parameters)
     {
         UseParameters(parameters);
         HashParameters();

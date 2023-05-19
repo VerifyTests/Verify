@@ -600,9 +600,7 @@ public class NamerTests
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, false)]
-    public Task MultipleParamsHashedFluent(bool a, bool b)
-    {
-        return Verify("contentMultipleParamsHashed")
+    public Task MultipleParamsHashedFluent(bool a, bool b) =>
+        Verify("contentMultipleParamsHashed")
             .UseParametersHash(a, b);
-    }
 }

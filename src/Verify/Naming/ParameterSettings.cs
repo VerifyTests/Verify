@@ -30,12 +30,16 @@ public partial class VerifySettings
     {
         Guard.AgainstNullOrEmpty(parameters);
         ThrowIfFileNameDefined();
+        ThrowIfParametersTextDefined();
+        this.parameters = parameters;
+    }
+
+    void ThrowIfParametersTextDefined([CallerMemberName] string caller = "")
+    {
         if (parametersText is not null)
         {
-            throw new($"{nameof(UseParameters)} is not compatible with {nameof(UseTextForParameters)}.");
+            throw new($"{caller} is not compatible with {nameof(UseTextForParameters)}.");
         }
-
-        this.parameters = parameters;
     }
 
     internal bool ignoreParametersForVerified;
@@ -59,10 +63,7 @@ public partial class VerifySettings
     public void HashParameters()
     {
         ThrowIfFileNameDefined();
-        if (parametersText is not null)
-        {
-            throw new($"{nameof(HashParameters)} is not compatible with {nameof(UseTextForParameters)}.");
-        }
+        ThrowIfParametersTextDefined();
         hashParameters = true;
     }
 

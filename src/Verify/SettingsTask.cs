@@ -257,6 +257,16 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Hash parameters together to and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// </summary>
+    public SettingsTask HashParameters()
+    {
+        CurrentSettings.HashParameters();
+        return this;
+    }
+
+    /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
     /// Used when a test produces different results based on processor architecture.
     /// </summary>

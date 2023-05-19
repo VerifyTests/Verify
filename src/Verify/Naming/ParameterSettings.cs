@@ -50,6 +50,22 @@ public partial class VerifySettings
         ignoreParametersForVerified = true;
     }
 
+    internal bool hashParameters;
+
+    /// <summary>
+    /// Hash parameters together to and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// </summary>
+    public void HashParameters()
+    {
+        ThrowIfFileNameDefined();
+        if (parametersText is not null)
+        {
+            throw new($"{nameof(HashParameters)} is not compatible with {nameof(UseTextForParameters)}.");
+        }
+        hashParameters = true;
+    }
+
     /// <summary>
     /// Hash parameters together to and pass to <see cref="UseTextForParameters"/>.
     /// Used to get a deterministic file name while avoiding long paths.
@@ -58,10 +74,6 @@ public partial class VerifySettings
     {
         Guard.AgainstNullOrEmpty(parameters);
         ThrowIfFileNameDefined();
-        if (parametersText is not null)
-        {
-            throw new($"{nameof(UseParametersHash)} is not compatible with {nameof(UseTextForParameters)}.");
-        }
 
         var paramsToHash = new StringBuilder();
 

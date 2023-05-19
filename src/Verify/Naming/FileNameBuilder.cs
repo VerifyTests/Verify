@@ -1,4 +1,6 @@
-﻿static class FileNameBuilder
+﻿using System.Security.Cryptography;
+
+static class FileNameBuilder
 {
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
@@ -9,6 +11,12 @@
 
     public static string GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings)
     {
+        if (settings.hashParameters)
+        {
+            var hashed = HashParameters(settings);
+            return $"_{hashed}";
+        }
+
         if (settings.parametersText is not null)
         {
             return $"_{settings.parametersText}";
@@ -35,5 +43,42 @@
 
         builder.Length -= 1;
         return builder.ToString();
+    }
+
+    static string HashParameters(VerifySettings settings)
+    {
+        var parameters = settings.parameters;
+
+        if (parameters is null || parameters.Length == 0)
+        {
+            throw new("Parameters must be defined when using HashParameters.");
+        }
+
+        var paramsToHash = new StringBuilder();
+
+        foreach (var value in parameters)
+        {
+            var valueAsString = value switch
+            {
+                null => "null",
+                string[] array => string.Join(",", array),
+                IEnumerable<object> e => string.Join(",", e.Select(x => x.ToString())),
+                _ => value.ToString()
+            };
+
+            paramsToHash.Append(valueAsString);
+        }
+
+        using var hasher = SHA256.Create();
+        var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
+
+        var hashBuilder = new StringBuilder();
+
+        foreach (var item in data)
+        {
+            hashBuilder.Append(item.ToString("x2"));
+        }
+
+        return hashBuilder.ToString();
     }
 }

@@ -25,6 +25,7 @@ public partial class VerifySettings
         streamComparer = settings.streamComparer;
         parameters = settings.parameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
+        hashParameters = settings.hashParameters;
         parametersText = settings.parametersText;
         fileName = settings.fileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;

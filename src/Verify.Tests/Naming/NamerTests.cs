@@ -596,4 +596,13 @@ public class NamerTests
         settings.UseParametersHash(a, b);
         return Verify("contentMultipleParamsHashed", settings);
     }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, false)]
+    public Task MultipleParamsHashedFluent(bool a, bool b)
+    {
+        return Verify("contentMultipleParamsHashed")
+            .UseParametersHash(a, b);
+    }
 }

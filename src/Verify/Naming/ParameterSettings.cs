@@ -50,6 +50,10 @@ public partial class VerifySettings
         ignoreParametersForVerified = true;
     }
 
+    /// <summary>
+    /// Hash parameters together to and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// </summary>
     public void UseParametersHash(params object?[] parameters)
     {
         Guard.AgainstNullOrEmpty(parameters);
@@ -59,29 +63,29 @@ public partial class VerifySettings
             throw new($"{nameof(UseParametersHash)} is not compatible with {nameof(UseTextForParameters)}.");
         }
 
-        StringBuilder paramsToHash = new();
+        var paramsToHash = new StringBuilder();
 
-        foreach (object? value in parameters)
+        foreach (var value in parameters)
         {
-            string? s = value switch
+            var valueAsString = value switch
             {
                 null => "null",
-                string[] a => string.Join(",", a),
+                string[] array => string.Join(",", array),
                 IEnumerable<object> e => string.Join(",", e.Select(x => x.ToString())),
                 _ => value.ToString()
             };
 
-            paramsToHash.Append(s);
+            paramsToHash.Append(valueAsString);
         }
 
-        using SHA256 hasher = SHA256.Create();
-        byte[] data = hasher.ComputeHash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
+        using var hasher = SHA256.Create();
+        var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
 
-        StringBuilder hashBuilder = new();
+        var hashBuilder = new StringBuilder();
 
-        for (int i = 0; i < data.Length; i++)
+        foreach (var item in data)
         {
-            hashBuilder.Append(data[i].ToString("x2"));
+            hashBuilder.Append(item.ToString("x2"));
         }
 
         UseTextForParameters(hashBuilder.ToString());

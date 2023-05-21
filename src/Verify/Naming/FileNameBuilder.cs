@@ -69,7 +69,7 @@ static class FileNameBuilder
             paramsToHash.Append(valueAsString);
         }
 
-        var data = XxHash32.Hash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
+        var data = XxHash64.Hash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
 
         var hashBuilder = new StringBuilder();
 

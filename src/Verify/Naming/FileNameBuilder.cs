@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.IO.Hashing;
+using System.Security.Cryptography;
 
 static class FileNameBuilder
 {
@@ -69,8 +70,7 @@ static class FileNameBuilder
             paramsToHash.Append(valueAsString);
         }
 
-        using var hasher = SHA256.Create();
-        var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
+        var data = XxHash32.Hash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
 
         var hashBuilder = new StringBuilder();
 

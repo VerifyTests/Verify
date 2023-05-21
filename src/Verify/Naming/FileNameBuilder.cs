@@ -1,5 +1,4 @@
 ﻿using System.IO.Hashing;
-using System.Security.Cryptography;
 
 static class FileNameBuilder
 {

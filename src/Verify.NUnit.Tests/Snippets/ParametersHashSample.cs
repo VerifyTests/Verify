@@ -1,14 +1,12 @@
 ﻿namespace TheTests;
 
-#region UseParametersHashMsTest
+#region UseParametersHashNunit
 
-[TestClass]
-public class ParametersHashSample :
-    VerifyBase
+[TestFixture]
+public class ParametersHashSample
 {
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [TestCase("Value1")]
+    [TestCase("Value2")]
     public Task UseHashedParametersUsage(string arg)
     {
         var settings = new VerifySettings();
@@ -16,16 +14,14 @@ public class ParametersHashSample :
         return Verify(arg, settings);
     }
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [TestCase("Value1")]
+    [TestCase("Value2")]
     public Task UseHashedParametersUsageFluent(string arg) =>
         Verify(arg)
             .UseHashedParameters(arg);
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [TestCase("Value1")]
+    [TestCase("Value2")]
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
@@ -34,12 +30,26 @@ public class ParametersHashSample :
         return Verify(arg, settings);
     }
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [TestCase("Value1")]
+    [TestCase("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
             .UseParameters(arg)
+            .HashParameters();
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParametersFluent(string arg) =>
+        Verify(arg)
             .HashParameters();
 }
 

@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-
 namespace VerifyTests;
 
 public partial class VerifySettings
@@ -54,37 +52,27 @@ public partial class VerifySettings
         ignoreParametersForVerified = true;
     }
 
-    public void UseParametersHash(params object?[] parameters)
+    internal bool hashParameters;
+
+    /// <summary>
+    /// Hash parameters together and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// </summary>
+    public void HashParameters()
     {
-        Guard.AgainstNullOrEmpty(parameters);
         ThrowIfFileNameDefined();
         ThrowIfParametersTextDefined();
+        hashParameters = true;
+    }
 
-        StringBuilder paramsToHash = new();
-
-        foreach (object? value in parameters)
-        {
-            string? s = value switch
-            {
-                null => "null",
-                string[] a => string.Join(",", a),
-                IEnumerable<object> e => string.Join(",", e.Select(x => x.ToString())),
-                _ => value.ToString()
-            };
-
-            paramsToHash.Append(s);
-        }
-
-        using SHA256 hasher = SHA256.Create();
-        byte[] data = hasher.ComputeHash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
-
-        StringBuilder hashBuilder = new();
-
-        for (int i = 0; i < data.Length; i++)
-        {
-            hashBuilder.Append(data[i].ToString("x2"));
-        }
-
-        UseTextForParameters(hashBuilder.ToString());
+    /// <summary>
+    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// Combines <see cref="UseParameters"/> and <see cref="HashParameters"/>.
+    /// </summary>
+    public void UseHashedParameters(params object?[] parameters)
+    {
+        UseParameters(parameters);
+        HashParameters();
     }
 }

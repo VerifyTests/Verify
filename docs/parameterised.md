@@ -419,22 +419,32 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 
 Results in:
 
-* NamerTests.IgnoreParametersForVerified_arg=One.received.txt
-* NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
-* NamerTests.IgnoreParametersForVerified.verified.txt
+ * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerified.verified.txt
 
 And for the second test:
 
-* NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
-* NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
-* NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
 
-## UseParametersHash
 
-`UseParametersHash`() is an alternative to the `UseParameters`() method that will use a hash of the parameters instead stringifying the parameters. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
+## Hashing parameters
 
-<!-- snippet: UseParametersHash -->
-<a id='snippet-useparametershash'></a>
+Parameters can be hashed as an alternative to being stringified. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
+
+Hashing parameter is achieved by using `UseParameters` in combination with `HashParameters`. Alternatively `UseHashedParameters` can be used as a wrapper for those two method calls.
+
+[Overriding text used for parameters](#overriding-text-used-for-parameters) is respected when generating the hash.
+
+[XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.
+
+
+### MSTest
+
+<!-- snippet: UseParametersHashMsTest -->
+<a id='snippet-useparametershashmstest'></a>
 ```cs
 [TestClass]
 public class ParametersHashSample :
@@ -443,13 +453,150 @@ public class ParametersHashSample :
     [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
-    public Task ParametersHashUsage(string arg)
+    public Task UseHashedParametersUsage(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParametersHash(arg);
+        settings.UseHashedParameters(arg);
         return Verify(arg, settings);
     }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task UseHashedParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseHashedParameters(arg);
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task HashParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [DataTestMethod]
+    [DataRow("Value1")]
+    [DataRow("Value2")]
+    public Task HashParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseParameters(arg)
+            .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershash' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashmstest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### NUnit
+
+<!-- snippet: UseParametersHashNunit -->
+<a id='snippet-useparametershashnunit'></a>
+```cs
+[TestFixture]
+public class ParametersHashSample
+{
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseHashedParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseHashedParameters(arg);
+        return Verify(arg, settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task UseHashedParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseHashedParameters(arg);
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseParameters(arg)
+            .HashParameters();
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParametersFluent(string arg) =>
+        Verify(arg)
+            .HashParameters();
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashnunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Note that NUnit can derive the parameters without explicitly passing them.
+
+
+### xUnit
+
+<!-- snippet: UseParametersHashxUnit -->
+<a id='snippet-useparametershashxunit'></a>
+```cs
+[UsesVerify]
+public class ParametersHashSample
+{
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseHashedParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseHashedParameters(arg);
+        return Verify(arg, settings);
+    }
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task UseHashedParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseHashedParameters(arg);
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task HashParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
+    public Task HashParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseParameters(arg)
+            .HashParameters();
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

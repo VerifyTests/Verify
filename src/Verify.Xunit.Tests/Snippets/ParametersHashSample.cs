@@ -1,14 +1,13 @@
 ﻿namespace TheTests;
 
-#region UseParametersHashMsTest
+#region UseParametersHashXunit
 
-[TestClass]
-public class ParametersHashSample :
-    VerifyBase
+[UsesVerify]
+public class ParametersHashSample
 {
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
     public Task UseHashedParametersUsage(string arg)
     {
         var settings = new VerifySettings();
@@ -16,16 +15,16 @@ public class ParametersHashSample :
         return Verify(arg, settings);
     }
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
     public Task UseHashedParametersUsageFluent(string arg) =>
         Verify(arg)
             .UseHashedParameters(arg);
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
@@ -34,9 +33,9 @@ public class ParametersHashSample :
         return Verify(arg, settings);
     }
 
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
+    [Theory]
+    [InlineData("Value1")]
+    [InlineData("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
             .UseParameters(arg)

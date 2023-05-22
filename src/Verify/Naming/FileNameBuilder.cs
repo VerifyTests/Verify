@@ -1,4 +1,6 @@
-﻿static class FileNameBuilder
+﻿using System.IO.Hashing;
+
+static class FileNameBuilder
 {
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
@@ -34,6 +36,27 @@
         }
 
         builder.Length -= 1;
+        var parameterText = builder.ToString();
+
+        if (settings.hashParameters)
+        {
+            var hashed = HashString(parameterText);
+            return $"_{hashed}";
+        }
+        return parameterText;
+    }
+
+    static string HashString(string value)
+    {
+        var data = XxHash64.Hash(Encoding.UTF8.GetBytes(value));
+
+        var builder = new StringBuilder();
+
+        foreach (var item in data)
+        {
+            builder.Append(item.ToString("x2"));
+        }
+
         return builder.ToString();
     }
 }

@@ -247,6 +247,27 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// Combines <see cref="UseParameters"/> and <see cref="HashParameters"/>.
+    /// </summary>
+    public SettingsTask UseHashedParameters(params object?[] parameters)
+    {
+        CurrentSettings.UseHashedParameters(parameters);
+        return this;
+    }
+
+    /// <summary>
+    /// Hash parameters together and pass to <see cref="UseTextForParameters"/>.
+    /// Used to get a deterministic file name while avoiding long paths.
+    /// </summary>
+    public SettingsTask HashParameters()
+    {
+        CurrentSettings.HashParameters();
+        return this;
+    }
+
+    /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.
     /// Used when a test produces different results based on processor architecture.
     /// </summary>

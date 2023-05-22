@@ -36,6 +36,21 @@ public class ParametersHashSample
         Verify(arg)
             .UseParameters(arg)
             .HashParameters();
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParametersFluent(string arg) =>
+        Verify(arg)
+            .HashParameters();
 }
 
 #endregion

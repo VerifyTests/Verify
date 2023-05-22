@@ -524,9 +524,24 @@ public class ParametersHashSample
         Verify(arg)
             .UseParameters(arg)
             .HashParameters();
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [TestCase("Value1")]
+    [TestCase("Value2")]
+    public Task HashParametersOmitPassingParametersFluent(string arg) =>
+        Verify(arg)
+            .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

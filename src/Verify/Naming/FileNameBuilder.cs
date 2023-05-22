@@ -50,7 +50,7 @@ static class FileNameBuilder
     {
         var data = XxHash64.Hash(Encoding.UTF8.GetBytes(value));
 
-        var builder = new StringBuilder();
+        var builder = new StringBuilder(16);
 
         foreach (var item in data)
         {

@@ -436,6 +436,8 @@ Parameters can be hashed as an alternative to being stringified. This is useful 
 
 Hashing parameter is achieved by using `UseParameters` in combination with `HashParameters`. Alternatively `UseHashedParameters` can be used as a wrapper for those two method calls.
 
+[XxHash64](https://learn.microsoft.com/en-us/dotnet/api/system.io.hashing.xxhash64) is used to perform the hash.
+
 
 ### MSTest
 

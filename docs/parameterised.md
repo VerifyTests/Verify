@@ -430,7 +430,7 @@ And for the second test:
  * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
 
 
-## UseParametersHash
+## Hashing parameters
 
 `UseParametersHash`() is an alternative to the `UseParameters`() method that will use a hash of the parameters instead stringifying the parameters. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
 
@@ -543,6 +543,8 @@ public class ParametersHashSample
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Note that NUnit can derive the parameters without explicitly passing them.
 
 
 ### xUnit

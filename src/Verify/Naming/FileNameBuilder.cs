@@ -11,12 +11,6 @@ static class FileNameBuilder
 
     public static string GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings)
     {
-        if (settings.hashParameters)
-        {
-            var hashed = HashParameters(settings);
-            return $"_{hashed}";
-        }
-
         if (settings.parametersText is not null)
         {
             return $"_{settings.parametersText}";
@@ -42,42 +36,27 @@ static class FileNameBuilder
         }
 
         builder.Length -= 1;
-        return builder.ToString();
+        var parameterText = builder.ToString();
+
+        if (settings.hashParameters)
+        {
+            var hashed = HashString(parameterText);
+            return $"_{hashed}";
+        }
+        return parameterText;
     }
 
-    static string HashParameters(VerifySettings settings)
+    static string HashString(string value)
     {
-        var parameters = settings.parameters;
+        var data = XxHash64.Hash(Encoding.UTF8.GetBytes(value));
 
-        if (parameters is null || parameters.Length == 0)
-        {
-            throw new("Parameters must be defined when using HashParameters.");
-        }
-
-        var paramsToHash = new StringBuilder();
-
-        foreach (var value in parameters)
-        {
-            var valueAsString = value switch
-            {
-                null => "null",
-                string[] array => string.Join(",", array),
-                IEnumerable<object> e => string.Join(",", e),
-                _ => value.ToString()
-            };
-
-            paramsToHash.Append(valueAsString);
-        }
-
-        var data = XxHash64.Hash(Encoding.UTF8.GetBytes(paramsToHash.ToString()));
-
-        var hashBuilder = new StringBuilder();
+        var builder = new StringBuilder();
 
         foreach (var item in data)
         {
-            hashBuilder.Append(item.ToString("x2"));
+            builder.Append(item.ToString("x2"));
         }
 
-        return hashBuilder.ToString();
+        return builder.ToString();
     }
 }

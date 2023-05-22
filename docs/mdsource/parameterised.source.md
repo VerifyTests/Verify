@@ -120,6 +120,16 @@ And for the second test:
 `UseParametersHash`() is an alternative to the `UseParameters`() method that will use a hash of the parameters instead stringifying the parameters. This is useful when the parameters are large and could potentially generate file names that exceed allowances of the OS.
 
 
-### MsTest
+### MSTest
 
 snippet: UseParametersHashMsTest
+
+
+### NUnit
+
+snippet: UseParametersHashNunit
+
+
+### xUnit
+
+snippet: UseParametersHashxUnit

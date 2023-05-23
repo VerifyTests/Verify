@@ -66,6 +66,7 @@ partial class InnerVerifier
         object? info,
         FileScrubber? fileScrubber)
     {
+        Func<string, Stream> openStream = File.OpenRead;
         var targets = new List<Target>(1);
         if (info is not null)
         {
@@ -79,16 +80,16 @@ partial class InnerVerifier
 
         include ??= _ => true;
 
-        foreach (var filePath in enumerateFiles)
+        foreach (var path in enumerateFiles)
         {
-            if (!include(filePath))
+            if (!include(path))
             {
                 continue;
             }
 
-            var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
-            var fileDirectoryPath = Path.GetDirectoryName(filePath)!;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            var extension = Path.GetExtension(path).Replace(".", string.Empty);
+            var fileDirectoryPath = Path.GetDirectoryName(path)!;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
             var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
@@ -103,15 +104,16 @@ partial class InnerVerifier
             {
                 targets.Add(new(
                     "noextension",
-                    File.OpenRead(filePath),
+                    openStream(path),
                     relativePath));
                 continue;
             }
 
             if (FileExtensions.IsText(extension))
             {
-                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(filePath);
-                fileScrubber?.Invoke(filePath, builder);
+                using var stream = openStream(path);
+                var builder = await stream.ReadStringBuilderWithFixedLines();
+                fileScrubber?.Invoke(path, builder);
                 targets.Add(new(
                     extension,
                     builder,
@@ -121,7 +123,7 @@ partial class InnerVerifier
 
             targets.Add(new(
                 extension,
-                File.OpenRead(filePath),
+                openStream(path),
                 relativePath));
         }
 

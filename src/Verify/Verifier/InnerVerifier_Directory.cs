@@ -34,26 +34,37 @@ partial class InnerVerifier
 
 #else
 
-    public async Task<VerifyResult> VerifyDirectory(string path, Func<string, bool>? include, string? pattern, SearchOption option, object? info, FileScrubber? fileScrubber)
+    public async Task<VerifyResult> VerifyDirectory(
+        string path,
+        Func<string, bool>? include,
+        string? pattern,
+        SearchOption option,
+        object? info,
+        FileScrubber? fileScrubber)
     {
         Guard.DirectoryExists(path);
         path = Path.GetFullPath(path);
         pattern ??= "*";
         var targets = await ToTargets(
+            path,
+            include,
+            Directory.EnumerateFiles(
                 path,
-                include,
-                Directory.EnumerateFiles(
-                    path,
-                    pattern,
-                    option),
-                info,
-                fileScrubber);
+                pattern,
+                option),
+            info,
+            fileScrubber);
         return await VerifyInner(targets);
     }
 
 #endif
 
-    async Task<List<Target>> ToTargets(string directoryPath, Func<string, bool>? include, IEnumerable<string> enumerateFiles, object? info, FileScrubber? fileScrubber)
+    async Task<List<Target>> ToTargets(
+        string directoryPath,
+        Func<string, bool>? include,
+        IEnumerable<string> enumerateFiles,
+        object? info,
+        FileScrubber? fileScrubber)
     {
         var targets = new List<Target>(1);
         if (info is not null)
@@ -81,7 +92,8 @@ partial class InnerVerifier
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
             var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
-            //This is a case of file without filename contained inside a directory - so let's not mix directory name with filename
+            // This is a case of file without filename contained inside a directory
+            // so let's not mix directory name with filename
             if (fileNameWithoutExtension.Length == 0 && relativePath.Length != 0)
             {
                 relativePath += Path.DirectorySeparatorChar;

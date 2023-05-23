@@ -87,7 +87,6 @@ partial class InnerVerifier
                 continue;
             }
 
-            var extension = Path.GetExtension(path).Replace(".", string.Empty);
             var fileDirectoryPath = Path.GetDirectoryName(path)!;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
@@ -100,7 +99,7 @@ partial class InnerVerifier
                 relativePath += Path.DirectorySeparatorChar;
             }
 
-            if (extension.Length == 0)
+            if (!TryGetExtension(path, out var extension))
             {
                 targets.Add(new(
                     "noextension",
@@ -128,5 +127,11 @@ partial class InnerVerifier
         }
 
         return targets;
+    }
+
+    static bool TryGetExtension(string path, [NotNullWhen(true)] out string? extension)
+    {
+        extension = Path.GetExtension(path).Replace(".", string.Empty);
+        return extension.Length > 0;
     }
 }

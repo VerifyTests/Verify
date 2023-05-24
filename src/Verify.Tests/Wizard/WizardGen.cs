@@ -1,13 +1,15 @@
-﻿#if NET8_0
-
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 public class WizardGen
 {
     string wizardDir = null!;
     string repoRoot = null!;
 
-    [Fact]
+    [Fact
+#if !NET8_0
+        (Skip = "")
+#endif
+    ]
     public async Task Run()
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
@@ -534,5 +536,3 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 }
-
-#endif

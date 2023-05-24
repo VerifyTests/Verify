@@ -23,4 +23,4 @@ snippet: VerifyDirectoryWithInfo
 
 snippet: VerifyDirectoryWithFileScrubber
 
-This applies to text files only.
+This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

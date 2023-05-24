@@ -154,11 +154,48 @@ public class Tests
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region WithZipXunit
+    #region VerifyZipXunit
 
     [Fact]
     public Task WithZip() =>
         VerifyZip(zipPath);
+
+    #endregion
+
+    #region VerifyZipWithInfo
+
+    [Fact]
+    public Task VerifyZipWithInfo() =>
+        VerifyZip(
+            zipPath,
+            info: "the info");
+
+    #endregion
+
+    #region VerifyZipWithFileScrubber
+
+    [Fact]
+    public Task VerifyZipWithFileScrubber() =>
+        VerifyZip(
+            zipPath,
+            fileScrubber: (path, builder) =>
+            {
+                if (Path.GetFileName(path) == "TextDoc.txt")
+                {
+                    builder.Clear();
+                    builder.Append("New text");
+                }
+            });
+
+    #endregion
+
+    #region VerifyZipFilterXunit
+
+    [Fact]
+    public Task WithZipFiltered() =>
+        VerifyZip(
+            zipPath,
+            include: filePath => filePath.FullName.Contains("Doc"));
 
     #endregion
 }

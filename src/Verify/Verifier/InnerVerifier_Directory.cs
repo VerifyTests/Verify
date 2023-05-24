@@ -79,16 +79,15 @@ partial class InnerVerifier
 
         include ??= _ => true;
 
-        foreach (var filePath in enumerateFiles)
+        foreach (var path in enumerateFiles)
         {
-            if (!include(filePath))
+            if (!include(path))
             {
                 continue;
             }
 
-            var extension = Path.GetExtension(filePath).Replace(".", string.Empty);
-            var fileDirectoryPath = Path.GetDirectoryName(filePath)!;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            var fileDirectoryPath = Path.GetDirectoryName(path)!;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
             var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
 
@@ -99,32 +98,42 @@ partial class InnerVerifier
                 relativePath += Path.DirectorySeparatorChar;
             }
 
-            if (extension.Length == 0)
-            {
-                targets.Add(new(
-                    "noextension",
-                    File.OpenRead(filePath),
-                    relativePath));
-                continue;
-            }
-
-            if (FileExtensions.IsText(extension))
-            {
-                var builder = await IoHelpers.ReadStringBuilderWithFixedLines(filePath);
-                fileScrubber?.Invoke(filePath, builder);
-                targets.Add(new(
-                    extension,
-                    builder,
-                    relativePath));
-                continue;
-            }
-
-            targets.Add(new(
-                extension,
-                File.OpenRead(filePath),
-                relativePath));
+            targets.Add(await TargetFromFile(path, relativePath, fileScrubber, () => File.OpenRead(path)));
         }
 
         return targets;
+    }
+
+    static async Task<Target> TargetFromFile(string path, string relativePath, FileScrubber? fileScrubber, Func<Stream> openStream)
+    {
+        if (!TryGetExtension(path, out var extension))
+        {
+            return new(
+                "noextension",
+                openStream(),
+                relativePath);
+        }
+
+        if (FileExtensions.IsText(extension))
+        {
+            using var stream = openStream();
+            var builder = await stream.ReadStringBuilderWithFixedLines();
+            fileScrubber?.Invoke(path, builder);
+            return new(
+                extension,
+                builder,
+                relativePath);
+        }
+
+        return new(
+            extension,
+            openStream(),
+            relativePath);
+    }
+
+    static bool TryGetExtension(string path, [NotNullWhen(true)] out string? extension)
+    {
+        extension = Path.GetExtension(path).Replace(".", string.Empty);
+        return extension.Length > 0;
     }
 }

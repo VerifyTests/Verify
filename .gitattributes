@@ -3,6 +3,7 @@
 *.png binary
 *.bmp binary
 *.tif binary
+*.zip binary
 
 src/Verify/EmptyFiles/* binary
 

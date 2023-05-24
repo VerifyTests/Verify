@@ -80,11 +80,11 @@ public class Tests
 
     #endregion
 
-    #region VerifyArchiveNunit
+    #region VerifyZipNunit
 
     [Test]
-    public Task WithArchive() =>
-        VerifyArchive(pathToArchive);
+    public Task WithZip() =>
+        VerifyZip(pathToArchive);
 
     #endregion
 }

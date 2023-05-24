@@ -83,11 +83,11 @@ public class Tests :
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region WithArchiveMsTest
+    #region WithZipMsTest
 
     [TestMethod]
-    public Task WithArchive() =>
-        VerifyArchive(zipPath);
+    public Task WithZip() =>
+        VerifyZip(zipPath);
 
     #endregion
 }

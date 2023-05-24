@@ -24,13 +24,13 @@ public partial class VerifyBase
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive"/>
     /// </summary>
-    public SettingsTask VerifyArchive(
+    public SettingsTask VerifyZip(
         string path,
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null) =>
-        Verifier.VerifyArchive(
+        Verifier.VerifyZip(
             path,
             include,
             settings ?? this.settings,
@@ -41,13 +41,13 @@ public partial class VerifyBase
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive"/>
     /// </summary>
-    public SettingsTask VerifyArchive(
+    public SettingsTask VerifyZip(
         Stream stream,
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null) =>
-        Verifier.VerifyArchive(
+        Verifier.VerifyZip(
             stream,
             include,
             settings ?? this.settings,

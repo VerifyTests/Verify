@@ -115,6 +115,7 @@ public class Tests
             info: "the info");
 
     #endregion
+
     #region VerifyDirectoryWithFileScrubber
 
     [Fact]
@@ -152,11 +153,12 @@ public class Tests
 #endif
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
-    #region WithArchiveXunit
+
+    #region WithZipXunit
 
     [Fact]
-    public Task WithArchive() =>
-        VerifyArchive(zipPath);
+    public Task WithZip() =>
+        VerifyZip(zipPath);
 
     #endregion
 }

@@ -19,13 +19,13 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyArchive(archive, include, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(archive, include, info, fileScrubber), true);
     }
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive"/>
     /// </summary>
-    public static Task<VerifyResult> VerifyArchive(
+    public static Task<VerifyResult> VerifyZip(
         string name,
         string path,
         Func<ZipArchiveEntry, bool>? include = null,
@@ -35,14 +35,14 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyArchive(path, include, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(path, include, info, fileScrubber), true);
     }
 
 
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive"/>
     /// </summary>
-    public static Task<VerifyResult> VerifyArchive(
+    public static Task<VerifyResult> VerifyZip(
         string name,
         Stream stream,
         Func<ZipArchiveEntry, bool>? include = null,
@@ -52,6 +52,6 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyArchive(stream, include, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(stream, include, info, fileScrubber), true);
     }
 }

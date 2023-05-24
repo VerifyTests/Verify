@@ -2,6 +2,7 @@
   * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
   * [VerifyDirectory](/docs/verify-directory.md)
+  * [VerifyZip](/docs/verify-zip.md)
   * [VerifyFile](/docs/verify-file.md)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)

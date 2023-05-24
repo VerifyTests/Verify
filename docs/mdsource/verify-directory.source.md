@@ -23,3 +23,4 @@ snippet: VerifyDirectoryWithInfo
 
 snippet: VerifyDirectoryWithFileScrubber
 
+This applies to text files only.

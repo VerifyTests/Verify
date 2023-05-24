@@ -75,3 +75,4 @@ public Task VerifyZipWithFileScrubber() =>
 <sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L175-L190' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyzipwithfilescrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

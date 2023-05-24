@@ -80,3 +80,4 @@ public Task VerifyDirectoryWithFileScrubber() =>
 <sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L119-L134' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithfilescrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

@@ -5,12 +5,32 @@ namespace VerifyTests;
 partial class InnerVerifier
 {
     public async Task<VerifyResult> VerifyArchive(
+        string path,
+        Func<ZipArchiveEntry, bool>? include,
+        object? info,
+        FileScrubber? scrubber)
+    {
+        using var stream = File.OpenRead(path);
+        return await VerifyArchive(stream, include, info, scrubber);
+    }
+
+    public async Task<VerifyResult> VerifyArchive(
+        Stream stream,
+        Func<ZipArchiveEntry, bool>? include,
+        object? info,
+        FileScrubber? scrubber)
+    {
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+        return await VerifyArchive(archive, include, info, scrubber);
+    }
+
+    public async Task<VerifyResult> VerifyArchive(
         ZipArchive archive,
         Func<ZipArchiveEntry, bool>? include,
         object? info,
         FileScrubber? scrubber)
     {
-        var targets = new List<Target>(1);
+        var targets = new List<Target>();
         if (info is not null)
         {
             targets.Add(new(

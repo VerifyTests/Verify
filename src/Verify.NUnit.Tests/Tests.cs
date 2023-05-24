@@ -70,12 +70,21 @@ public class Tests
             });
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
+    static string pathToArchive = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
     #region VerifyDirectoryNunit
 
     [Test]
     public Task WithDirectory() =>
         VerifyDirectory(directoryPathToVerify);
+
+    #endregion
+
+    #region VerifyArchiveNunit
+
+    [Test]
+    public Task WithArchive() =>
+        VerifyArchive(pathToArchive);
 
     #endregion
 }

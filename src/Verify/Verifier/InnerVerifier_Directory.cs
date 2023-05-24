@@ -66,7 +66,6 @@ partial class InnerVerifier
         object? info,
         FileScrubber? fileScrubber)
     {
-        Func<string, Stream> openStream = File.OpenRead;
         var targets = new List<Target>(1);
         if (info is not null)
         {
@@ -99,34 +98,37 @@ partial class InnerVerifier
                 relativePath += Path.DirectorySeparatorChar;
             }
 
-            if (!TryGetExtension(path, out var extension))
-            {
-                targets.Add(new(
-                    "noextension",
-                    openStream(path),
-                    relativePath));
-                continue;
-            }
-
-            if (FileExtensions.IsText(extension))
-            {
-                using var stream = openStream(path);
-                var builder = await stream.ReadStringBuilderWithFixedLines();
-                fileScrubber?.Invoke(path, builder);
-                targets.Add(new(
-                    extension,
-                    builder,
-                    relativePath));
-                continue;
-            }
-
-            targets.Add(new(
-                extension,
-                openStream(path),
-                relativePath));
+            targets.Add(await TargetFromFile(path, relativePath, fileScrubber, ()=> File.OpenRead(path)));
         }
 
         return targets;
+    }
+
+    static async Task<Target> TargetFromFile(string path, string relativePath, FileScrubber? fileScrubber, Func<Stream> openStream)
+    {
+        if (!TryGetExtension(path, out var extension))
+        {
+            return new(
+                "noextension",
+                openStream(),
+                relativePath);
+        }
+
+        if (FileExtensions.IsText(extension))
+        {
+            using var stream = openStream();
+            var builder = await stream.ReadStringBuilderWithFixedLines();
+            fileScrubber?.Invoke(path, builder);
+            return new(
+                extension,
+                builder,
+                relativePath);
+        }
+
+        return new(
+            extension,
+            openStream(),
+            relativePath);
     }
 
     static bool TryGetExtension(string path, [NotNullWhen(true)] out string? extension)

@@ -2,7 +2,6 @@
 
 public partial class VerifyBase
 {
-
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
     /// <summary>
@@ -14,8 +13,17 @@ public partial class VerifyBase
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.VerifyDirectory(path,include, pattern, options, settings ?? this.settings, info: info, sourceFile: sourceFile);
+        object? info = null,
+        FileScrubber? fileScrubber = null) =>
+        Verifier.VerifyDirectory(
+            path,
+            include,
+            pattern,
+            options,
+            settings ?? this.settings,
+            info,
+            fileScrubber,
+            sourceFile);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -27,8 +35,17 @@ public partial class VerifyBase
         string? pattern = null,
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.VerifyDirectory(path.FullName, include, pattern, options, settings ?? this.settings, info: info, sourceFile: sourceFile);
+        object? info = null,
+        FileScrubber? fileScrubber = null) =>
+        Verifier.VerifyDirectory(
+            path.FullName,
+            include,
+            pattern,
+            options,
+            settings ?? this.settings,
+            info,
+            fileScrubber,
+            sourceFile);
 
 #else
 
@@ -41,8 +58,17 @@ public partial class VerifyBase
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.VerifyDirectory(path, include, pattern, option, settings ?? this.settings, sourceFile);
+        object? info = null,
+        FileScrubber? fileScrubber = null) =>
+        Verifier.VerifyDirectory(
+            path,
+            include,
+            pattern,
+            option,
+            settings ?? this.settings,
+            info,
+            fileScrubber,
+            sourceFile);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.
@@ -54,8 +80,17 @@ public partial class VerifyBase
         string? pattern = null,
         SearchOption option = SearchOption.AllDirectories,
         VerifySettings? settings = null,
-        object? info = null) =>
-        Verifier.VerifyDirectory(path.FullName, include, pattern, option, settings ?? this.settings, sourceFile);
+        object? info = null,
+        FileScrubber? fileScrubber = null) =>
+        Verifier.VerifyDirectory(
+            path.FullName,
+            include,
+            pattern,
+            option,
+            settings ?? this.settings,
+            info,
+            fileScrubber,
+            sourceFile);
 
 #endif
 }

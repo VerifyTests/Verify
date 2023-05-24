@@ -47,7 +47,11 @@ public static partial class Verifier
         object? info = null,
         FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
+        Verify(
+            settings,
+            sourceFile,
+            _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber),
+            true);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.

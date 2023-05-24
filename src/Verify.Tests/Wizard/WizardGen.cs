@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿#if NET8_0
+
+using System.ComponentModel;
 
 public class WizardGen
 {
@@ -532,3 +534,5 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 }
+
+#endif

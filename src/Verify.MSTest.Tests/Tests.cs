@@ -80,4 +80,14 @@ public class Tests :
         VerifyDirectory(directoryPathToVerify);
 
     #endregion
+
+    static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
+
+    #region WithArchiveMsTest
+
+    [TestMethod]
+    public Task WithArchive() =>
+        VerifyArchive(zipPath);
+
+    #endregion
 }

@@ -14,7 +14,7 @@ public partial class VerifyBase
         EnumerationOptions? options = null,
         VerifySettings? settings = null,
         object? info = null) =>
-        Verifier.VerifyDirectory(path,include, pattern, options, settings ?? this.settings, sourceFile);
+        Verifier.VerifyDirectory(path, include, pattern, options, settings ?? this.settings, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <param name="path"/>.

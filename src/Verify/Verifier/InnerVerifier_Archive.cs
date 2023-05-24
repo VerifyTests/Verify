@@ -50,8 +50,21 @@ partial class InnerVerifier
                 continue;
             }
 
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entry.FullName);
-            targets.Add(await TargetFromFile(entry.FullName, fileNameWithoutExtension, scrubber, ()=> entry.Open()));
+            var fullName = entry.FullName;
+            if (fullName.EndsWith("/"))
+            {
+                continue;
+            }
+            var fileDirectoryPath = Path.GetDirectoryName(fullName)!;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullName);
+            var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
+            // This is a case of file without filename contained inside a directory
+            // so let's not mix directory name with filename
+            if (fileNameWithoutExtension.Length == 0 && pathWithoutExtension.Length != 0)
+            {
+                pathWithoutExtension += Path.DirectorySeparatorChar;
+            }
+            targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, ()=> entry.Open()));
         }
 
         return await VerifyInner(targets);

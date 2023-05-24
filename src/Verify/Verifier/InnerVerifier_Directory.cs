@@ -98,7 +98,7 @@ partial class InnerVerifier
                 relativePath += Path.DirectorySeparatorChar;
             }
 
-            targets.Add(await TargetFromFile(path, relativePath, fileScrubber, ()=> File.OpenRead(path)));
+            targets.Add(await TargetFromFile(path, relativePath, fileScrubber, () => File.OpenRead(path)));
         }
 
         return targets;

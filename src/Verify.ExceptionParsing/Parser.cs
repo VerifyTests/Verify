@@ -122,7 +122,7 @@ public static class Parser
         // MsTest
         if (firstLine.StartsWith("VerifyException: Directory: "))
         {
-            var directory = firstLine[30..];
+            var directory = firstLine[28..];
 
             ThrowIfEmpty(directory);
 
@@ -138,7 +138,7 @@ public static class Parser
             return directory;
         }
 
-        throw new ParseException("Expected content to contain `Directory:` or `VerifyException : Directory:` at the start.");
+        throw new ParseException("Expected content to contain `Directory:`, or `VerifyException : Directory:`, or `VerifyException: Directory:` at the start.");
     }
 
     static string TrimStart(string next, string prefix)

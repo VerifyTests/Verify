@@ -51,7 +51,7 @@ partial class InnerVerifier
             }
 
             var fullName = entry.FullName;
-            if (fullName.EndsWith("/"))
+            if (fullName.EndsWith('/'))
             {
                 continue;
             }

@@ -119,6 +119,16 @@ public static class Parser
             return directory;
         }
 
+        // MsTest
+        if (firstLine.StartsWith("VerifyException: Directory: "))
+        {
+            var directory = firstLine[30..];
+
+            ThrowIfEmpty(directory);
+
+            return directory;
+        }
+
         if (firstLine.StartsWith("Directory: "))
         {
             var directory = firstLine[11..];

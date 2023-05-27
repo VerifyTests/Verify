@@ -48,15 +48,8 @@ public partial class InnerVerifier :
         var namer = settings.Namer;
 
         directory = ResolveDirectory(sourceFile, settings, pathInfo);
-        counter = Counter.Start(
-#if NET6_0_OR_GREATER
-            settings.namedDates,
-            settings.namedTimes,
-#endif
-            settings.namedDateTimes,
-            settings.namedGuids,
-            settings.namedDateTimeOffsets
-        );
+
+        counter = StartCounter(settings);
 
         IoHelpers.CreateDirectory(directory);
 
@@ -82,7 +75,30 @@ public partial class InnerVerifier :
         this.settings = settings;
         directory = ResolveDirectory(sourceFile, settings, new());
 
-        counter = Counter.Start(
+        counter = StartCounter(settings);
+
+        IoHelpers.CreateDirectory(directory);
+
+        ValidatePrefix(settings, directory);
+
+        var withoutExtension = Path.GetFileNameWithoutExtension(sourceFile);
+        verifiedFiles = new List<string>
+        {
+            Path.Combine(directory, $"{withoutExtension}.verified.{FileExtensions.GetExtension(sourceFile)}")
+        };
+
+        getFileNames = target =>
+            new(
+                target.Extension,
+                sourceFile,
+                Path.Combine(directory, $"{withoutExtension}.verified.{target.Extension}")
+            );
+
+        getIndexedFileNames = (_, _) => throw new NotImplementedException();
+    }
+
+    static Counter StartCounter(VerifySettings settings) =>
+        Counter.Start(
 #if NET6_0_OR_GREATER
             settings.namedDates,
             settings.namedTimes,
@@ -91,21 +107,6 @@ public partial class InnerVerifier :
             settings.namedGuids,
             settings.namedDateTimeOffsets
         );
-
-        IoHelpers.CreateDirectory(directory);
-
-        ValidatePrefix(settings, directory);
-
-        verifiedFiles = new List<string> { Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(sourceFile)}.verified.{FileExtensions.GetExtension(sourceFile)}") };
-
-        getFileNames = target => new(
-            target.Extension,
-            sourceFile,
-            Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(sourceFile)}.verified.{target.Extension}")
-        );
-
-        getIndexedFileNames = (_, _) => throw new NotImplementedException();
-    }
 
     void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
     {

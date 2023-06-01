@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.0.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />

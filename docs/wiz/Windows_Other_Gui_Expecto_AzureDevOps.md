@@ -183,7 +183,7 @@ Directly after the test runner step add a build step to set a flag if the testru
 
 ```yaml
 - task: CmdLine@2
-  displayName: 'Set flag to publish received files when previous step fails'
+  displayName: 'Set flag to publish Verify *.received.* files when test step fails'
   condition: failed()
   inputs:
     script: 'echo ##vso[task.setvariable variable=publishverify]Yes'
@@ -194,7 +194,7 @@ Since the PublishBuildArtifacts step in DevOps does not allow a wildcard it is n
 ```yaml
 - task: CopyFiles@2
   condition: eq(variables['publishverify'], 'Yes')
-  displayName: 'Copy received files to Artifact Staging'
+  displayName: 'Copy Verify *.received.* files to Artifact Staging'
   inputs:
     contents: '**\*.received.*' 
     targetFolder: '$(Build.ArtifactStagingDirectory)\Verify'
@@ -206,7 +206,7 @@ Publish the staged files as a build artifact:
 
 ```yaml
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish received files as Artifacts'
+  displayName: 'Publish Verify *.received.* files as Artifacts'
   name: 'verifypublish'
   condition: eq(variables['publishverify'], 'Yes')
   inputs:

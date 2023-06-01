@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: nunit-nugets -->
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Verify.NUnit" Version="20.3.0" />

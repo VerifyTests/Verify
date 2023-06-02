@@ -8,6 +8,13 @@ To serialize F# types properly, add the converters:
 VerifierSettings.AddExtraSettings(fun settings -> settings.AddFSharpConverters())
 ```
 
+Note: the `DiscriminatedUnionConverter` converter is currently added last in the internal list, and this can cause errors when trying to serialize a list of DU.  
+To work around the problem, you can add the `DiscriminatedUnionConverter` again just before adding the other converters, like so:
+```fs
+VerifierSettings.AddExtraSettings(fun settings ->
+    settings.Converters.Add(Argon.DiscriminatedUnionConverter())
+    Argon.FSharpConverters.AddFSharpConverters(settings))
+```
 
 ## NullValueHandling
 

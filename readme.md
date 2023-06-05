@@ -113,8 +113,6 @@ public class Sample
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
- * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
-
 
 ### NUnit
 

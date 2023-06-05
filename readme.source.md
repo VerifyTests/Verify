@@ -62,8 +62,6 @@ Support for [xUnit](https://xunit.net/)
 
 snippet: SampleTestXunit
 
- * [Verify Xunit Intro](https://www.youtube.com/watch?v=uGVogEltSkY)
-
 
 ### NUnit
 

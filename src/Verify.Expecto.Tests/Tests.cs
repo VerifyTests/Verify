@@ -1,4 +1,5 @@
-﻿public class Tests
+﻿// ReSharper disable UnusedParameter.Local
+public class Tests
 {
     // ReSharper disable once UnusedMember.Local
     void DerivePathInfo()

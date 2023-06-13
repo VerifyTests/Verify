@@ -528,7 +528,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -543,7 +543,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -558,7 +558,7 @@ VerifyBase.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L12-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfomstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L10-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfomstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -573,7 +573,7 @@ Verifier.DerivePathInfo(
         typeName: type,
         methodName: method));
 ```
-<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L6-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoexpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -1,6 +1,4 @@
-﻿// remove namespace when https://github.com/microsoft/testfx/issues/889
-
-namespace TheTests;
+﻿// ReSharper disable UnusedParameter.Local
 
 [TestClass]
 public class Tests :

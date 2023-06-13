@@ -4,12 +4,12 @@ namespace ApprovalTests;
 
 public class Approvals
 {
-    [Obsolete(@"Use Verifier.VerifyFile(receivedFilePath)", true)]
+    [Obsolete("Use Verifier.VerifyFile(receivedFilePath)", true)]
     public static void VerifyFile(string receivedFilePath)
     {
     }
 
-    [Obsolete(@"Use Verifier.VerifyFile(receivedFilePath)", true)]
+    [Obsolete("Use Verifier.VerifyFile(receivedFilePath)", true)]
     public static void Verify(FileInfo receivedFilePath)
     {
     }
@@ -24,19 +24,25 @@ public class Approvals
     {
     }
 
-    [Obsolete(@"Use Verifier.Verify(text)", true)]
+    [Obsolete("Use Verifier.Verify(text)", true)]
     public static void Verify(object text)
     {
     }
 
-    [Obsolete(@"Use Verifier.Verify(text)
-.AddScrubber(scrubber)", true)]
+    [Obsolete("""
+              Use
+              Verifier.Verify(text)
+                .AddScrubber(scrubber)
+              """, true)]
     public static void Verify(string text, Func<string, string>? scrubber = null)
     {
     }
 
-    [Obsolete(@"Use Verifier.Verify(text, fileExtensionWithDot)
-.AddScrubber(scrubber)", true)]
+    [Obsolete("""
+              Use
+              Verifier.Verify(text, fileExtensionWithDot)
+                .AddScrubber(scrubber)
+              """, true)]
     public static void VerifyWithExtension(string text, string fileExtensionWithDot, Func<string, string>? scrubber = null)
     {
     }

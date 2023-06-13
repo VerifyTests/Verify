@@ -16,7 +16,7 @@ Verifies all files in a directory. This approach combines [UseUniqueDirectory](/
 public Task WithDirectory() =>
     VerifyDirectory(directoryToVerify);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L101-L107' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L102-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -36,7 +36,7 @@ public Task WithDirectoryFiltered() =>
             RecurseSubdirectories = false
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L138-L151' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L139-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -53,7 +53,7 @@ public Task VerifyDirectoryWithInfo() =>
         directoryToVerify,
         info: "the info");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L109-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L110-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -77,7 +77,7 @@ public Task VerifyDirectoryWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L119-L134' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithfilescrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L120-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithfilescrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

@@ -1,4 +1,5 @@
-﻿[TestFixture]
+﻿// ReSharper disable UnusedParameter.Local
+[TestFixture]
 public class Tests
 {
     // ReSharper disable once UnusedMember.Local

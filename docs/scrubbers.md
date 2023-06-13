@@ -186,7 +186,7 @@ public class ScrubbersSample
             replaceLine: _ => "");
         return Verify(
             settings: settings,
-            target: "");
+            target: @"");
     }
 
     [Fact]

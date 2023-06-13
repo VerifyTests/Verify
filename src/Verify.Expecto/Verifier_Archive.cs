@@ -38,6 +38,7 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(path, include, info, fileScrubber), true);
     }
 
+
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive"/>
     /// </summary>

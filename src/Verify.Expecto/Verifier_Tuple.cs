@@ -1,5 +1,6 @@
 ﻿// ReSharper disable RedundantSuppressNullableWarningExpression
 
+#if !NETSTANDARD2_0 && !NET462
 namespace VerifyExpecto;
 
 public static partial class Verifier
@@ -14,3 +15,4 @@ public static partial class Verifier
         return Verify(settings, assembly, sourceFile, name, _ => _.VerifyTuple(expression));
     }
 }
+#endif

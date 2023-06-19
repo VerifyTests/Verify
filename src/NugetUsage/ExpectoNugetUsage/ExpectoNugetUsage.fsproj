@@ -6,7 +6,7 @@
     </PropertyGroup>
     <ItemGroup>
 <!-- begin-snippet: expecto-nugets -->
-        <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.13.3" />
+        <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
         <PackageReference Include="Expecto" Version="9.0.4" />
         <PackageReference Include="Verify.Expecto" Version="20.3.2" />

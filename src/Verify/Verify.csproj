@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Polyfill" Version="1.23.0" PrivateAssets="all" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
+    <PackageReference Include="System.IO.Hashing" Version="7.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0'"/>
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
     <Using Include="Argon" />

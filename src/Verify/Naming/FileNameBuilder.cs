@@ -1,4 +1,6 @@
-﻿using System.IO.Hashing;
+﻿#if NET6_0_OR_GREATER || NETFRAMEWORK
+using System.IO.Hashing;
+#endif
 
 static class FileNameBuilder
 {

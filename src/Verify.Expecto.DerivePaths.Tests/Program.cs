@@ -1,1 +1,1 @@
-﻿return Runner.RunTestsInAssembly(Runner.DefaultConfig, args);
+﻿return Runner.RunTestsInAssemblyWithCLIArgs(Enumerable.Empty<Expecto.Tests.CLIArguments>(), args);

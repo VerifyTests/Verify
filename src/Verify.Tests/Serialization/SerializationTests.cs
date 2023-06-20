@@ -1871,7 +1871,9 @@ public class SerializationTests
 
     class ReadOnlyList : IReadOnlyList<string>
     {
+        // ReSharper disable CollectionNeverUpdated.Local
         List<string> inner = new();
+        // ReSharper restore CollectionNeverUpdated.Local
 
         public IEnumerator<string> GetEnumerator() =>
             inner.GetEnumerator();

@@ -25,7 +25,11 @@ public partial class VerifySettings
         streamComparer = settings.streamComparer;
         parameters = settings.parameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
+
+#if NET6_0_OR_GREATER || NETFRAMEWORK
         hashParameters = settings.hashParameters;
+#endif
+
         parametersText = settings.parametersText;
         fileName = settings.fileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;

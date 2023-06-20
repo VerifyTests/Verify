@@ -1,4 +1,6 @@
-﻿using System.IO.Hashing;
+﻿#if NET6_0_OR_GREATER || NETFRAMEWORK
+using System.IO.Hashing;
+#endif
 
 static class FileNameBuilder
 {
@@ -38,14 +40,17 @@ static class FileNameBuilder
         builder.Length -= 1;
         var parameterText = builder.ToString();
 
+#if NET6_0_OR_GREATER || NETFRAMEWORK
         if (settings.hashParameters)
         {
             var hashed = HashString(parameterText);
             return $"_{hashed}";
         }
+#endif
         return parameterText;
     }
 
+#if NET6_0_OR_GREATER || NETFRAMEWORK
     static string HashString(string value)
     {
         var data = XxHash64.Hash(Encoding.UTF8.GetBytes(value));
@@ -59,4 +64,5 @@ static class FileNameBuilder
 
         return builder.ToString();
     }
+#endif
 }

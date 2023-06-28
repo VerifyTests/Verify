@@ -17,7 +17,7 @@ Add the following packages to the test project:
 <!-- snippet: MSTest-nugets -->
 <a id='snippet-mstest-nugets'></a>
 ```csproj
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
 <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
 <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
 <PackageReference Include="Verify.MSTest" Version="20.4.0" />

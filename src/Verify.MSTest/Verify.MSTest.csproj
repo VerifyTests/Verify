@@ -8,7 +8,7 @@
     <Using Include="VerifyTests" />
     <Using Include="Argon" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.7.0" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.91" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />

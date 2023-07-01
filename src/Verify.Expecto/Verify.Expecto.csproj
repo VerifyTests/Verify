@@ -9,7 +9,7 @@
     <Using Include="VerifyTests" />
     <PackageReference Include="Expecto" Version="10.1.0" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.7.0" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="FSharp.Core" Version="7.0.300" />
     <PackageReference Include="ProjectDefaults" Version="1.0.91" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />

@@ -7,7 +7,7 @@ public static partial class Verifier
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public static Task<VerifyResult> VerifyDirectory(
         string name,
@@ -25,7 +25,7 @@ public static partial class Verifier
     }
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object target)</code> which will verify the full path.
     /// </summary>
     public static Task<VerifyResult> VerifyDirectory(
@@ -43,7 +43,7 @@ public static partial class Verifier
 #else
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public static Task<VerifyResult> VerifyDirectory(
         string name,
@@ -61,7 +61,7 @@ public static partial class Verifier
     }
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object target)</code> which will verify the full path.
     /// </summary>
     public static Task<VerifyResult> VerifyDirectory(

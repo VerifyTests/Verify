@@ -5,7 +5,7 @@ public static partial class Verifier
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public static SettingsTask VerifyDirectory(
         string path,
@@ -19,7 +19,7 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public static SettingsTask VerifyDirectory(
@@ -36,7 +36,7 @@ public static partial class Verifier
 #else
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public static SettingsTask VerifyDirectory(
         string path,
@@ -54,7 +54,7 @@ public static partial class Verifier
             true);
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public static SettingsTask VerifyDirectory(

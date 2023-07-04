@@ -3,7 +3,7 @@
 public static partial class Verifier
 {
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public static SettingsTask VerifyFile(
         string path,
@@ -13,7 +13,7 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="FileInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public static SettingsTask VerifyFile(

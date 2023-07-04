@@ -5,7 +5,7 @@ public partial class VerifyBase
 #if NETSTANDARD2_1 || NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public SettingsTask VerifyDirectory(
         string path,
@@ -19,7 +19,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public SettingsTask VerifyDirectory(
@@ -35,7 +35,7 @@ public partial class VerifyBase
 #else
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     public SettingsTask VerifyDirectory(
         string path,
@@ -49,7 +49,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of <param name="path"/>.
+    /// Verifies the contents of <paramref name="path"/>.
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     public SettingsTask VerifyDirectory(

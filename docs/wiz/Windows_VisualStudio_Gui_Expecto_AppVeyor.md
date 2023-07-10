@@ -20,7 +20,7 @@ Add the following packages to the test project:
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.1" />
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
 <PackageReference Include="Expecto" Version="10.1.0" />
-<PackageReference Include="Verify.Expecto" Version="20.4.0" />
+<PackageReference Include="Verify.Expecto" Version="20.5.0" />
 ```
 <sup><a href='/src/NugetUsage/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -164,7 +164,6 @@ Tools supported by Windows:
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)
  * [WinMerge](https://winmerge.org/)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseGitIDiff](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)

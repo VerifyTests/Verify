@@ -20,7 +20,7 @@ Add the following packages to the test project:
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.1" />
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
 <PackageReference Include="Expecto" Version="10.1.0" />
-<PackageReference Include="Verify.Expecto" Version="20.4.0" />
+<PackageReference Include="Verify.Expecto" Version="20.5.0" />
 ```
 <sup><a href='/src/NugetUsage/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -149,9 +149,8 @@ Tools supported by MacOS:
 
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
- * [Kaleidoscope](https://www.kaleidoscopeapp.com/)
+ * [Kaleidoscope](https://kaleidoscope.app)
  * [DeltaWalker](https://www.deltawalker.com/)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [KDiff3](https://github.com/KDE/kdiff3)
  * [TkDiff](https://sourceforge.net/projects/tkdiff/)
  * [Guiffy](https://www.guiffy.com/)

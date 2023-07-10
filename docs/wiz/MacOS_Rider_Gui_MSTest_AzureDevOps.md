@@ -20,7 +20,7 @@ Add the following packages to the test project:
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
 <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
 <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
-<PackageReference Include="Verify.MSTest" Version="20.4.0" />
+<PackageReference Include="Verify.MSTest" Version="20.5.0" />
 ```
 <sup><a href='/src/NugetUsage/MSTestNugetUsage/MSTestNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstest-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -159,9 +159,8 @@ Tools supported by MacOS:
 
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
- * [Kaleidoscope](https://www.kaleidoscopeapp.com/)
+ * [Kaleidoscope](https://kaleidoscope.app)
  * [DeltaWalker](https://www.deltawalker.com/)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [KDiff3](https://github.com/KDE/kdiff3)
  * [TkDiff](https://sourceforge.net/projects/tkdiff/)
  * [Guiffy](https://www.guiffy.com/)

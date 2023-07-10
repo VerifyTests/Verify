@@ -18,7 +18,7 @@ Add the following packages to the test project:
 <a id='snippet-xunit-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-<PackageReference Include="Verify.Xunit" Version="20.4.0" />
+<PackageReference Include="Verify.Xunit" Version="20.5.0" />
 <PackageReference Include="Xunit" Version="2.5.0" />
 <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0" PrivateAssets="all" />
 ```
@@ -158,7 +158,6 @@ Tools supported by Linux:
 
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
 

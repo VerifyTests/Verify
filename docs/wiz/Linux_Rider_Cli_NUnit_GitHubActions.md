@@ -164,7 +164,6 @@ Tools supported by Linux:
 
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [Rider](https://www.jetbrains.com/rider/)
  * [Neovim](https://neovim.io/)
 

@@ -86,9 +86,8 @@ Tools supported by MacOS:
 
  * [BeyondCompare](https://www.scootersoftware.com)
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
- * [Kaleidoscope](https://www.kaleidoscopeapp.com/)
+ * [Kaleidoscope](https://kaleidoscope.app)
  * [DeltaWalker](https://www.deltawalker.com/)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [KDiff3](https://github.com/KDE/kdiff3)
  * [TkDiff](https://sourceforge.net/projects/tkdiff/)
  * [Guiffy](https://www.guiffy.com/)

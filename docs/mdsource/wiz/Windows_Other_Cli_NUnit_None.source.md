@@ -92,7 +92,6 @@ Tools supported by Windows:
  * [P4Merge](https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge)
  * [DeltaWalker](https://www.deltawalker.com/)
  * [WinMerge](https://winmerge.org/)
- * [DiffMerge](https://www.sourcegear.com/diffmerge/)
  * [TortoiseGitMerge](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseGitIDiff](https://tortoisegit.org/docs/tortoisegitmerge/)
  * [TortoiseMerge](https://tortoisesvn.net/TortoiseMerge.html)

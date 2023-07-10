@@ -23,7 +23,7 @@
     <Using Include="System.Xml" />
     <Using Include="System.Runtime.Versioning" />
     <Using Include="System.Runtime.InteropServices" />
-    <PackageReference Include="DiffEngine" Version="11.4.1" />
+    <PackageReference Include="DiffEngine" Version="12.0.0" />
     <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />
 
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />

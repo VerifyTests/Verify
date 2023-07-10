@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="11.4.1" />
+    <PackageReference Include="DiffEngine" Version="12.0.0" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="TextCopy" Version="6.2.1" />

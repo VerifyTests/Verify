@@ -96,7 +96,7 @@ partial class InnerVerifier
                 attribute.Value = ConvertValue(serialization, attribute.Value);
             }
 
-            if (node.HasElements)
+            if (node.IsEmpty || node.HasElements)
             {
                 continue;
             }

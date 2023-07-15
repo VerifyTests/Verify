@@ -110,4 +110,12 @@ public class XmlTests
     public Task XDocScrubMember() =>
         Verify(XDocument.Parse(xml))
             .ScrubMember("node");
+
+    [Fact]
+    public Task EmptyTag() =>
+        VerifyXml("<body><empty /><node>text</node></body>");
+
+    [Fact]
+    public Task EmptyTagWithAttributes() =>
+        VerifyXml($@"<body><empty id=""{Guid.NewGuid()}"" att=""asdf"" /><node>text</node></body>");
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <Version>20.5.1</Version>
     <NoWarn>CS1591;CS0649;xUnit1026;xUnit1013;msb3277;CS0436;CS1573;NU1901;NU1902</NoWarn>
+    <Version>20.6.0</Version>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>11</LangVersion>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>

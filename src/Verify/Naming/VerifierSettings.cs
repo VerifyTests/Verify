@@ -33,7 +33,7 @@ public static partial class VerifierSettings
         parameterToNameLookup[typeof(T)] = o => func((T) o);
     }
 
-    internal static string GetNameForParameter(object? parameter)
+    public static string GetNameForParameter(object? parameter)
     {
         var builder = new StringBuilder();
         GetNameForParameter(parameter, builder, true);

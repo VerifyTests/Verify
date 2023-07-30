@@ -2,7 +2,8 @@
 {
     public static void DeleteReceived(string fileNamePrefix, string directory)
     {
-        foreach (var file in Find(directory,
+        foreach (var file in Find(
+                     directory,
                      searchPattern: $"{fileNamePrefix}*.received.*",
                      nonIndexedPattern: $"{fileNamePrefix}.received.",
                      indexedPattern: $"{fileNamePrefix}#"))
@@ -12,7 +13,8 @@
     }
 
     public static IEnumerable<string> FindVerified(string fileNamePrefix, string directory) =>
-        Find(directory,
+        Find(
+            directory,
             searchPattern: $"{fileNamePrefix}*.verified.*",
             nonIndexedPattern: $"{fileNamePrefix}.verified.",
             indexedPattern: $"{fileNamePrefix}#");
@@ -23,7 +25,7 @@
         var list = new List<string>();
         var nonIndexedPatternSpan = nonIndexedPattern.AsSpan();
         var indexedPatternSpan = indexedPattern.AsSpan();
-        foreach (var file in Directory.GetFiles(directory, searchPattern))
+        foreach (var file in Directory.EnumerateFiles(directory, searchPattern))
         {
             var fileSpan = file.AsSpan();
             if (fileSpan.SubStringEquals(nonIndexedPatternSpan, startIndex) ||

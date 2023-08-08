@@ -14,7 +14,7 @@
         <PackageReference Include="Expecto" Version="10.1.0" />
         <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
         <ProjectReference Include="..\Verify\Verify.csproj" />
-        <PackageReference Update="FSharp.Core" Version="7.0.300" />
+        <PackageReference Update="FSharp.Core" Version="7.0.400" />
         <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     </ItemGroup>
     <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

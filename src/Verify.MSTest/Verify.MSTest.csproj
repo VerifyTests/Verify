@@ -10,7 +10,7 @@
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.91" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="4.4.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="4.5.0" PrivateAssets="None" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />

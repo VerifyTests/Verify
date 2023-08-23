@@ -53,9 +53,9 @@ Accepting or declining a snapshot file is part of the core workflow of Verify. T
 
 ### ImplicitUsings
 
-**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**<!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
-If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.<!-- endInclude -->
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
 ### Class being tested
@@ -373,7 +373,7 @@ Results in:
 
 ### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.**<!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
 eg. add the following to `.gitignore`
 
@@ -386,12 +386,12 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 `*.received/`
 
 
-All `*.verified.*` files should be committed to source control.<!-- endInclude -->
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
 
 ## Text file settings
 
-Text variants of verified and received have the following characteristics:<!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
+Text variants of verified and received have the following characteristics: <!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
 
  * UTF8 with a [Byte order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark)
  * Newlines as line-feed (lf)
@@ -432,7 +432,7 @@ trim_trailing_whitespace = false
 ```
 
 
-*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.*<!-- endInclude -->
+*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.* <!-- endInclude -->
 
 
 ## Static settings
@@ -629,7 +629,7 @@ Nick Chapsas (1 Aug 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
 
 ## More Documentation
 
-  * [Clipboard](/docs/clipboard.md)<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
   * [VerifyDirectory](/docs/verify-directory.md)
@@ -653,7 +653,7 @@ Nick Chapsas (1 Aug 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
   * [Converters](/docs/converter.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- endInclude -->
 
 
 ## Icon

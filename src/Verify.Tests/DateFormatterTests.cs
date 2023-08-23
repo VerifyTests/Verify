@@ -130,7 +130,6 @@ public class DateFormatterTests
                 value = value.AddSeconds(.5);
             }
 
-
             jsonValues.Add(name.ToString(), DateFormatter.ToJsonString(value));
             parameterValues.Add(name.ToString(), DateFormatter.ToParameterString(value));
         }

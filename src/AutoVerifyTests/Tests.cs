@@ -10,7 +10,6 @@ public class Tests
         #endregion
     }
 
-
     [Fact]
     public async Task Simple()
     {

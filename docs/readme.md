@@ -7,7 +7,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Documentation
 
-  * [Clipboard](/docs/clipboard.md) <!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
+  * [Clipboard](/docs/clipboard.md)<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
   * [Compared to assertions](/docs/compared-to-assertion.md)
   * [Verify options](/docs/verify-options.md)
   * [VerifyDirectory](/docs/verify-directory.md)
@@ -31,4 +31,4 @@ To change this file edit the source file and then run MarkdownSnippets.
   * [Converters](/docs/converter.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
-  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md) <!-- endInclude -->
+  * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->

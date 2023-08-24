@@ -284,6 +284,13 @@ public class Tests
         Verify("<a>b</a>", "xml");
 
     [Fact]
+    public Task FuncOfTaskResult()
+    {
+        var target = async () => { await Task.Delay(1); return "value"; };
+        return Verify(target);
+    }
+
+    [Fact]
     public Task TaskResult()
     {
         var target = Task.FromResult<string>("value");
@@ -379,6 +386,15 @@ public class Tests
     }
 
     [Fact]
+    public async Task FuncOfTaskResultAsyncDisposable()
+    {
+        var disposableTarget = new AsyncDisposableTarget();
+        var target = async () => { await Task.Delay(1); return disposableTarget; };
+        await Verify(target);
+        Assert.True(disposableTarget.AsyncDisposed);
+    }
+
+    [Fact]
     public async Task TaskResultAsyncDisposable()
     {
         var disposableTarget = new AsyncDisposableTarget();
@@ -404,6 +420,15 @@ public class Tests
 
         public void Dispose() =>
             throw new();
+    }
+
+    [Fact]
+    public async Task FuncOfTaskResultDisposable()
+    {
+        var disposableTarget = new DisposableTarget();
+        var target = async () => { await Task.Delay(1); return disposableTarget; };
+        await Verify(target);
+        Assert.True(disposableTarget.Disposed);
     }
 
     [Fact]

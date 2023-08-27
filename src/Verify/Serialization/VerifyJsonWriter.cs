@@ -148,6 +148,13 @@ public class VerifyJsonWriter :
             return;
         }
 
+        if (ReferenceEquals(target, value))
+        {
+            WritePropertyName(name);
+            WriteRawValueIfNoStrict("$parentValue");
+            return;
+        }
+
         var declaringType = target.GetType();
         var memberType = value.GetType();
         if (serialization.TryGetScrubOrIgnore(declaringType, memberType, name, out var scrubOrIgnore))

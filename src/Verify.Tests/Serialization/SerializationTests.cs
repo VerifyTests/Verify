@@ -3319,6 +3319,27 @@ public class SerializationTests
         public string Name { get; set; } = null!;
     }
 
+    [Fact]
+    public Task WithRecursiveConverter() =>
+        Verify(new RecursiveConverterTarget())
+            .AddExtraSettings(_ => _.Converters.Add(new RecursiveConverter()));
+
+    class RecursiveConverter :
+        WriteOnlyJsonConverter<RecursiveConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, RecursiveConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WriteMember(target, target.Self, "SelfProperty");
+            writer.WriteEnd();
+        }
+    }
+
+    class RecursiveConverterTarget
+    {
+        public RecursiveConverterTarget Self => this;
+    }
+
     [ModuleInitializer]
     public static void WithConverterAndMemberConverterInit() =>
         VerifierSettings.MemberConverter<StaticConverterTarget, string>(

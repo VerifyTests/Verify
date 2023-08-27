@@ -408,7 +408,6 @@ public class NamerTests
             .UniqueForRuntimeAndVersion();
     }
 
-
     #region UseTextForParameters
 
     [Theory]

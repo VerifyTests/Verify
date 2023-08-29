@@ -22,16 +22,16 @@ dotnet add package xunit.runner.visualstudio
 
 ## Implicit Usings
 
-**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**<!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
-If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.<!-- endInclude -->
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
 ## Source Control
 
 ### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.**<!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
 eg. add the following to `.gitignore`
 
@@ -44,11 +44,11 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 `*.received/`
 
 
-All `*.verified.*` files should be committed to source control.<!-- endInclude -->
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
 ### Text file settings
 
-Text variants of verified and received have the following characteristics:<!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
+Text variants of verified and received have the following characteristics: <!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
 
  * UTF8 with a [Byte order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark)
  * Newlines as line-feed (lf)
@@ -89,7 +89,7 @@ trim_trailing_whitespace = false
 ```
 
 
-*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.*<!-- endInclude -->
+*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.* <!-- endInclude -->
 
 ## DiffPlex
 
@@ -160,7 +160,7 @@ Tools supported by Linux:
 
 ## Getting .received in output on AppVeyor
 
-Use a [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).<!-- include: build-server-appveyor. path: /docs/mdsource/build-server-appveyor.include.md -->
+Use a [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact). <!-- include: build-server-appveyor. path: /docs/mdsource/build-server-appveyor.include.md -->
 
 <!-- snippet: AppVeyorArtifacts -->
 <a id='snippet-appveyorartifacts'></a>
@@ -171,5 +171,5 @@ on_failure:
 <sup><a href='/src/appveyor.yml#L35-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).<!-- endInclude -->
+See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts). <!-- endInclude -->
 

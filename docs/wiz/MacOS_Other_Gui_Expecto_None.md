@@ -18,7 +18,7 @@ Add the following packages to the test project:
 <a id='snippet-expecto-nugets'></a>
 ```fsproj
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.2" />
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
 <PackageReference Include="Expecto" Version="10.1.0" />
 <PackageReference Include="Verify.Expecto" Version="20.8.2" />
 ```

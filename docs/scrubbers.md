@@ -59,7 +59,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1355-L1359' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1357-L1361' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -74,7 +74,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1361-L1365' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1363-L1367' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (StringComparison.OrdinalIgnoreCase).
@@ -86,7 +86,7 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1367-L1371' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1369-L1373' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +101,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1373-L1377' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1375-L1379' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +114,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1379-L1383' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1381-L1385' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -127,7 +127,7 @@ Replaces `Environment.UserName` with `TheUserName`.
 ```cs
 verifySettings.ScrubUserName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1385-L1389' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubusername' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1387-L1391' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubusername' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -166,7 +166,7 @@ public class ScrubbersSample
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
         return Verify(
             settings: settings,
-            target: @"
+            target: """
                     LineA
                     LineB
                     LineC
@@ -175,7 +175,7 @@ public class ScrubbersSample
                     LineH
                     LineI
                     LineJ
-                    ");
+                    """);
     }
 
     [Fact]
@@ -191,17 +191,16 @@ public class ScrubbersSample
 
     [Fact]
     public Task LinesFluent() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        LineD
-                        LineE
-                        LineH
-                        LineI
-                        LineJ
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               LineD
+               LineE
+               LineH
+               LineI
+               LineJ
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -244,12 +243,11 @@ public class ScrubbersSample
 
     [Fact]
     public Task RemoveOrReplace() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -263,16 +261,17 @@ public class ScrubbersSample
 
     [Fact]
     public Task EmptyLines() =>
-        Verify(
-                target: @"
-                        LineA
+        Verify("""
 
-                        LineC
-                        ")
+               LineA
+
+               LineC
+
+               """)
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -303,7 +302,7 @@ public class ScrubbersSample
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
         return Verify(
             settings: settings,
-            target: @"
+            target: """
                     LineA
                     LineB
                     LineC
@@ -312,22 +311,21 @@ public class ScrubbersSample
                     LineH
                     LineI
                     LineJ
-                    ");
+                    """);
     }
 
     [Test]
     public Task LinesFluent() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        LineD
-                        LineE
-                        LineH
-                        LineI
-                        LineJ
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               LineD
+               LineE
+               LineH
+               LineI
+               LineJ
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -369,12 +367,11 @@ public class ScrubbersSample
 
     [Test]
     public Task RemoveOrReplace() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -388,16 +385,17 @@ public class ScrubbersSample
 
     [Test]
     public Task EmptyLines() =>
-        Verify(
-                target: @"
-                        LineA
+        Verify("""
 
-                        LineC
-                        ")
+               LineA
+
+               LineC
+
+               """)
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -429,7 +427,7 @@ public class ScrubbersSample :
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
         return Verify(
             settings: settings,
-            target: @"
+            target: """
                     LineA
                     LineB
                     LineC
@@ -438,22 +436,21 @@ public class ScrubbersSample :
                     LineH
                     LineI
                     LineJ
-                    ");
+                    """);
     }
 
     [TestMethod]
     public Task LinesFluent() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        LineD
-                        LineE
-                        LineH
-                        LineI
-                        LineJ
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               LineD
+               LineE
+               LineH
+               LineI
+               LineJ
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -495,12 +492,11 @@ public class ScrubbersSample :
 
     [TestMethod]
     public Task RemoveOrReplace() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -514,16 +510,17 @@ public class ScrubbersSample :
 
     [TestMethod]
     public Task EmptyLines() =>
-        Verify(
-                target: @"
-                        LineA
+        Verify("""
 
-                        LineC
-                        ")
+               LineA
+
+               LineC
+
+               """)
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L3-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L3-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplemstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -533,11 +530,11 @@ public class ScrubbersSample :
 <a id='snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt'></a>
 ```txt
 LineA
-                    LineC
+LineC
 NoMoreLineE
-                    LineI
+LineI
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubbersSample.Lines.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: Verify.Xunit.Tests/Scrubbers/ScrubbersSample.AfterSerialization.verified.txt -->

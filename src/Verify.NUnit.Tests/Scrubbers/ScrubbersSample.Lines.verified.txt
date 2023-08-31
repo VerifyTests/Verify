@@ -1,6 +1,4 @@
-﻿
-                    LineA
-                    LineC
+﻿LineA
+LineC
 NoMoreLineE
-                    LineI
-                    
+LineI

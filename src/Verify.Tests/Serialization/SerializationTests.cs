@@ -1155,9 +1155,11 @@ public class SerializationTests
     public Task ShouldScrubInlineGuidsWrappedInNewLine()
     {
         var id = Guid.NewGuid();
-        return Verify($@"
-{id}
-")
+        return Verify($"""
+
+                       {id}
+
+                       """)
             .ScrubInlineGuids();
     }
 

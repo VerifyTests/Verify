@@ -1,5 +1,4 @@
-﻿
-Elmah.TestException: This is a test exception that can be safely ignored.
+﻿Elmah.TestException: This is a test exception that can be safely ignored.
 at Elmah.ErrorLogPageFactory.FindHandler(...)
 at Elmah.ErrorLogPageFactory.GetHandler(...)
 at System.Web.HttpApplication.MapHttpHandler(...)

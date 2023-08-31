@@ -1,5 +1,4 @@
-﻿
-System.Web.HttpException: The controller for path '/helloworld' was not found or does not implement IController.
+﻿System.Web.HttpException: The controller for path '/helloworld' was not found or does not implement IController.
 at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(...)
 at System.Web.Mvc.DefaultControllerFactory.CreateController(...)
 at System.Web.Mvc.MvcHandler.ProcessRequestInit(...)

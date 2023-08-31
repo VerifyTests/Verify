@@ -8,12 +8,14 @@ public class LinesScrubberTests
         settings.ScrubLinesContaining("c", "D", "F");
         return Verify(
             settings: settings,
-            target: @"a
-b
-c
-D
-e
-f");
+            target: """
+                    a
+                    b
+                    c
+                    D
+                    e
+                    f
+                    """);
     }
 
     [Fact]
@@ -23,8 +25,10 @@ f");
         settings.ScrubLines(removeLine: _ => _.Contains("D"));
         return Verify(
             settings: settings,
-            target: @"b
-");
+            target: """
+                    b
+
+                    """);
     }
 
     [Fact]
@@ -34,9 +38,11 @@ f");
         settings.ScrubLines(removeLine: _ => _.Contains("D"));
         return Verify(
             settings: settings,
-            target: @"b
+            target: """
+                    b
 
-c");
+                    c
+                    """);
     }
 
     [Fact]
@@ -46,12 +52,14 @@ c");
         settings.ScrubLines(removeLine: _ => _.Contains("D"));
         return Verify(
             settings: settings,
-            target: @"a
-b
-c
-D
-e
-f");
+            target: """
+                    a
+                    b
+                    c
+                    D
+                    e
+                    f
+                    """);
     }
 
     [Fact]
@@ -61,11 +69,13 @@ f");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "c", "D", "F");
         return Verify(
             settings: settings,
-            target: @"a
-b
-c
-D
-e
-f");
+            target: """
+                    a
+                    b
+                    c
+                    D
+                    e
+                    f
+                    """);
     }
 }

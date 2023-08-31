@@ -25,7 +25,7 @@ public class ScrubbersSample :
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
         return Verify(
             settings: settings,
-            target: @"
+            target: """
                     LineA
                     LineB
                     LineC
@@ -34,22 +34,21 @@ public class ScrubbersSample :
                     LineH
                     LineI
                     LineJ
-                    ");
+                    """);
     }
 
     [TestMethod]
     public Task LinesFluent() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        LineD
-                        LineE
-                        LineH
-                        LineI
-                        LineJ
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               LineD
+               LineE
+               LineH
+               LineI
+               LineJ
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -91,12 +90,11 @@ public class ScrubbersSample :
 
     [TestMethod]
     public Task RemoveOrReplace() =>
-        Verify(
-                target: @"
-                        LineA
-                        LineB
-                        LineC
-                        ")
+        Verify("""
+               LineA
+               LineB
+               LineC
+               """)
             .ScrubLinesWithReplace(
                 replaceLine: line =>
                 {
@@ -110,12 +108,13 @@ public class ScrubbersSample :
 
     [TestMethod]
     public Task EmptyLines() =>
-        Verify(
-                target: @"
-                        LineA
+        Verify("""
 
-                        LineC
-                        ")
+               LineA
+
+               LineC
+
+               """)
             .ScrubEmptyLines();
 }
 

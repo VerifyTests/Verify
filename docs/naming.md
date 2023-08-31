@@ -449,27 +449,29 @@ public class ExtensionSample
     [Fact]
     public Task AtMethod() =>
         Verify(
-            target: @"
-<note>
-  <to>Joe</to>
-  <from>Kim</from>
-  <heading>Reminder</heading>
-</note>",
+            target: """
+                    <note>
+                      <to>Joe</to>
+                      <from>Kim</from>
+                      <heading>Reminder</heading>
+                    </note>
+                    """,
             extension: "xml");
 
     [Fact]
     public Task AtMethodFluent() =>
         Verify(
-                target: @"
-<note>
-  <to>Joe</to>
-  <from>Kim</from>
-  <heading>Reminder</heading>
-</note>",
+                target: """
+                        <note>
+                          <to>Joe</to>
+                          <from>Kim</from>
+                          <heading>Reminder</heading>
+                        </note>
+                        """,
                 extension: "xml");
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in:
@@ -483,7 +485,7 @@ Result in:
   <heading>Reminder</heading>
 </note>
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

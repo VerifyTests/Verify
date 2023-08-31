@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net472;net48</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="12.2.1" />

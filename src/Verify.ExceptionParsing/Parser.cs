@@ -102,7 +102,7 @@ public static class Parser
 
     static string GetDirectory(string firstLine)
     {
-        void ThrowIfEmpty(string directory)
+        static void ThrowIfEmpty(string directory)
         {
             if (string.IsNullOrWhiteSpace(directory))
             {

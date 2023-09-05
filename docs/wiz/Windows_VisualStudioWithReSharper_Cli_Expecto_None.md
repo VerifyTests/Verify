@@ -105,7 +105,15 @@ dotnet tool install -g DiffEngineTray
 This is optional, but recommended. Also consider enabling [Run at startup](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#run-at-startup).
 
 
-## ReSharper Plugin
+## ReSharper
+
+
+### Orphaned process detection
+
+[Disable orphaned process detection](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#disable-orphaned-process-detection).
+
+
+## Verify Plugin
 
 Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
 

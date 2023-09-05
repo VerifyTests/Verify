@@ -76,7 +76,7 @@ public class WizardGen
 
             ## Select CLI preference
 
-            This will effect the approach to installing NuGet packages and snapshot management options. 
+            This will effect the approach to installing NuGet packages and snapshot management options.
 
             Options:
 
@@ -268,13 +268,13 @@ public class WizardGen
 
         builder.AppendLine("""
             ## Verify.Terminal
-            
+
             [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal) is a dotnet tool for managing snapshots from the command line.
-            
+
             This is optional.
 
             ### Install the tool
-            
+
             ```
             dotnet tool install -g verify.tool
             ```
@@ -342,9 +342,9 @@ public class WizardGen
     static void AppendNugets(StringBuilder builder, TestFramework testFramework, CliPreference cli)
     {
         builder.AppendLine("""
-            
+
             ## Add NuGet packages
-            
+
             Add the following packages to the test project:
 
             """);
@@ -399,7 +399,7 @@ public class WizardGen
                 break;
             case CliPreference.Gui:
                 builder.AppendLine($"""
-                    
+
                     snippet: {testFramework}-nugets
 
                     """);
@@ -469,7 +469,15 @@ public class WizardGen
 
         builder.AppendLine("""
 
-                ## ReSharper Plugin
+                ## ReSharper
+
+
+                ### Orphaned process detection
+
+                [Disable orphaned process detection](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#disable-orphaned-process-detection).
+
+
+                ## Verify Plugin
 
                 Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
 

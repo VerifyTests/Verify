@@ -159,15 +159,8 @@
         return false;
     }
 
-    static bool ImplementsGenericCollection(this Type type)
-    {
-        if (!type.IsGenericType)
-        {
-            return false;
-        }
-
-        var definition = type.GetGenericTypeDefinition();
-        return definition == typeof(ICollection<>) ||
-               definition == typeof(IReadOnlyCollection<>);
-    }
+    static bool ImplementsGenericCollection(this Type type) =>
+        type.IsGeneric(
+            typeof(ICollection<>),
+            typeof(IReadOnlyCollection<>));
 }

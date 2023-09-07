@@ -19,7 +19,7 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        sourceFile = IoHelpers.GetMappedBuildPath(sourceFile) ?? sourceFile;
+        sourceFile = IoHelpers.GetMappedBuildPath(sourceFile);
         var fileName = Path.GetFileNameWithoutExtension(sourceFile);
 
         var pathInfo = GetPathInfo(sourceFile, fileName, methodName);

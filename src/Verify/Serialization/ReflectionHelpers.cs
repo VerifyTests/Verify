@@ -67,37 +67,9 @@
 
     public static bool IsEmptyCollectionOrDictionary(this object target)
     {
-        if (target is string)
+        if (TryGetCollectionOrDictionary(target, out var isEmpty, out _))
         {
-            return false;
-        }
-
-        if (target is ICollection collection)
-        {
-            if (collection.Count == 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        if (target is not IEnumerable enumerable)
-        {
-            return false;
-        }
-
-        var type = target.GetType();
-
-        if (type.IsEnumerableEmpty())
-        {
-            return true;
-        }
-
-        if (type.IsGenericCollection())
-        {
-            var enumerator = enumerable.GetEnumerator();
-            return !enumerator.MoveNext();
+            return isEmpty.Value;
         }
 
         return false;
@@ -135,10 +107,14 @@
             return true;
         }
 
-        if (type.IsGenericCollection())
+        if (type.ImplementsGenericCollection() ||
+            type.GetInterfaces()
+                .Any(ImplementsGenericCollection))
         {
+            // ReSharper disable PossibleMultipleEnumeration
             enumerable = enumerableTarget;
             isEmpty = !enumerableTarget.GetEnumerator().MoveNext();
+            // ReSharper restore PossibleMultipleEnumeration
             return true;
         }
 
@@ -149,23 +125,6 @@
 
     static bool IsEnumerableEmpty(this Type type) =>
         type.FullName?.StartsWith("System.Linq.EmptyPartition") == true;
-
-    static bool IsGenericCollection(this Type type)
-    {
-        if (type.ImplementsGenericCollection())
-        {
-            return true;
-        }
-
-        var interfaces = type.GetInterfaces();
-
-        if (interfaces.Any(ImplementsGenericCollection))
-        {
-            return true;
-        }
-
-        return false;
-    }
 
     static bool ImplementsGenericCollection(this Type type)
     {

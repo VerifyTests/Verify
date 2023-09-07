@@ -12,7 +12,7 @@
             return false;
         }
 
-        if (type.IsGenericType && type.GetGenericTypeDefinition() == parent)
+        if (type.IsGeneric(parent))
         {
             return true;
         }
@@ -22,12 +22,9 @@
             var interfaces = type.GetInterfaces();
             foreach (var @interface in interfaces)
             {
-                if (@interface.IsGenericType)
+                if (@interface.IsGeneric(parent))
                 {
-                    if (@interface.GetGenericTypeDefinition() == parent)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
@@ -47,8 +44,7 @@
             }
 
             if (parent.IsGenericTypeDefinition &&
-                current.IsGenericType &&
-                current.GetGenericTypeDefinition() == parent)
+                current.IsGeneric(parent))
             {
                 return true;
             }
@@ -126,7 +122,7 @@
     static bool IsEnumerableEmpty(this Type type) =>
         type.FullName?.StartsWith("System.Linq.EmptyPartition") == true;
 
-    static bool ImplementsGenericCollection(this Type type)
+    public static bool IsGeneric(this Type type, params Type[] generics)
     {
         if (!type.IsGenericType)
         {
@@ -134,7 +130,33 @@
         }
 
         var definition = type.GetGenericTypeDefinition();
-        return definition == typeof(ICollection<>) ||
-               definition == typeof(IReadOnlyCollection<>);
+        foreach (var generic in generics)
+        {
+            if (definition == generic)
+            {
+                return true;
+            }
+        }
+        return false;
     }
+
+    public static bool IsGeneric(this Type type, Type generic)
+    {
+        if (!type.IsGenericType)
+        {
+            return false;
+        }
+
+        if (type.GetGenericTypeDefinition() == generic)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    static bool ImplementsGenericCollection(this Type type) =>
+        type.IsGeneric(
+            typeof(ICollection<>),
+            typeof(IReadOnlyCollection<>));
 }

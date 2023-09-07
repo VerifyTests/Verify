@@ -7,21 +7,9 @@
         genericWriteDef = typeof(ValueTaskConverter)
             .GetMethod("WriteGeneric", BindingFlags.Static | BindingFlags.NonPublic)!;
 
-    public override bool CanConvert(Type type)
-    {
-        if (type == typeof(ValueTask))
-        {
-            return true;
-        }
-
-        if (!type.IsGenericType)
-        {
-            return false;
-        }
-
-        var definition = type.GetGenericTypeDefinition();
-        return definition == typeof(ValueTask<>);
-    }
+    public override bool CanConvert(Type type) =>
+        type == typeof(ValueTask) ||
+        type.IsGeneric(typeof(ValueTask<>));
 
     public override void Write(VerifyJsonWriter writer, object value)
     {

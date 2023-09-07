@@ -91,15 +91,12 @@ public static partial class VerifierSettings
         }
 
         var type = parameter.GetType();
-        if (type.IsGenericType)
+        if (type.IsGeneric(typeof(KeyValuePair<,>)))
         {
-            if (type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
-            {
-                var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
-                var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-                builder.Append($"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}");
-                return;
-            }
+            var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
+            var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
+            builder.Append($"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}");
+            return;
         }
 
         var nameForParameter = parameter.ToString();

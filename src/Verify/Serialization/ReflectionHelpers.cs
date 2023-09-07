@@ -126,6 +126,39 @@
     static bool IsEnumerableEmpty(this Type type) =>
         type.FullName?.StartsWith("System.Linq.EmptyPartition") == true;
 
+    public static bool IsGeneric(this Type type, params Type[] generics)
+    {
+        if (!type.IsGenericType)
+        {
+            return false;
+        }
+
+        var definition = type.GetGenericTypeDefinition();
+        foreach (var generic in generics)
+        {
+            if (definition == generic)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool IsGeneric(this Type type, Type generic)
+    {
+        if (!type.IsGenericType)
+        {
+            return false;
+        }
+
+        if (type.GetGenericTypeDefinition() == generic)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     static bool ImplementsGenericCollection(this Type type)
     {
         if (!type.IsGenericType)

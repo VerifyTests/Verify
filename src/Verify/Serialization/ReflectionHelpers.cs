@@ -47,8 +47,7 @@
             }
 
             if (parent.IsGenericTypeDefinition &&
-                current.IsGenericType &&
-                current.GetGenericTypeDefinition() == parent)
+                current.IsGeneric(parent))
             {
                 return true;
             }

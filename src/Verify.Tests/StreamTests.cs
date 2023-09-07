@@ -48,7 +48,7 @@ public class StreamTests
     [Fact]
     public Task StreamMember()
     {
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes("value"));
+        var stream = new MemoryStream("value"u8.ToArray());
         return Verify(
             new
             {
@@ -118,7 +118,7 @@ public class StreamTests
     [Fact]
     public Task StreamNotAtStartAsText()
     {
-        var stream = new MemoryStream(Encoding.UTF8.GetBytes("foo"));
+        var stream = new MemoryStream("foo"u8.ToArray());
         stream.Position = 2;
         return Verify(stream, "txt");
     }

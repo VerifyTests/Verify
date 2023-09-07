@@ -147,6 +147,7 @@
 
         var valueProvider = property.ValueProvider;
         var memberType = property.PropertyType;
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (memberType is null || valueProvider is null)
         {
             return property;

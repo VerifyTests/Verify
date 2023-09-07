@@ -49,10 +49,10 @@ public class InstanceFileAppenderTests
     [Fact]
     public Task TextBytesFluent() =>
         Verify("Foo")
-            .AppendContentAsFile(Encoding.UTF8.GetBytes("appendedFile"));
+            .AppendContentAsFile("appendedFile"u8.ToArray());
 
     [Fact]
     public Task TextStreamFluent() =>
         Verify("Foo")
-            .AppendFile(new MemoryStream(Encoding.UTF8.GetBytes("appendedFile")));
+            .AppendFile(new MemoryStream("appendedFile"u8.ToArray()));
 }

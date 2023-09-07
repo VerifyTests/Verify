@@ -7,6 +7,7 @@ static class CodeBaseLocation
     {
         var assembly = typeof(CodeBaseLocation).Assembly;
 
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (assembly.CodeBase is not null)
         {
             var uri = new UriBuilder(assembly.CodeBase);

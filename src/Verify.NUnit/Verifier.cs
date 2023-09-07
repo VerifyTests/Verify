@@ -75,6 +75,7 @@ public static partial class Verifier
         var fullNameLength = fullName.Length - (test.Name.Length + 1);
         var typeName = fullName[..fullNameLength];
         var typeInfo = test.TypeInfo!;
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (typeInfo.Namespace is not null)
         {
             typeName = typeName[(typeInfo.Namespace.Length + 1)..];

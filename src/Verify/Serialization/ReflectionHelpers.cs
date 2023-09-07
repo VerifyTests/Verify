@@ -12,7 +12,7 @@
             return false;
         }
 
-        if (type.IsGenericType && type.GetGenericTypeDefinition() == parent)
+        if (type.IsGeneric(parent))
         {
             return true;
         }
@@ -22,12 +22,9 @@
             var interfaces = type.GetInterfaces();
             foreach (var @interface in interfaces)
             {
-                if (@interface.IsGenericType)
+                if (@interface.IsGeneric(parent))
                 {
-                    if (@interface.GetGenericTypeDefinition() == parent)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;

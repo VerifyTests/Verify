@@ -143,6 +143,20 @@
         builder.Replace(oldValue, newValue);
     }
 
+    public static int Count(this StringBuilder builder, char ch)
+    {
+        var count = 0;
+        for (var index = 0; index < builder.Length; index++)
+        {
+            if (builder[index] == ch)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     public static FrameworkNameVersion? FrameworkName(this Assembly assembly)
     {
         var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();

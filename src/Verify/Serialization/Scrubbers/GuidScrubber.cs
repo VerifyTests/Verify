@@ -8,7 +8,7 @@
             return;
         }
 
-        if (!builder.Contains('-'))
+        if (builder.Count('-') < 4)
         {
             return;
         }

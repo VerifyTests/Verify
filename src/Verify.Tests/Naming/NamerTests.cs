@@ -29,13 +29,11 @@ public class NamerTests
     [Fact]
     public async Task DoesntThrowOnConflict()
     {
-        static Task Run()
-        {
-            return Verify("ValueDoesntThrowOnConflict")
+        static Task Run() =>
+            Verify("ValueDoesntThrowOnConflict")
                 .UseMethodName("Conflict2")
                 .DisableRequireUniquePrefix()
                 .DisableDiff();
-        }
 
         try
         {

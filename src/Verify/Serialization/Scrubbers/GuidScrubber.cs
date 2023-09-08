@@ -18,10 +18,7 @@
         builder.Clear();
         for (var index = 0; index <= value.Length; index++)
         {
-            void AppendCurrentChar()
-            {
-                builder.Append(value[index]);
-            }
+            void AppendCurrentChar() => builder.Append(value[index]);
 
             var end = index + 36;
             if (end > value.Length)

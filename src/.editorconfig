@@ -140,6 +140,9 @@ resharper_wrap_before_binary_pattern_op = false
 resharper_wrap_object_and_collection_initializer_style = chop_always
 resharper_place_simple_initializer_on_single_line = false
 
+# space
+resharper_space_around_lambda_arrow = true
+
 dotnet_style_require_accessibility_modifiers = never:error
 resharper_place_type_constraints_on_same_line = false
 resharper_blank_lines_inside_namespace = 0

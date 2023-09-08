@@ -271,7 +271,7 @@ public Task InstanceNamedGuid() =>
             })
         .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L62-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancenamedguid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L64-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancenamedguid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -10,6 +10,8 @@ public class GuidScrubberTests
     #endregion
 
     [Theory]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
     [InlineData("173535ae-995b-4cc6-a74e-8cd4be57039c", "simple")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c}", "curly")]
     [InlineData("{173535ae-995b-4cc6-a74e-8cd4be57039c", "start-curly")]

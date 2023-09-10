@@ -24,7 +24,7 @@ on_failure:
 <sup><a href='/src/appveyor.yml#L35-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts). <!-- endInclude -->
+See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).<!-- endInclude -->
 
 
 ### GitHub Actions

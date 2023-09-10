@@ -28,16 +28,16 @@ Add the following packages to the test project:
 
 ## Implicit Usings
 
-**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**<!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
+**All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`** <!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
-If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.<!-- endInclude -->
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
 ## Source Control
 
 ### Includes/Excludes
 
- * **All `*.received.*` files should be excluded from source control.**<!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
+ * **All `*.received.*` files should be excluded from source control.** <!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
 eg. add the following to `.gitignore`
 
@@ -50,11 +50,11 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 `*.received/`
 
 
-All `*.verified.*` files should be committed to source control.<!-- endInclude -->
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
 ### Text file settings
 
-Text variants of verified and received have the following characteristics:<!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
+Text variants of verified and received have the following characteristics: <!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
 
  * UTF8 with a [Byte order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark)
  * Newlines as line-feed (lf)
@@ -95,7 +95,7 @@ trim_trailing_whitespace = false
 ```
 
 
-*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.*<!-- endInclude -->
+*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.* <!-- endInclude -->
 
 
 ## DiffEngineTray

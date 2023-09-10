@@ -1,11 +1,6 @@
-﻿class CustomContractResolver :
+﻿class CustomContractResolver(SerializationSettings settings) :
     DefaultContractResolver
 {
-    SerializationSettings settings;
-
-    public CustomContractResolver(SerializationSettings settings) =>
-        this.settings = settings;
-
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);
@@ -189,7 +184,7 @@
         property.ValueProvider = new CustomValueProvider(
             valueProvider,
             memberType,
-            exception => settings.ShouldIgnoreException(exception),
+            settings.ShouldIgnoreException,
             VerifierSettings.GetMemberConverter(member),
             settings);
 

@@ -7,5 +7,5 @@
   ],
   "MaxWidth": 140,
   "ValidateContent": true,
-  "ExcludeSnippetDirectories": [ "StrictJsonTests\\Serialization" ],
+  "ExcludeSnippetDirectories": [ "StrictJsonTests\\Serialization" ]
 }

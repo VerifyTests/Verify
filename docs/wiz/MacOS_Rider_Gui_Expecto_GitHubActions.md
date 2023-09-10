@@ -30,7 +30,7 @@ Add the following packages to the test project:
 
 **All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**<!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
-If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.<!-- endInclude -->
+If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`. <!-- endInclude -->
 
 
 ## Source Control
@@ -50,7 +50,7 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 `*.received/`
 
 
-All `*.verified.*` files should be committed to source control.<!-- endInclude -->
+All `*.verified.*` files should be committed to source control. <!-- endInclude -->
 
 ### Text file settings
 
@@ -95,7 +95,7 @@ trim_trailing_whitespace = false
 ```
 
 
-*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.*<!-- endInclude -->
+*Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.* <!-- endInclude -->
 
 
 ## Rider Plugin

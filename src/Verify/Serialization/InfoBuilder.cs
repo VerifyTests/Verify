@@ -25,20 +25,14 @@
         }
     }
 
-    class Item
+    class Item(string key, object value)
     {
-        public string Key { get; }
+        public string Key { get; } = key;
 
-        public Item(string key, object value)
+        public List<object> Values { get; } = new()
         {
-            Key = key;
-            Values = new()
-            {
-                value
-            };
-        }
-
-        public List<object> Values { get; }
+            value
+        };
     }
 
     public class Converter :

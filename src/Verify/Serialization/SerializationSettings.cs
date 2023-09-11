@@ -92,9 +92,7 @@ partial class SerializationSettings
         settings.ContractResolver = new CustomContractResolver(this);
         var converters = settings.Converters;
         converters.Add(aggregateExceptionConverter);
-        converters.Add(stringBuilderConverter);
         converters.Add(infoConverter);
-        converters.Add(stringWriterConverter);
 #if NET6_0_OR_GREATER
         converters.Add(dateConverter);
         converters.Add(timeConverter);

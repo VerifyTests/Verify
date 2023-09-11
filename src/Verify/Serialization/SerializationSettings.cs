@@ -4,40 +4,32 @@ using Formatting = Argon.Formatting;
 
 partial class SerializationSettings
 {
-    static SerializationSettings()
-    {
-        var converters = DefaultContractResolver.Converters;
-        converters.Remove(converters.OfType<Argon.KeyValuePairConverter>().Single());
-        converters.AddRange(new JsonConverter[]
-        {
-            new JArrayConverter(),
-            new JObjectConverter(),
-            new KeyValuePairConverter(),
-            new InfoBuilder.Converter(),
+    static JArrayConverter jArrayConverter = new();
+    static JObjectConverter jObjectConverter = new();
+    static KeyValuePairConverter keyValuePairConverter = new();
+    static InfoBuilder.Converter infoConverter = new();
 #if NET6_0_OR_GREATER
-            new TimeConverter(),
-            new DateConverter(),
+    static TimeConverter timeConverter = new();
+    static DateConverter dateConverter = new();
 #endif
-            new StringEnumConverter(),
-            new DelegateConverter(),
-            new TargetInvocationExceptionConverter(),
-            new ExpressionConverter(),
-            new TypeJsonConverter(),
-            new MethodInfoConverter(),
-            new FieldInfoConverter(),
-            new ConstructorInfoConverter(),
-            new ParameterInfoConverter(),
-            new PropertyInfoConverter(),
-            new ClaimConverter(),
-            new AggregateExceptionConverter(),
-            new ClaimsPrincipalConverter(),
-            new ClaimsIdentityConverter(),
-            new NameValueCollectionConverter(),
-            new StringDictionaryConverter(),
-            new TaskConverter(),
-            new ValueTaskConverter(),
-        });
-    }
+    static StringEnumConverter stringEnumConverter = new();
+    static DelegateConverter delegateConverter = new();
+    static TargetInvocationExceptionConverter targetInvocationExceptionConverter = new();
+    static ExpressionConverter expressionConverter = new();
+    static TypeJsonConverter typeJsonConverter = new();
+    static MethodInfoConverter methodInfoConverter = new();
+    static FieldInfoConverter fieldInfoConverter = new();
+    static ConstructorInfoConverter constructorInfoConverter = new();
+    static ParameterInfoConverter parameterInfoConverter = new();
+    static PropertyInfoConverter propertyInfoConverter = new();
+    static ClaimConverter claimConverter = new();
+    static AggregateExceptionConverter aggregateExceptionConverter = new();
+    static ClaimsPrincipalConverter claimsPrincipalConverter = new();
+    static ClaimsIdentityConverter claimsIdentityConverter = new();
+    static NameValueCollectionConverter nameValueCollectionConverter = new();
+    static StringDictionaryConverter stringDictionaryConverter = new();
+    static TaskConverter taskConverter = new();
+    static ValueTaskConverter valueTaskConverter = new();
 
     JsonSerializerSettings jsonSettings;
 
@@ -98,6 +90,33 @@ partial class SerializationSettings
         settings.SerializationBinder = ShortNameBinder.Instance;
 
         settings.ContractResolver = new CustomContractResolver(this);
+        var converters = settings.Converters;
+        converters.Add(aggregateExceptionConverter);
+        converters.Add(infoConverter);
+#if NET6_0_OR_GREATER
+        converters.Add(dateConverter);
+        converters.Add(timeConverter);
+#endif
+        converters.Add(stringEnumConverter);
+        converters.Add(expressionConverter);
+        converters.Add(delegateConverter);
+        converters.Add(targetInvocationExceptionConverter);
+        converters.Add(typeJsonConverter);
+        converters.Add(methodInfoConverter);
+        converters.Add(fieldInfoConverter);
+        converters.Add(constructorInfoConverter);
+        converters.Add(propertyInfoConverter);
+        converters.Add(parameterInfoConverter);
+        converters.Add(claimConverter);
+        converters.Add(claimsIdentityConverter);
+        converters.Add(taskConverter);
+        converters.Add(valueTaskConverter);
+        converters.Add(claimsPrincipalConverter);
+        converters.Add(jArrayConverter);
+        converters.Add(jObjectConverter);
+        converters.Add(nameValueCollectionConverter);
+        converters.Add(stringDictionaryConverter);
+        converters.Add(keyValuePairConverter);
         foreach (var extraSetting in extraSettings)
         {
             extraSetting(settings);

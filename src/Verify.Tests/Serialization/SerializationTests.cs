@@ -180,13 +180,8 @@ public class SerializationTests
         return Verify(dictionary);
     }
 
-    public class NonComparableKey
+    public class NonComparableKey(string member)
     {
-        string member;
-
-        public NonComparableKey(string member) =>
-            this.member = member;
-
         public override string ToString() =>
             member;
 
@@ -480,13 +475,10 @@ public class SerializationTests
         public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = Array.Empty<TypeNameHandlingAutoInArrayItem>();
     }
 
-    abstract class TypeNameHandlingAutoInArrayItem
-    {
-    }
+    abstract class TypeNameHandlingAutoInArrayItem;
 
-    class TypeNameHandlingAutoInArrayItemChild : TypeNameHandlingAutoInArrayItem
-    {
-    }
+    class TypeNameHandlingAutoInArrayItemChild :
+        TypeNameHandlingAutoInArrayItem;
 
     [Fact]
     public void SettingsIsCloned()
@@ -1107,9 +1099,7 @@ public class SerializationTests
             .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter())).ScrubEmptyLines();
     }
 
-    class WriteRawInConverterTarget
-    {
-    }
+    class WriteRawInConverterTarget;
 
     class WriteRawInConverter :
         WriteOnlyJsonConverter<WriteRawInConverterTarget>
@@ -2013,9 +2003,8 @@ public class SerializationTests
             .AddExtraSettings(_ => _.Converters.Add(new EnumerableWithExistingConverter()));
     }
 
-    class EnumerableWithExistingConverterTarget : List<string>
-    {
-    }
+    class EnumerableWithExistingConverterTarget :
+        List<string>;
 
     class EnumerableWithExistingConverter :
         WriteOnlyJsonConverter<EnumerableWithExistingConverterTarget>
@@ -2044,9 +2033,7 @@ public class SerializationTests
             .ScrubEmptyLines();
     }
 
-    class ConverterWithBadNewlineTarget
-    {
-    }
+    class ConverterWithBadNewlineTarget;
 
     class ConverterWithBadNewline :
         WriteOnlyJsonConverter<ConverterWithBadNewlineTarget>
@@ -2074,9 +2061,7 @@ public class SerializationTests
     }
 
     class EnumerableWithExistingItemConverterTarget :
-        List<string>
-    {
-    }
+        List<string>;
 
     class EnumerableWithExistingItemConverter :
         WriteOnlyJsonConverter<string>
@@ -2604,20 +2589,14 @@ public class SerializationTests
         public ToIncludeStruct? ToIncludeStructNullable;
     }
 
-    struct ToIncludeStruct
+    struct ToIncludeStruct(string property)
     {
-        public ToIncludeStruct(string property) =>
-            Property = property;
-
-        public string Property { get; }
+        public string Property { get; } = property;
     }
 
-    struct ToIgnoreStruct
+    struct ToIgnoreStruct(string property)
     {
-        public ToIgnoreStruct(string property) =>
-            Property = property;
-
-        public string Property { get; }
+        public string Property { get; } = property;
     }
 
     class ToInclude
@@ -2641,9 +2620,7 @@ public class SerializationTests
         public string Property;
     }
 
-    class InterfaceToIgnore
-    {
-    }
+    class InterfaceToIgnore;
 
     class ToIgnoreByBase :
         BaseToIgnore
@@ -2651,9 +2628,7 @@ public class SerializationTests
         public string Property;
     }
 
-    class BaseToIgnore
-    {
-    }
+    class BaseToIgnore;
 
     class ToIgnoreByBaseGeneric :
         BaseToIgnoreGeneric<int>
@@ -2662,9 +2637,7 @@ public class SerializationTests
     }
 
 // ReSharper disable once UnusedTypeParameter
-    class BaseToIgnoreGeneric<T>
-    {
-    }
+    class BaseToIgnoreGeneric<T>;
 
     // ReSharper disable once UnusedMember.Local
     void IgnoreMemberByExpressionGlobal()
@@ -2962,9 +2935,7 @@ public class SerializationTests
     }
 
     public class IgnoreTargetSub :
-        IgnoreTargetBase
-    {
-    }
+        IgnoreTargetBase;
 
     static Exception ignoreMemberSubClass;
 
@@ -3158,9 +3129,7 @@ public class SerializationTests
     }
 
     class CustomException :
-        Exception
-    {
-    }
+        Exception;
 
     [Fact]
     public Task NotSupportedExceptionProp()

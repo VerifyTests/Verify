@@ -1,6 +1,4 @@
 namespace ApprovalTests.Reporters.ContinuousIntegration;
 
 [Obsolete(ContinuousDeliveryUtils.Error, true)]
-public class GoContinuousDeliveryReporter
-{
-}
+public class GoContinuousDeliveryReporter;

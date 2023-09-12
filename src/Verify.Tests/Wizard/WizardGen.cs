@@ -1,17 +1,18 @@
-﻿using System.ComponentModel;
+﻿#if NET7_0
 
 public class WizardGen
 {
     string wizardDir = null!;
     string repoRoot = null!;
 
-    [Fact
-#if !NET8_0
-        (Skip = "")
-#endif
-    ]
+    [Fact]
     public async Task Run()
     {
+        if (!ExistsOnPath("mdsnippets"))
+        {
+            return;
+        }
+
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         repoRoot = Directory.GetParent(solutionDirectory)!.Parent!.FullName;
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
@@ -20,7 +21,8 @@ public class WizardGen
         var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
         PurgeDirectory(wizardRealDir);
         var sourceFile = Path.Combine(wizardDir, "readme.source.md");
-        var builder = new StringBuilder("""
+        var builder = new StringBuilder(
+            """
             # Getting Started Wizard
 
             ## Select Operating System
@@ -32,13 +34,25 @@ public class WizardGen
         }
 
         await File.WriteAllTextAsync(sourceFile, builder.ToString());
-        try
+        Process.Start("mdsnippets", repoRoot);
+    }
+
+    static bool ExistsOnPath(string fileName) =>
+        GetFullPath(fileName) != null;
+
+    static string? GetFullPath(string fileName)
+    {
+        var values = Environment.GetEnvironmentVariable("PATH")!;
+        foreach (var path in values.Split(Path.PathSeparator))
         {
-            Process.Start("mdsnippets", repoRoot);
+            var fullPath = Path.Combine(path, fileName);
+            if (File.Exists(fullPath))
+            {
+                return fullPath;
+            }
         }
-        catch (Win32Exception)
-        {
-        }
+
+        return null;
     }
 
     async Task ProcessOs(Os current, StringBuilder parentBuilder)
@@ -47,14 +61,15 @@ public class WizardGen
         var nav = $"[Home](/docs/wiz/readme.md) > [{current}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
-        var builder = new StringBuilder($"""
-            # Getting Started Wizard
+        var builder = new StringBuilder(
+            $"""
+             # Getting Started Wizard
 
-            {nav}
+             {nav}
 
-            ## Select IDE
+             ## Select IDE
 
-            """);
+             """);
         foreach (var ide in GetIdesForOs(current))
         {
             await ProcessCli(current, ide, builder, fileName, nav);
@@ -69,18 +84,19 @@ public class WizardGen
         nav += $" > [{GetName(current)}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{GetName(current)}]({fileName}.md)");
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
-        var builder = new StringBuilder($"""
-            # Getting Started Wizard
+        var builder = new StringBuilder(
+            $"""
+             # Getting Started Wizard
 
-            {nav}
+             {nav}
 
-            ## Select CLI preference
+             ## Select CLI preference
 
-            This will effect the approach to installing NuGet packages and snapshot management options.
+             This will effect the approach to installing NuGet packages and snapshot management options.
 
-            Options:
+             Options:
 
-            """);
+             """);
 
         foreach (var cli in Enum.GetValues<CliPreference>())
         {
@@ -97,16 +113,17 @@ public class WizardGen
         nav += $" > [{name}]({fileName}.md)";
         parentBuilder.AppendLine($" * [{name}]({fileName}.md)");
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
-        var builder = new StringBuilder($"""
-            # Getting Started Wizard
+        var builder = new StringBuilder(
+            $"""
+             # Getting Started Wizard
 
-            {nav}
+             {nav}
 
-            ## Select Test Framework
+             ## Select Test Framework
 
-            Options:
+             Options:
 
-            """);
+             """);
 
         foreach (var testFramework in Enum.GetValues<TestFramework>())
         {
@@ -124,16 +141,17 @@ public class WizardGen
 
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
 
-        var builder = new StringBuilder($"""
-            # Getting Started Wizard
+        var builder = new StringBuilder(
+            $"""
+             # Getting Started Wizard
 
-            {nav}
+             {nav}
 
-            ## Select Build Server
+             ## Select Build Server
 
-            Options:
+             Options:
 
-            """);
+             """);
 
         foreach (var buildServer in Enum.GetValues<BuildServer>())
         {
@@ -152,12 +170,13 @@ public class WizardGen
 
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
 
-        var builder = new StringBuilder($"""
-            # Getting Started Wizard
+        var builder = new StringBuilder(
+            $"""
+             # Getting Started Wizard
 
-            {nav}
+             {nav}
 
-            """);
+             """);
 
         AppendContents(os, ide, cli, testFramework, current, builder);
 
@@ -174,7 +193,7 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(preference), preference, null)
         };
 
-    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework,BuildServer buildServer, StringBuilder builder)
+    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer buildServer, StringBuilder builder)
     {
         AppendNugets(builder, testFramework, cli);
 
@@ -206,12 +225,13 @@ public class WizardGen
             return;
         }
 
-        builder.AppendLine($"""
-            ## Getting .received in output on {GetName(buildServer)}
+        builder.AppendLine(
+            $"""
+             ## Getting .received in output on {GetName(buildServer)}
 
-            include: build-server-{buildServer}
+             include: build-server-{buildServer}
 
-            """);
+             """);
     }
 
     static void AppendDiffPlex(StringBuilder builder, CliPreference cli)
@@ -219,7 +239,8 @@ public class WizardGen
         string nugetSnippet;
         if (cli == CliPreference.Cli)
         {
-            nugetSnippet = """
+            nugetSnippet =
+                """
                 ```
                 dotnet add package Verify.DiffPlex
                 ```
@@ -227,36 +248,38 @@ public class WizardGen
         }
         else
         {
-            nugetSnippet = """
+            nugetSnippet =
+                """
                 ```xml
                 <PackageReference Include="Verify.DiffPlex" Version="*" />
                 ```
                 """;
         }
 
-        builder.AppendLine($"""
-            ## DiffPlex
+        builder.AppendLine(
+            $"""
+             ## DiffPlex
 
-            The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
-            and the verified contents as part of the exception. This can be noisy when verifying large strings.
+             The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received
+             and the verified contents as part of the exception. This can be noisy when verifying large strings.
 
-            [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to highlighting text differences inline.
+             [Verify.DiffPlex](https://github.com/VerifyTests/Verify.DiffPlex) changes the text compare result to highlighting text differences inline.
 
-            This is optional, but recommended.
+             This is optional, but recommended.
 
-            ### Add the NuGet
+             ### Add the NuGet
 
-            {nugetSnippet}
+             {nugetSnippet}
 
-            ### Enable
+             ### Enable
 
-            ```cs
-            [ModuleInitializer]
-            public static void Initialize() =>
-                VerifyDiffPlex.Initialize();
-            ```
+             ```cs
+             [ModuleInitializer]
+             public static void Initialize() =>
+                 VerifyDiffPlex.Initialize();
+             ```
 
-            """);
+             """);
     }
 
     static void AppendTerminal(StringBuilder builder, CliPreference cli)
@@ -266,7 +289,8 @@ public class WizardGen
             return;
         }
 
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
             ## Verify.Terminal
 
             [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal) is a dotnet tool for managing snapshots from the command line.
@@ -283,7 +307,8 @@ public class WizardGen
     }
 
     static void AppendSourceControlSettings(StringBuilder builder) =>
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
 
             ## Source Control
 
@@ -298,25 +323,27 @@ public class WizardGen
             """);
 
     static void AppendSample(TestFramework testFramework, StringBuilder builder) =>
-        builder.AppendLine($"""
+        builder.AppendLine(
+            $"""
 
-            ## Sample Test
+             ## Sample Test
 
-            snippet: SampleTest{testFramework}
+             snippet: SampleTest{testFramework}
 
-            """);
+             """);
 
     static void AppendDiffTool(Os os, StringBuilder builder)
     {
-        builder.AppendLine($"""
-            ## Diff Tool
+        builder.AppendLine(
+            $"""
+             ## Diff Tool
 
-            Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
-            While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
+             Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.
+             While IDEs are supported, due to their MDI nature, using a different Diff Tool is recommended.
 
-            Tools supported by {os}:
+             Tools supported by {os}:
 
-            """);
+             """);
         foreach (var tool in ToolsForOs(os))
         {
             if (tool.IsMdi)
@@ -341,7 +368,8 @@ public class WizardGen
 
     static void AppendNugets(StringBuilder builder, TestFramework testFramework, CliPreference cli)
     {
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
 
             ## Add NuGet packages
 
@@ -354,7 +382,8 @@ public class WizardGen
                 switch (testFramework)
                 {
                     case TestFramework.xUnit:
-                        builder.AppendLine("""
+                        builder.AppendLine(
+                            """
                             ```
                             dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package Verify.Xunit
@@ -364,7 +393,8 @@ public class WizardGen
                             """);
                         break;
                     case TestFramework.NUnit:
-                        builder.AppendLine("""
+                        builder.AppendLine(
+                            """
                             ```
                             dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package NUnit
@@ -374,7 +404,8 @@ public class WizardGen
                             """);
                         break;
                     case TestFramework.MSTest:
-                        builder.AppendLine("""
+                        builder.AppendLine(
+                            """
                             ```
                             dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package MSTest.TestAdapter
@@ -384,7 +415,8 @@ public class WizardGen
                             """);
                         break;
                     case TestFramework.Expecto:
-                        builder.AppendLine("""
+                        builder.AppendLine(
+                            """
                             ```
                             dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package YoloDev.Expecto.TestSdk
@@ -396,13 +428,15 @@ public class WizardGen
                     default:
                         throw new ArgumentOutOfRangeException(nameof(testFramework), testFramework, null);
                 }
+
                 break;
             case CliPreference.Gui:
-                builder.AppendLine($"""
+                builder.AppendLine(
+                    $"""
 
-                    snippet: {testFramework}-nugets
+                     snippet: {testFramework}-nugets
 
-                    """);
+                     """);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(cli), cli, null);
@@ -428,7 +462,8 @@ public class WizardGen
         };
 
     static void AppendImplicitUsings(StringBuilder builder) =>
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
 
             ## Implicit Usings
 
@@ -443,21 +478,22 @@ public class WizardGen
             return;
         }
 
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
 
-                ## DiffEngineTray
+            ## DiffEngineTray
 
-                Install [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)
+            Install [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md)
 
-                DiffEngineTray sits in the Windows tray. It monitors pending changes in snapshots, and provides a mechanism for accepting or rejecting those changes.
+            DiffEngineTray sits in the Windows tray. It monitors pending changes in snapshots, and provides a mechanism for accepting or rejecting those changes.
 
-                ```
-                dotnet tool install -g DiffEngineTray
-                ```
+            ```
+            dotnet tool install -g DiffEngineTray
+            ```
 
-                This is optional, but recommended. Also consider enabling [Run at startup](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#run-at-startup).
+            This is optional, but recommended. Also consider enabling [Run at startup](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#run-at-startup).
 
-                """);
+            """);
     }
 
     static void AppendReSharper(Ide ide, StringBuilder builder)
@@ -467,25 +503,26 @@ public class WizardGen
             return;
         }
 
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
 
-                ## ReSharper
-
-
-                ### Orphaned process detection
-
-                [Disable orphaned process detection](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#disable-orphaned-process-detection).
+            ## ReSharper
 
 
-                ## Verify Plugin
+            ### Orphaned process detection
 
-                Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
+            [Disable orphaned process detection](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#disable-orphaned-process-detection).
 
-                Provides a mechanism for contextually accepting or rejecting snapshot changes inside the ReSharper test runner.
 
-                This is optional, but recommended.
+            ## Verify Plugin
 
-                """);
+            Install the [ReSharper Plugin](https://plugins.jetbrains.com/plugin/17241-verify-support)
+
+            Provides a mechanism for contextually accepting or rejecting snapshot changes inside the ReSharper test runner.
+
+            This is optional, but recommended.
+
+            """);
     }
 
     static void AppendRider(Ide ide, StringBuilder builder)
@@ -497,15 +534,15 @@ public class WizardGen
 
         builder.AppendLine("""
 
-                ## Rider Plugin
+                           ## Rider Plugin
 
-                Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
+                           Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
 
-                Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
+                           Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
 
-                This is optional, but recommended.
+                           This is optional, but recommended.
 
-                """);
+                           """);
     }
 
     static void PurgeDirectory(string directory)
@@ -544,3 +581,5 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 }
+
+#endif

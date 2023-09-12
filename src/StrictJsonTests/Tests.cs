@@ -9,9 +9,7 @@ public class Tests
             .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter())).ScrubEmptyLines();
     }
 
-    class WriteRawInConverterTarget
-    {
-    }
+    class WriteRawInConverterTarget;
 
     class WriteRawInConverter:
         WriteOnlyJsonConverter<WriteRawInConverterTarget>

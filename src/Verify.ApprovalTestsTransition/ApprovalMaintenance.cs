@@ -6,6 +6,4 @@
            * Re-run all tests
            * Accept all changes
           """)]
-public static class ApprovalMaintenance
-{
-}
+public static class ApprovalMaintenance;

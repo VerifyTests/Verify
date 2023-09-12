@@ -1,6 +1,4 @@
 ﻿namespace ApprovalTests.Reporters;
 
 [Obsolete(DiffReporter.Error, true)]
-public class BeyondCompareReporter
-{
-}
+public class BeyondCompareReporter;

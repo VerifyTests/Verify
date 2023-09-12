@@ -1,6 +1,4 @@
 ﻿namespace ApprovalTests.Reporters.ContinuousIntegration;
 
 [Obsolete(ContinuousDeliveryUtils.Error, true)]
-public class TfsReporter
-{
-}
+public class TfsReporter;

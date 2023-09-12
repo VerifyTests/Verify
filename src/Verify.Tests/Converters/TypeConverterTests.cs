@@ -23,9 +23,7 @@ public class TypeConverterTests
         public string Value { get; set; } = null!;
     }
 
-    class InheritedClass : ParentClass
-    {
-    }
+    class InheritedClass : ParentClass;
 
     [ModuleInitializer]
     public static void WithStreamRequiringCleanupInit() =>

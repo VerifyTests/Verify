@@ -124,6 +124,20 @@ public class StreamTests
     }
 
     [Fact]
+    public Task UnboundedStream()
+    {
+        var stream = new MemoryStream(new byte[]
+        {
+            1
+        });
+        var unboundedStream = new UnboundedStream(stream);
+
+        return ThrowsTask(() => Verify(unboundedStream))
+            .DisableRequireUniquePrefix()
+            .IgnoreStackTrace();
+    }
+
+    [Fact]
     public Task Streams() =>
         Verify(
             new List<Stream>

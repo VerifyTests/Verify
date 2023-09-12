@@ -1,0 +1,4 @@
+﻿{
+  Type: ArgumentException,
+  Message: Could not read Length property of target stream. Verify does not support unbounded streams.
+}

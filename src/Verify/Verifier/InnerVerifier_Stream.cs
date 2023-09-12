@@ -84,9 +84,16 @@ partial class InnerVerifier
 
         using (stream)
         {
-            if (stream.Length == 0)
+            try
             {
-                throw new("Empty data is not allowed.");
+                if (stream.Length == 0)
+                {
+                    throw new("Empty data is not allowed.");
+                }
+            }
+            catch (NotImplementedException)
+            {
+                throw new ArgumentException("Could not read Length property of target stream. Verify does not support unbounded streams.");
             }
 
             if (VerifierSettings.HasExtensionConverter(extension))

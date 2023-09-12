@@ -1,10 +1,5 @@
-﻿class VerifyException :
-    Exception
+﻿class VerifyException(string message) :
+    Exception(message)
 {
-    public VerifyException(string message) :
-        base(message)
-    {
-    }
-
     public override string StackTrace => "";
 }

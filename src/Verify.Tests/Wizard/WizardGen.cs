@@ -37,22 +37,12 @@ public class WizardGen
         Process.Start("mdsnippets", repoRoot);
     }
 
-    static bool ExistsOnPath(string fileName) =>
-        GetFullPath(fileName) != null;
-
-    static string? GetFullPath(string fileName)
+    static bool ExistsOnPath(string fileName)
     {
         var values = Environment.GetEnvironmentVariable("PATH")!;
-        foreach (var path in values.Split(Path.PathSeparator))
-        {
-            var fullPath = Path.Combine(path, fileName);
-            if (File.Exists(fullPath))
-            {
-                return fullPath;
-            }
-        }
-
-        return null;
+        return values.Split(Path.PathSeparator)
+            .Select(path => Path.Combine(path, fileName))
+            .Any(File.Exists);
     }
 
     async Task ProcessOs(Os current, StringBuilder parentBuilder)

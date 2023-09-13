@@ -131,9 +131,7 @@ public class StreamTests
             1
         });
 
-        return ThrowsTask(() => Verify(stream))
-            .DisableRequireUniquePrefix()
-            .IgnoreStackTrace();
+        return Verify(stream);
     }
 
     [Fact]

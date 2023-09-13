@@ -18,13 +18,25 @@ static class Extensions
         return list;
     }
 
-    public static bool CanSeekAndReadLength(this Stream stream)
+    // Streams can throw for Length. Eg a http stream that the server has not specified the length header
+    // Specify buffer to avoid an exception in Stream.CopyToAsync where it reads Length
+    // https://github.com/dotnet/runtime/issues/43448
+    public static Task SafeCopy(this Stream source, Stream target)
     {
-        if (!stream.CanSeek)
+        if (source.CanReadLength())
         {
-            return false;
+            return source.CopyToAsync(target);
         }
 
+        return source.CopyToAsync(target, 81920);
+    }
+
+    public static bool CanSeekAndReadLength(this Stream stream) =>
+        stream.CanSeek &&
+        CanReadLength(stream);
+
+    static bool CanReadLength(this Stream stream)
+    {
         try
         {
             var streamLength = stream.Length;

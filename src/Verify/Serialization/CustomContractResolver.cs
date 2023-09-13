@@ -128,8 +128,8 @@
         {
             properties = properties
                 // Still honor explicit ordering
-                .OrderBy(p => p.Order ?? -1)
-                .ThenBy(p => p.PropertyName, StringComparer.Ordinal)
+                .OrderBy(_ => _.Order ?? -1)
+                .ThenBy(_ => _.PropertyName, StringComparer.Ordinal)
                 .ToList();
         }
 

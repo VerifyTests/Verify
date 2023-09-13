@@ -99,7 +99,7 @@ public class Approvals
 
     [Obsolete("Run the formatter then pass the result to Use Verifier.Verify<T>(T)", true)]
     public static void VerifyAll<K, V>(IDictionary<K, V> dictionary, Func<K, V, string> formatter) =>
-        VerifyAll(dictionary.OrderBy(p => p.Key), p => formatter(p.Key, p.Value));
+        VerifyAll(dictionary.OrderBy(_ => _.Key), p => formatter(p.Key, p.Value));
 
     [Obsolete("Use Verifier.Verify(byte[], \"ext\")", true)]
     public static void VerifyBinaryFile(byte[] bytes, string fileExtensionWithDot)

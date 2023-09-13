@@ -119,7 +119,7 @@ public class ExceptionParsingTests
     public Task MsTest()
     {
         var exceptionMessage = $"""
-            Test method TheTests.XAMLCombinerTests.TestOutput threw exception: 
+            Test method TheTests.XAMLCombinerTests.TestOutput threw exception:
             VerifyException: Directory: {Environment.CurrentDirectory}
             NotEqual:
               - Received: XAMLCombinerTests.TestOutput.received.xaml

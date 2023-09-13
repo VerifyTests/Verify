@@ -18,18 +18,6 @@ static class Extensions
         return list;
     }
 
-
-    public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
-    {
-        var list = new List<T>();
-        await foreach (var item in target)
-        {
-            list.Add(item);
-        }
-
-        return list;
-    }
-
     public static bool CanSeekAndReadLength(this Stream stream)
     {
         if (!stream.CanSeek)
@@ -45,7 +33,10 @@ static class Extensions
         {
             return false;
         }
+
+        return true;
     }
+
     public static string TrimPreamble(this string text) =>
         text.TrimStart('\uFEFF');
 

@@ -124,13 +124,14 @@ public class StreamTests
     }
 
     [Fact]
-    public Task UnboundedStream()
+    public Task NoLengthStream()
     {
-        var stream = new UnboundedStream();
+        var stream = new NoLengthStream(new byte[]
+        {
+            1
+        });
 
-        return ThrowsTask(() => Verify(stream))
-            .DisableRequireUniquePrefix()
-            .IgnoreStackTrace();
+        return Verify(stream);
     }
 
     [Fact]

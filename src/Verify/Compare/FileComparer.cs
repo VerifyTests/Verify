@@ -20,7 +20,7 @@
             return await InnerCompare(file, receivedStream, (s1, s2) => compare(s1, s2, settings.Context));
         }
 
-        if (receivedStream.CanSeek &&
+        if (receivedStream.CanSeekAndReadLength() &&
             IoHelpers.Length(file.VerifiedPath) != receivedStream.Length)
         {
             await IoHelpers.WriteStream(file.ReceivedPath, receivedStream);
@@ -66,14 +66,14 @@
             return new(Equality.NotEqual, compareResult.Message, null, null);
         }
 
-        if (receivedStream.CanSeek)
+        if (receivedStream.CanSeekAndReadLength())
         {
             receivedStream.MoveToStart();
             return await EqualityResult(receivedStream, verifiedStream);
         }
 
         using var memoryStream = new MemoryStream();
-        await receivedStream.CopyToAsync(memoryStream);
+        await receivedStream.SafeCopy(memoryStream);
         memoryStream.MoveToStart();
 
         return await EqualityResult(memoryStream, verifiedStream);

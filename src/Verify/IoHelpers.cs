@@ -218,7 +218,8 @@
         if (!TryCopyFileStream(path, stream))
         {
             await using var targetStream = OpenWrite(path);
-            await stream.CopyToAsync(targetStream);
+            await stream.SafeCopy(targetStream);
+            HandleEmptyFile(path);
         }
     }
 
@@ -236,9 +237,18 @@
         if (!TryCopyFileStream(path, stream))
         {
             using var targetStream = OpenWrite(path);
-            await stream.CopyToAsync(targetStream);
+            await stream.SafeCopy(targetStream);
+            HandleEmptyFile(path);
         }
     }
 
 #endif
+
+    static void HandleEmptyFile(string path)
+    {
+        if (new FileInfo(path).Length == 0)
+        {
+            throw new("Empty data is not allowed.");
+        }
+    }
 }

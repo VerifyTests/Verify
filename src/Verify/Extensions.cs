@@ -1,4 +1,5 @@
-﻿static class Extensions
+﻿// ReSharper disable UnusedVariable
+static class Extensions
 {
     public static string Extension(this FileStream file) =>
         FileExtensions.GetExtension(file.Name);
@@ -15,6 +16,37 @@
         }
 
         return list;
+    }
+
+    // Streams can throw for Length. Eg a http stream that the server has not specified the length header
+    // Specify buffer to avoid an exception in Stream.CopyToAsync where it reads Length
+    // https://github.com/dotnet/runtime/issues/43448
+    public static Task SafeCopy(this Stream source, Stream target)
+    {
+        if (source.CanReadLength())
+        {
+            return source.CopyToAsync(target);
+        }
+
+        return source.CopyToAsync(target, 81920);
+    }
+
+    public static bool CanSeekAndReadLength(this Stream stream) =>
+        stream.CanSeek &&
+        CanReadLength(stream);
+
+    static bool CanReadLength(this Stream stream)
+    {
+        try
+        {
+            var streamLength = stream.Length;
+        }
+        catch (NotImplementedException)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public static string TrimPreamble(this string text) =>

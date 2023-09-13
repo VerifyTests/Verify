@@ -1,4 +1,5 @@
-﻿static class Extensions
+﻿// ReSharper disable UnusedVariable
+static class Extensions
 {
     public static string Extension(this FileStream file) =>
         FileExtensions.GetExtension(file.Name);
@@ -17,6 +18,34 @@
         return list;
     }
 
+
+    public static async Task<List<T>> ToList<T>(this IAsyncEnumerable<T> target)
+    {
+        var list = new List<T>();
+        await foreach (var item in target)
+        {
+            list.Add(item);
+        }
+
+        return list;
+    }
+
+    public static bool CanSeekAndReadLength(this Stream stream)
+    {
+        if (!stream.CanSeek)
+        {
+            return false;
+        }
+
+        try
+        {
+            var streamLength = stream.Length;
+        }
+        catch (NotImplementedException)
+        {
+            return false;
+        }
+    }
     public static string TrimPreamble(this string text) =>
         text.TrimStart('\uFEFF');
 

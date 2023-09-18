@@ -105,6 +105,7 @@ public static partial class Verifier
             });
     }
 
+    [Pure]
     public static SettingsTask Verify(
         object? target,
         IEnumerable<Target> rawTargets,
@@ -115,6 +116,7 @@ public static partial class Verifier
             sourceFile,
             _ => _.Verify(target, rawTargets));
 
+    [Pure]
     public static SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
@@ -124,6 +126,7 @@ public static partial class Verifier
             sourceFile,
             _ => _.Verify(targets));
 
+    [Pure]
     public static SettingsTask Verify(
         Target target,
         VerifySettings? settings = null,

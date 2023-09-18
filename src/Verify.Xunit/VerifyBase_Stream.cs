@@ -2,12 +2,14 @@
 
 public partial class VerifyBase
 {
+    [Pure]
     public SettingsTask Verify(
         FileStream? target,
         VerifySettings? settings = null,
         object? info = null) =>
         Verifier.Verify(target, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify(
         Stream? target,
         string extension,
@@ -15,12 +17,14 @@ public partial class VerifyBase
         object? info = null) =>
         Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify(
         Stream? target,
         VerifySettings? settings = null,
         object? info = null) =>
         Verifier.Verify(target, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify<T>(
         Task<T> target,
         string extension,
@@ -29,6 +33,7 @@ public partial class VerifyBase
         where T : Stream =>
         Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify<T>(
         ValueTask<T> target,
         string extension,
@@ -37,6 +42,7 @@ public partial class VerifyBase
         where T : Stream =>
         Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify<T>(
         IEnumerable<T> targets,
         string extension,
@@ -45,12 +51,14 @@ public partial class VerifyBase
         where T : Stream =>
         Verifier.Verify(targets, extension, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify(
         byte[]? target,
         VerifySettings? settings = null,
         object? info = null) =>
         Verifier.Verify(target, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify(
         byte[]? target,
         string extension,
@@ -58,6 +66,7 @@ public partial class VerifyBase
         object? info = null) =>
         Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify(
         Task<byte[]> target,
         string extension,
@@ -65,6 +74,7 @@ public partial class VerifyBase
         object? info = null) =>
         Verifier.Verify(target, extension, settings ?? this.settings, info, sourceFile);
 
+    [Pure]
     public SettingsTask Verify(
         ValueTask<byte[]> target,
         string extension,

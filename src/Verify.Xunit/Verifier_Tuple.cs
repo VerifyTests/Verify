@@ -3,6 +3,7 @@ namespace VerifyXunit
 {
     public static partial class Verifier
     {
+        [Pure]
         public static SettingsTask VerifyTuple(
             Expression<Func<ITuple>> expression,
             VerifySettings? settings = null,

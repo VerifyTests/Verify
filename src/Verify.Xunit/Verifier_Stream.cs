@@ -2,6 +2,7 @@
 
 public static partial class Verifier
 {
+    [Pure]
     public static SettingsTask Verify(
         FileStream? target,
         VerifySettings? settings = null,
@@ -9,6 +10,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
 
+    [Pure]
     public static SettingsTask Verify(
         Stream? target,
         VerifySettings? settings = null,
@@ -16,6 +18,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
 
+    [Pure]
     public static SettingsTask Verify(
         Stream? target,
         string extension,
@@ -24,6 +27,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
+    [Pure]
     public static SettingsTask Verify<T>(
         Task<T> target,
         string extension,
@@ -33,6 +37,7 @@ public static partial class Verifier
         where T : Stream  =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
+    [Pure]
     public static SettingsTask Verify<T>(
         ValueTask<T> target,
         string extension,
@@ -42,6 +47,7 @@ public static partial class Verifier
         where T : Stream  =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
+    [Pure]
     public static SettingsTask Verify<T>(
         IEnumerable<T> targets,
         string extension,
@@ -51,6 +57,7 @@ public static partial class Verifier
         where T : Stream  =>
         Verify(settings, sourceFile, _ => _.VerifyStreams(targets, extension, info));
 
+    [Pure]
     public static SettingsTask Verify(
         byte[]? target,
         string extension,
@@ -59,6 +66,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
+    [Pure]
     public static SettingsTask Verify(
         byte[]? target,
         VerifySettings? settings = null,
@@ -66,6 +74,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
 
+    [Pure]
     public static SettingsTask Verify(
         Task<byte[]> target,
         string extension,
@@ -74,6 +83,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
+    [Pure]
     public static SettingsTask Verify(
         ValueTask<byte[]> target,
         string extension,

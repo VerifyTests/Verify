@@ -60,6 +60,7 @@ public abstract partial class VerifyBase
         throw new($"Could not find method `{type.Name}.{testName.ToString()}`.");
     }
 
+    [Pure]
     public SettingsTask Verify(
         object? target,
         IEnumerable<Target> rawTargets,
@@ -67,12 +68,14 @@ public abstract partial class VerifyBase
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target, rawTargets));
 
+    [Pure]
     public SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(targets));
 
+    [Pure]
     public SettingsTask Verify(
         Target target,
         VerifySettings? settings = null,

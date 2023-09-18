@@ -4,12 +4,6 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="NUnit" />
-    <Using Include="NUnit.Framework" />
-    <Using Include="NUnit.Framework.Internal" />
-    <Using Include="NUnit.Framework.Interfaces" />
-    <Using Include="VerifyTests" />
-    <Using Include="Argon" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="NUnit" Version="3.13.3" />

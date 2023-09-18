@@ -5,7 +5,6 @@
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="Argon" />
     <PackageReference Include="Expecto" Version="10.1.0" />
     <PackageReference Include="FSharp.Core" Version="7.0.400" />
     <PackageReference Include="ProjectDefaults" Version="1.0.97" PrivateAssets="all" />

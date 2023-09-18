@@ -8,11 +8,6 @@
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Using Include="Argon" />
-    <Using Include="DiffEngine" />
-    <Using Include="EmptyFiles" />
-    <Using Include="System.Drawing" />
-    <Using Include="System.Drawing.Imaging" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />

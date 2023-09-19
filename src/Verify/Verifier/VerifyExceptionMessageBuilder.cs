@@ -76,7 +76,8 @@
                         _.Message is not null)
             .ToList();
 
-        if (newContentFiles.Count == 0 && notEqualContentFiles.Count == 0)
+        if (newContentFiles.Count == 0 &&
+            notEqualContentFiles.Count == 0)
         {
             return;
         }

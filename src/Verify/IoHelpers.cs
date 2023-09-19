@@ -217,8 +217,12 @@
         CreateDirectory(Path.GetDirectoryName(path)!);
         if (!TryCopyFileStream(path, stream))
         {
-            await using var targetStream = OpenWrite(path);
-            await stream.SafeCopy(targetStream);
+            // keep using scope to stream is flushed
+            await using (var targetStream = OpenWrite(path))
+            {
+                await stream.SafeCopy(targetStream);
+            }
+
             HandleEmptyFile(path);
         }
     }
@@ -236,8 +240,12 @@
         CreateDirectory(Path.GetDirectoryName(path));
         if (!TryCopyFileStream(path, stream))
         {
-            using var targetStream = OpenWrite(path);
-            await stream.SafeCopy(targetStream);
+            // keep using scope to stream is flushed
+            using (var targetStream = OpenWrite(path))
+            {
+                await stream.SafeCopy(targetStream);
+            }
+
             HandleEmptyFile(path);
         }
     }
@@ -248,7 +256,7 @@
     {
         if (new FileInfo(path).Length == 0)
         {
-            throw new("Empty data is not allowed.");
+            throw new($"Empty data is not allowed. Path: {path}");
         }
     }
 }

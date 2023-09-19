@@ -25,7 +25,6 @@
     <None Update="sample*.*" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Binary*.*.txt" CopyToOutputDirectory="PreserveNewest" />
     <Folder Include="Naming\CustomDirectory\" />
-    <None Update="EmptyFiles\**\*.*" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.level1" CopyToOutputDirectory="PreserveNewest" />
     <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />

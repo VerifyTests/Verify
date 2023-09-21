@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Run
       run: |
-        dotnet tool install --global GitReleaseManager.Tool
+        dotnet tool install --global GitReleaseManager.Tool --version 0.14.0
         tag="${GITHUB_REF:10}"
         owner="${GITHUB_REPOSITORY%/*}"
         repo="${GITHUB_REPOSITORY#*/}"

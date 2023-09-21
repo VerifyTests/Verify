@@ -450,16 +450,6 @@ public class SerializationTests
         #endregion
     }
 
-    void FloatPrecision()
-    {
-        #region FloatPrecision
-
-        VerifierSettings
-            .AddExtraSettings(_ => _.FloatPrecision = 5);
-
-        #endregion
-    }
-
     [Theory]
     [InlineData(TypeNameHandling.All)]
     [InlineData(TypeNameHandling.Arrays)]

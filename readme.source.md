@@ -186,7 +186,7 @@ The same approach can be used to verify the results and the change to `Sample.Te
 
 There is also an overload that accepts `Func<Task<T>>`, which works well with `async` lambda expressions:
 
-snippet VerifyFuncOfTaskOfT
+snippet: VerifyFuncOfTaskOfT
 
 
 ### VerifyJson

@@ -152,19 +152,22 @@ public class Snippets
 
         #region VerifyFuncOfTaskOfT
 
-        await Verify(async () => new
-        {
-            Foo = await repo.GetFoo(id),
-            Bars = await repo.GetBars(id),
-        });
+        await Verify(
+            async () => new
+            {
+                Foo = await repo.GetFoo(id),
+                Bars = await repo.GetBars(id),
+            });
 
         #endregion
     }
 
     class Repo
     {
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         public Task<object> GetFoo(int id) => throw new NotImplementedException();
 
+        // ReSharper disable once MemberCanBeMadeStatic.Local
         public Task<object> GetBars(int id) => throw new NotImplementedException();
     }
 }

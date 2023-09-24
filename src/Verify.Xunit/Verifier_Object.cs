@@ -9,6 +9,7 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target()));
 
+    [Pure]
     public static SettingsTask Verify<T>(
         Task<T> target,
         VerifySettings? settings = null,

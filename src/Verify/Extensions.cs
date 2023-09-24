@@ -199,7 +199,8 @@ static class Extensions
 
         var frameworkName = new FrameworkName(attribute.FrameworkName);
         var name = Namer.GetSimpleFrameworkName(frameworkName);
-        return new (name, $"{name}{frameworkName.Version.Major}_{frameworkName.Version.Minor}");
+        var version = frameworkName.Version;
+        return new (name, $"{name}{version.Major}_{version.Minor}");
     }
 
     public static bool IsException(this Type type) =>

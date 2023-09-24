@@ -9,6 +9,7 @@ public partial class VerifyBase
         where T : notnull =>
         Verifier.Verify(target(), settings ?? this.settings, sourceFile);
 
+    [Pure]
     public SettingsTask Verify<T>(
         Task<T> target,
         VerifySettings? settings = null)

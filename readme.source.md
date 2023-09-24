@@ -180,6 +180,15 @@ And the test is re run it will fail.
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
+### Async
+
+`Verify()` has overloads that accept `Task<T>`, `ValueTask<T>`, and `IAsyncEnumerable<T>`. These are `await`ed before verification.
+
+There is also an overload that accepts `Func<Task<T>>`, which works well with `async` lambda expressions:
+
+snippet VerifyFuncOfTaskOfT
+
+
 ### VerifyJson
 
 `VerifyJson` performs the following actions

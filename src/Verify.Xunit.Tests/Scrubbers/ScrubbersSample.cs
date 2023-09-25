@@ -17,7 +17,7 @@ public class ScrubbersSample
 
                 return line;
             });
-        settings.ScrubLines(removeLine: line => line.Contains("J"));
+        settings.ScrubLines(removeLine: _ => _.Contains('J'));
         settings.ScrubLinesContaining("b", "D");
         settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
         return Verify(
@@ -58,16 +58,16 @@ public class ScrubbersSample
                LineJ
                """)
             .ScrubLinesWithReplace(
-                replaceLine: line =>
+                replaceLine: _ =>
                 {
-                    if (line.Contains("LineE"))
+                    if (_.Contains("LineE"))
                     {
                         return "NoMoreLineE";
                     }
 
-                    return line;
+                    return _;
                 })
-            .ScrubLines(removeLine: line => line.Contains("J"))
+            .ScrubLines(removeLine: _ => _.Contains('J'))
             .ScrubLinesContaining("b", "D")
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 

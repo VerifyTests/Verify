@@ -22,7 +22,7 @@ public class LinesScrubberTests
     public Task DontScrubTrailingNewline()
     {
         var settings = new VerifySettings();
-        settings.ScrubLines(removeLine: _ => _.Contains("D"));
+        settings.ScrubLines(removeLine: _ => _.Contains('D'));
         return Verify(
             settings: settings,
             target: """
@@ -35,7 +35,7 @@ public class LinesScrubberTests
     public Task DontScrubMultiNewline()
     {
         var settings = new VerifySettings();
-        settings.ScrubLines(removeLine: _ => _.Contains("D"));
+        settings.ScrubLines(removeLine: _ => _.Contains('D'));
         return Verify(
             settings: settings,
             target: """
@@ -49,7 +49,7 @@ public class LinesScrubberTests
     public Task FilterLines()
     {
         var settings = new VerifySettings();
-        settings.ScrubLines(removeLine: _ => _.Contains("D"));
+        settings.ScrubLines(removeLine: _ => _.Contains('D'));
         return Verify(
             settings: settings,
             target: """

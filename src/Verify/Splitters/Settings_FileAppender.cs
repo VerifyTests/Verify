@@ -76,42 +76,49 @@ public partial class VerifySettings
 
 public partial class SettingsTask
 {
+    [Pure]
     public SettingsTask AppendContentAsFile(StringBuilder content, string extension = "txt", string? name = null)
     {
         CurrentSettings.AppendContentAsFile(content, extension, name);
         return this;
     }
 
+    [Pure]
     public SettingsTask AppendContentAsFile(string content, string extension = "txt", string? name = null)
     {
         CurrentSettings.AppendContentAsFile(content, extension, name);
         return this;
     }
 
+    [Pure]
     public SettingsTask AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
         CurrentSettings.AppendContentAsFile(content, extension, name);
         return this;
     }
 
+    [Pure]
     public SettingsTask AppendFile(FileStream stream, string? name = null)
     {
         CurrentSettings.AppendFile(stream, name);
         return this;
     }
 
+    [Pure]
     public SettingsTask AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
         CurrentSettings.AppendFile(stream, extension, name);
         return this;
     }
 
+    [Pure]
     public SettingsTask AppendFile(string file, string? name = null)
     {
         CurrentSettings.AppendFile(file, name);
         return this;
     }
 
+    [Pure]
     public SettingsTask AppendFile(FileInfo file, string? name = null)
     {
         CurrentSettings.AppendFile(file, name);

@@ -325,6 +325,26 @@ And the test is re run it will fail.
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source control along with the change to `ClassBeingTested`.
 
 
+### Async
+
+`Verify()` has overloads that accept `Task<T>`, `ValueTask<T>`, and `IAsyncEnumerable<T>`. These are `await`ed before verification.
+
+There is also an overload that accepts `Func<Task<T>>`, which works well with `async` lambda expressions:
+
+<!-- snippet: VerifyFuncOfTaskOfT -->
+<a id='snippet-verifyfuncoftaskoft'></a>
+```cs
+await Verify(
+    async () => new
+    {
+        Foo = await repo.GetFoo(id),
+        Bars = await repo.GetBars(id),
+    });
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L153-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfuncoftaskoft' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### VerifyJson
 
 `VerifyJson` performs the following actions
@@ -486,7 +506,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L322-L331' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L329-L338' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible

@@ -151,7 +151,7 @@ public class WizardGen
         await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
-    async Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
+    Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{current}";
         var name = GetName(current);
@@ -170,7 +170,7 @@ public class WizardGen
 
         AppendContents(os, ide, cli, testFramework, current, builder);
 
-        await File.WriteAllTextAsync(sourceFile, builder.ToString());
+        return File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
     static string GetName(BuildServer preference) =>

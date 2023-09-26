@@ -24,6 +24,7 @@ partial class InnerVerifier
     public async Task<VerifyResult> VerifyXml(ValueTask<Stream> target) =>
         await VerifyXml(await target);
 
+    // ReSharper disable once ReplaceAsyncWithTaskReturn
     public async Task<VerifyResult> VerifyXml(Stream? target)
     {
         if (target is null)
@@ -52,11 +53,11 @@ partial class InnerVerifier
         return await VerifyXml(XDocument.Load(reader));
     }
 
-    async Task<VerifyResult> VerifyXml(XContainer? target)
+    Task<VerifyResult> VerifyXml(XContainer? target)
     {
         if (target is null)
         {
-            return await VerifyInner(target, null, emptyTargets, true);
+            return VerifyInner(target, null, emptyTargets, true);
         }
 
         var serialization = settings.serialization;
@@ -104,7 +105,7 @@ partial class InnerVerifier
             node.Value = ConvertValue(serialization, node.Value);
         }
 
-        return await VerifyString(target.ToString(), "xml");
+        return VerifyString(target.ToString(), "xml");
     }
 
     string ConvertValue(SerializationSettings serialization, string value)

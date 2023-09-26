@@ -3,8 +3,8 @@
 public partial class Counter
 {
 #if NET6_0_OR_GREATER
-    Dictionary<DateOnly, string> namedDates;
-    Dictionary<TimeOnly, string> namedTimes;
+    Dictionary<Date, string> namedDates;
+    Dictionary<Time, string> namedTimes;
 #endif
     Dictionary<DateTime, string> namedDateTimes;
     Dictionary<Guid, string> namedGuids;

@@ -22,7 +22,7 @@ public class SimpleTypeTests
 
     [Fact]
     public Task StringNullWrappedInTask() =>
-        Verify(Task.FromResult((string)null!));
+        Verify(Task.FromResult((string) null!));
 
     [Fact]
     public Task StringEmpty() =>
@@ -30,11 +30,11 @@ public class SimpleTypeTests
 
     [Fact]
     public Task StringNull() =>
-        Verify((string?)null);
+        Verify((string?) null);
 
     [Fact]
     public Task Null() =>
-        Verify((object?)null);
+        Verify((object?) null);
 
     [Fact]
     public Task NullWrappedInTask() =>
@@ -53,52 +53,58 @@ public class SimpleTypeTests
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[] {new KeyValuePair<string,int>("theKey",10)};
+        yield return [new KeyValuePair<string, int>("theKey", 10)];
 
         var json = """
-            {
-              'short': {
-                'original': 'http://www.foo.com/',
-                'short': 'foo',
-                'error': {
-                  'code': 0,
-                  'msg': 'No action taken'
-                }
-              }
-            }
-            """;
+                   {
+                     'short': {
+                       'original': 'http://www.foo.com/',
+                       'short': 'foo',
+                       'error': {
+                         'code': 0,
+                         'msg': 'No action taken'
+                       }
+                     }
+                   }
+                   """;
         var argonJToken = JToken.Parse(json);
-        yield return new object[] {argonJToken};
+        yield return new object[]
+        {
+            argonJToken
+        };
 
-        var jsonArray = """
-            [
-              'Small',
-              'Medium',
-              'Large'
-            ]
-            """;
-
-        var argonJArray = JArray.Parse(jsonArray);
-        yield return new object[] {argonJArray};
-        yield return new object[] {true};
-        yield return new object[] {"stringValue"};
-        yield return new object[] {File.OpenRead("sample.png")};
-        yield return new object[] {new byte[]{1}};
-        yield return new object[] {(long) 1};
-        yield return new object[] {(short) 1};
-        yield return new object[] {1};
-        yield return new object[] {(uint) 1};
-        yield return new object[] {(ulong) 1};
-        yield return new object[] {(ushort) 1};
-        yield return new object[] {(decimal) 1.1};
-        yield return new object[] {(float) 1.1};
-        yield return new object[] {new Guid("ebced679-45d3-4653-8791-3d969c4a986c")};
-        yield return new object[] {new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()};
-        yield return new object[] {new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()};
+        yield return [
+            JArray.Parse(
+                """
+                [
+                  'Small',
+                  'Medium',
+                  'Large'
+                ]
+                """)
+            ];
+        yield return [true];
+        yield return ["stringValue"];
+        yield return [File.OpenRead("sample.png")];
+        yield return [new byte[]
+        {
+            1
+        }];
+        yield return [(long) 1];
+        yield return [(short) 1];
+        yield return [1];
+        yield return [(uint) 1];
+        yield return [(ulong) 1];
+        yield return [(ushort) 1];
+        yield return [(decimal) 1.1];
+        yield return [(float) 1.1];
+        yield return [new Guid("ebced679-45d3-4653-8791-3d969c4a986c")];
+        yield return [new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc).ToUniversalTime()];
+        yield return [new DateTimeOffset(2000, 1, 1, 1, 1, 1, 1, TimeSpan.FromHours(1)).ToUniversalTime()];
 #if NET6_0_OR_GREATER
-        yield return new object[] {(Half) 10};
-        yield return new object[] {new Date(2000, 1, 1)};
-        yield return new object[] {new Time(1, 1)};
+        yield return [(Half) 10];
+        yield return [new Date(2000, 1, 1)];
+        yield return [new Time(1, 1)];
 #endif
     }
 }

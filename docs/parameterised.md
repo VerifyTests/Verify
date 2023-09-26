@@ -276,17 +276,8 @@ When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-t
 <a id='snippet-TestFixtureSourceUsage.cs'></a>
 ```cs
 [TestFixtureSource(nameof(FixtureArgs))]
-public class TestFixtureSourceUsage
+public class TestFixtureSourceUsage(string arg1, int arg2)
 {
-    string arg1;
-    int arg2;
-
-    public TestFixtureSourceUsage(string arg1, int arg2)
-    {
-        this.arg1 = arg1;
-        this.arg2 = arg2;
-    }
-
     [Test]
     public Task Test() =>
         Verify(
@@ -311,7 +302,7 @@ public class TestFixtureSourceUsage
     };
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.

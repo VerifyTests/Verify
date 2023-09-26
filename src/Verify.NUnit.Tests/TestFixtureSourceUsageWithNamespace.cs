@@ -1,17 +1,8 @@
 namespace MyNamespace;
 
 [TestFixtureSource(nameof(FixtureArgs))]
-public class TestFixtureSourceUsageWithNamespace
+public class TestFixtureSourceUsageWithNamespace(string arg1, int arg2)
 {
-    string arg1;
-    int arg2;
-
-    public TestFixtureSourceUsageWithNamespace(string arg1, int arg2)
-    {
-        this.arg1 = arg1;
-        this.arg2 = arg2;
-    }
-
     [Test]
     public Task Test() =>
         Verify(new

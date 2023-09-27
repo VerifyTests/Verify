@@ -52,6 +52,16 @@ public class VerifyJsonWriter :
         WriteRawValueIfNoStrict(value);
     }
 
+    public override void WritePropertyName(string name, bool escape)
+    {
+        if (VerifierSettings.StrictJson)
+        {
+            escape = false;
+        }
+
+        base.WritePropertyName(name, escape);
+    }
+
     public override void WriteValue(string? value)
     {
         if (value is null or "")

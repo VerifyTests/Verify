@@ -1,11 +1,6 @@
-﻿class TypeNameProvider :
+﻿class TypeNameProvider(Type type) :
     IValueProvider
 {
-    Type type;
-
-    public TypeNameProvider(Type type) =>
-        this.type = type;
-
     public void SetValue(object target, object? value) =>
         throw new NotImplementedException();
 

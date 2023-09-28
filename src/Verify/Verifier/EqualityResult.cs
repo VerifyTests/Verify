@@ -1,15 +1,7 @@
-﻿readonly struct EqualityResult
+﻿readonly struct EqualityResult(Equality equality, string? message, StringBuilder? receivedText, StringBuilder? verifiedText)
 {
-    public Equality Equality { get; }
-    public string? Message { get; }
-    public StringBuilder? ReceivedText { get; }
-    public StringBuilder? VerifiedText { get; }
-
-    public EqualityResult(Equality equality, string? message, StringBuilder? receivedText, StringBuilder? verifiedText)
-    {
-        Equality = equality;
-        Message = message;
-        ReceivedText = receivedText;
-        VerifiedText = verifiedText;
-    }
+    public Equality Equality { get; } = equality;
+    public string? Message { get; } = message;
+    public StringBuilder? ReceivedText { get; } = receivedText;
+    public StringBuilder? VerifiedText { get; } = verifiedText;
 }

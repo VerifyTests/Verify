@@ -1,11 +1,5 @@
-﻿class FrameworkNameVersion
+﻿class FrameworkNameVersion(string name, string nameAndVersion)
 {
-    public string Name { get; }
-    public string NameAndVersion { get; }
-
-    public FrameworkNameVersion(string name, string nameAndVersion)
-    {
-        Name = name;
-        NameAndVersion = nameAndVersion;
-    }
+    public string Name { get; } = name;
+    public string NameAndVersion { get; } = nameAndVersion;
 }

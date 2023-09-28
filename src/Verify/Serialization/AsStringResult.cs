@@ -1,15 +1,9 @@
 ﻿namespace VerifyTests;
 
-public readonly struct AsStringResult
+public readonly struct AsStringResult(string value, string? extension = null)
 {
-    public string Value { get; }
-    public string? Extension { get; }
-
-    public AsStringResult(string value, string? extension = null)
-    {
-        Value = value;
-        Extension = extension;
-    }
+    public string Value { get; } = value;
+    public string? Extension { get; } = extension;
 
     public static implicit operator AsStringResult(string value) =>
         new(value);

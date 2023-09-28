@@ -1,34 +1,19 @@
-﻿class CustomValueProvider :
+﻿class CustomValueProvider(IValueProvider inner,
+    Type type,
+    Func<Exception, bool> ignoreException,
+    ConvertTargetMember? converter,
+    SerializationSettings settings) :
     IValueProvider
 {
-    IValueProvider inner;
-    Type memberType;
-    Func<Exception, bool> shouldIgnoreException;
-    ConvertTargetMember? membersConverter;
-    SerializationSettings settings;
-
-    public CustomValueProvider(IValueProvider inner,
-        Type memberType,
-        Func<Exception, bool> shouldIgnoreException,
-        ConvertTargetMember? membersConverter,
-        SerializationSettings settings)
-    {
-        this.inner = inner;
-        this.memberType = memberType;
-        this.shouldIgnoreException = shouldIgnoreException;
-        this.membersConverter = membersConverter;
-        this.settings = settings;
-    }
-
     public void SetValue(object target, object? value) =>
         throw new NotImplementedException();
 
     public object? GetValue(object target)
     {
-        if (membersConverter is not null)
+        if (converter is not null)
         {
             var value = inner.GetValue(target);
-            return membersConverter(target, value);
+            return converter(target, value);
         }
 
         try
@@ -41,11 +26,13 @@
                 {
                     return null;
                 }
+
                 if (scrubOrIgnore == ScrubOrIgnore.Scrub)
                 {
                     return "{Scrubbed}";
                 }
             }
+
             return value;
         }
         catch (Exception exception)
@@ -56,7 +43,7 @@
                 throw;
             }
 
-            if (shouldIgnoreException(innerException))
+            if (ignoreException(innerException))
             {
                 return GetDefault();
             }
@@ -67,9 +54,9 @@
 
     object? GetDefault()
     {
-        if (memberType.IsValueType)
+        if (type.IsValueType)
         {
-            return Activator.CreateInstance(memberType);
+            return Activator.CreateInstance(type);
         }
 
         return null;

@@ -5,5 +5,5 @@
 
     public override string? Get(char[] key, int start, int length) => null;
 
-    public override string? Add(string name) => name;
+    public override string Add(string name) => name;
 }

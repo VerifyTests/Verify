@@ -1,6 +1,9 @@
 ﻿class CustomContractResolver(SerializationSettings settings) :
     DefaultContractResolver
 {
+    public override JsonNameTable GetNameTable() =>
+        NoOpNameTable.Instance;
+
     protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
         var contract = base.CreateDictionaryContract(objectType);

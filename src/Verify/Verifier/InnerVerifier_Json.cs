@@ -32,7 +32,10 @@ partial class InnerVerifier
         }
 
         using var reader = new StreamReader(target);
-        using var textReader = new JsonTextReader(reader);
+        using var textReader = new JsonTextReader(reader)
+        {
+            PropertyNameTable = NoOpNameTable.Instance
+        };
         var token = await JToken.LoadAsync(textReader);
         return await VerifyJson(token);
     }

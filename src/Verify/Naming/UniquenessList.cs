@@ -3,7 +3,7 @@
     List<string> inner;
 
     public UniquenessList() =>
-        inner = new();
+        inner = [];
 
     public UniquenessList(UniquenessList value) =>
         inner = new(value.inner);

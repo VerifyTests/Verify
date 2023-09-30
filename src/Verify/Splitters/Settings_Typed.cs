@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static List<TypeConverter> typedConverters = new();
+    static List<TypeConverter> typedConverters = [];
 
     internal static bool TryGetTypedConverter<T>(
         T target,

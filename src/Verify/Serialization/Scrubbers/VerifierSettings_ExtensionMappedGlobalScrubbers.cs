@@ -21,7 +21,7 @@ public static partial class VerifierSettings
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         if (!ExtensionMappedGlobalScrubbers.TryGetValue(extension, out var values))
         {
-            ExtensionMappedGlobalScrubbers[extension] = values = new();
+            ExtensionMappedGlobalScrubbers[extension] = values = [];
         }
 
         switch (location)

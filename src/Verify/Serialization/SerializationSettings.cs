@@ -132,7 +132,7 @@ partial class SerializationSettings
         serializer = null;
     }
 
-    List<Action<JsonSerializerSettings>> extraSettings = new();
+    List<Action<JsonSerializerSettings>> extraSettings = [];
     JsonSerializer? serializer;
 
     internal JsonSerializer Serializer

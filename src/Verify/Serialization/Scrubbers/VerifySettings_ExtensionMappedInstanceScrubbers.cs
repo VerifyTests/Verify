@@ -17,7 +17,7 @@ public partial class VerifySettings
     {
         if (!ExtensionMappedInstanceScrubbers.TryGetValue(extension, out var values))
         {
-            ExtensionMappedInstanceScrubbers[extension] = values = new();
+            ExtensionMappedInstanceScrubbers[extension] = values = [];
         }
 
         switch (location)

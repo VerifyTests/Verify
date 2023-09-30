@@ -3,7 +3,7 @@ public class CircularTests
 {
     public class Parent
     {
-        public List<Child> Children { get; set; } = new();
+        public List<Child> Children { get; set; } = [];
     }
 
     public class Child

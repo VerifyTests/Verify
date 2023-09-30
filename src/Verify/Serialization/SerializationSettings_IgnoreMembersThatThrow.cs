@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    List<Func<Exception, bool>> ignoreMembersThatThrow = new();
+    List<Func<Exception, bool>> ignoreMembersThatThrow = [];
 
     public void IgnoreMembersThatThrow<T>()
         where T : Exception =>

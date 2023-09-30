@@ -1,7 +1,7 @@
 ﻿class InfoBuilder
 {
     object? root;
-    List<Item> inner = new();
+    List<Item> inner = [];
 
     public InfoBuilder(object? root, List<ToAppend> appends)
     {
@@ -29,10 +29,7 @@
     {
         public string Key { get; } = key;
 
-        public List<object> Values { get; } = new()
-        {
-            value
-        };
+        public List<object> Values { get; } = [value];
     }
 
     public class Converter :

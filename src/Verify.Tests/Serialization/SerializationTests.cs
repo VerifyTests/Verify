@@ -729,11 +729,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
-                "Sam",
-                "Mary"
-            },
+            Children = ["Sam", "Mary"],
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -834,11 +830,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
-                "Sam",
-                "Mary"
-            },
+            Children = ["Sam", "Mary"],
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -1853,7 +1845,7 @@ public class SerializationTests
             EnumerableAsList = new List<string>(),
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new ReadOnlyList(),
-            ListProperty = new(),
+            ListProperty = [],
             ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]
             {
             }),
@@ -1865,7 +1857,7 @@ public class SerializationTests
     class ReadOnlyList : IReadOnlyList<string>
     {
         // ReSharper disable CollectionNeverUpdated.Local
-        List<string> inner = new();
+        List<string> inner = [];
         // ReSharper restore CollectionNeverUpdated.Local
 
         public IEnumerator<string> GetEnumerator() =>
@@ -3370,7 +3362,7 @@ public class SerializationTests
 
     public class Parent
     {
-        public List<Child> Children { get; set; } = new();
+        public List<Child> Children { get; set; } = [];
     }
 
     public class Child

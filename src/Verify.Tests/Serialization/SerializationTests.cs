@@ -43,6 +43,93 @@ public class SerializationTests
             });
     }
 
+
+    [ModuleInitializer]
+    public static void OrderEnumerableByGlobalInit() =>
+        VerifierSettings.OrderEnumerableBy<EnumerableOrderDescendingGlobalItem>(_ => _.value);
+
+    [Fact]
+    public Task OrderEnumerableByGlobal() =>
+        Verify(
+            new List<EnumerableOrderGlobalItem>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            });
+
+    public record EnumerableOrderGlobalItem(string value);
+
+    [ModuleInitializer]
+    public static void OrderEnumerableByDescendingGlobalInit() =>
+        VerifierSettings.OrderEnumerableByDescending<EnumerableOrderDescendingGlobalItem>(_ => _.value);
+
+    [Fact]
+    public Task OrderEnumerableByDescendingGlobal() =>
+        Verify(
+            new List<EnumerableOrderDescendingGlobalItem>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            });
+
+    public record EnumerableOrderDescendingGlobalItem(string value);
+
+    [Fact]
+    public Task EnumerableOrder()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>(_ => _);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+
+    [Fact]
+    public Task OrderEnumerableByDescending()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>(_ => _);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+    [Fact]
+    public Task EnumerableOrderFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableBy<string>(_ => _);
+
+    [Fact]
+    public Task OrderEnumerableByDescendingFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableByDescending<string>(_ => _);
+
+
     #region AddExtraDatetimeFormat
 
     [ModuleInitializer]

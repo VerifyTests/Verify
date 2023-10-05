@@ -58,6 +58,7 @@ partial class SerializationSettings
                 _ => _.Key,
                 _ => _.Value.Clone());
         scrubDateTimes = settings.scrubDateTimes;
+        enumerableInterceptors = new(settings.enumerableInterceptors);
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;
 

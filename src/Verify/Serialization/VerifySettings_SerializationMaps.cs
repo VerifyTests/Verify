@@ -156,6 +156,18 @@ public partial class VerifySettings
         serialization.ScrubInstance(shouldScrub);
     }
 
+    public void OrderEnumerableBy<T>(Func<T, object> keySelector)
+    {
+        CloneSettings();
+        serialization.OrderEnumerableBy(keySelector);
+    }
+
+    public void OrderEnumerableByDescending<T>(Func<T, object> keySelector)
+    {
+        CloneSettings();
+        serialization.OrderEnumerableByDescending(keySelector);
+    }
+
     public void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         CloneSettings();

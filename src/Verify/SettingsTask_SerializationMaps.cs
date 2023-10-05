@@ -24,6 +24,20 @@ public partial class SettingsTask
     }
 
     [Pure]
+    public SettingsTask OrderEnumerableBy<TSource, TKey>(Func<TSource, TKey> keySelector)
+    {
+        CurrentSettings.OrderEnumerableBy(keySelector);
+        return this;
+    }
+
+    [Pure]
+    public SettingsTask OrderEnumerableByDescending<TSource, TKey>(Func<TSource, TKey> keySelector)
+    {
+        CurrentSettings.OrderEnumerableByDescending(keySelector);
+        return this;
+    }
+
+    [Pure]
     public SettingsTask IncludeObsoletes()
     {
         CurrentSettings.IncludeObsoletes();

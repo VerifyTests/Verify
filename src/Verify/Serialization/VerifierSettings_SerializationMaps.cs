@@ -186,6 +186,17 @@ public static partial class VerifierSettings
         serialization.ScrubInstance(shouldIgnore);
     }
 
+    public static void OrderEnumerableBy<TSource, TKey>(Func<TSource, TKey> keySelector)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.OrderEnumerableBy(keySelector);
+    }
+    public static void OrderEnumerableByDescending<TSource, TKey>(Func<TSource, TKey> keySelector)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.OrderEnumerableByDescending(keySelector);
+    }
+
     public static void IgnoreInstance(Type type, ShouldIgnore shouldIgnore)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

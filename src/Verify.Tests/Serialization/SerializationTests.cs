@@ -43,6 +43,59 @@ public class SerializationTests
             });
     }
 
+    [Fact]
+    public Task EnumerableOrder()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string, string>(_ => _);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+    [Fact]
+    public Task OrderEnumerableByDescending()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string, string>(_ => _);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+    [Fact]
+    public Task EnumerableOrderFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableBy<string, string>(_ => _);
+
+    [Fact]
+    public Task OrderEnumerableByDescendingFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableByDescending<string, string>(_ => _);
+
+
     #region AddExtraDatetimeFormat
 
     [ModuleInitializer]

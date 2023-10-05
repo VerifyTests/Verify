@@ -47,7 +47,7 @@ public class SerializationTests
     public Task EnumerableOrder()
     {
         var settings = new VerifySettings();
-        settings.OrderEnumerableBy<string, string>(_ => _);
+        settings.OrderEnumerableBy<string>(_ => _);
         return Verify(
             new List<string>
             {
@@ -62,7 +62,7 @@ public class SerializationTests
     public Task OrderEnumerableByDescending()
     {
         var settings = new VerifySettings();
-        settings.OrderEnumerableBy<string, string>(_ => _);
+        settings.OrderEnumerableBy<string>(_ => _);
         return Verify(
             new List<string>
             {

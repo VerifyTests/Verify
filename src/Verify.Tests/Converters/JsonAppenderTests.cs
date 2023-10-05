@@ -94,4 +94,11 @@ public class JsonAppenderTests : IDisposable
     [Fact]
     public Task OnlyJsonAppender() =>
         Verify();
+
+    [Fact]
+    public Task NoJsonAppender()
+    {
+        isInThisTest.Value = false;
+        return Verify();
+    }
 }

@@ -156,13 +156,13 @@ public partial class VerifySettings
         serialization.ScrubInstance(shouldScrub);
     }
 
-    public void OrderEnumerableBy<TSource>(Func<TSource, object> keySelector)
+    public void OrderEnumerableBy<T>(Func<T, object> keySelector)
     {
         CloneSettings();
         serialization.OrderEnumerableBy(keySelector);
     }
 
-    public void OrderEnumerableByDescending<TSource>(Func<TSource, object> keySelector)
+    public void OrderEnumerableByDescending<T>(Func<T, object> keySelector)
     {
         CloneSettings();
         serialization.OrderEnumerableByDescending(keySelector);

@@ -43,6 +43,39 @@ public class SerializationTests
             });
     }
 
+
+    [ModuleInitializer]
+    public static void OrderEnumerableByGlobalInit() =>
+        VerifierSettings.OrderEnumerableBy<EnumerableOrderDescendingGlobalItem>(_ => _.value);
+
+    [Fact]
+    public Task OrderEnumerableByGlobal() =>
+        Verify(
+            new List<EnumerableOrderGlobalItem>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            });
+
+    public record EnumerableOrderGlobalItem(string value);
+
+    [ModuleInitializer]
+    public static void OrderEnumerableByDescendingGlobalInit() =>
+        VerifierSettings.OrderEnumerableByDescending<EnumerableOrderDescendingGlobalItem>(_ => _.value);
+
+    [Fact]
+    public Task OrderEnumerableByDescendingGlobal() =>
+        Verify(
+            new List<EnumerableOrderDescendingGlobalItem>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            });
+
+    public record EnumerableOrderDescendingGlobalItem(string value);
+
     [Fact]
     public Task EnumerableOrder()
     {
@@ -57,6 +90,7 @@ public class SerializationTests
             },
             settings);
     }
+
 
     [Fact]
     public Task OrderEnumerableByDescending()
@@ -82,7 +116,7 @@ public class SerializationTests
                     "c",
                     "b"
                 })
-            .OrderEnumerableBy<string, string>(_ => _);
+            .OrderEnumerableBy<string>(_ => _);
 
     [Fact]
     public Task OrderEnumerableByDescendingFluent() =>
@@ -93,7 +127,7 @@ public class SerializationTests
                     "c",
                     "b"
                 })
-            .OrderEnumerableByDescending<string, string>(_ => _);
+            .OrderEnumerableByDescending<string>(_ => _);
 
 
     #region AddExtraDatetimeFormat

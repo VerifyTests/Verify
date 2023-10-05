@@ -207,7 +207,7 @@
         };
 
         if (contract.CollectionItemType != null &&
-            settings.TryGetEnumerableOrders(contract.CollectionItemType, out var order))
+            settings.TryGetEnumerableInterceptors(contract.CollectionItemType, out var order))
         {
             contract.InterceptSerializeItems = _ => order(_);
         }

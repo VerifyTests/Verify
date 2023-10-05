@@ -24,14 +24,14 @@ public partial class SettingsTask
     }
 
     [Pure]
-    public SettingsTask OrderEnumerableBy<TSource>(Func<TSource, object> keySelector)
+    public SettingsTask OrderEnumerableBy<T>(Func<T, object> keySelector)
     {
         CurrentSettings.OrderEnumerableBy(keySelector);
         return this;
     }
 
     [Pure]
-    public SettingsTask OrderEnumerableByDescending<TSource>(Func<TSource, object> keySelector)
+    public SettingsTask OrderEnumerableByDescending<T>(Func<T, object> keySelector)
     {
         CurrentSettings.OrderEnumerableByDescending(keySelector);
         return this;

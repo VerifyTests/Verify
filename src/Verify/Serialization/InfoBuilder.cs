@@ -37,29 +37,35 @@
     {
         public override void Write(VerifyJsonWriter writer, InfoBuilder value)
         {
+            var root = value.root;
             if (value.inner.Count == 0)
             {
-                if (value.root == null)
+                if (root == null ||
+                    root == InnerVerifier.IgnoreTarget)
                 {
                     writer.Serialize("null");
                 }
                 else
                 {
-                    writer.Serialize(value.root);
+                    writer.Serialize(root);
                 }
 
                 return;
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("target");
-            if (value.root == null)
+
+            if (root != InnerVerifier.IgnoreTarget)
             {
-                writer.WriteValue("null");
-            }
-            else
-            {
-                writer.Serialize(value.root);
+                writer.WritePropertyName("target");
+                if (root == null)
+                {
+                    writer.WriteValue("null");
+                }
+                else
+                {
+                    writer.Serialize(root);
+                }
             }
 
             foreach (var item in value.inner)

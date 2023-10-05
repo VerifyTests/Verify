@@ -90,4 +90,8 @@ public class JsonAppenderTests : IDisposable
     [Fact]
     public Task File() =>
         VerifyFile("sample.txt");
+
+    [Fact]
+    public Task OnlyJsonAppender() =>
+        Verify();
 }

@@ -140,14 +140,16 @@ resharper_wrap_before_binary_pattern_op = false
 resharper_wrap_object_and_collection_initializer_style = chop_always
 resharper_place_simple_initializer_on_single_line = false
 
-# space
-resharper_space_around_lambda_arrow = true
-
 dotnet_style_require_accessibility_modifiers = never:error
 resharper_place_type_constraints_on_same_line = false
 resharper_blank_lines_inside_namespace = 0
 resharper_blank_lines_after_file_scoped_namespace_directive = 1
 resharper_blank_lines_inside_type = 0
+
+insert_final_newline = false
+resharper_place_attribute_on_same_line = false
+resharper_space_around_lambda_arrow = true
+resharper_place_constructor_initializer_on_same_line = false
 
 #braces https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html#Braces
 resharper_braces_for_ifelse = required

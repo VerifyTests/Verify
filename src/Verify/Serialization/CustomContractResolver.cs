@@ -194,6 +194,7 @@
     protected override JsonArrayContract CreateArrayContract(Type objectType)
     {
         var contract = base.CreateArrayContract(objectType);
+
         contract.InterceptSerializeItem = item =>
         {
             if (item is not null &&
@@ -204,6 +205,12 @@
 
             return InterceptResult.Default;
         };
+
+        if (contract.CollectionItemType != null &&
+            settings.TryGetEnumerableInterceptors(contract.CollectionItemType, out var order))
+        {
+            contract.InterceptSerializeItems = _ => order(_);
+        }
 
         return contract;
     }

@@ -15,7 +15,7 @@ class ClaimConverter :
 
         writer.WriteMember(claim, claim.Properties, "Properties");
 
-        if (claim.Subject is {Name: { }})
+        if (claim.Subject is {Name: not null})
         {
             writer.WriteMember(claim, claim.Subject, "Subject");
         }

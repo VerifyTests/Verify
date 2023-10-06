@@ -89,8 +89,20 @@ public class SerializationTests
                 "b"
             },
             settings);
+    }   [Fact]
+    public Task EnumerableOrderWithNull()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>(_ => null);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
     }
-
 
     [Fact]
     public Task OrderEnumerableByDescending()

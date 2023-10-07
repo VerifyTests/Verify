@@ -48,6 +48,12 @@ public static partial class VerifierSettings
             return;
         }
 
+        if (parameter is string stringParameter)
+        {
+            FileNameCleaner.AppendValid(builder, stringParameter);
+            return;
+        }
+
         foreach (var parameterToName in parameterToNameLookup)
         {
             if (parameterToName.Key.IsInstanceOfType(parameter))
@@ -55,12 +61,6 @@ public static partial class VerifierSettings
                 builder.Append(parameterToName.Value(parameter));
                 return;
             }
-        }
-
-        if (parameter is string stringParameter)
-        {
-            FileNameCleaner.AppendValid(builder, stringParameter);
-            return;
         }
 
         if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))

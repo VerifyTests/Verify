@@ -54,11 +54,13 @@ public static partial class VerifierSettings
             return;
         }
 
-        foreach (var parameterToName in parameterToNameLookup)
+        var type = parameter.GetType();
+
+        foreach (var (key, value) in parameterToNameLookup)
         {
-            if (parameterToName.Key.IsInstanceOfType(parameter))
+            if (key.IsAssignableFrom(type))
             {
-                builder.Append(parameterToName.Value(parameter));
+                builder.Append(value(parameter));
                 return;
             }
         }
@@ -90,7 +92,6 @@ public static partial class VerifierSettings
             return;
         }
 
-        var type = parameter.GetType();
         if (type.IsGeneric(typeof(KeyValuePair<,>)))
         {
             var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);

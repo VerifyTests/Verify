@@ -56,6 +56,12 @@ public static partial class VerifierSettings
 
         var type = parameter.GetType();
 
+        if (parameterToNameLookup.TryGetValue(type, out var lookup))
+        {
+            builder.Append(lookup(parameter));
+            return;
+        }
+
         foreach (var (key, value) in parameterToNameLookup)
         {
             if (key.IsAssignableFrom(type))
@@ -77,6 +83,7 @@ public static partial class VerifierSettings
             {
                 builder.Append('[');
             }
+
             foreach (var item in enumerable)
             {
                 GetNameForParameter(item, builder, false);

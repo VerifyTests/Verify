@@ -12,8 +12,8 @@
     <PackageReference Include="System.IO.Compression" Version="4.3.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="System.IO.Hashing" Version="7.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0'" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
-    <PackageReference Include="DiffEngine" Version="12.3.1" />
-    <PackageReference Include="EmptyFiles" Version="4.5.2" PrivateAssets="None" />
+    <PackageReference Include="DiffEngine" Version="12.3.2" />
+    <PackageReference Include="EmptyFiles" Version="4.6.0" PrivateAssets="None" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="SimpleInfoName" Version="2.1.1" />

@@ -48,19 +48,27 @@ public static partial class VerifierSettings
             return;
         }
 
-        foreach (var parameterToName in parameterToNameLookup)
-        {
-            if (parameterToName.Key.IsInstanceOfType(parameter))
-            {
-                builder.Append(parameterToName.Value(parameter));
-                return;
-            }
-        }
-
         if (parameter is string stringParameter)
         {
             FileNameCleaner.AppendValid(builder, stringParameter);
             return;
+        }
+
+        var type = parameter.GetType();
+
+        if (parameterToNameLookup.TryGetValue(type, out var lookup))
+        {
+            builder.Append(lookup(parameter));
+            return;
+        }
+
+        foreach (var (key, value) in parameterToNameLookup)
+        {
+            if (key.IsAssignableFrom(type))
+            {
+                builder.Append(value(parameter));
+                return;
+            }
         }
 
         if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
@@ -75,6 +83,7 @@ public static partial class VerifierSettings
             {
                 builder.Append('[');
             }
+
             foreach (var item in enumerable)
             {
                 GetNameForParameter(item, builder, false);
@@ -90,7 +99,6 @@ public static partial class VerifierSettings
             return;
         }
 
-        var type = parameter.GetType();
         if (type.IsGeneric(typeof(KeyValuePair<,>)))
         {
             var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);

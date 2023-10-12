@@ -58,6 +58,7 @@ partial class SerializationSettings
                 _ => _.Key,
                 _ => _.Value.Clone());
         scrubDateTimes = settings.scrubDateTimes;
+        enumerableInterceptors = new(settings.enumerableInterceptors);
         scrubGuids = settings.scrubGuids;
         includeObsoletes = settings.includeObsoletes;
 
@@ -132,7 +133,7 @@ partial class SerializationSettings
         serializer = null;
     }
 
-    List<Action<JsonSerializerSettings>> extraSettings = new();
+    List<Action<JsonSerializerSettings>> extraSettings = [];
     JsonSerializer? serializer;
 
     internal JsonSerializer Serializer

@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    internal static List<Action<StringBuilder, Counter>> GlobalScrubbers = new();
+    internal static List<Action<StringBuilder, Counter>> GlobalScrubbers = [];
 
     /// <summary>
     /// Modify the resulting test content using custom code.

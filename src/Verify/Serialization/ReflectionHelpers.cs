@@ -61,15 +61,9 @@
             _ => throw new($"No supported MemberType: {member.MemberType}")
         };
 
-    public static bool IsEmptyCollectionOrDictionary(this object target)
-    {
-        if (TryGetCollectionOrDictionary(target, out var isEmpty, out _))
-        {
-            return isEmpty.Value;
-        }
-
-        return false;
-    }
+    public static bool IsEmptyCollectionOrDictionary(this object target) =>
+        TryGetCollectionOrDictionary(target, out var isEmpty, out _) &&
+        isEmpty.Value;
 
     public static bool TryGetCollectionOrDictionary(this object target, [NotNullWhen(true)] out bool? isEmpty, [NotNullWhen(true)] out IEnumerable? enumerable)
     {
@@ -137,23 +131,13 @@
                 return true;
             }
         }
-        return false;
-    }
-
-    public static bool IsGeneric(this Type type, Type generic)
-    {
-        if (!type.IsGenericType)
-        {
-            return false;
-        }
-
-        if (type.GetGenericTypeDefinition() == generic)
-        {
-            return true;
-        }
 
         return false;
     }
+
+    public static bool IsGeneric(this Type type, Type generic) =>
+        type.IsGenericType &&
+        type.GetGenericTypeDefinition() == generic;
 
     static bool ImplementsGenericCollection(this Type type) =>
         type.IsGeneric(

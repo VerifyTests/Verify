@@ -1,9 +1,9 @@
 ﻿partial class SerializationSettings
 {
-    internal static List<string> dateFormats = new() {"d"};
-    internal static List<string> timeFormats = new() {"h:mm tt"};
-    internal static List<string> datetimeFormats = new();
-    internal static List<string> datetimeOffsetFormats = new();
+    internal static List<string> dateFormats = ["d"];
+    internal static List<string> timeFormats = ["h:mm tt"];
+    internal static List<string> datetimeFormats = [];
+    internal static List<string> datetimeOffsetFormats = [];
 
     internal bool TryConvert(Counter counter, DateTime value, [NotNullWhen(true)] out string? result)
     {

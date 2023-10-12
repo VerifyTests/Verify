@@ -100,16 +100,29 @@ partial class SerializationSettings
 
     internal bool TryGetScrubOrIgnoreByMemberOfType(Type declaringType, string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {
-        foreach (var typeIgnores in ignoredMembers)
+        if (ignoredMembers.TryGetValue(declaringType, out var ignores))
         {
-            if (typeIgnores.Key.IsAssignableFrom(declaringType))
+            if (ignores.TryGetValue(name, out var innerScrubOrIgnore))
             {
-                if (typeIgnores.Value.TryGetValue(name, out var innerScrubOrIgnore))
-                {
-                    scrubOrIgnore = innerScrubOrIgnore;
-                    return true;
-                }
+                scrubOrIgnore = innerScrubOrIgnore;
+                return true;
             }
+        }
+
+        foreach (var (key, value) in ignoredMembers)
+        {
+            if (!key.IsAssignableFrom(declaringType))
+            {
+                continue;
+            }
+
+            if (!value.TryGetValue(name, out var innerScrubOrIgnore))
+            {
+                continue;
+            }
+
+            scrubOrIgnore = innerScrubOrIgnore;
+            return true;
         }
 
         scrubOrIgnore = null;

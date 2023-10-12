@@ -35,13 +35,11 @@
             return false;
         }
 
-        if (ignoreEmptyCollections)
+        if (ignoreEmptyCollections &&
+            value.IsEmptyCollectionOrDictionary())
         {
-            if (value.IsEmptyCollectionOrDictionary())
-            {
-                scrubOrIgnore = ScrubOrIgnore.Ignore;
-                return true;
-            }
+            scrubOrIgnore = ScrubOrIgnore.Ignore;
+            return true;
         }
 
         scrubOrIgnore = null;

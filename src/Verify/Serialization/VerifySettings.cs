@@ -18,7 +18,7 @@ public partial class VerifySettings
 
     internal JsonSerializer Serializer => serialization.Serializer;
 
-    internal List<ToAppend> Appends = new();
+    internal List<ToAppend> Appends = [];
 
     /// <summary>
     /// Append a key-value pair to the serialized target.

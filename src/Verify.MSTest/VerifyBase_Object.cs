@@ -3,6 +3,12 @@
 public partial class VerifyBase
 {
     [Pure]
+    public SettingsTask Verify(
+        VerifySettings? settings = null,
+        [CallerFilePath] string sourceFile = "") =>
+        Verify(settings, sourceFile, _ => _.Verify());
+
+    [Pure]
     public SettingsTask Verify<T>(
         Func<Task<T>> target,
         VerifySettings? settings = null,

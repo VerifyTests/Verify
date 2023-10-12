@@ -2,7 +2,7 @@
 
 public partial class VerifySettings
 {
-    internal List<Action<StringBuilder, Counter>> InstanceScrubbers = new();
+    internal List<Action<StringBuilder, Counter>> InstanceScrubbers = [];
 
     /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.

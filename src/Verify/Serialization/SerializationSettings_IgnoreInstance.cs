@@ -19,7 +19,7 @@
     {
         if (!ignoredInstances.TryGetValue(type, out var list))
         {
-            ignoredInstances[type] = list = new();
+            ignoredInstances[type] = list = [];
         }
 
         list.Add(_ =>
@@ -50,7 +50,7 @@
     {
         if (!ignoredInstances.TryGetValue(type, out var list))
         {
-            ignoredInstances[type] = list = new();
+            ignoredInstances[type] = list = [];
         }
 
         list.Add(_ =>

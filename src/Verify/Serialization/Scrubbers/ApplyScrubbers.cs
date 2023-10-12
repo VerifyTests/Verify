@@ -4,7 +4,7 @@ static class ApplyScrubbers
 {
     static char dirSeparator = Path.DirectorySeparatorChar;
     static char altDirSeparator = Path.AltDirectorySeparatorChar;
-    static List<KeyValuePair<string, string>> replacements = new();
+    static List<KeyValuePair<string, string>> replacements = [];
 
     static string ReplaceAltDirChar(this string directory) =>
         directory.Replace(dirSeparator, altDirSeparator);

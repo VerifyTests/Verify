@@ -9,29 +9,37 @@ partial class SerializationSettings
         ScrubMembersWithType(typeof(T));
 
     public void ScrubMembersWithType(Type type) =>
-        ignoredTypes[type]= ScrubOrIgnore.Scrub;
+        Add(type, ScrubOrIgnore.Scrub);
 
     public void IgnoreMembersWithType<T>()
         where T : notnull =>
         IgnoreMembersWithType(typeof(T));
 
     public void IgnoreMembersWithType(Type type) =>
-        ignoredTypes[type]= ScrubOrIgnore.Ignore;
+        Add(type, ScrubOrIgnore.Ignore);
+
+    void Add(Type type, ScrubOrIgnore scrubOrIgnore)
+    {
+        ignoredTypes[type] = scrubOrIgnore;
+
+        if (type.IsValueType)
+        {
+            var genericType = typeof(Nullable<>).MakeGenericType(type);
+            ignoredTypes[genericType] = scrubOrIgnore;
+        }
+    }
 
     bool TryGetScrubOrIgnoreByType(Type memberType, [NotNullWhen(true)]out ScrubOrIgnore? scrubOrIgnore)
     {
+        if (ignoredTypes.TryGetValue(memberType, out var value))
+        {
+            scrubOrIgnore = value;
+            return true;
+        }
+
         foreach (var member in ignoredTypes)
         {
             if (memberType.InheritsFrom(member.Key))
-            {
-                scrubOrIgnore = member.Value;
-                return true;
-            }
-        }
-        var typeFromNullable = Nullable.GetUnderlyingType(memberType);
-        foreach (var member in ignoredTypes)
-        {
-            if (member.Key.IsAssignableFrom(typeFromNullable))
             {
                 scrubOrIgnore = member.Value;
                 return true;

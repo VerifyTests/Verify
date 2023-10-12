@@ -10,6 +10,10 @@ public class NameForParameterTests
         Verify(VerifierSettings.GetNameForParameter(""));
 
     [Fact]
+    public Task StringInvalidPathChar() =>
+        Verify(VerifierSettings.GetNameForParameter("a/a"));
+
+    [Fact]
     public Task Int() =>
         Verify(VerifierSettings.GetNameForParameter(10));
 

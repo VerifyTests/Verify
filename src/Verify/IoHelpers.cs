@@ -238,16 +238,18 @@
     public static async Task WriteStream(string path, Stream stream)
     {
         CreateDirectory(Path.GetDirectoryName(path));
-        if (!TryCopyFileStream(path, stream))
+        if (TryCopyFileStream(path, stream))
         {
-            // keep using scope to stream is flushed
-            using (var targetStream = OpenWrite(path))
-            {
-                await stream.SafeCopy(targetStream);
-            }
-
-            HandleEmptyFile(path);
+            return;
         }
+
+        // keep using scope to stream is flushed
+        using (var targetStream = OpenWrite(path))
+        {
+            await stream.SafeCopy(targetStream);
+        }
+
+        HandleEmptyFile(path);
     }
 
 #endif

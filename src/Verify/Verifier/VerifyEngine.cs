@@ -6,10 +6,10 @@ class VerifyEngine
     string directory;
     VerifySettings settings;
     bool diffEnabled;
-    List<NewResult> @new = new();
-    List<NotEqualResult> notEquals = new();
-    List<FilePair> equal = new();
-    List<FilePair> autoVerified = new();
+    List<NewResult> @new = [];
+    List<NotEqualResult> notEquals = [];
+    List<FilePair> equal = [];
+    List<FilePair> autoVerified = [];
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;

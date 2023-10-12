@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static List<JsonAppender> jsonAppenders = new();
+    static List<JsonAppender> jsonAppenders = [];
 
     internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
     {

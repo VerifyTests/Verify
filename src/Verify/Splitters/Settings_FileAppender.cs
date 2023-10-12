@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static List<FileAppender> fileAppenders = new();
+    static List<FileAppender> fileAppenders = [];
 
     internal static IEnumerable<Target> GetFileAppenders(VerifySettings settings)
     {
@@ -30,7 +30,7 @@ public static partial class VerifierSettings
 
 public partial class VerifySettings
 {
-    internal List<Target> appendedFiles = new();
+    internal List<Target> appendedFiles = [];
 
     public void AppendContentAsFile(string content, string extension = "txt", string? name = null) =>
         appendedFiles.Add(new(extension, content, name));

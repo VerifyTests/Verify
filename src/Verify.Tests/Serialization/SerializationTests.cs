@@ -43,6 +43,105 @@ public class SerializationTests
             });
     }
 
+
+    [ModuleInitializer]
+    public static void OrderEnumerableByGlobalInit() =>
+        VerifierSettings.OrderEnumerableBy<EnumerableOrderDescendingGlobalItem>(_ => _.value);
+
+    [Fact]
+    public Task OrderEnumerableByGlobal() =>
+        Verify(
+            new List<EnumerableOrderGlobalItem>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            });
+
+    public record EnumerableOrderGlobalItem(string value);
+
+    [ModuleInitializer]
+    public static void OrderEnumerableByDescendingGlobalInit() =>
+        VerifierSettings.OrderEnumerableByDescending<EnumerableOrderDescendingGlobalItem>(_ => _.value);
+
+    [Fact]
+    public Task OrderEnumerableByDescendingGlobal() =>
+        Verify(
+            new List<EnumerableOrderDescendingGlobalItem>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            });
+
+    public record EnumerableOrderDescendingGlobalItem(string value);
+
+    [Fact]
+    public Task EnumerableOrder()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>(_ => _);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }   [Fact]
+    public Task EnumerableOrderWithNull()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>(_ => null);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+    [Fact]
+    public Task OrderEnumerableByDescending()
+    {
+        var settings = new VerifySettings();
+        settings.OrderEnumerableBy<string>(_ => _);
+        return Verify(
+            new List<string>
+            {
+                "a",
+                "c",
+                "b"
+            },
+            settings);
+    }
+
+    [Fact]
+    public Task EnumerableOrderFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableBy<string>(_ => _);
+
+    [Fact]
+    public Task OrderEnumerableByDescendingFluent() =>
+        Verify(
+                new List<string>
+                {
+                    "a",
+                    "c",
+                    "b"
+                })
+            .OrderEnumerableByDescending<string>(_ => _);
+
+
     #region AddExtraDatetimeFormat
 
     [ModuleInitializer]
@@ -729,11 +828,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
-                "Sam",
-                "Mary"
-            },
+            Children = ["Sam", "Mary"],
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -834,11 +929,7 @@ public class SerializationTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
-                "Sam",
-                "Mary"
-            },
+            Children = ["Sam", "Mary"],
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -1853,7 +1944,7 @@ public class SerializationTests
             EnumerableAsList = new List<string>(),
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new ReadOnlyList(),
-            ListProperty = new(),
+            ListProperty = [],
             ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]
             {
             }),
@@ -1865,7 +1956,7 @@ public class SerializationTests
     class ReadOnlyList : IReadOnlyList<string>
     {
         // ReSharper disable CollectionNeverUpdated.Local
-        List<string> inner = new();
+        List<string> inner = [];
         // ReSharper restore CollectionNeverUpdated.Local
 
         public IEnumerator<string> GetEnumerator() =>
@@ -3370,7 +3461,7 @@ public class SerializationTests
 
     public class Parent
     {
-        public List<Child> Children { get; set; } = new();
+        public List<Child> Children { get; set; } = [];
     }
 
     public class Child

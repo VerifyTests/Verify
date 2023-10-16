@@ -1,5 +1,3 @@
-using System.IO.Compression;
-
 [UsesVerify]
 public class StreamTests
 {

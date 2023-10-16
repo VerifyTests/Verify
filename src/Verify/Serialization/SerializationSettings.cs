@@ -24,6 +24,7 @@ partial class SerializationSettings
     static PropertyInfoConverter propertyInfoConverter = new();
     static ClaimConverter claimConverter = new();
     static AggregateExceptionConverter aggregateExceptionConverter = new();
+    static ToAppendConverter toAppendConverter = new();
     static ClaimsPrincipalConverter claimsPrincipalConverter = new();
     static ClaimsIdentityConverter claimsIdentityConverter = new();
     static NameValueCollectionConverter nameValueCollectionConverter = new();
@@ -99,6 +100,7 @@ partial class SerializationSettings
         converters.Add(timeConverter);
 #endif
         converters.Add(stringEnumConverter);
+        converters.Add(toAppendConverter);
         converters.Add(expressionConverter);
         converters.Add(delegateConverter);
         converters.Add(targetInvocationExceptionConverter);

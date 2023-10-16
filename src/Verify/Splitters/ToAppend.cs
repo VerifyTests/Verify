@@ -12,3 +12,13 @@ public readonly struct ToAppend
         Data = data;
     }
 }
+
+class ToAppendConverter :
+    WriteOnlyJsonConverter<ToAppend>
+{
+    public override void Write(VerifyJsonWriter writer, ToAppend value)
+    {
+        writer.WritePropertyName(value.Name);
+        writer.WriteValue(value.Data);
+    }
+}

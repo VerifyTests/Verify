@@ -45,6 +45,10 @@ static class Extensions
         {
             return false;
         }
+        catch (NotSupportedException)
+        {
+            return false;
+        }
 
         return true;
     }

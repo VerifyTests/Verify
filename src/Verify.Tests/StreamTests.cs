@@ -1,3 +1,5 @@
+using System.IO.Compression;
+
 [UsesVerify]
 public class StreamTests
 {
@@ -5,6 +7,21 @@ public class StreamTests
     public Task Stream() =>
         Verify(
             new MemoryStream(
+                new byte[]
+                {
+                    1
+                }));
+
+    class LengthNotSupportedStream(byte[] bytes) : MemoryStream(bytes)
+    {
+        public override long Length =>
+            throw new NotSupportedException();
+    }
+
+    [Fact]
+    public Task LengthNotSupportedException() =>
+        Verify(
+            new LengthNotSupportedStream(
                 new byte[]
                 {
                     1

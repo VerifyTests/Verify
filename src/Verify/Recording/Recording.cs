@@ -20,9 +20,9 @@ public static class Recording
             return Array.Empty<ToAppend>();
         }
 
-        var readOnlyCollection = value.Items;
+        var items = value.Items;
         asyncLocal.Value = null;
-        return readOnlyCollection;
+        return items;
     }
 
     static State CurrentState()

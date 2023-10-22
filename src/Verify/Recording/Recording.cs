@@ -42,6 +42,7 @@ public static class Recording
         var state = CurrentState();
         state.Pause();
     }
+
     public static void Resume()
     {
         var state = CurrentState();

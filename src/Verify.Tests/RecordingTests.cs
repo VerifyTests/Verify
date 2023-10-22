@@ -9,6 +9,27 @@ public class RecordingTests
     }
 
     [Fact]
+    public Task Clear()
+    {
+        Recording.Add("name1", "value");
+        Recording.Clear();
+        Recording.Add("name2", "value");
+        return Verify("TheValue");
+    }
+
+    [Fact]
+    public Task PauseResume()
+    {
+        Recording.Pause();
+        Recording.Add("name1", "value");
+        Recording.Resume();
+        Recording.Add("name2", "value");
+        Recording.Pause();
+        Recording.Add("name3", "value");
+        return Verify("TheValue");
+    }
+
+    [Fact]
     public Task NoValue()
     {
         Recording.Add("name", "value");

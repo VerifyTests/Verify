@@ -36,4 +36,21 @@ public static class Recording
 
         return value;
     }
+
+    public static void Pause()
+    {
+        var state = CurrentState();
+        state.Pause();
+    }
+    public static void Resume()
+    {
+        var state = CurrentState();
+        state.Resume();
+    }
+
+    public static void Clear()
+    {
+        var state = CurrentState();
+        state.Clear();
+    }
 }

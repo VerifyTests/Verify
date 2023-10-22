@@ -7,6 +7,8 @@ public static partial class VerifierSettings
     internal static List<ToAppend> GetJsonAppenders(VerifySettings settings)
     {
         var list = new List<ToAppend>();
+        var recorded = Recording.Stop();
+        list.AddRange(recorded);
         foreach (var appender in jsonAppenders)
         {
             var data = appender(settings.Context);

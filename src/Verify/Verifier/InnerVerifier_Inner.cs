@@ -36,8 +36,7 @@ partial class InnerVerifier
 
     async Task<(List<Target> extra, Func<Task> cleanup)> GetTargets(IEnumerable<Target> targets, bool doExpressionConversion)
     {
-        var list = targets.Concat(VerifierSettings.GetFileAppenders(settings))
-            .ToList();
+        List<Target> list = [..targets, ..VerifierSettings.GetFileAppenders(settings)];
         var cleanup = () => Task.CompletedTask;
         if (doExpressionConversion)
         {

@@ -10,6 +10,21 @@ public class StreamTests
                     1
                 }));
 
+    class LengthNotSupportedStream(byte[] bytes) : MemoryStream(bytes)
+    {
+        public override long Length =>
+            throw new NotSupportedException();
+    }
+
+    [Fact]
+    public Task LengthNotSupportedException() =>
+        Verify(
+            new LengthNotSupportedStream(
+                new byte[]
+                {
+                    1
+                }));
+
     [Fact]
     public Task StreamTask() =>
         Verify(

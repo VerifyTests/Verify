@@ -86,12 +86,12 @@
         }
     }
 
-    public static void AgainstBadSourceFile(string value)
+    public static void AgainstBadSourceFile(string sourceFile)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(sourceFile))
         {
             throw new ArgumentNullException(
-                "sourceFile",
+                nameof(sourceFile),
                 "This can be caused by using Verify<dynamic>, which is not supported by c#. Instead call use Verify<object>.");
         }
     }

@@ -517,7 +517,7 @@ If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 var result = await Throws(MethodThatThrows);
 Assert.NotNull(result.Exception);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L166-L171' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L169-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

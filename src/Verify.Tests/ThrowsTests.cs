@@ -45,6 +45,8 @@ public class ThrowsTests
 
     #endregion
 
+#if NET8_0
+
     #region TestMethodThatThrowsTask
 
     [Fact]
@@ -79,6 +81,7 @@ public class ThrowsTests
 
     #endregion
 
+#endif
     [Fact]
     public Task ThrowsNested() =>
         Throws(Nested.MethodThatThrows);
@@ -91,7 +94,7 @@ public class ThrowsTests
 
     [Fact]
     public Task ThrowsArgumentException() =>
-        Verifier.Throws(MethodThatThrowsArgumentException);
+        Throws(MethodThatThrowsArgumentException);
 
     static void MethodThatThrowsArgumentException() =>
         throw new ArgumentException("The Message", "The parameter");

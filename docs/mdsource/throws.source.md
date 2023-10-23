@@ -35,7 +35,7 @@ snippet: IgnoreStackTraceGlobal
 
 ### Result
 
-snippet: TestMethodThatThrowsIgnoreStackTraceFluent.verified.txt
+snippet: ThrowsTests.TestMethodThatThrowsIgnoreStackTraceFluent.verified.txt
 
 
 ## Async
@@ -55,8 +55,3 @@ snippet: TestMethodThatThrowsTask
 snippet: MethodThatThrowsValueTask
 
 snippet: TestMethodThatThrowsValueTask
-
-
-
-
-

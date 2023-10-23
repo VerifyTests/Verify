@@ -12,6 +12,7 @@ public class ThrowsTests
         Throws(MethodThatThrows);
 
     #endregion
+
     #region TestMethodThatThrowsIgnoreStackTraceFluent
 
     [Fact]
@@ -19,6 +20,7 @@ public class ThrowsTests
         Throws(MethodThatThrows).IgnoreStackTrace();
 
     #endregion
+
     #region TestMethodThatThrowsIgnoreStackTraceSettings
 
     [Fact]
@@ -34,7 +36,9 @@ public class ThrowsTests
     void IgnoreStackTraceSettingsGlobal()
     {
         #region IgnoreStackTraceGlobal
+
         VerifierSettings.IgnoreStackTrace();
+
         #endregion
     }
 

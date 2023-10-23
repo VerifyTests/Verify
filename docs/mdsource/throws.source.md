@@ -15,7 +15,7 @@ snippet: ThrowsTests.TestMethodThatThrows.verified.txt
 
 ## IgnoreStackTrace
 
-Oftent the excetion stack trace can be noisy and fragile to causing false failed tests. To exclude it use 
+Often the exception stack trace can be noisy and fragile to causing false failed tests. To exclude it use `IgnoreStackTrace`:
 
 
 ### Fluent API

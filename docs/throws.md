@@ -15,7 +15,7 @@ Given a method that throws an Exception
 static void MethodThatThrows() =>
     throw new("The Message");
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrows' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L45-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrows' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 That exception behavior can be verified using `Verify.Throws`:
@@ -47,7 +47,7 @@ Resulting in the following snapshot file:
 
 ## IgnoreStackTrace
 
-Oftent the excetion stack trace can be noisy and fragile to causing false failed tests. To exclude it use 
+Often the exception stack trace can be noisy and fragile to causing false failed tests. To exclude it use `IgnoreStackTrace`:
 
 
 ### Fluent API
@@ -59,7 +59,7 @@ Oftent the excetion stack trace can be noisy and fragile to causing false failed
 public Task TestMethodThatThrowsIgnoreStackTraceFluent() =>
     Throws(MethodThatThrows).IgnoreStackTrace();
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L15-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L16-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +76,7 @@ public Task TestMethodThatThrowsIgnoreStackTraceSettings()
     return Throws(MethodThatThrows, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L22-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracesettings' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L24-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracesettings' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -87,7 +87,7 @@ public Task TestMethodThatThrowsIgnoreStackTraceSettings()
 ```cs
 VerifierSettings.IgnoreStackTrace();
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L36-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorestacktraceglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L38-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorestacktraceglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -121,7 +121,7 @@ static async Task MethodThatThrowsTask()
     throw new("The Message");
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L57-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowstask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L61-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowstask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: TestMethodThatThrowsTask -->
@@ -131,7 +131,7 @@ static async Task MethodThatThrowsTask()
 public Task TestMethodThatThrowsTask() =>
     ThrowsTask(MethodThatThrowsTask);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L50-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowstask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L54-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowstask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -146,7 +146,7 @@ static async ValueTask MethodThatThrowsValueTask()
     throw new("The Message");
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L74-L82' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L78-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: TestMethodThatThrowsValueTask -->
@@ -156,10 +156,5 @@ static async ValueTask MethodThatThrowsValueTask()
 public Task TestMethodThatThrowsValueTask() =>
     ThrowsValueTask(MethodThatThrowsValueTask);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L66-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L70-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-
-
-

@@ -158,8 +158,3 @@ public Task TestMethodThatThrowsValueTask() =>
 ```
 <sup><a href='/src/Verify.Tests/ThrowsTests.cs#L66-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-
-
-

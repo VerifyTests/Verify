@@ -7,8 +7,7 @@ public static class Recording
     public static void Add(string name, object item)
     {
         Guard.AgainstBadExtension(name);
-        var state = CurrentState();
-        state.Add(name, item);
+        CurrentState().Add(name, item);
     }
 
     public static IReadOnlyCollection<ToAppend> Stop()
@@ -25,33 +24,36 @@ public static class Recording
         return items;
     }
 
-    static State CurrentState()
+    static State CurrentState([CallerMemberName] string caller = "")
     {
         var value = asyncLocal.Value;
 
-        if (value == null)
+        if (value != null)
         {
-            return asyncLocal.Value = new();
+            return value;
         }
 
-        return value;
+        throw new($"Recording.Start must be called before Recording.{caller}");
     }
 
-    public static void Pause()
+    public static void Start()
     {
-        var state = CurrentState();
-        state.Pause();
+        var value = asyncLocal.Value;
+
+        if (value != null)
+        {
+            throw new("Recording already started");
+        }
+
+        asyncLocal.Value = new();
     }
 
-    public static void Resume()
-    {
-        var state = CurrentState();
-        state.Resume();
-    }
+    public static void Pause() =>
+        CurrentState().Pause();
 
-    public static void Clear()
-    {
-        var state = CurrentState();
-        state.Clear();
-    }
+    public static void Resume() =>
+        CurrentState().Resume();
+
+    public static void Clear() =>
+        CurrentState().Clear();
 }

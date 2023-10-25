@@ -10,6 +10,8 @@ public static class Recording
         CurrentState().Add(name, item);
     }
 
+    public static bool IsRecording => asyncLocal.Value != null;
+
     public static IReadOnlyCollection<ToAppend> Stop()
     {
         if (TryStop(out var value))

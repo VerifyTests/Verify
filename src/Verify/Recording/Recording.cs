@@ -12,16 +12,27 @@ public static class Recording
 
     public static IReadOnlyCollection<ToAppend> Stop()
     {
+        if (TryStop(out var value))
+        {
+            return value;
+        }
+
+        throw new("Recording.Start must be called prior to FinishRecording.");
+    }
+
+    public static bool TryStop([NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
+    {
         var value = asyncLocal.Value;
 
         if (value == null)
         {
-            return Array.Empty<ToAppend>();
+            recorded = null;
+            return false;
         }
 
-        var items = value.Items;
+        recorded = value.Items;
         asyncLocal.Value = null;
-        return items;
+        return true;
     }
 
     static State CurrentState([CallerMemberName] string caller = "")

@@ -7,7 +7,7 @@
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="xunit.extensibility.execution" Version="2.5.3" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.6.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.101" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="4.6.0" PrivateAssets="None" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

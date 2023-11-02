@@ -300,7 +300,7 @@ public class NamerTests
     [InlineData("Value1")]
     public async Task UseTooManyParameters(string param1)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(async () => await Verify("UseTooManyParameters")
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("UseTooManyParameters")
             .UseParameters("param1", "param2"));
         Assert.Equal("The number of passed in parameters (2) must be fewer than the number of parameters for the method (1).", exception.Message);
     }

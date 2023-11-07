@@ -4,11 +4,8 @@ public static class Recording
 {
     static AsyncLocal<State?> asyncLocal = new();
 
-    public static void Add(string name, object item)
-    {
-        Guard.AgainstBadExtension(name);
+    public static void Add(string name, object item) =>
         CurrentState().Add(name, item);
-    }
 
     public static bool IsRecording => asyncLocal.Value != null;
 

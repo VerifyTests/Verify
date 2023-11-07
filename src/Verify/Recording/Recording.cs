@@ -1,25 +1,26 @@
 ﻿namespace VerifyTests;
 
-public static class Recording
+public static partial class Recording
 {
     static AsyncLocal<State?> asyncLocal = new();
 
     public static void Add(string name, object item) =>
         CurrentState().Add(name, item);
 
-    public static bool IsRecording => asyncLocal.Value != null;
+    public static bool IsRecording() =>
+        asyncLocal.Value != null;
 
-    public static IReadOnlyCollection<ToAppend> Stop()
+    public static IReadOnlyDictionary<string, IReadOnlyList<object>> Stop()
     {
-        if (TryStop(out var value))
+        if (TryStop(out var values))
         {
-            return value;
+            return ToDictionary(values);
         }
 
-        throw new("Recording.Start must be called prior to FinishRecording.");
+        throw new("Recording.Start must be called prior to Recording.Stop.");
     }
 
-    public static bool TryStop([NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
+    internal static bool TryStop([NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
     {
         var value = asyncLocal.Value;
 

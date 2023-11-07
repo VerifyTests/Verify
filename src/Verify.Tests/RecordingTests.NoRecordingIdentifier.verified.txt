@@ -1,0 +1,4 @@
+﻿{
+  Type: Exception,
+  Message: Recording.Start(string identifier) must be called before Recording.Add
+}

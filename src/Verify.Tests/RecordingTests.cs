@@ -10,6 +10,11 @@ public class RecordingTests
     }
 
     [Fact]
+    public Task NoRecording() =>
+        Throws(() => Recording.Add("name", "value"))
+            .IgnoreStackTrace();
+
+    [Fact]
     public Task Stop()
     {
         Recording.Start();

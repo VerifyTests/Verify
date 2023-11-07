@@ -1,5 +1,5 @@
-﻿{
-  name: [
-    value
-  ]
-}
+﻿[
+  {
+    name: value
+  }
+]

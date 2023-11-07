@@ -10,36 +10,14 @@ public static partial class Recording
     public static bool IsRecording(string identifier) =>
         namedState.ContainsKey(identifier);
 
-    public static IReadOnlyDictionary<string, IReadOnlyList<object>> Stop(string identifier)
+    public static IReadOnlyCollection<ToAppend> Stop(string identifier)
     {
-        if (!TryStop(identifier, out var values))
+        if (TryStop(identifier, out var values))
         {
-            throw new("Recording.Start must be called prior to Recording.Stop.");
+            return values;
         }
 
-        return ToDictionary(values);
-    }
-
-    static IReadOnlyDictionary<string, IReadOnlyList<object>> ToDictionary(IReadOnlyCollection<ToAppend> values)
-    {
-        var dictionary = new Dictionary<string, IReadOnlyList<object>>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var value in values)
-        {
-            List<object> objects;
-            if (dictionary.TryGetValue(value.Name, out var item))
-            {
-                objects = (List<object>) item;
-            }
-            else
-            {
-                dictionary[value.Name] = objects = new();
-            }
-
-            objects.Add(value.Data);
-        }
-
-        return dictionary;
+        throw new("Recording.Start(string identifier) must be called prior to Recording.Stop(string identifier).");
     }
 
     public static bool TryStop(

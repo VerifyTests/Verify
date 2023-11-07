@@ -1,6 +1,8 @@
-﻿{
-  name: [
-    value1,
-    value2
-  ]
-}
+﻿[
+  {
+    name: value1
+  },
+  {
+    Name: value2
+  }
+]

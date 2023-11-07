@@ -10,17 +10,17 @@ public static partial class Recording
     public static bool IsRecording() =>
         asyncLocal.Value != null;
 
-    public static IReadOnlyDictionary<string, IReadOnlyList<object>> Stop()
+    public static IReadOnlyCollection<ToAppend> Stop()
     {
         if (TryStop(out var values))
         {
-            return ToDictionary(values);
+            return values;
         }
 
         throw new("Recording.Start must be called prior to Recording.Stop.");
     }
 
-    internal static bool TryStop([NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
+    public static bool TryStop([NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
     {
         var value = asyncLocal.Value;
 
@@ -67,4 +67,26 @@ public static partial class Recording
 
     public static void Clear() =>
         CurrentState().Clear();
+
+    public static IReadOnlyDictionary<string, IReadOnlyList<object>> ToDictionary(this IEnumerable<ToAppend> values)
+    {
+        var dictionary = new Dictionary<string, IReadOnlyList<object>>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var value in values)
+        {
+            List<object> objects;
+            if (dictionary.TryGetValue(value.Name, out var item))
+            {
+                objects = (List<object>) item;
+            }
+            else
+            {
+                dictionary[value.Name] = objects = new();
+            }
+
+            objects.Add(value.Data);
+        }
+
+        return dictionary;
+    }
 }

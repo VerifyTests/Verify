@@ -182,6 +182,17 @@ public class RecordingTests
     }
 
     [Fact]
+    public Task ToDictionary()
+    {
+        Recording.Start();
+        Recording.Add("name", "value1");
+        Recording.Add("Name", "value2");
+        var appends = Recording.Stop();
+        var dictionary = appends.ToDictionary();
+        return Verify(dictionary);
+    }
+
+    [Fact]
     public Task CaseIdentifier()
     {
         Recording.Start("identifier");

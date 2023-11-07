@@ -10,6 +10,26 @@ public class RecordingTests
     }
 
     [Fact]
+    public Task Stop()
+    {
+        Recording.Start();
+        Recording.Add("name", "value");
+        return Verify(Recording.Stop());
+    }
+
+    [Fact]
+    public Task TryStopNoStart()
+    {
+        var result = Recording.TryStop(out var recorded);
+        return Verify(
+            new
+            {
+                result,
+                recorded
+            });
+    }
+
+    [Fact]
     public Task Clear()
     {
         Recording.Start();

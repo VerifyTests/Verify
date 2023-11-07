@@ -1,0 +1,1 @@
+﻿I can call verify in SetUp, and the test method is known.

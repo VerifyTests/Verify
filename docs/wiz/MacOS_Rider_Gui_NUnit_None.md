@@ -17,7 +17,7 @@ Add the following packages to the test project:
 <!-- snippet: NUnit-nugets -->
 <a id='snippet-nunit-nugets'></a>
 ```csproj
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 <PackageReference Include="NUnit" Version="3.14.0" />
 <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
 <PackageReference Include="Verify.NUnit" Version="22.1.4" />

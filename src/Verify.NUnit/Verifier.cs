@@ -2,7 +2,14 @@
 
 public static partial class Verifier
 {
+#if NET8_0_OR_GREATER
+    [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "_test")]
+    static extern ref Test GetTest(TestContext.TestAdapter adapter);
+#else
     static FieldInfo field;
+
+    static Test GetTest(TestContext.TestAdapter adapter) =>
+        (Test) field.GetValue(adapter)!;
 
     static Verifier()
     {
@@ -11,6 +18,7 @@ public static partial class Verifier
 
         field = temp ?? throw new("Could not find field `_test` on TestContext.TestAdapter.");
     }
+#endif
 
     static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory)
     {
@@ -19,9 +27,10 @@ public static partial class Verifier
         {
             settings.UseUniqueDirectory();
         }
+
         var context = TestContext.CurrentContext;
         var adapter = context.Test;
-        var test = (Test) field.GetValue(adapter)!;
+        var test = GetTest(adapter);
         var typeInfo = test.TypeInfo;
         if (typeInfo is null || test.Method is null)
         {

@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="25.1.0" PrivateAssets="all" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" Condition="$(TargetFramework) == 'net8.0' OR $(TargetFramework) == 'net7.0'" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />

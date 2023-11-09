@@ -10,6 +10,99 @@ To change this file edit the source file and then run MarkdownSnippets.
 Recording allows information to be statically captured and then (optionally) verified.
 
 
+## Usage
+
+<!-- snippet: Recording -->
+<a id='snippet-recording'></a>
+```cs
+[Fact]
+public Task Usage()
+{
+    Recording.Start();
+    Recording.Add("name", "value");
+    return Verify("TheValue");
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L4-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-recording' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.Usage.verified.txt -->
+<a id='snippet-RecordingTests.Usage.verified.txt'></a>
+```txt
+{
+  target: TheValue,
+  name: value
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.Usage.verified.txt#L1-L4' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Usage.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Grouping
+
+Values are grouped by key:
+
+<!-- snippet: RecordingSameKey -->
+<a id='snippet-recordingsamekey'></a>
+```cs
+[Fact]
+public Task SameKey()
+{
+    Recording.Start();
+    Recording.Add("name", "value1");
+    Recording.Add("name", "value2");
+    return Verify("TheValue");
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L166-L177' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.SameKey.verified.txt -->
+<a id='snippet-RecordingTests.SameKey.verified.txt'></a>
+```txt
+{
+  target: TheValue,
+  name: [
+    value1,
+    value2
+  ]
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.SameKey.verified.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.SameKey.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Identifier
+
+Recording can be grouped by an identifier.
+
+<!-- snippet: RecordingIdentifier -->
+<a id='snippet-recordingidentifier'></a>
+```cs
+[Fact]
+public Task Identifier()
+{
+    Recording.Start("identifier");
+    Recording.Add("identifier", "name", "value");
+    return Verify(Recording.Stop("identifier"));
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L16-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingidentifier' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.Identifier.verified.txt -->
+<a id='snippet-RecordingTests.Identifier.verified.txt'></a>
+```txt
+[
+  {
+    name: value
+  }
+]
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.Identifier.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Identifier.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Extensions that leverage Recording
 
  * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording)

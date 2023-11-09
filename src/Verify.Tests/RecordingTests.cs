@@ -1,21 +1,29 @@
 ﻿[UsesVerify]
 public class RecordingTests
 {
+    #region Recording
+
     [Fact]
-    public Task Simple()
+    public Task Usage()
     {
         Recording.Start();
         Recording.Add("name", "value");
         return Verify("TheValue");
     }
 
+    #endregion
+
+    #region RecordingIdentifier
+
     [Fact]
-    public Task SimpleIdentifier()
+    public Task Identifier()
     {
         Recording.Start("identifier");
         Recording.Add("identifier", "name", "value");
         return Verify(Recording.Stop("identifier"));
     }
+
+    #endregion
 
     [Fact]
     public void IsRecording()
@@ -103,7 +111,6 @@ public class RecordingTests
         return Verify(Recording.Stop("identifier"));
     }
 
-
     [Fact]
     public Task PauseResume()
     {
@@ -146,23 +153,29 @@ public class RecordingTests
         Recording.Add("name2", "value2");
         return Verify("TheValue");
     }
+
     [Fact]
     public Task MultipleIdentifier()
     {
         Recording.Start("identifier");
-        Recording.Add("identifier","name1", "value1");
-        Recording.Add("identifier","name2", "value2");
+        Recording.Add("identifier", "name1", "value1");
+        Recording.Add("identifier", "name2", "value2");
         return Verify(Recording.Stop("identifier"));
     }
 
+    #region RecordingSameKey
+
     [Fact]
-    public Task Append()
+    public Task SameKey()
     {
         Recording.Start();
         Recording.Add("name", "value1");
         Recording.Add("name", "value2");
         return Verify("TheValue");
     }
+
+    #endregion
+
     [Fact]
     public Task AppendIdentifier()
     {

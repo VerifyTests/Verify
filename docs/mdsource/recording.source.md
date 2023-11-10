@@ -37,3 +37,4 @@ snippet: RecordingTests.Identifier.verified.txt
  * [Verify.NServiceBus](https://github.com/VerifyTests/Verify.NServiceBus#recording)
  * [Verify.Serilog](https://github.com/VerifyTests/Verify.Serilog)
  * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording)
+ * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog)

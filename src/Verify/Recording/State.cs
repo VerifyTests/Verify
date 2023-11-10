@@ -1,14 +1,15 @@
 ﻿class State
 {
     List<ToAppend> items = new();
-    bool paused;
 
     internal IReadOnlyCollection<ToAppend> Items => items;
+
+    public bool Paused { get; private set; }
 
     public void Add(string name, object item)
     {
         Guard.AgainstNullOrEmpty(name);
-        if (paused)
+        if (Paused)
         {
             return;
         }
@@ -21,10 +22,10 @@
     }
 
     public void Pause() =>
-        paused = true;
+        Paused = true;
 
     public void Resume() =>
-        paused = false;
+        Paused = false;
 
     public void Clear()
     {

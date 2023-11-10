@@ -7,8 +7,16 @@ public static partial class Recording
     public static void Add(string name, object item) =>
         CurrentState().Add(name, item);
 
-    public static bool IsRecording() =>
-        asyncLocal.Value != null;
+    public static bool IsRecording()
+    {
+        var state = asyncLocal.Value;
+        if (state == null)
+        {
+            return false;
+        }
+
+        return !state.Paused;
+    }
 
     public static IReadOnlyCollection<ToAppend> Stop()
     {

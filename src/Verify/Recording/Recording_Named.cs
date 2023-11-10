@@ -7,8 +7,15 @@ public static partial class Recording
     public static void Add(string identifier, string name, object item) =>
         CurrentStateNamed(identifier).Add(name, item);
 
-    public static bool IsRecording(string identifier) =>
-        namedState.ContainsKey(identifier);
+    public static bool IsRecording(string identifier)
+    {
+        if (!namedState.TryGetValue(identifier, out var state))
+        {
+            return false;
+        }
+
+        return !state.Paused;
+    }
 
     public static IReadOnlyCollection<ToAppend> Stop(string identifier)
     {

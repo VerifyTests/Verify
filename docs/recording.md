@@ -284,7 +284,6 @@ public Task PauseResume()
 
  * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording)
  * [Verify.Http](https://github.com/VerifyTests/Verify.Http)
- * [Verify.MassTransit](https://github.com/VerifyTests/Verify.MassTransit)
  * [Verify.MicrosoftLogging](https://github.com/VerifyTests/Verify.MicrosoftLogging)
  * [Verify.NServiceBus](https://github.com/VerifyTests/Verify.NServiceBus#recording)
  * [Verify.Serilog](https://github.com/VerifyTests/Verify.Serilog)

@@ -25,6 +25,8 @@ public class RecordingTests
 
     #endregion
 
+    #region IsRecording
+
     [Fact]
     public void IsRecording()
     {
@@ -32,6 +34,8 @@ public class RecordingTests
         Recording.Start();
         Assert.True(Recording.IsRecording());
     }
+
+    #endregion
 
     [Fact]
     public void IsRecordingIdentifier()
@@ -64,6 +68,7 @@ public class RecordingTests
     }
 
     #endregion
+
     #region RecordingStopNotInResult
 
     [Fact]
@@ -110,15 +115,19 @@ public class RecordingTests
             });
     }
 
+    #region RecordingClear
+
     [Fact]
     public Task Clear()
     {
         Recording.Start();
-        Recording.Add("name1", "value");
+        Recording.Add("name1", "value1");
         Recording.Clear();
-        Recording.Add("name2", "value");
-        return Verify("TheValue");
+        Recording.Add("name2", "value2");
+        return Verify();
     }
+
+    #endregion
 
     [Fact]
     public Task ClearIdentifier()
@@ -130,18 +139,22 @@ public class RecordingTests
         return Verify(Recording.Stop("identifier"));
     }
 
+    #region RecordingPauseResume
+
     [Fact]
     public Task PauseResume()
     {
         Recording.Start();
         Recording.Pause();
-        Recording.Add("name1", "value");
+        Recording.Add("name1", "value1");
         Recording.Resume();
-        Recording.Add("name2", "value");
+        Recording.Add("name2", "value2");
         Recording.Pause();
-        Recording.Add("name3", "value");
-        return Verify("TheValue");
+        Recording.Add("name3", "value3");
+        return Verify();
     }
+
+    #endregion
 
     [Fact]
     public Task PauseResumeIdentifier()

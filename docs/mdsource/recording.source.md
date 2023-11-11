@@ -52,6 +52,32 @@ snippet: RecordingStopNotInResult
 snippet: RecordingTests.StopNotInResult.verified.txt
 
 
+## IsRecording
+
+The status of Recording can be checked.
+
+snippet: IsRecording
+
+This can be helpful if the cost of capturing data, to add to recording, is high.
+
+
+## Clear
+
+The current recorded items can be cleared:
+
+snippet: RecordingClear
+
+snippet: RecordingTests.Clear.verified.txt
+
+
+## Pause and Resume
+
+Recording can be paused and resumed:
+
+snippet: RecordingPauseResume
+
+snippet: RecordingTests.PauseResume.verified.txt
+
 
 ## Extensions that leverage Recording
 

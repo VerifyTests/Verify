@@ -54,7 +54,7 @@ public Task SameKey()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L185-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L198-L209' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RecordingTests.SameKey.verified.txt -->
@@ -119,7 +119,7 @@ public Task Case()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L207-L218' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L220-L231' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RecordingTests.Case.verified.txt -->
@@ -152,7 +152,7 @@ public Task Stop()
     return Verify(appends.Where(_ => _.Name != "name1"));
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L54-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L58-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RecordingTests.Stop.verified.txt -->
@@ -182,7 +182,7 @@ public Task StopNotInResult()
     return Verify("other data");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L67-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L72-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RecordingTests.StopNotInResult.verified.txt -->
@@ -193,6 +193,91 @@ other data
 <sup><a href='/src/Verify.Tests/RecordingTests.StopNotInResult.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.StopNotInResult.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+## IsRecording
+
+The status of Recording can be checked.
+
+<!-- snippet: IsRecording -->
+<a id='snippet-isrecording'></a>
+```cs
+[Fact]
+public void IsRecording()
+{
+    Assert.False(Recording.IsRecording());
+    Recording.Start();
+    Assert.True(Recording.IsRecording());
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L28-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-isrecording' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+This can be helpful if the cost of capturing data, to add to recording, is high.
+
+
+## Clear
+
+The current recorded items can be cleared:
+
+<!-- snippet: RecordingClear -->
+<a id='snippet-recordingclear'></a>
+```cs
+[Fact]
+public Task Clear()
+{
+    Recording.Start();
+    Recording.Add("name1", "value1");
+    Recording.Clear();
+    Recording.Add("name2", "value2");
+    return Verify();
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L118-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingclear' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.Clear.verified.txt -->
+<a id='snippet-RecordingTests.Clear.verified.txt'></a>
+```txt
+{
+  name2: value2
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.Clear.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Clear.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Pause and Resume
+
+Recording can be paused and resumed:
+
+<!-- snippet: RecordingPauseResume -->
+<a id='snippet-recordingpauseresume'></a>
+```cs
+[Fact]
+public Task PauseResume()
+{
+    Recording.Start();
+    Recording.Pause();
+    Recording.Add("name1", "value1");
+    Recording.Resume();
+    Recording.Add("name2", "value2");
+    Recording.Pause();
+    Recording.Add("name3", "value3");
+    return Verify();
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L142-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingpauseresume' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.PauseResume.verified.txt -->
+<a id='snippet-RecordingTests.PauseResume.verified.txt'></a>
+```txt
+{
+  name2: value2
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.PauseResume.verified.txt#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.PauseResume.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Extensions that leverage Recording

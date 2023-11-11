@@ -18,6 +18,8 @@ snippet: RecordingSameKey
 
 snippet: RecordingTests.SameKey.verified.txt
 
+To avoid grouping use [Stop](#stop).
+
 
 ## Identifier
 
@@ -33,6 +35,7 @@ snippet: RecordingTests.Identifier.verified.txt
 snippet: RecordingIgnoreCase
 
 snippet: RecordingTests.Case.verified.txt
+
 
 ## Stop
 

@@ -71,6 +71,8 @@ public Task SameKey()
 <sup><a href='/src/Verify.Tests/RecordingTests.SameKey.verified.txt#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.SameKey.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+To avoid grouping use [Stop](#stop).
+
 
 ## Identifier
 
@@ -131,6 +133,7 @@ public Task Case()
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.Case.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Case.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ## Stop
 

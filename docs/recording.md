@@ -54,7 +54,7 @@ public Task SameKey()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L166-L177' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L185-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: RecordingTests.SameKey.verified.txt -->
@@ -101,6 +101,95 @@ public Task Identifier()
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.Identifier.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Identifier.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Case is ignored
+
+<!-- snippet: RecordingIgnoreCase -->
+<a id='snippet-recordingignorecase'></a>
+```cs
+[Fact]
+public Task Case()
+{
+    Recording.Start();
+    Recording.Add("name", "value1");
+    Recording.Add("Name", "value2");
+    return Verify("TheValue");
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L207-L218' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.Case.verified.txt -->
+<a id='snippet-RecordingTests.Case.verified.txt'></a>
+```txt
+{
+  target: TheValue,
+  name: value1,
+  Name: value2
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.Case.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Case.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+## Stop
+
+Recording can be stopped and the resulting data can be manually verified:
+
+<!-- snippet: RecordingStop -->
+<a id='snippet-recordingstop'></a>
+```cs
+[Fact]
+public Task Stop()
+{
+    Recording.Start();
+    Recording.Add("name1", "value1");
+    Recording.Add("name2", "value2");
+    var appends = Recording.Stop();
+    return Verify(appends.Where(_ => _.Name != "name1"));
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L54-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.Stop.verified.txt -->
+<a id='snippet-RecordingTests.Stop.verified.txt'></a>
+```txt
+[
+  {
+    name2: value2
+  }
+]
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.Stop.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.Stop.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+If Stop is called, the results are not automatically verified:
+
+<!-- snippet: RecordingStopNotInResult -->
+<a id='snippet-recordingstopnotinresult'></a>
+```cs
+[Fact]
+public Task StopNotInResult()
+{
+    Recording.Start();
+    Recording.Add("name1", "value1");
+    Recording.Add("name2", "value2");
+    Recording.Stop();
+    return Verify("other data");
+}
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L67-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+<!-- snippet: RecordingTests.StopNotInResult.verified.txt -->
+<a id='snippet-RecordingTests.StopNotInResult.verified.txt'></a>
+```txt
+other data
+```
+<sup><a href='/src/Verify.Tests/RecordingTests.StopNotInResult.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTests.StopNotInResult.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 
 ## Extensions that leverage Recording

@@ -51,13 +51,32 @@ public class RecordingTests
         Throws(() => Recording.Add("identifier", "name", "value"))
             .IgnoreStackTrace();
 
+    #region RecordingStop
+
     [Fact]
     public Task Stop()
     {
         Recording.Start();
-        Recording.Add("name", "value");
-        return Verify(Recording.Stop());
+        Recording.Add("name1", "value1");
+        Recording.Add("name2", "value2");
+        var appends = Recording.Stop();
+        return Verify(appends.Where(_ => _.Name != "name1"));
     }
+
+    #endregion
+    #region RecordingStopNotInResult
+
+    [Fact]
+    public Task StopNotInResult()
+    {
+        Recording.Start();
+        Recording.Add("name1", "value1");
+        Recording.Add("name2", "value2");
+        Recording.Stop();
+        return Verify("other data");
+    }
+
+    #endregion
 
     [Fact]
     public Task StopIdentifier()
@@ -185,6 +204,8 @@ public class RecordingTests
         return Verify(Recording.Stop("identifier"));
     }
 
+    #region RecordingIgnoreCase
+
     [Fact]
     public Task Case()
     {
@@ -193,6 +214,8 @@ public class RecordingTests
         Recording.Add("Name", "value2");
         return Verify("TheValue");
     }
+
+    #endregion
 
     [Fact]
     public Task ToDictionary()

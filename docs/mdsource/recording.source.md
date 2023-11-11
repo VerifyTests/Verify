@@ -28,6 +28,28 @@ snippet: RecordingIdentifier
 snippet: RecordingTests.Identifier.verified.txt
 
 
+## Case is ignored
+
+snippet: RecordingIgnoreCase
+
+snippet: RecordingTests.Case.verified.txt
+
+## Stop
+
+Recording can be stopped and the resulting data can be manually verified:
+
+snippet: RecordingStop
+
+snippet: RecordingTests.Stop.verified.txt
+
+If Stop is called, the results are not automatically verified:
+
+snippet: RecordingStopNotInResult
+
+snippet: RecordingTests.StopNotInResult.verified.txt
+
+
+
 ## Extensions that leverage Recording
 
  * [Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording)

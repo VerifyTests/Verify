@@ -9,6 +9,8 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Recording allows information to be statically captured and then (optionally) verified.
 
+The main value of this feature is to simplify addition of information to a snapshot from extensions to Verify. Before to this feature, to for an extension to supply information to a snapshot, that extension had to return the information up the stack, and the calling code had to explicitly add that information to the `Verify()` call. Using this feature an extension can `Recording.Add()` in any context, and the information will be added to the snapshot.
+
 
 ## Usage
 

@@ -5,7 +5,7 @@ Source File: /docs/mdsource/recording.source.md
 To change this file edit the source file and then run MarkdownSnippets.
 -->
 
-# Verification of binary data
+# Recording
 
 Recording allows information to be statically captured and then (optionally) verified.
 

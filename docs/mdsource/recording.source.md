@@ -1,4 +1,4 @@
-# Verification of binary data
+# Recording
 
 Recording allows information to be statically captured and then (optionally) verified.
 

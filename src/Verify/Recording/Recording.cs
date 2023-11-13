@@ -7,6 +7,12 @@ public static partial class Recording
     public static void Add(string name, object item) =>
         CurrentState().Add(name, item);
 
+    public static void TryAdd(string name, object item)
+    {
+        var value = asyncLocal.Value;
+        value?.Add(name, item);
+    }
+
     public static bool IsRecording()
     {
         var state = asyncLocal.Value;

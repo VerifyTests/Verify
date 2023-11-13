@@ -7,6 +7,14 @@ public static partial class Recording
     public static void Add(string identifier, string name, object item) =>
         CurrentStateNamed(identifier).Add(name, item);
 
+    public static void TryAdd(string identifier, string name, object item)
+    {
+        if (namedState.TryGetValue(identifier, out var state))
+        {
+            state.Add(name, item);
+        }
+    }
+
     public static bool IsRecording(string identifier)
     {
         if (!namedState.TryGetValue(identifier, out var state))

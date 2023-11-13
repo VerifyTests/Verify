@@ -28,6 +28,8 @@ public Task Usage()
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L4-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-recording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Results in:
+
 <!-- snippet: RecordingTests.Usage.verified.txt -->
 <a id='snippet-RecordingTests.Usage.verified.txt'></a>
 ```txt
@@ -58,6 +60,8 @@ public Task SameKey()
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L198-L209' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Results in:
 
 <!-- snippet: RecordingTests.SameKey.verified.txt -->
 <a id='snippet-RecordingTests.SameKey.verified.txt'></a>
@@ -94,6 +98,8 @@ public Task Identifier()
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L16-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingidentifier' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Results in:
+
 <!-- snippet: RecordingTests.Identifier.verified.txt -->
 <a id='snippet-RecordingTests.Identifier.verified.txt'></a>
 ```txt
@@ -123,6 +129,8 @@ public Task Case()
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L220-L231' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Results in:
 
 <!-- snippet: RecordingTests.Case.verified.txt -->
 <a id='snippet-RecordingTests.Case.verified.txt'></a>
@@ -157,6 +165,8 @@ public Task Stop()
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L58-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Results in:
+
 <!-- snippet: RecordingTests.Stop.verified.txt -->
 <a id='snippet-RecordingTests.Stop.verified.txt'></a>
 ```txt
@@ -186,6 +196,8 @@ public Task StopNotInResult()
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L72-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Results in:
 
 <!-- snippet: RecordingTests.StopNotInResult.verified.txt -->
 <a id='snippet-RecordingTests.StopNotInResult.verified.txt'></a>
@@ -237,6 +249,8 @@ public Task Clear()
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L118-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingclear' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+Results in:
+
 <!-- snippet: RecordingTests.Clear.verified.txt -->
 <a id='snippet-RecordingTests.Clear.verified.txt'></a>
 ```txt
@@ -270,6 +284,8 @@ public Task PauseResume()
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L142-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingpauseresume' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+Results in:
 
 <!-- snippet: RecordingTests.PauseResume.verified.txt -->
 <a id='snippet-RecordingTests.PauseResume.verified.txt'></a>

@@ -9,6 +9,8 @@ The main value of this feature is to simplify addition of information to a snaps
 
 snippet: Recording
 
+Results in:
+
 snippet: RecordingTests.Usage.verified.txt
 
 
@@ -17,6 +19,8 @@ snippet: RecordingTests.Usage.verified.txt
 Values are grouped by key:
 
 snippet: RecordingSameKey
+
+Results in:
 
 snippet: RecordingTests.SameKey.verified.txt
 
@@ -29,12 +33,16 @@ Recording can be grouped by an identifier.
 
 snippet: RecordingIdentifier
 
+Results in:
+
 snippet: RecordingTests.Identifier.verified.txt
 
 
 ## Case is ignored
 
 snippet: RecordingIgnoreCase
+
+Results in:
 
 snippet: RecordingTests.Case.verified.txt
 
@@ -45,11 +53,15 @@ Recording can be stopped and the resulting data can be manually verified:
 
 snippet: RecordingStop
 
+Results in:
+
 snippet: RecordingTests.Stop.verified.txt
 
 If Stop is called, the results are not automatically verified:
 
 snippet: RecordingStopNotInResult
+
+Results in:
 
 snippet: RecordingTests.StopNotInResult.verified.txt
 
@@ -69,6 +81,8 @@ The current recorded items can be cleared:
 
 snippet: RecordingClear
 
+Results in:
+
 snippet: RecordingTests.Clear.verified.txt
 
 
@@ -77,6 +91,8 @@ snippet: RecordingTests.Clear.verified.txt
 Recording can be paused and resumed:
 
 snippet: RecordingPauseResume
+
+Results in:
 
 snippet: RecordingTests.PauseResume.verified.txt
 

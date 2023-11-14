@@ -13,6 +13,20 @@ public class RecordingTests
 
     #endregion
 
+    #region RecordingTryAdd
+
+    [Fact]
+    public Task TryAdd()
+    {
+        //using Recording.Add here would throw since Recording.Start has not been called
+        Recording.TryAdd("name1", "value1");
+        Recording.Start();
+        Recording.TryAdd("name2", "value2");
+        return Verify("TheValue");
+    }
+
+    #endregion
+
     #region RecordingIdentifier
 
     [Fact]

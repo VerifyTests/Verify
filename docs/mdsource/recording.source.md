@@ -14,6 +14,15 @@ Results in:
 snippet: RecordingTests.Usage.verified.txt
 
 
+## TryAdd
+
+If `Recording.Add()` is called before `Recording.Start` an exception will be called.
+
+`Recording.TryAdd()` will add an item only if `Recording.IsRecording` is true.
+
+snippet: RecordingTryAdd
+
+
 ## Grouping
 
 Values are grouped by key:

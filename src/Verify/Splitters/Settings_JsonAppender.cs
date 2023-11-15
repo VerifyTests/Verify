@@ -10,7 +10,13 @@ public static partial class VerifierSettings
 
         if (Recording.TryStop(out var recorded))
         {
-            list.AddRange(recorded);
+            foreach (var append in recorded)
+            {
+                if (!settings.serialization.ShouldIgnoreByName(append.Name))
+                {
+                    list.Add(append);
+                }
+            }
         }
 
         foreach (var appender in jsonAppenders)
@@ -18,11 +24,21 @@ public static partial class VerifierSettings
             var data = appender(settings.Context);
             if (data is not null)
             {
-                list.Add(data.Value);
+                var append = data.Value;
+                if (!settings.serialization.ShouldIgnoreByName(append.Name))
+                {
+                    list.Add(append);
+                }
             }
         }
 
-        list.AddRange(settings.Appends);
+        foreach (var append in settings.Appends)
+        {
+            if (!settings.serialization.ShouldIgnoreByName(append.Name))
+            {
+                list.Add(append);
+            }
+        }
 
         return list;
     }

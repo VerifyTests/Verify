@@ -1,0 +1,8 @@
+﻿{
+  target: TheValue,
+  name1: Scrubbed,
+  name2: [
+    value2,
+    value3
+  ]
+}

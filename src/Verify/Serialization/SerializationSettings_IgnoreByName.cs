@@ -37,6 +37,25 @@ partial class SerializationSettings
         }
     }
 
+    internal bool ShouldIgnoreByName(string name)
+    {
+        if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
+        {
+            return scrubOrIgnore == ScrubOrIgnore.Ignore;
+        }
+
+        return false;
+    }
+    internal bool ShouldScrubByName(string name)
+    {
+        if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
+        {
+            return scrubOrIgnore == ScrubOrIgnore.Scrub;
+        }
+
+        return false;
+    }
+
     internal bool TryGetScrubOrIgnoreByName(string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>
         ignoredByNameMembers.TryGetValue(name, out scrubOrIgnore);
 }

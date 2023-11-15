@@ -13,6 +13,30 @@ public class RecordingTests
 
     #endregion
 
+    [Fact]
+    public Task Ignore()
+    {
+        Recording.Start();
+        Recording.Add("name1", "value1");
+        Recording.Add("name1", "value11");
+        Recording.Add("name2", "value2");
+        Recording.Add("name2", "value3");
+        return Verify("TheValue")
+            .IgnoreMember("name1");
+    }
+
+    [Fact]
+    public Task Scrub()
+    {
+        Recording.Start();
+        Recording.Add("name1", "value1");
+        Recording.Add("name1", "value11");
+        Recording.Add("name2", "value2");
+        Recording.Add("name2", "value3");
+        return Verify("TheValue")
+            .ScrubMember("name1");
+    }
+
     #region RecordingTryAdd
 
     [Fact]

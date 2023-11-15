@@ -71,6 +71,12 @@
             foreach (var item in value.inner)
             {
                 writer.WritePropertyName(item.Key);
+                if (writer.serialization.ShouldScrubByName(item.Key))
+                {
+                    writer.WriteValue("Scrubbed");
+                    continue;
+                }
+
                 var values = item.Values;
                 if (values.Count == 1)
                 {

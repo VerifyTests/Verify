@@ -61,7 +61,7 @@ public Task TryAdd()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L16-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingtryadd' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L40-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingtryadd' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -81,7 +81,7 @@ public Task SameKey()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L212-L223' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L236-L247' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -118,7 +118,7 @@ public Task Identifier()
     return Verify(Recording.Stop("identifier"));
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L30-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingidentifier' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L54-L64' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingidentifier' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -150,7 +150,7 @@ public Task Case()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L234-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L258-L269' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -185,7 +185,7 @@ public Task Stop()
     return Verify(appends.Where(_ => _.Name != "name1"));
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L72-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L96-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -217,7 +217,7 @@ public Task StopNotInResult()
     return Verify("other data");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L86-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L110-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -246,7 +246,7 @@ public void IsRecording()
     Assert.True(Recording.IsRecording());
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L42-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-isrecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L66-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-isrecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This can be helpful if the cost of capturing data, to add to recording, is high.
@@ -269,7 +269,7 @@ public Task Clear()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L132-L144' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingclear' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L156-L168' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingclear' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -305,7 +305,7 @@ public Task PauseResume()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L156-L171' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingpauseresume' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L180-L195' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingpauseresume' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

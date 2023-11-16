@@ -2,6 +2,14 @@
 
 public static partial class Recording
 {
+    static List<string> ignored = new();
+
+    public static void IgnoreNames(params string[] names) =>
+        ignored.AddRange(names);
+
+    public static bool IsIgnored(string name) =>
+        ignored.Contains(name);
+
     static AsyncLocal<State?> asyncLocal = new();
 
     public static void Add(string name, object item) =>

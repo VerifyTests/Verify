@@ -1,6 +1,16 @@
 ﻿[UsesVerify]
 public class RecordingTests
 {
+    [Fact]
+    public Task IgnoreNames()
+    {
+        Recording.IgnoreNames("ignore");
+        Recording.Start();
+        Recording.Add("ignore", "value1");
+        Recording.Add("name", "value2");
+        return Verify();
+    }
+
     #region Recording
 
     [Fact]

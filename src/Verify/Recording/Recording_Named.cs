@@ -2,6 +2,7 @@
 
 public static partial class Recording
 {
+
     static ConcurrentDictionary<string, State> namedState = new(StringComparer.OrdinalIgnoreCase);
 
     public static void Add(string identifier, string name, object item) =>

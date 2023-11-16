@@ -14,6 +14,10 @@
             return;
         }
 
+        if (Recording.IsIgnored(name))
+        {
+            return;
+        }
         var append = new ToAppend(name, item);
         lock (items)
         {

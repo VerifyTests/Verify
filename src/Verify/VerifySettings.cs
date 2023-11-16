@@ -9,7 +9,7 @@ public partial class VerifySettings
             return;
         }
 
-        InstanceScrubbers = new(settings.InstanceScrubbers);
+        InstanceScrubbers = [..settings.InstanceScrubbers];
         ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
 #if DiffEngine
         diffEnabled = settings.diffEnabled;

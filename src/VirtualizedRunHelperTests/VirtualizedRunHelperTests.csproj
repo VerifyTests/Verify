@@ -7,7 +7,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="Xunit" Version="2.6.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.101" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.102" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

@@ -5,10 +5,9 @@ public class StreamTests
     public Task Stream() =>
         Verify(
             new MemoryStream(
-                new byte[]
-                {
+                [
                     1
-                }));
+                ]));
 
     class LengthNotSupportedStream(byte[] bytes) : MemoryStream(bytes)
     {
@@ -20,19 +19,18 @@ public class StreamTests
     public Task LengthNotSupportedException() =>
         Verify(
             new LengthNotSupportedStream(
-                new byte[]
-                {
+                [
                     1
-                }));
+                ]));
 
     [Fact]
     public Task StreamTask() =>
         Verify(
             Task.FromResult(
-                new MemoryStream(new byte[]
-                {
+                new MemoryStream(
+                [
                     1
-                })));
+                ])));
 
     [Fact]
     public Task ByteArray() =>
@@ -119,13 +117,13 @@ public class StreamTests
     [Fact]
     public Task StreamNotAtStart()
     {
-        var stream = new MemoryStream(new byte[]
-        {
+        var stream = new MemoryStream(
+        [
             1,
             2,
             3,
             4
-        });
+        ]);
         stream.Position = 2;
         return Verify(stream);
     }
@@ -141,10 +139,10 @@ public class StreamTests
     [Fact]
     public Task NoLengthStream()
     {
-        var stream = new NoLengthStream(new byte[]
-        {
+        var stream = new NoLengthStream(
+        [
             1
-        });
+        ]);
 
         return Verify(stream);
     }
@@ -154,14 +152,14 @@ public class StreamTests
         Verify(
             new List<Stream>
             {
-                new MemoryStream(new byte[]
-                {
+                new MemoryStream(
+                [
                     1
-                }),
-                new MemoryStream(new byte[]
-                {
+                ]),
+                new MemoryStream(
+                [
                     2
-                })
+                ])
             },
             "bin");
 
@@ -170,14 +168,14 @@ public class StreamTests
         Verify(
             new List<Stream>
             {
-                new MemoryStream(new byte[]
-                {
+                new MemoryStream(
+                [
                     1
-                }),
-                new MemoryStream(new byte[]
-                {
+                ]),
+                new MemoryStream(
+                [
                     2
-                })
+                ])
             },
             "bin",
             info: "info");

@@ -75,10 +75,11 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
-        Verify(new MemoryStream(new byte[]
-        {
+        Verify(new MemoryStream(
+        [
             1
-        }), "ExtensionConversionStringBuilder");
+        ]),
+            "ExtensionConversionStringBuilder");
 
     [ModuleInitializer]
     public static void ExtensionConversionMultipleTargetsInit() =>
@@ -97,10 +98,12 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionMultipleTargets() =>
-        Verify(new MemoryStream(new byte[]
-        {
+        Verify(
+            new MemoryStream(
+        [
             1
-        }), "ExtensionConversionMultipleTargets");
+        ]),
+            "ExtensionConversionMultipleTargets");
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedTargetInit() =>

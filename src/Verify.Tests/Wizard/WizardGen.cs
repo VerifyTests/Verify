@@ -522,17 +522,18 @@ public class WizardGen
             return;
         }
 
-        builder.AppendLine("""
+        builder.AppendLine(
+            """
 
-                           ## Rider Plugin
+            ## Rider Plugin
 
-                           Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
+            Install the [Rider Plugin](https://plugins.jetbrains.com/plugin/17240-verify-support)
 
-                           Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
+            Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
 
-                           This is optional, but recommended.
+            This is optional, but recommended.
 
-                           """);
+            """);
     }
 
     static void PurgeDirectory(string directory)
@@ -551,23 +552,23 @@ public class WizardGen
     static Ide[] GetIdesForOs(Os os) =>
         os switch
         {
-            Os.Windows => new[]
-            {
+            Os.Windows =>
+            [
                 Ide.VisualStudio,
                 Ide.VisualStudioWithReSharper,
                 Ide.Rider,
                 Ide.Other,
-            },
-            Os.MacOS => new[]
-            {
+            ],
+            Os.MacOS =>
+            [
                 Ide.Rider,
                 Ide.Other,
-            },
-            Os.Linux => new[]
-            {
+            ],
+            Os.Linux =>
+            [
                 Ide.Rider,
                 Ide.Other,
-            },
+            ],
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 }

@@ -6,7 +6,7 @@
         inner = [];
 
     public UniquenessList(UniquenessList value) =>
-        inner = new(value.inner);
+        inner = [..value.inner];
 
     public void Add(string value)
     {

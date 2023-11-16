@@ -84,11 +84,11 @@ public static class ClassBeingTested
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 Street = "4 Puddle Lane",
@@ -298,11 +298,11 @@ public static class ClassBeingTested
             GivenNames = "John James",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 // Address changed

@@ -65,7 +65,7 @@ static class Extensions
     }
 
     public static List<T> Clone<T>(this List<T> original) =>
-        new(original);
+        [..original];
 
     public static IReadOnlyList<string>? ParameterNames(this MethodInfo method)
     {

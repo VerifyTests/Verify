@@ -559,10 +559,7 @@ public class SerializationTests
     {
         var target = new TypeNameHandlingAutoInArrayTarget
         {
-            Item = new[]
-            {
-                new TypeNameHandlingAutoInArrayItemChild()
-            }
+            Item = [new TypeNameHandlingAutoInArrayItemChild()]
         };
 
         return Verify(target)

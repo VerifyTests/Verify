@@ -68,10 +68,10 @@ public class SimpleTypeTests
                    }
                    """;
         var argonJToken = JToken.Parse(json);
-        yield return new object[]
-        {
+        yield return
+        [
             argonJToken
-        };
+        ];
 
         yield return [
             JArray.Parse(

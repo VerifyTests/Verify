@@ -89,7 +89,7 @@ public class Tests
 
     [Fact]
     public Task WithInfo() =>
-        Verify(new MemoryStream(new byte[]{1}), "foo");
+        Verify(new MemoryStream([1]), "foo");
 
     [ModuleInitializer]
     public static void WithInfoInit() =>

@@ -1942,9 +1942,7 @@ public class SerializationTests
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = [],
-            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]
-            {
-            }),
+            ReadOnlyCollection = new ReadOnlyCollection<string>([]),
             Array = Array.Empty<string>()
         };
         return Verify(target);

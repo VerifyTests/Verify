@@ -82,10 +82,7 @@ public class JsonAppenderTests : IDisposable
             {
                 new Target(
                     "bin",
-                    new MemoryStream(new byte[]
-                    {
-                        1
-                    }))
+                    new MemoryStream([1]))
             });
 
     [Fact]

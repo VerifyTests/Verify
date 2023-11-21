@@ -37,8 +37,5 @@ public class Tests
             {
                 Property = "Value"
             },
-            rawTargets: new[]
-            {
-                new Target("txt", "TextTarget")
-            }));
+            rawTargets: [new("txt", "TextTarget")]));
 }

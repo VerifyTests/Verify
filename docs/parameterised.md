@@ -288,7 +288,7 @@ public class TestFixtureSourceUsage(string arg1, int arg2)
             });
 
     static object[] FixtureArgs =
-    {
+    [
         new object[]
         {
             "Value1",
@@ -299,7 +299,7 @@ public class TestFixtureSourceUsage(string arg1, int arg2)
             "Value2",
             2
         }
-    };
+    ];
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>

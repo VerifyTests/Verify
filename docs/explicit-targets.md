@@ -26,7 +26,7 @@ public Task WithTargets() =>
         },
         rawTargets:
         [
-            new Target(
+            new(
                 extension: "txt",
                 data: "Raw target value",
                 name: "targetName")

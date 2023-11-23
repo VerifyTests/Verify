@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<string, ScrubOrIgnore?> ignoredByNameMembers = new();
+    Dictionary<string, ScrubOrIgnore?> ignoredByNameMembers = [];
 
     public void IgnoreStackTrace() =>
         IgnoreMember("StackTrace");

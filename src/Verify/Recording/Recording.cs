@@ -2,7 +2,7 @@
 
 public static partial class Recording
 {
-    static List<string> ignored = new();
+    static List<string> ignored = [];
 
     public static void IgnoreNames(params string[] names) =>
         ignored.AddRange(names);

@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<Type, ScrubOrIgnore> ignoredTypes = new();
+    Dictionary<Type, ScrubOrIgnore> ignoredTypes = [];
 
     public void ScrubMembersWithType<T>()
         where T : notnull =>

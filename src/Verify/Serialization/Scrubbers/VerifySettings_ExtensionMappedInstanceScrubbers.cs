@@ -2,7 +2,7 @@
 
 public partial class VerifySettings
 {
-    internal Dictionary<string, List<Action<StringBuilder, Counter>>> ExtensionMappedInstanceScrubbers = new();
+    internal Dictionary<string, List<Action<StringBuilder, Counter>>> ExtensionMappedInstanceScrubbers = [];
 
     /// <summary>
     /// Modify the resulting test content using custom code.

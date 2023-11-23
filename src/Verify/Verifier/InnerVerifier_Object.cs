@@ -2,7 +2,7 @@
 
 partial class InnerVerifier
 {
-    static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
+    static IEnumerable<Target> emptyTargets = [];
 
     internal static object IgnoreTarget { get; } = new();
 

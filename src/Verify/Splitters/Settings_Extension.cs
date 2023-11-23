@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static Dictionary<string, AsyncConversion<Stream>> extensionConverters = new();
+    static Dictionary<string, AsyncConversion<Stream>> extensionConverters = [];
 
     internal static bool TryGetExtensionConverter(string extension, [NotNullWhen(true)] out AsyncConversion<Stream>? converter) =>
         extensionConverters.TryGetValue(extension, out converter);

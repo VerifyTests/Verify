@@ -63,7 +63,7 @@ public partial class VerifySettings
     /// <summary>
     /// Allows extensions to Verify to pass config via <see cref="VerifySettings" />.
     /// </summary>
-    public Dictionary<string, object> Context { get; } = new();
+    public Dictionary<string, object> Context { get; } = [];
 
     public VerifySettings()
     {

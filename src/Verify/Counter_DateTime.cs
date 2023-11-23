@@ -3,7 +3,7 @@
 public partial class Counter
 {
     ConcurrentDictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(new DateTimeComparer());
-    static Dictionary<DateTime, string> globalNamedDateTimes = new();
+    static Dictionary<DateTime, string> globalNamedDateTimes = [];
 
     class DateTimeComparer : IEqualityComparer<DateTime>
     {

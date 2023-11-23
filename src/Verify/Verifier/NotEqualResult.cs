@@ -1,4 +1,8 @@
-﻿readonly struct NotEqualResult(FilePair file, string? message, StringBuilder? receivedText, StringBuilder? verifiedText)
+﻿readonly struct NotEqualResult(
+    FilePair file,
+    string? message,
+    StringBuilder? receivedText,
+    StringBuilder? verifiedText)
 {
     public FilePair File { get; } = file;
     public string? Message { get; } = message;

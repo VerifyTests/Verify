@@ -251,9 +251,7 @@ public class Namer
         }
 
         // It's one of the .NET Framework versions we're explicitly targeting.
-#if NET462
-        return ("Net", new(4, 6));
-#elif NET472
+#if NET472
         return ("Net", new(4, 7));
 #elif NET48
         return ("Net", new(4, 8));

@@ -2,8 +2,8 @@
 
 public static partial class VerifierSettings
 {
-    static Dictionary<string, StringCompare> stringComparers = new();
-    static Dictionary<string, StreamCompare> streamComparers = new();
+    static Dictionary<string, StringCompare> stringComparers = [];
+    static Dictionary<string, StreamCompare> streamComparers = [];
     static StringCompare? defaultStringComparer;
 
     internal static bool TryGetStreamComparer(string extension, [NotNullWhen(true)] out StreamCompare? comparer) =>

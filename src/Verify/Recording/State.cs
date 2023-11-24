@@ -1,6 +1,6 @@
 ﻿class State
 {
-    List<ToAppend> items = new();
+    List<ToAppend> items = [];
 
     internal IReadOnlyCollection<ToAppend> Items => items;
 

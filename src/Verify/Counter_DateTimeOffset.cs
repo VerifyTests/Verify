@@ -3,7 +3,7 @@
 public partial class Counter
 {
     ConcurrentDictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(new DateTimeOffsetComparer());
-    static Dictionary<DateTimeOffset, string> globalNamedDateTimeOffsets = new();
+    static Dictionary<DateTimeOffset, string> globalNamedDateTimeOffsets = [];
 
     class DateTimeOffsetComparer :
         IEqualityComparer<DateTimeOffset>

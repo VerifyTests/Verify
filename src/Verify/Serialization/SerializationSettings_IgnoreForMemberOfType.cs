@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<Type, Dictionary<string, ScrubOrIgnore>> ignoredMembers = new();
+    Dictionary<Type, Dictionary<string, ScrubOrIgnore>> ignoredMembers = [];
 
     public void IgnoreMembers<T>(params Expression<Func<T, object?>>[] expressions)
         where T : notnull
@@ -92,7 +92,7 @@ partial class SerializationSettings
         Guard.AgainstNullable(declaringType);
         if (!ignoredMembers.TryGetValue(declaringType, out var list))
         {
-            ignoredMembers[declaringType] = list = new();
+            ignoredMembers[declaringType] = list = [];
         }
 
         list[name] = scrubOrIgnore;

@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NET462
-namespace VerifyNUnit;
+﻿namespace VerifyNUnit;
 
 public static partial class Verifier
 {
@@ -10,4 +9,3 @@ public static partial class Verifier
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.VerifyTuple(expression));
 }
-#endif

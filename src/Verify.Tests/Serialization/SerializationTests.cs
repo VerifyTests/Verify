@@ -2164,7 +2164,7 @@ public class SerializationTests
         return Throws(
                 () =>
                 {
-                    member.Invoke(null, Array.Empty<object>());
+                    member.Invoke(null, []);
                 })
             .UniqueForTargetFrameworkAndVersion()
             .ScrubLinesContaining("(Object ");
@@ -2177,7 +2177,7 @@ public class SerializationTests
         TargetInvocationException? exception = null;
         try
         {
-            member.Invoke(null, Array.Empty<object>());
+            member.Invoke(null, []);
         }
         catch (TargetInvocationException e)
         {

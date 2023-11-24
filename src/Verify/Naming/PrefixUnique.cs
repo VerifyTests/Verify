@@ -1,6 +1,6 @@
 ﻿static class PrefixUnique
 {
-    static ConcurrentBag<string> prefixList = new();
+    static ConcurrentBag<string> prefixList = [];
 
     public static void CheckPrefixIsUnique(string prefix)
     {
@@ -21,7 +21,7 @@
     }
 
     public static void Clear() =>
-        prefixList = new();
+        prefixList = [];
 
     public static UniquenessList SharedUniqueness(Namer namer)
     {

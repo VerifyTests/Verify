@@ -10,7 +10,7 @@ partial class InnerVerifier
         VerifyInner(IgnoreTarget, null, emptyTargets, true);
 
     public async Task<VerifyResult> Verify(object? target)
-        {
+    {
         if (target is string stringTarget)
         {
             return await VerifyString(stringTarget);

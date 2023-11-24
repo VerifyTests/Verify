@@ -569,7 +569,7 @@ public class SerializationTests
 
     class TypeNameHandlingAutoInArrayTarget
     {
-        public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = Array.Empty<TypeNameHandlingAutoInArrayItem>();
+        public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = [];
     }
 
     abstract class TypeNameHandlingAutoInArrayItem;

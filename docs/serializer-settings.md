@@ -87,7 +87,7 @@ await Verify(str)
 
 ## UseEncoding
 
-To entirely override the encoding used for snapshot files, call `VerifierSettings.UseEncoding` providing a `System.Text.Encoding` instance.
+To override the encoding used for snapshot files, replacing the default UTF-8 encoding, call `VerifierSettings.UseEncoding` providing a `System.Text.Encoding` instance.
 
 <!-- snippet: UseEncoding -->
 <a id='snippet-useencoding'></a>

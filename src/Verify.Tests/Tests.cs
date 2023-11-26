@@ -269,7 +269,7 @@ public class Tests
             return;
         }
 
-        var file = CurrentFile.Relative($"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
+        var file = CurrentFile.Relative($"Tests.{nameof(EnsureUtf8BomPreamble)}.{Namer.RuntimeAndVersion}.verified.txt");
         File.Delete(file);
         await Verify("value")
             .UniqueForRuntimeAndVersion()
@@ -277,6 +277,48 @@ public class Tests
         var fileBytes = File.ReadAllBytes(file).Take(3);
         var preambleBytes = Encoding.UTF8.GetPreamble();
         Assert.Equal(preambleBytes, fileBytes);
+    }
+
+    [Fact]
+    public async Task NonStandardEncoding_DisableUtf8Bom()
+    {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
+        var file = CurrentFile.Relative($"Tests.{nameof(NonStandardEncoding_DisableUtf8Bom)}.{Namer.RuntimeAndVersion}.verified.txt");
+        File.Delete(file);
+        var str = "value";
+        var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
+        await Verify(str)
+            .UseUtf8NoBom()
+            .UniqueForRuntimeAndVersion()
+            .AutoVerify();
+        var fileBytes = File.ReadAllBytes(file);
+        var expectedBytes = encoding.GetBytes(str);
+        Assert.Equal(expectedBytes, fileBytes);
+    }
+
+    [Fact]
+    public async Task NonStandardEncoding_Utf16()
+    {
+        if (BuildServerDetector.Detected)
+        {
+            return;
+        }
+
+        var file = CurrentFile.Relative($"Tests.{nameof(NonStandardEncoding_Utf16)}.{Namer.RuntimeAndVersion}.verified.txt");
+        File.Delete(file);
+        var str = "value";
+        var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
+        await Verify(str)
+            .UseEncoding(encoding)
+            .UniqueForRuntimeAndVersion()
+            .AutoVerify();
+        var fileBytes = File.ReadAllBytes(file);
+        var expectedBytes = encoding.GetPreamble().Concat(encoding.GetBytes(str)).ToArray();
+        Assert.Equal(expectedBytes, fileBytes);
     }
 
     [Fact]

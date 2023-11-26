@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class SettingsTask
 {
@@ -346,6 +346,26 @@ public partial class SettingsTask
     public SettingsTask UseTextForParameters(string parametersText)
     {
         CurrentSettings.UseTextForParameters(parametersText);
+        return this;
+    }
+
+    /// <summary>
+    /// Use UTF-8 without a BOM for snapshot files.
+    /// </summary>
+    [Pure]
+    public SettingsTask UseUtf8NoBom()
+    {
+        CurrentSettings.UseUtf8NoBom();
+        return this;
+    }
+
+    /// <summary>
+    /// Use custom encoding for snapshot files. When this method is not called, the default value is UTF-8 with BOM.
+    /// </summary>
+    [Pure]
+    public SettingsTask UseEncoding(Encoding encoding)
+    {
+        CurrentSettings.UseEncoding(encoding);
         return this;
     }
 

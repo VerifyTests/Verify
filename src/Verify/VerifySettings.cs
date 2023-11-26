@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class VerifySettings
 {
@@ -31,6 +31,7 @@ public partial class VerifySettings
 #endif
 
         parametersText = settings.parametersText;
+        encoding = settings.encoding;
         fileName = settings.fileName;
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
         UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;
@@ -87,6 +88,14 @@ public partial class VerifySettings
 
         this.parametersText = parametersText;
     }
+
+    public void UseUtf8NoBom() =>
+        this.encoding = IoHelpers.Utf8NoBom;
+
+    public void UseEncoding(Encoding encoding) =>
+        this.encoding = encoding;
+
+    internal Encoding? encoding;
 
     internal bool IsAutoVerify =>
         VerifierSettings.autoVerify ||

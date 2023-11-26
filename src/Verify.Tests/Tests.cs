@@ -291,8 +291,10 @@ public class Tests
         File.Delete(file);
         var str = "value";
         var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
+        #region UseUtf8NoBom
         await Verify(str)
             .UseUtf8NoBom()
+        #endregion
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
         var fileBytes = File.ReadAllBytes(file);
@@ -311,9 +313,11 @@ public class Tests
         var file = CurrentFile.Relative($"Tests.{nameof(NonStandardEncoding_Utf16)}.{Namer.RuntimeAndVersion}.verified.txt");
         File.Delete(file);
         var str = "value";
+        #region UseEncoding
         var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
         await Verify(str)
             .UseEncoding(encoding)
+        #endregion
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
         var fileBytes = File.ReadAllBytes(file);

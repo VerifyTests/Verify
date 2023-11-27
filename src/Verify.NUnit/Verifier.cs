@@ -32,6 +32,12 @@ public static partial class Verifier
         var adapter = context.Test;
         var test = GetTest(adapter);
         var typeInfo = test.TypeInfo;
+
+        if (test is TestFixture)
+        {
+            throw new("Executing Verify in a One Time Setup method is not supported. Instead run Verify in a test method.");
+        }
+
         if (typeInfo is null || test.Method is null)
         {
             throw new("Expected Test.TypeInfo and Test.Method to not be null. Submit a Pull Request with a test that replicates this problem.");

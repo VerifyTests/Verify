@@ -1,13 +1,9 @@
 ﻿[UsesVerify]
-public class Tests
+public class UseSplitModeForUniqueDirectoryTests :
+    BaseTest
 {
-    #region UseSplitModeForUniqueDirectory
-
-    [ModuleInitializer]
-    public static void Init() =>
+    public UseSplitModeForUniqueDirectoryTests() =>
         VerifierSettings.UseSplitModeForUniqueDirectory();
-
-    #endregion
 
     [Fact]
     public Task ValueTest() =>
@@ -17,11 +13,11 @@ public class Tests
     [Fact]
     public Task Target() =>
         Verify(
-                "Target",
-                new[]
-                {
-                    new Target("txt", "data")
-                })
+               "Target",
+               new[]
+               {
+                   new Target("txt", "data")
+               })
             .UseUniqueDirectory();
 
     [Fact]

@@ -685,11 +685,14 @@ For verified files:
 <!-- snippet: UseSplitModeForUniqueDirectory -->
 <a id='snippet-usesplitmodeforuniquedirectory'></a>
 ```cs
-[ModuleInitializer]
-public static void Init() =>
-    VerifierSettings.UseSplitModeForUniqueDirectory();
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.UseSplitModeForUniqueDirectory();
+}
 ```
-<sup><a href='/src/SplitUniqueDirectoryMode/Tests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-usesplitmodeforuniquedirectory' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/UseSplitModeForUniqueDirectory.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-usesplitmodeforuniquedirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 **Also exclude `*.received/` from source control.**

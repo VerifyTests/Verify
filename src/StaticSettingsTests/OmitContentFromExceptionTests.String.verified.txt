@@ -1,4 +1,4 @@
 ﻿Directory: CustomReplace\StaticSettingsTests
-New:
+NotEqual:
   - Received: OmitContentFromExceptionTests.String.received.txt
     Verified: OmitContentFromExceptionTests.String.verified.txt

@@ -7,10 +7,10 @@ public class Tests
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
-                Assert.True(File.Exists(sourceFile));
-                Assert.True(Directory.Exists(projectDirectory));
-                Assert.NotNull(methodName);
-                Assert.NotNull(typeName);
+                Assert.That(File.Exists(sourceFile));
+                Assert.That(Directory.Exists(projectDirectory));
+                Assert.That(methodName, Is.Not.Null);
+                Assert.That(typeName, Is.Not.Null);
                 // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
                 // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");

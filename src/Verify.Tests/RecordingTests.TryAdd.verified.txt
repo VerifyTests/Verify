@@ -1,0 +1,4 @@
+﻿{
+  target: TheValue,
+  name2: value2
+}

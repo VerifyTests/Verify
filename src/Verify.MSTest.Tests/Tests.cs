@@ -48,13 +48,13 @@ public class Tests :
             {
                 Property = "Value"
             },
-            rawTargets: new[]
-            {
-                new Target(
+            rawTargets:
+            [
+                new(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+            ]);
 
     #endregion
 

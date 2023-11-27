@@ -1,0 +1,8 @@
+﻿[
+  {
+    name: value1
+  },
+  {
+    Name: value2
+  }
+]

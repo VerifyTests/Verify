@@ -1,6 +1,6 @@
 ﻿static class PrefixUnique
 {
-    static ConcurrentBag<string> prefixList = new();
+    static ConcurrentBag<string> prefixList = [];
 
     public static void CheckPrefixIsUnique(string prefix)
     {
@@ -8,8 +8,11 @@
         {
             throw new(
                 $"""
-                 The prefix has already been used: {prefix}.
-                 This is mostly caused by a conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`.
+                 The prefix has already been used: {prefix}. This is mostly caused by:
+
+                  * A conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`; or
+                  * Multiple calls to Verify or Throws in the same test method
+
                  If that's not the case, and having multiple identical prefixes is acceptable, then call `VerifierSettings.DisableRequireUniquePrefix()` to disable this uniqueness validation.
                  """);
         }
@@ -18,7 +21,7 @@
     }
 
     public static void Clear() =>
-        prefixList = new();
+        prefixList = [];
 
     public static UniquenessList SharedUniqueness(Namer namer)
     {

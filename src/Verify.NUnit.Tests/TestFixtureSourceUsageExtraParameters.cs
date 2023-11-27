@@ -12,11 +12,11 @@ public class TestFixtureSourceAndTestCaseUsage(string arg1, int arg2)
             });
 
     static object[] FixtureArgs =
-    {
+    [
         new object[]
         {
             "Value2",
             2
         }
-    };
+    ];
 }

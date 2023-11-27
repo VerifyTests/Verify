@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NET462
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -9,4 +8,3 @@ partial class InnerVerifier
         return Verify(dictionary);
     }
 }
-#endif

@@ -24,13 +24,13 @@ public Task WithTargets() =>
         {
             Property = "Value"
         },
-        rawTargets: new[]
-        {
-            new Target(
+        rawTargets:
+        [
+            new(
                 extension: "txt",
                 data: "Raw target value",
                 name: "targetName")
-        });
+        ]);
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L42-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

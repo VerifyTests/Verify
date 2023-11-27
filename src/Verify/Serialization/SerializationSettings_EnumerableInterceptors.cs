@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    Dictionary<Type, Func<IEnumerable, IEnumerable>> enumerableInterceptors = new();
+    Dictionary<Type, Func<IEnumerable, IEnumerable>> enumerableInterceptors = [];
 
     public void OrderEnumerableBy<T>(Func<T, object?> keySelector) =>
         enumerableInterceptors[typeof(T)] = _ => _.Cast<T>().OrderBy(keySelector);

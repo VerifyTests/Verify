@@ -13,11 +13,11 @@ public static class ClassBeingTested
             GivenNames = "John James",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 // Address changed

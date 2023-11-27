@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    Dictionary<Type, List<Func<object, ScrubOrIgnore?>>> ignoredInstances = new();
+    Dictionary<Type, List<Func<object, ScrubOrIgnore?>>> ignoredInstances = [];
 
     public void IgnoreInstance<T>(Func<T, bool> shouldIgnore)
         where T : notnull

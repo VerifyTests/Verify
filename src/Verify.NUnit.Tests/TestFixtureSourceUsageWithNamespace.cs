@@ -12,7 +12,7 @@ public class TestFixtureSourceUsageWithNamespace(string arg1, int arg2)
         });
 
     static object[] FixtureArgs =
-    {
+    [
         new object[]
         {
             "Value1",
@@ -23,5 +23,5 @@ public class TestFixtureSourceUsageWithNamespace(string arg1, int arg2)
             "Value2",
             2
         }
-    };
+    ];
 }

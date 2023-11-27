@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD2_0 && !NET462
-static class TupleConverter
+﻿static class TupleConverter
 {
     public static Dictionary<string, object?> ExpressionToDictionary(Expression<Func<ITuple>> expression)
     {
@@ -36,4 +35,3 @@ static class TupleConverter
         return (TupleElementNamesAttribute) attributes[0];
     }
 }
-#endif

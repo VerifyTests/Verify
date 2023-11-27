@@ -2,16 +2,6 @@
 
 public static partial class Verifier
 {
-    static FieldInfo field;
-
-    static Verifier()
-    {
-        var temp = typeof(TestContext.TestAdapter)
-            .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic);
-
-        field = temp ?? throw new("Could not find field `_test` on TestContext.TestAdapter.");
-    }
-
     static InnerVerifier BuildVerifier(string sourceFile, VerifySettings settings, bool useUniqueDirectory)
     {
         Guard.AgainstBadSourceFile(sourceFile);
@@ -19,13 +9,13 @@ public static partial class Verifier
         {
             settings.UseUniqueDirectory();
         }
-        var context = TestContext.CurrentContext;
-        var adapter = context.Test;
-        var test = (Test) field.GetValue(adapter)!;
-        var typeInfo = test.TypeInfo;
-        if (typeInfo is null || test.Method is null)
+
+        var adapter = TestContext.CurrentContext.Test;
+
+        var testMethod = adapter.Method;
+        if (testMethod is null)
         {
-            throw new("Expected Test.TypeInfo and Test.Method to not be null. Submit a Pull Request with a test that replicates this problem.");
+            throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
         }
 
         if (settings.parameters is null &&
@@ -34,17 +24,18 @@ public static partial class Verifier
             settings.parameters = adapter.Arguments;
         }
 
-        if (test.IsCustomName())
+        var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");
+        if (customName)
         {
-            settings.typeName ??= test.GetTypeName();
+            settings.typeName ??= adapter.GetTypeName();
 
-            settings.methodName ??= test.GetMethodName();
+            settings.methodName ??= adapter.GetMethodName();
         }
 
-        var type = typeInfo.Type;
+        var type = testMethod.TypeInfo.Type;
         TargetAssembly.Assign(type.Assembly);
 
-        var method = test.Method.MethodInfo;
+        var method = testMethod.MethodInfo;
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
@@ -56,9 +47,9 @@ public static partial class Verifier
             pathInfo);
     }
 
-    static string GetMethodName(this ITest test)
+    static string GetMethodName(this TestContext.TestAdapter adapter)
     {
-        var name = test.Name;
+        var name = adapter.Name;
         var indexOf = name.IndexOf('(');
 
         if (indexOf != -1)
@@ -69,12 +60,12 @@ public static partial class Verifier
         return name.ReplaceInvalidFileNameChars();
     }
 
-    static string GetTypeName(this Test test)
+    static string GetTypeName(this TestContext.TestAdapter adapter)
     {
-        var fullName = test.FullName;
-        var fullNameLength = fullName.Length - (test.Name.Length + 1);
+        var fullName = adapter.FullName;
+        var fullNameLength = fullName.Length - (adapter.Name.Length + 1);
         var typeName = fullName[..fullNameLength];
-        var typeInfo = test.TypeInfo!;
+        var typeInfo = adapter.Method!.TypeInfo;
         // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
         if (typeInfo.Namespace is not null)
         {
@@ -85,9 +76,6 @@ public static partial class Verifier
             .Remove("\"")
             .ReplaceInvalidFileNameChars();
     }
-
-    static bool IsCustomName(this ITest test) =>
-        !test.FullName.StartsWith($"{test.TypeInfo!.FullName}.{test.Method!.Name}");
 
     static SettingsTask Verify(
         VerifySettings? settings,

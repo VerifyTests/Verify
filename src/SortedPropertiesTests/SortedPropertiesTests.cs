@@ -26,11 +26,11 @@ public class SortedPropertiesTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 Street = "1 Puddle Lane",
@@ -53,11 +53,11 @@ public class SortedPropertiesTests
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 Street = "1 Puddle Lane",

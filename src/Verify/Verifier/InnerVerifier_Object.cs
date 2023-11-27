@@ -2,7 +2,7 @@
 
 partial class InnerVerifier
 {
-    static IEnumerable<Target> emptyTargets = Enumerable.Empty<Target>();
+    static IEnumerable<Target> emptyTargets = [];
 
     internal static object IgnoreTarget { get; } = new();
 
@@ -10,7 +10,7 @@ partial class InnerVerifier
         VerifyInner(IgnoreTarget, null, emptyTargets, true);
 
     public async Task<VerifyResult> Verify(object? target)
-        {
+    {
         if (target is string stringTarget)
         {
             return await VerifyString(stringTarget);

@@ -2,7 +2,7 @@
 
 partial class SerializationSettings
 {
-    Dictionary<string, ScrubOrIgnore?> ignoredByNameMembers = new();
+    Dictionary<string, ScrubOrIgnore?> ignoredByNameMembers = [];
 
     public void IgnoreStackTrace() =>
         IgnoreMember("StackTrace");
@@ -35,6 +35,25 @@ partial class SerializationSettings
         {
             ScrubMember(name);
         }
+    }
+
+    internal bool ShouldIgnoreByName(string name)
+    {
+        if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
+        {
+            return scrubOrIgnore == ScrubOrIgnore.Ignore;
+        }
+
+        return false;
+    }
+    internal bool ShouldScrubByName(string name)
+    {
+        if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))
+        {
+            return scrubOrIgnore == ScrubOrIgnore.Scrub;
+        }
+
+        return false;
     }
 
     internal bool TryGetScrubOrIgnoreByName(string name, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore) =>

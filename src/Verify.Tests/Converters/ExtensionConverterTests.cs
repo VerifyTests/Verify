@@ -75,10 +75,11 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
-        Verify(new MemoryStream(new byte[]
-        {
+        Verify(new MemoryStream(
+        [
             1
-        }), "ExtensionConversionStringBuilder");
+        ]),
+            "ExtensionConversionStringBuilder");
 
     [ModuleInitializer]
     public static void ExtensionConversionMultipleTargetsInit() =>
@@ -97,10 +98,12 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionMultipleTargets() =>
-        Verify(new MemoryStream(new byte[]
-        {
+        Verify(
+            new MemoryStream(
+        [
             1
-        }), "ExtensionConversionMultipleTargets");
+        ]),
+            "ExtensionConversionMultipleTargets");
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedTargetInit() =>
@@ -119,10 +122,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionNamedTarget() =>
-        Verify(new MemoryStream(new byte[]
-        {
-            1
-        }), "ExtensionConversionNamedTarget");
+        Verify(new MemoryStream([1]), "ExtensionConversionNamedTarget");
 
     [ModuleInitializer]
     public static void ExtensionConversionNamedMixedTargetInit() =>
@@ -141,10 +141,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversionNamedMixedTarget() =>
-        Verify(new MemoryStream(new byte[]
-        {
-            1
-        }), "ExtensionConversionNamedMixedTarget");
+        Verify(new MemoryStream([1]), "ExtensionConversionNamedMixedTarget");
 
     [ModuleInitializer]
     public static void ExtensionConversionInit() =>
@@ -154,10 +151,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task ExtensionConversion() =>
-        Verify(new MemoryStream(new byte[]
-        {
-            1
-        }), "ExtensionConversion");
+        Verify(new MemoryStream([1]), "ExtensionConversion");
 
     [ModuleInitializer]
     public static void AsyncExtensionConversionInit() =>
@@ -167,10 +161,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task AsyncExtensionConversion() =>
-        Verify(new MemoryStream(new byte[]
-        {
-            1
-        }), "AsyncExtensionConversion");
+        Verify(new MemoryStream([1]), "AsyncExtensionConversion");
 
     [ModuleInitializer]
     public static void WithInfoInit() =>
@@ -187,10 +178,7 @@ public class ExtensionConverterTests
 
     [Fact]
     public Task WithInfo() =>
-        Verify(new MemoryStream(new byte[]
-        {
-            1
-        }), "WithInfo");
+        Verify(new MemoryStream([1]), "WithInfo");
 
     [ModuleInitializer]
     public static void WithInfoAndBinaryInit() =>

@@ -84,11 +84,11 @@ public static class ClassBeingTested
             GivenNames = "John",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 Street = "4 Puddle Lane",
@@ -298,11 +298,11 @@ public static class ClassBeingTested
             GivenNames = "John James",
             FamilyName = "Smith",
             Spouse = "Jill",
-            Children = new()
-            {
+            Children =
+            [
                 "Sam",
                 "Mary"
-            },
+            ],
             Address = new()
             {
                 // Address changed
@@ -514,10 +514,10 @@ If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 <!-- snippet: ExceptionResult -->
 <a id='snippet-exceptionresult'></a>
 ```cs
-var result = await Verifier.Throws(MethodThatThrows);
+var result = await Throws(MethodThatThrows);
 Assert.NotNull(result.Exception);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L100-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L173-L178' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -585,6 +585,7 @@ This readme will not discuss definitive list of details for proper setup of the 
 
 ## Media
 
+ * [Introduction to Snapshot testing and using Verify.Xunit - Betatalks (11 Oct 2023)](https://www.youtube.com/watch?v=RVmz3FZFIBU)
  * [I REGRET Not Telling Dave Farley THIS about Approval Testing - Emily Bache (27 Sep 2023)](https://www.youtube.com/watch?v=jOuqE_o9rmg)
  * [The Way to Test Legacy Code in C# - Gui Ferreira (19 Sep 2023)](https://www.youtube.com/watch?v=UC-AUnuTh0I)
  * [Today's random F# code: Using Verify to prevent breaking changes in stored data - Urs Enzler (31 Mar 2023)](https://www.planetgeek.ch/2023/03/31/todays-random-f-code-using-verify-to-prevent-breaking-changes-in-stored-data/)
@@ -683,6 +684,7 @@ Nick Chapsas (1 Aug 2022)](https://www.youtube.com/watch?v=Q1_YkcPwpqY)
   * [Build server](/docs/build-server.md)
   * [Comparers](/docs/comparer.md)
   * [Converters](/docs/converter.md)
+  * [Recording](/docs/recording.md)
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->

@@ -2,9 +2,11 @@
 
 public static class Parser
 {
+    static string[] newlines = ["\r\n","\r","\n"];
+
     public static Result Parse(string message)
     {
-        var lines = message.Split(new[] {"\r\n","\r","\n"}, StringSplitOptions.RemoveEmptyEntries);
+        var lines = message.Split(newlines, StringSplitOptions.RemoveEmptyEntries);
         return Parse(lines);
     }
 

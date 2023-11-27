@@ -15,18 +15,12 @@ public class ExceptionParsingTests
 
     [Fact]
     public Task Error_EmptyList() =>
-        Throws(() => Parser.Parse(new[]
-            {
-                Environment.NewLine
-            }))
+        Throws(() => Parser.Parse([Environment.NewLine]))
             .IgnoreStackTrace();
 
     [Fact]
     public Task Error_EmptyDirectory() =>
-        Throws(() => Parser.Parse(new[]
-            {
-                "Directory: "
-            }))
+        Throws(() => Parser.Parse(["Directory: "]))
             .IgnoreStackTrace();
 
     [Fact]

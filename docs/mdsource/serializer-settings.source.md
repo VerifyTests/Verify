@@ -117,7 +117,7 @@ snippet: DontScrubGuidsGlobal
 
 ### Named Guid
 
-Specific Guids can be named. When those Guids found, it will be replaced with the supplied name.
+Specific Guids can be named. When any of those Guids are found, it will be replaced with the supplied name.
 
 
 #### Instance

@@ -559,10 +559,7 @@ public class SerializationTests
     {
         var target = new TypeNameHandlingAutoInArrayTarget
         {
-            Item = new[]
-            {
-                new TypeNameHandlingAutoInArrayItemChild()
-            }
+            Item = [new TypeNameHandlingAutoInArrayItemChild()]
         };
 
         return Verify(target)
@@ -572,7 +569,7 @@ public class SerializationTests
 
     class TypeNameHandlingAutoInArrayTarget
     {
-        public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = Array.Empty<TypeNameHandlingAutoInArrayItem>();
+        public TypeNameHandlingAutoInArrayItem[] Item { get; set; } = [];
     }
 
     abstract class TypeNameHandlingAutoInArrayItem;
@@ -1945,9 +1942,7 @@ public class SerializationTests
             EnumerableStaticEmpty = Enumerable.Empty<string>(),
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = [],
-            ReadOnlyCollection = new ReadOnlyCollection<string>(new string[]
-            {
-            }),
+            ReadOnlyCollection = new ReadOnlyCollection<string>([]),
             Array = Array.Empty<string>()
         };
         return Verify(target);
@@ -2169,7 +2164,7 @@ public class SerializationTests
         return Throws(
                 () =>
                 {
-                    member.Invoke(null, Array.Empty<object>());
+                    member.Invoke(null, []);
                 })
             .UniqueForTargetFrameworkAndVersion()
             .ScrubLinesContaining("(Object ");
@@ -2182,7 +2177,7 @@ public class SerializationTests
         TargetInvocationException? exception = null;
         try
         {
-            member.Invoke(null, Array.Empty<object>());
+            member.Invoke(null, []);
         }
         catch (TargetInvocationException e)
         {

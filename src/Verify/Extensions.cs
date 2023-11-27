@@ -45,26 +45,16 @@ static class Extensions
         {
             return false;
         }
+        catch (NotSupportedException)
+        {
+            return false;
+        }
 
         return true;
     }
 
     public static string TrimPreamble(this string text) =>
         text.TrimStart('\uFEFF');
-
-    public static bool Contains(this StringBuilder builder, char ch)
-    {
-        for (var index = 0; index < builder.Length; index++)
-        {
-            var item = builder[index];
-            if (ch == item)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public static void Enqueue<T>(this Queue<T> queue, IEnumerable<T> items)
     {
@@ -75,7 +65,7 @@ static class Extensions
     }
 
     public static List<T> Clone<T>(this List<T> original) =>
-        new(original);
+        [..original];
 
     public static IReadOnlyList<string>? ParameterNames(this MethodInfo method)
     {
@@ -152,18 +142,6 @@ static class Extensions
 
     public static string Remove(this string value, string toRemove) =>
         value.Replace(toRemove, "");
-
-    public static string RemoveLast(this string value, string pattern)
-    {
-        var place = value.LastIndexOf(pattern, StringComparison.OrdinalIgnoreCase);
-
-        if (place == -1)
-        {
-            return value;
-        }
-
-        return value.Remove(place, pattern.Length);
-    }
 
     public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
     {

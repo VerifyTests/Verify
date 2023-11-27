@@ -130,7 +130,7 @@
         return true;
     }
 
-#if NET462 || NET472 || NET48 || NETSTANDARD2_0
+#if NET472 || NET48
 
     public static Task WriteText(string path, StringBuilder text)
     {
@@ -163,7 +163,7 @@
     }
 
     static VirtualizedRunHelper? virtualizedRunHelper;
-    static ConcurrentDictionary<Assembly, VirtualizedRunHelper> virtualizedRunHelpers = new();
+    static ConcurrentDictionary<Assembly, VirtualizedRunHelper> virtualizedRunHelpers = [];
 
     internal static void MapPathsForCallingAssembly(Assembly assembly) =>
         virtualizedRunHelper = GetForAssembly(assembly);

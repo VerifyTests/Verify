@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static Dictionary<Type, Dictionary<string, ConvertTargetMember>> membersConverters = new();
+    static Dictionary<Type, Dictionary<string, ConvertTargetMember>> membersConverters = [];
 
     internal static ConvertTargetMember? GetMemberConverter(MemberInfo member) =>
         GetMemberConverter(member.DeclaringType, member.Name);
@@ -54,7 +54,7 @@ public static partial class VerifierSettings
         Guard.AgainstNullOrEmpty(name);
         if (!membersConverters.TryGetValue(declaringType, out var list))
         {
-            membersConverters[declaringType] = list = new();
+            membersConverters[declaringType] = list = [];
         }
 
         list[name] = converter;
@@ -66,7 +66,7 @@ public static partial class VerifierSettings
         Guard.AgainstNullOrEmpty(name);
         if (!membersConverters.TryGetValue(declaringType, out var list))
         {
-            membersConverters[declaringType] = list = new();
+            membersConverters[declaringType] = list = [];
         }
 
         list[name] = (_, value) => converter(value);

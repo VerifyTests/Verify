@@ -15,6 +15,7 @@ partial class SerializationSettings
     static StringEnumConverter stringEnumConverter = new();
     static DelegateConverter delegateConverter = new();
     static TargetInvocationExceptionConverter targetInvocationExceptionConverter = new();
+    static ToAppendConverter toAppendConverter = new();
     static ExpressionConverter expressionConverter = new();
     static TypeJsonConverter typeJsonConverter = new();
     static MethodInfoConverter methodInfoConverter = new();
@@ -102,6 +103,7 @@ partial class SerializationSettings
         converters.Add(expressionConverter);
         converters.Add(delegateConverter);
         converters.Add(targetInvocationExceptionConverter);
+        converters.Add(toAppendConverter);
         converters.Add(typeJsonConverter);
         converters.Add(methodInfoConverter);
         converters.Add(fieldInfoConverter);

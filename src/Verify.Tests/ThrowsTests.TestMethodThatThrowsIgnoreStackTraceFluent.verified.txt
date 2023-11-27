@@ -1,0 +1,4 @@
+﻿{
+  Type: Exception,
+  Message: The Message
+}

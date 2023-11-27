@@ -1,0 +1,1 @@
+﻿I can call verify in a SetUp method, and the test fixture and test method is available for the verify file name.

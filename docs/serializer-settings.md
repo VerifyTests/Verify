@@ -81,7 +81,7 @@ The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) e
 ```cs
 VerifierSettings.UseUtf8NoBom();
 ```
-<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L14-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## UseEncoding
@@ -91,10 +91,13 @@ To override the encoding used for snapshot files, replacing the default UTF-8 en
 <!-- snippet: UseEncoding -->
 <a id='snippet-useencoding'></a>
 ```cs
-var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
+var encoding = new UnicodeEncoding(
+    bigEndian: false,
+    byteOrderMark: true,
+    throwOnInvalidBytes: true);
 VerifierSettings.UseEncoding(encoding);
 ```
-<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L31-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L26-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Default settings

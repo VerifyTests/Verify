@@ -81,7 +81,7 @@ The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) e
 ```cs
 VerifierSettings.UseUtf8NoBom();
 ```
-<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L9-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## UseEncoding
@@ -97,7 +97,7 @@ var encoding = new UnicodeEncoding(
     throwOnInvalidBytes: true);
 VerifierSettings.UseEncoding(encoding);
 ```
-<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L26-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L27-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Default settings

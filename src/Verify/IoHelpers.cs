@@ -151,9 +151,6 @@
 #endif
 
     public static Task WriteText(string path, StringBuilder text) =>
-        WriteText(path, text, Utf8);
-
-    public static Task WriteText(string path, StringBuilder text, VerifySettings settings) =>
         WriteText(path, text, VerifierSettings.globalEncoding ?? Utf8);
 
     public static string GetRelativePath(string directory, string file)

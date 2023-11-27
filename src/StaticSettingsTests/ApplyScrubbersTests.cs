@@ -1,5 +1,6 @@
 ﻿[UsesVerify]
-public class ApplyScrubbersTests
+public class ApplyScrubbersTests :
+    BaseTest
 {
     public ApplyScrubbersTests() =>
         Scrubbers.ResetReplacements("FakeMachineName", "FakeUserName");

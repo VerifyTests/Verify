@@ -108,7 +108,9 @@ public static partial class VerifierSettings
         sortJsonObjects = false;
         autoVerify = false;
         UniquePrefixDisabled = false;
+        UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;
+        globalEncoding = new UTF8Encoding(true, true);
     }
 
     public static void UseStrictJson()

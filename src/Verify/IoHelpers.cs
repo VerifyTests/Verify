@@ -1,7 +1,5 @@
 ﻿static class IoHelpers
 {
-    internal static readonly UTF8Encoding Utf8 = new(true, true);
-    internal static readonly UTF8Encoding Utf8NoBom = new(false, true);
     static readonly char[] Separators = { '\\', '/' };
 
     public static void DeleteDirectory(string path)
@@ -133,25 +131,22 @@
 
 #if NET472 || NET48
 
-    internal static Task WriteText(string path, StringBuilder text, Encoding encoding)
+    internal static Task WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
-        File.WriteAllText(path, text.ToString(), encoding);
+        File.WriteAllText(path, text.ToString(), VerifierSettings.GlobalEncoding);
         return Task.CompletedTask;
     }
 
 #else
 
-    internal static Task WriteText(string path, StringBuilder text, Encoding encoding)
+    internal static Task WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
-        return File.WriteAllTextAsync(path, text.ToString(), encoding);
+        return File.WriteAllTextAsync(path, text.ToString(), VerifierSettings.GlobalEncoding);
     }
 
 #endif
-
-    public static Task WriteText(string path, StringBuilder text) =>
-        WriteText(path, text, VerifierSettings.globalEncoding ?? Utf8);
 
     public static string GetRelativePath(string directory, string file)
     {

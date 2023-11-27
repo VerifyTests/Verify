@@ -63,11 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.ClipboardAccept", "V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Verify.ClipboardAccept.Tests", "Verify.ClipboardAccept.Tests\Verify.ClipboardAccept.Tests.csproj", "{1E92BEB7-4455-49D4-9317-AF90B97684CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplyScrubbersTests", "ApplyScrubbersTests\ApplyScrubbersTests.csproj", "{3DE5EAD9-0C33-4ACB-9D4A-F6DB4AE01208}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullComparer", "NullComparer\NullComparer.csproj", "{3C759E19-3482-48A7-B2E2-95DA5E1EF159}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SingleTfmTests", "SingleTfmTests\SingleTfmTests.csproj", "{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitUniqueDirectoryMode", "SplitUniqueDirectoryMode\SplitUniqueDirectoryMode.csproj", "{02684D47-1A14-4D1A-9B26-387E3F45FEFC}"
 EndProject
@@ -191,18 +187,10 @@ Global
 		{1E92BEB7-4455-49D4-9317-AF90B97684CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E92BEB7-4455-49D4-9317-AF90B97684CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E92BEB7-4455-49D4-9317-AF90B97684CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3DE5EAD9-0C33-4ACB-9D4A-F6DB4AE01208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DE5EAD9-0C33-4ACB-9D4A-F6DB4AE01208}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DE5EAD9-0C33-4ACB-9D4A-F6DB4AE01208}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DE5EAD9-0C33-4ACB-9D4A-F6DB4AE01208}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C759E19-3482-48A7-B2E2-95DA5E1EF159}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63CFAA91-CEC2-4D21-BEEE-3EB970776E0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02684D47-1A14-4D1A-9B26-387E3F45FEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02684D47-1A14-4D1A-9B26-387E3F45FEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02684D47-1A14-4D1A-9B26-387E3F45FEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU

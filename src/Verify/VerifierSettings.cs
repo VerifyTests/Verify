@@ -4,6 +4,7 @@ public static partial class VerifierSettings
 {
     internal static bool omitContentFromException;
 
+
     public static void OmitContentFromException() =>
         omitContentFromException = true;
 
@@ -32,10 +33,20 @@ public static partial class VerifierSettings
     internal static bool autoVerify;
 
     public static void UseUtf8NoBom() =>
-        globalEncoding = IoHelpers.Utf8NoBom;
+        GlobalEncoding = new UTF8Encoding(false, true);
 
     public static void UseEncoding(Encoding encoding) =>
-        globalEncoding = encoding;
+        GlobalEncoding = encoding;
 
-    internal static Encoding? globalEncoding;
+    static Encoding globalEncoding = new UTF8Encoding(true, true);
+
+    internal static Encoding GlobalEncoding
+    {
+        get => globalEncoding;
+        private set
+        {
+            InnerVerifier.ThrowIfVerifyHasBeenRun();
+            globalEncoding = value;
+        }
+    }
 }

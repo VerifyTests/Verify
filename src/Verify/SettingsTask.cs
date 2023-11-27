@@ -350,26 +350,6 @@ public partial class SettingsTask
     }
 
     /// <summary>
-    /// Use UTF-8 without a BOM for snapshot files.
-    /// </summary>
-    [Pure]
-    public SettingsTask UseUtf8NoBom()
-    {
-        CurrentSettings.UseUtf8NoBom();
-        return this;
-    }
-
-    /// <summary>
-    /// Use custom encoding for snapshot files. When this method is not called, the default value is UTF-8 with BOM.
-    /// </summary>
-    [Pure]
-    public SettingsTask UseEncoding(Encoding encoding)
-    {
-        CurrentSettings.UseEncoding(encoding);
-        return this;
-    }
-
-    /// <summary>
     /// Use the current runtime to make the test results unique.
     /// Used when a test produces different results based on runtime.
     /// </summary>

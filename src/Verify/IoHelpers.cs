@@ -1,4 +1,4 @@
-﻿static class IoHelpers
+static class IoHelpers
 {
     static readonly UTF8Encoding Utf8 = new(true, true);
     internal static readonly UTF8Encoding Utf8NoBom = new(false, true);
@@ -157,7 +157,7 @@
 
     public static Task WriteText(string path, StringBuilder text, VerifySettings settings)
     {
-        return WriteText(path, text, settings.encoding ?? VerifierSettings.globalEncoding ?? Utf8);
+        return WriteText(path, text, VerifierSettings.globalEncoding ?? Utf8);
     }
 
     public static string GetRelativePath(string directory, string file)

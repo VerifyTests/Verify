@@ -74,30 +74,11 @@ The resulting file will be:
 
 ## UseUtf8NoBom
 
-The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) enable. To disable UTF-8 BOMs, call `VerifierSettings.UseUtf8NoBom`.
-
-<!-- snippet: UseUtf8NoBom -->
-<a id='snippet-useutf8nobom'></a>
-```cs
-await Verify(str)
-    .UseUtf8NoBom()
-```
-<sup><a href='/src/Verify.Tests/Tests.cs#L294-L297' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
+The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) enable. To disable UTF-8 BOMs, call `VerifySettings.UseUtf8NoBom`.
 
 ## UseEncoding
 
-To override the encoding used for snapshot files, replacing the default UTF-8 encoding, call `VerifierSettings.UseEncoding` providing a `System.Text.Encoding` instance.
-
-<!-- snippet: UseEncoding -->
-<a id='snippet-useencoding'></a>
-```cs
-var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
-await Verify(str)
-    .UseEncoding(encoding)
-```
-<sup><a href='/src/Verify.Tests/Tests.cs#L316-L320' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
+To override the encoding used for snapshot files, replacing the default UTF-8 encoding, call `VerifySettings.UseEncoding` providing a `System.Text.Encoding` instance.
 
 ## Default settings
 

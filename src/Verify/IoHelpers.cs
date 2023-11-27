@@ -1,6 +1,6 @@
 static class IoHelpers
 {
-    static readonly UTF8Encoding Utf8 = new(true, true);
+    internal static readonly UTF8Encoding Utf8 = new(true, true);
     internal static readonly UTF8Encoding Utf8NoBom = new(false, true);
     static readonly char[] Separators = { '\\', '/' };
 

@@ -1,6 +1,6 @@
-// disable all test parallelism to avoid test interaction
 using DiffEngine;
 
+// disable all test parallelism to avoid test interaction
 [assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)]
 
 namespace StaticSettingsTests;

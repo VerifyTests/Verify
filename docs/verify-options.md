@@ -30,9 +30,14 @@ Or globally
 <!-- snippet: StaticAutoVerify -->
 <a id='snippet-staticautoverify'></a>
 ```cs
-VerifierSettings.AutoVerify();
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.AutoVerify();
+}
 ```
-<sup><a href='/src/AutoVerifyTests/Tests.cs#L6-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.

@@ -1,19 +1,13 @@
-// disable all test parallelism to avoid test interaction
-[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)]
-
-namespace StaticSettingsTests;
-
 [UsesVerify]
-public class Tests
+public class EncodingTests :
+    BaseTest
 {
-    public Tests() =>
-        // reset all global settings modified by any test
-        VerifierSettings.UseEncoding(IoHelpers.Utf8);
-
     [Fact]
-    public async Task NonStandardEncoding_DisableUtf8Bom()
+    public async Task UseUtf8NoBom()
     {
-        var file = CurrentFile.Relative($"Tests.{nameof(NonStandardEncoding_DisableUtf8Bom)}.verified.txt");
+        VerifierSettings.UseUtf8NoBom();
+
+        var file = CurrentFile.Relative($"EncodingTests.{nameof(UseUtf8NoBom)}.verified.txt");
         File.Delete(file);
         var str = "value";
         var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
@@ -21,15 +15,17 @@ public class Tests
         VerifierSettings.UseUtf8NoBom();
         #endregion
         await Verify(str).AutoVerify();
-        var fileBytes = File.ReadAllBytes(file);
+        var fileBytes = await File.ReadAllBytesAsync(file);
         var expectedBytes = encoding.GetBytes(str);
         Assert.Equal(expectedBytes, fileBytes);
     }
 
     [Fact]
-    public async Task NonStandardEncoding_Utf16()
+    public async Task Utf16()
     {
-        var file = CurrentFile.Relative($"Tests.{nameof(NonStandardEncoding_Utf16)}.verified.txt");
+        VerifierSettings.UseUtf8NoBom();
+
+        var file = CurrentFile.Relative($"EncodingTests.{nameof(Utf16)}.verified.txt");
         File.Delete(file);
         var str = "value";
         #region UseEncoding
@@ -37,7 +33,7 @@ public class Tests
         VerifierSettings.UseEncoding(encoding);
         #endregion
         await Verify(str).AutoVerify();
-        var fileBytes = File.ReadAllBytes(file);
+        var fileBytes = await File.ReadAllBytesAsync(file);
         var expectedBytes = encoding.GetPreamble().Concat(encoding.GetBytes(str)).ToArray();
         Assert.Equal(expectedBytes, fileBytes);
     }

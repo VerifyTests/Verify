@@ -98,6 +98,19 @@ public static partial class VerifierSettings
         typeToString[typeof(T)] = (target, settings) => toString((T) target, settings);
     }
 
+    internal static void Reset()
+    {
+        InnerVerifier.verifyHasBeenRun = false;
+        StrictJson = false;
+        scrubProjectDir = true;
+        scrubSolutionDir = true;
+        sortPropertiesAlphabetically = false;
+        sortJsonObjects = false;
+        autoVerify = false;
+        UniquePrefixDisabled = false;
+        omitContentFromException = false;
+    }
+
     public static void UseStrictJson()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

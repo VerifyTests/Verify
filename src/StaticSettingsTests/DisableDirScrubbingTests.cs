@@ -1,7 +1,8 @@
 ﻿[UsesVerify]
-public class DisableDirScrubbingTests
+public class DisableDirScrubbingTests :
+    BaseTest
 {
-    static DisableDirScrubbingTests()
+    public DisableDirScrubbingTests()
     {
         VerifierSettings.DontScrubSolutionDirectory();
         VerifierSettings.DontScrubProjectDirectory();

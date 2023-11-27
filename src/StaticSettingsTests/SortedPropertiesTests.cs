@@ -1,19 +1,12 @@
 ﻿using Argon;
 
-#region SortProperties
-
-static class ModuleInitializer
-{
-    [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.SortPropertiesAlphabetically();
-}
-
-#endregion
-
 [UsesVerify]
-public class SortedPropertiesTests
+public class SortedPropertiesTests :
+    BaseTest
 {
+    public SortedPropertiesTests() =>
+        VerifierSettings.SortPropertiesAlphabetically();
+
     #region SortPropertiesUsage
 
     [Fact]

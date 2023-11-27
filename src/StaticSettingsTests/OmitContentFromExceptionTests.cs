@@ -1,7 +1,7 @@
 ﻿[UsesVerify]
 public class OmitContentFromExceptionTests
 {
-    static OmitContentFromExceptionTests()
+    public OmitContentFromExceptionTests()
     {
         VerifierSettings.OmitContentFromException();
         VerifierSettings.DisableRequireUniquePrefix();

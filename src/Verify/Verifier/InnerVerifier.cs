@@ -11,7 +11,7 @@ public partial class InnerVerifier :
     GetIndexedFileNames getIndexedFileNames = null!;
     IEnumerable<string> verifiedFiles = null!;
     Counter counter;
-    static bool verifyHasBeenRun;
+    internal static bool verifyHasBeenRun;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()

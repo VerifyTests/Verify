@@ -1,4 +1,0 @@
-﻿Directory: {ProjectDirectory}
-NotEqual:
-  - Received: OmitContentFromExceptionTests.String.received.txt
-    Verified: OmitContentFromExceptionTests.String.verified.txt

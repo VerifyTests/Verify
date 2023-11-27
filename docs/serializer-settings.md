@@ -81,7 +81,7 @@ The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) e
 ```cs
 VerifierSettings.UseUtf8NoBom();
 ```
-<sup><a href='/src/StaticSettingsTests/Tests.cs#L20-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L14-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## UseEncoding
@@ -94,7 +94,7 @@ To override the encoding used for snapshot files, replacing the default UTF-8 en
 var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
 VerifierSettings.UseEncoding(encoding);
 ```
-<sup><a href='/src/StaticSettingsTests/Tests.cs#L35-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/EncodingTests.cs#L31-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Default settings
@@ -1732,14 +1732,14 @@ Serialized properties can optionally be sorted alphabetically, ie ignoring the o
 <!-- snippet: SortProperties -->
 <a id='snippet-sortproperties'></a>
 ```cs
-static class ModuleInitializer
+public static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init() =>
         VerifierSettings.SortPropertiesAlphabetically();
 }
 ```
-<sup><a href='/src/SortedPropertiesTests/SortedPropertiesTests.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sortproperties' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/SortedProperties.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sortproperties' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1785,14 +1785,14 @@ To enable sorting use:
 <!-- snippet: SortJsonObjects -->
 <a id='snippet-sortjsonobjects'></a>
 ```cs
-static class ModuleInitializer
+public static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init() =>
         VerifierSettings.SortJsonObjects();
 }
 ```
-<sup><a href='/src/SortedJsonTest/SortedJsonTests.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-sortjsonobjects' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/SortedJson.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sortjsonobjects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

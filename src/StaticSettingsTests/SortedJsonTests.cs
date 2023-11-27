@@ -1,17 +1,10 @@
-﻿#region SortJsonObjects
-
-static class ModuleInitializer
+﻿[UsesVerify]
+public class SortedJsonTests :
+    BaseTest
 {
-    [ModuleInitializer]
-    public static void Init() =>
+    public SortedJsonTests() =>
         VerifierSettings.SortJsonObjects();
-}
 
-#endregion
-
-[UsesVerify]
-public class SortedJsonTests
-{
     #region SortJsonObjectsUsage
 
     [Fact]

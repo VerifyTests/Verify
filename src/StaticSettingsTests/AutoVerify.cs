@@ -1,18 +1,11 @@
 ﻿[UsesVerify]
-public class Tests
+public class AutoVerify :
+    BaseTest
 {
-    static Tests()
-    {
-        #region StaticAutoVerify
-
-        VerifierSettings.AutoVerify();
-
-        #endregion
-    }
-
     [Fact]
     public async Task Simple()
     {
+        VerifierSettings.AutoVerify();
         var path = CurrentFile.Relative("Tests.Simple.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);

@@ -1,3 +1,4 @@
+#if DEBUG
 [UsesVerify]
 public class EncodingTests :
     BaseTest
@@ -41,3 +42,4 @@ public class EncodingTests :
         Assert.Equal(expectedBytes, fileBytes);
     }
 }
+#endif

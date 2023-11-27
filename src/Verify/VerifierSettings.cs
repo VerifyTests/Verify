@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
@@ -30,4 +30,12 @@ public static partial class VerifierSettings
     }
 
     internal static bool autoVerify;
+
+    public static void UseUtf8NoBom() =>
+        globalEncoding = IoHelpers.Utf8NoBom;
+
+    public static void UseEncoding(Encoding encoding) =>
+        globalEncoding = encoding;
+
+    internal static Encoding? globalEncoding;
 }

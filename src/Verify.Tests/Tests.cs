@@ -269,7 +269,7 @@ public class Tests
             return;
         }
 
-        var file = CurrentFile.Relative($"Tests.EnsureUtf8BomPreamble.{Namer.RuntimeAndVersion}.verified.txt");
+        var file = CurrentFile.Relative($"Tests.{nameof(EnsureUtf8BomPreamble)}.{Namer.RuntimeAndVersion}.verified.txt");
         File.Delete(file);
         await Verify("value")
             .UniqueForRuntimeAndVersion()

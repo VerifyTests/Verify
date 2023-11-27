@@ -72,6 +72,30 @@ The resulting file will be:
 <sup><a href='/src/StrictJsonTests/Tests.Object.verified.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.Object.verified.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+## UseUtf8NoBom
+
+The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) enable. To disable UTF-8 BOMs, call `VerifierSettings.UseUtf8NoBom`.
+
+<!-- snippet: UseUtf8NoBom -->
+<a id='snippet-useutf8nobom'></a>
+```cs
+VerifierSettings.UseUtf8NoBom();
+```
+<sup><a href='/src/StaticSettingsTests/Tests.cs#L24-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+## UseEncoding
+
+To override the encoding used for snapshot files, replacing the default UTF-8 encoding, call `VerifierSettings.UseEncoding` providing a `System.Text.Encoding` instance.
+
+<!-- snippet: UseEncoding -->
+<a id='snippet-useencoding'></a>
+```cs
+var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
+VerifierSettings.UseEncoding(encoding);
+```
+<sup><a href='/src/StaticSettingsTests/Tests.cs#L41-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 ## Default settings
 

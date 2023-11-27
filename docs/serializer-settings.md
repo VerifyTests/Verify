@@ -94,7 +94,7 @@ To override the encoding used for snapshot files, replacing the default UTF-8 en
 var encoding = new UnicodeEncoding(bigEndian: false, byteOrderMark: true, throwOnInvalidBytes: true);
 VerifierSettings.UseEncoding(encoding);
 ```
-<sup><a href='/src/StaticSettingsTests/Tests.cs#L41-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StaticSettingsTests/Tests.cs#L39-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Default settings

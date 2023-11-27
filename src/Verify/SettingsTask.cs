@@ -1,4 +1,4 @@
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public partial class SettingsTask
 {
@@ -6,7 +6,6 @@ public partial class SettingsTask
     Func<VerifySettings, Task<VerifyResult>> buildTask;
     Task<VerifyResult>? task;
 
-    [Pure]
     public SettingsTask(VerifySettings? settings, Func<VerifySettings, Task<VerifyResult>> buildTask)
     {
         if (settings is not null)

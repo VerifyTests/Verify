@@ -1,5 +1,3 @@
-using DiffEngine;
-
 // disable all test parallelism to avoid test interaction
 [assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)]
 
@@ -8,11 +6,9 @@ namespace StaticSettingsTests;
 [UsesVerify]
 public class Tests
 {
-    public Tests()
-    {
+    public Tests() =>
         // reset all global settings modified by any test
         VerifierSettings.UseEncoding(IoHelpers.Utf8);
-    }
 
     [Fact]
     public async Task NonStandardEncoding_DisableUtf8Bom()

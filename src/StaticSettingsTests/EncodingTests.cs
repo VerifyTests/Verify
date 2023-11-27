@@ -6,9 +6,7 @@ public class EncodingTests :
     [Fact]
     public async Task UseUtf8NoBom()
     {
-        #region UseUtf8NoBom
         VerifierSettings.UseUtf8NoBom();
-        #endregion
 
         var file = CurrentFile.Relative($"EncodingTests.{nameof(UseUtf8NoBom)}.verified.txt");
         File.Delete(file);
@@ -24,13 +22,11 @@ public class EncodingTests :
     [Fact]
     public async Task Utf16()
     {
-        #region UseEncoding
         var encoding = new UnicodeEncoding(
             bigEndian: false,
             byteOrderMark: true,
             throwOnInvalidBytes: true);
         VerifierSettings.UseEncoding(encoding);
-        #endregion
 
         var file = CurrentFile.Relative($"EncodingTests.{nameof(Utf16)}.verified.txt");
         File.Delete(file);

@@ -84,11 +84,20 @@ public static partial class Recording
     public static void Pause() =>
         CurrentState().Pause();
 
+    public static void TryPause() =>
+        asyncLocal.Value?.Pause();
+
     public static void Resume() =>
         CurrentState().Resume();
 
+    public static void TryResume() =>
+        asyncLocal.Value?.Resume();
+
     public static void Clear() =>
         CurrentState().Clear();
+
+    public static void TryClear() =>
+        asyncLocal.Value?.Clear();
 
     public static IReadOnlyDictionary<string, IReadOnlyList<object>> ToDictionary(this IEnumerable<ToAppend> values)
     {

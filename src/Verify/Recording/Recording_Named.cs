@@ -71,9 +71,33 @@ public static partial class Recording
     public static void Pause(string identifier) =>
         CurrentStateNamed(identifier).Pause();
 
+    public static void TryPause(string identifier)
+    {
+        if (namedState.TryGetValue(identifier, out var state))
+        {
+            state.Pause();
+        }
+    }
+
     public static void Resume(string identifier) =>
         CurrentStateNamed(identifier).Resume();
 
+    public static void TryResume(string identifier)
+    {
+        if (namedState.TryGetValue(identifier, out var state))
+        {
+            state.Resume();
+        }
+    }
+
     public static void Clear(string identifier) =>
         CurrentStateNamed(identifier).Clear();
+
+    public static void TryClear(string identifier)
+    {
+        if (namedState.TryGetValue(identifier, out var state))
+        {
+            state.Clear();
+        }
+    }
 }

@@ -12,7 +12,6 @@
     <PackageReference Include="Xunit" Version="2.6.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4" PrivateAssets="all" />
     <PackageReference Include="ProjectDefaults" Version="1.0.102" PrivateAssets="all" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

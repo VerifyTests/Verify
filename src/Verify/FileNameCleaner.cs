@@ -49,16 +49,23 @@
     {
         var chars = value.ToCharArray();
 
+        var found = false;
         for (var index = 0; index < chars.Length; index++)
         {
             var ch = chars[index];
             if (invalidFileNameChars.Contains(ch))
             {
+                found = true;
                 chars[index] = '-';
             }
         }
 
-        return new(chars);
+        if (found)
+        {
+            return new(chars);
+        }
+
+        return value;
     }
 
     public static void AppendValid(StringBuilder builder, string value)

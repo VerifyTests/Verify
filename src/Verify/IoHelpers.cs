@@ -163,7 +163,7 @@
     }
 
     static VirtualizedRunHelper? virtualizedRunHelper;
-    static ConcurrentDictionary<Assembly, VirtualizedRunHelper> virtualizedRunHelpers = new();
+    static ConcurrentDictionary<Assembly, VirtualizedRunHelper> virtualizedRunHelpers = [];
 
     internal static void MapPathsForCallingAssembly(Assembly assembly) =>
         virtualizedRunHelper = GetForAssembly(assembly);

@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -24,7 +24,11 @@ partial class InnerVerifier
 
         await cleanup();
 
+        Console.WriteLine("Verify B " + targets.FirstOrDefault().Extension);
+
         await engine.ThrowIfRequired();
+
+        Console.WriteLine("Verify C " + targets.FirstOrDefault().Extension);
 
         var filePairs = new List<FilePair>(engine.Equal);
         if (engine.AutoVerified.Count > 0)

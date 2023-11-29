@@ -1,6 +1,7 @@
 // Non-nullable field is uninitialized.
 
 using System.Runtime.InteropServices;
+using Xunit.Abstractions;
 
 #pragma warning disable CS8618
 
@@ -12,6 +13,51 @@ public class Tests
     {
         VerifierSettings.AddExtraDatetimeFormat("F");
         VerifierSettings.AddExtraDatetimeOffsetFormat("F");
+    }
+
+    public Tests(ITestOutputHelper output)
+    {
+        var converter = new Converter(output);
+        Console.SetOut(converter);
+    }
+
+    private class Converter : TextWriter
+    {
+        ITestOutputHelper _output;
+        public Converter(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+        public override Encoding Encoding
+        {
+            get { return Encoding.UTF8; }
+        }
+        public override void WriteLine(string? message)
+        {
+            try
+            {
+                _output.WriteLine(message);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+
+        public override void WriteLine(string? format, params object?[] args)
+        {
+            try
+            {
+                _output.WriteLine(format, args);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+
+        public override void Write(char value)
+        {
+            throw new NotSupportedException("This text writer only supports WriteLine(string) and WriteLine(string, params object[]).");
+        }
     }
 
     [Theory]
@@ -283,15 +329,32 @@ public class Tests
     public Task StringExtension() =>
         Verify("<a>b</a>", "xml");
 
-    [Fact]
-    public async Task MultipleExtensions()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task MultipleExtensions(bool uniqueForFileExtension)
     {
         #region UniqueForFileExtension
-        await Verify("the text", "txt").UniqueForFileExtension().DisableRequireUniquePrefix();
-        await Verify("<a>b</a>", "xml").UniqueForFileExtension().DisableRequireUniquePrefix();
+        await Task.WhenAll(
+            WaitAndVerifyAsync("the text", "txt", ms: 500, uniqueForFileExtension),
+            WaitAndVerifyAsync("<a>b</a>", "xml", ms: 100, uniqueForFileExtension));
         #endregion
         Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.xml")), "The xml snapshot should exist.");
         Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.txt")), "The txt snapshot should exist.");
+    }
+
+    private async Task WaitAndVerifyAsync(string value, string extension, int ms, bool uniqueForFileExtension)
+    {
+        await Task.Delay(ms);
+        Console.WriteLine("Verify A " + extension);
+        var task = Verify(value, extension: extension).DisableRequireUniquePrefix();
+        if (uniqueForFileExtension)
+        {
+            task = task.UniqueForFileExtension();
+        }
+
+        await task;
+        Console.WriteLine("Verify D " + extension);
     }
 
     [Fact]

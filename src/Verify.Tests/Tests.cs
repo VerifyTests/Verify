@@ -286,9 +286,10 @@ public class Tests
     [Fact]
     public async Task MultipleExtensions()
     {
-        var xml = CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.txt");
-        await Verify("the text", "txt").AutoVerify().DisableRequireUniquePrefix();
-        await Verify("<a>b</a>", "xml").AutoVerify().DisableRequireUniquePrefix();
+        #region UniqueForFileExtension
+        await Verify("the text", "txt").UniqueForFileExtension().DisableRequireUniquePrefix();
+        await Verify("<a>b</a>", "xml").UniqueForFileExtension().DisableRequireUniquePrefix();
+        #endregion
         Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.xml")), "The xml snapshot should exist.");
         Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.txt")), "The txt snapshot should exist.");
     }

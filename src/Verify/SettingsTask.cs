@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class SettingsTask
 {
@@ -316,6 +316,17 @@ public partial class SettingsTask
     public SettingsTask UniqueForOSPlatform()
     {
         CurrentSettings.UniqueForOSPlatform();
+        return this;
+    }
+
+    /// <summary>
+    /// Treat snapshot files that share file name but differ on file extension as different.
+    /// Only works when <see cref="DisableRequireUniquePrefix"/> is used.
+    /// </summary>
+    [Pure]
+    public SettingsTask UniqueForFileExtension()
+    {
+        CurrentSettings.UniqueForFileExtension();
         return this;
     }
 

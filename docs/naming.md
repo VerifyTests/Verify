@@ -488,6 +488,22 @@ Result in:
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+### Snapshots matching except for extension
+
+If there are multiple `Verify` calls in the test and the snapshots vary only by file extension, allow them
+to sit side by side and be treated separately using `UniqueForFileExtension`. This must be used with
+`DisableRequireUniquePrefix` otherwise the shared prefixes will be blocked.
+
+<!-- snippet: UniqueForFileExtension -->
+<a id='snippet-uniqueforfileextension'></a>
+```cs
+await Verify("the text", "txt").UniqueForFileExtension().DisableRequireUniquePrefix();
+await Verify("<a>b</a>", "xml").UniqueForFileExtension().DisableRequireUniquePrefix();
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L289-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforfileextension' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Both a `.txt` and `.xml` snapshot will be verified here.
 
 ## NamerRuntimeAndVersion
 

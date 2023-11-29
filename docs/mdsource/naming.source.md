@@ -140,6 +140,15 @@ Result in:
 
 snippet: Verify.Xunit.Tests/Snippets/ExtensionSample.AtMethod.verified.xml
 
+### Snapshots matching except for extension
+
+If there are multiple `Verify` calls in the test and the snapshots vary only by file extension, allow them
+to sit side by side and be treated separately using `UniqueForFileExtension`. This must be used with
+`DisableRequireUniquePrefix` otherwise the shared prefixes will be blocked.
+
+snippet: UniqueForFileExtension
+
+Both a `.txt` and `.xml` snapshot will be verified here.
 
 ## NamerRuntimeAndVersion
 

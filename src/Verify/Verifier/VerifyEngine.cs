@@ -1,4 +1,4 @@
-﻿// ReSharper disable ConvertToUsingDeclaration
+// ReSharper disable ConvertToUsingDeclaration
 // ReSharper disable UseAwaitUsing
 [DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
@@ -49,6 +49,14 @@ class VerifyEngine
         {
             var target = targetList[0];
             var file = getFileNames(target);
+
+            if (settings.Namer.UniqueForFileExtension)
+            {
+                delete.RemoveWhere(d => d.Length > target.Extension.Length
+                                     && d[d.Length - target.Extension.Length - 1] == '.'
+                                     && !d.EndsWith(target.Extension, StringComparison.OrdinalIgnoreCase));
+            }
+
             var result = await GetResult(settings, file, target, false);
             HandleCompareResult(result, file);
             return;

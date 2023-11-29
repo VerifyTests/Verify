@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class VerifySettings
 {
@@ -60,6 +60,15 @@ public partial class VerifySettings
     {
         Namer.UniqueForAssemblyConfiguration = true;
         Namer.SetUniqueForAssemblyConfiguration(assembly);
+    }
+
+    /// <summary>
+    /// Treat snapshot files that share file name but differ on file extension as different.
+    /// Only works when <see cref="DisableRequireUniquePrefix"/> is used.
+    /// </summary>
+    public void UniqueForFileExtension()
+    {
+        Namer.UniqueForFileExtension = true;
     }
 
     public string? Directory { get; internal set; }

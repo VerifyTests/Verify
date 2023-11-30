@@ -497,10 +497,13 @@ to sit side by side and be treated separately using `UniqueForFileExtension`. Th
 <!-- snippet: UniqueForFileExtension -->
 <a id='snippet-uniqueforfileextension'></a>
 ```cs
-await Verify("the text", "txt").UniqueForFileExtension().DisableRequireUniquePrefix();
-await Verify("<a>b</a>", "xml").UniqueForFileExtension().DisableRequireUniquePrefix();
+await Verify("the text", "txt")
+    .UniqueForFileExtension();
+await Verify("<a>b</a>", "xml")
+    .UniqueForFileExtension()
+    .DisableRequireUniquePrefix();
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L289-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforfileextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L289-L295' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforfileextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Both a `.txt` and `.xml` snapshot will be verified here.

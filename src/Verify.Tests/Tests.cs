@@ -284,14 +284,48 @@ public class Tests
         Verify("<a>b</a>", "xml");
 
     [Fact]
-    public async Task MultipleExtensions()
+    public async Task MultipleExtensions_SingleTarget()
     {
         #region UniqueForFileExtension
-        await Verify("the text", "txt").UniqueForFileExtension().DisableRequireUniquePrefix();
-        await Verify("<a>b</a>", "xml").UniqueForFileExtension().DisableRequireUniquePrefix();
+        await Verify("the text", "txt")
+            .UniqueForFileExtension();
+        await Verify("<a>b</a>", "xml")
+            .UniqueForFileExtension()
+            .DisableRequireUniquePrefix();
         #endregion
-        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.xml")), "The xml snapshot should exist.");
-        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions)}.verified.txt")), "The txt snapshot should exist.");
+        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_SingleTarget)}.verified.xml")), "The xml snapshot should exist.");
+        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_SingleTarget)}.verified.txt")), "The txt snapshot should exist.");
+    }
+
+    [Fact]
+    public async Task MultipleExtensions_MultipleTargets_NoOverlap()
+    {
+        await Verify(new[] { new Target("txt", "the text"), new Target("xml", "<a>b</a>") })
+            .UniqueForFileExtension();
+        await Verify(new[] { new Target("csv", "the cell"), new Target("log", "the logs") })
+            .UniqueForFileExtension()
+            .DisableRequireUniquePrefix();
+        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_NoOverlap)}.verified.csv")), "The csv snapshot should exist.");
+        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_NoOverlap)}.verified.log")), "The log snapshot should exist.");
+        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_NoOverlap)}.verified.txt")), "The txt snapshot should exist.");
+        Assert.True(File.Exists(CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_NoOverlap)}.verified.xml")), "The xml snapshot should exist.");
+    }
+
+    [Fact]
+    public async Task MultipleExtensions_MultipleTargets_Overlap()
+    {
+        await Verify(new[] { new Target("txt", "the text"), new Target("xml", "<a>b</a>") })
+            .UniqueForFileExtension();
+        await Assert.ThrowsAsync<VerifyException>(async () => await Verify(new[] { new Target("xml", "<c>d</c>"), new Target("log", "the logs") })
+            .UniqueForFileExtension()
+            .DisableRequireUniquePrefix()); // the xml verify fails since the content is different
+        var txtPath = CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_Overlap)}.verified.txt");
+        var xmlPath = CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_Overlap)}.verified.xml");
+        var logPath = CurrentFile.Relative($"Tests.{nameof(MultipleExtensions_MultipleTargets_Overlap)}.verified.log");
+        Assert.True(File.Exists(txtPath), "The txt snapshot should exist.");
+        Assert.True(File.Exists(xmlPath), "The xml snapshot should exist.");
+        Assert.True(File.Exists(logPath), "The log snapshot should exist.");
+        Assert.Equal("<a>b</a>", File.ReadAllText(xmlPath));
     }
 
     [Fact]

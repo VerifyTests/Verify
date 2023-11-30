@@ -52,9 +52,7 @@ class VerifyEngine
 
             if (settings.Namer.UniqueForFileExtension)
             {
-                delete.RemoveWhere(d => d.Length > target.Extension.Length
-                                     && d[d.Length - target.Extension.Length - 1] == '.'
-                                     && !d.EndsWith(target.Extension, StringComparison.OrdinalIgnoreCase));
+                delete.RemoveWhere(path => IsSameExceptForExtension(path, file));
             }
 
             var result = await GetResult(settings, file, target, false);
@@ -66,6 +64,11 @@ class VerifyEngine
 
         async Task Inner(FilePair file, Target target)
         {
+            if (settings.Namer.UniqueForFileExtension)
+            {
+                delete.RemoveWhere(path => IsSameExceptForExtension(path, file));
+            }
+
             var result = await GetResult(settings, file, target, textHasFailed);
 
             if (file.IsText &&
@@ -95,6 +98,17 @@ class VerifyEngine
                 await Inner(file, target);
             }
         }
+    }
+
+    bool IsSameExceptForExtension(string candidate, FilePair file)
+    {
+        if (candidate.Equals(file.VerifiedPath, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        string verifiedNoExtension = file.VerifiedPath.Substring(0, file.VerifiedPath.Length - file.Extension.Length);
+        return candidate.StartsWith(verifiedNoExtension, StringComparison.OrdinalIgnoreCase);
     }
 
     void HandleCompareResult(EqualityResult result, FilePair file)

@@ -126,6 +126,29 @@ static class Extensions
         return null;
     }
 
+    public static void FilterLines(this StringBuilder input, Func<string, bool> removeLine)
+    {
+        var theString = input.ToString();
+        using var reader = new StringReader(theString);
+        input.Clear();
+
+        while (reader.ReadLine() is { } line)
+        {
+            if (removeLine(line))
+            {
+                continue;
+            }
+
+            input.AppendLineN(line);
+        }
+
+        if (input.Length > 0 &&
+            !theString.EndsWith('\n'))
+        {
+            input.Length -= 1;
+        }
+    }
+
     public static void RemoveEmptyLines(this StringBuilder builder)
     {
         builder.FilterLines(string.IsNullOrWhiteSpace);
@@ -165,20 +188,6 @@ static class Extensions
         }
 
         return count;
-    }
-
-    public static FrameworkNameVersion? FrameworkName(this Assembly assembly)
-    {
-        var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
-        if (attribute is null)
-        {
-            return null;
-        }
-
-        var frameworkName = new FrameworkName(attribute.FrameworkName);
-        var name = Namer.GetSimpleFrameworkName(frameworkName);
-        var version = frameworkName.Version;
-        return new (name, $"{name}{version.Major}_{version.Minor}");
     }
 
     public static bool IsException(this Type type) =>

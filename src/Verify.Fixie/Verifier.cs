@@ -20,7 +20,6 @@ public static partial class Verifier
 
         var method = state.Test.Method;
         var type = state.TestClass.Type;
-        TargetAssembly.Assign(type.Assembly);
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
@@ -31,8 +30,6 @@ public static partial class Verifier
             method.ParameterNames(),
             pathInfo);
     }
-
-
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,

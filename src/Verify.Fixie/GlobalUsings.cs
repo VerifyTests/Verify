@@ -2,5 +2,5 @@
 
 global using System.Diagnostics.Contracts;
 global using VerifyTests;
-global using Argon;
+global using EmptyFiles;
 global using Fixie;

@@ -4,6 +4,20 @@ using System.IO.Hashing;
 
 static class FileNameBuilder
 {
+    public static FrameworkNameVersion? FrameworkName(this Assembly assembly)
+    {
+        var attribute = assembly.GetCustomAttribute<TargetFrameworkAttribute>();
+        if (attribute is null)
+        {
+            return null;
+        }
+
+        var frameworkName = new FrameworkName(attribute.FrameworkName);
+        var name = Namer.GetSimpleFrameworkName(frameworkName);
+        var version = frameworkName.Version;
+        return new (name, $"{name}{version.Major}_{version.Minor}");
+    }
+
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)
     {
         var resolvedType = settings.typeName ?? pathInfo.TypeName ?? type;

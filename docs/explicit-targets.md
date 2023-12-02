@@ -56,7 +56,25 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L43-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L42-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-explicittargetsnunit-1'></a>
+```cs
+[Test]
+public Task WithTargets() =>
+    Verify(
+        new
+        {
+            Property = "Value"
+        },
+        new[]
+        {
+            new Target(
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
+        });
+```
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L43-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

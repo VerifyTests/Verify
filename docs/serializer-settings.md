@@ -487,21 +487,21 @@ public static void AddNamedDatesAndTimes()
 <!-- snippet: ChangeDefaultsPerVerification -->
 <a id='snippet-changedefaultsperverification'></a>
 ```cs
+await Verify(target)
+    .DontIgnoreEmptyCollections()
+    .DontScrubGuids()
+    .DontScrubDateTimes();
+```
+<sup><a href='/src/Verify.Fixie.Tests/VerifyObjectSamples.cs#L12-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-changedefaultsperverification-1'></a>
+```cs
 var settings = new VerifySettings();
 settings.DontIgnoreEmptyCollections();
 settings.DontScrubGuids();
 settings.DontScrubDateTimes();
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L15-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-changedefaultsperverification-1'></a>
-```cs
-await Verify(target)
-    .DontIgnoreEmptyCollections()
-    .DontScrubGuids()
-    .DontScrubDateTimes();
-```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L25-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L15-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-1' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-changedefaultsperverification-2'></a>
 ```cs
 await Verify(target)
@@ -509,7 +509,15 @@ await Verify(target)
     .DontScrubGuids()
     .DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L13-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-2' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L25-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-2' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-changedefaultsperverification-3'></a>
+```cs
+await Verify(target)
+    .DontIgnoreEmptyCollections()
+    .DontScrubGuids()
+    .DontScrubDateTimes();
+```
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L13-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-3' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

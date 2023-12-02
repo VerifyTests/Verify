@@ -8,6 +8,7 @@
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.102" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="5.0.0" PrivateAssets="None" />
+    <PackageReference Include="Polyfill" Version="1.33.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="buildTransitive\Verify.Fixie.props" />

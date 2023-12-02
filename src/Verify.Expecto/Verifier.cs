@@ -4,7 +4,7 @@ public static partial class Verifier
 {
     static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory)
     {
-        if (settings.parameters is not null)
+        if (settings.HasParameters)
         {
             ThrowNotSupported(nameof(VerifySettings.UseParameters));
         }

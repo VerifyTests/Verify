@@ -18,10 +18,12 @@ public static partial class Verifier
             throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
         }
 
-        if (settings.parameters is null &&
+        if (!settings.HasParameters &&
             adapter.Arguments.Length > 0)
         {
-            settings.parameters = adapter.Arguments;
+            #pragma warning disable VerifySetParameters
+            settings.SetParameters(adapter.Arguments);
+            #pragma warning restore
         }
 
         var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");

@@ -32,8 +32,8 @@ static class FileNameBuilder
             return $"_{settings.parametersText}";
         }
 
-        var settingsParameters = settings.parameters;
-        if (methodParameters is null || settingsParameters is null)
+        if (methodParameters is null ||
+            !settings.TryGetParameters(out var settingsParameters))
         {
             return "";
         }

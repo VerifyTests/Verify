@@ -3,6 +3,28 @@
 public class Snippets
 {
     // ReSharper disable once UnusedMember.Local
+    async Task ChangeDefaultsPerVerification(object target)
+    {
+        #region ChangeDefaultsPerVerification
+
+        var settings = new VerifySettings();
+        settings.DontIgnoreEmptyCollections();
+        settings.DontScrubGuids();
+        settings.DontScrubDateTimes();
+        await Verify(target, settings);
+
+        #endregion
+        #region ChangeDefaultsPerVerification
+
+        await Verify(target)
+            .DontIgnoreEmptyCollections()
+            .DontScrubGuids()
+            .DontScrubDateTimes();
+
+        #endregion
+    }
+
+    // ReSharper disable once UnusedMember.Local
     void EnableClipboard()
     {
         #region EnableClipboard

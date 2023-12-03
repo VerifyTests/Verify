@@ -7,19 +7,6 @@
 [UsesVerify]
 public class VerifyObjectSamples
 {
-    // ReSharper disable once UnusedMember.Local
-    async Task ChangeDefaultsPerVerification(object target)
-    {
-        #region ChangeDefaultsPerVerificationXunit
-
-        var settings = new VerifySettings();
-        settings.DontIgnoreEmptyCollections();
-        settings.DontScrubGuids();
-        settings.DontScrubDateTimes();
-        await Verify(target, settings);
-
-        #endregion
-    }
 
     [Fact]
     public Task ScopedSerializer()

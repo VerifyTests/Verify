@@ -7,19 +7,6 @@
 [TestFixture]
 public class VerifyObjectSamples
 {
-    // ReSharper disable once UnusedMember.Local
-    async Task ChangeDefaultsPerVerification(object target)
-    {
-        #region ChangeDefaultsPerVerification
-
-        await Verify(target)
-            .DontIgnoreEmptyCollections()
-            .DontScrubGuids()
-            .DontScrubDateTimes();
-
-        #endregion
-    }
-
     [Test]
     public Task ScopedSerializer()
     {

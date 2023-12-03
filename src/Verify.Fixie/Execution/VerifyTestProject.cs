@@ -1,10 +1,11 @@
 namespace VerifyFixie;
 
-public abstract class VerifyTestProject : ITestProject
+public abstract class VerifyTestProject :
+    ITestProject
 {
     public void Configure(TestConfiguration configuration, TestEnvironment environment)
     {
-        TargetAssembly.Assign(environment.Assembly);
+        VerifierSettings.AssignTargetAssembly(environment.Assembly);
         configuration.Conventions.Add<DefaultDiscovery, VerifyExecution>();
     }
 }

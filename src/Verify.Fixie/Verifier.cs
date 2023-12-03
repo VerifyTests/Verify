@@ -15,9 +15,7 @@ public static partial class Verifier
         if (!settings.HasParameters &&
             state.Parameters?.Length > 0)
         {
-#pragma warning disable VerifySetParameters
             settings.SetParameters(state.Parameters);
-#pragma warning restore
         }
 
         var method = state.Test.Method;

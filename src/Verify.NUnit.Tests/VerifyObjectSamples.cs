@@ -38,28 +38,6 @@ public class VerifyObjectSamples
             .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
-    // ReSharper disable once UnusedMember.Local
-    async Task Before()
-    {
-        #region Before
-
-        var person = new Person
-        {
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Country = "USA"
-            }
-        };
-
-        await Verify(person);
-
-        #endregion
-    }
-
     #region AnonNUnit
 
     [Test]
@@ -85,29 +63,6 @@ public class VerifyObjectSamples
     }
 
     #endregion
-
-    // ReSharper disable once UnusedMember.Local
-    async Task After()
-    {
-        #region After
-
-        var person = new Person
-        {
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Suburb = "Gotham",
-                Country = "USA"
-            }
-        };
-
-        await Verify(person);
-
-        #endregion
-    }
 
     class Person
     {

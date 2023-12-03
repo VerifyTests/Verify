@@ -4,7 +4,7 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="13.0.1" />
+    <PackageReference Include="DiffEngine" Version="13.0.2" />
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="TextCopy" Version="6.2.1" />

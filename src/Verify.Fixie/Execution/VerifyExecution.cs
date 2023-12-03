@@ -30,12 +30,17 @@ public class VerifyExecution : IExecution
         get
         {
             var state = asyncLocal.Value;
-            if (state == null)
+            if (state != null)
             {
-                throw new();
+                return state;
             }
 
-            return state;
+            throw new(
+                """
+                No State found. Ensure a class inheriting from VerifyTestProject exists in the test project.
+                public class TestProject :
+                    VerifyTestProject;
+                """);
         }
     }
 }

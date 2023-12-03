@@ -309,79 +309,7 @@ public class UniqueForSample
             .UniqueForOSPlatform();
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/UniqueForSample.cs#L1-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-uniqueforsamplenunit-1'></a>
-```cs
-[TestFixture]
-public class UniqueForSample
-{
-    [Test]
-    public Task Runtime()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
-    }
-
-    [Test]
-    public Task RuntimeFluent() =>
-        Verify("value")
-            .UniqueForRuntime();
-
-    [Test]
-    public Task AssemblyConfiguration()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
-    }
-
-    [Test]
-    public Task AssemblyConfigurationFluent() =>
-        Verify("value")
-            .UniqueForAssemblyConfiguration();
-
-    [Test]
-    public Task RuntimeAndVersion()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
-    }
-
-    [Test]
-    public Task RuntimeAndVersionFluent() =>
-        Verify("value")
-            .UniqueForRuntimeAndVersion();
-
-    [Test]
-    public Task Architecture()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForArchitecture();
-        return Verify("value", settings);
-    }
-
-    [Test]
-    public Task ArchitectureFluent() =>
-        Verify("value")
-            .UniqueForArchitecture();
-
-    [Test]
-    public Task OSPlatform()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForOSPlatform();
-        return Verify("value", settings);
-    }
-
-    [Test]
-    public Task OSPlatformFluent() =>
-        Verify("value")
-            .UniqueForOSPlatform();
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L1-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/UniqueForSample.cs#L1-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplenunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -617,16 +545,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-derivepathinfonunit-1'></a>
-```cs
-Verifier.DerivePathInfo(
-    (sourceFile, projectDirectory, type, method) => new(
-        directory: Path.Combine(projectDirectory, "Snapshots"),
-        typeName: type.Name,
-        methodName: method.Name));
-```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

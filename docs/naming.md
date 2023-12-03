@@ -670,7 +670,7 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 <!-- snippet: defaultDerivePathInfo -->
 <a id='snippet-defaultderivepathinfo'></a>
 ```cs
-internal static PathInfo DeriveDefault(
+public static PathInfo DeriveDefault(
     string sourceFile,
     string projectDirectory,
     Type type,

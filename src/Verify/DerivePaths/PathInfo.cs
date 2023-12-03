@@ -22,7 +22,7 @@ public readonly struct PathInfo
 
     #region defaultDerivePathInfo
 
-    internal static PathInfo DeriveDefault(
+    public static PathInfo DeriveDefault(
         string sourceFile,
         string projectDirectory,
         Type type,

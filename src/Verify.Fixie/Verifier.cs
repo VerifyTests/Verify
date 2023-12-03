@@ -12,10 +12,12 @@ public static partial class Verifier
 
         var state = VerifyExecution.State;
 
-        if (settings.parameters is null &&
+        if (!settings.HasParameters &&
             state.Parameters?.Length > 0)
         {
-            settings.parameters = state.Parameters;
+#pragma warning disable VerifySetParameters
+            settings.SetParameters(state.Parameters);
+#pragma warning restore
         }
 
         var method = state.Test.Method;

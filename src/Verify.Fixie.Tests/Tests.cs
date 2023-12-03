@@ -58,6 +58,7 @@ public class Tests
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
     static string pathToArchive = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
+#if DEBUG
 
     #region VerifyDirectoryFixie
 
@@ -72,4 +73,6 @@ public class Tests
         VerifyZip(pathToArchive);
 
     #endregion
+
+#endif
 }

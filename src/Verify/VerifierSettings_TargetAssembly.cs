@@ -8,7 +8,6 @@ public static partial class VerifierSettings
     internal static string? SolutionDir { get; private set; }
     internal static bool TargetsMultipleFramework { get; private set; } = true;
 
-    [Experimental("VerifyTestsAssignTargetAssembly")]
     public static void AssignTargetAssembly(Assembly assembly)
     {
         if (VerifierSettings.assembly is not null)

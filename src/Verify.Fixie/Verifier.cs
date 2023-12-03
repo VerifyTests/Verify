@@ -10,7 +10,7 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        var state = VerifyExecution.State;
+        var state = ExecutionState.Current;
 
         if (!settings.HasParameters &&
             state.Parameters?.Length > 0)

@@ -21,13 +21,13 @@ public static class AttributeReader
         GetValue(assembly, "Verify.ProjectDirectory", true);
 
     public static bool TryGetProjectDirectory([NotNullWhen(true)] out string? projectDirectory) =>
-        TryGetProjectDirectory(Assembly.GetCallingAssembly(), true, out projectDirectory);
+        TryGetProjectDirectory(VerifierSettings.assembly!, true, out projectDirectory);
 
     public static bool TryGetProjectDirectory(Assembly assembly, [NotNullWhen(true)] out string? projectDirectory) =>
         TryGetProjectDirectory(assembly, true, out projectDirectory);
 
     public static string GetSolutionDirectory() =>
-        GetSolutionDirectory(Assembly.GetCallingAssembly());
+        GetSolutionDirectory(VerifierSettings.assembly!);
 
     public static string GetSolutionDirectory(Assembly assembly) =>
         GetValue(assembly, "Verify.SolutionDirectory", true);

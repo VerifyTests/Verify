@@ -34,7 +34,6 @@ public class ParametersHashSample
     [TestCase("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
-            .UseParameters(arg)
             .HashParameters();
 
     [TestCase("Value1")]

@@ -3,18 +3,15 @@ public class ParametersSample
 {
     [TestCase("1.1")]
     public Task Decimal(decimal arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+        Verify(arg);
 
     [TestCase((float) 1.1)]
     public Task Float(float arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+        Verify(arg);
 
     [TestCase(1.1d)]
     public Task Double(double arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+        Verify(arg);
 
     #region NUnitTestCase
 

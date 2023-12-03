@@ -22,6 +22,7 @@ build_script:
       sudo chmod u+x dotnet-install.sh
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
     }
+- dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 - dotnet build src --configuration Release
 - dotnet test src/DeterministicTests --configuration Release --no-build --no-restore
 - dotnet test src/FSharpTests --configuration Release --no-build --no-restore

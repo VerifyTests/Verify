@@ -145,21 +145,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-sampletestnunit-1'></a>
-```cs
-[TestFixture]
-public class Sample
-{
-    [Test]
-    public Task Test()
-    {
-        var person = ClassBeingTested.FindPerson();
-        return Verify(person);
-    }
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

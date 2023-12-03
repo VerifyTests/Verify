@@ -4,7 +4,7 @@ public class Tests
     // ReSharper disable once UnusedMember.Local
     void DerivePathInfo()
     {
-        #region DerivePathInfoNunit
+        #region DerivePathInfoFixie
 
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
@@ -35,13 +35,11 @@ public class Tests
         Verify(arg)
             .UseTextForParameters("TextForParameter");
 
-    [Test]
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
 
-    #region ExplicitTargetsNunit
+    #region ExplicitTargetsFixie
 
-    [Test]
     public Task WithTargets() =>
         Verify(
             new
@@ -58,7 +56,6 @@ public class Tests
 
     #endregion
 
-    [Test]
     public Task EnumerableTargets() =>
         Verify(
             new[]
@@ -72,17 +69,15 @@ public class Tests
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
     static string pathToArchive = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region VerifyDirectoryNunit
+    #region VerifyDirectoryFixie
 
-    [Test]
     public Task WithDirectory() =>
         VerifyDirectory(directoryPathToVerify);
 
     #endregion
 
-    #region VerifyZipNunit
+    #region VerifyZipFixie
 
-    [Test]
     public Task WithZip() =>
         VerifyZip(pathToArchive);
 

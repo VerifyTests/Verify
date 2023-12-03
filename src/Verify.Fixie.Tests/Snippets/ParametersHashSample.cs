@@ -1,6 +1,6 @@
 ﻿namespace TheTests;
 
-#region UseParametersHashNunit
+#region UseParametersHashFixie
 
 public class ParametersHashSample
 {

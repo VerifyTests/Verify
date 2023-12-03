@@ -1,9 +1,7 @@
-﻿#region UniqueForSampleNUnit
+﻿#region UniqueForSampleFixie
 
-[TestFixture]
 public class UniqueForSample
 {
-    [Test]
     public Task Runtime()
     {
         var settings = new VerifySettings();
@@ -11,12 +9,10 @@ public class UniqueForSample
         return Verify("value", settings);
     }
 
-    [Test]
     public Task RuntimeFluent() =>
         Verify("value")
             .UniqueForRuntime();
 
-    [Test]
     public Task AssemblyConfiguration()
     {
         var settings = new VerifySettings();
@@ -24,12 +20,10 @@ public class UniqueForSample
         return Verify("value", settings);
     }
 
-    [Test]
     public Task AssemblyConfigurationFluent() =>
         Verify("value")
             .UniqueForAssemblyConfiguration();
 
-    [Test]
     public Task RuntimeAndVersion()
     {
         var settings = new VerifySettings();
@@ -37,12 +31,10 @@ public class UniqueForSample
         return Verify("value", settings);
     }
 
-    [Test]
     public Task RuntimeAndVersionFluent() =>
         Verify("value")
             .UniqueForRuntimeAndVersion();
 
-    [Test]
     public Task Architecture()
     {
         var settings = new VerifySettings();
@@ -50,12 +42,10 @@ public class UniqueForSample
         return Verify("value", settings);
     }
 
-    [Test]
     public Task ArchitectureFluent() =>
         Verify("value")
             .UniqueForArchitecture();
 
-    [Test]
     public Task OSPlatform()
     {
         var settings = new VerifySettings();
@@ -63,7 +53,6 @@ public class UniqueForSample
         return Verify("value", settings);
     }
 
-    [Test]
     public Task OSPlatformFluent() =>
         Verify("value")
             .UniqueForOSPlatform();

@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Fixie.TestAdapter" Version="3.3.0" />

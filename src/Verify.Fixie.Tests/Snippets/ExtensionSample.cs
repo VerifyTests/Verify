@@ -1,4 +1,4 @@
-﻿#region NUnitExtensionSample
+﻿#region FixieExtensionSample
 
 public class ExtensionSample
 {

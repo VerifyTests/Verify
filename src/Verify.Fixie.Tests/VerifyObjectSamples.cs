@@ -35,6 +35,8 @@ public class VerifyObjectSamples
             .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
+    #region AnonFixie
+
     public Task Anon()
     {
         var person1 = new Person
@@ -55,6 +57,8 @@ public class VerifyObjectSamples
                 person2
             });
     }
+
+    #endregion
 
     class Person
     {

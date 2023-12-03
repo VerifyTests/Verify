@@ -10,6 +10,37 @@ To change this file edit the source file and then run MarkdownSnippets.
 When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
 
 
+## NUnit
+
+<!-- snippet: anonNUnit -->
+<a id='snippet-anonnunit'></a>
+```cs
+[Test]
+public Task Anon()
+{
+    var person1 = new Person
+    {
+        GivenNames = "John",
+        FamilyName = "Smith"
+    };
+    var person2 = new Person
+    {
+        GivenNames = "Marianne",
+        FamilyName = "Aguirre"
+    };
+
+    return Verify(
+        new
+        {
+            person1,
+            person2
+        });
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L41-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonnunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## xUnit
 
 <!-- snippet: anonXunit -->
@@ -41,12 +72,11 @@ public Task Anon()
 <!-- endSnippet -->
 
 
-## NUnit
+## Fixie
 
-<!-- snippet: anonNUnit -->
-<a id='snippet-anonnunit'></a>
+<!-- snippet: anonFixie -->
+<a id='snippet-anonfixie'></a>
 ```cs
-[Test]
 public Task Anon()
 {
     var person1 = new Person
@@ -68,7 +98,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L41-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/VerifyObjectSamples.cs#L38-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonfixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

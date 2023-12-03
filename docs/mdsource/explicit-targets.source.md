@@ -5,11 +5,6 @@
  * Explicit `Target`s can be passed in.
 
 
-## MsTest
-
-snippet: ExplicitTargetsMsTest
-
-
 ## NUnit
 
 snippet: ExplicitTargetsNunit
@@ -18,6 +13,16 @@ snippet: ExplicitTargetsNunit
 ## Xunit
 
 snippet: ExplicitTargetsXunit
+
+
+## Fixie
+
+snippet: ExplicitTargetsFixie
+
+
+## MsTest
+
+snippet: ExplicitTargetsMsTest
 
 
 ## Result

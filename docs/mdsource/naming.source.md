@@ -83,24 +83,29 @@ See [Parameterised Tests](parameterised.md).
 `UniqueFor*` allows for one or more delimiters to be added to the file name.
 
 
-### XUnit
-
-snippet: UniqueForSampleXunit
-
-
 ### NUnit
 
 snippet: UniqueForSampleNUnit
 
 
-### Expecto
+### XUnit
 
-snippet: UniqueForSampleExpecto
+snippet: UniqueForSampleXunit
+
+
+### Fixie
+
+snippet: UniqueForSampleFixie
 
 
 ### MSTest
 
 snippet: UniqueForSampleMSTest
+
+
+### Expecto
+
+snippet: UniqueForSampleExpecto
 
 
 ### Result

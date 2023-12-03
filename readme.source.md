@@ -2,8 +2,9 @@
 
 [![Discussions](https://img.shields.io/badge/Verify-Discussions-yellow?svg=true&label=)](https://github.com/orgs/VerifyTests/discussions)
 [![Build status](https://ci.appveyor.com/api/projects/status/dpqylic0be7s9vnm/branch/main?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify)
-[![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.NUnit.svg?label=Verify.NUnit)](https://www.nuget.org/packages/Verify.NUnit/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.Xunit.svg?label=Verify.Xunit)](https://www.nuget.org/packages/Verify.Xunit/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.Fixie.svg?label=Verify.Fixie)](https://www.nuget.org/packages/Verify.Fixie/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.ClipboardAccept)](https://www.nuget.org/packages/Verify.ClipboardAccept/)
@@ -31,6 +32,7 @@ Get customized instructions for the specific combination of Operating System, ID
 
 ## NuGet packages
 
+ * https://nuget.org/packages/Verify.NUnit/
  * https://nuget.org/packages/Verify.Xunit/
  * https://nuget.org/packages/Verify.NUnit/
  * https://nuget.org/packages/Verify.Expecto/
@@ -65,6 +67,13 @@ Given a class to be tested:
 snippet: ClassBeingTested
 
 
+### NUnit
+
+Support for [NUnit](https://nunit.org/)
+
+snippet: SampleTestNUnit
+
+
 ### xUnit
 
 Support for [xUnit](https://xunit.net/)
@@ -72,11 +81,11 @@ Support for [xUnit](https://xunit.net/)
 snippet: SampleTestXunit
 
 
-### NUnit
+### Fixie
 
-Support for [NUnit](https://nunit.org/)
+Support for [Fixie](http://fixie.github.io/)
 
-snippet: SampleTestNUnit
+snippet: SampleTestFixie
 
 
 ### Expecto

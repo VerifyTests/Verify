@@ -31,6 +31,23 @@ snippet: UseParametersSubSet
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
+## NUnit
+
+
+### TestCase
+
+snippet: NUnitTestCase
+
+
+### TestFixtureSourceUsage
+
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+
+snippet: TestFixtureSourceUsage.cs
+
+Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+
+
 ## xUnit
 
 
@@ -53,21 +70,12 @@ snippet: xunitComplexMemberData
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
-## NUnit
+## Fixie
 
 
 ### TestCase
 
-snippet: NUnitTestCase
-
-
-### TestFixtureSourceUsage
-
-When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
-
-snippet: TestFixtureSourceUsage.cs
-
-Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+snippet: FixieTestCase
 
 
 ## MSTest

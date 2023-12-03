@@ -341,7 +341,7 @@ await Verify(
         Bars = await repo.GetBars(id),
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L153-L162' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfuncoftaskoft' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L175-L184' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfuncoftaskoft' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

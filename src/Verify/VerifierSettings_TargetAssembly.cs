@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    internal static Assembly? assembly;
+    static Assembly? assembly;
     [Experimental("VerifyTestsProjectDir")]
     public static string ProjectDir { get; private set; } = null!;
     internal static string? SolutionDir { get; private set; }

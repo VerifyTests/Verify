@@ -1,5 +1,4 @@
-﻿[TestFixture]
-public class ParametersSample
+﻿public class ParametersSample
 {
     [TestCase("1.1")]
     public Task Decimal(decimal arg) =>

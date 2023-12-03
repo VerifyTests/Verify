@@ -23,28 +23,6 @@ public class VerifyObjectSamples :
         return Verify(person, settings);
     }
 
-    // ReSharper disable once UnusedMember.Local
-    async Task Before()
-    {
-        #region Before
-
-        var person = new Person
-        {
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Country = "USA"
-            }
-        };
-
-        await Verify(person);
-
-        #endregion
-    }
-
     #region AnonMSTest
 
     [TestMethod]
@@ -70,29 +48,6 @@ public class VerifyObjectSamples :
     }
 
     #endregion
-
-    // ReSharper disable once UnusedMember.Local
-    async Task After()
-    {
-        #region After
-
-        var person = new Person
-        {
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Suburb = "Gotham",
-                Country = "USA"
-            }
-        };
-
-        await Verify(person);
-
-        #endregion
-    }
 
     class Person
     {

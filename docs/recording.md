@@ -58,7 +58,7 @@ public Task TryAdd()
     Recording.TryAdd("name1", "value1");
     Recording.Start();
     Recording.TryAdd("name2", "value2");
-    return Verify();
+    return Verify("TheValue");
 }
 ```
 <sup><a href='/src/Verify.Tests/RecordingTests.cs#L50-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingtryadd' title='Start of snippet'>anchor</a></sup>

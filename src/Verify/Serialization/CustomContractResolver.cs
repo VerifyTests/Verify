@@ -167,7 +167,7 @@
         {
             if (member.DeclaringType == typeof(ArgumentException))
             {
-                valueProvider = new ExpressionValueProvider(exceptionMessageField);
+                valueProvider = new DynamicValueProvider(exceptionMessageField);
             }
         }
 

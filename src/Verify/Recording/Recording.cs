@@ -69,7 +69,7 @@ public static partial class Recording
         throw new($"Recording.Start must be called before Recording.{caller}");
     }
 
-    public static void Start()
+    public static IDisposable Start()
     {
         var value = asyncLocal.Value;
 
@@ -79,6 +79,14 @@ public static partial class Recording
         }
 
         asyncLocal.Value = new();
+        return new Disposable();
+    }
+
+    class Disposable :
+        IDisposable
+    {
+        public void Dispose() =>
+            Pause();
     }
 
     public static void Pause() =>

@@ -61,6 +61,23 @@ public class RecordingTests
 
     #endregion
 
+    #region RecordingScoped
+
+    [Fact]
+    public Task RecordingScoped()
+    {
+        using (Recording.Start())
+        {
+            Recording.Add("name1", "value1");
+        }
+
+        // Recording.Add is ignored here
+        Recording.Add("name2", "value2");
+        return Verify();
+    }
+
+    #endregion
+
     #region RecordingIdentifier
 
     [Fact]

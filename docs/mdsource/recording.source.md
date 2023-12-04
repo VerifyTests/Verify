@@ -23,6 +23,17 @@ If `Recording.Add()` is called before `Recording.Start` an exception will be cal
 snippet: RecordingTryAdd
 
 
+## Scoped
+
+Recording can be scoped via a `using`:
+
+snippet: RecordingScoped
+
+Results in:
+
+snippet: RecordingTests.RecordingScoped.verified.txt
+
+
 ## Grouping
 
 Values are grouped by key:

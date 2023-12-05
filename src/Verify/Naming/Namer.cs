@@ -44,19 +44,6 @@ public class Namer
             return "Net";
         }
 
-        if (string.Equals(identifier, ".NETCoreApp", StringComparison.OrdinalIgnoreCase))
-        {
-            if (name.Version.Major < 5)
-            {
-                return "Core";
-            }
-        }
-
-        if (identifier.StartsWith("NETCore", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Core";
-        }
-
         if (identifier.StartsWith(".NET", StringComparison.OrdinalIgnoreCase))
         {
             return "DotNet";
@@ -226,17 +213,7 @@ public class Namer
 
     internal static (string runtime, Version Version) GetRuntimeAndVersion()
     {
-#if NETCOREAPP2_1
-        return ("Core", new(2, 1));
-#elif NETCOREAPP2_2
-        return ("Core", new(2, 2));
-#elif NETCOREAPP3_0
-        return ("Core", new(3, 0));
-#elif NETCOREAPP3_1
-        return ("Core", new(3, 1));
-#elif NET5_0
-        return ("DotNet", new(5, 0));
-#elif NET6_0
+#if NET6_0
         return ("DotNet", new(6, 0));
 #elif NET7_0
         return ("DotNet", new(7, 0));

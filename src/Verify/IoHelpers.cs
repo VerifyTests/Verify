@@ -89,7 +89,7 @@
         }
     }
 
-#if NETCOREAPP3_0_OR_GREATER
+#if NET6_0_OR_GREATER
     public static async Task DisposeAsyncEx(this Stream stream) =>
         await stream.DisposeAsync();
 #else
@@ -203,7 +203,7 @@
         throw new($"Unable to resolve directory. sourceFile: {sourceFile}");
     }
 
-#if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {

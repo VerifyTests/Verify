@@ -33,12 +33,13 @@ partial class InnerVerifier
         var targets = new List<Target>();
         if (info is not null)
         {
-            targets.Add(new(
-                VerifierSettings.TxtOrJson,
-                JsonFormatter.AsJson(
-                    settings,
-                    counter,
-                    info)));
+            targets.Add(
+                new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
+                        info)));
         }
 
         include ??= _ => true;

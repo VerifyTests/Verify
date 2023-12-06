@@ -20,10 +20,7 @@ public readonly struct ConversionResult
         Guard.AgainstNullOrEmpty(extension);
         Info = info;
         Cleanup = cleanup;
-        Targets = new List<Target>(1)
-        {
-            new(extension, stream)
-        };
+        Targets = [new(extension, stream)];
     }
 
     public ConversionResult(object? info, string extension, string data, Func<Task>? cleanup = null)
@@ -31,10 +28,7 @@ public readonly struct ConversionResult
         Guard.AgainstNullOrEmpty(extension);
         Info = info;
         Cleanup = cleanup;
-        Targets = new List<Target>(1)
-        {
-            new(extension, data)
-        };
+        Targets = [new(extension, data)];
     }
 
     public ConversionResult(object? info, string extension, StringBuilder data, Func<Task>? cleanup = null)
@@ -42,9 +36,6 @@ public readonly struct ConversionResult
         Guard.AgainstNullOrEmpty(extension);
         Info = info;
         Cleanup = cleanup;
-        Targets = new List<Target>(1)
-        {
-            new(extension, data)
-        };
+        Targets = [new(extension, data)];
     }
 }

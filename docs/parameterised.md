@@ -22,7 +22,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 
 ### Invalid characters
 
-Characters that cannot be used for a file name will be replaced with a dash (`-`).
+Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 
 ## UseParameters()

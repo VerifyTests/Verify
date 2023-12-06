@@ -51,6 +51,7 @@ public class ThrowsTests
     #endregion
 
 #if NET8_0
+
     #region TestMethodThatThrowsTask
 
     [Fact]
@@ -58,6 +59,7 @@ public class ThrowsTests
         ThrowsTask(MethodThatThrowsTask);
 
     #endregion
+
     #region MethodThatThrowsTask
 
     static async Task MethodThatThrowsTask()
@@ -67,6 +69,7 @@ public class ThrowsTests
     }
 
     #endregion
+
     #region TestMethodThatThrowsValueTask
 
     [Fact]

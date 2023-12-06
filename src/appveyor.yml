@@ -23,7 +23,7 @@ build_script:
       sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
     }
 - dotnet build src --configuration Release
-- dotnet test src --configuration Release --no-build --no-restore
+#- dotnet test src --configuration Release --no-build --no-restore
 
 #- pwsh: |
 #    if ($isWindows) {

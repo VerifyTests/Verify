@@ -22,6 +22,6 @@ public class VerifyDirectoryTests
                     "info from FileConverter",
                     new List<Target>
                     {
-                        new("txt", "text from FileConverter"),
+                        new("txt", "text from FileConverter")
                     }));
 }

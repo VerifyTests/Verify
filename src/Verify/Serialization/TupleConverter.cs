@@ -7,7 +7,9 @@
         var attribute = ReadTupleElementNamesAttribute(methodCall.Method);
         var transforms = attribute.TransformNames;
         var dictionary = new Dictionary<string, object?>(transforms.Count);
-        var result = expression.Compile().Invoke();
+        var result = expression
+            .Compile()
+            .Invoke();
         for (var index = 0; index < transforms.Count; index++)
         {
             var transform = transforms[index];

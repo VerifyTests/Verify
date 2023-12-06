@@ -238,11 +238,17 @@ public class ComplexParametersSample
     {
         yield return new object[]
         {
-            new ComplexData {Value = "Value1"}
+            new ComplexData
+            {
+                Value = "Value1"
+            }
         };
         yield return new object[]
         {
-            new ComplexData {Value = "Value2"}
+            new ComplexData
+            {
+                Value = "Value2"
+            }
         };
     }
 
@@ -302,7 +308,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.

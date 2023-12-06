@@ -2,7 +2,7 @@
 
 public static class Parser
 {
-    static string[] newlines = ["\r\n","\r","\n"];
+    static string[] newlines = ["\r\n", "\r", "\n"];
 
     public static Result Parse(string message)
     {

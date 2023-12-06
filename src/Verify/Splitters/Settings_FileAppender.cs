@@ -57,7 +57,7 @@ public partial class VerifySettings
         AppendFile(file.FullName, name);
 
     public void AppendFile(FileStream stream, string? name = null) =>
-        AppendFile(stream, stream.Extension(), name??Path.GetFileNameWithoutExtension(stream.Name));
+        AppendFile(stream, stream.Extension(), name ?? Path.GetFileNameWithoutExtension(stream.Name));
 
     public void AppendFile(Stream stream, string extension = "txt", string? name = null)
     {

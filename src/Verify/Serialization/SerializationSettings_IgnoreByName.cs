@@ -46,6 +46,7 @@ partial class SerializationSettings
 
         return false;
     }
+
     internal bool ShouldScrubByName(string name)
     {
         if (ignoredByNameMembers.TryGetValue(name, out var scrubOrIgnore))

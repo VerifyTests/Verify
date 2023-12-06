@@ -1,4 +1,5 @@
-﻿class CustomValueProvider(IValueProvider inner,
+﻿class CustomValueProvider(
+    IValueProvider inner,
     Type type,
     Func<Exception, bool> ignoreException,
     ConvertTargetMember? converter,

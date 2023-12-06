@@ -27,6 +27,7 @@
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -98,12 +99,15 @@
         }
 
         if (type.ImplementsGenericCollection() ||
-            type.GetInterfaces()
+            type
+                .GetInterfaces()
                 .Any(ImplementsGenericCollection))
         {
             // ReSharper disable PossibleMultipleEnumeration
             enumerable = enumerableTarget;
-            isEmpty = !enumerableTarget.GetEnumerator().MoveNext();
+            isEmpty = !enumerableTarget
+                .GetEnumerator()
+                .MoveNext();
             // ReSharper restore PossibleMultipleEnumeration
             return true;
         }

@@ -15,7 +15,7 @@ Given a method that throws an Exception
 static void MethodThatThrows() =>
     throw new("The Message");
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L45-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrows' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L46-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrows' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 That exception behavior can be verified using `Verify.Throws`:
@@ -57,9 +57,10 @@ Often the exception stack trace can be noisy and fragile to causing false failed
 ```cs
 [Fact]
 public Task TestMethodThatThrowsIgnoreStackTraceFluent() =>
-    Throws(MethodThatThrows).IgnoreStackTrace();
+    Throws(MethodThatThrows)
+        .IgnoreStackTrace();
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L16-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracefluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracefluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +77,7 @@ public Task TestMethodThatThrowsIgnoreStackTraceSettings()
     return Throws(MethodThatThrows, settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L24-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracesettings' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L25-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsignorestacktracesettings' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -87,7 +88,7 @@ public Task TestMethodThatThrowsIgnoreStackTraceSettings()
 ```cs
 VerifierSettings.IgnoreStackTrace();
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L38-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorestacktraceglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L39-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignorestacktraceglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

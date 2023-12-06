@@ -1,4 +1,5 @@
 ﻿// ReSharper disable UnusedParameter.Local
+
 [TestFixture]
 public class Tests
 {

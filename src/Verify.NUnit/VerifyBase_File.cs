@@ -3,7 +3,7 @@
 public partial class VerifyBase
 {
     /// <summary>
-    /// Verifies the contents of <paramref name="path"/>.
+    /// Verifies the contents of <paramref name="path" />.
     /// </summary>
     [Pure]
     public SettingsTask VerifyFile(
@@ -13,8 +13,8 @@ public partial class VerifyBase
         Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile);
 
     /// <summary>
-    /// Verifies the contents of <paramref name="path"/>.
-    /// Differs from passing <see cref="FileInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
+    /// Verifies the contents of <paramref name="path" />.
+    /// Differs from passing <see cref="FileInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
     public SettingsTask VerifyFile(

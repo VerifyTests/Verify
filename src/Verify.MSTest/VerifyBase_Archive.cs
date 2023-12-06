@@ -5,7 +5,7 @@ namespace VerifyMSTest;
 public partial class VerifyBase
 {
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
     public SettingsTask Verify(
@@ -18,7 +18,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyZip(archive, include, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
     public SettingsTask VerifyZip(
@@ -31,7 +31,7 @@ public partial class VerifyBase
         Verify(settings, sourceFile, _ => _.VerifyZip(path, include, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
     public SettingsTask VerifyZip(

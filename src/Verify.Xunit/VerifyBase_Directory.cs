@@ -5,7 +5,7 @@ public partial class VerifyBase
 #if NET6_0_OR_GREATER
 
     /// <summary>
-    /// Verifies the contents of <paramref name="path"/>.
+    /// Verifies the contents of <paramref name="path" />.
     /// </summary>
     [Pure]
     public SettingsTask VerifyDirectory(
@@ -27,8 +27,8 @@ public partial class VerifyBase
             sourceFile);
 
     /// <summary>
-    /// Verifies the contents of <paramref name="path"/>.
-    /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
+    /// Verifies the contents of <paramref name="path" />.
+    /// Differs from passing <see cref="DirectoryInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
     public SettingsTask VerifyDirectory(
@@ -50,7 +50,6 @@ public partial class VerifyBase
             sourceFile);
 
 #else
-
     /// <summary>
     /// Verifies the contents of <paramref name="path"/>.
     /// </summary>

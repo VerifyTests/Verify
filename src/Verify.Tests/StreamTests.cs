@@ -5,9 +5,9 @@ public class StreamTests
     public Task Stream() =>
         Verify(
             new MemoryStream(
-                [
-                    1
-                ]));
+            [
+                1
+            ]));
 
     class LengthNotSupportedStream(byte[] bytes) : MemoryStream(bytes)
     {
@@ -19,9 +19,9 @@ public class StreamTests
     public Task LengthNotSupportedException() =>
         Verify(
             new LengthNotSupportedStream(
-                [
-                    1
-                ]));
+            [
+                1
+            ]));
 
     [Fact]
     public Task StreamTask() =>
@@ -195,7 +195,6 @@ public class StreamTests
     #endregion
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public async Task VerifyFileNotLocked()
     {

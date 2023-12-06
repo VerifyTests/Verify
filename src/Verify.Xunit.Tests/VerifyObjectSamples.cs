@@ -1,4 +1,5 @@
 ﻿using Argon;
+
 // ReSharper disable NotAccessedField.Local
 
 // Non-nullable field is uninitialized
@@ -7,7 +8,6 @@
 [UsesVerify]
 public class VerifyObjectSamples
 {
-
     [Fact]
     public Task ScopedSerializer()
     {

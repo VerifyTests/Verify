@@ -14,6 +14,7 @@ public class Snippets
         await Verify(target, settings);
 
         #endregion
+
         #region ChangeDefaultsPerVerification
 
         await Verify(target)
@@ -81,12 +82,13 @@ public class Snippets
     void DerivePathInfoAppVeyor()
     {
         // ReSharper disable once ArrangeStaticMemberQualifier
+
         #region DerivePathInfoAppVeyor
 
         if (BuildServerDetector.Detected)
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-            Verifier.DerivePathInfo(
+            DerivePathInfo(
                 (sourceFile, projectDirectory, typeName, methodName) =>
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;
@@ -178,7 +180,7 @@ public class Snippets
             async () => new
             {
                 Foo = await repo.GetFoo(id),
-                Bars = await repo.GetBars(id),
+                Bars = await repo.GetBars(id)
             });
 
         #endregion

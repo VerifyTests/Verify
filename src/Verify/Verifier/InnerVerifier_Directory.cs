@@ -21,19 +21,18 @@ partial class InnerVerifier
             AttributesToSkip = FileAttributes.System
         };
         var targets = await ToTargets(
+            path,
+            include,
+            Directory.EnumerateFiles(
                 path,
-                include,
-                Directory.EnumerateFiles(
-                    path,
-                    pattern,
-                    option),
-                info,
-                fileScrubber);
+                pattern,
+                option),
+            info,
+            fileScrubber);
         return await VerifyInner(targets);
     }
 
 #else
-
     public async Task<VerifyResult> VerifyDirectory(
         string path,
         Func<string, bool>? include,
@@ -69,12 +68,13 @@ partial class InnerVerifier
         var targets = new List<Target>(1);
         if (info is not null)
         {
-            targets.Add(new(
-                VerifierSettings.TxtOrJson,
-                JsonFormatter.AsJson(
-                    settings,
-                    counter,
-                    info)));
+            targets.Add(
+                new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
+                        info)));
         }
 
         include ??= _ => true;
@@ -89,7 +89,8 @@ partial class InnerVerifier
             var fileDirectoryPath = Path.GetDirectoryName(path)!;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
-            var relativePath = pathWithoutExtension[directoryPath.Length..].TrimStart(Path.DirectorySeparatorChar);
+            var relativePath = pathWithoutExtension[directoryPath.Length..]
+                .TrimStart(Path.DirectorySeparatorChar);
 
             // This is a case of file without filename contained inside a directory
             // so let's not mix directory name with filename
@@ -133,7 +134,9 @@ partial class InnerVerifier
 
     static bool TryGetExtension(string path, [NotNullWhen(true)] out string? extension)
     {
-        extension = Path.GetExtension(path).Replace(".", string.Empty);
+        extension = Path
+            .GetExtension(path)
+            .Replace(".", string.Empty);
         return extension.Length > 0;
     }
 }

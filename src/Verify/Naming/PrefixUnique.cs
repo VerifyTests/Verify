@@ -9,7 +9,7 @@
             throw new(
                 $"""
                  The prefix has already been used: {prefix}. This is mostly caused by:
-
+                 
                   * A conflicting combination of `VerifierSettings.DerivePathInfo()`, `UseMethodName.UseDirectory()`, `UseMethodName.UseTypeName()`, and `UseMethodName.UseMethodName()`; or
                   * Multiple calls to Verify or Throws in the same test method
 

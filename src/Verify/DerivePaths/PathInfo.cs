@@ -31,6 +31,7 @@ public readonly struct PathInfo
             directory: IoHelpers.ResolveDirectoryFromSourceFile(sourceFile),
             typeName: type.NameWithParent(),
             methodName: method.Name);
+
     #endregion
 
     internal static PathInfo DeriveDefault(

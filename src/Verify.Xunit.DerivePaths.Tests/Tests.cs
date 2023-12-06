@@ -35,21 +35,30 @@ public class Tests
     [Fact]
     public Task InvalidMethod()
     {
-        DerivePathInfo((_, _, _, _) => new(null, null, Path.GetInvalidFileNameChars().First().ToString()));
+        DerivePathInfo((_, _, _, _) => new(null, null, Path
+            .GetInvalidFileNameChars()
+            .First()
+            .ToString()));
         return Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [Fact]
     public Task InvalidType()
     {
-        DerivePathInfo((_, _, _, _) => new(null, Path.GetInvalidFileNameChars().First().ToString()));
+        DerivePathInfo((_, _, _, _) => new(null, Path
+            .GetInvalidFileNameChars()
+            .First()
+            .ToString()));
         return Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [Fact]
     public Task InvalidDirectory()
     {
-        DerivePathInfo((_, _, _, _) => new(Path.GetInvalidPathChars().First().ToString()));
+        DerivePathInfo((_, _, _, _) => new(Path
+            .GetInvalidPathChars()
+            .First()
+            .ToString()));
         return Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 }

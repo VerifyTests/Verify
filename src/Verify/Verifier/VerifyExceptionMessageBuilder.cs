@@ -70,7 +70,9 @@
             return;
         }
 
-        var newContentFiles = @new.Where(_ => _.File.IsText).ToList();
+        var newContentFiles = @new
+            .Where(_ => _.File.IsText)
+            .ToList();
         var notEqualContentFiles = notEquals
             .Where(_ => _.File.IsText ||
                         _.Message is not null)
@@ -125,21 +127,21 @@
         {
             builder.AppendLineN(
                 $"""
-                Received: {receivedPath}
-                {notEqual.ReceivedText}
-                Verified: {verifiedPath}
-                {notEqual.VerifiedText}
-                """);
+                 Received: {receivedPath}
+                 {notEqual.ReceivedText}
+                 Verified: {verifiedPath}
+                 {notEqual.VerifiedText}
+                 """);
         }
         else
         {
             builder.AppendLineN(
                 $"""
-                Received: {receivedPath}
-                Verified: {verifiedPath}
-                Compare Result:
-                {message}
-                """);
+                 Received: {receivedPath}
+                 Verified: {verifiedPath}
+                 Compare Result:
+                 {message}
+                 """);
         }
     }
 }

@@ -273,9 +273,9 @@ public partial class SettingsTask
 
 #if NET6_0_OR_GREATER || NETFRAMEWORK
     /// <summary>
-    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters"/>.
+    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
-    /// Combines <see cref="UseParameters"/> and <see cref="HashParameters"/>.
+    /// Combines <see cref="UseParameters" /> and <see cref="HashParameters" />.
     /// </summary>
     [Pure]
     public SettingsTask UseHashedParameters(params object?[] parameters)
@@ -285,7 +285,7 @@ public partial class SettingsTask
     }
 
     /// <summary>
-    /// Hash parameters together and pass to <see cref="UseTextForParameters"/>.
+    /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>
     [Pure]
@@ -361,7 +361,7 @@ public partial class SettingsTask
 
     /// <summary>
     /// Dont use the current runtime to make the test results unique.
-    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory"/>.
+    /// Overrides <see cref="VerifierSettings.UseSplitModeForUniqueDirectory" />.
     /// </summary>
     [Pure]
     public SettingsTask DontUseSplitModeForUniqueDirectory()
@@ -378,11 +378,13 @@ public partial class SettingsTask
 
     [Pure]
     public ConfiguredTaskAwaitable<VerifyResult> ConfigureAwait(bool continueOnCapturedContext) =>
-        ToTask().ConfigureAwait(continueOnCapturedContext);
+        ToTask()
+            .ConfigureAwait(continueOnCapturedContext);
 
     [Pure]
     public TaskAwaiter<VerifyResult> GetAwaiter() =>
-        ToTask().GetAwaiter();
+        ToTask()
+            .GetAwaiter();
 
     [Pure]
     public static implicit operator Task<VerifyResult>(SettingsTask settingsTask) =>

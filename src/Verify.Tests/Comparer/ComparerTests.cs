@@ -12,7 +12,6 @@ public class ComparerTests
     }
 
 #if NET8_0
-
     [Fact]
     public async Task Instance_with_message()
     {

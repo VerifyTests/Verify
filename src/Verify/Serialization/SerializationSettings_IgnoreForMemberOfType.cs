@@ -43,7 +43,7 @@ partial class SerializationSettings
                       """);
         }
 
-        IgnoreMember(declaringType, member.Name,scrubOrIgnore);
+        IgnoreMember(declaringType, member.Name, scrubOrIgnore);
     }
 
     public void IgnoreMembers<T>(params string[] names)

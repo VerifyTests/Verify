@@ -51,7 +51,7 @@ public static class AttributeReader
     {
         foreach (var attribute in Attribute.GetCustomAttributes(assembly, typeof(AssemblyMetadataAttribute), false))
         {
-            var metaData = (AssemblyMetadataAttribute)attribute;
+            var metaData = (AssemblyMetadataAttribute) attribute;
             if (metaData.Key != key)
             {
                 continue;

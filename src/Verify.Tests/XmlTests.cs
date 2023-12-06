@@ -85,7 +85,8 @@ public class XmlTests
 
     [Fact]
     public Task XElement() =>
-        Verify(XDocument.Parse(xml).Root);
+        Verify(XDocument.Parse(xml)
+            .Root);
 
     [Fact]
     public Task Scrubbing()
@@ -111,7 +112,8 @@ public class XmlTests
               <node att="value"/>
             </body>
             """);
-        return Verify(document).IgnoreMember("att");
+        return Verify(document)
+            .IgnoreMember("att");
     }
 
     [Fact]

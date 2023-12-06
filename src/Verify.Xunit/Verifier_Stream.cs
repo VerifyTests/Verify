@@ -34,7 +34,7 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "")
-        where T : Stream  =>
+        where T : Stream =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
@@ -44,7 +44,7 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "")
-        where T : Stream  =>
+        where T : Stream =>
         Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
 
     [Pure]
@@ -54,7 +54,7 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "")
-        where T : Stream  =>
+        where T : Stream =>
         Verify(settings, sourceFile, _ => _.VerifyStreams(targets, extension, info));
 
     [Pure]

@@ -88,20 +88,12 @@ public class VirtualizedRunHelperTests :
     public void Dispose() =>
         VirtualizedRunHelper.Env = PhysicalEnvironment.Instance;
 
-    class TestEnv : IEnvironment
+    class TestEnv(Func<string, bool> exists, string currentDirectory, char directorySeparatorChar = '/')
+        : IEnvironment
     {
-        Func<string, bool> pathExists;
-
-        public TestEnv(Func<string, bool> pathExists, string currentDirectory, char directorySeparatorChar = '/')
-        {
-            this.pathExists = pathExists;
-            CurrentDirectory = currentDirectory;
-            DirectorySeparatorChar = directorySeparatorChar;
-        }
-
-        public string CurrentDirectory { get; }
-        public char DirectorySeparatorChar { get; }
-        public bool PathExists(string path) => pathExists(path);
+        public string CurrentDirectory { get; } = currentDirectory;
+        public char DirectorySeparatorChar { get; } = directorySeparatorChar;
+        public bool PathExists(string path) => exists(path);
 
         // Make sure Path.Combine behaves as on Unix, even when executed on Windows
         public string CombinePaths(string path1, string path2) =>

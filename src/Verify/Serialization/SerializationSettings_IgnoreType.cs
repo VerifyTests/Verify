@@ -29,7 +29,7 @@ partial class SerializationSettings
         }
     }
 
-    bool TryGetScrubOrIgnoreByType(Type memberType, [NotNullWhen(true)]out ScrubOrIgnore? scrubOrIgnore)
+    bool TryGetScrubOrIgnoreByType(Type memberType, [NotNullWhen(true)] out ScrubOrIgnore? scrubOrIgnore)
     {
         if (ignoredTypes.TryGetValue(memberType, out var value))
         {

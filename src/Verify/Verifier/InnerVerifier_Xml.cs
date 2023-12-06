@@ -61,7 +61,9 @@ partial class InnerVerifier
         }
 
         var serialization = settings.serialization;
-        var nodes = target.Descendants().ToList();
+        var nodes = target
+            .Descendants()
+            .ToList();
         foreach (var node in nodes)
         {
             if (serialization.TryGetScrubOrIgnoreByName(node.Name.LocalName, out var scrubOrIgnore))
@@ -78,7 +80,9 @@ partial class InnerVerifier
                 continue;
             }
 
-            foreach (var attribute in node.Attributes().ToList())
+            foreach (var attribute in node
+                         .Attributes()
+                         .ToList())
             {
                 if (serialization.TryGetScrubOrIgnoreByName(attribute.Name.LocalName, out scrubOrIgnore))
                 {

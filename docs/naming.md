@@ -528,14 +528,14 @@ public class ExtensionSample
     [Fact]
     public Task AtMethodFluent() =>
         Verify(
-                target: """
-                        <note>
-                          <to>Joe</to>
-                          <from>Kim</from>
-                          <heading>Reminder</heading>
-                        </note>
-                        """,
-                extension: "xml");
+            target: """
+                    <note>
+                      <to>Joe</to>
+                      <from>Kim</from>
+                      <heading>Reminder</heading>
+                    </note>
+                    """,
+            extension: "xml");
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
@@ -597,7 +597,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L9-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -612,7 +612,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L9-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfonunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -621,7 +621,7 @@ Verifier.DerivePathInfo(
 <!-- snippet: DerivePathInfoMSTest -->
 <a id='snippet-derivepathinfomstest'></a>
 ```cs
-VerifyBase.DerivePathInfo(
+DerivePathInfo(
     (sourceFile, projectDirectory, type, method) => new(
         directory: Path.Combine(projectDirectory, "Snapshots"),
         typeName: type.Name,
@@ -642,7 +642,7 @@ Verifier.DerivePathInfo(
         typeName: type,
         methodName: method));
 ```
-<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoexpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -666,7 +666,7 @@ public static PathInfo DeriveDefault(
         typeName: type.NameWithParent(),
         methodName: method.Name);
 ```
-<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/DerivePaths/PathInfo.cs#L23-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-defaultderivepathinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Where `NameWithParent` is
@@ -684,7 +684,7 @@ public static string NameWithParent(this Type type)
     return type.Name;
 }
 ```
-<sup><a href='/src/Verify/Extensions.cs#L89-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-namewithparent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Extensions.cs#L92-L104' title='Snippet source file'>snippet source</a> | <a href='#snippet-namewithparent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

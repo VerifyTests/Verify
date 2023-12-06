@@ -15,7 +15,7 @@ static class FileNameBuilder
         var frameworkName = new FrameworkName(attribute.FrameworkName);
         var name = Namer.GetSimpleFrameworkName(frameworkName);
         var version = frameworkName.Version;
-        return new (name, $"{name}{version.Major}_{version.Minor}");
+        return new(name, $"{name}{version.Major}_{version.Minor}");
     }
 
     public static string GetTypeAndMethod(string method, string type, VerifySettings settings, PathInfo pathInfo)

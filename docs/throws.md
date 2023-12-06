@@ -122,7 +122,7 @@ static async Task MethodThatThrowsTask()
     throw new("The Message");
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L61-L69' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowstask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L63-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowstask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: TestMethodThatThrowsTask -->
@@ -132,7 +132,7 @@ static async Task MethodThatThrowsTask()
 public Task TestMethodThatThrowsTask() =>
     ThrowsTask(MethodThatThrowsTask);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L54-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowstask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L55-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowstask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -147,7 +147,7 @@ static async ValueTask MethodThatThrowsValueTask()
     throw new("The Message");
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L78-L86' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L81-L89' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: TestMethodThatThrowsValueTask -->
@@ -157,5 +157,5 @@ static async ValueTask MethodThatThrowsValueTask()
 public Task TestMethodThatThrowsValueTask() =>
     ThrowsValueTask(MethodThatThrowsValueTask);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L70-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L73-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-testmethodthatthrowsvaluetask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

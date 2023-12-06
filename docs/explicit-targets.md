@@ -79,7 +79,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L31-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsfixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L32-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsfixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

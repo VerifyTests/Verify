@@ -98,7 +98,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/VerifyObjectSamples.cs#L38-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonfixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/VerifyObjectSamples.cs#L39-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonfixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -15,14 +15,14 @@ public class ExtensionSample
 
     public Task AtMethodFluent() =>
         Verify(
-                target: """
-                        <note>
-                          <to>Joe</to>
-                          <from>Kim</from>
-                          <heading>Reminder</heading>
-                        </note>
-                        """,
-                extension: "xml");
+            target: """
+                    <note>
+                      <to>Joe</to>
+                      <from>Kim</from>
+                      <heading>Reminder</heading>
+                    </note>
+                    """,
+            extension: "xml");
 }
 
 #endregion

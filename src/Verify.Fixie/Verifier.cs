@@ -30,6 +30,7 @@ public static partial class Verifier
             method.ParameterNames(),
             pathInfo);
     }
+
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,

@@ -72,6 +72,7 @@ The resulting file will be:
 <sup><a href='/src/StrictJsonTests/Tests.Object.verified.json#L1-L3' title='Snippet source file'>snippet source</a> | <a href='#snippet-Tests.Object.verified.json' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ## UseUtf8NoBom
 
 The default encoding for snapshot files uses UTF-8 with byte order marks (BOM) enable. To disable UTF-8 BOMs, call `VerifierSettings.UseUtf8NoBom`.
@@ -88,6 +89,7 @@ public static class ModuleInitializer
 ```
 <sup><a href='/src/ModuleInitDocs/UseUtf8NoBom.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-useutf8nobom' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ## UseEncoding
 
@@ -111,6 +113,7 @@ public static class ModuleInitializer
 ```
 <sup><a href='/src/ModuleInitDocs/UseEncoding.cs#L3-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-useencoding' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ## Default settings
 

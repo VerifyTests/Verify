@@ -16,7 +16,6 @@ By default scrubber are executed in reverse order. So the most recent added meth
 Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compounding multiple scrubbers together.
 
 
-
 ## Available Scrubbers
 
 Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.

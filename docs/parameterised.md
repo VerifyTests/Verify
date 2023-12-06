@@ -65,6 +65,63 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
+## NUnit
+
+
+### TestCase
+
+<!-- snippet: NUnitTestCase -->
+<a id='snippet-nunittestcase'></a>
+```cs
+[TestCase("Value1")]
+[TestCase("Value2")]
+public Task TestCaseUsage(string arg) =>
+    Verify(arg);
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TestFixtureSourceUsage
+
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+
+<!-- snippet: TestFixtureSourceUsage.cs -->
+<a id='snippet-TestFixtureSourceUsage.cs'></a>
+```cs
+[TestFixtureSource(nameof(FixtureArgs))]
+public class TestFixtureSourceUsage(string arg1, int arg2)
+{
+    [Test]
+    public Task Test() =>
+        Verify(
+            new
+            {
+                arg1,
+                arg2
+            });
+
+    static object[] FixtureArgs =
+    [
+        new object[]
+        {
+            "Value1",
+            1
+        },
+        new object[]
+        {
+            "Value2",
+            2
+        }
+    ];
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+
+
 ## xUnit
 
 
@@ -257,61 +314,75 @@ public class ComplexParametersSample
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
-## NUnit
+## Fixie
 
+Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
 
-### TestCase
+Verify.Fixie requires some customisation of the above example.
 
-<!-- snippet: NUnitTestCase -->
-<a id='snippet-nunittestcase'></a>
+ * Inside `ITestProject.Configure` call `VerifierSettings.AssignTargetAssembly(environment.Assembly);`
+ * Inside `IExecution.Run` wrap `test.Run` in `using (ExecutionState.Set(testClass, test, parameters))`
+
+Example implementation:
+
+<!-- snippet: TestProject.cs -->
+<a id='snippet-TestProject.cs'></a>
+```cs
+public class TestProject :
+    ITestProject,
+    IExecution
+{
+    public void Configure(TestConfiguration configuration, TestEnvironment environment)
+    {
+        VerifierSettings.AssignTargetAssembly(environment.Assembly);
+        configuration.Conventions.Add<DefaultDiscovery, TestProject>();
+    }
+
+    public async Task Run(TestSuite testSuite)
+    {
+        foreach (var testClass in testSuite.TestClasses)
+        {
+            foreach (var test in testClass.Tests)
+            {
+                if (test.HasParameters)
+                {
+                    foreach (var parameters in test
+                                 .GetAll<TestCase>()
+                                 .Select(_ => _.Parameters))
+                    {
+                        using (ExecutionState.Set(testClass, test, parameters))
+                        {
+                            await test.Run(parameters);
+                        }
+                    }
+                }
+                else
+                {
+                    using (ExecutionState.Set(testClass, test, null))
+                    {
+                        await test.Run();
+                    }
+                }
+            }
+        }
+    }
+}
+```
+<sup><a href='/src/Verify.Fixie.Tests/FixieSetup/TestProject.cs#L1-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestProject.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Resulting usage:
+
+<!-- snippet: FixieTestCase -->
+<a id='snippet-fixietestcase'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L18-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixietestcase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-### TestFixtureSourceUsage
-
-When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
-
-<!-- snippet: TestFixtureSourceUsage.cs -->
-<a id='snippet-TestFixtureSourceUsage.cs'></a>
-```cs
-[TestFixtureSource(nameof(FixtureArgs))]
-public class TestFixtureSourceUsage(string arg1, int arg2)
-{
-    [Test]
-    public Task Test() =>
-        Verify(
-            new
-            {
-                arg1,
-                arg2
-            });
-
-    static object[] FixtureArgs =
-    [
-        new object[]
-        {
-            "Value1",
-            1
-        },
-        new object[]
-        {
-            "Value2",
-            2
-        }
-    ];
-}
-```
-<sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
 
 
 ## MSTest

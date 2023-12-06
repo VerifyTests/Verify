@@ -95,14 +95,19 @@ Adds a scrubber with full control over the text via a `Func`
 ## More complete example
 
 
+### NUnit
+
+snippet: ScrubbersSampleNUnit
+
+
 ### xUnit
 
 snippet: ScrubbersSampleXunit
 
 
-### NUnit
+### Fixie
 
-snippet: ScrubbersSampleNUnit
+snippet: ScrubbersSampleFixie
 
 
 ### MSTest
@@ -126,14 +131,19 @@ Scrubbers can be defined at three levels:
  * Global: Will run for test methods on all tests.
 
 
+### NUnit
+
+snippet: ScrubberLevelsSampleNUnit
+
+
 ### xUnit
 
 snippet: ScrubberLevelsSampleXunit
 
 
-### NUnit
+### Fixie
 
-snippet: ScrubberLevelsSampleNUnit
+snippet: ScrubberLevelsSampleFixie
 
 
 ### MSTest

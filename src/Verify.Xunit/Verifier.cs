@@ -16,7 +16,7 @@ public static partial class Verifier
         }
 
         var type = method.ReflectedType!;
-        TargetAssembly.Assign(type.Assembly);
+        VerifierSettings.AssignTargetAssembly(type.Assembly);
 
         var methodParameters = method.ParameterNames();
 

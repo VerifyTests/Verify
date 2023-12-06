@@ -7,7 +7,7 @@ public partial class VerifyBase
     static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
 
     internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
-        derivePathInfo(sourceFile, TargetAssembly.ProjectDir, type, method);
+        derivePathInfo(sourceFile, VerifierSettings.ProjectDir, type, method);
 
     /// <summary>
     /// Use custom path information for `.verified.` files.

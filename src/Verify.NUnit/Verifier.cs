@@ -35,7 +35,7 @@ public static partial class Verifier
         }
 
         var type = testMethod.TypeInfo.Type;
-        TargetAssembly.Assign(type.Assembly);
+        VerifierSettings.AssignTargetAssembly(type.Assembly);
 
         var method = testMethod.MethodInfo;
 

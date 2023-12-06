@@ -161,79 +161,6 @@ See [Parameterised Tests](parameterised.md).
 `UniqueFor*` allows for one or more delimiters to be added to the file name.
 
 
-### XUnit
-
-<!-- snippet: UniqueForSampleXunit -->
-<a id='snippet-uniqueforsamplexunit'></a>
-```cs
-[UsesVerify]
-public class UniqueForSample
-{
-    [Fact]
-    public Task Runtime()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task RuntimeFluent() =>
-        Verify("value")
-            .UniqueForRuntime();
-
-    [Fact]
-    public Task RuntimeAndVersion()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task AssemblyConfiguration()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task AssemblyConfigurationFluent() =>
-        Verify("value")
-            .UniqueForAssemblyConfiguration();
-
-    [Fact]
-    public Task Architecture()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForArchitecture();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task ArchitectureFluent() =>
-        Verify("value")
-            .UniqueForArchitecture();
-
-    [Fact]
-    public Task OSPlatform()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForOSPlatform();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task OSPlatformFluent() =>
-        Verify("value")
-            .UniqueForOSPlatform();
-}
-```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 ### NUnit
 
 <!-- snippet: UniqueForSampleNUnit -->
@@ -312,20 +239,143 @@ public class UniqueForSample
 <!-- endSnippet -->
 
 
-### Expecto
+### XUnit
 
-<!-- snippet: UniqueForSampleExpecto -->
-<a id='snippet-uniqueforsampleexpecto'></a>
-```fs
-[<Tests>]
-let uniqueTests =
-    testTask "unique" {
-        let settings = VerifySettings()
-        settings.UniqueForRuntime()
-        do! Verifier.Verify("unique", "value", settings)
+<!-- snippet: UniqueForSampleXunit -->
+<a id='snippet-uniqueforsamplexunit'></a>
+```cs
+[UsesVerify]
+public class UniqueForSample
+{
+    [Fact]
+    public Task Runtime()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
     }
+
+    [Fact]
+    public Task RuntimeFluent() =>
+        Verify("value")
+            .UniqueForRuntime();
+
+    [Fact]
+    public Task RuntimeAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
+    }
+
+    [Fact]
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+
+    [Fact]
+    public Task AssemblyConfigurationFluent() =>
+        Verify("value")
+            .UniqueForAssemblyConfiguration();
+
+    [Fact]
+    public Task Architecture()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForArchitecture();
+        return Verify("value", settings);
+    }
+
+    [Fact]
+    public Task ArchitectureFluent() =>
+        Verify("value")
+            .UniqueForArchitecture();
+
+    [Fact]
+    public Task OSPlatform()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForOSPlatform();
+        return Verify("value", settings);
+    }
+
+    [Fact]
+    public Task OSPlatformFluent() =>
+        Verify("value")
+            .UniqueForOSPlatform();
+}
 ```
-<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsampleexpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fixie
+
+<!-- snippet: UniqueForSampleFixie -->
+<a id='snippet-uniqueforsamplefixie'></a>
+```cs
+public class UniqueForSample
+{
+    public Task Runtime()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntime();
+        return Verify("value", settings);
+    }
+
+    public Task RuntimeFluent() =>
+        Verify("value")
+            .UniqueForRuntime();
+
+    public Task AssemblyConfiguration()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForAssemblyConfiguration();
+        return Verify("value", settings);
+    }
+
+    public Task AssemblyConfigurationFluent() =>
+        Verify("value")
+            .UniqueForAssemblyConfiguration();
+
+    public Task RuntimeAndVersion()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForRuntimeAndVersion();
+        return Verify("value", settings);
+    }
+
+    public Task RuntimeAndVersionFluent() =>
+        Verify("value")
+            .UniqueForRuntimeAndVersion();
+
+    public Task Architecture()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForArchitecture();
+        return Verify("value", settings);
+    }
+
+    public Task ArchitectureFluent() =>
+        Verify("value")
+            .UniqueForArchitecture();
+
+    public Task OSPlatform()
+    {
+        var settings = new VerifySettings();
+        settings.UniqueForOSPlatform();
+        return Verify("value", settings);
+    }
+
+    public Task OSPlatformFluent() =>
+        Verify("value")
+            .UniqueForOSPlatform();
+}
+```
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/UniqueForSample.cs#L1-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplefixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -405,6 +455,23 @@ public class UniqueForSample :
 }
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L3-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplemstest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Expecto
+
+<!-- snippet: UniqueForSampleExpecto -->
+<a id='snippet-uniqueforsampleexpecto'></a>
+```fs
+[<Tests>]
+let uniqueTests =
+    testTask "unique" {
+        let settings = VerifySettings()
+        settings.UniqueForRuntime()
+        do! Verifier.Verify("unique", "value", settings)
+    }
+```
+<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsampleexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -588,7 +655,7 @@ A `DerivePathInfo` convention can be shipped as a NuGet, for example [Spectre.Ve
 <!-- snippet: defaultDerivePathInfo -->
 <a id='snippet-defaultderivepathinfo'></a>
 ```cs
-internal static PathInfo DeriveDefault(
+public static PathInfo DeriveDefault(
     string sourceFile,
     string projectDirectory,
     Type type,

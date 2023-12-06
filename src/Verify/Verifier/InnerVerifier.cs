@@ -286,7 +286,7 @@ public partial class InnerVerifier :
         VerifyInner(target, null, rawTargets, true);
 
     public Task<VerifyResult> Verify(Target target) =>
-        VerifyInner(new []{target});
+        VerifyInner([target]);
 
     public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>
         VerifyInner(targets);

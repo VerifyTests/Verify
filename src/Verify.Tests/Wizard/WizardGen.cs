@@ -1,5 +1,4 @@
 ﻿#if NET7_0
-
 public class WizardGen
 {
     string wizardDir = null!;

@@ -12,7 +12,8 @@ public class EncodingTests :
         File.Delete(file);
         var str = "value";
         var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
-        await Verify(str).AutoVerify();
+        await Verify(str)
+            .AutoVerify();
         await Task.Delay(1000);
         var fileBytes = await File.ReadAllBytesAsync(file);
         var expectedBytes = encoding.GetBytes(str);
@@ -31,10 +32,14 @@ public class EncodingTests :
         var file = CurrentFile.Relative($"EncodingTests.{nameof(Utf16)}.verified.txt");
         File.Delete(file);
         var str = "value";
-        await Verify(str).AutoVerify();
+        await Verify(str)
+            .AutoVerify();
         await Task.Delay(1000);
         var fileBytes = await File.ReadAllBytesAsync(file);
-        var expectedBytes = encoding.GetPreamble().Concat(encoding.GetBytes(str)).ToArray();
+        var expectedBytes = encoding
+            .GetPreamble()
+            .Concat(encoding.GetBytes(str))
+            .ToArray();
         Assert.Equal(expectedBytes, fileBytes);
     }
 }

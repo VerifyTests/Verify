@@ -74,7 +74,7 @@ public partial class VerifySettings
     internal bool hashParameters;
 
     /// <summary>
-    /// Hash parameters together and pass to <see cref="UseTextForParameters"/>.
+    /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>
     public void HashParameters()
@@ -85,9 +85,9 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters"/>.
+    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
-    /// Combines <see cref="UseParameters"/> and <see cref="HashParameters"/>.
+    /// Combines <see cref="UseParameters" /> and <see cref="HashParameters" />.
     /// </summary>
     public void UseHashedParameters(params object?[] parameters)
     {

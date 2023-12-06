@@ -9,7 +9,8 @@ public class VerifyJsonWriter :
     public IReadOnlyDictionary<string, object> Context { get; }
     public Counter Counter { get; }
 
-    internal VerifyJsonWriter(StringBuilder builder, VerifySettings settings, Counter counter) :
+    internal VerifyJsonWriter(StringBuilder builder, VerifySettings settings, Counter counter)
+        :
         base(
             new StringWriter(builder)
             {
@@ -218,7 +219,8 @@ public class VerifyJsonWriter :
         {
             WriteValue(convertedString);
         }
-        else if (converted.GetType().IsPrimitive)
+        else if (converted.GetType()
+                 .IsPrimitive)
         {
             WriteValue(converted);
         }

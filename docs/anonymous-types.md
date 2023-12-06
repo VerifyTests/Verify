@@ -68,7 +68,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L41-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L42-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -99,7 +99,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L26-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L27-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

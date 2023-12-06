@@ -17,7 +17,8 @@ public class ThrowsTests
 
     [Fact]
     public Task TestMethodThatThrowsIgnoreStackTraceFluent() =>
-        Throws(MethodThatThrows).IgnoreStackTrace();
+        Throws(MethodThatThrows)
+            .IgnoreStackTrace();
 
     #endregion
 
@@ -50,7 +51,6 @@ public class ThrowsTests
     #endregion
 
 #if NET8_0
-
     #region TestMethodThatThrowsTask
 
     [Fact]

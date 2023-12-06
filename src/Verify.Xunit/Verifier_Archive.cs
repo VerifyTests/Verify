@@ -5,7 +5,7 @@ namespace VerifyXunit;
 public static partial class Verifier
 {
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
     public static SettingsTask Verify(
@@ -18,7 +18,7 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyZip(archive, include, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
     public static SettingsTask VerifyZip(
@@ -31,7 +31,7 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyZip(path, include, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
     public static SettingsTask VerifyZip(

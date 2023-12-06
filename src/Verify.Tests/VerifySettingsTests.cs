@@ -6,7 +6,9 @@
         var originalSettings = new VerifySettings();
         originalSettings.Context.Add("cloneable", new MyCloneable());
         var newSettings = new VerifySettings(originalSettings);
-        Assert.NotSame(originalSettings.Context.Single().Value, newSettings.Context.Single().Value);
+        Assert.NotSame(originalSettings.Context.Single()
+            .Value, newSettings.Context.Single()
+            .Value);
     }
 
     class MyCloneable :

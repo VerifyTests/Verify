@@ -36,19 +36,44 @@ public static partial class VerifierSettings
     static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
     {
         #region typeToStringMapping
-        {typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()},
-        {typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()},
-        {typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)},
+
+        {
+            typeof(StringBuilder), (target, _) => ((StringBuilder) target).ToString()
+        },
+        {
+            typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()
+        },
+        {
+            typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)
+        },
 #if NET5_0_OR_GREATER
-        {typeof(Half), (target, _) => ((Half) target).ToString(CultureInfo.InvariantCulture)},
+        {
+            typeof(Half), (target, _) => ((Half) target).ToString(CultureInfo.InvariantCulture)
+        },
 #endif
 #if NET6_0_OR_GREATER
         {
@@ -66,11 +91,21 @@ public static partial class VerifierSettings
             }
         },
 #endif
-        {typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)},
-        {typeof(Guid), (target, _) => ((Guid) target).ToString()},
-        {typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)},
-        {typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)},
+        {
+            typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(Guid), (target, _) => ((Guid) target).ToString()
+        },
+        {
+            typeof(DateTime), (target, _) => DateFormatter.ToJsonString((DateTime) target)
+        },
+        {
+            typeof(DateTimeOffset), (target, _) => DateFormatter.ToJsonString((DateTimeOffset) target)
+        },
         {
             typeof(XmlNode), (target, _) =>
             {

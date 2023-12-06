@@ -24,10 +24,12 @@ public partial class Counter
     }
 
     public int Next(DateTimeOffset input) =>
-        NextValue(input).intValue;
+        NextValue(input)
+            .intValue;
 
     public string NextString(DateTimeOffset input) =>
-        NextValue(input).stringValue;
+        NextValue(input)
+            .stringValue;
 
     (int intValue, string stringValue) NextValue(DateTimeOffset input)
     {

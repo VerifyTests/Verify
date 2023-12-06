@@ -81,40 +81,41 @@ public class JsonTests
     public Task IgnoreJTokenByName()
     {
         var json = """
-            {
-              'short': {
-                'key': {
-                  'code': 0,
-                  'msg': 'No action taken'
-                },
-                'Ignore1': {
-                  'code': 2,
-                  'msg': 'ignore this'
-                }
-              }
-            }
-            """;
+                   {
+                     'short': {
+                       'key': {
+                         'code': 0,
+                         'msg': 'No action taken'
+                       },
+                       'Ignore1': {
+                         'code': 2,
+                         'msg': 'ignore this'
+                       }
+                     }
+                   }
+                   """;
         var target = JToken.Parse(json);
-        return Verify(target).IgnoreMember("Ignore1");
+        return Verify(target)
+            .IgnoreMember("Ignore1");
     }
 
     [Fact]
     public Task ScrubJTokenByName()
     {
         var json = """
-            {
-              'short': {
-                'key': {
-                  'code': 0,
-                  'msg': 'No action taken'
-                },
-                'Scrub': {
-                  'code': 2,
-                  'msg': 'ignore this'
-                }
-              }
-            }
-            """;
+                   {
+                     'short': {
+                       'key': {
+                         'code': 0,
+                         'msg': 'No action taken'
+                       },
+                       'Scrub': {
+                         'code': 2,
+                         'msg': 'ignore this'
+                       }
+                     }
+                   }
+                   """;
         var target = JToken.Parse(json);
         return Verify(target)
             .ScrubMember("Scrub");
@@ -154,15 +155,15 @@ public class JsonTests
     public Task VerifyJsonWithArray()
     {
         var json = """
-            {
-                commitments: [
-                  {
-                    id: '9585dadf-551a-43eb-960c-18b935993cc3',
-                    title: 'Commitment1'
-                  }
-                ]
-            }
-            """;
+                   {
+                       commitments: [
+                         {
+                           id: '9585dadf-551a-43eb-960c-18b935993cc3',
+                           title: 'Commitment1'
+                         }
+                       ]
+                   }
+                   """;
         return VerifyJson(json);
     }
 
@@ -170,13 +171,13 @@ public class JsonTests
     public Task VerifyJsonWithArrayAtRoot()
     {
         var json = """
-            [
-                {
-                    id: '9585dadf-551a-43eb-960c-18b935993cc3',
-                    title: 'Commitment1'
-                }
-            ]
-            """;
+                   [
+                       {
+                           id: '9585dadf-551a-43eb-960c-18b935993cc3',
+                           title: 'Commitment1'
+                       }
+                   ]
+                   """;
         return VerifyJson(json);
     }
 

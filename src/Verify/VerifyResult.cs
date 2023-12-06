@@ -50,7 +50,8 @@ public class VerifyResult
     }
 
     public IEnumerable<string> TextFiles =>
-        files.Where(_ => _.IsText)
+        files
+            .Where(_ => _.IsText)
             .Select(_ => _.VerifiedPath);
 
     public IEnumerable<string> Files =>

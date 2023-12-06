@@ -575,7 +575,8 @@ public class NamerTests
     [Fact]
     public Task FrameworkName()
     {
-        var name = GetType().Assembly.FrameworkName()!;
+        var name = GetType()
+            .Assembly.FrameworkName()!;
         return Verify(new
             {
                 name.Name,

@@ -1,7 +1,6 @@
 namespace VerifyExpecto;
 
 // ReSharper disable RedundantSuppressNullableWarningExpression
-
 public static partial class Verifier
 {
     public static Task<VerifyResult> Verify(

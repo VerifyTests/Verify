@@ -14,10 +14,12 @@ public partial class Counter
     }
 
     public int Next(Date input) =>
-        NextValue(input).intValue;
+        NextValue(input)
+            .intValue;
 
     public string NextString(Date input) =>
-        NextValue(input).stringValue;
+        NextValue(input)
+            .stringValue;
 
     (int intValue, string stringValue) NextValue(Date input)
     {

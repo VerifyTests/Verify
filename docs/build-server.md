@@ -95,7 +95,7 @@ For example a possible implementation for [AppVeyor](https://www.appveyor.com/) 
 if (BuildServerDetector.Detected)
 {
     var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-    Verifier.DerivePathInfo(
+    DerivePathInfo(
         (sourceFile, projectDirectory, typeName, methodName) =>
         {
             var testDirectory = Path.GetDirectoryName(sourceFile)!;
@@ -104,5 +104,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L84-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L86-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

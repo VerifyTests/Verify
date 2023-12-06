@@ -6,25 +6,55 @@ public static partial class VerifierSettings
 
     static Dictionary<Type, Func<object, string>> parameterToNameLookup = new()
     {
-        {typeof(bool), _ => ((bool) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(short), _ => ((short) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(ushort), _ => ((ushort) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(int), _ => ((int) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(uint), _ => ((uint) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(long), _ => ((long) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(ulong), _ => ((ulong) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(decimal), _ => ((decimal) _).ToString(CultureInfo.InvariantCulture)},
+        {
+            typeof(bool), _ => ((bool) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(short), _ => ((short) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(ushort), _ => ((ushort) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(int), _ => ((int) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(uint), _ => ((uint) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(long), _ => ((long) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(ulong), _ => ((ulong) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(decimal), _ => ((decimal) _).ToString(CultureInfo.InvariantCulture)
+        },
 #if NET5_0_OR_GREATER
-        {typeof(Half), _ => ((Half) _).ToString(CultureInfo.InvariantCulture)},
+        {
+            typeof(Half), _ => ((Half) _).ToString(CultureInfo.InvariantCulture)
+        },
 #endif
 #if NET6_0_OR_GREATER
-        {typeof(Date), _ => ((Date) _).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)},
-        {typeof(Time), _ => ((Time) _).ToString("h-mm-tt", CultureInfo.InvariantCulture)},
+        {
+            typeof(Date), _ => ((Date) _).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(Time), _ => ((Time) _).ToString("h-mm-tt", CultureInfo.InvariantCulture)
+        },
 #endif
-        {typeof(float), _ => ((float) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(double), _ => ((double) _).ToString(CultureInfo.InvariantCulture)},
-        {typeof(DateTime), _ => DateFormatter.ToParameterString((DateTime) _)},
-        {typeof(DateTimeOffset), _ => DateFormatter.ToParameterString((DateTimeOffset) _)}
+        {
+            typeof(float), _ => ((float) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(double), _ => ((double) _).ToString(CultureInfo.InvariantCulture)
+        },
+        {
+            typeof(DateTime), _ => DateFormatter.ToParameterString((DateTime) _)
+        },
+        {
+            typeof(DateTimeOffset), _ => DateFormatter.ToParameterString((DateTimeOffset) _)
+        }
     };
 
     public static void NameForParameter<T>(ParameterToName<T> func)
@@ -96,6 +126,7 @@ public static partial class VerifierSettings
             {
                 builder.Append(']');
             }
+
             return;
         }
 

@@ -31,6 +31,7 @@ partial class InnerVerifier
         {
             filePairs.AddRange(engine.AutoVerified);
         }
+
         return new(filePairs, root);
     }
 

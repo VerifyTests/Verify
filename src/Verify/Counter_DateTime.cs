@@ -23,10 +23,12 @@ public partial class Counter
     }
 
     public int Next(DateTime input) =>
-        NextValue(input).intValue;
+        NextValue(input)
+            .intValue;
 
     public string NextString(DateTime input) =>
-        NextValue(input).stringValue;
+        NextValue(input)
+            .stringValue;
 
     (int intValue, string stringValue) NextValue(DateTime input)
     {

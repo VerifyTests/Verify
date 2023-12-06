@@ -13,7 +13,8 @@ public static partial class Recording
     static AsyncLocal<State?> asyncLocal = new();
 
     public static void Add(string name, object item) =>
-        CurrentState().Add(name, item);
+        CurrentState()
+            .Add(name, item);
 
     public static void TryAdd(string name, object item)
     {
@@ -90,19 +91,22 @@ public static partial class Recording
     }
 
     public static void Pause() =>
-        CurrentState().Pause();
+        CurrentState()
+            .Pause();
 
     public static void TryPause() =>
         asyncLocal.Value?.Pause();
 
     public static void Resume() =>
-        CurrentState().Resume();
+        CurrentState()
+            .Resume();
 
     public static void TryResume() =>
         asyncLocal.Value?.Resume();
 
     public static void Clear() =>
-        CurrentState().Clear();
+        CurrentState()
+            .Clear();
 
     public static void TryClear() =>
         asyncLocal.Value?.Clear();

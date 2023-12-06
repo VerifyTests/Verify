@@ -6,7 +6,7 @@
         if (VerifierSettings.sortJsonObjects)
         {
             var dictionary = value
-                .ToObject<Dictionary<string,object>>(writer.Serializer)!;
+                .ToObject<Dictionary<string, object>>(writer.Serializer)!;
             writer.Serialize(dictionary);
         }
         else

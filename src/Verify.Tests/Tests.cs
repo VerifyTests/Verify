@@ -18,18 +18,22 @@ public class Tests
     [InlineData("a")]
     public Task ReplaceInvalidParamChar(string value) =>
         Verify("foo")
-            .UseParameters(Path.GetInvalidPathChars().First());
+            .UseParameters(Path
+                .GetInvalidPathChars()
+                .First());
 
     [Theory]
     [InlineData(1, 2)]
     public Task ParameterCount_TooFew(int one, int two) =>
-        Verify("Value").UseParameters(1);
+        Verify("Value")
+            .UseParameters(1);
 
     [Theory]
     [InlineData(1, 2)]
     public async Task IncorrectParameterCount_TooMany(int one, int two)
     {
-        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value").UseParameters(1, 2, 3));
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value")
+            .UseParameters(1, 2, 3));
         Assert.Equal("The number of passed in parameters (3) must be fewer than the number of parameters for the method (2).", exception.Message);
     }
 
@@ -123,7 +127,6 @@ public class Tests
     }
 
 #if NET6_0_OR_GREATER
-
     static bool onFirstVerifyCalled;
     static bool onVerifyMismatchCalled;
     [ModuleInitializer]
@@ -249,7 +252,6 @@ public class Tests
     }
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public async Task StringWithUtf8Bom()
     {
@@ -274,7 +276,9 @@ public class Tests
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .AutoVerify();
-        var fileBytes = File.ReadAllBytes(file).Take(3);
+        var fileBytes = File
+            .ReadAllBytes(file)
+            .Take(3);
         var preambleBytes = Encoding.UTF8.GetPreamble();
         Assert.Equal(preambleBytes, fileBytes);
     }
@@ -286,7 +290,11 @@ public class Tests
     [Fact]
     public Task FuncOfTaskResult()
     {
-        var target = async () => { await Task.Delay(1); return "value"; };
+        var target = async () =>
+        {
+            await Task.Delay(1);
+            return "value";
+        };
         return Verify(target);
     }
 
@@ -356,6 +364,7 @@ public class Tests
         {
             return;
         }
+
         try
         {
             var result = await Verify("Value")
@@ -389,7 +398,11 @@ public class Tests
     public async Task FuncOfTaskResultAsyncDisposable()
     {
         var disposableTarget = new AsyncDisposableTarget();
-        var target = async () => { await Task.Delay(1); return disposableTarget; };
+        var target = async () =>
+        {
+            await Task.Delay(1);
+            return disposableTarget;
+        };
         await Verify(target);
         Assert.True(disposableTarget.AsyncDisposed);
     }
@@ -426,7 +439,11 @@ public class Tests
     public async Task FuncOfTaskResultDisposable()
     {
         var disposableTarget = new DisposableTarget();
-        var target = async () => { await Task.Delay(1); return disposableTarget; };
+        var target = async () =>
+        {
+            await Task.Delay(1);
+            return disposableTarget;
+        };
         await Verify(target);
         Assert.True(disposableTarget.Disposed);
     }

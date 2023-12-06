@@ -5,7 +5,8 @@ public static partial class Recording
     static ConcurrentDictionary<string, State> namedState = new(StringComparer.OrdinalIgnoreCase);
 
     public static void Add(string identifier, string name, object item) =>
-        CurrentStateNamed(identifier).Add(name, item);
+        CurrentStateNamed(identifier)
+            .Add(name, item);
 
     public static void TryAdd(string identifier, string name, object item)
     {
@@ -65,6 +66,7 @@ public static partial class Recording
         {
             throw new("Recording already started");
         }
+
         return new NamedDisposable(identifier);
     }
 
@@ -76,7 +78,8 @@ public static partial class Recording
     }
 
     public static void Pause(string identifier) =>
-        CurrentStateNamed(identifier).Pause();
+        CurrentStateNamed(identifier)
+            .Pause();
 
     public static void TryPause(string identifier)
     {
@@ -87,7 +90,8 @@ public static partial class Recording
     }
 
     public static void Resume(string identifier) =>
-        CurrentStateNamed(identifier).Resume();
+        CurrentStateNamed(identifier)
+            .Resume();
 
     public static void TryResume(string identifier)
     {
@@ -98,7 +102,8 @@ public static partial class Recording
     }
 
     public static void Clear(string identifier) =>
-        CurrentStateNamed(identifier).Clear();
+        CurrentStateNamed(identifier)
+            .Clear();
 
     public static void TryClear(string identifier)
     {

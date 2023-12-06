@@ -13,7 +13,8 @@ public class OmitContentFromExceptionTests :
     {
         try
         {
-            await Verify("Foo").DisableDiff();
+            await Verify("Foo")
+                .DisableDiff();
         }
         catch (Exception exception)
         {

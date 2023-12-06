@@ -8,7 +8,7 @@ public class TestFixtureSourceAndTestCaseUsage(string arg1, int arg2)
             {
                 arg1,
                 arg2,
-                arg3,
+                arg3
             });
 
     static object[] FixtureArgs =

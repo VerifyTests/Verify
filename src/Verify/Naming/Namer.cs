@@ -148,7 +148,9 @@ public class Namer
         var (runtime, version) = GetRuntimeAndVersion();
         Runtime = runtime;
         RuntimeAndVersion = $"{runtime}{version.Major}_{version.Minor}";
-        Architecture = RuntimeInformation.ProcessArchitecture.ToString().ToLower();
+        Architecture = RuntimeInformation
+            .ProcessArchitecture.ToString()
+            .ToLower();
         OperatingSystemPlatform = GetOSPlatform();
     }
 
@@ -220,7 +222,6 @@ public class Namer
 #elif NET8_0
         return ("DotNet", new(8, 0));
 #elif NETFRAMEWORK
-
         // Mono can only be detected at runtime, and will use .NET Framework targets, so we have to check it first.
         if (RuntimeInformation.FrameworkDescription.StartsWith("Mono", StringComparison.OrdinalIgnoreCase))
         {

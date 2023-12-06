@@ -7,7 +7,7 @@ namespace VerifyExpecto;
 public static partial class Verifier
 {
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     public static Task<VerifyResult> Verify(
         string name,
@@ -23,7 +23,7 @@ public static partial class Verifier
     }
 
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     public static Task<VerifyResult> VerifyZip(
         string name,
@@ -39,7 +39,7 @@ public static partial class Verifier
     }
 
     /// <summary>
-    /// Verifies the contents of a <see cref="ZipArchive"/>
+    /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     public static Task<VerifyResult> VerifyZip(
         string name,

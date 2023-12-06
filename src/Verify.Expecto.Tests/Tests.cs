@@ -1,4 +1,5 @@
 ﻿// ReSharper disable UnusedParameter.Local
+
 public class Tests
 {
     // ReSharper disable once UnusedMember.Local
@@ -14,6 +15,7 @@ public class Tests
 
         #endregion
     }
+
     [Tests]
     public static Test myTest = Runner.TestCase(
         nameof(myTest),

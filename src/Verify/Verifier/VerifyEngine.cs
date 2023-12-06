@@ -1,5 +1,6 @@
 ﻿// ReSharper disable ConvertToUsingDeclaration
 // ReSharper disable UseAwaitUsing
+
 [DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
 class VerifyEngine
 {

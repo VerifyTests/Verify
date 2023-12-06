@@ -56,6 +56,7 @@ partial class InnerVerifier
             {
                 continue;
             }
+
             var fileDirectoryPath = Path.GetDirectoryName(fullName)!;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullName);
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
@@ -65,7 +66,8 @@ partial class InnerVerifier
             {
                 pathWithoutExtension += Path.DirectorySeparatorChar;
             }
-            targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, ()=> entry.Open()));
+
+            targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, () => entry.Open()));
         }
 
         return await VerifyInner(targets);

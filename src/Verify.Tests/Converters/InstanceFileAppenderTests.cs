@@ -40,10 +40,10 @@ public class InstanceFileAppenderTests
     public Task WithScrubbing() =>
         Verify("Foo")
             .AppendContentAsFile("""
-                line1
-                line2
-                line3
-                """)
+                                 line1
+                                 line2
+                                 line3
+                                 """)
             .ScrubLinesContaining("line2");
 
     [Fact]

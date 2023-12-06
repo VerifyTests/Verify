@@ -33,7 +33,10 @@ public class StaticFileAppenderTests :
 
     [Fact]
     public Task Anon() =>
-        Verify(new {foo = "bar"});
+        Verify(new
+        {
+            foo = "bar"
+        });
 
     [Fact]
     public Task NullText() =>

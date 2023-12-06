@@ -1,4 +1,5 @@
 ﻿// ReSharper disable UnusedVariable
+
 static class Extensions
 {
     public static string Extension(this FileStream file) =>
@@ -81,10 +82,12 @@ static class Extensions
     }
 
     public static Dictionary<TKey, TValue> Clone<TKey, TValue>(this Dictionary<TKey, TValue> original)
-        where TValue : struct where TKey : notnull => new(original);
+        where TValue : struct
+        where TKey : notnull => new(original);
 
     public static Dictionary<TKey, TValue?> Clone<TKey, TValue>(this Dictionary<TKey, TValue?> original)
-        where TValue : struct where TKey : notnull => new(original);
+        where TValue : struct
+        where TKey : notnull => new(original);
 
     #region NameWithParent
 

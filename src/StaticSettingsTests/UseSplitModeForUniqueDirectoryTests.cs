@@ -13,11 +13,11 @@ public class UseSplitModeForUniqueDirectoryTests :
     [Fact]
     public Task Target() =>
         Verify(
-               "Target",
-               new[]
-               {
-                   new Target("txt", "data")
-               })
+                "Target",
+                new[]
+                {
+                    new Target("txt", "data")
+                })
             .UseUniqueDirectory();
 
     [Fact]

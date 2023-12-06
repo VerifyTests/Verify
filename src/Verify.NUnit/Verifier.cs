@@ -21,9 +21,9 @@ public static partial class Verifier
         if (!settings.HasParameters &&
             adapter.Arguments.Length > 0)
         {
-            #pragma warning disable VerifySetParameters
+#pragma warning disable VerifySetParameters
             settings.SetParameters(adapter.Arguments);
-            #pragma warning restore
+#pragma warning restore
         }
 
         var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");

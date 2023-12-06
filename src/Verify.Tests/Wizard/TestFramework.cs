@@ -3,5 +3,5 @@
     xUnit,
     NUnit,
     MSTest,
-    Expecto,
+    Expecto
 }

@@ -64,7 +64,7 @@ public partial class InnerVerifier :
     }
 
     /// <summary>
-    /// Initialize a new instance of the <see cref="InnerVerifier"/> class for verifying the entire file (not just a specific type)
+    /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
     // ReSharper disable once UnusedMember.Global

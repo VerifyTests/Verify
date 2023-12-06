@@ -57,7 +57,7 @@ public class NameForParameterTests
     [Fact]
     public Task DateTimeOffsetUtc()
     {
-        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0,TimeSpan.Zero);
+        var date = new DateTimeOffset(2000, 10, 1, 0, 0, 0, TimeSpan.Zero);
         return Verify(VerifierSettings.GetNameForParameter(date));
     }
 
@@ -145,7 +145,7 @@ public class NameForParameterTests
             new[]
             {
                 "value1",
-                "value2",
+                "value2"
             }));
 
     [Fact]

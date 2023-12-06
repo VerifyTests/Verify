@@ -134,7 +134,11 @@ public class DateFormatterTests
             parameterValues.Add(name.ToString(), DateFormatter.ToParameterString(value));
         }
 
-        await Verify(new{jsonValues, parameterValues});
+        await Verify(new
+        {
+            jsonValues,
+            parameterValues
+        });
     }
 
     [Fact]
@@ -143,14 +147,19 @@ public class DateFormatterTests
         var jsonValues = new Dictionary<string, string>();
         var parameterValues = new Dictionary<string, string>();
 
-        foreach (var kind in new[]{DateTimeKind.Local, DateTimeKind.Unspecified, DateTimeKind.Utc})
+        foreach (var kind in new[]
+                 {
+                     DateTimeKind.Local,
+                     DateTimeKind.Unspecified,
+                     DateTimeKind.Utc
+                 })
         foreach (var hour in bools)
         foreach (var minute in bools)
         foreach (var second in bools)
         foreach (var secondFraction in bools)
         {
             var name = new StringBuilder(kind.ToString());
-            var value = new DateTime(2020, 1, 1, 0, 0, 0,kind);
+            var value = new DateTime(2020, 1, 1, 0, 0, 0, kind);
             if (hour)
             {
                 name.Append("_hour");
@@ -179,7 +188,11 @@ public class DateFormatterTests
             parameterValues.Add(name.ToString(), DateFormatter.ToParameterString(value));
         }
 
-        await Verify(new{jsonValues, parameterValues});
+        await Verify(new
+        {
+            jsonValues,
+            parameterValues
+        });
     }
 
     static bool[] bools =

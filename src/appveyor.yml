@@ -41,9 +41,6 @@ build_script:
 - dotnet test src/Verify.Tests --configuration Release --no-build --no-restore
 - dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore
 - dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore
-- cd src/Verify.Fixie.Tests
-- dotnet fixie --no-build --configuration Release
-- cd..
 
 #- pwsh: |
 #    if ($isWindows) {

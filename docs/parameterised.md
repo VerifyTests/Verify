@@ -22,7 +22,7 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 
 ### Invalid characters
 
-Characters that cannot be used for a file name will be replaced with a dash (`-`).
+Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 
 ## UseParameters()
@@ -316,8 +316,62 @@ public class ComplexParametersSample
 
 ## Fixie
 
+Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
 
-### TestCase
+Verify.Fixie requires some customisation of the above example.
+
+ * Inside `ITestProject.Configure` call `VerifierSettings.AssignTargetAssembly(environment.Assembly);`
+ * Inside `IExecution.Run` wrap `test.Run` in `using (ExecutionState.Set(testClass, test, parameters))`
+
+Example implementation:
+
+<!-- snippet: TestProject.cs -->
+<a id='snippet-TestProject.cs'></a>
+```cs
+public class TestProject :
+    ITestProject,
+    IExecution
+{
+    public void Configure(TestConfiguration configuration, TestEnvironment environment)
+    {
+        VerifierSettings.AssignTargetAssembly(environment.Assembly);
+        configuration.Conventions.Add<DefaultDiscovery, TestProject>();
+    }
+
+    public async Task Run(TestSuite testSuite)
+    {
+        foreach (var testClass in testSuite.TestClasses)
+        {
+            foreach (var test in testClass.Tests)
+            {
+                if (test.HasParameters)
+                {
+                    foreach (var parameters in test
+                                 .GetAll<TestCase>()
+                                 .Select(_ => _.Parameters))
+                    {
+                        using (ExecutionState.Set(testClass, test, parameters))
+                        {
+                            await test.Run(parameters);
+                        }
+                    }
+                }
+                else
+                {
+                    using (ExecutionState.Set(testClass, test, null))
+                    {
+                        await test.Run();
+                    }
+                }
+            }
+        }
+    }
+}
+```
+<sup><a href='/src/Verify.Fixie.Tests/FixieSetup/TestProject.cs#L1-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestProject.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Resulting usage:
 
 <!-- snippet: FixieTestCase -->
 <a id='snippet-fixietestcase'></a>

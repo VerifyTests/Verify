@@ -72,8 +72,18 @@ snippet: xunitComplexMemberData
 
 ## Fixie
 
+Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
 
-### TestCase
+Verify.Fixie requires some customisation of the above example.
+
+ * Inside `ITestProject.Configure` call `VerifierSettings.AssignTargetAssembly(environment.Assembly);`
+ * Inside `IExecution.Run` wrap `test.Run` in `using (ExecutionState.Set(testClass, test, parameters))`
+
+Example implementation:
+
+snippet: TestProject.cs
+
+Resulting usage:
 
 snippet: FixieTestCase
 

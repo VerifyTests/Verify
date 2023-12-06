@@ -129,6 +129,7 @@ public class Tests
 #if NET6_0_OR_GREATER
     static bool onFirstVerifyCalled;
     static bool onVerifyMismatchCalled;
+
     [ModuleInitializer]
     public static void OnFirstVerifyInit()
     {
@@ -257,8 +258,10 @@ public class Tests
     {
         var utf8 = Encoding.UTF8;
         var preamble = utf8.GetString(utf8.GetPreamble());
-        await Verify($"{preamble}a").AutoVerify();
-        await Verify("a").DisableRequireUniquePrefix();
+        await Verify($"{preamble}a")
+            .AutoVerify();
+        await Verify("a")
+            .DisableRequireUniquePrefix();
     }
 
 #endif

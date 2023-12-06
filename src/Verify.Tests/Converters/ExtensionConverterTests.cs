@@ -206,7 +206,8 @@ public class ExtensionConverterTests
 
         await Assert.ThrowsAsync<VerifyException>(
             () => Verify(File.OpenRead("sample2.png"), "WithInfoAndBinary")
-                .DisableRequireUniquePrefix().DisableDiff());
+                .DisableRequireUniquePrefix()
+                .DisableDiff());
         var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.received.png");
         Assert.True(File.Exists(file));
     }

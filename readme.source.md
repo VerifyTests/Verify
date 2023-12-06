@@ -34,7 +34,7 @@ Get customized instructions for the specific combination of Operating System, ID
 
  * https://nuget.org/packages/Verify.NUnit/
  * https://nuget.org/packages/Verify.Xunit/
- * https://nuget.org/packages/Verify.NUnit/
+ * https://nuget.org/packages/Verify.Fixie/
  * https://nuget.org/packages/Verify.Expecto/
  * https://nuget.org/packages/Verify.MSTest/
 

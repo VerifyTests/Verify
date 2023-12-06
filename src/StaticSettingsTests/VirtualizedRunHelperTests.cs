@@ -38,7 +38,9 @@ public class VirtualizedRunHelperTests :
         Assert.True(helper.AppearsToBeLocalVirtualizedRun);
         Assert.True(helper.Initialized);
 
-        Assert.Equal("/ci/build/project_dir/src/file.cs", helper.GetMappedBuildPath(@"C:\build\project_dir\src\file.cs"));
+        Assert.Equal(
+            "/ci/build/project_dir/src/file.cs",
+            helper.GetMappedBuildPath(@"C:\build\project_dir\src\file.cs"));
     }
 
     [Fact]
@@ -70,11 +72,11 @@ public class VirtualizedRunHelperTests :
         VirtualizedRunHelper.Env = new TestEnv(
             _ => _ switch
             {
-                "C:\\proj\\file.cs" => true,
-                "C:\\proj" => true,
+                @"C:\proj\file.cs" => true,
+                @"C:\proj" => true,
                 _ => false
             },
-            "C:\\proj",
+            @"C:\proj",
             '\\');
 
         var helper = new VirtualizedRunHelper(@"C:\proj", @"C:\proj");

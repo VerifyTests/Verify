@@ -46,7 +46,6 @@ snippet: UseMethodNameFluent
 Will result in `TestClass.CustomMethodNameFluent.verified.txt`.
 
 
-
 ### Multiple calls to Verify
 
 `UseMethodName` can also be used to allow multiple calls to Verify in the same method:

@@ -569,7 +569,7 @@ await Verify("<a>b</a>", "xml")
     .UniqueForFileExtension()
     .DisableRequireUniquePrefix();
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L289-L295' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforfileextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L296-L302' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforfileextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Both a `.txt` and `.xml` snapshot will be verified here.

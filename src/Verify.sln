@@ -66,6 +66,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullComparer", "NullComparer\NullComparer.csproj", "{3C759E19-3482-48A7-B2E2-95DA5E1EF159}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetUsage", "NugetUsage", "{55ADD9F3-FD0D-4A98-8723-1348FF605944}"
+	ProjectSection(SolutionItems) = preProject
+		NugetUsage\FixieNugetUsage\FixieNugetUsage.csproj = NugetUsage\FixieNugetUsage\FixieNugetUsage.csproj
+	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExpectoNugetUsage", "NugetUsage\ExpectoNugetUsage\ExpectoNugetUsage.fsproj", "{45F49219-6F5F-4F4E-95C8-3A7D5EC11B10}"
 EndProject

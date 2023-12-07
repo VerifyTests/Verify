@@ -7,7 +7,7 @@ public class WizardGen
     [Fact]
     public async Task Run()
     {
-        if (!ExistsOnPath("mdsnippets"))
+        if (!ExistsOnPath("mdsnippets.exe"))
         {
             return;
         }
@@ -389,6 +389,15 @@ public class WizardGen
                             dotnet add package NUnit
                             dotnet add package NUnit3TestAdapter
                             dotnet add package Verify.NUnit
+                            ```
+                            """);
+                        break;
+                    case TestFramework.Fixie:
+                        builder.AppendLine(
+                            """
+                            ```
+                            dotnet add package Fixie
+                            dotnet add package Verify.Fixie
                             ```
                             """);
                         break;

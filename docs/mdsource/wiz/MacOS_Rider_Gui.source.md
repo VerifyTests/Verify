@@ -7,5 +7,6 @@
 Options:
  * [xUnit](MacOS_Rider_Gui_xUnit.md)
  * [NUnit](MacOS_Rider_Gui_NUnit.md)
+ * [Fixie](MacOS_Rider_Gui_Fixie.md)
  * [MSTest](MacOS_Rider_Gui_MSTest.md)
  * [Expecto](MacOS_Rider_Gui_Expecto.md)

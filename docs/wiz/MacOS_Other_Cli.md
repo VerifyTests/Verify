@@ -14,5 +14,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 Options:
  * [xUnit](MacOS_Other_Cli_xUnit.md)
  * [NUnit](MacOS_Other_Cli_NUnit.md)
+ * [Fixie](MacOS_Other_Cli_Fixie.md)
  * [MSTest](MacOS_Other_Cli_MSTest.md)
  * [Expecto](MacOS_Other_Cli_Expecto.md)

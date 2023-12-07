@@ -7,5 +7,6 @@
 Options:
  * [xUnit](MacOS_Other_Gui_xUnit.md)
  * [NUnit](MacOS_Other_Gui_NUnit.md)
+ * [Fixie](MacOS_Other_Gui_Fixie.md)
  * [MSTest](MacOS_Other_Gui_MSTest.md)
  * [Expecto](MacOS_Other_Gui_Expecto.md)

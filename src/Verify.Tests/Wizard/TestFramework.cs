@@ -2,6 +2,7 @@
 {
     xUnit,
     NUnit,
+    Fixie,
     MSTest,
     Expecto
 }

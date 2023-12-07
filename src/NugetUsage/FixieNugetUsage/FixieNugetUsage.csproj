@@ -6,7 +6,7 @@
   <ItemGroup>
     <!-- begin-snippet: Fixie-nugets -->
     <PackageReference Include="Fixie" Version="4.0.1" />
-    <PackageReference Include="Verify.Fixie" Version="22.7.1" />
+    <PackageReference Include="Verify.Fixie" Version="22.8.0" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

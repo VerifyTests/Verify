@@ -20,6 +20,8 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 ## UseParameters()
 
+<b>`Verify.NUnit` and `Verify.Fixie` automatically detect the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
+
 `UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
 
 snippet: UseParameters

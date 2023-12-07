@@ -11,4 +11,4 @@ global using System.Xml.Linq;
 global using System.Xml;
 global using System.Runtime.Versioning;
 global using System.Runtime.InteropServices;
-global using CharSpan = System.ReadOnlySpan<System.Char>;
+global using CharSpan = System.ReadOnlySpan<char>;

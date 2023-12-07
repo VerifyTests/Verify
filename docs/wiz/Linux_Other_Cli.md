@@ -14,5 +14,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 Options:
  * [xUnit](Linux_Other_Cli_xUnit.md)
  * [NUnit](Linux_Other_Cli_NUnit.md)
+ * [Fixie](Linux_Other_Cli_Fixie.md)
  * [MSTest](Linux_Other_Cli_MSTest.md)
  * [Expecto](Linux_Other_Cli_Expecto.md)

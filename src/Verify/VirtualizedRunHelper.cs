@@ -71,7 +71,8 @@ class VirtualizedRunHelper
             return path;
         }
 
-        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..].Replace('\\', '/');
+        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..]
+            .Replace('\\', '/');
 
         var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
 
@@ -174,7 +175,8 @@ class VirtualizedRunHelper
 
                 var testMappedPath = Env.CombinePaths(
                     mappedCodeBaseRootAbsolute,
-                    originalCodeBaseRoot[codeBaseRootAbsolute.Length..].Replace('\\', '/'));
+                    originalCodeBaseRoot[codeBaseRootAbsolute.Length..]
+                        .Replace('\\', '/'));
 
                 if (Env.PathExists(testMappedPath))
                 {

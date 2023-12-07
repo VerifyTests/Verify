@@ -33,7 +33,7 @@ public abstract partial class VerifyBase
             testNameSpan = testNameSpan[(indexOf + 1)..];
         }
 
-        TargetAssembly.Assign(type.Assembly);
+        VerifierSettings.AssignTargetAssembly(type.Assembly);
         var method = FindMethod(type, testNameSpan);
 
         var pathInfo = GetPathInfo(sourceFile, type, method);

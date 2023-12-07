@@ -1,6 +1,10 @@
 ﻿static class IoHelpers
 {
-    static readonly char[] Separators = { '\\', '/' };
+    static readonly char[] Separators =
+    {
+        '\\',
+        '/'
+    };
 
     public static void DeleteDirectory(string path)
     {
@@ -89,7 +93,7 @@
         }
     }
 
-#if NETCOREAPP3_0_OR_GREATER
+#if NET6_0_OR_GREATER
     public static async Task DisposeAsyncEx(this Stream stream) =>
         await stream.DisposeAsync();
 #else
@@ -130,7 +134,6 @@
     }
 
 #if NET472 || NET48
-
     internal static Task WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
@@ -158,7 +161,7 @@
             return fullPath[directory.Length..];
         }
 
-        return fullPath[(directory.Length+1)..];
+        return fullPath[(directory.Length + 1)..];
     }
 
     static VirtualizedRunHelper? virtualizedRunHelper;
@@ -203,7 +206,7 @@
         throw new($"Unable to resolve directory. sourceFile: {sourceFile}");
     }
 
-#if NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {
@@ -227,7 +230,6 @@
     }
 
 #else
-
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {
         using var stream = OpenRead(path);

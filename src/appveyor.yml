@@ -1,29 +1,46 @@
 image:
-- Visual Studio 2022
-- macOS
-- Ubuntu
+  - Visual Studio 2022
+  - macOS
+  - Ubuntu
 environment:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+before_build:
+  - pwsh: |
+      if ($isWindows) {
+        Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
+        ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
+      }
+      if ($isMacOS) {
+        Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
+        sudo chmod u+x dotnet-install.sh
+        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
+      }
+      if ($isLinux) {
+        Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
+        sudo chmod u+x dotnet-install.sh
+        sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
+      }
+  - dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 build_script:
-- pwsh: |
-    if ($isWindows) {
-      Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
-      ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
-    }
-    if ($isMacOS) {
-      Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
-      sudo chmod u+x dotnet-install.sh
-      sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
-    }
-    if ($isLinux) {
-      Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
-      sudo chmod u+x dotnet-install.sh
-      sudo ./dotnet-install.sh --jsonfile src/global.json --architecture x64 --install-dir '/usr/share/dotnet'
-    }
-- dotnet build src --configuration Release
-- dotnet test src --configuration Release --no-build --no-restore
+  - dotnet build src --configuration Release
+  - dotnet test src/DeterministicTests --configuration Release --no-build --no-restore
+  - dotnet test src/FSharpTests --configuration Release --no-build --no-restore
+  - dotnet test src/StaticSettingsTests --configuration Release --no-build --no-restore
+  - dotnet test src/StrictJsonTests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.ClipboardAccept.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.ExceptionParsing.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.MSTest.DerivePaths.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.MSTest.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore
 
 #- pwsh: |
 #    if ($isWindows) {
@@ -38,7 +55,7 @@ on_failure:
 # end-snippet
 test: off
 after_build:
-- pwsh: |
-    if ($isWindows) {
-      Get-ChildItem *.nupkg -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-    }
+  - pwsh: |
+      if ($isWindows) {
+        Get-ChildItem *.nupkg -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+      }

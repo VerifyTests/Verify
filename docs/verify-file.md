@@ -33,7 +33,7 @@ public Task VerifyFileWithInfo() =>
         "sample.txt",
         info: "the info");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L208-L216' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L207-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

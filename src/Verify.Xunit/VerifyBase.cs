@@ -22,11 +22,11 @@ public abstract partial class VerifyBase
         object? target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null) =>
-        Verifier.Verify(target, rawTargets , settings ?? this.settings, sourceFile);
+        Verifier.Verify(target, rawTargets, settings ?? this.settings, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null) =>
-        Verifier.Verify(targets , settings ?? this.settings, sourceFile);
+        Verifier.Verify(targets, settings ?? this.settings, sourceFile);
 }

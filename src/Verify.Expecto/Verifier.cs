@@ -4,7 +4,7 @@ public static partial class Verifier
 {
     static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory)
     {
-        if (settings.parameters is not null)
+        if (settings.HasParameters)
         {
             ThrowNotSupported(nameof(VerifySettings.UseParameters));
         }
@@ -38,7 +38,7 @@ public static partial class Verifier
         Func<InnerVerifier, Task<VerifyResult>> verify,
         bool useUniqueDirectory = false)
     {
-        TargetAssembly.Assign(assembly);
+        VerifierSettings.AssignTargetAssembly(assembly);
         settings ??= new();
         Guard.AgainstBadSourceFile(sourceFile);
         using var verifier = GetVerifier(settings, sourceFile, name, useUniqueDirectory);

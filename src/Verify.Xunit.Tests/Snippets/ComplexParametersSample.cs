@@ -44,11 +44,17 @@ public class ComplexParametersSample
     {
         yield return new object[]
         {
-            new ComplexData {Value = "Value1"}
+            new ComplexData
+            {
+                Value = "Value1"
+            }
         };
         yield return new object[]
         {
-            new ComplexData {Value = "Value2"}
+            new ComplexData
+            {
+                Value = "Value2"
+            }
         };
     }
 

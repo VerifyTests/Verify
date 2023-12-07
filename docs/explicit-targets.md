@@ -12,30 +12,6 @@ To change this file edit the source file and then run MarkdownSnippets.
  * Explicit `Target`s can be passed in.
 
 
-## MsTest
-
-<!-- snippet: ExplicitTargetsMsTest -->
-<a id='snippet-explicittargetsmstest'></a>
-```cs
-[TestMethod]
-public Task WithTargets() =>
-    Verify(
-        target: new
-        {
-            Property = "Value"
-        },
-        rawTargets:
-        [
-            new(
-                extension: "txt",
-                data: "Raw target value",
-                name: "targetName")
-        ]);
-```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L42-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
 ## NUnit
 
 <!-- snippet: ExplicitTargetsNunit -->
@@ -56,7 +32,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L43-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L44-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -80,7 +56,54 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L43-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L44-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsxunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Fixie
+
+<!-- snippet: ExplicitTargetsFixie -->
+<a id='snippet-explicittargetsfixie'></a>
+```cs
+public Task WithTargets() =>
+    Verify(
+        new
+        {
+            Property = "Value"
+        },
+        new[]
+        {
+            new Target(
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
+        });
+```
+<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L32-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsfixie' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## MsTest
+
+<!-- snippet: ExplicitTargetsMsTest -->
+<a id='snippet-explicittargetsmstest'></a>
+```cs
+[TestMethod]
+public Task WithTargets() =>
+    Verify(
+        target: new
+        {
+            Property = "Value"
+        },
+        rawTargets:
+        [
+            new(
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
+        ]);
+```
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L42-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

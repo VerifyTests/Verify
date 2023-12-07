@@ -6,12 +6,13 @@ public class Tests
     {
         var target = new WriteRawInConverterTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter())).ScrubEmptyLines();
+            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter()))
+            .ScrubEmptyLines();
     }
 
     class WriteRawInConverterTarget;
 
-    class WriteRawInConverter:
+    class WriteRawInConverter :
         WriteOnlyJsonConverter<WriteRawInConverterTarget>
     {
         public override void Write(VerifyJsonWriter writer, WriteRawInConverterTarget target)
@@ -71,7 +72,10 @@ public class Tests
 
     [Fact]
     public Task Dynamic() =>
-        Verify(new {value = "Foo"});
+        Verify(new
+        {
+            value = "Foo"
+        });
 
     [Fact]
     public async Task Object()

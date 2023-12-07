@@ -13,7 +13,8 @@ public static partial class Recording
     static AsyncLocal<State?> asyncLocal = new();
 
     public static void Add(string name, object item) =>
-        CurrentState().Add(name, item);
+        CurrentState()
+            .Add(name, item);
 
     public static void TryAdd(string name, object item)
     {
@@ -69,7 +70,7 @@ public static partial class Recording
         throw new($"Recording.Start must be called before Recording.{caller}");
     }
 
-    public static void Start()
+    public static IDisposable Start()
     {
         var value = asyncLocal.Value;
 
@@ -79,22 +80,33 @@ public static partial class Recording
         }
 
         asyncLocal.Value = new();
+        return new Disposable();
+    }
+
+    class Disposable :
+        IDisposable
+    {
+        public void Dispose() =>
+            Pause();
     }
 
     public static void Pause() =>
-        CurrentState().Pause();
+        CurrentState()
+            .Pause();
 
     public static void TryPause() =>
         asyncLocal.Value?.Pause();
 
     public static void Resume() =>
-        CurrentState().Resume();
+        CurrentState()
+            .Resume();
 
     public static void TryResume() =>
         asyncLocal.Value?.Resume();
 
     public static void Clear() =>
-        CurrentState().Clear();
+        CurrentState()
+            .Clear();
 
     public static void TryClear() =>
         asyncLocal.Value?.Clear();

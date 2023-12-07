@@ -2,7 +2,21 @@ namespace VerifyTests;
 
 public partial class VerifySettings
 {
-    internal object?[]? parameters;
+    object?[]? parameters;
+
+    public bool TryGetParameters([NotNullWhen(true)] out object?[]? parameters)
+    {
+        if (this.parameters == null)
+        {
+            parameters = null;
+            return false;
+        }
+
+        parameters = this.parameters;
+        return true;
+    }
+
+    public bool HasParameters => parameters != null;
 
     /// <summary>
     /// Define the parameter values being used by a parameterised (aka data driven) test.
@@ -32,6 +46,10 @@ public partial class VerifySettings
         this.parameters = parameters;
     }
 
+    [Experimental("VerifySetParameters")]
+    public void SetParameters(object?[] parameters) =>
+        this.parameters = parameters;
+
     void ThrowIfParametersTextDefined([CallerMemberName] string caller = "")
     {
         if (parametersText is not null)
@@ -56,7 +74,7 @@ public partial class VerifySettings
     internal bool hashParameters;
 
     /// <summary>
-    /// Hash parameters together and pass to <see cref="UseTextForParameters"/>.
+    /// Hash parameters together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
     /// </summary>
     public void HashParameters()
@@ -67,9 +85,9 @@ public partial class VerifySettings
     }
 
     /// <summary>
-    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters"/>.
+    /// Provide parameters to hash together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
-    /// Combines <see cref="UseParameters"/> and <see cref="HashParameters"/>.
+    /// Combines <see cref="UseParameters" /> and <see cref="HashParameters" />.
     /// </summary>
     public void UseHashedParameters(params object?[] parameters)
     {

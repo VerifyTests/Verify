@@ -9,7 +9,7 @@ public class Tests :
     {
         #region DerivePathInfoMSTest
 
-        VerifyBase.DerivePathInfo(
+        DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,

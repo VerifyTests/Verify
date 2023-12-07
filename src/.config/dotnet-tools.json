@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "fixie.console": {
+      "version": "3.4.0",
+      "commands": [
+        "fixie"
+      ]
+    }
+  }
+}

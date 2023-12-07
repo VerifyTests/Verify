@@ -71,30 +71,30 @@ public class ApplyScrubbersTests :
     [Fact]
     public Task ScrubUserNameInValidBefore() =>
         Verify("AFakeUserName")
-        .ScrubUserName();
+            .ScrubUserName();
 
     [Fact]
     public Task ScrubUserNameInValidAfter() =>
         Verify("FakeUserNameA")
-        .ScrubUserName();
+            .ScrubUserName();
 
     [Fact]
     public Task ScrubUserNameInValidWrapped() =>
         Verify("AFakeUserNameA")
-        .ScrubUserName();
+            .ScrubUserName();
 
     [Fact]
     public Task ScrubMachineNameInValidBefore() =>
         Verify("AFakeMachineName")
-        .ScrubMachineName();
+            .ScrubMachineName();
 
     [Fact]
     public Task ScrubMachineNameInValidAfter() =>
         Verify("FakeMachineNameA")
-        .ScrubMachineName();
+            .ScrubMachineName();
 
     [Fact]
     public Task ScrubMachineNameInValidWrapped() =>
         Verify("AFakeMachineNameA")
-        .ScrubMachineName();
+            .ScrubMachineName();
 }

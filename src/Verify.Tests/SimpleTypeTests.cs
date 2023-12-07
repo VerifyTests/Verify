@@ -73,7 +73,8 @@ public class SimpleTypeTests
             argonJToken
         ];
 
-        yield return [
+        yield return
+        [
             JArray.Parse(
                 """
                 [
@@ -82,14 +83,17 @@ public class SimpleTypeTests
                   'Large'
                 ]
                 """)
-            ];
+        ];
         yield return [true];
         yield return ["stringValue"];
         yield return [File.OpenRead("sample.png")];
-        yield return [new byte[]
-        {
-            1
-        }];
+        yield return
+        [
+            new byte[]
+            {
+                1
+            }
+        ];
         yield return [(long) 1];
         yield return [(short) 1];
         yield return [1];

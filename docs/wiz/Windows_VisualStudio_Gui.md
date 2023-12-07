@@ -14,5 +14,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 Options:
  * [xUnit](Windows_VisualStudio_Gui_xUnit.md)
  * [NUnit](Windows_VisualStudio_Gui_NUnit.md)
+ * [Fixie](Windows_VisualStudio_Gui_Fixie.md)
  * [MSTest](Windows_VisualStudio_Gui_MSTest.md)
  * [Expecto](Windows_VisualStudio_Gui_Expecto.md)

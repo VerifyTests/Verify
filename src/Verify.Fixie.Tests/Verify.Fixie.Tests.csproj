@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <PlatformTarget>x64</PlatformTarget>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Fixie.TestAdapter" Version="3.4.0" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.106" PrivateAssets="all" />
+    <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
+    <ProjectReference Include="..\Verify.Fixie\Verify.Fixie.csproj" />
+    <ProjectReference Include="..\Verify\Verify.csproj" />
+  </ItemGroup>
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
+  <Import Project="$(ProjectDir)..\Verify.Fixie\buildTransitive\Verify.Fixie.props" />
+</Project>

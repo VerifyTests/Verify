@@ -134,7 +134,7 @@ csharp_new_line_before_finally = true
 csharp_new_line_before_members_in_object_initializers = true
 csharp_new_line_before_members_in_anonymous_types = true
 resharper_wrap_before_first_type_parameter_constraint = true
-resharper_wrap_extends_list_style =  chop_always
+resharper_wrap_extends_list_style = chop_always
 resharper_wrap_after_dot_in_method_calls = false
 resharper_wrap_before_binary_pattern_op = false
 resharper_wrap_object_and_collection_initializer_style = chop_always
@@ -161,11 +161,12 @@ resharper_braces_for_fixed = required
 resharper_braces_for_for = required
 
 # Xml files
-[*.{xml,config,nuspec,resx,vsixmanifest,csproj,targets,props}]
+[*.{xml,config,nuspec,resx,vsixmanifest,csproj,targets,props,fsproj}]
 indent_size = 2
 # https://www.jetbrains.com/help/resharper/EditorConfig_XML_XmlCodeStylePageSchema.html#resharper_xml_blank_line_after_pi
 resharper_blank_line_after_pi = false
 resharper_space_before_self_closing = true
+ij_xml_space_inside_empty_tag = true
 
 [*.json]
 indent_size = 2

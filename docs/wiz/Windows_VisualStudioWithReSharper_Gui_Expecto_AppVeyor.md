@@ -20,7 +20,7 @@ Add the following packages to the test project:
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 <PackageReference Include="Expecto" Version="10.1.0" />
-<PackageReference Include="Verify.Expecto" Version="22.6.0" />
+<PackageReference Include="Verify.Expecto" Version="22.8.0" />
 ```
 <sup><a href='/src/NugetUsage/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -197,14 +197,10 @@ Tools supported by Windows:
 
 Use a [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).<!-- include: build-server-appveyor. path: /docs/mdsource/build-server-appveyor.include.md -->
 
-<!-- snippet: AppVeyorArtifacts -->
-<a id='snippet-appveyorartifacts'></a>
-```yml
+```
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 ```
-<sup><a href='/src/appveyor.yml#L35-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).<!-- endInclude -->
 

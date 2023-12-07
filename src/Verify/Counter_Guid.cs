@@ -7,7 +7,8 @@ public partial class Counter
     int currentGuid;
 
     public int Next(Guid input) =>
-        NextValue(input).intValue;
+        NextValue(input)
+            .intValue;
 
     internal static void AddNamed(Guid value, string name)
     {
@@ -16,7 +17,8 @@ public partial class Counter
     }
 
     public string NextString(Guid input) =>
-        NextValue(input).stringValue;
+        NextValue(input)
+            .stringValue;
 
     (int intValue, string stringValue) NextValue(Guid input)
     {

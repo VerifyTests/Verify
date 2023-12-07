@@ -18,8 +18,8 @@ Add the following packages to the test project:
 <a id='snippet-nunit-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-<PackageReference Include="NUnit" Version="4.0.0" />
-<PackageReference Include="Verify.NUnit" Version="22.6.0" />
+<PackageReference Include="NUnit" Version="4.0.1" />
+<PackageReference Include="Verify.NUnit" Version="22.8.0" />
 ```
 <sup><a href='/src/NugetUsage/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -188,14 +188,10 @@ Tools supported by Windows:
 
 Use a [on_failure build step](https://www.appveyor.com/docs/build-configuration/#build-pipeline) to call [Push-AppveyorArtifact](https://www.appveyor.com/docs/build-worker-api/#push-artifact).<!-- include: build-server-appveyor. path: /docs/mdsource/build-server-appveyor.include.md -->
 
-<!-- snippet: AppVeyorArtifacts -->
-<a id='snippet-appveyorartifacts'></a>
-```yml
+```
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 ```
-<sup><a href='/src/appveyor.yml#L35-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-appveyorartifacts' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
 
 See also [Pushing artifacts from scripts](https://www.appveyor.com/docs/packaging-artifacts/#pushing-artifacts-from-scripts).<!-- endInclude -->
 

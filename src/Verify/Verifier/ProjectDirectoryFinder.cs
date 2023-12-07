@@ -33,7 +33,10 @@ static class ProjectDirectoryFinder
     }
 
     static bool ContainsProject(string currentDirectory) =>
-        Directory.GetFiles(currentDirectory, "*.csproj").Length > 0 ||
-        Directory.GetFiles(currentDirectory, "*.fsproj").Length > 0 ||
-        Directory.GetFiles(currentDirectory, "*.vbproj").Length > 0;
+        Directory.GetFiles(currentDirectory, "*.csproj")
+            .Length > 0 ||
+        Directory.GetFiles(currentDirectory, "*.fsproj")
+            .Length > 0 ||
+        Directory.GetFiles(currentDirectory, "*.vbproj")
+            .Length > 0;
 }

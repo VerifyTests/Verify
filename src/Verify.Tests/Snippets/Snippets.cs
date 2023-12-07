@@ -3,6 +3,29 @@
 public class Snippets
 {
     // ReSharper disable once UnusedMember.Local
+    async Task ChangeDefaultsPerVerification(object target)
+    {
+        #region ChangeDefaultsPerVerification
+
+        var settings = new VerifySettings();
+        settings.DontIgnoreEmptyCollections();
+        settings.DontScrubGuids();
+        settings.DontScrubDateTimes();
+        await Verify(target, settings);
+
+        #endregion
+
+        #region ChangeDefaultsPerVerification
+
+        await Verify(target)
+            .DontIgnoreEmptyCollections()
+            .DontScrubGuids()
+            .DontScrubDateTimes();
+
+        #endregion
+    }
+
+    // ReSharper disable once UnusedMember.Local
     void EnableClipboard()
     {
         #region EnableClipboard
@@ -59,12 +82,13 @@ public class Snippets
     void DerivePathInfoAppVeyor()
     {
         // ReSharper disable once ArrangeStaticMemberQualifier
+
         #region DerivePathInfoAppVeyor
 
         if (BuildServerDetector.Detected)
         {
             var buildDirectory = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_FOLDER")!;
-            Verifier.DerivePathInfo(
+            DerivePathInfo(
                 (sourceFile, projectDirectory, typeName, methodName) =>
                 {
                     var testDirectory = Path.GetDirectoryName(sourceFile)!;
@@ -156,7 +180,7 @@ public class Snippets
             async () => new
             {
                 Foo = await repo.GetFoo(id),
-                Bars = await repo.GetBars(id),
+                Bars = await repo.GetBars(id)
             });
 
         #endregion

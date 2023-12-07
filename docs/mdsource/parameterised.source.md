@@ -15,10 +15,12 @@ A test with two parameters `param1` + `param2`, and called twice with the values
 
 ### Invalid characters
 
-Characters that cannot be used for a file name will be replaced with a dash (`-`).
+Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 
 ## UseParameters()
+
+<b>`Verify.NUnit` and `Verify.Fixie` automatically detect the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
 
 `UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
 
@@ -29,6 +31,23 @@ If not all parameters are required, a subset can be passed in. In this scenario,
 snippet: UseParametersSubSet
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
+
+
+## NUnit
+
+
+### TestCase
+
+snippet: NUnitTestCase
+
+
+### TestFixtureSourceUsage
+
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+
+snippet: TestFixtureSourceUsage.cs
+
+Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
 
 
 ## xUnit
@@ -53,21 +72,22 @@ snippet: xunitComplexMemberData
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 
 
-## NUnit
+## Fixie
 
+Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
 
-### TestCase
+Verify.Fixie requires some customisation of the above example.
 
-snippet: NUnitTestCase
+ * Inside `ITestProject.Configure` call `VerifierSettings.AssignTargetAssembly(environment.Assembly);`
+ * Inside `IExecution.Run` wrap `test.Run` in `using (ExecutionState.Set(testClass, test, parameters))`
 
+Example implementation:
 
-### TestFixtureSourceUsage
+snippet: TestProject.cs
 
-When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+Resulting usage:
 
-snippet: TestFixtureSourceUsage.cs
-
-Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+snippet: FixieTestCase
 
 
 ## MSTest

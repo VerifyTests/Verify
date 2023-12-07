@@ -89,7 +89,9 @@ public class SerializationTests
                 "b"
             },
             settings);
-    }   [Fact]
+    }
+
+    [Fact]
     public Task EnumerableOrderWithNull()
     {
         var settings = new VerifySettings();
@@ -360,14 +362,13 @@ public class SerializationTests
     }
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public Task DateKeys()
     {
         var dictionary = new Dictionary<Date, string>
         {
             {
-                new Date(10,1,2), "1234"
+                new Date(10, 1, 2), "1234"
             }
         };
 
@@ -419,7 +420,7 @@ public class SerializationTests
         var dictionary = new Dictionary<Time, string>
         {
             {
-                new Time(10,1), "1234"
+                new Time(10, 1), "1234"
             }
         };
 
@@ -441,10 +442,10 @@ public class SerializationTests
                 DateTimeOffset.Now, "1234"
             },
             {
-                new Date(10,1,2), "1234"
+                new Date(10, 1, 2), "1234"
             },
             {
-                new Time(10,1), "1234"
+                new Time(10, 1), "1234"
             },
             {
                 "ignored", "5678"
@@ -464,7 +465,7 @@ public class SerializationTests
                     noTime = new DateTimeOffset(new DateTime(2000, 1, 1), TimeSpan.FromHours(1.5)),
                     withTime = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1), TimeSpan.FromHours(1)),
                     withTimeZeroSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 0), TimeSpan.FromHours(1)),
-                    withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1)),
+                    withTimeMilliSeconds = new DateTimeOffset(new DateTime(2000, 1, 1, 1, 1, 1, 999), TimeSpan.FromHours(1))
                 })
             .DontScrubDateTimes();
 
@@ -474,10 +475,10 @@ public class SerializationTests
                 new
                 {
                     property = """
-                        line1
-                        line2
-                        line3
-                        """
+                               line1
+                               line2
+                               line3
+                               """
                 })
             .ScrubLinesContaining("property")
             .ScrubLinesContaining("line2");
@@ -496,14 +497,13 @@ public class SerializationTests
             .ScrubLinesWithReplace(_ => "replaced");
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public Task DateScrubbingDisabled_ExplicitScrubber() =>
         Verify(
                 new
                 {
                     time = new Time(10, 1, 1),
-                    value = new Date(2000, 1, 1),
+                    value = new Date(2000, 1, 1)
                 })
             .DontScrubDateTimes()
             .ScrubLinesWithReplace(_ => "replaced");
@@ -939,7 +939,6 @@ public class SerializationTests
     }
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public Task Time() =>
         Verify(new Time(10, 10));
@@ -1107,10 +1106,14 @@ public class SerializationTests
             NamedDateTimeOffset = new DateTime(2030, 1, 1),
             InstanceNamedDateTimeOffset = new DateTime(2030, 1, 2),
             DateTimeNullable = dateTime.AddDays(1),
-            DateTimeString = dateTime.AddDays(2).ToString("F"),
+            DateTimeString = dateTime
+                .AddDays(2)
+                .ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
-            DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
+            DateTimeOffsetString = dateTimeOffset
+                .AddDays(2)
+                .ToString("F"),
             Time = new(10, 11),
             TimeString = "10:11 AM",
             NamedTime = new(1, 1),
@@ -1123,11 +1126,13 @@ public class SerializationTests
         };
 
         #region AddInstanceNamedDatesAndTimes
+
         await Verify(target)
             .AddNamedDate(new(2020, 10, 11), "instanceNamedDate")
             .AddNamedTime(new(1, 2), "instanceTime")
             .AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime")
             .AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
+
         #endregion
     }
 
@@ -1185,7 +1190,8 @@ public class SerializationTests
     {
         var target = new WriteRawInConverterTarget();
         return Verify(target)
-            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter())).ScrubEmptyLines();
+            .AddExtraSettings(_ => _.Converters.Add(new WriteRawInConverter()))
+            .ScrubEmptyLines();
     }
 
     class WriteRawInConverterTarget;
@@ -1363,7 +1369,6 @@ public class SerializationTests
     }
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public Task DatetimeScrubbingDisabled() =>
         Verify(
@@ -1372,7 +1377,7 @@ public class SerializationTests
                     noTime = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     withTime = new DateTime(2000, 1, 1, 1, 1, 1, DateTimeKind.Utc),
                     withTimeZeroSeconds = new DateTime(2000, 1, 1, 1, 1, 0, DateTimeKind.Utc),
-                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999, DateTimeKind.Utc),
+                    withTimeMilliSeconds = new DateTime(2000, 1, 1, 1, 1, 1, 999, DateTimeKind.Utc)
                 })
             .DontScrubDateTimes();
 
@@ -1479,7 +1484,9 @@ public class SerializationTests
     [Fact]
     public Task ScrubTempPath()
     {
-        var tempPath = Path.GetTempPath().TrimEnd('/', '\\');
+        var tempPath = Path
+            .GetTempPath()
+            .TrimEnd('/', '\\');
         var altTempPath = tempPath.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Verify(new
         {
@@ -1518,8 +1525,11 @@ public class SerializationTests
     [Fact]
     public Task ScrubUserProfile()
     {
-        var target = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath").Replace('\\', '/');
-        return Verify(target).UniqueForOSPlatform();
+        var target = Path
+            .Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath")
+            .Replace('\\', '/');
+        return Verify(target)
+            .UniqueForOSPlatform();
     }
 
 #if !NET5_0_OR_GREATER
@@ -1528,7 +1538,11 @@ public class SerializationTests
     {
         var codeBaseLocation = CodeBaseLocation.CurrentDirectory!.TrimEnd('/', '\\');
         var altCodeBaseLocation = codeBaseLocation.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        return Verify(new {codeBaseLocation, altCodeBaseLocation});
+        return Verify(new
+        {
+            codeBaseLocation,
+            altCodeBaseLocation
+        });
     }
 #endif
 
@@ -1732,7 +1746,9 @@ public class SerializationTests
         {
             Guid = Guid.NewGuid(),
             GuidNullable = Guid.NewGuid(),
-            GuidString = Guid.NewGuid().ToString()
+            GuidString = Guid
+                .NewGuid()
+                .ToString()
         };
         return Verify(target);
     }
@@ -1887,9 +1903,9 @@ public class SerializationTests
                 new
                 {
                     Property = """
-                        Line1
-                        Line2
-                        """
+                               Line1
+                               Line2
+                               """
                 })
             .ScrubLinesContaining("Line1");
 
@@ -1913,7 +1929,7 @@ public class SerializationTests
                 },
                 {
                     3, new StringWriter(new StringBuilder(value))
-                },
+                }
             })
             .ScrubLinesContaining("Value")
             .UseTextForParameters(name);
@@ -1927,7 +1943,7 @@ public class SerializationTests
                 },
                 {
                     2, true
-                },
+                }
             })
             .ScrubLinesContaining("value");
 
@@ -2160,7 +2176,8 @@ public class SerializationTests
     [Fact]
     public Task TargetInvocationException()
     {
-        var member = GetType().GetMethod("MethodThatThrows")!;
+        var member = GetType()
+            .GetMethod("MethodThatThrows")!;
         return Throws(
                 () =>
                 {
@@ -2173,7 +2190,8 @@ public class SerializationTests
     [Fact]
     public Task NestedTargetInvocationException()
     {
-        var member = GetType().GetMethod("MethodThatThrows")!;
+        var member = GetType()
+            .GetMethod("MethodThatThrows")!;
         TargetInvocationException? exception = null;
         try
         {
@@ -2648,7 +2666,9 @@ public class SerializationTests
     public Task Parameter()
     {
         var method = Info.OfMethod<SerializationTests>("MyMethodWithParameters");
-        return Verify(method.GetParameters().First());
+        return Verify(method
+            .GetParameters()
+            .First());
     }
 
     [Fact]

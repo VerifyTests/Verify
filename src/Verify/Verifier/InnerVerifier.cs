@@ -64,7 +64,7 @@ public partial class InnerVerifier :
     }
 
     /// <summary>
-    /// Initialize a new instance of the <see cref="InnerVerifier"/> class for verifying the entire file (not just a specific type)
+    /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
     // ReSharper disable once UnusedMember.Global
@@ -214,7 +214,7 @@ public partial class InnerVerifier :
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
         var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
 
-        if (TargetAssembly.TargetsMultipleFramework)
+        if (VerifierSettings.TargetsMultipleFramework)
         {
             sharedUniqueness.Add(Namer.RuntimeAndVersion);
         }
@@ -286,7 +286,7 @@ public partial class InnerVerifier :
         VerifyInner(target, null, rawTargets, true);
 
     public Task<VerifyResult> Verify(Target target) =>
-        VerifyInner(new []{target});
+        VerifyInner([target]);
 
     public Task<VerifyResult> Verify(IEnumerable<Target> targets) =>
         VerifyInner(targets);

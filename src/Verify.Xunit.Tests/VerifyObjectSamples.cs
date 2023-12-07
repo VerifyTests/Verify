@@ -1,4 +1,5 @@
 ﻿using Argon;
+
 // ReSharper disable NotAccessedField.Local
 
 // Non-nullable field is uninitialized
@@ -7,20 +8,6 @@
 [UsesVerify]
 public class VerifyObjectSamples
 {
-    // ReSharper disable once UnusedMember.Local
-    async Task ChangeDefaultsPerVerification(object target)
-    {
-        #region ChangeDefaultsPerVerificationXunit
-
-        var settings = new VerifySettings();
-        settings.DontIgnoreEmptyCollections();
-        settings.DontScrubGuids();
-        settings.DontScrubDateTimes();
-        await Verify(target, settings);
-
-        #endregion
-    }
-
     [Fact]
     public Task ScopedSerializer()
     {
@@ -32,28 +19,6 @@ public class VerifyObjectSamples
         var settings = new VerifySettings();
         settings.AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
         return Verify(person, settings);
-    }
-
-    // ReSharper disable once UnusedMember.Local
-    async Task Before()
-    {
-        #region Before
-
-        var person = new Person
-        {
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Country = "USA"
-            }
-        };
-
-        await Verify(person);
-
-        #endregion
     }
 
     #region AnonXunit
@@ -81,29 +46,6 @@ public class VerifyObjectSamples
     }
 
     #endregion
-
-    // ReSharper disable once UnusedMember.Local
-    async Task After()
-    {
-        #region After
-
-        var person = new Person
-        {
-            GivenNames = "John",
-            FamilyName = "Smith",
-            Spouse = "Jill",
-            Address = new()
-            {
-                Street = "1 Puddle Lane",
-                Suburb = "Gotham",
-                Country = "USA"
-            }
-        };
-
-        await Verify(person);
-
-        #endregion
-    }
 
     class Person
     {

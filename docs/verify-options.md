@@ -22,7 +22,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L82-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L106-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally
@@ -74,7 +74,7 @@ public Task OnHandlersSample()
     return Verify("value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L15-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -93,5 +93,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L93-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

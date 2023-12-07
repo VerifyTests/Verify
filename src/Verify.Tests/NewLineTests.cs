@@ -17,7 +17,9 @@ public class NewLineTests
     {
         var result = await Verify("value")
             .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
-        Assert.False(File.ReadAllText(result.Files.Single()).Contains("\r"));
+        Assert.False(File
+            .ReadAllText(result.Files.Single())
+            .Contains("\r"));
     }
 
     [Fact]
@@ -28,7 +30,9 @@ public class NewLineTests
                 Property = "value"
             })
             .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
-        Assert.False(File.ReadAllText(result.Files.Single()).Contains("\r"));
+        Assert.False(File
+            .ReadAllText(result.Files.Single())
+            .Contains("\r"));
     }
 
     [Fact]

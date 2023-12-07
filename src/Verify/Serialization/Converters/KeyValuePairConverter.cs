@@ -3,7 +3,8 @@
 {
     public override bool CanConvert(Type type) =>
         type.IsGeneric(typeof(KeyValuePair<,>)) &&
-        type.GetGenericArguments()[0] == typeof(string);
+        type
+            .GetGenericArguments()[0] == typeof(string);
 
     public override void Write(VerifyJsonWriter writer, object value)
     {

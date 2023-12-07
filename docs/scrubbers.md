@@ -16,7 +16,6 @@ By default scrubber are executed in reverse order. So the most recent added meth
 Scrubbers can be added multiple times to have them execute multiple times. This can be helpful when compounding multiple scrubbers together.
 
 
-
 ## Available Scrubbers
 
 Scrubbers can be added to an instance of `VerifySettings` or globally on `VerifierSettings`.
@@ -59,7 +58,7 @@ For example remove lines containing `text`:
 ```cs
 verifySettings.ScrubLines(line => line.Contains("text"));
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1436-L1440' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublines' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1441-L1445' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublines' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -74,7 +73,7 @@ For example remove lines containing `text1` or `text2`
 ```cs
 verifySettings.ScrubLinesContaining("text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1442-L1446' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1447-L1451' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontaining' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Case insensitive by default (StringComparison.OrdinalIgnoreCase).
@@ -86,7 +85,7 @@ Case insensitive by default (StringComparison.OrdinalIgnoreCase).
 ```cs
 verifySettings.ScrubLinesContaining(StringComparison.Ordinal, "text1", "text2");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1448-L1452' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1453-L1457' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublinescontainingordinal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -101,7 +100,7 @@ For example converts lines to upper case:
 ```cs
 verifySettings.ScrubLinesWithReplace(line => line.ToUpper());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1454-L1458' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1459-L1463' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrublineswithreplace' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -114,7 +113,7 @@ Replaces `Environment.MachineName` with `TheMachineName`.
 ```cs
 verifySettings.ScrubMachineName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1460-L1464' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1465-L1469' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubmachinename' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -127,7 +126,7 @@ Replaces `Environment.UserName` with `TheUserName`.
 ```cs
 verifySettings.ScrubUserName();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1466-L1470' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubusername' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1471-L1475' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubusername' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -137,6 +136,130 @@ Adds a scrubber with full control over the text via a `Func`
 
 
 ## More complete example
+
+
+### NUnit
+
+<!-- snippet: ScrubbersSampleNUnit -->
+<a id='snippet-scrubberssamplenunit'></a>
+```cs
+[TestFixture]
+public class ScrubbersSample
+{
+    [Test]
+    public Task Lines()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubLinesWithReplace(
+            replaceLine: _ =>
+            {
+                if (_.Contains("LineE"))
+                {
+                    return "NoMoreLineE";
+                }
+
+                return _;
+            });
+        settings.ScrubLines(removeLine: _ => _.Contains('J'));
+        settings.ScrubLinesContaining("b", "D");
+        settings.ScrubLinesContaining(StringComparison.Ordinal, "H");
+        return Verify(
+            settings: settings,
+            target: """
+                    LineA
+                    LineB
+                    LineC
+                    LineD
+                    LineE
+                    LineH
+                    LineI
+                    LineJ
+                    """);
+    }
+
+    [Test]
+    public Task LinesFluent() =>
+        Verify("""
+               LineA
+               LineB
+               LineC
+               LineD
+               LineE
+               LineH
+               LineI
+               LineJ
+               """)
+            .ScrubLinesWithReplace(
+                replaceLine: _ =>
+                {
+                    if (_.Contains("LineE"))
+                    {
+                        return "NoMoreLineE";
+                    }
+
+                    return _;
+                })
+            .ScrubLines(removeLine: _ => _.Contains('J'))
+            .ScrubLinesContaining("b", "D")
+            .ScrubLinesContaining(StringComparison.Ordinal, "H");
+
+    [Test]
+    public Task AfterSerialization()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "7D3"
+        };
+
+        var settings = new VerifySettings();
+        settings.AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
+        return Verify(target, settings);
+    }
+
+    [Test]
+    public Task AfterSerializationFluent()
+    {
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "7D3"
+        };
+
+        return Verify(target)
+            .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
+    }
+
+    [Test]
+    public Task RemoveOrReplace() =>
+        Verify("""
+               LineA
+               LineB
+               LineC
+               """)
+            .ScrubLinesWithReplace(
+                replaceLine: line =>
+                {
+                    if (line.Contains("LineB"))
+                    {
+                        return null;
+                    }
+
+                    return line.ToLower();
+                });
+
+    [Test]
+    public Task EmptyLines() =>
+        Verify("""
+
+               LineA
+
+               LineC
+
+               """)
+            .ScrubEmptyLines();
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ### xUnit
@@ -275,15 +398,13 @@ public class ScrubbersSample
 <!-- endSnippet -->
 
 
-### NUnit
+### Fixie
 
-<!-- snippet: ScrubbersSampleNUnit -->
-<a id='snippet-scrubberssamplenunit'></a>
+<!-- snippet: ScrubbersSampleFixie -->
+<a id='snippet-scrubberssamplefixie'></a>
 ```cs
-[TestFixture]
 public class ScrubbersSample
 {
-    [Test]
     public Task Lines()
     {
         var settings = new VerifySettings();
@@ -314,7 +435,6 @@ public class ScrubbersSample
                     """);
     }
 
-    [Test]
     public Task LinesFluent() =>
         Verify("""
                LineA
@@ -340,7 +460,6 @@ public class ScrubbersSample
             .ScrubLinesContaining("b", "D")
             .ScrubLinesContaining(StringComparison.Ordinal, "H");
 
-    [Test]
     public Task AfterSerialization()
     {
         var target = new ToBeScrubbed
@@ -353,7 +472,6 @@ public class ScrubbersSample
         return Verify(target, settings);
     }
 
-    [Test]
     public Task AfterSerializationFluent()
     {
         var target = new ToBeScrubbed
@@ -365,7 +483,6 @@ public class ScrubbersSample
             .AddScrubber(_ => _.Replace("7D3", "TheRowVersion"));
     }
 
-    [Test]
     public Task RemoveOrReplace() =>
         Verify("""
                LineA
@@ -383,7 +500,6 @@ public class ScrubbersSample
                     return line.ToLower();
                 });
 
-    [Test]
     public Task EmptyLines() =>
         Verify("""
 
@@ -395,7 +511,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubbersSample.cs#L1-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Scrubbers/ScrubbersSample.cs#L1-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplefixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -557,6 +673,44 @@ Scrubbers can be defined at three levels:
  * Global: Will run for test methods on all tests.
 
 
+### NUnit
+
+<!-- snippet: ScrubberLevelsSampleNUnit -->
+<a id='snippet-scrubberlevelssamplenunit'></a>
+```cs
+[TestFixture]
+public class ScrubberLevelsSample
+{
+    VerifySettings classLevelSettings;
+
+    public ScrubberLevelsSample()
+    {
+        classLevelSettings = new();
+        classLevelSettings.AddScrubber(_ => _.Replace("Three", "C"));
+    }
+
+    [Test]
+    public Task Simple()
+    {
+        var settings = new VerifySettings(classLevelSettings);
+        settings.AddScrubber(_ => _.Replace("Two", "B"));
+        return Verify("One Two Three", settings);
+    }
+
+    [Test]
+    public Task SimpleFluent() =>
+        Verify("One Two Three", classLevelSettings)
+            .AddScrubber(_ => _.Replace("Two", "B"));
+
+    [ModuleInitializer]
+    public static void Setup() =>
+        VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### xUnit
 
 <!-- snippet: ScrubberLevelsSampleXunit -->
@@ -595,12 +749,11 @@ public class ScrubberLevelsSample
 <!-- endSnippet -->
 
 
-### NUnit
+### Fixie
 
-<!-- snippet: ScrubberLevelsSampleNUnit -->
-<a id='snippet-scrubberlevelssamplenunit'></a>
+<!-- snippet: ScrubberLevelsSampleFixie -->
+<a id='snippet-scrubberlevelssamplefixie'></a>
 ```cs
-[TestFixture]
 public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
@@ -611,7 +764,6 @@ public class ScrubberLevelsSample
         classLevelSettings.AddScrubber(_ => _.Replace("Three", "C"));
     }
 
-    [Test]
     public Task Simple()
     {
         var settings = new VerifySettings(classLevelSettings);
@@ -619,7 +771,6 @@ public class ScrubberLevelsSample
         return Verify("One Two Three", settings);
     }
 
-    [Test]
     public Task SimpleFluent() =>
         Verify("One Two Three", classLevelSettings)
             .AddScrubber(_ => _.Replace("Two", "B"));
@@ -629,7 +780,7 @@ public class ScrubberLevelsSample
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplenunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplefixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

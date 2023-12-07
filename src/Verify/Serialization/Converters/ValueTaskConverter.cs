@@ -23,7 +23,9 @@
         }
         else
         {
-            var typeArguments = value.GetType().GetGenericArguments()[0];
+            var typeArguments = value
+                .GetType()
+                .GetGenericArguments()[0];
             var genericWrite = genericWriteDef.MakeGenericMethod(typeArguments);
             genericWrite.Invoke(null, new[]
             {

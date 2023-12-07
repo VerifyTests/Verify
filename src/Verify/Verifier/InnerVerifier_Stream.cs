@@ -52,7 +52,8 @@ partial class InnerVerifier
     public Task<VerifyResult> VerifyStreams<T>(IEnumerable<T> streams, string extension, object? info)
         where T : Stream
     {
-        var targets = streams.Select(_ => new Target(extension, _))
+        var targets = streams
+            .Select(_ => new Target(extension, _))
             .ToList();
 
         if (info is not null)

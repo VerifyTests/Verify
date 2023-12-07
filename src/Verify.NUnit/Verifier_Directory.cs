@@ -5,7 +5,7 @@ public static partial class Verifier
 #if NET5_0_OR_GREATER
 
     /// <summary>
-    /// Verifies the contents of <paramref name="path"/>.
+    /// Verifies the contents of <paramref name="path" />.
     /// </summary>
     [Pure]
     public static SettingsTask VerifyDirectory(
@@ -20,8 +20,8 @@ public static partial class Verifier
         Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
 
     /// <summary>
-    /// Verifies the contents of <paramref name="path"/>.
-    /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
+    /// Verifies the contents of <paramref name="path" />.
+    /// Differs from passing <see cref="DirectoryInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
     public static SettingsTask VerifyDirectory(
@@ -36,7 +36,6 @@ public static partial class Verifier
         VerifyDirectory(path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
 
 #else
-
     /// <summary>
     /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
@@ -73,5 +72,4 @@ public static partial class Verifier
         VerifyDirectory(path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
 
 #endif
-
 }

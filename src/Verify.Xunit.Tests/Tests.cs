@@ -1,4 +1,5 @@
 ﻿// ReSharper disable UnusedParameter.Local
+
 [UsesVerify]
 public class Tests
 {

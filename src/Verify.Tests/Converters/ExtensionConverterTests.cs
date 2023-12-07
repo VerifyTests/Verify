@@ -76,9 +76,9 @@ public class ExtensionConverterTests
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
         Verify(new MemoryStream(
-        [
-            1
-        ]),
+            [
+                1
+            ]),
             "ExtensionConversionStringBuilder");
 
     [ModuleInitializer]
@@ -100,9 +100,9 @@ public class ExtensionConverterTests
     public Task ExtensionConversionMultipleTargets() =>
         Verify(
             new MemoryStream(
-        [
-            1
-        ]),
+            [
+                1
+            ]),
             "ExtensionConversionMultipleTargets");
 
     [ModuleInitializer]
@@ -198,7 +198,6 @@ public class ExtensionConverterTests
         Verify(File.OpenRead("sample.png"), "WithInfoAndBinary");
 
 #if NET6_0_OR_GREATER
-
     [Fact]
     public async Task WithInfoAndModifiedBinary()
     {
@@ -207,7 +206,8 @@ public class ExtensionConverterTests
 
         await Assert.ThrowsAsync<VerifyException>(
             () => Verify(File.OpenRead("sample2.png"), "WithInfoAndBinary")
-                .DisableRequireUniquePrefix().DisableDiff());
+                .DisableRequireUniquePrefix()
+                .DisableDiff());
         var file = CurrentFile.Relative($"ExtensionConverterTests.WithInfoAndModifiedBinary.{Namer.RuntimeAndVersion}.received.png");
         Assert.True(File.Exists(file));
     }

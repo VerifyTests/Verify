@@ -188,7 +188,7 @@
 
             foreach (var format in datetimeOffsetFormats)
             {
-                if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out  dateTimeOffset))
+                if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset))
                 {
                     result = Convert(counter, dateTimeOffset);
                     return true;

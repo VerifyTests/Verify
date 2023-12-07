@@ -32,7 +32,7 @@
 
     static async Task<EqualityResult> InnerCompare(FilePair file, Stream receivedStream, Func<Stream, Stream, Task<CompareResult>> func)
     {
-#if NETSTANDARD2_0 || NETFRAMEWORK || NETCOREAPP2_2 || NETCOREAPP2_1
+#if NETFRAMEWORK
         using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);
 #else
         await using var verifiedStream = IoHelpers.OpenRead(file.VerifiedPath);

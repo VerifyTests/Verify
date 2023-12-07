@@ -7,5 +7,6 @@
 Options:
  * [xUnit](Linux_Rider_Cli_xUnit.md)
  * [NUnit](Linux_Rider_Cli_NUnit.md)
+ * [Fixie](Linux_Rider_Cli_Fixie.md)
  * [MSTest](Linux_Rider_Cli_MSTest.md)
  * [Expecto](Linux_Rider_Cli_Expecto.md)

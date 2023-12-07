@@ -30,7 +30,7 @@ static class Comparer
         }
 
         // StringBuilder is broken on older .net https://github.com/dotnet/runtime/issues/27684
-#if NETCOREAPP3_0_OR_GREATER
+#if NET6_0_OR_GREATER
         var isEqual = verified.Equals(received);
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))

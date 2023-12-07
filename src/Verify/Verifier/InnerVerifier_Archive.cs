@@ -33,12 +33,13 @@ partial class InnerVerifier
         var targets = new List<Target>();
         if (info is not null)
         {
-            targets.Add(new(
-                VerifierSettings.TxtOrJson,
-                JsonFormatter.AsJson(
-                    settings,
-                    counter,
-                    info)));
+            targets.Add(
+                new(
+                    VerifierSettings.TxtOrJson,
+                    JsonFormatter.AsJson(
+                        settings,
+                        counter,
+                        info)));
         }
 
         include ??= _ => true;
@@ -55,6 +56,7 @@ partial class InnerVerifier
             {
                 continue;
             }
+
             var fileDirectoryPath = Path.GetDirectoryName(fullName)!;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullName);
             var pathWithoutExtension = Path.Combine(fileDirectoryPath, fileNameWithoutExtension);
@@ -64,7 +66,8 @@ partial class InnerVerifier
             {
                 pathWithoutExtension += Path.DirectorySeparatorChar;
             }
-            targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, ()=> entry.Open()));
+
+            targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, () => entry.Open()));
         }
 
         return await VerifyInner(targets);

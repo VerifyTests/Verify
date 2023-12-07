@@ -17,7 +17,8 @@ public class ThrowsTests
 
     [Fact]
     public Task TestMethodThatThrowsIgnoreStackTraceFluent() =>
-        Throws(MethodThatThrows).IgnoreStackTrace();
+        Throws(MethodThatThrows)
+            .IgnoreStackTrace();
 
     #endregion
 
@@ -58,6 +59,7 @@ public class ThrowsTests
         ThrowsTask(MethodThatThrowsTask);
 
     #endregion
+
     #region MethodThatThrowsTask
 
     static async Task MethodThatThrowsTask()
@@ -67,6 +69,7 @@ public class ThrowsTests
     }
 
     #endregion
+
     #region TestMethodThatThrowsValueTask
 
     [Fact]

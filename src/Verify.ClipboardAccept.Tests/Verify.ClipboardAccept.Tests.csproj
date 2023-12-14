@@ -6,9 +6,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="Xunit" Version="2.6.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.106" PrivateAssets="all" />
+    <PackageReference Include="Xunit" Version="2.6.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.5" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.107" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

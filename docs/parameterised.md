@@ -175,14 +175,14 @@ public Task MemberDataUsageFluent(string arg) =>
 
 public static IEnumerable<object[]> GetData()
 {
-    yield return new object[]
-    {
+    yield return
+    [
         "Value1"
-    };
-    yield return new object[]
-    {
+    ];
+    yield return
+    [
         "Value2"
-    };
+    ];
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L78-L107' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
@@ -238,20 +238,20 @@ public class ComplexParametersSample
 
     public static IEnumerable<object[]> GetComplexMemberData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             new ComplexData
             {
                 Value = "Value1"
             }
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             new ComplexData
             {
                 Value = "Value2"
             }
-        };
+        ];
     }
 
     public class ComplexData
@@ -291,14 +291,14 @@ public class ComplexParametersSample
 
     public static IEnumerable<object[]> GetComplexMemberStructData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             new ComplexStructData("Value1")
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             new ComplexStructData("Value2")
-        };
+        ];
     }
 
     public struct ComplexStructData

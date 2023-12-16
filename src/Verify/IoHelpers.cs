@@ -1,10 +1,10 @@
 ﻿static class IoHelpers
 {
     static readonly char[] Separators =
-    {
+    [
         '\\',
         '/'
-    };
+    ];
 
     public static void DeleteDirectory(string path)
     {

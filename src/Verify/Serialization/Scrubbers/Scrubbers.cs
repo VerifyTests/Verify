@@ -15,12 +15,12 @@ public static class Scrubbers
     }
 
     static char[] validWrappingChars =
-    {
+    [
         ' ',
         '\t',
         '\n',
         '\r'
-    };
+    ];
 
     static (Dictionary<string, string> exact, Dictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
     {

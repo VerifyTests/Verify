@@ -1,7 +1,7 @@
 ﻿static class FileNameCleaner
 {
     static char[] invalidFileNameChars =
-    {
+    [
         '"',
         '\\',
         '<',
@@ -43,7 +43,7 @@
         '*',
         '?',
         '/'
-    };
+    ];
 
     public static string ReplaceInvalidFileNameChars(this string value)
     {

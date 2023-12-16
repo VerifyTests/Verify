@@ -27,11 +27,12 @@
                 .GetType()
                 .GetGenericArguments()[0];
             var genericWrite = genericWriteDef.MakeGenericMethod(typeArguments);
-            genericWrite.Invoke(null, new[]
-            {
-                writer,
-                value
-            });
+            genericWrite.Invoke(
+                null,
+                [
+                    writer,
+                    value
+                ]);
         }
 
         writer.WriteEndObject();

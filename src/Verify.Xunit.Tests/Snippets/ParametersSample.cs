@@ -3,10 +3,10 @@ public class ParametersSample
 {
     public static IEnumerable<object[]> GetDecimalData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             (decimal) 1.1
-        };
+        ];
     }
 
     [Theory]
@@ -94,14 +94,14 @@ public class ParametersSample
 
     public static IEnumerable<object[]> GetData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             "Value1"
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             "Value2"
-        };
+        ];
     }
 
     #endregion

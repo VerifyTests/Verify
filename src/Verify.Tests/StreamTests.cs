@@ -35,10 +35,9 @@ public class StreamTests
     [Fact]
     public Task ByteArray() =>
         Verify(
-            new byte[]
-            {
-                1
-            });
+        [
+            1
+        ]);
 
     [Fact]
     public Task ByteArrayTask() =>
@@ -52,10 +51,9 @@ public class StreamTests
     [Fact]
     public Task ByteArrayWithExtension() =>
         Verify(
-            new byte[]
-            {
+            [
                 1
-            },
+            ],
             "bin");
 
     [Fact]

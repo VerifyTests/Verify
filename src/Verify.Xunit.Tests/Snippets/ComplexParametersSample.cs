@@ -42,20 +42,20 @@ public class ComplexParametersSample
 
     public static IEnumerable<object[]> GetComplexMemberData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             new ComplexData
             {
                 Value = "Value1"
             }
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             new ComplexData
             {
                 Value = "Value2"
             }
-        };
+        ];
     }
 
     public class ComplexData
@@ -95,14 +95,14 @@ public class ComplexParametersSample
 
     public static IEnumerable<object[]> GetComplexMemberStructData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             new ComplexStructData("Value1")
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             new ComplexStructData("Value2")
-        };
+        ];
     }
 
     public struct ComplexStructData

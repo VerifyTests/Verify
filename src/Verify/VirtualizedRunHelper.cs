@@ -10,10 +10,10 @@ class VirtualizedRunHelper
     string? mappedCodeBaseRootAbsolute;
 
     static readonly char[] separators =
-    {
+    [
         '\\',
         '/'
-    };
+    ];
 
     public VirtualizedRunHelper(Assembly userAssembly)
         : this(

@@ -872,12 +872,12 @@ public class SerializationTests
                      false
                  })
         {
-            yield return new object?[]
-            {
+            yield return
+            [
                 boolean,
                 nullableBoolean,
                 includeDefault
-            };
+            ];
         }
     }
 

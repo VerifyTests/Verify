@@ -16,7 +16,7 @@
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.5" PrivateAssets="all" />
     <PackageReference Include="Xunit" Version="2.6.3" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.107" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
     <ProjectReference Include="..\Verify.SamplePlugin\Verify.SamplePlugin.csproj" />

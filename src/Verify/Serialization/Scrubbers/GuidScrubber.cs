@@ -47,9 +47,8 @@
                 }
             }
 
-            var substring = value.Substring(index, 36);
-
-            if (!Guid.TryParseExact(substring, "D", out var guid))
+            var tryParseExact = TryParse(value, index, out var guid);
+            if (!tryParseExact)
             {
                 AppendCurrentChar();
                 continue;
@@ -59,6 +58,16 @@
             builder.Append(convert);
             index += 35;
         }
+    }
+
+    static bool TryParse(string value, int index, out Guid guid)
+    {
+#if NET6_0_OR_GREATER
+        var substring = value.AsSpan().Slice(index, 36);
+#else
+        var substring = value.Substring(index, 36);
+#endif
+        return Guid.TryParseExact(substring, "D", out guid);
     }
 
     static bool IsInvalidEndingChar(char ch) =>

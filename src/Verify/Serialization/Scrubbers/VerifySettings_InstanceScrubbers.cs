@@ -57,6 +57,12 @@ public partial class VerifySettings
         AddScrubber(GuidScrubber.ReplaceGuids, location);
 
     /// <summary>
+    /// Replace inline <see cref="DateTime" />s with a placeholder.
+    /// </summary>
+    public void ScrubInlineDateTimes(ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(GuidScrubber.ReplaceDateTimes, location);
+
+    /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     public void ScrubLines(Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First) =>

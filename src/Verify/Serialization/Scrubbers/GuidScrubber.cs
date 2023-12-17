@@ -47,8 +47,7 @@
                 }
             }
 
-            var tryParseExact = TryParse(value, index, out var guid);
-            if (!tryParseExact)
+            if (!TryParse(value, index, out var guid))
             {
                 AppendCurrentChar();
                 continue;

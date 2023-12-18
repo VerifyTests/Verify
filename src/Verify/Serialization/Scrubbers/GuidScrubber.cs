@@ -13,13 +13,11 @@
             return;
         }
 
-        var value = builder.ToString();
+        var value = builder.ToString().AsSpan();
 
         builder.Clear();
         for (var index = 0; index <= value.Length; index++)
         {
-            void AppendCurrentChar() => builder.Append(value[index]);
-
             var end = index + 36;
             if (end > value.Length)
             {
@@ -28,45 +26,30 @@
                 return;
             }
 
-            if (index > 0)
+            if ((index <= 0 || !IsInvalidStartingChar(value[index - 1])) &&
+                (end >= value.Length || !IsInvalidEndingChar(value[end])))
             {
-                if (IsInvalidStartingChar(value[index - 1]))
+                if (TryParse(value, index, out var guid))
                 {
-                    AppendCurrentChar();
+                    var convert = SerializationSettings.Convert(counter, guid);
+                    builder.Append(convert);
+                    index += 35;
                     continue;
                 }
             }
 
-            if (end < value.Length)
-            {
-                var ch = value[end];
-                if (IsInvalidEndingChar(ch))
-                {
-                    AppendCurrentChar();
-                    continue;
-                }
-            }
-
-            if (!TryParse(value, index, out var guid))
-            {
-                AppendCurrentChar();
-                continue;
-            }
-
-            var convert = SerializationSettings.Convert(counter, guid);
-            builder.Append(convert);
-            index += 35;
+            builder.Append(value[index]);
         }
     }
 
-    static bool TryParse(string value, int index, out Guid guid)
+    static bool TryParse(CharSpan value, int index, out Guid guid)
     {
+        var substring = value.Slice(index, 36);
 #if NET6_0_OR_GREATER
-        var substring = value.AsSpan().Slice(index, 36);
-#else
-        var substring = value.Substring(index, 36);
-#endif
         return Guid.TryParseExact(substring, "D", out guid);
+#else
+        return Guid.TryParseExact(substring.ToString(), "D", out guid);
+#endif
     }
 
     static bool IsInvalidEndingChar(char ch) =>

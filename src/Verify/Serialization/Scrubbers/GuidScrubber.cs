@@ -26,8 +26,8 @@
                 return;
             }
 
-            if ((index <= 0 || !IsInvalidStartingChar(value[index - 1])) &&
-                (end >= value.Length || !IsInvalidEndingChar(value[end])))
+            if ((index == 0 || !IsInvalidStartingChar(value[index - 1])) &&
+                (end == value.Length || !IsInvalidEndingChar(value[end])))
             {
                 if (TryParse(value, index, out var guid))
                 {

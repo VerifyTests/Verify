@@ -8,27 +8,27 @@ static class DateScrubber
             .ToString()
             .AsSpan();
 
-        builder.Clear();
+        var indexInBuilder = 0;
         for (var index = 0; index <= value.Length; index++)
         {
             var end = index + format.Length;
             if (end > value.Length)
             {
-                var remaining = value[index..];
-                builder.Append(remaining);
                 return;
             }
 
-            var substring = value.Slice(index, format.Length);
-            if (Date.TryParseExact(substring, format, out var date))
+            var slice = value.Slice(index, format.Length);
+            if (Date.TryParseExact(slice, format, out var date))
             {
                 var convert = SerializationSettings.Convert(counter, date);
-                builder.Append(convert);
+                builder.Remove(indexInBuilder, format.Length);
+                builder.Insert(indexInBuilder, convert);
+                indexInBuilder += convert.Length;
                 index += format.Length - 1;
                 continue;
             }
 
-            builder.Append(value[index]);
+            indexInBuilder++;
         }
     }
 }

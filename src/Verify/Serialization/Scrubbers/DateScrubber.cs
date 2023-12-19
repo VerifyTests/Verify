@@ -1,9 +1,23 @@
 ﻿#if NET6_0_OR_GREATER
 static class DateScrubber
 {
+    static Date longDate = new(2023, 12, 20);
+
+    public static IEnumerable<int> Lengths(string format)
+    {
+        var longLength = longDate.ToString(format, CultureInfo.InvariantCulture)
+            .Length;
+        var shortLength = Date.MinValue.ToString(format, CultureInfo.InvariantCulture)
+            .Length;
+        for (var i = longLength; i >= shortLength; i--)
+        {
+            yield return i;
+        }
+    }
+
     public static void ReplaceDates(StringBuilder builder, Counter counter)
     {
-        string format = "yyyy-MM-dd";
+        var format = "yyyy-MM-dd";
         var value = builder
             .ToString()
             .AsSpan();

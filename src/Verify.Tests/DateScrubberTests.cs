@@ -33,6 +33,17 @@ public class DateScrubberTests
             Counter.Stop();
         }
     }
+    [Theory]
+    [InlineData("yyyy-MM-dd")]
+    [InlineData("yyyy MMM ddd")]
+    [InlineData("yyyy MMMM dddd")]
+    [InlineData("yyyy-MM-d")]
+    [InlineData("yyyy-M-dd")]
+    [InlineData("yyyy-M-d")]
+    [InlineData("y-M-d")]
+    public Task Lengths(string format) =>
+        Verify(DateScrubber.Lengths(format))
+            .UseTextForParameters(format);
 
     [Theory]
     [InlineData("1998-10-01", "named")]

@@ -15,7 +15,7 @@ public class DateScrubberTests
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
     [InlineData("1995-10-01", "simple")]
-    public async Task Date(string value, string name)
+    public async Task Dates(string value, string name)
     {
         var counter = Counter.Start();
         try
@@ -32,13 +32,13 @@ public class DateScrubberTests
     }
 
     [Theory]
-    [InlineData("1998-10-1", "named")]
-    [InlineData("1935-10-1", "instanceNamed")]
-    public Task NamedDates(string guid, string name) =>
+    [InlineData("1998-10-01", "named")]
+    [InlineData("1935-10-01", "instanceNamed")]
+    public Task NamedDates(string value, string name) =>
         Verify(
                 new
                 {
-                    value = new Date(1935, 10, 1)
+                    value = Date.Parse(value)
                 })
             .AddNamedDate(new(1935, 10, 1), "instanceNamed")
             .UseTextForParameters(name);

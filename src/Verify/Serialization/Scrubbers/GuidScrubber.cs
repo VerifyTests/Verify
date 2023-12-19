@@ -15,7 +15,7 @@
 
         var value = builder.ToString().AsSpan();
 
-        var indexInBuilder = 0;
+        var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
         {
             var end = index + 36;
@@ -31,15 +31,15 @@
                 if (!slice.ContainsNewline() && TryParse(slice, out var guid))
                 {
                     var convert = SerializationSettings.Convert(counter, guid);
-                    builder.Overwrite(convert, indexInBuilder, 36);
-                    indexInBuilder += convert.Length;
+                    builder.Overwrite(convert, builderIndex, 36);
+                    builderIndex += convert.Length;
                     index += 35;
 
                     continue;
                 }
             }
 
-            indexInBuilder++;
+            builderIndex++;
         }
     }
 

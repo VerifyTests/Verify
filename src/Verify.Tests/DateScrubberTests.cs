@@ -1,3 +1,5 @@
+#if NET6_0_OR_GREATER
+
 [UsesVerify]
 public class DateScrubberTests
 {
@@ -12,7 +14,7 @@ public class DateScrubberTests
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
-    [InlineData("1935-10-1", "simple")]
+    [InlineData("1995-10-01", "simple")]
     public async Task Date(string value, string name)
     {
         var counter = Counter.Start();
@@ -54,3 +56,4 @@ public class DateScrubberTests
 
     #endregion
 }
+#endif

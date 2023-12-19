@@ -48,7 +48,7 @@
         return true;
     }
 
-    static string Convert(Counter counter, Date date)
+    internal static string Convert(Counter counter, Date date)
     {
         if (date == Date.MaxValue)
         {

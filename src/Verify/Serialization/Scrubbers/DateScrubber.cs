@@ -22,8 +22,7 @@ static class DateScrubber
                 Date.TryParseExact(slice, format, out var date))
             {
                 var convert = SerializationSettings.Convert(counter, date);
-                builder.Remove(indexInBuilder, format.Length);
-                builder.Insert(indexInBuilder, convert);
+                builder.Overwrite(convert, indexInBuilder, format.Length);
                 indexInBuilder += convert.Length;
                 index += format.Length - 1;
                 continue;

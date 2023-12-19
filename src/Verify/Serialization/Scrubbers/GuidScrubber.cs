@@ -31,8 +31,7 @@
                 if (!slice.ContainsNewline() && TryParse(slice, out var guid))
                 {
                     var convert = SerializationSettings.Convert(counter, guid);
-                    builder.Remove(indexInBuilder, 36);
-                    builder.Insert(indexInBuilder, convert);
+                    builder.Overwrite(convert, indexInBuilder, 36);
                     indexInBuilder += convert.Length;
                     index += 35;
 

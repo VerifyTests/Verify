@@ -18,7 +18,7 @@ static class DateScrubber
             }
 
             var slice = value.Slice(index, format.Length);
-            if (Date.TryParseExact(slice, format, out var date))
+            if (!slice.ContainsNewline() && Date.TryParseExact(slice, format, out var date))
             {
                 var convert = SerializationSettings.Convert(counter, date);
                 builder.Remove(indexInBuilder, format.Length);

@@ -17,8 +17,7 @@ static class DateScrubber
                 return;
             }
 
-            if (index == 0 &&
-                end == value.Length)
+            if (end <= value.Length)
             {
                 var substring = value.Slice(index, format.Length);
                 if (Date.TryParseExact(substring, format, out var date))

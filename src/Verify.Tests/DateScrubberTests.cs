@@ -15,6 +15,9 @@ public class DateScrubberTests
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
     [InlineData("1995-10-01", "simple")]
+    [InlineData("a1995-10-01b", "wrapped")]
+    [InlineData("1995-10-01b", "trailing")]
+    [InlineData("a1995-10-01", "starting")]
     public async Task Dates(string value, string name)
     {
         var counter = Counter.Start();

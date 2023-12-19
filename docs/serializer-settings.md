@@ -324,16 +324,9 @@ public Task InstanceNamedGuid() =>
 ```cs
 [ModuleInitializer]
 public static void Init() =>
-    VerifierSettings.AddNamedDate(new(1998, 10, 1), "dateName");
-```
-<sup><a href='/src/Verify.Tests/DateScrubberTests.cs#L6-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguid' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-namedguid-1'></a>
-```cs
-[ModuleInitializer]
-public static void Init() =>
     VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguid-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

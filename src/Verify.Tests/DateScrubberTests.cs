@@ -3,7 +3,7 @@
 [UsesVerify]
 public class DateScrubberTests
 {
-    #region NamedGuid
+    #region NamedDate
 
     [ModuleInitializer]
     public static void Init() =>

@@ -28,7 +28,7 @@
                 (end == value.Length || !IsInvalidEndingChar(value[end])))
             {
                 var slice = value.Slice(index, 36);
-                if (TryParse(slice, out var guid))
+                if (!slice.ContainsNewline() && TryParse(slice, out var guid))
                 {
                     var convert = SerializationSettings.Convert(counter, guid);
                     builder.Remove(indexInBuilder, 36);

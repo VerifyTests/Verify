@@ -1,14 +1,12 @@
 ﻿// ReSharper disable UnusedVariable
 
-using System.Buffers;
-
 static class Extensions
 {
     public static string Extension(this FileStream file) =>
         FileExtensions.GetExtension(file.Name);
 
     public static bool ContainsNewline(this CharSpan span) =>
-        span.IndexOfAny('\r', '\n')>0;
+        span.IndexOfAny('\r', '\n') != -1;
 
     public static Version MajorMinor(this Version version) =>
         new(version.Major, version.Minor);

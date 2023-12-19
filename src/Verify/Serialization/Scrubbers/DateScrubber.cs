@@ -8,7 +8,7 @@ static class DateScrubber
             .ToString()
             .AsSpan();
 
-        var indexInBuilder = 0;
+        var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
         {
             var end = index + format.Length;
@@ -22,13 +22,13 @@ static class DateScrubber
                 Date.TryParseExact(slice, format, out var date))
             {
                 var convert = SerializationSettings.Convert(counter, date);
-                builder.Overwrite(convert, indexInBuilder, format.Length);
-                indexInBuilder += convert.Length;
+                builder.Overwrite(convert, builderIndex, format.Length);
+                builderIndex += convert.Length;
                 index += format.Length - 1;
                 continue;
             }
 
-            indexInBuilder++;
+            builderIndex++;
         }
     }
 }

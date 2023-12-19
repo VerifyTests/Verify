@@ -37,10 +37,11 @@ partial class SerializationSettings
         var declaringType = member.DeclaringType!;
         if (typeof(T) != declaringType)
         {
-            throw new("""
-                      IgnoreMember<T> can only be used on the type that defines the member.
-                      To ignore specific members for T, create a custom converter.
-                      """);
+            throw new(
+                """
+                IgnoreMember<T> can only be used on the type that defines the member.
+                To ignore specific members for T, create a custom converter.
+                """);
         }
 
         IgnoreMember(declaringType, member.Name, scrubOrIgnore);

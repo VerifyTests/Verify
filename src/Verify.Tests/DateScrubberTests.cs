@@ -24,7 +24,7 @@ public class DateScrubberTests
         try
         {
             var builder = new StringBuilder(value);
-            DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter);
+            DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
             await Verify(builder)
                 .UseTextForParameters(name);
         }

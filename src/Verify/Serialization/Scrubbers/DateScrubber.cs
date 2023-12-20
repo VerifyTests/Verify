@@ -43,15 +43,15 @@ static partial class DateScrubber
         return longestIndex+1;
     }
 
-    public static void ReplaceDates(StringBuilder builder, string format, Counter counter)
+    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, CultureInfo culture)
     {
         var value = builder
             .ToString()
             .AsSpan();
 
-        if (!cultureDates.TryGetValue(CultureInfo.InvariantCulture.Name, out var cultureDate))
+        if (!cultureDates.TryGetValue(culture.Name, out var cultureDate))
         {
-            throw new();
+            throw new($"Could not find culture {culture.Name}");
         }
 
         var longest = Date.FromDateTime(cultureDate.Long).ToString(format).Length;

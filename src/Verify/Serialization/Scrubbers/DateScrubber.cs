@@ -1,12 +1,12 @@
-﻿#if NET6_0_OR_GREATER
-class CultureDates
+﻿
+readonly struct CultureDate(DateTime longDate, DateTime shortDate)
 {
-    public DateTimeOffset Long { get; set; }
-    public DateTimeOffset Short { get; set; }
+    public DateTime Long { get; } = longDate;
+    public DateTime Short { get; } = shortDate;
 }
-static class DateScrubber
+static partial class DateScrubber
 {
-    static Date longDate = new(2023, 12, 20);
+#if NET6_0_OR_GREATER
 
     public static DayOfWeek LongestDayName(this DateTimeFormatInfo formatInfo)
     {
@@ -43,35 +43,19 @@ static class DateScrubber
         return longestIndex+1;
     }
 
-    public static IEnumerable<int> Lengths(string format, CultureInfo culture)
+    public static void ReplaceDates(StringBuilder builder, string format, Counter counter)
     {
-        var dateTimeFormat = culture.DateTimeFormat;
-        var longDateName = dateTimeFormat.DayNames.OrderBy(_=>_.Length).First();
-        var longMonthName = dateTimeFormat.MonthNames.OrderBy(_=>_.Length).First();
-        // var longDateName = dateTimeFormat.DayNames.OrderBy(_=>_.Length).First();
-        // var longMonthName = dateTimeFormat.MonthNames.OrderBy(_=>_.Length).First();
-        // int dayIndex = 0;
-        // int dayLength = 0;
-        // foreach (var VARIABLE in culture.DateTimeFormat.DayNames)
-        // {
-        //
-        // }
-        var longLength = longDate.ToString(format, culture)
-            .Length;
-        var shortLength = Date.MinValue.ToString(format, culture)
-            .Length;
-        for (var i = longLength; i >= shortLength; i--)
-        {
-            yield return i;
-        }
-    }
-
-    public static void ReplaceDates(StringBuilder builder, Counter counter)
-    {
-        var format = "yyyy-MM-dd";
         var value = builder
             .ToString()
             .AsSpan();
+
+        if (!cultureDates.TryGetValue(CultureInfo.InvariantCulture.Name, out var cultureDate))
+        {
+            throw new();
+        }
+
+        var longest = Date.FromDateTime(cultureDate.Long).ToString(format).Length;
+        var shortest = Date.FromDateTime(cultureDate.Short).ToString(format).Length;
 
         var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
@@ -96,5 +80,5 @@ static class DateScrubber
             builderIndex++;
         }
     }
-}
 #endif
+}

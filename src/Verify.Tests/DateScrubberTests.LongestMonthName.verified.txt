@@ -1,4 +1,4 @@
 ﻿{
-  monthIndex: 9,
+  monthNumber: 9,
   monthName: September
 }

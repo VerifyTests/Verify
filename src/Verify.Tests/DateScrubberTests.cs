@@ -102,20 +102,27 @@ public class DateScrubberTests
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
         foreach (var culture in cultures)
         {
+            var formatInfo = culture.DateTimeFormat;
             map[culture] = new()
             {
-                Long = FindLongDate(culture),
-                Short = FindShortDate(culture),
+                Long = FindLongDate(formatInfo),
+                Short = FindShortDate(formatInfo),
             };
         }
-        return Verify(map).DontScrubDateTimes();
+
+        var builder = new StringBuilder(
+            """
+            static class CultureDateMap
+            {
+            """);
+        return Verify(map)
+            .DontScrubDateTimes();
     }
 
-    static DateTimeOffset FindLongDate(CultureInfo culture)
+    static DateTimeOffset FindLongDate(DateTimeFormatInfo formatInfo)
     {
         DateTimeOffset longDate = default;
         var longFormatted = "";
-        var formatInfo = culture.DateTimeFormat;
         var amLength = formatInfo.AMDesignator.Length;
         var pmLength = formatInfo.PMDesignator.Length;
         for (var month = 1; month <= 12; month++)
@@ -144,11 +151,10 @@ public class DateScrubberTests
         return longDate;
     }
 
-    static DateTimeOffset FindShortDate(CultureInfo culture)
+    static DateTimeOffset FindShortDate(DateTimeFormatInfo formatInfo)
     {
         DateTimeOffset shortDate = default;
         string? shortFormatted = null;
-        var formatInfo = culture.DateTimeFormat;
         var amLength = formatInfo.AMDesignator.Length;
         var pmLength = formatInfo.PMDesignator.Length;
         for (var month = 1; month <= 12; month++)

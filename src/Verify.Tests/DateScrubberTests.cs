@@ -73,8 +73,8 @@ public class DateScrubberTests
     {
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
         return Verify(cultures
-            .Select(_ => _.DateTimeFormat.ShortestDayNames)
-            .OrderBy(_ => _));
+            .Select(_ => _.DateTimeFormat.AMDesignator + _.DateTimeFormat.PMDesignator)
+            .OrderBy(_ => _.Length));
     }
     [Fact]
     public Task LongestDayName() =>
@@ -93,7 +93,7 @@ public class DateScrubberTests
         });
     }
 
-    const string monthDayFormat = "MMMM MMM dddd ddd";
+    const string monthDayFormat = "MMMM MMM dddd ddd HH:mm:ss";
 
     [Fact]
     public Task BuildCultureToDate()
@@ -104,23 +104,35 @@ public class DateScrubberTests
         {
             map[culture] = new()
             {
-                LongDate = FindLongDate(culture),
-                ShortDate = FindShortDate(culture),
+                Long = FindLongDate(culture),
+                Short = FindShortDate(culture),
             };
         }
         return Verify(map).DontScrubDateTimes();
     }
 
-    static Date FindLongDate(CultureInfo culture)
+    static DateTimeOffset FindLongDate(CultureInfo culture)
     {
-        Date longDate = default;
+        DateTimeOffset longDate = default;
         var longFormatted = "";
+        var formatInfo = culture.DateTimeFormat;
+        var amLength = formatInfo.AMDesignator.Length;
+        var pmLength = formatInfo.PMDesignator.Length;
         for (var month = 1; month <= 12; month++)
         {
             for (var day = 20; day <= 27; day++)
             {
-                var date = new Date(2023, month, day);
-                var formatted = date.ToString(monthDayFormat, culture);
+                DateTimeOffset date;
+                if (amLength > pmLength)
+                {
+                    date = new(2023, month, day, 1, 0, 0, 0, TimeSpan.Zero);
+                }
+                else
+                {
+                    date = new(2023, month, day, 13, 0, 0, 0, TimeSpan.Zero);
+                }
+
+                var formatted = date.ToString(monthDayFormat, formatInfo);
                 if (formatted.Length > longFormatted.Length)
                 {
                     longFormatted = formatted;
@@ -132,16 +144,28 @@ public class DateScrubberTests
         return longDate;
     }
 
-    static Date FindShortDate(CultureInfo culture)
+    static DateTimeOffset FindShortDate(CultureInfo culture)
     {
-        Date shortDate = default;
+        DateTimeOffset shortDate = default;
         string? shortFormatted = null;
+        var formatInfo = culture.DateTimeFormat;
+        var amLength = formatInfo.AMDesignator.Length;
+        var pmLength = formatInfo.PMDesignator.Length;
         for (var month = 1; month <= 12; month++)
         {
             for (var day = 1; day <= 7; day++)
             {
-                var date = new Date(2000, month, day);
-                var formatted = date.ToString(monthDayFormat, culture);
+                DateTimeOffset date;
+                if (amLength < pmLength)
+                {
+                    date = new(2023, month, day, 1, 0, 0, 0, TimeSpan.Zero);
+                }
+                else
+                {
+                    date = new(2023, month, day, 13, 0, 0, 0, TimeSpan.Zero);
+                }
+
+                var formatted = date.ToString(monthDayFormat, formatInfo);
                 if (shortFormatted == null ||
                     formatted.Length < shortFormatted.Length)
                 {

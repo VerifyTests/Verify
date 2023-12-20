@@ -1,8 +1,8 @@
 ﻿#if NET6_0_OR_GREATER
 class CultureDates
 {
-    public Date LongDate { get; set; }
-    public Date ShortDate { get; set; }
+    public DateTimeOffset Long { get; set; }
+    public DateTimeOffset Short { get; set; }
 }
 static class DateScrubber
 {

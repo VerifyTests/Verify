@@ -60,20 +60,30 @@ static partial class DateScrubber
         var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
         {
-            var end = index + format.Length;
-            if (end > value.Length)
+            var found = false;
+            for (var length = longest; length >= shortest; length--)
             {
-                return;
+                var end = index + length;
+                if (end > value.Length)
+                {
+                    continue;
+                }
+
+                var slice = value.Slice(index, length);
+                if (!slice.ContainsNewline() &&
+                    Date.TryParseExact(slice, format, out var date))
+                {
+                    var convert = SerializationSettings.Convert(counter, date);
+                    builder.Overwrite(convert, builderIndex, length);
+                    builderIndex += convert.Length;
+                    index += length - 1;
+                    found = true;
+                    break;
+                }
             }
 
-            var slice = value.Slice(index, format.Length);
-            if (!slice.ContainsNewline() &&
-                Date.TryParseExact(slice, format, out var date))
+            if (found)
             {
-                var convert = SerializationSettings.Convert(counter, date);
-                builder.Overwrite(convert, builderIndex, format.Length);
-                builderIndex += convert.Length;
-                index += format.Length - 1;
                 continue;
             }
 

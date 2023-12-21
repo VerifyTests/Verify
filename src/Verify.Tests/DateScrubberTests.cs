@@ -15,6 +15,128 @@ public class DateScrubberTests
 
     #endregion
 
+    [Theory]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
+    [InlineData("aaaa", "no match short")]
+    [InlineData("1995-10-01", "simple")]
+    [InlineData("a1995-10-01b", "wrapped")]
+    [InlineData("1995-10-01b", "trailing")]
+    [InlineData("a1995-10-01", "starting")]
+    [InlineData("1995-10-01 1995-10-01 1995-10-02", "multiple")]
+    [InlineData("1998-10-01", "named")]
+    public async Task DateTimeOffsets(string value, string name)
+    {
+        var counter = Counter.Start();
+        try
+        {
+            var builder = new StringBuilder(value);
+            DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+            await Verify(builder)
+                .UseTextForParameters(name);
+        }
+        finally
+        {
+            Counter.Stop();
+        }
+    }
+    [Theory]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
+    [InlineData("aaaa", "no match short")]
+    [InlineData("2023 December 21 Thursday", "simple")]
+    [InlineData("a2023 December 21 Thursdayb", "wrapped")]
+    [InlineData("2023 December 21 Thursdayb", "trailing")]
+    [InlineData("a2023 December 21 Thursday", "starting")]
+    [InlineData("2023 December 21 Thursday 2023 December 21 Thursday 2023 December 22 Friday", "multiple")]
+    [InlineData("1998 October 01 Thursday", "named")]
+    public async Task VariableLengthDateTimeOffsets(string value, string name)
+    {
+        var counter = Counter.Start();
+        try
+        {
+            var builder = new StringBuilder(value);
+            DateScrubber.ReplaceDateTimeOffsets(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+            await Verify(builder)
+                .UseTextForParameters(name);
+        }
+        finally
+        {
+            Counter.Stop();
+        }
+    }
+
+    [Theory]
+    [InlineData("1998-10-01", "named")]
+    [InlineData("1935-10-01", "instanceNamed")]
+    public Task NamedDateTimeOffsets(string value, string name) =>
+        Verify(
+                new
+                {
+                    value = DateTimeOffset.Parse(value)
+                })
+            .AddNamedDateTimeOffset(new(new(1935, 10, 1)), "instanceNamed")
+            .UseTextForParameters(name);
+
+    [Theory]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
+    [InlineData("aaaa", "no match short")]
+    [InlineData("1995-10-01", "simple")]
+    [InlineData("a1995-10-01b", "wrapped")]
+    [InlineData("1995-10-01b", "trailing")]
+    [InlineData("a1995-10-01", "starting")]
+    [InlineData("1995-10-01 1995-10-01 1995-10-02", "multiple")]
+    [InlineData("1998-10-01", "named")]
+    public async Task DateTimes(string value, string name)
+    {
+        var counter = Counter.Start();
+        try
+        {
+            var builder = new StringBuilder(value);
+            DateScrubber.ReplaceDateTimes(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+            await Verify(builder)
+                .UseTextForParameters(name);
+        }
+        finally
+        {
+            Counter.Stop();
+        }
+    }
+    [Theory]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
+    [InlineData("aaaa", "no match short")]
+    [InlineData("2023 December 21 Thursday", "simple")]
+    [InlineData("a2023 December 21 Thursdayb", "wrapped")]
+    [InlineData("2023 December 21 Thursdayb", "trailing")]
+    [InlineData("a2023 December 21 Thursday", "starting")]
+    [InlineData("2023 December 21 Thursday 2023 December 21 Thursday 2023 December 22 Friday", "multiple")]
+    [InlineData("1998 October 01 Thursday", "named")]
+    public async Task VariableLengthDateTimes(string value, string name)
+    {
+        var counter = Counter.Start();
+        try
+        {
+            var builder = new StringBuilder(value);
+            DateScrubber.ReplaceDateTimes(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
+            await Verify(builder)
+                .UseTextForParameters(name);
+        }
+        finally
+        {
+            Counter.Stop();
+        }
+    }
+
+    [Theory]
+    [InlineData("1998-10-01", "named")]
+    [InlineData("1935-10-01", "instanceNamed")]
+    public Task NamedDateTimes(string value, string name) =>
+        Verify(
+                new
+                {
+                    value = DateTime.Parse(value)
+                })
+            .AddNamedDateTime(new(1935, 10, 1), "instanceNamed")
+            .UseTextForParameters(name);
+
 #if NET6_0_OR_GREATER
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]

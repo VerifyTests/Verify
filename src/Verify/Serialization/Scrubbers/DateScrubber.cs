@@ -1,5 +1,4 @@
-﻿
-readonly struct CultureDate(DateTime longDate, DateTime shortDate)
+﻿readonly struct CultureDate(DateTime longDate, DateTime shortDate)
 {
     public DateTime Long { get; } = longDate;
     public DateTime Short { get; } = shortDate;
@@ -43,7 +42,7 @@ static partial class DateScrubber
         return longestIndex+1;
     }
 
-    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, CultureInfo culture)
+    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture)
     {
         var value = builder
             .ToString()

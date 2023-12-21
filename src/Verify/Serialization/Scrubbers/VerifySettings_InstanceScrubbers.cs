@@ -59,8 +59,30 @@ public partial class VerifySettings
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
-    public void ScrubInlineDateTimes(ScrubberLocation location = ScrubberLocation.First) =>
-        AddScrubber(GuidScrubber.ReplaceDateTimes, location);
+    public void ScrubInlineDateTimes(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(
+            (builder, counter) => DateScrubber.ReplaceDateTimes(builder, format, counter, culture ?? Culture.CurrentCulture),
+            location);
+
+    /// <summary>
+    /// Replace inline <see cref="DateTime" />s with a placeholder.
+    /// </summary>
+    public void ScrubInlineDateTimeOffsets(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(
+            (builder, counter) => DateScrubber.ReplaceDateTimeOffsets(builder, format, counter, culture ?? Culture.CurrentCulture),
+            location);
+
+#if NET5_0_OR_GREATER
+
+    /// <summary>
+    /// Replace inline <see cref="Date" />s with a placeholder.
+    /// </summary>
+    public void ScrubInlineDates(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
+        AddScrubber(
+            (builder, counter) => DateScrubber.ReplaceDates(builder, format, counter, culture ?? Culture.CurrentCulture),
+            location);
+
+#endif
 
     /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.

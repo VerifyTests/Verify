@@ -41,8 +41,9 @@ public class Tests
     [InlineData(1000.9999d)]
     public async Task LocalizedParam(decimal value)
     {
-        var culture = Thread.CurrentThread.CurrentCulture;
-        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+        var thread = Thread.CurrentThread;
+        var culture = thread.CurrentCulture;
+        thread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
         try
         {
             await Verify(value)
@@ -50,7 +51,7 @@ public class Tests
         }
         finally
         {
-            Thread.CurrentThread.CurrentCulture = culture;
+            thread.CurrentCulture = culture;
         }
     }
 
@@ -61,10 +62,11 @@ public class Tests
 
     [Fact]
     public Task TreatAsString() =>
-        Verify(new ClassWithToString
-        {
-            Property = "Foo"
-        });
+        Verify(
+            new ClassWithToString
+            {
+                Property = "Foo"
+            });
 
     class ClassWithToString
     {

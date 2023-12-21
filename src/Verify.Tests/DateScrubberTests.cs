@@ -1,3 +1,4 @@
+// ReSharper disable StringLiteralTypo
 [UsesVerify]
 public class DateScrubberTests
 {

@@ -20,14 +20,25 @@ static partial class DateScrubber
         result = null;
         return false;
     }
-    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture)
+
+    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture) =>
+        ReplaceInner(
+            builder,
+            format,
+            counter,
+            culture,
+            _ => Date.FromDateTime(_),
+            TryConvertDate);
+#endif
+
+    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toIFormattable, TryConvert tryConvertDate)
     {
-        var value = builder.AsSpan();
-
         var cultureDate = GetCultureDates(culture);
-
-        var longest = Date.FromDateTime(cultureDate.Long).ToString(format).Length;
-        var shortest = Date.FromDateTime(cultureDate.Short).ToString(format).Length;
+        var value = builder.AsSpan();
+        var longDate = toIFormattable(cultureDate.Long);
+        var shortDate = toIFormattable(cultureDate.Short);
+        var longest = longDate.ToString(format, culture).Length;
+        var shortest = shortDate.ToString(format, culture).Length;
 
         var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
@@ -44,7 +55,7 @@ static partial class DateScrubber
                 var slice = value.Slice(index, length);
                 if (!slice.ContainsNewline())
                 {
-                    if (TryConvertDate(slice, format,counter, out var convert))
+                    if (tryConvertDate(slice, format, counter, out var convert))
                     {
                         builder.Overwrite(convert, builderIndex, length);
                         builderIndex += convert.Length;
@@ -73,5 +84,4 @@ static partial class DateScrubber
 
         return cultureDate;
     }
-#endif
 }

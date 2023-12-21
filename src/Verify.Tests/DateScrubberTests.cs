@@ -13,11 +13,12 @@ public class DateScrubberTests
 
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
-    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaa", "no match short")]
+    [InlineData("aaaa", "no match short")]
     [InlineData("1995-10-01", "simple")]
     [InlineData("a1995-10-01b", "wrapped")]
     [InlineData("1995-10-01b", "trailing")]
     [InlineData("a1995-10-01", "starting")]
+    [InlineData("1995-10-01 1995-10-01 1995-10-02", "multiple")]
     public async Task Dates(string value, string name)
     {
         var counter = Counter.Start();
@@ -25,6 +26,29 @@ public class DateScrubberTests
         {
             var builder = new StringBuilder(value);
             DateScrubber.ReplaceDates(builder, "yyyy-MM-dd", counter, CultureInfo.InvariantCulture);
+            await Verify(builder)
+                .UseTextForParameters(name);
+        }
+        finally
+        {
+            Counter.Stop();
+        }
+    }
+    [Theory]
+    [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
+    [InlineData("aaaa", "no match short")]
+    [InlineData("2023 December 21 Thursday", "simple")]
+    [InlineData("a2023 December 21 Thursdayb", "wrapped")]
+    [InlineData("2023 December 21 Thursdayb", "trailing")]
+    [InlineData("a2023 December 21 Thursday", "starting")]
+    [InlineData("2023 December 21 Thursday 2023 December 21 Thursday 2023 December 22 Friday", "multiple")]
+    public async Task VariableLengthDates(string value, string name)
+    {
+        var counter = Counter.Start();
+        try
+        {
+            var builder = new StringBuilder(value);
+            DateScrubber.ReplaceDates(builder, "yyyy MMMM dd dddd", counter, CultureInfo.InvariantCulture);
             await Verify(builder)
                 .UseTextForParameters(name);
         }
@@ -71,8 +95,8 @@ public class DateScrubberTests
                           {
                               "{{culture.Name}}",
                               new(
-                                  new(2020, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 0, 0),
-                                  new(2020, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0))
+                                  new(2023, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 0, 0),
+                                  new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0))
                           },
                   """);
         }

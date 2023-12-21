@@ -82,12 +82,12 @@ static partial class DateScrubber
             _ => _,
             TryConvertDateTime);
 
-    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toIFormattable, TryConvert tryConvertDate)
+    static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toDate, TryConvert tryConvertDate)
     {
         var cultureDate = GetCultureDates(culture);
         var value = builder.AsSpan();
-        var longDate = toIFormattable(cultureDate.Long);
-        var shortDate = toIFormattable(cultureDate.Short);
+        var longDate = toDate(cultureDate.Long);
+        var shortDate = toDate(cultureDate.Short);
         var longest = longDate.ToString(format, culture)
             .Length;
         var shortest = shortDate.ToString(format, culture)
@@ -128,11 +128,14 @@ static partial class DateScrubber
         }
     }
 
-    static CultureDate GetCultureDates(Culture culture)
+    internal static CultureDate GetCultureDates(Culture culture)
     {
         if (!cultureDates.TryGetValue(culture.Name, out var cultureDate))
         {
-            throw new($"Could not find culture {culture.Name}");
+            if (!cultureDates.TryGetValue(culture.TwoLetterISOLanguageName, out cultureDate))
+            {
+                throw new($"Could not find culture {culture.Name}");
+            }
         }
 
         return cultureDate;

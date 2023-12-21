@@ -9,14 +9,9 @@ static partial class DateScrubber
 
     public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture)
     {
-        var value = builder
-            .ToString()
-            .AsSpan();
+        var value = builder.AsSpan();
 
-        if (!cultureDates.TryGetValue(culture.Name, out var cultureDate))
-        {
-            throw new($"Could not find culture {culture.Name}");
-        }
+        var cultureDate = GetCultureDates(culture);
 
         var longest = Date.FromDateTime(cultureDate.Long).ToString(format).Length;
         var shortest = Date.FromDateTime(cultureDate.Short).ToString(format).Length;
@@ -53,6 +48,16 @@ static partial class DateScrubber
 
             builderIndex++;
         }
+    }
+
+    static CultureDate GetCultureDates(Culture culture)
+    {
+        if (!cultureDates.TryGetValue(culture.Name, out var cultureDate))
+        {
+            throw new($"Could not find culture {culture.Name}");
+        }
+
+        return cultureDate;
     }
 #endif
 }

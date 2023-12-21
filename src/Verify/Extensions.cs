@@ -68,6 +68,13 @@ static class Extensions
         }
     }
 
+    public static CharSpan AsSpan(this StringBuilder builder)
+    {
+        return builder
+            .ToString()
+            .AsSpan();
+    }
+
     public static List<T> Clone<T>(this List<T> original) =>
         [..original];
 

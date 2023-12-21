@@ -54,10 +54,11 @@ public class GuidScrubberTests
     [InlineData("c8eeaf99-d5c4-4341-8543-4597c3fd40c9", "named")]
     [InlineData("c8eeaf99-d5c4-4341-8543-4597c3fd40d9", "instanceNamed")]
     public Task NamedGuids(string guid, string name) =>
-        Verify(new
-            {
-                value = new Guid(guid)
-            })
+        Verify(
+                new
+                {
+                    value = new Guid(guid)
+                })
             .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed")
             .UseTextForParameters(name);
 

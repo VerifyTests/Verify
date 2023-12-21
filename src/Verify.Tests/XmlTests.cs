@@ -21,11 +21,12 @@ public class XmlTests
 
     [Fact]
     public Task NoDeclaration() =>
-        VerifyXml("""
-                  <body>
-                    <node>text</node>
-                  </body>
-                  """);
+        VerifyXml(
+            """
+            <body>
+              <node>text</node>
+            </body>
+            """);
 
     #region XmlIgnoreMember
 

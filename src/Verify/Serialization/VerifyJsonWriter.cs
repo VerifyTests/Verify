@@ -146,7 +146,7 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(value.ToString("D", CultureInfo.InvariantCulture));
+        WriteRawValueWithScrubbers(value.ToString("D", Culture.InvariantCulture));
     }
 
     /// <summary>

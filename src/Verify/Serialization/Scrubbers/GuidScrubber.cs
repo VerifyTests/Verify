@@ -15,40 +15,40 @@
 
         var value = builder.ToString().AsSpan();
 
-        builder.Clear();
+        var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)
         {
             var end = index + 36;
             if (end > value.Length)
             {
-                var remaining = value[index..];
-                builder.Append(remaining);
                 return;
             }
 
             if ((index == 0 || !IsInvalidStartingChar(value[index - 1])) &&
                 (end == value.Length || !IsInvalidEndingChar(value[end])))
             {
-                if (TryParse(value, index, out var guid))
+                var slice = value.Slice(index, 36);
+                if (!slice.ContainsNewline() && TryParse(slice, out var guid))
                 {
                     var convert = SerializationSettings.Convert(counter, guid);
-                    builder.Append(convert);
+                    builder.Overwrite(convert, builderIndex, 36);
+                    builderIndex += convert.Length;
                     index += 35;
+
                     continue;
                 }
             }
 
-            builder.Append(value[index]);
+            builderIndex++;
         }
     }
 
-    static bool TryParse(CharSpan value, int index, out Guid guid)
+    static bool TryParse(CharSpan slice, out Guid guid)
     {
-        var substring = value.Slice(index, 36);
 #if NET6_0_OR_GREATER
-        return Guid.TryParseExact(substring, "D", out guid);
+        return Guid.TryParseExact(slice, "D", out guid);
 #else
-        return Guid.TryParseExact(substring.ToString(), "D", out guid);
+        return Guid.TryParseExact(slice.ToString(), "D", out guid);
 #endif
     }
 

@@ -5,6 +5,9 @@ static class Extensions
     public static string Extension(this FileStream file) =>
         FileExtensions.GetExtension(file.Name);
 
+    public static bool ContainsNewline(this CharSpan span) =>
+        span.IndexOfAny('\r', '\n') != -1;
+
     public static Version MajorMinor(this Version version) =>
         new(version.Major, version.Minor);
 
@@ -177,6 +180,12 @@ static class Extensions
         }
 
         builder.Replace(oldValue, newValue);
+    }
+
+    public static void Overwrite(this StringBuilder builder, string value, int index, int length)
+    {
+        builder.Remove(index, length);
+        builder.Insert(index, value);
     }
 
     public static int Count(this StringBuilder builder, char ch)

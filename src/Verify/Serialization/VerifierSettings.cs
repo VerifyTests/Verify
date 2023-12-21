@@ -44,35 +44,35 @@ public static partial class VerifierSettings
             typeof(StringWriter), (target, _) => ((StringWriter) target).ToString()
         },
         {
-            typeof(bool), (target, _) => ((bool) target).ToString(CultureInfo.InvariantCulture)
+            typeof(bool), (target, _) => ((bool) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(short), (target, _) => ((short) target).ToString(CultureInfo.InvariantCulture)
+            typeof(short), (target, _) => ((short) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(ushort), (target, _) => ((ushort) target).ToString(CultureInfo.InvariantCulture)
+            typeof(ushort), (target, _) => ((ushort) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(int), (target, _) => ((int) target).ToString(CultureInfo.InvariantCulture)
+            typeof(int), (target, _) => ((int) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(uint), (target, _) => ((uint) target).ToString(CultureInfo.InvariantCulture)
+            typeof(uint), (target, _) => ((uint) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(long), (target, _) => ((long) target).ToString(CultureInfo.InvariantCulture)
+            typeof(long), (target, _) => ((long) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(ulong), (target, _) => ((ulong) target).ToString(CultureInfo.InvariantCulture)
+            typeof(ulong), (target, _) => ((ulong) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(decimal), (target, _) => ((decimal) target).ToString(CultureInfo.InvariantCulture)
+            typeof(decimal), (target, _) => ((decimal) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(CultureInfo.InvariantCulture)
+            typeof(BigInteger), (target, _) => ((BigInteger) target).ToString(Culture.InvariantCulture)
         },
 #if NET5_0_OR_GREATER
         {
-            typeof(Half), (target, _) => ((Half) target).ToString(CultureInfo.InvariantCulture)
+            typeof(Half), (target, _) => ((Half) target).ToString(Culture.InvariantCulture)
         },
 #endif
 #if NET6_0_OR_GREATER
@@ -80,22 +80,22 @@ public static partial class VerifierSettings
             typeof(Date), (target, _) =>
             {
                 var date = (Date) target;
-                return date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                return date.ToString("yyyy-MM-dd", Culture.InvariantCulture);
             }
         },
         {
             typeof(Time), (target, _) =>
             {
                 var time = (Time) target;
-                return time.ToString("h:mm tt", CultureInfo.InvariantCulture);
+                return time.ToString("h:mm tt", Culture.InvariantCulture);
             }
         },
 #endif
         {
-            typeof(float), (target, _) => ((float) target).ToString(CultureInfo.InvariantCulture)
+            typeof(float), (target, _) => ((float) target).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(double), (target, _) => ((double) target).ToString(CultureInfo.InvariantCulture)
+            typeof(double), (target, _) => ((double) target).ToString(Culture.InvariantCulture)
         },
         {
             typeof(Guid), (target, _) => ((Guid) target).ToString()

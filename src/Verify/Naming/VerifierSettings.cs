@@ -7,47 +7,47 @@ public static partial class VerifierSettings
     static Dictionary<Type, Func<object, string>> parameterToNameLookup = new()
     {
         {
-            typeof(bool), _ => ((bool) _).ToString(CultureInfo.InvariantCulture)
+            typeof(bool), _ => ((bool) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(short), _ => ((short) _).ToString(CultureInfo.InvariantCulture)
+            typeof(short), _ => ((short) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(ushort), _ => ((ushort) _).ToString(CultureInfo.InvariantCulture)
+            typeof(ushort), _ => ((ushort) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(int), _ => ((int) _).ToString(CultureInfo.InvariantCulture)
+            typeof(int), _ => ((int) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(uint), _ => ((uint) _).ToString(CultureInfo.InvariantCulture)
+            typeof(uint), _ => ((uint) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(long), _ => ((long) _).ToString(CultureInfo.InvariantCulture)
+            typeof(long), _ => ((long) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(ulong), _ => ((ulong) _).ToString(CultureInfo.InvariantCulture)
+            typeof(ulong), _ => ((ulong) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(decimal), _ => ((decimal) _).ToString(CultureInfo.InvariantCulture)
+            typeof(decimal), _ => ((decimal) _).ToString(Culture.InvariantCulture)
         },
 #if NET5_0_OR_GREATER
         {
-            typeof(Half), _ => ((Half) _).ToString(CultureInfo.InvariantCulture)
+            typeof(Half), _ => ((Half) _).ToString(Culture.InvariantCulture)
         },
 #endif
 #if NET6_0_OR_GREATER
         {
-            typeof(Date), _ => ((Date) _).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+            typeof(Date), _ => ((Date) _).ToString("yyyy-MM-dd", Culture.InvariantCulture)
         },
         {
-            typeof(Time), _ => ((Time) _).ToString("h-mm-tt", CultureInfo.InvariantCulture)
+            typeof(Time), _ => ((Time) _).ToString("h-mm-tt", Culture.InvariantCulture)
         },
 #endif
         {
-            typeof(float), _ => ((float) _).ToString(CultureInfo.InvariantCulture)
+            typeof(float), _ => ((float) _).ToString(Culture.InvariantCulture)
         },
         {
-            typeof(double), _ => ((double) _).ToString(CultureInfo.InvariantCulture)
+            typeof(double), _ => ((double) _).ToString(Culture.InvariantCulture)
         },
         {
             typeof(DateTime), _ => DateFormatter.ToParameterString((DateTime) _)

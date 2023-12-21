@@ -5,8 +5,21 @@
 }
 static partial class DateScrubber
 {
+    delegate bool TryConvert(CharSpan span, string format, Counter counter, [NotNullWhen(true)] out string? result);
+
 #if NET6_0_OR_GREATER
 
+    static bool TryConvertDate(CharSpan span, string format, Counter counter, [NotNullWhen(true)] out string? result)
+    {
+        if (Date.TryParseExact(span, format, out var date))
+        {
+            result = SerializationSettings.Convert(counter, date);
+            return true;
+        }
+
+        result = null;
+        return false;
+    }
     public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture)
     {
         var value = builder.AsSpan();
@@ -29,15 +42,16 @@ static partial class DateScrubber
                 }
 
                 var slice = value.Slice(index, length);
-                if (!slice.ContainsNewline() &&
-                    Date.TryParseExact(slice, format, out var date))
+                if (!slice.ContainsNewline())
                 {
-                    var convert = SerializationSettings.Convert(counter, date);
-                    builder.Overwrite(convert, builderIndex, length);
-                    builderIndex += convert.Length;
-                    index += length - 1;
-                    found = true;
-                    break;
+                    if (TryConvertDate(slice, format,counter, out var convert))
+                    {
+                        builder.Overwrite(convert, builderIndex, length);
+                        builderIndex += convert.Length;
+                        index += length - 1;
+                        found = true;
+                        break;
+                    }
                 }
             }
 

@@ -12,3 +12,4 @@ global using System.Xml;
 global using System.Runtime.Versioning;
 global using System.Runtime.InteropServices;
 global using CharSpan = System.ReadOnlySpan<char>;
+global using Culture = System.Globalization.CultureInfo;

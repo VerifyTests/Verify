@@ -11,20 +11,20 @@
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
         if (value is {Second: 0, Millisecond: 0})
         {
-            return value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
         }
 
         if (value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
         }
 
-        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", Culture.InvariantCulture);
     }
 
     public static string ToParameterString(DateTimeOffset value)
@@ -39,20 +39,20 @@
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
         if (value is {Second: 0, Millisecond: 0})
         {
-            return value.ToString("yyyy-MM-ddTHH-mm", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
         }
 
         if (value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-ddTHH-mm-ss", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
         }
 
-        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", CultureInfo.InvariantCulture);
+        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
     }
 
     public static string ToJsonString(DateTime value)
@@ -71,20 +71,20 @@
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
         if (value is {Second: 0, Millisecond: 0})
         {
-            return value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd HH:mm", Culture.InvariantCulture);
         }
 
         if (value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd HH:mm:ss", Culture.InvariantCulture);
         }
 
-        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", CultureInfo.InvariantCulture);
+        return value.ToString("yyyy-MM-dd HH:mm:ss.FFFFFFF", Culture.InvariantCulture);
     }
 
     public static string ToParameterString(DateTime value)
@@ -103,20 +103,20 @@
     {
         if (value.TimeOfDay == TimeSpan.Zero)
         {
-            return value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-dd", Culture.InvariantCulture);
         }
 
         if (value is {Second: 0, Millisecond: 0})
         {
-            return value.ToString("yyyy-MM-ddTHH-mm", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm", Culture.InvariantCulture);
         }
 
         if (value.Millisecond == 0)
         {
-            return value.ToString("yyyy-MM-ddTHH-mm-ss", CultureInfo.InvariantCulture);
+            return value.ToString("yyyy-MM-ddTHH-mm-ss", Culture.InvariantCulture);
         }
 
-        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", CultureInfo.InvariantCulture);
+        return value.ToString("yyyy-MM-ddTHH-mm-ss.FFFFFFF", Culture.InvariantCulture);
     }
 
     static string GetDateOffset(DateTimeOffset value)

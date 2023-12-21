@@ -1,4 +1,4 @@
-﻿// ReSharper disable ConvertToUsingDeclaration
+// ReSharper disable ConvertToUsingDeclaration
 // ReSharper disable UseAwaitUsing
 
 [DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
@@ -50,6 +50,12 @@ class VerifyEngine
         {
             var target = targetList[0];
             var file = getFileNames(target);
+
+            if (settings.Namer.UniqueForFileExtension)
+            {
+                delete.RemoveWhere(path => IsSameExceptForExtension(path, file));
+            }
+
             var result = await GetResult(settings, file, target, false);
             HandleCompareResult(result, file);
             return;
@@ -59,6 +65,11 @@ class VerifyEngine
 
         async Task Inner(FilePair file, Target target)
         {
+            if (settings.Namer.UniqueForFileExtension)
+            {
+                delete.RemoveWhere(path => IsSameExceptForExtension(path, file));
+            }
+
             var result = await GetResult(settings, file, target, textHasFailed);
 
             if (file.IsText &&
@@ -88,6 +99,17 @@ class VerifyEngine
                 await Inner(file, target);
             }
         }
+    }
+
+    bool IsSameExceptForExtension(string candidate, FilePair file)
+    {
+        if (candidate.Equals(file.VerifiedPath, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        string verifiedNoExtension = file.VerifiedPath.Substring(0, file.VerifiedPath.Length - file.Extension.Length);
+        return candidate.StartsWith(verifiedNoExtension, StringComparison.OrdinalIgnoreCase);
     }
 
     void HandleCompareResult(EqualityResult result, FilePair file)

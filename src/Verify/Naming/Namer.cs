@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public class Namer
 {
@@ -73,6 +73,8 @@ public class Namer
     internal FrameworkNameVersion? ResolveUniqueForTargetFrameworkName() =>
         UniqueForTargetFrameworkName ??
         VerifierSettings.SharedNamer.UniqueForTargetFrameworkName;
+
+    internal bool UniqueForFileExtension;
 
     internal bool UniqueForAssemblyConfiguration;
 

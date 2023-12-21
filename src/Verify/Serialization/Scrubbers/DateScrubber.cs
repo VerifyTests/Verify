@@ -3,6 +3,7 @@
     public DateTime Long { get; } = longDate;
     public DateTime Short { get; } = shortDate;
 }
+
 static partial class DateScrubber
 {
     delegate bool TryConvert(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result);
@@ -31,14 +32,66 @@ static partial class DateScrubber
             TryConvertDate);
 #endif
 
+    static bool TryConvertDateTimeOffset(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result)
+    {
+#if NET5_0_OR_GREATER
+        if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
+#else
+        if (DateTimeOffset.TryParseExact(span.ToString(), format, culture, DateTimeStyles.None, out var date))
+#endif
+        {
+            result = SerializationSettings.Convert(counter, date);
+            return true;
+        }
+
+        result = null;
+        return false;
+    }
+
+    public static void ReplaceDateTimeOffsets(StringBuilder builder, string format, Counter counter, Culture culture) =>
+        ReplaceInner(
+            builder,
+            format,
+            counter,
+            culture,
+            _ => new DateTimeOffset(_),
+            TryConvertDateTimeOffset);
+
+    static bool TryConvertDateTime(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result)
+    {
+#if NET5_0_OR_GREATER
+        if (DateTime.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
+#else
+        if (DateTime.TryParseExact(span.ToString(), format, culture, DateTimeStyles.None, out var date))
+#endif
+        {
+            result = SerializationSettings.Convert(counter, date);
+            return true;
+        }
+
+        result = null;
+        return false;
+    }
+
+    public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, Culture culture) =>
+        ReplaceInner(
+            builder,
+            format,
+            counter,
+            culture,
+            _ => _,
+            TryConvertDateTime);
+
     static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toIFormattable, TryConvert tryConvertDate)
     {
         var cultureDate = GetCultureDates(culture);
         var value = builder.AsSpan();
         var longDate = toIFormattable(cultureDate.Long);
         var shortDate = toIFormattable(cultureDate.Short);
-        var longest = longDate.ToString(format, culture).Length;
-        var shortest = shortDate.ToString(format, culture).Length;
+        var longest = longDate.ToString(format, culture)
+            .Length;
+        var shortest = shortDate.ToString(format, culture)
+            .Length;
 
         var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)

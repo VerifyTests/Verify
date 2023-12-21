@@ -122,7 +122,7 @@
         return true;
     }
 
-    static string Convert(Counter counter, DateTime date)
+    internal static string Convert(Counter counter, DateTime date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {
@@ -137,7 +137,7 @@
         return counter.NextString(date);
     }
 
-    static string Convert(Counter counter, DateTimeOffset date)
+    internal static string Convert(Counter counter, DateTimeOffset date)
     {
         if (date.Date == DateTime.MaxValue.Date)
         {

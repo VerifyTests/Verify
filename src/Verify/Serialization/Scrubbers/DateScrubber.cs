@@ -7,41 +7,6 @@ static partial class DateScrubber
 {
 #if NET6_0_OR_GREATER
 
-    public static DayOfWeek LongestDayName(this DateTimeFormatInfo formatInfo)
-    {
-        var names = formatInfo.DayNames;
-        var longestIndex = names[0].Length;
-        var longest = names[0];
-        for (var index = 1; index < names.Length; index++)
-        {
-            var name = names[index];
-            if (name.Length > longest.Length)
-            {
-                longest = name;
-                longestIndex = index;
-            }
-        }
-
-        return (DayOfWeek) longestIndex;
-    }
-    public static int LongestMonthName(this DateTimeFormatInfo formatInfo)
-    {
-        var names = formatInfo.MonthNames;
-        var longestIndex = names[0].Length;
-        var longest = names[0];
-        for (var index = 1; index < names.Length; index++)
-        {
-            var name = names[index];
-            if (name.Length > longest.Length)
-            {
-                longest = name;
-                longestIndex = index;
-            }
-        }
-
-        return longestIndex+1;
-    }
-
     public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture)
     {
         var value = builder

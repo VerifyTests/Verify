@@ -1,4 +1,0 @@
-﻿{
-  monthNumber: 9,
-  monthName: September
-}

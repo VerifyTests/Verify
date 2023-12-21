@@ -46,25 +46,7 @@ public class DateScrubberTests
             .AddNamedDate(new(1935, 10, 1), "instanceNamed")
             .UseTextForParameters(name);
 
-    [Fact]
-    public Task LongestDayName() =>
-        Verify(CultureInfo.InvariantCulture.DateTimeFormat.LongestDayName());
-
-    [Fact]
-    public Task LongestMonthName()
-    {
-        var dateTimeFormat = CultureInfo.InvariantCulture.DateTimeFormat;
-
-        var monthNumber = dateTimeFormat.LongestMonthName();
-        var monthName = dateTimeFormat.GetMonthName(monthNumber);
-        return Verify(new
-        {
-            monthNumber,
-            monthName
-        });
-    }
-
-    const string monthDayFormat = "MMMM MMM dddd ddd HH:mm:ss";
+    const string monthDayFormat = "MMMM MMM dddd ddd";
 
     [Fact]
     public Task BuildCultureToDate()

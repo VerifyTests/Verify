@@ -1318,6 +1318,112 @@ public class SerializationTests
             .ScrubInlineGuids();
     }
 
+    [Fact]
+    public Task ShouldScrubInlineDateTimesWrappedInSymbols()
+    {
+        var date = DateTime.Now;
+        return Verify($"({date})")
+            .ScrubInlineDateTimes();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesStartingWithSymbol()
+    {
+        var date = DateTime.Now;
+        return Verify($"/{date}")
+            .ScrubInlineDateTimes();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesEndingWithSymbol()
+    {
+        var date = DateTime.Now;
+        return Verify($"{date}/")
+            .ScrubInlineDateTimes();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesWrappedInNewLine()
+    {
+        var date = DateTime.Now;
+        return Verify($"""
+
+                       {date}
+
+                       """)
+            .ScrubInlineDateTimes();
+    }
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesWrappedWithSymbol()
+    {
+        var date = DateTime.Now;
+        return Verify($"/{date}/")
+            .ScrubInlineDateTimes();
+    }
+
+    [Fact]
+    public Task ShouldNotScrubInlineDateTimesWrappedInDash() =>
+        Verify("-2020-12-10-")
+            .ScrubInlineDateTimes();
+
+    [Fact]
+    public Task ShouldNotScrubInlineDateTimesWrappedInLetters() =>
+        Verify("before2020-12-10after")
+            .ScrubInlineDateTimes();
+
+    [Fact]
+    public Task ShouldNotScrubInlineDateTimesStartingInLetters() =>
+        Verify("before2020-12-10")
+            .ScrubInlineDateTimes();
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesStartingInNewline1() =>
+        Verify("\n2020-12-10")
+            .ScrubInlineDateTimes();
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesStartingInNewline2() =>
+        Verify("\r2020-12-10")
+            .ScrubInlineDateTime();
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesEndingInNewline1() =>
+        Verify("2020-12-10\n")
+            .ScrubInlineDateTime();
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesEndingInNewline2() =>
+        Verify("2020-12-10\r")
+            .ScrubInlineDateTime();
+
+    [Fact]
+    public Task ShouldNotScrubInlineDateTimesEndingLetters() =>
+        Verify("2020-12-10after")
+            .ScrubInlineDateTimes();
+
+    [Fact]
+    public Task ShouldNotScrubInlineDateTimesWrappedInNumber() =>
+        Verify("12020-12-101")
+            .ScrubInlineDateTimes();
+
+    [Fact]
+    public Task ScrubInlineDateTimes()
+    {
+        var date = DateTime.Now;
+        var product = new
+        {
+            Title = $"item {date} - (date={{{date}}})",
+            Variant = new
+            {
+                Id = "variant date: " + date
+            }
+        };
+
+        return Verify(product)
+            .ScrubInlineDateTimes();
+    }
+
     // ReSharper disable once UnusedMember.Local
     void DontIgnoreEmptyCollections()
     {

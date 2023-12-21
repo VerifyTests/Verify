@@ -33,6 +33,16 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Replace inline <see cref="DateTime" />s with a placeholder.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubInlineDateTimes(ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubInlineDateTimes(location);
+        return this;
+    }
+
+    /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     [Pure]

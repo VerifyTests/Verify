@@ -19,6 +19,7 @@ public class DateScrubberTests
     [InlineData("1995-10-01b", "trailing")]
     [InlineData("a1995-10-01", "starting")]
     [InlineData("1995-10-01 1995-10-01 1995-10-02", "multiple")]
+    [InlineData("1998-10-01", "named")]
     public async Task Dates(string value, string name)
     {
         var counter = Counter.Start();
@@ -42,6 +43,7 @@ public class DateScrubberTests
     [InlineData("2023 December 21 Thursdayb", "trailing")]
     [InlineData("a2023 December 21 Thursday", "starting")]
     [InlineData("2023 December 21 Thursday 2023 December 21 Thursday 2023 December 22 Friday", "multiple")]
+    [InlineData("1998 October 01 Thursday", "named")]
     public async Task VariableLengthDates(string value, string name)
     {
         var counter = Counter.Start();

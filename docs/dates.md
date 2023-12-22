@@ -105,7 +105,7 @@ VerifierSettings.DontScrubDateTimes();
 
 ## AddExtraDatetimeFormat
 
-`AddExtraDatetimeFormat` allows specifiying custom date formats to be scrubbed.
+`AddExtraDatetimeFormat` allows specifying custom date formats to be scrubbed.
 
 <!-- snippet: AddExtraDatetimeFormat -->
 <a id='snippet-addextradatetimeformat'></a>

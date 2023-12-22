@@ -1,7 +1,7 @@
 [UsesVerify]
 public class GuidScrubberTests
 {
-    #region NamedGuid
+    #region NamedGuidGlobal
 
     [ModuleInitializer]
     public static void Init() =>
@@ -62,10 +62,27 @@ public class GuidScrubberTests
             .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed")
             .UseTextForParameters(name);
 
-    #region InstanceNamedGuid
+    #region NamedGuidInstance
 
     [Fact]
-    public Task InstanceNamedGuid() =>
+    public Task NamedGuidInstance()
+    {
+        var settings = new VerifySettings();
+        settings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+        return Verify(
+            new
+            {
+                value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+            },
+            settings);
+    }
+
+    #endregion
+
+    #region NamedGuidFluent
+
+    [Fact]
+    public Task NamedGuidFluent() =>
         Verify(
                 new
                 {

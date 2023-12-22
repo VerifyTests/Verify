@@ -155,7 +155,7 @@ VerifierSettings
 <!-- endSnippet -->
 
 
-#### On Settings
+#### Instance
 
 <!-- snippet: AddExtraSettings -->
 <a id='snippet-addextrasettings'></a>
@@ -175,7 +175,7 @@ public Task AddExtraSettings()
 <!-- endSnippet -->
 
 
-#### On Settings Fluent
+#### Fluent
 
 <!-- snippet: AddExtraSettingsFluent -->
 <a id='snippet-addextrasettingsfluent'></a>
@@ -249,6 +249,8 @@ Results in the following:
 
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
+#### Instance
+
 <!-- snippet: ScrubInlineGuids -->
 <a id='snippet-scrubinlineguids'></a>
 ```cs
@@ -265,7 +267,7 @@ public Task ScrubInlineGuidsInstance()
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1381-L1393' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguids' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Or with the fluent api:
+### Fluent
 
 <!-- snippet: ScrubInlineGuidsFluent -->
 <a id='snippet-scrubinlineguidsfluent'></a>
@@ -278,7 +280,7 @@ public Task ScrubInlineGuidsFluent() =>
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1373-L1380' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Or globally:
+### Globally
 
 <!-- snippet: ScrubInlineGuidsGlobal -->
 <a id='snippet-scrubinlineguidsglobal'></a>
@@ -298,6 +300,8 @@ public static class ModuleInitializer
 
 To disable this behavior use:
 
+#### Instance
+
 <!-- snippet: DontScrubGuids -->
 <a id='snippet-dontscrubguids'></a>
 ```cs
@@ -308,7 +312,8 @@ await Verify(target, settings);
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L649-L655' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Or with the fluent api:
+
+#### Fluent
 
 <!-- snippet: DontScrubGuidsFluent -->
 <a id='snippet-dontscrubguidsfluent'></a>
@@ -319,7 +324,8 @@ await Verify(target)
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L663-L668' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-To disable this behavior globally use:
+
+#### Globally
 
 <!-- snippet: DontScrubGuidsGlobal -->
 <a id='snippet-dontscrubguidsglobal'></a>
@@ -337,11 +343,32 @@ Specific Guids can be named. When any of those Guids are found, it will be repla
 
 #### Instance
 
-<!-- snippet: InstanceNamedGuid -->
-<a id='snippet-instancenamedguid'></a>
+<!-- snippet: NamedGuidInstance -->
+<a id='snippet-namedguidinstance'></a>
 ```cs
 [Fact]
-public Task InstanceNamedGuid() =>
+public Task NamedGuidInstance()
+{
+    var settings = new VerifySettings();
+    settings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+    return Verify(
+        new
+        {
+            value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+        },
+        settings);
+}
+```
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L65-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidinstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+#### Instance
+
+<!-- snippet: NamedGuidFluent -->
+<a id='snippet-namedguidfluent'></a>
+```cs
+[Fact]
+public Task NamedGuidFluent() =>
     Verify(
             new
             {
@@ -349,20 +376,20 @@ public Task InstanceNamedGuid() =>
             })
         .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L65-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancenamedguid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L82-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Globally
 
-<!-- snippet: NamedGuid -->
-<a id='snippet-namedguid'></a>
+<!-- snippet: NamedGuidGlobal -->
+<a id='snippet-namedguidglobal'></a>
 ```cs
 [ModuleInitializer]
 public static void Init() =>
     VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

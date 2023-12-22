@@ -75,12 +75,12 @@ snippet: defaultSerialization
 snippet: AddExtraSettingsGlobal
 
 
-#### On Settings
+#### Instance
 
 snippet: AddExtraSettings
 
 
-#### On Settings Fluent
+#### Fluent
 
 snippet: AddExtraSettingsFluent
 
@@ -111,13 +111,15 @@ snippet: SerializationTests.ShouldReUseGuid.verified.txt
 
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
+#### Instance
+
 snippet: ScrubInlineGuids
 
-Or with the fluent api:
+### Fluent
 
 snippet: ScrubInlineGuidsFluent
 
-Or globally:
+### Globally
 
 snippet: ScrubInlineGuidsGlobal
 
@@ -126,13 +128,17 @@ snippet: ScrubInlineGuidsGlobal
 
 To disable this behavior use:
 
+#### Instance
+
 snippet: DontScrubGuids
 
-Or with the fluent api:
+
+#### Fluent
 
 snippet: DontScrubGuidsFluent
 
-To disable this behavior globally use:
+
+#### Globally
 
 snippet: DontScrubGuidsGlobal
 
@@ -144,12 +150,16 @@ Specific Guids can be named. When any of those Guids are found, it will be repla
 
 #### Instance
 
-snippet: InstanceNamedGuid
+snippet: NamedGuidInstance
+
+#### Instance
+
+snippet: NamedGuidFluent
 
 
 #### Globally
 
-snippet: NamedGuid
+snippet: NamedGuidGlobal
 
 
 ## Dates are scrubbed

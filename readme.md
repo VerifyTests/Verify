@@ -721,6 +721,8 @@ information sources and warn about particular gotchas:
   * [VerifyFile](/docs/verify-file.md)
   * [VerifyXml](/docs/verify-xml.md)
   * [Serializer Settings](/docs/serializer-settings.md)
+  * [Guid behavior](/docs/guids.md)
+  * [Date behavior](/docs/dates.md)
   * [File naming](/docs/naming.md)
   * [AppendFile](/docs/append-file.md)
   * [Parameterised tests](/docs/parameterised.md)

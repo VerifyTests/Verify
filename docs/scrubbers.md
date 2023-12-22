@@ -833,3 +833,8 @@ A B C
 <sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt#L1-L1' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+## See also
+
+ * [Guid behavior](guids.md)
+ * [Date behavior](dates.md)

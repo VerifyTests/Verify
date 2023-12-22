@@ -71,7 +71,7 @@ settings.DontScrubDateTimes();
 
 return Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1456-L1468' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1598-L1610' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -88,7 +88,7 @@ var target = new
 return Verify(target)
     .DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1474-L1484' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1616-L1626' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -99,7 +99,7 @@ return Verify(target)
 ```cs
 VerifierSettings.DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1491-L1495' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1633-L1637' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -123,6 +123,60 @@ public Task WithExtraDatetimeFormat() =>
         });
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L147-L161' title='Snippet source file'>snippet source</a> | <a href='#snippet-addextradatetimeformat' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Inline Dates
+
+Strings containing inline dates can also be scrubbed. There a equivalent APIs for `DateOnly`, `DateTime`, and `DateTimeOffset`.
+
+
+### Instance
+
+<!-- snippet: ScrubInlineDateTimesInstance -->
+<a id='snippet-scrubinlinedatetimesinstance'></a>
+```cs
+[Fact]
+public Task ScrubInlineDateTimesInstance()
+{
+    var settings = new VerifySettings();
+    settings.ScrubInlineDateTimes("yyyy-MM-dd");
+    return Verify(
+        "content 2020-10-20 content",
+        settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1568-L1580' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlinedatetimesinstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: ScrubInlineDateTimesFluent -->
+<a id='snippet-scrubinlinedatetimesfluent'></a>
+```cs
+[Fact]
+public Task ScrubInlineDateTimesFluent() =>
+    Verify("content 2020-10-20 content")
+        .ScrubInlineDateTimes("yyyy-MM-dd");
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1559-L1566' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlinedatetimesfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Globally
+
+<!-- snippet: ScrubInlineDateTimesGlobal -->
+<a id='snippet-scrubinlinedatetimesglobal'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.ScrubInlineDateTimes("yyyy-MM-dd");
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1547-L1556' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlinedatetimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -1543,6 +1543,42 @@ public class SerializationTests
 
     #endregion
 
+/*
+    #region ScrubInlineDateTimesGlobal
+
+    public static class ModuleInitializer
+    {
+        [ModuleInitializer]
+        public static void Init() =>
+            VerifierSettings.ScrubInlineDateTimes("yyyy-MM-dd");
+    }
+
+    #endregion
+*/
+
+    #region ScrubInlineDateTimesFluent
+
+    [Fact]
+    public Task ScrubInlineDateTimesFluent() =>
+        Verify("content 2020-10-20 content")
+            .ScrubInlineDateTimes("yyyy-MM-dd");
+
+    #endregion
+
+    #region ScrubInlineDateTimesInstance
+
+    [Fact]
+    public Task ScrubInlineDateTimesInstance()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubInlineDateTimes("yyyy-MM-dd");
+        return Verify(
+            "content 2020-10-20 content",
+            settings);
+    }
+
+    #endregion
+
 #if NET6_0_OR_GREATER
     [Fact]
     public Task DatetimeScrubbingDisabled() =>

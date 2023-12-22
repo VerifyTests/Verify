@@ -36,22 +36,22 @@ snippet: AddExtraDatetimeFormat
 
 ## Inline Dates
 
-Strings containing inline dates can also be scrubbed. To enable this behavior, use:
+Strings containing inline dates can also be scrubbed. There a equivalent APIs for `DateOnly`, `DateTime`, and `DateTimeOffset`.
 
 
 ### Instance
 
-snippet: ScrubInlineDates
+snippet: ScrubInlineDateTimesInstance
 
 
 ### Fluent
 
-snippet: ScrubInlineDatesFluent
+snippet: ScrubInlineDateTimesFluent
 
 
 ### Globally
 
-snippet: ScrubInlineDatesGlobal
+snippet: ScrubInlineDateTimesGlobal
 
 
 ## Named Date and Times

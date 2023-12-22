@@ -29,7 +29,7 @@ snippet: DontScrubDateTimesGlobal
 
 ## AddExtraDatetimeFormat
 
-`AddExtraDatetimeFormat` allows specifiying custom date formats to be scrubbed.
+`AddExtraDatetimeFormat` allows specifying custom date formats to be scrubbed.
 
 snippet: AddExtraDatetimeFormat
 

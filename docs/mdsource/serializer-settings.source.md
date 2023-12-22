@@ -113,6 +113,14 @@ Strings containing inline Guids can also be scrubbed. To enable this behavior, u
 
 snippet: ScrubInlineGuids
 
+Or with the fluent api:
+
+snippet: ScrubInlineGuidsFluent
+
+Or globally:
+
+snippet: ScrubInlineGuidsGlobal
+
 
 ### Disable
 

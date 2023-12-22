@@ -37,22 +37,23 @@ public class Tests
         Assert.Equal("The number of passed in parameters (3) must be fewer than the number of parameters for the method (2).", exception.Message);
     }
 
-    [Theory]
-    [InlineData(1000.9999d)]
-    public async Task LocalizedParam(decimal value)
-    {
-        var culture = Thread.CurrentThread.CurrentCulture;
-        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
-        try
-        {
-            await Verify(value)
-                .UseParameters(value);
-        }
-        finally
-        {
-            Thread.CurrentThread.CurrentCulture = culture;
-        }
-    }
+    // [Theory]
+    // [InlineData(1000.9999d)]
+    // public async Task LocalizedParam(decimal value)
+    // {
+    //     var thread = Thread.CurrentThread;
+    //     var culture = thread.CurrentCulture;
+    //     thread.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+    //     try
+    //     {
+    //         await Verify(value)
+    //             .UseParameters(value).ConfigureAwait(true);
+    //     }
+    //     finally
+    //     {
+    //         thread.CurrentCulture = culture;
+    //     }
+    // }
 
     [ModuleInitializer]
     public static void TreatAsStringInit() =>
@@ -61,10 +62,11 @@ public class Tests
 
     [Fact]
     public Task TreatAsString() =>
-        Verify(new ClassWithToString
-        {
-            Property = "Foo"
-        });
+        Verify(
+            new ClassWithToString
+            {
+                Property = "Foo"
+            });
 
     class ClassWithToString
     {

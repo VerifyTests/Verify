@@ -1,3 +1,4 @@
+// ReSharper disable StringLiteralTypo
 [UsesVerify]
 public class DateScrubberTests
 {
@@ -14,6 +15,16 @@ public class DateScrubberTests
     }
 
     #endregion
+
+    [Fact]
+    public Task GetCultureDates() =>
+        Verify(
+            new
+            {
+                invarient = DateScrubber.GetCultureDates(CultureInfo.InvariantCulture),
+                parent = DateScrubber.GetCultureDates(CultureInfo.GetCultureInfo("de")),
+                child = DateScrubber.GetCultureDates(CultureInfo.GetCultureInfo("de-DE"))
+            });
 
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
@@ -39,6 +50,7 @@ public class DateScrubberTests
             Counter.Stop();
         }
     }
+
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaa", "no match short")]

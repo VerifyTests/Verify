@@ -7,6 +7,10 @@ public class CultureToDateBuilder
     [Fact]
     public Task BuildCultureToDate()
     {
+        if (Environment.OSVersion.Version.Build < 22000)
+        {
+            return Task.CompletedTask;
+        }
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
         var builder = new StringBuilder(
             """
@@ -19,9 +23,15 @@ public class CultureToDateBuilder
             """);
         foreach (var culture in cultures)
         {
-            var formatInfo = culture.DateTimeFormat;
-            var longDate = FindLongDate(formatInfo);
-            var shortDate = FindShortDate(formatInfo);
+            var (longDate, shortDate) = FindDates(culture);
+            if (culture.Name.Contains('-'))
+            {
+                var (parentLongDate, parentShortDate) = FindDates(culture.Parent);
+                if (longDate == parentLongDate && shortDate == parentShortDate)
+                {
+                    continue;
+                }
+            }
             builder.AppendLine(
                 $$"""
                           {
@@ -41,6 +51,14 @@ public class CultureToDateBuilder
         var file = Path.Combine(AttributeReader.GetSolutionDirectory(), "Verify/Serialization/Scrubbers/DateScrubber_Generated.cs");
         File.Delete(file);
         return File.WriteAllTextAsync(file, builder.ToString());
+    }
+
+    static (DateTime longDate, DateTime shortDate) FindDates(CultureInfo culture)
+    {
+        var formatInfo = culture.DateTimeFormat;
+        var longDate = FindLongDate(formatInfo);
+        var shortDate = FindShortDate(formatInfo);
+        return (longDate, shortDate);
     }
 
     static DateTime FindLongDate(DateTimeFormatInfo formatInfo)

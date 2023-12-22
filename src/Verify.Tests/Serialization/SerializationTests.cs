@@ -376,12 +376,38 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task StringDateKeys()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {
+                new Date(10, 1, 2).ToString(), "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
     public Task DateTimeKeys()
     {
         var dictionary = new Dictionary<DateTime, string>
         {
             {
                 DateTime.Now, "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task StringDateTimeKeys()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {
+                DateTime.Now.ToString("F"), "1234"
             }
         };
 
@@ -402,6 +428,19 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task StringDateTimeOffsetKeys()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {
+                DateTimeOffset.Now.ToString("F"), "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
     public Task GuidKeys()
     {
         var dictionary = new Dictionary<Guid, string>
@@ -415,12 +454,41 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task StringGuidKeys()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {
+                Guid
+                    .NewGuid()
+                    .ToString(),
+                "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
     public Task TimeKeys()
     {
         var dictionary = new Dictionary<Time, string>
         {
             {
                 new Time(10, 1), "1234"
+            }
+        };
+
+        return Verify(dictionary);
+    }
+
+    [Fact]
+    public Task StringTimeKeys()
+    {
+        var dictionary = new Dictionary<string, string>
+        {
+            {
+                new Time(10, 1).ToString(), "1234"
             }
         };
 
@@ -1135,6 +1203,7 @@ public class SerializationTests
 
         #endregion
     }
+
     [Fact]
     public async Task ScrubDatetimeInstance()
     {

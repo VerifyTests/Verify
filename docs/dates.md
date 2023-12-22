@@ -178,28 +178,3 @@ public static void NamedDatesAndTimesGlobal()
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1083-L1094' title='Snippet source file'>snippet source</a> | <a href='#snippet-nameddatesandtimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-## Change defaults at the verification level
-
-`DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
-
-<!-- snippet: ChangeDefaultsPerVerification -->
-<a id='snippet-changedefaultsperverification'></a>
-```cs
-var settings = new VerifySettings();
-settings.DontIgnoreEmptyCollections();
-settings.DontScrubGuids();
-settings.DontScrubDateTimes();
-await Verify(target, settings);
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-changedefaultsperverification-1'></a>
-```cs
-await Verify(target)
-    .DontIgnoreEmptyCollections()
-    .DontScrubGuids()
-    .DontScrubDateTimes();
-```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L18-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-changedefaultsperverification-1' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->

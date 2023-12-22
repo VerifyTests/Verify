@@ -52,10 +52,3 @@ snippet: NamedDatesAndTimesFluent
 ### Globally
 
 snippet: NamedDatesAndTimesGlobal
-
-
-## Change defaults at the verification level
-
-`DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
-
-snippet: ChangeDefaultsPerVerification

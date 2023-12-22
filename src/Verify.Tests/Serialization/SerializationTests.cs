@@ -1413,6 +1413,7 @@ public class SerializationTests
 
     #endregion
 */
+
     #region ScrubInlineGuidsFluent
 
     [Fact]
@@ -1421,7 +1422,8 @@ public class SerializationTests
             .ScrubInlineGuids();
 
     #endregion
-    #region ScrubInlineGuids
+
+    #region ScrubInlineGuidsInstance
 
     [Fact]
     public Task ScrubInlineGuidsInstance()

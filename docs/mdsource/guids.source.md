@@ -36,7 +36,7 @@ Strings containing inline Guids can also be scrubbed. To enable this behavior, u
 
 ### Instance
 
-snippet: ScrubInlineGuids
+snippet: ScrubInlineGuidsInstance
 
 
 ### Fluent

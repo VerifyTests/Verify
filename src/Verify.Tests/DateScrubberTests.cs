@@ -112,6 +112,7 @@ public class DateScrubberTests
             Counter.Stop();
         }
     }
+
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaa", "no match short")]
@@ -174,6 +175,7 @@ public class DateScrubberTests
             Counter.Stop();
         }
     }
+
     [Theory]
     [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "no match")]
     [InlineData("aaaa", "no match short")]
@@ -211,11 +213,26 @@ public class DateScrubberTests
             .AddNamedDate(new(1935, 10, 1), "instanceNamed")
             .UseTextForParameters(name);
 
-
-    #region InstanceNamedDate
+    #region NamedDateInstance
 
     [Fact]
-    public Task InstanceNamedDate() =>
+    public Task NamedDateInstance()
+    {
+        var settings = new VerifySettings();
+        settings.AddNamedDate(new(1935, 10, 1), "instanceNamed");
+        return Verify(
+            new
+            {
+                value = new Date(1935, 10, 1)
+            });
+    }
+
+    #endregion
+
+    #region NamedDateFluent
+
+    [Fact]
+    public Task NamedDateFluent() =>
         Verify(
                 new
                 {
@@ -224,12 +241,29 @@ public class DateScrubberTests
             .AddNamedDate(new(1935, 10, 1), "instanceNamed");
 
     #endregion
+
 #endif
 
-    #region InstanceNamedDateTime
+    #region NamedDateTimeInstance
 
     [Fact]
-    public Task InstanceNamedDateTime() =>
+    public Task NamedDateTimeInstance()
+    {
+        var settings = new VerifySettings();
+        settings.AddNamedDateTime(new(1935, 10, 1), "instanceNamed");
+        return Verify(
+            new
+            {
+                value = new DateTime(1935, 10, 1)
+            });
+    }
+
+    #endregion
+
+    #region NamedDateTimeFluent
+
+    [Fact]
+    public Task NamedDateTimeFluent() =>
         Verify(
                 new
                 {
@@ -239,10 +273,26 @@ public class DateScrubberTests
 
     #endregion
 
-    #region InstanceNamedDateTimeOffset
+    #region NamedDateTimeOffsetInstance
 
     [Fact]
-    public Task InstanceNamedDateTimeOffset() =>
+    public Task NamedDateTimeOffsetInstance()
+    {
+        var settings = new VerifySettings();
+        settings.AddNamedDateTimeOffset(new(new(1935, 10, 1)), "instanceNamed");
+        return Verify(
+            new
+            {
+                value = new DateTimeOffset(new(1935, 10, 1))
+            });
+    }
+
+    #endregion
+
+    #region NamedDateTimeOffsetFluent
+
+    [Fact]
+    public Task NamedDateTimeOffsetFluent() =>
         Verify(
                 new
                 {

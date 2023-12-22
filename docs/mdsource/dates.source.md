@@ -34,6 +34,26 @@ snippet: DontScrubDateTimesGlobal
 snippet: AddExtraDatetimeFormat
 
 
+## Inline Dates
+
+Strings containing inline dates can also be scrubbed. To enable this behavior, use:
+
+
+### Instance
+
+snippet: ScrubInlineDates
+
+
+### Fluent
+
+snippet: ScrubInlineDatesFluent
+
+
+### Globally
+
+snippet: ScrubInlineDatesGlobal
+
+
 ## Named Date and Times
 
 Specific date or times can be named. When any of those values are found, they will be matched with the corresponding name.

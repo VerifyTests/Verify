@@ -33,6 +33,40 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Replace inline <see cref="DateTime" />s with a placeholder.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubInlineDateTimes(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubInlineDateTimes(format, culture, location);
+        return this;
+    }
+
+    /// <summary>
+    /// Replace inline <see cref="DateTime" />s with a placeholder.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubInlineDateTimeOffsets(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubInlineDateTimeOffsets(format, culture, location);
+        return this;
+    }
+
+#if NET5_0_OR_GREATER
+
+    /// <summary>
+    /// Replace inline <see cref="Date" />s with a placeholder.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubInlineDates(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubInlineDates(format, culture, location);
+        return this;
+    }
+
+#endif
+
+    /// <summary>
     /// Remove the <see cref="Environment.MachineName" /> from the test results.
     /// </summary>
     [Pure]

@@ -1,0 +1,14 @@
+﻿{
+  invarient: {
+    Long: DateTime_1,
+    Short: DateTime_2
+  },
+  parent: {
+    Long: DateTime_3,
+    Short: DateTime_2
+  },
+  child: {
+    Long: DateTime_3,
+    Short: DateTime_2
+  }
+}

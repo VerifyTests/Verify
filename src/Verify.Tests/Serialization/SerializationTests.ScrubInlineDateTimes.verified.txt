@@ -1,0 +1,6 @@
+﻿{
+  Title: item DateTime_1 - (date={DateTime_1}),
+  Variant: {
+    Id: variant date: DateTime_1
+  }
+}

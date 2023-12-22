@@ -62,6 +62,7 @@ public Task ScrubInlineGuidsInstance()
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1381-L1393' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguids' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ### Fluent
 
 <!-- snippet: ScrubInlineGuidsFluent -->
@@ -74,6 +75,7 @@ public Task ScrubInlineGuidsFluent() =>
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1373-L1380' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### Globally
 
@@ -94,6 +96,7 @@ public static class ModuleInitializer
 ## Disable
 
 To disable this behavior use:
+
 
 ### Instance
 

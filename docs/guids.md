@@ -41,6 +41,50 @@ Results in the following:
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseGuid.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseGuid.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+## Disable
+
+To disable this behavior use:
+
+
+### Instance
+
+<!-- snippet: DontScrubGuids -->
+<a id='snippet-dontscrubguids'></a>
+```cs
+var settings = new VerifySettings();
+settings.DontScrubGuids();
+await Verify(target, settings);
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L649-L655' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: DontScrubGuidsFluent -->
+<a id='snippet-dontscrubguidsfluent'></a>
+```cs
+await Verify(target)
+    .DontScrubGuids();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L663-L668' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Globally
+
+<!-- snippet: DontScrubGuidsGlobal -->
+<a id='snippet-dontscrubguidsglobal'></a>
+```cs
+VerifierSettings.DontScrubGuids();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1377-L1381' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsglobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Inline Guids
+
 Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
 
 
@@ -90,47 +134,6 @@ public static class ModuleInitializer
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1405-L1414' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsglobal' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-## Disable
-
-To disable this behavior use:
-
-
-### Instance
-
-<!-- snippet: DontScrubGuids -->
-<a id='snippet-dontscrubguids'></a>
-```cs
-var settings = new VerifySettings();
-settings.DontScrubGuids();
-await Verify(target, settings);
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L649-L655' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Fluent
-
-<!-- snippet: DontScrubGuidsFluent -->
-<a id='snippet-dontscrubguidsfluent'></a>
-```cs
-await Verify(target)
-    .DontScrubGuids();
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L663-L668' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsfluent' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Globally
-
-<!-- snippet: DontScrubGuidsGlobal -->
-<a id='snippet-dontscrubguidsglobal'></a>
-```cs
-VerifierSettings.DontScrubGuids();
-```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1377-L1381' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

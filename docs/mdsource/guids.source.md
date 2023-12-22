@@ -8,23 +8,6 @@ Results in the following:
 
 snippet: SerializationTests.ShouldReUseGuid.verified.txt
 
-Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
-
-
-### Instance
-
-snippet: ScrubInlineGuids
-
-
-### Fluent
-
-snippet: ScrubInlineGuidsFluent
-
-
-### Globally
-
-snippet: ScrubInlineGuidsGlobal
-
 
 ## Disable
 
@@ -44,6 +27,26 @@ snippet: DontScrubGuidsFluent
 ### Globally
 
 snippet: DontScrubGuidsGlobal
+
+
+## Inline Guids
+
+Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
+
+
+### Instance
+
+snippet: ScrubInlineGuids
+
+
+### Fluent
+
+snippet: ScrubInlineGuidsFluent
+
+
+### Globally
+
+snippet: ScrubInlineGuidsGlobal
 
 
 ## Named Guid

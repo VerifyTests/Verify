@@ -1,0 +1,21 @@
+﻿{
+  "DateTime": "DateTime_1",
+  "NamedDateTime": "namedDateTime",
+  "InstanceNamedDateTime": "DateTime_2",
+  "DateTimeNullable": "DateTime_3",
+  "Date": "Date_1",
+  "NamedDate": "Date_1",
+  "InstanceNamedDate": "Date_2",
+  "Time": "Time_1",
+  "TimeString": "Time_1",
+  "NamedTime": "namedTime",
+  "InstanceNamedTime": "Time_2",
+  "DateNullable": "Date_3",
+  "NamedDateTimeOffset": "namedDateTimeOffset",
+  "InstanceNamedDateTimeOffset": "DateTimeOffset_1",
+  "DateTimeOffset": "DateTimeOffset_2",
+  "DateTimeOffsetNullable": "DateTimeOffset_3",
+  "DateTimeString": "DateTimeOffset_4",
+  "DateTimeOffsetString": "DateTimeOffset_4",
+  "DateString": "Date_3"
+}

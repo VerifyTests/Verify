@@ -1,4 +1,0 @@
-﻿{
-  Name: Core,
-  NameAndVersion: Core3_1
-}

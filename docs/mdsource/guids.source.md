@@ -15,9 +15,11 @@ Strings containing inline Guids can also be scrubbed. To enable this behavior, u
 
 snippet: ScrubInlineGuids
 
+
 ### Fluent
 
 snippet: ScrubInlineGuidsFluent
+
 
 ### Globally
 
@@ -27,6 +29,7 @@ snippet: ScrubInlineGuidsGlobal
 ## Disable
 
 To disable this behavior use:
+
 
 ### Instance
 

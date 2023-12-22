@@ -1080,10 +1080,10 @@ public class SerializationTests
         return Verify(target);
     }
 
-    #region AddNamedDatesAndTimes
+    #region NamedDatesAndTimesGlobal
 
     [ModuleInitializer]
-    public static void AddNamedDatesAndTimes()
+    public static void NamedDatesAndTimesGlobal()
     {
         VerifierSettings.AddNamedDateTime(new(2030, 1, 1), "namedDateTime");
         VerifierSettings.AddNamedTime(new(1, 1), "namedTime");
@@ -1125,13 +1125,56 @@ public class SerializationTests
             DateString = new Date(2020, 10, 12).ToString()
         };
 
-        #region AddInstanceNamedDatesAndTimes
+        #region NamedDatesAndTimesFluent
 
         await Verify(target)
             .AddNamedDate(new(2020, 10, 11), "instanceNamedDate")
             .AddNamedTime(new(1, 2), "instanceTime")
             .AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime")
             .AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
+
+        #endregion
+    }
+    [Fact]
+    public async Task ScrubDatetimeInstance()
+    {
+        var dateTime = DateTime.Now;
+        var dateTimeOffset = DateTimeOffset.Now;
+        var target = new DateTimeTarget
+        {
+            DateTime = dateTime,
+            NamedDateTime = new(2030, 1, 1),
+            InstanceNamedDateTime = new(2030, 1, 2),
+            NamedDateTimeOffset = new DateTime(2030, 1, 1),
+            InstanceNamedDateTimeOffset = new DateTime(2030, 1, 2),
+            DateTimeNullable = dateTime.AddDays(1),
+            DateTimeString = dateTime
+                .AddDays(2)
+                .ToString("F"),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
+            DateTimeOffsetString = dateTimeOffset
+                .AddDays(2)
+                .ToString("F"),
+            Time = new(10, 11),
+            TimeString = "10:11 AM",
+            NamedTime = new(1, 1),
+            InstanceNamedTime = new(1, 2),
+            Date = new(2020, 10, 10),
+            NamedDate = new(2020, 10, 10),
+            InstanceNamedDate = new(2020, 10, 11),
+            DateNullable = new(2020, 10, 12),
+            DateString = new Date(2020, 10, 12).ToString()
+        };
+
+        #region NamedDatesAndTimesInstance
+
+        var settings = new VerifySettings();
+        settings.AddNamedDate(new(2020, 10, 11), "instanceNamedDate");
+        settings.AddNamedTime(new(1, 2), "instanceTime");
+        settings.AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime");
+        settings.AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
+        await Verify(target, settings);
 
         #endregion
     }

@@ -55,6 +55,9 @@ Results in the following:
 
 To disable this behavior use:
 
+
+### Instance
+
 <!-- snippet: DontScrubDateTimes -->
 <a id='snippet-dontscrubdatetimes'></a>
 ```cs
@@ -68,10 +71,11 @@ settings.DontScrubDateTimes();
 
 return Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1411-L1423' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1454-L1466' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimes' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Or using the fluent api use:
+
+### Fluent
 
 <!-- snippet: DontScrubDateTimesFluent -->
 <a id='snippet-dontscrubdatetimesfluent'></a>
@@ -84,17 +88,18 @@ var target = new
 return Verify(target)
     .DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1429-L1439' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1472-L1482' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Or globally use:
+
+### Globally
 
 <!-- snippet: DontScrubDateTimesGlobal -->
 <a id='snippet-dontscrubdatetimesglobal'></a>
 ```cs
 VerifierSettings.DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1446-L1450' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1489-L1493' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -128,8 +133,24 @@ Specific date or times can be named. When any of those values are found, they wi
 
 ### Instance
 
-<!-- snippet: AddInstanceNamedDatesAndTimes -->
-<a id='snippet-addinstancenameddatesandtimes'></a>
+<!-- snippet: NamedDatesAndTimesInstance -->
+<a id='snippet-nameddatesandtimesinstance'></a>
+```cs
+var settings = new VerifySettings();
+settings.AddNamedDate(new(2020, 10, 11), "instanceNamedDate");
+settings.AddNamedTime(new(1, 2), "instanceTime");
+settings.AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime");
+settings.AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
+await Verify(target, settings);
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1170-L1179' title='Snippet source file'>snippet source</a> | <a href='#snippet-nameddatesandtimesinstance' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Instance
+
+<!-- snippet: NamedDatesAndTimesFluent -->
+<a id='snippet-nameddatesandtimesfluent'></a>
 ```cs
 await Verify(target)
     .AddNamedDate(new(2020, 10, 11), "instanceNamedDate")
@@ -137,17 +158,17 @@ await Verify(target)
     .AddNamedDateTime(new(2030, 1, 2), "instanceNamedDateTime")
     .AddNamedDateTimeOffset(new DateTime(2030, 1, 2), "instanceNamedTimeOffset");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1128-L1136' title='Snippet source file'>snippet source</a> | <a href='#snippet-addinstancenameddatesandtimes' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1128-L1136' title='Snippet source file'>snippet source</a> | <a href='#snippet-nameddatesandtimesfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Globally
 
-<!-- snippet: AddNamedDatesAndTimes -->
-<a id='snippet-addnameddatesandtimes'></a>
+<!-- snippet: NamedDatesAndTimesGlobal -->
+<a id='snippet-nameddatesandtimesglobal'></a>
 ```cs
 [ModuleInitializer]
-public static void AddNamedDatesAndTimes()
+public static void NamedDatesAndTimesGlobal()
 {
     VerifierSettings.AddNamedDateTime(new(2030, 1, 1), "namedDateTime");
     VerifierSettings.AddNamedTime(new(1, 1), "namedTime");
@@ -155,7 +176,7 @@ public static void AddNamedDatesAndTimes()
     VerifierSettings.AddNamedDateTimeOffset(new(new(2030, 1, 1)), "namedDateTimeOffset");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1083-L1094' title='Snippet source file'>snippet source</a> | <a href='#snippet-addnameddatesandtimes' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1083-L1094' title='Snippet source file'>snippet source</a> | <a href='#snippet-nameddatesandtimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

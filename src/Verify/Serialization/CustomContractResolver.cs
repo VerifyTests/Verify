@@ -73,6 +73,14 @@
             }
         }
 
+        if (original is string stringValue)
+        {
+            if (settings.TryParseConvert(counter, stringValue, out var result))
+            {
+                return result;
+            }
+        }
+
         if (original is DateTime dateTime)
         {
             if (settings.TryConvert(counter, dateTime, out var result))

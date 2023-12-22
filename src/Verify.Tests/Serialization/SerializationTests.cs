@@ -488,7 +488,7 @@ public class SerializationTests
         var dictionary = new Dictionary<string, string>
         {
             {
-                new Time(10, 1).ToString(), "1234"
+                new Time(10, 1).ToString("HH:mm tt"), "1234"
             }
         };
 

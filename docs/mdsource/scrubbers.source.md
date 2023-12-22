@@ -155,3 +155,8 @@ snippet: ScrubberLevelsSampleMSTest
 
 snippet: Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.Usage.verified.txt
 
+
+## See also
+
+ * [Guid behavior](guids.md)
+ * [Date behavior](dates.md)

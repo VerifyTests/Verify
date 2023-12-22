@@ -99,121 +99,6 @@ To disable this behavior globally use:
 snippet: DontIgnoreEmptyCollections
 
 
-## Guids are scrubbed
-
-By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
-
-snippet: guid
-
-Results in the following:
-
-snippet: SerializationTests.ShouldReUseGuid.verified.txt
-
-Strings containing inline Guids can also be scrubbed. To enable this behavior, use:
-
-#### Instance
-
-snippet: ScrubInlineGuids
-
-### Fluent
-
-snippet: ScrubInlineGuidsFluent
-
-### Globally
-
-snippet: ScrubInlineGuidsGlobal
-
-
-### Disable
-
-To disable this behavior use:
-
-#### Instance
-
-snippet: DontScrubGuids
-
-
-#### Fluent
-
-snippet: DontScrubGuidsFluent
-
-
-#### Globally
-
-snippet: DontScrubGuidsGlobal
-
-
-### Named Guid
-
-Specific Guids can be named. When any of those Guids are found, it will be replaced with the supplied name.
-
-
-#### Instance
-
-snippet: NamedGuidInstance
-
-#### Instance
-
-snippet: NamedGuidFluent
-
-
-#### Globally
-
-snippet: NamedGuidGlobal
-
-
-## Dates are scrubbed
-
-By default dates and times (`DateTime`, `DateTimeOffset`, `DateOnly`, and `TimeOnly`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
-
-snippet: Date
-
-Results in the following:
-
-snippet: SerializationTests.ShouldReUseDatetime.verified.txt
-
-To disable this behavior use:
-
-snippet: DontScrubDateTimes
-
-Or using the fluent api use:
-
-snippet: DontScrubDateTimesFluent
-
-Or globally use:
-
-snippet: DontScrubDateTimesGlobal
-
-
-### AddExtraDatetimeFormat
-
-`AddExtraDatetimeFormat` allows specifiying custom date formats to be scrubbed.
-
-snippet: AddExtraDatetimeFormat
-
-
-### Named Date and Times
-
-Specific date or times can be named. When any of those values are found, they will be matched with the corresponding name.
-
-
-#### Instance
-
-snippet: AddInstanceNamedDatesAndTimes
-
-
-#### Globally
-
-snippet: AddNamedDatesAndTimes
-
-
-## Change defaults at the verification level
-
-`DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
-
-snippet: ChangeDefaultsPerVerification
-
-
 ## Changing Json.NET settings
 
 Extra Json.NET settings can be made:
@@ -242,7 +127,7 @@ snippet: JsonConverter
 
 `VerifyJsonWriter` exposes the following members:
 
- * `Counter` property that gives programmatic access to the counting behavior used by [Guid](#guids-are-scrubbed), [Date](#dates-are-scrubbed), and [Id](#numeric-ids-are-scrubbed) scrubbing.
+ * `Counter` property that gives programmatic access to the counting behavior used by [Guid](guids.md), [Date](dates.md), and [Id](#numeric-ids-are-scrubbed) scrubbing.
  * `Serializer` property that exposes the current `JsonSerializer`.
  * `Serialize(object value)` is a convenience method that calls `JsonSerializer.Serialize` passing in the writer instance and the `value` parameter.
  * `WriteProperty<T, TMember>(T target, TMember value, string name)` method that writes a property name and value while respecting other custom serialization settings eg [member converters](#converting-a-member), [ignore rules](#ignoring-a-type) etc.
@@ -444,7 +329,7 @@ The default mapping is:
 
 snippet: typeToStringMapping
 
-This bypasses the Guid and DateTime scrubbing mentioned above.
+This bypasses the Guid and DateTime scrubbing.
 
 Extra types can be added to this mapping:
 
@@ -510,3 +395,9 @@ snippet: JsonAppenderTests.Stream#00.verified.txt
 See [Converters](/docs/converter.md) for more information on `*.00.verified.txt` files.
 
 Examples of extensions using JsonAppenders are [Recorders in Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer#recording) and  [Recorders in Verify.EntityFramework](https://github.com/VerifyTests/Verify.EntityFramework#recording).
+
+
+## See also
+
+ * [Guid behavior](guids.md)
+ * [Date behavior](dates.md)

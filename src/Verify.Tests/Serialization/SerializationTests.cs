@@ -1464,15 +1464,39 @@ public class SerializationTests
         #endregion
     }
 
-    // ReSharper disable once UnusedMember.Local
-    void ScrubInlineGuidsGlobal()
+/*
+    #region ScrubInlineGuidsGlobal
+
+    public static class ModuleInitializer
     {
-        #region ScrubInlineGuids
-
-        VerifierSettings.ScrubInlineGuids();
-
-        #endregion
+        [ModuleInitializer]
+        public static void Init() =>
+            VerifierSettings.ScrubInlineGuids();
     }
+
+    #endregion
+*/
+    #region ScrubInlineGuidsFluent
+
+    [Fact]
+    public Task ScrubInlineGuidsFluent() =>
+        Verify("content 651ad409-fc30-4b12-a47e-616d3f953e4c content")
+            .ScrubInlineGuids();
+
+    #endregion
+    #region ScrubInlineGuids
+
+    [Fact]
+    public Task ScrubInlineGuidsInstance()
+    {
+        var settings = new VerifySettings();
+        settings.ScrubInlineGuids();
+        return Verify(
+            "content 651ad409-fc30-4b12-a47e-616d3f953e4c content",
+            settings);
+    }
+
+    #endregion
 
 #if NET6_0_OR_GREATER
     [Fact]

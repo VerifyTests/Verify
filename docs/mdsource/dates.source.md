@@ -11,13 +11,18 @@ snippet: SerializationTests.ShouldReUseDatetime.verified.txt
 
 To disable this behavior use:
 
+
+### Instance
+
 snippet: DontScrubDateTimes
 
-Or using the fluent api use:
+
+### Fluent
 
 snippet: DontScrubDateTimesFluent
 
-Or globally use:
+
+### Globally
 
 snippet: DontScrubDateTimesGlobal
 
@@ -36,12 +41,17 @@ Specific date or times can be named. When any of those values are found, they wi
 
 ### Instance
 
-snippet: AddInstanceNamedDatesAndTimes
+snippet: NamedDatesAndTimesInstance
+
+
+### Instance
+
+snippet: NamedDatesAndTimesFluent
 
 
 ### Globally
 
-snippet: AddNamedDatesAndTimes
+snippet: NamedDatesAndTimesGlobal
 
 
 ## Change defaults at the verification level

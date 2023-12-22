@@ -1,4 +1,0 @@
-﻿{
-  runtime: Core,
-  Version: 3.1
-}

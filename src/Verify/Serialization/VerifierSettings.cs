@@ -145,7 +145,7 @@ public static partial class VerifierSettings
         UniquePrefixDisabled = false;
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;
-        globalEncoding = new UTF8Encoding(true, true);
+        encoding = new UTF8Encoding(true, true);
     }
 
     public static void UseStrictJson()

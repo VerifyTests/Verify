@@ -137,7 +137,7 @@
     internal static Task WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
-        File.WriteAllText(path, text.ToString(), VerifierSettings.GlobalEncoding);
+        File.WriteAllText(path, text.ToString(), VerifierSettings.Encoding);
         return Task.CompletedTask;
     }
 
@@ -146,7 +146,7 @@
     internal static Task WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
-        return File.WriteAllTextAsync(path, text.ToString(), VerifierSettings.GlobalEncoding);
+        return File.WriteAllTextAsync(path, text.ToString(), VerifierSettings.Encoding);
     }
 
 #endif

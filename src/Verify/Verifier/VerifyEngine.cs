@@ -219,7 +219,7 @@ class VerifyEngine
 
         if (diffEnabled)
         {
-            return DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath);
+            return DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
         }
 #endif
 

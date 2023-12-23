@@ -3,6 +3,24 @@
 public class EncodingTests :
     BaseTest
 {
+    // [Fact]
+    // public async Task UseUtf8NoBomNotAccepted()
+    // {
+    //     VerifierSettings.UseUtf8NoBom();
+    //
+    //     var file = CurrentFile.Relative($"EncodingTests.{nameof(UseUtf8NoBomNotAccepted)}.verified.txt");
+    //     File.Delete(file);
+    //     try
+    //     {
+    //         await Verify("value");
+    //     }
+    //     catch
+    //     {
+    //     }
+    //
+    //     Assert.Equal(0, new FileInfo(file).Length);
+    // }
+
     [Fact]
     public async Task UseUtf8NoBom()
     {

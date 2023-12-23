@@ -11,6 +11,16 @@ public class RecordingTests
         return Verify();
     }
 
+    [Fact]
+    public Task Dates()
+    {
+        Recording.Start();
+        var dateTime = DateTime.Now;
+        Recording.Add("typed", dateTime);
+        Recording.Add("inline", $"a {dateTime:F} b");
+        return Verify().ScrubInlineDateTimes("F");
+    }
+
     #region Recording
 
     [Fact]

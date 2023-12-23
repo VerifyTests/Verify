@@ -1,0 +1,4 @@
+﻿{
+  typed: DateTime_1,
+  inline: a DateTime_2 b
+}

@@ -146,6 +146,7 @@ public static partial class VerifierSettings
         UseUniqueDirectorySplitMode = false;
         omitContentFromException = false;
         encoding = new UTF8Encoding(true, true);
+        GlobalScrubbers.Clear();
     }
 
     public static void UseStrictJson()

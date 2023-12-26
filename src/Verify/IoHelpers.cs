@@ -147,19 +147,22 @@
     }
 
 #if NET472 || NET48
-    internal static Task WriteText(string path, StringBuilder text)
+    internal static void WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
         File.WriteAllText(path, text.ToString(), VerifierSettings.Encoding);
-        return Task.CompletedTask;
     }
 
 #else
 
-    internal static Task WriteText(string path, StringBuilder text)
+    internal static void WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
-        return File.WriteAllTextAsync(path, text.ToString(), VerifierSettings.Encoding);
+        using var writer = new StreamWriter(path, false, VerifierSettings.Encoding);
+        foreach (var chunk in text.GetChunks())
+        {
+            writer.Write(chunk.Span);
+        }
     }
 
 #endif

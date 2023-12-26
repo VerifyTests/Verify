@@ -5,7 +5,7 @@ static class Comparer
         IoHelpers.DeleteFileIfEmpty(filePair.VerifiedPath);
         if (!File.Exists(filePair.VerifiedPath))
         {
-            await IoHelpers.WriteText(filePair.ReceivedPath, received);
+            IoHelpers.WriteText(filePair.ReceivedPath, received);
             return new(Equality.New, null, received, null);
         }
 
@@ -16,7 +16,7 @@ static class Comparer
             return new(Equality.Equal, null, received, verified);
         }
 
-        await IoHelpers.WriteText(filePair.ReceivedPath, received);
+        IoHelpers.WriteText(filePair.ReceivedPath, received);
         return new(Equality.NotEqual, result.Message, received, verified);
     }
 

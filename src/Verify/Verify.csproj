@@ -14,8 +14,6 @@
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="DiffEngine" Version="15.0.1" />
     <PackageReference Include="EmptyFiles" Version="6.3.0" PrivateAssets="None" />
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="SimpleInfoName" Version="2.2.0" />
     <PackageReference Include="Argon" Version="0.14.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

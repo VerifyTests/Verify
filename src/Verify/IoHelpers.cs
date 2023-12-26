@@ -135,17 +135,6 @@
         return builder;
     }
 
-    static bool TryCopyFileStream(string path, Stream stream)
-    {
-        if (stream is not FileStream fileStream)
-        {
-            return false;
-        }
-
-        File.Copy(fileStream.Name, path, true);
-        return true;
-    }
-
 #if NET472 || NET48
     internal static void WriteText(string path, StringBuilder text)
     {
@@ -222,32 +211,6 @@
         throw new($"Unable to resolve directory. sourceFile: {sourceFile}");
     }
 
-#if NET6_0_OR_GREATER
-
-    public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
-    {
-        await using var stream = OpenRead(path);
-        return await stream.ReadStringBuilderWithFixedLines();
-    }
-
-    public static async Task WriteStream(string path, Stream stream)
-    {
-        CreateDirectory(Path.GetDirectoryName(path)!);
-        if (TryCopyFileStream(path, stream))
-        {
-            return;
-        }
-
-        // keep using scope to stream is flushed
-        await using (var targetStream = OpenWrite(path))
-        {
-            await stream.SafeCopy(targetStream);
-        }
-
-        HandleEmptyFile(path);
-    }
-
-#else
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {
         using var stream = OpenRead(path);
@@ -256,9 +219,15 @@
 
     public static async Task WriteStream(string path, Stream stream)
     {
-        CreateDirectory(Path.GetDirectoryName(path));
-        if (TryCopyFileStream(path, stream))
+        CreateDirectory(Path.GetDirectoryName(path)!);
+        if (stream is FileStream fileStream)
         {
+            if (fileStream.Length == 0)
+            {
+                throw new($"Empty data is not allowed. Path: {fileStream.Name}");
+            }
+
+            File.Copy(fileStream.Name, path, true);
             return;
         }
 
@@ -268,13 +237,6 @@
             await stream.SafeCopy(targetStream);
         }
 
-        HandleEmptyFile(path);
-    }
-
-#endif
-
-    static void HandleEmptyFile(string path)
-    {
         if (new FileInfo(path).Length == 0)
         {
             throw new($"Empty data is not allowed. Path: {path}");

@@ -4,8 +4,6 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.6.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />

@@ -4,8 +4,6 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="NUnit" Version="4.0.1" />
     <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="6.3.0" PrivateAssets="None" />

@@ -3,7 +3,7 @@
 static class Extensions
 {
     public static string Extension(this FileStream file) =>
-        FileExtensions.GetExtension(file.Name);
+        Path.GetExtension(file.Name)[1..];
 
     public static bool ContainsNewline(this CharSpan span) =>
         span.IndexOfAny('\r', '\n') != -1;

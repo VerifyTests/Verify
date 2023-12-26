@@ -8,7 +8,7 @@
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="FSharp.Core" Version="8.0.100" />
     <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="5.1.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="6.3.0" PrivateAssets="None" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.Expecto.props" Pack="true" PackagePath="buildTransitive\Verify.Expecto.props" />

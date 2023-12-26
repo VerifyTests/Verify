@@ -111,7 +111,7 @@ partial class InnerVerifier
 
     static async Task<Target> GetTarget(Stream stream, string extension)
     {
-        if (FileExtensions.IsText(extension))
+        if (FileExtensions.IsTextExtension(extension))
         {
             return new(extension, await stream.ReadStringBuilderWithFixedLines());
         }

@@ -10,7 +10,7 @@
     <PackageReference Include="Fixie" Version="3.4.0" />
     <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="All" />
     <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="5.1.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="6.3.0" PrivateAssets="None" />
     <PackageReference Include="Polyfill" Version="1.34.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />

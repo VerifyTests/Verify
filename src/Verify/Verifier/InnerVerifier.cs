@@ -82,7 +82,7 @@ public partial class InnerVerifier :
         ValidatePrefix(settings, directory);
 
         var withoutExtension = Path.GetFileNameWithoutExtension(sourceFile);
-        verifiedFiles = [Path.Combine(directory, $"{withoutExtension}.verified.{FileExtensions.GetExtension(sourceFile)}")];
+        verifiedFiles = [Path.Combine(directory, $"{withoutExtension}.verified{Path.GetExtension(sourceFile)}")];
 
         getFileNames = target =>
             new(

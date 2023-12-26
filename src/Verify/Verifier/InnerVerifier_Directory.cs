@@ -115,7 +115,7 @@ partial class InnerVerifier
                 relativePath);
         }
 
-        if (FileExtensions.IsText(extension))
+        if (FileExtensions.IsTextExtension(extension))
         {
             using var stream = openStream();
             var builder = await stream.ReadStringBuilderWithFixedLines();

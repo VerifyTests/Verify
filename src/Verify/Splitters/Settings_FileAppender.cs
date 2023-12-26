@@ -40,7 +40,7 @@ public partial class VerifySettings
 
     public void AppendContentAsFile(byte[] content, string extension = "txt", string? name = null)
     {
-        if (FileExtensions.IsText(extension))
+        if (FileExtensions.IsTextExtension(extension))
         {
             appendedFiles.Add(new(extension, Encoding.UTF8.GetString(content), name));
         }
@@ -62,7 +62,7 @@ public partial class VerifySettings
     public void AppendFile(Stream stream, string extension = "txt", string? name = null)
     {
         stream.MoveToStart();
-        if (FileExtensions.IsText(extension))
+        if (FileExtensions.IsTextExtension(extension))
         {
             using var reader = new StreamReader(stream, Encoding.UTF8);
             appendedFiles.Add(new(extension, reader.ReadToEnd(), name));

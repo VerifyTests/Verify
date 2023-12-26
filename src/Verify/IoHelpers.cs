@@ -117,8 +117,21 @@
     {
         stream.MoveToStart();
         using var reader = new StreamReader(stream);
-        var builder = new StringBuilder(await reader.ReadToEndAsync());
-        builder.FixNewlines();
+        StringBuilder builder;
+        if (stream is FileStream fileStream)
+        {
+            builder = new((int) fileStream.Length);
+        }
+        else
+        {
+            builder = new();
+        }
+
+        while (await reader.ReadLineAsync(Cancel.None) is { } line)
+        {
+            builder.AppendLineN(line);
+        }
+
         return builder;
     }
 

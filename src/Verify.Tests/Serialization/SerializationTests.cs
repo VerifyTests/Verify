@@ -1695,6 +1695,19 @@ public class SerializationTests
         #endregion
     }
 #endif
+
+/*
+
+#region DisableDateCountingGlobal
+
+    [ModuleInitializer]
+    public static void ModuleInitializer() =>
+        VerifierSettings.DisableDateCounting();
+
+#endregion
+
+*/
+
     [Fact]
     Task DisableDateCounting()
     {

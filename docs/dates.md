@@ -101,7 +101,61 @@ return Verify(target)
 public static void ModuleInitializer() =>
     VerifierSettings.DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1701-L1707' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1747-L1753' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## DisableDateCounting
+
+If many calls are made to the the current date/time in quick succession, the date counting behavior (`DateTime_x`) can result in inconsistent results. To revert to the simpler scrubbing convention (`{Scrubbed}`) use DisableDateCounting.
+
+
+### Instance
+
+<!-- snippet: DisableDateCounting -->
+<a id='snippet-disabledatecounting'></a>
+```cs
+var target = new
+{
+    Date = new DateTime(2020, 10, 10, 0, 0, 0, DateTimeKind.Utc)
+};
+
+var settings = new VerifySettings();
+settings.DisableDateCounting();
+
+return Verify(target, settings);
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1714-L1726' title='Snippet source file'>snippet source</a> | <a href='#snippet-disabledatecounting' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Fluent
+
+<!-- snippet: DisableDateCountingFluent -->
+<a id='snippet-disabledatecountingfluent'></a>
+```cs
+var target = new
+{
+    Date = new DateTime(2020, 10, 10, 0, 0, 0, DateTimeKind.Utc)
+};
+
+return Verify(target)
+    .DisableDateCounting();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1732-L1742' title='Snippet source file'>snippet source</a> | <a href='#snippet-disabledatecountingfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Globally
+
+<!-- snippet: DisableDateCountingGlobal -->
+<a id='snippet-disabledatecountingglobal'></a>
+```cs
+[ModuleInitializer]
+public static void ModuleInitializer() =>
+    VerifierSettings.DisableDateCounting();
+```
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1701-L1707' title='Snippet source file'>snippet source</a> | <a href='#snippet-disabledatecountingglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

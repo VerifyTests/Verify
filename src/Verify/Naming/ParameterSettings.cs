@@ -70,7 +70,6 @@ public partial class VerifySettings
         ignoreParametersForVerified = true;
     }
 
-#if NET6_0_OR_GREATER || NETFRAMEWORK
     internal bool hashParameters;
 
     /// <summary>
@@ -94,5 +93,4 @@ public partial class VerifySettings
         UseParameters(parameters);
         HashParameters();
     }
-#endif
 }

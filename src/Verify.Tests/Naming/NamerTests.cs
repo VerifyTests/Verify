@@ -584,7 +584,6 @@ public class NamerTests
             })
             .UniqueForRuntimeAndVersion();
     }
-#if NET6_0_OR_GREATER || NETFRAMEWORK
 
     [Theory]
     [InlineData(true, false)]
@@ -621,5 +620,4 @@ public class NamerTests
         Verify("ContentHashParametersFluent")
             .UseHashedParameters(a, b)
             .HashParameters();
-#endif
 }

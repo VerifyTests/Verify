@@ -1,6 +1,7 @@
 ﻿// Global using directives
 
 global using System.Diagnostics.Contracts;
+global using System.IO.Hashing;
 global using VerifyTests;
 global using Argon;
 global using DiffEngine;

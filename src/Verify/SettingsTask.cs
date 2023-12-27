@@ -271,7 +271,6 @@ public partial class SettingsTask
         return this;
     }
 
-#if NET6_0_OR_GREATER || NETFRAMEWORK
     /// <summary>
     /// Provide parameters to hash together and pass to <see cref="UseTextForParameters" />.
     /// Used to get a deterministic file name while avoiding long paths.
@@ -294,8 +293,6 @@ public partial class SettingsTask
         CurrentSettings.HashParameters();
         return this;
     }
-
-#endif
 
     /// <summary>
     /// Use the current processor architecture (x86/x64/arm/arm64) to make the test results unique.

@@ -54,7 +54,6 @@ partial class SerializationSettings
         extraSettings = settings.extraSettings.Clone();
         ignoreMembersThatThrow = settings.ignoreMembersThatThrow.Clone();
         ignoredTypes = settings.ignoredTypes.Clone();
-        dateCountingEnable = settings.dateCountingEnable;
         ignoredInstances = settings.ignoredInstances
             .ToDictionary(
                 _ => _.Key,
@@ -76,11 +75,6 @@ partial class SerializationSettings
 
     public void DontScrubDateTimes() =>
         scrubDateTimes = false;
-
-    bool dateCountingEnable = true;
-
-    public void DisableDateCounting() =>
-        dateCountingEnable = false;
 
     JsonSerializerSettings BuildSettings()
     {

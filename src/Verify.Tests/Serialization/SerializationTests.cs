@@ -1742,7 +1742,13 @@ public class SerializationTests
         #endregion
     }
 
-/*
+    [Fact]
+    Task DisableDateCountingInline() =>
+        Verify("a 2020/10/10 b")
+            .DisableDateCounting()
+            .ScrubInlineDateTimes("yyyy/MM/dd");
+
+    /*
 
 #region DontScrubDateTimesGlobal
 

@@ -14,12 +14,6 @@ public partial class VerifySettings
         serialization.DontScrubDateTimes();
     }
 
-    public void DisableDateCounting()
-    {
-        CloneSettings();
-        serialization.DisableDateCounting();
-    }
-
     public void DontSortDictionaries()
     {
         CloneSettings();

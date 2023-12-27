@@ -13,15 +13,7 @@
             return false;
         }
 
-        if (dateCountingEnable)
-        {
-            result = Convert(counter, value);
-        }
-        else
-        {
-            result = "{Scrubbed}";
-        }
-
+        result = Convert(counter, value);
         return true;
     }
 
@@ -34,15 +26,7 @@
             {
                 if (Date.TryParseExact(value, format, null, DateTimeStyles.None, out var date))
                 {
-                    if (dateCountingEnable)
-                    {
-                        result = Convert(counter, date);
-                    }
-                    else
-                    {
-                        result = "{Scrubbed}";
-                    }
-
+                    result = Convert(counter, date);
                     return true;
                 }
             }
@@ -60,15 +44,7 @@
             return false;
         }
 
-        if (dateCountingEnable)
-        {
-            result = Convert(counter, value);
-        }
-        else
-        {
-            result = "{Scrubbed}";
-        }
-
+        result = Convert(counter, value);
         return true;
     }
 
@@ -95,15 +71,7 @@
             {
                 if (Time.TryParseExact(value, format, null, DateTimeStyles.None, out var time))
                 {
-                    if (dateCountingEnable)
-                    {
-                        result = Convert(counter, time);
-                    }
-                    else
-                    {
-                        result = "{Scrubbed}";
-                    }
-
+                    result = Convert(counter, time);
                     return true;
                 }
             }
@@ -121,15 +89,7 @@
             return false;
         }
 
-        if (dateCountingEnable)
-        {
-            result = Convert(counter, value);
-        }
-        else
-        {
-            result = "{Scrubbed}";
-        }
-
+        result = Convert(counter, value);
         return true;
     }
 
@@ -158,15 +118,7 @@
             return false;
         }
 
-        if (dateCountingEnable)
-        {
-            result = Convert(counter, value);
-        }
-        else
-        {
-            result = "{Scrubbed}";
-        }
-
+        result = Convert(counter, value);
         return true;
     }
 
@@ -206,15 +158,7 @@
         {
             if (DateTime.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", null, DateTimeStyles.None, out var dateTime))
             {
-                if (dateCountingEnable)
-                {
-                    result = Convert(counter, dateTime);
-                }
-                else
-                {
-                    result = "{Scrubbed}";
-                }
-
+                result = Convert(counter, dateTime);
                 return true;
             }
 
@@ -222,15 +166,7 @@
             {
                 if (DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime))
                 {
-                    if (dateCountingEnable)
-                    {
-                        result = Convert(counter, dateTime);
-                    }
-                    else
-                    {
-                        result = "{Scrubbed}";
-                    }
-
+                    result = Convert(counter, dateTime);
                     return true;
                 }
             }
@@ -246,15 +182,7 @@
         {
             if (DateTimeOffset.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", null, DateTimeStyles.None, out var dateTimeOffset))
             {
-                if (dateCountingEnable)
-                {
-                    result = Convert(counter, dateTimeOffset);
-                }
-                else
-                {
-                    result = "{Scrubbed}";
-                }
-
+                result = Convert(counter, dateTimeOffset);
                 return true;
             }
 
@@ -262,15 +190,7 @@
             {
                 if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset))
                 {
-                    if (dateCountingEnable)
-                    {
-                        result = Convert(counter, dateTimeOffset);
-                    }
-                    else
-                    {
-                        result = "{Scrubbed}";
-                    }
-
+                    result = Convert(counter, dateTimeOffset);
                     return true;
                 }
             }

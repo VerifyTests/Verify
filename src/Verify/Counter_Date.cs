@@ -29,11 +29,19 @@ public partial class Counter
             return new(0, name);
         }
 
-        return dateCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentDate);
-            return (value, $"Date_{value}");
-        });
+        return dateCache.GetOrAdd(
+            input,
+            _ =>
+            {
+                var value = Interlocked.Increment(ref currentDate);
+
+                if (!dateCounting)
+                {
+                    return (value, "{Scrubbed}");
+                }
+
+                return (value, $"Date_{value}");
+            });
     }
 }
 #endif

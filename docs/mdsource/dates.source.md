@@ -27,6 +27,25 @@ snippet: DontScrubDateTimesFluent
 snippet: DontScrubDateTimesGlobal
 
 
+## DisableDateCounting
+
+
+
+### Instance
+
+snippet: DisableDateCounting
+
+
+### Fluent
+
+snippet: DisableDateCountingFluent
+
+
+### Globally
+
+snippet: DisableDateCountingGlobal
+
+
 ## AddExtraDatetimeFormat
 
 `AddExtraDatetimeFormat` allows specifying custom date formats to be scrubbed.

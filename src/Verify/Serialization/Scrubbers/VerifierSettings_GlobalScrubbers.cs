@@ -66,6 +66,14 @@ public static partial class VerifierSettings
         AddScrubber(_ => _.RemoveEmptyLines(), location);
     }
 
+    internal static bool DateCountingEnabled { get; private set; } = true;
+
+    /// <summary>
+    /// Disables counting of dates.
+    /// </summary>
+    public static void DisableDateCounting() =>
+        DateCountingEnabled = false;
+
     /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>

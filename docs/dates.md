@@ -99,7 +99,7 @@ return Verify(target)
 ```cs
 VerifierSettings.DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1702-L1706' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1735-L1739' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

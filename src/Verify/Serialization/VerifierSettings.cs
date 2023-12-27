@@ -136,6 +136,7 @@ public static partial class VerifierSettings
     internal static void Reset()
     {
         InnerVerifier.verifyHasBeenRun = false;
+        DateCountingEnabled = true;
         StrictJson = false;
         scrubProjectDir = true;
         scrubSolutionDir = true;

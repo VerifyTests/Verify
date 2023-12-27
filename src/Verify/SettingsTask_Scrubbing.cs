@@ -33,6 +33,16 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Disables counting of dates.
+    /// </summary>
+    [Pure]
+    public SettingsTask DisableDateCounting()
+    {
+        CurrentSettings.DisableDateCounting();
+        return this;
+    }
+
+    /// <summary>
     /// Replace inline <see cref="DateTime" />s with a placeholder.
     /// </summary>
     [Pure]

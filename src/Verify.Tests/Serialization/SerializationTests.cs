@@ -1698,6 +1698,52 @@ public class SerializationTests
 
 /*
 
+#region DisableDateCountingGlobal
+
+    [ModuleInitializer]
+    public static void ModuleInitializer() =>
+        VerifierSettings.DisableDateCounting();
+
+#endregion
+
+*/
+
+    [Fact]
+    Task DisableDateCounting()
+    {
+        #region DisableDateCounting
+
+        var target = new
+        {
+            Date = new DateTime(2020, 10, 10, 0, 0, 0, DateTimeKind.Utc)
+        };
+
+        var settings = new VerifySettings();
+        settings.DisableDateCounting();
+
+        return Verify(target, settings);
+
+        #endregion
+    }
+
+    [Fact]
+    Task DisableDateCountingFluent()
+    {
+        #region DisableDateCountingFluent
+
+        var target = new
+        {
+            Date = new DateTime(2020, 10, 10, 0, 0, 0, DateTimeKind.Utc)
+        };
+
+        return Verify(target)
+            .DisableDateCounting();
+
+        #endregion
+    }
+
+/*
+
 #region DontScrubDateTimesGlobal
 
     [ModuleInitializer]

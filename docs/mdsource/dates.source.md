@@ -27,6 +27,26 @@ snippet: DontScrubDateTimesFluent
 snippet: DontScrubDateTimesGlobal
 
 
+## DisableDateCounting
+
+If many calls are made to the the current date/time in quick succession, the date counting behavior (`DateTime_x`) can result in inconsistent results. To revert to the simpler scrubbing convention (`{Scrubbed}`) use DisableDateCounting.
+
+
+### Instance
+
+snippet: DisableDateCounting
+
+
+### Fluent
+
+snippet: DisableDateCountingFluent
+
+
+### Globally
+
+snippet: DisableDateCountingGlobal
+
+
 ## AddExtraDatetimeFormat
 
 `AddExtraDatetimeFormat` allows specifying custom date formats to be scrubbed.

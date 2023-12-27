@@ -117,15 +117,7 @@
     {
         stream.MoveToStart();
         using var reader = new StreamReader(stream);
-        StringBuilder builder;
-        if (stream is FileStream fileStream)
-        {
-            builder = new((int) fileStream.Length);
-        }
-        else
-        {
-            builder = new();
-        }
+        StringBuilder builder = new(GetLength(stream));
 
         while (await reader.ReadLineAsync(Cancel.None) is { } line)
         {
@@ -133,6 +125,14 @@
         }
 
         return builder;
+
+        static int GetLength(Stream stream) =>
+            stream switch
+            {
+                FileStream fileStream => (int) fileStream.Length,
+                MemoryStream memoryStream => (int) memoryStream.Length,
+                _ => 16
+            };
     }
 
 #if NET472 || NET48

@@ -148,10 +148,7 @@
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
         using var writer = new StreamWriter(path, false, VerifierSettings.Encoding);
-        foreach (var chunk in text.GetChunks())
-        {
-            writer.Write(chunk.Span);
-        }
+        writer.Write(text);
     }
 
 #endif

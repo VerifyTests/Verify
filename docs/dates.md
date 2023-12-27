@@ -97,9 +97,11 @@ return Verify(target)
 <!-- snippet: DontScrubDateTimesGlobal -->
 <a id='snippet-dontscrubdatetimesglobal'></a>
 ```cs
-VerifierSettings.DontScrubDateTimes();
+[ModuleInitializer]
+public static void ModuleInitializer() =>
+    VerifierSettings.DontScrubDateTimes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1702-L1706' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1701-L1707' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubdatetimesglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

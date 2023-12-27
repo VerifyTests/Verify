@@ -1696,15 +1696,17 @@ public class SerializationTests
     }
 #endif
 
-    // ReSharper disable once UnusedMember.Local
-    void DontScrubDateTimesGlobal()
-    {
-        #region DontScrubDateTimesGlobal
+/*
 
+#region DontScrubDateTimesGlobal
+
+    [ModuleInitializer]
+    public static void ModuleInitializer() =>
         VerifierSettings.DontScrubDateTimes();
 
-        #endregion
-    }
+#endregion
+
+*/
 
     [Fact]
     public Task NewLineNotEscapedInProperty() =>

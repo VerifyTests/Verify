@@ -38,10 +38,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return dateTimeCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentDateTime);
-            return (value, $"DateTime_{value}");
-        });
+        return dateTimeCache.GetOrAdd(
+            input,
+            _ =>
+            {
+                var value = Interlocked.Increment(ref currentDateTime);
+
+                if (!dateCounting)
+                {
+                    return (value, "{Scrubbed}");
+                }
+
+                return (value, $"DateTime_{value}");
+            });
     }
 }

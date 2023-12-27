@@ -9,6 +9,7 @@ public partial class VerifySettings
             return;
         }
 
+        dateCountingEnable = settings.dateCountingEnable;
         InstanceScrubbers = [..settings.InstanceScrubbers];
         ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
 #if DiffEngine

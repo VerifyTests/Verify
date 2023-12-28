@@ -18,6 +18,7 @@ updated to the new result.
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
+
 ## Sponsors
 
 A HUGE Thank-You to [AWS](https://github.com/aws) for sponsoring this project in September 2023 as part of
@@ -25,11 +26,13 @@ the [AWS Open Source Software Fund](https://github.com/aws/dotnet-foss).
 
 Thanks to [DataDog](https://github.com/DataDog) for the generous monthly sponsorship.
 
+
 ## [Getting started wizard](/docs/wiz/readme.md)
 
 Get customized instructions for the specific combination of Operating System, IDE, Test Framework, and Build Server.
 
 [Start wizard](/docs/wiz/readme.md).
+
 
 ## NuGet packages
 
@@ -38,6 +41,7 @@ Get customized instructions for the specific combination of Operating System, ID
 * https://nuget.org/packages/Verify.Fixie/
 * https://nuget.org/packages/Verify.Expecto/
 * https://nuget.org/packages/Verify.MSTest/
+
 
 ## Snapshot management
 
@@ -54,11 +58,14 @@ approach(s) selected is a personal preference.
   to bulk accept all (by matching a pattern) `.received.` files.
 * Using the dotnet tool [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal).
 
+
 ## Usage
+
 
 ### ImplicitUsings
 
 include: implicit-usings
+
 
 ### Class being tested
 
@@ -66,11 +73,13 @@ Given a class to be tested:
 
 snippet: ClassBeingTested
 
+
 ### NUnit
 
 Support for [NUnit](https://nunit.org/)
 
 snippet: SampleTestNUnit
+
 
 ### xUnit
 
@@ -78,17 +87,20 @@ Support for [xUnit](https://xunit.net/)
 
 snippet: SampleTestXunit
 
+
 ### Fixie
 
 Support for [Fixie](http://fixie.github.io/)
 
 snippet: SampleTestFixie
 
+
 ### Expecto
 
 Support for [Expecto](https://github.com/haf/expecto)
 
 snippet: SampleTestExpecto
+
 
 #### Caveats
 
@@ -102,6 +114,7 @@ Due to the nature of the Expecto implementation, the following APIs in Verify ar
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 snippet: SampleTestMSTest
+
 
 ### Initial Verification
 
@@ -137,11 +150,13 @@ To verify the result:
 * Use the diff tool to accept the changes, or
 * Manually copy the text to the new file
 
+
 #### Verified result
 
 This will result in the `Sample.Test.verified.txt` being created:
 
 snippet: Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt
+
 
 ### Subsequent Verification
 
@@ -174,12 +189,14 @@ snippet: ClassBeingTestedChanged
 
 And the test is re run it will fail.
 
+
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source
 control along with the change to `ClassBeingTested`.
+
 
 ### Async
 
@@ -189,6 +206,7 @@ verification.
 There is also an overload that accepts `Func<Task<T>>`, which works well with `async` lambda expressions:
 
 snippet: VerifyFuncOfTaskOfT
+
 
 ### VerifyJson
 
@@ -204,15 +222,19 @@ Results in:
 
 snippet: JsonTests.VerifyJsonString.verified.txt
 
+
 ## Source control: Received and Verified files
+
 
 ### Includes/Excludes
 
 include: include-exclude
 
+
 ## Text file settings
 
 include: text-file-settings
+
 
 ## Static settings
 
@@ -221,6 +243,7 @@ Most settings are available at the both global level and at the instance level.
 When modifying settings at the both global level it should be done using a Module Initializer:
 
 snippet: StaticSettings.cs
+
 
 ## VerifyResult
 
@@ -234,11 +257,13 @@ If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 
 snippet: ExceptionResult
 
+
 ## CurrentFile
 
 Utility for finding paths based on the current file.
 
 snippet: CurrentFile.cs
+
 
 ## Versioning
 
@@ -255,6 +280,7 @@ should be done as follows:
 Snapshot changes do not trigger a major version change to avoid
 causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
 
+
 ## Unit testing inside virtualized environment
 
 Unit tests referencing `Verify` (including unit tests within this repository as well as any other code
@@ -263,6 +289,7 @@ by [Visual Studio Remote Testing](https://learn.microsoft.com/en-us/visualstudio
 Initial configurations have been added for `WSL` and net 7.0 linux docker via `testenvironments.json` (for third party
 code, the file needs to be copied or recreated next to the `.sln` solution file for solution to leverage the
 functionality).
+
 Upon opening the Tests Explorer the advanced environments are available in the GUI:
 
 ![TestExplorerEnvironments](/docs/TestExplorerEnvironments.png)
@@ -276,14 +303,14 @@ information sources and warn about particular gotchas:
     * [Install .NET Runtime](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu)
 * Docker runs
     * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-    * First run of docker scenario might need
-      elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698)
-      error)
+    * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)
 * Third party test runners might not support this feature.
   Use [Visual Studio Test Explorer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
 
+
 ## Media
 
+* [I want to do a snapshot test with C# (26 Dec 2023)](https://zzzkan.me/blog/verify-tests/)
 * [Introduction to Snapshot testing and using Verify.Xunit - Betatalks (11 Oct 2023)](https://www.youtube.com/watch?v=RVmz3FZFIBU)
 * [I REGRET Not Telling Dave Farley THIS about Approval Testing - Emily Bache (27 Sep 2023)](https://www.youtube.com/watch?v=jOuqE_o9rmg)
 * [The Way to Test Legacy Code in C# - Gui Ferreira (19 Sep 2023)](https://www.youtube.com/watch?v=UC-AUnuTh0I)
@@ -305,6 +332,7 @@ information sources and warn about particular gotchas:
 * [Snapshot Testing with Verify: Carl Franklin's Blazor Train (3 Apr 2020)](https://rowell.heria.uk/blog/2020/11/23/verify-snapshot-testing-for-c)
 * [Verify: Snapshot Testing for C# (23 Nov 2020)](https://rowell.heria.uk/blog/2020/11/23/verify-snapshot-testing-for-c)
 * [Verify Xunit Intro (26 Apr 2020)](https://www.youtube.com/watch?v=uGVogEltSkY)
+
 
 ## Extensions
 
@@ -391,9 +419,11 @@ information sources and warn about particular gotchas:
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context
   for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
 
+
 ## More Documentation
 
 include: doc-index
+
 
 ## Icon
 

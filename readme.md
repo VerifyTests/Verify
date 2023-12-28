@@ -25,6 +25,7 @@ updated to the new result.
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
+
 ## Sponsors
 
 A HUGE Thank-You to [AWS](https://github.com/aws) for sponsoring this project in September 2023 as part of
@@ -32,11 +33,13 @@ the [AWS Open Source Software Fund](https://github.com/aws/dotnet-foss).
 
 Thanks to [DataDog](https://github.com/DataDog) for the generous monthly sponsorship.
 
+
 ## [Getting started wizard](/docs/wiz/readme.md)
 
 Get customized instructions for the specific combination of Operating System, IDE, Test Framework, and Build Server.
 
 [Start wizard](/docs/wiz/readme.md).
+
 
 ## NuGet packages
 
@@ -45,6 +48,7 @@ Get customized instructions for the specific combination of Operating System, ID
 * https://nuget.org/packages/Verify.Fixie/
 * https://nuget.org/packages/Verify.Expecto/
 * https://nuget.org/packages/Verify.MSTest/
+
 
 ## Snapshot management
 
@@ -61,13 +65,16 @@ approach(s) selected is a personal preference.
   to bulk accept all (by matching a pattern) `.received.` files.
 * Using the dotnet tool [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal).
 
+
 ## Usage
+
 
 ### ImplicitUsings
 
 **All examples use [Implicit Usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings). Ensure the following is set to have examples compile correctly `<ImplicitUsings>enable</ImplicitUsings>`**<!-- include: implicit-usings. path: /docs/mdsource/implicit-usings.include.md -->
 
 If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verifier.Verify()`.<!-- endInclude -->
+
 
 ### Class being tested
 
@@ -102,6 +109,7 @@ public static class ClassBeingTested
 <sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ### NUnit
 
 Support for [NUnit](https://nunit.org/)
@@ -122,6 +130,7 @@ public class Sample
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### xUnit
 
@@ -144,6 +153,7 @@ public class Sample
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ### Fixie
 
 Support for [Fixie](http://fixie.github.io/)
@@ -162,6 +172,7 @@ public class Sample
 ```
 <sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestfixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### Expecto
 
@@ -183,6 +194,7 @@ let tests =
 ```
 <sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 #### Caveats
 
@@ -212,6 +224,7 @@ public class Sample :
 ```
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### Initial Verification
 
@@ -247,6 +260,7 @@ To verify the result:
 * Use the diff tool to accept the changes, or
 * Manually copy the text to the new file
 
+
 #### Verified result
 
 This will result in the `Sample.Test.verified.txt` being created:
@@ -271,6 +285,7 @@ This will result in the `Sample.Test.verified.txt` being created:
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-Verify.Xunit.Tests/Snippets/Sample.Test.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### Subsequent Verification
 
@@ -332,12 +347,14 @@ public static class ClassBeingTested
 
 And the test is re run it will fail.
 
+
 #### The [Diff Tool](https://github.com/VerifyTests/DiffEngine) will display the diff:
 
 ![SecondDiff](/docs/SecondDiff.png)
 
 The same approach can be used to verify the results and the change to `Sample.Test.verified.txt` is committed to source
 control along with the change to `ClassBeingTested`.
+
 
 ### Async
 
@@ -358,6 +375,7 @@ await Verify(
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L177-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfuncoftaskoft' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### VerifyJson
 
@@ -410,7 +428,9 @@ Results in:
 <sup><a href='/src/Verify.Tests/JsonTests.VerifyJsonString.verified.txt#L1-L5' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonTests.VerifyJsonString.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ## Source control: Received and Verified files
+
 
 ### Includes/Excludes
 
@@ -428,6 +448,7 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 
 
 All `*.verified.*` files should be committed to source control.<!-- endInclude -->
+
 
 ## Text file settings
 
@@ -474,6 +495,7 @@ trim_trailing_whitespace = false
 
 *Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.*<!-- endInclude -->
 
+
 ## Static settings
 
 Most settings are available at the both global level and at the instance level.
@@ -500,6 +522,7 @@ public static class StaticSettingsUsage
 ```
 <sup><a href='/src/Verify.Tests/StaticSettings.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticSettings.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ## VerifyResult
 
@@ -531,6 +554,7 @@ Assert.NotNull(result.Exception);
 <sup><a href='/src/Verify.Tests/ThrowsTests.cs#L176-L181' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ## CurrentFile
 
 Utility for finding paths based on the current file.
@@ -560,6 +584,7 @@ public static class CurrentFile
 <sup><a href='/src/Verify/CurrentFile.cs#L1-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-CurrentFile.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
 ## Versioning
 
 Verify follows [Semantic Versioning](https://semver.org/). The same applies for [extensions to Verify](#extensions).
@@ -575,6 +600,7 @@ should be done as follows:
 Snapshot changes do not trigger a major version change to avoid
 causing [Diamond dependency](https://en.wikipedia.org/wiki/Dependency_hell#Problems) issues for downstream extensions.
 
+
 ## Unit testing inside virtualized environment
 
 Unit tests referencing `Verify` (including unit tests within this repository as well as any other code
@@ -583,6 +609,7 @@ by [Visual Studio Remote Testing](https://learn.microsoft.com/en-us/visualstudio
 Initial configurations have been added for `WSL` and net 7.0 linux docker via `testenvironments.json` (for third party
 code, the file needs to be copied or recreated next to the `.sln` solution file for solution to leverage the
 functionality).
+
 Upon opening the Tests Explorer the advanced environments are available in the GUI:
 
 ![TestExplorerEnvironments](/docs/TestExplorerEnvironments.png)
@@ -596,14 +623,14 @@ information sources and warn about particular gotchas:
     * [Install .NET Runtime](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu)
 * Docker runs
     * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-    * First run of docker scenario might need
-      elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698)
-      error)
+    * First run of docker scenario might need elevation ([Test project does not reference any .NET NuGet adapter](https://developercommunity.visualstudio.com/t/test-project-does-not-reference-any-net-nuget-adap/1311698) error)
 * Third party test runners might not support this feature.
   Use [Visual Studio Test Explorer](https://learn.microsoft.com/en-us/visualstudio/test/run-unit-tests-with-test-explorer).
 
+
 ## Media
 
+* [I want to do a snapshot test with C# (26 Dec 2023)](https://zzzkan.me/blog/verify-tests/)
 * [Introduction to Snapshot testing and using Verify.Xunit - Betatalks (11 Oct 2023)](https://www.youtube.com/watch?v=RVmz3FZFIBU)
 * [I REGRET Not Telling Dave Farley THIS about Approval Testing - Emily Bache (27 Sep 2023)](https://www.youtube.com/watch?v=jOuqE_o9rmg)
 * [The Way to Test Legacy Code in C# - Gui Ferreira (19 Sep 2023)](https://www.youtube.com/watch?v=UC-AUnuTh0I)
@@ -625,6 +652,7 @@ information sources and warn about particular gotchas:
 * [Snapshot Testing with Verify: Carl Franklin's Blazor Train (3 Apr 2020)](https://rowell.heria.uk/blog/2020/11/23/verify-snapshot-testing-for-c)
 * [Verify: Snapshot Testing for C# (23 Nov 2020)](https://rowell.heria.uk/blog/2020/11/23/verify-snapshot-testing-for-c)
 * [Verify Xunit Intro (26 Apr 2020)](https://www.youtube.com/watch?v=uGVogEltSkY)
+
 
 ## Extensions
 
@@ -711,6 +739,7 @@ information sources and warn about particular gotchas:
 * [Verify.ZeroLog](https://github.com/VerifyTests/Verify.ZeroLog): Verifiable test context
   for [ZeroLog](https://github.com/Abc-Arbitrage/ZeroLog).
 
+
 ## More Documentation
 
   * [Clipboard](/docs/clipboard.md)<!-- include: doc-index. path: /docs/mdsource/doc-index.include.md -->
@@ -741,6 +770,7 @@ information sources and warn about particular gotchas:
   * [Explicit Targets](/docs/explicit-targets.md)
   * [FSharp Usage](/docs/fsharp.md)
   * [Compared to ApprovalTests](/docs/compared-to-approvaltests.md)<!-- endInclude -->
+
 
 ## Icon
 

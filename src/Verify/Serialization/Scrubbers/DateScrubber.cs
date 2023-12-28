@@ -1,10 +1,4 @@
-﻿readonly struct CultureDate(DateTime longDate, DateTime shortDate)
-{
-    public DateTime Long { get; } = longDate;
-    public DateTime Short { get; } = shortDate;
-}
-
-static partial class DateScrubber
+﻿static partial class DateScrubber
 {
     delegate bool TryConvert(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result);
 

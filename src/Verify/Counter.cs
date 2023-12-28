@@ -9,6 +9,7 @@ public partial class Counter
     Dictionary<DateTime, string> namedDateTimes;
     Dictionary<Guid, string> namedGuids;
     Dictionary<DateTimeOffset, string> namedDateTimeOffsets;
+    bool dateCounting;
     static AsyncLocal<Counter?> local = new();
 
     public static Counter Current
@@ -26,6 +27,7 @@ public partial class Counter
     }
 
     Counter(
+        bool dateCounting,
 #if NET6_0_OR_GREATER
         Dictionary<Date, string> namedDates,
         Dictionary<Time, string> namedTimes,
@@ -41,9 +43,11 @@ public partial class Counter
         this.namedDateTimes = namedDateTimes;
         this.namedGuids = namedGuids;
         this.namedDateTimeOffsets = namedDateTimeOffsets;
+        this.dateCounting = dateCounting;
     }
 
     internal static Counter Start(
+        bool dateCounting = true,
 #if NET6_0_OR_GREATER
         Dictionary<Date, string>? namedDates = null,
         Dictionary<Time, string>? namedTimes = null,
@@ -53,6 +57,7 @@ public partial class Counter
         Dictionary<DateTimeOffset, string>? namedDateTimeOffsets = null)
     {
         var context = new Counter(
+            dateCounting,
 #if NET6_0_OR_GREATER
             namedDates ?? new(),
             namedTimes ?? new(),

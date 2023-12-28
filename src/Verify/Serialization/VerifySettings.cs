@@ -18,6 +18,7 @@ public partial class VerifySettings
 
     internal JsonSerializer Serializer => serialization.Serializer;
 
+
     internal List<ToAppend> Appends = [];
 
     /// <summary>
@@ -54,4 +55,22 @@ public partial class VerifySettings
 
         serialization.AddExtraSettings(action);
     }
+
+    bool dateCountingEnable = true;
+
+    public bool DateCountingEnable
+    {
+        get
+        {
+            if (!VerifierSettings.DateCountingEnabled)
+            {
+                return false;
+            }
+
+            return dateCountingEnable;
+        }
+    }
+
+    public void DisableDateCounting() =>
+        dateCountingEnable = false;
 }

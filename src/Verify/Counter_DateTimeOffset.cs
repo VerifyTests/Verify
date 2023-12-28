@@ -39,10 +39,18 @@ public partial class Counter
             return new(0, name);
         }
 
-        return dateTimeOffsetCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentDateTimeOffset);
-            return (value, $"DateTimeOffset_{value}");
-        });
+        return dateTimeOffsetCache.GetOrAdd(
+            input,
+            _ =>
+            {
+                var value = Interlocked.Increment(ref currentDateTimeOffset);
+
+                if (!dateCounting)
+                {
+                    return (value, "{Scrubbed}");
+                }
+
+                return (value, $"DateTimeOffset_{value}");
+            });
     }
 }

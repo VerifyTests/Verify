@@ -66,9 +66,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullComparer", "NullComparer\NullComparer.csproj", "{3C759E19-3482-48A7-B2E2-95DA5E1EF159}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetUsage", "NugetUsage", "{55ADD9F3-FD0D-4A98-8723-1348FF605944}"
-	ProjectSection(SolutionItems) = preProject
-		NugetUsage\FixieNugetUsage\FixieNugetUsage.csproj = NugetUsage\FixieNugetUsage\FixieNugetUsage.csproj
-	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ExpectoNugetUsage", "NugetUsage\ExpectoNugetUsage\ExpectoNugetUsage.fsproj", "{45F49219-6F5F-4F4E-95C8-3A7D5EC11B10}"
 EndProject
@@ -91,6 +88,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.Fixie", "Verify.Fixie\Verify.Fixie.csproj", "{B1507BE0-5A3A-4F9B-A443-066951473A82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.Fixie.Tests", "Verify.Fixie.Tests\Verify.Fixie.Tests.csproj", "{91732BC0-4100-4F8D-A46A-F6CC8D894695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixieNugetUsage", "NugetUsage\FixieNugetUsage\FixieNugetUsage.csproj", "{2B95164E-1D27-418F-935A-47533CD92713}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -238,6 +237,10 @@ Global
 		{91732BC0-4100-4F8D-A46A-F6CC8D894695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91732BC0-4100-4F8D-A46A-F6CC8D894695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91732BC0-4100-4F8D-A46A-F6CC8D894695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B95164E-1D27-418F-935A-47533CD92713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B95164E-1D27-418F-935A-47533CD92713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B95164E-1D27-418F-935A-47533CD92713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B95164E-1D27-418F-935A-47533CD92713}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -250,5 +253,6 @@ Global
 		{A79E8A67-F5D3-4F87-9BBE-5536BB2A09B3} = {55ADD9F3-FD0D-4A98-8723-1348FF605944}
 		{0B5E7CE1-0FB4-4D3D-97C8-B4170B821BD0} = {55ADD9F3-FD0D-4A98-8723-1348FF605944}
 		{988172D6-6A84-4DD3-AD6D-A72A08119EF6} = {55ADD9F3-FD0D-4A98-8723-1348FF605944}
+		{2B95164E-1D27-418F-935A-47533CD92713} = {55ADD9F3-FD0D-4A98-8723-1348FF605944}
 	EndGlobalSection
 EndGlobal

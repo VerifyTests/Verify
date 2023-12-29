@@ -44,7 +44,10 @@
         {
             var parameter = methodParameters[index];
             var value = settingsParameters[index];
-            builder.Append($"{parameter}={VerifierSettings.GetNameForParameter(value)}_");
+            builder.Append(parameter);
+            builder.Append('=');
+            VerifierSettings.AppendParameter(value, builder, true);
+            builder.Append('_');
         }
 
         builder.Length -= 1;

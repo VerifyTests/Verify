@@ -66,11 +66,11 @@ public static partial class VerifierSettings
     public static string GetNameForParameter(object? parameter)
     {
         var builder = new StringBuilder();
-        GetNameForParameter(parameter, builder, true);
+        AppendParameter(parameter, builder, true);
         return builder.ToString();
     }
 
-    static void GetNameForParameter(object? parameter, StringBuilder builder, bool isRoot)
+    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot)
     {
         if (parameter is null)
         {
@@ -116,7 +116,7 @@ public static partial class VerifierSettings
 
             foreach (var item in enumerable)
             {
-                GetNameForParameter(item, builder, false);
+                AppendParameter(item, builder, false);
                 builder.Append(',');
             }
 

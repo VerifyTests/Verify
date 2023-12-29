@@ -47,10 +47,12 @@
             builder.Append(parameter);
             builder.Append('=');
             VerifierSettings.AppendParameter(value, builder, true);
-            builder.Append('_');
+            if (index < settingsParameters.Length - 1)
+            {
+                builder.Append('_');
+            }
         }
 
-        builder.Length -= 1;
         var parameterText = builder.ToString();
 
         if (settings.hashParameters)

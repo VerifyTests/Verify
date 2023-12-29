@@ -134,9 +134,9 @@ public static partial class VerifierSettings
         {
             var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
             var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-            builder.Append(GetNameForParameter(keyMember));
+            AppendParameter(keyMember, builder, true);
             builder.Append('=');
-            builder.Append(GetNameForParameter(valueMember));
+            AppendParameter(valueMember, builder, true);
             return;
         }
 

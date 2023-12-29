@@ -45,12 +45,12 @@ public partial class Counter
             {
                 var value = Interlocked.Increment(ref currentDateTimeOffset);
 
-                if (!dateCounting)
+                if (dateCounting)
                 {
-                    return (value, "{Scrubbed}");
+                    return (value, $"DateTimeOffset_{value}");
                 }
 
-                return (value, $"DateTimeOffset_{value}");
+                return (value, "{Scrubbed}");
             });
     }
 }

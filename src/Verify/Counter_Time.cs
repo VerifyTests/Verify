@@ -29,11 +29,13 @@ public partial class Counter
             return new(0, name);
         }
 
-        return timeCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentTime);
-            return (value, $"Time_{value}");
-        });
+        return timeCache.GetOrAdd(
+            input,
+            _ =>
+            {
+                var value = Interlocked.Increment(ref currentTime);
+                return (value, $"Time_{value}");
+            });
     }
 }
 #endif

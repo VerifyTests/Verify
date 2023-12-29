@@ -44,12 +44,12 @@ public partial class Counter
             {
                 var value = Interlocked.Increment(ref currentDateTime);
 
-                if (!dateCounting)
+                if (dateCounting)
                 {
-                    return (value, "{Scrubbed}");
+                    return (value, $"DateTime_{value}");
                 }
 
-                return (value, $"DateTime_{value}");
+                return (value, "{Scrubbed}");
             });
     }
 }

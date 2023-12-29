@@ -28,10 +28,12 @@ public partial class Counter
             return new(0, name);
         }
 
-        return guidCache.GetOrAdd(input, _ =>
-        {
-            var value = Interlocked.Increment(ref currentGuid);
-            return (value, $"Guid_{value}");
-        });
+        return guidCache.GetOrAdd(
+            input,
+            _ =>
+            {
+                var value = Interlocked.Increment(ref currentGuid);
+                return (value, $"Guid_{value}");
+            });
     }
 }

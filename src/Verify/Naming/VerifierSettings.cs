@@ -134,11 +134,11 @@ public static partial class VerifierSettings
 
             if (type.IsGeneric(typeof(KeyValuePair<,>)))
             {
-                var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
-                var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-                AppendParameter(keyMember, builder, true);
+                var key = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
+                var value = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
+                AppendParameter(key, builder, true);
                 builder.Append('=');
-                parameter = valueMember;
+                parameter = value;
                 isRoot = true;
                 continue;
             }

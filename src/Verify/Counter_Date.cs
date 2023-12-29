@@ -35,12 +35,12 @@ public partial class Counter
             {
                 var value = Interlocked.Increment(ref currentDate);
 
-                if (!dateCounting)
+                if (dateCounting)
                 {
-                    return (value, "{Scrubbed}");
+                    return (value, $"Date_{value}");
                 }
 
-                return (value, $"Date_{value}");
+                return (value, "{Scrubbed}");
             });
     }
 }

@@ -12,8 +12,8 @@
     <PackageReference Include="System.IO.Compression" Version="4.3.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="System.IO.Hashing" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0'" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="DiffEngine" Version="15.0.1" />
-    <PackageReference Include="EmptyFiles" Version="6.3.0" PrivateAssets="None" />
+    <PackageReference Include="DiffEngine" Version="15.1.0" />
+    <PackageReference Include="EmptyFiles" Version="7.0.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="2.2.0" />
     <PackageReference Include="Argon" Version="0.14.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />

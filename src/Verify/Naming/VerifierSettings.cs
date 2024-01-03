@@ -66,86 +66,93 @@ public static partial class VerifierSettings
     public static string GetNameForParameter(object? parameter)
     {
         var builder = new StringBuilder();
-        GetNameForParameter(parameter, builder, true);
+        AppendParameter(parameter, builder, true);
         return builder.ToString();
     }
 
-    static void GetNameForParameter(object? parameter, StringBuilder builder, bool isRoot)
+    internal static void AppendParameter(object? parameter, StringBuilder builder, bool isRoot)
     {
-        if (parameter is null)
+        while (true)
         {
-            builder.Append("null");
-            return;
-        }
-
-        if (parameter is string stringParameter)
-        {
-            FileNameCleaner.AppendValid(builder, stringParameter);
-            return;
-        }
-
-        var type = parameter.GetType();
-
-        if (parameterToNameLookup.TryGetValue(type, out var lookup))
-        {
-            builder.Append(lookup(parameter));
-            return;
-        }
-
-        foreach (var (key, value) in parameterToNameLookup)
-        {
-            if (key.IsAssignableFrom(type))
+            if (parameter is null)
             {
-                builder.Append(value(parameter));
-                return;
-            }
-        }
-
-        if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
-        {
-            if (isEmpty.Value)
-            {
-                builder.Append("[]");
+                builder.Append("null");
                 return;
             }
 
-            if (!isRoot)
+            if (parameter is string stringParameter)
             {
-                builder.Append('[');
+                FileNameCleaner.AppendValid(builder, stringParameter);
+                return;
             }
 
-            foreach (var item in enumerable)
+            var type = parameter.GetType();
+
+            if (parameterToNameLookup.TryGetValue(type, out var lookup))
             {
-                GetNameForParameter(item, builder, false);
-                builder.Append(',');
+                builder.Append(lookup(parameter));
+                return;
             }
 
-            builder.Length--;
-
-            if (!isRoot)
+            foreach (var (key, value) in parameterToNameLookup)
             {
-                builder.Append(']');
+                if (key.IsAssignableFrom(type))
+                {
+                    builder.Append(value(parameter));
+                    return;
+                }
             }
 
-            return;
-        }
+            if (parameter.TryGetCollectionOrDictionary(out var isEmpty, out var enumerable))
+            {
+                if (isEmpty.Value)
+                {
+                    builder.Append("[]");
+                    return;
+                }
 
-        if (type.IsGeneric(typeof(KeyValuePair<,>)))
-        {
-            var keyMember = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
-            var valueMember = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
-            builder.Append($"{GetNameForParameter(keyMember)}={GetNameForParameter(valueMember)}");
-            return;
-        }
+                if (!isRoot)
+                {
+                    builder.Append('[');
+                }
 
-        var nameForParameter = parameter.ToString();
-        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-        if (nameForParameter is null)
-        {
-            throw new($"{type.FullName} returned a null for `ToString()`.");
-        }
+                foreach (var item in enumerable)
+                {
+                    AppendParameter(item, builder, false);
+                    builder.Append(',');
+                }
 
-        FileNameCleaner.AppendValid(builder, nameForParameter);
+                builder.Length--;
+
+                if (!isRoot)
+                {
+                    builder.Append(']');
+                }
+
+                return;
+            }
+
+            if (type.IsGeneric(typeof(KeyValuePair<,>)))
+            {
+                var key = type.GetProperty("Key")!.GetMethod!.Invoke(parameter, null);
+                var value = type.GetProperty("Value")!.GetMethod!.Invoke(parameter, null);
+                AppendParameter(key, builder, true);
+                builder.Append('=');
+                parameter = value;
+                isRoot = true;
+                continue;
+            }
+
+            var nameForParameter = parameter.ToString();
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (nameForParameter is null)
+            {
+                throw new($"{type.FullName} returned a null for `ToString()`.");
+            }
+
+            FileNameCleaner.AppendValid(builder, nameForParameter);
+            break;
+        }
     }
 
     /// <summary>

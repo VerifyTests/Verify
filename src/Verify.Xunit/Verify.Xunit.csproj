@@ -7,7 +7,7 @@
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.6.4" />
     <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
-    <PackageReference Include="EmptyFiles" Version="6.3.0" PrivateAssets="None" />
+    <PackageReference Include="EmptyFiles" Version="7.0.0" PrivateAssets="None" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.Xunit.props" Pack="true" PackagePath="buildTransitive\Verify.Xunit.props" />

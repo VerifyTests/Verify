@@ -35,8 +35,8 @@ await Verify(target);
 
 Results in the following:
 
-<!-- snippet: SerializationTests.ShouldReUseDatetime.verified.txt -->
-<a id='snippet-SerializationTests.ShouldReUseDatetime.verified.txt'></a>
+<!-- snippet: SerializationTests.ReUseDatetime.verified.txt -->
+<a id='snippet-SerializationTests.ReUseDatetime.verified.txt'></a>
 ```txt
 {
   DateTime: DateTime_1,
@@ -50,7 +50,7 @@ Results in the following:
   DateString: Date_1
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseDatetime.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseDatetime.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ReUseDatetime.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ReUseDatetime.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To disable this behavior use:

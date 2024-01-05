@@ -6,7 +6,7 @@ snippet: guid
 
 Results in the following:
 
-snippet: SerializationTests.ShouldReUseGuid.verified.txt
+snippet: SerializationTests.ReUseGuid.verified.txt
 
 
 ## Disable

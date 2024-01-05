@@ -1032,7 +1032,7 @@ public class SerializationTests
             .DontScrubDateTimes();
 
     [Fact]
-    public Task ShouldIgnoreDatetimeDefaults()
+    public Task IgnoreDatetimeDefaults()
     {
         var target = new DateTimeTarget();
 
@@ -1052,7 +1052,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task ShouldReUseDatetime()
+    public async Task ReUseDatetime()
     {
         #region Date
 
@@ -1162,7 +1162,7 @@ public class SerializationTests
     #endregion
 
     [Fact]
-    public async Task ShouldScrubDatetime()
+    public async Task ScrubDatetime()
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
@@ -1274,7 +1274,7 @@ public class SerializationTests
 #endif
 
     [Fact]
-    public Task ShouldNotScrubInlineGuidsByDefault()
+    public Task NotScrubInlineGuidsByDefault()
     {
         var id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c");
         var product = new
@@ -1290,7 +1290,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineGuidsInString()
+    public Task ScrubInlineGuidsInString()
     {
         var id = Guid.NewGuid();
         return Verify($"The string {id} ")
@@ -1325,7 +1325,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineGuidsWrappedInSymbols()
+    public Task ScrubInlineGuidsWrappedInSymbols()
     {
         var id = Guid.NewGuid();
         return Verify($"({id})")
@@ -1333,7 +1333,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineGuidsStartingWithSymbol()
+    public Task ScrubInlineGuidsStartingWithSymbol()
     {
         var id = Guid.NewGuid();
         return Verify($"/{id}")
@@ -1341,7 +1341,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineGuidsEndingWithSymbol()
+    public Task ScrubInlineGuidsEndingWithSymbol()
     {
         var id = Guid.NewGuid();
         return Verify($"{id}/")
@@ -1349,7 +1349,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineGuidsWrappedInNewLine()
+    public Task ScrubInlineGuidsWrappedInNewLine()
     {
         var id = Guid.NewGuid();
         return Verify($"""
@@ -1361,7 +1361,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineGuidsWrappedWithSymbol()
+    public Task ScrubInlineGuidsWrappedWithSymbol()
     {
         var id = Guid.NewGuid();
         return Verify($"/{id}/")
@@ -1369,47 +1369,47 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldNotScrubInlineGuidsWrappedInDash() =>
+    public Task ScrubInlineGuidsWrappedInDash() =>
         Verify("-087ea433-d83b-40b6-9e37-465211d9508-")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotScrubInlineGuidsWrappedInLetters() =>
+    public Task ScrubInlineGuidsWrappedInLetters() =>
         Verify("before087ea433-d83b-40b6-9e37-465211d9508cafter")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotScrubInlineGuidsStartingInLetters() =>
+    public Task ScrubInlineGuidsStartingInLetters() =>
         Verify("before087ea433-d83b-40b6-9e37-465211d9508")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldScrubInlineGuidsStartingInNewline1() =>
+    public Task ScrubInlineGuidsStartingInNewline1() =>
         Verify("\n087ea433-d83b-40b6-9e37-465211d95081")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldScrubInlineGuidsStartingInNewline2() =>
+    public Task ScrubInlineGuidsStartingInNewline2() =>
         Verify("\r087ea433-d83b-40b6-9e37-465211d95081")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldScrubInlineGuidsEndingInNewline1() =>
+    public Task ScrubInlineGuidsEndingInNewline1() =>
         Verify("087ea433-d83b-40b6-9e37-465211d95081\n")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldScrubInlineGuidsEndingInNewline2() =>
+    public Task ScrubInlineGuidsEndingInNewline2() =>
         Verify("087ea433-d83b-40b6-9e37-465211d95081\r")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotScrubInlineGuidsEndingLetters() =>
+    public Task ScrubInlineGuidsEndingLetters() =>
         Verify("087ea433-d83b-40b6-9e37-465211d95081after")
             .ScrubInlineGuids();
 
     [Fact]
-    public Task ShouldNotScrubInlineGuidsWrappedInNumber() =>
+    public Task ScrubInlineGuidsWrappedInNumber() =>
         Verify("1087ea433-d83b-40b6-9e37-465211d950811")
             .ScrubInlineGuids();
 
@@ -1431,7 +1431,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesWrappedInSymbols()
+    public Task ScrubInlineDateTimesWrappedInSymbols()
     {
         var date = DateTime.Now;
         return Verify($"({date:f})")
@@ -1451,7 +1451,7 @@ public class SerializationTests
 #endif
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesStartingWithSymbol()
+    public Task ScrubInlineDateTimesStartingWithSymbol()
     {
         var date = DateTime.Now;
         return Verify($"/{date:f}")
@@ -1459,7 +1459,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesEndingWithSymbol()
+    public Task ScrubInlineDateTimesEndingWithSymbol()
     {
         var date = DateTime.Now;
         return Verify($"{date:f}/")
@@ -1467,7 +1467,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesWrappedInNewLine()
+    public Task ScrubInlineDateTimesWrappedInNewLine()
     {
         var date = DateTime.Now;
         return Verify($"""
@@ -1479,7 +1479,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesWrappedWithSymbol()
+    public Task ScrubInlineDateTimesWrappedWithSymbol()
     {
         var date = DateTime.Now;
         return Verify($"/{date:f}/")
@@ -1487,57 +1487,57 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldNotScrubInlineDateTimesWrappedInDash() =>
+    public Task ScrubInlineDateTimesWrappedInDash() =>
         Verify("-2020-12-10-")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldNotScrubInlineDateTimesWrappedInLetters() =>
+    public Task ScrubInlineDateTimesWrappedInLetters() =>
         Verify("before2020-12-10after")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldNotScrubInlineDateTimesStartingInLetters() =>
+    public Task ScrubInlineDateTimesStartingInLetters() =>
         Verify("before2020-12-10")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesStartingInNewline1() =>
+    public Task ScrubInlineDateTimesStartingInNewline1() =>
         Verify("\n2020-12-10")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesStartingInNewline2() =>
+    public Task ScrubInlineDateTimesStartingInNewline2() =>
         Verify("\r2020-12-10")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesShort() =>
+    public Task ScrubInlineDateTimesShort() =>
         Verify(" 2020-12-10 12:10:10  2020-12-10 1:1:1 ")
             .ScrubInlineDateTimes("yyyy-MM-dd h:m:s");
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesLong() =>
+    public Task ScrubInlineDateTimesLong() =>
         Verify(" 2020-12-10 12:10:10  2020-12-10 01:01:01 ")
             .ScrubInlineDateTimes("yyyy-MM-dd hh:mm:ss");
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesEndingInNewline1() =>
+    public Task ScrubInlineDateTimesEndingInNewline1() =>
         Verify("2020-12-10\n")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldScrubInlineDateTimesEndingInNewline2() =>
+    public Task ScrubInlineDateTimesEndingInNewline2() =>
         Verify("2020-12-10\r")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldNotScrubInlineDateTimesEndingLetters() =>
+    public Task ScrubInlineDateTimesEndingLetters() =>
         Verify("2020-12-10after")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
-    public Task ShouldNotScrubInlineDateTimesWrappedInNumber() =>
+    public Task ScrubInlineDateTimesWrappedInNumber() =>
         Verify("12020-12-101")
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
@@ -1931,7 +1931,7 @@ public class SerializationTests
             });
 
     [Fact]
-    public async Task ShouldUseShortTypeName()
+    public async Task UseShortTypeName()
     {
         #region type
 
@@ -2023,7 +2023,7 @@ public class SerializationTests
         ("A", null);
 
     [Fact]
-    public async Task ShouldReUseGuid()
+    public async Task ReUseGuid()
     {
         #region guid
 
@@ -2042,7 +2042,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldRespectEmptyGuid()
+    public Task RespectEmptyGuid()
     {
         var guid = Guid.Empty;
         var target = new GuidTarget
@@ -2057,14 +2057,14 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldIgnoreGuidDefaults()
+    public Task IgnoreGuidDefaults()
     {
         var target = new GuidTarget();
         return Verify(target);
     }
 
     [Fact]
-    public Task ShouldScrubProjectDirectory()
+    public Task ScrubProjectDirectory()
     {
         var projectDirectory = AttributeReader.GetProjectDirectory();
         var path = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
@@ -2080,7 +2080,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubSolutionDirectory()
+    public Task ScrubSolutionDirectory()
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         var path = Path.GetFullPath(Path.Combine(solutionDirectory, "Foo"));
@@ -2096,7 +2096,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubGuid()
+    public Task ScrubGuid()
     {
         var target = new GuidTarget
         {
@@ -2148,7 +2148,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task ShouldScrubDictionaryKey() =>
+    public Task ScrubDictionaryKey() =>
         Verify(
             new
             {
@@ -2304,7 +2304,7 @@ public class SerializationTests
             .ScrubLinesContaining("value");
 
     [Fact]
-    public Task ShouldIgnoreEmptyList()
+    public Task IgnoreEmptyList()
     {
         var target = new CollectionTarget
         {

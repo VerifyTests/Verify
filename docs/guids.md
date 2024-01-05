@@ -28,8 +28,8 @@ await Verify(target);
 
 Results in the following:
 
-<!-- snippet: SerializationTests.ShouldReUseGuid.verified.txt -->
-<a id='snippet-SerializationTests.ShouldReUseGuid.verified.txt'></a>
+<!-- snippet: SerializationTests.ReUseGuid.verified.txt -->
+<a id='snippet-SerializationTests.ReUseGuid.verified.txt'></a>
 ```txt
 {
   Guid: Guid_1,
@@ -38,7 +38,7 @@ Results in the following:
   OtherGuid: Guid_2
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ShouldReUseGuid.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ShouldReUseGuid.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ReUseGuid.verified.txt#L1-L6' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ReUseGuid.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

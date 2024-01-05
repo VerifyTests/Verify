@@ -7,7 +7,7 @@ snippet: Date
 
 Results in the following:
 
-snippet: SerializationTests.ShouldReUseDatetime.verified.txt
+snippet: SerializationTests.ReUseDatetime.verified.txt
 
 To disable this behavior use:
 

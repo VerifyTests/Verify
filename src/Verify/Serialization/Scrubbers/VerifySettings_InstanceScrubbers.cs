@@ -61,7 +61,7 @@ public partial class VerifySettings
     /// </summary>
     public void ScrubInlineDateTimes(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(
-            (builder, counter) => DateScrubber.ReplaceDateTimes(builder, format, counter, culture ?? Culture.CurrentCulture),
+            DateScrubber.BuildDateTimeScrubber(format, culture),
             location);
 
     /// <summary>
@@ -69,7 +69,7 @@ public partial class VerifySettings
     /// </summary>
     public void ScrubInlineDateTimeOffsets(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(
-            (builder, counter) => DateScrubber.ReplaceDateTimeOffsets(builder, format, counter, culture ?? Culture.CurrentCulture),
+            DateScrubber.BuildDateTimeOffsetScrubber(format, culture),
             location);
 
 #if NET5_0_OR_GREATER
@@ -79,7 +79,7 @@ public partial class VerifySettings
     /// </summary>
     public void ScrubInlineDates(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(
-            (builder, counter) => DateScrubber.ReplaceDates(builder, format, counter, culture ?? Culture.CurrentCulture),
+            DateScrubber.BuildDateScrubber(format, culture),
             location);
 
 #endif

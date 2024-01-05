@@ -1438,6 +1438,18 @@ public class SerializationTests
             .ScrubInlineDateTimes("f");
     }
 
+#if NET5_0_OR_GREATER
+
+    [Fact]
+    public async Task ScrubInlineDateTimesInValidFormat()
+    {
+        var exception = await Assert.ThrowsAsync<Exception>(() => Verify("2020 10 01")
+            .ScrubInlineDates("dddd d MMM yyyy 'at' h:mm tt"));
+        Assert.Equal("Format 'dddd d MMM yyyy 'at' h:mm tt' is not valid for DateOnly.ToString(format, culture).",exception.Message);
+    }
+
+#endif
+
     [Fact]
     public Task ShouldScrubInlineDateTimesStartingWithSymbol()
     {

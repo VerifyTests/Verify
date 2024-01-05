@@ -16,6 +16,20 @@
         return false;
     }
 
+    public static Action<StringBuilder, Counter> BuildDateScrubber(string format, Culture? culture)
+    {
+        try
+        {
+            Date.MaxValue.ToString(format, culture);
+        }
+        catch (FormatException exception)
+        {
+            throw new($"Format '{format}' is not valid for DateOnly.ToString(format, culture).", exception);
+        }
+
+        return (builder, counter) => ReplaceDates(builder, format, counter, culture ?? Culture.CurrentCulture);
+    }
+
     public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture) =>
         ReplaceInner(
             builder,
@@ -25,6 +39,20 @@
             _ => Date.FromDateTime(_),
             TryConvertDate);
 #endif
+
+    public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(string format, Culture? culture)
+    {
+        try
+        {
+            DateTimeOffset.MaxValue.ToString(format, culture);
+        }
+        catch (FormatException exception)
+        {
+            throw new($"Format '{format}' is not valid for DateTimeOffset.ToString(format, culture).", exception);
+        }
+
+        return (builder, counter) => ReplaceDateTimeOffsets(builder, format, counter, culture ?? Culture.CurrentCulture);
+    }
 
     static bool TryConvertDateTimeOffset(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result)
     {
@@ -67,6 +95,21 @@
         return false;
     }
 
+
+    public static Action<StringBuilder, Counter> BuildDateTimeScrubber(string format, Culture? culture)
+    {
+        try
+        {
+            DateTime.MaxValue.ToString(format, culture);
+        }
+        catch (FormatException exception)
+        {
+            throw new($"Format '{format}' is not valid for DateTime.ToString(format, culture).", exception);
+        }
+
+        return (builder, counter) => ReplaceDateTimes(builder, format, counter, culture ?? Culture.CurrentCulture);
+    }
+
     public static void ReplaceDateTimes(StringBuilder builder, string format, Counter counter, Culture culture) =>
         ReplaceInner(
             builder,
@@ -78,14 +121,23 @@
 
     static void ReplaceInner(StringBuilder builder, string format, Counter counter, Culture culture, Func<DateTime, IFormattable> toDate, TryConvert tryConvertDate)
     {
+        int Length(DateTime dateTime)
+        {
+            var date = toDate(dateTime);
+            try
+            {
+                return date.ToString(format, culture).Length;
+            }
+            catch (Exception exception)
+            {
+                throw new($"Failed to get length for {date.GetType()} {date.ToString()} using format '{format}' and culture {culture}.", exception);
+            }
+        }
+
         var cultureDate = GetCultureDates(culture);
         var value = builder.AsSpan();
-        var longDate = toDate(cultureDate.Long);
-        var shortDate = toDate(cultureDate.Short);
-        var longest = longDate.ToString(format, culture)
-            .Length;
-        var shortest = shortDate.ToString(format, culture)
-            .Length;
+        var shortest = Length(cultureDate.Short);
+        var longest = Length(cultureDate.Long);
 
         var builderIndex = 0;
         for (var index = 0; index <= value.Length; index++)

@@ -18,8 +18,8 @@ Add the following packages to the test project:
 <a id='snippet-xunit-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-<PackageReference Include="Verify.Xunit" Version="22.11.2" />
-<PackageReference Include="Xunit" Version="2.6.4" />
+<PackageReference Include="Verify.Xunit" Version="22.11.3" />
+<PackageReference Include="Xunit" Version="2.6.5" />
 <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all" />
 ```
 <sup><a href='/src/NugetUsage/XunitNugetUsage/XunitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunit-nugets' title='Start of snippet'>anchor</a></sup>

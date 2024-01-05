@@ -37,7 +37,7 @@ public class CultureToDateBuilder
                           {
                               "{{culture.Name}}",
                               new(
-                                  new(2023, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 0, 0),
+                                  new(2023, {{longDate.Month}}, {{longDate.Day}}, {{longDate.Hour}}, 10, 10, 10),
                                   new(2023, {{shortDate.Month}}, {{shortDate.Day}}, {{shortDate.Hour}}, 0, 0))
                           },
                   """);
@@ -78,7 +78,7 @@ public class CultureToDateBuilder
                 }
                 else
                 {
-                    date = new(2023, month, day, 13, 0, 0, 0);
+                    date = new(2023, month, day, 12, 0, 0, 0);
                 }
 
                 var formatted = date.ToString(monthDayFormat, formatInfo);
@@ -104,7 +104,7 @@ public class CultureToDateBuilder
             for (var day = 1; day <= 7; day++)
             {
                 DateTime date;
-                if (amLength < pmLength)
+                if (amLength <= pmLength)
                 {
                     date = new(2023, month, day, 1, 0, 0, 0);
                 }

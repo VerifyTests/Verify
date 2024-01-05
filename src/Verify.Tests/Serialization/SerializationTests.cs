@@ -1512,6 +1512,16 @@ public class SerializationTests
             .ScrubInlineDateTimes("yyyy-MM-dd");
 
     [Fact]
+    public Task ShouldScrubInlineDateTimesShort() =>
+        Verify(" 2020-12-10 12:10:10  2020-12-10 1:1:1 ")
+            .ScrubInlineDateTimes("yyyy-MM-dd h:m:s");
+
+    [Fact]
+    public Task ShouldScrubInlineDateTimesLong() =>
+        Verify(" 2020-12-10 12:10:10  2020-12-10 01:01:01 ")
+            .ScrubInlineDateTimes("yyyy-MM-dd hh:mm:ss");
+
+    [Fact]
     public Task ShouldScrubInlineDateTimesEndingInNewline1() =>
         Verify("2020-12-10\n")
             .ScrubInlineDateTimes("yyyy-MM-dd");

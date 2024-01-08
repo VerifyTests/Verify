@@ -9,7 +9,6 @@ public static partial class VerifierSettings
 
     internal static void FirstRun()
     {
-#if NET8_0_OR_GREATER
         stringComparers = stringComparers.ToFrozenDictionary();
         streamComparers = streamComparers.ToFrozenDictionary();
         parameterToNameLookup = parameterToNameLookup.ToFrozenDictionary();
@@ -17,7 +16,6 @@ public static partial class VerifierSettings
         typeToString = typeToString.ToFrozenDictionary();
         membersConverters = membersConverters.ToFrozenDictionary();
         extensionConverters = extensionConverters.ToFrozenDictionary();
-#endif
     }
 
     /// <summary>

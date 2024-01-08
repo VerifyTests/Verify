@@ -14,7 +14,4 @@ global using System.Runtime.Versioning;
 global using System.Runtime.InteropServices;
 global using CharSpan = System.ReadOnlySpan<char>;
 global using Culture = System.Globalization.CultureInfo;
-
-#if NET8_0_OR_GREATER
 global using System.Collections.Frozen;
-#endif

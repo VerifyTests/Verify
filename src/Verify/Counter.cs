@@ -4,13 +4,13 @@ public partial class Counter
 {
     internal static void FirstRun()
     {
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
         globalNamedDates = globalNamedDates.ToFrozenDictionary();
+        globalNamedTimes = globalNamedTimes.ToFrozenDictionary();
+#endif
         globalNamedDateTimes = globalNamedDateTimes.ToFrozenDictionary();
         globalNamedDateTimeOffsets = globalNamedDateTimeOffsets.ToFrozenDictionary();
         globalNamedGuids = globalNamedGuids.ToFrozenDictionary();
-        globalNamedTimes = globalNamedTimes.ToFrozenDictionary();
-#endif
     }
 
 #if NET6_0_OR_GREATER

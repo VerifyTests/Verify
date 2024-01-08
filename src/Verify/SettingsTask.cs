@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class SettingsTask
 {
@@ -221,6 +221,16 @@ public partial class SettingsTask
     public SettingsTask UseDirectory(string directory)
     {
         CurrentSettings.UseDirectory(directory);
+        return this;
+    }
+
+    /// <summary>
+    /// Use a sub directory for the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask UseSubDirectory(string subDirectory)
+    {
+        CurrentSettings.UseSubDirectory(subDirectory);
         return this;
     }
 

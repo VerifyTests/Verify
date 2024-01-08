@@ -277,6 +277,8 @@ public partial class InnerVerifier :
             return sourceFileDirectory;
         }
 
+        settingsOrInfoDirectory = Path.Combine(settingsOrInfoDirectory, settings.SubDirectory ?? string.Empty);
+
         var mappedSettingsOrInfoDirectory = IoHelpers.GetMappedBuildPath(settingsOrInfoDirectory);
         var directory = Path.Combine(sourceFileDirectory, mappedSettingsOrInfoDirectory);
         IoHelpers.CreateDirectory(directory);

@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    internal static Dictionary<string, List<Action<StringBuilder, Counter>>> ExtensionMappedGlobalScrubbers = [];
+    internal static IDictionary<string, List<Action<StringBuilder, Counter>>> ExtensionMappedGlobalScrubbers =  new Dictionary<string, List<Action<StringBuilder, Counter>>>();
 
     /// <summary>
     /// Modify the resulting test content using custom code.

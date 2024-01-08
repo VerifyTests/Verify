@@ -4,9 +4,8 @@ namespace VerifyTests;
 public partial class Counter
 {
     ConcurrentDictionary<Date, (int intValue, string stringValue)> dateCache = [];
-    static Dictionary<Date, string> globalNamedDates = [];
+    static IDictionary<Date, string> globalNamedDates = new Dictionary<Date, string>();
     int currentDate;
-
     internal static void AddNamed(Date value, string name)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

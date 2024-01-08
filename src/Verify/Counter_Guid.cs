@@ -3,7 +3,7 @@
 public partial class Counter
 {
     ConcurrentDictionary<Guid, (int intValue, string stringValue)> guidCache = [];
-    static Dictionary<Guid, string> globalNamedGuids = [];
+    static IDictionary<Guid, string> globalNamedGuids = new Dictionary<Guid, string>();
     int currentGuid;
 
     public int Next(Guid input) =>

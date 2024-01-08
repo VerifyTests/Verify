@@ -2,7 +2,7 @@
 
 public static partial class VerifierSettings
 {
-    static Dictionary<Type, Dictionary<string, ConvertTargetMember>> membersConverters = [];
+    static IDictionary<Type, Dictionary<string, ConvertTargetMember>> membersConverters = new Dictionary<Type, Dictionary<string, ConvertTargetMember>>();
 
     internal static ConvertTargetMember? GetMemberConverter(MemberInfo member) =>
         GetMemberConverter(member.DeclaringType, member.Name);

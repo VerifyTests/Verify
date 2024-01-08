@@ -7,6 +7,19 @@ public static partial class VerifierSettings
     public static void OmitContentFromException() =>
         omitContentFromException = true;
 
+    internal static void FirstRun()
+    {
+#if NET8_0_OR_GREATER
+        stringComparers = stringComparers.ToFrozenDictionary();
+        streamComparers = streamComparers.ToFrozenDictionary();
+        parameterToNameLookup = parameterToNameLookup.ToFrozenDictionary();
+        ExtensionMappedGlobalScrubbers = ExtensionMappedGlobalScrubbers.ToFrozenDictionary();
+        typeToString = typeToString.ToFrozenDictionary();
+        membersConverters = membersConverters.ToFrozenDictionary();
+        extensionConverters = extensionConverters.ToFrozenDictionary();
+#endif
+    }
+
     /// <summary>
     /// Automatically accept the results of all tests.
     /// </summary>

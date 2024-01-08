@@ -11,12 +11,12 @@ public partial class InnerVerifier :
     GetIndexedFileNames getIndexedFileNames = null!;
     IEnumerable<string> verifiedFiles = null!;
     Counter counter;
-    internal static bool verifyHasBeenRun;
+    internal static int verifyHasBeenRun;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
     {
-        if (!verifyHasBeenRun)
+        if (verifyHasBeenRun == 0)
         {
             return;
         }
@@ -38,7 +38,7 @@ public partial class InnerVerifier :
         Guard.AgainstEmpty(sourceFile);
         Guard.AgainstEmpty(typeName);
         Guard.AgainstEmpty(methodName);
-        verifyHasBeenRun = true;
+        FirstRun();
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
@@ -60,6 +60,15 @@ public partial class InnerVerifier :
         else
         {
             InitForFileConvention(namer, typeAndMethod, parameterText);
+        }
+    }
+
+    static void FirstRun()
+    {
+        if (Interlocked.Exchange(ref verifyHasBeenRun, 1) == 0)
+        {
+            VerifierSettings.FirstRun();
+            Counter.FirstRun();
         }
     }
 

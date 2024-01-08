@@ -33,7 +33,7 @@ public static partial class VerifierSettings
         return typeToString.TryGetValue(target.GetType(), out toString);
     }
 
-    static Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new()
+    static IDictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>> typeToString = new Dictionary<Type, Func<object, IReadOnlyDictionary<string, object>, AsStringResult>>
     {
         #region typeToStringMapping
 
@@ -135,7 +135,7 @@ public static partial class VerifierSettings
 
     internal static void Reset()
     {
-        InnerVerifier.verifyHasBeenRun = false;
+        InnerVerifier.verifyHasBeenRun = 0;
         DateCountingEnabled = true;
         StrictJson = false;
         scrubProjectDir = true;

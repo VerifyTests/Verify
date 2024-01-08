@@ -4,7 +4,7 @@ public static partial class VerifierSettings
 {
     internal static Namer SharedNamer = new();
 
-    static Dictionary<Type, Func<object, string>> parameterToNameLookup = new()
+    static IDictionary<Type, Func<object, string>> parameterToNameLookup = new Dictionary<Type, Func<object, string>>
     {
         {
             typeof(bool), _ => ((bool) _).ToString(Culture.InvariantCulture)

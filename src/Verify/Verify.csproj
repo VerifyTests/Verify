@@ -15,7 +15,7 @@
     <PackageReference Include="DiffEngine" Version="15.1.1" />
     <PackageReference Include="EmptyFiles" Version="8.1.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="2.2.0" />
-    <PackageReference Include="Argon" Version="0.14.0" />
+    <PackageReference Include="Argon" Version="0.15.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" Condition="$(TargetFramework.StartsWith('net46'))" />

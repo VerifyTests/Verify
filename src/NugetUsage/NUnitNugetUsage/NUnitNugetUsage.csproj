@@ -7,7 +7,7 @@
     <!-- begin-snippet: nunit-nugets -->
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="NUnit" Version="4.0.1" />
-    <PackageReference Include="Verify.NUnit" Version="22.11.4" />
+    <PackageReference Include="Verify.NUnit" Version="22.11.5" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

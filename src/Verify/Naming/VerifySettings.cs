@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 public partial class VerifySettings
 {
@@ -71,6 +71,20 @@ public partial class VerifySettings
     {
         Guard.BadDirectoryName(directory);
         Directory = directory;
+    }
+
+    public string? SubDirectory { get; internal set; }
+
+    /// <summary>
+    /// Use a sub directory for the test results.
+    /// </summary>
+    public void UseSubDirectory(string subDirectory)
+    {
+        Guard.BadDirectoryName(subDirectory);
+        if (Path.IsPathRooted(subDirectory))
+            throw new ArgumentException($"Sub directory cannot be rooted ('{subDirectory}')", nameof(subDirectory));
+
+        SubDirectory = subDirectory;
     }
 
     internal string? typeName;

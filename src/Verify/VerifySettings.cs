@@ -20,6 +20,7 @@ public partial class VerifySettings
         appendedFiles = settings.appendedFiles;
         useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;
+        SubDirectory = settings.SubDirectory;
         autoVerify = settings.autoVerify;
         serialization = settings.serialization;
         stringComparer = settings.stringComparer;

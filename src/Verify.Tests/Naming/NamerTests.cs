@@ -207,12 +207,60 @@ public class NamerTests
     }
 
     [Fact]
+    public async Task UseSubDirectory()
+    {
+        #region UseSubDirectory
+
+        var settings = new VerifySettings();
+        settings.UseSubDirectory("SubDirectory");
+        await Verify("valueUseSubDirectory", settings);
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseDirectoryAndUseSubDirectory()
+    {
+        #region UseSubDirectory
+
+        var settings = new VerifySettings();
+        settings.UseDirectory("CustomDirectory");
+        settings.UseSubDirectory("SubDirectory");
+        await Verify("valueUseSubDirectoryWithinCustomDirectory", settings);
+
+        #endregion
+    }
+
+    [Fact]
     public async Task UseDirectoryFluent()
     {
         #region UseDirectoryFluent
 
         await Verify("valueUseDirectoryFluent")
             .UseDirectory("CustomDirectory");
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseSubDirectoryFluent()
+    {
+        #region UseSubDirectoryFluent
+
+        await Verify("valueUseSubDirectoryFluent")
+            .UseSubDirectory("SubDirectory");
+
+        #endregion
+    }
+
+    [Fact]
+    public async Task UseDirectoryAndUseSubDirectoryFluent()
+    {
+        #region UseSubDirectoryFluent
+
+        await Verify("valueUseSubDirectoryFluent")
+            .UseDirectory("CustomDirectory")
+            .UseSubDirectory("SubDirectory");
 
         #endregion
     }
@@ -399,10 +447,10 @@ public class NamerTests
     {
         var runtimeAndVersion = Namer.GetRuntimeAndVersion();
         return Verify(new
-            {
-                runtimeAndVersion.runtime,
-                runtimeAndVersion.Version
-            })
+        {
+            runtimeAndVersion.runtime,
+            runtimeAndVersion.Version
+        })
             .UniqueForRuntimeAndVersion();
     }
 
@@ -578,10 +626,10 @@ public class NamerTests
         var name = GetType()
             .Assembly.FrameworkName()!;
         return Verify(new
-            {
-                name.Name,
-                name.NameAndVersion
-            })
+        {
+            name.Name,
+            name.NameAndVersion
+        })
             .UniqueForRuntimeAndVersion();
     }
 

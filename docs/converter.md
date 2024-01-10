@@ -178,6 +178,7 @@ Converters can be shipped as NuGet packages:
  * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
  * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
  * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
+ * [Verify.Syncfusion](https://github.com/VerifyTests/Verify.Syncfusion): Converts documents (pdf, docx, xslx, and pptx) to png/csv/text for verification.
  * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
  * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
  * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.

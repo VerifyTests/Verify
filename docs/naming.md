@@ -244,7 +244,6 @@ public class UniqueForSample
 <!-- snippet: UniqueForSampleXunit -->
 <a id='snippet-uniqueforsamplexunit'></a>
 ```cs
-[UsesVerify]
 public class UniqueForSample
 {
     [Fact]
@@ -308,7 +307,7 @@ public class UniqueForSample
             .UniqueForOSPlatform();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-uniqueforsamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -509,7 +508,6 @@ Usage:
 <!-- snippet: XunitExtensionSample -->
 <a id='snippet-xunitextensionsample'></a>
 ```cs
-[UsesVerify]
 public class ExtensionSample
 {
     [Fact]
@@ -537,7 +535,7 @@ public class ExtensionSample
             extension: "xml");
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitextensionsample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in:
@@ -596,7 +594,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L9-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

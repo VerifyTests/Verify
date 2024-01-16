@@ -135,7 +135,6 @@ public static void Initialize() =>
 <!-- snippet: SampleTestxUnit -->
 <a id='snippet-sampletestxunit'></a>
 ```cs
-[UsesVerify]
 public class Sample
 {
     [Fact]
@@ -146,7 +145,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

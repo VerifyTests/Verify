@@ -267,7 +267,6 @@ public class ScrubbersSample
 <!-- snippet: ScrubbersSampleXunit -->
 <a id='snippet-scrubberssamplexunit'></a>
 ```cs
-[UsesVerify]
 public class ScrubbersSample
 {
     [Fact]
@@ -394,7 +393,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -716,7 +715,6 @@ public class ScrubberLevelsSample
 <!-- snippet: ScrubberLevelsSampleXunit -->
 <a id='snippet-scrubberlevelssamplexunit'></a>
 ```cs
-[UsesVerify]
 public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
@@ -745,7 +743,7 @@ public class ScrubberLevelsSample
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubberlevelssamplexunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

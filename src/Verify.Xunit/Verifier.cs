@@ -7,7 +7,7 @@ public static partial class Verifier
         if (!UseVerifyAttribute.TryGet(out var method))
         {
             var fileName = Path.GetFileName(sourceFile);
-            throw new($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
+            throw new($"Expected to find a `[UseVerify]` on assembly. File: {fileName}.");
         }
 
         if (useUniqueDirectory)

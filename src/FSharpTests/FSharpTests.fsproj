@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-      <GenerateProgramFile>false</GenerateProgramFile>
-      <LangVersion>preview</LangVersion>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Tests.fs" />

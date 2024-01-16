@@ -1,6 +1,5 @@
 ﻿#region XunitExtensionSample
 
-[UsesVerify]
 public class ExtensionSample
 {
     [Fact]

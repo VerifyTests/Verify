@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class Tests
+﻿public class Tests
 {
     [Fact]
     public Task WriteRawInConverterTest()

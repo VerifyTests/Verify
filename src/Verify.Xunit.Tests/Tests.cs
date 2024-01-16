@@ -1,6 +1,5 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
-[UsesVerify]
 public class Tests
 {
     // ReSharper disable once UnusedMember.Local

@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class Base
+﻿public class Base
 {
     [Fact]
     public Task TestInBase() =>

@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class UseSplitModeForUniqueDirectoryTests :
+﻿public class UseSplitModeForUniqueDirectoryTests :
     BaseTest
 {
     public UseSplitModeForUniqueDirectoryTests() =>

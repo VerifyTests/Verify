@@ -1,6 +1,5 @@
 ﻿using Argon;
 
-[UsesVerify]
 public class SortedPropertiesTests :
     BaseTest
 {

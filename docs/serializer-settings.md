@@ -57,7 +57,7 @@ var target = new TheTarget
 };
 await Verify(target);
 ```
-<sup><a href='/src/StrictJsonTests/Tests.cs#L83-L91' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/StrictJsonTests/Tests.cs#L82-L90' title='Snippet source file'>snippet source</a> | <a href='#snippet-usestrictjsonverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The resulting file will be:

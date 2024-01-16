@@ -5,4 +5,7 @@
     <Using Include="Xunit" />
     <Using Include="VerifyXunit.Verifier" Static="True" />
   </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="VerifyXunit.UseVerifyAttribute"/>
+  </ItemGroup>
 </Project>

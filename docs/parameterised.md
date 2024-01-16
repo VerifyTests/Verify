@@ -44,7 +44,7 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L51-L63' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L50-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
@@ -61,7 +61,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L65-L76' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparameterssubset' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L64-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparameterssubset' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -149,7 +149,7 @@ public Task InlineDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L30-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L29-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -185,7 +185,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L78-L107' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L77-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -196,7 +196,6 @@ xUnit only exposes parameter information for certain types. For unknown types th
 <!-- snippet: xunitComplexMemberData -->
 <a id='snippet-xunitcomplexmemberdata'></a>
 ```cs
-[UsesVerify]
 public class ComplexParametersSample
 {
     [ModuleInitializer]
@@ -310,7 +309,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -627,7 +626,6 @@ Note that NUnit can derive the parameters without explicitly passing them.
 <!-- snippet: UseParametersHashxUnit -->
 <a id='snippet-useparametershashxunit'></a>
 ```cs
-[UsesVerify]
 public class ParametersHashSample
 {
     [Theory]
@@ -667,5 +665,5 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -12,7 +12,5 @@
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.Xunit.props" Pack="true" PackagePath="buildTransitive\Verify.Xunit.props" />
     <None Include="buildTransitive\Verify.Xunit.props" Pack="true" PackagePath="build\Verify.Xunit.props" />
-    <Compile Remove="InjectUseVerify.cs" />
-    <None Include="InjectUseVerify.cs" Pack="true" PackagePath="contentFiles\InjectUseVerify.cs" />
   </ItemGroup>
 </Project>

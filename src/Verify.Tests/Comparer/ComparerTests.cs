@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class ComparerTests
+﻿public class ComparerTests
 {
     [Fact]
     public async Task Instance()

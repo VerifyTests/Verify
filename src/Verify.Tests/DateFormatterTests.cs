@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class DateFormatterTests
+﻿public class DateFormatterTests
 {
     [Fact]
     public Task DateTimeOtherTimeZoneToJsonString()

@@ -1,4 +1,3 @@
-[UsesVerify]
 public class VerifyDirectoryTests
 {
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");

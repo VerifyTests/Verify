@@ -1,7 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 
-[UsesVerify]
 public class XmlTests
 {
     string xml = """

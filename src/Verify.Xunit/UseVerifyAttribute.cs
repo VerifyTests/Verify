@@ -1,7 +1,8 @@
 ﻿namespace VerifyXunit;
-[Obsolete("No longer required",true)]
-[AttributeUsage(AttributeTargets.Class)]
-public class UsesVerifyAttribute :
+
+
+[AttributeUsage(AttributeTargets.Assembly)]
+public class UseVerifyAttribute :
     BeforeAfterTestAttribute
 {
     static AsyncLocal<MethodInfo?> local = new();

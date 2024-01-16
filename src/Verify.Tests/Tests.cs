@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 
 #pragma warning disable CS8618
 
-[UsesVerify]
 public class Tests
 {
     [ModuleInitializer]

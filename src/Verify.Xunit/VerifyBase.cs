@@ -1,6 +1,5 @@
 ﻿namespace VerifyXunit;
 
-[UsesVerify]
 public abstract partial class VerifyBase
 {
     VerifySettings? settings;

@@ -32,6 +32,11 @@
   <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
     <Compile Remove="Wizard\WizardGen.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Verify.Xunit\InjectUseVerify.cs">
+      <Link>InjectUseVerify.cs</Link>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />

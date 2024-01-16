@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class LinesScrubberTests
+﻿public class LinesScrubberTests
 {
     [Fact]
     public Task ScrubLinesContaining()

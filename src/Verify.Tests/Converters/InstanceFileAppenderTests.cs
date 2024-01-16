@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class InstanceFileAppenderTests
+﻿public class InstanceFileAppenderTests
 {
     VerifySettings settings;
 

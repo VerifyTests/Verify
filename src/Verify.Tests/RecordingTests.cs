@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class RecordingTests
+﻿public class RecordingTests
 {
     [Fact]
     public Task IgnoreNames()

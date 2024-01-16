@@ -1,5 +1,4 @@
 #pragma warning disable CS8605
-[UsesVerify]
 public class NCrunchTests
 {
     [Fact]

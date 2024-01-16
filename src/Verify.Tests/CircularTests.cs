@@ -1,4 +1,3 @@
-[UsesVerify]
 public class CircularTests
 {
     public class Parent

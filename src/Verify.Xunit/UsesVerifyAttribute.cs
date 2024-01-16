@@ -1,5 +1,6 @@
 ﻿namespace VerifyXunit;
-[Obsolete("No longer required",true)]
+
+[Obsolete("No longer required. Usages of this attribute can be removed.", true)]
 [AttributeUsage(AttributeTargets.Class)]
 public class UsesVerifyAttribute :
     BeforeAfterTestAttribute

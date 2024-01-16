@@ -1,5 +1,6 @@
 ﻿namespace VerifyXunit;
 
+[Experimental("UseVerifyAttribute")]
 [AttributeUsage(AttributeTargets.Assembly)]
 public class UseVerifyAttribute :
     BeforeAfterTestAttribute

@@ -1,6 +1,5 @@
 ﻿#region SampleTestXunit
 
-[UsesVerify]
 public class Sample
 {
     [Fact]

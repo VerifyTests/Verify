@@ -4,10 +4,10 @@ public static partial class Verifier
 {
     static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
-        if (!UsesVerifyAttribute.TryGet(out var method))
+        if (!UseVerifyAttribute.TryGet(out var method))
         {
             var fileName = Path.GetFileName(sourceFile);
-            throw new($"Expected to find a `[UsesVerify]` on test class. File: {fileName}.");
+            throw new($"Expected to find a `[UseVerify]` on assembly. File: {fileName}.");
         }
 
         if (useUniqueDirectory)

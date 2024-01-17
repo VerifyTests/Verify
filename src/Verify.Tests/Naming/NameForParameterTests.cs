@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class NameForParameterTests
+﻿public class NameForParameterTests
 {
     [Fact]
     public Task Null() =>

@@ -1,7 +1,6 @@
 ﻿#if DEBUG && NET6_0_OR_GREATER
 // ReSharper disable UnusedParameter.Local
 
-[UsesVerify]
 public class ConverterSnippets
 {
     [ModuleInitializer]

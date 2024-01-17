@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class ParametersSample
+﻿public class ParametersSample
 {
     public static IEnumerable<object[]> GetDecimalData()
     {

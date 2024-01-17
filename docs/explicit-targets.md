@@ -56,7 +56,7 @@ public Task WithTargets() =>
                 name: "targetName")
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L44-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L43-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-explicittargetsxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

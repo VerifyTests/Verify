@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class AutoVerify :
+﻿public class AutoVerify :
     BaseTest
 {
     [Fact]

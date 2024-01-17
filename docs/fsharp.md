@@ -25,7 +25,7 @@ By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default
 ```fs
 VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- NullValueHandling.Include)
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L9-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -40,7 +40,7 @@ F# does not respect implicit operator conversion. `SettingsTask` uses implicit o
 let MyTest () =
      Verifier.Verify(15).ToTask() |> Async.AwaitTask
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L13-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L12-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -49,7 +49,6 @@ let MyTest () =
 <!-- snippet: FSharpTests/Tests.fs -->
 <a id='snippet-FSharpTests/Tests.fs'></a>
 ```fs
-[<VerifyXunit.UsesVerify>]
 module Tests
 
 open Xunit
@@ -72,5 +71,5 @@ let WithFluentSetting () =
     |> Async.AwaitTask
 do ()
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L1-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-FSharpTests/Tests.fs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L1-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-FSharpTests/Tests.fs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

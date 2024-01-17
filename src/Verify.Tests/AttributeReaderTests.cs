@@ -1,6 +1,5 @@
 ﻿#if DEBUG
 
-[UsesVerify]
 public class AttributeReaderTests
 {
     [Fact]

@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class JsonAppenderTests : IDisposable
+﻿public class JsonAppenderTests : IDisposable
 {
     static AsyncLocal<bool> isInThisTest = new();
 

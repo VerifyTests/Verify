@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class ClipboardEnabledTests
+﻿public class ClipboardEnabledTests
 {
     [Fact]
     public void ParseEnvironmentVariable()

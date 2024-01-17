@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class Inherited : Base
+﻿public class Inherited : Base
 {
     public override Task TestToOverride()
     {

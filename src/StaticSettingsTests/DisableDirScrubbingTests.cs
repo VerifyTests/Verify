@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class DisableDirScrubbingTests :
+﻿public class DisableDirScrubbingTests :
     BaseTest
 {
     public DisableDirScrubbingTests()

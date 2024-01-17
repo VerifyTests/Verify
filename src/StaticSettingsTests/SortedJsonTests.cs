@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class SortedJsonTests :
+﻿public class SortedJsonTests :
     BaseTest
 {
     public SortedJsonTests() =>

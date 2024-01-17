@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class CompareToAssert
+﻿public class CompareToAssert
 {
     #region TraditionalTest
 

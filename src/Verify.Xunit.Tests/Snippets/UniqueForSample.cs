@@ -1,6 +1,5 @@
 ﻿#region UniqueForSampleXunit
 
-[UsesVerify]
 public class UniqueForSample
 {
     [Fact]

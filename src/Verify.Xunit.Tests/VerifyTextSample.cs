@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class VerifyTextSample
+﻿public class VerifyTextSample
 {
     [Fact]
     public Task Simple() =>

@@ -1,7 +1,6 @@
 ﻿using VerifyTests.ExceptionParsing;
 using FilePair = VerifyTests.FilePair;
 
-[UsesVerify]
 public class ExceptionParsingTests
 {
     static string projectDirectory = AttributeReader.GetProjectDirectory();

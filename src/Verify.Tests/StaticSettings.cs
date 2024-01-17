@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class StaticSettings
+﻿public class StaticSettings
 {
     [Fact]
     public Task Test() =>

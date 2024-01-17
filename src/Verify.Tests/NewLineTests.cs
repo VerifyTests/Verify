@@ -2,7 +2,6 @@
 
 #pragma warning disable CS8618
 
-[UsesVerify]
 public class NewLineTests
 {
     [Fact]

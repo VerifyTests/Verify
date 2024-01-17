@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class JsonTests
+﻿public class JsonTests
 {
     [Fact]
     public Task JObjectOrdering1()

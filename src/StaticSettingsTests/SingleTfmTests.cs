@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class SingleTfmTests
+﻿public class SingleTfmTests
 {
     [Fact]
     public async Task Simple()

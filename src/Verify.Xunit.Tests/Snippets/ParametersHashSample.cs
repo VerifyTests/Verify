@@ -2,7 +2,6 @@
 
 #region UseParametersHashXunit
 
-[UsesVerify]
 public class ParametersHashSample
 {
     [Theory]

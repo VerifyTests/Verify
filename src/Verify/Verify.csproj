@@ -12,7 +12,7 @@
     <PackageReference Include="System.IO.Compression" Version="4.3.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="System.IO.Hashing" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0'" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="DiffEngine" Version="15.1.1" />
+    <PackageReference Include="DiffEngine" Version="15.2.0" />
     <PackageReference Include="EmptyFiles" Version="8.1.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="2.2.0" />
     <PackageReference Include="Argon" Version="0.15.0" />

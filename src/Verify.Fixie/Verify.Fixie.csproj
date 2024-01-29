@@ -10,7 +10,6 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.109" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="8.1.0" PrivateAssets="None" />
     <PackageReference Include="Polyfill" Version="2.1.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="buildTransitive\Verify.Fixie.props" />
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="build\Verify.Fixie.props" />

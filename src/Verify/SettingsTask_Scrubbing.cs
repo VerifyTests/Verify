@@ -33,6 +33,16 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Replace inline <see cref="Guid" />s with a placeholder.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubInlineGuids(string extension, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubInlineGuids(extension, location);
+        return this;
+    }
+
+    /// <summary>
     /// Disables counting of dates.
     /// </summary>
     [Pure]
@@ -87,6 +97,16 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Remove the <see cref="Environment.MachineName" /> from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubMachineName(string extension, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubMachineName(extension, location);
+        return this;
+    }
+
+    /// <summary>
     /// Remove the <see cref="Environment.UserName" /> from the test results.
     /// </summary>
     [Pure]
@@ -97,12 +117,31 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Remove the <see cref="Environment.UserName" /> from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubUserName(string extension,ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubUserName(extension, location);
+        return this;
+    }
+
+    /// <summary>
     /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
     /// </summary>
     [Pure]
     public SettingsTask ScrubLinesContaining(StringComparison comparison, params string[] stringToMatch)
     {
         CurrentSettings.ScrubLinesContaining(comparison, stringToMatch);
+        return this;
+    }
+    /// <summary>
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubLinesContaining(string extension, StringComparison comparison, params string[] stringToMatch)
+    {
+        CurrentSettings.ScrubLinesContaining(extension, comparison, stringToMatch);
         return this;
     }
 
@@ -117,12 +156,32 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubLinesContaining(string extension, StringComparison comparison, ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    {
+        CurrentSettings.ScrubLinesContaining(extension, comparison, location, stringToMatch);
+        return this;
+    }
+
+    /// <summary>
     /// Remove any lines matching <paramref name="removeLine" /> from the test results.
     /// </summary>
     [Pure]
     public SettingsTask ScrubLines(Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubLines(removeLine, location);
+        return this;
+    }
+
+    /// <summary>
+    /// Remove any lines matching <paramref name="removeLine" /> from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubLines(string extension, Func<string, bool> removeLine, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubLines(extension, removeLine, location);
         return this;
     }
 
@@ -138,12 +197,33 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Scrub lines with an optional replace.
+    /// <paramref name="replaceLine" /> can return the input to ignore the line, or return a different string to replace it.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubLinesWithReplace(string extension, Func<string, string?> replaceLine, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubLinesWithReplace(extension, replaceLine, location);
+        return this;
+    }
+
+    /// <summary>
     /// Remove any lines containing only whitespace from the test results.
     /// </summary>
     [Pure]
     public SettingsTask ScrubEmptyLines(ScrubberLocation location = ScrubberLocation.First)
     {
         CurrentSettings.ScrubEmptyLines(location);
+        return this;
+    }
+
+    /// <summary>
+    /// Remove any lines containing only whitespace from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubEmptyLines(string extension, ScrubberLocation location = ScrubberLocation.First)
+    {
+        CurrentSettings.ScrubEmptyLines(extension, location);
         return this;
     }
 
@@ -164,6 +244,16 @@ public partial class SettingsTask
     public SettingsTask ScrubLinesContaining(ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
     {
         CurrentSettings.ScrubLinesContaining(location, stringToMatch);
+        return this;
+    }
+
+    /// <summary>
+    /// Remove any lines containing any of <paramref name="stringToMatch" /> from the test results.
+    /// </summary>
+    [Pure]
+    public SettingsTask ScrubLinesContaining(string extension, ScrubberLocation location = ScrubberLocation.First, params string[] stringToMatch)
+    {
+        CurrentSettings.ScrubLinesContaining(extension, location, stringToMatch);
         return this;
     }
 }

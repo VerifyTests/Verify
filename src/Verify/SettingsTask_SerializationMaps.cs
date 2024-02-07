@@ -218,6 +218,14 @@ public partial class SettingsTask
     }
 
     [Pure]
+    public SettingsTask AlwaysIncludeMembersWithType<T>()
+        where T : notnull
+    {
+        CurrentSettings.AlwaysIncludeMembersWithType<T>();
+        return this;
+    }
+
+    [Pure]
     public SettingsTask IgnoreMembersWithType(Type type)
     {
         CurrentSettings.IgnoreMembersWithType(type);
@@ -228,6 +236,13 @@ public partial class SettingsTask
     public SettingsTask ScrubMembersWithType(Type type)
     {
         CurrentSettings.ScrubMembersWithType(type);
+        return this;
+    }
+
+    [Pure]
+    public SettingsTask AlwaysIncludeMembersWithType(Type type)
+    {
+        CurrentSettings.AlwaysIncludeMembersWithType(type);
         return this;
     }
 

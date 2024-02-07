@@ -18,6 +18,13 @@ partial class SerializationSettings
     public void IgnoreMembersWithType(Type type) =>
         Add(type, ScrubOrIgnore.Ignore);
 
+    public void AlwaysIncludeMembersWithType<T>()
+        where T : notnull =>
+        AlwaysIncludeMembersWithType(typeof(T));
+
+    public void AlwaysIncludeMembersWithType(Type type) =>
+        Add(type, ScrubOrIgnore.AlwaysInclude);
+
     void Add(Type type, ScrubOrIgnore scrubOrIgnore)
     {
         ignoredTypes[type] = scrubOrIgnore;

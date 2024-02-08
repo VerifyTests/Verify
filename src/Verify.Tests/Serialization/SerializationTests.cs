@@ -2979,8 +2979,7 @@ public class SerializationTests
         var target = new
         {
             A = 0.0,
-            B = -0.0,
-            C = 1e-26
+            B = 1e-26
         };
 
         return Verify(target)

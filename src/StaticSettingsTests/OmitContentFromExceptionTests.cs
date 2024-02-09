@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class OmitContentFromExceptionTests :
+﻿public class OmitContentFromExceptionTests :
     BaseTest
 {
     public OmitContentFromExceptionTests()

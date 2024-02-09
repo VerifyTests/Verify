@@ -78,7 +78,7 @@ VerifierSettings.RegisterFileConverter<Image>(
             targets);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L10-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L9-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconvertertype' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: FileConverterTypeVerify -->
@@ -87,7 +87,7 @@ VerifierSettings.RegisterFileConverter<Image>(
 using var stream = File.OpenRead("sample.tif");
 await Verify(Image.FromStream(stream));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L49-L54' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L48-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconvertertypeverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that this sample also uses the optional `canConvert` to ensure that only `Image`s that are tiffs are converted.
@@ -97,7 +97,7 @@ Note that this sample also uses the optional `canConvert` to ensure that only `I
 ```cs
 canConvert: (target, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L14-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L13-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-convertercanconvert' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -134,7 +134,7 @@ VerifierSettings.RegisterFileConverter(
             targets);
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L60-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L59-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-registerfileconverterextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: FileConverterExtensionVerify -->
@@ -142,7 +142,7 @@ VerifierSettings.RegisterFileConverter(
 ```cs
 await VerifyFile("sample.tif");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L94-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ConverterSnippets.cs#L93-L97' title='Snippet source file'>snippet source</a> | <a href='#snippet-fileconverterextensionverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -163,7 +163,7 @@ return new(
         return Task.CompletedTask;
     });
 ```
-<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L32-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/TypeConverterTests.cs#L31-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-conversionresultwithcleanup' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -178,6 +178,7 @@ Converters can be shipped as NuGet packages:
  * [Verify.NServiceBus](https://github.com/NServiceBusExtensions/Verify.NServiceBus): Verify NServiceBus Test Contexts.
  * [Verify.RavenDb](https://github.com/VerifyTests/Verify.RavenDb): Verification of [RavenDb](https://ravendb.net) bits.
  * [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer): Verification of SqlServer bits.
+ * [Verify.Syncfusion](https://github.com/VerifyTests/Verify.Syncfusion): Converts documents (pdf, docx, xslx, and pptx) to png/csv/text for verification.
  * [Verify.Web](https://github.com/VerifyTests/Verify.Web): Verification of web bits.
  * [Verify.WinForms](https://github.com/VerifyTests/Verify.WinForms): Verification of WinForms UIs.
  * [Verify.Xaml](https://github.com/VerifyTests/Verify.Xaml): Verification of Xaml UIs.

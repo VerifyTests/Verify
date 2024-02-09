@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class ExtensionConverterTests
+﻿public class ExtensionConverterTests
 {
     [ModuleInitializer]
     public static void RecursiveInit() =>

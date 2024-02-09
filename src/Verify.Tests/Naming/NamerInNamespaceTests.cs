@@ -1,6 +1,5 @@
 ﻿namespace TheNamespace.Bar;
 
-[UsesVerify]
 public class NamerInNamespaceTests
 {
     [Fact]

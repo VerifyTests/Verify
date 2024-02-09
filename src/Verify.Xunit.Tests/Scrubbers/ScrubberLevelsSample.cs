@@ -1,6 +1,5 @@
 ﻿#region ScrubberLevelsSampleXunit
 
-[UsesVerify]
 public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;

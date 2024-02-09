@@ -1,4 +1,3 @@
-[UsesVerify]
 public class StreamTests
 {
     [Fact]

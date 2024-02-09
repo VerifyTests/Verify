@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class StaticFileAppenderTests :
+﻿public class StaticFileAppenderTests :
     IDisposable
 {
     static AsyncLocal<bool> isInThisTest = new();

@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class DateTimeScrubbingTests :
+﻿public class DateTimeScrubbingTests :
     BaseTest
 {
     public DateTimeScrubbingTests() =>

@@ -3,8 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="2.0.1" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="Polyfill" Version="2.2.0" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.109" PrivateAssets="all" />
   </ItemGroup>
 </Project>

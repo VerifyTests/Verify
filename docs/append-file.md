@@ -20,7 +20,7 @@ public Task AppendFile() =>
     Verify("Foo", settings)
         .AppendFile("sample.png");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L20-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in two files being verified:
@@ -39,7 +39,7 @@ public Task AppendContentAsFile() =>
     Verify("Foo")
         .AppendContentAsFile("extra content");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendcontentasfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L29-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendcontentasfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in two files being verified:

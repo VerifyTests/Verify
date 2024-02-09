@@ -7,8 +7,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Expecto" Version="10.1.0" />
-    <PackageReference Include="FSharp.Core" Version="8.0.100" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
+    <PackageReference Include="FSharp.Core" Version="8.0.101" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.109" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>

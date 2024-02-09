@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class ScrubStackTrace
+﻿public class ScrubStackTrace
 {
     [Fact]
     public Task Dotnet()

@@ -23,7 +23,7 @@ var target = new GuidTarget
 
 await Verify(target);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2028-L2041' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2027-L2040' title='Snippet source file'>snippet source</a> | <a href='#snippet-guid' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in the following:
@@ -56,7 +56,7 @@ var settings = new VerifySettings();
 settings.DontScrubGuids();
 await Verify(target, settings);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L717-L723' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L716-L722' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguids' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -68,7 +68,7 @@ await Verify(target, settings);
 await Verify(target)
     .DontScrubGuids();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L731-L736' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L730-L735' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -79,7 +79,7 @@ await Verify(target)
 ```cs
 VerifierSettings.DontScrubGuids();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1574-L1578' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1573-L1577' title='Snippet source file'>snippet source</a> | <a href='#snippet-dontscrubguidsglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -103,7 +103,7 @@ public Task ScrubInlineGuidsInstance()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1623-L1635' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1622-L1634' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -117,7 +117,7 @@ public Task ScrubInlineGuidsFluent() =>
     Verify("content 651ad409-fc30-4b12-a47e-616d3f953e4c content")
         .ScrubInlineGuids();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1614-L1621' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1613-L1620' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -133,7 +133,7 @@ public static class ModuleInitializer
         VerifierSettings.ScrubInlineGuids();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1602-L1611' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1601-L1610' title='Snippet source file'>snippet source</a> | <a href='#snippet-scrubinlineguidsglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -160,7 +160,7 @@ public Task NamedGuidInstance()
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L65-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidinstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L64-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidinstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -178,7 +178,7 @@ public Task NamedGuidFluent() =>
             })
         .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L82-L93' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L81-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -191,5 +191,5 @@ public Task NamedGuidFluent() =>
 public static void Init() =>
     VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidglobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-namedguidglobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

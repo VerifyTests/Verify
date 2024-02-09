@@ -68,7 +68,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L24-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L23-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

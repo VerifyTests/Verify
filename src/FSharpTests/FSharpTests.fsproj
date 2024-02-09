@@ -1,19 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-      <GenerateProgramFile>false</GenerateProgramFile>
-      <LangVersion>preview</LangVersion>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <PackageReference Include="Argon.FSharp" Version="0.15.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="xunit" Version="2.6.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="xunit" Version="2.6.6" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <PackageReference Update="FSharp.Core" Version="8.0.100" />
+    <PackageReference Update="FSharp.Core" Version="8.0.101" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
+  <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
 </Project>

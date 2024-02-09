@@ -1,6 +1,5 @@
 ﻿#region ScrubbersSampleXunit
 
-[UsesVerify]
 public class ScrubbersSample
 {
     [Fact]

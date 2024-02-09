@@ -5,7 +5,6 @@
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
 
-[UsesVerify]
 public class VerifyObjectSamples
 {
     [Fact]

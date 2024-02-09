@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Fixie.TestAdapter" Version="3.4.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.108" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.109" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Fixie\Verify.Fixie.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

@@ -2,7 +2,6 @@
 
 [assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)]
 
-[UsesVerify]
 public abstract class BaseTest
 {
     protected BaseTest() =>

@@ -1,5 +1,4 @@
-﻿[UsesVerify]
-public class SimpleTypeTests
+﻿public class SimpleTypeTests
 {
 #if NET5_0_OR_GREATER
     [Theory]

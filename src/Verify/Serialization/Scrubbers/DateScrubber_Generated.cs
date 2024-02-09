@@ -1654,8 +1654,5 @@ static partial class DateScrubber
                 new(2023, 5, 7, 1, 0, 0))
         },
     }
-#if NET8_0_OR_GREATER
-            .ToFrozenDictionary()
-#endif
-     ;
+            .ToFrozenDictionary()     ;
 }

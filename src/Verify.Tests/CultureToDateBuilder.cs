@@ -10,6 +10,7 @@ public class CultureToDateBuilder
         {
             return Task.CompletedTask;
         }
+
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
         var builder = new StringBuilder(
             """
@@ -31,6 +32,7 @@ public class CultureToDateBuilder
                     continue;
                 }
             }
+
             builder.AppendLine(
                 $$"""
                           {
@@ -44,11 +46,7 @@ public class CultureToDateBuilder
 
         builder.AppendLine(
             """
-                }
-            #if NET8_0_OR_GREATER
-                        .ToFrozenDictionary()
-            #endif
-                 ;
+                }.ToFrozenDictionary();
             }
             """);
         var file = Path.Combine(AttributeReader.GetSolutionDirectory(), "Verify/Serialization/Scrubbers/DateScrubber_Generated.cs");

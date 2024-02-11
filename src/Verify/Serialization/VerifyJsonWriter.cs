@@ -9,8 +9,7 @@ public class VerifyJsonWriter :
     public IReadOnlyDictionary<string, object> Context { get; }
     public Counter Counter { get; }
 
-    internal VerifyJsonWriter(StringBuilder builder, VerifySettings settings, Counter counter)
-        :
+    internal VerifyJsonWriter(StringBuilder builder, VerifySettings settings, Counter counter) :
         base(
             new StringWriter(builder)
             {
@@ -30,7 +29,7 @@ public class VerifyJsonWriter :
         }
     }
 
-    public void WriteRawValueIfNoStrict(string? value)
+    public void WriteRawValueIfNoStrict(string value)
     {
         if (VerifierSettings.StrictJson)
         {
@@ -41,9 +40,9 @@ public class VerifyJsonWriter :
         base.WriteRawValue(value);
     }
 
-    public void WriteRawValueWithScrubbers(string? value)
+    public void WriteRawValueWithScrubbers(string value)
     {
-        if (value is null or "")
+        if (value is "")
         {
             WriteRawValueIfNoStrict(value);
             return;
@@ -87,7 +86,13 @@ public class VerifyJsonWriter :
 
     public override void WriteValue(string? value)
     {
-        if (value is null or "")
+        if (value is null)
+        {
+            base.WriteNull();
+            return;
+        }
+
+        if (value is "")
         {
             WriteRawValueIfNoStrict(value);
             return;

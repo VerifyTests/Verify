@@ -68,6 +68,7 @@ public class NewLineTests
         await Verify("a\rb");
         PrefixUnique.Clear();
         await Verify("a\nb");
+        File.Delete(fullPath);
     }
 
     [Fact]

@@ -33,7 +33,7 @@ partial class InnerVerifier
 
         using var reader = new StreamReader(target);
         using var textReader = new JsonTextReader(reader);
-        var token = await JToken.LoadAsync(textReader);
+        var token = JToken.Load(textReader);
         return await VerifyJson(token);
     }
 

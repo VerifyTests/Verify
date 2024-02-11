@@ -285,6 +285,7 @@ public class Tests
             .Take(3);
         var preambleBytes = Encoding.UTF8.GetPreamble();
         Assert.Equal(preambleBytes, fileBytes);
+        File.Delete(file);
     }
 
     [Fact]

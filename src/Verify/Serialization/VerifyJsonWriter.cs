@@ -53,6 +53,16 @@ public class VerifyJsonWriter :
         WriteRawValueIfNoStrict(value);
     }
 
+    public override void WritePropertyName(CharSpan name, bool escape)
+    {
+        if (VerifierSettings.StrictJson)
+        {
+            escape = false;
+        }
+
+        base.WritePropertyName(name, escape);
+    }
+
     public override void WritePropertyName(string name, bool escape)
     {
         if (VerifierSettings.StrictJson)
@@ -61,6 +71,18 @@ public class VerifyJsonWriter :
         }
 
         base.WritePropertyName(name, escape);
+    }
+
+    public override void WriteValue(CharSpan value)
+    {
+        //TODO:
+        WriteValue(value.ToString());
+    }
+
+    public override void WriteValue(StringBuilder? value)
+    {
+        // TODO:
+        WriteValue(value?.ToString());
     }
 
     public override void WriteValue(string? value)
@@ -219,8 +241,7 @@ public class VerifyJsonWriter :
         {
             WriteValue(convertedString);
         }
-        else if (converted.GetType()
-                 .IsPrimitive)
+        else if (converted.GetType().IsPrimitive)
         {
             WriteValue(converted);
         }

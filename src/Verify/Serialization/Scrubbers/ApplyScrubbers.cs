@@ -4,7 +4,7 @@ static class ApplyScrubbers
 {
     static char dirSeparator = Path.DirectorySeparatorChar;
     static char altDirSeparator = Path.AltDirectorySeparatorChar;
-    static List<KeyValuePair<string, string>> replacements = [];
+    internal static List<KeyValuePair<string, string>> replacements = [];
 
     static string ReplaceAltDirChar(this string directory) =>
         directory.Replace(dirSeparator, altDirSeparator);
@@ -57,7 +57,7 @@ static class ApplyScrubbers
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
         ApplyScrubbers.replacements = replacements
-            .OrderByDescending(_ => _.Key)
+            .OrderByDescending(_ => _.Key.Length)
             .ToList();
     }
 

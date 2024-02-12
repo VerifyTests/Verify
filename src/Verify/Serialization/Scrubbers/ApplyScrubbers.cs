@@ -57,7 +57,7 @@ static class ApplyScrubbers
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
         ApplyScrubbers.replacements = replacements
-            .OrderByDescending(_ => _.Key)
+            .OrderByDescending(_ => _.Key.Length)
             .ToList();
     }
 

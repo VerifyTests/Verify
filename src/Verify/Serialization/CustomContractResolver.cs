@@ -75,7 +75,7 @@
 
         if (original is string stringValue)
         {
-            if (settings.TryParseConvert(counter, stringValue.AsSpan(), out var result))
+            if (settings.TryParseConvert(counter, stringValue, out var result))
             {
                 return result;
             }

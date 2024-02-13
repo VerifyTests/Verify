@@ -156,7 +156,7 @@
     {
         if (scrubDateTimes)
         {
-            if (DateTime.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", null, DateTimeStyles.None, out var dateTime))
+            if (TryParse("yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTime))
             {
                 result = Convert(counter, dateTime);
                 return true;
@@ -164,7 +164,7 @@
 
             foreach (var format in datetimeFormats)
             {
-                if (DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime))
+                if (TryParse(format, out dateTime))
                 {
                     result = Convert(counter, dateTime);
                     return true;
@@ -174,13 +174,16 @@
 
         result = null;
         return false;
+
+        bool TryParse(string format, out DateTime dateTime) =>
+            DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
     }
 
     internal bool TryParseConvertDateTimeOffset(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
-            if (DateTimeOffset.TryParseExact(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", null, DateTimeStyles.None, out var dateTimeOffset))
+            if (TryParse("yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTimeOffset))
             {
                 result = Convert(counter, dateTimeOffset);
                 return true;
@@ -188,7 +191,7 @@
 
             foreach (var format in datetimeOffsetFormats)
             {
-                if (DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset))
+                if (TryParse(format, out dateTimeOffset))
                 {
                     result = Convert(counter, dateTimeOffset);
                     return true;
@@ -198,5 +201,8 @@
 
         result = null;
         return false;
+
+        bool TryParse(string format, out DateTimeOffset dateTimeOffset) =>
+            DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
     }
 }

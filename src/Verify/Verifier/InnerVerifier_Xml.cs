@@ -114,11 +114,12 @@ partial class InnerVerifier
 
     string ConvertValue(SerializationSettings serialization, string value)
     {
-        if (serialization.TryConvertString(counter, value, out var result))
+        var span = value.AsSpan();
+        if (serialization.TryConvertString(counter, span, out var result))
         {
             return result;
         }
 
-        return ApplyScrubbers.ApplyForPropertyValue(value, settings, counter);
+        return ApplyScrubbers.ApplyForPropertyValue(span, settings, counter).ToString();
     }
 }

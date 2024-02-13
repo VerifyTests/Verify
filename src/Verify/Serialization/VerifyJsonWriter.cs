@@ -89,11 +89,9 @@ public class VerifyJsonWriter :
         WriteValue(value.AsSpan());
     }
 
-    public override void WriteValue(StringBuilder? value)
-    {
+    public override void WriteValue(StringBuilder? value) =>
         // TODO:
         WriteValue(value?.ToString());
-    }
 
     public override void WriteValue(CharSpan value)
     {
@@ -123,8 +121,7 @@ public class VerifyJsonWriter :
             if (value[0] != '\n')
             {
                 //todo: avoid alloc
-                value = $"\n{value.ToString()}";
-                WriteRawValue(value);
+                WriteRawValue($"\n{value.ToString()}");
             }
             else
             {

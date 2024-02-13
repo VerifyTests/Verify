@@ -10,8 +10,8 @@ class TimeConverter :
             return;
         }
 
-        Span<char> buffer = stackalloc char[7];
-        value.TryFormat(buffer, out _, "h:mm tt".AsSpan(), Culture.InvariantCulture);
+        Span<char> buffer = stackalloc char[8];
+        value.TryFormat(buffer, out _, "hh:mm tt".AsSpan(), Culture.InvariantCulture);
         writer.WriteRawValueWithScrubbers(buffer);
     }
 }

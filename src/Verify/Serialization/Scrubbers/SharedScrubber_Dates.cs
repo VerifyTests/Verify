@@ -177,10 +177,10 @@
     }
 
     static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
-#if NET48
-        DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
+#if NET47_OR_GREATER
+        DateTime.TryParseExact(value.ToString(), format, null, DateTimeStyles.None, out dateTime);
 #else
-        DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
+        DateTime.TryParseExact(value, format.AsSpan(), null, DateTimeStyles.None, out dateTime);
 #endif
 
     internal bool TryParseConvertDateTimeOffset(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
@@ -209,8 +209,8 @@
     }
 
     static bool TryParseDateTimeOffset(CharSpan value, string format, out DateTimeOffset dateTimeOffset) =>
-#if NET48
-        DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
+#if NET47_OR_GREATER
+        DateTimeOffset.TryParseExact(value.ToString(), format, null, DateTimeStyles.None, out dateTimeOffset);
 #else
         DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
 #endif

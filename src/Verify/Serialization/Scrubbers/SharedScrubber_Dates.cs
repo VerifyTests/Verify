@@ -18,7 +18,7 @@
     }
 
 #if NET6_0_OR_GREATER
-    internal bool TryParseConvertDate(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDate(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -63,7 +63,7 @@
         return counter.NextString(date);
     }
 
-    internal bool TryParseConvertTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertTime(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -83,14 +83,14 @@
 
     internal bool TryConvert(Counter counter, Time value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (scrubDateTimes)
         {
-            result = null;
-            return false;
+            result = Convert(counter, value);
+            return true;
         }
 
-        result = Convert(counter, value);
-        return true;
+        result = null;
+        return false;
     }
 
     static string Convert(Counter counter, Time time)
@@ -152,7 +152,7 @@
         return counter.NextString(date);
     }
 
-    internal bool TryParseConvertDateTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTime(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -176,7 +176,7 @@
         return false;
     }
 
-    internal bool TryParseConvertDateTimeOffset(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTimeOffset(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {

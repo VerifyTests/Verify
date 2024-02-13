@@ -1,6 +1,6 @@
 ﻿partial class SerializationSettings
 {
-    internal bool TryConvertString(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryConvertString(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(counter, value, out result))
         {

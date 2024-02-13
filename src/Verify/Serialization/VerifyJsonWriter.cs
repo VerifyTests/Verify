@@ -29,7 +29,10 @@ public class VerifyJsonWriter :
         }
     }
 
-    public void WriteRawValueIfNoStrict(string value)
+    public void WriteRawValueIfNoStrict(string value) =>
+        WriteRawValueIfNoStrict(value.AsSpan());
+
+    public void WriteRawValueIfNoStrict(CharSpan value)
     {
         if (VerifierSettings.StrictJson)
         {
@@ -40,9 +43,12 @@ public class VerifyJsonWriter :
         base.WriteRawValue(value);
     }
 
-    public void WriteRawValueWithScrubbers(string value)
+    public void WriteRawValueWithScrubbers(string value) =>
+        WriteRawValueWithScrubbers(value.AsSpan());
+
+    public void WriteRawValueWithScrubbers(CharSpan value)
     {
-        if (value is "")
+        if (value.Length == 0)
         {
             WriteRawValueIfNoStrict(value);
             return;
@@ -72,18 +78,6 @@ public class VerifyJsonWriter :
         base.WritePropertyName(name, escape);
     }
 
-    public override void WriteValue(CharSpan value)
-    {
-        //TODO:
-        WriteValue(value.ToString());
-    }
-
-    public override void WriteValue(StringBuilder? value)
-    {
-        // TODO:
-        WriteValue(value?.ToString());
-    }
-
     public override void WriteValue(string? value)
     {
         if (value is null)
@@ -92,6 +86,17 @@ public class VerifyJsonWriter :
             return;
         }
 
+        WriteValue(value.AsSpan());
+    }
+
+    public override void WriteValue(StringBuilder? value)
+    {
+        // TODO:
+        WriteValue(value?.ToString());
+    }
+
+    public override void WriteValue(CharSpan value)
+    {
         if (value is "")
         {
             WriteRawValueIfNoStrict(value);
@@ -115,12 +120,16 @@ public class VerifyJsonWriter :
         {
             base.Flush();
             var builderLength = builder.Length;
-            if (!value.StartsWith('\n'))
+            if (value[0] != '\n')
             {
-                value = $"\n{value}";
+                //todo: avoid alloc
+                value = $"\n{value.ToString()}";
+                WriteRawValue(value);
             }
-
-            WriteRawValue(value);
+            else
+            {
+                WriteRawValue(value);
+            }
             base.Flush();
             builder.Remove(builderLength, 1);
             return;
@@ -173,7 +182,9 @@ public class VerifyJsonWriter :
             return;
         }
 
-        WriteRawValueWithScrubbers(value.ToString("D", Culture.InvariantCulture));
+        Span<char> buffer = stackalloc char[36];
+        value.TryFormat(buffer, out _);
+        WriteRawValueWithScrubbers(buffer);
     }
 
     /// <summary>

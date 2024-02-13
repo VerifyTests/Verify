@@ -10,7 +10,9 @@ class TimeConverter :
             return;
         }
 
-        writer.WriteRawValueWithScrubbers(value.ToString("h:mm tt", Culture.InvariantCulture));
+        Span<char> buffer = stackalloc char[7];
+        value.TryFormat(buffer, out _, "h:mm tt".AsSpan(), Culture.InvariantCulture);
+        writer.WriteRawValueWithScrubbers(buffer);
     }
 }
 #endif

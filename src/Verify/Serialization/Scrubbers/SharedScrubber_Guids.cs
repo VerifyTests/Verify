@@ -22,7 +22,7 @@
         return counter.NextString(guid);
     }
 
-    internal bool TryParseConvertGuid(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertGuid(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubGuids)
         {
@@ -37,7 +37,7 @@
         return false;
     }
 
-    internal bool TryParseConvert(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvert(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(counter, value, out result))
         {

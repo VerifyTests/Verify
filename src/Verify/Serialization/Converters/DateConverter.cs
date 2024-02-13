@@ -10,7 +10,9 @@ class DateConverter :
             return;
         }
 
-        writer.WriteRawValueWithScrubbers(value.ToString("yyyy-MM-dd", Culture.InvariantCulture));
+        Span<char> buffer = stackalloc char[10];
+        value.TryFormat(buffer, out _, "yyyy-MM-dd".AsSpan(), Culture.InvariantCulture);
+        writer.WriteRawValueWithScrubbers(buffer);
     }
 }
 #endif

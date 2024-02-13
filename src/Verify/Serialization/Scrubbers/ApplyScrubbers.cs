@@ -142,9 +142,10 @@ static class ApplyScrubbers
         target.FixNewlines();
     }
 
-    public static string ApplyForPropertyValue(string value, VerifySettings settings, Counter counter)
+    public static string ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
     {
-        var builder = new StringBuilder(value);
+        var builder = new StringBuilder(value.Length);
+        builder.Append(value);
         foreach (var scrubber in settings.InstanceScrubbers)
         {
             scrubber(builder, counter);

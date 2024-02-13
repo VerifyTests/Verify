@@ -1866,6 +1866,18 @@ public class SerializationTests
         });
     }
 
+    //TODO: work out how to test this on CI
+    // [Fact]
+    // public Task ScrubShouldDoLongFirstLength()
+    // {
+    //     VerifierSettings.AssignTargetAssembly(GetType().Assembly);
+    //     var target = string.Join("\n",
+    //         ApplyScrubbers
+    //         .replacements.Select(_ => _.Key)
+    //         .OrderByDescending(_ => _.Length));
+    //     return Verify(target);
+    // }
+
     [Fact]
     public Task MoreSpecificScrubberShouldOverride()
     {

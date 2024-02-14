@@ -18,7 +18,7 @@
     }
 
 #if NET6_0_OR_GREATER
-    internal bool TryParseConvertDate(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDate(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -63,7 +63,7 @@
         return counter.NextString(date);
     }
 
-    internal bool TryParseConvertTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertTime(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
@@ -83,14 +83,14 @@
 
     internal bool TryConvert(Counter counter, Time value, [NotNullWhen(true)] out string? result)
     {
-        if (!scrubDateTimes)
+        if (scrubDateTimes)
         {
-            result = null;
-            return false;
+            result = Convert(counter, value);
+            return true;
         }
 
-        result = Convert(counter, value);
-        return true;
+        result = null;
+        return false;
     }
 
     static string Convert(Counter counter, Time time)
@@ -152,11 +152,11 @@
         return counter.NextString(date);
     }
 
-    internal bool TryParseConvertDateTime(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertDateTime(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
-            if (TryParse("yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTime))
+            if (TryParseDateTime(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTime))
             {
                 result = Convert(counter, dateTime);
                 return true;
@@ -164,7 +164,7 @@
 
             foreach (var format in datetimeFormats)
             {
-                if (TryParse(format, out dateTime))
+                if (TryParseDateTime(value, format, out dateTime))
                 {
                     result = Convert(counter, dateTime);
                     return true;
@@ -174,16 +174,20 @@
 
         result = null;
         return false;
-
-        bool TryParse(string format, out DateTime dateTime) =>
-            DateTime.TryParseExact(value, format, null, DateTimeStyles.None, out dateTime);
     }
 
-    internal bool TryParseConvertDateTimeOffset(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    static bool TryParseDateTime(CharSpan value, string format, out DateTime dateTime) =>
+#if NET47_OR_GREATER
+        DateTime.TryParseExact(value.ToString(), format, null, DateTimeStyles.None, out dateTime);
+#else
+        DateTime.TryParseExact(value, format.AsSpan(), null, DateTimeStyles.None, out dateTime);
+#endif
+
+    internal bool TryParseConvertDateTimeOffset(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubDateTimes)
         {
-            if (TryParse("yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTimeOffset))
+            if (TryParseDateTimeOffset(value, "yyyy-MM-ddTHH:mm:ss.FFFFFFFK", out var dateTimeOffset))
             {
                 result = Convert(counter, dateTimeOffset);
                 return true;
@@ -191,7 +195,7 @@
 
             foreach (var format in datetimeOffsetFormats)
             {
-                if (TryParse(format, out dateTimeOffset))
+                if (TryParseDateTimeOffset(value, format, out dateTimeOffset))
                 {
                     result = Convert(counter, dateTimeOffset);
                     return true;
@@ -202,7 +206,12 @@
         result = null;
         return false;
 
-        bool TryParse(string format, out DateTimeOffset dateTimeOffset) =>
-            DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
     }
+
+    static bool TryParseDateTimeOffset(CharSpan value, string format, out DateTimeOffset dateTimeOffset) =>
+#if NET47_OR_GREATER
+        DateTimeOffset.TryParseExact(value.ToString(), format, null, DateTimeStyles.None, out dateTimeOffset);
+#else
+        DateTimeOffset.TryParseExact(value, format, null, DateTimeStyles.None, out dateTimeOffset);
+#endif
 }

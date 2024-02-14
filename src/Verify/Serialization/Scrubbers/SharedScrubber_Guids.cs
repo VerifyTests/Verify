@@ -22,11 +22,15 @@
         return counter.NextString(guid);
     }
 
-    internal bool TryParseConvertGuid(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvertGuid(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (scrubGuids)
         {
+#if NET47_OR_GREATER
+            if (Guid.TryParse(value.ToString(), out var guid))
+#else
             if (Guid.TryParse(value, out var guid))
+#endif
             {
                 result = Convert(counter, guid);
                 return true;
@@ -37,7 +41,7 @@
         return false;
     }
 
-    internal bool TryParseConvert(Counter counter, string value, [NotNullWhen(true)] out string? result)
+    internal bool TryParseConvert(Counter counter, CharSpan value, [NotNullWhen(true)] out string? result)
     {
         if (TryParseConvertGuid(counter, value, out result))
         {

@@ -35,6 +35,7 @@ public class EncodingTests :
         var fileBytes = await File.ReadAllBytesAsync(file);
         var expectedBytes = encoding.GetBytes(str);
         Assert.Equal(expectedBytes, fileBytes);
+        File.Delete(file);
     }
 
     [Fact]
@@ -58,6 +59,7 @@ public class EncodingTests :
             .Concat(encoding.GetBytes(str))
             .ToArray();
         Assert.Equal(expectedBytes, fileBytes);
+        File.Delete(file);
     }
 }
 #endif

@@ -38,7 +38,7 @@ public class NewLineTests
     public Task Newlines() =>
         Verify("a\r\nb\nc\rd\r\n");
 
-#if NET8_0
+#if NET9_0
     [Fact]
     public async Task StringWithDifferingNewline()
     {

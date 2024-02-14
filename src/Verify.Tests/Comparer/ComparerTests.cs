@@ -10,7 +10,7 @@
         await Verify("thetext", settings);
     }
 
-#if NET8_0
+#if NET9_0
     [Fact]
     public async Task Instance_with_message()
     {

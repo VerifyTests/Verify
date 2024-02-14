@@ -1,4 +1,4 @@
-#if NET8_0
+#if NET9_0
 public class CultureToDateBuilder
 {
     const string monthDayFormat = "MMMM MMM dddd ddd";

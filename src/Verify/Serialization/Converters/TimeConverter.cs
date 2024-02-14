@@ -11,8 +11,8 @@ class TimeConverter :
         }
 
         Span<char> buffer = stackalloc char[8];
-        value.TryFormat(buffer, out _, "hh:mm tt".AsSpan(), Culture.InvariantCulture);
-        writer.WriteRawValueWithScrubbers(buffer);
+        value.TryFormat(buffer, out var charsWritten, "h:mm tt".AsSpan(), Culture.InvariantCulture);
+        writer.WriteRawValueWithScrubbers(buffer[..charsWritten]);
     }
 }
 #endif

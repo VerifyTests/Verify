@@ -1,7 +1,7 @@
 image:
   - Visual Studio 2022
-  - macOS
-  - Ubuntu
+# - macOS
+# - Ubuntu
 environment:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true

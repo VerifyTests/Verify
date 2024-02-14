@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>net9.0;net8.0;net7.0;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net8.0;net7.0;$(TargetFrameworks)</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
@@ -12,7 +12,7 @@
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="26.0.1" PrivateAssets="all" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.1" Condition="$(TargetFramework) == 'net9.0' OR $(TargetFramework) == 'net8.0' OR $(TargetFramework) == 'net7.0'" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.1" Condition="$(TargetFramework) == 'net9.0' or $(TargetFramework) == 'net8.0' or $(TargetFramework) == 'net7.0'" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6" PrivateAssets="all" />
     <PackageReference Include="Xunit" Version="2.6.6" />
@@ -29,7 +29,7 @@
     <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework) == 'net9.0'">
+  <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
     <Compile Remove="Wizard\WizardGen.cs" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

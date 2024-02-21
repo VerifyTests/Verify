@@ -145,6 +145,10 @@ partial class InnerVerifier
 
             var targetStream = target.StreamData;
             var result = await conversion(targetStream, settings.Context);
+            if (result.Cleanup != null)
+            {
+                cleanup += result.Cleanup;
+            }
             if (result.Info != null)
             {
                 infos.Add(result.Info);
@@ -152,23 +156,18 @@ partial class InnerVerifier
 
             var resultTargets = result.Targets.ToList();
 
-            // if the same stream is returned. no need to re process
-            if (resultTargets.Count == 1)
+            foreach (var resultTarget in resultTargets)
             {
-                var single = resultTargets[0];
-                if (single.Extension == target.Extension)
+                // if the same extension is returned. no need to re process
+                if (resultTarget.Extension == target.Extension)
                 {
-                    targets.Add(single);
-                    continue;
+                    targets.Add(resultTarget);
+                }
+                else
+                {
+                    queue.Enqueue(resultTarget);
                 }
             }
-
-            if (result.Cleanup != null)
-            {
-                cleanup += result.Cleanup;
-            }
-
-            queue.Enqueue(resultTargets);
         }
 
         var newInfo = infos.Count switch

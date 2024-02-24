@@ -1,4 +1,4 @@
-﻿static class IoHelpers
+static class IoHelpers
 {
     static readonly char[] Separators =
     [
@@ -17,7 +17,7 @@
     public static void DeleteFileIfEmpty(string path)
     {
         var info = new FileInfo(path);
-        if (info is {Exists: true, Length: 0})
+        if (info is { Exists: true, Length: 0 })
         {
             info.Delete();
         }
@@ -198,7 +198,7 @@
 
     public static async Task<StringBuilder> ReadStringBuilderWithFixedLines(string path)
     {
-        using var stream = OpenRead(path);
+        await using var stream = OpenRead(path);
         return await stream.ReadStringBuilderWithFixedLines();
     }
 
@@ -217,7 +217,7 @@
         }
 
         // keep using scope to stream is flushed
-        using (var targetStream = OpenWrite(path))
+        await using (var targetStream = OpenWrite(path))
         {
             await stream.SafeCopy(targetStream);
         }

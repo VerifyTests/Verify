@@ -4,7 +4,7 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ProjectDefaults" Version="1.0.110" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.111" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="8.1.0" PrivateAssets="None" />
     <PackageReference Include="MSTest.TestFramework" Version="3.2.2" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />

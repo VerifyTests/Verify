@@ -11,7 +11,7 @@
     <PackageReference Include="PublicApiGenerator" Version="11.1.0" />
     <PackageReference Include="Xunit" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.112" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.113" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

@@ -2277,7 +2277,7 @@ public class SerializationTests
             .ScrubLinesContaining("Line1");
 
     [Theory]
-    [InlineData(10, "NoMatch")]
+    [InlineData("10", "NoMatch")]
     [InlineData("Value", "Value")]
     [InlineData("BeforeValue", "BeforeValue")]
     [InlineData("BeforeValueAfter", "BeforeValueAfter")]

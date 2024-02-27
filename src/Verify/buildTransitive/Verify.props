@@ -4,6 +4,7 @@
     <Deterministic>false</Deterministic>
     <DeterministicSourcePaths>false</DeterministicSourcePaths>
     <AttributesFile>Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</AttributesFile>
+    <NoWarn>$(NoWarn);CA2255</NoWarn>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"
           Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#'"

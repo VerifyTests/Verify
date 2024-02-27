@@ -16,7 +16,7 @@
     <PackageReference Include="EmptyFiles" Version="8.1.0" PrivateAssets="None" />
     <PackageReference Include="SimpleInfoName" Version="2.2.0" />
     <PackageReference Include="Argon" Version="0.17.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.111" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.112" PrivateAssets="all" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" Condition="$(TargetFramework.StartsWith('net46'))" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />

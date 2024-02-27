@@ -4,6 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Polyfill" Version="3.0.0" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.111" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.112" PrivateAssets="all" />
   </ItemGroup>
 </Project>

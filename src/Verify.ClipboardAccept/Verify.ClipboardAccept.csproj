@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageReference Include="DiffEngine" Version="15.2.1" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.116" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.118" PrivateAssets="all" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
 </Project>

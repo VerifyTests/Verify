@@ -1,0 +1,3 @@
+[*.cs]
+# Mark members as static
+dotnet_diagnostic.CA1822.severity = none

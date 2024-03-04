@@ -5,7 +5,7 @@ public class Tests :
     VerifyBase
 {
     // ReSharper disable once UnusedMember.Local
-    void DerivePathInfo()
+    static void DerivePathInfo()
     {
         #region DerivePathInfoMSTest
 

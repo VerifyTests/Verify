@@ -1,9 +1,9 @@
 ﻿// ReSharper disable UnusedParameter.Local
+#pragma warning disable CA1823
 
 [TestFixture]
 public class Tests
 {
-    // ReSharper disable once UnusedMember.Local
     static void DerivePathInfo()
     {
         #region DerivePathInfoNunit

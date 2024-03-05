@@ -14,22 +14,22 @@ Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.ru
 Given a method that returns a named tuple:
 
 <!-- snippet: MethodWithNamedTuple -->
-<a id='snippet-MethodWithNamedTuple'></a>
+<a id='snippet-methodwithnamedtuple'></a>
 ```cs
 static (bool Member1, string Member2, string Member3) MethodWithNamedTuple() =>
     (true, "A", "B");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1974-L1979' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodWithNamedTuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1974-L1979' title='Snippet source file'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Can be verified:
 
 <!-- snippet: VerifyTuple -->
-<a id='snippet-VerifyTuple'></a>
+<a id='snippet-verifytuple'></a>
 ```cs
 await VerifyTuple(() => MethodWithNamedTuple());
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1967-L1971' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyTuple' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1967-L1971' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifytuple' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Resulting in:

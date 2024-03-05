@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: Expecto-nugets
+snippet: expecto-nugets
 
 
 ## Implicit Usings

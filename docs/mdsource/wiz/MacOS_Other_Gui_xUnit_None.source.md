@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: Xunit-nugets
+snippet: xunit-nugets
 
 
 ## Implicit Usings

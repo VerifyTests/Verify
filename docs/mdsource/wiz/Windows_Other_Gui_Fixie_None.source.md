@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: Fixie-nugets
+snippet: fixie-nugets
 
 
 ## Implicit Usings

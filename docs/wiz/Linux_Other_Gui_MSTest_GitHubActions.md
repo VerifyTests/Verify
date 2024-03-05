@@ -14,7 +14,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 Add the following packages to the test project:
 
 
-<!-- snippet: MSTest-nugets -->
+<!-- snippet: mstest-nugets -->
 <a id='snippet-mstest-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />

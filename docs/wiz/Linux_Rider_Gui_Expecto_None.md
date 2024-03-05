@@ -14,7 +14,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 Add the following packages to the test project:
 
 
-<!-- snippet: Expecto-nugets -->
+<!-- snippet: expecto-nugets -->
 <a id='snippet-expecto-nugets'></a>
 ```fsproj
 <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />

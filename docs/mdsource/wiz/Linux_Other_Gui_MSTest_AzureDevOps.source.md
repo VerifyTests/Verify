@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: MSTest-nugets
+snippet: mstest-nugets
 
 
 ## Implicit Usings

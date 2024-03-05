@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: NUnit-nugets
+snippet: nunit-nugets
 
 
 ## Implicit Usings

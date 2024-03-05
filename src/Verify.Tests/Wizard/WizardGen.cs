@@ -432,7 +432,7 @@ public class WizardGen
                 builder.AppendLine(
                     $"""
 
-                     snippet: {testFramework}-nugets
+                     snippet: {testFramework.ToString().ToLower()}-nugets
 
                      """);
                 break;

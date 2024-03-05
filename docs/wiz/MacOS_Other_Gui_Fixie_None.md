@@ -14,7 +14,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 Add the following packages to the test project:
 
 
-<!-- snippet: Fixie-nugets -->
+<!-- snippet: fixie-nugets -->
 <a id='snippet-fixie-nugets'></a>
 ```csproj
 <PackageReference Include="Fixie" Version="3.4.0" />

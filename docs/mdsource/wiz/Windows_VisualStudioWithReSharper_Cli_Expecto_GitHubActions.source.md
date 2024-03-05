@@ -123,5 +123,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on GitHub Actions
 
-include: build-server-GitHubActions
+include: build-server-githubactions
 

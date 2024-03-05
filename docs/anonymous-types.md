@@ -12,7 +12,7 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 
 ## NUnit
 
-<!-- snippet: anonNUnit -->
+<!-- snippet: AnonNUnit -->
 <a id='snippet-anonnunit'></a>
 ```cs
 [Test]
@@ -43,7 +43,7 @@ public Task Anon()
 
 ## xUnit
 
-<!-- snippet: anonXunit -->
+<!-- snippet: AnonXunit -->
 <a id='snippet-anonxunit'></a>
 ```cs
 [Fact]
@@ -74,7 +74,7 @@ public Task Anon()
 
 ## Fixie
 
-<!-- snippet: anonFixie -->
+<!-- snippet: AnonFixie -->
 <a id='snippet-anonfixie'></a>
 ```cs
 public Task Anon()
@@ -104,7 +104,7 @@ public Task Anon()
 
 ## MSTest
 
-<!-- snippet: anonMSTest -->
+<!-- snippet: AnonMSTest -->
 <a id='snippet-anonmstest'></a>
 ```cs
 [TestMethod]

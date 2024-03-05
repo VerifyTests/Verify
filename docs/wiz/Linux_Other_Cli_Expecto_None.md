@@ -130,7 +130,7 @@ dotnet tool install -g verify.tool
 ## Sample Test
 
 <!-- snippet: SampleTestExpecto -->
-<a id='snippet-SampleTestExpecto'></a>
+<a id='snippet-sampletestexpecto'></a>
 ```fs
 open Expecto
 open VerifyTests
@@ -143,7 +143,7 @@ let tests =
         do! Verifier.Verify("findPerson", person)
     }
 ```
-<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestExpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

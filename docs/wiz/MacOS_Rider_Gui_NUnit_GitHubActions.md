@@ -132,7 +132,7 @@ public static void Initialize() =>
 ## Sample Test
 
 <!-- snippet: SampleTestNUnit -->
-<a id='snippet-SampleTestNUnit'></a>
+<a id='snippet-sampletestnunit'></a>
 ```cs
 [TestFixture]
 public class Sample
@@ -145,7 +145,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestNUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

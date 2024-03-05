@@ -81,7 +81,7 @@ If `ImplicitUsings` are not enabled, substitute usages of `Verify()` with `Verif
 Given a class to be tested:
 
 <!-- snippet: ClassBeingTested -->
-<a id='snippet-ClassBeingTested'></a>
+<a id='snippet-classbeingtested'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -106,7 +106,7 @@ public static class ClassBeingTested
         };
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ClassBeingTested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -115,7 +115,7 @@ public static class ClassBeingTested
 Support for [NUnit](https://nunit.org/)
 
 <!-- snippet: SampleTestNUnit -->
-<a id='snippet-SampleTestNUnit'></a>
+<a id='snippet-sampletestnunit'></a>
 ```cs
 [TestFixture]
 public class Sample
@@ -128,7 +128,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestNUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestnunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -137,7 +137,7 @@ public class Sample
 Support for [xUnit](https://xunit.net/)
 
 <!-- snippet: SampleTestXunit -->
-<a id='snippet-SampleTestXunit'></a>
+<a id='snippet-sampletestxunit'></a>
 ```cs
 public class Sample
 {
@@ -149,7 +149,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -158,7 +158,7 @@ public class Sample
 Support for [Fixie](http://fixie.github.io/)
 
 <!-- snippet: SampleTestFixie -->
-<a id='snippet-SampleTestFixie'></a>
+<a id='snippet-sampletestfixie'></a>
 ```cs
 public class Sample
 {
@@ -169,7 +169,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestfixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -178,7 +178,7 @@ public class Sample
 Support for [Expecto](https://github.com/haf/expecto)
 
 <!-- snippet: SampleTestExpecto -->
-<a id='snippet-SampleTestExpecto'></a>
+<a id='snippet-sampletestexpecto'></a>
 ```fs
 open Expecto
 open VerifyTests
@@ -191,7 +191,7 @@ let tests =
         do! Verifier.Verify("findPerson", person)
     }
 ```
-<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestExpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestexpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -207,7 +207,7 @@ Due to the nature of the Expecto implementation, the following APIs in Verify ar
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 <!-- snippet: SampleTestMSTest -->
-<a id='snippet-SampleTestMSTest'></a>
+<a id='snippet-sampletestmstest'></a>
 ```cs
 [TestClass]
 public class Sample :
@@ -221,7 +221,7 @@ public class Sample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -314,7 +314,7 @@ discard-->closeDiff
 If the implementation of `ClassBeingTested` changes:
 
 <!-- snippet: ClassBeingTestedChanged -->
-<a id='snippet-ClassBeingTestedChanged'></a>
+<a id='snippet-classbeingtestedchanged'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -341,7 +341,7 @@ public static class ClassBeingTested
         };
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L3-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-ClassBeingTestedChanged' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTestedChanged.cs#L3-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtestedchanged' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 And the test is re run it will fail.
@@ -363,7 +363,7 @@ verification.
 There is also an overload that accepts `Func<Task<T>>`, which works well with `async` lambda expressions:
 
 <!-- snippet: VerifyFuncOfTaskOfT -->
-<a id='snippet-VerifyFuncOfTaskOfT'></a>
+<a id='snippet-verifyfuncoftaskoft'></a>
 ```cs
 await Verify(
     async () => new
@@ -372,7 +372,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L177-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L177-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfuncoftaskoft' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -385,7 +385,7 @@ await Verify(
 * PrettyPrint the resulting text.
 
 <!-- snippet: VerifyJson -->
-<a id='snippet-VerifyJson'></a>
+<a id='snippet-verifyjson'></a>
 ```cs
 [Fact]
 public Task VerifyJsonString()
@@ -410,7 +410,7 @@ public Task VerifyJsonJToken()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/JsonTests.cs#L183-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyJson' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/JsonTests.cs#L183-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyjson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -529,7 +529,7 @@ example to do an explicit check for contains or not-contains in the resulting te
 return a `VerifyResult`.
 
 <!-- snippet: VerifyResult -->
-<a id='snippet-VerifyResult'></a>
+<a id='snippet-verifyresult'></a>
 ```cs
 var result = await Verify(
     new
@@ -538,18 +538,18 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L342-L351' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L342-L351' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 
 <!-- snippet: ExceptionResult -->
-<a id='snippet-ExceptionResult'></a>
+<a id='snippet-exceptionresult'></a>
 ```cs
 var result = await Throws(MethodThatThrows);
 Assert.NotNull(result.Exception);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L175-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L175-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-exceptionresult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

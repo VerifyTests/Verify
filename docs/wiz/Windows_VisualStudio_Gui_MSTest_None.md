@@ -137,7 +137,7 @@ public static void Initialize() =>
 ## Sample Test
 
 <!-- snippet: SampleTestMSTest -->
-<a id='snippet-SampleTestMSTest'></a>
+<a id='snippet-sampletestmstest'></a>
 ```cs
 [TestClass]
 public class Sample :
@@ -151,7 +151,7 @@ public class Sample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestmstest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

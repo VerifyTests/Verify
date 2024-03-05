@@ -26,7 +26,7 @@ Given the following method:
 ### Class being tested
 
 <!-- snippet: ClassBeingTested -->
-<a id='snippet-ClassBeingTested'></a>
+<a id='snippet-classbeingtested'></a>
 ```cs
 public static class ClassBeingTested
 {
@@ -51,7 +51,7 @@ public static class ClassBeingTested
         };
 }
 ```
-<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-ClassBeingTested' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/TargetLibrary/ClassBeingTested.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-classbeingtested' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -63,7 +63,7 @@ Compare a traditional assertion based test to a verification test.
 #### Traditional assertion test:
 
 <!-- snippet: TraditionalTest -->
-<a id='snippet-TraditionalTest'></a>
+<a id='snippet-traditionaltest'></a>
 ```cs
 [Fact]
 public void TraditionalTest()
@@ -81,14 +81,14 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TraditionalTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-traditionaltest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Snapshot test
 
 <!-- snippet: SnapshotTest -->
-<a id='snippet-SnapshotTest'></a>
+<a id='snippet-snapshottest'></a>
 ```cs
 [Fact]
 public Task SnapshotTest()
@@ -97,7 +97,7 @@ public Task SnapshotTest()
     return Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-SnapshotTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-snapshottest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Produces a snapshot file `SnapshotTest.verified.txt`:

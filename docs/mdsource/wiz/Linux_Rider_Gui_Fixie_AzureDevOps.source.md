@@ -76,5 +76,5 @@ Tools supported by Linux:
 
 ## Getting .received in output on Azure DevOps
 
-include: build-server-AzureDevOps
+include: build-server-azuredevops
 

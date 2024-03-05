@@ -21,11 +21,11 @@ Clipboard support is shipped via the [Verify.ClipboardAccept nuget](https://www.
 The clipboard behavior can be enabled using the following:
 
 <!-- snippet: EnableClipboard -->
-<a id='snippet-enableclipboard'></a>
+<a id='snippet-EnableClipboard'></a>
 ```cs
 ClipboardAccept.Enable();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L31-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-enableclipboard' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L31-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-EnableClipboard' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -10,20 +10,20 @@ To change this file edit the source file and then run MarkdownSnippets.
 Verifies all files in a directory. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a directory.
 
 <!-- snippet: VerifyDirectoryXunit -->
-<a id='snippet-verifydirectoryxunit'></a>
+<a id='snippet-VerifyDirectoryXunit'></a>
 ```cs
 [Fact]
 public Task WithDirectory() =>
     VerifyDirectory(directoryToVerify);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L102-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L102-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Filtering
 
 <!-- snippet: VerifyDirectoryFilterXunit -->
-<a id='snippet-verifydirectoryfilterxunit'></a>
+<a id='snippet-VerifyDirectoryFilterXunit'></a>
 ```cs
 [Fact]
 public Task WithDirectoryFiltered() =>
@@ -36,7 +36,7 @@ public Task WithDirectoryFiltered() =>
             RecurseSubdirectories = false
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L139-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectoryfilterxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L139-L152' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryFilterXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -45,7 +45,7 @@ public Task WithDirectoryFiltered() =>
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
 
 <!-- snippet: VerifyDirectoryWithInfo -->
-<a id='snippet-verifydirectorywithinfo'></a>
+<a id='snippet-VerifyDirectoryWithInfo'></a>
 ```cs
 [Fact]
 public Task VerifyDirectoryWithInfo() =>
@@ -53,7 +53,7 @@ public Task VerifyDirectoryWithInfo() =>
         directoryToVerify,
         info: "the info");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L110-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L110-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -62,7 +62,7 @@ public Task VerifyDirectoryWithInfo() =>
 `VerifyDirectory` has an optional parameter `fileScrubber` that allows file specific scrubbing:
 
 <!-- snippet: VerifyDirectoryWithFileScrubber -->
-<a id='snippet-verifydirectorywithfilescrubber'></a>
+<a id='snippet-VerifyDirectoryWithFileScrubber'></a>
 ```cs
 [Fact]
 public Task VerifyDirectoryWithFileScrubber() =>
@@ -77,7 +77,7 @@ public Task VerifyDirectoryWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L120-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifydirectorywithfilescrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L120-L135' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithFileScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

@@ -17,18 +17,18 @@ In some scenarios it makes sense to auto-accept any changes as part of a given t
 This can be done using `AutoVerify()`:
 
 <!-- snippet: AutoVerify -->
-<a id='snippet-autoverify'></a>
+<a id='snippet-AutoVerify'></a>
 ```cs
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L106-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L106-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-AutoVerify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally
 
 <!-- snippet: StaticAutoVerify -->
-<a id='snippet-staticautoverify'></a>
+<a id='snippet-StaticAutoVerify'></a>
 ```cs
 public static class ModuleInitializer
 {
@@ -37,7 +37,7 @@ public static class ModuleInitializer
         VerifierSettings.AutoVerify();
 }
 ```
-<sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticAutoVerify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
@@ -50,7 +50,7 @@ Note that auto accepted changes in `.verified.` files remain visible in source c
  * `OnVerifyMismatch` is called when a received file does not match the existing verified file.
 
 <!-- snippet: OnHandlers -->
-<a id='snippet-onhandlers'></a>
+<a id='snippet-OnHandlers'></a>
 ```cs
 public Task OnHandlersSample()
 {
@@ -74,7 +74,7 @@ public Task OnHandlersSample()
     return Verify("value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -88,10 +88,10 @@ By default, when a verify mismatch occurs for text, the content of the received 
 To disable diff launching:
 
 <!-- snippet: DisableDiff -->
-<a id='snippet-disablediff'></a>
+<a id='snippet-DisableDiff'></a>
 ```cs
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-DisableDiff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

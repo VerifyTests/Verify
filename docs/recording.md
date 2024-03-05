@@ -15,7 +15,7 @@ The main value of this feature is to simplify addition of information to a snaps
 ## Usage
 
 <!-- snippet: Recording -->
-<a id='snippet-recording'></a>
+<a id='snippet-Recording'></a>
 ```cs
 [Fact]
 public Task Usage()
@@ -25,7 +25,7 @@ public Task Usage()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L23-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-recording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L23-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-Recording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -49,7 +49,7 @@ If `Recording.Add()` is called before `Recording.Start` an exception will be cal
 `Recording.TryAdd()` will add an item only if `Recording.IsRecording` is true.
 
 <!-- snippet: RecordingTryAdd -->
-<a id='snippet-recordingtryadd'></a>
+<a id='snippet-RecordingTryAdd'></a>
 ```cs
 [Fact]
 public Task TryAdd()
@@ -61,7 +61,7 @@ public Task TryAdd()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L59-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingtryadd' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L59-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingTryAdd' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -70,7 +70,7 @@ public Task TryAdd()
 Recording can be scoped via a `using`:
 
 <!-- snippet: RecordingScoped -->
-<a id='snippet-recordingscoped'></a>
+<a id='snippet-RecordingScoped'></a>
 ```cs
 [Fact]
 public Task RecordingScoped()
@@ -85,7 +85,7 @@ public Task RecordingScoped()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L73-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingscoped' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L73-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingScoped' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -106,7 +106,7 @@ Results in:
 Values are grouped by key:
 
 <!-- snippet: RecordingSameKey -->
-<a id='snippet-recordingsamekey'></a>
+<a id='snippet-RecordingSameKey'></a>
 ```cs
 [Fact]
 public Task SameKey()
@@ -117,7 +117,7 @@ public Task SameKey()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L272-L283' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingsamekey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L272-L283' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingSameKey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -144,7 +144,7 @@ To avoid grouping use [Stop](#stop).
 Recording can be grouped by an identifier.
 
 <!-- snippet: RecordingIdentifier -->
-<a id='snippet-recordingidentifier'></a>
+<a id='snippet-RecordingIdentifier'></a>
 ```cs
 [Fact]
 public Task Identifier()
@@ -154,7 +154,7 @@ public Task Identifier()
     return Verify(Recording.Stop("identifier"));
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L90-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingidentifier' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L90-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingIdentifier' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -175,7 +175,7 @@ Results in:
 ## Case is ignored
 
 <!-- snippet: RecordingIgnoreCase -->
-<a id='snippet-recordingignorecase'></a>
+<a id='snippet-RecordingIgnoreCase'></a>
 ```cs
 [Fact]
 public Task Case()
@@ -186,7 +186,7 @@ public Task Case()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L294-L305' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingignorecase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L294-L305' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingIgnoreCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -209,7 +209,7 @@ Results in:
 Recording can be stopped and the resulting data can be manually verified:
 
 <!-- snippet: RecordingStop -->
-<a id='snippet-recordingstop'></a>
+<a id='snippet-RecordingStop'></a>
 ```cs
 [Fact]
 public Task Stop()
@@ -221,7 +221,7 @@ public Task Stop()
     return Verify(appends.Where(_ => _.Name != "name1"));
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L132-L144' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstop' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L132-L144' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingStop' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -241,7 +241,7 @@ Results in:
 If Stop is called, the results are not automatically verified:
 
 <!-- snippet: RecordingStopNotInResult -->
-<a id='snippet-recordingstopnotinresult'></a>
+<a id='snippet-RecordingStopNotInResult'></a>
 ```cs
 [Fact]
 public Task StopNotInResult()
@@ -253,7 +253,7 @@ public Task StopNotInResult()
     return Verify("other data");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L146-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingstopnotinresult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L146-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingStopNotInResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -272,7 +272,7 @@ other data
 The status of Recording can be checked.
 
 <!-- snippet: IsRecording -->
-<a id='snippet-isrecording'></a>
+<a id='snippet-IsRecording'></a>
 ```cs
 [Fact]
 public void IsRecording()
@@ -282,7 +282,7 @@ public void IsRecording()
     Assert.True(Recording.IsRecording());
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L102-L112' title='Snippet source file'>snippet source</a> | <a href='#snippet-isrecording' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L102-L112' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsRecording' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This can be helpful if the cost of capturing data, to add to recording, is high.
@@ -293,7 +293,7 @@ This can be helpful if the cost of capturing data, to add to recording, is high.
 The current recorded items can be cleared:
 
 <!-- snippet: RecordingClear -->
-<a id='snippet-recordingclear'></a>
+<a id='snippet-RecordingClear'></a>
 ```cs
 [Fact]
 public Task Clear()
@@ -305,7 +305,7 @@ public Task Clear()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L192-L204' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingclear' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L192-L204' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingClear' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -326,7 +326,7 @@ Results in:
 Recording can be paused and resumed:
 
 <!-- snippet: RecordingPauseResume -->
-<a id='snippet-recordingpauseresume'></a>
+<a id='snippet-RecordingPauseResume'></a>
 ```cs
 [Fact]
 public Task PauseResume()
@@ -341,7 +341,7 @@ public Task PauseResume()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L216-L231' title='Snippet source file'>snippet source</a> | <a href='#snippet-recordingpauseresume' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L216-L231' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingPauseResume' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

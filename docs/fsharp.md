@@ -21,11 +21,11 @@ VerifierSettings.AddExtraSettings(fun settings -> settings.AddFSharpConverters()
 By default [DefaultValueHandling is Ignore](/docs/serializer-settings.md#default-settings). Since F# `Option.None` is treated as null, it will be ignored by default. To include `Option.None` use `VerifierSettings.AddExtraSettings` at module startup:
 
 <!-- snippet: NullValueHandling -->
-<a id='snippet-nullvaluehandling'></a>
+<a id='snippet-NullValueHandling'></a>
 ```fs
 VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- NullValueHandling.Include)
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-nullvaluehandling' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L8-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-NullValueHandling' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -34,13 +34,13 @@ VerifierSettings.AddExtraSettings(fun settings -> settings.NullValueHandling <- 
 F# does not respect implicit operator conversion. `SettingsTask` uses implicit operator conversion to provide a fluent api in combination with an instance that can be awaited. As such `SettingsTask.ToTask()` needs to be awaited when used inside F#.
 
 <!-- snippet: FsTest -->
-<a id='snippet-fstest'></a>
+<a id='snippet-FsTest'></a>
 ```fs
 [<Fact>]
 let MyTest () =
      Verifier.Verify(15).ToTask() |> Async.AwaitTask
 ```
-<sup><a href='/src/FSharpTests/Tests.fs#L12-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-fstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/FSharpTests/Tests.fs#L12-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-FsTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

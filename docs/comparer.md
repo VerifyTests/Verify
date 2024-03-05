@@ -17,7 +17,7 @@ Using a custom comparer can be helpful when a result has changed, but not enough
 For samples purposes only the image sizes will be compared:
 
 <!-- snippet: ImageComparer -->
-<a id='snippet-imagecomparer'></a>
+<a id='snippet-ImageComparer'></a>
 ```cs
 static Task<CompareResult> CompareImages(
     Stream received,
@@ -34,7 +34,7 @@ static Task<CompareResult> CompareImages(
     return Task.FromResult(result);
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L34-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-imagecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L34-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-ImageComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 The returned `CompareResult.NotEqual` takes an optional message that will be rendered in the resulting text displayed to the user on test failure.
@@ -45,7 +45,7 @@ The returned `CompareResult.NotEqual` takes an optional message that will be ren
 ### Instance comparer
 
 <!-- snippet: InstanceComparer -->
-<a id='snippet-instancecomparer'></a>
+<a id='snippet-InstanceComparer'></a>
 ```cs
 [Fact]
 public Task InstanceComparer()
@@ -60,28 +60,28 @@ public Task InstanceComparerFluent() =>
     VerifyFile("sample.png")
         .UseStreamComparer(CompareImages);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L5-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-instancecomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L5-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-InstanceComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### Static comparer
 
 <!-- snippet: StaticComparer -->
-<a id='snippet-staticcomparer'></a>
+<a id='snippet-StaticComparer'></a>
 ```cs
 VerifierSettings.RegisterStreamComparer(
     extension: "png",
     compare: CompareImages);
 await VerifyFile("TheImage.png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticcomparer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/ComparerSnippets.cs#L24-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Default Comparison
 
 <!-- snippet: DefualtCompare -->
-<a id='snippet-defualtcompare'></a>
+<a id='snippet-DefualtCompare'></a>
 ```cs
 const int bufferSize = 1024 * sizeof(long);
 
@@ -143,7 +143,7 @@ static async Task<int> ReadBufferAsync(Stream stream, byte[] buffer)
     return bytesRead;
 }
 ```
-<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-defualtcompare' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify/Compare/StreamComparer.cs#L3-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-DefualtCompare' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

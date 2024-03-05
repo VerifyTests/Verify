@@ -13,14 +13,14 @@ Allows extra files to be verified in addition to the primary target.
 ## AppendFile
 
 <!-- snippet: AppendFile -->
-<a id='snippet-AppendFile'></a>
+<a id='snippet-appendfile'></a>
 ```cs
 [Fact]
 public Task AppendFile() =>
     Verify("Foo", settings)
         .AppendFile("sample.png");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L20-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-AppendFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L20-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in two files being verified:
@@ -32,14 +32,14 @@ Will result in two files being verified:
 ## AppendContentAsFile
 
 <!-- snippet: AppendContentAsFile -->
-<a id='snippet-AppendContentAsFile'></a>
+<a id='snippet-appendcontentasfile'></a>
 ```cs
 [Fact]
 public Task AppendContentAsFile() =>
     Verify("Foo")
         .AppendContentAsFile("extra content");
 ```
-<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L29-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-AppendContentAsFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Converters/InstanceFileAppenderTests.cs#L29-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-appendcontentasfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will result in two files being verified:

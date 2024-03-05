@@ -5,22 +5,22 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 
 ## NUnit
 
-snippet: anonNUnit
+snippet: AnonNUnit
 
 
 ## xUnit
 
-snippet: anonXunit
+snippet: AnonXunit
 
 
 ## Fixie
 
-snippet: anonFixie
+snippet: AnonFixie
 
 
 ## MSTest
 
-snippet: anonMSTest
+snippet: AnonMSTest
 
 
 ## Results

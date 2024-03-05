@@ -133,7 +133,7 @@ public static void Initialize() =>
 ## Sample Test
 
 <!-- snippet: SampleTestXunit -->
-<a id='snippet-SampleTestXunit'></a>
+<a id='snippet-sampletestxunit'></a>
 ```cs
 public class Sample
 {
@@ -145,7 +145,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

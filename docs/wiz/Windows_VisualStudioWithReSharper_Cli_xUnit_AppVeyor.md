@@ -159,7 +159,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-<!-- snippet: SampleTestXunit -->
+<!-- snippet: SampleTestxUnit -->
 <a id='snippet-sampletestxunit'></a>
 ```cs
 public class Sample

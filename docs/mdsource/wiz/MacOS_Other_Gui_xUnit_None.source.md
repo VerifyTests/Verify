@@ -51,7 +51,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestXunit
+snippet: SampleTestxUnit
 
 ## Diff Tool
 

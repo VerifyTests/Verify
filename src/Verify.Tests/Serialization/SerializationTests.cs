@@ -2326,7 +2326,7 @@ public class SerializationTests
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = [],
             ReadOnlyCollection = new ReadOnlyCollection<string>([]),
-            Array = Array.Empty<string>()
+            Array = []
         };
         return Verify(target);
     }

@@ -153,7 +153,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-<!-- snippet: SampleTestXunit -->
+<!-- snippet: SampleTestxUnit -->
 <a id='snippet-sampletestxunit'></a>
 ```cs
 public class Sample

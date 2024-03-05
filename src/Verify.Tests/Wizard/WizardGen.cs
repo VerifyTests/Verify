@@ -218,7 +218,7 @@ public class WizardGen
             $"""
              ## Getting .received in output on {GetName(buildServer)}
 
-             include: build-server-{buildServer}
+             include: build-server-{buildServer.ToString().ToLower()}
 
              """);
     }

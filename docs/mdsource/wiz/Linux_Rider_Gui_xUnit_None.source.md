@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > [xUnit](Linux_Rider_Gui_xUnit.md) > No build server
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer GUI](Linux_Rider_Gui.md) > [Xunit](Linux_Rider_Gui_Xunit.md) > No build server
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: Xunit-nugets
 
 
 ## Implicit Usings
@@ -60,7 +60,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

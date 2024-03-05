@@ -5,7 +5,7 @@
 ## Select Test Framework
 
 Options:
- * [xUnit](Windows_VisualStudio_Cli_xUnit.md)
+ * [Xunit](Windows_VisualStudio_Cli_Xunit.md)
  * [NUnit](Windows_VisualStudio_Cli_NUnit.md)
  * [Fixie](Windows_VisualStudio_Cli_Fixie.md)
  * [MSTest](Windows_VisualStudio_Cli_MSTest.md)

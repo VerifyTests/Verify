@@ -1,11 +1,11 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [xUnit](Windows_VisualStudioWithReSharper_Gui_xUnit.md)
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [Xunit](Windows_VisualStudioWithReSharper_Gui_Xunit.md)
 
 ## Select Build Server
 
 Options:
- * [AppVeyor](Windows_VisualStudioWithReSharper_Gui_xUnit_AppVeyor.md)
- * [GitHub Actions](Windows_VisualStudioWithReSharper_Gui_xUnit_GitHubActions.md)
- * [Azure DevOps](Windows_VisualStudioWithReSharper_Gui_xUnit_AzureDevOps.md)
- * [No build server](Windows_VisualStudioWithReSharper_Gui_xUnit_None.md)
+ * [AppVeyor](Windows_VisualStudioWithReSharper_Gui_Xunit_AppVeyor.md)
+ * [GitHub Actions](Windows_VisualStudioWithReSharper_Gui_Xunit_GitHubActions.md)
+ * [Azure DevOps](Windows_VisualStudioWithReSharper_Gui_Xunit_AzureDevOps.md)
+ * [No build server](Windows_VisualStudioWithReSharper_Gui_Xunit_None.md)

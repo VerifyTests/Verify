@@ -5,7 +5,7 @@
 ## Select Test Framework
 
 Options:
- * [xUnit](Linux_Rider_Gui_xUnit.md)
+ * [Xunit](Linux_Rider_Gui_Xunit.md)
  * [NUnit](Linux_Rider_Gui_NUnit.md)
  * [Fixie](Linux_Rider_Gui_Fixie.md)
  * [MSTest](Linux_Rider_Gui_MSTest.md)

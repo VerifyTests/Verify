@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > [xUnit](MacOS_Rider_Cli_xUnit.md) > AppVeyor
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer CLI](MacOS_Rider_Cli.md) > [Xunit](MacOS_Rider_Cli_Xunit.md) > AppVeyor
 
 ## Add NuGet packages
 
@@ -75,7 +75,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [xUnit](Windows_Other_Gui_xUnit.md) > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer GUI](Windows_Other_Gui.md) > [Xunit](Windows_Other_Gui_Xunit.md) > AppVeyor
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: Xunit-nugets
 
 
 ## Implicit Usings
@@ -64,7 +64,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

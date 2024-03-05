@@ -370,7 +370,7 @@ public class WizardGen
             case CliPreference.Cli:
                 switch (testFramework)
                 {
-                    case TestFramework.xUnit:
+                    case TestFramework.Xunit:
                         builder.AppendLine(
                             """
                             ```

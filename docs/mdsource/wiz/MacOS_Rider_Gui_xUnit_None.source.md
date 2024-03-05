@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > [xUnit](MacOS_Rider_Gui_xUnit.md) > No build server
+[Home](/docs/wiz/readme.md) > [MacOS](MacOS.md) > [JetBrains Rider](MacOS_Rider.md) > [Prefer GUI](MacOS_Rider_Gui.md) > [Xunit](MacOS_Rider_Gui_Xunit.md) > No build server
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: Xunit-nugets
 
 
 ## Implicit Usings
@@ -60,7 +60,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [xUnit](Windows_VisualStudioWithReSharper_Gui_xUnit.md) > GitHub Actions
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [Xunit](Windows_VisualStudioWithReSharper_Gui_Xunit.md) > GitHub Actions
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: Xunit-nugets
 
 
 ## Implicit Usings
@@ -81,7 +81,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

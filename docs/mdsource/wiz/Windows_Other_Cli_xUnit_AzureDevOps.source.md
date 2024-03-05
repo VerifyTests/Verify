@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > [xUnit](Windows_Other_Cli_xUnit.md) > Azure DevOps
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Other](Windows_Other.md) > [Prefer CLI](Windows_Other_Cli.md) > [Xunit](Windows_Other_Cli_Xunit.md) > Azure DevOps
 
 ## Add NuGet packages
 
@@ -79,7 +79,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

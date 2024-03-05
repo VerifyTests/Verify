@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > [xUnit](Windows_VisualStudio_Cli_xUnit.md) > No build server
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio](Windows_VisualStudio.md) > [Prefer CLI](Windows_VisualStudio_Cli.md) > [Xunit](Windows_VisualStudio_Cli_Xunit.md) > No build server
 
 ## Add NuGet packages
 
@@ -79,7 +79,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

@@ -10,13 +10,13 @@ To change this file edit the source file and then run MarkdownSnippets.
 Verifies the contents of a file.
 
 <!-- snippet: VerifyFile -->
-<a id='snippet-verifyfile'></a>
+<a id='snippet-VerifyFile'></a>
 ```cs
 [Fact]
 public Task VerifyFilePath() =>
     VerifyFile("sample.txt");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L186-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L186-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -25,7 +25,7 @@ public Task VerifyFilePath() =>
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
 
 <!-- snippet: VerifyFileWithInfo -->
-<a id='snippet-verifyfilewithinfo'></a>
+<a id='snippet-VerifyFileWithInfo'></a>
 ```cs
 [Fact]
 public Task VerifyFileWithInfo() =>
@@ -33,7 +33,7 @@ public Task VerifyFileWithInfo() =>
         "sample.txt",
         info: "the info");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L204-L212' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L204-L212' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -42,7 +42,7 @@ public Task VerifyFileWithInfo() =>
 Use the functionality of VerifyTests outside of a unit test.
 
 <!-- snippet: VerifyFileWithoutUnitTest -->
-<a id='snippet-verifyfilewithoutunittest'></a>
+<a id='snippet-VerifyFileWithoutUnitTest'></a>
 ```cs
 public async Task VerifyExternalFile()
 {
@@ -65,5 +65,5 @@ public async Task VerifyExternalFile()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L16-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithoutunittest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L16-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

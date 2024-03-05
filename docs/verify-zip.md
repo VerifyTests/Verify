@@ -10,20 +10,20 @@ To change this file edit the source file and then run MarkdownSnippets.
 Verifies all files in a zip archive. This approach combines [UseUniqueDirectory](/docs/naming.md#useuniquedirectory) with a target per file, to snapshot test all files in a zip archive.
 
 <!-- snippet: VerifyZipXunit -->
-<a id='snippet-verifyzipxunit'></a>
+<a id='snippet-VerifyZipXunit'></a>
 ```cs
 [Fact]
 public Task WithZip() =>
     VerifyZip(zipPath);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L158-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyzipxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L158-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Filtering
 
 <!-- snippet: VerifyZipFilterXunit -->
-<a id='snippet-verifyzipfilterxunit'></a>
+<a id='snippet-VerifyZipFilterXunit'></a>
 ```cs
 [Fact]
 public Task WithZipFiltered() =>
@@ -31,7 +31,7 @@ public Task WithZipFiltered() =>
         zipPath,
         include: filePath => filePath.FullName.Contains("Doc"));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L193-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyzipfilterxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L193-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -40,7 +40,7 @@ public Task WithZipFiltered() =>
 An optional `info` parameter can be supplied to add more context to the test. The instance passed will be json serialized.
 
 <!-- snippet: VerifyZipWithInfo -->
-<a id='snippet-verifyzipwithinfo'></a>
+<a id='snippet-VerifyZipWithInfo'></a>
 ```cs
 [Fact]
 public Task VerifyZipWithInfo() =>
@@ -48,7 +48,7 @@ public Task VerifyZipWithInfo() =>
         zipPath,
         info: "the info");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L166-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyzipwithinfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L166-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -57,7 +57,7 @@ public Task VerifyZipWithInfo() =>
 `VerifyDirectory` has an optional parameter `fileScrubber` that allows file specific scrubbing:
 
 <!-- snippet: VerifyZipWithFileScrubber -->
-<a id='snippet-verifyzipwithfilescrubber'></a>
+<a id='snippet-VerifyZipWithFileScrubber'></a>
 ```cs
 [Fact]
 public Task VerifyZipWithFileScrubber() =>
@@ -72,7 +72,7 @@ public Task VerifyZipWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L176-L191' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyzipwithfilescrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L176-L191' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

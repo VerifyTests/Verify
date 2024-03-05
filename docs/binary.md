@@ -12,7 +12,7 @@ Binary data can be verified by passing a stream.
 To know how to treat the stream, an extension needs to be provided:
 
 <!-- snippet: StreamWithExtension -->
-<a id='snippet-streamwithextension'></a>
+<a id='snippet-StreamWithExtension'></a>
 ```cs
 [Fact]
 public Task StreamWithExtension()
@@ -21,19 +21,19 @@ public Task StreamWithExtension()
     return Verify(stream, "png");
 }
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L91-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-streamwithextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L91-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-StreamWithExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 For a `FileStream` the extension is not required:
 
 <!-- snippet: FileStream -->
-<a id='snippet-filestream'></a>
+<a id='snippet-FileStream'></a>
 ```cs
 [Fact]
 public Task FileStream() =>
     Verify(File.OpenRead("sample.txt"));
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L102-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-filestream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L102-L108' title='Snippet source file'>snippet source</a> | <a href='#snippet-FileStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

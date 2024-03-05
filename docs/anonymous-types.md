@@ -12,8 +12,8 @@ When validating multiple instances, an [anonymous type](https://docs.microsoft.c
 
 ## NUnit
 
-<!-- snippet: anonNUnit -->
-<a id='snippet-anonnunit'></a>
+<!-- snippet: AnonNUnit -->
+<a id='snippet-AnonNUnit'></a>
 ```cs
 [Test]
 public Task Anon()
@@ -37,14 +37,14 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L42-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyObjectSamples.cs#L42-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonNUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## xUnit
 
-<!-- snippet: anonXunit -->
-<a id='snippet-anonxunit'></a>
+<!-- snippet: AnonXunit -->
+<a id='snippet-AnonXunit'></a>
 ```cs
 [Fact]
 public Task Anon()
@@ -68,14 +68,14 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L23-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L23-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## Fixie
 
-<!-- snippet: anonFixie -->
-<a id='snippet-anonfixie'></a>
+<!-- snippet: AnonFixie -->
+<a id='snippet-AnonFixie'></a>
 ```cs
 public Task Anon()
 {
@@ -98,14 +98,14 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/VerifyObjectSamples.cs#L39-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonfixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/VerifyObjectSamples.cs#L39-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ## MSTest
 
-<!-- snippet: anonMSTest -->
-<a id='snippet-anonmstest'></a>
+<!-- snippet: AnonMSTest -->
+<a id='snippet-AnonMSTest'></a>
 ```cs
 [TestMethod]
 public Task Anon()
@@ -129,7 +129,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L27-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-anonmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L27-L51' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

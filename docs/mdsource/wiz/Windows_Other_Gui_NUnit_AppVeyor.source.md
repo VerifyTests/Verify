@@ -91,5 +91,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on AppVeyor
 
-include: build-server-AppVeyor
+include: build-server-appveyor
 

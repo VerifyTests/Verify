@@ -67,5 +67,5 @@ Tools supported by Linux:
 
 ## Getting .received in output on AppVeyor
 
-include: build-server-AppVeyor
+include: build-server-appveyor
 

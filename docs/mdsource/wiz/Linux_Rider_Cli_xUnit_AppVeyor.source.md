@@ -75,7 +75,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 

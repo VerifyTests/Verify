@@ -137,7 +137,7 @@ public class Sample
 Support for [xUnit](https://xunit.net/)
 
 <!-- snippet: SampleTestXunit -->
-<a id='snippet-sampletestxunit'></a>
+<a id='snippet-SampleTestXunit'></a>
 ```cs
 public class Sample
 {
@@ -149,7 +149,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

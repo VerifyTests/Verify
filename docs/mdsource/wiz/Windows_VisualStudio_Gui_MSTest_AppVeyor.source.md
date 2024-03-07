@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: MSTest-nugets
+snippet: mstest-nugets
 
 
 ## Implicit Usings
@@ -91,5 +91,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on AppVeyor
 
-include: build-server-AppVeyor
+include: build-server-appveyor
 

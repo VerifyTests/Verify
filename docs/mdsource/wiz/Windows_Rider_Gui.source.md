@@ -5,7 +5,7 @@
 ## Select Test Framework
 
 Options:
- * [xUnit](Windows_Rider_Gui_xUnit.md)
+ * [Xunit](Windows_Rider_Gui_Xunit.md)
  * [NUnit](Windows_Rider_Gui_NUnit.md)
  * [Fixie](Windows_Rider_Gui_Fixie.md)
  * [MSTest](Windows_Rider_Gui_MSTest.md)

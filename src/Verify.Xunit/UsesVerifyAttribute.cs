@@ -2,7 +2,7 @@
 
 [Obsolete("No longer required. Usages of this attribute can be removed.", true)]
 [AttributeUsage(AttributeTargets.Class)]
-public class UsesVerifyAttribute :
+public sealed class UsesVerifyAttribute :
     BeforeAfterTestAttribute
 {
     static AsyncLocal<MethodInfo?> local = new();

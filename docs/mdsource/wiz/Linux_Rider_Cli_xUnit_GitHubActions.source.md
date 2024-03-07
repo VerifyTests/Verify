@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [xUnit](Linux_Rider_Cli_xUnit.md) > GitHub Actions
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [Xunit](Linux_Rider_Cli_Xunit.md) > GitHub Actions
 
 ## Add NuGet packages
 
@@ -75,7 +75,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 
@@ -91,5 +91,5 @@ Tools supported by Linux:
 
 ## Getting .received in output on GitHub Actions
 
-include: build-server-GitHubActions
+include: build-server-githubactions
 

@@ -115,5 +115,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on Azure DevOps
 
-include: build-server-AzureDevOps
+include: build-server-azuredevops
 

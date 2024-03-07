@@ -12,7 +12,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 ## Select Test Framework
 
 Options:
- * [xUnit](Windows_Other_Gui_xUnit.md)
+ * [Xunit](Windows_Other_Gui_Xunit.md)
  * [NUnit](Windows_Other_Gui_NUnit.md)
  * [Fixie](Windows_Other_Gui_Fixie.md)
  * [MSTest](Windows_Other_Gui_MSTest.md)

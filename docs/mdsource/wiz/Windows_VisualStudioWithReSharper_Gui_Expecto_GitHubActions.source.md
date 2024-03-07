@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: Expecto-nugets
+snippet: expecto-nugets
 
 
 ## Implicit Usings
@@ -108,5 +108,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on GitHub Actions
 
-include: build-server-GitHubActions
+include: build-server-githubactions
 

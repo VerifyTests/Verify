@@ -57,7 +57,7 @@ static class ApplyScrubbers
 
         AddProjectAndSolutionReplacements(solutionDir, projectDir, replacements);
         ApplyScrubbers.replacements = replacements
-            .OrderByDescending(_ => _.Key)
+            .OrderByDescending(_ => _.Key.Length)
             .ToList();
     }
 
@@ -142,9 +142,10 @@ static class ApplyScrubbers
         target.FixNewlines();
     }
 
-    public static string ApplyForPropertyValue(string value, VerifySettings settings, Counter counter)
+    public static CharSpan ApplyForPropertyValue(CharSpan value, VerifySettings settings, Counter counter)
     {
-        var builder = new StringBuilder(value);
+        var builder = new StringBuilder(value.Length);
+        builder.Append(value);
         foreach (var scrubber in settings.InstanceScrubbers)
         {
             scrubber(builder, counter);
@@ -161,7 +162,7 @@ static class ApplyScrubbers
         }
 
         builder.FixNewlines();
-        return builder.ToString();
+        return builder.AsSpan();
     }
 
     static string CleanPath(string directory) =>

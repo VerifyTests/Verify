@@ -5,7 +5,7 @@
 ## Select Test Framework
 
 Options:
- * [xUnit](MacOS_Other_Gui_xUnit.md)
+ * [Xunit](MacOS_Other_Gui_Xunit.md)
  * [NUnit](MacOS_Other_Gui_NUnit.md)
  * [Fixie](MacOS_Other_Gui_Fixie.md)
  * [MSTest](MacOS_Other_Gui_MSTest.md)

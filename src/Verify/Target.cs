@@ -42,7 +42,8 @@ public readonly struct Target
 
         if (FileExtensions.IsTextExtension(extension))
         {
-            throw new("Dont pass a stream for text. Instead use `Target(string extension, string data)` or `Target(string extension, StringBuilder data, string? name)`.");
+            throw new($"Dont pass a stream for text. If {extension} is not a text extension then add `FileExtensions.RemoveTextExtensions(\"{extension}\")` at initialization; " +
+                      "otherwise use `Target(string extension, string data)` or `Target(string extension, StringBuilder data, string? name)`.");
         }
 
         Extension = extension;
@@ -57,7 +58,8 @@ public readonly struct Target
         Guard.AgainstEmpty(name);
         if (!FileExtensions.IsTextExtension(extension))
         {
-            throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream data, string? name)`.");
+            throw new($"Dont pass a text for a binary extension. If {extension} is a text extension then add `FileExtensions.AddTextExtension(\"{extension}\")` at initialization; " +
+                      "otherwise use `Target(string extension, Stream data, string? name)`.");
         }
 
         Extension = extension;
@@ -72,7 +74,8 @@ public readonly struct Target
         Guard.AgainstEmpty(name, nameof(name));
         if (!FileExtensions.IsTextExtension(extension))
         {
-            throw new("Dont pass a text for a binary extension. Instead use `Target(string extension, Stream data, string? name)`.");
+            throw new($"Dont pass a text for a binary extension. If {extension} is a text extension then add `FileExtensions.AddTextExtension(\"{extension}\")` at initialization; " +
+                      "otherwise use `Target(string extension, Stream data, string? name)`.");
         }
 
         Extension = extension;

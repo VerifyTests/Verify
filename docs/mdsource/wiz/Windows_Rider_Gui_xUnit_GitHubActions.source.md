@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [xUnit](Windows_Rider_Gui_xUnit.md) > GitHub Actions
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [JetBrains Rider](Windows_Rider.md) > [Prefer GUI](Windows_Rider_Gui.md) > [Xunit](Windows_Rider_Gui_Xunit.md) > GitHub Actions
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: xunit-nugets
 
 
 ## Implicit Usings
@@ -73,7 +73,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 
@@ -100,5 +100,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on GitHub Actions
 
-include: build-server-GitHubActions
+include: build-server-githubactions
 

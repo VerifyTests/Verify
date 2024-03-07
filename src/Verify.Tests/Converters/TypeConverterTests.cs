@@ -1,4 +1,5 @@
-﻿#if NET6_0_OR_GREATER && DEBUG
+﻿#pragma warning disable CA1416
+#if NET6_0_OR_GREATER && DEBUG
 public class TypeConverterTests
 {
     [ModuleInitializer]

@@ -3,8 +3,7 @@
 [TestFixture]
 public class Tests
 {
-    // ReSharper disable once UnusedMember.Local
-    void DerivePathInfo()
+    static void DerivePathInfo()
     {
         #region DerivePathInfoNunit
 

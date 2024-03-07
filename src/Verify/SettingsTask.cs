@@ -66,7 +66,7 @@ public partial class SettingsTask
 
     /// <summary>
     /// Define the parameter values being used by a parameterised (aka data drive) test.
-    /// In most cases the parameter parameter values can be automatically resolved.
+    /// In most cases the parameter values can be automatically resolved.
     /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
     /// Not compatible with <see cref="UseTextForParameters" />.
     /// </summary>

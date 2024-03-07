@@ -5,7 +5,7 @@
 ## Select Test Framework
 
 Options:
- * [xUnit](MacOS_Rider_Gui_xUnit.md)
+ * [Xunit](MacOS_Rider_Gui_Xunit.md)
  * [NUnit](MacOS_Rider_Gui_NUnit.md)
  * [Fixie](MacOS_Rider_Gui_Fixie.md)
  * [MSTest](MacOS_Rider_Gui_MSTest.md)

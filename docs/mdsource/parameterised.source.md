@@ -160,4 +160,4 @@ Note that NUnit can derive the parameters without explicitly passing them.
 
 ### xUnit
 
-snippet: UseParametersHashxUnit
+snippet: UseParametersHashXunit

@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > [xUnit](Linux_Other_Gui_xUnit.md) > Azure DevOps
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [Other](Linux_Other.md) > [Prefer GUI](Linux_Other_Gui.md) > [Xunit](Linux_Other_Gui_Xunit.md) > Azure DevOps
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: xunit-nugets
 
 
 ## Implicit Usings
@@ -51,7 +51,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 
@@ -67,5 +67,5 @@ Tools supported by Linux:
 
 ## Getting .received in output on Azure DevOps
 
-include: build-server-AzureDevOps
+include: build-server-azuredevops
 

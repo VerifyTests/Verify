@@ -5,7 +5,7 @@
 ## Select Test Framework
 
 Options:
- * [xUnit](Windows_Other_Cli_xUnit.md)
+ * [Xunit](Windows_Other_Cli_Xunit.md)
  * [NUnit](Windows_Other_Cli_NUnit.md)
  * [Fixie](Windows_Other_Cli_Fixie.md)
  * [MSTest](Windows_Other_Cli_MSTest.md)

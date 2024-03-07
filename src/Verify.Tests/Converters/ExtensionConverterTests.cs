@@ -4,12 +4,13 @@
     public static void RecursiveInit() =>
         VerifierSettings.RegisterFileConverter(
             "recursive",
-            (stream, _) =>
+            (_, _) =>
                 new(
                     "recursiveInfo",
                     new List<Target>
                     {
-                        new("recursive", stream)
+                        new("recursive", new MemoryStream([1])),
+                        new("recursive", new MemoryStream([2]))
                     }));
 
     // eg when a converter is getting info from a png

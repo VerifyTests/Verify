@@ -86,5 +86,5 @@ Tools supported by MacOS:
 
 ## Getting .received in output on GitHub Actions
 
-include: build-server-GitHubActions
+include: build-server-githubactions
 

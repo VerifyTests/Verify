@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: Fixie-nugets
+snippet: fixie-nugets
 
 
 ## Implicit Usings
@@ -67,5 +67,5 @@ Tools supported by Linux:
 
 ## Getting .received in output on Azure DevOps
 
-include: build-server-AzureDevOps
+include: build-server-azuredevops
 

@@ -49,7 +49,7 @@ public class ThrowsTests
 
     #endregion
 
-#if NET8_0
+#if NET9_0
 
     #region TestMethodThatThrowsTask
 

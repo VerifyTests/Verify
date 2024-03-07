@@ -1,6 +1,6 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [xUnit](Linux_Rider_Cli_xUnit.md) > Azure DevOps
+[Home](/docs/wiz/readme.md) > [Linux](Linux.md) > [JetBrains Rider](Linux_Rider.md) > [Prefer CLI](Linux_Rider_Cli.md) > [Xunit](Linux_Rider_Cli_Xunit.md) > Azure DevOps
 
 ## Add NuGet packages
 
@@ -75,7 +75,7 @@ dotnet tool install -g verify.tool
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 
@@ -91,5 +91,5 @@ Tools supported by Linux:
 
 ## Getting .received in output on Azure DevOps
 
-include: build-server-AzureDevOps
+include: build-server-azuredevops
 

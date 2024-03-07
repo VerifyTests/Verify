@@ -46,7 +46,7 @@
 
     static char[] invalidPathChars = Path
         .GetInvalidPathChars()
-        .Concat(invalidFileChars.Except('/', '\\', ':'))
+        .Concat(invalidFileChars.Except(['/', '\\', ':']))
         .Distinct()
         .ToArray();
 

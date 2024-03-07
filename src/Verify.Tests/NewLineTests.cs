@@ -16,9 +16,8 @@ public class NewLineTests
     {
         var result = await Verify("value")
             .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
-        Assert.False(File
-            .ReadAllText(result.Files.Single())
-            .Contains("\r"));
+        Assert.DoesNotContain("\r", File
+            .ReadAllText(result.Files.Single()));
     }
 
     [Fact]
@@ -29,16 +28,15 @@ public class NewLineTests
                 Property = "value"
             })
             .AddScrubber(_ => _.Append("\rline2\r\nline3\nline4"));
-        Assert.False(File
-            .ReadAllText(result.Files.Single())
-            .Contains("\r"));
+        var file = result.Files.Single();
+        Assert.DoesNotContain("\r", File.ReadAllText(file));
     }
 
     [Fact]
     public Task Newlines() =>
         Verify("a\r\nb\nc\rd\r\n");
 
-#if NET8_0
+#if NET9_0
     [Fact]
     public async Task StringWithDifferingNewline()
     {
@@ -68,6 +66,7 @@ public class NewLineTests
         await Verify("a\rb");
         PrefixUnique.Clear();
         await Verify("a\nb");
+        File.Delete(fullPath);
     }
 
     [Fact]

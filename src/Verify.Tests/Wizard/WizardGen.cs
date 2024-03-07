@@ -218,7 +218,7 @@ public class WizardGen
             $"""
              ## Getting .received in output on {GetName(buildServer)}
 
-             include: build-server-{buildServer}
+             include: build-server-{buildServer.ToString().ToLower()}
 
              """);
     }
@@ -370,7 +370,7 @@ public class WizardGen
             case CliPreference.Cli:
                 switch (testFramework)
                 {
-                    case TestFramework.xUnit:
+                    case TestFramework.Xunit:
                         builder.AppendLine(
                             """
                             ```
@@ -432,7 +432,7 @@ public class WizardGen
                 builder.AppendLine(
                     $"""
 
-                     snippet: {testFramework}-nugets
+                     snippet: {testFramework.ToString().ToLower()}-nugets
 
                      """);
                 break;

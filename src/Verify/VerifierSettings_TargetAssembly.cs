@@ -1,4 +1,5 @@
-﻿namespace VerifyTests;
+﻿#pragma warning disable VerifyTestsProjectDir
+namespace VerifyTests;
 
 public static partial class VerifierSettings
 {

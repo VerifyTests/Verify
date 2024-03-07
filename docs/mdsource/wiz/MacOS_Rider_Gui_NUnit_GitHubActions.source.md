@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: NUnit-nugets
+snippet: nunit-nugets
 
 
 ## Implicit Usings
@@ -82,5 +82,5 @@ Tools supported by MacOS:
 
 ## Getting .received in output on GitHub Actions
 
-include: build-server-GitHubActions
+include: build-server-githubactions
 

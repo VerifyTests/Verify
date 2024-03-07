@@ -1,4 +1,5 @@
-﻿#if DEBUG && NET6_0_OR_GREATER
+﻿#pragma warning disable CA1416
+#if DEBUG && NET6_0_OR_GREATER
 // ReSharper disable UnusedParameter.Local
 
 public class ConverterSnippets

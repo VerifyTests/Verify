@@ -1,7 +1,7 @@
 ﻿namespace VerifyXunit;
 
 [AttributeUsage(AttributeTargets.Assembly)]
-public class UseVerifyAttribute :
+public sealed class UseVerifyAttribute :
     BeforeAfterTestAttribute
 {
     static AsyncLocal<MethodInfo?> local = new();

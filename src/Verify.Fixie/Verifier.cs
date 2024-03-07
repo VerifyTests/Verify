@@ -1,4 +1,5 @@
-﻿namespace VerifyFixie;
+﻿#pragma warning disable VerifySetParameters
+namespace VerifyFixie;
 
 public static partial class Verifier
 {

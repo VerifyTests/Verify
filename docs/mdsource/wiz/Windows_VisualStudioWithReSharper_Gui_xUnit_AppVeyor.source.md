@@ -1,13 +1,13 @@
 # Getting Started Wizard
 
-[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [xUnit](Windows_VisualStudioWithReSharper_Gui_xUnit.md) > AppVeyor
+[Home](/docs/wiz/readme.md) > [Windows](Windows.md) > [Visual Studio with ReSharper](Windows_VisualStudioWithReSharper.md) > [Prefer GUI](Windows_VisualStudioWithReSharper_Gui.md) > [Xunit](Windows_VisualStudioWithReSharper_Gui_Xunit.md) > AppVeyor
 
 ## Add NuGet packages
 
 Add the following packages to the test project:
 
 
-snippet: xUnit-nugets
+snippet: xunit-nugets
 
 
 ## Implicit Usings
@@ -81,7 +81,7 @@ public static void Initialize() =>
 
 ## Sample Test
 
-snippet: SampleTestxUnit
+snippet: SampleTestXunit
 
 ## Diff Tool
 
@@ -108,5 +108,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on AppVeyor
 
-include: build-server-AppVeyor
+include: build-server-appveyor
 

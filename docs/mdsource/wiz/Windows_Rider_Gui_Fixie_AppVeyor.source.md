@@ -7,7 +7,7 @@
 Add the following packages to the test project:
 
 
-snippet: Fixie-nugets
+snippet: fixie-nugets
 
 
 ## Implicit Usings
@@ -100,5 +100,5 @@ Tools supported by Windows:
 
 ## Getting .received in output on AppVeyor
 
-include: build-server-AppVeyor
+include: build-server-appveyor
 

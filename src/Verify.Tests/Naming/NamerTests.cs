@@ -482,11 +482,11 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public Task IgnoreParametersForVerified(string arg)
+    public Task IgnoreParametersForVerifiedWithArgs(string arg)
     {
         var settings = new VerifySettings();
         settings.IgnoreParametersForVerified(arg);
-        return Verify("valueIgnoreParametersForVerified", settings);
+        return Verify("valueIgnoreParametersForVerifiedWithArgs", settings);
     }
 
     [Theory]

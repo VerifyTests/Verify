@@ -605,7 +605,7 @@ public class SerializationTests
 
 
     // ReSharper disable once UnusedMember.Local
-    void AddExtraSettingsGlobal()
+    static void AddExtraSettingsGlobal()
     {
         #region AddExtraSettingsGlobal
 
@@ -1558,7 +1558,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void DontIgnoreEmptyCollections()
+    static void DontIgnoreEmptyCollections()
     {
         #region DontIgnoreEmptyCollections
 
@@ -1568,7 +1568,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void DontScrubGuids()
+    static void DontScrubGuids()
     {
         #region DontScrubGuidsGlobal
 
@@ -1578,7 +1578,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void DontScrubProjectDirectory()
+    static void DontScrubProjectDirectory()
     {
         #region DontScrubProjectDirectory
 
@@ -1588,7 +1588,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void DontScrubSolutionDirectory()
+    static void DontScrubSolutionDirectory()
     {
         #region DontScrubSolutionDirectory
 
@@ -1789,7 +1789,7 @@ public class SerializationTests
         });
 
     // ReSharper disable once UnusedMember.Local
-    void List()
+    static void List()
     {
         var verifySettings = new VerifySettings();
 
@@ -1865,6 +1865,18 @@ public class SerializationTests
             altCurrentDirectoryTrailing = altCurrentDirectory + Path.AltDirectorySeparatorChar
         });
     }
+
+    //TODO: work out how to test this on CI
+    // [Fact]
+    // public Task ScrubShouldDoLongFirstLength()
+    // {
+    //     VerifierSettings.AssignTargetAssembly(GetType().Assembly);
+    //     var target = string.Join("\n",
+    //         ApplyScrubbers
+    //         .replacements.Select(_ => _.Key)
+    //         .OrderByDescending(_ => _.Length));
+    //     return Verify(target);
+    // }
 
     [Fact]
     public Task MoreSpecificScrubberShouldOverride()
@@ -2265,7 +2277,7 @@ public class SerializationTests
             .ScrubLinesContaining("Line1");
 
     [Theory]
-    [InlineData(10, "NoMatch")]
+    [InlineData("10", "NoMatch")]
     [InlineData("Value", "Value")]
     [InlineData("BeforeValue", "BeforeValue")]
     [InlineData("BeforeValueAfter", "BeforeValueAfter")]
@@ -2314,7 +2326,7 @@ public class SerializationTests
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = [],
             ReadOnlyCollection = new ReadOnlyCollection<string>([]),
-            Array = Array.Empty<string>()
+            Array = []
         };
         return Verify(target);
     }
@@ -2350,7 +2362,7 @@ public class SerializationTests
 #pragma warning disable 612
 
     // ReSharper disable once UnusedMember.Local
-    void ExceptionMessagePropGlobal()
+    static void ExceptionMessagePropGlobal()
     {
         #region IgnoreMembersThatThrowExpressionGlobal
 
@@ -2439,7 +2451,7 @@ public class SerializationTests
         return Verify(target);
     }
 
-    IEnumerable<SelfReferencingWithArrayTarget> BuildEnumerable(SelfReferencingWithArrayTarget target)
+    static IEnumerable<SelfReferencingWithArrayTarget> BuildEnumerable(SelfReferencingWithArrayTarget target)
     {
         yield return target;
     }
@@ -2569,7 +2581,7 @@ public class SerializationTests
         throw new("the message");
 
     // ReSharper disable once UnusedMember.Local
-    void AddIgnoreInstanceGlobal()
+    static void AddIgnoreInstanceGlobal()
     {
         #region AddIgnoreInstanceGlobal
 
@@ -2696,7 +2708,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void AddIgnoreTypeGlobal()
+    static void AddIgnoreTypeGlobal()
     {
         #region AddIgnoreTypeGlobal
 
@@ -3044,7 +3056,7 @@ public class SerializationTests
         Verify(Info.OfMethod<SerializationTests>("MyMethodWithParameters"));
 
     // ReSharper disable once UnusedMember.Local
-    void MyMethodWithParameters(int x, string y)
+    static void MyMethodWithParameters(int x, string y)
     {
     }
 
@@ -3115,7 +3127,7 @@ public class SerializationTests
     class BaseToIgnoreGeneric<T>;
 
     // ReSharper disable once UnusedMember.Local
-    void IgnoreMemberByExpressionGlobal()
+    static void IgnoreMemberByExpressionGlobal()
     {
         #region IgnoreMemberByExpressionGlobal
 
@@ -3259,7 +3271,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void IgnoreMemberByNameGlobal()
+    static void IgnoreMemberByNameGlobal()
     {
         #region IgnoreMemberByNameGlobal
 
@@ -3501,7 +3513,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void CustomExceptionPropGlobal()
+    static void CustomExceptionPropGlobal()
     {
         #region IgnoreMembersThatThrowGlobal
 
@@ -3620,7 +3632,7 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    void WithObsoletePropIncludedGlobally()
+    static void WithObsoletePropIncludedGlobally()
     {
         #region WithObsoletePropIncludedGlobally
 
@@ -3818,7 +3830,7 @@ public class SerializationTests
         public string Name { get; set; } = null!;
     }
 
-    Parent ListReferenceData()
+    static Parent ListReferenceData()
     {
         var parent = new Parent();
 

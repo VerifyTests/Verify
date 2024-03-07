@@ -1,6 +1,6 @@
 ﻿public enum TestFramework
 {
-    xUnit,
+    Xunit,
     NUnit,
     Fixie,
     MSTest,

@@ -224,6 +224,13 @@ public static partial class VerifierSettings
         serialization.ScrubMembersWithType<T>();
     }
 
+    public static void AlwaysIncludeMembersWithType<T>()
+        where T : notnull
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.AlwaysIncludeMembersWithType<T>();
+    }
+
     public static void IgnoreMembersWithType(Type type)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
@@ -234,6 +241,12 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         serialization.ScrubMembersWithType(type);
+    }
+
+    public static void AlwaysIncludeMembersWithType(Type type)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        serialization.AlwaysIncludeMembersWithType(type);
     }
 
     public static void IgnoreMembersThatThrow<T>()

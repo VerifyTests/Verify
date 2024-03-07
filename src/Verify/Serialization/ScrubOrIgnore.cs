@@ -1,5 +1,6 @@
 ﻿enum ScrubOrIgnore
 {
     Scrub,
-    Ignore
+    Ignore,
+    AlwaysInclude
 }

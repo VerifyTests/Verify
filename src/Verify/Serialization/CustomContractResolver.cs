@@ -158,14 +158,19 @@
 
         if (settings.TryGetScrubOrIgnore(member, out var scrubOrIgnore))
         {
-            if (scrubOrIgnore == ScrubOrIgnore.Ignore)
+            switch (scrubOrIgnore)
             {
-                property.Ignored = true;
-            }
-            else
-            {
-                property.PropertyType = typeof(string);
-                property.ValueProvider = new ScrubbedProvider();
+                case ScrubOrIgnore.AlwaysInclude:
+                    property.Ignored = false;
+                    property.DefaultValueHandling = DefaultValueHandling.Include;
+                    break;
+                case ScrubOrIgnore.Ignore:
+                    property.Ignored = true;
+                    break;
+                case ScrubOrIgnore.Scrub:
+                    property.PropertyType = typeof(string);
+                    property.ValueProvider = new ScrubbedProvider();
+                    break;
             }
 
             return property;

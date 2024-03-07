@@ -194,6 +194,13 @@ public partial class VerifySettings
         serialization.ScrubMembersWithType<T>();
     }
 
+    public void AlwaysIncludeMembersWithType<T>()
+        where T : notnull
+    {
+        CloneSettings();
+        serialization.AlwaysIncludeMembersWithType<T>();
+    }
+
     public void IgnoreMembersWithType(Type type)
     {
         CloneSettings();
@@ -204,6 +211,12 @@ public partial class VerifySettings
     {
         CloneSettings();
         serialization.ScrubMembersWithType(type);
+    }
+
+    public void AlwaysIncludeMembersWithType(Type type)
+    {
+        CloneSettings();
+        serialization.AlwaysIncludeMembersWithType(type);
     }
 
     public void IgnoreMembersThatThrow<T>()

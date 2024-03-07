@@ -2986,6 +2986,19 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task AlwaysIncludeType()
+    {
+        var target = new
+        {
+            A = 0.0,
+            B = 1e-26
+        };
+
+        return Verify(target)
+            .AlwaysIncludeMembersWithType<double>();
+    }
+
+    [Fact]
     public Task Type() =>
         Verify(GetType());
 

@@ -15,8 +15,8 @@ public class SerializationTests
     [ModuleInitializer]
     public static void Initialize()
     {
-        VerifierSettings.AddExtraDatetimeFormat("F");
-        VerifierSettings.AddExtraDatetimeOffsetFormat("F");
+        VerifierSettings.AddExtraDateTimeFormat("F");
+        VerifierSettings.AddExtraDateTimeOffsetFormat("F");
     }
 
     [Fact]
@@ -143,14 +143,14 @@ public class SerializationTests
             .OrderEnumerableByDescending<string>(_ => _);
 
 
-    #region AddExtraDatetimeFormat
+    #region AddExtraDateTimeFormat
 
     [ModuleInitializer]
-    public static void UseAddExtraDatetimeFormat() =>
-        VerifierSettings.AddExtraDatetimeFormat("yyyy-MM-dd");
+    public static void UseAddExtraDateTimeFormat() =>
+        VerifierSettings.AddExtraDateTimeFormat("yyyy-MM-dd");
 
     [Fact]
-    public Task WithExtraDatetimeFormat() =>
+    public Task WithExtraDateTimeFormat() =>
         Verify(
             new
             {

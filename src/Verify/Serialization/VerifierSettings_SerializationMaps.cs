@@ -20,13 +20,21 @@ public static partial class VerifierSettings
         SerializationSettings.timeFormats.Add(format);
     }
 
-    public static void AddExtraDatetimeFormat(string format)
+    [Obsolete("Use AddExtraDateTimeFormat instead.")]
+    public static void AddExtraDatetimeFormat(string format) =>
+        AddExtraDateTimeFormat(format);
+
+    public static void AddExtraDateTimeFormat(string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.dateTimeFormats.Add(format);
     }
 
-    public static void AddExtraDatetimeOffsetFormat(string format)
+    [Obsolete("Use AddExtraDateTimeOffsetFormat instead.")]
+    public static void AddExtraDatetimeOffsetFormat(string format) =>
+        AddExtraDateTimeOffsetFormat(format);
+
+    public static void AddExtraDateTimeOffsetFormat(string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.dateTimeOffsetFormats.Add(format);

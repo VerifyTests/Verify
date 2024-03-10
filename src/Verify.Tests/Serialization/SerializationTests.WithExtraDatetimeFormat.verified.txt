@@ -1,3 +1,0 @@
-﻿{
-  date: DateTime_1
-}

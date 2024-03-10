@@ -1,0 +1,21 @@
+﻿{
+  withResult: {
+    IsCanceled: false,
+    IsCompleted: true,
+    IsFaulted: false,
+    Result: Value
+  },
+  withException: {
+    IsCanceled: false,
+    IsCompleted: true,
+    IsFaulted: true
+  },
+  withExceptionAndResult: {
+    IsCanceled: false,
+    IsCompleted: true,
+    IsFaulted: true
+  },
+  canceledAndResult: {
+    Status: Canceled
+  }
+}

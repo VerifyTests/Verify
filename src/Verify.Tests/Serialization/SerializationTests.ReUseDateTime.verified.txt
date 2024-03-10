@@ -1,0 +1,11 @@
+﻿{
+  DateTime: DateTime_1,
+  DateTimeNullable: DateTime_1,
+  Date: Date_1,
+  DateNullable: Date_1,
+  DateTimeOffset: DateTimeOffset_1,
+  DateTimeOffsetNullable: DateTimeOffset_1,
+  DateTimeString: DateTimeOffset_2,
+  DateTimeOffsetString: DateTimeOffset_2,
+  DateString: Date_1
+}

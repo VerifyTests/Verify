@@ -1,0 +1,8 @@
+﻿{
+  Include: {
+    Key1: Value2,
+    Scrub: {Scrubbed}
+  },
+  Key2: Value4,
+  Scrub: {Scrubbed}
+}

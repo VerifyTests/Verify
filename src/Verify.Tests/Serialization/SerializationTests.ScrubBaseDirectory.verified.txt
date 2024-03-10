@@ -1,0 +1,4 @@
+﻿{
+  baseDirectory: {CurrentDirectory},
+  altBaseDirectory: {CurrentDirectory}
+}

@@ -1,0 +1,8 @@
+﻿{
+  Include: Value,
+  Field: {Scrubbed},
+  Property: {Scrubbed},
+  _Custom: {Scrubbed},
+  GetOnlyProperty: {Scrubbed},
+  PropertyThatThrows: {Scrubbed}
+}

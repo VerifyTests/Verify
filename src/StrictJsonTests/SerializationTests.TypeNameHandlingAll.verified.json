@@ -1,0 +1,19 @@
+﻿{
+  "$type": "Person",
+  "GivenNames": "John",
+  "FamilyName": "Smith",
+  "Spouse": "Jill",
+  "Address": {
+    "$type": "Address",
+    "Street": "1 Puddle Lane",
+    "Country": "USA"
+  },
+  "Children": {
+    "$type": "List<string>",
+    "$values": [
+      "Sam",
+      "Mary"
+    ]
+  },
+  "Id": "Guid_1"
+}

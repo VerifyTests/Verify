@@ -9,8 +9,8 @@ public class Tests
     [ModuleInitializer]
     public static void Initialize()
     {
-        VerifierSettings.AddExtraDatetimeFormat("F");
-        VerifierSettings.AddExtraDatetimeOffsetFormat("F");
+        VerifierSettings.AddExtraDateTimeFormat("F");
+        VerifierSettings.AddExtraDateTimeOffsetFormat("F");
     }
 
     [Theory]

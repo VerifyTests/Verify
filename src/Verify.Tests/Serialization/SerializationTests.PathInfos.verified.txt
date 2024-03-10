@@ -1,0 +1,4 @@
+﻿{
+  file: c:/foo/bar.txt,
+  directory: c:/foo/bar/
+}

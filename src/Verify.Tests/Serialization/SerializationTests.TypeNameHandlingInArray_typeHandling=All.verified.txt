@@ -1,0 +1,11 @@
+﻿{
+  $type: SerializationTests.TypeNameHandlingAutoInArrayTarget,
+  Item: {
+    $type: SerializationTests.TypeNameHandlingAutoInArrayItem[],
+    $values: [
+      {
+        $type: SerializationTests.TypeNameHandlingAutoInArrayItemChild
+      }
+    ]
+  }
+}

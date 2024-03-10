@@ -1,0 +1,8 @@
+﻿{
+  Item: {
+    $type: SerializationTests.TypeNameHandlingAutoInArrayItem[],
+    $values: [
+      {}
+    ]
+  }
+}

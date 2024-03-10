@@ -1,0 +1,6 @@
+﻿{
+  tempPath: {TempPath},
+  altTempPath: {TempPath},
+  tempPathTrailing: {TempPath},
+  altTempPathTrailing: {TempPath}
+}

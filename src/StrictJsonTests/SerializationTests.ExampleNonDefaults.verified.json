@@ -1,0 +1,14 @@
+﻿{
+  "GivenNames": "John",
+  "FamilyName": "Smith",
+  "Spouse": "Jill",
+  "Address": {
+    "Street": "1 Puddle Street",
+    "Country": "USA"
+  },
+  "Children": [
+    "Sam",
+    "Mary"
+  ],
+  "Id": "ebced679-45d3-4653-8791-3d969c4a986c"
+}

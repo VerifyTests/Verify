@@ -1,0 +1,27 @@
+﻿{
+  item1: {
+    null: null
+  },
+  item2: {
+    key: null
+  },
+  item3: {
+    null: value
+  },
+  item4: {
+    key: value
+  },
+  item5: {
+    key: value1,value2
+  },
+  item6: {
+    key: value2
+  },
+  item7: {
+    key: value1
+  },
+  item8: {
+    key1: value1,
+    key2: value2
+  }
+}

@@ -1,0 +1,3 @@
+﻿{
+  OtherProperty: value2
+}

@@ -1,0 +1,6 @@
+﻿{
+  path: {SolutionDirectory}Foo,
+  trimmed: {SolutionDirectory}Foo,
+  altPath: {SolutionDirectory}Foo,
+  altPathTrimmed: {SolutionDirectory}Foo
+}

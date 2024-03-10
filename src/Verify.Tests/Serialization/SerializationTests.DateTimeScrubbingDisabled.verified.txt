@@ -1,0 +1,6 @@
+﻿{
+  noTime: 2000-01-01 Utc,
+  withTime: 2000-01-01 01:01:01 Utc,
+  withTimeZeroSeconds: 2000-01-01 01:01 Utc,
+  withTimeMilliSeconds: 2000-01-01 01:01:01.999 Utc
+}

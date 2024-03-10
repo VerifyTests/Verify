@@ -167,11 +167,11 @@ public static void ModuleInitializer() =>
 <a id='snippet-addextradatetimeformat'></a>
 ```cs
 [ModuleInitializer]
-public static void UseAddExtraDatetimeFormat() =>
-    VerifierSettings.AddExtraDatetimeFormat("yyyy-MM-dd");
+public static void UseAddExtraDateTimeFormat() =>
+    VerifierSettings.AddExtraDateTimeFormat("yyyy-MM-dd");
 
 [Fact]
-public Task WithExtraDatetimeFormat() =>
+public Task WithExtraDateTimeFormat() =>
     Verify(
         new
         {

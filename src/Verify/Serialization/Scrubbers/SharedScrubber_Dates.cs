@@ -2,8 +2,8 @@
 {
     internal static List<string> dateFormats = ["d"];
     internal static List<string> timeFormats = ["h:mm tt"];
-    internal static List<string> datetimeFormats = [];
-    internal static List<string> datetimeOffsetFormats = [];
+    internal static List<string> dateTimeFormats = [];
+    internal static List<string> dateTimeOffsetFormats = [];
 
     internal bool TryConvert(Counter counter, DateTime value, [NotNullWhen(true)] out string? result)
     {
@@ -162,7 +162,7 @@
                 return true;
             }
 
-            foreach (var format in datetimeFormats)
+            foreach (var format in dateTimeFormats)
             {
                 if (TryParseDateTime(value, format, out dateTime))
                 {
@@ -193,7 +193,7 @@
                 return true;
             }
 
-            foreach (var format in datetimeOffsetFormats)
+            foreach (var format in dateTimeOffsetFormats)
             {
                 if (TryParseDateTimeOffset(value, format, out dateTimeOffset))
                 {

@@ -23,13 +23,13 @@ public static partial class VerifierSettings
     public static void AddExtraDatetimeFormat(string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        SerializationSettings.datetimeFormats.Add(format);
+        SerializationSettings.dateTimeFormats.Add(format);
     }
 
     public static void AddExtraDatetimeOffsetFormat(string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        SerializationSettings.datetimeOffsetFormats.Add(format);
+        SerializationSettings.dateTimeOffsetFormats.Add(format);
     }
 
     public static void DontScrubGuids()

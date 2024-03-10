@@ -1,8 +1,0 @@
-﻿{
-  "Include": "Value",
-  "Field": "{Scrubbed}",
-  "Property": "{Scrubbed}",
-  "PropertyByName": "{Scrubbed}",
-  "GetOnlyProperty": "asd",
-  "PropertyThatThrows": "{Scrubbed}"
-}

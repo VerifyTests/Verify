@@ -1,4 +1,0 @@
-﻿{
-  time: replaced,
-  value: replaced
-}

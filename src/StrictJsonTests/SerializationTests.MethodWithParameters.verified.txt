@@ -1,1 +1,0 @@
-﻿SerializationTests.MyMethodWithParameters(int x, string y)

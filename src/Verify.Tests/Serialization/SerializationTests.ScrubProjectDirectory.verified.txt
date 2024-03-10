@@ -1,6 +1,0 @@
-﻿{
-  path: {ProjectDirectory}Foo,
-  trimmed: {ProjectDirectory}Foo,
-  altPath: {ProjectDirectory}Foo,
-  altPathTrimmed: {ProjectDirectory}Foo
-}

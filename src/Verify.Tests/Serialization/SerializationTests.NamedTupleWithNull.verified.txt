@@ -1,4 +1,0 @@
-﻿{
-  Member1: A,
-  Member2: null
-}

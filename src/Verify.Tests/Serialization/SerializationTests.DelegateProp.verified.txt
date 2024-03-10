@@ -1,7 +1,0 @@
-﻿{
-  DelegateProperty: {
-    Type: Action,
-    Target: SerializationTests.WithDelegate.<>c,
-    Method: Void get_DelegateProperty()
-  }
-}

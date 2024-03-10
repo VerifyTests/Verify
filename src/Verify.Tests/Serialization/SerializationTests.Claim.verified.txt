@@ -1,3 +1,0 @@
-﻿{
-  TheType: TheValue
-}

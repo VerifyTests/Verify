@@ -1,3 +1,0 @@
-﻿{
-  expression: source => Convert(source.Message)
-}

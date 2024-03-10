@@ -1,3 +1,0 @@
-﻿{
-  encoding: utf-8
-}

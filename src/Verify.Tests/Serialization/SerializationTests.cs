@@ -15,8 +15,8 @@ public class SerializationTests
     [ModuleInitializer]
     public static void Initialize()
     {
-        VerifierSettings.AddExtraDatetimeFormat("F");
-        VerifierSettings.AddExtraDatetimeOffsetFormat("F");
+        VerifierSettings.AddExtraDateTimeFormat("F");
+        VerifierSettings.AddExtraDateTimeOffsetFormat("F");
     }
 
     [Fact]
@@ -143,14 +143,14 @@ public class SerializationTests
             .OrderEnumerableByDescending<string>(_ => _);
 
 
-    #region AddExtraDatetimeFormat
+    #region AddExtraDateTimeFormat
 
     [ModuleInitializer]
-    public static void UseAddExtraDatetimeFormat() =>
-        VerifierSettings.AddExtraDatetimeFormat("yyyy-MM-dd");
+    public static void UseAddExtraDateTimeFormat() =>
+        VerifierSettings.AddExtraDateTimeFormat("yyyy-MM-dd");
 
     [Fact]
-    public Task WithExtraDatetimeFormat() =>
+    public Task WithExtraDateTimeFormat() =>
         Verify(
             new
             {
@@ -525,7 +525,7 @@ public class SerializationTests
 #endif
 
     [Fact]
-    public Task DatetimeOffsetScrubbingDisabled() =>
+    public Task DateTimeOffsetScrubbingDisabled() =>
         Verify(
                 new
                 {
@@ -551,7 +551,7 @@ public class SerializationTests
             .ScrubLinesContaining("line2");
 
     [Fact]
-    public Task DatetimeScrubbingDisabled_ExplicitScrubber() =>
+    public Task DateTimeScrubbingDisabled_ExplicitScrubber() =>
         Verify(
                 new
                 {
@@ -1031,7 +1031,7 @@ public class SerializationTests
             .DontScrubDateTimes();
 
     [Fact]
-    public Task IgnoreDatetimeDefaults()
+    public Task IgnoreDateTimeDefaults()
     {
         var target = new DateTimeTarget();
 
@@ -1051,7 +1051,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task ReUseDatetime()
+    public async Task ReUseDateTime()
     {
         #region Date
 
@@ -1076,7 +1076,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task DatetimeMin()
+    public Task DateTimeMin()
     {
         var dateTime = DateTime.MinValue;
         var dateTimeOffset = DateTimeOffset.MinValue;
@@ -1097,7 +1097,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task DatetimeMax()
+    public Task DateTimeMax()
     {
         var dateTime = DateTime.MaxValue;
         var dateTimeOffset = DateTimeOffset.MaxValue;
@@ -1118,7 +1118,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task DatetimeDifferByKind()
+    public Task DateTimeDifferByKind()
     {
         var dateTimeLocal = new DateTime(2000, 10, 10, 1, 1, 1, DateTimeKind.Local);
         var dateTimeUtc = new DateTime(2000, 10, 10, 1, 1, 1, DateTimeKind.Utc);
@@ -1134,7 +1134,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public Task DatetimeOffsetDifferOffset()
+    public Task DateTimeOffsetDifferOffset()
     {
         var dateTime1 = new DateTimeOffset(new DateTime(2000, 10, 10, 1, 0, 0), TimeSpan.FromHours(1));
         var dateTime2 = new DateTimeOffset(new DateTime(2000, 10, 10, 2, 0, 0), TimeSpan.FromHours(2));
@@ -1161,7 +1161,7 @@ public class SerializationTests
     #endregion
 
     [Fact]
-    public async Task ScrubDatetime()
+    public async Task ScrubDateTime()
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
@@ -1204,7 +1204,7 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task ScrubDatetimeInstance()
+    public async Task ScrubDateTimeInstance()
     {
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
@@ -1671,7 +1671,7 @@ public class SerializationTests
 
 #if NET6_0_OR_GREATER
     [Fact]
-    public Task DatetimeScrubbingDisabled() =>
+    public Task DateTimeScrubbingDisabled() =>
         Verify(
                 new
                 {

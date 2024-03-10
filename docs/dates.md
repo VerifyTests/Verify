@@ -50,7 +50,7 @@ Results in the following:
   DateString: Date_1
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ReUseDatetime.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ReUseDatetime.verified.txt' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.ReUseDateTime.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-SerializationTests.ReUseDatetime.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 To disable this behavior use:
@@ -167,11 +167,11 @@ public static void ModuleInitializer() =>
 <a id='snippet-addextradatetimeformat'></a>
 ```cs
 [ModuleInitializer]
-public static void UseAddExtraDatetimeFormat() =>
-    VerifierSettings.AddExtraDatetimeFormat("yyyy-MM-dd");
+public static void UseAddExtraDateTimeFormat() =>
+    VerifierSettings.AddExtraDateTimeFormat("yyyy-MM-dd");
 
 [Fact]
-public Task WithExtraDatetimeFormat() =>
+public Task WithExtraDateTimeFormat() =>
     Verify(
         new
         {

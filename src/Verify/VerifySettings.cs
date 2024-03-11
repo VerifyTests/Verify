@@ -90,15 +90,12 @@ public partial class VerifySettings
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    // ReSharper disable once UnusedParameter.Global
     public void AutoVerify(bool includeBuildServer = true) =>
         AutoVerify((_, _) => true, includeBuildServer);
 
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    // ReSharper disable once UnusedParameter.Global
-    // ReSharper disable once MemberCanBeMadeStatic.Global
     public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
 #if DiffEngine

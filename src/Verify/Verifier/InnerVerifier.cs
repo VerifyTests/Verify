@@ -12,8 +12,8 @@ public partial class InnerVerifier :
     IEnumerable<string> verifiedFiles = null!;
     Counter counter;
     internal static bool verifyHasBeenRun;
-    string typeName;
-    string methodName;
+    string? typeName;
+    string? methodName;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
@@ -71,15 +71,10 @@ public partial class InnerVerifier :
     /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
-    [Experimental("InnerVerifier")]
-    public InnerVerifier(string sourceFile, VerifySettings settings, string typeName, string methodName)
+    public InnerVerifier(string sourceFile, VerifySettings settings)
     {
-        Guard.AgainstEmpty(typeName);
-        Guard.AgainstEmpty(methodName);
         Guard.AgainstEmpty(sourceFile);
 
-        this.typeName = typeName;
-        this.methodName = methodName;
         this.settings = settings;
         directory = ResolveDirectory(sourceFile, settings, new());
 

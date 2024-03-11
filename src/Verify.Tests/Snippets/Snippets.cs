@@ -111,7 +111,7 @@ public class Snippets
 
         var settings = new VerifySettings();
         settings.AutoVerify(
-            (typeName, methodName, verifiedFile) =>
+            verifiedFile =>
                 Path.GetExtension(verifiedFile) == "png");
 
         #endregion
@@ -131,7 +131,7 @@ public class Snippets
     public Task AutoVerifyFluentDelegate() =>
         Verify("Value")
             .AutoVerify(
-            (typeName, methodName, verifiedFile) =>
+            verifiedFile =>
                 Path.GetExtension(verifiedFile) == "png");
 
     #endregion

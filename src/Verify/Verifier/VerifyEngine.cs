@@ -174,7 +174,7 @@ class VerifyEngine
 
         if (settings.autoVerify != null)
         {
-            return settings.autoVerify(typeName, methodName!, verifiedFile);
+            return settings.autoVerify(verifiedFile);
         }
 
         return false;

@@ -21,11 +21,9 @@
         File.Delete(fullPath);
         await Verify("Foo")
             .AutoVerify(
-                (typeName, methodName, file) =>
+                verifiedFile =>
                 {
-                    Assert.NotNull(typeName);
-                    Assert.NotNull(methodName);
-                    Assert.NotNull(file);
+                    Assert.NotNull(verifiedFile);
                     funcCalled = true;
                     return true;
                 });
@@ -45,11 +43,9 @@
             .UseTypeName("diffTypeNameTrue")
             .UseMethodName("diffMethodName")
             .AutoVerify(
-                (typeName, methodName, file) =>
+                verifiedFile =>
                 {
-                    Assert.Equal("diffTypeNameTrue", typeName);
-                    Assert.Equal("diffMethodName", methodName);
-                    Assert.NotNull(file);
+                    Assert.NotNull(verifiedFile);
                     funcCalled = true;
                     return true;
                 });
@@ -69,11 +65,9 @@
             () => Verify("Foo")
                 .DisableDiff()
                 .AutoVerify(
-                    (typeName, methodName, file) =>
+                    verifiedFile =>
                     {
-                        Assert.NotNull(typeName);
-                        Assert.NotNull(methodName);
-                        Assert.NotNull(file);
+                        Assert.NotNull(verifiedFile);
                         funcCalled = true;
                         return false;
                     }));
@@ -95,11 +89,9 @@
                 .UseTypeName("diffTypeNameFalse")
                 .UseMethodName("diffMethodName")
                 .AutoVerify(
-                    (typeName, methodName, file) =>
+                    verifiedFile =>
                     {
-                        Assert.Equal("diffTypeNameFalse", typeName);
-                        Assert.Equal("diffMethodName", methodName);
-                        Assert.NotNull(file);
+                        Assert.NotNull(verifiedFile);
                         funcCalled = true;
                         return false;
                     }));

@@ -65,5 +65,5 @@ public async Task VerifyExternalFile()
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L16-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithoutunittest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L17-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfilewithoutunittest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

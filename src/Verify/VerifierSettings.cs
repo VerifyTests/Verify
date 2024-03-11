@@ -1,6 +1,6 @@
 namespace VerifyTests;
 
-public delegate bool GlobalAutoVerify(string typeName, string methodName);
+public delegate bool GlobalAutoVerify(string? typeName, string? methodName);
 
 public static partial class VerifierSettings
 {
@@ -13,9 +13,8 @@ public static partial class VerifierSettings
     /// Automatically accept the results of all tests.
     /// </summary>
     // ReSharper disable once UnusedParameter.Global
-    public static void AutoVerify(bool includeBuildServer = true)
-    {
-    }
+    public static void AutoVerify(bool includeBuildServer = true) =>
+        AutoVerify((_, _) => true, includeBuildServer);
 
     /// <summary>
     /// Automatically accept the results of all tests.

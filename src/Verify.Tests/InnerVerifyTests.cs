@@ -6,7 +6,7 @@ public class InnerVerifyTests
         const string sourceFile = "path/to/source/file.cs";
         var settings = new VerifySettings();
 
-        var verifier = new InnerVerifier(sourceFile, settings, "file", "test");
+        var verifier = new InnerVerifier(sourceFile, settings);
 
         Assert.NotNull(verifier);
     }
@@ -28,7 +28,7 @@ public class InnerVerifyTests
             settings,
             async verifySettings =>
             {
-                using var verifier = new InnerVerifier(sourceFile, verifySettings, "test", "method");
+                using var verifier = new InnerVerifier(sourceFile, verifySettings);
                 return await verify(verifier);
             });
     }

@@ -14,10 +14,10 @@ class VerifyEngine
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
-    string typeName;
-    string methodName;
+    string? typeName;
+    string? methodName;
 
-    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames, string typeName, string methodName)
+    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames, string? typeName, string? methodName)
     {
         this.directory = directory;
         this.settings = settings;

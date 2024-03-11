@@ -18,11 +18,11 @@
     {
         var funcCalled = false;
         VerifierSettings.AutoVerify(
-            (typeName, methodName, file) =>
+            (typeName, methodName, verifiedFile) =>
             {
                 Assert.NotNull(typeName);
                 Assert.NotNull(methodName);
-                Assert.NotNull(file);
+                Assert.NotNull(verifiedFile);
                 funcCalled = true;
                 return true;
             });
@@ -40,11 +40,11 @@
     {
         var funcCalled = false;
         VerifierSettings.AutoVerify(
-            (typeName, methodName, file) =>
+            (typeName, methodName, verifiedFile) =>
             {
                 Assert.Equal("diffTypeNameTrue", typeName);
                 Assert.Equal("diffMethodName", methodName);
-                Assert.NotNull(file);
+                Assert.NotNull(verifiedFile);
                 funcCalled = true;
                 return true;
             });
@@ -64,11 +64,11 @@
     {
         var funcCalled = false;
         VerifierSettings.AutoVerify(
-            (typeName, methodName, file) =>
+            (typeName, methodName, verifiedFile) =>
             {
                 Assert.NotNull(typeName);
                 Assert.NotNull(methodName);
-                Assert.NotNull(file);
+                Assert.NotNull(verifiedFile);
                 funcCalled = true;
                 return false;
             });
@@ -88,11 +88,11 @@
     {
         var funcCalled = false;
         VerifierSettings.AutoVerify(
-            (typeName, methodName, file) =>
+            (typeName, methodName, verifiedFile) =>
             {
                 Assert.Equal("diffTypeNameFalse", typeName);
                 Assert.Equal("diffMethodName", methodName);
-                Assert.NotNull(file);
+                Assert.NotNull(verifiedFile);
                 funcCalled = true;
                 return false;
             });

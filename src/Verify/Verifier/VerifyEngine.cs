@@ -14,9 +14,10 @@ class VerifyEngine
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
-    Type testType;
+    string typeName;
+    string methodName;
 
-    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames, Type testType)
+    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames, string typeName, string methodName)
     {
         this.directory = directory;
         this.settings = settings;
@@ -26,7 +27,8 @@ class VerifyEngine
         delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
-        this.testType = testType;
+        this.typeName = typeName;
+        this.methodName = methodName;
     }
 
     public IReadOnlyList<FilePair> Equal => equal;

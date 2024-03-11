@@ -1,6 +1,6 @@
 namespace VerifyTests;
 
-public delegate bool GlobalAutoVerify(Type type);
+public delegate bool GlobalAutoVerify(string typeName, string methodName);
 
 public static partial class VerifierSettings
 {

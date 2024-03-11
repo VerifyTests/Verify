@@ -2,10 +2,10 @@
 
 partial class InnerVerifier
 {
-    Task<VerifyResult> VerifyInner(IEnumerable<Target> targets, Type testType) =>
-        VerifyInner(null, null, targets, true, testType);
+    Task<VerifyResult> VerifyInner(IEnumerable<Target> targets) =>
+        VerifyInner(null, null, targets, true);
 
-    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExpressionConversion, Type testType)
+    async Task<VerifyResult> VerifyInner(object? root, Func<Task>? cleanup, IEnumerable<Target> targets, bool doExpressionConversion)
     {
         var resultTargets = new List<Target>();
         if (TryGetRootTarget(root, out var rootTarget))
@@ -19,7 +19,7 @@ partial class InnerVerifier
         cleanup += extraCleanup;
         resultTargets.AddRange(extraTargets);
 
-        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames, testType);
+        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames, typeName, methodName);
 
         await engine.HandleResults(resultTargets);
 

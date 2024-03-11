@@ -6,7 +6,7 @@ public class InnerVerifyTests
         const string sourceFile = "path/to/source/file.cs";
         var settings = new VerifySettings();
 
-        var verifier = new InnerVerifier(sourceFile, settings);
+        var verifier = new InnerVerifier(sourceFile, settings, "file", "test");
 
         Assert.NotNull(verifier);
     }

@@ -85,11 +85,11 @@ public partial class VerifySettings
         this.parametersText = parametersText;
     }
 
-    internal bool IsAutoVerify(Type type)
+    internal bool IsAutoVerify(string typeName, string methodName)
     {
         if (VerifierSettings.autoVerify != null)
         {
-            return VerifierSettings.autoVerify(type);
+            return VerifierSettings.autoVerify(typeName, methodName);
         }
 
         return autoVerify;

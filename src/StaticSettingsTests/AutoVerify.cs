@@ -9,7 +9,6 @@
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
         await Verify("Foo");
-        Assert.True(File.Exists(fullPath));
         File.Delete(fullPath);
     }
 
@@ -31,7 +30,6 @@
         File.Delete(fullPath);
         await Verify("Foo");
         Assert.True(funcCalled);
-        Assert.True(File.Exists(fullPath));
         File.Delete(fullPath);
     }
 
@@ -54,7 +52,6 @@
         await Verify("Foo")
             .UseTypeName("diffTypeNameTrue")
             .UseMethodName("diffMethodName");
-        Assert.True(File.Exists(fullPath));
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }

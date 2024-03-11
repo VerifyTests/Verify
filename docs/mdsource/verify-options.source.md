@@ -9,9 +9,18 @@ In some scenarios it makes sense to auto-accept any changes as part of a given t
 
 This can be done using `AutoVerify()`:
 
+
+### Instance
+
 snippet: AutoVerify
 
-Or globally
+
+### Fluent
+
+snippet: AutoVerifyFluent
+
+
+### Globally
 
 snippet: StaticAutoVerify
 

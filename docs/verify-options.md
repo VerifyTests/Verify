@@ -16,6 +16,9 @@ In some scenarios it makes sense to auto-accept any changes as part of a given t
 
 This can be done using `AutoVerify()`:
 
+
+### Instance
+
 <!-- snippet: AutoVerify -->
 <a id='snippet-autoverify'></a>
 ```cs
@@ -25,7 +28,22 @@ settings.AutoVerify();
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L106-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Or globally
+
+### Fluent
+
+<!-- snippet: AutoVerifyFluent -->
+<a id='snippet-autoverifyfluent'></a>
+```cs
+[Fact]
+public Task AutoVerifyFluent() =>
+    Verify("Value")
+        .AutoVerify();
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L114-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Globally
 
 <!-- snippet: StaticAutoVerify -->
 <a id='snippet-staticautoverify'></a>
@@ -93,5 +111,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L126-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

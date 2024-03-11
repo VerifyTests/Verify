@@ -14,6 +14,7 @@ public partial class InnerVerifier :
     internal static bool verifyHasBeenRun;
     string? typeName;
     string? methodName;
+    bool testInfoAvaliable;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
@@ -41,6 +42,7 @@ public partial class InnerVerifier :
         Guard.AgainstEmpty(typeName);
         Guard.AgainstEmpty(methodName);
         verifyHasBeenRun = true;
+        testInfoAvaliable = true;
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
@@ -74,7 +76,7 @@ public partial class InnerVerifier :
     public InnerVerifier(string sourceFile, VerifySettings settings)
     {
         Guard.AgainstEmpty(sourceFile);
-
+        testInfoAvaliable = false;
         this.settings = settings;
         directory = ResolveDirectory(sourceFile, settings, new());
 

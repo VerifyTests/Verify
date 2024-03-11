@@ -1,3 +1,4 @@
+#pragma warning disable InnerVerifier
 public class InnerVerifyTests
 {
     [Fact]

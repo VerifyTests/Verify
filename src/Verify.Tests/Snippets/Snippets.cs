@@ -111,6 +111,15 @@ public class Snippets
         #endregion
     }
 
+    #region AutoVerifyFluent
+
+    [Fact]
+    public Task AutoVerifyFluent() =>
+        Verify("Value")
+            .AutoVerify();
+
+    #endregion
+
     // ReSharper disable once UnusedMember.Local
     void DisableDiff()
     {

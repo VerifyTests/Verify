@@ -334,6 +334,16 @@ public partial class SettingsTask
     }
 
     /// <summary>
+    /// Automatically accept the results of the current test.
+    /// </summary>
+    [Pure]
+    public SettingsTask AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
+    {
+        CurrentSettings.AutoVerify(autoVerify, includeBuildServer);
+        return this;
+    }
+
+    /// <summary>
     /// Use a custom text for the `Parameters` part of the file name.
     /// Not compatible with <see cref="UseParameters" />.
     /// Where the file format is `{CurrentDirectory}/{TestClassName}.{TestMethodName}_{Parameters}_{UniqueFor1}_{UniqueFor2}_{UniqueForX}.verified.{extension}`.

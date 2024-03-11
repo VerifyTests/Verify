@@ -25,7 +25,7 @@ The clipboard behavior can be enabled using the following:
 ```cs
 ClipboardAccept.Enable();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L31-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-enableclipboard' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L30-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-enableclipboard' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

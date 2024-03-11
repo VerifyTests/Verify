@@ -1,8 +1,8 @@
 ﻿// ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedMember.Local
 
 public class Snippets
 {
-    // ReSharper disable once UnusedMember.Local
     async Task ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
@@ -25,7 +25,6 @@ public class Snippets
         #endregion
     }
 
-    // ReSharper disable once UnusedMember.Local
     void EnableClipboard()
     {
         #region EnableClipboard
@@ -61,7 +60,6 @@ public class Snippets
 
     #endregion
 
-    // ReSharper disable once UnusedMember.Local
     void TreatAsString()
     {
         #region TreatAsString
@@ -72,13 +70,11 @@ public class Snippets
         #endregion
     }
 
-    // ReSharper disable once UnusedMember.Local
     class ClassWithToString
     {
         public string Property { get; } = null!;
     }
 
-    // ReSharper disable once UnusedMember.Local
     void DerivePathInfoAppVeyor()
     {
         // ReSharper disable once ArrangeStaticMemberQualifier
@@ -100,13 +96,23 @@ public class Snippets
         #endregion
     }
 
-    // ReSharper disable once UnusedMember.Local
     void AutoVerify()
     {
         #region AutoVerify
 
         var settings = new VerifySettings();
         settings.AutoVerify();
+
+        #endregion
+    }
+    void AutoVerifyDelegate()
+    {
+        #region AutoVerifyDelegate
+
+        var settings = new VerifySettings();
+        settings.AutoVerify(
+            (typeName, methodName, verifiedFile) =>
+                Path.GetExtension(verifiedFile) == "png");
 
         #endregion
     }
@@ -119,8 +125,17 @@ public class Snippets
             .AutoVerify();
 
     #endregion
+    #region AutoVerifyFluentDelegate
 
-    // ReSharper disable once UnusedMember.Local
+    [Fact]
+    public Task AutoVerifyFluentDelegate() =>
+        Verify("Value")
+            .AutoVerify(
+            (typeName, methodName, verifiedFile) =>
+                Path.GetExtension(verifiedFile) == "png");
+
+    #endregion
+
     void DisableDiff()
     {
         #region DisableDiff
@@ -131,7 +146,6 @@ public class Snippets
         #endregion
     }
 
-    // ReSharper disable once UnusedMember.Local
     void ApplyExtraSettingsSample()
     {
         #region ExtraSettingsGlobal
@@ -150,7 +164,6 @@ public class Snippets
         #endregion
     }
 
-    // ReSharper disable once UnusedMember.Local
     void Converter()
     {
         #region JsonConverter
@@ -177,7 +190,6 @@ public class Snippets
         public string Name { get; } = null!;
     }
 
-    // ReSharper disable once UnusedMember.Local
     async Task VerifyFuncOfTaskOfT()
     {
         var repo = new Repo();

@@ -14,8 +14,9 @@ class VerifyEngine
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
+    Type testType;
 
-    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
+    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames, Type testType)
     {
         this.directory = directory;
         this.settings = settings;
@@ -25,6 +26,7 @@ class VerifyEngine
         delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
+        this.testType = testType;
     }
 
     public IReadOnlyList<FilePair> Equal => equal;
@@ -139,7 +141,7 @@ class VerifyEngine
         await ProcessNew();
 
         await ProcessNotEquals();
-        if (!settings.IsAutoVerify)
+        if (!settings.IsAutoVerify(testType))
         {
             var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
@@ -153,7 +155,7 @@ class VerifyEngine
     {
         await VerifierSettings.RunOnVerifyDelete(file);
 
-        if (settings.IsAutoVerify)
+        if (settings.IsAutoVerify(testType))
         {
             File.Delete(file);
             return;
@@ -201,7 +203,7 @@ class VerifyEngine
     Task RunDiffAutoCheck(FilePair file)
     {
 #if DiffEngine
-        if (settings.IsAutoVerify)
+        if (settings.IsAutoVerify(testType))
         {
             autoVerified.Add(file);
         }
@@ -211,7 +213,7 @@ class VerifyEngine
             return Task.CompletedTask;
         }
 
-        if (settings.IsAutoVerify)
+        if (settings.IsAutoVerify(testType))
         {
             AcceptChanges(file);
             return Task.CompletedTask;

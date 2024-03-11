@@ -1,5 +1,7 @@
 namespace VerifyTests;
 
+public delegate bool GlobalAutoVerify(Type type);
+
 public static partial class VerifierSettings
 {
     internal static bool omitContentFromException;
@@ -13,23 +15,31 @@ public static partial class VerifierSettings
     // ReSharper disable once UnusedParameter.Global
     public static void AutoVerify(bool includeBuildServer = true)
     {
+    }
+
+    /// <summary>
+    /// Automatically accept the results of all tests.
+    /// </summary>
+    // ReSharper disable once UnusedParameter.Global
+    public static void AutoVerify(GlobalAutoVerify autoVerify, bool includeBuildServer = true)
+    {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
 #if DiffEngine
         if (includeBuildServer)
         {
-            autoVerify = true;
+            VerifierSettings.autoVerify = autoVerify;
         }
         else
         {
             if (!BuildServerDetector.Detected)
             {
-                autoVerify = true;
+                VerifierSettings.autoVerify = autoVerify;
             }
         }
 #endif
     }
 
-    internal static bool autoVerify;
+    internal static GlobalAutoVerify? autoVerify;
 
     public static void UseUtf8NoBom() =>
         Encoding = new UTF8Encoding(false, true);

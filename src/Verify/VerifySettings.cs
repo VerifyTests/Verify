@@ -85,9 +85,15 @@ public partial class VerifySettings
         this.parametersText = parametersText;
     }
 
-    internal bool IsAutoVerify =>
-        VerifierSettings.autoVerify ||
-        autoVerify;
+    internal bool IsAutoVerify(Type type)
+    {
+        if (VerifierSettings.autoVerify != null)
+        {
+            return VerifierSettings.autoVerify(type);
+        }
+
+        return autoVerify;
+    }
 
     bool autoVerify;
 

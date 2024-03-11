@@ -29,10 +29,7 @@ public class InnerVerifyTests
             settings,
             async verifySettings =>
             {
-                using var verifier = new InnerVerifier(
-                    sourceFile,
-                    verifySettings
-                );
+                using var verifier = new InnerVerifier(sourceFile, verifySettings, "test", "method");
                 return await verify(verifier);
             });
     }

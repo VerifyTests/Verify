@@ -17,7 +17,7 @@ public class WizardGen
         wizardDir = Path.Combine(repoRoot, "docs", "mdsource", "wiz");
         Directory.CreateDirectory(wizardDir);
         //PurgeDirectory(wizardDir);
-        var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
+        //var wizardRealDir = Path.Combine(repoRoot, "docs", "wiz");
         //PurgeDirectory(wizardRealDir);
         var sourceFile = Path.Combine(wizardDir, "readme.source.md");
         var builder = new StringBuilder(

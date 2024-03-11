@@ -12,7 +12,7 @@ public static partial class VerifierSettings
     /// </summary>
     // ReSharper disable once UnusedParameter.Global
     public static void AutoVerify(bool includeBuildServer = true) =>
-        AutoVerify((_, _) => true, includeBuildServer);
+        AutoVerify((_, _, _) => true, includeBuildServer);
 
     /// <summary>
     /// Automatically accept the results of all tests.

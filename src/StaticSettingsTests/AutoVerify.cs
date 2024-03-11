@@ -18,10 +18,11 @@
     {
         var funcCalled = false;
         VerifierSettings.AutoVerify(
-            (typeName, methodName) =>
+            (typeName, methodName, file) =>
             {
                 Assert.NotNull(typeName);
                 Assert.NotNull(methodName);
+                Assert.NotNull(file);
                 funcCalled = true;
                 return true;
             });
@@ -39,10 +40,11 @@
     {
         var funcCalled = false;
         VerifierSettings.AutoVerify(
-            (typeName, methodName) =>
+            (typeName, methodName, file) =>
             {
                 Assert.NotNull(typeName);
                 Assert.NotNull(methodName);
+                Assert.NotNull(file);
                 funcCalled = true;
                 return false;
             });

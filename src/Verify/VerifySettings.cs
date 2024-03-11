@@ -91,7 +91,7 @@ public partial class VerifySettings
     /// Automatically accept the results of the current test.
     /// </summary>
     public void AutoVerify(bool includeBuildServer = true) =>
-        AutoVerify((_, _) => true, includeBuildServer);
+        AutoVerify((_, _, _) => true, includeBuildServer);
 
     /// <summary>
     /// Automatically accept the results of the current test.

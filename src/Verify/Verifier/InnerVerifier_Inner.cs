@@ -18,7 +18,14 @@ partial class InnerVerifier
         var (extraTargets, extraCleanup) = await GetTargets(targets, doExpressionConversion);
         cleanup += extraCleanup;
         resultTargets.AddRange(extraTargets);
-        var engine = new VerifyEngine(directory, settings, verifiedFiles, getFileNames, getIndexedFileNames);
+        var engine = new VerifyEngine(
+            directory,
+            settings,
+            verifiedFiles,
+            getFileNames,
+            getIndexedFileNames,
+            typeName,
+            methodName);
 
         await engine.HandleResults(resultTargets);
 

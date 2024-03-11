@@ -12,6 +12,8 @@ public partial class InnerVerifier :
     IEnumerable<string> verifiedFiles = null!;
     Counter counter;
     internal static bool verifyHasBeenRun;
+    string typeName;
+    string methodName;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void ThrowIfVerifyHasBeenRun()
@@ -42,6 +44,8 @@ public partial class InnerVerifier :
         VerifierSettings.RunBeforeCallbacks();
         this.settings = settings;
 
+        this.typeName = typeName;
+        this.methodName = methodName;
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
         var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
 
@@ -284,7 +288,7 @@ public partial class InnerVerifier :
     }
 
     public Task<VerifyResult> Verify(object? target, IEnumerable<Target> rawTargets) =>
-        VerifyInner(target, null, rawTargets, true);
+        VerifyInner(target, null, rawTargets, true, typeName);
 
     public Task<VerifyResult> Verify(Target target) =>
         VerifyInner([target]);

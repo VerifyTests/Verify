@@ -72,10 +72,14 @@ public partial class InnerVerifier :
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
     [Experimental("InnerVerifier")]
-    public InnerVerifier(string sourceFile, VerifySettings settings)
+    public InnerVerifier(string sourceFile, VerifySettings settings, string typeName, string methodName)
     {
+        Guard.AgainstEmpty(typeName);
+        Guard.AgainstEmpty(methodName);
         Guard.AgainstEmpty(sourceFile);
 
+        this.typeName = typeName;
+        this.methodName = methodName;
         this.settings = settings;
         directory = ResolveDirectory(sourceFile, settings, new());
 

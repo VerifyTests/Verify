@@ -24,8 +24,8 @@ partial class InnerVerifier
             verifiedFiles,
             getFileNames,
             getIndexedFileNames,
-            typeName,
-            methodName);
+            settings.typeName ?? typeName,
+            settings.methodName ?? methodName);
 
         await engine.HandleResults(resultTargets);
 

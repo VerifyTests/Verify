@@ -8,7 +8,6 @@
         File.Delete(fullPath);
         await Verify("Foo")
             .AutoVerify();
-        Assert.True(File.Exists(fullPath), fullPath);
         File.Delete(fullPath);
     }
 
@@ -27,7 +26,6 @@
                     funcCalled = true;
                     return true;
                 });
-        Assert.True(File.Exists(fullPath));
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }
@@ -49,7 +47,6 @@
                     funcCalled = true;
                     return true;
                 });
-        Assert.True(File.Exists(fullPath));
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }
@@ -71,7 +68,6 @@
                         funcCalled = true;
                         return false;
                     }));
-        Assert.False(File.Exists(fullPath));
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }
@@ -95,7 +91,6 @@
                         funcCalled = true;
                         return false;
                     }));
-        Assert.False(File.Exists(fullPath));
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }

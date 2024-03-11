@@ -78,6 +78,7 @@ public partial class InnerVerifier :
         Guard.AgainstEmpty(sourceFile);
         testInfoAvaliable = false;
         this.settings = settings;
+        verifyHasBeenRun = true;
         directory = ResolveDirectory(sourceFile, settings, new());
 
         counter = StartCounter(settings);

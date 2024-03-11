@@ -85,27 +85,7 @@ public partial class VerifySettings
         this.parametersText = parametersText;
     }
 
-    internal bool IsAutoVerify(string? typeName, string? methodName)
-    {
-        if (typeName == null)
-        {
-            return false;
-        }
-
-        if (VerifierSettings.autoVerify != null)
-        {
-            return VerifierSettings.autoVerify(typeName, methodName!);
-        }
-
-        if (autoVerify != null)
-        {
-            return autoVerify(typeName, methodName!);
-        }
-
-        return false;
-    }
-
-    AutoVerify? autoVerify;
+    internal AutoVerify? autoVerify;
 
     /// <summary>
     /// Automatically accept the results of the current test.

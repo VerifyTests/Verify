@@ -150,11 +150,31 @@ class VerifyEngine
         await ProcessNew();
 
         await ProcessNotEquals();
-        if (!settings.IsAutoVerify(typeName, methodName))
+        if (!IsAutoVerify())
         {
             var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
             throw new VerifyException(message);
         }
+    }
+
+    internal bool IsAutoVerify()
+    {
+        if (typeName == null)
+        {
+            return false;
+        }
+
+        if (VerifierSettings.autoVerify != null)
+        {
+            return VerifierSettings.autoVerify(typeName, methodName!);
+        }
+
+        if (settings.autoVerify != null)
+        {
+            return settings.autoVerify(typeName, methodName!);
+        }
+
+        return false;
     }
 
     Task ProcessDeletes() =>
@@ -164,7 +184,7 @@ class VerifyEngine
     {
         await VerifierSettings.RunOnVerifyDelete(file);
 
-        if (settings.IsAutoVerify(typeName, methodName))
+        if (IsAutoVerify())
         {
             File.Delete(file);
             return;
@@ -212,7 +232,7 @@ class VerifyEngine
     Task RunDiffAutoCheck(FilePair file)
     {
 #if DiffEngine
-        var autoVerify = settings.IsAutoVerify(typeName, methodName);
+        var autoVerify = IsAutoVerify();
         if (autoVerify)
         {
             autoVerified.Add(file);

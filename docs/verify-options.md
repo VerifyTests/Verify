@@ -37,7 +37,7 @@ Or with a delegate:
 ```cs
 var settings = new VerifySettings();
 settings.AutoVerify(
-    (typeName, methodName, verifiedFile) =>
+    verifiedFile =>
         Path.GetExtension(verifiedFile) == "png");
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L110-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifydelegate' title='Start of snippet'>anchor</a></sup>
@@ -66,7 +66,7 @@ Or with a delegate:
 public Task AutoVerifyFluentDelegate() =>
     Verify("Value")
         .AutoVerify(
-        (typeName, methodName, verifiedFile) =>
+        verifiedFile =>
             Path.GetExtension(verifiedFile) == "png");
 ```
 <sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L128-L137' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluentdelegate' title='Start of snippet'>anchor</a></sup>

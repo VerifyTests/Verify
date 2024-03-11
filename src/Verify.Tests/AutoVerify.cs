@@ -8,7 +8,7 @@
         File.Delete(fullPath);
         await Verify("Foo")
             .AutoVerify();
-        Assert.True(File.Exists(fullPath));
+        Assert.True(File.Exists(fullPath), fullPath);
         File.Delete(fullPath);
     }
 

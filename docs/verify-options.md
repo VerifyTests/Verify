@@ -39,7 +39,7 @@ public Task AutoVerifyFluent() =>
     Verify("Value")
         .AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L113-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L114-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -111,5 +111,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L125-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L126-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

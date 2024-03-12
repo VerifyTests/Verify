@@ -40,7 +40,7 @@ settings.AutoVerify(
     verifiedFile =>
         Path.GetExtension(verifiedFile) == "png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L110-L117' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifydelegate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L111-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifydelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -54,7 +54,7 @@ public Task AutoVerifyFluent() =>
     Verify("Value")
         .AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L120-L127' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L121-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or with a delegate:
@@ -66,10 +66,10 @@ Or with a delegate:
 public Task AutoVerifyFluentDelegate() =>
     Verify("Value")
         .AutoVerify(
-        verifiedFile =>
-            Path.GetExtension(verifiedFile) == "png");
+            verifiedFile =>
+                Path.GetExtension(verifiedFile) == "png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L128-L137' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluentdelegate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L130-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluentdelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -154,5 +154,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L141-L146' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L148' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

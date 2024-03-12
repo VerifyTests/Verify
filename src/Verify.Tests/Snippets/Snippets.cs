@@ -105,6 +105,7 @@ public class Snippets
 
         #endregion
     }
+
     void AutoVerifyDelegate()
     {
         #region AutoVerifyDelegate
@@ -125,14 +126,15 @@ public class Snippets
             .AutoVerify();
 
     #endregion
+
     #region AutoVerifyFluentDelegate
 
     [Fact]
     public Task AutoVerifyFluentDelegate() =>
         Verify("Value")
             .AutoVerify(
-            verifiedFile =>
-                Path.GetExtension(verifiedFile) == "png");
+                verifiedFile =>
+                    Path.GetExtension(verifiedFile) == "png");
 
     #endregion
 

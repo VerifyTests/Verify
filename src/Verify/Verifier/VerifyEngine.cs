@@ -14,8 +14,17 @@ class VerifyEngine
     HashSet<string> delete;
     GetFileNames getFileNames;
     GetIndexedFileNames getIndexedFileNames;
+    string? typeName;
+    string? methodName;
 
-    public VerifyEngine(string directory, VerifySettings settings, IEnumerable<string> verifiedFiles, GetFileNames getFileNames, GetIndexedFileNames getIndexedFileNames)
+    public VerifyEngine(
+        string directory,
+        VerifySettings settings,
+        IEnumerable<string> verifiedFiles,
+        GetFileNames getFileNames,
+        GetIndexedFileNames getIndexedFileNames,
+        string? typeName,
+        string? methodName)
     {
         this.directory = directory;
         this.settings = settings;
@@ -25,6 +34,8 @@ class VerifyEngine
         delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
+        this.typeName = typeName;
+        this.methodName = methodName;
     }
 
     public IReadOnlyList<FilePair> Equal => equal;
@@ -134,35 +145,69 @@ class VerifyEngine
             return;
         }
 
-        await ProcessDeletes();
+        var allDeletesDerified = await ProcessDeletes();
 
-        await ProcessNew();
+        var allNewVerified = await ProcessNew();
 
-        await ProcessNotEquals();
-        if (!settings.IsAutoVerify)
+        var allNotEqualsVerified = await ProcessNotEquals();
+
+        if (allDeletesDerified && allNewVerified && allNotEqualsVerified)
         {
-            var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
-            throw new VerifyException(message);
+            return;
         }
+
+        var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
+        throw new VerifyException(message);
     }
 
-    Task ProcessDeletes() =>
-        Task.WhenAll(delete.Select(ProcessDeletes));
+    internal bool IsAutoVerify(string verifiedFile)
+    {
+        if (typeName == null)
+        {
+            return false;
+        }
 
-    async Task ProcessDeletes(string file)
+        if (VerifierSettings.autoVerify != null)
+        {
+            return VerifierSettings.autoVerify(typeName, methodName!, verifiedFile);
+        }
+
+        if (settings.autoVerify != null)
+        {
+            return settings.autoVerify(verifiedFile);
+        }
+
+        return false;
+    }
+
+    async Task<bool> ProcessDeletes()
+    {
+        var verified = true;
+        foreach (var item in delete)
+        {
+           if(!await ProcessDeletes(item))
+           {
+               verified = false;
+           }
+        }
+
+        return verified;
+    }
+
+    async Task<bool> ProcessDeletes(string file)
     {
         await VerifierSettings.RunOnVerifyDelete(file);
 
-        if (settings.IsAutoVerify)
+        if (IsAutoVerify(file))
         {
             File.Delete(file);
-            return;
+            return true;
         }
 
 #if DiffEngine
         if (BuildServerDetector.Detected)
         {
-            return;
+            return false;
         }
 
         if (DiffEngineTray.IsRunning)
@@ -170,15 +215,23 @@ class VerifyEngine
             await DiffEngineTray.AddDeleteAsync(file);
         }
 #endif
+        return false;
     }
 
-    async Task ProcessNotEquals()
+    async Task<bool> ProcessNotEquals()
     {
+
+        var verified = true;
         foreach (var notEqual in notEquals)
         {
             await VerifierSettings.RunOnVerifyMismatch(notEqual.File, notEqual.Message);
-            await RunDiffAutoCheck(notEqual.File);
+            if (!await RunDiffAutoCheck(notEqual.File))
+            {
+                verified = false;
+            }
         }
+
+        return verified;
     }
 
     void ProcessEquals()
@@ -198,41 +251,48 @@ class VerifyEngine
 
     // ReSharper disable once UnusedParameter.Local
     // ReSharper disable once MemberCanBeMadeStatic.Local
-    Task RunDiffAutoCheck(FilePair file)
+    async Task<bool> RunDiffAutoCheck(FilePair file)
     {
 #if DiffEngine
-        if (settings.IsAutoVerify)
+        var autoVerify = IsAutoVerify(file.VerifiedPath);
+        if (autoVerify)
         {
             autoVerified.Add(file);
         }
 
         if (BuildServerDetector.Detected)
         {
-            return Task.CompletedTask;
+            return autoVerify;
         }
 
-        if (settings.IsAutoVerify)
+        if (autoVerify)
         {
             AcceptChanges(file);
-            return Task.CompletedTask;
+            return autoVerify;
         }
 
         if (diffEnabled)
         {
-            return DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
+            await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
         }
 #endif
 
-        return Task.CompletedTask;
+        return autoVerify;
     }
 
-    async Task ProcessNew()
+    async Task<bool> ProcessNew()
     {
+        var verified = true;
         foreach (var file in @new)
         {
             await VerifierSettings.RunOnFirstVerify(file);
-            await RunDiffAutoCheck(file.File);
+            if (!await RunDiffAutoCheck(file.File))
+            {
+                verified = false;
+            }
         }
+
+        return verified;
     }
 
     static void AcceptChanges(in FilePair file)

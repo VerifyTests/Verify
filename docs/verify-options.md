@@ -14,6 +14,8 @@ In some scenarios it makes sense to auto-accept any changes as part of a given t
 
  * Keeping a text representation of a Database schema in a `.verified.sql` file (see [Verify.SqlServer](https://github.com/VerifyTests/Verify.SqlServer)).
 
+Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
+
 This can be done using `AutoVerify()`:
 
 
@@ -25,7 +27,20 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L106-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L101-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or with a delegate:
+
+<!-- snippet: AutoVerifyDelegate -->
+<a id='snippet-autoverifydelegate'></a>
+```cs
+var settings = new VerifySettings();
+settings.AutoVerify(
+    verifiedFile =>
+        Path.GetExtension(verifiedFile) == "png");
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L111-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifydelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -39,7 +54,22 @@ public Task AutoVerifyFluent() =>
     Verify("Value")
         .AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L114-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L121-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Or with a delegate:
+
+<!-- snippet: AutoVerifyFluentDelegate -->
+<a id='snippet-autoverifyfluentdelegate'></a>
+```cs
+[Fact]
+public Task AutoVerifyFluentDelegate() =>
+    Verify("Value")
+        .AutoVerify(
+            verifiedFile =>
+                Path.GetExtension(verifiedFile) == "png");
+```
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L130-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluentdelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -58,7 +88,20 @@ public static class ModuleInitializer
 <sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Note that auto accepted changes in `.verified.` files remain visible in source control tooling.
+Or with a delegate:
+
+<!-- snippet: StaticAutoVerify -->
+<a id='snippet-staticautoverify'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.AutoVerify();
+}
+```
+<sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-staticautoverify' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## OnHandlers
@@ -92,7 +135,7 @@ public Task OnHandlersSample()
     return Verify("value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L38-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L37-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -111,5 +154,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L126-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L148' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

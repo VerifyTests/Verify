@@ -85,29 +85,29 @@ public partial class VerifySettings
         this.parametersText = parametersText;
     }
 
-    internal bool IsAutoVerify =>
-        VerifierSettings.autoVerify ||
-        autoVerify;
-
-    bool autoVerify;
+    internal AutoVerify? autoVerify;
 
     /// <summary>
     /// Automatically accept the results of the current test.
     /// </summary>
-    // ReSharper disable once UnusedParameter.Global
-    // ReSharper disable once MemberCanBeMadeStatic.Global
-    public void AutoVerify(bool includeBuildServer = true)
+    public void AutoVerify(bool includeBuildServer = true) =>
+        AutoVerify(_ => true, includeBuildServer);
+
+    /// <summary>
+    /// Automatically accept the results of the current test.
+    /// </summary>
+    public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
 #if DiffEngine
         if (includeBuildServer)
         {
-            autoVerify = true;
+           this.autoVerify = autoVerify;
         }
         else
         {
             if (!BuildServerDetector.Detected)
             {
-                autoVerify = true;
+                this.autoVerify = autoVerify;
             }
         }
 #endif

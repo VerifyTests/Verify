@@ -28,6 +28,10 @@
     <None Update="sample.level1" CopyToOutputDirectory="PreserveNewest" />
     <None Update=".sample" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.recursive" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="AutoVerify.DelegateFalse.received.txt">
+      <ParentFile>AutoVerify</ParentFile>
+      <DependentUpon>AutoVerify.cs</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
     <Compile Remove="Wizard\WizardGen.cs" />

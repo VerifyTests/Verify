@@ -28,10 +28,7 @@ public class InnerVerifyTests
             settings,
             async verifySettings =>
             {
-                using var verifier = new InnerVerifier(
-                    sourceFile,
-                    verifySettings
-                );
+                using var verifier = new InnerVerifier(sourceFile, verifySettings);
                 return await verify(verifier);
             });
     }

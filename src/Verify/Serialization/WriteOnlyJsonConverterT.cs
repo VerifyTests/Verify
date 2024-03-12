@@ -8,9 +8,9 @@ public abstract class WriteOnlyJsonConverter<T> :
 
     public abstract void Write(VerifyJsonWriter writer, T value);
 
-    static Type? nullableType;
+    Type? nullableType;
 
-    static WriteOnlyJsonConverter()
+    protected WriteOnlyJsonConverter()
     {
         if (typeof(T).IsValueType)
         {

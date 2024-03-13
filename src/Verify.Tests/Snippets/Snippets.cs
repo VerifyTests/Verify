@@ -34,32 +34,6 @@ public class Snippets
         #endregion
     }
 
-    #region OnHandlers
-
-    public Task OnHandlersSample()
-    {
-        VerifierSettings.OnVerify(
-            before: () => Debug.WriteLine("before"),
-            after: () => Debug.WriteLine("after"));
-        VerifierSettings.OnFirstVerify(
-            (receivedFile, receivedText) =>
-            {
-                Debug.WriteLine(receivedFile);
-                return Task.CompletedTask;
-            });
-        VerifierSettings.OnVerifyMismatch(
-            (filePair, message) =>
-            {
-                Debug.WriteLine(filePair.ReceivedPath);
-                Debug.WriteLine(filePair.VerifiedPath);
-                Debug.WriteLine(message);
-                return Task.CompletedTask;
-            });
-        return Verify("value");
-    }
-
-    #endregion
-
     void TreatAsString()
     {
         #region TreatAsString

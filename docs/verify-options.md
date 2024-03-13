@@ -27,7 +27,7 @@ This can be done using `AutoVerify()`:
 var settings = new VerifySettings();
 settings.AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L101-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L75-L80' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverify' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or with a delegate:
@@ -40,7 +40,7 @@ settings.AutoVerify(
     verifiedFile =>
         Path.GetExtension(verifiedFile) == "png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L111-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifydelegate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L85-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifydelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -54,7 +54,7 @@ public Task AutoVerifyFluent() =>
     Verify("Value")
         .AutoVerify();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L121-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L95-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or with a delegate:
@@ -69,7 +69,7 @@ public Task AutoVerifyFluentDelegate() =>
             verifiedFile =>
                 Path.GetExtension(verifiedFile) == "png");
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L130-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluentdelegate' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L104-L113' title='Snippet source file'>snippet source</a> | <a href='#snippet-autoverifyfluentdelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -113,29 +113,33 @@ public static class ModuleInitializer
 <!-- snippet: OnHandlers -->
 <a id='snippet-onhandlers'></a>
 ```cs
-public Task OnHandlersSample()
+public static class ModuleInitializer
 {
-    VerifierSettings.OnVerify(
-        before: () => Debug.WriteLine("before"),
-        after: () => Debug.WriteLine("after"));
-    VerifierSettings.OnFirstVerify(
-        (receivedFile, receivedText) =>
-        {
-            Debug.WriteLine(receivedFile);
-            return Task.CompletedTask;
-        });
-    VerifierSettings.OnVerifyMismatch(
-        (filePair, message) =>
-        {
-            Debug.WriteLine(filePair.ReceivedPath);
-            Debug.WriteLine(filePair.VerifiedPath);
-            Debug.WriteLine(message);
-            return Task.CompletedTask;
-        });
-    return Verify("value");
+    [ModuleInitializer]
+    public static void Init()
+    {
+        VerifierSettings.OnVerify(
+            before: () => Debug.WriteLine("before"),
+            after: () => Debug.WriteLine("after"));
+        VerifierSettings.OnFirstVerify(
+            (receivedFile, receivedText) =>
+            {
+                Debug.WriteLine(receivedFile);
+                Debug.WriteLine(receivedText);
+                return Task.CompletedTask;
+            });
+        VerifierSettings.OnVerifyMismatch(
+            (filePair, message) =>
+            {
+                Debug.WriteLine(filePair.ReceivedPath);
+                Debug.WriteLine(filePair.VerifiedPath);
+                Debug.WriteLine(message);
+                return Task.CompletedTask;
+            });
+    }
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L37-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/OnHandlers.cs#L3-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-onhandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -154,5 +158,5 @@ To disable diff launching:
 var settings = new VerifySettings();
 settings.DisableDiff();
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L143-L148' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L117-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-disablediff' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

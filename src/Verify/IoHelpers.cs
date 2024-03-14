@@ -117,8 +117,12 @@
     {
         stream.MoveToStart();
         using var reader = new StreamReader(stream);
-        var builder = new StringBuilder(await reader.ReadToEndAsync());
-        builder.FixNewlines();
+        var contents = await reader.ReadToEndAsync();
+        var builder = new StringBuilder(contents);
+        if (contents.Contains('\n'))
+        {
+            builder.FixNewlines();
+        }
 
         return builder;
     }

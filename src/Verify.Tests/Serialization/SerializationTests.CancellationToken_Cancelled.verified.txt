@@ -1,0 +1,10 @@
+﻿{
+  IsCancellationRequested: true,
+  CanBeCanceled: true,
+  WaitHandle: {
+    SafeWaitHandle: {
+      IsInvalid: false,
+      IsClosed: false
+    }
+  }
+}

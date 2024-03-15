@@ -21,6 +21,7 @@ partial class SerializationSettings
     static MethodInfoConverter methodInfoConverter = new();
     static FieldInfoConverter fieldInfoConverter = new();
     static ConstructorInfoConverter constructorInfoConverter = new();
+    static CancelConverter cancelConverter = new();
     static ParameterInfoConverter parameterInfoConverter = new();
     static PropertyInfoConverter propertyInfoConverter = new();
     static ClaimConverter claimConverter = new();
@@ -108,6 +109,7 @@ partial class SerializationSettings
         converters.Add(methodInfoConverter);
         converters.Add(fieldInfoConverter);
         converters.Add(constructorInfoConverter);
+        converters.Add(cancelConverter);
         converters.Add(propertyInfoConverter);
         converters.Add(parameterInfoConverter);
         converters.Add(claimConverter);

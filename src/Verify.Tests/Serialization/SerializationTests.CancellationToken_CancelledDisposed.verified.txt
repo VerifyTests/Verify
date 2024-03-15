@@ -1,0 +1,4 @@
+﻿{
+  IsCancellationRequested: true,
+  Token: true
+}

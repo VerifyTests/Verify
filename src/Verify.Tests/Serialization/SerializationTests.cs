@@ -3894,4 +3894,22 @@ public class SerializationTests
     {
         public Parent Parent { get; set; }
     }
+
+    [Fact]
+    public async Task CancellationToken_Cancelled()
+    {
+        var cancelSource = new CancelSource();
+        cancelSource.Cancel();
+        await Verify(cancelSource.Token);
+    }
+
+    [Fact]
+    public async Task CancellationToken_CancelledDisposed()
+    {
+        var cancelSource = new CancelSource();
+        cancelSource.Cancel();
+        var token = cancelSource.Token;
+        cancelSource.Dispose();
+        await Verify(token);
+    }
 }

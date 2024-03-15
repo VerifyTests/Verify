@@ -1,0 +1,10 @@
+﻿{
+  "IsCancellationRequested": true,
+  "Token": true,
+  "WaitHandle": {
+    "SafeWaitHandle": {
+      "IsInvalid": false,
+      "IsClosed": false
+    }
+  }
+}

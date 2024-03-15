@@ -2520,6 +2520,37 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task TestConverterInstance()
+    {
+        var target = new SimpleConverterTarget();
+        var settings = new VerifySettings();
+        settings.AddExtraSettings(_ => _.Converters.Add(new SimpleConverter()));
+        return Verify(target, settings);
+    }
+
+    [Fact]
+    public Task TestConverterFluent()
+    {
+        var target = new SimpleConverterTarget();
+        return Verify(target)
+            .AddExtraSettings(_ => _.Converters.Add(new SimpleConverter()));
+    }
+
+    class SimpleConverterTarget;
+
+    class SimpleConverter :
+        WriteOnlyJsonConverter<SimpleConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, SimpleConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("Property");
+            writer.WriteValue("Value");
+            writer.WriteEndObject();
+        }
+    }
+
+    [Fact]
     public Task TestEnumerableWithExistingItemConverter()
     {
         var target = new EnumerableWithExistingItemConverterTarget

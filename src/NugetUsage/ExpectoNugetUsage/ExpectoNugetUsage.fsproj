@@ -9,7 +9,7 @@
         <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
         <PackageReference Include="Expecto" Version="10.2.1" />
-        <PackageReference Include="Verify.Expecto" Version="23.5.1" />
+        <PackageReference Include="Verify.Expecto" Version="23.5.2" />
 <!-- end-snippet -->
     </ItemGroup>
 </Project>

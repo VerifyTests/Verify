@@ -3,7 +3,7 @@
     <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Expecto" Version="10.1.0" />
+    <PackageReference Include="Expecto" Version="10.2.1" />
     <PackageReference Include="FSharp.Core" Version="8.0.200" />
     <PackageReference Include="ProjectDefaults" Version="1.0.125" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="8.2.0" PrivateAssets="None" />

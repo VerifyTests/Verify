@@ -1,6 +1,6 @@
 ﻿{
   IsCancellationRequested: true,
-  Token: true,
+  CanBeCanceled: true,
   WaitHandle: {
     SafeWaitHandle: {
       IsInvalid: false,

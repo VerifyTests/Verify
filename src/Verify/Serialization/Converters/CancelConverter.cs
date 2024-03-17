@@ -6,13 +6,14 @@
         writer.WriteStartObject();
 
         writer.WriteMember(value, value.IsCancellationRequested, "IsCancellationRequested");
-        writer.WriteMember(value, value.CanBeCanceled, "Token");
+        writer.WriteMember(value, value.CanBeCanceled, "CanBeCanceled");
         try
         {
             writer.WriteMember(value, value.WaitHandle, "WaitHandle");
         }
         catch (ObjectDisposedException)
         {
+            writer.WriteMember(value, "{Disposed}", "WaitHandle");
         }
 
         writer.WriteEndObject();

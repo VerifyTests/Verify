@@ -11,7 +11,7 @@
         <Compile Include="Main.fs" />
         <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-        <PackageReference Include="Expecto" Version="10.1.0" />
+        <PackageReference Include="Expecto" Version="10.2.1" />
         <ProjectReference Include="..\Verify.Expecto\Verify.Expecto.csproj" />
         <ProjectReference Include="..\Verify\Verify.csproj" />
         <PackageReference Update="FSharp.Core" Version="8.0.200" />

@@ -8,13 +8,13 @@ public static partial class VerifierSettings
         serialization.AddExtraSettings(action);
     }
 
-    public static void AddExtraDateFormat(string format)
+    public static void AddExtraDateFormat([StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.dateFormats.Add(format);
     }
 
-    public static void AddExtraTimeFormat(string format)
+    public static void AddExtraTimeFormat([StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.timeFormats.Add(format);
@@ -24,7 +24,7 @@ public static partial class VerifierSettings
     public static void AddExtraDatetimeFormat(string format) =>
         AddExtraDateTimeFormat(format);
 
-    public static void AddExtraDateTimeFormat(string format)
+    public static void AddExtraDateTimeFormat([StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.dateTimeFormats.Add(format);
@@ -34,7 +34,7 @@ public static partial class VerifierSettings
     public static void AddExtraDatetimeOffsetFormat(string format) =>
         AddExtraDateTimeOffsetFormat(format);
 
-    public static void AddExtraDateTimeOffsetFormat(string format)
+    public static void AddExtraDateTimeOffsetFormat([StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.dateTimeOffsetFormats.Add(format);

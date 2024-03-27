@@ -86,7 +86,7 @@ In some scenarios, as part of a build, the test assemblies are copied to a diffe
 For example a possible implementation for [AppVeyor](https://www.appveyor.com/) could be:
 
 <!-- snippet: DerivePathInfoAppVeyor -->
-<a id='snippet-derivepathinfoappveyor'></a>
+<a id='snippet-DerivePathInfoAppVeyor'></a>
 ```cs
 if (BuildServerDetector.Detected)
 {
@@ -100,5 +100,5 @@ if (BuildServerDetector.Detected)
         });
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-derivepathinfoappveyor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L56-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoAppVeyor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

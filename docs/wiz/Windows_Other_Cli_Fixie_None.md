@@ -141,7 +141,7 @@ dotnet tool install -g verify.tool
 ## Sample Test
 
 <!-- snippet: SampleTestFixie -->
-<a id='snippet-sampletestfixie'></a>
+<a id='snippet-SampleTestFixie'></a>
 ```cs
 public class Sample
 {
@@ -152,7 +152,7 @@ public class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-sampletestfixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

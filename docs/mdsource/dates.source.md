@@ -47,11 +47,11 @@ snippet: DisableDateCountingFluent
 snippet: DisableDateCountingGlobal
 
 
-## AddExtraDatetimeFormat
+## AddExtraDateTimeFormat
 
-`AddExtraDatetimeFormat` allows specifying custom date formats to be scrubbed.
+`AddExtraDateTimeFormat` allows specifying custom date formats to be scrubbed.
 
-snippet: AddExtraDatetimeFormat
+snippet: AddExtraDateTimeFormat
 
 
 ## Inline Dates

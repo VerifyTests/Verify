@@ -32,7 +32,7 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
 `UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
 
 <!-- snippet: UseParameters -->
-<a id='snippet-useparameters'></a>
+<a id='snippet-UseParameters'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -44,13 +44,13 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L50-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L50-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
 
 <!-- snippet: UseParametersSubSet -->
-<a id='snippet-useparameterssubset'></a>
+<a id='snippet-UseParametersSubSet'></a>
 ```cs
 [Theory]
 [InlineData("Value1", "Value2", "Value3")]
@@ -61,7 +61,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L64-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparameterssubset' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L64-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -73,14 +73,14 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 ### TestCase
 
 <!-- snippet: NUnitTestCase -->
-<a id='snippet-nunittestcase'></a>
+<a id='snippet-NUnitTestCase'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunittestcase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -130,7 +130,7 @@ Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSo
 ### InlineData
 
 <!-- snippet: xunitInlineData -->
-<a id='snippet-xunitinlinedata'></a>
+<a id='snippet-xunitInlineData'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -149,14 +149,14 @@ public Task InlineDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L29-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitinlinedata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L29-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitInlineData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### MemberData
 
 <!-- snippet: xunitMemberData -->
-<a id='snippet-xunitmemberdata'></a>
+<a id='snippet-xunitMemberData'></a>
 ```cs
 [Theory]
 [MemberData(nameof(GetData))]
@@ -185,7 +185,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L77-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L77-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitMemberData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -194,7 +194,7 @@ public static IEnumerable<object[]> GetData()
 xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
 
 <!-- snippet: xunitComplexMemberData -->
-<a id='snippet-xunitcomplexmemberdata'></a>
+<a id='snippet-xunitComplexMemberData'></a>
 ```cs
 public class ComplexParametersSample
 {
@@ -309,7 +309,7 @@ public class ComplexParametersSample
     }
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitcomplexmemberdata' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ComplexParametersSample.cs#L1-L116' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitComplexMemberData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
@@ -375,14 +375,14 @@ public class TestProject :
 Resulting usage:
 
 <!-- snippet: FixieTestCase -->
-<a id='snippet-fixietestcase'></a>
+<a id='snippet-FixieTestCase'></a>
 ```cs
 [TestCase("Value1")]
 [TestCase("Value2")]
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L18-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixietestcase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L18-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixieTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -392,7 +392,7 @@ public Task TestCaseUsage(string arg) =>
 ### DataRow
 
 <!-- snippet: MSTestDataRow -->
-<a id='snippet-mstestdatarow'></a>
+<a id='snippet-MSTestDataRow'></a>
 ```cs
 [TestClass]
 public class ParametersSample :
@@ -416,7 +416,7 @@ public class ParametersSample :
             .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L3-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-mstestdatarow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L3-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -429,7 +429,7 @@ public class ParametersSample :
 ```
 
 <!-- snippet: UseTextForParameters -->
-<a id='snippet-usetextforparameters'></a>
+<a id='snippet-UseTextForParameters'></a>
 ```cs
 [Theory]
 [InlineData("Value1")]
@@ -448,7 +448,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L408-L427' title='Snippet source file'>snippet source</a> | <a href='#snippet-usetextforparameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L408-L427' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -464,7 +464,7 @@ Results in:
 By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
 <!-- snippet: IgnoreParametersForVerified -->
-<a id='snippet-ignoreparametersforverified'></a>
+<a id='snippet-IgnoreParametersForVerified'></a>
 ```cs
 [Theory]
 [InlineData("One")]
@@ -483,7 +483,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("valueIgnoreParametersForVerifiedFluent")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L480-L499' title='Snippet source file'>snippet source</a> | <a href='#snippet-ignoreparametersforverified' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L480-L499' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerified' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -513,7 +513,7 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 ### MSTest
 
 <!-- snippet: UseParametersHashMsTest -->
-<a id='snippet-useparametershashmstest'></a>
+<a id='snippet-UseParametersHashMsTest'></a>
 ```cs
 [TestClass]
 public class ParametersHashSample :
@@ -556,14 +556,14 @@ public class ParametersHashSample :
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashmstest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashMsTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 ### NUnit
 
 <!-- snippet: UseParametersHashNunit -->
-<a id='snippet-useparametershashnunit'></a>
+<a id='snippet-UseParametersHashNunit'></a>
 ```cs
 [TestFixture]
 public class ParametersHashSample
@@ -615,7 +615,7 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashnunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that NUnit can derive the parameters without explicitly passing them.
@@ -624,7 +624,7 @@ Note that NUnit can derive the parameters without explicitly passing them.
 ### xUnit
 
 <!-- snippet: UseParametersHashXunit -->
-<a id='snippet-useparametershashxunit'></a>
+<a id='snippet-UseParametersHashXunit'></a>
 ```cs
 public class ParametersHashSample
 {
@@ -665,5 +665,5 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-useparametershashxunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

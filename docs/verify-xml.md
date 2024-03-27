@@ -13,13 +13,13 @@ Verifies Xml:
  * Pretty prints
 
 <!-- snippet: VerifyFile -->
-<a id='snippet-verifyfile'></a>
+<a id='snippet-VerifyFile'></a>
 ```cs
 [Fact]
 public Task VerifyFilePath() =>
     VerifyFile("sample.txt");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L186-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L186-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -32,13 +32,13 @@ Give the following Xml:
 This code:
 
 <!-- snippet: VerifyXml -->
-<a id='snippet-verifyxml'></a>
+<a id='snippet-VerifyXml'></a>
 ```cs
 [Fact]
 public Task Xml() =>
     VerifyXml(xml);
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L13-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifyxml' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L13-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyXml' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -59,14 +59,14 @@ Will produce
 This code:
 
 <!-- snippet: XmlIgnoreMember -->
-<a id='snippet-xmlignoremember'></a>
+<a id='snippet-XmlIgnoreMember'></a>
 ```cs
 [Fact]
 public Task XmlIgnoreMember() =>
     VerifyXml(xml)
         .IgnoreMember("node");
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-xmlignoremember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L30-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlIgnoreMember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce
@@ -85,14 +85,14 @@ Will produce
 This code:
 
 <!-- snippet: XmlScrubMember -->
-<a id='snippet-xmlscrubmember'></a>
+<a id='snippet-XmlScrubMember'></a>
 ```cs
 [Fact]
 public Task XmlScrubMember() =>
     VerifyXml(xml)
         .ScrubMember("node");
 ```
-<sup><a href='/src/Verify.Tests/XmlTests.cs#L39-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-xmlscrubmember' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/XmlTests.cs#L39-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-XmlScrubMember' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Will produce

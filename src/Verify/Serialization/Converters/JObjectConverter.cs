@@ -5,14 +5,22 @@
     {
         if (VerifierSettings.sortJsonObjects)
         {
-            var dictionary = value
-                .ToObject<Dictionary<string, object>>(writer.Serializer)!;
+            var dictionary = new Dictionary<string, object?>();
+            foreach (var item in value)
+            {
+                dictionary.Add(item.Key, item.Value);
+            }
+
             writer.Serialize(dictionary);
         }
         else
         {
-            var dictionary = value
-                .ToObject<OrderedDictionary>(writer.Serializer)!;
+            var dictionary = new OrderedDictionary();
+            foreach (var item in value)
+            {
+                dictionary.Add(item.Key, item.Value);
+            }
+
             writer.Serialize(dictionary);
         }
     }

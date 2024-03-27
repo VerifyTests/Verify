@@ -3896,6 +3896,13 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task Ref()
+    {
+        var json = """{ "a": { "$id": "x", "b": 1 }, "b": 2, "c": { "$ref": "#x/b" }, "d": { "$ref": "#/b" } }""";
+        return VerifyJson(json);
+    }
+
+    [Fact]
     public async Task CancellationToken_Cancelled()
     {
         var cancelSource = new CancelSource();

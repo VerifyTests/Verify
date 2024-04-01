@@ -188,7 +188,7 @@ public static partial class VerifierSettings
     }
 
     internal static bool scrubUserProfile = true;
-    
+
     public static void DontScrubUserProfile()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();

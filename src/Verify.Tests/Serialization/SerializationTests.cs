@@ -1578,6 +1578,16 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
+    static void DontScrubUserProfile()
+    {
+        #region DontScrubUserProfile
+
+        VerifierSettings.DontScrubUserProfile();
+
+        #endregion
+    }
+
+    // ReSharper disable once UnusedMember.Local
     static void DontScrubProjectDirectory()
     {
         #region DontScrubProjectDirectory

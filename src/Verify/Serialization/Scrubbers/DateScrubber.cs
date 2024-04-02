@@ -152,16 +152,14 @@
                 }
 
                 var slice = value.Slice(index, length);
-                if (!slice.ContainsNewline())
+                if (!slice.ContainsNewline() &&
+                    tryConvertDate(slice, format, counter, culture, out var convert))
                 {
-                    if (tryConvertDate(slice, format, counter, culture, out var convert))
-                    {
-                        builder.Overwrite(convert, builderIndex, length);
-                        builderIndex += convert.Length;
-                        index += length - 1;
-                        found = true;
-                        break;
-                    }
+                    builder.Overwrite(convert, builderIndex, length);
+                    builderIndex += convert.Length;
+                    index += length - 1;
+                    found = true;
+                    break;
                 }
             }
 

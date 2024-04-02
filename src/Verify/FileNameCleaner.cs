@@ -80,14 +80,12 @@
         return new(chars);
     }
 
-    static bool IsInvalid(char ch)
-    {
+    static bool IsInvalid(char ch) =>
 #if NET8_0_OR_GREATER
-        return invalidFileNameSearchValues.Contains(ch);
+        invalidFileNameSearchValues.Contains(ch);
 #else
-        return invalidFileNameChars.Contains(ch);
+        invalidFileNameChars.Contains(ch);
 #endif
-    }
 
     public static void AppendValid(StringBuilder builder, string value)
     {

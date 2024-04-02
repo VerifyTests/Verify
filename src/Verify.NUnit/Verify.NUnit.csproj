@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="4.1.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.125" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.126" PrivateAssets="all" />
     <PackageReference Include="EmptyFiles" Version="8.2.0" PrivateAssets="None" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.NUnit.props" Pack="true" PackagePath="buildTransitive\Verify.NUnit.props" />

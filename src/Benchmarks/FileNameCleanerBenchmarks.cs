@@ -2,6 +2,9 @@
 public class FileNameCleanerBenchmarks
 {
     [Benchmark]
-    public string ReplaceInvalidFileNameChars() =>
+    public void ReplaceInvalidFileNameChars()
+    {
         "Ant apple | The Bear Fox > Theater".ReplaceInvalidFileNameChars();
+        "Ant apple The Bear Fox Theater".ReplaceInvalidFileNameChars();
+    }
 }

@@ -3,7 +3,18 @@
     public static void RemoveLinesContaining(this StringBuilder input, StringComparison comparison, params string[] stringToMatch)
     {
         Guard.AgainstNullOrEmpty(stringToMatch);
-        input.FilterLines(_ => _.LineContains(stringToMatch, comparison));
+        input.FilterLines(_ =>
+        {
+            foreach (var toMatch in stringToMatch)
+            {
+                if (_.Contains(toMatch, comparison))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        });
     }
 
     public static void ReplaceLines(this StringBuilder input, Func<string, string?> replaceLine)
@@ -26,7 +37,4 @@
             input.Length -= 1;
         }
     }
-
-    static bool LineContains(this string line, string[] stringToMatch, StringComparison comparison) =>
-        stringToMatch.Any(toMatch => line.IndexOf(toMatch, comparison) != -1);
 }

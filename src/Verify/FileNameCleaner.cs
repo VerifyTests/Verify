@@ -45,34 +45,55 @@
         '/'
     ];
 
+#if NET8_0_OR_GREATER
+    static SearchValues<char> invalidFileNameSearchValues = SearchValues.Create(invalidFileNameChars);
+#endif
+
     public static string ReplaceInvalidFileNameChars(this string value)
     {
-        var chars = value.ToCharArray();
+        var span = value.AsSpan();
 
-        var found = false;
-        for (var index = 0; index < chars.Length; index++)
+#if NET8_0_OR_GREATER
+        var index = span.IndexOfAny(invalidFileNameSearchValues);
+#else
+        var index = span.IndexOfAny(invalidFileNameChars.AsSpan());
+#endif
+
+        if (index == -1)
         {
-            var ch = chars[index];
-            if (invalidFileNameChars.Contains(ch))
+            return value;
+        }
+
+        var chars = value.ToCharArray();
+        span[..index]
+            .CopyTo(chars);
+        chars[index] = '-';
+        index++;
+        for (; index < chars.Length; index++)
+        {
+            if (IsInvalid(chars[index]))
             {
-                found = true;
                 chars[index] = '-';
             }
         }
 
-        if (found)
-        {
-            return new(chars);
-        }
+        return new(chars);
+    }
 
-        return value;
+    static bool IsInvalid(char ch)
+    {
+#if NET8_0_OR_GREATER
+        return invalidFileNameSearchValues.Contains(ch);
+#else
+        return invalidFileNameChars.Contains(ch);
+#endif
     }
 
     public static void AppendValid(StringBuilder builder, string value)
     {
         foreach (var ch in value)
         {
-            if (invalidFileNameChars.Contains(ch))
+            if (IsInvalid(ch))
             {
                 builder.Append('-');
             }

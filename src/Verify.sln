@@ -91,6 +91,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.Fixie.Tests", "Verif
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixieNugetUsage", "NugetUsage\FixieNugetUsage\FixieNugetUsage.csproj", "{2B95164E-1D27-418F-935A-47533CD92713}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -241,6 +243,10 @@ Global
 		{2B95164E-1D27-418F-935A-47533CD92713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B95164E-1D27-418F-935A-47533CD92713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B95164E-1D27-418F-935A-47533CD92713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

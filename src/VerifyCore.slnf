@@ -2,6 +2,7 @@
   "solution": {
     "path": "Verify.sln",
     "projects": [
+      "Benchmarks\\Benchmarks.csproj",
       "TargetLibrary\\TargetLibrary.csproj",
       "Verify.ClipboardAccept\\Verify.ClipboardAccept.csproj",
       "Verify.SamplePlugin\\Verify.SamplePlugin.csproj",

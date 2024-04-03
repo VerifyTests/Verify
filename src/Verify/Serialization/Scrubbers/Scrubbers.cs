@@ -54,14 +54,20 @@ public static class Scrubbers
 
     static void PerformReplacements(StringBuilder builder, (Dictionary<string, string> exact, Dictionary<string, string> replace) replacements)
     {
-        var value = builder.ToString();
-        foreach (var exact in replacements.exact)
+        var exactMatchingLength = replacements.exact
+            .Where(_ => _.Key.Length == builder.Length)
+            .ToList();
+        if (exactMatchingLength.Count > 0)
         {
-            if (value == exact.Key)
+            var value = builder.ToString();
+            foreach (var exact in exactMatchingLength)
             {
-                builder.Clear();
-                builder.Append(exact.Value);
-                return;
+                if (value == exact.Key)
+                {
+                    builder.Clear();
+                    builder.Append(exact.Value);
+                    return;
+                }
             }
         }
 

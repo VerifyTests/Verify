@@ -16,3 +16,4 @@ src/Verify.Tests/Tests.TextNegative.verified.tmp
 *.ncrunchproject
 *nCrunchTemp*
 *.cache
+src/Verify.Tests/NewLineTests.StringWithDifferingNewline.verified.txt

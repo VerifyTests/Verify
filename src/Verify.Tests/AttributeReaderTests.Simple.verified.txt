@@ -1,6 +1,6 @@
 ﻿{
-  TargetFrameworks: net8.0;net7.0;net48,
-  TargetFrameworksInferred: net8.0;net7.0;net48,
+  TargetFrameworks: net9.0;net8.0;net7.0;net48,
+  TargetFrameworksInferred: net9.0;net8.0;net7.0;net48,
   ProjectDirectory: {ProjectDirectory},
   ProjectDirectoryInferred: {ProjectDirectory},
   SolutionDirectory: {SolutionDirectory},

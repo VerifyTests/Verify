@@ -4,7 +4,12 @@
 
 #if NET6_0_OR_GREATER
 
-    static bool TryConvertDate(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result)
+    static bool TryConvertDate(
+        CharSpan span,
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        Counter counter,
+        Culture culture,
+        [NotNullWhen(true)] out string? result)
     {
         if (Date.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
@@ -16,7 +21,9 @@
         return false;
     }
 
-    public static Action<StringBuilder, Counter> BuildDateScrubber(string format, Culture? culture)
+    public static Action<StringBuilder, Counter> BuildDateScrubber(
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        Culture? culture)
     {
         try
         {
@@ -30,7 +37,11 @@
         return (builder, counter) => ReplaceDates(builder, format, counter, culture ?? Culture.CurrentCulture);
     }
 
-    public static void ReplaceDates(StringBuilder builder, string format, Counter counter, Culture culture) =>
+    public static void ReplaceDates(
+        StringBuilder builder,
+        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
+        Counter counter,
+        Culture culture) =>
         ReplaceInner(
             builder,
             format,
@@ -40,7 +51,9 @@
             TryConvertDate);
 #endif
 
-    public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(string format, Culture? culture)
+    public static Action<StringBuilder, Counter> BuildDateTimeOffsetScrubber(
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Culture? culture)
     {
         try
         {
@@ -54,7 +67,12 @@
         return (builder, counter) => ReplaceDateTimeOffsets(builder, format, counter, culture ?? Culture.CurrentCulture);
     }
 
-    static bool TryConvertDateTimeOffset(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result)
+    static bool TryConvertDateTimeOffset(
+        CharSpan span,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Counter counter,
+        Culture culture,
+        [NotNullWhen(true)] out string? result)
     {
 #if NET5_0_OR_GREATER
         if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
@@ -70,7 +88,11 @@
         return false;
     }
 
-    public static void ReplaceDateTimeOffsets(StringBuilder builder, string format, Counter counter, Culture culture) =>
+    public static void ReplaceDateTimeOffsets(
+        StringBuilder builder,
+        [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Counter counter,
+        Culture culture) =>
         ReplaceInner(
             builder,
             format,
@@ -79,7 +101,11 @@
             _ => new DateTimeOffset(_),
             TryConvertDateTimeOffset);
 
-    static bool TryConvertDateTime(CharSpan span, string format, Counter counter, Culture culture, [NotNullWhen(true)] out string? result)
+    static bool TryConvertDateTime(
+        CharSpan span, [StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format,
+        Counter counter,
+        Culture culture,
+        [NotNullWhen(true)] out string? result)
     {
 #if NET5_0_OR_GREATER
         if (DateTime.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))

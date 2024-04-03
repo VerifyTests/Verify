@@ -119,7 +119,7 @@
         using var reader = new StreamReader(stream);
         var contents = await reader.ReadToEndAsync();
         var builder = new StringBuilder(contents);
-        if (contents.Contains('\n'))
+        if (contents.Contains('\r'))
         {
             builder.FixNewlines();
         }

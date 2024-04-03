@@ -1,9 +1,11 @@
-﻿namespace VerifyTests;
+﻿using System.Collections.Frozen;
+
+namespace VerifyTests;
 
 public static class Scrubbers
 {
-    static (Dictionary<string, string> exact, Dictionary<string, string> replace) machineNameReplacements;
-    static (Dictionary<string, string> exact, Dictionary<string, string> replace) userNameReplacements;
+    static (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) machineNameReplacements;
+    static (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) userNameReplacements;
 
     static Scrubbers() =>
         ResetReplacements(Environment.MachineName, Environment.UserName);
@@ -22,7 +24,7 @@ public static class Scrubbers
         '\r'
     ];
 
-    static (Dictionary<string, string> exact, Dictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
+    static (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
     {
         var replace = new Dictionary<string, string>(validWrappingChars.Length * 2);
         foreach (var wrappingChar in validWrappingChars)
@@ -43,7 +45,11 @@ public static class Scrubbers
             exact[beforeChar + toReplace + afterChar] = beforeChar + toReplaceWith + afterChar;
         }
 
+#if NET8_0_OR_GREATER
+        return (exact.ToFrozenDictionary(), replace.ToFrozenDictionary());
+#else
         return (exact, replace);
+#endif
     }
 
     public static void ScrubMachineName(StringBuilder builder) =>
@@ -52,7 +58,7 @@ public static class Scrubbers
     public static void ScrubUserName(StringBuilder builder) =>
         PerformReplacements(builder, userNameReplacements);
 
-    static void PerformReplacements(StringBuilder builder, (Dictionary<string, string> exact, Dictionary<string, string> replace) replacements)
+    static void PerformReplacements(StringBuilder builder, (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) replacements)
     {
         var exactMatchingLength = replacements.exact
             .Where(_ => _.Key.Length == builder.Length)
@@ -62,12 +68,14 @@ public static class Scrubbers
             var value = builder.ToString();
             foreach (var exact in exactMatchingLength)
             {
-                if (value == exact.Key)
+                if (value != exact.Key)
                 {
-                    builder.Clear();
-                    builder.Append(exact.Value);
-                    return;
+                    continue;
                 }
+
+                builder.Clear();
+                builder.Append(exact.Value);
+                return;
             }
         }
 

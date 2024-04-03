@@ -107,14 +107,15 @@ public static class Scrubbers
             var indexOfRight = span.IndexOf(')');
             if (removeParams)
             {
-                if (indexOfLeft + 1 == indexOfRight)
+                var next = indexOfLeft + 1;
+                if (next == indexOfRight)
                 {
                     var left = span[..(indexOfRight + 1)];
                     WriteReplacePlus(builder, left);
                 }
                 else
                 {
-                    var left = span[..(indexOfLeft + 1)];
+                    var left = span[..next];
                     WriteReplacePlus(builder, left);
                     builder.Append("...)");
                 }

@@ -26,6 +26,7 @@ public static class StringBuilderExtensions
         builder.Append('\n');
         return builder;
     }
+
     /// <summary>
     /// Appends a line with a `\n` as the newline character.
     /// </summary>

@@ -73,7 +73,7 @@ public static class Scrubbers
 
     public static string ScrubStackTrace(string stackTrace, bool removeParams = false)
     {
-        var builder = new StringBuilder();
+        var builder = new StringBuilder(stackTrace.Length);
         using var reader = new StringReader(stackTrace);
         while (reader.ReadLine() is { } line)
         {
@@ -86,20 +86,20 @@ public static class Scrubbers
                 continue;
             }
 
-            line = line.TrimStart();
-            if (!line.StartsWith("at "))
-            {
-                builder.AppendLineN(line);
-                continue;
-            }
-
-            if (line.StartsWith("at InnerVerifier.Throws") ||
-                line.StartsWith("at InnerVerifier.<Throws"))
-            {
-                continue;
-            }
-
             var span = line.AsSpan();
+            span = span.TrimStart();
+            if (!span.StartsWith("at "))
+            {
+                builder.AppendLineN(span);
+                continue;
+            }
+
+            if (span.StartsWith("at InnerVerifier.Throws") ||
+                span.StartsWith("at InnerVerifier.<Throws"))
+            {
+                continue;
+            }
+
             var indexOfLeft = span.IndexOf('(');
 
             if (indexOfLeft == -1)

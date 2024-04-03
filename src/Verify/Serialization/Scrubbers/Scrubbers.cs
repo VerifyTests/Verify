@@ -1,11 +1,9 @@
-﻿using System.Collections.Frozen;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public static class Scrubbers
 {
-    static (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) machineNameReplacements;
-    static (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) userNameReplacements;
+    static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) machineNameReplacements;
+    static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) userNameReplacements;
 
     static Scrubbers() =>
         ResetReplacements(Environment.MachineName, Environment.UserName);
@@ -24,7 +22,7 @@ public static class Scrubbers
         '\r'
     ];
 
-    static (IReadOnlyDictionary<string, string> exact, IReadOnlyDictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
+    static (FrozenDictionary<string, string> exact, FrozenDictionary<string, string> replace) CreateWrappedReplacements(string toReplace, string toReplaceWith)
     {
         var replace = new Dictionary<string, string>(validWrappingChars.Length * 2);
         foreach (var wrappingChar in validWrappingChars)
@@ -45,11 +43,7 @@ public static class Scrubbers
             exact[beforeChar + toReplace + afterChar] = beforeChar + toReplaceWith + afterChar;
         }
 
-#if NET8_0_OR_GREATER
         return (exact.ToFrozenDictionary(), replace.ToFrozenDictionary());
-#else
-        return (exact, replace);
-#endif
     }
 
     public static void ScrubMachineName(StringBuilder builder) =>

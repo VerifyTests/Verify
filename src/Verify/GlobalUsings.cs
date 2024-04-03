@@ -1,4 +1,5 @@
 ﻿global using System.Buffers;
+global using System.Collections.Frozen;
 global using System.Diagnostics.Contracts;
 global using System.IO.Hashing;
 global using VerifyTests;

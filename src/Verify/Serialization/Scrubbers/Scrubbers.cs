@@ -75,19 +75,24 @@ public static class Scrubbers
     {
         var builder = new StringBuilder(stackTrace.Length);
         using var reader = new StringReader(stackTrace);
+        var angleBrackets = "<>".AsSpan();
+        var moveNext = ".MoveNext()".AsSpan();
+        var taskAwaiter = "System.Runtime.CompilerServices.TaskAwaiter".AsSpan();
+        var end = "End of stack trace from previous location where exception was thrown".AsSpan();
+
         while (reader.ReadLine() is { } line)
         {
+            var span = line.AsSpan();
+            span = span.TrimStart();
             if (
-                (line.Contains("<>") && line.Contains(".MoveNext()")) ||
-                line.Contains("System.Runtime.CompilerServices.TaskAwaiter") ||
-                line.Contains("End of stack trace from previous location where exception was thrown")
+                (span.Contains(angleBrackets, StringComparison.Ordinal) && span.Contains(moveNext, StringComparison.Ordinal)) ||
+                span.Contains(taskAwaiter, StringComparison.Ordinal) ||
+                span.Contains(end, StringComparison.Ordinal)
             )
             {
                 continue;
             }
 
-            var span = line.AsSpan();
-            span = span.TrimStart();
             if (!span.StartsWith("at "))
             {
                 builder.AppendLineN(span);

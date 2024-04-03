@@ -3,7 +3,6 @@
 {
     public DisableDirScrubbingTests()
     {
-        VerifierSettings.DontScrubUserProfile();
         VerifierSettings.DontScrubSolutionDirectory();
         VerifierSettings.DontScrubProjectDirectory();
         var solutionDirectory = AttributeReader.GetSolutionDirectory();

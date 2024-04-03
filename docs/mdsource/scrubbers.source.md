@@ -18,6 +18,7 @@ Scrubbers can be added to an instance of `VerifySettings` or globally on `Verifi
 
  * The current solution directory will be replaced with `{SolutionDirectory}`. To disable use `VerifierSettings.DontScrubSolutionDirectory()` in a module initializer.
  * The current project directory will be replaced with `{ProjectDirectory}`. To disable use `VerifierSettings.DontScrubProjectDirectory()` in a module initializer.
+ * On Windows, the current [user profile](https://learn.microsoft.com/en-us/dotnet/api/system.environment.specialfolder) will be replaced with `{UserProfile}`. To disable use `VerifierSettings.DontScrubUserProfile()` in a module initializer.
  * The `AppDomain.CurrentDomain.BaseDirectory` will be replaced with `{CurrentDirectory}`.
  * The `Assembly.CodeBase` will be replaced with `{CurrentDirectory}`.
  * The `Path.GetTempPath()` will be replaced with `{TempPath}`.

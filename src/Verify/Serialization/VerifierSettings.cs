@@ -187,6 +187,14 @@ public static partial class VerifierSettings
         scrubSolutionDir = false;
     }
 
+    internal static bool scrubUserProfile = true;
+
+    public static void DontScrubUserProfile()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        scrubUserProfile = false;
+    }
+
     internal static bool sortPropertiesAlphabetically;
 
     public static void SortPropertiesAlphabetically()

@@ -44,7 +44,7 @@ static class ApplyScrubbers
         replacements[altTempPath + altDirSeparator] = "{TempPath}";
         replacements[altTempPath] = "{TempPath}";
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if (VerifierSettings.scrubUserProfile && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             var profileDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             if (!string.IsNullOrWhiteSpace(profileDir))

@@ -99,9 +99,9 @@ public static class Scrubbers
                 continue;
             }
 
+            var indexOfLeft = line.IndexOf('(');
             if (removeParams)
             {
-                var indexOfLeft = line.IndexOf('(');
                 if (indexOfLeft > -1)
                 {
                     var c = line[indexOfLeft + 1];
@@ -124,12 +124,33 @@ public static class Scrubbers
                 }
             }
 
-            line = line.Replace(" (", "(");
-            line = line.Replace('+', '.');
-            builder.AppendLineN(line);
+            var span = line.AsSpan();
+            var left = span[..indexOfLeft];
+            var right = span[indexOfLeft..];
+
+            WriteReplacePlus(builder, left);
+            WriteReplacePlus(builder, right);
+            builder.AppendLineN();
         }
 
         builder.TrimEnd();
         return builder.ToString();
+    }
+
+    static void WriteReplacePlus(StringBuilder builder, CharSpan span)
+    {
+        while (true)
+        {
+            var indexOf = span.IndexOf('+');
+            if (indexOf == -1)
+            {
+                builder.Append(span);
+                return;
+            }
+
+            builder.Append(span[..indexOf]);
+            builder.Append('.');
+            span = span[(indexOf + 1)..];
+        }
     }
 }

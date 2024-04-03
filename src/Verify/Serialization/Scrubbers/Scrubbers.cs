@@ -74,21 +74,18 @@ public static class Scrubbers
     public static string ScrubStackTrace(string stackTrace, bool removeParams = false)
     {
         var builder = new StringBuilder(stackTrace.Length);
-        using var reader = new StringReader(stackTrace);
         var angleBrackets = "<>".AsSpan();
         var moveNext = ".MoveNext()".AsSpan();
         var taskAwaiter = "System.Runtime.CompilerServices.TaskAwaiter".AsSpan();
         var end = "End of stack trace from previous location where exception was thrown".AsSpan();
 
-        while (reader.ReadLine() is { } line)
+        foreach (var line in stackTrace.AsSpan().EnumerateLines())
         {
-            var span = line.AsSpan();
-            span = span.TrimStart();
-            if (
-                (span.Contains(angleBrackets, StringComparison.Ordinal) && span.Contains(moveNext, StringComparison.Ordinal)) ||
+            var span = line.TrimStart();
+            if ((span.Contains(angleBrackets, StringComparison.Ordinal) &&
+                 span.Contains(moveNext, StringComparison.Ordinal)) ||
                 span.Contains(taskAwaiter, StringComparison.Ordinal) ||
-                span.Contains(end, StringComparison.Ordinal)
-            )
+                span.Contains(end, StringComparison.Ordinal))
             {
                 continue;
             }

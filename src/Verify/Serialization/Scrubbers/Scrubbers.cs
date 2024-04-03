@@ -99,41 +99,41 @@ public static class Scrubbers
                 continue;
             }
 
-            var indexOfLeft = line.IndexOf('(');
-            if (removeParams)
+            var span = line.AsSpan();
+            var indexOfLeft = span.IndexOf('(');
+
+            if (indexOfLeft == -1)
             {
-                if (indexOfLeft > -1)
-                {
-                    var c = line[indexOfLeft + 1];
-                    if (c == ')')
-                    {
-                        line = line[..(indexOfLeft + 2)];
-                    }
-                    else
-                    {
-                        line = line[..(indexOfLeft + 1)] + "...)";
-                    }
-                }
+                WriteReplacePlus(builder, span);
             }
             else
             {
-                var indexOfRight = line.IndexOf(')');
-                if (indexOfRight > -1)
+                var indexOfRight = span.IndexOf(')');
+                if (removeParams)
                 {
-                    line = line[..(indexOfRight + 1)];
+                    if (indexOfLeft + 1 == indexOfRight)
+                    {
+                        var left = span[..(indexOfRight + 1)];
+                        WriteReplacePlus(builder, left);
+                    }
+                    else
+                    {
+                        var left = span[..(indexOfLeft + 1)];
+                        WriteReplacePlus(builder, left);
+                        builder.Append("...)");
+                    }
+                }
+                else
+                {
+                    var right = span[..(indexOfRight + 1)];
+                    WriteReplacePlus(builder, right);
                 }
             }
 
-            var span = line.AsSpan();
-            var left = span[..indexOfLeft];
-            var right = span[indexOfLeft..];
-
-            WriteReplacePlus(builder, left);
-            WriteReplacePlus(builder, right);
             builder.AppendLineN();
         }
 
-        builder.TrimEnd();
+        builder.Length--;
         return builder.ToString();
     }
 

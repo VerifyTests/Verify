@@ -1,8 +1,0 @@
-﻿System.Web.HttpException: The controller for path '/helloworld' was not found or does not implement IController.
-at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(System.Web.Routing.RequestContext requestContext, System.Type controllerType)
-at System.Web.Mvc.DefaultControllerFactory.CreateController(System.Web.Routing.RequestContext requestContext, System.String controllerName)
-at System.Web.Mvc.MvcHandler.ProcessRequestInit(System.Web.HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
-at System.Web.Mvc.MvcHandler.BeginProcessRequest(System.Web.HttpContextBase httpContext, System.AsyncCallback callback, System.Object state)
-at System.Web.Mvc.MvcHandler.BeginProcessRequest(System.Web.HttpContext httpContext, System.AsyncCallback callback, System.Object state)
-at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(System.Web.HttpContext context, System.AsyncCallback cb, System.Object extraData)
-at System.Web.HttpApplication.<Pipeline>c__Iterator3.MoveNext()

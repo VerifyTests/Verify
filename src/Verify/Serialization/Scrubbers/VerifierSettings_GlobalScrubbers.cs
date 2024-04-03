@@ -95,10 +95,7 @@ public static partial class VerifierSettings
     /// <summary>
     /// Replace inline <see cref="Date" />s with a placeholder.
     /// </summary>
-    public static void ScrubInlineDates(
-        [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format,
-        Culture? culture = null,
-        ScrubberLocation location = ScrubberLocation.First) =>
+    public static void ScrubInlineDates(string format, Culture? culture = null, ScrubberLocation location = ScrubberLocation.First) =>
         AddScrubber(
             DateScrubber.BuildDateScrubber(format, culture),
             location);

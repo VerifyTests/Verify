@@ -30,6 +30,16 @@ public static class StringBuilderExtensions
     /// <summary>
     /// Appends a line with a `\n` as the newline character.
     /// </summary>
+    public static StringBuilder AppendLineN(this StringBuilder builder, CharSpan value)
+    {
+        builder.Append(value);
+        builder.Append('\n');
+        return builder;
+    }
+
+    /// <summary>
+    /// Appends a line with a `\n` as the newline character.
+    /// </summary>
     public static StringBuilder AppendLineN(this StringBuilder builder, StringBuilder? value)
     {
         if (value != null)

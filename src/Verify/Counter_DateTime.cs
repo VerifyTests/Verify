@@ -40,16 +40,18 @@ public partial class Counter
 
         return dateTimeCache.GetOrAdd(
             input,
-            _ =>
-            {
-                var value = Interlocked.Increment(ref currentDateTime);
+            _ => BuildDateTimeValue());
+    }
 
-                if (dateCounting)
-                {
-                    return (value, $"DateTime_{value}");
-                }
+    (int intValue, string stringValue) BuildDateTimeValue()
+    {
+        var value = Interlocked.Increment(ref currentDateTime);
 
-                return (value, "{Scrubbed}");
-            });
+        if (dateCounting)
+        {
+            return (value, $"DateTime_{value}");
+        }
+
+        return (value, "{Scrubbed}");
     }
 }

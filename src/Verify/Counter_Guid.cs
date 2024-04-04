@@ -30,10 +30,12 @@ public partial class Counter
 
         return guidCache.GetOrAdd(
             input,
-            _ =>
-            {
-                var value = Interlocked.Increment(ref currentGuid);
-                return (value, $"Guid_{value}");
-            });
+            _ => BuildGuidValue());
+    }
+
+    (int intValue, string stringValue) BuildGuidValue()
+    {
+        var value = Interlocked.Increment(ref currentGuid);
+        return (value, $"Guid_{value}");
     }
 }

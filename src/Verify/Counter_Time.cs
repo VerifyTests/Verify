@@ -31,11 +31,13 @@ public partial class Counter
 
         return timeCache.GetOrAdd(
             input,
-            _ =>
-            {
-                var value = Interlocked.Increment(ref currentTime);
-                return (value, $"Time_{value}");
-            });
+            _ => BuildTimeValue());
+    }
+
+    (int intValue, string stringValue) BuildTimeValue()
+    {
+        var value = Interlocked.Increment(ref currentTime);
+        return (value, $"Time_{value}");
     }
 }
 #endif

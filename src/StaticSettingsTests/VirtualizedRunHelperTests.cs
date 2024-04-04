@@ -109,7 +109,10 @@ public class VirtualizedRunHelperTests :
             }
         }
 
-        public bool PathExists(string path) => exists(path);
+        public bool PathExists(string path) =>
+            exists(path) ||
+            exists(path.Replace('\\', '/')) ||
+            exists(path.Replace('/', '\\'));
 
         // Make sure Path.Combine behaves as on Unix, even when executed on Windows
         public string CombinePaths(string path1, string path2) =>

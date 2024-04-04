@@ -3,7 +3,7 @@ namespace VerifyTests;
 
 public partial class Counter
 {
-    ConcurrentDictionary<Time, (int intValue, string stringValue)> timeCache = [];
+    Dictionary<Time, (int intValue, string stringValue)> timeCache = [];
     static Dictionary<Time, string> globalNamedTimes = [];
     int currentTime;
 

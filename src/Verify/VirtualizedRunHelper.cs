@@ -135,7 +135,9 @@ class VirtualizedRunHelper
                     codeBaseRootAbsolute = currentDir;
                     return true;
                 }
-            } while (TryRemoveDirFromEndOfPath(ref currentDir));
+
+                currentDir = TryRemoveDirFromEndOfPath(currentDir);
+            } while (currentDir.Length > 0);
         } while (TryRemoveDirFromStartOfPath(ref buildTimePathRelative));
 
         codeBaseRootAbsolute = null;
@@ -233,11 +235,11 @@ class VirtualizedRunHelper
         return path != string.Empty;
     }
 
-    static bool TryRemoveDirFromEndOfPath(ref string path)
+    static string TryRemoveDirFromEndOfPath(string path)
     {
         if (path == string.Empty)
         {
-            return false;
+            return string.Empty;
         }
 
         path = path.TrimEnd(separators);
@@ -246,11 +248,11 @@ class VirtualizedRunHelper
         if (nextSeparatorIdx <= 0 ||
             nextSeparatorIdx == path.Length - 1)
         {
-            return false;
+            return string.Empty;
         }
 
         path = path[..nextSeparatorIdx];
 
-        return path != string.Empty;
+        return path;
     }
 }

@@ -10,9 +10,6 @@ public class ProjectDirectoryFinderBenchmarks
     }
 
     [Benchmark]
-    public string? FindProjectDirectory()
-    {
-        ProjectDirectoryFinder.TryFind(directory, out var path);
-        return path;
-    }
+    public string FindProjectDirectory() =>
+        ProjectDirectoryFinder.Find(directory);
 }

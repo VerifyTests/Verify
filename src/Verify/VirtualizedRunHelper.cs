@@ -122,10 +122,10 @@ class VirtualizedRunHelper
     {
         var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath);
 
-        var currentDir = Env.CurrentDirectory;
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
         {
+            var currentDir = Env.CurrentDirectory;
             do
             {
                 var testMappedPath = Env.CombinePaths(currentDir, buildTimePathRelative.Replace('\\', '/'));

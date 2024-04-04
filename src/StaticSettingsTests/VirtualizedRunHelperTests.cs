@@ -95,6 +95,20 @@ public class VirtualizedRunHelperTests :
     {
         public string CurrentDirectory { get; } = currentDirectory;
         public char DirectorySeparatorChar { get; } = directorySeparatorChar;
+
+        public char AltDirectorySeparatorChar
+        {
+            get
+            {
+                if (DirectorySeparatorChar == '/')
+                {
+                    return '\\';
+                }
+
+                return '/';
+            }
+        }
+
         public bool PathExists(string path) => exists(path);
 
         // Make sure Path.Combine behaves as on Unix, even when executed on Windows

@@ -155,7 +155,8 @@ class VirtualizedRunHelper
             return false;
         }
 
-        var currentDirRelativeToAppRoot = Env.CurrentDirectory.TrimStart(separators);
+        var currentDirectory = Env.CurrentDirectory;
+        var currentDirRelativeToAppRoot = currentDirectory.TrimStart(separators);
         //remove the drive info from the code root
         var mappedCodeBaseRootRelative = originalCodeBaseRoot.Replace('\\', '/');
         while (TryRemoveDirFromStartOfPath(ref currentDirRelativeToAppRoot))
@@ -167,7 +168,7 @@ class VirtualizedRunHelper
                     continue;
                 }
 
-                mappedCodeBaseRootAbsolute = Env.CurrentDirectory[..^currentDirRelativeToAppRoot.Length];
+                mappedCodeBaseRootAbsolute = currentDirectory[..^currentDirRelativeToAppRoot.Length];
 
                 // the start of paths to be mapped
 
@@ -198,7 +199,7 @@ class VirtualizedRunHelper
         {
             buildTimePathRelative = buildTimePathRelative[originalCodeBaseRoot.Length..];
             buildTimePathRelative = buildTimePathRelative.TrimStart(separators);
-            if (buildTimePathRelative.Trim(separators) == string.Empty)
+            if (buildTimePathRelative == string.Empty)
             {
                 buildTimePathRelative = buildTimePath;
             }
@@ -215,7 +216,7 @@ class VirtualizedRunHelper
 
     static bool AppearsBuiltOnCurrentPlatform(string buildTimePath) =>
         buildTimePath.Contains(Env.DirectorySeparatorChar) &&
-        !buildTimePath.Contains(separators.First(_ => _ != Env.DirectorySeparatorChar));
+        !buildTimePath.Contains(Env.AltDirectorySeparatorChar);
 
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {

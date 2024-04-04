@@ -177,6 +177,17 @@ static class Extensions
     public static string Remove(this string value, string toRemove) =>
         value.Replace(toRemove, "");
 
+    public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> factory)
+        where TKey : notnull
+    {
+        if (dictionary.TryGetValue(key, out var value))
+        {
+            return value;
+        }
+
+        return dictionary[key] = factory(key);
+    }
+
     public static void ReplaceIfLonger(this StringBuilder builder, string oldValue, string newValue)
     {
         if (builder.Length < oldValue.Length)

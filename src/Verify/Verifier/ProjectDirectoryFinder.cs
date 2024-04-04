@@ -21,14 +21,14 @@ static class ProjectDirectoryFinder
                 return true;
             }
 
-            var parent = Directory.GetParent(currentDirectory);
+            var parent = Path.GetDirectoryName(currentDirectory);
             if (parent == null)
             {
                 path = null;
                 return false;
             }
 
-            currentDirectory = parent.FullName;
+            currentDirectory = parent;
         } while (true);
     }
 

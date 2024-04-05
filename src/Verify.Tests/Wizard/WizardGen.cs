@@ -521,6 +521,8 @@ public class WizardGen
 
             This is optional, but recommended.
 
+            include: rider-resharper-orphaned-process
+
             """);
     }
 
@@ -541,6 +543,8 @@ public class WizardGen
             Provides a mechanism for contextually accepting or rejecting snapshot changes inside the Rider test runner.
 
             This is optional, but recommended.
+
+            include: rider-resharper-orphaned-process
 
             """);
     }

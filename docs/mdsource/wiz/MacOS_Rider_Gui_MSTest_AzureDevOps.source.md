@@ -34,6 +34,8 @@ Provides a mechanism for contextually accepting or rejecting snapshot changes in
 
 This is optional, but recommended.
 
+include: rider-resharper-orphaned-process
+
 ## DiffPlex
 
 The text comparison behavior of Verify is pluggable. The default behaviour, on failure, is to output both the received

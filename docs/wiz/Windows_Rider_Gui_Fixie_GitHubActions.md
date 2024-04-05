@@ -131,7 +131,7 @@ Since this project launches diff tools, it will trigger this feature and a dialo
 
 > All unit tests are finished, but child processes spawned by the test runner process are still running. Terminate child process?
 
-<img src="resharper-spawned.png" alt="R# terminate process dialog" width="400">
+<img src="/docs/resharper-spawned.png" alt="R# terminate process dialog" width="400">
 
 As such this feature needs to be disabled:
 
@@ -152,14 +152,14 @@ Add the following to `[Solution].sln.DotSettings`.
 
 ReSharper | Options | Tools | Unit Testing | Test Runner
 
-<img src="resharper-ignore-spawned.png" alt="Disable R# orphaned processes detection" width="400">
+<img src="/docs/resharper-ignore-spawned.png" alt="Disable R# orphaned processes detection" width="400">
 
 
 #### Rider
 
 File | Settings | Manage Layers | This computer | Edit Layer | Build, Execution, Deployment | Unit Testing | Test Runner
 
-<img src="rider-ignore-spawned.png" alt="Disable R# orphaned processes detection" width="500"><!-- endInclude -->
+<img src="/docs/rider-ignore-spawned.png" alt="Disable R# orphaned processes detection" width="500"><!-- endInclude -->
 
 ## DiffPlex
 

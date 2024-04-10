@@ -297,7 +297,8 @@ public partial class InnerVerifier :
 
     static void ValidatePrefix(VerifySettings settings, string filePathPrefix)
     {
-        if (settings.UniquePrefixDisabled || VerifierSettings.UniquePrefixDisabled)
+        if (settings.UniquePrefixDisabled ||
+            VerifierSettings.UniquePrefixDisabled)
         {
             return;
         }

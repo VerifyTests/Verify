@@ -41,7 +41,7 @@ public partial class InnerVerifier :
         Guard.AgainstEmpty(typeName);
         Guard.AgainstEmpty(methodName);
         verifyHasBeenRun = true;
-        VerifierSettings.RunBeforeCallbacks();
+        settings.RunBeforeCallbacks();
         this.settings = settings;
 
         this.typeName = typeName;
@@ -308,7 +308,7 @@ public partial class InnerVerifier :
 
     public void Dispose()
     {
-        VerifierSettings.RunAfterCallbacks();
+        settings.RunAfterCallbacks();
 
         Counter.Stop();
     }

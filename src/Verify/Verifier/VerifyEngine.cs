@@ -157,7 +157,7 @@ class VerifyEngine
         }
 
         var message = VerifyExceptionMessageBuilder.Build(directory, @new, notEquals, delete, equal);
-        throw new VerifyException(message);
+        throw new VerifyException(message, notEquals.Select(ne => ne.File).ToList());
     }
 
     internal bool IsAutoVerify(string verifiedFile)

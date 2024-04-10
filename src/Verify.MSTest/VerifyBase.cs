@@ -94,7 +94,20 @@ public abstract partial class VerifyBase
             async verifySettings =>
             {
                 using var verifier = BuildVerifier(verifySettings, sourceFile, useUniqueDirectory);
-                return await verify(verifier);
+
+                try
+                {
+                    return await verify(verifier);
+                }
+                catch (VerifyException e)
+                {
+                    foreach (var file in e.NotEqualPairs.Select(pair => pair.ReceivedPath))
+                    {
+                        TestContext.AddResultFile(file);
+                    }
+
+                    throw;
+                }
             });
     }
 }

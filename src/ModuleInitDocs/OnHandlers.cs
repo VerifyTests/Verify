@@ -1,6 +1,6 @@
 ﻿public class OnHandlers
 {
-    #region OnHandlers
+    #region OnStaticHandlers
 
     public static class ModuleInitializer
     {

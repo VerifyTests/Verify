@@ -110,8 +110,11 @@ public static class ModuleInitializer
  * `OnFirstVerify` is called when there is no verified file.
  * `OnVerifyMismatch` is called when a received file does not match the existing verified file.
 
-<!-- snippet: OnHandlers -->
-<a id='snippet-OnHandlers'></a>
+
+### Globally
+
+<!-- snippet: OnStaticHandlers -->
+<a id='snippet-OnStaticHandlers'></a>
 ```cs
 public static class ModuleInitializer
 {
@@ -139,7 +142,42 @@ public static class ModuleInitializer
     }
 }
 ```
-<sup><a href='/src/ModuleInitDocs/OnHandlers.cs#L3-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnHandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/OnHandlers.cs#L3-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnStaticHandlers' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Instance
+
+<!-- snippet: OnInstanceHandlers -->
+<a id='snippet-OnInstanceHandlers'></a>
+```cs
+[Fact]
+public Task OnCallbacks()
+{
+    var settings = new VerifySettings();
+    settings.OnVerify(
+        before: () => Debug.WriteLine("before"),
+        after: () => Debug.WriteLine("after"));
+    settings.OnFirstVerify(
+        (receivedFile, receivedText) =>
+        {
+            Debug.WriteLine(receivedFile);
+            Debug.WriteLine(receivedText);
+            return Task.CompletedTask;
+        });
+    settings.OnVerifyMismatch(
+        (filePair, message) =>
+        {
+            Debug.WriteLine(filePair.ReceivedPath);
+            Debug.WriteLine(filePair.VerifiedPath);
+            Debug.WriteLine(message);
+            return Task.CompletedTask;
+        });
+
+    return Verify("value");
+}
+```
+<sup><a href='/src/Verify.Tests/Tests.cs#L130-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

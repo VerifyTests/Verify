@@ -127,6 +127,36 @@ public class Tests
         Assert.True(onVerifyMismatchCalled2);
     }
 
+#region OnInstanceHandlers
+
+    [Fact]
+    public Task OnCallbacks()
+    {
+        var settings = new VerifySettings();
+        settings.OnVerify(
+            before: () => Debug.WriteLine("before"),
+            after: () => Debug.WriteLine("after"));
+        settings.OnFirstVerify(
+            (receivedFile, receivedText) =>
+            {
+                Debug.WriteLine(receivedFile);
+                Debug.WriteLine(receivedText);
+                return Task.CompletedTask;
+            });
+        settings.OnVerifyMismatch(
+            (filePair, message) =>
+            {
+                Debug.WriteLine(filePair.ReceivedPath);
+                Debug.WriteLine(filePair.VerifiedPath);
+                Debug.WriteLine(message);
+                return Task.CompletedTask;
+            });
+
+        return Verify("value");
+    }
+
+#endregion
+
 #if NET6_0_OR_GREATER
     static bool onFirstVerifyCalled;
     static bool onVerifyMismatchCalled;

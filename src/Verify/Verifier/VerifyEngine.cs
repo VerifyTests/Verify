@@ -196,7 +196,7 @@ class VerifyEngine
 
     async Task<bool> ProcessDeletes(string file)
     {
-        await VerifierSettings.RunOnVerifyDelete(file);
+        await settings.RunOnVerifyDelete(file);
 
         if (IsAutoVerify(file))
         {
@@ -220,11 +220,10 @@ class VerifyEngine
 
     async Task<bool> ProcessNotEquals()
     {
-
         var verified = true;
         foreach (var notEqual in notEquals)
         {
-            await VerifierSettings.RunOnVerifyMismatch(notEqual.File, notEqual.Message);
+            await settings.RunOnVerifyMismatch(notEqual.File, notEqual.Message);
             if (!await RunDiffAutoCheck(notEqual.File))
             {
                 verified = false;
@@ -285,7 +284,7 @@ class VerifyEngine
         var verified = true;
         foreach (var file in @new)
         {
-            await VerifierSettings.RunOnFirstVerify(file);
+            await settings.RunOnFirstVerify(file);
             if (!await RunDiffAutoCheck(file.File))
             {
                 verified = false;

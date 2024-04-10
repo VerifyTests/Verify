@@ -1,9 +1,38 @@
 ﻿namespace VerifyMSTest;
 
 [TestClass]
-public abstract partial class VerifyBase
+public abstract partial class VerifyBase :
+    IDisposable
 {
-    public TestContext TestContext { get; set; } = null!;
+    static VerifyBase()
+    {
+        VerifierSettings.OnFirstVerify(
+            (pair, _) =>
+            {
+                currentTestContext.Value?.AddResultFile(pair.ReceivedPath);
+                return Task.CompletedTask;
+            });
+        VerifierSettings.OnVerifyMismatch(
+            (pair, _) =>
+            {
+                currentTestContext.Value?.AddResultFile(pair.ReceivedPath);
+                return Task.CompletedTask;
+            });
+    }
+
+    TestContext testContext = null!;
+
+    public TestContext TestContext
+    {
+        get => testContext;
+        set
+        {
+            testContext = value;
+            currentTestContext.Value = value;
+        }
+    }
+
+    static AsyncLocal<TestContext?> currentTestContext = new();
 
     InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
@@ -97,4 +126,7 @@ public abstract partial class VerifyBase
                 return await verify(verifier);
             });
     }
+
+    public void Dispose() =>
+        currentTestContext.Value = null;
 }

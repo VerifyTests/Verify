@@ -1,5 +1,4 @@
 ﻿// ReSharper disable UnusedParameter.Local
-
 [TestClass]
 public class Tests :
     VerifyBase
@@ -38,6 +37,12 @@ public class Tests :
     [TestMethod]
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
+
+    [ReceivedFileRequiredTestMethod]
+    [ExpectedException(typeof(VerifyException))]
+    public Task TestResultHasAttachment() =>
+        Verify("Bar")
+            .DisableDiff();
 
     #region ExplicitTargetsMsTest
 

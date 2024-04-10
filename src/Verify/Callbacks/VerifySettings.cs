@@ -4,17 +4,11 @@ public partial class VerifySettings
 {
     FirstVerify? handleOnFirstVerify;
 
-    public void OnFirstVerify(FirstVerify firstVerify)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
+    public void OnFirstVerify(FirstVerify firstVerify) =>
         handleOnFirstVerify += firstVerify;
-    }
 
-    public void OnDelete(VerifyDelete verifyDelete)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
+    public void OnDelete(VerifyDelete verifyDelete) =>
         handleOnVerifyDelete += verifyDelete;
-    }
 
     VerifyDelete? handleOnVerifyDelete;
 
@@ -40,21 +34,18 @@ public partial class VerifySettings
         await VerifierSettings.RunOnVerifyDelete(file);
     }
 
-    internal Task RunOnVerifyMismatch(FilePair item, string? message)
+    internal async Task RunOnVerifyMismatch(FilePair item, string? message)
     {
-        if (handleOnVerifyMismatch is null)
+        if (handleOnVerifyMismatch is not null)
         {
-            return Task.CompletedTask;
+            await  handleOnVerifyMismatch(item, message);
         }
 
-        return handleOnVerifyMismatch(item, message);
+        await VerifierSettings.RunOnVerifyMismatch(item, message);
     }
 
-    public void OnVerifyMismatch(VerifyMismatch verifyMismatch)
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
+    public void OnVerifyMismatch(VerifyMismatch verifyMismatch) =>
         handleOnVerifyMismatch += verifyMismatch;
-    }
 
     public void OnVerify(Action before, Action after)
     {

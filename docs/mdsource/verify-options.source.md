@@ -45,7 +45,15 @@ snippet: StaticAutoVerify
  * `OnFirstVerify` is called when there is no verified file.
  * `OnVerifyMismatch` is called when a received file does not match the existing verified file.
 
-snippet: OnHandlers
+
+### Globally
+
+snippet: OnStaticHandlers
+
+
+### Instance
+
+snippet: OnInstanceHandlers
 
 
 ## OmitContentFromException

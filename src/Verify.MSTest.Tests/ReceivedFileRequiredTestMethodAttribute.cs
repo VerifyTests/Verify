@@ -7,7 +7,14 @@
 
         foreach (var result in results)
         {
-            var hasAttachment = result.ResultFiles?.Any(file => Path.GetFileNameWithoutExtension(file).EndsWith("received")) ?? false;
+            var files = result.ResultFiles;
+            if(files == null)
+            {
+                result.Outcome = UnitTestOutcome.Failed;
+                result.TestFailureException = new("No result files attached to test result.");
+                continue;
+            }
+            var hasAttachment = files.Any(_ => Path.GetFileNameWithoutExtension(_).EndsWith("received"));
             if (!hasAttachment)
             {
                 result.Outcome = UnitTestOutcome.Failed;
@@ -19,7 +26,7 @@
                     message += $"{Environment.NewLine}{Environment.NewLine}{result.TestFailureException.Message}";
                 }
 
-                result.TestFailureException = new Exception(message, result.TestFailureException);
+                result.TestFailureException = new(message, result.TestFailureException);
             }
         }
 

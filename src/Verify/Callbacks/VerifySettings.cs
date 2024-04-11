@@ -12,36 +12,36 @@ public partial class VerifySettings
 
     VerifyDelete? handleOnVerifyDelete;
 
-    internal async Task RunOnFirstVerify(NewResult item)
+    internal async Task RunOnFirstVerify(NewResult item, bool autoVerify)
     {
         if (handleOnFirstVerify is not null)
         {
-            await handleOnFirstVerify(item.File, item.ReceivedText?.ToString());
+            await handleOnFirstVerify(item.File, item.ReceivedText?.ToString(), autoVerify);
         }
 
-        await VerifierSettings.RunOnFirstVerify(item);
+        await VerifierSettings.RunOnFirstVerify(item, autoVerify);
     }
 
     VerifyMismatch? handleOnVerifyMismatch;
 
-    internal async Task RunOnVerifyDelete(string file)
+    internal async Task RunOnVerifyDelete(string file, bool autoVerify)
     {
         if (handleOnVerifyDelete is not null)
         {
-            await handleOnVerifyDelete(file);
+            await handleOnVerifyDelete(file, autoVerify);
         }
 
-        await VerifierSettings.RunOnVerifyDelete(file);
+        await VerifierSettings.RunOnVerifyDelete(file, autoVerify);
     }
 
-    internal async Task RunOnVerifyMismatch(FilePair item, string? message)
+    internal async Task RunOnVerifyMismatch(FilePair item, string? message, bool autoVerify)
     {
         if (handleOnVerifyMismatch is not null)
         {
-            await  handleOnVerifyMismatch(item, message);
+            await handleOnVerifyMismatch(item, message, autoVerify);
         }
 
-        await VerifierSettings.RunOnVerifyMismatch(item, message);
+        await VerifierSettings.RunOnVerifyMismatch(item, message, autoVerify);
     }
 
     public void OnVerifyMismatch(VerifyMismatch verifyMismatch) =>

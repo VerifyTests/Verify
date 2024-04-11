@@ -1,3 +1,3 @@
 ﻿namespace VerifyTests;
 
-public delegate Task VerifyMismatch(FilePair filePair, string? message);
+public delegate Task VerifyMismatch(FilePair filePair, string? message, bool autoVerify);

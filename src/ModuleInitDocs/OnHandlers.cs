@@ -1,4 +1,5 @@
-﻿public class OnHandlers
+﻿// ReSharper disable UnusedParameter.Local
+public class OnHandlers
 {
     #region OnStaticHandlers
 
@@ -11,14 +12,14 @@
                 before: () => Debug.WriteLine("before"),
                 after: () => Debug.WriteLine("after"));
             VerifierSettings.OnFirstVerify(
-                (receivedFile, receivedText) =>
+                (receivedFile, receivedText, autoVerify) =>
                 {
                     Debug.WriteLine(receivedFile);
                     Debug.WriteLine(receivedText);
                     return Task.CompletedTask;
                 });
             VerifierSettings.OnVerifyMismatch(
-                (filePair, message) =>
+                (filePair, message, autoVerify) =>
                 {
                     Debug.WriteLine(filePair.ReceivedPath);
                     Debug.WriteLine(filePair.VerifiedPath);

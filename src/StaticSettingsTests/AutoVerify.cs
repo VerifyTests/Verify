@@ -8,7 +8,15 @@
         var path = CurrentFile.Relative("AutoVerify.Simple.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
-        await Verify("Foo");
+        var settings = new VerifySettings();
+        settings.OnVerifyMismatch((pair, _, autoVerify) =>
+        {
+            Assert.True(File.Exists(pair.ReceivedPath));
+            Assert.True(File.Exists(pair.VerifiedPath));
+            Assert.True(autoVerify);
+            return Task.CompletedTask;
+        });
+        await Verify("Foo", settings);
         File.Delete(fullPath);
     }
 
@@ -28,7 +36,15 @@
         var path = CurrentFile.Relative("AutoVerify.DelegateTrue.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
-        await Verify("Foo");
+        var settings = new VerifySettings();
+        settings.OnVerifyMismatch((pair, _, autoVerify) =>
+        {
+            Assert.True(File.Exists(pair.ReceivedPath));
+            Assert.True(File.Exists(pair.VerifiedPath));
+            Assert.True(autoVerify);
+            return Task.CompletedTask;
+        });
+        await Verify("Foo", settings);
         Assert.True(funcCalled);
         File.Delete(fullPath);
     }

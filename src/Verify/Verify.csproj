@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="Polyfill" Version="4.5.0" PrivateAssets="all" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
+    <PackageReference Include="System.IO.Hashing" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="DiffEngine" Version="15.3.0" />

@@ -1,5 +1,4 @@
 ﻿// ReSharper disable UnusedParameter.Local
-
 [TestClass]
 public class Tests :
     VerifyBase
@@ -38,6 +37,93 @@ public class Tests :
     [TestMethod]
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
+
+    [ResultFilesCallback]
+    [TestMethod]
+    public async Task ChangeHasAttachment()
+    {
+        ResultFilesCallback.Callback = list =>
+        {
+            Assert.AreEqual(1, list.Count);
+            var file = Path.GetFileName(list[0]);
+            Assert.AreEqual($"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
+        };
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        await Assert.ThrowsExceptionAsync<VerifyException>(
+            () => Verify("Bar", settings));
+    }
+    [ResultFilesCallback]
+    [TestMethod]
+    public async Task AutoVerifyHasAttachment()
+    {
+        var path = CurrentFile.Relative("Tests.AutoVerifyHasAttachment.verified.txt");
+        var fullPath = Path.GetFullPath(path);
+        File.Delete(fullPath);
+        File.WriteAllText(fullPath,"Foo");
+        ResultFilesCallback.Callback = list =>
+        {
+            Assert.AreEqual(1, list.Count);
+            var file = Path.GetFileName(list[0]);
+            Assert.AreEqual("Tests.AutoVerifyHasAttachment.verified.txt", file);
+        };
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.AutoVerify();
+        await Verify("Bar", settings);
+    }
+
+    [ResultFilesCallback]
+    [TestMethod]
+    public async Task NewHasAttachment()
+    {
+        ResultFilesCallback.Callback = list =>
+        {
+            Assert.AreEqual(1, list.Count);
+            var file = Path.GetFileName(list[0]);
+            Assert.AreEqual($"Tests.NewHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
+        };
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        await Assert.ThrowsExceptionAsync<VerifyException>(
+            () => Verify("Bar", settings));
+    }
+
+    [ResultFilesCallback]
+    [TestMethod]
+    public async Task MultipleChangedHasAttachment()
+    {
+        ResultFilesCallback.Callback = list =>
+        {
+            Assert.AreEqual(2, list.Count);
+            var file0 = Path.GetFileName(list[0]);
+            var file1 = Path.GetFileName(list[1]);
+            Assert.AreEqual($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
+            Assert.AreEqual($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#01.received.txt", file1);
+        };
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        await Assert.ThrowsExceptionAsync<VerifyException>(
+            () => Verify("Bar", [new Target("txt", "Value")], settings));
+    }
+
+    [ResultFilesCallback]
+    [TestMethod]
+    public async Task MultipleNewHasAttachment()
+    {
+        ResultFilesCallback.Callback = list =>
+        {
+            Assert.AreEqual(2, list.Count);
+            var file0 = Path.GetFileName(list[0]);
+            var file1 = Path.GetFileName(list[1]);
+            Assert.AreEqual($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
+            Assert.AreEqual($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#01.received.txt", file1);
+        };
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        await Assert.ThrowsExceptionAsync<VerifyException>(
+            () => Verify("Bar",[new Target("txt", "Value")], settings));
+    }
 
     #region ExplicitTargetsMsTest
 

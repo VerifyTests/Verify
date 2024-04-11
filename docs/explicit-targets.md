@@ -103,7 +103,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L42-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L128-L145' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsMsTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

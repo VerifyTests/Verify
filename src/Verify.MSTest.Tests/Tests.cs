@@ -55,6 +55,26 @@ public class Tests :
     }
     [ResultFilesCallback]
     [TestMethod]
+    public async Task AutoVerifyHasAttachment()
+    {
+        var path = CurrentFile.Relative("Tests.AutoVerifyHasAttachment.verified.txt");
+        var fullPath = Path.GetFullPath(path);
+        File.Delete(fullPath);
+        File.WriteAllText(fullPath,"Foo");
+        ResultFilesCallback.Callback = list =>
+        {
+            Assert.AreEqual(1, list.Count);
+            var file = Path.GetFileName(list[0]);
+            Assert.AreEqual("Tests.AutoVerifyHasAttachment.verified.txt", file);
+        };
+        var settings = new VerifySettings();
+        settings.DisableDiff();
+        settings.AutoVerify();
+        await Verify("Bar", settings);
+    }
+
+    [ResultFilesCallback]
+    [TestMethod]
     public async Task NewHasAttachment()
     {
         ResultFilesCallback.Callback = list =>

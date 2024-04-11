@@ -4,20 +4,32 @@
 public abstract partial class VerifyBase :
     IDisposable
 {
+    static Task AddFile(FilePair path)
+    {
+        var context = currentTestContext.Value;
+        if (context != null)
+        {
+            //No Received means AutoVerify
+            string fileName;
+            if (File.Exists(path.ReceivedPath))
+            {
+                fileName = path.ReceivedPath;
+            }
+            else
+            {
+                fileName = path.VerifiedPath;
+            }
+
+            context.AddResultFile(fileName);
+        }
+
+        return Task.CompletedTask;
+    }
+
     static VerifyBase()
     {
-        VerifierSettings.OnFirstVerify(
-            (pair, _) =>
-            {
-                currentTestContext.Value?.AddResultFile(pair.ReceivedPath);
-                return Task.CompletedTask;
-            });
-        VerifierSettings.OnVerifyMismatch(
-            (pair, _) =>
-            {
-                currentTestContext.Value?.AddResultFile(pair.ReceivedPath);
-                return Task.CompletedTask;
-            });
+        VerifierSettings.OnFirstVerify((pair, _) => AddFile(pair));
+        VerifierSettings.OnVerifyMismatch((pair, _) => AddFile(pair));
     }
 
     TestContext testContext = null!;

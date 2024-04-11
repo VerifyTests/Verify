@@ -1,35 +1,30 @@
-﻿sealed class ReceivedFileRequiredTestMethodAttribute :
+﻿sealed class ResultFilesCallback :
     TestMethodAttribute
 {
+    public static Action<List<string>>? Callback;
+
     public override TestResult[] Execute(ITestMethod testMethod)
     {
-        var results = base.Execute(testMethod);
-
-        foreach (var result in results)
+        try
         {
-            var files = result.ResultFiles;
-            if(files == null)
+            var results = base.Execute(testMethod);
+
+            if (Callback == null)
             {
-                result.Outcome = UnitTestOutcome.Failed;
-                result.TestFailureException = new("No result files attached to test result.");
-                continue;
+                throw new("Expected Callback");
             }
-            var hasAttachment = files.Any(_ => Path.GetFileNameWithoutExtension(_).EndsWith("received"));
-            if (!hasAttachment)
-            {
-                result.Outcome = UnitTestOutcome.Failed;
 
-                var message = "Expected to find *.received.* file attached to test result but did not.";
+            Callback(
+                results
+                    .Where(_ => _.ResultFiles != null)
+                    .SelectMany(_ => _.ResultFiles!)
+                    .ToList());
 
-                if (result.TestFailureException != null)
-                {
-                    message += $"{Environment.NewLine}{Environment.NewLine}{result.TestFailureException.Message}";
-                }
-
-                result.TestFailureException = new(message, result.TestFailureException);
-            }
+            return results;
         }
-
-        return results;
+        finally
+        {
+            Callback = null;
+        }
     }
 }

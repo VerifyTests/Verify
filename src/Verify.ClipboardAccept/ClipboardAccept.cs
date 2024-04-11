@@ -16,11 +16,18 @@ public static class ClipboardAccept
     {
         VerifierSettings.OnFirstVerify(AppendMove);
         VerifierSettings.OnDelete(AppendDelete);
-        VerifierSettings.OnVerifyMismatch((file, _) => AppendMove(file, null));
+        VerifierSettings.OnVerifyMismatch((file, _, autoVerify) => AppendMove(file, null, autoVerify));
     }
 
-    static Task AppendMove(FilePair file, string? receivedText) =>
-        Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
+    static Task AppendMove(FilePair file, string? receivedText, bool autoVerify)
+    {
+        if (autoVerify)
+        {
+            return Task.CompletedTask;
+        }
+
+        return Append(string.Format(moveCommand, file.ReceivedPath, file.VerifiedPath));
+    }
 
     static ClipboardAccept()
     {
@@ -54,8 +61,14 @@ public static class ClipboardAccept
     internal static string Read() =>
         builder.ToString();
 
-    internal static Task AppendDelete(string verified) =>
-        Append(string.Format(deleteCommand, verified));
+    internal static Task AppendDelete(string verified, bool autoVerify)
+    {
+        if (autoVerify)
+        {
+            return Task.CompletedTask;
+        }
+        return Append(string.Format(deleteCommand, verified));
+    }
 
     static async Task Append(string command)
     {

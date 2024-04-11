@@ -18,36 +18,36 @@ public static partial class VerifierSettings
 
     static VerifyDelete? handleOnVerifyDelete;
 
-    internal static Task RunOnFirstVerify(NewResult item)
+    internal static Task RunOnFirstVerify(NewResult item, bool autoVerify)
     {
         if (handleOnFirstVerify is null)
         {
             return Task.CompletedTask;
         }
 
-        return handleOnFirstVerify(item.File, item.ReceivedText?.ToString());
+        return handleOnFirstVerify(item.File, item.ReceivedText?.ToString(), autoVerify);
     }
 
     static VerifyMismatch? handleOnVerifyMismatch;
 
-    internal static Task RunOnVerifyDelete(string file)
+    internal static Task RunOnVerifyDelete(string file, bool autoVerify)
     {
         if (handleOnVerifyDelete is null)
         {
             return Task.CompletedTask;
         }
 
-        return handleOnVerifyDelete(file);
+        return handleOnVerifyDelete(file, autoVerify);
     }
 
-    internal static Task RunOnVerifyMismatch(FilePair item, string? message)
+    internal static Task RunOnVerifyMismatch(FilePair item, string? message, bool autoVerify)
     {
         if (handleOnVerifyMismatch is null)
         {
             return Task.CompletedTask;
         }
 
-        return handleOnVerifyMismatch(item, message);
+        return handleOnVerifyMismatch(item, message, autoVerify);
     }
 
     public static void OnVerifyMismatch(VerifyMismatch verifyMismatch)

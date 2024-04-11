@@ -21,7 +21,6 @@ public static partial class VerifierSettings
     public static void AutoVerify(GlobalAutoVerify autoVerify, bool includeBuildServer = true)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-#if DiffEngine
         if (includeBuildServer)
         {
             VerifierSettings.autoVerify = autoVerify;
@@ -33,7 +32,6 @@ public static partial class VerifierSettings
                 VerifierSettings.autoVerify = autoVerify;
             }
         }
-#endif
     }
 
     internal static GlobalAutoVerify? autoVerify;

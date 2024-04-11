@@ -12,9 +12,7 @@ public partial class VerifySettings
         dateCountingEnable = settings.dateCountingEnable;
         InstanceScrubbers = [..settings.InstanceScrubbers];
         ExtensionMappedInstanceScrubbers = new(settings.ExtensionMappedInstanceScrubbers);
-#if DiffEngine
         diffEnabled = settings.diffEnabled;
-#endif
         methodName = settings.methodName;
         typeName = settings.typeName;
         appendedFiles = settings.appendedFiles;
@@ -98,7 +96,6 @@ public partial class VerifySettings
     /// </summary>
     public void AutoVerify(AutoVerify autoVerify, bool includeBuildServer = true)
     {
-#if DiffEngine
         if (includeBuildServer)
         {
            this.autoVerify = autoVerify;
@@ -110,6 +107,5 @@ public partial class VerifySettings
                 this.autoVerify = autoVerify;
             }
         }
-#endif
     }
 }

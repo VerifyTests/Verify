@@ -111,6 +111,12 @@ public static class ModuleInitializer
  * `OnVerifyMismatch` is called when a received file does not match the existing verified file.
 
 
+### AutoVerify
+
+OnHandlers are called before AutoVerify logic being applied. So for example in the case of `OnVerifyMismatch`, both the received and verified file will exist at the point `OnVerifyMismatch` is called. Immediately after received will be used to overwrite verified.
+
+
+
 ### Globally
 
 <!-- snippet: OnStaticHandlers -->
@@ -125,14 +131,14 @@ public static class ModuleInitializer
             before: () => Debug.WriteLine("before"),
             after: () => Debug.WriteLine("after"));
         VerifierSettings.OnFirstVerify(
-            (receivedFile, receivedText) =>
+            (receivedFile, receivedText, autoVerify) =>
             {
                 Debug.WriteLine(receivedFile);
                 Debug.WriteLine(receivedText);
                 return Task.CompletedTask;
             });
         VerifierSettings.OnVerifyMismatch(
-            (filePair, message) =>
+            (filePair, message, autoVerify) =>
             {
                 Debug.WriteLine(filePair.ReceivedPath);
                 Debug.WriteLine(filePair.VerifiedPath);
@@ -142,7 +148,7 @@ public static class ModuleInitializer
     }
 }
 ```
-<sup><a href='/src/ModuleInitDocs/OnHandlers.cs#L3-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnStaticHandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/OnHandlers.cs#L4-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnStaticHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -159,14 +165,14 @@ public Task OnCallbacks()
         before: () => Debug.WriteLine("before"),
         after: () => Debug.WriteLine("after"));
     settings.OnFirstVerify(
-        (receivedFile, receivedText) =>
+        (receivedFile, receivedText, autoVerify) =>
         {
             Debug.WriteLine(receivedFile);
             Debug.WriteLine(receivedText);
             return Task.CompletedTask;
         });
     settings.OnVerifyMismatch(
-        (filePair, message) =>
+        (filePair, message, autoVerify) =>
         {
             Debug.WriteLine(filePair.ReceivedPath);
             Debug.WriteLine(filePair.VerifiedPath);
@@ -177,7 +183,7 @@ public Task OnCallbacks()
     return Verify("value");
 }
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L130-L158' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L131-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-OnInstanceHandlers' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -176,9 +176,10 @@ class VerifyEngine(
 
     async Task<bool> ProcessDeletes(string file)
     {
-        await settings.RunOnVerifyDelete(file);
+        var autoVerify = IsAutoVerify(file);
+        await settings.RunOnVerifyDelete(file, autoVerify);
 
-        if (IsAutoVerify(file))
+        if (autoVerify)
         {
             File.Delete(file);
             return true;
@@ -202,8 +203,9 @@ class VerifyEngine(
         var verified = true;
         foreach (var notEqual in notEquals)
         {
-            await settings.RunOnVerifyMismatch(notEqual.File, notEqual.Message);
-            if (!await RunDiffAutoCheck(notEqual.File))
+            var autoVerify = IsAutoVerify(notEqual.File.VerifiedPath);
+            await settings.RunOnVerifyMismatch(notEqual.File, notEqual.Message, autoVerify);
+            if (!await RunDiffAutoCheck(notEqual.File, autoVerify))
             {
                 verified = false;
             }
@@ -227,9 +229,8 @@ class VerifyEngine(
 
     // ReSharper disable once UnusedParameter.Local
     // ReSharper disable once MemberCanBeMadeStatic.Local
-    async Task<bool> RunDiffAutoCheck(FilePair file)
+    async Task<bool> RunDiffAutoCheck(FilePair file, bool autoVerify)
     {
-        var autoVerify = IsAutoVerify(file.VerifiedPath);
         if (autoVerify)
         {
             autoVerified.Add(file);
@@ -259,8 +260,9 @@ class VerifyEngine(
         var verified = true;
         foreach (var file in @new)
         {
-            await settings.RunOnFirstVerify(file);
-            if (!await RunDiffAutoCheck(file.File))
+            var autoVerify = IsAutoVerify(file.File.VerifiedPath);
+            await settings.RunOnFirstVerify(file, autoVerify);
+            if (!await RunDiffAutoCheck(file.File, autoVerify))
             {
                 verified = false;
             }

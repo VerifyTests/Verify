@@ -92,7 +92,7 @@ public class Tests
     public static void OnVerifyMismatchInit()
     {
         VerifierSettings.OnFirstVerify(
-            (filePair, _) =>
+            (filePair, _, _) =>
             {
                 if (filePair.VerifiedPath.Contains("OnVerifyMismatch"))
                 {
@@ -102,7 +102,7 @@ public class Tests
                 return Task.CompletedTask;
             });
         VerifierSettings.OnVerifyMismatch(
-            (filePair, _) =>
+            (filePair, _, _) =>
             {
                 if (filePair.VerifiedPath.Contains("OnVerifyMismatch"))
                 {
@@ -127,6 +127,7 @@ public class Tests
         Assert.True(onVerifyMismatchCalled2);
     }
 
+    // ReSharper disable UnusedParameter.Local
 #region OnInstanceHandlers
 
     [Fact]
@@ -137,14 +138,14 @@ public class Tests
             before: () => Debug.WriteLine("before"),
             after: () => Debug.WriteLine("after"));
         settings.OnFirstVerify(
-            (receivedFile, receivedText) =>
+            (receivedFile, receivedText, autoVerify) =>
             {
                 Debug.WriteLine(receivedFile);
                 Debug.WriteLine(receivedText);
                 return Task.CompletedTask;
             });
         settings.OnVerifyMismatch(
-            (filePair, message) =>
+            (filePair, message, autoVerify) =>
             {
                 Debug.WriteLine(filePair.ReceivedPath);
                 Debug.WriteLine(filePair.VerifiedPath);
@@ -156,6 +157,7 @@ public class Tests
     }
 
 #endregion
+// ReSharper restore UnusedParameter.Local
 
 #if NET6_0_OR_GREATER
     static bool onFirstVerifyCalled;
@@ -165,7 +167,7 @@ public class Tests
     public static void OnFirstVerifyInit()
     {
         VerifierSettings.OnFirstVerify(
-            (filePair, _) =>
+            (filePair, _, _) =>
             {
                 if (filePair.VerifiedPath.Contains("OnFirstVerify"))
                 {
@@ -177,7 +179,7 @@ public class Tests
                 return Task.CompletedTask;
             });
         VerifierSettings.OnVerifyMismatch(
-            (filePair, _) =>
+            (filePair, _, _) =>
             {
                 if (filePair.VerifiedPath.Contains("OnFirstVerify"))
                 {

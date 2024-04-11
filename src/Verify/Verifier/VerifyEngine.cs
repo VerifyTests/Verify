@@ -2,39 +2,21 @@
 // ReSharper disable UseAwaitUsing
 
 [DebuggerDisplay("new = {new.Count} | notEquals = {notEquals.Count} | equal = {equal.Count} | delete = {delete.Count}")]
-class VerifyEngine
+class VerifyEngine(
+    string directory,
+    VerifySettings settings,
+    IEnumerable<string> verifiedFiles,
+    GetFileNames getFileNames,
+    GetIndexedFileNames getIndexedFileNames,
+    string? typeName,
+    string? methodName)
 {
-    string directory;
-    VerifySettings settings;
-    bool diffEnabled;
+    bool diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
     List<NewResult> @new = [];
     List<NotEqualResult> notEquals = [];
     List<FilePair> equal = [];
     List<FilePair> autoVerified = [];
-    HashSet<string> delete;
-    GetFileNames getFileNames;
-    GetIndexedFileNames getIndexedFileNames;
-    string? typeName;
-    string? methodName;
-
-    public VerifyEngine(
-        string directory,
-        VerifySettings settings,
-        IEnumerable<string> verifiedFiles,
-        GetFileNames getFileNames,
-        GetIndexedFileNames getIndexedFileNames,
-        string? typeName,
-        string? methodName)
-    {
-        this.directory = directory;
-        this.settings = settings;
-        diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-        delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
-        this.getFileNames = getFileNames;
-        this.getIndexedFileNames = getIndexedFileNames;
-        this.typeName = typeName;
-        this.methodName = methodName;
-    }
+    HashSet<string> delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
 
     public IReadOnlyList<FilePair> Equal => equal;
     public IReadOnlyList<FilePair> AutoVerified => autoVerified;

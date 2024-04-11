@@ -28,9 +28,7 @@ class VerifyEngine
     {
         this.directory = directory;
         this.settings = settings;
-#if DiffEngine
         diffEnabled = !DiffRunner.Disabled && settings.diffEnabled;
-#endif
         delete = new(verifiedFiles, StringComparer.InvariantCultureIgnoreCase);
         this.getFileNames = getFileNames;
         this.getIndexedFileNames = getIndexedFileNames;
@@ -204,7 +202,6 @@ class VerifyEngine
             return true;
         }
 
-#if DiffEngine
         if (BuildServerDetector.Detected)
         {
             return false;
@@ -214,7 +211,7 @@ class VerifyEngine
         {
             await DiffEngineTray.AddDeleteAsync(file);
         }
-#endif
+
         return false;
     }
 
@@ -240,19 +237,16 @@ class VerifyEngine
             return;
         }
 
-#if DiffEngine
         foreach (var item in equal)
         {
             DiffRunner.Kill(item.ReceivedPath, item.VerifiedPath);
         }
-#endif
     }
 
     // ReSharper disable once UnusedParameter.Local
     // ReSharper disable once MemberCanBeMadeStatic.Local
     async Task<bool> RunDiffAutoCheck(FilePair file)
     {
-#if DiffEngine
         var autoVerify = IsAutoVerify(file.VerifiedPath);
         if (autoVerify)
         {
@@ -274,7 +268,6 @@ class VerifyEngine
         {
             await DiffRunner.LaunchAsync(file.ReceivedPath, file.VerifiedPath, VerifierSettings.Encoding);
         }
-#endif
 
         return autoVerify;
     }

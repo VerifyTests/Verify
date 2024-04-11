@@ -2,10 +2,6 @@
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
-    <DiffEngine>true</DiffEngine>
-  </PropertyGroup>
-  <PropertyGroup Condition="$(DiffEngine)">
-    <DefineConstants>$(DefineConstants);DiffEngine</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Polyfill" Version="4.5.0" PrivateAssets="all" />

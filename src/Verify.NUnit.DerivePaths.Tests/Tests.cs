@@ -1,4 +1,6 @@
-﻿[TestFixture]
+﻿using Is = NUnit.Framework.Is;
+
+[TestFixture]
 public class Tests
 {
     [Test]
@@ -7,10 +9,10 @@ public class Tests
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
-                Assert.That(File.Exists(sourceFile));
-                Assert.That(Directory.Exists(projectDirectory));
-                Assert.That(methodName, Is.Not.Null);
-                Assert.That(typeName, Is.Not.Null);
+                That(File.Exists(sourceFile));
+                That(Directory.Exists(projectDirectory));
+                That(methodName, Is.Not.Null);
+                That(typeName, Is.Not.Null);
                 // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
                 // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
@@ -39,7 +41,7 @@ public class Tests
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [Test]
@@ -49,7 +51,7 @@ public class Tests
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [Test]
@@ -59,6 +61,6 @@ public class Tests
             .GetInvalidPathChars()
             .First()
             .ToString()));
-        Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 }

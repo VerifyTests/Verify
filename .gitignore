@@ -18,3 +18,4 @@ src/Verify.Tests/Tests.TextNegative.verified.tmp
 *.cache
 src/Verify.Tests/NewLineTests.StringWithDifferingNewline.verified.txt
 src/Verify.MSTest.Tests/Tests.AutoVerifyHasAttachment.verified.txt
+src/Verify.NUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt

@@ -1,8 +1,7 @@
 ﻿namespace VerifyMSTest;
 
 [TestClass]
-public abstract partial class VerifyBase :
-    IDisposable
+public abstract partial class VerifyBase
 {
     static Task AddFile(FilePair path, bool autoVerify)
     {
@@ -129,6 +128,8 @@ public abstract partial class VerifyBase :
             });
     }
 
-    public void Dispose() =>
+    [TestCleanup]
+    [Experimental("NotForPublicUse")]
+    public void CleanupTestContext() =>
         currentTestContext.Value = null;
 }

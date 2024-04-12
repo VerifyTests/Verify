@@ -130,6 +130,6 @@ public abstract partial class VerifyBase
 
     [TestCleanup]
     [Experimental("NotForPublicUse")]
-    public void CleanupTestContext() =>
+    public void CleanupVerifyTestContext() =>
         currentTestContext.Value = null;
 }

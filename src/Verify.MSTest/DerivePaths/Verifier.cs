@@ -3,7 +3,7 @@
 #pragma warning disable VerifyTestsProjectDir
 namespace VerifyMSTest;
 
-public partial class VerifyBase
+public partial class Verifier
 {
     static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
 
@@ -19,7 +19,7 @@ public partial class VerifyBase
     /// </remarks>
     /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
     public static void DerivePathInfo(DerivePathInfo derivePathInfo) =>
-        VerifyBase.derivePathInfo = derivePathInfo;
+        Verifier.derivePathInfo = derivePathInfo;
 
     /// <summary>
     /// Use a directory relative to the project directory for storing for `.verified.` files.

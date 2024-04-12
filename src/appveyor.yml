@@ -34,8 +34,10 @@ build_script:
   - dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore
   - dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore
   - dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.MSTest.DerivePaths.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.MSTest.Tests --configuration Release --no-build --no-restore
+  - vstest.console src/Verify.MSTest.DerivePaths.Tests/bin/Release/net48/Verify.MSTest.DerivePaths.Tests.dll  /logger:Appveyor
+  - vstest.console src/Verify.MSTest.DerivePaths.Tests/bin/Release/net9.0/Verify.MSTest.DerivePaths.Tests.dll  /logger:Appveyor
+  - vstest.console src/Verify.MSTest.Tests/bin/Release/net48/Verify.MSTest.Tests.dll  /logger:Appveyor
+  - vstest.console src/Verify.MSTest.Tests/bin/Release/net9.0/Verify.MSTest.Tests.dll  /logger:Appveyor
   - dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore
   - dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore
   - dotnet test src/Verify.Tests --configuration Release --no-build --no-restore

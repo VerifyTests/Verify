@@ -26,7 +26,7 @@ public abstract partial class VerifyBase
     public TestContext TestContext
     {
         get => testContext;
-        set
+        init
         {
             testContext = value;
             currentTestContext.Value = value;
@@ -127,9 +127,4 @@ public abstract partial class VerifyBase
                 return await verify(verifier);
             });
     }
-
-    [TestCleanup]
-    [Experimental("NotForPublicUse")]
-    public void CleanupVerifyTestContext() =>
-        currentTestContext.Value = null;
 }

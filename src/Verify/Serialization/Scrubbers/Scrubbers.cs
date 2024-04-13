@@ -90,7 +90,9 @@ public static class Scrubbers
         foreach (var line in stackTrace.AsSpan().EnumerateLines())
         {
             var span = line.TrimStart();
-            if ((span.Contains(angleBrackets, StringComparison.Ordinal) &&
+            if (
+                span.Length  == 0 ||
+                (span.Contains(angleBrackets, StringComparison.Ordinal) &&
                  span.Contains(moveNext, StringComparison.Ordinal)) ||
                 span.Contains(taskAwaiter, StringComparison.Ordinal) ||
                 span.Contains(end, StringComparison.Ordinal))

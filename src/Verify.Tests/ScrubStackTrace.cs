@@ -30,4 +30,19 @@
             removeParams: true);
         return Verify(scrubbed);
     }
+
+    [Fact]
+    public Task WhiteSpace()
+    {
+        var scrubbed = Scrubbers.ScrubStackTrace(
+            """
+            System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+                at SerializationTests.Method() in /Users/appveyor/projects/verify/src/Verify.Tests/Serialization/SerializationTests.cs:line 2634
+
+                at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+                at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+            """,
+            removeParams: true);
+        return Verify(scrubbed);
+    }
 }

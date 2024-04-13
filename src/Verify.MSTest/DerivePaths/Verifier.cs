@@ -3,7 +3,7 @@
 #pragma warning disable VerifyTestsProjectDir
 namespace VerifyMSTest;
 
-public partial class Verifier
+partial class Verifier
 {
     static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
 

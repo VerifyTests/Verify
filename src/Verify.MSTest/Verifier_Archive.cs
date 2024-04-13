@@ -2,13 +2,13 @@ using System.IO.Compression;
 
 namespace VerifyMSTest;
 
-public partial class Verifier
+partial class Verifier
 {
     /// <summary>
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
-    public SettingsTask Verify(
+    public static SettingsTask Verify(
         ZipArchive archive,
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
@@ -21,7 +21,7 @@ public partial class Verifier
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
-    public SettingsTask VerifyZip(
+    public static SettingsTask VerifyZip(
         string path,
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
@@ -34,7 +34,7 @@ public partial class Verifier
     /// Verifies the contents of a <see cref="ZipArchive" />
     /// </summary>
     [Pure]
-    public SettingsTask VerifyZip(
+    public static SettingsTask VerifyZip(
         Stream stream,
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,

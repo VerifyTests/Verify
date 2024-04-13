@@ -1,11 +1,10 @@
 namespace VerifyMSTest;
 
-[TestClass]
-public abstract partial class Verifier
+public static partial class Verifier
 {
     static Task AddFile(FilePair path, bool autoVerify)
     {
-        var context = currentTestContext.Value;
+        var context = CurrentTestContext.Value;
         if (context != null)
         {
             var fileName = autoVerify ? path.VerifiedPath : path.ReceivedPath;
@@ -21,30 +20,19 @@ public abstract partial class Verifier
         VerifierSettings.OnVerifyMismatch((pair, _, autoVerify) => AddFile(pair, autoVerify));
     }
 
-    TestContext testContext = null!;
+    public static readonly AsyncLocal<TestContext?> CurrentTestContext = new();
 
-    public TestContext TestContext
+    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
-        get => testContext;
-        init
-        {
-            testContext = value;
-            currentTestContext.Value = value;
-        }
-    }
-
-    static AsyncLocal<TestContext?> currentTestContext = new();
-
-    InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
-    {
-        var type = GetType();
+        var typeName = CurrentTestContext.Value?.FullyQualifiedTestClassName;
+        var type = FindType(typeName.AsSpan());
 
         if (useUniqueDirectory)
         {
             settings.UseUniqueDirectory();
         }
 
-        var testName = TestContext.TestName;
+        var testName = CurrentTestContext.Value?.TestName;
         if (testName == null)
         {
             throw new("TestContext.TestName is null. Ensure being used inside a test");
@@ -76,6 +64,26 @@ public abstract partial class Verifier
             pathInfo);
     }
 
+    static Type FindType(ReadOnlySpan<char> typeName)
+    {
+        // TODO: Either
+        //    1. Switch to the other DerivePathInfo that uses names (e.g. from Expecto) and avoid type lookups
+        //    2. Add a cache here to speed up the lookup
+        var types = AppDomain.CurrentDomain.GetAssemblies()
+            .Reverse()
+            .SelectMany(assembly => assembly.GetTypes());
+
+        foreach (var type in types)
+        {
+            if (typeName.SequenceEqual(type.FullName))
+            {
+                return type;
+            }
+        }
+
+        throw new($"Type '{typeName}' from TestContext not found.");
+    }
+
     static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
     {
         foreach (var method in type
@@ -91,7 +99,7 @@ public abstract partial class Verifier
     }
 
     [Pure]
-    public SettingsTask Verify(
+    public static SettingsTask Verify(
         object? target,
         IEnumerable<Target> rawTargets,
         VerifySettings? settings = null,
@@ -99,20 +107,20 @@ public abstract partial class Verifier
         Verify(settings, sourceFile, _ => _.Verify(target, rawTargets));
 
     [Pure]
-    public SettingsTask Verify(
+    public static SettingsTask Verify(
         IEnumerable<Target> targets,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(targets));
 
     [Pure]
-    public SettingsTask Verify(
+    public static SettingsTask Verify(
         Target target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
         Verify(settings, sourceFile, _ => _.Verify(target));
 
-    SettingsTask Verify(
+    static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,
         Func<InnerVerifier, Task<VerifyResult>> verify,

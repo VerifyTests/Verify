@@ -1,14 +1,28 @@
-﻿// ReSharper disable UnusedParameter.Local
+﻿// TODO: Add a test that uses the base class to prevent regressions until it's deleted
+// TODO: Add a test for when the [TestClass] already has a TestContext property
+
+// TODO: Make this in generator
+partial class Tests
+{
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Injected by the test framework per test.")]
+    public TestContext TestContext
+    {
+        get => CurrentTestContext.Value!;
+        set => CurrentTestContext.Value = value;
+
+    }
+}
+
 [TestClass]
-public class Tests :
-    VerifyBase
+[UsesVerify]
+public partial class Tests
 {
     // ReSharper disable once UnusedMember.Local
     static void DerivePathInfo()
     {
         #region DerivePathInfoMSTest
 
-        DerivePathInfo(
+        Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,

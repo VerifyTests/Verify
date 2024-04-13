@@ -1,6 +1,6 @@
 namespace VerifyMSTest;
 
-public partial class Verifier
+partial class Verifier
 {
 #if NET5_0_OR_GREATER
 
@@ -8,7 +8,7 @@ public partial class Verifier
     /// Verifies the contents of <paramref name="path" />.
     /// </summary>
     [Pure]
-    public SettingsTask VerifyDirectory(
+    public static SettingsTask VerifyDirectory(
         string path,
         Func<string, bool>? include = null,
         string? pattern = null,
@@ -24,7 +24,7 @@ public partial class Verifier
     /// Differs from passing <see cref="DirectoryInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
-    public SettingsTask VerifyDirectory(
+    public static SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,
         string? pattern = null,
@@ -39,7 +39,7 @@ public partial class Verifier
     /// Verifies the contents of <paramref name="path"/>.
     /// </summary>
     [Pure]
-    public SettingsTask VerifyDirectory(
+    public static SettingsTask VerifyDirectory(
         string path,
         Func<string, bool>? include = null,
         string? pattern = null,
@@ -55,7 +55,7 @@ public partial class Verifier
     /// Differs from passing <see cref="DirectoryInfo"/> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
-    public SettingsTask VerifyDirectory(
+    public static SettingsTask VerifyDirectory(
         DirectoryInfo path,
         Func<string, bool>? include = null,
         string? pattern = null,

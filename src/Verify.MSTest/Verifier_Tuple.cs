@@ -1,9 +1,9 @@
 namespace VerifyMSTest;
 
-public partial class Verifier
+partial class Verifier
 {
     [Pure]
-    public SettingsTask VerifyTuple(
+    public static SettingsTask VerifyTuple(
         Expression<Func<ITuple>> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

@@ -1,12 +1,12 @@
 namespace VerifyMSTest;
 
-public partial class Verifier
+partial class Verifier
 {
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
     /// </summary>
     [Pure]
-    public SettingsTask VerifyFile(
+    public static SettingsTask VerifyFile(
         string path,
         VerifySettings? settings = null,
         object? info = null,
@@ -18,7 +18,7 @@ public partial class Verifier
     /// Differs from passing <see cref="FileInfo" /> to <code>Verify(object? target)</code> which will verify the full path.
     /// </summary>
     [Pure]
-    public SettingsTask VerifyFile(
+    public static SettingsTask VerifyFile(
         FileInfo path,
         VerifySettings? settings = null,
         object? info = null,

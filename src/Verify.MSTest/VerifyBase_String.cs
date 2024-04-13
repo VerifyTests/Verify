@@ -1,20 +1,22 @@
-﻿namespace VerifyMSTest;
+namespace VerifyMSTest;
 
-public partial class VerifyBase
+partial class VerifyBase
 {
+#pragma warning disable CA1822 // Mark members as static
+
     [Pure]
     public SettingsTask Verify(
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target));
+        Verifier.Verify(target, settings, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
         Task<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target));
+        Verifier.Verify(target, settings, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -22,7 +24,7 @@ public partial class VerifyBase
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target, extension));
+        Verifier.Verify(target, extension, settings, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -30,5 +32,5 @@ public partial class VerifyBase
         string extension,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyString(target, extension));
+        Verifier.Verify(target, extension, settings, sourceFile);
 }

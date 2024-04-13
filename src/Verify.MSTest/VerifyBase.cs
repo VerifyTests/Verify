@@ -1,6 +1,6 @@
 namespace VerifyMSTest;
 
-// TODO: This should be added by the generator
+#region WillBeSourceGenerated
 partial class VerifyBase
 {
     [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Set by the test framework per test.")]
@@ -10,6 +10,7 @@ partial class VerifyBase
         set => Verifier.CurrentTestContext.Value = value;
     }
 }
+#endregion
 
 // TODO: Mark as obsolete
 //[Obsolete("Use [UsesVerify] instead.")]

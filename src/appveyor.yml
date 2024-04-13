@@ -24,24 +24,24 @@ before_build:
       }
   - dotnet tool restore --tool-manifest src/.config/dotnet-tools.json
 build_script:
-  - dotnet build src --configuration Release
-  - dotnet test src/DeterministicTests --configuration Release --no-build --no-restore
-  - dotnet test src/FSharpTests --configuration Release --no-build --no-restore
-  - dotnet test src/StaticSettingsTests --configuration Release --no-build --no-restore
-  - dotnet test src/StrictJsonTests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.ClipboardAccept.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.ExceptionParsing.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore
+  - dotnet build src --configuration Release --verbosity quiet
+  - dotnet test src/DeterministicTests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/FSharpTests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/StaticSettingsTests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/StrictJsonTests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.ClipboardAccept.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.ExceptionParsing.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity quiet
   - vstest.console src/Verify.MSTest.DerivePaths.Tests/bin/Release/net9.0/Verify.MSTest.DerivePaths.Tests.dll /logger:Appveyor
   - vstest.console src/Verify.MSTest.Tests/bin/Release/net48/Verify.MSTest.Tests.dll /logger:Appveyor
   - vstest.console src/Verify.MSTest.Tests/bin/Release/net9.0/Verify.MSTest.Tests.dll /logger:Appveyor
-  - dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore
-  - dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore
+  - dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
+  - dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore --verbosity quiet
 
 #- pwsh: |
 #    if ($isWindows) {

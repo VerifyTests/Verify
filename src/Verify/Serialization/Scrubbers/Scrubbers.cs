@@ -91,7 +91,7 @@ public static class Scrubbers
         {
             var span = line.TrimStart();
             if (
-                span.Length  == 0 ||
+                span.Length == 0 ||
                 (span.Contains(angleBrackets, StringComparison.Ordinal) &&
                  span.Contains(moveNext, StringComparison.Ordinal)) ||
                 span.Contains(taskAwaiter, StringComparison.Ordinal) ||
@@ -139,7 +139,11 @@ public static class Scrubbers
             builder.AppendLineN();
         }
 
-        builder.Length--;
+        if (builder.Length > 0)
+        {
+            builder.Length--;
+        }
+
         return builder.ToString();
     }
 

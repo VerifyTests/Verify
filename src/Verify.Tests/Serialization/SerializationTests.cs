@@ -1905,8 +1905,7 @@ public class SerializationTests
         var target = Path
             .Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "SomePath")
             .Replace('\\', '/');
-        return Verify(target)
-            .UniqueForOSPlatform();
+        return Verify(target);
     }
 
 #if !NET5_0_OR_GREATER

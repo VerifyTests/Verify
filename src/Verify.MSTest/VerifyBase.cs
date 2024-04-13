@@ -12,8 +12,6 @@ partial class VerifyBase
 }
 #endregion
 
-// TODO: Mark as obsolete
-//[Obsolete("Use [UsesVerify] instead.")]
 [TestClass]
 [UsesVerify]
 public abstract partial class VerifyBase

@@ -1,0 +1,4 @@
+﻿System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+at SerializationTests.Method()
+at System.RuntimeMethodHandle.InvokeMethod(...)
+at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(...)

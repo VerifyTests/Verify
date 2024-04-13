@@ -26,3 +26,8 @@ In some scenarios, as part of a build, the test assemblies are copied to a diffe
 For example a possible implementation for [AppVeyor](https://www.appveyor.com/) could be:
 
 snippet: DerivePathInfoAppVeyor
+
+
+## Attachments
+
+include: test-context-attachments

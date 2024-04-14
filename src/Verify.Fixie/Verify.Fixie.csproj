@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Fixie" Version="3.4.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.126" PrivateAssets="all" />
-    <PackageReference Include="Polyfill" Version="4.5.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="4.6.0" PrivateAssets="all" />
     <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="buildTransitive\Verify.Fixie.props" />
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="build\Verify.Fixie.props" />

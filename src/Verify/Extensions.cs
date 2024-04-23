@@ -219,5 +219,5 @@ static class Extensions
     }
 
     public static bool IsException(this Type type) =>
-        typeof(Exception).IsAssignableFrom(type);
+        type.IsAssignableTo<Exception>();
 }

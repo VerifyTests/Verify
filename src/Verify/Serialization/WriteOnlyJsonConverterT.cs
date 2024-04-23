@@ -20,7 +20,7 @@ public abstract class WriteOnlyJsonConverter<T> :
 
     public sealed override bool CanConvert(Type type)
     {
-        if (typeof(T).IsAssignableFrom(type))
+        if (type.IsAssignableTo<T>())
         {
             return true;
         }

@@ -1,4 +1,4 @@
-﻿// ReSharper disable RedundantSuppressNullableWarningExpression
+// ReSharper disable RedundantSuppressNullableWarningExpression
 
 // ReSharper disable UnusedParameter.Local
 
@@ -193,6 +193,14 @@ public static partial class VerifierSettings
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         scrubUserProfile = false;
+    }
+
+    internal static bool scrubTempPath = true;
+
+    public static void DontScrubTempPath()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        scrubTempPath = false;
     }
 
     internal static bool sortPropertiesAlphabetically;

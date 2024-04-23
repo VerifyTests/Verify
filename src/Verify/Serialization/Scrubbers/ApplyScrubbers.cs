@@ -37,12 +37,15 @@ static class ApplyScrubbers
         }
 #endif
 
-        var tempPath = CleanPath(Path.GetTempPath());
-        var altTempPath = tempPath.ReplaceAltDirChar();
-        replacements[tempPath + dirSeparator] = "{TempPath}";
-        replacements[tempPath] = "{TempPath}";
-        replacements[altTempPath + altDirSeparator] = "{TempPath}";
-        replacements[altTempPath] = "{TempPath}";
+        if (VerifierSettings.scrubTempPath)
+        {
+            var tempPath = CleanPath(Path.GetTempPath());
+            var altTempPath = tempPath.ReplaceAltDirChar();
+            replacements[tempPath + dirSeparator] = "{TempPath}";
+            replacements[tempPath] = "{TempPath}";
+            replacements[altTempPath + altDirSeparator] = "{TempPath}";
+            replacements[altTempPath] = "{TempPath}";
+        }
 
         if (VerifierSettings.scrubUserProfile)
         {

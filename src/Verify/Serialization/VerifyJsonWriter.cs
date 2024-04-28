@@ -121,7 +121,8 @@ public class VerifyJsonWriter :
             if (value[0] != '\n')
             {
                 //todo: avoid alloc
-                WriteRawValue($"\n{value.ToString()}");
+                WriteRawValue("\n");
+                WriteRaw(value);
             }
             else
             {

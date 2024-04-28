@@ -120,7 +120,6 @@ public class VerifyJsonWriter :
             var builderLength = builder.Length;
             if (value[0] != '\n')
             {
-                //todo: avoid alloc
                 WriteRawValue("\n");
                 WriteRaw(value);
             }

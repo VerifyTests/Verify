@@ -218,7 +218,7 @@ snippet: VerifyFuncOfTaskOfT
 
 snippet: VerifyJson
 
-Results in:
+Results in a .txt file:
 
 snippet: JsonTests.VerifyJsonString.verified.txt
 

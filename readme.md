@@ -417,7 +417,7 @@ public Task VerifyJsonJToken()
 <sup><a href='/src/Verify.Tests/JsonTests.cs#L183-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyJson' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Results in:
+Results in a .txt file:
 
 <!-- snippet: JsonTests.VerifyJsonString.verified.txt -->
 <a id='snippet-JsonTests.VerifyJsonString.verified.txt'></a>

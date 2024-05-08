@@ -34,7 +34,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         ct.ThrowIfCancellationRequested();
 
-        return new ClassToGenerate(classSymbol.ContainingNamespace.ToDisplayString(), classSymbol.ToDisplayString());
+        return new ClassToGenerate(classSymbol.ContainingNamespace.ToDisplayString(), classSymbol.Name);
     }
 
     private static void Execute(SourceProductionContext context, ClassToGenerate? classToGenerate)

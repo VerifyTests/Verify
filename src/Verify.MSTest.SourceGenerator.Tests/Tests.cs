@@ -53,11 +53,43 @@ public class Tests
         var source = """
             using VerifyMSTest;
 
-            namespace Foo
+            namespace Foo;
 
             [UsesVerify]
             public class Bar
             {
+            }
+            """;
+
+        var results = TestDriver
+            .Run(source)
+            .Results
+            .SelectMany(grr => grr.GeneratedSources)
+            .Select(gs => gs.SourceText.ToString())
+            .ToArray();
+
+        // TODO: Why is static using not working?
+        return Verifier.Verify(results);
+    }
+
+    [Fact]
+    public Task HasAttributeInNestedNamespaceAndClass()
+    {
+        var source = """
+            using VerifyMSTest;
+
+            namespace Foo
+            {
+                namespace Bar
+                {
+                    public partial class Baz
+                    {
+                        [UsesVerify]
+                        public partial class Qux
+                        {
+                        }
+                    }
+                }
             }
             """;
 

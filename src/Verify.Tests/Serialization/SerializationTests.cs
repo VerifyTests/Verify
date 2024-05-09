@@ -25,9 +25,9 @@ public class SerializationTests
         var withResult = Task.FromResult("Value");
         var withException = Task.FromException(new("the exception"));
         var withExceptionAndResult = Task.FromException<string>(new("the exception"));
-        var genericCompletionSource = new TaskCompletionSource<int>();
-        genericCompletionSource.TrySetCanceled();
-        var canceledAndResult = genericCompletionSource.Task;
+        var completionSource = new TaskCompletionSource<int>();
+        completionSource.TrySetCanceled();
+        var canceledAndResult = completionSource.Task;
         var finished = Task.Delay(0);
         var running = Task.Delay(10000);
         return Verify(

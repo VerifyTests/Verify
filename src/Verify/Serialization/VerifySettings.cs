@@ -18,6 +18,13 @@ public partial class VerifySettings
 
     internal JsonSerializer Serializer => serialization.Serializer;
 
+    public void UseStrictJson() =>
+        strictJson = true;
+
+    public bool StrictJson => VerifierSettings.StrictJson ||
+                              strictJson;
+
+    bool strictJson;
 
     internal List<ToAppend> Appends = [];
 

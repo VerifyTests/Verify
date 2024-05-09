@@ -21,7 +21,7 @@ public class VerifyJsonWriter :
         serialization = settings.serialization;
         Context = settings.Context;
         Counter = counter;
-        if (!VerifierSettings.StrictJson)
+        if (!settings.StrictJson)
         {
             QuoteValue = false;
             EscapeHandling = EscapeHandling.None;
@@ -34,7 +34,7 @@ public class VerifyJsonWriter :
 
     public void WriteRawValueIfNoStrict(CharSpan value)
     {
-        if (VerifierSettings.StrictJson)
+        if (settings.StrictJson)
         {
             base.WriteValue(value);
             return;
@@ -60,7 +60,7 @@ public class VerifyJsonWriter :
 
     public override void WritePropertyName(CharSpan name, bool escape)
     {
-        if (VerifierSettings.StrictJson)
+        if (settings.StrictJson)
         {
             escape = false;
         }
@@ -70,7 +70,7 @@ public class VerifyJsonWriter :
 
     public override void WritePropertyName(string name, bool escape)
     {
-        if (VerifierSettings.StrictJson)
+        if (settings.StrictJson)
         {
             escape = false;
         }
@@ -108,7 +108,7 @@ public class VerifyJsonWriter :
         }
 
         value = ApplyScrubbers.ApplyForPropertyValue(value, settings, Counter);
-        if (VerifierSettings.StrictJson)
+        if (settings.StrictJson)
         {
             base.WriteValue(value);
             return;

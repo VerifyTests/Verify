@@ -10,6 +10,13 @@ public partial class SettingsTask
     }
 
     [Pure]
+    public SettingsTask UseStrictJson()
+    {
+        CurrentSettings.UseStrictJson();
+        return this;
+    }
+
+    [Pure]
     public SettingsTask DontScrubDateTimes()
     {
         CurrentSettings.DontScrubDateTimes();

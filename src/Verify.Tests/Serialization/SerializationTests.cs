@@ -708,6 +708,41 @@ public class SerializationTests
         public int Value { get; set; }
     }
 
+    public class TheTarget
+    {
+        public string? Value { get; set; }
+    }
+
+    [Fact]
+    public async Task UseStrictJson()
+    {
+        #region UseStrictJson
+
+        var target = new TheTarget
+        {
+            Value = "Foo"
+        };
+        var settings = new VerifySettings();
+        settings.UseStrictJson();
+        await Verify(target, settings)
+            .UseStrictJson();
+
+        #endregion
+    }
+    [Fact]
+    public async Task UseStrictJsonFluent()
+    {
+        #region UseStrictJsonFluent
+
+        var target = new TheTarget
+        {
+            Value = "Foo"
+        };
+        await Verify(target)
+            .UseStrictJson();
+
+        #endregion
+    }
     [Fact]
     public async Task GuidScrubbingDisabled()
     {

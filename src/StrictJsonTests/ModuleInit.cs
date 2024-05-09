@@ -1,6 +1,6 @@
 public static class ModuleInit
 {
-    #region UseStrictJson
+    #region UseStrictJsonGlobal
 
     [ModuleInitializer]
     public static void Init() =>

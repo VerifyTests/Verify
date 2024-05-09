@@ -23,9 +23,25 @@ The reason for these is that it makes approval files cleaner and easier to read 
 
 To use strict json call `VerifierSettings.UseStrictJson`:
 
+
+#### Globally
+
+snippet: UseStrictJsonGlobal
+
+
+#### Instance
+
 snippet: UseStrictJson
 
-Then this result in 
+
+#### Fluent
+
+snippet: UseStrictJsonFluent
+
+
+#### Result
+
+Then this result in
 
  * The default `.received.` and `.verified.` extensions for serialized verification to be `.json`.
  * `JsonTextWriter.QuoteChar` to be `"`.

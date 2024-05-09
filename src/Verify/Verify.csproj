@@ -9,7 +9,7 @@
     <PackageReference Include="System.IO.Hashing" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0' or $(TargetFramework) == 'net9.0'" />
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="DiffEngine" Version="15.3.0" />
+    <PackageReference Include="DiffEngine" Version="15.4.0" />
     <PackageReference Include="SimpleInfoName" Version="2.2.0" />
     <PackageReference Include="Argon" Version="0.17.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />

@@ -738,11 +738,7 @@ public class SerializationTests
         {
             Value = "Foo"
         };
-        await Verify(
-                new
-            {
-                foo = "bar"
-            })
+        await Verify(target)
             .UseStrictJson();
 
         #endregion

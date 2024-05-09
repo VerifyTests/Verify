@@ -1,0 +1,11 @@
+﻿[  
+partial class Foo
+{
+    public TestContext TestContext
+    {
+        get => CurrentTestContext.Value!;
+        set => CurrentTestContext.Value = value;
+    }
+}
+
+]

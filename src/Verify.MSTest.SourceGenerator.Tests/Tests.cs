@@ -73,7 +73,7 @@ public class Tests
     }
 
     [Fact]
-    public Task HasAttributeInNestedNamespaceAndClass()
+    public Task HasAttributeInNestedNamespaceAndClassWithGenerics()
     {
         var source = """
             using VerifyMSTest;
@@ -82,10 +82,10 @@ public class Tests
             {
                 namespace Bar
                 {
-                    public partial class Baz
+                    public partial class Baz<T>
                     {
                         [UsesVerify]
-                        public partial class Qux
+                        public partial class Qux<T>
                         {
                         }
                     }

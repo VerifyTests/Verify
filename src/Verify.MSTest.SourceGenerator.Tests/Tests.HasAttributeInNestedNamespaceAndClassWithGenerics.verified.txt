@@ -1,0 +1,16 @@
+﻿[  
+namespace Foo.Bar
+{
+    partial class Baz<T>
+    {
+        partial class Qux<T>
+        {
+            public TestContext TestContext
+            {
+                get => CurrentTestContext.Value!;
+                set => CurrentTestContext.Value = value;
+            }
+        }
+    }
+
+]

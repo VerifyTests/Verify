@@ -20,18 +20,17 @@ static class CodeWriter
     {
         if (!string.IsNullOrEmpty(classToGenerate.Namespace)) // TODO: Consider making nullable?
         {
-            sb.AppendLine($"namespace {classToGenerate.Namespace}");
-            sb.AppendLine("{");
-
-            sb.IncreaseIndent();
+            sb.AppendLine(["namespace ", classToGenerate.Namespace])
+              .AppendLine("{")
+              .IncreaseIndent();
         }
 
         WriteParentTypes(sb, classToGenerate);
 
         if (!string.IsNullOrEmpty(classToGenerate.Namespace)) // TODO: Consider making nullable?
         {
-            sb.DecreaseIndent();
-            sb.AppendLine("}");
+            sb.DecreaseIndent()
+              .AppendLine("}");
         };
     }
 
@@ -41,8 +40,8 @@ static class CodeWriter
         var depth = 1;
         while (parentClass is not null)
         {
-            sb.AppendLine($"partial {parentClass.Keyword} {parentClass.Name}{parentClass.Constraints}");
-            sb.AppendLine("{");
+            sb.AppendLine(["partial ", parentClass.Keyword, " ", parentClass.Name, parentClass.Constraints])
+              .AppendLine("{");
 
             sb.IncreaseIndent();
             depth += 1;
@@ -53,8 +52,8 @@ static class CodeWriter
 
         while (depth < 0)
         {
-            sb.DecreaseIndent();
-            sb.AppendLine("}");
+            sb.DecreaseIndent()
+              .AppendLine("}");
 
             depth -= 1;
         }
@@ -66,18 +65,19 @@ static class CodeWriter
 
         if (classToGenerate.TypeParameters.Count > 0)
         {
+            // TODO: Reimplement for perf
             genericConstraints = $"<{string.Join(", ", classToGenerate.TypeParameters)}>";
         }
 
-        sb.AppendLine(GeneratedCodeAttribute);
-        sb.AppendLine($"partial class {classToGenerate.ClassName}{genericConstraints}");
-        sb.AppendLine("{");
-        sb.AppendLine("    public TestContext TestContext");
-        sb.AppendLine("    {");
-        sb.AppendLine("        get => CurrentTestContext.Value!;");
-        sb.AppendLine("        set => CurrentTestContext.Value = value;");
-        sb.AppendLine("    }");
-        sb.AppendLine("}");
+        sb.AppendLine(GeneratedCodeAttribute)
+          .AppendLine($"partial class {classToGenerate.ClassName}{genericConstraints}") // TODO: Reimplement for perf
+          .AppendLine("{")
+          .AppendLine("    public TestContext TestContext")
+          .AppendLine("    {")
+          .AppendLine("        get => CurrentTestContext.Value!;")
+          .AppendLine("        set => CurrentTestContext.Value = value;")
+          .AppendLine("    }")
+          .AppendLine("}");
     }
 
     public static string GenerateExtensionClass(ClassToGenerate classToGenerate)

@@ -11,8 +11,8 @@ namespace Foo.Bar
 {
     partial class Baz<T>
     {
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator, "1.0.0.0")]
-        partial class Qux<T>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
+        partial class Qux<U>
         {
             public TestContext TestContext
             {
@@ -21,5 +21,6 @@ namespace Foo.Bar
             }
         }
     }
+}
 
 ]

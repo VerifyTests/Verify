@@ -85,7 +85,7 @@ public class Tests
                     public partial class Baz<T>
                     {
                         [UsesVerify]
-                        public partial class Qux<T>
+                        public partial class Qux<U>
                         {
                         }
                     }

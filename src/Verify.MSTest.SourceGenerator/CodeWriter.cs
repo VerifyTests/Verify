@@ -14,7 +14,7 @@ static class CodeWriter
         """;
 
     private static readonly string GeneratedCodeAttribute =
-        $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(CodeWriter).Assembly.GetName().Name}, \"{typeof(CodeWriter).Assembly.GetName().Version}\")]";
+        $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(CodeWriter).Assembly.GetName().Name}\", \"{typeof(CodeWriter).Assembly.GetName().Version}\")]";
 
     private static void WriteNamespace(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
@@ -37,7 +37,7 @@ static class CodeWriter
     private static void WriteParentTypes(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
         var parentClass = classToGenerate.ParentClass;
-        var depth = 1;
+        var depth = 0;
         while (parentClass is not null)
         {
             sb.AppendLine(["partial ", parentClass.Keyword, " ", parentClass.Name, parentClass.Constraints])
@@ -50,7 +50,7 @@ static class CodeWriter
 
         WriteClass(sb, classToGenerate);
 
-        while (depth < 0)
+        while (depth > 0)
         {
             sb.DecreaseIndent()
               .AppendLine("}");

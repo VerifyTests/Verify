@@ -40,7 +40,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         ct.ThrowIfCancellationRequested();
 
-        var @namespace = classSymbol.ContainingNamespace.IsGlobalNamespace ? string.Empty : classSymbol.ContainingNamespace.ToString();
+        var @namespace = classSymbol.ContainingNamespace.IsGlobalNamespace ? null : classSymbol.ContainingNamespace.ToString();
         var typeParameters = classSymbol.TypeParameters.Select(tp => tp.Name).ToArray(); // TODO: May be able to use Syntax instead
         var parentClass = GetParentClasses(declarationSyntax);
 

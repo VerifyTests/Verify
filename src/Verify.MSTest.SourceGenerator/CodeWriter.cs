@@ -18,7 +18,7 @@ static class CodeWriter
 
     private static void WriteNamespace(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
-        if (!string.IsNullOrEmpty(classToGenerate.Namespace)) // TODO: Consider making nullable?
+        if (classToGenerate.Namespace is not null)
         {
             sb.AppendLine(["namespace ", classToGenerate.Namespace])
               .AppendLine("{")
@@ -27,7 +27,7 @@ static class CodeWriter
 
         WriteParentTypes(sb, classToGenerate);
 
-        if (!string.IsNullOrEmpty(classToGenerate.Namespace)) // TODO: Consider making nullable?
+        if (classToGenerate.Namespace is not null)
         {
             sb.DecreaseIndent()
               .AppendLine("}");

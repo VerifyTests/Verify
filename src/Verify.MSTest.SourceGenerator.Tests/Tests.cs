@@ -82,7 +82,7 @@ public class Tests
             {
                 namespace Bar
                 {
-                    public partial class Baz<T>
+                    public partial class Baz<T> where T : new()
                     {
                         [UsesVerify]
                         public partial class Qux<U>

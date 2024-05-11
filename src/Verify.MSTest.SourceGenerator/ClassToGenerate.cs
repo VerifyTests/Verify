@@ -1,5 +1,3 @@
-using System.Collections.Immutable;
-
 namespace Verify.MSTest.SourceGenerator;
 
 readonly record struct ClassToGenerate

@@ -40,7 +40,7 @@ static class CodeWriter
         var depth = 0;
         while (parentClass is not null)
         {
-            sb.AppendLine(["partial ", parentClass.Keyword, " ", parentClass.Name, parentClass.Constraints])
+            sb.AppendLine(["partial ", parentClass.Keyword, " ", parentClass.Name])
               .AppendLine("{");
 
             sb.IncreaseIndent();

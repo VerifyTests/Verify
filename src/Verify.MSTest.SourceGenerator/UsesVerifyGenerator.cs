@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -78,7 +77,6 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             parentClassInfo = new ParentClass(
                 keyword: parentSyntax.Keyword.ValueText,
                 name: parentSyntax.Identifier.ToString() + parentSyntax.TypeParameterList,
-                constraints: parentSyntax.ConstraintClauses.ToString(), // TODO: I think I can remove this
                 child: parentClassInfo);
 
             // Move to the next outer type

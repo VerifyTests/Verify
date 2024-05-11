@@ -56,9 +56,9 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         }
     }
 
-    private static ParentClass? GetParentClasses(BaseTypeDeclarationSyntax typeSyntax)
+    private static IReadOnlyCollection<ParentClass> GetParentClasses(BaseTypeDeclarationSyntax typeSyntax)
     {
-        // TODO: Redo as stack
+        var parents = new Stack<ParentClass>();
 
         // We can only be nested in class/struct/record
         static bool IsAllowedKind(SyntaxKind kind) =>
@@ -68,22 +68,20 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         // Try and get the parent syntax. If it isn't a type like class/struct, this will be null
         var parentSyntax = typeSyntax.Parent as TypeDeclarationSyntax;
-        ParentClass? parentClassInfo = null;
 
         // Keep looping while we're in a supported nested type
         while (parentSyntax != null && IsAllowedKind(parentSyntax.Kind()))
         {
             // Record the parent type keyword (class/struct etc), name, and constraints
-            parentClassInfo = new ParentClass(
+            parents.Push(new ParentClass(
                 keyword: parentSyntax.Keyword.ValueText,
-                name: parentSyntax.Identifier.ToString() + parentSyntax.TypeParameterList,
-                child: parentClassInfo);
+                name: parentSyntax.Identifier.ToString() + parentSyntax.TypeParameterList));
 
             // Move to the next outer type
             parentSyntax = (parentSyntax.Parent as TypeDeclarationSyntax);
         }
 
-        return parentClassInfo;
+        return parents;
 
     }
 }

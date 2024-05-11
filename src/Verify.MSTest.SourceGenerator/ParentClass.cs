@@ -1,15 +1,13 @@
 namespace Verify.MSTest.SourceGenerator;
 
-internal class ParentClass
+readonly record struct ParentClass
 {
-    public ParentClass(string keyword, string name, ParentClass? child)
+    public string Keyword { get; }
+    public string Name { get; }
+
+    public ParentClass(string keyword, string name)
     {
         Keyword = keyword;
         Name = name;
-        Child = child;
     }
-
-    public ParentClass? Child { get; }
-    public string Keyword { get; }
-    public string Name { get; }
 }

@@ -78,15 +78,23 @@ public class Tests
         var source = """
             using VerifyMSTest;
 
-            namespace Foo
+            namespace A
             {
-                namespace Bar
+                namespace B
                 {
-                    public partial class Baz<T> where T : new()
+                    public partial class C<T> where T : new()
                     {
-                        [UsesVerify]
-                        public partial class Qux<U>
+                        public partial class D
                         {
+                            [UsesVerify]
+                            public partial class TestClass1<U>
+                            {
+                            }
+
+                            [UsesVerify]
+                            public partial class TestClass2
+                            {
+                            }
                         }
                     }
                 }

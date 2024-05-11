@@ -36,31 +36,27 @@ static class CodeWriter
 
     private static void WriteParentTypes(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
-        var parentClass = classToGenerate.ParentClass;
-        var depth = 0;
-        while (parentClass is not null)
+        foreach (var parentClass in classToGenerate.ParentClasses)
         {
             sb.AppendLine(["partial ", parentClass.Keyword, " ", parentClass.Name])
               .AppendLine("{");
 
             sb.IncreaseIndent();
-            depth += 1;
-            parentClass = parentClass.Child;
         }
 
         WriteClass(sb, classToGenerate);
 
-        while (depth > 0)
+        foreach (var parentClass in classToGenerate.ParentClasses)
         {
             sb.DecreaseIndent()
               .AppendLine("}");
-
-            depth -= 1;
         }
     }
 
     private static void WriteClass(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
+        // TODO: Update to put all generated classes in the same file
+
         var genericConstraints = string.Empty;
 
         if (classToGenerate.TypeParameters.Count > 0)

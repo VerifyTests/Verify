@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -20,7 +21,13 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             .Where(static classToGenerate => classToGenerate is not null)
             .WithTrackingName(TrackingNames.RemovingNulls);
 
-        context.RegisterSourceOutput(classesToGenerate, Execute);
+        // Collect the classes to generate into a collection so that we can write them
+        // to a single file and avoid the issues of ambiguous hint names discussed in
+        // https://github.com/dotnet/roslyn/discussions/60272.
+        var classesAsCollection = classesToGenerate
+            .Collect();
+
+        context.RegisterSourceOutput(classesAsCollection, Execute);
     }
 
     private static bool IsSyntaxEligibleForGeneration(SyntaxNode node, CancellationToken ct) => node is ClassDeclarationSyntax;
@@ -46,14 +53,21 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         return new ClassToGenerate(@namespace, classSymbol.Name, typeParameters, parentClass);
     }
 
-    private static void Execute(SourceProductionContext context, ClassToGenerate? classToGenerate)
+    private static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
     {
-        if (classToGenerate is { } value)
+        if (classesToGenerate.IsDefaultOrEmpty)
         {
-            var sourceCode = CodeWriter.GenerateExtensionClass(value);
-
-            context.AddSource($"UsesVerify.{value.ClassName}.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
+            return;
         }
+
+        var classes = classesToGenerate.Distinct().OfType<ClassToGenerate>().ToArray();
+        if (classes.Length == 0)
+        {
+            return;
+        }
+
+        var sourceCode = CodeWriter.GenerateExtensionClasses(classes);
+        context.AddSource("UsesVerify.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
     }
 
     private static IReadOnlyCollection<ParentClass> GetParentClasses(BaseTypeDeclarationSyntax typeSyntax)

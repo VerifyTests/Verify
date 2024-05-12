@@ -19,6 +19,13 @@ class IndentedStringBuilder
         return this;
     }
 
+    public IndentedStringBuilder AppendLine()
+    {
+        builder.AppendLine();
+
+        return this;
+    }
+
     public IndentedStringBuilder AppendLine(string line)
     {
         builder.Append(' ', indentLevel * 4);

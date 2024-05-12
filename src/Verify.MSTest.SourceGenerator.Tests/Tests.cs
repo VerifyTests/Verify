@@ -17,8 +17,8 @@ public class Tests
             .Run(source)
             .Results
             .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => gs.SourceText.ToString())
-            .ToArray();
+            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
+            .SingleOrDefault();
 
         // TODO: Why is static using not working?
         return Verifier.Verify(results);
@@ -40,8 +40,8 @@ public class Tests
             .Run(source)
             .Results
             .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => gs.SourceText.ToString())
-            .ToArray();
+            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
+            .SingleOrDefault();
 
         // TODO: Why is static using not working?
         return Verifier.Verify(results);
@@ -65,8 +65,8 @@ public class Tests
             .Run(source)
             .Results
             .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => gs.SourceText.ToString())
-            .ToArray();
+            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
+            .SingleOrDefault();
 
         // TODO: Why is static using not working?
         return Verifier.Verify(results);
@@ -105,8 +105,8 @@ public class Tests
             .Run(source)
             .Results
             .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => gs.SourceText.ToString())
-            .ToArray();
+            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
+            .SingleOrDefault();
 
         // TODO: Why is static using not working?
         return Verifier.Verify(results);

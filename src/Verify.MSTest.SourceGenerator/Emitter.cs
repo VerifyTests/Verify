@@ -1,6 +1,6 @@
 namespace Verify.MSTest.SourceGenerator;
 
-static class CodeWriter
+class Emitter
 {
     private static readonly string AutoGenerationHeader = """
         //-----------------------------------------------------
@@ -13,7 +13,9 @@ static class CodeWriter
         """;
 
     private static readonly string GeneratedCodeAttribute =
-        $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(CodeWriter).Assembly.GetName().Name}\", \"{typeof(CodeWriter).Assembly.GetName().Version}\")]";
+        $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(Emitter).Assembly.GetName().Name}\", \"{typeof(Emitter).Assembly.GetName().Version}\")]";
+
+    private static readonly IndentedStringBuilder IndentedStringBuilder = new(1024);
 
     private static void WriteNamespace(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
@@ -77,16 +79,16 @@ static class CodeWriter
 
     public static string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate)
     {
-        var sb = new IndentedStringBuilder();
+        IndentedStringBuilder.Clear();
 
-        sb.AppendLine(AutoGenerationHeader);
+        IndentedStringBuilder.AppendLine(AutoGenerationHeader);
 
         foreach (var classToGenerate in classesToGenerate)
         {
-            sb.AppendLine();
-            WriteNamespace(sb, classToGenerate);
+            IndentedStringBuilder.AppendLine();
+            WriteNamespace(IndentedStringBuilder, classToGenerate);
         }
 
-        return sb.ToString();
+        return IndentedStringBuilder.ToString();
     }
 }

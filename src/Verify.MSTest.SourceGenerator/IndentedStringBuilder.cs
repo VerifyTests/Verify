@@ -2,8 +2,10 @@ namespace Verify.MSTest.SourceGenerator;
 
 class IndentedStringBuilder
 {
-    private readonly StringBuilder builder = new StringBuilder();
+    private readonly StringBuilder builder;
     private int indentLevel = 0;
+
+    public IndentedStringBuilder(int capacity) => builder = new StringBuilder(capacity);
 
     public IndentedStringBuilder IncreaseIndent()
     {
@@ -61,6 +63,14 @@ class IndentedStringBuilder
         {
             builder.Append(s);
         }
+
+        return this;
+    }
+
+    public IndentedStringBuilder Clear()
+    {
+        indentLevel = 0;
+        builder.Clear();
 
         return this;
     }

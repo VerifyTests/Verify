@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -9,10 +9,10 @@ static class Parser
     public static ClassToGenerate Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax)
     {
         var ns = GetNamespace(typeSymbol);
-        var typeParameters = GetTypeParameters(typeSyntax);
+        var name = GetTypeNameWithGenericParameters(typeSyntax);
         var parents = GetParentClasses(typeSyntax);
 
-        return new ClassToGenerate(ns, typeSymbol.Name, typeParameters, parents);
+        return new ClassToGenerate(ns, name, parents);
     }
 
     private static string[] GetTypeParameters(TypeDeclarationSyntax typeSyntax) =>
@@ -43,7 +43,7 @@ static class Parser
             // Record the parent type keyword (class/struct etc), name, and constraints
             parents.Push(new ParentClass(
                 keyword: parentSyntax.Keyword.ValueText,
-                name: parentSyntax.Identifier.ToString() + parentSyntax.TypeParameterList));
+                name: GetTypeNameWithGenericParameters(parentSyntax)));
 
             // Move to the next outer type
             parentSyntax = parentSyntax.Parent as TypeDeclarationSyntax;
@@ -51,4 +51,7 @@ static class Parser
 
         return parents;
     }
+
+    private static string GetTypeNameWithGenericParameters(TypeDeclarationSyntax typeSyntax) =>
+        typeSyntax.Identifier.ToString() + typeSyntax.TypeParameterList;
 }

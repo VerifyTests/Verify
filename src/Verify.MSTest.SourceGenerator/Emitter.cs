@@ -54,20 +54,9 @@ class Emitter
         }
     }
 
-    private static void WriteClass(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
-    {
-        // TODO: Update to put all generated classes in the same file
-
-        var genericConstraints = string.Empty;
-
-        if (classToGenerate.TypeParameters.Count > 0)
-        {
-            // TODO: Reimplement for perf
-            genericConstraints = $"<{string.Join(", ", classToGenerate.TypeParameters)}>";
-        }
-
+    private static void WriteClass(IndentedStringBuilder sb, ClassToGenerate classToGenerate) =>
         sb.AppendLine(GeneratedCodeAttribute)
-          .AppendLine($"partial class {classToGenerate.ClassName}{genericConstraints}") // TODO: Reimplement for perf
+          .AppendLine($"partial class {classToGenerate.ClassName}")
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")
           .AppendLine("    {")
@@ -75,7 +64,6 @@ class Emitter
           .AppendLine("        set => CurrentTestContext.Value = value;")
           .AppendLine("    }")
           .AppendLine("}");
-    }
 
     public static string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate)
     {

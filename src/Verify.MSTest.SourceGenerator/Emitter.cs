@@ -1,6 +1,6 @@
 namespace Verify.MSTest.SourceGenerator;
 
-class Emitter
+static class Emitter
 {
     private static readonly string AutoGenerationHeader = """
         //-----------------------------------------------------
@@ -15,13 +15,14 @@ class Emitter
     private static readonly string GeneratedCodeAttribute =
         $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(Emitter).Assembly.GetName().Name}\", \"{typeof(Emitter).Assembly.GetName().Version}\")]";
 
-    private static readonly IndentedStringBuilder IndentedStringBuilder = new(1024);
+    private static readonly IndentedStringBuilder IndentedStringBuilder = new();
 
     private static void WriteNamespace(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
     {
         if (classToGenerate.Namespace is not null)
         {
-            sb.AppendLine(["namespace ", classToGenerate.Namespace])
+            sb.Append("namespace ")
+                  .AppendLine(classToGenerate.Namespace, indent: false)
               .AppendLine("{")
               .IncreaseIndent();
         }
@@ -39,7 +40,10 @@ class Emitter
     {
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
-            sb.AppendLine(["partial ", parentClass.Keyword, " ", parentClass.Name])
+            sb.Append("partial ")
+                  .Append(parentClass.Keyword, indent: false)
+                  .Append(" ", indent: false)
+                  .AppendLine(parentClass.Name, indent: false)
               .AppendLine("{");
 
             sb.IncreaseIndent();
@@ -56,7 +60,8 @@ class Emitter
 
     private static void WriteClass(IndentedStringBuilder sb, ClassToGenerate classToGenerate) =>
         sb.AppendLine(GeneratedCodeAttribute)
-          .AppendLine($"partial class {classToGenerate.ClassName}")
+          .Append("partial class ")
+              .AppendLine(classToGenerate.ClassName, indent: false)
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")
           .AppendLine("    {")
@@ -68,7 +73,6 @@ class Emitter
     public static string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate)
     {
         IndentedStringBuilder.Clear();
-
         IndentedStringBuilder.AppendLine(AutoGenerationHeader);
 
         foreach (var classToGenerate in classesToGenerate)

@@ -2,10 +2,13 @@ namespace Verify.MSTest.SourceGenerator;
 
 class IndentedStringBuilder
 {
+    // TODO: Tweak default capacity based on real-world usage
+    private const int DefaultStringBuilderCapacity = 1024;
     private readonly StringBuilder builder;
     private int indentLevel = 0;
 
-    public IndentedStringBuilder(int capacity) => builder = new StringBuilder(capacity);
+    public IndentedStringBuilder(int capacity = DefaultStringBuilderCapacity) =>
+        builder = new StringBuilder(capacity);
 
     public IndentedStringBuilder IncreaseIndent()
     {
@@ -24,41 +27,27 @@ class IndentedStringBuilder
     public IndentedStringBuilder AppendLine()
     {
         builder.AppendLine();
-
         return this;
     }
 
-    public IndentedStringBuilder AppendLine(string line)
+    public IndentedStringBuilder AppendLine(string line, bool indent = true)
     {
-        builder.Append(' ', indentLevel * 4);
+        WriteIndentIfNeeded(indent);
         builder.AppendLine(line);
-
         return this;
     }
 
-    public IndentedStringBuilder AppendLine(IEnumerable<string> strings)
+    public IndentedStringBuilder Append(string text, bool indent = true)
     {
-        builder.Append(' ', indentLevel * 4);
-        foreach (var s in strings)
-        {
-            builder.Append(s);
-        }
-        builder.AppendLine();
-
-        return this;
-    }
-
-    public IndentedStringBuilder Append(string text)
-    {
-        builder.Append(' ', indentLevel * 4);
+        WriteIndentIfNeeded(indent);
         builder.Append(text);
 
         return this;
     }
 
-    public IndentedStringBuilder Append(IEnumerable<string> strings)
+    public IndentedStringBuilder Append(IEnumerable<string> strings, bool indent = true)
     {
-        builder.Append(' ', indentLevel * 4);
+        WriteIndentIfNeeded(indent);
         foreach (var s in strings)
         {
             builder.Append(s);
@@ -76,4 +65,12 @@ class IndentedStringBuilder
     }
 
     public override string ToString() => builder.ToString();
+
+    private void WriteIndentIfNeeded(bool indent)
+    {
+        if (indent)
+        {
+            builder.Append(' ', indentLevel * 4);
+        }
+    }
 }

@@ -6,6 +6,8 @@ namespace Verify.MSTest.SourceGenerator;
 
 static class Parser
 {
+    public static string MarkerAttributeName { get; } = "VerifyMSTest.UsesVerifyAttribute";
+
     public static ClassToGenerate Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax)
     {
         var ns = GetNamespace(typeSymbol);
@@ -15,16 +17,10 @@ static class Parser
         return new ClassToGenerate(ns, name, parents);
     }
 
-    private static string[] GetTypeParameters(TypeDeclarationSyntax typeSyntax) =>
-        typeSyntax
-        .TypeParameterList?
-        .Parameters
-        .Select(p => p.Identifier.ToString())
-        .ToArray() ?? [];
     private static string? GetNamespace(INamedTypeSymbol symbol) =>
         symbol.ContainingNamespace.IsGlobalNamespace ? null : symbol.ContainingNamespace.ToString();
 
-    private static IReadOnlyCollection<ParentClass> GetParentClasses(TypeDeclarationSyntax typeSyntax)
+    private static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax)
     {
         // We can only be nested in class/struct/record
         static bool IsAllowedKind(SyntaxKind kind) =>
@@ -49,7 +45,7 @@ static class Parser
             parentSyntax = parentSyntax.Parent as TypeDeclarationSyntax;
         }
 
-        return parents;
+        return parents.ToArray();
     }
 
     private static string GetTypeNameWithGenericParameters(TypeDeclarationSyntax typeSyntax) =>

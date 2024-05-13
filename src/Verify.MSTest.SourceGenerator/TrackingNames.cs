@@ -1,7 +1,8 @@
-﻿namespace Verify.MSTest.SourceGenerator;
+namespace Verify.MSTest.SourceGenerator;
 
 static class TrackingNames
 {
     public static string InitialTransform { get; } = nameof(InitialTransform);
-    public static string RemovingNulls { get; } = nameof(RemovingNulls);
+    public static string RemoveNulls { get; } = nameof(RemoveNulls);
+    public static string Collect { get; } = nameof(Collect);
 }

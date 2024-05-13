@@ -4,14 +4,12 @@ readonly record struct ClassToGenerate
 {
     public string? Namespace { get; }
     public string ClassName { get; }
-    public IReadOnlyCollection<ParentClass> ParentClasses { get; }
+    public EquatableArray<ParentClass> ParentClasses { get; }
 
-    // TODO: Double-check if collection should be value value equatable
-
-    public ClassToGenerate(string? @namespace, string className, IReadOnlyCollection<ParentClass> parentClasses)
+    public ClassToGenerate(string? @namespace, string className, ParentClass[] parentClasses)
     {
         Namespace = @namespace;
         ClassName = className;
-        ParentClasses = parentClasses;
+        ParentClasses = new EquatableArray<ParentClass>(parentClasses);
     }
 }

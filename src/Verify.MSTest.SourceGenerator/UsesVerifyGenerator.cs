@@ -8,31 +8,30 @@ namespace Verify.MSTest.SourceGenerator;
 [Generator]
 public class UsesVerifyGenerator : IIncrementalGenerator
 {
-    private static string MarkerAttributeName { get; } = "VerifyMSTest.UsesVerifyAttribute";
-
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var classesToGenerate = context.SyntaxProvider
             .ForAttributeWithMetadataName(
-                fullyQualifiedMetadataName: MarkerAttributeName,
+                fullyQualifiedMetadataName: Parser.MarkerAttributeName,
                 predicate: IsSyntaxEligibleForGeneration,
                 transform: GetSemanticTargetForGeneration)
             .WithTrackingName(TrackingNames.InitialTransform)
             .Where(static classToGenerate => classToGenerate is not null)
-            .WithTrackingName(TrackingNames.RemovingNulls);
+            .WithTrackingName(TrackingNames.RemoveNulls);
 
         // Collect the classes to generate into a collection so that we can write them
         // to a single file and avoid the issues of ambiguous hint names discussed in
         // https://github.com/dotnet/roslyn/discussions/60272.
-        var classesAsCollection = classesToGenerate
-            .Collect();
+        var classesCollection = classesToGenerate
+            .Collect()
+            .WithTrackingName(TrackingNames.Collect);
 
-        context.RegisterSourceOutput(classesAsCollection, Execute);
+        context.RegisterSourceOutput(classesCollection, Execute);
     }
 
     private static bool IsSyntaxEligibleForGeneration(SyntaxNode node, CancellationToken ct) => node is ClassDeclarationSyntax;
 
-    static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, CancellationToken ct)
+    private static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, CancellationToken ct)
     {
         if (context.TargetSymbol is not INamedTypeSymbol typeSymbol)
         {

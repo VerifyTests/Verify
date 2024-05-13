@@ -1,11 +1,11 @@
 ﻿[
   {
-    Value: a
+    Value: c
   },
   {
     Value: b
   },
   {
-    Value: c
+    Value: a
   }
 ]

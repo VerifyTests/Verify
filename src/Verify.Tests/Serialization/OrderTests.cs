@@ -1,8 +1,12 @@
 ﻿public class OrderTests
 {
+    #region OrderEnumerableByGlobal
+
     [ModuleInitializer]
-    public static void OrderEnumerableByGlobalInit() =>
+    public static void OrderEnumerableByInitializer() =>
         VerifierSettings.OrderEnumerableBy<TargetForGlobalDescending>(_ => _.Value);
+
+    #endregion
 
     [Fact]
     public Task OrderEnumerableByGlobal() =>
@@ -16,9 +20,13 @@
 
     public record TargetForGlobal(string Value);
 
+    #region OrderEnumerableByDescendingGlobal
+
     [ModuleInitializer]
-    public static void OrderEnumerableByDescendingGlobalInit() =>
+    public static void OrderEnumerableByDescendingInitializer() =>
         VerifierSettings.OrderEnumerableByDescending<TargetForGlobalDescending>(_ => _.Value);
+
+    #endregion
 
     [Fact]
     public Task OrderEnumerableByDescendingGlobal() =>
@@ -33,6 +41,8 @@
     public record TargetForGlobalDescending(string Value);
 
     public record Target(string Value);
+
+    #region OrderEnumerableBy
 
     [Fact]
     public Task EnumerableOrder()
@@ -49,6 +59,8 @@
             settings);
     }
 
+    #endregion
+
     [Fact]
     public Task EnumerableOrderWithNull()
     {
@@ -64,11 +76,13 @@
             settings);
     }
 
+    #region OrderEnumerableByDescending
+
     [Fact]
     public Task OrderEnumerableByDescending()
     {
         var settings = new VerifySettings();
-        settings.OrderEnumerableBy<Target>(_ => _.Value);
+        settings.OrderEnumerableByDescending<Target>(_ => _.Value);
         return Verify(
             new List<Target>
             {
@@ -78,6 +92,10 @@
             },
             settings);
     }
+
+    #endregion
+
+    #region OrderEnumerableByFluent
 
     [Fact]
     public Task EnumerableOrderFluent() =>
@@ -90,6 +108,10 @@
                 })
             .OrderEnumerableBy<Target>(_ => _.Value);
 
+    #endregion
+
+    #region OrderEnumerableByDescendingFluent
+
     [Fact]
     public Task OrderEnumerableByDescendingFluent() =>
         Verify(
@@ -100,6 +122,8 @@
                     new("b")
                 })
             .OrderEnumerableByDescending<Target>(_ => _.Value);
+
+    #endregion
 
     class DescendingComparer<T> :
         IComparer<T>

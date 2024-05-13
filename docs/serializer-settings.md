@@ -1559,7 +1559,7 @@ public Task DontSortDictionaries()
         .DontSortDictionaries();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L152-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontSortDictionaries' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L176-L198' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontSortDictionaries' title='Start of snippet'>anchor</a></sup>
 <a id='snippet-DontSortDictionaries-1'></a>
 ```cs
 [Fact]
@@ -1604,6 +1604,178 @@ public static class ModuleInitializer
 ```
 <sup><a href='/src/ModuleInitDocs/SortedJson.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-SortJsonObjects' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Ordering IEnumerable items
+
+Items in an instance of an IEnumerable can be ordered.
+
+
+### OrderEnumerableBy
+
+
+#### Globally
+
+<!-- snippet: OrderEnumerableByGlobal -->
+<a id='snippet-OrderEnumerableByGlobal'></a>
+```cs
+[ModuleInitializer]
+public static void OrderEnumerableByInitializer() =>
+    VerifierSettings.OrderEnumerableBy<TargetForGlobalDescending>(_ => _.Value);
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByGlobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Instance
+
+<!-- snippet: OrderEnumerableBy -->
+<a id='snippet-OrderEnumerableBy'></a>
+```cs
+[Fact]
+public Task EnumerableOrder()
+{
+    var settings = new VerifySettings();
+    settings.OrderEnumerableBy<Target>(_ => _.Value);
+    return Verify(
+        new List<Target>
+        {
+            new("a"),
+            new("c"),
+            new("b")
+        },
+        settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L45-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableBy' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent
+
+<!-- snippet: OrderEnumerableByFluent -->
+<a id='snippet-OrderEnumerableByFluent'></a>
+```cs
+[Fact]
+public Task EnumerableOrderFluent() =>
+    Verify(
+            new List<Target>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            })
+        .OrderEnumerableBy<Target>(_ => _.Value);
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L98-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Result
+
+Then this result in
+
+<!-- snippet: OrderTests.EnumerableOrder.verified.txt -->
+<a id='snippet-OrderTests.EnumerableOrder.verified.txt'></a>
+```txt
+[
+  {
+    Value: a
+  },
+  {
+    Value: b
+  },
+  {
+    Value: c
+  }
+]
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.EnumerableOrder.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderTests.EnumerableOrder.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### OrderEnumerableByDescending
+
+
+#### Globally
+
+<!-- snippet: OrderEnumerableByDescendingGlobal -->
+<a id='snippet-OrderEnumerableByDescendingGlobal'></a>
+```cs
+[ModuleInitializer]
+public static void OrderEnumerableByDescendingInitializer() =>
+    VerifierSettings.OrderEnumerableByDescending<TargetForGlobalDescending>(_ => _.Value);
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L23-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescendingGlobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Instance
+
+<!-- snippet: OrderEnumerableByDescending -->
+<a id='snippet-OrderEnumerableByDescending'></a>
+```cs
+[Fact]
+public Task OrderEnumerableByDescending()
+{
+    var settings = new VerifySettings();
+    settings.OrderEnumerableByDescending<Target>(_ => _.Value);
+    return Verify(
+        new List<Target>
+        {
+            new("a"),
+            new("c"),
+            new("b")
+        },
+        settings);
+}
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L79-L96' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescending' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent
+
+<!-- snippet: OrderEnumerableByDescendingFluent -->
+<a id='snippet-OrderEnumerableByDescendingFluent'></a>
+```cs
+[Fact]
+public Task OrderEnumerableByDescendingFluent() =>
+    Verify(
+            new List<Target>
+            {
+                new("a"),
+                new("c"),
+                new("b")
+            })
+        .OrderEnumerableByDescending<Target>(_ => _.Value);
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L113-L126' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByDescendingFluent' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Result
+
+Then this result in
+
+<!-- snippet: OrderTests.OrderEnumerableByDescending.verified.txt -->
+<a id='snippet-OrderTests.OrderEnumerableByDescending.verified.txt'></a>
+```txt
+[
+  {
+    Value: c
+  },
+  {
+    Value: b
+  },
+  {
+    Value: a
+  }
+]
+```
+<sup><a href='/src/Verify.Tests/Serialization/OrderTests.OrderEnumerableByDescending.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderTests.OrderEnumerableByDescending.verified.txt' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 
 ## JsonAppender

@@ -384,6 +384,64 @@ To enable sorting use:
 snippet: SortJsonObjects
 
 
+## Ordering IEnumerable items
+
+Items in an instance of an IEnumerable can be ordered.
+
+This is helpful when verifying items that can have an inconsistent order, for example reading items from a database.
+
+
+### OrderEnumerableBy
+
+
+#### Globally
+
+snippet: OrderEnumerableByGlobal
+
+
+#### Instance
+
+snippet: OrderEnumerableBy
+
+
+#### Fluent
+
+snippet: OrderEnumerableByFluent
+
+
+#### Result
+
+Then this result in
+
+snippet: OrderTests.EnumerableOrder.verified.txt
+
+
+### OrderEnumerableByDescending
+
+
+#### Globally
+
+snippet: OrderEnumerableByDescendingGlobal
+
+
+#### Instance
+
+snippet: OrderEnumerableByDescending
+
+
+#### Fluent
+
+snippet: OrderEnumerableByDescendingFluent
+
+
+#### Result
+
+Then this result in
+
+snippet: OrderTests.OrderEnumerableByDescending.verified.txt
+
+
+
 ## JsonAppender
 
 A JsonAppender allows extra content (key value pairs) to be optionally appended to the output being verified. JsonAppenders can use the current context to determine what should be appended or if anything should be appended.

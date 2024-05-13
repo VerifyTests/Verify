@@ -21,8 +21,7 @@ static class Emitter
     {
         if (classToGenerate.Namespace is not null)
         {
-            sb.Append("namespace ")
-                  .AppendLine(classToGenerate.Namespace, indent: false)
+            sb.Append("namespace ").AppendLine(classToGenerate.Namespace)
               .AppendLine("{")
               .IncreaseIndent();
         }
@@ -40,10 +39,7 @@ static class Emitter
     {
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
-            sb.Append("partial ")
-                  .Append(parentClass.Keyword, indent: false)
-                  .Append(" ", indent: false)
-                  .AppendLine(parentClass.Name, indent: false)
+            sb.Append("partial ").Append(parentClass.Keyword).Append(" ").AppendLine(parentClass.Name)
               .AppendLine("{");
 
             sb.IncreaseIndent();
@@ -60,8 +56,7 @@ static class Emitter
 
     private static void WriteClass(IndentedStringBuilder sb, ClassToGenerate classToGenerate) =>
         sb.AppendLine(GeneratedCodeAttribute)
-          .Append("partial class ")
-              .AppendLine(classToGenerate.ClassName, indent: false)
+          .Append("partial class ").AppendLine(classToGenerate.ClassName)
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")
           .AppendLine("    {")

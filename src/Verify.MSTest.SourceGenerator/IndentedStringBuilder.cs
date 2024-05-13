@@ -6,6 +6,7 @@ class IndentedStringBuilder
     private const int DefaultStringBuilderCapacity = 1024;
     private readonly StringBuilder builder;
     private int indentLevel = 0;
+    private bool isIndented = false;
 
     public IndentedStringBuilder(int capacity = DefaultStringBuilderCapacity) =>
         builder = new StringBuilder(capacity);
@@ -27,32 +28,34 @@ class IndentedStringBuilder
     public IndentedStringBuilder AppendLine()
     {
         builder.AppendLine();
+        isIndented = false;
         return this;
     }
 
-    public IndentedStringBuilder AppendLine(string line, bool indent = true)
+    public IndentedStringBuilder AppendLine(string line)
     {
-        WriteIndentIfNeeded(indent);
+        WriteIndentIfNeeded();
         builder.AppendLine(line);
+        isIndented = false;
         return this;
     }
 
-    public IndentedStringBuilder Append(string text, bool indent = true)
+    public IndentedStringBuilder Append(string text)
     {
-        WriteIndentIfNeeded(indent);
+        WriteIndentIfNeeded();
         builder.Append(text);
-
+        isIndented = true;
         return this;
     }
 
-    public IndentedStringBuilder Append(IEnumerable<string> strings, bool indent = true)
+    public IndentedStringBuilder Append(IEnumerable<string> strings)
     {
-        WriteIndentIfNeeded(indent);
+        WriteIndentIfNeeded();
         foreach (var s in strings)
         {
             builder.Append(s);
         }
-
+        isIndented = true;
         return this;
     }
 
@@ -60,15 +63,15 @@ class IndentedStringBuilder
     {
         indentLevel = 0;
         builder.Clear();
-
+        isIndented = false;
         return this;
     }
 
     public override string ToString() => builder.ToString();
 
-    private void WriteIndentIfNeeded(bool indent)
+    private void WriteIndentIfNeeded()
     {
-        if (indent)
+        if (!isIndented)
         {
             builder.Append(' ', indentLevel * 4);
         }

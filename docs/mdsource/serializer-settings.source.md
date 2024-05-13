@@ -41,7 +41,7 @@ snippet: UseStrictJsonFluent
 
 #### Result
 
-Then this result in
+Then this results in
 
  * The default `.received.` and `.verified.` extensions for serialized verification to be `.json`.
  * `JsonTextWriter.QuoteChar` to be `"`.
@@ -411,7 +411,7 @@ snippet: OrderEnumerableByFluent
 
 #### Result
 
-Then this result in
+The resulting file will be:
 
 snippet: OrderTests.EnumerableOrder.verified.txt
 
@@ -436,10 +436,9 @@ snippet: OrderEnumerableByDescendingFluent
 
 #### Result
 
-Then this result in
+The resulting file will be:
 
 snippet: OrderTests.OrderEnumerableByDescending.verified.txt
-
 
 
 ## JsonAppender

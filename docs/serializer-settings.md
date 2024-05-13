@@ -80,7 +80,7 @@ await Verify(target)
 
 #### Result
 
-Then this result in
+Then this results in
 
  * The default `.received.` and `.verified.` extensions for serialized verification to be `.json`.
  * `JsonTextWriter.QuoteChar` to be `"`.
@@ -1623,7 +1623,7 @@ This is helpful when verifying items that can have an inconsistent order, for ex
 ```cs
 [ModuleInitializer]
 public static void OrderEnumerableByInitializer() =>
-    VerifierSettings.OrderEnumerableBy<TargetForGlobalDescending>(_ => _.Value);
+    VerifierSettings.OrderEnumerableBy<TargetForGlobal>(_ => _.Value);
 ```
 <sup><a href='/src/Verify.Tests/Serialization/OrderTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderEnumerableByGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -1675,7 +1675,7 @@ public Task EnumerableOrderFluent() =>
 
 #### Result
 
-Then this result in
+The resulting file will be:
 
 <!-- snippet: OrderTests.EnumerableOrder.verified.txt -->
 <a id='snippet-OrderTests.EnumerableOrder.verified.txt'></a>
@@ -1758,7 +1758,7 @@ public Task OrderEnumerableByDescendingFluent() =>
 
 #### Result
 
-Then this result in
+The resulting file will be:
 
 <!-- snippet: OrderTests.OrderEnumerableByDescending.verified.txt -->
 <a id='snippet-OrderTests.OrderEnumerableByDescending.verified.txt'></a>
@@ -1777,7 +1777,6 @@ Then this result in
 ```
 <sup><a href='/src/Verify.Tests/Serialization/OrderTests.OrderEnumerableByDescending.verified.txt#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-OrderTests.OrderEnumerableByDescending.verified.txt' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
 
 
 ## JsonAppender

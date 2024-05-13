@@ -4,7 +4,7 @@
 
     [ModuleInitializer]
     public static void OrderEnumerableByInitializer() =>
-        VerifierSettings.OrderEnumerableBy<TargetForGlobalDescending>(_ => _.Value);
+        VerifierSettings.OrderEnumerableBy<TargetForGlobal>(_ => _.Value);
 
     #endregion
 

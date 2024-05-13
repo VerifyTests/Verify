@@ -3,9 +3,9 @@
     value: a
   },
   {
-    value: c
+    value: b
   },
   {
-    value: b
+    value: c
   }
 ]

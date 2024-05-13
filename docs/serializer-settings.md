@@ -1610,6 +1610,8 @@ public static class ModuleInitializer
 
 Items in an instance of an IEnumerable can be ordered.
 
+This is helpful when verifying items that can have an inconsistent order, for example reading items from a database.
+
 
 ### OrderEnumerableBy
 

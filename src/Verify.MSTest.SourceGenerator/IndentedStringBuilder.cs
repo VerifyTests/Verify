@@ -1,4 +1,4 @@
-namespace Verify.MSTest.SourceGenerator;
+namespace VerifyMSTest.SourceGenerator;
 
 class IndentedStringBuilder
 {

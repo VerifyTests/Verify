@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Verify.MSTest.SourceGenerator;
+namespace VerifyMSTest.SourceGenerator;
 
 static class Parser
 {

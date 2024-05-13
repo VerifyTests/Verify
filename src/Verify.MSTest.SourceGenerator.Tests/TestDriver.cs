@@ -1,8 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using VerifyMSTest;
 
-namespace Verify.MSTest.SourceGenerator.Tests;
+namespace VerifyMSTest.SourceGenerator.Tests;
 
 static class TestDriver
 {
@@ -12,7 +11,7 @@ static class TestDriver
 
         IReadOnlyCollection<PortableExecutableReference> references =
         [
-            MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof(UsesVerifyAttribute).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
         ];
 

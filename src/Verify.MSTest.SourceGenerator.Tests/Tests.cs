@@ -1,4 +1,4 @@
-namespace Verify.MSTest.SourceGenerator.Tests;
+namespace VerifyMSTest.SourceGenerator.Tests;
 
 // These tests don't use Verify.SourceGenerator to avoid creating a circular depedency between the repos.
 
@@ -20,8 +20,7 @@ public class Tests
             .Select(gs => (gs.HintName, gs.SourceText.ToString()))
             .SingleOrDefault();
 
-        // TODO: Why is static using not working?
-        return Verifier.Verify(results);
+        return Verify(results);
     }
 
     [Fact]
@@ -43,8 +42,7 @@ public class Tests
             .Select(gs => (gs.HintName, gs.SourceText.ToString()))
             .SingleOrDefault();
 
-        // TODO: Why is static using not working?
-        return Verifier.Verify(results);
+        return Verify(results);
     }
 
     [Fact]
@@ -68,8 +66,7 @@ public class Tests
             .Select(gs => (gs.HintName, gs.SourceText.ToString()))
             .SingleOrDefault();
 
-        // TODO: Why is static using not working?
-        return Verifier.Verify(results);
+        return Verify(results);
     }
 
     [Fact]
@@ -108,7 +105,6 @@ public class Tests
             .Select(gs => (gs.HintName, gs.SourceText.ToString()))
             .SingleOrDefault();
 
-        // TODO: Why is static using not working?
-        return Verifier.Verify(results);
+        return Verify(results);
     }
 }

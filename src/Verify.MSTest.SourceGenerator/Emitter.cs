@@ -1,4 +1,4 @@
-namespace Verify.MSTest.SourceGenerator;
+namespace VerifyMSTest.SourceGenerator;
 
 static class Emitter
 {
@@ -60,8 +60,8 @@ static class Emitter
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")
           .AppendLine("    {")
-          .AppendLine("        get => CurrentTestContext.Value!;")
-          .AppendLine("        set => CurrentTestContext.Value = value;")
+          .AppendLine("        get => Verifier.CurrentTestContext.Value!;")
+          .AppendLine("        set => Verifier.CurrentTestContext.Value = value;")
           .AppendLine("    }")
           .AppendLine("}");
 

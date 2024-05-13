@@ -1,8 +1,14 @@
 using System.ComponentModel;
 
-namespace Verify.MSTest.SourceGenerator;
+namespace VerifyMSTest.SourceGenerator;
 
 // TODO: Consider adding this to Polyfill
+
+// Suppressing style warnings to keep code aligned with upstream version from
+// https://github.com/andrewlock/NetEscapades.EnumGenerators/blob/cd3c9278b0ea3827f7e085c19e998ad0671a11ab/src/NetEscapades.EnumGenerators/HashCode.cs
+#pragma warning disable IDE0007 // Use var instead of explicit type
+#pragma warning disable IDE1006 // Naming rule violation Prefix is not expected
+#pragma warning disable IDE0022 // Use expression body for method
 
 /// <summary>
 /// Polyfill for .NET 6 HashCode

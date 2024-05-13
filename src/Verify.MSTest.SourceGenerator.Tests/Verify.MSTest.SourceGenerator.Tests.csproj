@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>VerifyMSTest.SourceGenerator.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

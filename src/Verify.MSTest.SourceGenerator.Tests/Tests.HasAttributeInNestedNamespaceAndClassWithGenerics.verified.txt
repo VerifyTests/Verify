@@ -20,8 +20,8 @@ namespace A.B
             {
                 public TestContext TestContext
                 {
-                    get => CurrentTestContext.Value!;
-                    set => CurrentTestContext.Value = value;
+                    get => Verifier.CurrentTestContext.Value!;
+                    set => Verifier.CurrentTestContext.Value = value;
                 }
             }
         }
@@ -39,8 +39,8 @@ namespace A.B
             {
                 public TestContext TestContext
                 {
-                    get => CurrentTestContext.Value!;
-                    set => CurrentTestContext.Value = value;
+                    get => Verifier.CurrentTestContext.Value!;
+                    set => Verifier.CurrentTestContext.Value = value;
                 }
             }
         }

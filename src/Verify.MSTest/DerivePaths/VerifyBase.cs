@@ -5,11 +5,6 @@ namespace VerifyMSTest;
 
 public partial class VerifyBase
 {
-    static DerivePathInfo derivePathInfo = PathInfo.DeriveDefault;
-
-    internal static PathInfo GetPathInfo(string sourceFile, Type type, MethodInfo method) =>
-        derivePathInfo(sourceFile, VerifierSettings.ProjectDir, type, method);
-
     /// <summary>
     /// Use custom path information for `.verified.` files.
     /// </summary>
@@ -19,7 +14,7 @@ public partial class VerifyBase
     /// </remarks>
     /// <param name="derivePathInfo">Custom callback to control the behavior.</param>
     public static void DerivePathInfo(DerivePathInfo derivePathInfo) =>
-        VerifyBase.derivePathInfo = derivePathInfo;
+        Verifier.DerivePathInfo(derivePathInfo);
 
     /// <summary>
     /// Use a directory relative to the project directory for storing for `.verified.` files.

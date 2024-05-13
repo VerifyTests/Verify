@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace VerifyMSTest;
 
 public static partial class Verifier
@@ -24,9 +26,6 @@ public static partial class Verifier
 
     static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
-        var typeName = CurrentTestContext.Value?.FullyQualifiedTestClassName;
-        var type = FindType(typeName.AsSpan());
-
         if (useUniqueDirectory)
         {
             settings.UseUniqueDirectory();
@@ -35,33 +34,20 @@ public static partial class Verifier
         var testName = CurrentTestContext.Value?.TestName;
         if (testName == null)
         {
-            throw new("TestContext.TestName is null. Ensure being used inside a test");
+            throw new("TestContext.TestName is null. Ensure test class has a `[UsesVerify]` attribute.");
         }
 
-        var testNameSpan = testName.AsSpan();
-        var indexOf = testNameSpan.IndexOf('(');
-        if (indexOf > 0)
-        {
-            testNameSpan = testNameSpan[..indexOf];
-        }
-
-        indexOf = testNameSpan.IndexOf('.');
-        if (indexOf > 0)
-        {
-            testNameSpan = testNameSpan[(indexOf + 1)..];
-        }
+        var typeName = CurrentTestContext.Value?.FullyQualifiedTestClassName;
+        var type = FindType(typeName.AsSpan());
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
-        var method = FindMethod(type, testNameSpan);
+        var method = FindMethod(type, testName.AsSpan());
+
+        sourceFile = IoHelpers.GetMappedBuildPath(sourceFile);
+        var fileName = Path.GetFileNameWithoutExtension(sourceFile);
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
-        return new(
-            sourceFile,
-            settings,
-            type.NameWithParent(),
-            method.Name,
-            method.ParameterNames(),
-            pathInfo);
+        return new(sourceFile, settings, fileName, testName, method.ParameterNames(), pathInfo);
     }
 
     static Type FindType(ReadOnlySpan<char> typeName)

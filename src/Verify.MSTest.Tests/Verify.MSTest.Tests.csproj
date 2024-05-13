@@ -14,6 +14,9 @@
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
+    <ProjectReference Include="..\Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj"
+                      ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

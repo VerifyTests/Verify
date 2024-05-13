@@ -12,7 +12,7 @@ namespace VerifyMSTest.SourceGenerator;
 #pragma warning disable IDE0024 // Use expression body for operator
 
 /// <summary>
-/// An immutable, equatable array. This is equivalent to <see cref="Array{T}"/> but with value equality support.
+/// An immutable, equatable array. This is equivalent to <see cref="T:T[]"/> but with value equality support.
 /// </summary>
 /// <typeparam name="T">The type of values in the array.</typeparam>
 public readonly struct EquatableArray<T> : IEquatable<EquatableArray<T>>, IEnumerable<T>

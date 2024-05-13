@@ -20,4 +20,6 @@
     <Using Include="System.Linq.Expressions" />
     <Using Include="System.Collections.Specialized" />
   </ItemGroup>
+
+  <Sdk Name="ViHo.PackAsAnalyzer" />
 </Project>

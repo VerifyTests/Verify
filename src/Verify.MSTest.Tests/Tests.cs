@@ -1,19 +1,6 @@
 ﻿// TODO: Add a test that uses the base class to prevent regressions until it's deleted
 // TODO: Add a test for when the [TestClass] already has a TestContext property
 
-#region WillBeSourceGenerated
-partial class Tests
-{
-    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Injected by the test framework per test.")]
-    public TestContext TestContext
-    {
-        get => CurrentTestContext.Value!;
-        set => CurrentTestContext.Value = value;
-
-    }
-}
-#endregion
-
 [TestClass]
 [UsesVerify]
 public partial class Tests

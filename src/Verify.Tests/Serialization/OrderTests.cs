@@ -2,7 +2,7 @@
 {
     [ModuleInitializer]
     public static void OrderEnumerableByGlobalInit() =>
-        VerifierSettings.OrderEnumerableBy<TargetForGlobalDescending>(_ => _.value);
+        VerifierSettings.OrderEnumerableBy<TargetForGlobalDescending>(_ => _.Value);
 
     [Fact]
     public Task OrderEnumerableByGlobal() =>
@@ -18,7 +18,7 @@
 
     [ModuleInitializer]
     public static void OrderEnumerableByDescendingGlobalInit() =>
-        VerifierSettings.OrderEnumerableByDescending<TargetForGlobalDescending>(_ => _.value);
+        VerifierSettings.OrderEnumerableByDescending<TargetForGlobalDescending>(_ => _.Value);
 
     [Fact]
     public Task OrderEnumerableByDescendingGlobal() =>
@@ -30,15 +30,15 @@
                 new("b")
             });
 
-    public record TargetForGlobalDescending(string value);
+    public record TargetForGlobalDescending(string Value);
 
-    public record Target(string value);
+    public record Target(string Value);
 
     [Fact]
     public Task EnumerableOrder()
     {
         var settings = new VerifySettings();
-        settings.OrderEnumerableBy<Target>(_ => _.value);
+        settings.OrderEnumerableBy<Target>(_ => _.Value);
         return Verify(
             new List<Target>
             {
@@ -68,7 +68,7 @@
     public Task OrderEnumerableByDescending()
     {
         var settings = new VerifySettings();
-        settings.OrderEnumerableBy<Target>(_ => _.value);
+        settings.OrderEnumerableBy<Target>(_ => _.Value);
         return Verify(
             new List<Target>
             {
@@ -88,7 +88,7 @@
                     new("c"),
                     new("b")
                 })
-            .OrderEnumerableBy<Target>(_ => _.value);
+            .OrderEnumerableBy<Target>(_ => _.Value);
 
     [Fact]
     public Task OrderEnumerableByDescendingFluent() =>
@@ -99,7 +99,7 @@
                     new("c"),
                     new("b")
                 })
-            .OrderEnumerableByDescending<Target>(_ => _.value);
+            .OrderEnumerableByDescending<Target>(_ => _.Value);
 
     class DescendingComparer<T> :
         IComparer<T>
@@ -192,7 +192,7 @@
         return Verify(dictionary);
     }
 
-    public class NonComparableKey(string member)
+    class NonComparableKey(string member)
     {
         public override string ToString() =>
             member;

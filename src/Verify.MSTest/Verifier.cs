@@ -127,7 +127,7 @@ public static partial class Verifier
     /// <param name="typeName">The fully qualified class name of the currently running test.</param>
     /// <returns>The <see cref="Type"/> for the currently running test class.</returns>
     /// <remarks>
-    /// Uses a <see cref="ConcurrentDictionary{string, Type?}"/> to avoid repeated lookups.
+    /// Uses a <see cref="ConcurrentDictionary{TKey, TValue}"/> to avoid repeated lookups.
     /// This method should only be used as a fallback if reflection fails because:
     ///   1. It's slower
     ///   2. The type cache can grow large for large test suites

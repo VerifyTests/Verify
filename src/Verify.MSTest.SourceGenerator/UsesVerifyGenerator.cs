@@ -55,8 +55,8 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             return;
         }
 
-        var classes = classesToGenerate.Distinct().OfType<ClassToGenerate>().ToArray();
-        if (classes.Length == 0)
+        var classes = classesToGenerate.Distinct().OfType<ClassToGenerate>().ToList();
+        if (classes.Count == 0)
         {
             return;
         }

@@ -4,13 +4,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace VerifyMSTest.SourceGenerator;
 
-// TODO: Only emit if a base type doesn't already have the property?
 static class Parser
 {
     public static string MarkerAttributeName { get; } = "VerifyMSTest.UsesVerifyAttribute";
 
-    public static ClassToGenerate Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax)
+    public static ClassToGenerate? Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax)
     {
+        // Only generate for classes that don't already have a TestContext property defined.
+        if (HasTestContextProperty(typeSymbol))
+        {
+            return null;
+        }
+
         var ns = GetNamespace(typeSymbol);
         var name = GetTypeNameWithGenericParameters(typeSyntax);
         var parents = GetParentClasses(typeSyntax);
@@ -20,6 +25,54 @@ static class Parser
 
     private static string? GetNamespace(INamedTypeSymbol symbol) =>
         symbol.ContainingNamespace.IsGlobalNamespace ? null : symbol.ContainingNamespace.ToString();
+
+    private static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
+        HasMarkerAttributeOnBase(symbol) || HasTestContextPropertyDefinedInBase(symbol);
+
+    private static bool HasMarkerAttributeOnBase(INamedTypeSymbol symbol)
+    {
+        static bool HasMarkerAttribute(ISymbol symbol) =>
+            symbol
+            .GetAttributes()
+            .Any(a => a.AttributeClass?.ToDisplayString() == MarkerAttributeName);
+
+        var parent = symbol.BaseType;
+
+        while (parent is not null)
+        {
+            if (HasMarkerAttribute(parent))
+            {
+                return true;
+            }
+
+            parent = parent.BaseType;
+        }
+
+        return false;
+    }
+
+    private static bool HasTestContextPropertyDefinedInBase(INamedTypeSymbol symbol)
+    {
+        static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
+            symbol
+            .GetMembers()
+            .OfType<IPropertySymbol>()
+            .Any(p => p.Name == "TestContext" && p.Type.Name == "TestContext");
+
+        var parent = symbol.BaseType;
+
+        while (parent is not null)
+        {
+            if (HasTestContextProperty(parent))
+            {
+                return true;
+            }
+
+            parent = parent.BaseType;
+        }
+
+        return false;
+    }
 
     private static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax)
     {
@@ -31,18 +84,14 @@ static class Parser
 
         var parents = new Stack<ParentClass>();
 
-        // Try and get the parent syntax. If it isn't a type like class/struct, this will be null
         var parentSyntax = typeSyntax.Parent as TypeDeclarationSyntax;
 
-        // Keep looping while we're in a supported nested type
-        while (parentSyntax != null && IsAllowedKind(parentSyntax.Kind()))
+        while (parentSyntax is not null && IsAllowedKind(parentSyntax.Kind()))
         {
-            // Record the parent type keyword (class/struct etc), name, and constraints
             parents.Push(new ParentClass(
                 keyword: parentSyntax.Keyword.ValueText,
                 name: GetTypeNameWithGenericParameters(parentSyntax)));
 
-            // Move to the next outer type
             parentSyntax = parentSyntax.Parent as TypeDeclarationSyntax;
         }
 

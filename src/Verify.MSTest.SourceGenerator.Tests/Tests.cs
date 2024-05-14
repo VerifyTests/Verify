@@ -107,4 +107,31 @@ public class Tests
 
         return Verify(results);
     }
+
+    [Fact]
+    public Task HasAttributeOnBaseAndDerivedClasses()
+    {
+        var source = """
+            using VerifyMSTest;
+
+            [UsesVerify]
+            public partial class Base
+            {
+            }
+
+            [UsesVerify]
+            public partial class Derived : Base
+            {
+            }
+            """;
+
+        var results = TestDriver
+            .Run(source)
+            .Results
+            .SelectMany(grr => grr.GeneratedSources)
+            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
+            .SingleOrDefault();
+
+        return Verify(results);
+    }
 }

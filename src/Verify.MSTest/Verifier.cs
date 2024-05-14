@@ -3,6 +3,7 @@ namespace VerifyMSTest;
 public static partial class Verifier
 {
     private static ConcurrentDictionary<string, Type?> typeCache = new();
+    private const string AttributeUsageHelp = "Ensure test class has a `[UsesVerify]` attribute.";
 
     static Task AddFile(FilePair path, bool autoVerify)
     {
@@ -33,19 +34,19 @@ public static partial class Verifier
 
         if (CurrentTestContext.Value is null)
         {
-            throw new("TestContext is null. Ensure test class has a `[UsesVerify]` attribute.");
+            throw new($"TestContext is null. {AttributeUsageHelp}");
         }
 
         var testName = CurrentTestContext.Value.TestName;
         if (testName is null)
         {
-            throw new("TestContext.TestName is null. Ensure test class has a `[UsesVerify]` attribute.");
+            throw new($"TestContext.TestName is null. {AttributeUsageHelp}");
         }
 
         var typeName = CurrentTestContext.Value.FullyQualifiedTestClassName;
         if (typeName is null)
         {
-            throw new("TestContext.FullyQualifiedTestClassName is null. Ensure test class has a `[UsesVerify]` attribute.");
+            throw new($"TestContext.FullyQualifiedTestClassName is null. {AttributeUsageHelp}");
         }
 
         if(!TryGetTypeFromTestContext(typeName, CurrentTestContext.Value, out var type))
@@ -79,6 +80,16 @@ public static partial class Verifier
             pathInfo);
     }
 
+    /// <summary>
+    /// As an optimization, try to retrieve the <see cref="ITestMethod"/> stored on the
+    /// <see cref="TestContext"/>, and use that to retrieve the <see cref="Type"/>.
+    ///
+    /// If reflection fails, return false
+    /// </summary>
+    /// <param name="typeName">The fully qualified name of the class of the currently running test.</param>
+    /// <param name="testContext">The <see cref="TestContext"/> of the current test.</param>
+    /// <param name="type">The <see cref="Type"/> of the currently running test.</param>
+    /// <returns><c>true</c> if the reflection succeeded; <c>false</c> otherwise.</returns>
     private static bool TryGetTypeFromTestContext(string typeName, TestContext testContext, [NotNullWhen(true)] out Type? type)
     {
         // TODO: Should we file a bug here on testfx?
@@ -110,6 +121,17 @@ public static partial class Verifier
         return false;
     }
 
+    /// <summary>
+    /// Get the <see cref="Type"/> of the test class from the fully qualified name.
+    /// </summary>
+    /// <param name="typeName">The fully qualified class name of the currently running test.</param>
+    /// <returns>The <see cref="Type"/> for the currently running test class.</returns>
+    /// <remarks>
+    /// Uses a <see cref="ConcurrentDictionary{string, Type?}"/> to avoid repeated lookups.
+    /// This method should only be used as a fallback if reflection fails because:
+    ///   1. It's slower
+    ///   2. The type cache can grow large for large test suites
+    /// </remarks>
     private static Type FindType(string typeName)
     {
         // TODO: Do we need the cache here?

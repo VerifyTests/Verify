@@ -12,6 +12,7 @@
     <PackageReference Include="InfoOf.Fody" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="27.0.2" PrivateAssets="all" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.5" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.0" PrivateAssets="all" />
     <PackageReference Include="Xunit" Version="2.8.0" />

@@ -13,14 +13,7 @@ public class Tests
             }
             """;
 
-        var results = TestDriver
-            .Run(source)
-            .Results
-            .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
-            .SingleOrDefault();
-
-        return Verify(results);
+        return Verify(TestDriver.Run(source).SelectGeneratedSources());
     }
 
     [Fact]
@@ -35,14 +28,7 @@ public class Tests
             }
             """;
 
-        var results = TestDriver
-            .Run(source)
-            .Results
-            .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
-            .SingleOrDefault();
-
-        return Verify(results);
+        return Verify(TestDriver.Run(source).SelectGeneratedSources());
     }
 
     [Fact]
@@ -59,14 +45,7 @@ public class Tests
             }
             """;
 
-        var results = TestDriver
-            .Run(source)
-            .Results
-            .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
-            .SingleOrDefault();
-
-        return Verify(results);
+        return Verify(TestDriver.Run(source).SelectGeneratedSources());
     }
 
     [Fact]
@@ -98,14 +77,7 @@ public class Tests
             }
             """;
 
-        var results = TestDriver
-            .Run(source)
-            .Results
-            .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
-            .SingleOrDefault();
-
-        return Verify(results);
+        return Verify(TestDriver.Run(source).SelectGeneratedSources());
     }
 
     [Fact]
@@ -125,13 +97,6 @@ public class Tests
             }
             """;
 
-        var results = TestDriver
-            .Run(source)
-            .Results
-            .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
-            .SingleOrDefault();
-
-        return Verify(results);
+        return Verify(TestDriver.Run(source).SelectGeneratedSources());
     }
 }

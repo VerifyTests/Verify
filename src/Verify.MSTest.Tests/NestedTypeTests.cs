@@ -1,16 +1,16 @@
-﻿namespace TheTests;
+namespace TheTests;
 
 [TestClass]
-public class NestedTypeTests :
-    VerifyBase
+[UsesVerify]
+public partial class NestedTypeTests
 {
     [TestMethod]
     public Task ShouldPass() =>
         Verify("Foo");
 
     [TestClass]
-    public class Nested :
-        VerifyBase
+    [UsesVerify]
+    public partial class Nested
     {
         [TestMethod]
         public Task ShouldPass() =>

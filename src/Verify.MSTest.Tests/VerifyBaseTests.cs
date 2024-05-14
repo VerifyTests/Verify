@@ -1,8 +1,7 @@
-namespace TheTests;
+﻿namespace TheTests;
 
 [TestClass]
-[UsesVerify]
-public partial class VerifyTextSample
+public class VerifyBaseTests : VerifyBase
 {
     [TestMethod]
     public Task Simple() =>

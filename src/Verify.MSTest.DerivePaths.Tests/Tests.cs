@@ -1,6 +1,6 @@
-﻿[TestClass]
-public class Tests :
-    VerifyBase
+[TestClass]
+[UsesVerify]
+public partial class Tests
 {
     [TestMethod]
     public Task Test()

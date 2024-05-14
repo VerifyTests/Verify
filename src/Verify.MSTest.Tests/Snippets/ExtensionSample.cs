@@ -1,10 +1,10 @@
-﻿namespace TheTests;
+namespace TheTests;
 
 #region MSTestExtensionSample
 
 [TestClass]
-public class ExtensionSample :
-    VerifyBase
+[UsesVerify]
+public partial class ExtensionSample
 {
     [TestMethod]
     public Task AtMethod() =>

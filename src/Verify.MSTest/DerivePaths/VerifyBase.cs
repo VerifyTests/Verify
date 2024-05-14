@@ -20,9 +20,5 @@ public partial class VerifyBase
     /// Use a directory relative to the project directory for storing for `.verified.` files.
     /// </summary>
     public static void UseProjectRelativeDirectory(string directory) =>
-        DerivePathInfo(
-            (sourceFile, projectDirectory, type, method) => new(
-                directory: Path.Combine(projectDirectory, directory),
-                typeName: type.NameWithParent(),
-                methodName: method.Name));
+        Verifier.UseProjectRelativeDirectory(directory);
 }

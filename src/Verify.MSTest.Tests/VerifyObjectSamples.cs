@@ -1,4 +1,4 @@
-﻿using Argon;
+using Argon;
 
 // ReSharper disable NotAccessedField.Local
 
@@ -7,8 +7,8 @@ namespace TheTests;
 #pragma warning disable CS8618
 
 [TestClass]
-public class VerifyObjectSamples :
-    VerifyBase
+[UsesVerify]
+public partial class VerifyObjectSamples
 {
     [TestMethod]
     public Task ScopedSerializer()

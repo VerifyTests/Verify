@@ -1,7 +1,8 @@
-﻿namespace TheTests;
+namespace TheTests;
 
 [TestClass]
-public class Inherited : Base
+[UsesVerify]
+public partial class Inherited : Base
 {
     [TestMethod]
     public override Task TestToOverride()

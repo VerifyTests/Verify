@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace VerifyMSTest.SourceGenerator;
 
+// TODO: Only emit if a base type doesn't already have the property?
 static class Parser
 {
     public static string MarkerAttributeName { get; } = "VerifyMSTest.UsesVerifyAttribute";

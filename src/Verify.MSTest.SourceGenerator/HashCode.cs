@@ -2,7 +2,9 @@ using System.ComponentModel;
 
 namespace VerifyMSTest.SourceGenerator;
 
-// TODO: Consider adding this to Polyfill
+// .NET Framework cannot use the Microsoft.Bcl.HashCode package, so inline
+// an implementation of System.HashCode.
+// See https://github.com/dotnet/aspnetcore/commit/d074523ba3f477501cf2a113f1d64e9a21627e53.
 
 // Suppressing style warnings to keep code aligned with upstream version from
 // https://github.com/andrewlock/NetEscapades.EnumGenerators/blob/cd3c9278b0ea3827f7e085c19e998ad0671a11ab/src/NetEscapades.EnumGenerators/HashCode.cs
@@ -10,9 +12,6 @@ namespace VerifyMSTest.SourceGenerator;
 #pragma warning disable IDE1006 // Naming rule violation Prefix is not expected
 #pragma warning disable IDE0022 // Use expression body for method
 
-/// <summary>
-/// Polyfill for .NET 6 HashCode
-/// </summary>
 internal struct HashCode
 {
     private static readonly uint s_seed = GenerateGlobalSeed();

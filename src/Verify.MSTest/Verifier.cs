@@ -1,9 +1,9 @@
-using System.Reflection;
-
 namespace VerifyMSTest;
 
 public static partial class Verifier
 {
+    private static ConcurrentDictionary<string, Type?> typeCache = new();
+
     static Task AddFile(FilePair path, bool autoVerify)
     {
         var context = CurrentTestContext.Value;
@@ -31,46 +31,115 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        var testName = CurrentTestContext.Value?.TestName;
-        if (testName == null)
+        if (CurrentTestContext.Value is null)
+        {
+            throw new("TestContext is null. Ensure test class has a `[UsesVerify]` attribute.");
+        }
+
+        var testName = CurrentTestContext.Value.TestName;
+        if (testName is null)
         {
             throw new("TestContext.TestName is null. Ensure test class has a `[UsesVerify]` attribute.");
         }
 
-        var typeName = CurrentTestContext.Value?.FullyQualifiedTestClassName;
-        var type = FindType(typeName.AsSpan());
+        var typeName = CurrentTestContext.Value.FullyQualifiedTestClassName;
+        if (typeName is null)
+        {
+            throw new("TestContext.FullyQualifiedTestClassName is null. Ensure test class has a `[UsesVerify]` attribute.");
+        }
+
+        if(!TryGetTypeFromTestContext(typeName, CurrentTestContext.Value, out var type))
+        {
+            type = FindType(typeName);
+        }
+
+        var testNameSpan = testName.AsSpan();
+        var indexOf = testNameSpan.IndexOf('(');
+        if (indexOf > 0)
+        {
+            testNameSpan = testNameSpan[..indexOf];
+        }
+
+        indexOf = testNameSpan.IndexOf('.');
+        if (indexOf > 0)
+        {
+            testNameSpan = testNameSpan[(indexOf + 1)..];
+        }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
-        var method = FindMethod(type, testName.AsSpan());
-
-        sourceFile = IoHelpers.GetMappedBuildPath(sourceFile);
-        var fileName = Path.GetFileNameWithoutExtension(sourceFile);
+        var method = FindMethod(type, testNameSpan);
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
-        return new(sourceFile, settings, fileName, testName, method.ParameterNames(), pathInfo);
+        return new(
+            sourceFile,
+            settings,
+            type.NameWithParent(),
+            method.Name,
+            method.ParameterNames(),
+            pathInfo);
     }
 
-    static Type FindType(ReadOnlySpan<char> typeName)
+    private static bool TryGetTypeFromTestContext(string typeName, TestContext testContext, [NotNullWhen(true)] out Type? type)
     {
-        // TODO: Either
-        //    1. Switch to the other DerivePathInfo that uses names (e.g. from Expecto) and avoid type lookups
-        //    2. Add a cache here to speed up the lookup
-        var types = AppDomain.CurrentDomain.GetAssemblies()
+        // TODO: Should we file a bug here on testfx?
+
+        try
+        {
+            var testMethod = testContext
+                .GetType()
+                .GetField("_testMethod", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                ?.GetValue(testContext);
+            var assemblyPath = testMethod
+                ?.GetType()
+                ?.GetProperty("AssemblyName", BindingFlags.Instance | BindingFlags.Public)
+                ?.GetValue(testMethod);
+            var assemblyName = Path.GetFileNameWithoutExtension(assemblyPath as string ?? string.Empty);
+
+            type = Type.GetType($"{typeName}, {assemblyName}");
+
+            if (type is not null)
+            {
+                return true;
+            }
+        }
+        catch
+        {
+        }
+
+        type = null;
+        return false;
+    }
+
+    private static Type FindType(string typeName)
+    {
+        // TODO: Do we need the cache here?
+        var result = typeCache.GetOrAdd(typeName, name =>
+        {
+            var nameSpan = name.AsSpan();
+            var types = AppDomain.CurrentDomain.GetAssemblies()
             .Reverse()
             .SelectMany(assembly => assembly.GetTypes());
 
-        foreach (var type in types)
-        {
-            if (typeName.SequenceEqual(type.FullName))
+            foreach (var type in types)
             {
-                return type;
+                if (nameSpan.SequenceEqual(type.FullName))
+                {
+                    return type;
+                }
             }
+
+            return null;
+        });
+
+        if (result is null)
+        {
+            throw new($"Type '{typeName}' from TestContext not found.");
         }
 
-        throw new($"Type '{typeName}' from TestContext not found.");
+        return result;
     }
 
-    static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
+    private static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
     {
         foreach (var method in type
                      .GetMethods(BindingFlags.Instance | BindingFlags.Public))

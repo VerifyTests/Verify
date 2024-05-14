@@ -395,8 +395,8 @@ public Task TestCaseUsage(string arg) =>
 <a id='snippet-MSTestDataRow'></a>
 ```cs
 [TestClass]
-public class ParametersSample :
-    VerifyBase
+[UsesVerify]
+public partial class ParametersSample
 {
     [DataTestMethod]
     [DataRow("Value1")]
@@ -516,8 +516,8 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 <a id='snippet-UseParametersHashMsTest'></a>
 ```cs
 [TestClass]
-public class ParametersHashSample :
-    VerifyBase
+[UsesVerify]
+public partial class ParametersHashSample
 {
     [DataTestMethod]
     [DataRow("Value1")]

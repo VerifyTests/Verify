@@ -521,8 +521,8 @@ public class ScrubbersSample
 <a id='snippet-ScrubbersSampleMSTest'></a>
 ```cs
 [TestClass]
-public class ScrubbersSample :
-    VerifyBase
+[UsesVerify]
+public partial class ScrubbersSample
 {
     [TestMethod]
     public Task Lines()
@@ -789,8 +789,8 @@ public class ScrubberLevelsSample
 <a id='snippet-ScrubberLevelsSampleMSTest'></a>
 ```cs
 [TestClass]
-public class ScrubberLevelsSample :
-    VerifyBase
+[UsesVerify]
+public partial class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
 

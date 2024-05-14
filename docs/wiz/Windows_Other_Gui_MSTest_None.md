@@ -144,8 +144,8 @@ public static void Initialize() =>
 <a id='snippet-SampleTestMSTest'></a>
 ```cs
 [TestClass]
-public class Sample :
-    VerifyBase
+[UsesVerify]
+public partial class Sample
 {
     [TestMethod]
     public Task Test()

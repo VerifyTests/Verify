@@ -214,8 +214,8 @@ Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 <a id='snippet-SampleTestMSTest'></a>
 ```cs
 [TestClass]
-public class Sample :
-    VerifyBase
+[UsesVerify]
+public partial class Sample
 {
     [TestMethod]
     public Task Test()

@@ -384,8 +384,8 @@ public class UniqueForSample
 <a id='snippet-UniqueForSampleMSTest'></a>
 ```cs
 [TestClass]
-public class UniqueForSample :
-    VerifyBase
+[UsesVerify]
+public partial class UniqueForSample
 {
     [TestMethod]
     public Task Runtime()
@@ -618,13 +618,13 @@ Verifier.DerivePathInfo(
 <!-- snippet: DerivePathInfoMSTest -->
 <a id='snippet-DerivePathInfoMSTest'></a>
 ```cs
-DerivePathInfo(
+Verifier.DerivePathInfo(
     (sourceFile, projectDirectory, type, method) => new(
         directory: Path.Combine(projectDirectory, "Snapshots"),
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L9-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L11-L19' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

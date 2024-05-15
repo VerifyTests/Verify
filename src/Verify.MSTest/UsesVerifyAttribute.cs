@@ -5,6 +5,4 @@ namespace VerifyMSTest;
 // (commonly when using InternalsVisibleTo).
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class UsesVerifyAttribute : Attribute
-{
-}
+public sealed class UsesVerifyAttribute : Attribute;

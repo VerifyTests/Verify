@@ -2,8 +2,8 @@ namespace VerifyMSTest;
 
 public static partial class Verifier
 {
-    private static ConcurrentDictionary<string, Type?> typeCache = new();
-    private const string AttributeUsageHelp = "Ensure test class has a `[UsesVerify]` attribute.";
+    static ConcurrentDictionary<string, Type?> typeCache = new();
+    const string AttributeUsageHelp = "Ensure test class has a `[UsesVerify]` attribute.";
 
     static Task AddFile(FilePair path, bool autoVerify)
     {
@@ -90,7 +90,7 @@ public static partial class Verifier
     /// <param name="testContext">The <see cref="TestContext"/> of the current test.</param>
     /// <param name="type">The <see cref="Type"/> of the currently running test.</param>
     /// <returns><c>true</c> if the reflection succeeded; <c>false</c> otherwise.</returns>
-    private static bool TryGetTypeFromTestContext(string typeName, TestContext testContext, [NotNullWhen(true)] out Type? type)
+    static bool TryGetTypeFromTestContext(string typeName, TestContext testContext, [NotNullWhen(true)] out Type? type)
     {
         try
         {
@@ -130,7 +130,7 @@ public static partial class Verifier
     ///   1. It's slower
     ///   2. The type cache can grow large for large test suites
     /// </remarks>
-    private static Type FindType(string typeName)
+    static Type FindType(string typeName)
     {
         var result = typeCache.GetOrAdd(typeName, name =>
         {
@@ -158,7 +158,7 @@ public static partial class Verifier
         return result;
     }
 
-    private static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
+    static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
     {
         foreach (var method in type
                      .GetMethods(BindingFlags.Instance | BindingFlags.Public))

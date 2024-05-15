@@ -2,8 +2,9 @@ namespace VerifyMSTest.SourceGenerator;
 
 class IndentedStringBuilder
 {
-    // TODO: Tweak default capacity based on real-world usage
-    private const int DefaultStringBuilderCapacity = 1024;
+    // Default capacity based on the closest power of 2 to what's used in our own tests.
+    // This may need to be tweaked over time.
+    private const int DefaultStringBuilderCapacity = 4096;
     private readonly StringBuilder builder;
     private int indentLevel = 0;
     private bool isIndented = false;

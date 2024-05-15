@@ -1,6 +1,3 @@
-﻿// TODO: Add a test that uses the base class to prevent regressions until it's deleted
-// TODO: Add a test for when the [TestClass] already has a TestContext property
-
 [TestClass]
 [UsesVerify]
 public partial class Tests

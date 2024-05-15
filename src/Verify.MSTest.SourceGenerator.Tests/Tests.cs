@@ -23,7 +23,7 @@ public class Tests
             using VerifyMSTest;
 
             [UsesVerify]
-            public class Foo
+            public partial class Foo
             {
             }
             """;
@@ -40,7 +40,7 @@ public class Tests
             namespace Foo;
 
             [UsesVerify]
-            public class Bar
+            public partial class Bar
             {
             }
             """;

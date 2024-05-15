@@ -84,7 +84,7 @@ public static partial class Verifier
     /// As an optimization, try to retrieve the <see cref="ITestMethod"/> stored on the
     /// <see cref="TestContext"/>, and use that to retrieve the <see cref="Type"/>.
     ///
-    /// If reflection fails, return false
+    /// If reflection fails, return <c>false</c>.
     /// </summary>
     /// <param name="typeName">The fully qualified name of the class of the currently running test.</param>
     /// <param name="testContext">The <see cref="TestContext"/> of the current test.</param>
@@ -92,8 +92,6 @@ public static partial class Verifier
     /// <returns><c>true</c> if the reflection succeeded; <c>false</c> otherwise.</returns>
     private static bool TryGetTypeFromTestContext(string typeName, TestContext testContext, [NotNullWhen(true)] out Type? type)
     {
-        // TODO: Should we file a bug here on testfx?
-
         try
         {
             var testMethod = testContext
@@ -106,7 +104,7 @@ public static partial class Verifier
                 ?.GetValue(testMethod);
             var assemblyName = Path.GetFileNameWithoutExtension(assemblyPath as string ?? string.Empty);
 
-            type = Type.GetType($"{typeName}, {assemblyName}");
+            type = Type.GetType($"{typeName}, {assemblyName}", throwOnError: false);
 
             if (type is not null)
             {
@@ -134,7 +132,6 @@ public static partial class Verifier
     /// </remarks>
     private static Type FindType(string typeName)
     {
-        // TODO: Do we need the cache here?
         var result = typeCache.GetOrAdd(typeName, name =>
         {
             var nameSpan = name.AsSpan();

@@ -2,8 +2,7 @@ using System.ComponentModel;
 
 namespace VerifyMSTest.SourceGenerator;
 
-// .NET Framework cannot use the Microsoft.Bcl.HashCode package, so inline
-// an implementation of System.HashCode.
+// A local version of System.HashCode to avoid complications from NuGet private dependencies.
 // See https://github.com/dotnet/aspnetcore/commit/d074523ba3f477501cf2a113f1d64e9a21627e53.
 
 // Suppressing style warnings to keep code aligned with upstream version from

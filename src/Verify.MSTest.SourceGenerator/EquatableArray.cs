@@ -2,8 +2,6 @@ using System.Collections.Immutable;
 
 namespace VerifyMSTest.SourceGenerator;
 
-// TODO: Is there a better place for this to live?
-
 // Suppressing style warnings to keep code aligned with upstream version from
 // https://github.com/andrewlock/StronglyTypedId/blob/e5df78d0aa72f2232f423938c0d98d9bf4517092/src/StronglyTypedIds/EquatableArray.cs
 #pragma warning disable IDE1006 // Naming rule violation Prefix is not expected

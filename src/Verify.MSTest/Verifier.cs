@@ -94,6 +94,9 @@ public static partial class Verifier
     {
         try
         {
+            // We can't use UnsafeAccessor in this context because _testMethod is of type
+            // Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.ObjectModel.TestMethod, which isn't part of the MSTest.TestFramework
+            // package. If / when an API like https://github.com/dotnet/runtime/issues/90081 lands this generic reflection can be replaced.
             var testMethod = testContext
                 .GetType()
                 .GetField("_testMethod", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)

@@ -1,8 +1,17 @@
 namespace VerifyMSTest.SourceGenerator;
 
-static class TrackingNames
+public static class TrackingNames
 {
     public static string InitialTransform { get; } = nameof(InitialTransform);
     public static string RemoveNulls { get; } = nameof(RemoveNulls);
     public static string Collect { get; } = nameof(Collect);
+
+    public static IReadOnlyCollection<string> GetTrackingNames() =>
+        typeof(TrackingNames)
+        .GetProperties()
+        .Where(p => p.PropertyType == typeof(string))
+        .Select(p => p.GetValue(null))
+        .OfType<string>()
+        .Where(x => !string.IsNullOrEmpty(x))
+        .ToList();
 }

@@ -1,11 +1,16 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Xunit.Abstractions;
 
 namespace VerifyMSTest.SourceGenerator.Tests;
 
-static class TestDriver
+class TestDriver
 {
-    public static GeneratorDriverRunResult Run(string source)
+    private readonly IEnumerable<ISourceGenerator> sourceGenerators;
+
+    public TestDriver(IEnumerable<ISourceGenerator> sourceGenerators) => this.sourceGenerators = sourceGenerators;
+
+    public GeneratorDriverResults Run(string source)
     {
         var syntaxTree = CSharpSyntaxTree.ParseText(source);
 
@@ -20,11 +25,21 @@ static class TestDriver
             syntaxTrees: [syntaxTree],
             references: references);
 
-        var generator = new UsesVerifyGenerator();
+        var driverOptions = new GeneratorDriverOptions(
+            disabledOutputs: IncrementalGeneratorOutputKind.None,
+            trackIncrementalGeneratorSteps: true);
 
-        GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
+        GeneratorDriver driver = CSharpGeneratorDriver.Create(sourceGenerators, driverOptions: driverOptions);
+
         driver = driver.RunGenerators(compilation);
+        var results1 = driver.GetRunResult();
+        var timings1 = driver.GetTimingInfo();
+        driver = driver.RunGenerators(compilation.Clone());
+        var results2 = driver.GetRunResult();
+        var timings2 = driver.GetTimingInfo();
 
-        return driver.GetRunResult();
+        return new GeneratorDriverResults(
+            new GeneratorDriverResult(results1, timings1),
+            new GeneratorDriverResult(results2, timings2));
     }
 }

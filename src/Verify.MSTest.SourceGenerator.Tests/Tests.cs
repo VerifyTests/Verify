@@ -1,9 +1,48 @@
+using Microsoft.CodeAnalysis;
+using Shouldly;
+using Xunit.Abstractions;
+
 namespace VerifyMSTest.SourceGenerator.Tests;
 
 // These tests don't use Verify.SourceGenerator to avoid creating a circular depedency between the repos.
 
 public class Tests
 {
+    readonly UsesVerifyTestDriver testDriver = new();
+    readonly ITestOutputHelper output;
+
+    public Tests(ITestOutputHelper output) => this.output = output;
+
+    async Task VerifyGenerator(GeneratorDriverResults results)
+    {
+        output.WriteLine($"First run of generators took: {results.FirstRun.TimingInfo.ElapsedTime}");
+        output.WriteLine($"Cached re-run of generators took: {results.CachedRun.TimingInfo.ElapsedTime}");
+
+        await Verify(results.FirstRun.RunResult.SelectGeneratedSources());
+
+        // Ensure cachability
+        var trackingNames = TrackingNames.GetTrackingNames();
+        var trackedSteps1 = results.FirstRun.RunResult.GetTrackedSteps(trackingNames);
+        var trackedSteps2 = results.CachedRun.RunResult.GetTrackedSteps(trackingNames);
+
+        trackedSteps2.Keys.ShouldBe(trackedSteps1.Keys);
+        foreach (var kvp in trackedSteps1)
+        {
+            var steps1 = kvp.Value;
+            var steps2 = trackedSteps2[kvp.Key];
+
+            steps2.Length.ShouldBe(steps1.Length);
+            for (var i = 0; i < steps1.Length; i++)
+            {
+                var outputs1 = steps1[i].Outputs;
+                var outputs2 = steps2[i].Outputs;
+
+                outputs1.Select(o => o.Value).ShouldBe(outputs2.Select(o => o.Value));
+                outputs2.Select(o => o.Reason).ShouldAllBe(r => r == IncrementalStepRunReason.Cached || r == IncrementalStepRunReason.Unchanged);
+            }
+        }
+    }
+
     [Fact]
     public Task NoAttribute()
     {
@@ -13,7 +52,7 @@ public class Tests
             }
             """;
 
-        return Verify(TestDriver.Run(source).SelectGeneratedSources());
+        return VerifyGenerator(testDriver.Run(source));
     }
 
     [Fact]
@@ -28,7 +67,7 @@ public class Tests
             }
             """;
 
-        return Verify(TestDriver.Run(source).SelectGeneratedSources());
+        return VerifyGenerator(testDriver.Run(source));
     }
 
     [Fact]
@@ -45,7 +84,7 @@ public class Tests
             }
             """;
 
-        return Verify(TestDriver.Run(source).SelectGeneratedSources());
+        return VerifyGenerator(testDriver.Run(source));
     }
 
     [Fact]
@@ -77,7 +116,7 @@ public class Tests
             }
             """;
 
-        return Verify(TestDriver.Run(source).SelectGeneratedSources());
+        return VerifyGenerator(testDriver.Run(source));
     }
 
     [Fact]
@@ -97,6 +136,6 @@ public class Tests
             }
             """;
 
-        return Verify(TestDriver.Run(source).SelectGeneratedSources());
+        return VerifyGenerator(testDriver.Run(source));
     }
 }

@@ -2,7 +2,7 @@ namespace VerifyMSTest.SourceGenerator;
 
 static class Parser
 {
-    public static string MarkerAttributeName { get; } = "VerifyMSTest.UsesVerifyAttribute";
+    public static string MarkerAttributeName => "VerifyMSTest.UsesVerifyAttribute";
 
     public static ClassToGenerate? Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax)
     {

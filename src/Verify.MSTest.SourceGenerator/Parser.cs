@@ -31,7 +31,7 @@ static class Parser
         static bool HasMarkerAttribute(ISymbol symbol) =>
             symbol
             .GetAttributes()
-            .Any(a => a.AttributeClass?.ToDisplayString() == MarkerAttributeName);
+            .Any(_ => _.AttributeClass?.ToDisplayString() == MarkerAttributeName);
 
         var parent = symbol.BaseType;
 

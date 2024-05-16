@@ -14,7 +14,7 @@ public class Tests(ITestOutputHelper output)
         await Verify(first.RunResult.SelectGeneratedSources());
 
         // Ensure cachability
-        var trackingNames = TrackingNames.GetTrackingNames();
+        var trackingNames = TrackingNames.AllNames;
         var trackedSteps1 = first.RunResult.GetTrackedSteps(trackingNames);
         var trackedSteps2 = cached.RunResult.GetTrackedSteps(trackingNames);
 

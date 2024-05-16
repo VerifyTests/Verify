@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-#region UseParametersHashNunit
+﻿#region UseParametersHashNunit
 
 [TestFixture]
 public class ParametersHashSample

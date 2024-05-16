@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-#region UseParametersHashXunit
+﻿#region UseParametersHashXunit
 
 public class ParametersHashSample
 {

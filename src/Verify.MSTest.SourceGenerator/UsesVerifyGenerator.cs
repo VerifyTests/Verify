@@ -28,19 +28,19 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
     static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, Cancel cancel)
     {
-        if (context.TargetSymbol is not INamedTypeSymbol typeSymbol)
+        if (context.TargetSymbol is not INamedTypeSymbol symbol)
         {
             return null;
         }
 
-        if (context.TargetNode is not TypeDeclarationSyntax typeSyntax)
+        if (context.TargetNode is not TypeDeclarationSyntax syntax)
         {
             return null;
         }
 
         cancel.ThrowIfCancellationRequested();
 
-        return Parser.Parse(typeSymbol, typeSyntax);
+        return Parser.Parse(symbol, syntax);
     }
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)

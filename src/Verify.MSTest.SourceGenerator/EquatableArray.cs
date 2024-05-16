@@ -1,3 +1,5 @@
+// ReSharper disable ArrangeMethodOrOperatorBody
+// ReSharper disable ArrangeConstructorOrDestructorBody
 namespace VerifyMSTest.SourceGenerator;
 
 // Suppressing style warnings to keep code aligned with upstream version from

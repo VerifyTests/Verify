@@ -1,9 +1,8 @@
-﻿// ReSharper disable UnusedParameter.Local
-[TestClass]
+﻿[TestClass]
 public class Tests :
     VerifyBase
 {
-    // ReSharper disable once UnusedMember.Local
+    // ReSharper disable once UnusedParameter.Local
     static void DerivePathInfo()
     {
         #region DerivePathInfoMSTest

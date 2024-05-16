@@ -19,13 +19,14 @@ static class Parser
         return new ClassToGenerate(ns, name, parents);
     }
 
-    private static string? GetNamespace(INamedTypeSymbol symbol) =>
+    static string? GetNamespace(INamedTypeSymbol symbol) =>
         symbol.ContainingNamespace.IsGlobalNamespace ? null : symbol.ContainingNamespace.ToString();
 
-    private static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
-        HasMarkerAttributeOnBase(symbol) || HasTestContextPropertyDefinedInBase(symbol);
+    static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
+        HasMarkerAttributeOnBase(symbol) ||
+        HasTestContextPropertyDefinedInBase(symbol);
 
-    private static bool HasMarkerAttributeOnBase(INamedTypeSymbol symbol)
+    static bool HasMarkerAttributeOnBase(INamedTypeSymbol symbol)
     {
         static bool HasMarkerAttribute(ISymbol symbol) =>
             symbol
@@ -47,13 +48,14 @@ static class Parser
         return false;
     }
 
-    private static bool HasTestContextPropertyDefinedInBase(INamedTypeSymbol symbol)
+    static bool HasTestContextPropertyDefinedInBase(INamedTypeSymbol symbol)
     {
         static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
             symbol
             .GetMembers()
             .OfType<IPropertySymbol>()
-            .Any(p => p.Name == "TestContext" && p.Type.Name == "TestContext");
+            .Any(_ => _.Name == "TestContext" &&
+                      _.Type.Name == "TestContext");
 
         var parent = symbol.BaseType;
 
@@ -70,13 +72,14 @@ static class Parser
         return false;
     }
 
-    private static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax)
+    static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax)
     {
         // We can only be nested in class/struct/record
         static bool IsAllowedKind(SyntaxKind kind) =>
-            kind == SyntaxKind.ClassDeclaration ||
-            kind == SyntaxKind.StructDeclaration ||
-            kind == SyntaxKind.RecordDeclaration;
+            kind is
+                SyntaxKind.ClassDeclaration or
+                SyntaxKind.StructDeclaration or
+                SyntaxKind.RecordDeclaration;
 
         var parents = new Stack<ParentClass>();
 
@@ -94,6 +97,6 @@ static class Parser
         return parents.ToArray();
     }
 
-    private static string GetTypeNameWithGenericParameters(TypeDeclarationSyntax typeSyntax) =>
+    static string GetTypeNameWithGenericParameters(TypeDeclarationSyntax typeSyntax) =>
         typeSyntax.Identifier.ToString() + typeSyntax.TypeParameterList;
 }

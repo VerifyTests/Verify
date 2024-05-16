@@ -10,6 +10,6 @@ readonly record struct ClassToGenerate
     {
         Namespace = @namespace;
         ClassName = className;
-        ParentClasses = new EquatableArray<ParentClass>(parentClasses);
+        ParentClasses = new(parentClasses);
     }
 }

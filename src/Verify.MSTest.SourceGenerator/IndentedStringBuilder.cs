@@ -10,7 +10,7 @@ class IndentedStringBuilder
     bool isIndented = false;
 
     public IndentedStringBuilder(int capacity = DefaultStringBuilderCapacity) =>
-        builder = new StringBuilder(capacity);
+        builder = new(capacity);
 
     public IndentedStringBuilder IncreaseIndent()
     {

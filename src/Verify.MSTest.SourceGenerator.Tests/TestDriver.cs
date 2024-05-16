@@ -34,8 +34,8 @@ class TestDriver
         var results2 = driver.GetRunResult();
         var timings2 = driver.GetTimingInfo();
 
-        return new GeneratorDriverResults(
-            new GeneratorDriverResult(results1, timings1),
-            new GeneratorDriverResult(results2, timings2));
+        return new(
+            new(results1, timings1),
+            new(results2, timings2));
     }
 }

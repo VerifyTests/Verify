@@ -6,8 +6,8 @@ class IndentedStringBuilder
     // This may need to be tweaked over time.
     const int DefaultStringBuilderCapacity = 4096;
     readonly StringBuilder builder;
-    int indentLevel = 0;
-    bool isIndented = false;
+    int indentLevel;
+    bool isIndented;
 
     public IndentedStringBuilder(int capacity = DefaultStringBuilderCapacity) =>
         builder = new(capacity);

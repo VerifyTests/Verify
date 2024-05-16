@@ -4,10 +4,10 @@ class IndentedStringBuilder
 {
     // Default capacity based on the closest power of 2 to what's used in our own tests.
     // This may need to be tweaked over time.
-    private const int DefaultStringBuilderCapacity = 4096;
-    private readonly StringBuilder builder;
-    private int indentLevel = 0;
-    private bool isIndented = false;
+    const int DefaultStringBuilderCapacity = 4096;
+    readonly StringBuilder builder;
+    int indentLevel = 0;
+    bool isIndented = false;
 
     public IndentedStringBuilder(int capacity = DefaultStringBuilderCapacity) =>
         builder = new StringBuilder(capacity);
@@ -70,7 +70,7 @@ class IndentedStringBuilder
 
     public override string ToString() => builder.ToString();
 
-    private void WriteIndentIfNeeded()
+    void WriteIndentIfNeeded()
     {
         if (!isIndented)
         {

@@ -24,9 +24,9 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(classesCollection, Execute);
     }
 
-    private static bool IsSyntaxEligibleForGeneration(SyntaxNode node, CancellationToken ct) => node is ClassDeclarationSyntax;
+    static bool IsSyntaxEligibleForGeneration(SyntaxNode node, CancellationToken ct) => node is ClassDeclarationSyntax;
 
-    private static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, CancellationToken ct)
+    static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, CancellationToken ct)
     {
         if (context.TargetSymbol is not INamedTypeSymbol typeSymbol)
         {
@@ -43,7 +43,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         return Parser.Parse(typeSymbol, typeSyntax);
     }
 
-    private static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
+    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
     {
         if (classesToGenerate.IsDefaultOrEmpty)
         {

@@ -2,7 +2,7 @@ namespace VerifyMSTest.SourceGenerator.Tests;
 
 class TestDriver
 {
-    private readonly IEnumerable<ISourceGenerator> sourceGenerators;
+    readonly IEnumerable<ISourceGenerator> sourceGenerators;
 
     public TestDriver(IEnumerable<ISourceGenerator> sourceGenerators) => this.sourceGenerators = sourceGenerators;
 

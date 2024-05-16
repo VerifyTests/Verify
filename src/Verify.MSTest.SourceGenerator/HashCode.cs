@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace VerifyMSTest.SourceGenerator;
 
 // A local version of System.HashCode to avoid complications from NuGet private dependencies.

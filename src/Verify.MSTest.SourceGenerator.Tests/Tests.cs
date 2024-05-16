@@ -1,6 +1,6 @@
 namespace VerifyMSTest.SourceGenerator.Tests;
 
-// These tests don't use Verify.SourceGenerator to avoid creating a circular depedency between the repos.
+// These tests don't use Verify.SourceGenerator to avoid creating a circular dependency between the repos.
 
 public class Tests
 {
@@ -33,8 +33,8 @@ public class Tests
                 var outputs1 = steps1[i].Outputs;
                 var outputs2 = steps2[i].Outputs;
 
-                outputs1.Select(o => o.Value).ShouldBe(outputs2.Select(o => o.Value));
-                outputs2.Select(o => o.Reason).ShouldAllBe(r => r == IncrementalStepRunReason.Cached || r == IncrementalStepRunReason.Unchanged);
+                outputs1.Select(_ => _.Value).ShouldBe(outputs2.Select(_ => _.Value));
+                outputs2.Select(_ => _.Reason).ShouldAllBe(_ => _ == IncrementalStepRunReason.Cached || _ == IncrementalStepRunReason.Unchanged);
             }
         }
     }

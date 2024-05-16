@@ -37,7 +37,7 @@ static class Emitter
     {
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
-            builder.Append("partial ").Append(parentClass.Keyword).Append(" ").AppendLine(parentClass.Name)
+            builder.AppendLine($"partial {parentClass.Keyword} {parentClass.Name}")
               .AppendLine("{");
 
             builder.IncreaseIndent();
@@ -45,7 +45,7 @@ static class Emitter
 
         WriteClass(builder, classToGenerate);
 
-        foreach (var parentClass in classToGenerate.ParentClasses)
+        foreach (var _ in classToGenerate.ParentClasses)
         {
             builder.DecreaseIndent()
               .AppendLine("}");
@@ -54,7 +54,7 @@ static class Emitter
 
     static void WriteClass(IndentedStringBuilder builder, ClassToGenerate classToGenerate) =>
         builder.AppendLine(GeneratedCodeAttribute)
-          .Append("partial class ").AppendLine(classToGenerate.ClassName)
+          .AppendLine($"partial class {classToGenerate.ClassName}")
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")
           .AppendLine("    {")

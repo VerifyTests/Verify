@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator.Tests;
-
 class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 {
     public GeneratorDriverResults Run(string source)
@@ -8,7 +6,7 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 
         IReadOnlyCollection<PortableExecutableReference> references =
         [
-            MetadataReference.CreateFromFile(typeof(UsesVerifyAttribute).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
         ];
 

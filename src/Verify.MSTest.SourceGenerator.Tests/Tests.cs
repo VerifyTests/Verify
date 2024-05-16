@@ -6,15 +6,17 @@ public class Tests(ITestOutputHelper output)
 
     async Task VerifyGenerator(GeneratorDriverResults results)
     {
-        output.WriteLine($"First run of generators took: {results.FirstRun.TimingInfo.ElapsedTime}");
-        output.WriteLine($"Cached re-run of generators took: {results.CachedRun.TimingInfo.ElapsedTime}");
+        var first = results.FirstRun;
+        output.WriteLine($"First run of generators took: {first.TimingInfo.ElapsedTime}");
+        var cached = results.CachedRun;
+        output.WriteLine($"Cached re-run of generators took: {cached.TimingInfo.ElapsedTime}");
 
-        await Verify(results.FirstRun.RunResult.SelectGeneratedSources());
+        await Verify(first.RunResult.SelectGeneratedSources());
 
         // Ensure cachability
         var trackingNames = TrackingNames.GetTrackingNames();
-        var trackedSteps1 = results.FirstRun.RunResult.GetTrackedSteps(trackingNames);
-        var trackedSteps2 = results.CachedRun.RunResult.GetTrackedSteps(trackingNames);
+        var trackedSteps1 = first.RunResult.GetTrackedSteps(trackingNames);
+        var trackedSteps2 = cached.RunResult.GetTrackedSteps(trackingNames);
 
         trackedSteps2.Keys.ShouldBe(trackedSteps1.Keys);
         foreach (var (key, steps1) in trackedSteps1)

@@ -1,18 +1,16 @@
-namespace VerifyMSTest.SourceGenerator.Tests;
-
 static class GeneratorDriverRunResultExtensions
 {
-    public static (string HintName, string SourceText)? SelectGeneratedSources(this GeneratorDriverRunResult gdrr) =>
-        gdrr
+    public static (string HintName, string SourceText)? SelectGeneratedSources(this GeneratorDriverRunResult runResult) =>
+        runResult
             .Results
-            .SelectMany(grr => grr.GeneratedSources)
-            .Select(gs => (gs.HintName, gs.SourceText.ToString()))
+            .SelectMany(_ => _.GeneratedSources)
+            .Select(_ => (_.HintName, _.SourceText.ToString()))
             .SingleOrDefault();
 
     public static Dictionary<string, ImmutableArray<IncrementalGeneratorRunStep>> GetTrackedSteps(this GeneratorDriverRunResult runResult, IReadOnlyCollection<string> trackingNames) =>
         runResult
             .Results
-            .SelectMany(result => result.TrackedSteps)
-            .Where(step => trackingNames.Contains(step.Key))
-            .ToDictionary(x => x.Key, x => x.Value);
+            .SelectMany(_ => _.TrackedSteps)
+            .Where(_ => trackingNames.Contains(_.Key))
+            .ToDictionary(_ => _.Key, _ => _.Value);
 }

@@ -1,5 +1,3 @@
-namespace TheTests;
-
 #region MSTestDataRow
 
 [TestClass]

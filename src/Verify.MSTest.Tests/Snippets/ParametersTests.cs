@@ -1,5 +1,3 @@
-namespace TheTests;
-
 [TestClass]
 [UsesVerify]
 public partial class ParametersTests

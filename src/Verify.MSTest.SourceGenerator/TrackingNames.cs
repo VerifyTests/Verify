@@ -9,9 +9,9 @@ public static class TrackingNames
     public static IReadOnlyCollection<string> GetTrackingNames() =>
         typeof(TrackingNames)
         .GetProperties()
-        .Where(p => p.PropertyType == typeof(string))
-        .Select(p => p.GetValue(null))
+        .Where(_ => _.PropertyType == typeof(string))
+        .Select(_ => _.GetValue(null))
         .OfType<string>()
-        .Where(x => !string.IsNullOrEmpty(x))
+        .Where(_ => !string.IsNullOrEmpty(_))
         .ToList();
 }

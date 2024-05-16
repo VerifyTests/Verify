@@ -1,6 +1,3 @@
-using System.Collections.Immutable;
-using Microsoft.CodeAnalysis;
-
 namespace VerifyMSTest.SourceGenerator.Tests;
 
 static class GeneratorDriverRunResultExtensions

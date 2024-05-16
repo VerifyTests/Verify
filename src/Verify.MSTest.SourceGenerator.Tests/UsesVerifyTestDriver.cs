@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-
-namespace VerifyMSTest.SourceGenerator.Tests;
+﻿namespace VerifyMSTest.SourceGenerator.Tests;
 
 class UsesVerifyTestDriver : TestDriver
 {

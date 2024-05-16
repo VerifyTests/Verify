@@ -1,7 +1,3 @@
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Xunit.Abstractions;
-
 namespace VerifyMSTest.SourceGenerator.Tests;
 
 class TestDriver

@@ -1,7 +1,3 @@
-using Microsoft.CodeAnalysis;
-using Shouldly;
-using Xunit.Abstractions;
-
 namespace VerifyMSTest.SourceGenerator.Tests;
 
 // These tests don't use Verify.SourceGenerator to avoid creating a circular depedency between the repos.

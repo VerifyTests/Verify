@@ -54,8 +54,7 @@ static class Parser
             symbol
             .GetMembers()
             .OfType<IPropertySymbol>()
-            .Any(_ => _.Name == "TestContext" &&
-                      _.Type.Name == "TestContext");
+            .Any(_ => _.Name == "TestContext");
 
         var parent = symbol.BaseType;
 

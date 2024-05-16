@@ -2,12 +2,9 @@ namespace VerifyMSTest.SourceGenerator.Tests;
 
 // These tests don't use Verify.SourceGenerator to avoid creating a circular dependency between the repos.
 
-public class Tests
+public class Tests(ITestOutputHelper output)
 {
     readonly UsesVerifyTestDriver testDriver = new();
-    readonly ITestOutputHelper output;
-
-    public Tests(ITestOutputHelper output) => this.output = output;
 
     async Task VerifyGenerator(GeneratorDriverResults results)
     {
@@ -22,10 +19,9 @@ public class Tests
         var trackedSteps2 = results.CachedRun.RunResult.GetTrackedSteps(trackingNames);
 
         trackedSteps2.Keys.ShouldBe(trackedSteps1.Keys);
-        foreach (var kvp in trackedSteps1)
+        foreach (var (key, steps1) in trackedSteps1)
         {
-            var steps1 = kvp.Value;
-            var steps2 = trackedSteps2[kvp.Key];
+            var steps2 = trackedSteps2[key];
 
             steps2.Length.ShouldBe(steps1.Length);
             for (var i = 0; i < steps1.Length; i++)
@@ -33,8 +29,11 @@ public class Tests
                 var outputs1 = steps1[i].Outputs;
                 var outputs2 = steps2[i].Outputs;
 
-                outputs1.Select(_ => _.Value).ShouldBe(outputs2.Select(_ => _.Value));
-                outputs2.Select(_ => _.Reason).ShouldAllBe(_ => _ == IncrementalStepRunReason.Cached || _ == IncrementalStepRunReason.Unchanged);
+                outputs1.Select(_ => _.Value)
+                    .ShouldBe(outputs2.Select(_ => _.Value));
+                outputs2.Select(_ => _.Reason)
+                    .ShouldAllBe(_ => _ == IncrementalStepRunReason.Cached ||
+                                      _ == IncrementalStepRunReason.Unchanged);
             }
         }
     }

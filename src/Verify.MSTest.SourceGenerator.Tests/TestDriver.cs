@@ -1,11 +1,7 @@
 namespace VerifyMSTest.SourceGenerator.Tests;
 
-class TestDriver
+class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 {
-    readonly IEnumerable<ISourceGenerator> sourceGenerators;
-
-    public TestDriver(IEnumerable<ISourceGenerator> sourceGenerators) => this.sourceGenerators = sourceGenerators;
-
     public GeneratorDriverResults Run(string source)
     {
         var syntaxTree = CSharpSyntaxTree.ParseText(source);

@@ -85,8 +85,8 @@ static class Parser
         while (parentSyntax is not null && IsAllowedKind(parentSyntax.Kind()))
         {
             parents.Push(new(
-                keyword: parentSyntax.Keyword.ValueText,
-                name: GetTypeNameWithGenericParameters(parentSyntax)));
+                Keyword: parentSyntax.Keyword.ValueText,
+                Name: GetTypeNameWithGenericParameters(parentSyntax)));
 
             parentSyntax = parentSyntax.Parent as TypeDeclarationSyntax;
         }

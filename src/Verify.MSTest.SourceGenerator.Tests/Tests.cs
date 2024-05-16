@@ -1,8 +1,5 @@
 // These tests don't use Verify.SourceGenerator to avoid creating a circular dependency between the repos.
 
-using VerifyMSTest.SourceGenerator;
-using VerifyMSTest.SourceGenerator.Tests;
-
 public class Tests(ITestOutputHelper output)
 {
     readonly UsesVerifyTestDriver testDriver = new();

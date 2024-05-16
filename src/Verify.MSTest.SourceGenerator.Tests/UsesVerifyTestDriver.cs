@@ -1,4 +1,2 @@
-﻿namespace VerifyMSTest.SourceGenerator.Tests;
-
-class UsesVerifyTestDriver() :
+﻿class UsesVerifyTestDriver() :
     TestDriver([new UsesVerifyGenerator().AsSourceGenerator()]);

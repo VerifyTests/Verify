@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-#region ScrubbersSampleMSTest
+﻿#region ScrubbersSampleMSTest
 
 [TestClass]
 public class ScrubbersSample :

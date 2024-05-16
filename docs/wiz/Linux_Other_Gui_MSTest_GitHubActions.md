@@ -142,7 +142,7 @@ public class Sample :
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L3-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L1-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

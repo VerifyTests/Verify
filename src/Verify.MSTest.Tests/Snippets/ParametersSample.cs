@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-#region MSTestDataRow
+﻿#region MSTestDataRow
 
 [TestClass]
 public class ParametersSample :

@@ -453,7 +453,7 @@ public class UniqueForSample :
             .UniqueForOSPlatform();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L3-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L1-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

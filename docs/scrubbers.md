@@ -636,7 +636,7 @@ public class ScrubbersSample :
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L3-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -818,7 +818,7 @@ public class ScrubberLevelsSample :
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L3-L35' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubberLevelsSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubberLevelsSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

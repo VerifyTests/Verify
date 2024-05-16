@@ -19,7 +19,7 @@ static class Emitter
     {
         if (classToGenerate.Namespace is not null)
         {
-            builder.Append("namespace ").AppendLine(classToGenerate.Namespace)
+            builder.AppendLine($"namespace {classToGenerate.Namespace}")
               .AppendLine("{")
               .IncreaseIndent();
         }

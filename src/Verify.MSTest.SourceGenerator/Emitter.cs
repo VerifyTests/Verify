@@ -15,45 +15,45 @@ static class Emitter
 
     static readonly IndentedStringBuilder IndentedStringBuilder = new();
 
-    static void WriteNamespace(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
+    static void WriteNamespace(IndentedStringBuilder builder, ClassToGenerate classToGenerate)
     {
         if (classToGenerate.Namespace is not null)
         {
-            sb.Append("namespace ").AppendLine(classToGenerate.Namespace)
+            builder.Append("namespace ").AppendLine(classToGenerate.Namespace)
               .AppendLine("{")
               .IncreaseIndent();
         }
 
-        WriteParentTypes(sb, classToGenerate);
+        WriteParentTypes(builder, classToGenerate);
 
         if (classToGenerate.Namespace is not null)
         {
-            sb.DecreaseIndent()
+            builder.DecreaseIndent()
               .AppendLine("}");
         };
     }
 
-    static void WriteParentTypes(IndentedStringBuilder sb, ClassToGenerate classToGenerate)
+    static void WriteParentTypes(IndentedStringBuilder builder, ClassToGenerate classToGenerate)
     {
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
-            sb.Append("partial ").Append(parentClass.Keyword).Append(" ").AppendLine(parentClass.Name)
+            builder.Append("partial ").Append(parentClass.Keyword).Append(" ").AppendLine(parentClass.Name)
               .AppendLine("{");
 
-            sb.IncreaseIndent();
+            builder.IncreaseIndent();
         }
 
-        WriteClass(sb, classToGenerate);
+        WriteClass(builder, classToGenerate);
 
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
-            sb.DecreaseIndent()
+            builder.DecreaseIndent()
               .AppendLine("}");
         }
     }
 
-    static void WriteClass(IndentedStringBuilder sb, ClassToGenerate classToGenerate) =>
-        sb.AppendLine(GeneratedCodeAttribute)
+    static void WriteClass(IndentedStringBuilder builder, ClassToGenerate classToGenerate) =>
+        builder.AppendLine(GeneratedCodeAttribute)
           .Append("partial class ").AppendLine(classToGenerate.ClassName)
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")

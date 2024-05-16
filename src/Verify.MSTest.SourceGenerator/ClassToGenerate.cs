@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 readonly record struct ClassToGenerate
 {
     public string? Namespace { get; }

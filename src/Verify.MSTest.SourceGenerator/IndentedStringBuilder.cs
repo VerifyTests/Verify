@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 class IndentedStringBuilder(int capacity = IndentedStringBuilder.DefaultStringBuilderCapacity)
 {
     // Default capacity based on the closest power of 2 to what's used in our own tests.

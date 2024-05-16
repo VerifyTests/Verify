@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 readonly record struct ParentClass(string Keyword, string Name)
 {
     public string Keyword { get; } = Keyword;

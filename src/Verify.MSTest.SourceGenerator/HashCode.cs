@@ -1,7 +1,6 @@
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // ReSharper disable ArrangeMethodOrOperatorBody
 // ReSharper disable ArrangeRedundantParentheses
-namespace VerifyMSTest.SourceGenerator;
 
 // A local version of System.HashCode to avoid complications from NuGet private dependencies.
 // See https://github.com/dotnet/aspnetcore/commit/d074523ba3f477501cf2a113f1d64e9a21627e53.
@@ -12,7 +11,7 @@ namespace VerifyMSTest.SourceGenerator;
 #pragma warning disable IDE1006 // Naming rule violation Prefix is not expected
 #pragma warning disable IDE0022 // Use expression body for method
 
-internal struct HashCode
+struct HashCode
 {
     private static readonly uint s_seed = GenerateGlobalSeed();
 

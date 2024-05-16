@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-#region UniqueForSampleMSTest
+﻿#region UniqueForSampleMSTest
 
 [TestClass]
 public class UniqueForSample :

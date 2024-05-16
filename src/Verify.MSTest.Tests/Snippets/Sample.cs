@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-#region SampleTestMSTest
+﻿#region SampleTestMSTest
 
 [TestClass]
 public class Sample :

@@ -1,6 +1,4 @@
-﻿namespace TheTests;
-
-[TestClass]
+﻿[TestClass]
 public class Inherited : Base
 {
     [TestMethod]

@@ -416,7 +416,7 @@ public class ParametersSample :
             .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L3-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -556,7 +556,7 @@ public class ParametersHashSample :
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L3-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L1-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashMsTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -615,7 +615,7 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L3-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersHashSample.cs#L1-L53' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Note that NUnit can derive the parameters without explicitly passing them.
@@ -665,5 +665,5 @@ public class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L3-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L1-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

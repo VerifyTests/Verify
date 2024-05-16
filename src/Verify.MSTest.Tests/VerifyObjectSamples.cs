@@ -2,7 +2,6 @@
 
 // ReSharper disable NotAccessedField.Local
 
-namespace TheTests;
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
 

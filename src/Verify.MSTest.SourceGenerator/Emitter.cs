@@ -19,18 +19,10 @@ static class Emitter
     {
         if (classToGenerate.Namespace is not null)
         {
-            builder.Append("namespace ").AppendLine(classToGenerate.Namespace)
-              .AppendLine("{")
-              .IncreaseIndent();
+            builder.AppendLine($"namespace {classToGenerate.Namespace};");
         }
 
         WriteParentTypes(builder, classToGenerate);
-
-        if (classToGenerate.Namespace is not null)
-        {
-            builder.DecreaseIndent()
-              .AppendLine("}");
-        };
     }
 
     static void WriteParentTypes(IndentedStringBuilder builder, ClassToGenerate classToGenerate)

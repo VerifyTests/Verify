@@ -2,7 +2,7 @@
 [UsesVerify]
 public partial class Tests
 {
-    // ReSharper disable once UnusedMember.Local
+    // ReSharper disable once UnusedParameter.Local
     static void DerivePathInfo()
     {
         #region DerivePathInfoMSTest

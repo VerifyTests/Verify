@@ -4,7 +4,7 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
     {
         var syntaxTree = CSharpSyntaxTree.ParseText(source);
 
-        IReadOnlyCollection<PortableExecutableReference> references =
+        PortableExecutableReference[] references =
         [
             MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(object).Assembly.Location)

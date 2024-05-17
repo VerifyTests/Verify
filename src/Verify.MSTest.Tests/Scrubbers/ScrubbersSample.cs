@@ -1,8 +1,8 @@
-﻿#region ScrubbersSampleMSTest
+#region ScrubbersSampleMSTest
 
 [TestClass]
-public class ScrubbersSample :
-    VerifyBase
+[UsesVerify]
+public partial class ScrubbersSample
 {
     [TestMethod]
     public Task Lines()

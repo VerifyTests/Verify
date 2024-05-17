@@ -1,7 +1,9 @@
-﻿namespace VerifyMSTest;
+namespace VerifyMSTest;
 
-public partial class VerifyBase
+partial class VerifyBase
 {
+#pragma warning disable CA1822 // Mark members as static
+
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
     /// </summary>
@@ -11,7 +13,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
+        Verifier.VerifyFile(path, settings, info, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -23,5 +25,5 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
+        Verifier.VerifyFile(path, settings, info, sourceFile);
 }

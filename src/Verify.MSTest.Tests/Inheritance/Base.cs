@@ -1,6 +1,6 @@
-﻿[TestClass]
-public class Base :
-    VerifyBase
+[TestClass]
+[UsesVerify]
+public partial class Base
 {
     [TestMethod]
     public Task TestInBase() =>

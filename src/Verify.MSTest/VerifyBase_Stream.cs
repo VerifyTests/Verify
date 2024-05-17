@@ -1,7 +1,9 @@
-﻿namespace VerifyMSTest;
+namespace VerifyMSTest;
 
-public partial class VerifyBase
+partial class VerifyBase
 {
+#pragma warning disable CA1822 // Mark members as static
+
     [Pure]
     public SettingsTask Verify(
         byte[]? target,
@@ -9,7 +11,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verifier.Verify(target, extension, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -17,7 +19,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+        Verifier.Verify(target, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -26,7 +28,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verifier.Verify(target, extension, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -35,7 +37,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verifier.Verify(target, extension, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -43,7 +45,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+        Verifier.Verify(target, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -52,7 +54,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verifier.Verify(target, extension, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify(
@@ -60,7 +62,7 @@ public partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, info));
+        Verifier.Verify(target, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify<T>(
@@ -70,7 +72,7 @@ public partial class VerifyBase
         object? info = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verifier.Verify(target, extension, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify<T>(
@@ -80,7 +82,7 @@ public partial class VerifyBase
         object? info = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStream(target, extension, info));
+        Verifier.Verify(target, extension, settings, info, sourceFile);
 
     [Pure]
     public SettingsTask Verify<T>(
@@ -90,5 +92,5 @@ public partial class VerifyBase
         object? info = null,
         [CallerFilePath] string sourceFile = "")
         where T : Stream =>
-        Verify(settings, sourceFile, _ => _.VerifyStreams(targets, extension, info));
+        Verifier.Verify(targets, extension, settings, info, sourceFile);
 }

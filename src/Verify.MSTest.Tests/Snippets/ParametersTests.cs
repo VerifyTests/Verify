@@ -1,6 +1,6 @@
-﻿[TestClass]
-public class ParametersTests :
-    VerifyBase
+[TestClass]
+[UsesVerify]
+public partial class ParametersTests
 {
     //[DataTestMethod]
     //[DataRow("1.1")]

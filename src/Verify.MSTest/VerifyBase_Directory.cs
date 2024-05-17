@@ -1,7 +1,8 @@
-﻿namespace VerifyMSTest;
+namespace VerifyMSTest;
 
-public partial class VerifyBase
+partial class VerifyBase
 {
+#pragma warning disable CA1822 // Mark members as static
 #if NET5_0_OR_GREATER
 
     /// <summary>
@@ -17,7 +18,7 @@ public partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, options, info, fileScrubber), true);
+        Verifier.VerifyDirectory(path, include, pattern, options, settings, info, fileScrubber, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -33,7 +34,7 @@ public partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(path.FullName, include, pattern, options, settings, info, fileScrubber, sourceFile);
+        Verifier.VerifyDirectory(path, include, pattern, options, settings, info, fileScrubber, sourceFile);
 #else
     /// <summary>
     /// Verifies the contents of <paramref name="path"/>.
@@ -48,7 +49,7 @@ public partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyDirectory(path, include, pattern, option, info, fileScrubber), true);
+        Verifier.VerifyDirectory(path, include, pattern, option, settings, info, fileScrubber, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path"/>.
@@ -64,6 +65,6 @@ public partial class VerifyBase
         object? info = null,
         FileScrubber? fileScrubber = null,
         [CallerFilePath] string sourceFile = "") =>
-        VerifyDirectory(path.FullName, include, pattern, option, settings, info, fileScrubber, sourceFile);
+        Verifier.VerifyDirectory(path, include, pattern, option, settings, info, fileScrubber, sourceFile);
 #endif
 }

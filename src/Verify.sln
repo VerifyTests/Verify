@@ -93,6 +93,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixieNugetUsage", "NugetUsa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.SourceGenerator", "Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj", "{19FF2BDC-A966-4C03-9DF8-E6978E0FACF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.SourceGenerator.Tests", "Verify.MSTest.SourceGenerator.Tests\Verify.MSTest.SourceGenerator.Tests.csproj", "{8CAE91EB-725B-4F4A-AA70-F825395E944A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -247,6 +251,14 @@ Global
 		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{381EDDAF-76E4-4B9F-812B-8A728F5CBC1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FF2BDC-A966-4C03-9DF8-E6978E0FACF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FF2BDC-A966-4C03-9DF8-E6978E0FACF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FF2BDC-A966-4C03-9DF8-E6978E0FACF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FF2BDC-A966-4C03-9DF8-E6978E0FACF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

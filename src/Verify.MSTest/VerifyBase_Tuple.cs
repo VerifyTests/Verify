@@ -1,11 +1,13 @@
-﻿namespace VerifyMSTest;
+namespace VerifyMSTest;
 
-public partial class VerifyBase
+partial class VerifyBase
 {
+#pragma warning disable CA1822 // Mark members as static
+
     [Pure]
     public SettingsTask VerifyTuple(
         Expression<Func<ITuple>> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyTuple(target));
+        Verifier.VerifyTuple(target, settings, sourceFile);
 }

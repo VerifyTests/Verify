@@ -1,8 +1,8 @@
-﻿#region MSTestDataRow
+#region MSTestDataRow
 
 [TestClass]
-public class ParametersSample :
-    VerifyBase
+[UsesVerify]
+public partial class ParametersSample
 {
     [DataTestMethod]
     [DataRow("Value1")]

@@ -1,8 +1,8 @@
-﻿#region UseParametersHashMsTest
+#region UseParametersHashMsTest
 
 [TestClass]
-public class ParametersHashSample :
-    VerifyBase
+[UsesVerify]
+public partial class ParametersHashSample
 {
     [DataTestMethod]
     [DataRow("Value1")]

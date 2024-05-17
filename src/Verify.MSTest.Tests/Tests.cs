@@ -1,13 +1,13 @@
-﻿[TestClass]
-public class Tests :
-    VerifyBase
+[TestClass]
+[UsesVerify]
+public partial class Tests
 {
     // ReSharper disable once UnusedParameter.Local
     static void DerivePathInfo()
     {
         #region DerivePathInfoMSTest
 
-        DerivePathInfo(
+        Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,

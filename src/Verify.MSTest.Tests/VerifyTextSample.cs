@@ -1,6 +1,6 @@
-﻿[TestClass]
-public class VerifyTextSample :
-    VerifyBase
+[TestClass]
+[UsesVerify]
+public partial class VerifyTextSample
 {
     [TestMethod]
     public Task Simple() =>

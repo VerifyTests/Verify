@@ -1,8 +1,8 @@
-﻿#region UniqueForSampleMSTest
+#region UniqueForSampleMSTest
 
 [TestClass]
-public class UniqueForSample :
-    VerifyBase
+[UsesVerify]
+public partial class UniqueForSample
 {
     [TestMethod]
     public Task Runtime()

@@ -3,5 +3,6 @@
   <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or $(ImplicitUsings) == 'true')">
     <Using Include="VerifyMSTest" />
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+    <Using Include="VerifyMSTest.Verifier" Static="True" />
   </ItemGroup>
 </Project>

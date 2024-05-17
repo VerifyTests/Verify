@@ -1,8 +1,8 @@
-﻿#region ScrubberLevelsSampleMSTest
+#region ScrubberLevelsSampleMSTest
 
 [TestClass]
-public class ScrubberLevelsSample :
-    VerifyBase
+[UsesVerify]
+public partial class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
 

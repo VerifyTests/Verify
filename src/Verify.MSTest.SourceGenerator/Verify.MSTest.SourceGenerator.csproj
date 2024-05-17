@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>VerifyMSTest.SourceGenerator</RootNamespace>
+    <AnalyzerLanguage>cs</AnalyzerLanguage>
+    <AnalyzerRoslynVersion>4.4</AnalyzerRoslynVersion>
+    <IsPackable>false</IsPackable> <!-- Packaged as part of the main Verify.MSTest package -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

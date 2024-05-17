@@ -51,7 +51,8 @@ public static partial class Verifier
             throw new($"TestContext.TestContext.FullyQualifiedTestClassName is null. {AttributeUsageHelp}");
         }
 
-        (var assembly, var type, var method) = TestContextReflector.Get(CurrentTestContext.Value.TestContext);
+        (var assembly, var type, var method) = TestContextReflector.Get(CurrentTestContext.Value.TestContext, CurrentTestContext.Value.Type);
+
         VerifierSettings.AssignTargetAssembly(assembly);
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(

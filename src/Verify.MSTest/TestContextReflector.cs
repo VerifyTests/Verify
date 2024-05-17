@@ -35,12 +35,12 @@ static class TestContextReflector
 
     /// <summary>
     /// As an optimization, try to retrieve the <see cref="ITestMethod"/> stored on the
-    /// <see cref="TestContext"/>, and use that to retrieve the <see cref="Type"/>.
+    /// <see cref="TestExecutionContext"/>, and use that to retrieve the <see cref="Type"/>.
     ///
     /// If reflection fails, return <c>false</c>.
     /// </summary>
     /// <param name="typeName">The fully qualified name of the class of the currently running test.</param>
-    /// <param name="testContext">The <see cref="TestContext"/> of the current test.</param>
+    /// <param name="testContext">The <see cref="TestExecutionContext"/> of the current test.</param>
     /// <param name="type">The <see cref="Type"/> of the currently running test.</param>
     /// <returns><c>true</c> if the reflection succeeded; <c>false</c> otherwise.</returns>
     static bool TryGetTypeFromTestContext(string typeName, TestContext testContext, [NotNullWhen(true)] out Type? type)

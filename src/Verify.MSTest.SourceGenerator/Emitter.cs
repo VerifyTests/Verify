@@ -58,8 +58,8 @@ class Emitter
           .AppendLine("{")
           .AppendLine("    public TestContext TestContext")
           .AppendLine("    {")
-          .AppendLine("        get => Verifier.CurrentTestContext.Value!;")
-          .AppendLine("        set => Verifier.CurrentTestContext.Value = value;")
+          .AppendLine("        get => Verifier.CurrentTestContext.Value!.TestContext;")
+          .AppendLine("        set => Verifier.CurrentTestContext.Value = new VerifyMSTest.TestExecutionContext(value, null!);")
           .AppendLine("    }")
           .AppendLine("}");
 

@@ -2,11 +2,11 @@ namespace VerifyMSTest;
 
 public static partial class Verifier
 {
-    const string AttributeUsageHelp = "Ensure test class has a `[UsesVerify]` attribute.";
+    const string AttributeUsageHelp = "Ensure test class has a `[UsesVerify]` attribute (or inherits from `VerifyBase`).";
 
     static Task AddFile(FilePair path, bool autoVerify)
     {
-        var context = CurrentTestContext.Value;
+        var context = CurrentTestContext.Value?.TestContext;
         if (context != null)
         {
             var fileName = autoVerify ? path.VerifiedPath : path.ReceivedPath;
@@ -22,7 +22,7 @@ public static partial class Verifier
         VerifierSettings.OnVerifyMismatch((pair, _, autoVerify) => AddFile(pair, autoVerify));
     }
 
-    public static readonly AsyncLocal<TestContext?> CurrentTestContext = new();
+    public static readonly AsyncLocal<TestExecutionContext?> CurrentTestContext = new();
 
     static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
@@ -36,17 +36,22 @@ public static partial class Verifier
             throw new($"TestContext is null. {AttributeUsageHelp}");
         }
 
-        if (CurrentTestContext.Value.TestName is null)
+        if (CurrentTestContext.Value?.TestContext is null)
         {
-            throw new($"TestContext.TestName is null. {AttributeUsageHelp}");
+            throw new($"TestContext.TestContext is null. {AttributeUsageHelp}");
         }
 
-        if (CurrentTestContext.Value.FullyQualifiedTestClassName is null)
+        if (CurrentTestContext.Value?.TestContext.TestName is null)
         {
-            throw new($"TestContext.FullyQualifiedTestClassName is null. {AttributeUsageHelp}");
+            throw new($"TestContext.TestContext.TestName is null. {AttributeUsageHelp}");
         }
 
-        (var assembly, var type, var method) = TestContextReflector.Get(CurrentTestContext.Value);
+        if (CurrentTestContext.Value?.TestContext.FullyQualifiedTestClassName is null)
+        {
+            throw new($"TestContext.TestContext.FullyQualifiedTestClassName is null. {AttributeUsageHelp}");
+        }
+
+        (var assembly, var type, var method) = TestContextReflector.Get(CurrentTestContext.Value.TestContext);
         VerifierSettings.AssignTargetAssembly(assembly);
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(

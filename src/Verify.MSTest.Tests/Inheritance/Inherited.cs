@@ -1,6 +1,6 @@
 [TestClass]
 [UsesVerify]
-public partial class Inherited : Base
+public class Inherited : Base
 {
     [TestMethod]
     public override Task TestToOverride()

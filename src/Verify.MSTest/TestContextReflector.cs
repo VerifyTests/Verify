@@ -55,7 +55,7 @@ static class TestContextReflector
                 .GetField("_testMethod", ReflectionBindingFlags)?.GetValue(testContext);
             var assemblyPath = testMethod
                 ?.GetType()
-                ?.GetProperty("AssemblyName", ReflectionBindingFlags)
+                .GetProperty("AssemblyName", ReflectionBindingFlags)
                 ?.GetValue(testMethod);
             var assemblyName = Path.GetFileNameWithoutExtension(assemblyPath as string ?? string.Empty);
 

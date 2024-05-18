@@ -40,7 +40,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
         cancel.ThrowIfCancellationRequested();
 
-        return Parser.Parse(symbol, syntax);
+        return Parser.Parse(symbol, syntax, cancel);
     }
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
@@ -56,7 +56,11 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             return;
         }
 
-        var sourceCode = Emitter.GenerateExtensionClasses(classes);
+        var cancel = context.CancellationToken;
+        cancel.ThrowIfCancellationRequested();
+
+        var emitter = new Emitter();
+        var sourceCode = emitter.GenerateExtensionClasses(classes, cancel);
         context.AddSource("UsesVerify.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
     }
 }

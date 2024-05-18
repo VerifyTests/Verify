@@ -4,7 +4,7 @@ static class Parser
 {
     public static string MarkerAttributeName => "VerifyMSTest.UsesVerifyAttribute";
 
-    public static ClassToGenerate? Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax)
+    public static ClassToGenerate? Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax, Cancel cancel)
     {
         // Only generate for classes that don't already have a TestContext property defined.
         if (HasTestContextProperty(typeSymbol))
@@ -14,7 +14,7 @@ static class Parser
 
         var ns = GetNamespace(typeSymbol);
         var name = GetTypeNameWithGenericParameters(typeSyntax);
-        var parents = GetParentClasses(typeSyntax);
+        var parents = GetParentClasses(typeSyntax, cancel);
 
         return new ClassToGenerate(ns, name, parents);
     }
@@ -71,7 +71,7 @@ static class Parser
         return false;
     }
 
-    static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax)
+    static ParentClass[] GetParentClasses(TypeDeclarationSyntax typeSyntax, Cancel cancel)
     {
         // We can only be nested in class/struct/record
         static bool IsAllowedKind(SyntaxKind kind) =>
@@ -86,6 +86,8 @@ static class Parser
 
         while (parentSyntax is not null && IsAllowedKind(parentSyntax.Kind()))
         {
+            cancel.ThrowIfCancellationRequested();
+
             parents.Push(new(
                 Keyword: parentSyntax.Keyword.ValueText,
                 Name: GetTypeNameWithGenericParameters(parentSyntax)));

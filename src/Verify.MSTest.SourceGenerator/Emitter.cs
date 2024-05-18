@@ -1,4 +1,4 @@
-static class Emitter
+class Emitter
 {
     static readonly string AutoGenerationHeader = """
         //-----------------------------------------------------
@@ -13,9 +13,9 @@ static class Emitter
     static readonly string GeneratedCodeAttribute =
         $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(Emitter).Assembly.GetName().Name}\", \"{typeof(Emitter).Assembly.GetName().Version}\")]";
 
-    static readonly IndentedStringBuilder IndentedStringBuilder = new();
+    readonly IndentedStringBuilder builder = new();
 
-    static void WriteNamespace(IndentedStringBuilder builder, ClassToGenerate classToGenerate)
+    void WriteNamespace(ClassToGenerate classToGenerate)
     {
         if (classToGenerate.Namespace is not null)
         {
@@ -24,16 +24,16 @@ static class Emitter
               .IncreaseIndent();
         }
 
-        WriteParentTypes(builder, classToGenerate);
+        WriteParentTypes(classToGenerate);
 
         if (classToGenerate.Namespace is not null)
         {
             builder.DecreaseIndent()
               .AppendLine("}");
-        };
+        }
     }
 
-    static void WriteParentTypes(IndentedStringBuilder builder, ClassToGenerate classToGenerate)
+    void WriteParentTypes(ClassToGenerate classToGenerate)
     {
         foreach (var parentClass in classToGenerate.ParentClasses)
         {
@@ -43,7 +43,7 @@ static class Emitter
             builder.IncreaseIndent();
         }
 
-        WriteClass(builder, classToGenerate);
+        WriteClass(classToGenerate);
 
         foreach (var _ in classToGenerate.ParentClasses)
         {
@@ -52,7 +52,7 @@ static class Emitter
         }
     }
 
-    static void WriteClass(IndentedStringBuilder builder, ClassToGenerate classToGenerate) =>
+    void WriteClass(ClassToGenerate classToGenerate) =>
         builder.AppendLine(GeneratedCodeAttribute)
           .Append("partial class ").AppendLine(classToGenerate.ClassName)
           .AppendLine("{")
@@ -63,17 +63,18 @@ static class Emitter
           .AppendLine("    }")
           .AppendLine("}");
 
-    public static string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate)
+    public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate, Cancel cancel)
     {
-        IndentedStringBuilder.Clear();
-        IndentedStringBuilder.AppendLine(AutoGenerationHeader);
+        builder.AppendLine(AutoGenerationHeader);
 
         foreach (var classToGenerate in classesToGenerate)
         {
-            IndentedStringBuilder.AppendLine();
-            WriteNamespace(IndentedStringBuilder, classToGenerate);
+            cancel.ThrowIfCancellationRequested();
+
+            builder.AppendLine();
+            WriteNamespace(classToGenerate);
         }
 
-        return IndentedStringBuilder.ToString();
+        return builder.ToString();
     }
 }

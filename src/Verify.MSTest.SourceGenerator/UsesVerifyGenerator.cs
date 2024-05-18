@@ -56,6 +56,8 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             return;
         }
 
+        context.CancellationToken.ThrowIfCancellationRequested();
+
         var sourceCode = Emitter.GenerateExtensionClasses(classes);
         context.AddSource("UsesVerify.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
     }

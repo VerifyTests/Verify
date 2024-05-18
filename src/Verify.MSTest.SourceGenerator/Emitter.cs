@@ -13,8 +13,6 @@ static class Emitter
     static readonly string GeneratedCodeAttribute =
         $"[global::System.CodeDom.Compiler.GeneratedCodeAttribute(\"{typeof(Emitter).Assembly.GetName().Name}\", \"{typeof(Emitter).Assembly.GetName().Version}\")]";
 
-    static readonly IndentedStringBuilder IndentedStringBuilder = new();
-
     static void WriteNamespace(IndentedStringBuilder builder, ClassToGenerate classToGenerate)
     {
         if (classToGenerate.Namespace is not null)
@@ -65,15 +63,15 @@ static class Emitter
 
     public static string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate)
     {
-        IndentedStringBuilder.Clear();
-        IndentedStringBuilder.AppendLine(AutoGenerationHeader);
+        var builder = new IndentedStringBuilder();
+        builder.AppendLine(AutoGenerationHeader);
 
         foreach (var classToGenerate in classesToGenerate)
         {
-            IndentedStringBuilder.AppendLine();
-            WriteNamespace(IndentedStringBuilder, classToGenerate);
+            builder.AppendLine();
+            WriteNamespace(builder, classToGenerate);
         }
 
-        return IndentedStringBuilder.ToString();
+        return builder.ToString();
     }
 }

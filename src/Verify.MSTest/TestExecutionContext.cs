@@ -1,19 +1,9 @@
 namespace VerifyMSTest;
 
-public record class TestExecutionContext
+public record TestExecutionContext(TestContext TestContext, Type TestClass)
 {
-    public TestContext TestContext { get; }
-    public Assembly TestAssembly { get; }
-    public Type TestClass { get; }
-    public MethodInfo TestMethod { get; }
-
-    public TestExecutionContext(TestContext testContext, Type classType)
-    {
-        TestContext = testContext;
-        TestAssembly = classType.Assembly;
-        TestClass = classType;
-        TestMethod = FindMethod(classType, testContext.TestName.AsSpan());
-    }
+    public Assembly TestAssembly { get; } = TestClass.Assembly;
+    public MethodInfo TestMethod { get; } = FindMethod(TestClass, TestContext.TestName.AsSpan());
 
     static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
     {

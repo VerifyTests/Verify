@@ -17,7 +17,7 @@ namespace Foo
         public TestContext TestContext
         {
             get => Verifier.CurrentTestContext.Value!.TestContext;
-            set => Verifier.CurrentTestContext.Value = new VerifyMSTest.TestExecutionContext(value, GetType());
+            set => Verifier.CurrentTestContext.Value = new TestExecutionContext(value, GetType());
         }
     }
 }

@@ -31,27 +31,15 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        if (CurrentTestContext.Value is null)
+        var context = CurrentTestContext.Value;
+        if (context is null)
         {
             throw new($"TestContext is null. {AttributeUsageHelp}");
         }
 
-        if (CurrentTestContext.Value?.TestContext is null)
-        {
-            throw new($"TestContext.TestContext is null. {AttributeUsageHelp}");
-        }
-
-        if (CurrentTestContext.Value?.TestContext.TestName is null)
-        {
-            throw new($"TestContext.TestContext.TestName is null. {AttributeUsageHelp}");
-        }
-
-        if (CurrentTestContext.Value?.TestContext.FullyQualifiedTestClassName is null)
-        {
-            throw new($"TestContext.TestContext.FullyQualifiedTestClassName is null. {AttributeUsageHelp}");
-        }
-
-        (var assembly, var type, var method) = TestContextReflector.Get(CurrentTestContext.Value.TestContext, CurrentTestContext.Value.Type);
+        var assembly = context.TestAssembly;
+        var type = context.TestClass;
+        var method = context.TestMethod;
 
         VerifierSettings.AssignTargetAssembly(assembly);
         var pathInfo = GetPathInfo(sourceFile, type, method);

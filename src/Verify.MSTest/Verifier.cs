@@ -37,9 +37,9 @@ public static partial class Verifier
             throw new($"TestContext is null. {AttributeUsageHelp}");
         }
 
-        var assembly = context.TestAssembly;
+        var assembly = context.Assembly;
         var type = context.TestClass;
-        var method = context.TestMethod;
+        var method = context.Method;
 
         VerifierSettings.AssignTargetAssembly(assembly);
         var pathInfo = GetPathInfo(sourceFile, type, method);

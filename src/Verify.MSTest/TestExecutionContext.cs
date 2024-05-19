@@ -2,19 +2,28 @@ namespace VerifyMSTest;
 
 public record TestExecutionContext(TestContext TestContext, Type TestClass)
 {
-    public Assembly TestAssembly { get; } = TestClass.Assembly;
-    public MethodInfo TestMethod { get; } = FindMethod(TestClass, TestContext.TestName.AsSpan());
+    public Assembly Assembly { get; } = TestClass.Assembly;
+    public MethodInfo Method { get; } = FindMethod(TestClass, TestContext);
 
-    static MethodInfo FindMethod(Type type, ReadOnlySpan<char> testName)
+    static MethodInfo FindMethod(Type type, TestContext context)
     {
+        var testName = context.TestName;
+
+        if(testName is null)
+        {
+            throw new("Expected TestContext.TestName to have a non null value");
+        }
+
+        var span = testName.AsSpan();
+
         foreach (var method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public))
         {
-            if (testName.SequenceEqual(method.Name))
+            if (span.SequenceEqual(method.Name))
             {
                 return method;
             }
         }
 
-        throw new($"Could not find method `{type.Name}.{testName.ToString()}`.");
+        throw new($"Could not find method `{type.Name}.{testName}`.");
     }
 }

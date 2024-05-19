@@ -14,8 +14,8 @@ partial class Foo
 {
     public TestContext TestContext
     {
-        get => Verifier.CurrentTestContext.Value!;
-        set => Verifier.CurrentTestContext.Value = value;
+        get => Verifier.CurrentTestContext.Value!.TestContext;
+        set => Verifier.CurrentTestContext.Value = new TestExecutionContext(value, GetType());
     }
 }
 

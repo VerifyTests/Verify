@@ -14,7 +14,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Fixie.svg?label=Verify.Fixie)](https://www.nuget.org/packages/Verify.Fixie/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
-[![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.ClipboardAccept)](https://www.nuget.org/packages/Verify.ClipboardAccept/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.ClipboardAccept.svg?label=Verify.ClipboardAccept)](https://www.nuget.org/packages/Verify.ClipboardAccept/)
 
 Verify is a snapshot tool that simplifies the assertion of complex data models and documents.
 
@@ -32,6 +32,12 @@ A HUGE Thank-You to [AWS](https://github.com/aws) for sponsoring this project in
 the [AWS Open Source Software Fund](https://github.com/aws/dotnet-foss).
 
 Thanks to [DataDog](https://github.com/DataDog) for the generous monthly sponsorship.
+
+
+## Requirements
+
+ * Supported runtimes: net472, net48, net481, net6, net8, and net9.
+ * Supported SDK: 8.0.300 and up
 
 
 ## [Getting started wizard](/docs/wiz/readme.md)

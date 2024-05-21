@@ -2,11 +2,13 @@
   "solution": {
     "path": "Verify.sln",
     "projects": [
+      "TargetLibrary\\TargetLibrary.csproj",
       "Verify.MSTest.DerivePaths.Tests\\Verify.MSTest.DerivePaths.Tests.csproj",
       "Verify.MSTest.SourceGenerator.Tests\\Verify.MSTest.SourceGenerator.Tests.csproj",
       "Verify.MSTest.SourceGenerator\\Verify.MSTest.SourceGenerator.csproj",
       "Verify.MSTest.Tests\\Verify.MSTest.Tests.csproj",
       "Verify.MSTest\\Verify.MSTest.csproj",
+      "Verify.Xunit\\Verify.Xunit.csproj",
       "Verify\\Verify.csproj"
     ]
   }

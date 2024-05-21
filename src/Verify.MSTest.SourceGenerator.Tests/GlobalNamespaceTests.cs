@@ -51,4 +51,27 @@ public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
 
         return VerifyGenerator(TestDriver.Run(source));
     }
+
+
+    [Fact]
+    public Task HasAssemblyAttributeAndCustomTestClassAttribute()
+    {
+        var source = """
+            using System;
+            using Microsoft.VisualStudio.TestTools.UnitTesting;
+            using VerifyMSTest;
+
+            [assembly: UsesVerify]
+
+            [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+            sealed class MyTestClassAttribute : TestClassAttribute;
+
+            [MyTestClass]
+            public partial class Foo
+            {
+            }
+            """;
+
+        return VerifyGenerator(TestDriver.Run(source));
+    }
 }

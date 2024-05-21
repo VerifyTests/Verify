@@ -6,15 +6,16 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 
         PortableExecutableReference[] references =
         [
+            ..Basic.Reference.Assemblies.Net80.References.All,
             MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location),
         ];
 
         var compilation = CSharpCompilation.Create(
             assemblyName: "Tests",
             syntaxTrees: [syntaxTree],
-            references: references);
+            references: references,
+            options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
         var driverOptions = new GeneratorDriverOptions(
             disabledOutputs: IncrementalGeneratorOutputKind.None,

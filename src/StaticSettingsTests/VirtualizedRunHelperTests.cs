@@ -44,6 +44,28 @@ public class VirtualizedRunHelperTests :
     }
 
     [Fact]
+    public void Built_on_windows_run_on_linux_ci_fallback()
+    {
+        VirtualizedRunHelper.Env = new TestEnv(
+            _ => _ switch
+            {
+                "/mnt/c/Users/jairb/Downloads/TestVerify" => true,
+                "/mnt/c/Users/jairb/Downloads/TestVerify/src/file.cs" => true,
+                _ => false
+            },
+            "/mnt/c/Users/jairb/Downloads/TestVerify");
+
+        var helper = new VirtualizedRunHelper(@"C:\Users\jairb\Downloads\TestVerify", @"C:\Users\jairb\Downloads\TestVerify\TestVerify");
+
+        Assert.True(helper.AppearsToBeLocalVirtualizedRun);
+        Assert.True(helper.Initialized);
+
+        Assert.Equal(
+            "/mnt/c/Users/jairb/Downloads/TestVerify/src/file.cs",
+            helper.GetMappedBuildPath(@"C:\Users\jairb\Downloads\TestVerify\src\file.cs"));
+    }
+
+    [Fact]
     public void Built_on_windows_run_on_linux_docker()
     {
         VirtualizedRunHelper.Env = new TestEnv(
@@ -110,12 +132,8 @@ public class VirtualizedRunHelperTests :
         }
 
         public bool PathExists(string path) =>
-            exists(path) ||
-            exists(path.Replace('\\', '/')) ||
-            exists(path.Replace('/', '\\'));
-
-        // Make sure Path.Combine behaves as on Unix, even when executed on Windows
+            exists(path);
         public string CombinePaths(string path1, string path2) =>
-            Path.Combine(path1.TrimEnd('\\', '/') + '/', path2);
+            Path.Combine(path1, path2);
     }
 }

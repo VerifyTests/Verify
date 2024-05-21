@@ -27,4 +27,20 @@ public class NoMatchTests(ITestOutputHelper output) : TestBase(output)
 
         return VerifyGenerator(TestDriver.Run(source));
     }
+
+    [Fact]
+    public Task AssemblyAttributeButNoTestClass()
+    {
+        var source = """
+            using VerifyMSTest;
+
+            [assembly: UsesVerify]
+
+            public partial class Foo
+            {
+            }
+            """;
+
+        return VerifyGenerator(TestDriver.Run(source));
+    }
 }

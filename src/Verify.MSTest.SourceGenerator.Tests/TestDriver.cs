@@ -7,7 +7,8 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
         PortableExecutableReference[] references =
         [
             MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
+            MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location),
         ];
 
         var compilation = CSharpCompilation.Create(

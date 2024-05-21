@@ -1,3 +1,5 @@
+namespace VerifyMSTest.SourceGenerator;
+
 /// <summary>
 /// The data model for the class that is annotated with [UsesVerify] and needs to be generated.
 /// </summary>

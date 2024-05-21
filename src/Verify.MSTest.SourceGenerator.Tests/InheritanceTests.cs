@@ -57,4 +57,24 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
 
         return VerifyGenerator(TestDriver.Run(source));
     }
+
+    [Fact]
+    public Task HasAttributeOnDerivedClassAndPropertyManuallyDefinedInBase()
+    {
+        var source = """
+            using VerifyMSTest;
+
+            public class Base
+            {
+                public TestContext TestContext { get; set; } = null!;
+            }
+
+            [UsesVerify]
+            public partial class Derived : Base
+            {
+            }
+            """;
+
+        return VerifyGenerator(TestDriver.Run(source));
+    }
 }

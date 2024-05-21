@@ -23,8 +23,7 @@ static class Parser
         symbol.ContainingNamespace.IsGlobalNamespace ? null : symbol.ContainingNamespace.ToString();
 
     static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
-        HasMarkerAttributeOnBase(symbol) ||
-        HasTestContextPropertyDefinedInBase(symbol);
+        HasMarkerAttributeOnBase(symbol);
 
     static bool HasMarkerAttributeOnBase(INamedTypeSymbol symbol)
     {
@@ -38,29 +37,6 @@ static class Parser
         while (parent is not null)
         {
             if (HasMarkerAttribute(parent))
-            {
-                return true;
-            }
-
-            parent = parent.BaseType;
-        }
-
-        return false;
-    }
-
-    static bool HasTestContextPropertyDefinedInBase(INamedTypeSymbol symbol)
-    {
-        static bool HasTestContextProperty(INamedTypeSymbol symbol) =>
-            symbol
-            .GetMembers()
-            .OfType<IPropertySymbol>()
-            .Any(_ => _.Name == "TestContext");
-
-        var parent = symbol.BaseType;
-
-        while (parent is not null)
-        {
-            if (HasTestContextProperty(parent))
             {
                 return true;
             }

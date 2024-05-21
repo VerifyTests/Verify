@@ -11,11 +11,6 @@ static class SymbolExtensions
         }
     }
 
-    public static bool HasAttributeOnBaseTypes(this ITypeSymbol symbol, string attributeName) =>
-        symbol
-        .GetBaseTypes()
-        .Any(x => x.HasAttributeOfType(attributeName, allowInheritance: false));
-
     public static bool HasAttributeOfType(this ISymbol symbol, string fullyQualifiedAttributeName, bool allowInheritance)
     {
         foreach (var attribute in symbol.GetAttributes())

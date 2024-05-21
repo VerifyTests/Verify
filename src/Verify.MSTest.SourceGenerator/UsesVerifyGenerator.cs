@@ -12,7 +12,33 @@ public class UsesVerifyGenerator : IIncrementalGenerator
             .ForAttributeWithMetadataName(
                 fullyQualifiedMetadataName: MarkerAttributeName,
                 predicate: IsSyntaxEligibleForGeneration,
-                transform: GetSemanticTargetForGeneration)
+                transform: static (context, cancel) =>
+                {
+                    if (context.TargetSymbol is not INamedTypeSymbol symbol)
+                    {
+                        return null;
+                    }
+
+                    if (context.TargetNode is not TypeDeclarationSyntax syntax)
+                    {
+                        return null;
+                    }
+
+                    cancel.ThrowIfCancellationRequested();
+
+                    // Only generate for classes that won't get one defined by another attribute.
+                    var hasParentWithAttribute = symbol
+                        .GetBaseTypes()
+                        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, allowInheritance: false));
+                    if (hasParentWithAttribute)
+                    {
+                        return null;
+                    }
+
+                    cancel.ThrowIfCancellationRequested();
+
+                    return Parser.Parse(symbol, syntax, cancel);
+                })
             .Where(static classToGenerate => classToGenerate is not null)
             .WithTrackingName(TrackingNames.MarkerAttributeInitialTransform)
             .Collect();
@@ -44,7 +70,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    var hasParentWithAttribute = symbol.GetBaseTypes().Any(baseType => baseType.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
+                    var hasParentWithAttribute = symbol.GetBaseTypes().Any(parent => parent.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
                     if (hasParentWithAttribute)
                     {
                         return null;
@@ -72,32 +98,6 @@ public class UsesVerifyGenerator : IIncrementalGenerator
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
 
     static bool IsAssemblyEligibleForGeneration(Compilation compilation, Cancel _) => compilation.Assembly.HasAttributeOfType(MarkerAttributeName, allowInheritance: false);
-
-    // TODO: Either inline or pull the assembly attribute logic into this method.
-    static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, Cancel cancel)
-    {
-        if (context.TargetSymbol is not INamedTypeSymbol symbol)
-        {
-            return null;
-        }
-
-        if (context.TargetNode is not TypeDeclarationSyntax syntax)
-        {
-            return null;
-        }
-
-        cancel.ThrowIfCancellationRequested();
-
-        // Only generate for classes that won't get one defined by another attribute.
-        if (symbol.HasAttributeOnBaseTypes(MarkerAttributeName))
-        {
-            return null;
-        }
-
-        cancel.ThrowIfCancellationRequested();
-
-        return Parser.Parse(symbol, syntax, cancel);
-    }
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
     {

@@ -3,11 +3,13 @@ namespace VerifyMSTest.SourceGenerator;
 [Generator]
 public class UsesVerifyGenerator : IIncrementalGenerator
 {
+    static string MarkerAttributeName => "VerifyMSTest.UsesVerifyAttribute";
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var classesToGenerate = context.SyntaxProvider
             .ForAttributeWithMetadataName(
-                fullyQualifiedMetadataName: Parser.MarkerAttributeName,
+                fullyQualifiedMetadataName: MarkerAttributeName,
                 predicate: IsSyntaxEligibleForGeneration,
                 transform: GetSemanticTargetForGeneration)
             .WithTrackingName(TrackingNames.InitialTransform)
@@ -39,6 +41,12 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         }
 
         cancel.ThrowIfCancellationRequested();
+
+        // Only generate for classes that won't get one defined by another attribute.
+        if (symbol.HasAttributeOnBaseTypes(MarkerAttributeName))
+        {
+            return null;
+        }
 
         return Parser.Parse(symbol, syntax, cancel);
     }

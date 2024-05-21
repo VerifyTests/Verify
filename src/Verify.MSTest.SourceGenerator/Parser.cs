@@ -1,15 +1,7 @@
 static class Parser
 {
-    public static string MarkerAttributeName => "VerifyMSTest.UsesVerifyAttribute";
-
     public static ClassToGenerate? Parse(INamedTypeSymbol typeSymbol, TypeDeclarationSyntax typeSyntax, Cancel cancel)
     {
-        // Only generate for classes that won't get one defined by another attribute.
-        if (typeSymbol.HasAttributeOnBaseTypes(MarkerAttributeName))
-        {
-            return null;
-        }
-
         var ns = typeSymbol.GetNamespaceOrDefault();
         var name = typeSyntax.GetTypeNameWithGenericParameters();
         var parents = GetParentClasses(typeSyntax, cancel);

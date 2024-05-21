@@ -1,7 +1,6 @@
 #region UseParametersHashMsTest
 
 [TestClass]
-[UsesVerify]
 public partial class ParametersHashSample
 {
     [DataTestMethod]

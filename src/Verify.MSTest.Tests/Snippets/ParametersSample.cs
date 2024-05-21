@@ -1,7 +1,6 @@
 #region MSTestDataRow
 
 [TestClass]
-[UsesVerify]
 public partial class ParametersSample
 {
     [DataTestMethod]

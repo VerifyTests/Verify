@@ -44,6 +44,23 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
+                    var x = symbol.BaseType;
+                    var result = false;
+                    while (x is not null)
+                    {
+                        if (x.HasAttributeThatInheritsFrom(TestClassAttributeName))
+                        {
+                            result = true;
+                            break;
+                        }
+
+                        x = x.BaseType;
+                    }
+                    if (result)
+                    {
+                        return null;
+                    }
+
                     cancel.ThrowIfCancellationRequested();
 
                     return Parser.Parse(symbol, syntax, cancel);

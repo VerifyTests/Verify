@@ -6,7 +6,6 @@ using Argon;
 #pragma warning disable CS8618
 
 [TestClass]
-[UsesVerify]
 public partial class VerifyObjectSamples
 {
     [TestMethod]

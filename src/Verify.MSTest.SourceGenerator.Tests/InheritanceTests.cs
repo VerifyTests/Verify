@@ -77,4 +77,27 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
 
         return VerifyGenerator(TestDriver.Run(source));
     }
+
+    [Fact]
+    public Task HasAssemblyAttributeAndTestClassInheritance()
+    {
+        var source = """
+            using Microsoft.VisualStudio.TestTools.UnitTesting;
+            using VerifyMSTest;
+
+            [assembly: UsesVerify]
+
+            [TestClass]
+            public partial class Base
+            {
+            }
+
+            [TestClass]
+            public class Derived : Base
+            {
+            }
+            """;
+
+        return VerifyGenerator(TestDriver.Run(source));
+    }
 }

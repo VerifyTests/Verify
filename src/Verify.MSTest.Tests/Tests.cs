@@ -1,5 +1,4 @@
 [TestClass]
-[UsesVerify]
 public partial class Tests
 {
     [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by snippet in docs")]

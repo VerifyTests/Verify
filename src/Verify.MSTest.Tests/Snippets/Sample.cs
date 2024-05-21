@@ -1,7 +1,6 @@
 #region SampleTestMSTest
 
 [TestClass]
-[UsesVerify]
 public partial class Sample
 {
     [TestMethod]

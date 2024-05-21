@@ -1,5 +1,4 @@
 [TestClass]
-[UsesVerify]
 public partial class ParametersTests
 {
     //[DataTestMethod]

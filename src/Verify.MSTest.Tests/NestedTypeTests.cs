@@ -1,5 +1,4 @@
 [TestClass]
-[UsesVerify]
 public partial class NestedTypeTests
 {
     [TestMethod]
@@ -7,7 +6,6 @@ public partial class NestedTypeTests
         Verify("Foo");
 
     [TestClass]
-    [UsesVerify]
     public partial class Nested
     {
         [TestMethod]

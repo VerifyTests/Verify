@@ -1,4 +1,4 @@
-﻿[TestClass]
+[TestClass]
 public class VerifyBaseTests : VerifyBase
 {
     [TestMethod]

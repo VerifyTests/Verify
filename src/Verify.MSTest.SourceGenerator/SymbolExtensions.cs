@@ -1,17 +1,12 @@
 static class SymbolExtensions
 {
-    public static bool HasAttribute(this ISymbol symbol, string attributeName) =>
-        symbol
-        .GetAttributes()
-        .Any(attribute => attribute.AttributeClass?.ToDisplayString() == attributeName);
-
     public static bool HasAttributeOnBaseTypes(this ITypeSymbol symbol, string attributeName)
     {
         var parent = symbol.BaseType;
 
         while (parent is not null)
         {
-            if (parent.HasAttribute(attributeName))
+            if (parent.HasAttributeOfType(attributeName, allowInheritance: false))
             {
                 return true;
             }
@@ -22,19 +17,19 @@ static class SymbolExtensions
         return false;
     }
 
-    public static bool HasAttributeThatInheritsFrom(this ISymbol symbol, string attributeName)
+    public static bool HasAttributeOfType(this ISymbol symbol, string fullyQualifiedAttributeName, bool allowInheritance)
     {
         foreach (var attribute in symbol.GetAttributes())
         {
             var typeSymbol = attribute.AttributeClass;
             while (typeSymbol is not null)
             {
-                if (typeSymbol.ToDisplayString() == attributeName)
+                if (typeSymbol.ToDisplayString() == fullyQualifiedAttributeName)
                 {
                     return true;
                 }
 
-                typeSymbol = typeSymbol.BaseType;
+                typeSymbol = allowInheritance ? typeSymbol.BaseType : null;
             }
         }
 

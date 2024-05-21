@@ -39,7 +39,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
                     cancel.ThrowIfCancellationRequested();
 
-                    if (!symbol.HasAttributeThatInheritsFrom(TestClassAttributeName))
+                    if (!symbol.HasAttributeOfType(TestClassAttributeName, allowInheritance: true))
                     {
                         return null;
                     }
@@ -48,7 +48,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                     var result = false;
                     while (x is not null)
                     {
-                        if (x.HasAttributeThatInheritsFrom(TestClassAttributeName))
+                        if (x.HasAttributeOfType(TestClassAttributeName, allowInheritance: true))
                         {
                             result = true;
                             break;
@@ -82,7 +82,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
 
-    static bool IsAssemblyEligibleForGeneration(Compilation compilation, Cancel _) => compilation.Assembly.HasAttribute(MarkerAttributeName);
+    static bool IsAssemblyEligibleForGeneration(Compilation compilation, Cancel _) => compilation.Assembly.HasAttributeOfType(MarkerAttributeName, allowInheritance: false);
 
     // TODO: Either inline or pull the assembly attribute logic into this method.
     static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, Cancel cancel)

@@ -128,7 +128,7 @@ class VirtualizedRunHelper
             var currentDir = Env.CurrentDirectory;
             do
             {
-                var testMappedPath = Env.CombinePaths(currentDir, buildTimePathRelative);
+                var testMappedPath = Env.CombinePaths(currentDir, buildTimePathRelative).Replace('\\', '/');
                 if (Env.PathExists(testMappedPath))
                 {
                     baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];

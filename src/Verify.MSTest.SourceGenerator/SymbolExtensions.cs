@@ -1,21 +1,20 @@
 static class SymbolExtensions
 {
-    public static bool HasAttributeOnBaseTypes(this ITypeSymbol symbol, string attributeName)
+    public static IEnumerable<INamedTypeSymbol> GetBaseTypes(this ITypeSymbol? symbol)
     {
-        var parent = symbol.BaseType;
+        var baseType = symbol?.BaseType;
 
-        while (parent is not null)
+        while (baseType is not null)
         {
-            if (parent.HasAttributeOfType(attributeName, allowInheritance: false))
-            {
-                return true;
-            }
-
-            parent = parent.BaseType;
+            yield return baseType;
+            baseType = baseType.BaseType;
         }
-
-        return false;
     }
+
+    public static bool HasAttributeOnBaseTypes(this ITypeSymbol symbol, string attributeName) =>
+        symbol
+        .GetBaseTypes()
+        .Any(x => x.HasAttributeOfType(attributeName, allowInheritance: false));
 
     public static bool HasAttributeOfType(this ISymbol symbol, string fullyQualifiedAttributeName, bool allowInheritance)
     {

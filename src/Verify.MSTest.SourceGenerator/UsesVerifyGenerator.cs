@@ -44,19 +44,8 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    var x = symbol.BaseType;
-                    var result = false;
-                    while (x is not null)
-                    {
-                        if (x.HasAttributeOfType(TestClassAttributeName, allowInheritance: true))
-                        {
-                            result = true;
-                            break;
-                        }
-
-                        x = x.BaseType;
-                    }
-                    if (result)
+                    var hasParentWithAttribute = symbol.GetBaseTypes().Any(baseType => baseType.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
+                    if (hasParentWithAttribute)
                     {
                         return null;
                     }

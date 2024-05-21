@@ -22,6 +22,26 @@ public class VirtualizedRunHelperTests :
     }
 
     [Fact]
+    public void Built_on_linux_wsl_run_on_windows()
+    {
+        VirtualizedRunHelper.Env = new TestEnv(
+            _ => _ switch
+            {
+                @"C:\build\project_dir" => true,
+                @"C:\build\project_dir\src\file.cs" => true,
+                _ => false
+            },
+            @"C:\build\project_dir\subdir", '\\');
+
+        var helper = new VirtualizedRunHelper("/mnt/c/build/project_dir", string.Empty);
+
+        Assert.True(helper.AppearsToBeLocalVirtualizedRun);
+        Assert.True(helper.Initialized);
+
+        Assert.Equal(@"C:\build\project_dir\src\file.cs", helper.GetMappedBuildPath("/mnt/c/build/project_dir/src/file.cs"));
+    }
+
+    [Fact]
     public void Built_on_windows_run_on_linux_ci()
     {
         VirtualizedRunHelper.Env = new TestEnv(

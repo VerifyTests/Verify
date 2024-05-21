@@ -2,7 +2,8 @@
 [UsesVerify]
 public partial class Tests
 {
-    // ReSharper disable once UnusedParameter.Local
+    [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Used by snippet in docs")]
+    [SuppressMessage("Style", "IDE0022:Use expression body for method", Justification = "Used by snippet in docs")]
     static void DerivePathInfo()
     {
         #region DerivePathInfoMSTest

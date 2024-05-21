@@ -63,6 +63,7 @@ class IndentedStringBuilder(int capacity = IndentedStringBuilder.DefaultStringBu
         {
             builder.Append(s);
         }
+
         isIndented = true;
         return this;
     }

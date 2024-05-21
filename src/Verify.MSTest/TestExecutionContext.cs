@@ -9,7 +9,7 @@ public record TestExecutionContext(TestContext TestContext, Type TestClass)
     {
         var testName = context.TestName;
 
-        if(testName is null)
+        if (testName is null)
         {
             throw new("Expected TestContext.TestName to have a non null value");
         }

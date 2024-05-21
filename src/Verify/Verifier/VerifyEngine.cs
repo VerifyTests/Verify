@@ -165,10 +165,10 @@ class VerifyEngine(
         var verified = true;
         foreach (var item in delete)
         {
-           if(!await ProcessDeletes(item))
-           {
-               verified = false;
-           }
+            if (!await ProcessDeletes(item))
+            {
+                verified = false;
+            }
         }
 
         return verified;

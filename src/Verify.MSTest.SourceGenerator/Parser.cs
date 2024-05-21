@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 static class Parser
 {
     public static string MarkerAttributeName => "VerifyMSTest.UsesVerifyAttribute";
@@ -60,7 +58,8 @@ static class Parser
 
         var parentSyntax = typeSyntax.Parent as TypeDeclarationSyntax;
 
-        while (parentSyntax is not null && IsAllowedKind(parentSyntax.Kind()))
+        while (parentSyntax is not null &&
+               IsAllowedKind(parentSyntax.Kind()))
         {
             cancel.ThrowIfCancellationRequested();
 

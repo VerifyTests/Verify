@@ -6,6 +6,7 @@ public partial class Tests
     [SuppressMessage("Style", "IDE0022:Use expression body for method", Justification = "Used by snippet in docs")]
     static void DerivePathInfo()
     {
+        // ReSharper disable once UnusedParameter.Local
         #region DerivePathInfoMSTest
 
         Verifier.DerivePathInfo(

@@ -133,7 +133,5 @@ public class VirtualizedRunHelperTests :
 
         public bool PathExists(string path) =>
             exists(path);
-        public string CombinePaths(string path1, string path2) =>
-            Path.Combine(path1, path2);
     }
 }

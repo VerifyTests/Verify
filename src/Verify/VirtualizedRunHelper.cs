@@ -74,7 +74,7 @@ class VirtualizedRunHelper
         var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..]
             .Replace('\\', '/');
 
-        var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
+        var mappedPath = CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
 
         if (Env.PathExists(mappedPath))
         {
@@ -120,7 +120,7 @@ class VirtualizedRunHelper
         [NotNullWhen(true)] out string? codeBaseRootAbsolute,
         [NotNullWhen(true)] out string? baseRootAbsolute)
     {
-        var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath);
+        var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath).Replace('\\', '/');
 
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
@@ -128,7 +128,7 @@ class VirtualizedRunHelper
             var currentDir = Env.CurrentDirectory;
             do
             {
-                var testMappedPath = Env.CombinePaths(currentDir, buildTimePathRelative).Replace('\\', '/');
+                var testMappedPath = CombinePaths(currentDir, buildTimePathRelative);
                 if (Env.PathExists(testMappedPath))
                 {
                     baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
@@ -176,7 +176,7 @@ class VirtualizedRunHelper
 
                 codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
 
-                var testMappedPath = Env.CombinePaths(
+                var testMappedPath = CombinePaths(
                     mappedCodeBaseRootAbsolute,
                     originalCodeBaseRoot[codeBaseRootAbsolute.Length..]
                         .Replace('\\', '/'));
@@ -255,4 +255,7 @@ class VirtualizedRunHelper
 
         return path;
     }
+
+    private static string CombinePaths(string path1, string path2) =>
+        $"{path1.TrimEnd(separators)}/{path2}";
 }

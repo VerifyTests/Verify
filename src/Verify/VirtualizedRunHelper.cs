@@ -71,8 +71,7 @@ class VirtualizedRunHelper
             return path;
         }
 
-        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..]
-            .Replace(Env.AltDirectorySeparatorChar, Env.DirectorySeparatorChar);
+        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..];
 
         var mappedPath = CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
 
@@ -120,7 +119,7 @@ class VirtualizedRunHelper
         [NotNullWhen(true)] out string? codeBaseRootAbsolute,
         [NotNullWhen(true)] out string? baseRootAbsolute)
     {
-        var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath).Replace(Env.AltDirectorySeparatorChar, Env.DirectorySeparatorChar);
+        var buildTimePathRelative = GetBuildTimePathRelative(originalCodeBaseRoot, buildTimePath);
 
         // iteratively decrease build-time path from start and try to append to root and check existence
         do
@@ -218,7 +217,7 @@ class VirtualizedRunHelper
 
     static bool AppearsBuiltOnCurrentPlatform(string buildTimePath) =>
         buildTimePath.Contains(Env.DirectorySeparatorChar) &&
-        !buildTimePath.Contains(Env.AltDirectorySeparatorChar);
+        !buildTimePath.Contains(OtherDirectorySeparatorChar);
 
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {
@@ -257,5 +256,7 @@ class VirtualizedRunHelper
     }
 
     private static string CombinePaths(string path1, string path2) =>
-        $"{path1.TrimEnd(separators)}{Env.DirectorySeparatorChar}{path2}";
+        $"{path1.TrimEnd(separators)}{Env.DirectorySeparatorChar}{path2.Replace(OtherDirectorySeparatorChar, Env.DirectorySeparatorChar)}";
+
+    private static char OtherDirectorySeparatorChar => Env.DirectorySeparatorChar == '/' ? '\\' : '/';
 }

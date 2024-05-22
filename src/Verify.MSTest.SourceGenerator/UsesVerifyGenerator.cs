@@ -37,7 +37,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
                     return Parser.Parse(symbol, syntax, cancel);
                 })
-            .Where(static classToGenerate => classToGenerate is not null)
+            .WhereNotNull()
             .WithTrackingName(TrackingNames.MarkerAttributeInitialTransform)
             .Collect();
 
@@ -79,7 +79,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
                     return Parser.Parse(symbol, syntax, cancel);
                 })
-            .Where(static classToGenerate => classToGenerate is not null)
+            .WhereNotNull()
             .WithTrackingName(TrackingNames.AssemblyAttributeInitialTransform)
             .Collect();
 
@@ -106,24 +106,17 @@ public class UsesVerifyGenerator : IIncrementalGenerator
         .GetBaseTypes()
         .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
 
-    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
+    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> classesToGenerate)
     {
         if (classesToGenerate.IsDefaultOrEmpty)
         {
             return;
         }
 
-        var classes = classesToGenerate.Distinct().OfType<ClassToGenerate>().ToList();
-        if (classes.Count == 0)
-        {
-            return;
-        }
-
-        var cancel = context.CancellationToken;
-        cancel.ThrowIfCancellationRequested();
+        var classes = classesToGenerate.Distinct().ToList();
 
         var emitter = new Emitter();
-        var sourceCode = emitter.GenerateExtensionClasses(classes, cancel);
+        var sourceCode = emitter.GenerateExtensionClasses(classes, context.CancellationToken);
         context.AddSource("UsesVerify.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
     }
 }

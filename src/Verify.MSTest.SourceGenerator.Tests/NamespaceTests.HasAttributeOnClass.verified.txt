@@ -11,9 +11,9 @@
 
 namespace Foo
 {
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
     partial class Bar
     {
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Verify.MSTest.SourceGenerator", "1.0.0.0")]
         public TestContext TestContext
         {
             get => Verifier.CurrentTestContext.Value!.TestContext;

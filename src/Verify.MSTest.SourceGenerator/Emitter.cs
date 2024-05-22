@@ -55,15 +55,19 @@ class Emitter
     }
 
     void WriteClass(ClassToGenerate classToGenerate) =>
-        builder.AppendLine(GeneratedCodeAttribute)
-          .Append("partial class ").AppendLine(classToGenerate.ClassName)
-          .AppendLine("{")
-          .AppendLine("    public TestContext TestContext")
-          .AppendLine("    {")
-          .AppendLine("        get => Verifier.CurrentTestContext.Value!.TestContext;")
-          .AppendLine("        set => Verifier.CurrentTestContext.Value = new TestExecutionContext(value, GetType());")
-          .AppendLine("    }")
-          .AppendLine("}");
+        builder.Append("partial class ").AppendLine(classToGenerate.ClassName)
+            .AppendLine("{")
+                .IncreaseIndent()
+                .AppendLine(GeneratedCodeAttribute)
+                .AppendLine("public TestContext TestContext")
+                .AppendLine("{")
+                    .IncreaseIndent()
+                    .AppendLine("get => Verifier.CurrentTestContext.Value!.TestContext;")
+                    .AppendLine("set => Verifier.CurrentTestContext.Value = new TestExecutionContext(value, GetType());")
+                    .DecreaseIndent()
+                .AppendLine("}")
+                .DecreaseIndent()
+            .AppendLine("}");
 
     public string GenerateExtensionClasses(IReadOnlyCollection<ClassToGenerate> classesToGenerate, Cancel cancel)
     {

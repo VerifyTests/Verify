@@ -1,7 +1,6 @@
 #region ScrubbersSampleMSTest
 
 [TestClass]
-[UsesVerify]
 public partial class ScrubbersSample
 {
     [TestMethod]

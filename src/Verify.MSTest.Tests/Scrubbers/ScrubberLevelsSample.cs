@@ -1,7 +1,6 @@
 #region ScrubberLevelsSampleMSTest
 
 [TestClass]
-[UsesVerify]
 public partial class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;

@@ -1,7 +1,6 @@
 #region MSTestExtensionSample
 
 [TestClass]
-[UsesVerify]
 public partial class ExtensionSample
 {
     [TestMethod]

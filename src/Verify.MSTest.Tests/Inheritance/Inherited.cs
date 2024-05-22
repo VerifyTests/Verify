@@ -1,5 +1,4 @@
 [TestClass]
-[UsesVerify]
 public class Inherited : Base
 {
     [TestMethod]

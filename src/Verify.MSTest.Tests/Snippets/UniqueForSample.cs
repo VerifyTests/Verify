@@ -1,7 +1,6 @@
 #region UniqueForSampleMSTest
 
 [TestClass]
-[UsesVerify]
 public partial class UniqueForSample
 {
     [TestMethod]

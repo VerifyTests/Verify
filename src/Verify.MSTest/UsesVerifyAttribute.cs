@@ -4,5 +4,5 @@ namespace VerifyMSTest;
 // avoid issues where the user ends up with multiple conflicting definitions of the attribute
 // (commonly when using InternalsVisibleTo).
 
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class)]
 public sealed class UsesVerifyAttribute : Attribute;

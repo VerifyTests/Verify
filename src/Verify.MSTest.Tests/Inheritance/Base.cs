@@ -1,5 +1,4 @@
 [TestClass]
-[UsesVerify]
 public partial class Base
 {
     [TestMethod]

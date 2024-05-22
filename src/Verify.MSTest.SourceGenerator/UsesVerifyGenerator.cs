@@ -3,64 +3,120 @@ namespace VerifyMSTest.SourceGenerator;
 [Generator]
 public class UsesVerifyGenerator : IIncrementalGenerator
 {
+    static string MarkerAttributeName => "VerifyMSTest.UsesVerifyAttribute";
+    static string TestClassAttributeName => "Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute";
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var classesToGenerate = context.SyntaxProvider
+        var markerAttributeClassesToGenerate = context.SyntaxProvider
             .ForAttributeWithMetadataName(
-                fullyQualifiedMetadataName: Parser.MarkerAttributeName,
+                fullyQualifiedMetadataName: MarkerAttributeName,
                 predicate: IsSyntaxEligibleForGeneration,
-                transform: GetSemanticTargetForGeneration)
-            .WithTrackingName(TrackingNames.InitialTransform)
-            .Where(static classToGenerate => classToGenerate is not null)
-            .WithTrackingName(TrackingNames.RemoveNulls);
+                transform: static (context, cancel) =>
+                {
+                    if (context.TargetSymbol is not INamedTypeSymbol symbol)
+                    {
+                        return null;
+                    }
 
-        // Collect the classes to generate into a collection so that we can write them
-        // to a single file and avoid the issues of ambiguous hint names discussed in
-        // https://github.com/dotnet/roslyn/discussions/60272.
-        var classesCollection = classesToGenerate
+                    if (context.TargetNode is not TypeDeclarationSyntax syntax)
+                    {
+                        return null;
+                    }
+
+                    cancel.ThrowIfCancellationRequested();
+
+                    // Only run generator for classes when the parent won't _also_ have generation.
+                    // Otherwise the generator will hide the base member.
+                    if (HasParentWithMarkerAttribute(symbol))
+                    {
+                        return null;
+                    }
+
+                    cancel.ThrowIfCancellationRequested();
+
+                    return Parser.Parse(symbol, syntax, cancel);
+                })
+            .WhereNotNull()
+            .WithTrackingName(TrackingNames.MarkerAttributeInitialTransform)
+            .Collect();
+
+        var assemblyAttributeClassesToGenerate = context.SyntaxProvider
+            .CreateSyntaxProvider(
+                predicate: IsSyntaxEligibleForGeneration,
+                transform: static (context, cancel) =>
+                {
+                    if (context.Node is not TypeDeclarationSyntax syntax)
+                    {
+                        return null;
+                    }
+
+                    if (!IsAssemblyEligibleForGeneration(context.SemanticModel.Compilation.Assembly))
+                    {
+                        return null;
+                    }
+
+                    if (context.SemanticModel.GetDeclaredSymbol(syntax, cancel) is not INamedTypeSymbol symbol)
+                    {
+                        return null;
+                    }
+
+                    cancel.ThrowIfCancellationRequested();
+
+                    if (!symbol.HasAttributeOfType(TestClassAttributeName, includeDerived: true))
+                    {
+                        return null;
+                    }
+
+                    // Only run generator for classes when the parent won't _also_ have generation.
+                    // Otherwise the generator will hide the base member.
+                    if (HasParentWithTestClassAttribute(symbol) || HasParentWithMarkerAttribute(symbol))
+                    {
+                        return null;
+                    }
+
+                    cancel.ThrowIfCancellationRequested();
+
+                    return Parser.Parse(symbol, syntax, cancel);
+                })
+            .WhereNotNull()
+            .WithTrackingName(TrackingNames.AssemblyAttributeInitialTransform)
+            .Collect();
+
+        // Collect the classes to generate into a single collection so that we can write them to a single file and
+        // avoid the issues of ambiguous hint names discussed in https://github.com/dotnet/roslyn/discussions/60272.
+        var classesToGenerate = markerAttributeClassesToGenerate.Combine(assemblyAttributeClassesToGenerate)
+            .SelectMany((classes, _) => classes.Left.AddRange(classes.Right))
+            .WithTrackingName(TrackingNames.Merge)
             .Collect()
-            .WithTrackingName(TrackingNames.Collect);
+            .WithTrackingName(TrackingNames.Complete);
 
-        context.RegisterSourceOutput(classesCollection, Execute);
+        context.RegisterSourceOutput(classesToGenerate, Execute);
     }
 
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
 
-    static ClassToGenerate? GetSemanticTargetForGeneration(GeneratorAttributeSyntaxContext context, Cancel cancel)
-    {
-        if (context.TargetSymbol is not INamedTypeSymbol symbol)
-        {
-            return null;
-        }
+    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) => assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
 
-        if (context.TargetNode is not TypeDeclarationSyntax syntax)
-        {
-            return null;
-        }
+    static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) => symbol
+        .GetBaseTypes()
+        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
 
-        cancel.ThrowIfCancellationRequested();
+    static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) => symbol
+        .GetBaseTypes()
+        .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
 
-        return Parser.Parse(symbol, syntax, cancel);
-    }
-
-    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
+    static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> classesToGenerate)
     {
         if (classesToGenerate.IsDefaultOrEmpty)
         {
             return;
         }
 
-        var classes = classesToGenerate.Distinct().OfType<ClassToGenerate>().ToList();
-        if (classes.Count == 0)
-        {
-            return;
-        }
-
-        var cancel = context.CancellationToken;
-        cancel.ThrowIfCancellationRequested();
+        var classes = classesToGenerate.Distinct().ToList();
 
         var emitter = new Emitter();
-        var sourceCode = emitter.GenerateExtensionClasses(classes, cancel);
+        var sourceCode = emitter.GenerateExtensionClasses(classes, context.CancellationToken);
         context.AddSource("UsesVerify.g.cs", SourceText.From(sourceCode, Encoding.UTF8));
     }
 }

@@ -4,18 +4,31 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
     {
         var syntaxTree = CSharpSyntaxTree.ParseText(source);
 
-        PortableExecutableReference[] references =
-        [
-            ..Basic.Reference.Assemblies.Net80.References.All,
-            MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location),
-        ];
+        // Collect assembly references for types like `System.Object` and add the types used by our tests.
+        var references = AppDomain.CurrentDomain.GetAssemblies()
+            .Where(assembly => !assembly.IsDynamic && !string.IsNullOrWhiteSpace(assembly.Location))
+            .Select(assembly => MetadataReference.CreateFromFile(assembly.Location))
+            .Concat(
+            [
+                MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
+                MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location),
+            ]);
+
+        var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
+            .WithSpecificDiagnosticOptions(new Dictionary<string, ReportDiagnostic>
+            {
+                // Suppress "CS1701: Assuming assembly reference '...' matches '...', you may need to supply runtime policy."
+                // This is already suppressed by the SDK, but because we're directly invoking the compiler ourselves we need to
+                // do it here. See https://github.com/dotnet/roslyn/issues/19640.
+                ["CS1701"] = ReportDiagnostic.Suppress,
+                ["CS1702"] = ReportDiagnostic.Suppress,
+            });
 
         var compilation = CSharpCompilation.Create(
             assemblyName: "Tests",
             syntaxTrees: [syntaxTree],
             references: references,
-            options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+            options: compilationOptions);
 
         var driverOptions = new GeneratorDriverOptions(
             disabledOutputs: IncrementalGeneratorOutputKind.None,

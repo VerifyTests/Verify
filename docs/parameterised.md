@@ -395,7 +395,6 @@ public Task TestCaseUsage(string arg) =>
 <a id='snippet-MSTestDataRow'></a>
 ```cs
 [TestClass]
-[UsesVerify]
 public partial class ParametersSample
 {
     [DataTestMethod]
@@ -416,7 +415,7 @@ public partial class ParametersSample
             .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L1-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -516,7 +515,6 @@ Hashing parameter is achieved by using `UseParameters` in combination with `Hash
 <a id='snippet-UseParametersHashMsTest'></a>
 ```cs
 [TestClass]
-[UsesVerify]
 public partial class ParametersHashSample
 {
     [DataTestMethod]
@@ -556,7 +554,7 @@ public partial class ParametersHashSample
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L1-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersHashSample.cs#L1-L43' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashMsTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

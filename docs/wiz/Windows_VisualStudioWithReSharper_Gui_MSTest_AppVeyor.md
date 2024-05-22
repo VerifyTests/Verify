@@ -199,7 +199,6 @@ public static void Initialize() =>
 <a id='snippet-SampleTestMSTest'></a>
 ```cs
 [TestClass]
-[UsesVerify]
 public partial class Sample
 {
     [TestMethod]
@@ -210,7 +209,7 @@ public partial class Sample
     }
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L1-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

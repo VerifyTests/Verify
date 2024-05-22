@@ -521,7 +521,6 @@ public class ScrubbersSample
 <a id='snippet-ScrubbersSampleMSTest'></a>
 ```cs
 [TestClass]
-[UsesVerify]
 public partial class ScrubbersSample
 {
     [TestMethod]
@@ -636,7 +635,7 @@ public partial class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubbersSample.cs#L1-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -789,7 +788,6 @@ public class ScrubberLevelsSample
 <a id='snippet-ScrubberLevelsSampleMSTest'></a>
 ```cs
 [TestClass]
-[UsesVerify]
 public partial class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
@@ -818,7 +816,7 @@ public partial class ScrubberLevelsSample
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubberLevelsSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubberLevelsSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

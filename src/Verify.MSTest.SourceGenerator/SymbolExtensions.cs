@@ -11,7 +11,7 @@ static class SymbolExtensions
         }
     }
 
-    public static bool HasAttributeOfType(this ISymbol symbol, string fullyQualifiedAttributeName, bool allowInheritance)
+    public static bool HasAttributeOfType(this ISymbol symbol, string fullyQualifiedAttributeName, bool includeDerived)
     {
         foreach (var attribute in symbol.GetAttributes())
         {
@@ -23,7 +23,7 @@ static class SymbolExtensions
                     return true;
                 }
 
-                typeSymbol = allowInheritance ? typeSymbol.BaseType : null;
+                typeSymbol = includeDerived ? typeSymbol.BaseType : null;
             }
         }
 

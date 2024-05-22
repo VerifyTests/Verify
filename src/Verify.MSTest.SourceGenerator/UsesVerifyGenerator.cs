@@ -63,7 +63,7 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
                     cancel.ThrowIfCancellationRequested();
 
-                    if (!symbol.HasAttributeOfType(TestClassAttributeName, allowInheritance: true))
+                    if (!symbol.HasAttributeOfType(TestClassAttributeName, includeDerived: true))
                     {
                         return null;
                     }
@@ -96,15 +96,15 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
 
-    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) => assembly.HasAttributeOfType(MarkerAttributeName, allowInheritance: false);
+    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) => assembly.HasAttributeOfType(MarkerAttributeName, includeDerived: false);
 
     static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) => symbol
         .GetBaseTypes()
-        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, allowInheritance: false));
+        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, includeDerived: false));
 
     static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) => symbol
         .GetBaseTypes()
-        .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
+        .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, includeDerived: true));
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate> classesToGenerate)
     {

@@ -68,11 +68,9 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    // TODO: Add unit test for mixing types
-
                     // Only run generator for classes when the parent won't _also_ have generation.
                     // Otherwise the generator will hide the base member.
-                    if (HasParentWithTestClassAttribute(symbol))
+                    if (HasParentWithTestClassAttribute(symbol) || HasParentWithMarkerAttribute(symbol))
                     {
                         return null;
                     }

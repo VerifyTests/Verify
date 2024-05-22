@@ -26,11 +26,9 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
                     cancel.ThrowIfCancellationRequested();
 
-                    // Only generate for classes that won't get one defined by another attribute.
-                    var hasParentWithAttribute = symbol
-                        .GetBaseTypes()
-                        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, allowInheritance: false));
-                    if (hasParentWithAttribute)
+                    // Only run generator for classes when the parent won't _also_ have generation.
+                    // Otherwise the generator will hide the base member.
+                    if (HasParentWithMarkerAttribute(symbol))
                     {
                         return null;
                     }
@@ -53,12 +51,12 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    if (!IsAssemblyEligibleForGeneration(context.SemanticModel.Compilation, cancel))
+                    if (!IsAssemblyEligibleForGeneration(context.SemanticModel.Compilation.Assembly))
                     {
                         return null;
                     }
 
-                    if (context.SemanticModel.GetDeclaredSymbol(syntax) is not INamedTypeSymbol symbol)
+                    if (context.SemanticModel.GetDeclaredSymbol(syntax, cancel) is not INamedTypeSymbol symbol)
                     {
                         return null;
                     }
@@ -70,8 +68,11 @@ public class UsesVerifyGenerator : IIncrementalGenerator
                         return null;
                     }
 
-                    var hasParentWithAttribute = symbol.GetBaseTypes().Any(parent => parent.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
-                    if (hasParentWithAttribute)
+                    // TODO: Add unit test for mixing types
+
+                    // Only run generator for classes when the parent won't _also_ have generation.
+                    // Otherwise the generator will hide the base member.
+                    if (HasParentWithTestClassAttribute(symbol))
                     {
                         return null;
                     }
@@ -97,7 +98,15 @@ public class UsesVerifyGenerator : IIncrementalGenerator
 
     static bool IsSyntaxEligibleForGeneration(SyntaxNode node, Cancel _) => node is ClassDeclarationSyntax;
 
-    static bool IsAssemblyEligibleForGeneration(Compilation compilation, Cancel _) => compilation.Assembly.HasAttributeOfType(MarkerAttributeName, allowInheritance: false);
+    static bool IsAssemblyEligibleForGeneration(IAssemblySymbol assembly) => assembly.HasAttributeOfType(MarkerAttributeName, allowInheritance: false);
+
+    static bool HasParentWithMarkerAttribute(INamedTypeSymbol symbol) => symbol
+        .GetBaseTypes()
+        .Any(parent => parent.HasAttributeOfType(MarkerAttributeName, allowInheritance: false));
+
+    static bool HasParentWithTestClassAttribute(INamedTypeSymbol symbol) => symbol
+        .GetBaseTypes()
+        .Any(parent => parent.HasAttributeOfType(TestClassAttributeName, allowInheritance: true));
 
     static void Execute(SourceProductionContext context, ImmutableArray<ClassToGenerate?> classesToGenerate)
     {

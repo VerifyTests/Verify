@@ -129,7 +129,7 @@ public Task Anon()
         });
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L26-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyObjectSamples.cs#L25-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

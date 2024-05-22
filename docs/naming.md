@@ -384,7 +384,6 @@ public class UniqueForSample
 <a id='snippet-UniqueForSampleMSTest'></a>
 ```cs
 [TestClass]
-[UsesVerify]
 public partial class UniqueForSample
 {
     [TestMethod]
@@ -453,7 +452,7 @@ public partial class UniqueForSample
             .UniqueForOSPlatform();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L1-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/UniqueForSample.cs#L1-L72' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -624,7 +623,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L10-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L9-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

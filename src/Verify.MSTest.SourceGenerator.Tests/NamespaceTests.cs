@@ -40,6 +40,11 @@ public class NamespaceTests(ITestOutputHelper output) : TestBase(output)
                             public partial class TestClass2
                             {
                             }
+
+                            [UsesVerify]
+                            public partial class TestClass3<T1, T2>
+                            {
+                            }
                         }
                     }
                 }

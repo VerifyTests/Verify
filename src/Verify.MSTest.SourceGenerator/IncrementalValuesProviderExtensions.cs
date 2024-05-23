@@ -5,5 +5,6 @@ static class IncrementalValuesProviderExtensions
             .Select((item, _) => item!.Value);
 
     public static IncrementalValuesProvider<TSource> WhereNotNull<TSource>(this IncrementalValuesProvider<TSource?> source) =>
-        source.Where(x => x is not null).Select((item, _) => item!);
+        source.Where(_ => _ is not null)
+            .Select((item, _) => item!);
 }

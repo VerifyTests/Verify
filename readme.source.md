@@ -115,11 +115,17 @@ Due to the nature of the Expecto implementation, the following APIs in Verify ar
 * `settings.UseParameters()`
 * `settings.UseTextForParameters()`
 
+
 ### MSTest
 
 Support for [MSTest](https://github.com/Microsoft/testfx-docs)
 
 snippet: SampleTestMSTest
+
+
+#### Marking tests as 'Using Verify'
+
+include: mstest-marker
 
 
 ### Initial Verification

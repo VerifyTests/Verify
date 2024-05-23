@@ -142,6 +142,39 @@ public partial class Sample
 <sup><a href='/src/Verify.MSTest.Tests/Snippets/Sample.cs#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+### Marking tests as 'Using Verify'
+
+The MSTest implementation leverages a [Source Generator](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview) and requires test classes to opt in to being processed by the Source Generator.<!-- include: mstest-marker. path: /docs/mdsource/mstest-marker.include.md -->
+
+Add the `UsesVerifyAttribute` to mark a test class or all test classes in an assembly:
+
+```
+[assembly: UsesVerify]
+```
+
+```
+[UsesVerify]
+```
+
+Or inherit from `VerifyBase`:
+
+<!-- snippet: VerifyBaseUsage.cs -->
+<a id='snippet-VerifyBaseUsage.cs'></a>
+```cs
+[TestClass]
+public class VerifyBaseUsage :
+    VerifyBase
+{
+    [TestMethod]
+    public Task Simple() =>
+        Verify("The content");
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/VerifyBaseUsage.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyBaseUsage.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+<!-- endInclude -->
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

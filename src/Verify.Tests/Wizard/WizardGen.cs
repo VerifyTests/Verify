@@ -203,6 +203,18 @@ public class WizardGen
 
         AppendSample(testFramework, builder);
 
+        if(testFramework == TestFramework.MSTest)
+        {
+            builder.AppendLine(
+                """
+
+                ### Marking tests as 'Using Verify'
+
+                include: mstest-marker
+
+                """);
+        }
+
         AppendDiffTool(os, builder);
 
         AppendBuildServer(buildServer, builder);

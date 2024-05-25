@@ -5,12 +5,15 @@ public abstract class TestBase(ITestOutputHelper output)
     private protected TestDriver TestDriver { get; } = new([new UsesVerifyGenerator().AsSourceGenerator()]);
     protected ITestOutputHelper Output { get; } = output;
 
-    private protected async Task VerifyGenerator(GeneratorDriverResults results)
+    private protected async Task VerifyGenerator(GeneratorDriverResults results, IEnumerable<string>? expectedDiagnostics = null)
     {
         var first = results.FirstRun;
         Output.WriteLine($"First run of generators took: {first.TimingInfo.ElapsedTime}");
         var cached = results.CachedRun;
         Output.WriteLine($"Cached re-run of generators took: {cached.TimingInfo.ElapsedTime}");
+
+        expectedDiagnostics ??= [];
+        results.outputCompilation.GetDiagnostics().ShouldAllBe(d => expectedDiagnostics.Contains(d.Id));
 
         await Verify(first.RunResult.SelectGeneratedSources());
 

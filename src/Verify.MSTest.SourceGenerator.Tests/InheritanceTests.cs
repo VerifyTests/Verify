@@ -63,6 +63,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
     {
         var source = """
             using VerifyMSTest;
+            using Microsoft.VisualStudio.TestTools.UnitTesting;
 
             public class Base
             {
@@ -75,7 +76,7 @@ public class InheritanceTests(ITestOutputHelper output) : TestBase(output)
             }
             """;
 
-        return VerifyGenerator(TestDriver.Run(source));
+        return VerifyGenerator(TestDriver.Run(source), ["CS0108"]);
     }
 
     [Fact]

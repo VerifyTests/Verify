@@ -64,7 +64,7 @@ public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
             [assembly: UsesVerify]
 
             [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-            sealed class MyTestClassAttribute : TestClassAttribute;
+            sealed class MyTestClassAttribute : TestClassAttribute {}
 
             [MyTestClass]
             public partial class Foo

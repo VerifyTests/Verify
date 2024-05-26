@@ -37,6 +37,5 @@
     <PackageVersion Include="xunit.extensibility.execution" Version="2.8.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1" />
     <PackageVersion Include="System.Drawing.Common" Version="8.0.5" />
-    <PackageVersion Include="System.Drawing.Common" Version="8.0.5" />
   </ItemGroup>
 </Project>

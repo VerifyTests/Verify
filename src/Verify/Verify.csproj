@@ -4,15 +4,15 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Polyfill" Version="5.2.2" PrivateAssets="all" />
-    <PackageReference Include="System.IO.Compression" Version="4.3.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="System.IO.Hashing" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0' or $(TargetFramework) == 'net9.0'" />
-    <PackageReference Include="System.Memory" Version="4.5.5" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="DiffEngine" Version="15.4.1" />
-    <PackageReference Include="SimpleInfoName" Version="2.2.0" />
-    <PackageReference Include="Argon" Version="0.17.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" PrivateAssets="all" />
+    <PackageReference Include="System.IO.Compression" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
+    <PackageReference Include="System.IO.Hashing" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0' or $(TargetFramework) == 'net9.0'" />
+    <PackageReference Include="System.Memory" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
+    <PackageReference Include="DiffEngine" />
+    <PackageReference Include="SimpleInfoName" />
+    <PackageReference Include="Argon" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\Verify.props" />

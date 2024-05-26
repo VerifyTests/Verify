@@ -12,6 +12,142 @@ indent_size = 4
 charset = utf-8
 
 
+# Declare types in namespaces
+dotnet_diagnostic.CA1050.severity = None
+
+# Use Literals Where Appropriate
+dotnet_diagnostic.CA1802.severity = error
+
+# Do not initialize unnecessarily
+dotnet_diagnostic.CA1805.severity = error
+
+# Avoid unsealed attributes
+dotnet_diagnostic.CA1813.severity = error
+
+# Test for empty strings using string length
+dotnet_diagnostic.CA1820.severity = none
+
+# Remove empty finalizers
+dotnet_diagnostic.CA1821.severity = error
+
+# Mark members as static
+dotnet_diagnostic.CA1822.severity = error
+
+# Avoid unused private fields
+dotnet_diagnostic.CA1823.severity = error
+
+# Avoid zero-length array allocations
+dotnet_diagnostic.CA1825.severity = error
+
+# Use property instead of Linq Enumerable method
+dotnet_diagnostic.CA1826.severity = error
+
+# Do not use Count()/LongCount() when Any() can be used
+dotnet_diagnostic.CA1827.severity = error
+dotnet_diagnostic.CA1828.severity = error
+
+# Use Length/Count property instead of Enumerable.Count method
+dotnet_diagnostic.CA1829.severity = error
+
+# Prefer strongly-typed Append and Insert method overloads on StringBuilder
+dotnet_diagnostic.CA1830.severity = error
+
+# Use AsSpan instead of Range-based indexers for string when appropriate
+dotnet_diagnostic.CA1831.severity = error
+
+# Use AsSpan instead of Range-based indexers for string when appropriate
+dotnet_diagnostic.CA1831.severity = error
+dotnet_diagnostic.CA1832.severity = error
+dotnet_diagnostic.CA1833.severity = error
+
+# Use StringBuilder.Append(char) for single character strings
+dotnet_diagnostic.CA1834.severity = error
+
+# Prefer IsEmpty over Count when available
+dotnet_diagnostic.CA1836.severity = error
+
+# Prefer IsEmpty over Count when available
+dotnet_diagnostic.CA1836.severity = error
+
+# Use Environment.ProcessId instead of Process.GetCurrentProcess().Id
+dotnet_diagnostic.CA1837.severity = error
+
+# Use Environment.ProcessPath instead of Process.GetCurrentProcess().MainModule.FileName
+dotnet_diagnostic.CA1839.severity = error
+
+# Use Environment.CurrentManagedThreadId instead of Thread.CurrentThread.ManagedThreadId
+dotnet_diagnostic.CA1840.severity = error
+
+# Prefer Dictionary Contains methods
+dotnet_diagnostic.CA1841.severity = error
+
+# Do not use WhenAll with a single task
+dotnet_diagnostic.CA1842.severity = error
+
+# Do not use WhenAll/WaitAll with a single task
+dotnet_diagnostic.CA1842.severity = error
+dotnet_diagnostic.CA1843.severity = error
+
+# Use span-based 'string.Concat'
+dotnet_diagnostic.CA1845.severity = error
+
+# Prefer AsSpan over Substring
+dotnet_diagnostic.CA1846.severity = error
+
+# Use string.Contains(char) instead of string.Contains(string) with single characters
+dotnet_diagnostic.CA1847.severity = error
+
+# Prefer static HashData method over ComputeHash
+dotnet_diagnostic.CA1850.severity = error
+
+# Possible multiple enumerations of IEnumerable collection
+dotnet_diagnostic.CA1851.severity = error
+
+# Unnecessary call to Dictionary.ContainsKey(key)
+dotnet_diagnostic.CA1853.severity = error
+
+# Prefer the IDictionary.TryGetValue(TKey, out TValue) method
+dotnet_diagnostic.CA1854.severity = error
+
+# Use Span<T>.Clear() instead of Span<T>.Fill()
+dotnet_diagnostic.CA1855.severity = error
+
+# Incorrect usage of ConstantExpected attribute
+dotnet_diagnostic.CA1856.severity = error
+
+# The parameter expects a constant for optimal performance
+dotnet_diagnostic.CA1857.severity = error
+
+# Use StartsWith instead of IndexOf
+dotnet_diagnostic.CA1858.severity = error
+
+# Avoid using Enumerable.Any() extension method
+dotnet_diagnostic.CA1860.severity = error
+
+# Avoid constant arrays as arguments
+dotnet_diagnostic.CA1861.severity = error
+
+# Use the StringComparison method overloads to perform case-insensitive string comparisons
+dotnet_diagnostic.CA1862.severity = error
+
+# Prefer the IDictionary.TryAdd(TKey, TValue) method
+dotnet_diagnostic.CA1864.severity = error
+
+# Use string.Method(char) instead of string.Method(string) for string with single char
+dotnet_diagnostic.CA1865.severity = error
+dotnet_diagnostic.CA1866.severity = error
+dotnet_diagnostic.CA1867.severity = error
+
+# Unnecessary call to 'Contains' for sets
+dotnet_diagnostic.CA1868.severity = error
+
+# Cache and reuse 'JsonSerializerOptions' instances
+dotnet_diagnostic.CA1869.severity = error
+
+# Use a cached 'SearchValues' instance
+dotnet_diagnostic.CA1870.severity = error
+
+
 # Microsoft .NET properties
 trim_trailing_whitespace = true
 csharp_preferred_modifier_order = public, private, protected, internal, new, static, abstract, virtual, sealed, readonly, override, extern, unsafe, volatile, async:suggestion
@@ -139,6 +275,9 @@ resharper_wrap_after_dot_in_method_calls = false
 resharper_wrap_before_binary_pattern_op = false
 resharper_wrap_object_and_collection_initializer_style = chop_always
 resharper_place_simple_initializer_on_single_line = false
+
+# space
+resharper_space_around_lambda_arrow = true
 
 dotnet_style_require_accessibility_modifiers = never:error
 resharper_place_type_constraints_on_same_line = false

@@ -23,7 +23,7 @@ Add the following packages to the test project:
 <PackageReference Include="Verify.Expecto" Version="24.3.0-beta.4" />
 <PackageReference Update="FSharp.Core" Version="8.0.300" />
 ```
-<sup><a href='/src/NugetUsage/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

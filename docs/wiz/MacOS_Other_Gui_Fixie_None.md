@@ -20,7 +20,7 @@ Add the following packages to the test project:
 <PackageReference Include="Fixie" Version="3.4.0" />
 <PackageReference Include="Verify.Fixie" Version="24.3.0-beta.4" />
 ```
-<sup><a href='/src/NugetUsage/FixieNugetUsage/FixieNugetUsage.csproj#L7-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixie-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/usages/FixieNugetUsage/FixieNugetUsage.csproj#L7-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-fixie-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

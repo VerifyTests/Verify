@@ -22,7 +22,7 @@ Add the following packages to the test project:
 <PackageReference Include="Xunit" Version="2.8.1" />
 <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" PrivateAssets="all" />
 ```
-<sup><a href='/src/NugetUsage/XunitNugetUsage/XunitNugetUsage.csproj#L7-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunit-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/NugetUsage/XunitNugetUsage/XunitNugetUsage.csproj#L8-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

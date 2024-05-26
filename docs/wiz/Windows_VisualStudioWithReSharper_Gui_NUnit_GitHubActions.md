@@ -21,7 +21,7 @@ Add the following packages to the test project:
 <PackageReference Include="NUnit" Version="4.1.0" />
 <PackageReference Include="Verify.NUnit" Version="24.3.0-beta.4" />
 ```
-<sup><a href='/src/NugetUsage/NUnitNugetUsage/NUnitNugetUsage.csproj#L7-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/NugetUsage/NUnitNugetUsage/NUnitNugetUsage.csproj#L8-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

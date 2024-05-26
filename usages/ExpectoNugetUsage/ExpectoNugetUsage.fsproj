@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+<!-- begin-snippet: expecto-nugets -->
+    <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Expecto" Version="10.2.1" />
+    <PackageReference Include="Verify.Expecto" Version="24.3.0-beta.4" />
+    <PackageReference Update="FSharp.Core" Version="8.0.300" />
+<!-- end-snippet -->
+  </ItemGroup>
+</Project>

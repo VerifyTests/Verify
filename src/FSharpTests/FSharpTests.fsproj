@@ -6,13 +6,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Tests.fs" />
-    <PackageReference Include="Argon.FSharp" Version="0.17.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="xunit" Version="2.8.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" PrivateAssets="all" />
+    <PackageReference Include="Argon.FSharp" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <PackageReference Update="FSharp.Core" Version="8.0.300" />
+    <PackageReference Update="FSharp.Core" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

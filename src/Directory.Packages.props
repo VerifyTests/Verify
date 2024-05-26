@@ -1,0 +1,42 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Argon" Version="0.17.0" />
+    <PackageVersion Include="Argon.FSharp" Version="0.17.0" />
+    <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
+    <PackageVersion Include="DiffEngine" Version="15.4.1" />
+    <PackageVersion Include="Expecto" Version="10.2.1" />
+    <PackageVersion Include="Fixie" Version="3.4.0" />
+    <PackageVersion Include="Fixie.TestAdapter" Version="3.4.0" />
+    <PackageVersion Include="Fody" Version="6.8.1" />
+    <PackageVersion Include="FSharp.Core" Version="8.0.300" />
+    <PackageVersion Include="InfoOf.Fody" Version="2.2.0" />
+    <PackageVersion Include="MarkdownSnippets.MsBuild" Version="27.0.2" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageVersion Include="MSTest" Version="3.4.0" />
+    <PackageVersion Include="MSTest.TestFramework" Version="3.4.0" />
+    <PackageVersion Include="NUnit" Version="4.1.0" />
+    <PackageVersion Include="Polyfill" Version="5.2.2" />
+    <PackageVersion Include="ProjectDefaults" Version="1.0.127" />
+    <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
+    <PackageVersion Include="Shouldly" Version="4.2.1" />
+    <PackageVersion Include="SimpleInfoName" Version="2.2.0" />
+    <PackageVersion Include="System.IO.Compression" Version="4.3.0" />
+    <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
+    <PackageVersion Include="System.Memory" Version="4.5.5" />
+    <PackageVersion Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+    <PackageVersion Include="TextCopy" Version="6.2.1" />
+    <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
+    <PackageVersion Include="Xunit" Version="2.8.1" />
+    <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
+    <PackageVersion Include="xunit.extensibility.execution" Version="2.8.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1" />
+    <PackageVersion Include="System.Drawing.Common" Version="8.0.5" />
+    <PackageVersion Include="System.Drawing.Common" Version="8.0.5" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
@@ -7,14 +7,12 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MSTest" Version="3.4.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+    <PackageReference Include="MSTest" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-    <ProjectReference Include="..\Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj"
-                      ReferenceOutputAssembly="false"
-                      OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Verify.MSTest.SourceGenerator\Verify.MSTest.SourceGenerator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />

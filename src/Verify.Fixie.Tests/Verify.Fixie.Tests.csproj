@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -7,8 +7,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Fixie.TestAdapter" Version="3.4.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+    <PackageReference Include="Fixie.TestAdapter" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Fixie\Verify.Fixie.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />

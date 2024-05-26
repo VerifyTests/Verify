@@ -4,9 +4,9 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DiffEngine" Version="15.4.1" />
-    <PackageReference Include="TextCopy" Version="6.2.1" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
+    <PackageReference Include="DiffEngine" />
+    <PackageReference Include="TextCopy" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
   </ItemGroup>
 </Project>

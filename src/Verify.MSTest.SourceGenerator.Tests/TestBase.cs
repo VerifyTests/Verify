@@ -13,7 +13,7 @@ public abstract class TestBase(ITestOutputHelper output)
         Output.WriteLine($"Cached re-run of generators took: {cached.TimingInfo.ElapsedTime}");
 
         expectedDiagnostics ??= [];
-        results.outputCompilation.GetDiagnostics().ShouldAllBe(d => expectedDiagnostics.Contains(d.Id));
+        results.outputCompilation.GetDiagnostics().ShouldAllBe(_ => expectedDiagnostics.Contains(_.Id));
 
         await Verify(first.RunResult.SelectGeneratedSources());
 

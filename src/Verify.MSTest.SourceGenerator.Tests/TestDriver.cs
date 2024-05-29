@@ -6,8 +6,8 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 
         // Collect assembly references for types like `System.Object` and add the types used by our tests.
         var references = AppDomain.CurrentDomain.GetAssemblies()
-            .Where(assembly => !assembly.IsDynamic && !string.IsNullOrWhiteSpace(assembly.Location))
-            .Select(assembly => MetadataReference.CreateFromFile(assembly.Location));
+            .Where(_ => !_.IsDynamic && !string.IsNullOrWhiteSpace(_.Location))
+            .Select(_ => MetadataReference.CreateFromFile(_.Location));
         var assemblyReference = MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location);
         var testAssemblyReference = MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location);
         var testFrameworkReference = MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext).Assembly.Location);

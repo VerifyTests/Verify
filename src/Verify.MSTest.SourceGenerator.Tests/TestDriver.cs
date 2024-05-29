@@ -7,12 +7,10 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
         // Collect assembly references for types like `System.Object` and add the types used by our tests.
         var references = AppDomain.CurrentDomain.GetAssemblies()
             .Where(assembly => !assembly.IsDynamic && !string.IsNullOrWhiteSpace(assembly.Location))
-            .Select(assembly => MetadataReference.CreateFromFile(assembly.Location))
-            .Concat(
-            [
-                MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location),
-            ]);
+            .Select(assembly => MetadataReference.CreateFromFile(assembly.Location));
+        var assemblyReference = MetadataReference.CreateFromFile(typeof(VerifyMSTest.UsesVerifyAttribute).Assembly.Location);
+        var testAssemblyReference = MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute).Assembly.Location);
+        var testFrameworkReference = MetadataReference.CreateFromFile(typeof(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext).Assembly.Location);
 
         var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
             .WithSpecificDiagnosticOptions(new Dictionary<string, ReportDiagnostic>
@@ -27,7 +25,7 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
         var compilation = CSharpCompilation.Create(
             assemblyName: "Tests",
             syntaxTrees: [syntaxTree],
-            references: references,
+            references: [.. references, assemblyReference, testAssemblyReference, testFrameworkReference],
             options: compilationOptions);
 
         var driverOptions = new GeneratorDriverOptions(
@@ -36,7 +34,7 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 
         GeneratorDriver driver = CSharpGeneratorDriver.Create(sourceGenerators, driverOptions: driverOptions);
 
-        driver = driver.RunGenerators(compilation);
+        driver = driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _);
         var results1 = driver.GetRunResult();
         var timings1 = driver.GetTimingInfo();
         driver = driver.RunGenerators(compilation.Clone());
@@ -45,6 +43,7 @@ class TestDriver(IEnumerable<ISourceGenerator> sourceGenerators)
 
         return new(
             new(results1, timings1),
-            new(results2, timings2));
+            new(results2, timings2),
+            outputCompilation);
     }
 }

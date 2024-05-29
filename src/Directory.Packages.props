@@ -35,7 +35,7 @@
     <PackageVersion Include="YoloDev.Expecto.TestSdk" Version="0.14.3" />
     <PackageVersion Include="Xunit" Version="2.8.1" />
     <PackageVersion Include="xunit.abstractions" Version="2.0.3" />
-    <PackageVersion Include="xunit.extensibility.execution" Version="2.8.0" />
+    <PackageVersion Include="xunit.extensibility.execution" Version="2.8.1" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1" />
     <PackageVersion Include="System.Drawing.Common" Version="8.0.5" />
   </ItemGroup>

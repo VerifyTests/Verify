@@ -5,8 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- begin-snippet: mstest-nugets -->
-    <PackageReference Include="MSTest" Version="3.4.0" />
-    <PackageReference Include="Verify.MSTest" Version="24.3.0-beta.4" />
+    <PackageReference Include="MSTest" Version="3.4.1" />
+    <PackageReference Include="Verify.MSTest" Version="24.3.0-beta.5" />
     <!-- end-snippet -->
   </ItemGroup>
 </Project>

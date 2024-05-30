@@ -23,7 +23,7 @@ public class InnerVerifyTests
 
         var sourceFile = Path.Combine(solutionDirectory, "Verify.Tests", "sample.txt");
 
-        Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.VerifyFile(sourceFile, null);
+        Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.VerifyFile(sourceFile, null, null);
         await new SettingsTask(
             settings,
             async verifySettings =>

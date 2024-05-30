@@ -10,8 +10,9 @@ partial class Verifier
         string path,
         VerifySettings? settings = null,
         object? info = null,
+        string? extension = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
+        Verify(settings, sourceFile, _ => _.VerifyFile(path, info, extension));
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -22,6 +23,7 @@ partial class Verifier
         FileInfo path,
         VerifySettings? settings = null,
         object? info = null,
+        string? extension = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verify(settings, sourceFile, _ => _.VerifyFile(path, info));
+        Verify(settings, sourceFile, _ => _.VerifyFile(path, info, extension));
 }

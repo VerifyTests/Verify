@@ -191,6 +191,14 @@ public class StreamTests
 
     #endregion
 
+    #region VerifyFileExtension
+
+    [Fact]
+    public Task VerifyFilePathWithExtension() =>
+        VerifyFile("sample.txt", extension: "csv");
+
+    #endregion
+
 #if NET6_0_OR_GREATER
     [Fact]
     public async Task VerifyFileNotLocked()

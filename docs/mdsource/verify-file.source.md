@@ -17,3 +17,8 @@ snippet: VerifyFileWithInfo
 Use the functionality of VerifyTests outside of a unit test.
 
 snippet: VerifyFileWithoutUnitTest
+
+
+### Using a custom extension
+
+snippet: VerifyFileExtension

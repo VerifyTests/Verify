@@ -33,7 +33,7 @@ public Task VerifyFileWithInfo() =>
         "sample.txt",
         info: "the info");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L204-L212' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithInfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L212-L220' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -52,7 +52,7 @@ public async Task VerifyExternalFile()
 
     var sourceFile = Path.Combine(solutionDirectory, "Verify.Tests", "sample.txt");
 
-    Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.VerifyFile(sourceFile, null);
+    Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.VerifyFile(sourceFile, null, null);
     await new SettingsTask(
         settings,
         async verifySettings =>
@@ -63,4 +63,17 @@ public async Task VerifyExternalFile()
 }
 ```
 <sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L16-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Using a custom extension
+
+<!-- snippet: VerifyFileExtension -->
+<a id='snippet-VerifyFileExtension'></a>
+```cs
+[Fact]
+public Task VerifyFilePathWithExtension() =>
+    VerifyFile("sample.txt", extension: "csv");
+```
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L194-L200' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

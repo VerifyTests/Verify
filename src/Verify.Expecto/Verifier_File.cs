@@ -12,10 +12,11 @@ public static partial class Verifier
         string path,
         VerifySettings? settings = null,
         object? info = null,
+        string? extension = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path, info));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path, info, extension));
     }
 
     /// <summary>
@@ -27,9 +28,10 @@ public static partial class Verifier
         FileInfo path,
         VerifySettings? settings = null,
         object? info = null,
+        string? extension = null,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path, info));
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyFile(path, info, extension));
     }
 }

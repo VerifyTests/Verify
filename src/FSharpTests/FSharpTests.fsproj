@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <PackageReference Include="Argon.FSharp" />
+    <PackageReference Include="FSharp.Core" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />

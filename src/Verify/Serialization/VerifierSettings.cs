@@ -138,6 +138,7 @@ public static partial class VerifierSettings
         InnerVerifier.verifyHasBeenRun = false;
         DateCountingEnabled = true;
         StrictJson = false;
+        hashParameters = false;
         scrubProjectDir = true;
         scrubSolutionDir = true;
         sortPropertiesAlphabetically = false;

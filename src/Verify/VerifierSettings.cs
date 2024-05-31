@@ -2,6 +2,11 @@ namespace VerifyTests;
 
 public static partial class VerifierSettings
 {
+    internal static bool hashParameters;
+
+    public static void HashParameters() =>
+        hashParameters = true;
+
     internal static bool omitContentFromException;
 
     public static void OmitContentFromException() =>

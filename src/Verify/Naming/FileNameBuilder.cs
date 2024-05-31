@@ -55,10 +55,9 @@
 
         var parameterText = builder.ToString();
 
-        if (settings.hashParameters)
+        if (settings.hashParameters || VerifierSettings.hashParameters)
         {
-            var hashed = HashString(parameterText);
-            return $"_{hashed}";
+            return HashString(parameterText);
         }
 
         return parameterText;
@@ -68,7 +67,7 @@
     {
         var data = XxHash64.Hash(Encoding.UTF8.GetBytes(value));
 
-        var builder = new StringBuilder(16);
+        var builder = new StringBuilder("_", 17);
 
         foreach (var item in data)
         {

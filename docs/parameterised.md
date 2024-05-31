@@ -665,3 +665,19 @@ public class ParametersHashSample
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersHashSample.cs#L1-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Globally
+
+<!-- snippet: StaticHashParameters -->
+<a id='snippet-StaticHashParameters'></a>
+```cs
+public static class ModuleInitializer
+{
+    [ModuleInitializer]
+    public static void Init() =>
+        VerifierSettings.HashParameters();
+}
+```
+<sup><a href='/src/ModuleInitDocs/HashParameters.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticHashParameters' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->

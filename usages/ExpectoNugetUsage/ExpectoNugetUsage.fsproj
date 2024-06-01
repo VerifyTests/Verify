@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="Expecto" Version="10.2.1" />
     <PackageReference Update="FSharp.Core" Version="8.0.300" />
-    <PackageReference Include="Verify.Expecto" Version="24.3.0-beta.5" />
+    <PackageReference Include="Verify.Expecto" Version="25.0.0" />
 <!-- end-snippet -->
   </ItemGroup>
 </Project>

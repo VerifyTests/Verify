@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 class Emitter
 {
     static readonly string AutoGenerationHeader = """

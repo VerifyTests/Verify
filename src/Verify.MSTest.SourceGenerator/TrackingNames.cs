@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 public static class TrackingNames
 {
     public static string MarkerAttributeInitialTransform => nameof(MarkerAttributeInitialTransform);

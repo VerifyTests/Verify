@@ -1,5 +1,3 @@
-namespace VerifyMSTest.SourceGenerator;
-
 /// <summary>
 /// A <see cref="StringBuilder"/> wrapper that automatically adds indentation to the beginning of
 /// every line.

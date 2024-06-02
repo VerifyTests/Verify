@@ -71,10 +71,9 @@ class VirtualizedRunHelper
             return path;
         }
 
-        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..]
-            .Replace('\\', '/');
+        var mappedPathRelative = path[originalCodeBaseRootAbsolute.Length..];
 
-        var mappedPath = Env.CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
+        var mappedPath = CombinePaths(mappedCodeBaseRootAbsolute!, mappedPathRelative);
 
         if (Env.PathExists(mappedPath))
         {
@@ -128,7 +127,7 @@ class VirtualizedRunHelper
             var currentDir = Env.CurrentDirectory;
             do
             {
-                var testMappedPath = Env.CombinePaths(currentDir, buildTimePathRelative);
+                var testMappedPath = CombinePaths(currentDir, buildTimePathRelative);
                 if (Env.PathExists(testMappedPath))
                 {
                     baseRootAbsolute = buildTimePath[..^buildTimePathRelative.Length];
@@ -176,7 +175,7 @@ class VirtualizedRunHelper
 
                 codeBaseRootAbsolute = originalCodeBaseRoot[..^mappedCodeBaseRootRelative.Length];
 
-                var testMappedPath = Env.CombinePaths(
+                var testMappedPath = CombinePaths(
                     mappedCodeBaseRootAbsolute,
                     originalCodeBaseRoot[codeBaseRootAbsolute.Length..]
                         .Replace('\\', '/'));
@@ -218,7 +217,7 @@ class VirtualizedRunHelper
 
     static bool AppearsBuiltOnCurrentPlatform(string buildTimePath) =>
         buildTimePath.Contains(Env.DirectorySeparatorChar) &&
-        !buildTimePath.Contains(Env.AltDirectorySeparatorChar);
+        !buildTimePath.Contains(OtherDirectorySeparatorChar);
 
     static bool TryRemoveDirFromStartOfPath(ref string path)
     {
@@ -255,4 +254,9 @@ class VirtualizedRunHelper
 
         return path;
     }
+
+    private static string CombinePaths(string path1, string path2) =>
+        $"{path1.TrimEnd(separators)}{Env.DirectorySeparatorChar}{path2.Replace(OtherDirectorySeparatorChar, Env.DirectorySeparatorChar)}";
+
+    private static char OtherDirectorySeparatorChar => Env.DirectorySeparatorChar == '/' ? '\\' : '/';
 }

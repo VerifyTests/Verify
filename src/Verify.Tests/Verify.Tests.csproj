@@ -1,5 +1,6 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
     <TargetFrameworks>net9.0;net8.0;net7.0;$(TargetFrameworks)</TargetFrameworks>
@@ -7,6 +8,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Fody" PrivateAssets="all" />
     <PackageReference Include="InfoOf.Fody" />
@@ -16,11 +18,13 @@
     <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
     <PackageReference Include="Xunit" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.ClipboardAccept\Verify.ClipboardAccept.csproj" />
     <ProjectReference Include="..\Verify.SamplePlugin\Verify.SamplePlugin.csproj" />
     <ProjectReference Include="..\Verify.Xunit\Verify.Xunit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
+
     <None Update="sample*.*" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Binary*.*.txt" CopyToOutputDirectory="PreserveNewest" />
     <Folder Include="Naming\CustomDirectory\" />
@@ -32,16 +36,25 @@
       <DependentUpon>AutoVerify.cs</DependentUpon>
     </None>
   </ItemGroup>
+
   <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
     <Compile Remove="Wizard\WizardGen.cs" />
   </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />
+
 </Project>

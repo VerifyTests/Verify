@@ -27,7 +27,6 @@
     <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
     <PackageVersion Include="SimpleInfoName" Version="2.2.0" />
     <PackageVersion Include="System.Drawing.Common" Version="8.0.6" />
-    <PackageVersion Include="System.IO.Compression" Version="4.3.0" />
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
     <PackageVersion Include="System.Memory" Version="4.5.5" />
     <PackageVersion Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />

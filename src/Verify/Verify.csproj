@@ -1,21 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net472;net48</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net472;net48</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Polyfill" PrivateAssets="all" />
-    <PackageReference Include="System.IO.Compression" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="System.IO.Hashing" Condition="$(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework) == 'net6.0' or $(TargetFramework) == 'net7.0' or $(TargetFramework) == 'net8.0' or $(TargetFramework) == 'net9.0'" />
-    <PackageReference Include="System.Memory" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Condition="$(TargetFrameworkIdentifier) == '.NETFramework'" />
+    <PackageReference Include="System.IO.Hashing" />
     <PackageReference Include="DiffEngine" />
     <PackageReference Include="SimpleInfoName" />
     <PackageReference Include="Argon" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="buildTransitive\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="buildTransitive\Verify.targets" />
     <None Include="buildTransitive\Verify.props" Pack="true" PackagePath="build\Verify.props" />
     <None Include="buildTransitive\Verify.targets" Pack="true" PackagePath="build\Verify.targets" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <PackageReference Include="System.Memory" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+    <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
 </Project>

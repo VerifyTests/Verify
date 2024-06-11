@@ -175,7 +175,7 @@ Use a [if: failure()](https://docs.github.com/en/free-pro-team@latest/actions/re
 ```yaml
 - name: Upload Test Results
   if: failure()
-  uses: actions/upload-artifact@v2
+  uses: actions/upload-artifact@v4
   with:
     name: verify-test-results
     path: |

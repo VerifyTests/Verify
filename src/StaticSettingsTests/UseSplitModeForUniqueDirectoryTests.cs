@@ -11,22 +11,12 @@
 
     [Fact]
     public Task Target() =>
-        Verify(
-                "Target",
-                new[]
-                {
-                    new Target("txt", "data")
-                })
+        Verify("Target", [new("txt", "data")])
             .UseUniqueDirectory();
 
     [Fact]
     public Task TargetWithName() =>
-        Verify(
-                "Target",
-                new[]
-                {
-                    new Target("txt", "data", "name")
-                })
+        Verify("Target", [new("txt", "data", "name")])
             .UseUniqueDirectory();
 
     [Fact]

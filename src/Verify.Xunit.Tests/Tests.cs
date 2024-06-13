@@ -28,13 +28,11 @@ public class Tests
             .UseFileName("UseFileNameWithParam");
 
     public static IEnumerable<object[]> GetData() =>
-        new[]
-        {
-            new object[]
-            {
-                "Value1"
-            }
-        };
+    [
+        [
+            "Value1"
+        ]
+    ];
 
     [Fact]
     public Task StringTarget() =>
@@ -49,13 +47,12 @@ public class Tests
             {
                 Property = "Value"
             },
-            new[]
-            {
-                new Target(
+            [
+                new(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+            ]);
 
     #endregion
 
@@ -78,24 +75,22 @@ public class Tests
             {
                 Property = "Value"
             },
-            new[]
-            {
-                new Target(
+            [
+                new(
                     extension: "WithTargetsAndConverter",
                     data: new MemoryStream(),
                     name: "targetName")
-            });
+            ]);
 
     [Fact]
     public Task EnumerableTargets() =>
         Verify(
-            new[]
-            {
-                new Target(
+        [
+            new Target(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+        ]);
 
     static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 

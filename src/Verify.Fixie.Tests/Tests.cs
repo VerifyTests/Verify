@@ -37,25 +37,23 @@ public class Tests
             {
                 Property = "Value"
             },
-            new[]
-            {
-                new Target(
+            [
+                new(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+            ]);
 
     #endregion
 
     public Task EnumerableTargets() =>
         Verify(
-            new[]
-            {
-                new Target(
+        [
+            new Target(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+        ]);
 
 #if DEBUG
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");

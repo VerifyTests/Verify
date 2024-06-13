@@ -241,22 +241,12 @@ public class NamerTests
 
     [Fact]
     public Task UseUniqueDirectory_Target() =>
-        Verify(
-                "UseUniqueDirectory_Target",
-                new[]
-                {
-                    new Target("txt", "data")
-                })
+        Verify("UseUniqueDirectory_Target", [new("txt", "data")])
             .UseUniqueDirectory();
 
     [Fact]
     public Task UseUniqueDirectory_TargetWithName() =>
-        Verify(
-                "UseUniqueDirectory_Target",
-                new[]
-                {
-                    new Target("txt", "data", "name")
-                })
+        Verify("UseUniqueDirectory_Target", [new("txt", "data", "name")])
             .UseUniqueDirectory();
 
     [Fact]
@@ -521,46 +511,35 @@ public class NamerTests
 
     [Fact]
     public Task SingleTarget() =>
-        Verify(
-            new[]
-            {
-                new Target("txt", "data")
-            });
+        Verify([new Target("txt", "data")]);
 
     [Fact]
     public Task SingleTargetWithName() =>
-        Verify(
-            new[]
-            {
-                new Target("txt", "data", "theNameA")
-            });
+        Verify([new Target("txt", "data", "theNameA")]);
 
     [Fact]
     public Task MultipleTarget() =>
         Verify(
-            new[]
-            {
-                new Target("txt", "data"),
-                new Target("txt", "data")
-            });
+        [
+            new Target("txt", "data"),
+            new Target("txt", "data")
+        ]);
 
     [Fact]
     public Task MultipleTargetWithName() =>
         Verify(
-            new[]
-            {
-                new Target("txt", "data", "theNameA"),
-                new Target("txt", "data", "theNameB")
-            });
+        [
+            new Target("txt", "data", "theNameA"),
+            new Target("txt", "data", "theNameB")
+        ]);
 
     [Fact]
     public Task MultipleTargetWithDuplicateName() =>
         Verify(
-            new[]
-            {
-                new Target("txt", "data", "theNameA"),
-                new Target("txt", "data", "theNameA")
-            });
+        [
+            new Target("txt", "data", "theNameA"),
+            new Target("txt", "data", "theNameA")
+        ]);
 
     [Fact]
     public void DistinctUniquenessPrefixes()

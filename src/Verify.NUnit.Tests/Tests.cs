@@ -49,26 +49,24 @@ public class Tests
             {
                 Property = "Value"
             },
-            new[]
-            {
+            [
                 new Target(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+            ]);
 
     #endregion
 
     [Test]
     public Task EnumerableTargets() =>
         Verify(
-            new[]
-            {
-                new Target(
+        [
+            new Target(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+        ]);
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
     static string pathToArchive = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
@@ -141,7 +139,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         ThrowsAsync<VerifyException>(
-            () => Verify("Bar", [new Target("txt", "Value")], settings));
+            () => Verify("Bar", [new("txt", "Value")], settings));
         var list = GetAttachments();
         AreEqual(2, list.Count);
         var file0 = Path.GetFileName(list[0].FilePath);
@@ -156,7 +154,7 @@ public class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         ThrowsAsync<VerifyException>(
-            () => Verify("Bar",[new Target("txt", "Value")], settings));
+            () => Verify("Bar", [new("txt", "Value")], settings));
         var list = GetAttachments();
         AreEqual(2, list.Count);
         var file0 = Path.GetFileName(list[0].FilePath);

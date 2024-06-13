@@ -104,7 +104,7 @@ public partial class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar", [new Target("txt", "Value")], settings));
+            () => Verify("Bar", [new("txt", "Value")], settings));
     }
 
     [ResultFilesCallback]
@@ -122,7 +122,7 @@ public partial class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar",[new Target("txt", "Value")], settings));
+            () => Verify("Bar",[new("txt", "Value")], settings));
     }
 
     #region ExplicitTargetsMsTest
@@ -147,13 +147,12 @@ public partial class Tests
     [TestMethod]
     public Task EnumerableTargets() =>
         Verify(
-            new[]
-            {
-                new Target(
+        [
+            new Target(
                     extension: "txt",
                     data: "Raw target value",
                     name: "targetName")
-            });
+        ]);
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 

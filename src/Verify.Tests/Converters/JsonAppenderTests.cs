@@ -75,14 +75,7 @@
 
     [Fact]
     public Task StringInfoAndStreamTarget() =>
-        Verify(
-            "info",
-            new[]
-            {
-                new Target(
-                    "bin",
-                    new MemoryStream([1]))
-            });
+        Verify("info", [new("bin", new MemoryStream([1]))]);
 
     [Fact]
     public Task File() =>

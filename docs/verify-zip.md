@@ -16,7 +16,7 @@ Verifies all files in a zip archive. This approach combines [UseUniqueDirectory]
 public Task WithZip() =>
     VerifyZip(zipPath);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L158-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L153-L159' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -31,7 +31,7 @@ public Task WithZipFiltered() =>
         zipPath,
         include: filePath => filePath.FullName.Contains("Doc"));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L193-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L188-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -48,7 +48,7 @@ public Task VerifyZipWithInfo() =>
         zipPath,
         info: "the info");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L166-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L161-L169' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -72,7 +72,7 @@ public Task VerifyZipWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L176-L191' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L171-L186' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

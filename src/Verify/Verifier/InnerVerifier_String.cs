@@ -19,8 +19,7 @@ partial class InnerVerifier
 
     public Task<VerifyResult> VerifyString(string? value, string extension) =>
         VerifyInner(
-            new[]
-            {
-                new Target(extension, value ?? "null")
-            });
+        [
+            new(extension, value ?? "null")
+        ]);
 }

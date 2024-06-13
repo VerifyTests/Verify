@@ -176,4 +176,23 @@ public partial class Tests
         VerifyZip(zipPath);
 
     #endregion
+
+    [TestMethod]
+    public Task VerifyFileWithRelativePath() =>
+        VerifyFile("sample.png");
+
+    [TestMethod]
+    public Task VerifyFileWithFullPath()
+    {
+        var fullPath = Path.GetFullPath("sample.png");
+        return VerifyFile(fullPath);
+    }
+
+    [TestMethod]
+    public Task VerifyFileWithFullPathAndUseFileName()
+    {
+        var fullPath = Path.GetFullPath("sample.png");
+        return VerifyFile(fullPath)
+            .UseFileName("customFileName");
+    }
 }

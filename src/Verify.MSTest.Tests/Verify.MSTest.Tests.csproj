@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="MSTest" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <None Update="sample*.*" CopyToOutputDirectory="PreserveNewest" />
 
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.MSTest\Verify.MSTest.csproj" />
@@ -20,6 +21,12 @@
 
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="sample.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />

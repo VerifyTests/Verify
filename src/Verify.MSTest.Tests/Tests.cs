@@ -7,6 +7,7 @@ public partial class Tests
     static void DerivePathInfo()
     {
         // ReSharper disable once UnusedParameter.Local
+
         #region DerivePathInfoMSTest
 
         Verifier.DerivePathInfo(
@@ -54,6 +55,7 @@ public partial class Tests
         await Assert.ThrowsExceptionAsync<VerifyException>(
             () => Verify("Bar", settings));
     }
+
     [ResultFilesCallback]
     [TestMethod]
     public async Task AutoVerifyHasAttachment()
@@ -61,7 +63,7 @@ public partial class Tests
         var path = CurrentFile.Relative("Tests.AutoVerifyHasAttachment.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
-        File.WriteAllText(fullPath,"Foo");
+        File.WriteAllText(fullPath, "Foo");
         ResultFilesCallback.Callback = list =>
         {
             Assert.AreEqual(1, list.Count);
@@ -123,7 +125,7 @@ public partial class Tests
         var settings = new VerifySettings();
         settings.DisableDiff();
         await Assert.ThrowsExceptionAsync<VerifyException>(
-            () => Verify("Bar",[new("txt", "Value")], settings));
+            () => Verify("Bar", [new("txt", "Value")], settings));
     }
 
     #region ExplicitTargetsMsTest
@@ -150,9 +152,9 @@ public partial class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");

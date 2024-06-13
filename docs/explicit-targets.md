@@ -31,7 +31,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L43-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsNunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Tests.cs#L44-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -54,7 +54,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L41-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L42-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +76,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L32-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Tests.cs#L33-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -100,7 +100,7 @@ public Task WithTargets() =>
                 name: "targetName")
         ]);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L128-L145' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsMsTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L129-L146' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsMsTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -447,7 +447,7 @@ public Task UseTextForParametersFluent(string arg) =>
     Verify(arg + "UseTextForParametersFluent")
         .UseTextForParameters(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L398-L417' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L399-L418' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTextForParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -482,7 +482,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("valueIgnoreParametersForVerifiedFluent")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L470-L489' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerified' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L471-L490' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerified' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

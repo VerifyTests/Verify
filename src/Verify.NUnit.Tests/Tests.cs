@@ -1,5 +1,6 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
+// ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 [TestFixture]
 public class Tests
 {

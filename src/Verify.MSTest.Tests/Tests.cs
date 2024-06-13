@@ -1,3 +1,4 @@
+// ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 [TestClass]
 public partial class Tests
 {

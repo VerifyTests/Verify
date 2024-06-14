@@ -144,5 +144,10 @@
         {
             throw new ArgumentException("Must not start with a period ('.').", argumentName);
         }
+
+        if (value.Contains('\\') || value.Contains('/'))
+        {
+            throw new ArgumentException("Must not contain a directory separator.", argumentName);
+        }
     }
 }

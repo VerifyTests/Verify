@@ -73,6 +73,7 @@ partial class InnerVerifier
 
     public async Task<VerifyResult> VerifyStream(Stream? stream, string extension, object? info)
     {
+        Guard.AgainstBadExtension(extension);
         if (stream is null)
         {
             if (info is null)

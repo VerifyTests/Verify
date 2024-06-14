@@ -13,7 +13,7 @@ partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyFile(path, settings, info, sourceFile);
+        Verifier.VerifyFile(path, settings, info, null, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -25,5 +25,5 @@ partial class VerifyBase
         VerifySettings? settings = null,
         object? info = null,
         [CallerFilePath] string sourceFile = "") =>
-        Verifier.VerifyFile(path, settings, info, sourceFile);
+        Verifier.VerifyFile(path, settings, info, null, sourceFile);
 }

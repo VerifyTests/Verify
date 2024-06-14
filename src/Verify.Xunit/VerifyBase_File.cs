@@ -10,7 +10,7 @@ public partial class VerifyBase
         string path,
         VerifySettings? settings = null,
         object? info = null) =>
-        Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile);
+        Verifier.VerifyFile(path, settings ?? this.settings, info, null, sourceFile);
 
     /// <summary>
     /// Verifies the contents of <paramref name="path" />.
@@ -21,5 +21,5 @@ public partial class VerifyBase
         FileInfo path,
         VerifySettings? settings = null,
         object? info = null) =>
-        Verifier.VerifyFile(path, settings ?? this.settings, info, sourceFile);
+        Verifier.VerifyFile(path, settings ?? this.settings, info, null, sourceFile);
 }

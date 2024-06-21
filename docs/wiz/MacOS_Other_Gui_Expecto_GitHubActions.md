@@ -21,7 +21,7 @@ Add the following packages to the test project:
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
 <PackageReference Include="Expecto" Version="10.2.1" />
 <PackageReference Update="FSharp.Core" Version="8.0.300" />
-<PackageReference Include="Verify.Expecto" Version="25.0.1" />
+<PackageReference Include="Verify.Expecto" Version="25.0.3" />
 ```
 <sup><a href='/usages/ExpectoNugetUsage/ExpectoNugetUsage.fsproj#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-expecto-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

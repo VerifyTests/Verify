@@ -122,7 +122,7 @@ partial class InnerVerifier
 
     async Task<(object? info, List<Target> targets, Func<Task> cleanup)> DoExtensionConversion(string extension, Stream stream, object? info)
     {
-        Func<Task> cleanup = stream.DisposeAsyncEx;
+        var cleanup = stream.DisposeAsyncEx;
         var infos = new List<object>();
         if (info != null)
         {

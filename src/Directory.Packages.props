@@ -22,7 +22,7 @@
     <PackageVersion Include="MSTest" Version="3.4.3" />
     <PackageVersion Include="MSTest.TestFramework" Version="3.4.3" />
     <PackageVersion Include="NUnit" Version="4.1.0" />
-    <PackageVersion Include="Polyfill" Version="5.5.2" />
+    <PackageVersion Include="Polyfill" Version="5.5.3" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.128" />
     <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
     <PackageVersion Include="SimpleInfoName" Version="2.2.0" />

@@ -5,6 +5,7 @@ public static partial class Verifier
 {
     public static Task<VerifyResult> VerifyXml(
         string name,
+        [StringSyntax(StringSyntaxAttribute.Xml)]
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -12,6 +13,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> VerifyXml(
         string name,
+        [StringSyntax(StringSyntaxAttribute.Xml)]
         Task<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -19,6 +21,7 @@ public static partial class Verifier
 
     public static Task<VerifyResult> VerifyXml(
         string name,
+        [StringSyntax(StringSyntaxAttribute.Xml)]
         ValueTask<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

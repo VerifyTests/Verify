@@ -8,7 +8,9 @@ partial class InnerVerifier
     public async Task<VerifyResult> VerifyXml(ValueTask<string> target) =>
         await VerifyXml(await target);
 
-    public Task<VerifyResult> VerifyXml(string? target)
+    public Task<VerifyResult> VerifyXml(
+        [StringSyntax(StringSyntaxAttribute.Xml)]
+        string? target)
     {
         if (target is null)
         {

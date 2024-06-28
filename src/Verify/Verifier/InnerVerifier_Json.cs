@@ -2,13 +2,19 @@
 
 partial class InnerVerifier
 {
-    public async Task<VerifyResult> VerifyJson(Task<string> target) =>
+    public async Task<VerifyResult> VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        Task<string> target) =>
         await VerifyJson(await target);
 
-    public async Task<VerifyResult> VerifyJson(ValueTask<string> target) =>
+    public async Task<VerifyResult> VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        ValueTask<string> target) =>
         await VerifyJson(await target);
 
-    public Task<VerifyResult> VerifyJson(string? target)
+    public Task<VerifyResult> VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
+        string? target)
     {
         if (target is null)
         {

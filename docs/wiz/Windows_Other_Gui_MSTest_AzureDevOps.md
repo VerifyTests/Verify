@@ -227,7 +227,7 @@ Directly after the test runner step add a build step to set a flag if the testru
     script: 'echo ##vso[task.setvariable variable=publishverify]Yes'
 ```
 
-Since the PublishBuildArtifacts step in DevOps does not allow a wildcard it is necessary to need stage the 'received' files before publishing:
+Since the PublishBuildArtifacts step in DevOps does not allow a wildcard it is necessary to stage the 'received' files before publishing:
 
 ```yaml
 - task: CopyFiles@2

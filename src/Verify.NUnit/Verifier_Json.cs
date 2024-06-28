@@ -4,6 +4,7 @@ public static partial class Verifier
 {
     [Pure]
     public static SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -11,6 +12,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
         Task<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -18,6 +20,7 @@ public static partial class Verifier
 
     [Pure]
     public static SettingsTask VerifyJson(
+        [StringSyntax(StringSyntaxAttribute.Json)]
         ValueTask<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

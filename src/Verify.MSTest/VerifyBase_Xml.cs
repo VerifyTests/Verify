@@ -6,6 +6,7 @@ partial class VerifyBase
 
     [Pure]
     public SettingsTask VerifyXml(
+        [StringSyntax(StringSyntaxAttribute.Xml)]
         string? target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -13,6 +14,7 @@ partial class VerifyBase
 
     [Pure]
     public SettingsTask VerifyXml(
+        [StringSyntax(StringSyntaxAttribute.Xml)]
         Task<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>
@@ -20,6 +22,7 @@ partial class VerifyBase
 
     [Pure]
     public SettingsTask VerifyXml(
+        [StringSyntax(StringSyntaxAttribute.Xml)]
         ValueTask<string> target,
         VerifySettings? settings = null,
         [CallerFilePath] string sourceFile = "") =>

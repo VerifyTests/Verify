@@ -77,7 +77,7 @@ This is a work-in-progress, to contribute more information submit a Pull Request
   * Remove the Verify.ApprovalTestsTransition NuGet.
   * Delete all `*.approved.*` files.
   * Run all tests.
-  * Accept all `*.verified.*` files.
+  * Accept all `*.verified.*` files.<br>
     Bulk accepting of can be done using:
     * [DiffEngineTray](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#accept-all)
     * [Verify.Terminal](https://github.com/VerifyTests/Verify.Terminal?tab=readme-ov-file#accept-all-pending-snapshots)

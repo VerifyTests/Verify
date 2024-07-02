@@ -1,0 +1,6 @@
+﻿{
+  "withDefault": {},
+  "withNonDefault": {
+    "Name": "Value"
+  }
+}

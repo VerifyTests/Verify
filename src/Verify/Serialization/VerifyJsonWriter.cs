@@ -189,14 +189,13 @@ public class VerifyJsonWriter :
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>
     public void WriteMember<T>(object target, T? value, string name, T defaultIgnore)
-        where T : IEquatable<T?>
     {
         if (value is null)
         {
             return;
         }
 
-        if (value.Equals(defaultIgnore))
+        if (EqualityComparer<T>.Default.Equals(value, defaultIgnore))
         {
             return;
         }

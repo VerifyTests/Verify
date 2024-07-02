@@ -3756,26 +3756,34 @@ public class SerializationTests
         Verify(
                 new
                 {
-                    withDefault = new ConverterTarget
+                    withDefault = new ConverterIgnoreDefaultTarget
                     {
-                        Name = "Ignore"
+                        Name = "Ignore",
+                        DateTimeKind = DateTimeKind.Utc
                     },
-                    withNonDefault = new ConverterTarget
+                    withNonDefault = new ConverterIgnoreDefaultTarget
                     {
-                        Name = "Value"
+                        Name = "Value",
+                        DateTimeKind = DateTimeKind.Local
                     },
                 })
             .AddExtraSettings(_ => _.Converters.Add(new ConverterIgnoreDefault()));
 
     class ConverterIgnoreDefault :
-        WriteOnlyJsonConverter<ConverterTarget>
+        WriteOnlyJsonConverter<ConverterIgnoreDefaultTarget>
     {
-        public override void Write(VerifyJsonWriter writer, ConverterTarget target)
+        public override void Write(VerifyJsonWriter writer, ConverterIgnoreDefaultTarget target)
         {
             writer.WriteStartObject();
             writer.WriteMember(target, target.Name, "Name", "Ignore");
+            writer.WriteMember(target, target.DateTimeKind, "DateTimeKind", DateTimeKind.Utc);
             writer.WriteEnd();
         }
+    }
+    class ConverterIgnoreDefaultTarget
+    {
+        public string Name { get; set; } = null!;
+        public DateTimeKind DateTimeKind { get; set; }
     }
 
     [Fact]

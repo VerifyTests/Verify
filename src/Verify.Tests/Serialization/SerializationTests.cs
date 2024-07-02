@@ -3752,6 +3752,33 @@ public class SerializationTests
     }
 
     [Fact]
+    public Task WithConverterIgnoreDefault() =>
+        Verify(
+                new
+                {
+                    withDefault = new ConverterTarget
+                    {
+                        Name = "Ignore"
+                    },
+                    withNonDefault = new ConverterTarget
+                    {
+                        Name = "Value"
+                    },
+                })
+            .AddExtraSettings(_ => _.Converters.Add(new ConverterIgnoreDefault()));
+
+    class ConverterIgnoreDefault :
+        WriteOnlyJsonConverter<ConverterTarget>
+    {
+        public override void Write(VerifyJsonWriter writer, ConverterTarget target)
+        {
+            writer.WriteStartObject();
+            writer.WriteMember(target, target.Name, "Name", "Ignore");
+            writer.WriteEnd();
+        }
+    }
+
+    [Fact]
     public Task WithRecursiveConverter() =>
         Verify(new RecursiveConverterTarget())
             .AddExtraSettings(_ => _.Converters.Add(new RecursiveConverter()));

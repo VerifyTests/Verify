@@ -642,22 +642,19 @@ public class SerializationTests
 
         #endregion
     }
+
     [Fact]
     public async Task VerifyJsonUseStrictJson()
     {
-        var target = new TheTarget
-        {
-            Value = "Foo"
-        };
         var settings = new VerifySettings();
         settings.UseStrictJson();
         await VerifyJson(
                 """
                 {
-                    "fruit": "Apple",
+                    "fruit": "Apple"
                 }
-                """, settings)
-            .UseStrictJson();
+                """,
+                settings);
     }
 
     [Fact]
@@ -665,7 +662,7 @@ public class SerializationTests
         VerifyJson(
                 """
                 {
-                    "fruit": "Apple",
+                    "fruit": "Apple"
                 }
                 """)
             .UseStrictJson();

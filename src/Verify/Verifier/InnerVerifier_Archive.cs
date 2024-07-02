@@ -35,7 +35,7 @@ partial class InnerVerifier
         {
             targets.Add(
                 new(
-                    VerifierSettings.TxtOrJson,
+                    settings.TxtOrJson,
                     JsonFormatter.AsJson(
                         settings,
                         counter,

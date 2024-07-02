@@ -2,6 +2,18 @@ namespace VerifyTests;
 
 public partial class VerifySettings
 {
+    internal string TxtOrJson
+    {
+        get
+        {
+            if (VerifierSettings.StrictJson || strictJson)
+            {
+                return "json";
+            }
+
+            return "txt";
+        }
+    }
     public VerifySettings(VerifySettings? settings)
     {
         if (settings is null)
@@ -15,6 +27,7 @@ public partial class VerifySettings
         diffEnabled = settings.diffEnabled;
         methodName = settings.methodName;
         typeName = settings.typeName;
+        strictJson = settings.strictJson;
         appendedFiles = settings.appendedFiles;
         useUniqueDirectory = settings.useUniqueDirectory;
         Directory = settings.Directory;

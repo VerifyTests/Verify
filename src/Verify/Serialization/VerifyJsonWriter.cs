@@ -184,6 +184,26 @@ public class VerifyJsonWriter :
         WriteRawValueWithScrubbers(buffer);
     }
 
+
+    /// <summary>
+    /// Writes a property name and value while respecting other custom serialization settings.
+    /// </summary>
+    public void WriteMember<T>(object target, T? value, string name, T defaultIgnore)
+        where T : IEquatable<T?>
+    {
+        if (value is null)
+        {
+            return;
+        }
+
+        if (value.Equals(defaultIgnore))
+        {
+            return;
+        }
+
+        WriteMember(target, value, name);
+    }
+
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>

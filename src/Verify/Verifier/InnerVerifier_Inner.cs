@@ -63,7 +63,7 @@ partial class InnerVerifier
                 {
                     result.Add(
                         new(
-                            VerifierSettings.TxtOrJson,
+                            settings.TxtOrJson,
                             JsonFormatter.AsJson(
                                 settings,
                                 counter,
@@ -98,7 +98,7 @@ partial class InnerVerifier
             if (hasAppends)
             {
                 target = new(
-                    VerifierSettings.TxtOrJson,
+                    settings.TxtOrJson,
                     JsonFormatter.AsJson(
                         settings,
                         counter,
@@ -121,7 +121,7 @@ partial class InnerVerifier
             if (hasAppends)
             {
                 target = new(
-                    VerifierSettings.TxtOrJson,
+                    settings.TxtOrJson,
                     JsonFormatter.AsJson(
                         settings,
                         counter,
@@ -138,7 +138,7 @@ partial class InnerVerifier
         }
 
         target = new(
-            VerifierSettings.TxtOrJson,
+            settings.TxtOrJson,
             JsonFormatter.AsJson(
                 settings,
                 counter,

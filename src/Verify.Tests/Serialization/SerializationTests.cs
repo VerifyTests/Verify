@@ -623,11 +623,11 @@ public class SerializationTests
         };
         var settings = new VerifySettings();
         settings.UseStrictJson();
-        await Verify(target, settings)
-            .UseStrictJson();
+        await Verify(target, settings);
 
         #endregion
     }
+
     [Fact]
     public async Task UseStrictJsonFluent()
     {

@@ -628,6 +628,7 @@ public class SerializationTests
 
         #endregion
     }
+
     [Fact]
     public async Task UseStrictJsonFluent()
     {
@@ -642,6 +643,34 @@ public class SerializationTests
 
         #endregion
     }
+    [Fact]
+    public async Task VerifyJsonUseStrictJson()
+    {
+        var target = new TheTarget
+        {
+            Value = "Foo"
+        };
+        var settings = new VerifySettings();
+        settings.UseStrictJson();
+        await VerifyJson(
+                """
+                {
+                    "fruit": "Apple",
+                }
+                """, settings)
+            .UseStrictJson();
+    }
+
+    [Fact]
+    public Task VerifyJsonUseStrictJsonFluent() =>
+        VerifyJson(
+                """
+                {
+                    "fruit": "Apple",
+                }
+                """)
+            .UseStrictJson();
+
     [Fact]
     public async Task GuidScrubbingDisabled()
     {

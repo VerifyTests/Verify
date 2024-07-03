@@ -201,6 +201,8 @@ Where `NameWithParent` is
 
 snippet: NameWithParent
 
+Any path calculated in `DerivePathInfo` should be fully qualified to remove the inconsistency of the current directory.
+
 
 ### UseProjectRelativeDirectory
 

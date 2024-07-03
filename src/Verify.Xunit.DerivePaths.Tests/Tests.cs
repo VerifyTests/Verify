@@ -32,6 +32,13 @@
     }
 
     [Fact]
+    public Task SourceFileRelativeDirectory()
+    {
+        UseSourceFileRelativeDirectory("Relative");
+        return Verify("Value");
+    }
+
+    [Fact]
     public Task InvalidMethod()
     {
         DerivePathInfo((_, _, _, _) => new(null, null, Path

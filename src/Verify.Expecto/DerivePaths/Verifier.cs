@@ -30,4 +30,14 @@ public partial class Verifier
                 directory: Path.Combine(projectDirectory, directory),
                 typeName: typeName,
                 methodName: methodName));
+
+    /// <summary>
+    /// Use a directory relative to the source file directory for storing for `.verified.` files.
+    /// </summary>
+    public static void UseSourceFileRelativeDirectory(string directory) =>
+        DerivePathInfo(
+            (sourceFile, projectDirectory, typeName, methodName) => new(
+                directory: Path.Combine(Path.GetDirectoryName(sourceFile)!, directory),
+                typeName: typeName,
+                methodName: methodName));
 }

@@ -38,6 +38,13 @@ public partial class Tests
     }
 
     [TestMethod]
+    public Task SourceFileRelativeDirectory()
+    {
+        UseSourceFileRelativeDirectory("Relative");
+        return Verify("Value");
+    }
+
+    [TestMethod]
     public Task InvalidMethod()
     {
         DerivePathInfo((_, _, _, _) => new(null, null, Path

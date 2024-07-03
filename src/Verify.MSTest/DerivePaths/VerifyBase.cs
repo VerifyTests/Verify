@@ -21,4 +21,10 @@ public partial class VerifyBase
     /// </summary>
     public static void UseProjectRelativeDirectory(string directory) =>
         Verifier.UseProjectRelativeDirectory(directory);
+
+    /// <summary>
+    /// Use a directory relative to the source file directory for storing for `.verified.` files.
+    /// </summary>
+    public static void UseSourceFileRelativeDirectory(string directory) =>
+        Verifier.UseSourceFileRelativeDirectory(directory);
 }

@@ -43,6 +43,17 @@
                 target: "Value");
         });
 
+    [Tests]
+    public static Test SourceFileRelativeDirectory = Runner.TestCase(
+        nameof(SourceFileRelativeDirectory),
+        () =>
+        {
+            UseSourceFileRelativeDirectory("Relative");
+            return Verify(
+                name: nameof(SourceFileRelativeDirectory),
+                target: "Value");
+        });
+
     //
     // [Fact]
     // public Task InvalidMethod()

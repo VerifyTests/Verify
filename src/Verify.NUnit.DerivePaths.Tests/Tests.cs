@@ -35,6 +35,13 @@ public class Tests
     }
 
     [Test]
+    public Task SourceFileRelativeDirectory()
+    {
+        UseSourceFileRelativeDirectory("Relative");
+        return Verify("Value");
+    }
+
+    [Test]
     public void InvalidMethod()
     {
         DerivePathInfo((_, _, _, _) => new(null, null, Path

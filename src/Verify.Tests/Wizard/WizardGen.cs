@@ -429,7 +429,6 @@ public class WizardGen
                         builder.AppendLine(
                             """
                             ```
-                            dotnet add package Microsoft.NET.Test.Sdk
                             dotnet add package YoloDev.Expecto.TestSdk
                             dotnet add package Expecto
                             dotnet add package Verify.Expecto

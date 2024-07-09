@@ -15,6 +15,9 @@
     <ProjectReference Include="..\Verify\Verify.csproj" />
     <PackageReference Update="FSharp.Core" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Update="xunit" Version="2.9.0" />
+  </ItemGroup>
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
   <Import Project="$(ProjectDir)..\Verify.Xunit\buildTransitive\Verify.Xunit.props" />

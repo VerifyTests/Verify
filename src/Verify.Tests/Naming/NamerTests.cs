@@ -184,15 +184,11 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task UseFileNameFluent()
-    {
-        #region UseFileNameFluent
-
+    public async Task UseFileNameFluent() =>
+    #region UseFileNameFluent
         await Verify("valueUseFileNameFluent")
             .UseFileName("CustomFileNameFluent");
-
-        #endregion
-    }
+    #endregion
 
     [Fact]
     public async Task UseDirectory()
@@ -207,15 +203,12 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task UseDirectoryFluent()
-    {
-        #region UseDirectoryFluent
-
+    public async Task UseDirectoryFluent() =>
+    #region UseDirectoryFluent
         await Verify("valueUseDirectoryFluent")
             .UseDirectory("CustomDirectory");
+    #endregion
 
-        #endregion
-    }
 
     [Fact]
     public async Task UseUniqueDirectory()
@@ -230,15 +223,11 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task UseUniqueDirectoryFluent()
-    {
-        #region UseUniqueDirectoryFluent
-
+    public async Task UseUniqueDirectoryFluent() =>
+    #region UseUniqueDirectoryFluent
         await Verify("TheValue")
             .UseUniqueDirectory();
-
-        #endregion
-    }
+    #endregion
 
     [Fact]
     public Task UseUniqueDirectory_Target() =>
@@ -308,15 +297,11 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task UseTypeNameFluent()
-    {
-        #region UseTypeNameFluent
-
+    public async Task UseTypeNameFluent() =>
+    #region UseTypeNameFluent
         await Verify("valueUseTypeNameFluent")
             .UseTypeName("CustomTypeName");
-
-        #endregion
-    }
+    #endregion
 
     [Fact]
     public async Task UseMethodName()
@@ -331,15 +316,12 @@ public class NamerTests
     }
 
     [Fact]
-    public async Task UseMethodNameFluent()
-    {
-        #region UseMethodNameFluent
-
+    public async Task UseMethodNameFluent() =>
+    #region UseMethodNameFluent
         await Verify("valueUseMethodNameFluent")
             .UseMethodName("CustomMethodNameFluent");
+    #endregion
 
-        #endregion
-    }
 
     [Fact]
     public void AccessNamerRuntimeAndVersion()
@@ -423,14 +405,10 @@ public class NamerTests
             .UseTextForParameters("Suffix");
 
     [Fact]
-    public void AccessNamerArchitecture()
-    {
-        #region AccessNamerArchitecture
-
+    public void AccessNamerArchitecture() =>
+    #region AccessNamerArchitecture
         Debug.WriteLine(Namer.Architecture);
-
-        #endregion
-    }
+    #endregion
 
     [Fact]
     public Task Architecture()

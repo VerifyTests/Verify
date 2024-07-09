@@ -3,10 +3,8 @@
     static AsyncLocal<bool> isInThisTest = new();
 
     [ModuleInitializer]
-    public static void Initialize()
-    {
-        #region RegisterJsonAppender
-
+    public static void Initialize() =>
+    #region RegisterJsonAppender
         VerifierSettings.RegisterJsonAppender(
             context =>
             {
@@ -17,9 +15,7 @@
 
                 return null;
             });
-
-        #endregion
-    }
+    #endregion
 
     // ReSharper disable once UnusedParameter.Local
     static bool ShouldInclude(IReadOnlyDictionary<string, object> context) =>

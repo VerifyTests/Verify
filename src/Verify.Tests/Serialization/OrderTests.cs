@@ -130,11 +130,7 @@
         where T : IComparable<T>
     {
 #pragma warning disable 8767
-        public int Compare(T x, T y)
-#pragma warning restore 8767
-        {
-            return y.CompareTo(x);
-        }
+        public int Compare(T x, T y) => y.CompareTo(x);
     }
 
     [Fact]

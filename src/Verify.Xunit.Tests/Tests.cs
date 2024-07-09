@@ -4,18 +4,15 @@
 public class Tests
 {
     // ReSharper disable once UnusedMember.Local
-    static void DerivePathInfo()
-    {
-        #region DerivePathInfoXUnit
-
+    static void DerivePathInfo() =>
+    #region DerivePathInfoXUnit
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,
                 methodName: method.Name));
+    #endregion
 
-        #endregion
-    }
 
     [Theory]
     [InlineData("Value1")]

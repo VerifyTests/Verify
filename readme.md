@@ -419,7 +419,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L174-L183' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L163-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -596,7 +596,7 @@ If using `Verifier.Throws`, the resulting `Exception` will also be accessible
 var result = await Throws(MethodThatThrows);
 Assert.NotNull(result.Exception);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L175-L180' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L172-L177' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExceptionResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

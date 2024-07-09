@@ -94,11 +94,9 @@ public class SerializationTests
         where T : IComparable<T>
     {
 #pragma warning disable 8767
-        public int Compare(T x, T y)
+        public int Compare(T x, T y) =>
+            y.CompareTo(x);
 #pragma warning restore 8767
-        {
-            return y.CompareTo(x);
-        }
     }
 
     [Fact]
@@ -502,18 +500,13 @@ public class SerializationTests
 
     #endregion
 
-
     // ReSharper disable once UnusedMember.Local
-    static void AddExtraSettingsGlobal()
-    {
-        #region AddExtraSettingsGlobal
-
+    static void AddExtraSettingsGlobal() =>
+    #region AddExtraSettingsGlobal
         VerifierSettings
             .AddExtraSettings(_ =>
                 _.TypeNameHandling = TypeNameHandling.All);
-
-        #endregion
-    }
+    #endregion
 
     [Theory]
     [InlineData(TypeNameHandling.All)]
@@ -1517,67 +1510,49 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    static void DontIgnoreEmptyCollections()
-    {
-        #region DontIgnoreEmptyCollections
-
+    static void DontIgnoreEmptyCollections() =>
+    #region DontIgnoreEmptyCollections
         VerifierSettings.DontIgnoreEmptyCollections();
-
-        #endregion
-    }
-
-    // ReSharper disable once UnusedMember.Local
-    static void DontScrubGuids()
-    {
-        #region DontScrubGuidsGlobal
-
-        VerifierSettings.DontScrubGuids();
-
-        #endregion
-    }
-
-    // ReSharper disable once UnusedMember.Local
-    static void DontScrubUserProfile()
-    {
-        #region DontScrubUserProfile
-
-        VerifierSettings.DontScrubUserProfile();
-
-        #endregion
-    }
-
-    // ReSharper disable once UnusedMember.Local
-    static void DontScrubProjectDirectory()
-    {
-        #region DontScrubProjectDirectory
-
-        VerifierSettings.DontScrubProjectDirectory();
-
-        #endregion
-    }
-
-    // ReSharper disable once UnusedMember.Local
-    static void DontScrubSolutionDirectory()
-    {
-        #region DontScrubSolutionDirectory
-
-        VerifierSettings.DontScrubSolutionDirectory();
-
-        #endregion
-    }
-
-/*
-    #region ScrubInlineGuidsGlobal
-
-    public static class ModuleInitializer
-    {
-        [ModuleInitializer]
-        public static void Init() =>
-            VerifierSettings.ScrubInlineGuids();
-    }
-
     #endregion
-*/
+
+
+    // ReSharper disable once UnusedMember.Local
+    static void DontScrubGuids() =>
+    #region DontScrubGuidsGlobal
+        VerifierSettings.DontScrubGuids();
+    #endregion
+
+
+    // ReSharper disable once UnusedMember.Local
+    static void DontScrubUserProfile() =>
+    #region DontScrubUserProfile
+        VerifierSettings.DontScrubUserProfile();
+    #endregion
+
+    // ReSharper disable once UnusedMember.Local
+    static void DontScrubProjectDirectory() =>
+    #region DontScrubProjectDirectory
+        VerifierSettings.DontScrubProjectDirectory();
+    #endregion
+
+    // ReSharper disable once UnusedMember.Local
+    static void DontScrubSolutionDirectory() =>
+    #region DontScrubSolutionDirectory
+        VerifierSettings.DontScrubSolutionDirectory();
+    #endregion
+
+    /*
+        #region ScrubInlineGuidsGlobal
+
+        public static class ModuleInitializer
+        {
+            [ModuleInitializer]
+            public static void Init() =>
+                VerifierSettings.ScrubInlineGuids();
+        }
+
+        #endregion
+    */
 
     #region ScrubInlineGuidsFluent
 
@@ -1930,14 +1905,10 @@ public class SerializationTests
     }
 
     [Fact]
-    public async Task NamedTuple()
-    {
-        #region VerifyTuple
-
+    public async Task NamedTuple() =>
+    #region VerifyTuple
         await VerifyTuple(() => MethodWithNamedTuple());
-
-        #endregion
-    }
+    #endregion
 
     #region MethodWithNamedTuple
 
@@ -2330,14 +2301,11 @@ public class SerializationTests
 #pragma warning disable 612
 
     // ReSharper disable once UnusedMember.Local
-    static void ExceptionMessagePropGlobal()
-    {
-        #region IgnoreMembersThatThrowExpressionGlobal
-
+    static void ExceptionMessagePropGlobal() =>
+    #region IgnoreMembersThatThrowExpressionGlobal
         VerifierSettings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
+    #endregion
 
-        #endregion
-    }
 
     #region IgnoreMembersThatThrowExpression
 
@@ -3512,14 +3480,10 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    static void CustomExceptionPropGlobal()
-    {
-        #region IgnoreMembersThatThrowGlobal
-
+    static void CustomExceptionPropGlobal() =>
+    #region IgnoreMembersThatThrowGlobal
         VerifierSettings.IgnoreMembersThatThrow<CustomException>();
-
-        #endregion
-    }
+    #endregion
 
     #region IgnoreMembersThatThrow
 
@@ -3631,14 +3595,10 @@ public class SerializationTests
     }
 
     // ReSharper disable once UnusedMember.Local
-    static void WithObsoletePropIncludedGlobally()
-    {
-        #region WithObsoletePropIncludedGlobally
-
+    static void WithObsoletePropIncludedGlobally() =>
+    #region WithObsoletePropIncludedGlobally
         VerifierSettings.IncludeObsoletes();
-
-        #endregion
-    }
+    #endregion
 
     #region WithObsoletePropIncluded
 

@@ -33,14 +33,11 @@ public class ThrowsTests
 
     #endregion
 
-    void IgnoreStackTraceSettingsGlobal()
-    {
-        #region IgnoreStackTraceGlobal
-
+    void IgnoreStackTraceSettingsGlobal() =>
+    #region IgnoreStackTraceGlobal
         VerifierSettings.IgnoreStackTrace();
+    #endregion
 
-        #endregion
-    }
 
     #region MethodThatThrows
 

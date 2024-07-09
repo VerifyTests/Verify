@@ -15,7 +15,7 @@ Given a method that throws an Exception
 static void MethodThatThrows() =>
     throw new("The Message");
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L45-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodThatThrows' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L42-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodThatThrows' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 That exception behavior can be verified using `Verify.Throws`:
@@ -88,7 +88,7 @@ public Task TestMethodThatThrowsIgnoreStackTraceSettings()
 ```cs
 VerifierSettings.IgnoreStackTrace();
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L38-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreStackTraceGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L37-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreStackTraceGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -122,7 +122,7 @@ static async Task MethodThatThrowsTask()
     throw new("The Message");
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L62-L70' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodThatThrowsTask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L59-L67' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodThatThrowsTask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: TestMethodThatThrowsTask -->
@@ -132,7 +132,7 @@ static async Task MethodThatThrowsTask()
 public Task TestMethodThatThrowsTask() =>
     ThrowsTask(MethodThatThrowsTask);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L54-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestMethodThatThrowsTask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L51-L57' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestMethodThatThrowsTask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -147,7 +147,7 @@ static async ValueTask MethodThatThrowsValueTask()
     throw new("The Message");
 }
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L80-L88' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodThatThrowsValueTask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L77-L85' title='Snippet source file'>snippet source</a> | <a href='#snippet-MethodThatThrowsValueTask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: TestMethodThatThrowsValueTask -->
@@ -157,5 +157,5 @@ static async ValueTask MethodThatThrowsValueTask()
 public Task TestMethodThatThrowsValueTask() =>
     ThrowsValueTask(MethodThatThrowsValueTask);
 ```
-<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L72-L78' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestMethodThatThrowsValueTask' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/ThrowsTests.cs#L69-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestMethodThatThrowsValueTask' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

@@ -4,18 +4,15 @@
 [TestFixture]
 public class Tests
 {
-    static void DerivePathInfo()
-    {
-        #region DerivePathInfoNunit
-
+    static void DerivePathInfo() =>
+    #region DerivePathInfoNunit
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,
                 methodName: method.Name));
+    #endregion
 
-        #endregion
-    }
 
     [TestCase("Value1")]
     public Task UseFileNameWithParam(string arg) =>

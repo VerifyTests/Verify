@@ -12,7 +12,7 @@
     <PackageVersion Include="Fixie" Version="3.4.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="3.4.0" />
     <PackageVersion Include="Fody" Version="6.8.1" />
-    <PackageVersion Include="FSharp.Core" Version="8.0.300" />
+    <PackageVersion Include="FSharp.Core" Version="8.0.301" />
     <PackageVersion Include="InfoOf.Fody" Version="2.2.0" />
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="27.0.2" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
@@ -26,7 +26,7 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.128" />
     <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
     <PackageVersion Include="SimpleInfoName" Version="2.2.0" />
-    <PackageVersion Include="System.Drawing.Common" Version="8.0.6" />
+    <PackageVersion Include="System.Drawing.Common" Version="8.0.7" />
     <PackageVersion Include="System.IO.Hashing" Version="8.0.0" />
     <PackageVersion Include="System.Memory" Version="4.5.5" />
     <PackageVersion Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />

@@ -255,8 +255,12 @@ class VirtualizedRunHelper
         return path;
     }
 
-    static string CombinePaths(string path1, string path2) =>
-        $"{path1.TrimEnd(separators)}{Env.DirectorySeparatorChar}{path2.Replace(OtherDirectorySeparatorChar, Env.DirectorySeparatorChar)}";
+    static string CombinePaths(string path1, string path2)
+    {
+        var prefix = path1.TrimEnd(separators);
+        var suffix = path2.Replace(OtherDirectorySeparatorChar, Env.DirectorySeparatorChar);
+        return $"{prefix}{Env.DirectorySeparatorChar}{suffix}";
+    }
 
     static char OtherDirectorySeparatorChar => Env.DirectorySeparatorChar == '/' ? '\\' : '/';
 }

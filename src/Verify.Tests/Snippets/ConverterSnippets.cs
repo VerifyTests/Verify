@@ -5,17 +5,16 @@
 public class ConverterSnippets
 {
     [ModuleInitializer]
-    public static void RegisterFileConverterType()
-    {
-        #region RegisterFileConverterType
+    public static void RegisterFileConverterType() =>
+    #region RegisterFileConverterType
 
         VerifierSettings.RegisterFileConverter<Image>(
 
-            #region ConverterCanConvert
+    #region ConverterCanConvert
 
             canConvert: (target, context) => Equals(target.RawFormat, ImageFormat.Tiff),
 
-            #endregion
+    #endregion
 
             conversion: (image, settings) =>
             {
@@ -39,9 +38,7 @@ public class ConverterSnippets
                     },
                     targets);
             });
-
-        #endregion
-    }
+    #endregion
 
     [Fact]
     public async Task Type()
@@ -55,9 +52,8 @@ public class ConverterSnippets
     }
 
     [ModuleInitializer]
-    public static void ExtensionInit()
-    {
-        #region RegisterFileConverterExtension
+    public static void ExtensionInit() =>
+    #region RegisterFileConverterExtension
 
         VerifierSettings.RegisterFileConverter(
             fromExtension: "tif",
@@ -84,18 +80,12 @@ public class ConverterSnippets
                     },
                     targets);
             });
-
-        #endregion
-    }
+    #endregion
 
     [Fact]
-    public async Task Extension()
-    {
-        #region FileConverterExtensionVerify
-
+    public async Task Extension() =>
+    #region FileConverterExtensionVerify
         await VerifyFile("sample.tif");
-
-        #endregion
-    }
+    #endregion
 }
 #endif

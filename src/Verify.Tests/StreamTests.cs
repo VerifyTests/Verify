@@ -130,8 +130,10 @@ public class StreamTests
     [Fact]
     public Task StreamNotAtStartAsText()
     {
-        var stream = new MemoryStream("foo"u8.ToArray());
-        stream.Position = 2;
+        var stream = new MemoryStream("foo"u8.ToArray())
+        {
+            Position = 2
+        };
         return Verify(stream, "txt");
     }
 

@@ -66,7 +66,11 @@ public partial class VerifySettings
     /// </summary>
     public void IgnoreParametersForVerified(params object?[] parameters)
     {
-        UseParameters(parameters);
+        if (parameters.Length > 0)
+        {
+            UseParameters(parameters);
+        }
+
         ignoreParametersForVerified = true;
     }
 

@@ -167,9 +167,9 @@ public class TypeConverterTests
                 context.ContainsKey("name") &&
                 (string) context["name"] == nameof(TypeConversion) &&
                 Equals(target.RawFormat, ImageFormat.Bmp),
-            conversion: (bitmap1, _) =>
+            conversion: (bitmap, _) =>
             {
-                var streams = ConvertBmpTpPngStreams(bitmap1);
+                var streams = ConvertBmpTpPngStreams(bitmap);
                 return new ConversionResult(null, streams.Select(_ => new Target("png", _)));
             });
 

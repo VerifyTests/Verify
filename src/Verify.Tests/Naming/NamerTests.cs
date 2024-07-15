@@ -485,6 +485,7 @@ public class NamerTests
     {
         // note that this test 'generates' the same verified and received filenames as the parameterized method
         var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified();
         return Verify("valueIgnoreParametersForVerified", settings);
     }
 

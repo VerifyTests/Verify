@@ -498,7 +498,8 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-### Nunit
+
+### NUnit
 
 
 #### Instance
@@ -532,6 +533,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L29-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
 
 ### MSTest
 

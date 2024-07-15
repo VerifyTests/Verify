@@ -147,7 +147,8 @@ snippet: IgnoreParametersForVerifiedXunit
 
 snippet: IgnoreParametersForVerifiedFluentXunit
 
-### Nunit
+
+### NUnit
 
 
 #### Instance
@@ -158,6 +159,7 @@ snippet: IgnoreParametersForVerifiedNunit
 #### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentNunit
+
 
 ### MSTest
 

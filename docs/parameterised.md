@@ -505,7 +505,7 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
 public Task IgnoreParametersForVerified(string arg)
 {
     var settings = new VerifySettings();
-    settings.IgnoreParametersForVerified(arg);
+    settings.IgnoreParametersForVerified();
     return Verify("value", settings);
 }
 ```
@@ -522,7 +522,7 @@ public Task IgnoreParametersForVerified(string arg)
 [TestCase("Two")]
 public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("value")
-        .IgnoreParametersForVerified(arg);
+        .IgnoreParametersForVerified();
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L29-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentNunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

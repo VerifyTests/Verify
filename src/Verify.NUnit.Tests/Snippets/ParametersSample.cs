@@ -20,7 +20,7 @@ public class ParametersSample
     public Task IgnoreParametersForVerified(string arg)
     {
         var settings = new VerifySettings();
-        settings.IgnoreParametersForVerified(arg);
+        settings.IgnoreParametersForVerified();
         return Verify("value", settings);
     }
 
@@ -32,7 +32,7 @@ public class ParametersSample
     [TestCase("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
-            .IgnoreParametersForVerified(arg);
+            .IgnoreParametersForVerified();
 
     #endregion
 

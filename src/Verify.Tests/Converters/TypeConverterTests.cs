@@ -80,10 +80,7 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithCanConvert_Invalid()
     {
-        var target = new CanConvertTarget
-        {
-            Value = "Invalid"
-        };
+        var target = new CanConvertTarget("Invalid");
         return Verify(target);
     }
 

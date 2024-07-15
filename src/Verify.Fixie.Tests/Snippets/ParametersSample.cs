@@ -1,4 +1,5 @@
-﻿public class ParametersSample
+﻿// ReSharper disable UnusedParameter.Global
+public class ParametersSample
 {
     [TestCase("1.1")]
     public Task Decimal(decimal arg) =>
@@ -28,4 +29,19 @@
     public Task SuppliedDoesNotMatchArg(string arg) =>
         Verify("Foo")
             .UseParameters("notTheArg");
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersForVerified(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified(arg);
+        return Verify("value", settings);
+    }
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersForVerifiedFluent(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified(arg);
 }

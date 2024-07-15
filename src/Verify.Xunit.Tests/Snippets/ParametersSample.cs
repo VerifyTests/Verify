@@ -9,6 +9,23 @@
     }
 
     [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersForVerified(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified(arg);
+        return Verify("value", settings);
+    }
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersForVerifiedFluent(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified(arg);
+
+    [Theory]
     [MemberData(nameof(GetDecimalData))]
     public Task Decimal(decimal arg) =>
         Verify(arg)

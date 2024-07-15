@@ -44,7 +44,7 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L50-L62' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L67-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
@@ -61,7 +61,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L64-L75' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L81-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -80,7 +80,7 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -149,7 +149,7 @@ public Task InlineDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L29-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitInlineData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L46-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitInlineData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -185,7 +185,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L77-L106' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitMemberData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L94-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitMemberData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -382,7 +382,7 @@ Resulting usage:
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L18-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixieTestCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/Snippets/ParametersSample.cs#L19-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-FixieTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -50,18 +50,12 @@ public class TypeConverterTests
     public async Task WithStreamRequiringCleanup()
     {
         await File.WriteAllTextAsync(withStreamRequiringCleanupPath, "FileContent");
-        var target = new TargetForCleanup
-        {
-            Value = "line1"
-        };
+        var target = new TargetForCleanup("line1");
         await Verify(target);
         Assert.False(File.Exists(withStreamRequiringCleanupPath));
     }
 
-    class TargetForCleanup
-    {
-        public string Value { get; set; } = null!;
-    }
+    record TargetForCleanup(string Value);
 
     [ModuleInitializer]
     public static void ConvertWithNewlineInit() =>
@@ -71,17 +65,11 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithNewline()
     {
-        var target = new ClassToSplit
-        {
-            Value = $"line1{Environment.NewLine}line2"
-        };
+        var target = new ClassToSplit($"line1{Environment.NewLine}line2");
         return Verify(target);
     }
 
-    public class ClassToSplit
-    {
-        public string Value { get; set; } = null!;
-    }
+    public record ClassToSplit(string Value);
 
     [ModuleInitializer]
     public static void ConvertWithCanConvert_InvalidInit() =>

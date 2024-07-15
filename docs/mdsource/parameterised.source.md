@@ -120,6 +120,8 @@ Results in:
 
 By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
+`IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are pssed to [UseParameters](#UseParameters). This is required for MSTest, xUnit, and NUnit. Parameters should not be passed for NUnit and Fixie since they are automatically detected.
+
 The below samples produce:
 
 For the instance case:
@@ -172,6 +174,50 @@ snippet: IgnoreParametersForVerifiedMsTest
 #### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentMsTest
+
+
+## IgnoreParametersForVerified with override parameters
+
+The parameters passed to IgnoreParametersForVerified can be used pass custom parameters to [UseParameters](#UseParameters).
+
+
+### xUnit
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedCustomParamsXunit
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedCustomParamsFluentXunit
+
+
+### NUnit
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedCustomParamsNunit
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
+
+
+### MSTest
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedCustomParamsMsTest
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedCustomParamsFluentMsTest
 
 
 ## Hashing parameters

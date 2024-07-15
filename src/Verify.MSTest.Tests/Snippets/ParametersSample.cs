@@ -46,4 +46,29 @@ public partial class ParametersSample
             .IgnoreParametersForVerified(arg);
 
     #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsMsTest
+
+    [DataTestMethod]
+    [DataRow("One")]
+    [DataRow("Two")]
+    public Task IgnoreParametersForVerifiedCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified($"Number{arg}");
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsFluentMsTest
+
+    [DataTestMethod]
+    [DataRow("One")]
+    [DataRow("Two")]
+    public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
 }

@@ -36,6 +36,29 @@ public class ParametersSample
 
     #endregion
 
+    #region IgnoreParametersForVerifiedCustomParamsNunit
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersForVerifiedCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified($"Number{arg}");
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsFluentNunit
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
+
     #region NUnitTestCase
 
     [TestCase("Value1")]

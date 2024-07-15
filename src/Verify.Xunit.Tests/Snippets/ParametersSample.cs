@@ -33,6 +33,31 @@
 
     #endregion
 
+    #region IgnoreParametersForVerifiedCustomParamsXunit
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersForVerifiedCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified($"Number{arg}");
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsFluentXunit
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
+
     [Theory]
     [MemberData(nameof(GetDecimalData))]
     public Task Decimal(decimal arg) =>

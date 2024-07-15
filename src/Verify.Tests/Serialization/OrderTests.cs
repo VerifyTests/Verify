@@ -18,7 +18,7 @@
                 new("b")
             });
 
-    public record TargetForGlobal(string Value);
+    record TargetForGlobal(string Value);
 
     #region OrderEnumerableByDescendingGlobal
 

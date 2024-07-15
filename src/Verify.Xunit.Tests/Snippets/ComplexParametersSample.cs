@@ -43,24 +43,15 @@ public class ComplexParametersSample
     {
         yield return
         [
-            new ComplexData
-            {
-                Value = "Value1"
-            }
+            new ComplexData("Value1")
         ];
         yield return
         [
-            new ComplexData
-            {
-                Value = "Value2"
-            }
+            new ComplexData("Value2")
         ];
     }
 
-    public class ComplexData
-    {
-        public string Value { get; set; } = null!;
-    }
+    public record ComplexData(string Value);
 
     [Theory]
     [MemberData(nameof(GetComplexMemberStructData))]

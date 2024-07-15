@@ -14,14 +14,16 @@ public class CircularTests
     public Task Simple()
     {
         var parent = new Parent();
-        parent.Children.Add(new()
-        {
-            Parent = parent
-        });
-        parent.Children.Add(new()
-        {
-            Parent = parent
-        });
+        parent.Children.Add(
+            new()
+            {
+                Parent = parent
+            });
+        parent.Children.Add(
+            new()
+            {
+                Parent = parent
+            });
         return Verify(parent);
     }
 }

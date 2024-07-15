@@ -3695,26 +3695,17 @@ public class SerializationTests
 
     [Fact]
     public Task WithConverter() =>
-        Verify(new ConverterTarget
-            {
-                Name = "The name"
-            })
+        Verify(new ConverterTarget("The name"))
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
 
     [Fact]
     public Task WithConverterAndNewline() =>
-        Verify(new ConverterTarget
-            {
-                Name = "A\rB\nC\r\nD"
-            })
+        Verify(new ConverterTarget("A\rB\nC\r\nD"))
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
 
     [Fact]
     public Task WithConverterAndIgnore() =>
-        Verify(new ConverterTarget
-            {
-                Name = "The name"
-            })
+        Verify(new ConverterTarget("The name"))
             .IgnoreMember("Name")
             .AddExtraSettings(_ => _.Converters.Add(new Converter()));
 
@@ -3731,10 +3722,7 @@ public class SerializationTests
         }
     }
 
-    class ConverterTarget
-    {
-        public string Name { get; set; } = null!;
-    }
+    record ConverterTarget(string Name);
 
     [Fact]
     public Task WithConverterIgnoreDefault() =>

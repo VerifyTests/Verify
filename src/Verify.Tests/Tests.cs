@@ -61,16 +61,9 @@ public class Tests
 
     [Fact]
     public Task TreatAsString() =>
-        Verify(
-            new ClassWithToString
-            {
-                Property = "Foo"
-            });
+        Verify(new ClassWithToString("Foo"));
 
-    class ClassWithToString
-    {
-        public string Property { get; set; } = null!;
-    }
+    record ClassWithToString(string Property);
 
     [Fact]
     // ReSharper disable once IdentifierTypo

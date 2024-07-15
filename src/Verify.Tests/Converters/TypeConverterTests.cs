@@ -108,17 +108,11 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithCanConvert_Valid()
     {
-        var target = new CanConvertTarget
-        {
-            Value = "Valid"
-        };
+        var target = new CanConvertTarget("Valid");
         return Verify(target);
     }
 
-    class CanConvertTarget
-    {
-        public string Value { get; set; } = null!;
-    }
+    record CanConvertTarget(string Value);
 
     [ModuleInitializer]
     public static void WithInfoInit() =>

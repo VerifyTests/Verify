@@ -263,7 +263,7 @@ Extra Json.NET settings can be made:
 VerifierSettings.AddExtraSettings(
     _ => _.TypeNameHandling = TypeNameHandling.All);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L119-L124' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L116-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -276,7 +276,7 @@ var settings = new VerifySettings();
 settings.AddExtraSettings(
     _ => _.TypeNameHandling = TypeNameHandling.All);
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L126-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L123-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExtraSettingsInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -294,7 +294,7 @@ class CompanyConverter :
         writer.WriteMember(company, company.Name, "Name");
 }
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L142-L151' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L139-L148' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompanyConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 <!-- snippet: JsonConverter -->
@@ -303,7 +303,7 @@ class CompanyConverter :
 VerifierSettings.AddExtraSettings(
     _ => _.Converters.Add(new CompanyConverter()));
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L136-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L133-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-JsonConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

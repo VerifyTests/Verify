@@ -36,10 +36,7 @@ public class Snippets
             (target, settings) => target.Property);
     #endregion
 
-    class ClassWithToString
-    {
-        public string Property { get; } = null!;
-    }
+    record ClassWithToString(string Property);
 
     void DerivePathInfoAppVeyor()
     {
@@ -150,10 +147,7 @@ public class Snippets
 
     #endregion
 
-    class Company
-    {
-        public string Name { get; } = null!;
-    }
+    record Company(string Name);
 
     async Task VerifyFuncOfTaskOfT()
     {

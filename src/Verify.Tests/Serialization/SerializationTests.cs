@@ -3788,10 +3788,7 @@ public class SerializationTests
 
     [Fact]
     public Task WithConverterAndMemberConverter() =>
-        Verify(new StaticConverterTarget
-            {
-                Name = "The name"
-            })
+        Verify(new StaticConverterTarget("The name"))
             .AddExtraSettings(_ => _.Converters.Add(new StaticConverter()));
 
     class StaticConverter :
@@ -3807,10 +3804,7 @@ public class SerializationTests
         }
     }
 
-    class StaticConverterTarget
-    {
-        public string Name { get; set; } = null!;
-    }
+    record StaticConverterTarget(string Name);
 
     static Parent ListReferenceData()
     {

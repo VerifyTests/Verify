@@ -419,7 +419,7 @@ await Verify(
         Bars = await repo.GetBars(id)
     });
 ```
-<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L163-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Snippets/Snippets.cs#L157-L166' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFuncOfTaskOfT' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -585,7 +585,7 @@ var result = await Verify(
     });
 Assert.Contains("Value To Check", result.Text);
 ```
-<sup><a href='/src/Verify.Tests/Tests.cs#L374-L383' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Tests.cs#L367-L376' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyResult' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If using `Verifier.Throws`, the resulting `Exception` will also be accessible

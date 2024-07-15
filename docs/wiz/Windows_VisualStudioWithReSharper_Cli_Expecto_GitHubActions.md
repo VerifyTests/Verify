@@ -14,7 +14,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 Add the following packages to the test project:
 
 ```
-dotnet add package Microsoft.NET.Test.Sdk
 dotnet add package YoloDev.Expecto.TestSdk
 dotnet add package Expecto
 dotnet add package Verify.Expecto

@@ -55,8 +55,7 @@ public class TypeConverterTests
         Assert.False(File.Exists(withStreamRequiringCleanupPath));
     }
 
-    // ReSharper disable once NotAccessedPositionalProperty.Local
-    record TargetForCleanup(string Value);
+    public record TargetForCleanup(string Value);
 
     [ModuleInitializer]
     public static void ConvertWithNewlineInit() =>

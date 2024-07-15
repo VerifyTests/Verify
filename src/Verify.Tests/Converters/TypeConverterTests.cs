@@ -55,6 +55,7 @@ public class TypeConverterTests
         Assert.False(File.Exists(withStreamRequiringCleanupPath));
     }
 
+    // ReSharper disable once NotAccessedPositionalProperty.Local
     record TargetForCleanup(string Value);
 
     [ModuleInitializer]
@@ -80,10 +81,7 @@ public class TypeConverterTests
     [Fact]
     public Task ConvertWithCanConvert_Invalid()
     {
-        var target = new CanConvertTarget
-        {
-            Value = "Invalid"
-        };
+        var target = new CanConvertTarget("Invalid");
         return Verify(target);
     }
 

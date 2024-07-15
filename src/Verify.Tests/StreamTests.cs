@@ -120,8 +120,10 @@ public class StreamTests
             2,
             3,
             4
-        ]);
-        stream.Position = 2;
+        ])
+        {
+            Position = 2
+        };
         return Verify(stream);
     }
 

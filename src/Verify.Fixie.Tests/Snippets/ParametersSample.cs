@@ -30,6 +30,8 @@ public class ParametersSample
         Verify("Foo")
             .UseParameters("notTheArg");
 
+    #region IgnoreParametersForVerifiedFixie
+
     [TestCase("One")]
     [TestCase("Two")]
     public Task IgnoreParametersForVerified(string arg)
@@ -39,9 +41,38 @@ public class ParametersSample
         return Verify("value", settings);
     }
 
+    #endregion
+
+    #region IgnoreParametersForVerifiedFluentFixie
+
     [TestCase("One")]
     [TestCase("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified(arg);
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsFixie
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersForVerifiedCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified($"Number{arg}");
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedCustomParamsFluentFixie
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
 }

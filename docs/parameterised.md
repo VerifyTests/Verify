@@ -14,7 +14,7 @@ Every parameterised case should have a unique [file name](/docs/naming.md) with 
 
 The appending format is `_ParamName=ParamValue` repeated for each parameter. 
 
-A test with two parameters `param1` + `param2`, and called twice with the values `value1a`+ `value2a` and `value1b`+ `value2b` would have the following file names:
+A test with two parameters `param1` + `param2`, and called twice with the values `value1a` + `value2a` and `value1b` + `value2b` would have the following file names:
 
   * `MyTest.MyMethod_param1=value1a_param2=value2a.verified.txt`
   * `MyTest.MyMethod_param1=value1b_param2=value2b.verified.txt`
@@ -44,7 +44,7 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L67-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L75-L87' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
@@ -61,7 +61,7 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L81-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L89-L100' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
@@ -80,7 +80,7 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L39-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-NUnitTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -149,7 +149,7 @@ public Task InlineDataUsageFluent(string arg) =>
     Verify(arg)
         .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L46-L65' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitInlineData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L54-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitInlineData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -185,7 +185,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L94-L123' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitMemberData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L102-L131' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitMemberData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -394,28 +394,24 @@ public Task TestCaseUsage(string arg) =>
 <!-- snippet: MSTestDataRow -->
 <a id='snippet-MSTestDataRow'></a>
 ```cs
-[TestClass]
-public partial class ParametersSample
+[DataTestMethod]
+[DataRow("Value1")]
+[DataRow("Value2")]
+public Task DataRowUsage(string arg)
 {
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task DataRowUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [DataTestMethod]
-    [DataRow("Value1")]
-    [DataRow("Value2")]
-    public Task DataRowUsageFluent(string arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+    var settings = new VerifySettings();
+    settings.UseParameters(arg);
+    return Verify(arg, settings);
 }
+
+[DataTestMethod]
+[DataRow("Value1")]
+[DataRow("Value2")]
+public Task DataRowUsageFluent(string arg) =>
+    Verify(arg)
+        .UseParameters(arg);
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L1-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L4-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-MSTestDataRow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -462,8 +458,28 @@ Results in:
 
 By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
-<!-- snippet: IgnoreParametersForVerified -->
-<a id='snippet-IgnoreParametersForVerified'></a>
+The below samples produce:
+
+For the instance case:
+
+ * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerified.verified.txt
+
+For the fluent case:
+
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
+ * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+
+
+### xUnit
+
+
+#### Instance
+
+<!-- snippet: IgnoreParametersForVerifiedXunit -->
+<a id='snippet-IgnoreParametersForVerifiedXunit'></a>
 ```cs
 [Theory]
 [InlineData("One")]
@@ -474,7 +490,16 @@ public Task IgnoreParametersForVerified(string arg)
     settings.IgnoreParametersForVerified(arg);
     return Verify("value", settings);
 }
+```
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L11-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
+
+#### Fluent
+
+<!-- snippet: IgnoreParametersForVerifiedFluentXunit -->
+<a id='snippet-IgnoreParametersForVerifiedFluentXunit'></a>
+```cs
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
@@ -482,20 +507,80 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
     Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
-<sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L449-L468' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerified' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/Snippets/ParametersSample.cs#L25-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Results in:
+### Nunit
 
- * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
- * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
- * NamerTests.IgnoreParametersForVerified.verified.txt
 
-And for the second test:
+#### Instance
 
- * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
- * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
- * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+<!-- snippet: IgnoreParametersForVerifiedNunit -->
+<a id='snippet-IgnoreParametersForVerifiedNunit'></a>
+```cs
+[TestCase("One")]
+[TestCase("Two")]
+public Task IgnoreParametersForVerified(string arg)
+{
+    var settings = new VerifySettings();
+    settings.IgnoreParametersForVerified(arg);
+    return Verify("value", settings);
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L16-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent
+
+<!-- snippet: IgnoreParametersForVerifiedFluentNunit -->
+<a id='snippet-IgnoreParametersForVerifiedFluentNunit'></a>
+```cs
+[TestCase("One")]
+[TestCase("Two")]
+public Task IgnoreParametersForVerifiedFluent(string arg) =>
+    Verify("value")
+        .IgnoreParametersForVerified(arg);
+```
+<sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L29-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+### MSTest
+
+
+#### Instance
+
+<!-- snippet: IgnoreParametersForVerifiedMsTest -->
+<a id='snippet-IgnoreParametersForVerifiedMsTest'></a>
+```cs
+[DataTestMethod]
+[DataRow("One")]
+[DataRow("Two")]
+public Task IgnoreParametersForVerified(string arg)
+{
+    var settings = new VerifySettings();
+    settings.IgnoreParametersForVerified(arg);
+    return Verify("value", settings);
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L25-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedMsTest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent
+
+<!-- snippet: IgnoreParametersForVerifiedFluentMsTest -->
+<a id='snippet-IgnoreParametersForVerifiedFluentMsTest'></a>
+```cs
+[DataTestMethod]
+[DataRow("One")]
+[DataRow("Two")]
+public Task IgnoreParametersForVerifiedFluent(string arg) =>
+    Verify("value")
+        .IgnoreParametersForVerified(arg);
+```
+<sup><a href='/src/Verify.MSTest.Tests/Snippets/ParametersSample.cs#L39-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentMsTest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Hashing parameters

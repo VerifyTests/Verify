@@ -13,6 +13,8 @@ public class ParametersSample
     public Task Double(double arg) =>
         Verify(arg);
 
+    #region IgnoreParametersForVerifiedNunit
+
     [TestCase("One")]
     [TestCase("Two")]
     public Task IgnoreParametersForVerified(string arg)
@@ -22,11 +24,17 @@ public class ParametersSample
         return Verify("value", settings);
     }
 
+    #endregion
+
+    #region IgnoreParametersForVerifiedFluentNunit
+
     [TestCase("One")]
     [TestCase("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified(arg);
+
+    #endregion
 
     #region NUnitTestCase
 

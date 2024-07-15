@@ -1,8 +1,8 @@
-#region MSTestDataRow
-
 [TestClass]
 public partial class ParametersSample
 {
+    #region MSTestDataRow
+
     [DataTestMethod]
     [DataRow("Value1")]
     [DataRow("Value2")]
@@ -19,6 +19,31 @@ public partial class ParametersSample
     public Task DataRowUsageFluent(string arg) =>
         Verify(arg)
             .UseParameters(arg);
-}
 
-#endregion
+    #endregion
+
+    #region IgnoreParametersForVerifiedMsTest
+
+    [DataTestMethod]
+    [DataRow("One")]
+    [DataRow("Two")]
+    public Task IgnoreParametersForVerified(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParametersForVerified(arg);
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersForVerifiedFluentMsTest
+
+    [DataTestMethod]
+    [DataRow("One")]
+    [DataRow("Two")]
+    public Task IgnoreParametersForVerifiedFluent(string arg) =>
+        Verify("value")
+            .IgnoreParametersForVerified(arg);
+
+    #endregion
+}

@@ -446,8 +446,6 @@ public class NamerTests
         return Verify("contentMultipleParams", settings);
     }
 
-    #region IgnoreParametersForVerified
-
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
@@ -464,8 +462,6 @@ public class NamerTests
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified(arg);
-
-    #endregion
 
     [Theory]
     [InlineData("One")]

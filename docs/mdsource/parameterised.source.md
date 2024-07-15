@@ -7,7 +7,7 @@ Every parameterised case should have a unique [file name](/docs/naming.md) with 
 
 The appending format is `_ParamName=ParamValue` repeated for each parameter. 
 
-A test with two parameters `param1` + `param2`, and called twice with the values `value1a`+ `value2a` and `value1b`+ `value2b` would have the following file names:
+A test with two parameters `param1` + `param2`, and called twice with the values `value1a` + `value2a` and `value1b` + `value2b` would have the following file names:
 
   * `MyTest.MyMethod_param1=value1a_param2=value2a.verified.txt`
   * `MyTest.MyMethod_param1=value1b_param2=value2b.verified.txt`
@@ -120,19 +120,56 @@ Results in:
 
 By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
-snippet: IgnoreParametersForVerified
+The below samples produce:
 
-Results in:
+For the instance case:
 
  * NamerTests.IgnoreParametersForVerified_arg=One.received.txt
  * NamerTests.IgnoreParametersForVerified_arg=Two.received.txt
  * NamerTests.IgnoreParametersForVerified.verified.txt
 
-And for the second test:
+For the fluent case:
 
  * NamerTests.IgnoreParametersForVerifiedFluent_arg=One.received.txt
  * NamerTests.IgnoreParametersForVerifiedFluent_arg=Two.received.txt
  * NamerTests.IgnoreParametersForVerifiedFluent.verified.txt
+
+
+### xUnit
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedXunit
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedFluentXunit
+
+### Nunit
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedNunit
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedFluentNunit
+
+### MSTest
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedMsTest
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedFluentMsTest
 
 
 ## Hashing parameters

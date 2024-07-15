@@ -8,6 +8,8 @@
         ];
     }
 
+    #region IgnoreParametersForVerifiedXunit
+
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
@@ -18,12 +20,18 @@
         return Verify("value", settings);
     }
 
+    #endregion
+
+    #region IgnoreParametersForVerifiedFluentXunit
+
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified(arg);
+
+    #endregion
 
     [Theory]
     [MemberData(nameof(GetDecimalData))]

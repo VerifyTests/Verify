@@ -1,8 +1,14 @@
 ﻿namespace VerifyTests.ExceptionParsing;
 
 [DebuggerDisplay("Received = {Received} | Verified = {Verified}")]
-public readonly struct FilePair(string received, string verified)
+public readonly struct FilePair
 {
-    public string Received { get; } = received;
-    public string Verified { get; } = verified;
+    public FilePair(string received, string verified)
+    {
+        Received = received;
+        Verified = verified;
+    }
+
+    public string Received { get; }
+    public string Verified { get; }
 }

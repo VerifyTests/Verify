@@ -480,12 +480,13 @@ public class NamerTests
         Verify(value)
             .UseParameters(value);
 
-    [Fact]
-    public Task IgnoreParametersForVerified()
+    [Theory]
+    [InlineData("Value")]
+    public Task IgnoreParametersForVerified(string value)
     {
         // note that this test 'generates' the same verified and received filenames as the parameterized method
         var settings = new VerifySettings();
-        settings.IgnoreParametersForVerified();
+        settings.IgnoreParametersForVerified("Other");
         return Verify("valueIgnoreParametersForVerified", settings);
     }
 

@@ -451,18 +451,18 @@ public class NamerTests
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
-    public Task IgnoreParametersForVerifiedWithArgs(string arg)
+    public Task IgnoreParametersForVerified(string arg)
     {
         var settings = new VerifySettings();
         settings.IgnoreParametersForVerified(arg);
-        return Verify("valueIgnoreParametersForVerifiedWithArgs", settings);
+        return Verify("value", settings);
     }
 
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
-        Verify("valueIgnoreParametersForVerifiedFluent")
+        Verify("value")
             .IgnoreParametersForVerified(arg);
 
     #endregion

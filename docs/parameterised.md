@@ -468,18 +468,18 @@ By default, Verify expects every parameterised case to have a unique [file name]
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
-public Task IgnoreParametersForVerifiedWithArgs(string arg)
+public Task IgnoreParametersForVerified(string arg)
 {
     var settings = new VerifySettings();
     settings.IgnoreParametersForVerified(arg);
-    return Verify("valueIgnoreParametersForVerifiedWithArgs", settings);
+    return Verify("value", settings);
 }
 
 [Theory]
 [InlineData("One")]
 [InlineData("Two")]
 public Task IgnoreParametersForVerifiedFluent(string arg) =>
-    Verify("valueIgnoreParametersForVerifiedFluent")
+    Verify("value")
         .IgnoreParametersForVerified(arg);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L449-L468' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerified' title='Start of snippet'>anchor</a></sup>

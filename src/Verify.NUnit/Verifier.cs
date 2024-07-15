@@ -76,7 +76,7 @@ public static partial class Verifier
 
     static string GetTypeName(this TestContext.TestAdapter adapter)
     {
-        var fullName = adapter.FullName;
+        var fullName = adapter.FullName.AsSpan();
         var fullNameLength = fullName.Length - (adapter.Name.Length + 1);
         var typeName = fullName[..fullNameLength];
         var typeInfo = adapter.Method!.TypeInfo;
@@ -86,8 +86,7 @@ public static partial class Verifier
             typeName = typeName[(typeInfo.Namespace.Length + 1)..];
         }
 
-        return typeName
-            .Remove("\"")
+        return typeName.ToString().Replace("\"", "")
             .ReplaceInvalidFileNameChars();
     }
 

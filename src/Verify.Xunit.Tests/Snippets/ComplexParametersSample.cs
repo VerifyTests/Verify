@@ -94,23 +94,11 @@ public class ComplexParametersSample
 
     public static IEnumerable<object[]> GetComplexMemberStructData()
     {
-        yield return
-        [
-            new ComplexStructData("Value1")
-        ];
-        yield return
-        [
-            new ComplexStructData("Value2")
-        ];
+        yield return [new ComplexStructData("Value1")];
+        yield return [new ComplexStructData("Value2")];
     }
 
-    public struct ComplexStructData
-    {
-        public ComplexStructData(string value) =>
-            Value = value;
-
-        public string Value { get; set; } = null!;
-    }
+    public record ComplexStructData(string Value);
 }
 
 #endregion

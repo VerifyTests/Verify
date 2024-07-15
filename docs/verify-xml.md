@@ -19,7 +19,7 @@ Verifies Xml:
 public Task VerifyFilePath() =>
     VerifyFile("sample.txt");
 ```
-<sup><a href='/src/Verify.Tests/StreamTests.cs#L186-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/StreamTests.cs#L190-L196' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -41,9 +41,9 @@ public static partial class Verifier
         Guard.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
-            async verifySettings =>
+            async settings =>
             {
-                using var verifier = BuildVerifier(sourceFile, verifySettings, useUniqueDirectory);
+                using var verifier = BuildVerifier(sourceFile, settings, useUniqueDirectory);
                 return await verify(verifier);
             });
     }

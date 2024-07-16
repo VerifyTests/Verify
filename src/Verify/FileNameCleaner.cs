@@ -53,32 +53,35 @@
     {
         var span = value.AsSpan();
 
-#if NET8_0_OR_GREATER
-        var index = span.IndexOfAny(invalidFileNameSearchValues);
-#else
-        var index = span.IndexOfAny(invalidFileNameChars.AsSpan());
-#endif
+        var index = IndexOfInvalidChar(span);
 
         if (index == -1)
         {
             return value;
         }
 
-        var chars = value.ToCharArray();
-        span[..index]
-            .CopyTo(chars);
-        chars[index] = '-';
+        Span<char> target = stackalloc char[value.Length];
+        span.CopyTo(target);
+
+        target[index] = '-';
         index++;
-        for (; index < chars.Length; index++)
+        for (; index < target.Length; index++)
         {
-            if (IsInvalid(chars[index]))
+            if (IsInvalid(target[index]))
             {
-                chars[index] = '-';
+                target[index] = '-';
             }
         }
 
-        return new(chars);
+        return target.ToString();
     }
+
+    static int IndexOfInvalidChar(CharSpan span) =>
+#if NET8_0_OR_GREATER
+        span.IndexOfAny(invalidFileNameSearchValues);
+#else
+        span.IndexOfAny(invalidFileNameChars.AsSpan());
+#endif
 
     static bool IsInvalid(char ch) =>
 #if NET8_0_OR_GREATER
@@ -89,6 +92,15 @@
 
     public static void AppendValid(StringBuilder builder, string value)
     {
+        var span = value.AsSpan();
+        var index = IndexOfInvalidChar(span);
+
+        if (index == -1)
+        {
+            builder.Append(value);
+            return;
+        }
+
         foreach (var ch in value)
         {
             if (IsInvalid(ch))

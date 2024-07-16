@@ -40,6 +40,7 @@ public static partial class Verifier
         var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");
         if (customName)
         {
+
             settings.typeName ??= adapter.GetTypeName();
 
             settings.methodName ??= adapter.GetMethodName();

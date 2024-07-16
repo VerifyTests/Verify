@@ -15,7 +15,7 @@ public class InnerVerifyTests
 
     #region VerifyFileWithoutUnitTest
 
-    public async Task VerifyExternalFile()
+    public Task VerifyExternalFile()
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         var settings = new VerifySettings();
@@ -23,13 +23,12 @@ public class InnerVerifyTests
 
         var sourceFile = Path.Combine(solutionDirectory, "Verify.Tests", "sample.txt");
 
-        Func<InnerVerifier, Task<VerifyResult>> verify = _ => _.VerifyFile(sourceFile, null, null);
-        await new SettingsTask(
+        return new SettingsTask(
             settings,
-            async verifySettings =>
+            async settings =>
             {
-                using var verifier = new InnerVerifier(sourceFile, verifySettings);
-                return await verify(verifier);
+                using var verifier = new InnerVerifier(sourceFile, settings);
+                return await verifier.VerifyFile(sourceFile, null, null);
             });
     }
 

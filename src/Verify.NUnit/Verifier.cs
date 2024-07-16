@@ -31,25 +31,50 @@ public static partial class Verifier
             throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
         }
 
-        if (!settings.HasParameters &&
-            adapter.Arguments.Length > 0)
+        var method = testMethod.MethodInfo;
+        var parameterNames = method.ParameterNames();
+        var type = testMethod.TypeInfo.Type;
+
+        if (!settings.HasParameters)
         {
-            settings.SetParameters(adapter.Arguments);
+            var test = GetTest(adapter);
+            var parent = test.Parent;
+            if (parent != null)
+            {
+                var argumentsLength = parent.Arguments.Length;
+                if (argumentsLength > 0)
+                {
+                    var constructor = GetConstructorByParameterCount(type, argumentsLength);
+                    var names = constructor
+                        .GetParameters()
+                        .Select(_ => _.Name!);
+                    if (parameterNames == null)
+                    {
+                        parameterNames = names.ToList();
+                    }
+                    else
+                    {
+                        parameterNames.InsertRange(0, names);
+                    }
+                }
+            }
+
+            if (adapter.Arguments.Length > 0)
+            {
+                settings.SetParameters(adapter.Arguments);
+            }
         }
 
         var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");
         if (customName)
         {
-
             settings.typeName ??= adapter.GetTypeName();
 
             settings.methodName ??= adapter.GetMethodName();
         }
 
-        var type = testMethod.TypeInfo.Type;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
-        var method = testMethod.MethodInfo;
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
@@ -57,8 +82,37 @@ public static partial class Verifier
             settings,
             type.NameWithParent(),
             method.Name,
-            method.ParameterNames(),
+            parameterNames,
             pathInfo);
+    }
+
+    static ConstructorInfo GetConstructorByParameterCount(Type type, int argumentsLength)
+    {
+        var constructors = type
+            .GetConstructors(BindingFlags.Instance | BindingFlags.Public)
+            .Where(_ => _.GetParameters()
+                .Length == argumentsLength)
+            .ToList();
+
+        if (constructors.Count == 0)
+        {
+            throw new($"Could not find constructor with {argumentsLength} parameters.");
+        }
+
+        if (constructors.Count > 1)
+        {
+            throw new($"Found multiple constructor with {argumentsLength} parameters. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
+        }
+
+        return constructors[0];
+    }
+
+    static Test GetTest(TestContext.TestAdapter adapter)
+    {
+        var field = adapter
+            .GetType()
+            .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        return (Test) field.GetValue(adapter)!;
     }
 
     static string GetMethodName(this TestContext.TestAdapter adapter)
@@ -86,7 +140,9 @@ public static partial class Verifier
             typeName = typeName[(typeInfo.Namespace.Length + 1)..];
         }
 
-        return typeName.ToString().Replace("\"", "")
+        return typeName
+            .ToString()
+            .Replace("\"", "")
             .ReplaceInvalidFileNameChars();
     }
 

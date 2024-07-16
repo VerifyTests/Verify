@@ -1,0 +1,12 @@
+﻿{
+  "solution": {
+    "path": "Verify.sln",
+    "projects": [
+      "TargetLibrary\\TargetLibrary.csproj",
+      "Verify.NUnit.DerivePaths.Tests\\Verify.NUnit.DerivePaths.Tests.csproj",
+      "Verify.NUnit.Tests\\Verify.NUnit.Tests.csproj",
+      "Verify.NUnit\\Verify.NUnit.csproj",
+      "Verify\\Verify.csproj"
+    ]
+  }
+}

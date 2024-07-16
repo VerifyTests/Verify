@@ -53,11 +53,7 @@
     {
         var span = value.AsSpan();
 
-#if NET8_0_OR_GREATER
-        var index = span.IndexOfAny(invalidFileNameSearchValues);
-#else
-        var index = span.IndexOfAny(invalidFileNameChars.AsSpan());
-#endif
+        var index = IndexOfInvalidChar(span);
 
         if (index == -1)
         {
@@ -80,6 +76,14 @@
         return new(chars);
     }
 
+    static int IndexOfInvalidChar(CharSpan span) =>
+#if NET8_0_OR_GREATER
+        span.IndexOfAny(invalidFileNameSearchValues);
+#else
+        span.IndexOfAny(invalidFileNameChars.AsSpan());
+#endif
+
+
     static bool IsInvalid(char ch) =>
 #if NET8_0_OR_GREATER
         invalidFileNameSearchValues.Contains(ch);
@@ -89,6 +93,15 @@
 
     public static void AppendValid(StringBuilder builder, string value)
     {
+        var span = value.AsSpan();
+        var index = IndexOfInvalidChar(span);
+
+        if (index == -1)
+        {
+            builder.Append(value);
+            return;
+        }
+
         foreach (var ch in value)
         {
             if (IsInvalid(ch))

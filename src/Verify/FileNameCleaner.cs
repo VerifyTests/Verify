@@ -60,20 +60,20 @@
             return value;
         }
 
-        var chars = value.ToCharArray();
-        span[..index]
-            .CopyTo(chars);
-        chars[index] = '-';
+        Span<char> target = stackalloc char[value.Length];
+        span.CopyTo(target);
+
+        target[index] = '-';
         index++;
-        for (; index < chars.Length; index++)
+        for (; index < target.Length; index++)
         {
-            if (IsInvalid(chars[index]))
+            if (IsInvalid(target[index]))
             {
-                chars[index] = '-';
+                target[index] = '-';
             }
         }
 
-        return new(chars);
+        return target.ToString();
     }
 
     static int IndexOfInvalidChar(CharSpan span) =>
@@ -82,7 +82,6 @@
 #else
         span.IndexOfAny(invalidFileNameChars.AsSpan());
 #endif
-
 
     static bool IsInvalid(char ch) =>
 #if NET8_0_OR_GREATER

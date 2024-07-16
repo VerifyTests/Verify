@@ -8,7 +8,7 @@ public class ClassLevelParams(string arg1)
 
     [TestCase("3")]
     [TestCase("4")]
-    public Task WithMethodLeve(string arg2) => Verify("Value");
+    public Task WithMethodLevel(string arg2) => Verify("Value");
 
     [TestCase("3")]
     [TestCase("4")]

@@ -3,8 +3,7 @@ public class GuidScrubberTests
     #region NamedGuidGlobal
 
     [ModuleInitializer]
-    public static void Init() =>
-        VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
+    public static void Init() => VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 
     #endregion
 
@@ -67,27 +66,53 @@ public class GuidScrubberTests
     public Task NamedGuidInstance()
     {
         var settings = new VerifySettings();
-        settings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+        var guid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+        settings.AddNamedGuid(guid, "instanceNamed");
         return Verify(
             new
             {
-                value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+                value = guid
             },
             settings);
     }
 
     #endregion
 
+    //top level should not scrub
+    [Fact]
+    public Task NamedGuidTopLevelInstance()
+    {
+        var settings = new VerifySettings();
+        var guid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+        settings.AddNamedGuid(guid, "instanceNamed");
+        return Verify(guid, settings);
+    }
+
     #region NamedGuidFluent
 
     [Fact]
-    public Task NamedGuidFluent() =>
-        Verify(
+    public Task NamedGuidFluent()
+    {
+        var guid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+        return Verify(
                 new
                 {
-                    value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+                    value = guid
                 })
-            .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+            .AddNamedGuid(guid, "instanceNamed");
+    }
 
     #endregion
+
+    [Fact]
+    public Task NamedGuidTopLevelFluent()
+    {
+        var guid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+        return Verify(guid)
+            .AddNamedGuid(guid, "instanceNamed");
+    }
+
+    [Fact]
+    public Task NamedGuidTopLevelGlobal() =>
+        Verify(new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"));
 }

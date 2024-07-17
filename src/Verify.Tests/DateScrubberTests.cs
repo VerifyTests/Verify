@@ -217,13 +217,15 @@ public class DateScrubberTests
     [Fact]
     public Task NamedDateInstance()
     {
+        var dateOnly = new Date(1935, 10, 1);
         var settings = new VerifySettings();
-        settings.AddNamedDate(new(1935, 10, 1), "instanceNamed");
+        settings.AddNamedDate(dateOnly, "instanceNamed");
         return Verify(
             new
             {
-                value = new Date(1935, 10, 1)
-            });
+                value = dateOnly
+            },
+            settings);
     }
 
     #endregion
@@ -231,13 +233,16 @@ public class DateScrubberTests
     #region NamedDateFluent
 
     [Fact]
-    public Task NamedDateFluent() =>
-        Verify(
+    public Task NamedDateFluent()
+    {
+        var dateOnly = new Date(1935, 10, 1);
+        return Verify(
                 new
                 {
-                    value = new Date(1935, 10, 1)
+                    value = dateOnly
                 })
-            .AddNamedDate(new(1935, 10, 1), "instanceNamed");
+            .AddNamedDate(dateOnly, "instanceNamed");
+    }
 
     #endregion
 
@@ -249,15 +254,27 @@ public class DateScrubberTests
     public Task NamedDateTimeInstance()
     {
         var settings = new VerifySettings();
-        settings.AddNamedDateTime(new(1935, 10, 1), "instanceNamed");
+        var dateTime = new DateTime(1935, 10, 1);
+        settings.AddNamedDateTime(dateTime, "instanceNamed");
         return Verify(
             new
             {
-                value = new DateTime(1935, 10, 1)
-            });
+                value = dateTime
+            },
+            settings);
     }
 
     #endregion
+
+    //top level should not scrub
+    [Fact]
+    public Task NamedDateTimeTopLevelInstance()
+    {
+        var settings = new VerifySettings();
+        var dateTime = new DateTime(1935, 10, 1, 10, 15, 30, DateTimeKind.Utc);
+        settings.AddNamedDateTime(dateTime, "instanceNamed");
+        return Verify(dateTime, settings);
+    }
 
     #region NamedDateTimeFluent
 
@@ -272,32 +289,67 @@ public class DateScrubberTests
 
     #endregion
 
+    [Fact]
+    public Task NamedDateTimeTopLevelFluent()
+    {
+        var dateTime = new DateTime(1935, 10, 1, 10, 15, 30, DateTimeKind.Utc);
+        return Verify(dateTime)
+            .AddNamedDateTime(dateTime, "instanceNamed");
+    }
+
     #region NamedDateTimeOffsetInstance
 
     [Fact]
     public Task NamedDateTimeOffsetInstance()
     {
         var settings = new VerifySettings();
-        settings.AddNamedDateTimeOffset(new(new(1935, 10, 1)), "instanceNamed");
+        var dateTimeOffset = new DateTimeOffset(new(1935, 10, 1));
+        settings.AddNamedDateTimeOffset(dateTimeOffset, "instanceNamed");
         return Verify(
             new
             {
-                value = new DateTimeOffset(new(1935, 10, 1))
-            });
+                value = dateTimeOffset
+            },
+            settings);
     }
 
     #endregion
 
+    //top level should not scrub
+    [Fact]
+    public Task NamedDateTimeOffsetTopLevelInstance()
+    {
+        var settings = new VerifySettings();
+        var dateTimeOffset = new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero);
+        settings.AddNamedDateTimeOffset(dateTimeOffset, "instanceNamed");
+        return Verify(dateTimeOffset, settings);
+    }
+
     #region NamedDateTimeOffsetFluent
 
     [Fact]
-    public Task NamedDateTimeOffsetFluent() =>
-        Verify(
+    public Task NamedDateTimeOffsetFluent()
+    {
+        var dateTimeOffset = new DateTimeOffset(new(1935, 10, 1));
+        return Verify(
                 new
                 {
-                    value = new DateTimeOffset(new(1935, 10, 1))
+                    value = dateTimeOffset
                 })
-            .AddNamedDateTimeOffset(new(new(1935, 10, 1)), "instanceNamed");
+            .AddNamedDateTimeOffset(dateTimeOffset, "instanceNamed");
+    }
 
     #endregion
+
+    [Fact]
+    public Task NamedDateTimeOffsetTopLevelFluent()
+    {
+        var dateTimeOffset = new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero);
+        return Verify(dateTimeOffset)
+            .AddNamedDateTimeOffset(dateTimeOffset, "instanceNamed");
+    }
+
+    [Fact]
+    public Task NamedDateTimeOffsetTopLevelGlobal() =>
+        Verify(new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero));
 }

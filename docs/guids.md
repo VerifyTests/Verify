@@ -151,16 +151,17 @@ Specific Guids can be named. When any of those Guids are found, it will be repla
 public Task NamedGuidInstance()
 {
     var settings = new VerifySettings();
-    settings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+    var guid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+    settings.AddNamedGuid(guid, "instanceNamed");
     return Verify(
         new
         {
-            value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+            value = guid
         },
         settings);
 }
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L64-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L63-L79' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -170,15 +171,18 @@ public Task NamedGuidInstance()
 <a id='snippet-NamedGuidFluent'></a>
 ```cs
 [Fact]
-public Task NamedGuidFluent() =>
-    Verify(
+public Task NamedGuidFluent()
+{
+    var guid = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9");
+    return Verify(
             new
             {
-                value = new Guid("c8eeaf99-d5c4-4341-8543-4597c3fd40d9")
+                value = guid
             })
-        .AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40d9"), "instanceNamed");
+        .AddNamedGuid(guid, "instanceNamed");
+}
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L81-L92' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L91-L105' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidFluent' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -188,8 +192,7 @@ public Task NamedGuidFluent() =>
 <a id='snippet-NamedGuidGlobal'></a>
 ```cs
 [ModuleInitializer]
-public static void Init() =>
-    VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
+public static void Init() => VerifierSettings.AddNamedGuid(new("c8eeaf99-d5c4-4341-8543-4597c3fd40c9"), "guidName");
 ```
-<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L3-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/GuidScrubberTests.cs#L3-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedGuidGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

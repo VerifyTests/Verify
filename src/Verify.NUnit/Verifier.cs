@@ -112,12 +112,23 @@ public static partial class Verifier
 
     static ITest? GetParent(TestAdapter adapter)
     {
+        var test = GetTest(adapter);
+        var parent = test.Parent;
+        if (parent is ParameterizedMethodSuite methodSuite)
+        {
+            return methodSuite.Parent;
+        }
+
+        return parent;
+        //ParameterizedMethodSuite
+    }
+
+    static Test GetTest(TestAdapter adapter)
+    {
         var field = adapter
             .GetType()
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        var test = (Test) field.GetValue(adapter)!;
-        return test.Parent;
-        //ParameterizedMethodSuite
+        return (Test) field.GetValue(adapter)!;
     }
 
     static IEnumerable<string> GetConstructorParameterNames(Type type, int argumentsLength)

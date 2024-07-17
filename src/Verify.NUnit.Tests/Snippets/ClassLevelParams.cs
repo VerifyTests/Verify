@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS9113 // Parameter is unread.
 [TestFixture("1")]
-//[TestFixture("2")]
+[TestFixture("2")]
 public class ClassLevelParams(string arg1)
 {
     [Test]

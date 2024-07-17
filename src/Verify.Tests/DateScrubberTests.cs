@@ -271,7 +271,7 @@ public class DateScrubberTests
     public Task NamedDateTimeTopLevelInstance()
     {
         var settings = new VerifySettings();
-        var dateTime = new DateTime(1935, 10, 1);
+        var dateTime = new DateTime(1935, 10, 1, 10, 15, 30, DateTimeKind.Utc);
         settings.AddNamedDateTime(dateTime, "instanceNamed");
         return Verify(dateTime, settings);
     }

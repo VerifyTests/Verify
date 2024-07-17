@@ -292,7 +292,7 @@ public class DateScrubberTests
     [Fact]
     public Task NamedDateTimeTopLevelFluent()
     {
-        var dateTime = new DateTime(1935, 10, 1);
+        var dateTime = new DateTime(1935, 10, 1, 10, 15, 30, DateTimeKind.Utc);
         return Verify(dateTime)
             .AddNamedDateTime(dateTime, "instanceNamed");
     }
@@ -320,7 +320,7 @@ public class DateScrubberTests
     public Task NamedDateTimeOffsetTopLevelInstance()
     {
         var settings = new VerifySettings();
-        var dateTimeOffset = new DateTimeOffset(new(1935, 10, 1));
+        var dateTimeOffset = new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero);
         settings.AddNamedDateTimeOffset(dateTimeOffset, "instanceNamed");
         return Verify(dateTimeOffset, settings);
     }
@@ -344,12 +344,12 @@ public class DateScrubberTests
     [Fact]
     public Task NamedDateTimeOffsetTopLevelFluent()
     {
-        var dateTimeOffset = new DateTimeOffset(new(1935, 10, 1));
+        var dateTimeOffset = new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero);
         return Verify(dateTimeOffset)
             .AddNamedDateTimeOffset(dateTimeOffset, "instanceNamed");
     }
 
     [Fact]
     public Task NamedDateTimeOffsetTopLevelGlobal() =>
-        Verify(new DateTimeOffset(new(1998, 10, 1)));
+        Verify(new DateTimeOffset(2020, 10, 1, 10, 15, 30, TimeSpan.Zero));
 }

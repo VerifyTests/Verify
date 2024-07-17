@@ -125,7 +125,6 @@ public static partial class Verifier
         }
 
         return parent;
-        //ParameterizedMethodSuite
     }
 
     static Test GetTest(TestAdapter adapter)

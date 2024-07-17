@@ -32,49 +32,21 @@ public static partial class Verifier
         }
 
         var method = testMethod.MethodInfo;
-        var parameterNames = method.ParameterNames();
         var type = testMethod.TypeInfo.Type;
 
-        if (!settings.HasParameters)
+        List<string>? parameterNames;
+        if (settings.HasParameters)
         {
-            var test = GetTest(adapter);
-            var parent = test.Parent;
-            if (parent != null)
-            {
-                var argumentsLength = parent.Arguments.Length;
-                if (argumentsLength > 0)
-                {
-                    var constructor = GetConstructorByParameterCount(type, argumentsLength);
-                    var names = constructor
-                        .GetParameters()
-                        .Select(_ => _.Name!);
-                    if (parameterNames == null)
-                    {
-                        parameterNames = names.ToList();
-                    }
-                    else
-                    {
-                        parameterNames.InsertRange(0, names);
-                    }
-                }
-            }
-
-            if (adapter.Arguments.Length > 0)
-            {
-                settings.SetParameters(adapter.Arguments);
-            }
+            parameterNames = GetParameterNames(adapter);
         }
-
-        var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");
-        if (customName)
+        else
         {
-            settings.typeName ??= adapter.GetTypeName();
-
-            settings.methodName ??= adapter.GetMethodName();
+            var (names, values) = GetParameterInfo(adapter);
+            settings.SetParameters(values);
+            parameterNames = names;
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
-
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
@@ -86,64 +58,92 @@ public static partial class Verifier
             pathInfo);
     }
 
-    static ConstructorInfo GetConstructorByParameterCount(Type type, int argumentsLength)
+    static (List<string>? names, object?[] values) GetParameterInfo(TestContext.TestAdapter adapter)
     {
-        var constructors = type
-            .GetConstructors(BindingFlags.Instance | BindingFlags.Public)
-            .Where(_ => _.GetParameters()
-                .Length == argumentsLength)
-            .ToList();
+        var method = adapter.Method!;
 
-        if (constructors.Count == 0)
+        var methodParameterNames = method.MethodInfo.ParameterNames();
+
+        var parent = GetParent(adapter);
+
+        if (parent == null)
         {
-            throw new($"Could not find constructor with {argumentsLength} parameters.");
+            return (methodParameterNames, adapter.Arguments);
         }
 
-        if (constructors.Count > 1)
+        var argumentsLength = parent.Arguments.Length;
+        if (argumentsLength == 0)
         {
-            throw new($"Found multiple constructor with {argumentsLength} parameters. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
+            return (methodParameterNames, adapter.Arguments);
         }
 
-        return constructors[0];
+        var names = GetConstructorParameterNames(method.TypeInfo.Type, argumentsLength);
+        if (methodParameterNames == null)
+        {
+            return (names.ToList(), adapter.Arguments);
+        }
+
+        return (
+            [.. names, .. methodParameterNames],
+            [.. parent.Arguments, .. adapter.Arguments]);
     }
 
-    static Test GetTest(TestContext.TestAdapter adapter)
+    static List<string>? GetParameterNames(TestContext.TestAdapter adapter)
+    {
+        var method = adapter.Method!;
+
+        var methodParameterNames = method.MethodInfo.ParameterNames();
+
+        var parent = GetParent(adapter);
+
+        if (parent == null)
+        {
+            return methodParameterNames;
+        }
+
+        var names = GetConstructorParameterNames(method.TypeInfo.Type, parent.Arguments.Length);
+        if (methodParameterNames == null)
+        {
+            return names.ToList();
+        }
+
+        return [.. names, .. methodParameterNames];
+    }
+
+    static ITest? GetParent(TestContext.TestAdapter adapter)
     {
         var field = adapter
             .GetType()
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        return (Test) field.GetValue(adapter)!;
+        var test = (Test) field.GetValue(adapter)!;
+        return test.Parent;
     }
 
-    static string GetMethodName(this TestContext.TestAdapter adapter)
+    static IEnumerable<string> GetConstructorParameterNames(Type type, int argumentsLength)
     {
-        var name = adapter.Name;
-        var indexOf = name.IndexOf('(');
-
-        if (indexOf != -1)
+        IEnumerable<string>? names = null;
+        foreach (var constructor in type.GetConstructors(BindingFlags.Instance | BindingFlags.Public))
         {
-            name = name[..indexOf];
+            var parameters = constructor.GetParameters();
+            if (parameters.Length != argumentsLength)
+            {
+                continue;
+            }
+
+            if (names != null)
+            {
+                throw new($"Found multiple constructors with {argumentsLength} parameters. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
+            }
+
+            names = parameters.Select(_ => _.Name!);
         }
 
-        return name.ReplaceInvalidFileNameChars();
-    }
-
-    static string GetTypeName(this TestContext.TestAdapter adapter)
-    {
-        var fullName = adapter.FullName.AsSpan();
-        var fullNameLength = fullName.Length - (adapter.Name.Length + 1);
-        var typeName = fullName[..fullNameLength];
-        var typeInfo = adapter.Method!.TypeInfo;
-        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (typeInfo.Namespace is not null)
+        if (names == null)
         {
-            typeName = typeName[(typeInfo.Namespace.Length + 1)..];
+            throw new($"Could not find constructor with {argumentsLength} parameters.");
         }
 
-        return typeName
-            .ToString()
-            .Replace("\"", "")
-            .ReplaceInvalidFileNameChars();
+        return names;
     }
 
     static SettingsTask Verify(

@@ -14,6 +14,7 @@ public partial class VerifySettings
             return "txt";
         }
     }
+
     public VerifySettings(VerifySettings? settings)
     {
         if (settings is null)
@@ -43,6 +44,13 @@ public partial class VerifySettings
         UniquePrefixDisabled = settings.UniquePrefixDisabled;
         UseUniqueDirectorySplitMode = settings.UseUniqueDirectorySplitMode;
         Namer = new(settings.Namer);
+#if NET6_0_OR_GREATER
+        namedDates = new(settings.namedDates);
+        namedTimes = new(settings.namedTimes);
+#endif
+        namedGuids = new(settings.namedGuids);
+        namedDateTimes = new(settings.namedDateTimes);
+        namedDateTimeOffsets = new(settings.namedDateTimeOffsets);
         foreach (var append in settings.Appends)
         {
             if (append.Data is ICloneable cloneable)

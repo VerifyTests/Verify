@@ -48,17 +48,12 @@ public static partial class Verifier
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
-        if (adapter.Name != method.Name)
-        {
-            settings.methodName ??= adapter.Name;
-        }
-
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
             settings,
             type.NameWithParent(),
-            adapter.Name,
+            method.Name,
             parameterNames,
             pathInfo);
     }

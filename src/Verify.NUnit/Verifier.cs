@@ -46,22 +46,19 @@ public static partial class Verifier
             parameterNames = names;
         }
 
-        var customName = !adapter.FullName.StartsWith($"{testMethod.TypeInfo.FullName}.{testMethod.Name}");
-        if (customName)
-        {
-            settings.typeName ??= adapter.GetTypeName();
-
-            settings.methodName ??= adapter.GetMethodName();
-        }
-
         VerifierSettings.AssignTargetAssembly(type.Assembly);
+
+        if (adapter.Name != method.Name)
+        {
+            settings.methodName ??= adapter.Name;
+        }
 
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
             settings,
             type.NameWithParent(),
-            method.Name,
+            adapter.Name,
             parameterNames,
             pathInfo);
     }
@@ -166,34 +163,6 @@ public static partial class Verifier
         return names;
     }
 
-    static string GetMethodName(this TestAdapter adapter)
-    {
-        var name = adapter.Name;
-        var indexOf = name.IndexOf('(');
-
-        if (indexOf != -1)
-        {
-            name = name[..indexOf];
-        }
-
-        return name.ReplaceInvalidFileNameChars();
-    }
-
-    static string GetTypeName(this TestAdapter adapter)
-    {
-        var fullName = adapter.FullName.AsSpan();
-        var fullNameLength = fullName.Length - (adapter.Name.Length + 1);
-        var typeName = fullName[..fullNameLength];
-        var typeInfo = adapter.Method!.TypeInfo;
-        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-        if (typeInfo.Namespace is not null)
-        {
-            typeName = typeName[(typeInfo.Namespace.Length + 1)..];
-        }
-
-        return typeName.ToString().Replace("\"", "")
-            .ReplaceInvalidFileNameChars();
-    }
     static SettingsTask Verify(
         VerifySettings? settings,
         string sourceFile,

@@ -43,7 +43,7 @@ snippet: NUnitTestCase
 
 ### TestFixtureSourceUsage
 
-When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the the name provided by NUnit will be as the `TestMethodName`.
+When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-tests/attributes/testfixturesource.html) the name provided by NUnit will be as the `TestMethodName`.
 
 snippet: TestFixtureSourceUsage.cs
 

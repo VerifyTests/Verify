@@ -80,7 +80,7 @@ public static partial class Verifier
         var names = GetConstructorParameterNames(method.TypeInfo.Type, argumentsLength);
         if (methodParameterNames == null)
         {
-            return (names.ToList(), adapter.Arguments);
+            return (names.ToList(), parent.Arguments);
         }
 
         return (
@@ -117,6 +117,7 @@ public static partial class Verifier
             .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
         var test = (Test) field.GetValue(adapter)!;
         return test.Parent;
+        //ParameterizedMethodSuite
     }
 
     static IEnumerable<string> GetConstructorParameterNames(Type type, int argumentsLength)

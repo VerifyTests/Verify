@@ -76,7 +76,7 @@ static class Extensions
     public static List<T> Clone<T>(this List<T> original) =>
         [..original];
 
-    public static List<string>? ParameterNames(this MethodInfo method)
+    public static IReadOnlyList<string>? ParameterNames(this MethodInfo method)
     {
         var parameters = method.GetParameters();
         if (parameters.Length == 0)

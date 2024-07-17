@@ -34,7 +34,7 @@ public static partial class Verifier
         var method = testMethod.MethodInfo;
         var type = testMethod.TypeInfo.Type;
 
-        List<string>? parameterNames;
+        IReadOnlyList<string>? parameterNames;
         if (settings.HasParameters)
         {
             parameterNames = GetParameterNames(adapter);
@@ -63,7 +63,7 @@ public static partial class Verifier
             pathInfo);
     }
 
-    static (List<string>? names, object?[] values) GetParameterInfo(TestAdapter adapter)
+    static (IReadOnlyList<string>? names, object?[] values) GetParameterInfo(TestAdapter adapter)
     {
         var method = adapter.Method!;
 
@@ -93,7 +93,7 @@ public static partial class Verifier
             [.. parent.Arguments, .. adapter.Arguments]);
     }
 
-    static List<string>? GetParameterNames(TestAdapter adapter)
+    static IReadOnlyList<string>? GetParameterNames(TestAdapter adapter)
     {
         var method = adapter.Method!;
 

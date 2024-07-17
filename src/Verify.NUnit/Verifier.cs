@@ -58,7 +58,7 @@ public static partial class Verifier
             pathInfo);
     }
 
-    static (List<string>? names, object?[] values) GetParameterInfo(TestContext.TestAdapter adapter)
+    static (List<string>? names, object?[] values) GetParameterInfo(TestAdapter adapter)
     {
         var method = adapter.Method!;
 
@@ -88,7 +88,7 @@ public static partial class Verifier
             [.. parent.Arguments, .. adapter.Arguments]);
     }
 
-    static List<string>? GetParameterNames(TestContext.TestAdapter adapter)
+    static List<string>? GetParameterNames(TestAdapter adapter)
     {
         var method = adapter.Method!;
 
@@ -110,7 +110,7 @@ public static partial class Verifier
         return [.. names, .. methodParameterNames];
     }
 
-    static ITest? GetParent(TestContext.TestAdapter adapter)
+    static ITest? GetParent(TestAdapter adapter)
     {
         var field = adapter
             .GetType()

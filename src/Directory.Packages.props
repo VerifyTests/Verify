@@ -7,7 +7,7 @@
     <PackageVersion Include="Argon" Version="0.17.0" />
     <PackageVersion Include="Argon.FSharp" Version="0.17.0" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
-    <PackageVersion Include="DiffEngine" Version="15.4.6" />
+    <PackageVersion Include="DiffEngine" Version="15.5.0" />
     <PackageVersion Include="Expecto" Version="10.2.1" />
     <PackageVersion Include="Fixie" Version="3.4.0" />
     <PackageVersion Include="Fixie.TestAdapter" Version="3.4.0" />
@@ -22,7 +22,7 @@
     <PackageVersion Include="MSTest" Version="3.5.0" />
     <PackageVersion Include="MSTest.TestFramework" Version="3.5.0" />
     <PackageVersion Include="NUnit" Version="4.1.0" />
-    <PackageVersion Include="Polyfill" Version="5.6.0" />
+    <PackageVersion Include="Polyfill" Version="6.0.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.131" />
     <PackageVersion Include="PublicApiGenerator" Version="11.1.0" />
     <PackageVersion Include="SimpleInfoName" Version="2.3.0" />

@@ -13,7 +13,6 @@ public class Tests
                 methodName: method.Name));
     #endregion
 
-
     [TestCase("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)
@@ -26,13 +25,11 @@ public class Tests
 
     [TestCase("Value1", TestName = "CustomName")]
     public Task TestCaseWithName(string arg) =>
-        Verify(arg)
-            .UseTextForParameters("TextForParameter");
+        Verify(arg);
 
     [TestCase("Value1", TestName = "Custom>Name")]
     public Task TestCaseWithNameAndInvalidChars(string arg) =>
-        Verify(arg)
-            .UseTextForParameters("TextForParameter");
+        Verify(arg);
 
     [Test]
     public Task StringTarget() =>

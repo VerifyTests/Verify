@@ -788,7 +788,7 @@ When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks
 One problem with Verify is there is currently no way to track or clean up orphaned verified files.
 
 
-### Scenario:
+### Scenario
 
 Given the following test
 

@@ -280,3 +280,51 @@ eg. add the following to `.gitignore`
 ## Received and multi-targetting
 
 When a test project uses more than one `TargetFrameworks` (eg `<TargetFrameworks>net48;net7.0</TargetFrameworks>`) the runtime and version will be always be added as a uniqueness to the received file. This prevents file locking contenction when the tests from both target framework run in parallel.
+
+
+## Orphaned verified files
+
+One problem with Verify is there is currently no way to track or clean up orphaned verified files.
+
+
+### Scenario
+
+Given the following test
+
+```
+[TestFixture]
+public class MyFixture
+{
+    [Test]
+    public Task MyTest1() => Verify("Value");
+}
+```
+
+The resulting verified file will be `MyFixture.MyTest1.verified.txt`
+
+Now the test is changed to
+
+```
+[TestFixture]
+public class MyFixture
+{
+    [Test]
+    public Task Test1() => Verify("Value");
+}
+```
+
+The new resulting verified file will be `MyFixture.Test1.verified.txt`.
+
+The old file, `MyFixture.MyTest1.verified.txt`, will be now orphaned and never be cleaned up.
+
+
+### Mitigation
+
+For small renames, with resulting small number of orphaned files, the recommended approach is to manually rename the verified files. Or alternatively:
+
+ * Delete the orphaned `*.verified.*` files.
+ * Run the test(s)
+ * Accept all changes using one of the [Snapshot management](https://github.com/VerifyTests/Verify?tab=readme-ov-file#snapshot-management) approaches.
+
+In some scenarios it may be necessary to clean up many orphaned files. For example from a rename of test fixture with many tests, or a test with many parameter permutations. In this case the delete can be performed by [DiffEngine Tray - Purge verified files
+](https://github.com/VerifyTests/DiffEngine/blob/main/docs/tray.md#purge-verified-files) feature.

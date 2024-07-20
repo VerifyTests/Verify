@@ -121,7 +121,10 @@ public class TestFixtureSourceUsage(string arg1, int arg2)
 <sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+Produces:
+
+ * `TestFixtureSourceUsage.Test_arg1=Value1_arg2=1.verified.txt`
+ * `TestFixtureSourceUsage.Test_arg1=Value2_arg2=2.verified.txt`
 
 
 ## xUnit

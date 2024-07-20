@@ -60,7 +60,7 @@ Text variants of verified and received have the following characteristics:<!-- i
 This manifests in several ways:
 
 
-**Source control settings**
+#### Source control settings
 
 All text extensions of `*.verified.*` should have:
 
@@ -75,7 +75,7 @@ eg add the following to `.gitattributes`
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 ```
 
-**EditorConfig settings**
+#### EditorConfig settings
 
 If modifying text verified/received files in an editor, it is desirable for the editor to respect the above conventions. For [EditorConfig](https://editorconfig.org/) enabled the following can be used:
 

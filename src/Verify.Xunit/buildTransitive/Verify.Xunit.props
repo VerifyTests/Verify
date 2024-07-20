@@ -21,6 +21,7 @@
       <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
       <Compile Remove="$(AttributesFilePath)" />
     </ItemGroup>
+    <!-- 
     <WriteCodeFragment AssemblyAttributes="@(Attributes)"
                        Language="$(Language)"
                        OutputFile="$(AttributesFilePath)">
@@ -28,5 +29,6 @@
       <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="$(Language) == 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />
     </WriteCodeFragment>
+    -->
   </Target>
 </Project>

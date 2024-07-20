@@ -30,7 +30,7 @@ Add any other context about the problem here.
 
 #### Minimal Repro
 
-Ensure you have replicated the bug in a minimal solution with the fewest moving parts. Often this will help point to the true cause of the problem. Upload this repro as part of the issue, preferably a public GitHub repository or a downloadable zip. The repro will allow the maintainers of this project to smoke test the any fix.
+Ensure you have replicated the bug in a minimal solution with the fewest moving parts. Often this will help point to the true cause of the problem. Upload this repro as part of the issue, as a public GitHub repository or a downloadable zip. The repro will allow the maintainers of this project to smoke test the any fix.
 
 
 #### Submit a PR that fixes the bug

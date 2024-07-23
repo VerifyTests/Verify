@@ -3,37 +3,37 @@
   <PropertyGroup>
     <Deterministic>false</Deterministic>
     <DeterministicSourcePaths>false</DeterministicSourcePaths>
-    <AttributesFile>Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</AttributesFile>
+    <VerifyAttributesFile>Verify.Attributes$(MSBuildProjectExtension.Replace('proj', ''))</VerifyAttributesFile>
     <NoWarn>$(NoWarn);CA2255</NoWarn>
   </PropertyGroup>
   <Target Name="WriteVerifyAttributes"
           Condition="$(Language) == 'VB' or $(Language) == 'C#' or $(Language) == 'F#'"
           BeforeTargets="BeforeCompile;CoreCompile"
           Inputs="$(MSBuildAllProjects)"
-          Outputs="$(IntermediateOutputPath)$(AttributesFile)">
+          Outputs="$(IntermediateOutputPath)$(VerifyAttributesFile)">
     <PropertyGroup>
-      <AttributesFilePath>$(IntermediateOutputPath)$(AttributesFile)</AttributesFilePath>
+      <VerifyAttributesFilePath>$(IntermediateOutputPath)$(VerifyAttributesFile)</VerifyAttributesFilePath>
     </PropertyGroup>
     <ItemGroup>
-      <Attributes Include="System.Reflection.AssemblyMetadata">
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.TargetFrameworks</_Parameter1>
         <_Parameter2>$(TargetFrameworks)</_Parameter2>
-      </Attributes>
-      <Attributes Include="System.Reflection.AssemblyMetadata">
+      </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>Verify.ProjectDirectory</_Parameter1>
         <_Parameter2>$(ProjectDir)</_Parameter2>
-      </Attributes>
-      <Attributes Include="System.Reflection.AssemblyMetadata"
+      </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata"
                   Condition="'$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*'">
         <_Parameter1>Verify.SolutionDirectory</_Parameter1>
         <_Parameter2>$(SolutionDir)</_Parameter2>
-      </Attributes>
+      </VerifyAttributes>
       <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
-      <Compile Remove="$(AttributesFilePath)" />
+      <Compile Remove="$(VerifyAttributesFilePath)" />
     </ItemGroup>
-    <WriteCodeFragment AssemblyAttributes="@(Attributes)"
+    <WriteCodeFragment AssemblyAttributes="@(VerifyAttributes)"
                        Language="$(Language)"
-                       OutputFile="$(AttributesFilePath)">
+                       OutputFile="$(VerifyAttributesFilePath)">
       <Output TaskParameter="OutputFile" ItemName="Compile" Condition="$(Language) != 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="$(Language) == 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />

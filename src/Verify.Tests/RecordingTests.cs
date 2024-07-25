@@ -70,6 +70,15 @@
 
     #endregion
 
+    [Fact]
+    public void NameExists()
+    {
+        Recording.Start();
+        Assert.False(Recording.NameExists("name"));
+        Recording.Add("name", "value");
+        Assert.True(Recording.NameExists("name"));
+    }
+
     #region RecordingScoped
 
     [Fact]
@@ -158,11 +167,18 @@
     #endregion
 
     [Fact]
-    public Task StopIdentifier()
+    public void StartIdentifierThatDoesntFinish()
     {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value");
-        return Verify(Recording.Stop("identifier"));
+        Recording.Start("identifierOverlap");
+        Recording.Add("identifierOverlap", "name", "value");
+    }
+
+    [Fact]
+    public Task StopIdentifierOverlap()
+    {
+        Recording.Start("identifierOverlap");
+        Recording.Add("identifierOverlap", "name", "value");
+        return Verify(Recording.Stop("identifierOverlap"));
     }
 
     [Fact]

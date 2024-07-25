@@ -8,9 +8,10 @@ public static partial class VerifierSettings
         T target,
         VerifySettings settings,
         [NotNullWhen(true)] out TypeConverter? converter)
+        where T : notnull
     {
         foreach (var typedConverter in typedConverters
-                     .Where(_ => _.CanConvert(target!, settings.Context)))
+                     .Where(_ => _.CanConvert(target, settings.Context)))
         {
             converter = typedConverter;
             return true;

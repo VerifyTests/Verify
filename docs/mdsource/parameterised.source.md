@@ -47,7 +47,10 @@ When using a [TestFixtureSource](https://docs.nunit.org/articles/nunit/writing-t
 
 snippet: TestFixtureSourceUsage.cs
 
-Produces `TestFixtureSourceUsage(Value1,1).Test.verified.txt` and `TestFixtureSourceUsage(Value2,2).Test.verified.txt`.
+Produces:
+
+ * `TestFixtureSourceUsage.Test_arg1=Value1_arg2=1.verified.txt`
+ * `TestFixtureSourceUsage.Test_arg1=Value2_arg2=2.verified.txt`
 
 
 ## xUnit

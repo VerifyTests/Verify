@@ -14,16 +14,16 @@
           Inputs="$(MSBuildAllProjects)"
           Outputs="$(IntermediateOutputPath)$(VerifyXunitAttributesFile)">
     <PropertyGroup>
-      <AttributesFilePath>$(IntermediateOutputPath)$(VerifyXunitAttributesFile)</AttributesFilePath>
+      <VerifyXunitAttributesFilePath>$(IntermediateOutputPath)$(VerifyXunitAttributesFile)</VerifyXunitAttributesFilePath>
     </PropertyGroup>
     <ItemGroup>
-      <Attributes Include="VerifyXunit.UseVerifyAttribute" />
+      <VerifyXunitAttributes Include="VerifyXunit.UseVerifyAttribute" />
       <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
-      <Compile Remove="$(AttributesFilePath)" />
+      <Compile Remove="$(VerifyXunitAttributesFilePath)" />
     </ItemGroup>
-    <WriteCodeFragment AssemblyAttributes="@(Attributes)"
+    <WriteCodeFragment AssemblyAttributes="@(VerifyXunitAttributes)"
                        Language="$(Language)"
-                       OutputFile="$(AttributesFilePath)">
+                       OutputFile="$(VerifyXunitAttributesFilePath)">
       <Output TaskParameter="OutputFile" ItemName="Compile" Condition="$(Language) != 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="CompileBefore" Condition="$(Language) == 'F#'" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />

@@ -16,6 +16,10 @@ public static partial class Recording
         CurrentState()
             .Add(name, item);
 
+    public static bool NameExists(string name) =>
+        CurrentState()
+            .Items.Any(_ => _.Name == name);
+
     public static void TryAdd(string name, object item)
     {
         var value = asyncLocal.Value;

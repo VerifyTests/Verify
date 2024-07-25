@@ -117,7 +117,7 @@ public Task SameKey()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L289-L300' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingSameKey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L296-L307' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingSameKey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -186,7 +186,7 @@ public Task Case()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L311-L322' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingIgnoreCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L318-L329' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingIgnoreCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -305,7 +305,7 @@ public Task Clear()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L209-L221' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingClear' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L216-L228' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingClear' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -341,7 +341,7 @@ public Task PauseResume()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L233-L248' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingPauseResume' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L240-L255' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingPauseResume' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

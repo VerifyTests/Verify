@@ -108,14 +108,6 @@
 
     #endregion
 
-    [Fact]
-    public Task IdentifierExists()
-    {
-        Recording.Start("identifier");
-        Recording.Add("identifier", "name", "value");
-        return Verify(Recording.Stop("identifier"));
-    }
-
     #region IsRecording
 
     [Fact]

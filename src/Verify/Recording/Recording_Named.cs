@@ -2,7 +2,7 @@
 
 public static partial class Recording
 {
-    static ConcurrentDictionary<string, State> namedState = new(StringComparer.OrdinalIgnoreCase);
+    static AsyncLocal<ConcurrentDictionary<string, State>?> asyncLocalNamed = new();
 
     public static void Add(string identifier, string name, object item) =>
         CurrentStateNamed(identifier)
@@ -10,15 +10,25 @@ public static partial class Recording
 
     public static void TryAdd(string identifier, string name, object item)
     {
-        if (namedState.TryGetValue(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states != null)
         {
-            state.Add(name, item);
+            if (states.TryGetValue(identifier, out var state))
+            {
+                state.Add(name, item);
+            }
         }
     }
 
     public static bool IsRecording(string identifier)
     {
-        if (!namedState.TryGetValue(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states == null)
+        {
+            return false;
+        }
+
+        if (!states.TryGetValue(identifier, out var state))
         {
             return false;
         }
@@ -40,10 +50,14 @@ public static partial class Recording
         string identifier,
         [NotNullWhen(true)] out IReadOnlyCollection<ToAppend>? recorded)
     {
-        if (namedState.TryRemove(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states != null)
         {
-            recorded = state.Items;
-            return true;
+            if (states.TryRemove(identifier, out var state))
+            {
+                recorded = state.Items;
+                return true;
+            }
         }
 
         recorded = null;
@@ -52,7 +66,9 @@ public static partial class Recording
 
     static State CurrentStateNamed(string identifier, [CallerMemberName] string caller = "")
     {
-        if (namedState.TryGetValue(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states != null &&
+            states.TryGetValue(identifier, out var state))
         {
             return state;
         }
@@ -62,7 +78,9 @@ public static partial class Recording
 
     public static IDisposable Start(string identifier)
     {
-        if (!namedState.TryAdd(identifier, new()))
+        var states = asyncLocalNamed.Value ??= new(StringComparer.OrdinalIgnoreCase);
+
+        if (!states.TryAdd(identifier, new()))
         {
             throw new("Recording already started");
         }
@@ -83,7 +101,13 @@ public static partial class Recording
 
     public static void TryPause(string identifier)
     {
-        if (namedState.TryGetValue(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states == null)
+        {
+            return;
+        }
+
+        if (states.TryGetValue(identifier, out var state))
         {
             state.Pause();
         }
@@ -95,7 +119,13 @@ public static partial class Recording
 
     public static void TryResume(string identifier)
     {
-        if (namedState.TryGetValue(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states == null)
+        {
+            return;
+        }
+
+        if (states.TryGetValue(identifier, out var state))
         {
             state.Resume();
         }
@@ -107,7 +137,13 @@ public static partial class Recording
 
     public static void TryClear(string identifier)
     {
-        if (namedState.TryGetValue(identifier, out var state))
+        var states = asyncLocalNamed.Value;
+        if (states == null)
+        {
+            return;
+        }
+
+        if (states.TryGetValue(identifier, out var state))
         {
             state.Clear();
         }

@@ -51,6 +51,8 @@ To avoid grouping use [Stop](#stop).
 
 Recording can be grouped by an identifier.
 
+The identifier should be statically unique. For example a fully qualified test name or a GUID.
+
 snippet: RecordingIdentifier
 
 Results in:

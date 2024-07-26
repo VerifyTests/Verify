@@ -117,7 +117,7 @@ public Task SameKey()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L288-L299' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingSameKey' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L281-L292' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingSameKey' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -142,6 +142,8 @@ To avoid grouping use [Stop](#stop).
 ## Identifier
 
 Recording can be grouped by an identifier.
+
+The identifier should be statically unique. For example a fully qualified test name or a GUID.
 
 <!-- snippet: RecordingIdentifier -->
 <a id='snippet-RecordingIdentifier'></a>
@@ -186,7 +188,7 @@ public Task Case()
     return Verify("TheValue");
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L310-L321' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingIgnoreCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L303-L314' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingIgnoreCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -305,7 +307,7 @@ public Task Clear()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L208-L220' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingClear' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L201-L213' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingClear' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:
@@ -341,7 +343,7 @@ public Task PauseResume()
     return Verify();
 }
 ```
-<sup><a href='/src/Verify.Tests/RecordingTests.cs#L232-L247' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingPauseResume' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/RecordingTests.cs#L225-L240' title='Snippet source file'>snippet source</a> | <a href='#snippet-RecordingPauseResume' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Results in:

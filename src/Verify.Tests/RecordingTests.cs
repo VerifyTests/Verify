@@ -167,18 +167,11 @@
     #endregion
 
     [Fact]
-    public void StartIdentifierThatDoesntFinish()
+    public Task StopIdentifier()
     {
-        Recording.Start("identifierOverlap");
-        Recording.Add("identifierOverlap", "name", "value");
-    }
-
-    [Fact]
-    public Task StopIdentifierOverlap()
-    {
-        Recording.Start("identifierOverlap");
-        Recording.Add("identifierOverlap", "name", "value");
-        return Verify(Recording.Stop("identifierOverlap"));
+        Recording.Start("identifier");
+        Recording.Add("identifier", "name", "value");
+        return Verify(Recording.Stop("identifier"));
     }
 
     [Fact]

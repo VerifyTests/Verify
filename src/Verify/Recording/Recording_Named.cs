@@ -2,6 +2,8 @@
 
 public static partial class Recording
 {
+    // The identifier should be statically unique. For example a fully qualified test name or a GUID.
+    // so it is ok for this to be shared state
     static ConcurrentDictionary<string, State> namedState = new(StringComparer.OrdinalIgnoreCase);
 
     public static void Add(string identifier, string name, object item) =>

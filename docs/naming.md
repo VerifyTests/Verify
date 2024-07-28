@@ -638,7 +638,7 @@ Verifier.DerivePathInfo(
         typeName: type,
         methodName: method));
 ```
-<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L8-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoExpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L7-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoExpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -24,11 +24,7 @@ public class ExceptionParsingTests
 
     [Fact]
     public Task Empty() =>
-        ParseVerify(
-            Array.Empty<NewResult>(),
-            Array.Empty<NotEqualResult>(),
-            Array.Empty<string>(),
-            Array.Empty<FilePair>());
+        ParseVerify([], [], [], []);
 
     [Fact]
     public Task WithMessage()
@@ -39,11 +35,7 @@ public class ExceptionParsingTests
             new(new("bin", receivedBin, verifiedBin), "TheMessage", null, null)
         };
 
-        return ParseVerify(
-            Array.Empty<NewResult>(),
-            notEquals,
-            Array.Empty<string>(),
-            Array.Empty<FilePair>());
+        return ParseVerify([], notEquals, [], []);
     }
 
     [Fact]
@@ -54,11 +46,7 @@ public class ExceptionParsingTests
             new("txt", receivedTxt, verifiedTxt)
         };
 
-        return ParseVerify(
-            Array.Empty<NewResult>(),
-            Array.Empty<NotEqualResult>(),
-            Array.Empty<string>(),
-            equal);
+        return ParseVerify([], [], [], equal);
     }
 
     [Fact]
@@ -69,11 +57,7 @@ public class ExceptionParsingTests
             new(new("txt", receivedTxt, verifiedTxt), new("contents"))
         };
 
-        return ParseVerify(
-            @new,
-            Array.Empty<NotEqualResult>(),
-            Array.Empty<string>(),
-            Array.Empty<FilePair>());
+        return ParseVerify(@new, [], [], []);
     }
 
     [Fact]
@@ -151,11 +135,7 @@ public class ExceptionParsingTests
             new(new("txt", receivedTxt, verifiedTxt), null, new("receivedText"), new("verifiedText"))
         };
 
-        return ParseVerify(
-            Array.Empty<NewResult>(),
-            notEquals,
-            Array.Empty<string>(),
-            Array.Empty<FilePair>());
+        return ParseVerify([], notEquals, [], []);
     }
 
     [Fact]
@@ -215,11 +195,7 @@ public class ExceptionParsingTests
         {
             fakeReceivedTextFile
         };
-        return ParseVerify(
-            Array.Empty<NewResult>(),
-            Array.Empty<NotEqualResult>(),
-            delete,
-            Array.Empty<FilePair>());
+        return ParseVerify([], [], delete, []);
     }
 
     static Task ParseVerify(

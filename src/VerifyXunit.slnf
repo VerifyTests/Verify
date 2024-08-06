@@ -1,0 +1,11 @@
+﻿{
+  "solution": {
+    "path": "Verify.sln",
+    "projects": [
+      "Verify.Xunit.DerivePaths.Tests\\Verify.Xunit.DerivePaths.Tests.csproj",
+      "Verify.Xunit.Tests\\Verify.Xunit.Tests.csproj",
+      "Verify.Xunit\\Verify.Xunit.csproj",
+      "Verify\\Verify.csproj"
+    ]
+  }
+}

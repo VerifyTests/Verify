@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <ProjectReference Include="..\Verify.Xunit\Verify.XunitV3.csproj" />
+    <ProjectReference Include="..\Verify\Verify.csproj" />
+  </ItemGroup>
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
+  <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
+  <Import Project="$(ProjectDir)..\Verify.XunitV3\buildTransitive\Verify.XunitV3.props" />
+</Project>

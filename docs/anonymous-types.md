@@ -69,6 +69,31 @@ public Task Anon()
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/VerifyObjectSamples.cs#L23-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonXunit' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-AnonXunit-1'></a>
+```cs
+[Fact]
+public Task Anon()
+{
+    var person1 = new Person
+    {
+        GivenNames = "John",
+        FamilyName = "Smith"
+    };
+    var person2 = new Person
+    {
+        GivenNames = "Marianne",
+        FamilyName = "Aguirre"
+    };
+
+    return Verify(
+        new
+        {
+            person1,
+            person2
+        });
+}
+```
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyObjectSamples.cs#L23-L47' title='Snippet source file'>snippet source</a> | <a href='#snippet-AnonXunit-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

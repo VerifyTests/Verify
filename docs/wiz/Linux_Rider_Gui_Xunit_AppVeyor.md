@@ -190,6 +190,19 @@ public class Sample
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-SampleTestXunit-1'></a>
+```cs
+public class Sample
+{
+    [Fact]
+    public Task Test()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunit-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Diff Tool

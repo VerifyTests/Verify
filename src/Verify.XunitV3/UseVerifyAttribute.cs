@@ -1,4 +1,6 @@
-﻿namespace VerifyXunit;
+﻿using Xunit.v3;
+
+namespace VerifyXunit;
 
 [AttributeUsage(AttributeTargets.Assembly)]
 public sealed class UseVerifyAttribute :
@@ -6,11 +8,17 @@ public sealed class UseVerifyAttribute :
 {
     static AsyncLocal<MethodInfo?> local = new();
 
-    public override void Before(MethodInfo info) =>
-        local.Value = info;
+    public override ValueTask Before(MethodInfo info, IXunitTest test)
+    {
+         local.Value = info;
+         return default;
+    }
 
-    public override void After(MethodInfo info) =>
+    public override ValueTask After(MethodInfo info, IXunitTest test)
+    {
         local.Value = null;
+        return default;
+    }
 
     internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
     {

@@ -1,23 +1,5 @@
-﻿static class Guard
+﻿static class Guards
 {
-    public static void FileExists(string path, [CallerArgumentExpression("path")] string argumentName = "")
-    {
-        AgainstNullOrEmpty(path, argumentName);
-        if (!File.Exists(path))
-        {
-            throw new ArgumentException($"File not found. Path: {path}", argumentName);
-        }
-    }
-
-    public static void DirectoryExists(string path, [CallerArgumentExpression("path")] string argumentName = "")
-    {
-        AgainstNullOrEmpty(path, argumentName);
-        if (!Directory.Exists(path))
-        {
-            throw new ArgumentException($"Directory not found. Path: {path}", argumentName);
-        }
-    }
-
     static char[] invalidFileChars = Path.GetInvalidFileNameChars();
 
     public static void BadFileNameNullable(string? name, [CallerArgumentExpression("name")] string argumentName = "")
@@ -32,7 +14,7 @@
 
     public static void BadFileName(string name, [CallerArgumentExpression("name")] string argumentName = "")
     {
-        AgainstNullOrEmpty(name, argumentName);
+        Guard.NotNullOrEmpty(name, argumentName);
         foreach (var invalidChar in invalidFileChars)
         {
             if (name.IndexOf(invalidChar) == -1)
@@ -57,7 +39,7 @@
             return;
         }
 
-        AgainstEmpty(name, argumentName);
+        Guard.NotEmpty(name, argumentName);
         foreach (var invalidChar in invalidPathChars)
         {
             if (name.IndexOf(invalidChar) == -1)
@@ -79,14 +61,6 @@
         }
     }
 
-    public static void AgainstNullOrEmpty(string value, [CallerArgumentExpression("value")] string argumentName = "")
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
-
     public static void AgainstBadSourceFile(string sourceFile)
     {
         if (string.IsNullOrWhiteSpace(sourceFile))
@@ -97,48 +71,9 @@
         }
     }
 
-    public static void AgainstEmpty(string? value, [CallerArgumentExpression("value")] string argumentName = "")
-    {
-        if (value is null)
-        {
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
-
-    public static void AgainstNullOrEmpty(object?[] value, [CallerArgumentExpression("value")] string argumentName = "")
-    {
-        if (value is null)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-
-        if (value.Length == 0)
-        {
-            throw new ArgumentNullException(argumentName, "Argument cannot be empty.");
-        }
-    }
-
-    public static void AgainstNullOrEmpty<T>(T[] value, [CallerArgumentExpression("value")] string argumentName = "")
-    {
-        if (value is null)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-
-        if (value.Length == 0)
-        {
-            throw new ArgumentNullException(argumentName, "Argument cannot be empty.");
-        }
-    }
-
     public static void AgainstBadExtension(string value, [CallerArgumentExpression("value")] string argumentName = "")
     {
-        AgainstNullOrEmpty(value, argumentName);
+        Guard.NotNullOrEmpty(value, argumentName);
 
         if (value.StartsWith('.'))
         {

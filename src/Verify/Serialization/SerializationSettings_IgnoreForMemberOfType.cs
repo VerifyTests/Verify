@@ -65,7 +65,7 @@ partial class SerializationSettings
 
     public void IgnoreMembers(Type declaringType, params string[] names)
     {
-        Guard.AgainstNullOrEmpty(names);
+        Guard.NotNullOrEmpty(names);
         foreach (var name in names)
         {
             IgnoreMember(declaringType, name);
@@ -74,7 +74,7 @@ partial class SerializationSettings
 
     public void ScrubMembers(Type declaringType, params string[] names)
     {
-        Guard.AgainstNullOrEmpty(names);
+        Guard.NotNullOrEmpty(names);
         foreach (var name in names)
         {
             ScrubMember(declaringType, name);
@@ -89,8 +89,8 @@ partial class SerializationSettings
 
     void IgnoreMember(Type declaringType, string name, ScrubOrIgnore scrubOrIgnore)
     {
-        Guard.AgainstNullOrEmpty(name);
-        Guard.AgainstNullable(declaringType);
+        Guard.NotNullOrEmpty(name);
+        Guards.AgainstNullable(declaringType);
         if (!ignoredMembers.TryGetValue(declaringType, out var list))
         {
             ignoredMembers[declaringType] = list = [];

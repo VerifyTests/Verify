@@ -2,7 +2,7 @@
 {
     public static void RemoveLinesContaining(this StringBuilder input, StringComparison comparison, params string[] stringToMatch)
     {
-        Guard.AgainstNullOrEmpty(stringToMatch);
+        Guard.NotNullOrEmpty(stringToMatch);
         input.FilterLines(_ =>
         {
             foreach (var toMatch in stringToMatch)

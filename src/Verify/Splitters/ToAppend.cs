@@ -7,7 +7,7 @@ public readonly struct ToAppend
 
     public ToAppend(string name, object data)
     {
-        Guard.AgainstBadExtension(name);
+        Guards.AgainstBadExtension(name);
         Name = name;
         Data = data;
     }

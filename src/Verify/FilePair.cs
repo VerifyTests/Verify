@@ -4,7 +4,7 @@ public readonly struct FilePair
 {
     public FilePair(string extension, string receivedPath, string verifiedPath)
     {
-        Guard.AgainstBadExtension(extension);
+        Guards.AgainstBadExtension(extension);
         Extension = extension;
         ReceivedPath = receivedPath;
         VerifiedPath = verifiedPath;

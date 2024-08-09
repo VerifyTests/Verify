@@ -55,6 +55,23 @@ public Task WithTargets() =>
         ]);
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L39-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsXunit' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-ExplicitTargetsXunit-1'></a>
+```cs
+[Fact]
+public Task WithTargets() =>
+    Verify(
+        new
+        {
+            Property = "Value"
+        },
+        [
+            new(
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
+        ]);
+```
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L39-L55' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsXunit-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

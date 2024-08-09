@@ -1,0 +1,5 @@
+﻿{
+  $type: VerifyObjectSamples.Person,
+  GivenNames: John,
+  FamilyName: Smith
+}

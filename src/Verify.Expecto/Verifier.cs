@@ -40,7 +40,7 @@ public static partial class Verifier
     {
         VerifierSettings.AssignTargetAssembly(assembly);
         settings ??= new();
-        Guard.AgainstBadSourceFile(sourceFile);
+        Guards.AgainstBadSourceFile(sourceFile);
         using var verifier = GetVerifier(settings, sourceFile, name, useUniqueDirectory);
         return await verify(verifier);
     }

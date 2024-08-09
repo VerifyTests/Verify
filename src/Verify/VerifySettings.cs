@@ -94,7 +94,7 @@ public partial class VerifySettings
     /// </summary>
     public void UseTextForParameters(string parametersText)
     {
-        Guard.AgainstBadExtension(parametersText);
+        Guards.AgainstBadExtension(parametersText);
 
         if (parameters is not null)
         {

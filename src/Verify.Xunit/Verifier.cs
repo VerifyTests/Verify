@@ -67,7 +67,7 @@ public static partial class Verifier
         Func<InnerVerifier, Task<VerifyResult>> verify,
         bool useUniqueDirectory = false)
     {
-        Guard.AgainstBadSourceFile(sourceFile);
+        Guards.AgainstBadSourceFile(sourceFile);
         return new(
             settings,
             async settings =>

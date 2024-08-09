@@ -1,4 +1,4 @@
-﻿namespace VerifyTests;
+namespace VerifyTests;
 
 partial class InnerVerifier
 {
@@ -11,6 +11,11 @@ partial class InnerVerifier
 
     public async Task<VerifyResult> Verify(object? target)
     {
+        if (target is null)
+        {
+            return await VerifyInner(target, null, emptyTargets, true);
+        }
+
         if (target is string stringTarget)
         {
             return await VerifyString(stringTarget);
@@ -39,11 +44,6 @@ partial class InnerVerifier
         if (target is byte[] bytes)
         {
             return await VerifyStream(bytes, null);
-        }
-
-        if (target is null)
-        {
-            return await VerifyInner(target, null, emptyTargets, true);
         }
 
         if (target is IEnumerable<Stream>)

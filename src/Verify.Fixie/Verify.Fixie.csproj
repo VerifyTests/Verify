@@ -17,7 +17,7 @@
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="buildTransitive\Verify.Fixie.props" />
     <None Include="buildTransitive\Verify.Fixie.props" Pack="true" PackagePath="build\Verify.Fixie.props" />
 
-    <Compile Include="..\Verify\Guard.cs" />
+    <Compile Include="..\Verify\Guards.cs" />
     <Compile Include="..\Verify\Extensions.cs" />
   </ItemGroup>
 

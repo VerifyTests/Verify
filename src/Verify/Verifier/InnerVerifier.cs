@@ -37,9 +37,9 @@ public partial class InnerVerifier :
         IReadOnlyList<string>? methodParameters,
         PathInfo pathInfo)
     {
-        Guard.AgainstEmpty(sourceFile);
-        Guard.AgainstEmpty(typeName);
-        Guard.AgainstEmpty(methodName);
+        Guard.NotEmpty(sourceFile);
+        Guard.NotEmpty(typeName);
+        Guard.NotEmpty(methodName);
         verifyHasBeenRun = true;
         settings.RunBeforeCallbacks();
         this.settings = settings;
@@ -73,7 +73,7 @@ public partial class InnerVerifier :
     /// <remarks>This constructor is used by 3rd party clients</remarks>
     public InnerVerifier(string sourceFile, VerifySettings settings)
     {
-        Guard.AgainstEmpty(sourceFile);
+        Guard.NotEmpty(sourceFile);
         this.settings = settings;
         verifyHasBeenRun = true;
         directory = ResolveDirectory(sourceFile, settings, new());

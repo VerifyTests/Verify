@@ -1,4 +1,5 @@
-﻿global using System.Buffers;
+﻿global using Polyfills;
+global using System.Buffers;
 global using System.Collections.Frozen;
 global using System.ComponentModel;
 global using System.Diagnostics.Contracts;

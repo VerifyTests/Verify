@@ -13,7 +13,7 @@ public static partial class Verifier
             throw new("TestContext.TestMethod is null");
         }
 
-        var testMethod = (XunitTestMethod) testContextTestMethod;
+        var testMethod = (IXunitTestMethod) testContextTestMethod;
 
         var method = testMethod.Method;
 
@@ -25,15 +25,13 @@ public static partial class Verifier
         var type = method.ReflectedType!;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
-        var methodParameters = method.ParameterNames();
-
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
             settings,
             type.NameWithParent(),
             method.Name,
-            methodParameters,
+            method.ParameterNames(),
             pathInfo);
     }
 

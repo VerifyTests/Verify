@@ -18,15 +18,13 @@ public static partial class Verifier
         var type = method.ReflectedType!;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
-        var methodParameters = method.ParameterNames();
-
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
             settings,
             type.NameWithParent(),
             method.Name,
-            methodParameters,
+            method.ParameterNames(),
             pathInfo);
     }
 

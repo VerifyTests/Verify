@@ -81,7 +81,7 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TraditionalTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TraditionalTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -97,7 +97,7 @@ public Task SnapshotTest()
     return Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-SnapshotTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-SnapshotTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Produces a snapshot file `SnapshotTest.verified.txt`:
@@ -121,4 +121,22 @@ Produces a snapshot file `SnapshotTest.verified.txt`:
 }
 ```
 <sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.SnapshotTest.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareToAssert.SnapshotTest.verified.txt' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-CompareToAssert.SnapshotTest.verified.txt-1'></a>
+```txt
+{
+  GivenNames: John,
+  FamilyName: Smith,
+  Spouse: Jill,
+  Address: {
+    Street: 4 Puddle Lane,
+    Country: USA
+  },
+  Children: [
+    Sam,
+    Mary
+  ],
+  Id: Guid_1
+}
+```
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.SnapshotTest.verified.txt#L1-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareToAssert.SnapshotTest.verified.txt-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

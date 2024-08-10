@@ -20,8 +20,6 @@ public class VerifyObjectSamples
         return Verify(person, settings);
     }
 
-    #region AnonXunit
-
     [Fact]
     public Task Anon()
     {
@@ -43,8 +41,6 @@ public class VerifyObjectSamples
                 person2
             });
     }
-
-    #endregion
 
     class Person
     {

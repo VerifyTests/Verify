@@ -5,14 +5,11 @@ public class Tests
 {
     // ReSharper disable once UnusedMember.Local
     static void DerivePathInfo() =>
-    #region DerivePathInfoXUnit
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
                 typeName: type.Name,
                 methodName: method.Name));
-    #endregion
-
 
     [Theory]
     [InlineData("Value1")]
@@ -36,8 +33,6 @@ public class Tests
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
 
-    #region ExplicitTargetsXunit
-
     [Fact]
     public Task WithTargets() =>
         Verify(
@@ -51,8 +46,6 @@ public class Tests
                     data: "Raw target value",
                     name: "targetName")
             ]);
-
-    #endregion
 
     [ModuleInitializer]
     public static void InitWithTargetsAndConverter() =>
@@ -85,32 +78,22 @@ public class Tests
         Verify(
         [
             new Target(
-                    extension: "txt",
-                    data: "Raw target value",
-                    name: "targetName")
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
         ]);
 
     static string directoryToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
 
-    #region VerifyDirectoryXunit
-
     [Fact]
     public Task WithDirectory() =>
         VerifyDirectory(directoryToVerify);
-
-    #endregion
-
-    #region VerifyDirectoryWithInfo
 
     [Fact]
     public Task VerifyDirectoryWithInfo() =>
         VerifyDirectory(
             directoryToVerify,
             info: "the info");
-
-    #endregion
-
-    #region VerifyDirectoryWithFileScrubber
 
     [Fact]
     public Task VerifyDirectoryWithFileScrubber() =>
@@ -125,11 +108,7 @@ public class Tests
                 }
             });
 
-    #endregion
-
 #if !NET48
-
-    #region VerifyDirectoryFilterXunit
 
     [Fact]
     public Task WithDirectoryFiltered() =>
@@ -142,31 +121,19 @@ public class Tests
                 RecurseSubdirectories = false
             });
 
-    #endregion
-
 #endif
 
     static string zipPath = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region VerifyZipXunit
-
     [Fact]
     public Task WithZip() =>
         VerifyZip(zipPath);
-
-    #endregion
-
-    #region VerifyZipWithInfo
 
     [Fact]
     public Task VerifyZipWithInfo() =>
         VerifyZip(
             zipPath,
             info: "the info");
-
-    #endregion
-
-    #region VerifyZipWithFileScrubber
 
     [Fact]
     public Task VerifyZipWithFileScrubber() =>
@@ -181,15 +148,9 @@ public class Tests
                 }
             });
 
-    #endregion
-
-    #region VerifyZipFilterXunit
-
     [Fact]
     public Task WithZipFiltered() =>
         VerifyZip(
             zipPath,
             include: filePath => filePath.FullName.Contains("Doc"));
-
-    #endregion
 }

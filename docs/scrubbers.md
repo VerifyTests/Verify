@@ -394,7 +394,7 @@ public class ScrubbersSample
             .ScrubEmptyLines();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubbersSample.cs#L1-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubbersSample.cs#L1-L129' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubbersSampleXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -743,7 +743,7 @@ public class ScrubberLevelsSample
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubberLevelsSampleXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Scrubbers/ScrubberLevelsSample.cs#L1-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubberLevelsSampleXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

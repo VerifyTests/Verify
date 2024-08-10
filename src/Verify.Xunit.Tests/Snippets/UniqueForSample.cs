@@ -1,6 +1,4 @@
-﻿#region UniqueForSampleXunit
-
-public class UniqueForSample
+﻿public class UniqueForSample
 {
     [Fact]
     public Task Runtime()
@@ -62,5 +60,3 @@ public class UniqueForSample
         Verify("value")
             .UniqueForOSPlatform();
 }
-
-#endregion

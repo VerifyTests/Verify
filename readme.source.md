@@ -96,6 +96,13 @@ Support for [xUnit](https://xunit.net/)
 snippet: SampleTestXunit
 
 
+### xUnitV3
+
+Support for [xUnitV3](https://xunit.net/)
+
+snippet: SampleTestXunitV3
+
+
 ### Fixie
 
 Support for [Fixie](http://fixie.github.io/)

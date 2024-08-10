@@ -13,6 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [Xunit](MacOS_Other_Cli_Xunit.md)
+ * [XunitV3](MacOS_Other_Cli_XunitV3.md)
  * [NUnit](MacOS_Other_Cli_NUnit.md)
  * [Fixie](MacOS_Other_Cli_Fixie.md)
  * [MSTest](MacOS_Other_Cli_MSTest.md)

@@ -13,6 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [Xunit](Windows_Other_Gui_Xunit.md)
+ * [XunitV3](Windows_Other_Gui_XunitV3.md)
  * [NUnit](Windows_Other_Gui_NUnit.md)
  * [Fixie](Windows_Other_Gui_Fixie.md)
  * [MSTest](Windows_Other_Gui_MSTest.md)

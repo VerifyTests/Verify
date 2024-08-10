@@ -6,6 +6,7 @@
 
 Options:
  * [Xunit](MacOS_Rider_Cli_Xunit.md)
+ * [XunitV3](MacOS_Rider_Cli_XunitV3.md)
  * [NUnit](MacOS_Rider_Cli_NUnit.md)
  * [Fixie](MacOS_Rider_Cli_Fixie.md)
  * [MSTest](MacOS_Rider_Cli_MSTest.md)

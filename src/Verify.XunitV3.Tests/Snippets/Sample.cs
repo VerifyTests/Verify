@@ -1,4 +1,4 @@
-﻿#region SampleTestXunit
+﻿#region SampleTestXunitV3
 
 public class Sample
 {

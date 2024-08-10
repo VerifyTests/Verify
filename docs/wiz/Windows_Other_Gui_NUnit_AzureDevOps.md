@@ -19,7 +19,7 @@ Add the following packages to the test project:
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
 <PackageReference Include="NUnit" Version="4.1.0" />
-<PackageReference Include="Verify.NUnit" Version="26.1.6" />
+<PackageReference Include="Verify.NUnit" Version="26.2.0" />
 ```
 <sup><a href='/usages/NUnitNugetUsage/NUnitNugetUsage.csproj#L6-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-nunit-nugets' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

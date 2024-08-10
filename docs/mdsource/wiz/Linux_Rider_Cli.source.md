@@ -6,6 +6,7 @@
 
 Options:
  * [Xunit](Linux_Rider_Cli_Xunit.md)
+ * [XunitV3](Linux_Rider_Cli_XunitV3.md)
  * [NUnit](Linux_Rider_Cli_NUnit.md)
  * [Fixie](Linux_Rider_Cli_Fixie.md)
  * [MSTest](Linux_Rider_Cli_MSTest.md)

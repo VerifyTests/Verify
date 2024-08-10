@@ -6,6 +6,7 @@
 
 Options:
  * [Xunit](Windows_VisualStudioWithReSharper_Cli_Xunit.md)
+ * [XunitV3](Windows_VisualStudioWithReSharper_Cli_XunitV3.md)
  * [NUnit](Windows_VisualStudioWithReSharper_Cli_NUnit.md)
  * [Fixie](Windows_VisualStudioWithReSharper_Cli_Fixie.md)
  * [MSTest](Windows_VisualStudioWithReSharper_Cli_MSTest.md)

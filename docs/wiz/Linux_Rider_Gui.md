@@ -13,6 +13,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 Options:
  * [Xunit](Linux_Rider_Gui_Xunit.md)
+ * [XunitV3](Linux_Rider_Gui_XunitV3.md)
  * [NUnit](Linux_Rider_Gui_NUnit.md)
  * [Fixie](Linux_Rider_Gui_Fixie.md)
  * [MSTest](Linux_Rider_Gui_MSTest.md)

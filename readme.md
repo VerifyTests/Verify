@@ -165,6 +165,27 @@ public class Sample
 <!-- endSnippet -->
 
 
+### xUnitV3
+
+Support for [xUnitV3](https://xunit.net/)
+
+<!-- snippet: SampleTestXunitV3 -->
+<a id='snippet-SampleTestXunitV3'></a>
+```cs
+public class Sample
+{
+    [Fact]
+    public Task Test()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestXunitV3' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### Fixie
 
 Support for [Fixie](http://fixie.github.io/)

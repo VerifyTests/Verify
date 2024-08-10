@@ -1,6 +1,4 @@
-﻿#region xunitComplexMemberData
-
-public class ComplexParametersSample
+﻿public class ComplexParametersSample
 {
     [ModuleInitializer]
     public static void Initialize()
@@ -91,5 +89,3 @@ public class ComplexParametersSample
 
     public record ComplexStructData(string Value);
 }
-
-#endregion

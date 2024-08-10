@@ -307,7 +307,7 @@ public class UniqueForSample
             .UniqueForOSPlatform();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/UniqueForSample.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -534,7 +534,7 @@ public class ExtensionSample
             extension: "xml");
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitExtensionSample' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ExtensionSample.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitExtensionSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in:
@@ -593,7 +593,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

@@ -1,6 +1,4 @@
-﻿#region ScrubbersSampleXunit
-
-public class ScrubbersSample
+﻿public class ScrubbersSample
 {
     [Fact]
     public Task Lines()
@@ -125,5 +123,3 @@ public class ScrubbersSample
                """)
             .ScrubEmptyLines();
 }
-
-#endregion

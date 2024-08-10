@@ -1,6 +1,4 @@
-﻿#region ScrubberLevelsSampleXunit
-
-public class ScrubberLevelsSample
+﻿public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;
 
@@ -27,5 +25,3 @@ public class ScrubberLevelsSample
     public static void Initialize() =>
         VerifierSettings.AddScrubber(_ => _.Replace("One", "A"));
 }
-
-#endregion

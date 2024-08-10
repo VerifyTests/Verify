@@ -87,6 +87,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.SourceGenerat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.MSTest.SourceGenerator.Tests", "Verify.MSTest.SourceGenerator.Tests\Verify.MSTest.SourceGenerator.Tests.csproj", "{8CAE91EB-725B-4F4A-AA70-F825395E944A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.XunitV3", "Verify.XunitV3\Verify.XunitV3.csproj", "{287D264D-3E86-4B52-BA94-B30C17904001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.XunitV3.Tests", "Verify.XunitV3.Tests\Verify.XunitV3.Tests.csproj", "{1FC58494-3CB3-432C-B268-40FA4FF02E08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -229,6 +233,14 @@ Global
 		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CAE91EB-725B-4F4A-AA70-F825395E944A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{287D264D-3E86-4B52-BA94-B30C17904001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{287D264D-3E86-4B52-BA94-B30C17904001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{287D264D-3E86-4B52-BA94-B30C17904001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{287D264D-3E86-4B52-BA94-B30C17904001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

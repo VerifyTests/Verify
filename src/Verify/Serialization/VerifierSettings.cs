@@ -143,6 +143,7 @@ public static partial class VerifierSettings
         scrubSolutionDir = true;
         sortPropertiesAlphabetically = false;
         sortJsonObjects = false;
+        scrubUserProfile = true;
         autoVerify = null;
         UniquePrefixDisabled = false;
         UseUniqueDirectorySplitMode = false;

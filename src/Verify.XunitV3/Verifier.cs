@@ -1,14 +1,21 @@
-﻿namespace VerifyXunit;
+﻿using Xunit.v3;
+
+namespace VerifyXunit;
 
 public static partial class Verifier
 {
     static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
-        if (!UseVerifyAttribute.TryGet(out var method))
+        var testContext = TestContext.Current;
+        var testContextTestMethod = testContext.TestMethod;
+        if (testContextTestMethod == null)
         {
-            var fileName = Path.GetFileName(sourceFile);
-            throw new($"Expected to find a `[UseVerify]` on assembly. File: {fileName}.");
+            throw new("TestContext.TestMethod is null");
         }
+
+        var testMethod = (XunitTestMethod) testContextTestMethod;
+
+        var method = testMethod.Method;
 
         if (useUniqueDirectory)
         {

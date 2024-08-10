@@ -1,6 +1,4 @@
-﻿#region UseParametersHashXunit
-
-public class ParametersHashSample
+﻿public class ParametersHashSample
 {
     [Theory]
     [InlineData("Value1")]
@@ -38,5 +36,3 @@ public class ParametersHashSample
             .UseParameters(arg)
             .HashParameters();
 }
-
-#endregion

@@ -307,73 +307,7 @@ public class UniqueForSample
             .UniqueForOSPlatform();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/UniqueForSample.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleXunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-UniqueForSampleXunit-1'></a>
-```cs
-public class UniqueForSample
-{
-    [Fact]
-    public Task Runtime()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntime();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task RuntimeFluent() =>
-        Verify("value")
-            .UniqueForRuntime();
-
-    [Fact]
-    public Task RuntimeAndVersion()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForRuntimeAndVersion();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task AssemblyConfiguration()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForAssemblyConfiguration();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task AssemblyConfigurationFluent() =>
-        Verify("value")
-            .UniqueForAssemblyConfiguration();
-
-    [Fact]
-    public Task Architecture()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForArchitecture();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task ArchitectureFluent() =>
-        Verify("value")
-            .UniqueForArchitecture();
-
-    [Fact]
-    public Task OSPlatform()
-    {
-        var settings = new VerifySettings();
-        settings.UniqueForOSPlatform();
-        return Verify("value", settings);
-    }
-
-    [Fact]
-    public Task OSPlatformFluent() =>
-        Verify("value")
-            .UniqueForOSPlatform();
-}
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/UniqueForSample.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleXunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/UniqueForSample.cs#L1-L66' title='Snippet source file'>snippet source</a> | <a href='#snippet-UniqueForSampleXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -600,37 +534,7 @@ public class ExtensionSample
             extension: "xml");
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/ExtensionSample.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitExtensionSample' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-XunitExtensionSample-1'></a>
-```cs
-public class ExtensionSample
-{
-    [Fact]
-    public Task AtMethod() =>
-        Verify(
-            target: """
-                    <note>
-                      <to>Joe</to>
-                      <from>Kim</from>
-                      <heading>Reminder</heading>
-                    </note>
-                    """,
-            extension: "xml");
-
-    [Fact]
-    public Task AtMethodFluent() =>
-        Verify(
-            target: """
-                    <note>
-                      <to>Joe</to>
-                      <from>Kim</from>
-                      <heading>Reminder</heading>
-                    </note>
-                    """,
-            extension: "xml");
-}
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ExtensionSample.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitExtensionSample-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ExtensionSample.cs#L1-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-XunitExtensionSample' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result in:
@@ -689,16 +593,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-DerivePathInfoXUnit-1'></a>
-```cs
-Verifier.DerivePathInfo(
-    (sourceFile, projectDirectory, type, method) => new(
-        directory: Path.Combine(projectDirectory, "Snapshots"),
-        typeName: type.Name,
-        methodName: method.Name));
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L8-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoXUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

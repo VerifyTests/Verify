@@ -1,6 +1,4 @@
-﻿#region XunitExtensionSample
-
-public class ExtensionSample
+﻿public class ExtensionSample
 {
     [Fact]
     public Task AtMethod() =>
@@ -26,5 +24,3 @@ public class ExtensionSample
                     """,
             extension: "xml");
 }
-
-#endregion

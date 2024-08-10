@@ -1,6 +1,4 @@
-﻿#region SampleTestXunit
-
-public class Sample
+﻿public class Sample
 {
     [Fact]
     public Task Test()
@@ -9,5 +7,3 @@ public class Sample
         return Verify(person);
     }
 }
-
-#endregion

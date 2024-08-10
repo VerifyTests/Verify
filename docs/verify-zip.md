@@ -16,14 +16,7 @@ Verifies all files in a zip archive. This approach combines [UseUniqueDirectory]
 public Task WithZip() =>
     VerifyZip(zipPath);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L151-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyZipXunit-1'></a>
-```cs
-[Fact]
-public Task WithZip() =>
-    VerifyZip(zipPath);
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L151-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L151-L157' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -38,16 +31,7 @@ public Task WithZipFiltered() =>
         zipPath,
         include: filePath => filePath.FullName.Contains("Doc"));
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L186-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyZipFilterXunit-1'></a>
-```cs
-[Fact]
-public Task WithZipFiltered() =>
-    VerifyZip(
-        zipPath,
-        include: filePath => filePath.FullName.Contains("Doc"));
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L186-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L186-L194' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipFilterXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -64,16 +48,7 @@ public Task VerifyZipWithInfo() =>
         zipPath,
         info: "the info");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L159-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyZipWithInfo-1'></a>
-```cs
-[Fact]
-public Task VerifyZipWithInfo() =>
-    VerifyZip(
-        zipPath,
-        info: "the info");
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L159-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L159-L167' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -97,23 +72,7 @@ public Task VerifyZipWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L169-L184' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyZipWithFileScrubber-1'></a>
-```cs
-[Fact]
-public Task VerifyZipWithFileScrubber() =>
-    VerifyZip(
-        zipPath,
-        fileScrubber: (path, builder) =>
-        {
-            if (Path.GetFileName(path) == "TextDoc.txt")
-            {
-                builder.Clear();
-                builder.Append("New text");
-            }
-        });
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L169-L184' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L169-L184' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyZipWithFileScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

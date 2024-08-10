@@ -1,7 +1,5 @@
 ﻿public class CompareToAssert
 {
-    #region TraditionalTest
-
     [Fact]
     public void TraditionalTest()
     {
@@ -18,16 +16,10 @@
         Assert.Equal("USA", person.Address.Country);
     }
 
-    #endregion
-
-    #region SnapshotTest
-
     [Fact]
     public Task SnapshotTest()
     {
         var person = ClassBeingTested.FindPerson();
         return Verify(person);
     }
-
-    #endregion
 }

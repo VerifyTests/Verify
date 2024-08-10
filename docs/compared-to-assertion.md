@@ -81,26 +81,7 @@ public void TraditionalTest()
     Assert.Equal("USA", person.Address.Country);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TraditionalTest' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-TraditionalTest-1'></a>
-```cs
-[Fact]
-public void TraditionalTest()
-{
-    var person = ClassBeingTested.FindPerson();
-    Assert.Equal(new("ebced679-45d3-4653-8791-3d969c4a986c"), person.Id);
-    Assert.Equal(Title.Mr, person.Title);
-    Assert.Equal("John", person.GivenNames);
-    Assert.Equal("Smith", person.FamilyName);
-    Assert.Equal("Jill", person.Spouse);
-    Assert.Equal(2, person.Children.Count);
-    Assert.Equal("Sam", person.Children[0]);
-    Assert.Equal("Mary", person.Children[1]);
-    Assert.Equal("4 Puddle Lane", person.Address.Street);
-    Assert.Equal("USA", person.Address.Country);
-}
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TraditionalTest-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.cs#L3-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TraditionalTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -116,17 +97,7 @@ public Task SnapshotTest()
     return Verify(person);
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-SnapshotTest' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-SnapshotTest-1'></a>
-```cs
-[Fact]
-public Task SnapshotTest()
-{
-    var person = ClassBeingTested.FindPerson();
-    return Verify(person);
-}
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-SnapshotTest-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/CompareToAssert.cs#L23-L32' title='Snippet source file'>snippet source</a> | <a href='#snippet-SnapshotTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Produces a snapshot file `SnapshotTest.verified.txt`:

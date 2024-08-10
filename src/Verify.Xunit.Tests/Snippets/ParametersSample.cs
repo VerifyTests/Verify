@@ -8,8 +8,6 @@
         ];
     }
 
-    #region IgnoreParametersForVerifiedXunit
-
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
@@ -20,20 +18,12 @@
         return Verify("value", settings);
     }
 
-    #endregion
-
-    #region IgnoreParametersForVerifiedFluentXunit
-
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified(arg);
-
-    #endregion
-
-    #region IgnoreParametersForVerifiedCustomParamsXunit
 
     [Theory]
     [InlineData("One")]
@@ -45,18 +35,12 @@
         return Verify("value", settings);
     }
 
-    #endregion
-
-    #region IgnoreParametersForVerifiedCustomParamsFluentXunit
-
     [Theory]
     [InlineData("One")]
     [InlineData("Two")]
     public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
-
-    #endregion
 
     [Theory]
     [MemberData(nameof(GetDecimalData))]
@@ -76,8 +60,6 @@
         Verify(arg)
             .UseParameters(arg);
 
-    #region xunitInlineData
-
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
@@ -95,10 +77,6 @@
         Verify(arg)
             .UseParameters(arg);
 
-    #endregion
-
-    #region UseParameters
-
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
@@ -109,10 +87,6 @@
             .UseParameters(arg);
     }
 
-    #endregion
-
-    #region UseParametersSubSet
-
     [Theory]
     [InlineData("Value1", "Value2", "Value3")]
     public Task UseParametersSubSet(string arg1, string arg2, string arg3)
@@ -121,10 +95,6 @@
         return Verify(somethingToVerify)
             .UseParameters(arg1, arg2);
     }
-
-    #endregion
-
-    #region xunitMemberData
 
     [Theory]
     [MemberData(nameof(GetData))]
@@ -153,7 +123,6 @@
         ];
     }
 
-    #endregion
 
     // #region xunitAutoFixture
     //

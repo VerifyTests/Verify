@@ -16,14 +16,7 @@ Verifies all files in a directory. This approach combines [UseUniqueDirectory](/
 public Task WithDirectory() =>
     VerifyDirectory(directoryToVerify);
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L95-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryXunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyDirectoryXunit-1'></a>
-```cs
-[Fact]
-public Task WithDirectory() =>
-    VerifyDirectory(directoryToVerify);
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L95-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryXunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L95-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -43,21 +36,7 @@ public Task WithDirectoryFiltered() =>
             RecurseSubdirectories = false
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L132-L145' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryFilterXunit' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyDirectoryFilterXunit-1'></a>
-```cs
-[Fact]
-public Task WithDirectoryFiltered() =>
-    VerifyDirectory(
-        directoryToVerify,
-        include: filePath => filePath.Contains("Doc"),
-        pattern: "*.txt",
-        options: new()
-        {
-            RecurseSubdirectories = false
-        });
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L132-L145' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryFilterXunit-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L132-L145' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryFilterXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -74,16 +53,7 @@ public Task VerifyDirectoryWithInfo() =>
         directoryToVerify,
         info: "the info");
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L103-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithInfo' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyDirectoryWithInfo-1'></a>
-```cs
-[Fact]
-public Task VerifyDirectoryWithInfo() =>
-    VerifyDirectory(
-        directoryToVerify,
-        info: "the info");
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L103-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithInfo-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L103-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithInfo' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -107,23 +77,7 @@ public Task VerifyDirectoryWithFileScrubber() =>
             }
         });
 ```
-<sup><a href='/src/Verify.Xunit.Tests/Tests.cs#L113-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithFileScrubber' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-VerifyDirectoryWithFileScrubber-1'></a>
-```cs
-[Fact]
-public Task VerifyDirectoryWithFileScrubber() =>
-    VerifyDirectory(
-        directoryToVerify,
-        fileScrubber: (path, builder) =>
-        {
-            if (Path.GetFileName(path) == "TextDoc.txt")
-            {
-                builder.Clear();
-                builder.Append("New text");
-            }
-        });
-```
-<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L113-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithFileScrubber-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Tests.cs#L113-L128' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyDirectoryWithFileScrubber' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 This applies to files where the extensins is a known text file as defined by [FileExtensions.IsText](https://github.com/VerifyTests/EmptyFiles#istext).

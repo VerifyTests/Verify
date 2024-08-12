@@ -7,11 +7,10 @@
             (_, _) =>
                 new(
                     "recursiveInfo",
-                    new List<Target>
-                    {
+                    [
                         new("recursive", new MemoryStream([1])),
                         new("recursive", new MemoryStream([2]))
-                    }));
+                    ]));
 
     // eg when a converter is getting info from a png
     [Fact]
@@ -26,21 +25,19 @@
             (stream, _) =>
                 new(
                     "level1Info",
-                    new List<Target>
-                    {
+                    [
                         new("txt", "text from level1"),
                         new("level2", stream)
-                    }));
+                    ]));
         VerifierSettings.RegisterFileConverter(
             "level2",
             async (stream, _) =>
                 new(
                     "level2Info",
-                    new List<Target>
-                    {
+                    [
                         new("txt", "text from level2"),
                         new("txt", await stream.ReadStringBuilderWithFixedLines())
-                    }));
+                    ]));
     }
 
     [Fact]
@@ -75,10 +72,7 @@
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
-        Verify(new MemoryStream(
-            [
-                1
-            ]),
+        Verify(new MemoryStream([1]),
             "ExtensionConversionStringBuilder");
 
     [ModuleInitializer]

@@ -59,12 +59,12 @@ public partial class Counter
         var context = new Counter(
             dateCounting,
 #if NET6_0_OR_GREATER
-            namedDates ?? new(),
-            namedTimes ?? new(),
+            namedDates ?? [],
+            namedTimes ?? [],
 #endif
-            namedDateTimes ?? new(),
-            namedGuids ?? new(),
-            namedDateTimeOffsets ?? new());
+            namedDateTimes ?? [],
+            namedGuids ?? [],
+            namedDateTimeOffsets ?? []);
         local.Value = context;
         return context;
     }

@@ -61,10 +61,7 @@ public class Tests
             (_, _) =>
                 new(
                     "theInfo",
-                    new List<Target>
-                    {
-                        new("txt", "text from converter")
-                    }));
+                    [new("txt", "text from converter")]));
 
     [Fact]
     public Task WithTargetsAndConverter() =>

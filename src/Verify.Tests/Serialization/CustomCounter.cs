@@ -13,7 +13,7 @@ public class CustomCounterTests
     public static void CounterInit()
     {
         VerifierSettings.OnVerify(
-            before: () => local.Value = new(),
+            before: () => local.Value = [],
             after: () => local.Value = null
         );
 

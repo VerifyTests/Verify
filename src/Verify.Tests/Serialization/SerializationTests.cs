@@ -2258,9 +2258,11 @@ public class SerializationTests
     {
         var target = new CollectionTarget
         {
-            DictionaryProperty = new(),
+            DictionaryProperty = [],
             IReadOnlyDictionary = new ReadOnlyDictionary<int, string>(new Dictionary<int, string>()),
+#pragma warning disable IDE0028
             EnumerableAsList = new List<string>(),
+#pragma warning restore IDE0028
             EnumerableStaticEmpty = [],
             ReadOnlyList = new ReadOnlyList(),
             ListProperty = [],

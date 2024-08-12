@@ -72,10 +72,7 @@
 
     [Fact]
     public Task ExtensionConversionStringBuilder() =>
-        Verify(new MemoryStream(
-            [
-                1
-            ]),
+        Verify(new MemoryStream([1]),
             "ExtensionConversionStringBuilder");
 
     [ModuleInitializer]

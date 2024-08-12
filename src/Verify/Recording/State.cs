@@ -1,6 +1,7 @@
-﻿class State
+class State
 {
     List<ToAppend> items = [];
+    readonly Lock syncLock = new();
 
     internal IReadOnlyCollection<ToAppend> Items => items;
 
@@ -20,7 +21,7 @@
         }
 
         var append = new ToAppend(name, item);
-        lock (items)
+        lock (syncLock)
         {
             items.Add(append);
         }
@@ -34,7 +35,7 @@
 
     public void Clear()
     {
-        lock (items)
+        lock (syncLock)
         {
             items.Clear();
         }

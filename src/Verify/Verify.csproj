@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Backport.System.Threading.Lock" />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="System.IO.Hashing" />
     <PackageReference Include="DiffEngine" />

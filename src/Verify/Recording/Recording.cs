@@ -128,7 +128,7 @@ public static partial class Recording
             }
             else
             {
-                dictionary[value.Name] = objects = new();
+                dictionary[value.Name] = objects = [];
             }
 
             objects.Add(value.Data);

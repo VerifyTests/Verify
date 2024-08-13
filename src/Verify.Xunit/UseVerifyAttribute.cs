@@ -1,5 +1,6 @@
 ﻿namespace VerifyXunit;
 
+[EditorBrowsable(EditorBrowsableState.Never)]
 [AttributeUsage(AttributeTargets.Assembly)]
 public sealed class UseVerifyAttribute :
     BeforeAfterTestAttribute

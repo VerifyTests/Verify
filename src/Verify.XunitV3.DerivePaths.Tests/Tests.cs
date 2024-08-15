@@ -10,8 +10,8 @@
                 Assert.True(Directory.Exists(projectDirectory));
                 Assert.NotNull(methodName);
                 Assert.NotNull(typeName);
-                Assert.EndsWith("Verify.Xunit.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
-                Assert.EndsWith("Verify.Xunit.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
+                Assert.EndsWith("Verify.XunitV3.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
+                Assert.EndsWith("Verify.XunitV3.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
         return Verify("Value");

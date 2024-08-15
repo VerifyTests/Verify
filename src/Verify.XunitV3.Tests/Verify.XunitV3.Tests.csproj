@@ -6,6 +6,7 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <RuntimeIdentifiers Condition=" '$(OS)' == 'Windows_NT' ">win-x64</RuntimeIdentifiers>
     <PlatformTarget>x64</PlatformTarget>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,7 +5,8 @@
     <AnalyzerLanguage>cs</AnalyzerLanguage>
     <AnalyzerRoslynVersion>4.4</AnalyzerRoslynVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <IsPackable>false</IsPackable> <!-- Packaged as part of the main Verify.MSTest package -->
+    <!-- Packaged as part of the main Verify.MSTest package -->
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

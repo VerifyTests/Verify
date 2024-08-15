@@ -91,6 +91,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.XunitV3", "Verify.Xu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.XunitV3.Tests", "Verify.XunitV3.Tests\Verify.XunitV3.Tests.csproj", "{1FC58494-3CB3-432C-B268-40FA4FF02E08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verify.XunitV3.DerivePaths.Tests", "Verify.XunitV3.DerivePaths.Tests\Verify.XunitV3.DerivePaths.Tests.csproj", "{96A88D42-2AE0-4F5E-9835-21479521E890}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -241,6 +243,10 @@ Global
 		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FC58494-3CB3-432C-B268-40FA4FF02E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A88D42-2AE0-4F5E-9835-21479521E890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A88D42-2AE0-4F5E-9835-21479521E890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A88D42-2AE0-4F5E-9835-21479521E890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A88D42-2AE0-4F5E-9835-21479521E890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

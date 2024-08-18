@@ -12,7 +12,7 @@
         var startNew = Stopwatch.StartNew();
         foreach (var file in enumerateFiles)
         {
-            using var reader = File.OpenText(file);
+            using var reader = IoHelpers.OpenRead(file);
             await IoHelpers.ReadStringBuilderWithFixedLines(reader);
         }
 

@@ -117,6 +117,12 @@
     {
         stream.MoveToStart();
         using var reader = new StreamReader(stream);
+
+        return await ReadStringBuilderWithFixedLines(reader);
+    }
+
+    internal static async Task<StringBuilder> ReadStringBuilderWithFixedLines(TextReader reader)
+    {
         var contents = await reader.ReadToEndAsync();
         var builder = new StringBuilder(contents);
         if (contents.Contains('\r'))

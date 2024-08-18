@@ -4,11 +4,13 @@
     public async Task All()
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
+        var enumerateFiles = Directory.EnumerateFiles(
+            solutionDirectory,
+            "*.verified.txt",
+            SearchOption.AllDirectories)
+            .ToList();
         var startNew = Stopwatch.StartNew();
-        foreach (var file in Directory.EnumerateFiles(
-                     solutionDirectory,
-                     "*.verified.txt",
-                     SearchOption.AllDirectories))
+        foreach (var file in enumerateFiles)
         {
             using var reader = File.OpenText(file);
             await IoHelpers.ReadStringBuilderWithFixedLines(reader);

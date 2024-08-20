@@ -29,24 +29,17 @@ static class Comparer
             verified.Length -= 1;
         }
 
-        // StringBuilder is broken on older .net https://github.com/dotnet/runtime/issues/27684
-#if NET6_0_OR_GREATER
+        // StringBuilder is broken on older .net ignores Capacity
+        // https://github.com/dotnet/runtime/issues/27684
+#if !NET6_0_OR_GREATER
+        received.Capacity = verified.Capacity;
+#endif
         var isEqual = verified.Equals(received);
         if (!isEqual &&
             settings.TryFindStringComparer(extension, out var compare))
         {
             return compare(received.ToString(), verified.ToString(), settings.Context);
         }
-#else
-        var receivedString = received.ToString();
-        var verifiedString = verified.ToString();
-        var isEqual = receivedString.Equals(verifiedString);
-        if (!isEqual &&
-            settings.TryFindStringComparer(extension, out var compare))
-        {
-            return compare(receivedString, verifiedString, settings.Context);
-        }
-#endif
 
         return Task.FromResult(new CompareResult(isEqual));
     }

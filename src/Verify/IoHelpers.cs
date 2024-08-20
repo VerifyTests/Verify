@@ -133,23 +133,12 @@
         return builder;
     }
 
-#if NET472 || NET48
-    internal static void WriteText(string path, StringBuilder text)
-    {
-        CreateDirectory(Path.GetDirectoryName(path)!);
-        File.WriteAllText(path, text.ToString(), VerifierSettings.Encoding);
-    }
-
-#else
-
     internal static void WriteText(string path, StringBuilder text)
     {
         CreateDirectory(Path.GetDirectoryName(path)!);
         using var writer = new StreamWriter(path, false, VerifierSettings.Encoding);
         writer.Write(text);
     }
-
-#endif
 
     public static string GetRelativePath(string directory, string file)
     {

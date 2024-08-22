@@ -105,9 +105,9 @@
         {
             // ReSharper disable PossibleMultipleEnumeration
             enumerable = enumerableTarget;
-            isEmpty = !enumerableTarget
-                .GetEnumerator()
-                .MoveNext();
+            var enumerator = enumerableTarget.GetEnumerator();
+            using var disposable = enumerator as IDisposable;
+            isEmpty = !enumerator.MoveNext();
             // ReSharper restore PossibleMultipleEnumeration
             return true;
         }

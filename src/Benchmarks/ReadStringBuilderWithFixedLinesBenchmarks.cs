@@ -5,7 +5,7 @@ public class ReadStringBuilderWithFixedLinesBenchmarks
 
     public ReadStringBuilderWithFixedLinesBenchmarks()
     {
-        var solutionDirectory = SolutionDirectoryFinder.Find(Environment.CurrentDirectory);;
+        var solutionDirectory = SolutionDirectoryFinder.Find(Environment.CurrentDirectory);
         files = Directory.EnumerateFiles(
                 solutionDirectory,
                 "*.verified.txt",

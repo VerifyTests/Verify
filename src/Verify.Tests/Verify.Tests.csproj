@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>net9.0;net8.0;net7.0;$(TargetFrameworks)</TargetFrameworks>
+    <TargetFrameworks>net9.0;net8.0;$(TargetFrameworks)</TargetFrameworks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
@@ -36,12 +36,8 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework) != 'net7.0'">
+  <ItemGroup Condition="$(TargetFramework) != 'net8.0'">
     <Compile Remove="Wizard\WizardGen.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">

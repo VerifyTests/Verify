@@ -218,7 +218,7 @@ To enable Verify  the [ITestProject and IExecution interfaces](https://github.co
 Requirements:
 
  * Assign the target assembly in `ITestProject.Configure` using `VerifierSettings.AssignTargetAssembly`
- * Wrap test executions in `IExecution.Run` with a `ExecutionState.Set`
+ * Wrap test executions in `IExecution.Run` using `ExecutionState.Set`
 
 An example implementation of the above:
 

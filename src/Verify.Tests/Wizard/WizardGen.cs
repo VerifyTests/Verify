@@ -215,6 +215,16 @@ public class WizardGen
                 """);
         }
 
+        if(testFramework == TestFramework.Fixie)
+        {
+            builder.AppendLine(
+                """
+
+                include: fixie-convention
+
+                """);
+        }
+
         AppendDiffTool(os, builder);
 
         AppendBuildServer(buildServer, builder);

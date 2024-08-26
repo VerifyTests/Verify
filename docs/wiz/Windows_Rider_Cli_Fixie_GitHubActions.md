@@ -208,6 +208,65 @@ public class Sample
 <sup><a href='/src/Verify.Fixie.Tests/Snippets/Sample.cs#L1-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+Fixie is less opinionated than other test frameworks. As such it leaves up to the consumer how to configure test execution.<!-- include: fixie-convention. path: /docs/mdsource/fixie-convention.include.md -->
+
+To enable Verify  the [ITestProject and IExecution interfaces](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#the-default-convention) need to be used.
+
+Requirements:
+
+ * Assign the target assembly in `ITestProject.Configure` using `VerifierSettings.AssignTargetAssembly`
+ * Wrap test executions in `IExecution.Run` with a `ExecutionState.Set`
+
+An example implementation of the above:
+
+<!-- snippet: TestProject.cs -->
+<a id='snippet-TestProject.cs'></a>
+```cs
+public class TestProject :
+    ITestProject,
+    IExecution
+{
+    public void Configure(TestConfiguration configuration, TestEnvironment environment)
+    {
+        VerifierSettings.AssignTargetAssembly(environment.Assembly);
+        configuration.Conventions.Add<DefaultDiscovery, TestProject>();
+    }
+
+    public async Task Run(TestSuite testSuite)
+    {
+        foreach (var testClass in testSuite.TestClasses)
+        {
+            foreach (var test in testClass.Tests)
+            {
+                if (test.HasParameters)
+                {
+                    foreach (var parameters in test
+                                 .GetAll<TestCase>()
+                                 .Select(_ => _.Parameters))
+                    {
+                        using (ExecutionState.Set(testClass, test, parameters))
+                        {
+                            await test.Run(parameters);
+                        }
+                    }
+                }
+                else
+                {
+                    using (ExecutionState.Set(testClass, test, null))
+                    {
+                        await test.Run();
+                    }
+                }
+            }
+        }
+    }
+}
+```
+<sup><a href='/src/Verify.Fixie.Tests/FixieSetup/TestProject.cs#L1-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestProject.cs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+<!-- endInclude -->
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

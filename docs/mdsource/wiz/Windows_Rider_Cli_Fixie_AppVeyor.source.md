@@ -90,6 +90,9 @@ dotnet tool install -g verify.tool
 
 snippet: SampleTestFixie
 
+
+include: fixie-convention
+
 ## Diff Tool
 
 Verify supports many [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/main/docs/diff-tool.md#supported-tools) for comparing received to verified.

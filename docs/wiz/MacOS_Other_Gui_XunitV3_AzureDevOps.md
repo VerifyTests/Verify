@@ -18,7 +18,7 @@ Add the following packages to the test project:
 <a id='snippet-xunitv3-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
-<PackageReference Include="Verify.Xunit" Version="26.2.0" />
+<PackageReference Include="Verify.Xunit" Version="26.3.0" />
 <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0-pre.24" PrivateAssets="all" />
 <PackageReference Include="xunit.v3" Version="0.2.0-pre.69" />
 ```

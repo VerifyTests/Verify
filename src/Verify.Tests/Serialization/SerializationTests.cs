@@ -264,7 +264,7 @@ public class SerializationTests
         var dictionary = new Dictionary<Date, string>
         {
             {
-                new Date(10, 1, 2), "1234"
+                new(10, 1, 2), "1234"
             }
         };
 
@@ -371,7 +371,7 @@ public class SerializationTests
         var dictionary = new Dictionary<Time, string>
         {
             {
-                new Time(10, 1), "1234"
+                new(10, 1), "1234"
             }
         };
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Fixie.TestAdapter" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
     <ProjectReference Include="..\Verify.Fixie\Verify.Fixie.csproj" />

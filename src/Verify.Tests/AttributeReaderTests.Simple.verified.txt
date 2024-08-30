@@ -3,6 +3,10 @@
   TargetFrameworksInferred: net9.0;net8.0;net48,
   ProjectDirectory: {ProjectDirectory},
   ProjectDirectoryInferred: {ProjectDirectory},
+  ProjectName: Verify.Tests,
+  ProjectNameInferred: Verify.Tests,
   SolutionDirectory: {SolutionDirectory},
-  SolutionDirectoryInferred: {SolutionDirectory}
+  SolutionDirectoryInferred: {SolutionDirectory},
+  SolutionName: Verify,
+  SolutionNameInferred: Verify
 }

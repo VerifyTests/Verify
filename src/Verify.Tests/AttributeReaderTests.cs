@@ -13,8 +13,12 @@ public class AttributeReaderTests
                 TargetFrameworksInferred = AttributeReader.GetTargetFrameworks(),
                 ProjectDirectory = AttributeReader.GetProjectDirectory(assembly),
                 ProjectDirectoryInferred = AttributeReader.GetProjectDirectory(),
+                ProjectName = AttributeReader.GetProjectName(assembly),
+                ProjectNameInferred = AttributeReader.GetProjectName(),
                 SolutionDirectory = AttributeReader.GetSolutionDirectory(assembly),
-                SolutionDirectoryInferred = AttributeReader.GetSolutionDirectory()
+                SolutionDirectoryInferred = AttributeReader.GetSolutionDirectory(),
+                SolutionName = AttributeReader.GetSolutionName(assembly),
+                SolutionNameInferred = AttributeReader.GetSolutionName()
             });
     }
 }

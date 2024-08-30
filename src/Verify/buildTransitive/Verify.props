@@ -23,10 +23,19 @@
         <_Parameter1>Verify.ProjectDirectory</_Parameter1>
         <_Parameter2>$(ProjectDir)</_Parameter2>
       </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata">
+        <_Parameter1>Verify.ProjectName</_Parameter1>
+        <_Parameter2>$(ProjectName)</_Parameter2>
+      </VerifyAttributes>
       <VerifyAttributes Include="System.Reflection.AssemblyMetadata"
-                  Condition="'$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*'">
+                        Condition="'$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*'">
         <_Parameter1>Verify.SolutionDirectory</_Parameter1>
         <_Parameter2>$(SolutionDir)</_Parameter2>
+      </VerifyAttributes>
+      <VerifyAttributes Include="System.Reflection.AssemblyMetadata"
+                        Condition="'$(SolutionName)' != '' And '$(SolutionName)' != '*Undefined*'">
+        <_Parameter1>Verify.SolutionName</_Parameter1>
+        <_Parameter2>$(SolutionName)</_Parameter2>
       </VerifyAttributes>
       <!-- Ensure not part of Compile, as a workaround for https://github.com/dotnet/sdk/issues/114 -->
       <Compile Remove="$(VerifyAttributesFilePath)" />

@@ -42,7 +42,7 @@ public partial class VerifySettings
     /// <list type="bullet">
     ///   <item>Verify.Expecto: Does not currently support `UseParameters()`.</item>
     ///   <item>Verify.Fixie: Automatically detects the method parameters via a custom ITestProject https://github.com/VerifyTests/Verify/blob/main/docs/parameterised.md#fixie.</item>
-    ///   <item>Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required..</item>
+    ///   <item>Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.</item>
     ///   <item>Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.</item>
     ///   <item>Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.</item>
     ///   <item>Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.</item>

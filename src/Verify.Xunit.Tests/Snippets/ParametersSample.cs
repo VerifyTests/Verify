@@ -60,6 +60,8 @@
         Verify(arg)
             .UseParameters(arg);
 
+    #region xunitInlineData
+
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
@@ -76,6 +78,8 @@
     public Task InlineDataUsageFluent(string arg) =>
         Verify(arg)
             .UseParameters(arg);
+
+    #endregion
 
     [Theory]
     [InlineData("Value1")]
@@ -95,6 +99,8 @@
         return Verify(somethingToVerify)
             .UseParameters(arg1, arg2);
     }
+
+    #region xunitMemberData
 
     [Theory]
     [MemberData(nameof(GetData))]
@@ -123,6 +129,7 @@
         ];
     }
 
+    #endregion
 
     // #region xunitAutoFixture
     //

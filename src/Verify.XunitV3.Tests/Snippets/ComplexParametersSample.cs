@@ -1,4 +1,4 @@
-﻿#region xunitComplexMemberData
+﻿#region xunitV3ComplexMemberData
 
 public class ComplexParametersSample
 {

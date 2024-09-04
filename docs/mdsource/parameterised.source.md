@@ -53,7 +53,7 @@ Produces:
  * `TestFixtureSourceUsage.Test_arg1=Value2_arg2=2.verified.txt`
 
 
-## xUnit
+## xUnit V2
 
 
 ### InlineData
@@ -71,6 +71,28 @@ snippet: xunitMemberData
 xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
 
 snippet: xunitComplexMemberData
+
+`VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
+
+
+## xUnit V3
+
+
+### InlineData
+
+snippet: xunitV3InlineData
+
+
+### MemberData
+
+snippet: xunitV3MemberData
+
+
+### Complex MemberData
+
+xUnit only exposes parameter information for certain types. For unknown types the information cannot be retrieved from the xUnit context, and instead the text for the parameter value needs to be explicitly specified. This is done by calling `NameForParameter()`.
+
+snippet: xunitV3ComplexMemberData
 
 `VerifierSettings.NameForParameter()` is required since the parameter type has no `ToString()` override that can be used for deriving the name of the `.verified.` file.
 

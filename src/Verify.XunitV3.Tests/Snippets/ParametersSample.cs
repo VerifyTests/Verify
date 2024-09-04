@@ -73,7 +73,7 @@
     public Task Double(double arg) =>
         Verify(arg);
 
-    #region xunitInlineData
+    #region xunitV3InlineData
 
     [Theory]
     [InlineData("Value1")]
@@ -110,7 +110,7 @@
 
     #endregion
 
-    #region xunitMemberData
+    #region xunitV3MemberData
 
     [Theory]
     [MemberData(nameof(GetData))]

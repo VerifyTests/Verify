@@ -122,13 +122,10 @@ public static partial class Verifier
         return parent;
     }
 
-    static Test GetTest(TestAdapter adapter)
-    {
-        var field = adapter
-            .GetType()
-            .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        return (Test) field.GetValue(adapter)!;
-    }
+    static FieldInfo testField = typeof(TestAdapter).GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+    static Test GetTest(TestAdapter adapter) =>
+        (Test) testField.GetValue(adapter)!;
 
     static IEnumerable<string> GetConstructorParameterNames(Type type, int argumentsLength)
     {

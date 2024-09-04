@@ -64,9 +64,7 @@ public static partial class Verifier
 
         var methodParameterNames = method.MethodInfo.ParameterNames();
 
-        var parent = GetParent(adapter);
-
-        if (parent == null)
+        if (!adapter.TryGetParent(out var parent))
         {
             return (methodParameterNames, adapter.Arguments);
         }
@@ -94,9 +92,7 @@ public static partial class Verifier
 
         var methodParameterNames = method.MethodInfo.ParameterNames();
 
-        var parent = GetParent(adapter);
-
-        if (parent == null)
+        if (!adapter.TryGetParent(out var parent))
         {
             return methodParameterNames;
         }
@@ -109,23 +105,6 @@ public static partial class Verifier
 
         return [.. names, .. methodParameterNames];
     }
-
-    static ITest? GetParent(TestAdapter adapter)
-    {
-        var test = GetTest(adapter);
-        var parent = test.Parent;
-        if (parent is ParameterizedMethodSuite methodSuite)
-        {
-            return methodSuite.Parent;
-        }
-
-        return parent;
-    }
-
-    static FieldInfo testField = typeof(TestAdapter).GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-    static Test GetTest(TestAdapter adapter) =>
-        (Test) testField.GetValue(adapter)!;
 
     static IEnumerable<string> GetConstructorParameterNames(Type type, int argumentsLength)
     {

@@ -25,11 +25,7 @@ public static partial class Verifier
 
         var adapter = TestContext.CurrentContext.Test;
 
-        var testMethod = adapter.Method;
-        if (testMethod is null)
-        {
-            throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
-        }
+        var testMethod = adapter.GetTestMethod();
 
         var method = testMethod.MethodInfo;
         var type = testMethod.TypeInfo.Type;
@@ -37,7 +33,7 @@ public static partial class Verifier
         IReadOnlyList<string>? parameterNames;
         if (settings.HasParameters)
         {
-            parameterNames = GetParameterNames(adapter);
+            parameterNames = adapter.GetParameterNames();
         }
         else
         {
@@ -64,9 +60,7 @@ public static partial class Verifier
 
         var methodParameterNames = method.MethodInfo.ParameterNames();
 
-        var parent = GetParent(adapter);
-
-        if (parent == null)
+        if (!adapter.TryGetParent(out var parent))
         {
             return (methodParameterNames, adapter.Arguments);
         }
@@ -77,7 +71,7 @@ public static partial class Verifier
             return (methodParameterNames, adapter.Arguments);
         }
 
-        var names = GetConstructorParameterNames(method.TypeInfo.Type, argumentsLength);
+        var names = method.TypeInfo.Type.GetConstructorParameterNames(argumentsLength);
         if (methodParameterNames == null)
         {
             return (names.ToList(), parent.Arguments);
@@ -86,75 +80,6 @@ public static partial class Verifier
         return (
             [.. names, .. methodParameterNames],
             [.. parent.Arguments, .. adapter.Arguments]);
-    }
-
-    static IReadOnlyList<string>? GetParameterNames(TestAdapter adapter)
-    {
-        var method = adapter.Method!;
-
-        var methodParameterNames = method.MethodInfo.ParameterNames();
-
-        var parent = GetParent(adapter);
-
-        if (parent == null)
-        {
-            return methodParameterNames;
-        }
-
-        var names = GetConstructorParameterNames(method.TypeInfo.Type, parent.Arguments.Length);
-        if (methodParameterNames == null)
-        {
-            return names.ToList();
-        }
-
-        return [.. names, .. methodParameterNames];
-    }
-
-    static ITest? GetParent(TestAdapter adapter)
-    {
-        var test = GetTest(adapter);
-        var parent = test.Parent;
-        if (parent is ParameterizedMethodSuite methodSuite)
-        {
-            return methodSuite.Parent;
-        }
-
-        return parent;
-    }
-
-    static Test GetTest(TestAdapter adapter)
-    {
-        var field = adapter
-            .GetType()
-            .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        return (Test) field.GetValue(adapter)!;
-    }
-
-    static IEnumerable<string> GetConstructorParameterNames(Type type, int argumentsLength)
-    {
-        IEnumerable<string>? names = null;
-        foreach (var constructor in type.GetConstructors(BindingFlags.Instance | BindingFlags.Public))
-        {
-            var parameters = constructor.GetParameters();
-            if (parameters.Length != argumentsLength)
-            {
-                continue;
-            }
-
-            if (names != null)
-            {
-                throw new($"Found multiple constructors with {argumentsLength} parameters. Unable to derive names of parameters. Instead use UseParameters to pass in explicit parameter.");
-            }
-
-            names = parameters.Select(_ => _.Name!);
-        }
-
-        if (names == null)
-        {
-            throw new($"Could not find constructor with {argumentsLength} parameters.");
-        }
-
-        return names;
     }
 
     static SettingsTask Verify(

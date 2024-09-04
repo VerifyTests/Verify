@@ -13,8 +13,7 @@
 
     public static bool TryGetParent(this TestAdapter adapter, [NotNullWhen(true)] out ITest? parent)
     {
-        var test = adapter.GetTest();
-        parent = test.Parent;
+        parent = adapter.Parent;
         if (parent is ParameterizedMethodSuite methodSuite)
         {
             parent = methodSuite.Parent;
@@ -22,12 +21,6 @@
 
         return parent != null;
     }
-
-    static FieldInfo testField = typeof(TestAdapter)
-        .GetField("_test", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-    public static Test GetTest(this TestAdapter adapter) =>
-        (Test) testField.GetValue(adapter)!;
 
     public static IReadOnlyList<string>? GetParameterNames(this TestAdapter adapter)
     {

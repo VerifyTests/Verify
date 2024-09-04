@@ -2,8 +2,12 @@
 
 public static class VerifyChecks
 {
-    public static async Task Run()
+    public static Task Run()
     {
-        InnerVerifyChecks.Run();
+        var adapter = TestContext.CurrentContext.Test;
+        var testMethod = adapter.GetTestMethod();
+        var type = testMethod.TypeInfo.Type;
+        VerifierSettings.AssignTargetAssembly(type.Assembly);
+        return InnerVerifyChecks.Run(type.Assembly);
     }
 }

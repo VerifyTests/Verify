@@ -88,7 +88,7 @@ public static class AttributeReader
             }
 
             value = metaData.Value ??
-                    throw new($"Null value for `AssemblyMetadataAttribute` named `{key}`.");
+                    throw new($"Null value for `AssemblyMetadataAttribute` named `{key}` on {assembly.GetName().Name}.");
             if (isSourcePath)
             {
                 value = IoHelpers.GetMappedBuildPath(value, assembly);
@@ -108,6 +108,6 @@ public static class AttributeReader
             return value;
         }
 
-        throw new($"Could not find a `AssemblyMetadataAttribute` named `{key}`.");
+        throw new($"Could not find a `AssemblyMetadataAttribute` named `{key}` on {assembly.GetName().Name}.");
     }
 }

@@ -3,9 +3,9 @@ namespace VerifyTests;
 
 static class InnerVerifyChecks
 {
-    public static async Task Run()
+    public static async Task Run(Assembly assembly)
     {
-        var solutionDirectory = AttributeReader.GetSolutionDirectory();
+        var solutionDirectory = AttributeReader.GetSolutionDirectory(assembly);
         await CheckEditorConfig(solutionDirectory);
         foreach (var file in Directory.EnumerateFiles(solutionDirectory, "*.verified.*"))
         {
@@ -28,7 +28,7 @@ static class InnerVerifyChecks
                 return;
             }
 
-            throw new(
+            throw new VerifyException(
                 $$"""
                   Expected .editorconfig to contain settings for Verify.
                   Path: {{editorConfigPath}}

@@ -27,16 +27,19 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 ## UseParameters()
 
-<b>
+`UseParameters()` controls what parameters are used when naming files. The usage depends on the test framework being used:
+
   * Verify.Expecto: Does not currently support `UseParameters()`.
   * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
   * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
   * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
   * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
   * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
-</b>
 
-`UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
+
+### Usage:
+
+For the above scenarios where parameters are not automatically detected: 
 
 <!-- snippet: UseParameters -->
 <a id='snippet-UseParameters'></a>
@@ -76,7 +79,7 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 ## NUnit
 
-<b>`Verify.NUnit` automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
+`Verify.NUnit` automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
 
 
 ### TestCase
@@ -138,7 +141,7 @@ Produces:
 
 ## xUnit V2
 
-<b>`Verify.Xunit` does not detect the parametrized arguments, as such `UseParameters()` is required.</b>
+`Verify.Xunit` does not detect the parametrized arguments, as such `UseParameters()` is required.
 
 
 ### InlineData
@@ -310,7 +313,7 @@ public class ComplexParametersSample
 
 ## xUnit V3
 
-<b>`Verify.XunitV3` automatically detect the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.</b>
+`Verify.XunitV3` automatically detect the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.
 
 
 ### InlineData
@@ -461,7 +464,7 @@ public class ComplexParametersSample
 
 ## Fixie
 
-<b>Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.</b>
+Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
 
 Verify.Fixie requires some customisation of the above example.
 
@@ -532,7 +535,7 @@ public Task TestCaseUsage(string arg) =>
 
 ## MSTest
 
-<b>`Verify.MSTest` does not detect the parametrized arguments, as such `UseParameters()` is required.</b>
+`Verify.MSTest` does not detect the parametrized arguments, as such `UseParameters()` is required.
 
 
 ### DataRow

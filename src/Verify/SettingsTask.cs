@@ -64,12 +64,7 @@ public partial class SettingsTask
         return this;
     }
 
-    /// <summary>
-    /// Define the parameter values being used by a parameterised (aka data drive) test.
-    /// In most cases the parameter values can be automatically resolved.
-    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
-    /// Not compatible with <see cref="UseTextForParameters" />.
-    /// </summary>
+    /// <inheritdoc cref="VerifySettings.UseParameters(object?[])"/>
     [Pure]
     public SettingsTask UseParameters(params object?[] parameters)
     {
@@ -77,6 +72,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseParameters(object?[])"/>
     [Pure]
     public SettingsTask UseParameters<T>(T parameter)
     {
@@ -84,6 +80,7 @@ public partial class SettingsTask
         return this;
     }
 
+    /// <inheritdoc cref="VerifySettings.UseParameters(object?[])"/>
     [Pure]
     public SettingsTask UseParameters<T>(T[] parameters)
     {

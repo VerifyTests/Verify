@@ -312,8 +312,7 @@ ij_xml_space_inside_empty_tag = true
 indent_size = 2
 
 # Verify settings
-# Extensions should be all the text files used by snapshots
-[*.{received,verified}.{txt,xml,json}]
+[*.{received,verified}.{txt,xml,json,md,sql,csv,html}]
 charset = "utf-8-bom"
 end_of_line = lf
 indent_size = unset

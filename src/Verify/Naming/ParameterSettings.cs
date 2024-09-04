@@ -45,7 +45,7 @@ public partial class VerifySettings
     ///   <item>Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.</item>
     ///   <item>Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.</item>
     ///   <item>Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.</item>
-    ///   <item>Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.</item>
+    ///   <item>Verify.XunitV3: Automatically detects the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.</item>
     /// </list>
     ///
     /// In the scenarios where parameters are not automatically detected, an exception will be thrown instructing the potential need for <see cref="UseParameters" />

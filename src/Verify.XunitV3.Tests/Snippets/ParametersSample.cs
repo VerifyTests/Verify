@@ -76,7 +76,7 @@
         Verify(arg)
             .UseParameters(arg);
 
-    #region xunitInlineData
+    #region xunitV3InlineData
 
     [Theory]
     [InlineData("Value1")]
@@ -124,7 +124,7 @@
 
     #endregion
 
-    #region xunitMemberData
+    #region xunitV3MemberData
 
     [Theory]
     [MemberData(nameof(GetData))]

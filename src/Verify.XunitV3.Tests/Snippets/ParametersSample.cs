@@ -117,11 +117,6 @@
     public Task MemberDataUsage(string arg) =>
         Verify(arg);
 
-    [Theory]
-    [MemberData(nameof(GetData))]
-    public Task MemberDataUsageFluent(string arg) =>
-        Verify(arg);
-
     public static IEnumerable<object[]> GetData()
     {
         yield return

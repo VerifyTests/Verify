@@ -22,12 +22,13 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        if (!settings.HasParameters)
+        var parameterNames = method.ParameterNames();
+
+        if (!settings.HasParameters &&
+            testContext.TestCase is XunitTestCase { TestMethodArguments.Length: > 0 } testCase &&
+            testCase.TestMethodArguments.Length == parameterNames?.Count)
         {
-            if (testContext.TestCase is XunitTestCase testCase)
-            {
-                settings.SetParameters(testCase.TestMethodArguments);
-            }
+            settings.SetParameters(testCase.TestMethodArguments);
         }
 
         var type = method.ReflectedType!;
@@ -39,7 +40,7 @@ public static partial class Verifier
             settings,
             type.NameWithParent(),
             method.Name,
-            method.ParameterNames(),
+            parameterNames,
             pathInfo);
     }
 

@@ -1,5 +1,16 @@
 ﻿static class Extensions
 {
+    public static IMethodInfo GetTestMethod(this TestAdapter adapter)
+    {
+        var testMethod = adapter.Method;
+        if (testMethod is null)
+        {
+            throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
+        }
+
+        return testMethod;
+    }
+
     public static bool TryGetParent(this TestAdapter adapter, [NotNullWhen(true)] out ITest? parent)
     {
         var test = adapter.GetTest();

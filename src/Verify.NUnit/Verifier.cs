@@ -25,11 +25,7 @@ public static partial class Verifier
 
         var adapter = TestContext.CurrentContext.Test;
 
-        var testMethod = adapter.Method;
-        if (testMethod is null)
-        {
-            throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
-        }
+        var testMethod = adapter.GetTestMethod();
 
         var method = testMethod.MethodInfo;
         var type = testMethod.TypeInfo.Type;

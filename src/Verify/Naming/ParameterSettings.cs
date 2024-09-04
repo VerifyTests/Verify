@@ -20,7 +20,16 @@ public partial class VerifySettings
 
     /// <summary>
     /// Define the parameter values being used by a parameterised (aka data driven) test.
-    /// In most cases the parameter values can be automatically resolved.
+    ///
+    /// Scenarios:
+    ///
+    /// * Verify.Expecto: Does not currently support `UseParameters()`.
+    /// * Verify.Fixie: Automatically detects the method parameters via a custom ITestProject https://github.com/VerifyTests/Verify/blob/main/docs/parameterised.md#fixie.
+    /// * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+    /// * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+    /// * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+    /// * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
+    ///
     /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
     /// Not compatible with <see cref="UseTextForParameters" />.
     /// </summary>
@@ -31,6 +40,22 @@ public partial class VerifySettings
                 parameters
             });
 
+
+    /// <summary>
+    /// Define the parameter values being used by a parameterised (aka data driven) test.
+    ///
+    /// Scenarios:
+    ///
+    /// * Verify.Expecto: Does not currently support `UseParameters()`.
+    /// * Verify.Fixie: Automatically detects the method parameters via a custom ITestProject https://github.com/VerifyTests/Verify/blob/main/docs/parameterised.md#fixie.
+    /// * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+    /// * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+    /// * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+    /// * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
+    ///
+    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
+    /// Not compatible with <see cref="UseTextForParameters" />.
+    /// </summary>
     public void UseParameters<T>(T parameter) =>
         UseParameters(
             new object?[]
@@ -38,6 +63,22 @@ public partial class VerifySettings
                 parameter
             });
 
+
+    /// <summary>
+    /// Define the parameter values being used by a parameterised (aka data driven) test.
+    ///
+    /// Scenarios:
+    ///
+    /// * Verify.Expecto: Does not currently support `UseParameters()`.
+    /// * Verify.Fixie: Automatically detects the method parameters via a custom ITestProject https://github.com/VerifyTests/Verify/blob/main/docs/parameterised.md#fixie.
+    /// * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+    /// * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+    /// * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+    /// * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
+    ///
+    /// When this is not possible, an exception will be thrown instructing the use of <see cref="UseParameters" />
+    /// Not compatible with <see cref="UseTextForParameters" />.
+    /// </summary>
     public void UseParameters(params object?[] parameters)
     {
         Guard.NotNullOrEmpty(parameters);

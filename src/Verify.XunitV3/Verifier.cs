@@ -22,6 +22,15 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
+        var parameterNames = method.ParameterNames();
+
+        if (!settings.HasParameters &&
+            testContext.TestCase is XunitTestCase { TestMethodArguments.Length: > 0 } testCase &&
+            testCase.TestMethodArguments.Length == parameterNames?.Count)
+        {
+            settings.SetParameters(testCase.TestMethodArguments);
+        }
+
         var type = method.ReflectedType!;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
@@ -31,7 +40,7 @@ public static partial class Verifier
             settings,
             type.NameWithParent(),
             method.Name,
-            method.ParameterNames(),
+            parameterNames,
             pathInfo);
     }
 

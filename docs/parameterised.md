@@ -27,7 +27,14 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 ## UseParameters()
 
-<b>`Verify.NUnit` and `Verify.Fixie` automatically detect the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
+<b>
+  * Verify.Expecto: Does not currently support `UseParameters()`.
+  * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
+  * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+  * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+  * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+  * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
+</b>
 
 `UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
 
@@ -44,7 +51,7 @@ public Task UseParametersUsage(string arg)
         .UseParameters(arg);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L100-L112' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L86-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParameters' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If not all parameters are required, a subset can be passed in. In this scenario, the parameters passed in will match with the method parameter names from the start. For example the following will result in a file named `ParametersSample.UseParametersSubSet_arg1=Value1_arg2=Value2.verified.txt`
@@ -61,13 +68,15 @@ public Task UseParametersSubSet(string arg1, string arg2, string arg3)
         .UseParameters(arg1, arg2);
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L114-L125' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L100-L111' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersSubSet' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 If the number of parameters passed to `UseParameters()` is greater than the number of parameters in the test method, an exception will be thrown.
 
 
 ## NUnit
+
+<b>`Verify.NUnit` automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
 
 
 ### TestCase
@@ -128,6 +137,8 @@ Produces:
 
 
 ## xUnit V2
+
+<b>`Verify.Xunit` does not detect the parametrized arguments, as such `UseParameters()` is required.</b>
 
 
 ### InlineData
@@ -299,6 +310,8 @@ public class ComplexParametersSample
 
 ## xUnit V3
 
+<b>`Verify.XunitV3` automatically detect the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.</b>
+
 
 ### InlineData
 
@@ -308,21 +321,10 @@ public class ComplexParametersSample
 [Theory]
 [InlineData("Value1")]
 [InlineData("Value2")]
-public Task InlineDataUsage(string arg)
-{
-    var settings = new VerifySettings();
-    settings.UseParameters(arg);
-    return Verify(arg, settings);
-}
-
-[Theory]
-[InlineData("Value1")]
-[InlineData("Value2")]
-public Task InlineDataUsageFluent(string arg) =>
-    Verify(arg)
-        .UseParameters(arg);
+public Task InlineDataUsage(string arg) =>
+    Verify(arg);
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L79-L98' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitV3InlineData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L76-L84' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitV3InlineData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -333,18 +335,8 @@ public Task InlineDataUsageFluent(string arg) =>
 ```cs
 [Theory]
 [MemberData(nameof(GetData))]
-public Task MemberDataUsage(string arg)
-{
-    var settings = new VerifySettings();
-    settings.UseParameters(arg);
-    return Verify(arg, settings);
-}
-
-[Theory]
-[MemberData(nameof(GetData))]
-public Task MemberDataUsageFluent(string arg) =>
-    Verify(arg)
-        .UseParameters(arg);
+public Task MemberDataUsage(string arg) =>
+    Verify(arg);
 
 public static IEnumerable<object[]> GetData()
 {
@@ -358,7 +350,7 @@ public static IEnumerable<object[]> GetData()
     ];
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L127-L156' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitV3MemberData' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersSample.cs#L113-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-xunitV3MemberData' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -469,7 +461,7 @@ public class ComplexParametersSample
 
 ## Fixie
 
-Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
+<b>Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.</b>
 
 Verify.Fixie requires some customisation of the above example.
 
@@ -540,6 +532,8 @@ public Task TestCaseUsage(string arg) =>
 
 ## MSTest
 
+<b>`Verify.MSTest` does not detect the parametrized arguments, as such `UseParameters()` is required.</b>
+
 
 ### DataRow
 
@@ -608,7 +602,7 @@ Results in:
 
 ## Ignore parameters for verified filename
 
-By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
+By default, Verify expects every parameterized case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
 `IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are pssed to [UseParameters](#UseParameters). This is required for MSTest, xUnit, and NUnit. Parameters should not be passed for NUnit and Fixie since they are automatically detected.
 
@@ -1007,7 +1001,6 @@ public class ParametersHashSample
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParameters(arg);
         settings.HashParameters();
         return Verify(arg, settings);
     }
@@ -1017,11 +1010,10 @@ public class ParametersHashSample
     [InlineData("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
-            .UseParameters(arg)
             .HashParameters();
 }
 ```
-<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersHashSample.cs#L1-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.XunitV3.Tests/Snippets/ParametersHashSample.cs#L1-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

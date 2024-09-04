@@ -25,7 +25,6 @@ public class ParametersHashSample
     public Task HashParametersUsage(string arg)
     {
         var settings = new VerifySettings();
-        settings.UseParameters(arg);
         settings.HashParameters();
         return Verify(arg, settings);
     }
@@ -35,7 +34,6 @@ public class ParametersHashSample
     [InlineData("Value2")]
     public Task HashParametersUsageFluent(string arg) =>
         Verify(arg)
-            .UseParameters(arg)
             .HashParameters();
 }
 

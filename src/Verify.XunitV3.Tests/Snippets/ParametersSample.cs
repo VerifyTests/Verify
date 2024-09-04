@@ -61,39 +61,25 @@
     [Theory]
     [MemberData(nameof(GetDecimalData))]
     public Task Decimal(decimal arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+        Verify(arg);
 
     [Theory]
     [InlineData((float) 1.1)]
     public Task Float(float arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+        Verify(arg);
 
     [Theory]
     [InlineData(1.1d)]
     public Task Double(double arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+        Verify(arg);
 
     #region xunitV3InlineData
 
     [Theory]
     [InlineData("Value1")]
     [InlineData("Value2")]
-    public Task InlineDataUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [Theory]
-    [InlineData("Value1")]
-    [InlineData("Value2")]
-    public Task InlineDataUsageFluent(string arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+    public Task InlineDataUsage(string arg) =>
+        Verify(arg);
 
     #endregion
 
@@ -128,18 +114,8 @@
 
     [Theory]
     [MemberData(nameof(GetData))]
-    public Task MemberDataUsage(string arg)
-    {
-        var settings = new VerifySettings();
-        settings.UseParameters(arg);
-        return Verify(arg, settings);
-    }
-
-    [Theory]
-    [MemberData(nameof(GetData))]
-    public Task MemberDataUsageFluent(string arg) =>
-        Verify(arg)
-            .UseParameters(arg);
+    public Task MemberDataUsage(string arg) =>
+        Verify(arg);
 
     public static IEnumerable<object[]> GetData()
     {

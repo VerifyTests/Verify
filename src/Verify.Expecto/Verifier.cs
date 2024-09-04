@@ -2,7 +2,7 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory)
+    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, string methodName, bool useUniqueDirectory)
     {
         if (settings.HasParameters)
         {
@@ -41,7 +41,7 @@ public static partial class Verifier
         VerifierSettings.AssignTargetAssembly(assembly);
         settings ??= new();
         Guards.AgainstBadSourceFile(sourceFile);
-        using var verifier = GetVerifier(settings, sourceFile, name, useUniqueDirectory);
+        using var verifier = BuildVerifier(settings, sourceFile, name, useUniqueDirectory);
         return await verify(verifier);
     }
 

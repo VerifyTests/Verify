@@ -4,7 +4,7 @@ namespace VerifyXunit;
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
+    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
         var testContext = TestContext.Current;
         var testContextTestMethod = testContext.TestMethod;
@@ -77,7 +77,7 @@ public static partial class Verifier
             settings,
             async settings =>
             {
-                using var verifier = GetVerifier(settings, sourceFile, useUniqueDirectory);
+                using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory);
                 return await verify(verifier);
             });
     }

@@ -2,7 +2,7 @@
 
 public static partial class Verifier
 {
-    static InnerVerifier GetVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
+    static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
         if (!UseVerifyAttribute.TryGet(out var method))
         {
@@ -70,7 +70,7 @@ public static partial class Verifier
             settings,
             async settings =>
             {
-                using var verifier = GetVerifier(settings, sourceFile, useUniqueDirectory);
+                using var verifier = BuildVerifier(settings, sourceFile, useUniqueDirectory);
                 return await verify(verifier);
             });
     }

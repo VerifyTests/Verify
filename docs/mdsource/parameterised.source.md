@@ -20,7 +20,7 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 ## UseParameters()
 
-`UseParameters`() is used to control what parameters are used when naming files. The usage depends on the test framework being used:
+`UseParameters()` controls what parameters are used when naming files. The usage depends on the test framework being used:
 
   * Verify.Expecto: Does not currently support `UseParameters()`.
   * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).

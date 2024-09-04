@@ -22,6 +22,14 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
+        if (!settings.HasParameters)
+        {
+            if (testContext.TestCase is XunitTestCase testCase)
+            {
+                settings.SetParameters(testCase.TestMethodArguments);
+            }
+        }
+
         var type = method.ReflectedType!;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 

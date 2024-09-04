@@ -20,7 +20,14 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
 
 ## UseParameters()
 
-<b>`Verify.NUnit` and `Verify.Fixie` automatically detect the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
+<b>
+  * Verify.Expecto: Does not currently support `UseParameters()`.
+  * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
+  * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+  * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+  * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
+  * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
+</b>
 
 `UseParameters`() is used to control what parameters are used when naming files. The usual usage is to pass though all parameters (in the same order) that the test method accepts:
 
@@ -34,6 +41,8 @@ If the number of parameters passed to `UseParameters()` is greater than the numb
 
 
 ## NUnit
+
+<b>`Verify.NUnit` automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.</b>
 
 
 ### TestCase
@@ -54,6 +63,8 @@ Produces:
 
 
 ## xUnit V2
+
+<b>`Verify.Xunit` does not detect the parametrized arguments, as such `UseParameters()` is required.</b>
 
 
 ### InlineData
@@ -77,6 +88,8 @@ snippet: xunitComplexMemberData
 
 ## xUnit V3
 
+<b>`Verify.XunitV3` automatically detect the method parameters for built in types (string, int, bool etc), but for complex types `UseParameters()` is required.</b>
+
 
 ### InlineData
 
@@ -99,7 +112,7 @@ snippet: xunitV3ComplexMemberData
 
 ## Fixie
 
-Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.
+<b>Fixie has no build in test parameterisation. Test parameterisation need to be implemented by the consuming library. See [Attribute-Based Parameterization](https://github.com/fixie/fixie/wiki/Customizing-the-Test-Project-Lifecycle#recipe-attribute-based-parameterization) for an example.</b>
 
 Verify.Fixie requires some customisation of the above example.
 
@@ -116,6 +129,8 @@ snippet: FixieTestCase
 
 
 ## MSTest
+
+<b>`Verify.MSTest` does not detect the parametrized arguments, as such `UseParameters()` is required.</b>
 
 
 ### DataRow
@@ -143,7 +158,7 @@ Results in:
 
 ## Ignore parameters for verified filename
 
-By default, Verify expects every parameterised case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
+By default, Verify expects every parameterized case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
 `IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are pssed to [UseParameters](#UseParameters). This is required for MSTest, xUnit, and NUnit. Parameters should not be passed for NUnit and Fixie since they are automatically detected.
 

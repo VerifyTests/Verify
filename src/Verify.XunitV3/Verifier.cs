@@ -1,19 +1,11 @@
-﻿using Xunit.v3;
-
-namespace VerifyXunit;
+﻿namespace VerifyXunit;
 
 public static partial class Verifier
 {
     static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
-        var testContext = TestContext.Current;
-        var testContextTestMethod = testContext.TestMethod;
-        if (testContextTestMethod == null)
-        {
-            throw new("TestContext.TestMethod is null");
-        }
-
-        var testMethod = (IXunitTestMethod) testContextTestMethod;
+        var context = TestContext.Current;
+        var testMethod = context.GetTestMethod();
 
         var method = testMethod.Method;
 
@@ -25,7 +17,7 @@ public static partial class Verifier
         var parameterNames = method.ParameterNames();
 
         if (!settings.HasParameters &&
-            testContext.TestCase is XunitTestCase { TestMethodArguments.Length: > 0 } testCase &&
+            context.TestCase is XunitTestCase {TestMethodArguments.Length: > 0} testCase &&
             testCase.TestMethodArguments.Length == parameterNames?.Count)
         {
             settings.SetParameters(testCase.TestMethodArguments);

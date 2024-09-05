@@ -4,11 +4,7 @@ public static partial class Verifier
 {
     static InnerVerifier BuildVerifier(VerifySettings settings, string sourceFile, bool useUniqueDirectory)
     {
-        if (!UseVerifyAttribute.TryGet(out var method))
-        {
-            var fileName = Path.GetFileName(sourceFile);
-            throw new($"Could not resolve the current test info. This feature uses Verify.Xunit.props to inject `[UseVerify]` on the assembly. File: {fileName}.");
-        }
+        var method = UseVerifyAttribute.GetMethod();
 
         if (useUniqueDirectory)
         {

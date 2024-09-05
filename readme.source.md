@@ -246,17 +246,52 @@ Results in a .txt file:
 snippet: JsonTests.VerifyJsonString.verified.txt
 
 
-## Source control: Received and Verified files
+## Conventions
 
 
-### Includes/Excludes
+### Source control Includes/Excludes
 
 include: include-exclude
 
 
-## Text file settings
+### Text file settings
 
 include: text-file-settings
+
+
+### Conventions check
+
+The above conventions can be checked by calling `VerifyChecks.Run()` in a test
+
+
+#### MSTest
+
+snippet: VerifyChecksMSTest
+
+
+#### Expecto
+
+snippet: VerifyChecksExpecto
+
+
+#### Fixie
+
+snippet: VerifyChecksFixie
+
+
+#### Xunit
+
+snippet: VerifyChecksXunit
+
+
+#### XunitV3
+
+snippet: VerifyChecksXunitV3
+
+
+#### NUnit
+
+snippet: VerifyChecksNUnit
 
 
 ## Static settings

@@ -31,11 +31,7 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        var context = CurrentTestContext.Value;
-        if (context is null)
-        {
-            throw new($"TestContext is null. {AttributeUsageHelp}");
-        }
+        var context = GetTestContext();
 
         var assembly = context.Assembly;
         var type = context.TestClass;
@@ -50,6 +46,17 @@ public static partial class Verifier
             method.Name,
             method.ParameterNames(),
             pathInfo);
+    }
+
+    internal static TestExecutionContext GetTestContext()
+    {
+        var context = CurrentTestContext.Value;
+        if (context is null)
+        {
+            throw new($"TestContext is null. {AttributeUsageHelp}");
+        }
+
+        return context;
     }
 
     [Pure]

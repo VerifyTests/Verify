@@ -16,15 +16,24 @@ dotnet add package Verify.Fixie
 include: implicit-usings
 
 
-## Source Control
+## Conventions
 
-### Includes/Excludes
+
+### Source Control Includes/Excludes
 
 include: include-exclude
 
-### Text file settings
+
+### Source Control Text file settings
 
 include: text-file-settings
+
+
+### Conventions check
+
+Conventions can be checked by calling `VerifyChecks.Run()` in a test
+
+snippet: VerifyChecksFixie
 
 
 ## DiffEngineTray

@@ -13,7 +13,6 @@ public class Tests
                 methodName: method));
     #endregion
 
-
     [Tests]
     public static Test myTest = Runner.TestCase(
         nameof(myTest),

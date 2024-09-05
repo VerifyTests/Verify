@@ -13,9 +13,14 @@ public sealed class UseVerifyAttribute :
     public override void After(MethodInfo info) =>
         local.Value = null;
 
-    internal static bool TryGet([NotNullWhen(true)] out MethodInfo? info)
+    public static MethodInfo GetMethod()
     {
-        info = local.Value;
-        return info is not null;
+        var method = local.Value;
+        if (method != null)
+        {
+            return method;
+        }
+
+        throw new("Could not resolve the current test info. This feature uses Verify.Xunit.props to inject `[UseVerify]` on the assembly.");
     }
 }

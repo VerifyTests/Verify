@@ -2,6 +2,6 @@
 public class VerifyChecksTests
 {
     [Test]
-    public Task RunVerifyChecks() =>
+    public Task Run() =>
         VerifyChecks.Run();
 }

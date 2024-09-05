@@ -1,7 +1,8 @@
 ﻿#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 namespace VerifyTests;
 
-static class InnerVerifyChecks
+[Experimental("InnerVerifyChecks")]
+public static class InnerVerifyChecks
 {
     public static async Task Run(Assembly assembly)
     {
@@ -54,7 +55,8 @@ static class InnerVerifyChecks
         if (File.Exists(editorConfigPath))
         {
             var text = await ReadText(editorConfigPath);
-            if (text.Contains("{received,verified}"))
+            if (text.Contains("{received,verified}") ||
+                text.Contains("# Verify"))
             {
                 return;
             }
@@ -65,7 +67,7 @@ static class InnerVerifyChecks
                   Path: {{editorConfigPath}}
                   Recommended settings:
 
-                  # Verify settings
+                  # Verify
                   # Extensions should contain all the text files used by snapshots
                   [*.{received,verified}.{txt,xml,json}]
                   charset = "utf-8-bom"
@@ -93,7 +95,9 @@ static class InnerVerifyChecks
         }
 
         var text = await ReadText(gitIgnorePath);
-        if (text.Contains("*.received.*"))
+        if (text.Contains("*.received.*") ||
+            text.Contains("*.received/") ||
+            text.Contains("# Verify"))
         {
             return;
         }
@@ -104,8 +108,9 @@ static class InnerVerifyChecks
               Path: {gitIgnorePath}
               Recommended settings:
 
-              # VerifyTest
+              # Verify
               *.received.*
+              *.received/
               """);
     }
 

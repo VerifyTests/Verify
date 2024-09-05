@@ -1,4 +1,5 @@
-﻿namespace VerifyXunit;
+﻿#pragma warning disable InnerVerifyChecks
+namespace VerifyXunit;
 
 public static class VerifyChecks
 {

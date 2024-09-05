@@ -556,10 +556,10 @@ Results in a .txt file:
 <!-- endSnippet -->
 
 
-## Source control: Received and Verified files
+## Conventions
 
 
-### Includes/Excludes
+### Source control Includes/Excludes
 
  * **All `*.received.*` files should be excluded from source control.**<!-- include: include-exclude. path: /docs/mdsource/include-exclude.include.md -->
 
@@ -577,7 +577,7 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 All `*.verified.*` files should be committed to source control.<!-- endInclude -->
 
 
-## Text file settings
+### Text file settings
 
 Text variants of verified and received have the following characteristics:<!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
 
@@ -621,6 +621,108 @@ trim_trailing_whitespace = false
 
 
 *Note that the above are suggested for subset of text extension. Add others as required based on the text file types being verified.*<!-- endInclude -->
+
+### Conventions check
+
+Conventions can be checked by calling `VerifyChecks.Run()` in a test
+
+
+#### MSTest
+
+<!-- snippet: VerifyChecksMSTest -->
+<a id='snippet-VerifyChecksMSTest'></a>
+```cs
+[TestClass]
+public partial class VerifyChecksTests
+{
+    [TestMethod]
+    public Task Run() =>
+        VerifyChecks.Run();
+}
+```
+<sup><a href='/src/Verify.MSTest.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksMSTest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Expecto
+
+<!-- snippet: VerifyChecksExpecto -->
+<a id='snippet-VerifyChecksExpecto'></a>
+```cs
+public class VerifyChecksTests
+{
+    [Tests]
+    public static Test verifyChecksTest = Runner.TestCase(
+        nameof(verifyChecksTest),
+        () => VerifyChecks.Run(typeof(VerifyChecksTests).Assembly));
+}
+```
+<sup><a href='/src/Verify.Expecto.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksExpecto' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fixie
+
+<!-- snippet: VerifyChecksFixie -->
+<a id='snippet-VerifyChecksFixie'></a>
+```cs
+public class VerifyChecksTests
+{
+    public Task Run() =>
+        VerifyChecks.Run(GetType().Assembly);
+}
+```
+<sup><a href='/src/Verify.Fixie.Tests/VerifyChecksTests.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksFixie' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Xunit
+
+<!-- snippet: VerifyChecksXunit -->
+<a id='snippet-VerifyChecksXunit'></a>
+```cs
+public class VerifyChecksTests
+{
+    [Fact]
+    public Task Run() =>
+        VerifyChecks.Run();
+}
+```
+<sup><a href='/src/Verify.Xunit.Tests/VerifyChecksTests.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### XunitV3
+
+<!-- snippet: VerifyChecksXunitV3 -->
+<a id='snippet-VerifyChecksXunitV3'></a>
+```cs
+public class VerifyChecksTests
+{
+    [Fact]
+    public Task Run() =>
+        VerifyChecks.Run();
+}
+```
+<sup><a href='/src/Verify.XunitV3.Tests/VerifyChecksTests.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunitV3' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### NUnit
+
+<!-- snippet: VerifyChecksNUnit -->
+<a id='snippet-VerifyChecksNUnit'></a>
+```cs
+[TestFixture]
+public class VerifyChecksTests
+{
+    [Test]
+    public Task Run() =>
+        VerifyChecks.Run();
+}
+```
+<sup><a href='/src/Verify.NUnit.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksNUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Static settings

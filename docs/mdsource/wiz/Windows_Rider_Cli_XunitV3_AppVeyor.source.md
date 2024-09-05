@@ -18,15 +18,24 @@ dotnet add package xunit.runner.visualstudio --prerelease
 include: implicit-usings
 
 
-## Source Control
+## Conventions
 
-### Includes/Excludes
+
+### Source Control Includes/Excludes
 
 include: include-exclude
 
-### Text file settings
+
+### Source Control Text file settings
 
 include: text-file-settings
+
+
+### Conventions check
+
+Conventions can be checked by calling `VerifyChecks.Run()` in a test
+
+snippet: VerifyChecksXunitV3
 
 
 ## DiffEngineTray

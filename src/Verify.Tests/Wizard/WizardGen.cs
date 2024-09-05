@@ -115,19 +115,19 @@ public class WizardGen
 
              """);
 
-        foreach (var testFramework in Enum.GetValues<TestFramework>())
+        foreach (var framework in Enum.GetValues<TestFramework>())
         {
-            await ProcessTestFramework(os, ide, current, testFramework, builder, fileName, nav);
+            await ProcessTestFramework(os, ide, current, framework, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
-    async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework current, StringBuilder parentBuilder, string parentFileName, string nav)
+    async Task ProcessTestFramework(Os os, Ide ide, CliPreference cli, TestFramework framework, StringBuilder parentBuilder, string parentFileName, string nav)
     {
-        var fileName = $"{parentFileName}_{current}";
-        nav += $" > [{current}]({fileName}.md)";
-        parentBuilder.AppendLine($" * [{current}]({fileName}.md)");
+        var fileName = $"{parentFileName}_{framework}";
+        nav += $" > [{framework}]({fileName}.md)";
+        parentBuilder.AppendLine($" * [{framework}]({fileName}.md)");
 
         var sourceFile = Path.Combine(wizardDir, $"{fileName}.source.md");
 
@@ -145,13 +145,13 @@ public class WizardGen
 
         foreach (var buildServer in Enum.GetValues<BuildServer>())
         {
-            await ProcessBuildServer(os, ide, cli, current, buildServer, builder, fileName, nav);
+            await ProcessBuildServer(os, ide, cli, framework, buildServer, builder, fileName, nav);
         }
 
         await File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
 
-    Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
+    Task ProcessBuildServer(Os os, Ide ide, CliPreference cli, TestFramework framework, BuildServer current, StringBuilder parentBuilder, string parentFileName, string nav)
     {
         var fileName = $"{parentFileName}_{current}";
         var name = GetName(current);
@@ -168,7 +168,7 @@ public class WizardGen
 
              """);
 
-        AppendContents(os, ide, cli, testFramework, current, builder);
+        AppendContents(os, ide, cli, framework, current, builder);
 
         return File.WriteAllTextAsync(sourceFile, builder.ToString());
     }
@@ -183,13 +183,13 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(preference), preference, null)
         };
 
-    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework testFramework, BuildServer buildServer, StringBuilder builder)
+    static void AppendContents(Os os, Ide ide, CliPreference cli, TestFramework framework, BuildServer buildServer, StringBuilder builder)
     {
-        AppendNugets(builder, testFramework, cli);
+        AppendNugets(builder, framework, cli);
 
         AppendImplicitUsings(builder);
 
-        AppendSourceControlSettings(builder);
+        AppendConventions(builder, framework);
 
         AppendDiffEngineTray(os, builder);
 
@@ -201,9 +201,9 @@ public class WizardGen
 
         AppendTerminal(builder, cli);
 
-        AppendSample(testFramework, builder);
+        AppendSample(framework, builder);
 
-        if(testFramework == TestFramework.MSTest)
+        if(framework == TestFramework.MSTest)
         {
             builder.AppendLine(
                 """
@@ -215,7 +215,7 @@ public class WizardGen
                 """);
         }
 
-        if(testFramework == TestFramework.Fixie)
+        if(framework == TestFramework.Fixie)
         {
             builder.AppendLine(
                 """
@@ -318,29 +318,38 @@ public class WizardGen
             """);
     }
 
-    static void AppendSourceControlSettings(StringBuilder builder) =>
+    static void AppendConventions(StringBuilder builder, TestFramework framework) =>
         builder.AppendLine(
-            """
+            $"""
 
-            ## Source Control
+             ## Conventions
 
-            ### Includes/Excludes
 
-            include: include-exclude
+             ### Source Control Includes/Excludes
 
-            ### Text file settings
+             include: include-exclude
 
-            include: text-file-settings
 
-            """);
+             ### Text file settings
 
-    static void AppendSample(TestFramework testFramework, StringBuilder builder) =>
+             include: text-file-settings
+
+
+             ### Conventions check
+
+             Conventions can be checked by calling `VerifyChecks.Run()` in a test
+
+             snippet: VerifyChecks{framework}
+
+             """);
+
+    static void AppendSample(TestFramework framework, StringBuilder builder) =>
         builder.AppendLine(
             $"""
 
              ## Sample Test
 
-             snippet: SampleTest{testFramework}
+             snippet: SampleTest{framework}
 
              """);
 
@@ -378,7 +387,7 @@ public class WizardGen
             _ => throw new ArgumentOutOfRangeException(nameof(os), os, null)
         };
 
-    static void AppendNugets(StringBuilder builder, TestFramework testFramework, CliPreference cli)
+    static void AppendNugets(StringBuilder builder, TestFramework framework, CliPreference cli)
     {
         builder.AppendLine(
             """
@@ -391,7 +400,7 @@ public class WizardGen
         switch (cli)
         {
             case CliPreference.Cli:
-                switch (testFramework)
+                switch (framework)
                 {
                     case TestFramework.Xunit:
                         builder.AppendLine(
@@ -457,7 +466,7 @@ public class WizardGen
                             """);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(testFramework), testFramework, null);
+                        throw new ArgumentOutOfRangeException(nameof(framework), framework, null);
                 }
 
                 break;
@@ -465,7 +474,7 @@ public class WizardGen
                 builder.AppendLine(
                     $"""
 
-                     snippet: {testFramework.ToString().ToLower()}-nugets
+                     snippet: {framework.ToString().ToLower()}-nugets
 
                      """);
                 break;

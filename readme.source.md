@@ -258,9 +258,10 @@ include: include-exclude
 
 include: text-file-settings
 
+
 ### Conventions check
 
-Conventions can be checked by calling `VerifyChecks.Run()` in a test
+The above conventions can be checked by calling `VerifyChecks.Run()` in a test
 
 
 #### MSTest

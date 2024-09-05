@@ -125,13 +125,13 @@ class VerifyEngine(
             return;
         }
 
-        var allDeletesDerified = await ProcessDeletes();
+        var allDeletesVerified = await ProcessDeletes();
 
         var allNewVerified = await ProcessNew();
 
         var allNotEqualsVerified = await ProcessNotEquals();
 
-        if (allDeletesDerified && allNewVerified && allNotEqualsVerified)
+        if (allDeletesVerified && allNewVerified && allNotEqualsVerified)
         {
             return;
         }

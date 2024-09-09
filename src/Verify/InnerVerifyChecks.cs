@@ -52,33 +52,36 @@ public static class InnerVerifyChecks
     static async Task CheckEditorConfig(string solutionDirectory)
     {
         var editorConfigPath = Path.Combine(solutionDirectory, ".editorconfig");
-        if (File.Exists(editorConfigPath))
+        if (!File.Exists(editorConfigPath))
         {
-            var text = await ReadText(editorConfigPath);
-            if (text.Contains("{received,verified}") ||
-                text.Contains("# Verify"))
-            {
-                return;
-            }
-
-            throw new(
-                $$"""
-                  Expected .editorconfig to contain settings for Verify.
-                  Path: {{editorConfigPath}}
-                  Recommended settings:
-
-                  # Verify
-                  # Extensions should contain all the text files used by snapshots
-                  [*.{received,verified}.{txt,xml,json}]
-                  charset = "utf-8-bom"
-                  end_of_line = lf
-                  indent_size = unset
-                  indent_style = unset
-                  insert_final_newline = false
-                  tab_width = unset
-                  trim_trailing_whitespace = false
-                  """);
+            return;
         }
+
+        editorConfigPath = Path.GetFullPath(editorConfigPath);
+        var text = await ReadText(editorConfigPath);
+        if (text.Contains("{received,verified}") ||
+            text.Contains("# Verify"))
+        {
+            return;
+        }
+
+        throw new(
+            $$"""
+              Expected .editorconfig to contain settings for Verify.
+              Path: {{editorConfigPath}}
+              Recommended settings:
+
+              # Verify
+              # Extensions should contain all the text files used by snapshots
+              [*.{received,verified}.{txt,xml,json}]
+              charset = "utf-8-bom"
+              end_of_line = lf
+              indent_size = unset
+              indent_style = unset
+              insert_final_newline = false
+              tab_width = unset
+              trim_trailing_whitespace = false
+              """);
     }
 
     static async Task CheckGitIgnore(string solutionDirectory)
@@ -94,6 +97,7 @@ public static class InnerVerifyChecks
             return;
         }
 
+        gitIgnorePath = Path.GetFullPath(gitIgnorePath);
         var text = await ReadText(gitIgnorePath);
         if (text.Contains("*.received.*") ||
             text.Contains("*.received/") ||

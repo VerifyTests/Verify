@@ -10,6 +10,7 @@ public static class InnerVerifyChecks
         await CheckEditorConfig(directory);
         await CheckGitIgnore(directory);
         await CheckIncorrectlyImportedSnapshots(directory);
+        await CheckGitAttributes(directory);
     }
 
     static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
@@ -51,14 +52,14 @@ public static class InnerVerifyChecks
 
     static async Task CheckEditorConfig(string solutionDirectory)
     {
-        var editorConfigPath = Path.Combine(solutionDirectory, ".editorconfig");
-        if (!File.Exists(editorConfigPath))
+        var path = Path.Combine(solutionDirectory, ".editorconfig");
+        if (!File.Exists(path))
         {
             return;
         }
 
-        editorConfigPath = Path.GetFullPath(editorConfigPath);
-        var text = await ReadText(editorConfigPath);
+        path = Path.GetFullPath(path);
+        var text = await ReadText(path);
         if (text.Contains("{received,verified}") ||
             text.Contains("# Verify"))
         {
@@ -68,7 +69,7 @@ public static class InnerVerifyChecks
         throw new(
             $$"""
               Expected .editorconfig to contain settings for Verify.
-              Path: {{editorConfigPath}}
+              Path: {{path}}
               Recommended settings:
 
               # Verify
@@ -84,21 +85,56 @@ public static class InnerVerifyChecks
               """);
     }
 
-    static async Task CheckGitIgnore(string solutionDirectory)
+    static async Task CheckGitAttributes(string solutionDirectory)
     {
-        var gitIgnorePath = Path.Combine(solutionDirectory, ".gitIgnore");
-        if (!File.Exists(gitIgnorePath))
+        var path = Path.Combine(solutionDirectory, ".gitattributes");
+        if (!File.Exists(path))
         {
-            gitIgnorePath = Path.Combine(solutionDirectory, "../.gitIgnore");
+            path = Path.Combine(solutionDirectory, "../.gitattributes");
         }
 
-        if (!File.Exists(gitIgnorePath))
+        if (!File.Exists(path))
         {
             return;
         }
 
-        gitIgnorePath = Path.GetFullPath(gitIgnorePath);
-        var text = await ReadText(gitIgnorePath);
+        path = Path.GetFullPath(path);
+        var text = await ReadText(path);
+        if (text.Contains("*.verified.") ||
+            text.Contains("# Verify"))
+        {
+            return;
+        }
+
+        throw new(
+            $"""
+              Expected .gitattributes to contain settings for Verify.
+              Path: {path}
+              Recommended settings:
+
+              # Verify
+              # Extensions should contain all the text files used by snapshots
+              *.verified.txt text eol=lf working-tree-encoding=UTF-8
+              *.verified.xml text eol=lf working-tree-encoding=UTF-8
+              *.verified.json text eol=lf working-tree-encoding=UTF-8
+              """);
+    }
+
+    static async Task CheckGitIgnore(string solutionDirectory)
+    {
+        var path = Path.Combine(solutionDirectory, ".gitIgnore");
+        if (!File.Exists(path))
+        {
+            path = Path.Combine(solutionDirectory, "../.gitIgnore");
+        }
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        path = Path.GetFullPath(path);
+        var text = await ReadText(path);
         if (text.Contains("*.received.*") ||
             text.Contains("*.received/") ||
             text.Contains("# Verify"))
@@ -109,7 +145,7 @@ public static class InnerVerifyChecks
         throw new(
             $"""
               Expected .gitIgnore to contain settings for Verify.
-              Path: {gitIgnorePath}
+              Path: {path}
               Recommended settings:
 
               # Verify

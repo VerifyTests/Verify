@@ -18,7 +18,7 @@ Add the following packages to the test project:
 <a id='snippet-xunit-nugets'></a>
 ```csproj
 <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-<PackageReference Include="Verify.Xunit" Version="26.4.0" />
+<PackageReference Include="Verify.Xunit" Version="26.4.1" />
 <PackageReference Include="xunit" Version="2.9.0" />
 <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" PrivateAssets="all" />
 ```
@@ -58,7 +58,7 @@ If using [UseSplitModeForUniqueDirectory](/docs/naming.md#usesplitmodeforuniqued
 All `*.verified.*` files should be committed to source control.<!-- endInclude -->
 
 
-### Source Control Text file settings
+### Text file settings
 
 Text variants of verified and received have the following characteristics:<!-- include: text-file-settings. path: /docs/mdsource/text-file-settings.include.md -->
 

@@ -26,7 +26,7 @@ include: implicit-usings
 include: include-exclude
 
 
-### Source Control Text file settings
+### Text file settings
 
 include: text-file-settings
 

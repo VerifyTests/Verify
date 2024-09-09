@@ -34,6 +34,10 @@
       <ParentFile>AutoVerify</ParentFile>
       <DependentUpon>AutoVerify.cs</DependentUpon>
     </None>
+    <None Update="InnerVerifyChecksTests\InnerVerifyChecksTests2.Invalid.verified.txt">
+      <ParentFile>InnerVerifyChecksTests</ParentFile>
+      <DependentUpon>InnerVerifyChecksTests2.cs</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework) != 'net8.0'">

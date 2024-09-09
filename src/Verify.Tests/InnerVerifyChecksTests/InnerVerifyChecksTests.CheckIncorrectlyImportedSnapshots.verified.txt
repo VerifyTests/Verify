@@ -1,0 +1,10 @@
+﻿{
+  Type: VerifyCheckException,
+  Message:
+Found incorrectly imported verified file.
+This occurs when a test file is copied in the IDE and the IDE incorrectly duplicates the dynamically imported verified file nestings.
+Project: file:///{ProjectDirectory}InnerVerifyChecksTests/Invalid/project.csproj
+Line: <None Update="Tests.Test.verified.txt">
+,
+  StackTrace: 
+}

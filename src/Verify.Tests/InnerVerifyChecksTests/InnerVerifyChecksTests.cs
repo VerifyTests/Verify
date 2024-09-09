@@ -3,12 +3,22 @@ public class InnerVerifyChecksTests
 {
     static readonly string invalidDirectory;
 
+    static List<string> extensions =
+    [
+        "txt",
+        "json"
+    ];
+
     static InnerVerifyChecksTests() =>
         invalidDirectory = GetDirectory("Invalid");
 
     [Fact]
     public Task Valid() =>
         InnerVerifyChecks.Run(GetDirectory("Valid"));
+
+    [Fact]
+    public Task GetExtensions() =>
+        Verify(InnerVerifyChecks.GetExtensions(AttributeReader.GetSolutionDirectory()));
 
     [Fact]
     public Task Invalid() =>
@@ -24,11 +34,11 @@ public class InnerVerifyChecksTests
 
     [Fact]
     public Task CheckGitAttributes() =>
-        ThrowsTask(() => InnerVerifyChecks.CheckGitAttributes(invalidDirectory));
+        ThrowsTask(() => InnerVerifyChecks.CheckGitAttributes(invalidDirectory, extensions));
 
     [Fact]
-    public Task CheckEditorConfig() =>
-        ThrowsTask(() => InnerVerifyChecks.CheckEditorConfig(invalidDirectory));
+    public Task CheckEditorConfig() => ThrowsTask(() =>
+        InnerVerifyChecks.CheckEditorConfig(invalidDirectory, extensions));
 
     static string GetDirectory(string suffix, [CallerFilePath] string sourceFile = "") =>
         Path.Combine(Path.GetDirectoryName(sourceFile)!, suffix);

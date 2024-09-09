@@ -4,7 +4,7 @@ root = true
 # top-most EditorConfig file
 
 # Verify settings
-[*.{received,verified}.{txt,xml,json,md,sql,csv,html}]
+[*.{received,verified}.{html,txt}]
 charset = "utf-8-bom"
 end_of_line = lf
 indent_size = unset

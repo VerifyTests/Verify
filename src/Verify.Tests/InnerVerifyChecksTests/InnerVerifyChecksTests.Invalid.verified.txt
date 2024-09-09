@@ -1,19 +1,12 @@
 ﻿{
   Type: VerifyCheckException,
   Message:
-Expected .editorconfig to contain settings for Verify.
-Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Invalid/.editorconfig
+Expected .gitIgnore to contain settings for Verify.
+Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Invalid/.gitIgnore
 Recommended settings:
 
 # Verify
-# Extensions should contain all the text files used by snapshots
-[*.{received,verified}.{txt,xml,json}]
-charset = "utf-8-bom"
-end_of_line = lf
-indent_size = unset
-indent_style = unset
-insert_final_newline = false
-tab_width = unset
-trim_trailing_whitespace = false,
+*.received.*
+*.received/,
   StackTrace: 
 }

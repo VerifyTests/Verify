@@ -1,13 +1,13 @@
 ﻿{
   Type: VerifyCheckException,
   Message:
-Expected .editorconfig to contain settings for Verify.
+Expected .editorconfig to contain settings for Verify for all text files
 Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Invalid/.editorconfig
 Recommended settings:
 
 # Verify
 # Extensions should contain all the text files used by snapshots
-[*.{received,verified}.{txt,xml,json}]
+[*.{received,verified}.{txt,json}]
 charset = "utf-8-bom"
 end_of_line = lf
 indent_size = unset

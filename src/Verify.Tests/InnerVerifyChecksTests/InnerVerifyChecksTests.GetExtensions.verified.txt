@@ -1,0 +1,8 @@
+﻿[
+  txt,
+  json,
+  html,
+  xml,
+  csv,
+  staticComparerExt
+]

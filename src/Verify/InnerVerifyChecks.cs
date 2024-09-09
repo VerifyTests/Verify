@@ -4,15 +4,20 @@ namespace VerifyTests;
 [Experimental("InnerVerifyChecks")]
 public static class InnerVerifyChecks
 {
-    public static async Task Run(Assembly assembly)
+    public static Task Run(Assembly assembly)
     {
         var directory = AttributeReader.GetSolutionDirectory(assembly);
+        return Run(directory);
+    }
+
+    internal static async Task Run(string directory)
+    {
         await CheckEditorConfig(directory);
         await CheckGitIgnore(directory);
         await CheckIncorrectlyImportedSnapshots(directory);
     }
 
-    static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
+    internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
     {
         var builder = new StringBuilder();
         foreach (var project in Directory.EnumerateFiles(solutionDirectory, "*.csproj", SearchOption.AllDirectories))
@@ -49,7 +54,7 @@ public static class InnerVerifyChecks
         throw new(builder.ToString());
     }
 
-    static async Task CheckEditorConfig(string solutionDirectory)
+    internal static async Task CheckEditorConfig(string solutionDirectory)
     {
         var editorConfigPath = Path.Combine(solutionDirectory, ".editorconfig");
         if (File.Exists(editorConfigPath))
@@ -81,7 +86,7 @@ public static class InnerVerifyChecks
         }
     }
 
-    static async Task CheckGitIgnore(string solutionDirectory)
+    internal static async Task CheckGitIgnore(string solutionDirectory)
     {
         var gitIgnorePath = Path.Combine(solutionDirectory, ".gitIgnore");
         if (!File.Exists(gitIgnorePath))

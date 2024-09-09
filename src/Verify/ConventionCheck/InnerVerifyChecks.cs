@@ -4,16 +4,21 @@ namespace VerifyTests;
 [Experimental("InnerVerifyChecks")]
 public static class InnerVerifyChecks
 {
-    public static async Task Run(Assembly assembly)
+    public static Task Run(Assembly assembly)
     {
         var directory = AttributeReader.GetSolutionDirectory(assembly);
+        return Run(directory);
+    }
+
+    internal static async Task Run(string directory)
+    {
         await CheckEditorConfig(directory);
         await CheckGitIgnore(directory);
         await CheckIncorrectlyImportedSnapshots(directory);
         await CheckGitAttributes(directory);
     }
 
-    static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
+    internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
     {
         var builder = new StringBuilder();
         foreach (var project in Directory.EnumerateFiles(solutionDirectory, "*.csproj", SearchOption.AllDirectories))
@@ -50,7 +55,7 @@ public static class InnerVerifyChecks
         throw new VerifyCheckException(builder.ToString());
     }
 
-    static async Task CheckEditorConfig(string solutionDirectory)
+    internal static async Task CheckEditorConfig(string solutionDirectory)
     {
         var path = Path.Combine(solutionDirectory, ".editorconfig");
         if (!File.Exists(path))
@@ -85,7 +90,7 @@ public static class InnerVerifyChecks
               """);
     }
 
-    static async Task CheckGitAttributes(string solutionDirectory)
+    internal static async Task CheckGitAttributes(string solutionDirectory)
     {
         var path = Path.Combine(solutionDirectory, ".gitattributes");
         if (!File.Exists(path))
@@ -108,22 +113,22 @@ public static class InnerVerifyChecks
 
         throw new VerifyCheckException(
             $"""
-              Expected .gitattributes to contain settings for Verify.
-              Path: {GetPath(path)}
-              Recommended settings:
+             Expected .gitattributes to contain settings for Verify.
+             Path: {GetPath(path)}
+             Recommended settings:
 
-              # Verify
-              # Extensions should contain all the text files used by snapshots
-              *.verified.txt text eol=lf working-tree-encoding=UTF-8
-              *.verified.xml text eol=lf working-tree-encoding=UTF-8
-              *.verified.json text eol=lf working-tree-encoding=UTF-8
-              """);
+             # Verify
+             # Extensions should contain all the text files used by snapshots
+             *.verified.txt text eol=lf working-tree-encoding=UTF-8
+             *.verified.xml text eol=lf working-tree-encoding=UTF-8
+             *.verified.json text eol=lf working-tree-encoding=UTF-8
+             """);
     }
 
     static string GetPath(string path) =>
         $"file:///{path.Replace('\\', '/')}";
 
-    static async Task CheckGitIgnore(string solutionDirectory)
+    internal static async Task CheckGitIgnore(string solutionDirectory)
     {
         var path = Path.Combine(solutionDirectory, ".gitIgnore");
         if (!File.Exists(path))
@@ -147,14 +152,14 @@ public static class InnerVerifyChecks
 
         throw new VerifyCheckException(
             $"""
-              Expected .gitIgnore to contain settings for Verify.
-              Path: {GetPath(path)}
-              Recommended settings:
+             Expected .gitIgnore to contain settings for Verify.
+             Path: {GetPath(path)}
+             Recommended settings:
 
-              # Verify
-              *.received.*
-              *.received/
-              """);
+             # Verify
+             *.received.*
+             *.received/
+             """);
     }
 
     static Task<string> ReadText(string path) =>

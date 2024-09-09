@@ -1,0 +1,14 @@
+﻿{
+  Type: VerifyCheckException,
+  Message:
+Expected .gitattributes to contain settings for Verify.
+Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Invalid/.gitattributes
+Recommended settings:
+
+# Verify
+# Extensions should contain all the text files used by snapshots
+*.verified.txt text eol=lf working-tree-encoding=UTF-8
+*.verified.xml text eol=lf working-tree-encoding=UTF-8
+*.verified.json text eol=lf working-tree-encoding=UTF-8,
+  StackTrace: 
+}

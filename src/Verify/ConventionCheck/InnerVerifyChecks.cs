@@ -47,7 +47,7 @@ public static class InnerVerifyChecks
             This occurs when a test file is copied in the IDE and the IDE incorrectly duplicates the dynamically imported verified file nestings.
 
             """);
-        throw new CheckException(builder.ToString());
+        throw new VerifyCheckException(builder.ToString());
     }
 
     static async Task CheckEditorConfig(string solutionDirectory)
@@ -66,7 +66,7 @@ public static class InnerVerifyChecks
             return;
         }
 
-        throw new CheckException(
+        throw new VerifyCheckException(
             $$"""
               Expected .editorconfig to contain settings for Verify.
               Path: {{GetPath(path)}}
@@ -106,7 +106,7 @@ public static class InnerVerifyChecks
             return;
         }
 
-        throw new CheckException(
+        throw new VerifyCheckException(
             $"""
               Expected .gitattributes to contain settings for Verify.
               Path: {GetPath(path)}
@@ -145,7 +145,7 @@ public static class InnerVerifyChecks
             return;
         }
 
-        throw new CheckException(
+        throw new VerifyCheckException(
             $"""
               Expected .gitIgnore to contain settings for Verify.
               Path: {GetPath(path)}
@@ -170,15 +170,4 @@ public static class InnerVerifyChecks
 #else
         Task.FromResult(File.ReadAllLines(path));
 #endif
-    class CheckException : Exception
-    {
-        public CheckException(string message) :
-            base(message)
-        {
-        }
-
-        public override string ToString() => Message;
-
-        public override string StackTrace => "";
-    }
 }

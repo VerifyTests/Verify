@@ -29,7 +29,7 @@ public static class InnerVerifyChecks
 
                 builder.AppendLine(
                     $"""
-                     Project: file:///{project.Replace('\\', '/')}
+                     Project: {GetPath(project)}
                      Line: {line.TrimStart()}
                      """);
             }
@@ -47,7 +47,7 @@ public static class InnerVerifyChecks
             This occurs when a test file is copied in the IDE and the IDE incorrectly duplicates the dynamically imported verified file nestings.
 
             """);
-        throw new(builder.ToString());
+        throw new CheckException(builder.ToString());
     }
 
     static async Task CheckEditorConfig(string solutionDirectory)
@@ -66,10 +66,10 @@ public static class InnerVerifyChecks
             return;
         }
 
-        throw new(
+        throw new CheckException(
             $$"""
               Expected .editorconfig to contain settings for Verify.
-              Path: {{path}}
+              Path: {{GetPath(path)}}
               Recommended settings:
 
               # Verify
@@ -106,10 +106,10 @@ public static class InnerVerifyChecks
             return;
         }
 
-        throw new(
+        throw new CheckException(
             $"""
               Expected .gitattributes to contain settings for Verify.
-              Path: {path}
+              Path: {GetPath(path)}
               Recommended settings:
 
               # Verify
@@ -119,6 +119,9 @@ public static class InnerVerifyChecks
               *.verified.json text eol=lf working-tree-encoding=UTF-8
               """);
     }
+
+    static string GetPath(string path) =>
+        $"file:///{path.Replace('\\', '/')}";
 
     static async Task CheckGitIgnore(string solutionDirectory)
     {
@@ -142,10 +145,10 @@ public static class InnerVerifyChecks
             return;
         }
 
-        throw new(
+        throw new CheckException(
             $"""
               Expected .gitIgnore to contain settings for Verify.
-              Path: {path}
+              Path: {GetPath(path)}
               Recommended settings:
 
               # Verify
@@ -167,4 +170,15 @@ public static class InnerVerifyChecks
 #else
         Task.FromResult(File.ReadAllLines(path));
 #endif
+    class CheckException : Exception
+    {
+        public CheckException(string message) :
+            base(message)
+        {
+        }
+
+        public override string ToString() => Message;
+
+        public override string StackTrace => "";
+    }
 }

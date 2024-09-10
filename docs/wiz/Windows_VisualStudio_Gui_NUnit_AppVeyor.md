@@ -119,7 +119,7 @@ public class VerifyChecksTests
         VerifyChecks.Run();
 }
 ```
-<sup><a href='/src/Verify.NUnit.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksNUnit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.NUnit.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksNUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

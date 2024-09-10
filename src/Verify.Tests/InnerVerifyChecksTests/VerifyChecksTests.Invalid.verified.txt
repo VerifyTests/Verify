@@ -1,0 +1,12 @@
+﻿{
+  Type: VerifyCheckException,
+  Message:
+Expected .gitIgnore to contain settings for Verify.
+Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Invalid/.gitIgnore
+Recommended settings:
+
+# Verify
+*.received.*
+*.received/,
+  StackTrace: 
+}

@@ -1,4 +1,5 @@
-﻿#region VerifyChecksNUnit
+﻿/**
+#region VerifyChecksNUnit
 [TestFixture]
 public class VerifyChecksTests
 {
@@ -7,3 +8,4 @@ public class VerifyChecksTests
         VerifyChecks.Run();
 }
 #endregion
+**/

@@ -12,11 +12,25 @@ public static class InnerVerifyChecks
 
     internal static async Task Run(string directory)
     {
-        await CheckEditorConfig(directory);
+        var extensions = GetExtensions(directory);
         await CheckGitIgnore(directory);
         await CheckIncorrectlyImportedSnapshots(directory);
-        await CheckGitAttributes(directory);
+        if (extensions.Count == 0)
+        {
+            return;
+        }
+        await CheckEditorConfig(directory, extensions);
+        await CheckGitAttributes(directory, extensions);
     }
+
+    internal static List<string> GetExtensions(string directory) =>
+        // ReSharper disable once RedundantSuppressNullableWarningExpression
+        Directory.EnumerateFiles(directory, "*.verified.*", SearchOption.AllDirectories)
+            .Select(_ => Path.GetExtension(_)![1..])
+            .Distinct()
+            .Where(FileExtensions.IsTextExtension)
+            .OrderBy(_ => _)
+            .ToList();
 
     internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
     {
@@ -55,7 +69,7 @@ public static class InnerVerifyChecks
         throw new VerifyCheckException(builder.ToString());
     }
 
-    internal static async Task CheckEditorConfig(string solutionDirectory)
+    internal static async Task CheckEditorConfig(string solutionDirectory, List<string> extensions)
     {
         var path = Path.Combine(solutionDirectory, ".editorconfig");
         if (!File.Exists(path))
@@ -65,21 +79,21 @@ public static class InnerVerifyChecks
 
         path = Path.GetFullPath(path);
         var text = await ReadText(path);
-        if (text.Contains("{received,verified}") ||
-            text.Contains("# Verify"))
+
+        var headerLine = $"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]";
+        if (text.Contains(headerLine))
         {
             return;
         }
 
         throw new VerifyCheckException(
-            $$"""
-              Expected .editorconfig to contain settings for Verify.
-              Path: {{GetPath(path)}}
+            $"""
+              Expected .editorconfig to contain settings for Verify for all text files
+              Path: {GetPath(path)}
               Recommended settings:
 
               # Verify
-              # Extensions should contain all the text files used by snapshots
-              [*.{received,verified}.{txt,xml,json}]
+              {headerLine}
               charset = "utf-8-bom"
               end_of_line = lf
               indent_size = unset
@@ -90,7 +104,7 @@ public static class InnerVerifyChecks
               """);
     }
 
-    internal static async Task CheckGitAttributes(string solutionDirectory)
+    internal static async Task CheckGitAttributes(string solutionDirectory, List<string> extensions)
     {
         var path = Path.Combine(solutionDirectory, ".gitattributes");
         if (!File.Exists(path))
@@ -104,25 +118,42 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await ReadText(path);
-        if (text.Contains("*.verified.") ||
-            text.Contains("# Verify"))
+        var text = await ReadLines(path);
+
+        List<string> missing = [];
+        List<string> expected = [];
+        foreach (var extension in extensions)
+        {
+            var line = $"*.verified.{extension} text eol=lf working-tree-encoding=UTF-8";
+            expected.Add(line);
+            if (text.Contains(line))
+            {
+                continue;
+            }
+
+            missing.Add(line);
+        }
+
+        if (missing.Count == 0)
         {
             return;
         }
 
-        throw new VerifyCheckException(
+        var builder = new StringBuilder(
             $"""
              Expected .gitattributes to contain settings for Verify.
              Path: {GetPath(path)}
              Recommended settings:
 
              # Verify
-             # Extensions should contain all the text files used by snapshots
-             *.verified.txt text eol=lf working-tree-encoding=UTF-8
-             *.verified.xml text eol=lf working-tree-encoding=UTF-8
-             *.verified.json text eol=lf working-tree-encoding=UTF-8
+
              """);
+        foreach (var line in expected)
+        {
+            builder.AppendLine(line);
+        }
+
+        throw new VerifyCheckException(builder.ToString());
     }
 
     static string GetPath(string path) =>

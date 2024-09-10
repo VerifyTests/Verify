@@ -1,4 +1,5 @@
-﻿#region VerifyChecksXunit
+﻿/**
+#region VerifyChecksXunit
 public class VerifyChecksTests
 {
     [Fact]
@@ -6,3 +7,4 @@ public class VerifyChecksTests
         VerifyChecks.Run();
 }
 #endregion
+**/

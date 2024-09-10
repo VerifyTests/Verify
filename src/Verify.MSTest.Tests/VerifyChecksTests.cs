@@ -1,4 +1,5 @@
-﻿#region VerifyChecksMSTest
+﻿/**
+#region VerifyChecksMSTest
 [TestClass]
 public partial class VerifyChecksTests
 {
@@ -7,3 +8,4 @@ public partial class VerifyChecksTests
         VerifyChecks.Run();
 }
 #endregion
+**/

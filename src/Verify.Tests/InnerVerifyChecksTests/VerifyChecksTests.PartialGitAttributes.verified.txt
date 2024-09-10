@@ -1,0 +1,13 @@
+﻿{
+  Type: VerifyCheckException,
+  Message:
+Expected .gitattributes to contain settings for Verify.
+Path: file:///{ProjectDirectory}InnerVerifyChecksTests/Partial/.gitattributes
+Recommended settings:
+
+# Verify
+*.verified.txt text eol=lf working-tree-encoding=UTF-8
+*.verified.json text eol=lf working-tree-encoding=UTF-8
+,
+  StackTrace: 
+}

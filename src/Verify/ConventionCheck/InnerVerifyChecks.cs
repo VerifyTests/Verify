@@ -29,6 +29,7 @@ public static class InnerVerifyChecks
             .Select(_ => Path.GetExtension(_)![1..])
             .Distinct()
             .Where(FileExtensions.IsTextExtension)
+            .OrderBy(_ => _)
             .ToList();
 
     internal static async Task CheckIncorrectlyImportedSnapshots(string solutionDirectory)
@@ -92,7 +93,6 @@ public static class InnerVerifyChecks
               Recommended settings:
 
               # Verify
-              # Extensions should contain all the text files used by snapshots
               {headerLine}
               charset = "utf-8-bom"
               end_of_line = lf
@@ -118,9 +118,23 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await ReadText(path);
-        if (text.Contains("*.verified.") ||
-            text.Contains("# Verify"))
+        var text = await ReadLines(path);
+
+        List<string> missing = [];
+        List<string> expected = [];
+        foreach (var extension in extensions)
+        {
+            var line = $"*.verified.{extension} text eol=lf working-tree-encoding=UTF-8";
+            expected.Add(line);
+            if (text.Contains(line))
+            {
+                continue;
+            }
+
+            missing.Add(line);
+        }
+
+        if (missing.Count == 0)
         {
             return;
         }
@@ -132,12 +146,11 @@ public static class InnerVerifyChecks
              Recommended settings:
 
              # Verify
-             # Extensions should contain all the text files used by snapshots
 
              """);
-        foreach (var extension in extensions)
+        foreach (var line in expected)
         {
-            builder.AppendLine($"*.verified.{extension} text eol=lf working-tree-encoding=UTF-8");
+            builder.AppendLine(line);
         }
 
         throw new VerifyCheckException(builder.ToString());

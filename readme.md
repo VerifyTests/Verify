@@ -641,7 +641,7 @@ public partial class VerifyChecksTests
         VerifyChecks.Run();
 }
 ```
-<sup><a href='/src/Verify.MSTest.Tests/VerifyChecksTests.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -673,7 +673,7 @@ public class VerifyChecksTests
         VerifyChecks.Run(GetType().Assembly);
 }
 ```
-<sup><a href='/src/Verify.Fixie.Tests/VerifyChecksTests.cs#L1-L7' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksFixie' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Fixie.Tests/VerifyChecksTests.cs#L2-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksFixie' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -689,7 +689,7 @@ public class VerifyChecksTests
         VerifyChecks.Run();
 }
 ```
-<sup><a href='/src/Verify.Xunit.Tests/VerifyChecksTests.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunit' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Xunit.Tests/VerifyChecksTests.cs#L2-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksXunit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

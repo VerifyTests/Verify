@@ -19,7 +19,7 @@ public class ReadStringBuilderWithFixedLinesBenchmarks
         foreach (var file in files)
         {
             using var reader = IoHelpers.OpenRead(file);
-            await IoHelpers.ReadStringBuilderWithFixedLines(reader);
+            await reader.ReadStringBuilderWithFixedLines();
         }
     }
 }

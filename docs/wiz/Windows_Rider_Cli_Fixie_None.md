@@ -82,7 +82,7 @@ If modifying text verified/received files in an editor, it is desirable for the 
 
 ```
 # Verify settings
-[*.{received,verified}.{txt,xml,json}]
+[*.{received,verified}.{json,txt,xml}]
 charset = "utf-8-bom"
 end_of_line = lf
 indent_size = unset

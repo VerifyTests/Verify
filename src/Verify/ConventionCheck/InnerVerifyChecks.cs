@@ -78,10 +78,9 @@ public static class InnerVerifyChecks
         }
 
         path = Path.GetFullPath(path);
-        var text = await ReadText(path);
+        var lines = await ReadLines(path);
 
-        var headerLine = $"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]";
-        if (text.Contains(headerLine))
+        if (HasAllExtensions(extensions, lines))
         {
             return;
         }
@@ -93,7 +92,7 @@ public static class InnerVerifyChecks
               Recommended settings:
 
               # Verify
-              {headerLine}
+              {$"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]"}
               charset = "utf-8-bom"
               end_of_line = lf
               indent_size = unset
@@ -102,6 +101,26 @@ public static class InnerVerifyChecks
               tab_width = unset
               trim_trailing_whitespace = false
               """);
+    }
+
+    static bool HasAllExtensions(List<string> extensions, string[] lines)
+    {
+        var line = lines.SingleOrDefault(_ => _.StartsWith("[*.{received,verified}."));
+        if (line == null)
+        {
+            return false;
+        }
+
+        var suffix = line[24..^2].Split(',');
+        foreach (var extension in extensions)
+        {
+            if (!suffix.Contains(extension))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     internal static async Task CheckGitAttributes(string solutionDirectory, List<string> extensions)

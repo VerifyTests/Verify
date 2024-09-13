@@ -2,46 +2,44 @@
 
 static class ApplyScrubbers
 {
-    static char dirSeparator = Path.DirectorySeparatorChar;
-    static char altDirSeparator = Path.AltDirectorySeparatorChar;
     static List<KeyValuePair<string, string>> replacements = [];
 
     static string ReplaceAltDirChar(this string directory) =>
-        directory.Replace(dirSeparator, altDirSeparator);
+        directory.Replace(IoHelpers.DirectorySeparator, IoHelpers.AltDirectorySeparator);
 
     public static void UseAssembly(string? solutionDir, string projectDir)
     {
         var replacements = new Dictionary<string, string>();
         var baseDir = CleanPath(AppDomain.CurrentDomain.BaseDirectory!);
         var altBaseDir = baseDir.ReplaceAltDirChar();
-        replacements[baseDir + dirSeparator] = "{CurrentDirectory}";
+        replacements[baseDir + IoHelpers.DirectorySeparator] = "{CurrentDirectory}";
         replacements[baseDir] = "{CurrentDirectory}";
-        replacements[altBaseDir + altDirSeparator] = "{CurrentDirectory}";
+        replacements[altBaseDir + IoHelpers.AltDirectorySeparator] = "{CurrentDirectory}";
         replacements[altBaseDir] = "{CurrentDirectory}";
 
         var currentDir = CleanPath(Environment.CurrentDirectory);
         var altCurrentDir = currentDir.ReplaceAltDirChar();
-        replacements[currentDir + dirSeparator] = "{CurrentDirectory}";
+        replacements[currentDir + IoHelpers.DirectorySeparator] = "{CurrentDirectory}";
         replacements[currentDir] = "{CurrentDirectory}";
-        replacements[altCurrentDir + altDirSeparator] = "{CurrentDirectory}";
+        replacements[altCurrentDir + IoHelpers.AltDirectorySeparator] = "{CurrentDirectory}";
         replacements[altCurrentDir] = "{CurrentDirectory}";
 #if !NET5_0_OR_GREATER
         if (CodeBaseLocation.CurrentDirectory is not null)
         {
             var codeBaseLocation = CleanPath(CodeBaseLocation.CurrentDirectory);
             var altCodeBaseLocation = codeBaseLocation.ReplaceAltDirChar();
-            replacements[codeBaseLocation + dirSeparator] = "{CurrentDirectory}";
+            replacements[codeBaseLocation + IoHelpers.DirectorySeparator] = "{CurrentDirectory}";
             replacements[codeBaseLocation] = "{CurrentDirectory}";
-            replacements[altCodeBaseLocation + altDirSeparator] = "{CurrentDirectory}";
+            replacements[altCodeBaseLocation + IoHelpers.AltDirectorySeparator] = "{CurrentDirectory}";
             replacements[altCodeBaseLocation] = "{CurrentDirectory}";
         }
 #endif
 
         var tempPath = CleanPath(Path.GetTempPath());
         var altTempPath = tempPath.ReplaceAltDirChar();
-        replacements[tempPath + dirSeparator] = "{TempPath}";
+        replacements[tempPath + IoHelpers.DirectorySeparator] = "{TempPath}";
         replacements[tempPath] = "{TempPath}";
-        replacements[altTempPath + altDirSeparator] = "{TempPath}";
+        replacements[altTempPath + IoHelpers.AltDirectorySeparator] = "{TempPath}";
         replacements[altTempPath] = "{TempPath}";
 
         if (VerifierSettings.scrubUserProfile)

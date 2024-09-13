@@ -1,5 +1,21 @@
 ﻿static class IoHelpers
 {
+    static IoHelpers()
+    {
+        DirectorySeparator = Path.DirectorySeparatorChar;
+        if (DirectorySeparator == '/')
+        {
+            AltDirectorySeparator = '\\';
+        }
+        else
+        {
+            AltDirectorySeparator = '/';
+        }
+    }
+
+    public static char DirectorySeparator { get; }
+    public static char AltDirectorySeparator { get; }
+
     static readonly char[] Separators =
     [
         '\\',

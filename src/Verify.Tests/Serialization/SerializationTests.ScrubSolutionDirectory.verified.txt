@@ -1,6 +1,8 @@
 ﻿{
   path: {SolutionDirectory}Foo,
   trimmed: {SolutionDirectory}Foo,
-  altPath: {SolutionDirectory}Foo,
-  altPathTrimmed: {SolutionDirectory}Foo
+  altPath1: {SolutionDirectory}Foo,
+  altPath1Trimmed: {SolutionDirectory}Foo,
+  altPath2: {SolutionDirectory}Foo,
+  altPath2Trimmed: {SolutionDirectory}Foo
 }

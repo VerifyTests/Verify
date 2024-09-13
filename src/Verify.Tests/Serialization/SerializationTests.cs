@@ -2018,14 +2018,17 @@ public class SerializationTests
     {
         var projectDirectory = AttributeReader.GetProjectDirectory();
         var path = Path.GetFullPath(Path.Combine(projectDirectory, "Foo"));
-        var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        var altPath1 = path.Replace('/', '\\');
+        var altPath2 = path.Replace('\\', '/');
         return Verify(
             new
             {
                 path,
                 trimmed = path.TrimEnd('/', '\\'),
-                altPath,
-                altPathTrimmed = altPath.TrimEnd('/', '\\')
+                altPath1,
+                altPath1Trimmed = altPath1.TrimEnd('/', '\\'),
+                altPath2,
+                altPath2Trimmed = altPath2.TrimEnd('/', '\\')
             });
     }
 
@@ -2034,14 +2037,17 @@ public class SerializationTests
     {
         var solutionDirectory = AttributeReader.GetSolutionDirectory();
         var path = Path.GetFullPath(Path.Combine(solutionDirectory, "Foo"));
-        var altPath = path.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        var altPath1 = path.Replace('/', '\\');
+        var altPath2 = path.Replace('\\', '/');
         return Verify(
             new
             {
                 path,
                 trimmed = path.TrimEnd('/', '\\'),
-                altPath,
-                altPathTrimmed = altPath.TrimEnd('/', '\\')
+                altPath1,
+                altPath1Trimmed = altPath1.TrimEnd('/', '\\'),
+                altPath2,
+                altPath2Trimmed = altPath2.TrimEnd('/', '\\')
             });
     }
 

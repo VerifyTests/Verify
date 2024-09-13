@@ -1,4 +1,4 @@
-﻿#pragma warning disable VerifySetParameters
+#pragma warning disable VerifySetParameters
 namespace VerifyNUnit;
 
 public static partial class Verifier

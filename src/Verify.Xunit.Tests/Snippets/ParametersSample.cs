@@ -1,4 +1,4 @@
-﻿public class ParametersSample
+public class ParametersSample
 {
     public static IEnumerable<object[]> GetDecimalData()
     {
@@ -41,6 +41,44 @@
     public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersFluent(string arg) =>
+        Verify("value")
+            .UseParameters(arg)
+            .IgnoreParameters(nameof(arg));
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters($"Number{arg}");
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersCustomParamsFluent(string arg) =>
+        Verify("value")
+            .UseParameters(arg)
+            .IgnoreParameters(nameof(arg));
 
     [Theory]
     [MemberData(nameof(GetDecimalData))]

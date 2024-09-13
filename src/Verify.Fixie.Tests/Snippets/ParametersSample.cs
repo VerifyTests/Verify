@@ -1,4 +1,4 @@
-﻿// ReSharper disable UnusedParameter.Global
+// ReSharper disable UnusedParameter.Global
 public class ParametersSample
 {
     [TestCase("1.1")]
@@ -6,7 +6,7 @@ public class ParametersSample
         Verify(arg)
             .UseParameters(arg);
 
-    [TestCase((float) 1.1)]
+    [TestCase((float)1.1)]
     public Task Float(float arg) =>
         Verify(arg)
             .UseParameters(arg);
@@ -73,6 +73,56 @@ public class ParametersSample
     public Task IgnoreParametersForVerifiedFluentCustomParams(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
+
+    #region IgnoreParametersFixie
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersFluentFixie
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersFluent(string arg) =>
+        Verify("value")
+            .UseParameters(arg)
+            .IgnoreParameters(arg);
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsFixie
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsFluentFixie
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersFluentCustomParams(string arg) =>
+        Verify("value")
+            .UseParameters(arg)
+            .IgnoreParameters(nameof(arg));
 
     #endregion
 }

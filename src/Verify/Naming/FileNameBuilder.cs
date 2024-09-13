@@ -1,4 +1,4 @@
-﻿static class FileNameBuilder
+static class FileNameBuilder
 {
     public static FrameworkNameVersion? FrameworkName(this Assembly assembly)
     {
@@ -21,46 +21,63 @@
         return $"{resolvedType}.{resolvedMethod}";
     }
 
-    public static string GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings)
+    public static (string receivedParameters, string verifiedParameters) GetParameterText(IReadOnlyList<string>? methodParameters, VerifySettings settings)
     {
         if (settings.parametersText is not null)
         {
-            return $"_{settings.parametersText}";
+            var parameterText = $"_{settings.parametersText}";
+            return (parameterText, parameterText);
         }
 
         if (methodParameters is null ||
             !settings.TryGetParameters(out var settingsParameters))
         {
-            return "";
+            return (string.Empty, string.Empty);
         }
 
-        if (settingsParameters.Length > methodParameters.Count)
+        var numberOfMethodParameters = methodParameters.Count;
+
+        var ignoredParameters = settings.ignoredParameters;
+        if (ignoredParameters?.All(methodParameters.Contains) == false)
         {
-            throw new($"The number of passed in parameters ({settingsParameters.Length}) must be fewer than the number of parameters for the method ({methodParameters.Count}).");
+            throw new($"Some of the ignored parameter names ({string.Join(", ", ignoredParameters)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
         }
 
-        var builder = new StringBuilder("_");
-        for (var index = 0; index < settingsParameters.Length; index++)
+        if (settingsParameters.Length > numberOfMethodParameters)
         {
-            var parameter = methodParameters[index];
-            var value = settingsParameters[index];
-            builder.Append(parameter);
-            builder.Append('=');
-            VerifierSettings.AppendParameter(value, builder, true);
-            if (index < settingsParameters.Length - 1)
+            throw new($"The number of passed in parameters ({settingsParameters.Length}) must not exceed the number of parameters for the method ({methodParameters.Count}).");
+        }
+
+        var allValues = methodParameters
+            .Zip(settingsParameters, (name, value) => new KeyValuePair<string, object?>(name, value))
+            .ToArray();
+
+        var verifiedValues = ignoredParameters is null
+            ? allValues
+            : ignoredParameters.Count == 0 ? [] : allValues.Where(x => !ignoredParameters.Contains(x.Key)).ToArray();
+
+        return (BuildParameterString(allValues), BuildParameterString(verifiedValues));
+
+        string BuildParameterString(KeyValuePair<string, object?>[] values)
+        {
+            var builder = values.Aggregate(new StringBuilder(), (acc, seed) =>
             {
-                builder.Append('_');
+                acc.Append('_');
+                acc.Append(seed.Key);
+                acc.Append('=');
+                VerifierSettings.AppendParameter(seed.Value, acc, true);
+                return acc;
+            });
+
+            var parameterText = builder.ToString();
+
+            if (settings.hashParameters || VerifierSettings.hashParameters)
+            {
+                return HashString(parameterText);
             }
+
+            return parameterText;
         }
-
-        var parameterText = builder.ToString();
-
-        if (settings.hashParameters || VerifierSettings.hashParameters)
-        {
-            return HashString(parameterText);
-        }
-
-        return parameterText;
     }
 
     static string HashString(string value)

@@ -281,7 +281,7 @@ public class NamerTests
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verify("UseTooManyParameters")
             .UseParameters("param1", "param2"));
-        Assert.Equal("The number of passed in parameters (2) must be fewer than the number of parameters for the method (1).", exception.Message);
+        Assert.Equal("The number of passed in parameters (2) must not exceed the number of parameters for the method (1).", exception.Message);
     }
 
     [Fact]

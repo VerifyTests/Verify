@@ -71,12 +71,23 @@ public partial class VerifySettings
         }
     }
 
+    internal HashSet<string>? ignoredParameters;
+
+    /// <summary>
+    /// Ignore parameters in 'verified' filename resulting in the same verified file for multiple testcases.
+    /// Note that UseParameters has still been called for test frameworks that don't support automatic parameter detection and the 'received' files still contains the parameters.
+    /// </summary>
+    /// <param name="parameterNames">The names of the parameters to be ignored. When passing an empty list all parameters will be ignored.</param>
+    public void IgnoreParameters(params string[] parameterNames) =>
+        ignoredParameters = parameterNames.ToHashSet();
+
     internal bool ignoreParametersForVerified;
 
     /// <summary>
-    /// Ignore parameters in 'verified' filename resulting in the same verified file for each testcase.
-    /// Note that the 'received' files contain the parameters.
+    /// Ignore all parameters in 'verified' filename resulting in the same verified file for each testcase.
+    /// Note that the 'received' files still contain the parameters.
     /// </summary>
+    /// <param name="parameters">The parameters as you would have passed them to the UseParameters function.</param>
     public void IgnoreParametersForVerified(params object?[] parameters)
     {
         if (parameters.Length > 0)

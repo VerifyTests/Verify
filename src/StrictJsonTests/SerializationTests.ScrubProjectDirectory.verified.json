@@ -1,6 +1,8 @@
 ﻿{
   "path": "{ProjectDirectory}Foo",
   "trimmed": "{ProjectDirectory}Foo",
-  "altPath": "{ProjectDirectory}Foo",
-  "altPathTrimmed": "{ProjectDirectory}Foo"
+  "altPath1": "{ProjectDirectory}Foo",
+  "altPath1Trimmed": "{ProjectDirectory}Foo",
+  "altPath2": "{ProjectDirectory}Foo",
+  "altPath2Trimmed": "{ProjectDirectory}Foo"
 }

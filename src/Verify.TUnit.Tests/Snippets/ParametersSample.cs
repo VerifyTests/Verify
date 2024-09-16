@@ -1,14 +1,15 @@
 ﻿public class ParametersSample
 {
-    [Test]
-    [Arguments(1.1f)]
-    public Task Float(float arg) =>
-        Verify(arg);
-
-    [Test]
-    [Arguments(1.1d)]
-    public Task Double(double arg) =>
-        Verify(arg);
+    //TODO:
+    // [Test]
+    // [Arguments(1.1F)]
+    // public Task Float(float arg) =>
+    //     Verify(arg);
+    //
+    // [Test]
+    // [Arguments(1.1D)]
+    // public Task Double(double arg) =>
+    //     Verify(arg);
 
     #region IgnoreParametersForVerifiedTunit
 

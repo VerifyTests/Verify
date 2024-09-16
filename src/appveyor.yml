@@ -38,6 +38,8 @@ build_script:
       dotnet test src/Verify.MSTest.SourceGenerator.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet
+      dotnet test src/Verify.TUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
+      dotnet test src/Verify.TUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
       dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore --verbosity quiet

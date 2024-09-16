@@ -1,5 +1,3 @@
-using Argon;
-
 // ReSharper disable NotAccessedField.Local
 
 // Non-nullable field is uninitialized

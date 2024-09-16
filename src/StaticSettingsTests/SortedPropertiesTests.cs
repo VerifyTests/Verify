@@ -1,6 +1,4 @@
-﻿using Argon;
-
-public class SortedPropertiesTests :
+﻿public class SortedPropertiesTests :
     BaseTest
 {
     public SortedPropertiesTests() =>

@@ -1,23 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net48</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);net9.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
 
     <ProjectReference Include="..\TargetLibrary\TargetLibrary.csproj" />
-    <ProjectReference Include="..\Verify.NUnit\Verify.NUnit.csproj" />
+    <ProjectReference Include="..\Verify.TUnit\Verify.TUnit.csproj" />
     <ProjectReference Include="..\Verify\Verify.csproj" />
-
-    <Using Include="NUnit.Framework.Legacy.ClassicAssert" Static="True" />
-    <Using Include="NUnit.Framework.Assert" Static="True" />
+    <PackageReference Include="TUnit" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
@@ -26,6 +22,6 @@
 
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.props" />
   <Import Project="$(ProjectDir)..\Verify\buildTransitive\Verify.targets" />
-  <Import Project="$(ProjectDir)..\Verify.NUnit\buildTransitive\Verify.NUnit.props" />
+  <Import Project="$(ProjectDir)..\Verify.TUnit\buildTransitive\Verify.TUnit.props" />
 
 </Project>

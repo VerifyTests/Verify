@@ -22,13 +22,17 @@
         return parent != null;
     }
 
-    public static IReadOnlyList<string>? GetParameterNames(this TestAdapter adapter)
+    public static IReadOnlyList<string>? GetParameterNames(this TestAdapter adapter, IReadOnlyList<string>? methodParameterNames)
     {
         var method = adapter.Method!;
 
-        var methodParameterNames = method.MethodInfo.ParameterNames();
-
         if (!adapter.TryGetParent(out var parent))
+        {
+            return methodParameterNames;
+        }
+
+        var argumentsLength = parent.Arguments.Length;
+        if (argumentsLength == 0)
         {
             return methodParameterNames;
         }

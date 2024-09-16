@@ -33,13 +33,12 @@ public static partial class Verifier
         IReadOnlyList<string>? parameterNames;
         if (settings.HasParameters)
         {
-            parameterNames = adapter.GetParameterNames();
+            parameterNames = GetParameterNames(method, adapter);
         }
         else
         {
-            var (names, values) = GetParameterInfo(adapter);
-            settings.SetParameters(values);
-            parameterNames = names;
+            (parameterNames, var parameters) = GetParametersAndNames(method, adapter);
+            settings.SetParameters(parameters);
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
@@ -54,32 +53,56 @@ public static partial class Verifier
             pathInfo);
     }
 
-    static (IReadOnlyList<string>? names, object?[] values) GetParameterInfo(TestAdapter adapter)
+    static IReadOnlyList<string>? GetParameterNames(MethodInfo method, TestAdapter adapter)
     {
-        var method = adapter.Method!;
+        var methodParameterNames = method.ParameterNames();
+        return adapter.GetParameterNames(methodParameterNames);
+    }
 
-        var methodParameterNames = method.MethodInfo.ParameterNames();
-
+    static (IReadOnlyList<string>? names, object?[] parameters) GetParametersAndNames(MethodInfo method, TestAdapter adapter)
+    {
+        var methodParameterNames = method.ParameterNames();
+        var parameterNames = adapter.GetParameterNames(methodParameterNames);
         if (!adapter.TryGetParent(out var parent))
         {
-            return (methodParameterNames, adapter.Arguments);
+            return (parameterNames, adapter.Arguments);
         }
 
         var argumentsLength = parent.Arguments.Length;
         if (argumentsLength == 0)
         {
-            return (methodParameterNames, adapter.Arguments);
+            return (parameterNames, adapter.Arguments);
         }
 
-        var names = method.TypeInfo.Type.GetConstructorParameterNames(argumentsLength);
         if (methodParameterNames == null)
         {
-            return (names.ToList(), parent.Arguments);
+            return (parameterNames, parent.Arguments);
         }
 
         return (
-            [.. names, .. methodParameterNames],
+            parameterNames,
             [.. parent.Arguments, .. adapter.Arguments]);
+    }
+
+    static object?[] GetParameters(TestAdapter adapter, IReadOnlyList<string>? methodParameterNames)
+    {
+        if (!adapter.TryGetParent(out var parent))
+        {
+            return adapter.Arguments;
+        }
+
+        var argumentsLength = parent.Arguments.Length;
+        if (argumentsLength == 0)
+        {
+            return adapter.Arguments;
+        }
+
+        if (methodParameterNames == null)
+        {
+            return parent.Arguments;
+        }
+
+        return [.. parent.Arguments, .. adapter.Arguments];
     }
 
     static SettingsTask Verify(

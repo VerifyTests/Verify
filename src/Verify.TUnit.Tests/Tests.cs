@@ -1,7 +1,6 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
-[TestFixture]
 public class Tests
 {
     static void DerivePathInfo() =>
@@ -13,23 +12,16 @@ public class Tests
                 methodName: method.Name));
     #endregion
 
-    [TestCase("Value1")]
+    [Arguments("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)
             .UseFileName("UseFileNameWithParam");
 
-    [TestCase("Value1")]
+    [Test]
+    [Arguments("Value1")]
     public Task UseTextForParameters(string arg) =>
         Verify(arg)
             .UseTextForParameters("TextForParameter");
-
-    [TestCase("Value1", TestName = "CustomName")]
-    public Task TestCaseWithName(string arg) =>
-        Verify(arg);
-
-    [TestCase("Value1", TestName = "Custom>Name")]
-    public Task TestCaseWithNameAndInvalidChars(string arg) =>
-        Verify(arg);
 
     [Test]
     public Task StringTarget() =>

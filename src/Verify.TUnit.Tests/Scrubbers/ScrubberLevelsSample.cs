@@ -1,6 +1,5 @@
 ﻿#region ScrubberLevelsSampleNUnit
 
-[TestFixture]
 public class ScrubberLevelsSample
 {
     VerifySettings classLevelSettings;

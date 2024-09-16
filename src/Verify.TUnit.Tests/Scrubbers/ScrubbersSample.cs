@@ -1,6 +1,5 @@
 ﻿#region ScrubbersSampleNUnit
 
-[TestFixture]
 public class ScrubbersSample
 {
     [Test]

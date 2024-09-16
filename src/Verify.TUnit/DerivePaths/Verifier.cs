@@ -1,7 +1,7 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
 #pragma warning disable VerifyTestsProjectDir
-namespace VerifyNUnit;
+namespace VerifyTUnit;
 
 public partial class Verifier
 {

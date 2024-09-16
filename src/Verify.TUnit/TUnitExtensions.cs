@@ -1,4 +1,4 @@
-﻿static class Extensions
+﻿static class TUnitExtensions
 {
     public static IReadOnlyList<string>? GetParameterNames(this TestDetails details)
     {

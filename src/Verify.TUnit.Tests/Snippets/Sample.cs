@@ -1,6 +1,5 @@
 ﻿#region SampleTestNUnit
 
-[TestFixture]
 public class Sample
 {
     [Test]

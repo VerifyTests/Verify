@@ -1,4 +1,4 @@
-﻿namespace VerifyNUnit;
+﻿namespace VerifyTUnit;
 
 /// <summary>
 /// Signature for deriving a custom path information for `.verified.` files.

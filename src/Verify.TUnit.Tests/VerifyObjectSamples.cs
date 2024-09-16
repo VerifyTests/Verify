@@ -1,11 +1,8 @@
-﻿using Argon;
-
-// ReSharper disable NotAccessedField.Local
+﻿// ReSharper disable NotAccessedField.Local
 
 // Non-nullable field is uninitialized
 #pragma warning disable CS8618
 
-[TestFixture]
 public class VerifyObjectSamples
 {
     [Test]

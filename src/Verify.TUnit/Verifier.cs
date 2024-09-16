@@ -1,5 +1,5 @@
 ﻿#pragma warning disable VerifySetParameters
-namespace VerifyNUnit;
+namespace VerifyTUnit;
 
 public static partial class Verifier
 {

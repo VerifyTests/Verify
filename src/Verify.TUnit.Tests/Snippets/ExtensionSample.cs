@@ -1,6 +1,5 @@
 ﻿#region NUnitExtensionSample
 
-[TestFixture]
 public class ExtensionSample
 {
     [Test]

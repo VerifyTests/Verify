@@ -1,5 +1,4 @@
-﻿[TestFixture]
-public class VerifyTextSample
+﻿public class VerifyTextSample
 {
     [Test]
     public Task Simple() =>

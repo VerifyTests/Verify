@@ -1,4 +1,4 @@
-﻿namespace VerifyNUnit;
+﻿namespace VerifyTUnit;
 
 public static partial class Verifier
 {

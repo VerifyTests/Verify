@@ -1,7 +1,4 @@
-﻿using Is = NUnit.Framework.Is;
-
-[TestFixture]
-public class Tests
+﻿public class Tests
 {
     [Test]
     public Task Test()
@@ -9,15 +6,18 @@ public class Tests
         DerivePathInfo(
             (sourceFile, projectDirectory, methodName, typeName) =>
             {
-                That(File.Exists(sourceFile));
-                That(Directory.Exists(projectDirectory));
-                That(methodName, Is.Not.Null);
-                That(typeName, Is.Not.Null);
-                // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/Tests.cs", sourceFile.Replace(@"\", "/"));
-                // Assert.EndsWith("Verify.NUnit.DerivePaths.Tests/", projectDirectory.Replace(@"\", "/"));
+                Check(sourceFile, projectDirectory, methodName, typeName).GetAwaiter().GetResult();
                 return new("CustomDir", "CustomTypeName", "CustomMethodName");
             });
         return Verify("Value");
+    }
+
+    static async Task Check(string sourceFile, string projectDirectory, Type methodName, MethodInfo typeName)
+    {
+        await Assert.That(File.Exists(sourceFile)).IsTrue();
+        await Assert.That(Directory.Exists(projectDirectory)).IsTrue();
+        await Assert.That(methodName).IsNotNull();
+        await Assert.That(typeName).IsNotNull();
     }
 
     [Test]

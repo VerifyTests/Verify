@@ -1,5 +1,4 @@
-﻿[TestFixture]
-public class Base
+﻿public class Base
 {
     [Test]
     public Task TestInBase() =>

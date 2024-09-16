@@ -1,22 +1,25 @@
-﻿[TestFixture]
-public class ParametersSample
+﻿public class ParametersSample
 {
-    [TestCase("1.1")]
+    [Test]
+    [Arguments("1.1")]
     public Task Decimal(decimal arg) =>
         Verify(arg);
 
-    [TestCase((float) 1.1)]
+    [Test]
+    [Arguments((float) 1.1)]
     public Task Float(float arg) =>
         Verify(arg);
 
-    [TestCase(1.1d)]
+    [Test]
+    [Arguments(1.1d)]
     public Task Double(double arg) =>
         Verify(arg);
 
     #region IgnoreParametersForVerifiedNunit
 
-    [TestCase("One")]
-    [TestCase("Two")]
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
     public Task IgnoreParametersForVerified(string arg)
     {
         var settings = new VerifySettings();
@@ -28,8 +31,9 @@ public class ParametersSample
 
     #region IgnoreParametersForVerifiedFluentNunit
 
-    [TestCase("One")]
-    [TestCase("Two")]
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
     public Task IgnoreParametersForVerifiedFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified();
@@ -38,8 +42,9 @@ public class ParametersSample
 
     #region IgnoreParametersForVerifiedCustomParamsNunit
 
-    [TestCase("One")]
-    [TestCase("Two")]
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
     public Task IgnoreParametersForVerifiedCustomParams(string arg)
     {
         var settings = new VerifySettings();
@@ -51,8 +56,9 @@ public class ParametersSample
 
     #region IgnoreParametersForVerifiedCustomParamsFluentNunit
 
-    [TestCase("One")]
-    [TestCase("Two")]
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
     public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
@@ -61,14 +67,16 @@ public class ParametersSample
 
     #region NUnitTestCase
 
-    [TestCase("Value1")]
-    [TestCase("Value2")]
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
     public Task TestCaseUsage(string arg) =>
         Verify(arg);
 
     #endregion
 
-    [TestCase("Value2")]
+    [Test]
+    [Arguments("Value2")]
     public Task SuppliedDoesNotMatchArg(string arg) =>
         Verify("Foo")
             .UseParameters("notTheArg");

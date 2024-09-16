@@ -1,6 +1,5 @@
 ﻿#region UniqueForSampleNUnit
 
-[TestFixture]
 public class UniqueForSample
 {
     [Test]

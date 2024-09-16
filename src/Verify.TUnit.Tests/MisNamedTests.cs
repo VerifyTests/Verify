@@ -1,5 +1,4 @@
-﻿[TestFixture]
-public class DiffNamedTests
+﻿public class DiffNamedTests
 {
     [Test]
     public Task ShouldPass() =>

@@ -1,7 +1,8 @@
-[TestFixtureSource(nameof(FixtureArgs))]
+[Arguments(nameof(FixtureArgs))]
 public class TestFixtureSourceAndTestCaseUsage(string arg1, int arg2)
 {
-    [TestCase("FromTestCase2")]
+    [Test]
+    [Arguments("FromTestCase2")]
     public Task Test(string arg3) =>
         Verify(
             new

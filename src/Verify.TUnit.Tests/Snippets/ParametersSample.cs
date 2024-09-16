@@ -1,13 +1,15 @@
 ﻿public class ParametersSample
 {
     //TODO:
-    // [Test]
-    // [Arguments(1.1F)]
+    // [TestCase("1.1")]
+    // public Task Decimal(decimal arg) =>
+    //     Verify(arg);
+    //
+    // [TestCase((float) 1.1)]
     // public Task Float(float arg) =>
     //     Verify(arg);
     //
-    // [Test]
-    // [Arguments(1.1D)]
+    // [TestCase(1.1d)]
     // public Task Double(double arg) =>
     //     Verify(arg);
 

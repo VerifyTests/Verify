@@ -1,4 +1,4 @@
-﻿#region UseParametersHashNunit
+﻿#region UseParametersHashTunit
 
 public class ParametersHashSample
 {

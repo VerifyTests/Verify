@@ -1,5 +1,5 @@
 ﻿#pragma warning disable InnerVerifyChecks
-namespace VerifyNUnit;
+namespace VerifyTUnit;
 
 public static class VerifyChecks
 {

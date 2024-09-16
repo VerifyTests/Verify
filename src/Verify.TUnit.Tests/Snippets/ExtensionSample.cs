@@ -1,4 +1,4 @@
-﻿#region NUnitExtensionSample
+﻿#region TUnitExtensionSample
 
 public class ExtensionSample
 {

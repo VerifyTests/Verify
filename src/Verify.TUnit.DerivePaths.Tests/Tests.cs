@@ -42,32 +42,32 @@
     }
 
     [Test]
-    public void InvalidMethod()
+    public async Task InvalidMethod()
     {
         DerivePathInfo((_, _, _, _) => new(null, null, Path
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        await Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [Test]
-    public void InvalidType()
+    public async Task InvalidType()
     {
         DerivePathInfo((_, _, _, _) => new(null, Path
             .GetInvalidFileNameChars()
             .First()
             .ToString()));
-        ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        await Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 
     [Test]
-    public void InvalidDirectory()
+    public async Task InvalidDirectory()
     {
         DerivePathInfo((_, _, _, _) => new(Path
             .GetInvalidPathChars()
             .First()
             .ToString()));
-        ThrowsAsync<ArgumentException>(() => Verify("Value"));
+        await Assert.ThrowsAsync<ArgumentException>(() => Verify("Value"));
     }
 }

@@ -1,4 +1,5 @@
-﻿public class Inherited : Base
+﻿[InheritsTests]
+public class Inherited : Base
 {
     [Test]
     public override Task TestToOverride()

@@ -1,12 +1,7 @@
 ﻿public class ParametersSample
 {
     [Test]
-    [Arguments("1.1")]
-    public Task Decimal(decimal arg) =>
-        Verify(arg);
-
-    [Test]
-    [Arguments((float) 1.1)]
+    [Arguments(1.1f)]
     public Task Float(float arg) =>
         Verify(arg);
 
@@ -15,7 +10,7 @@
     public Task Double(double arg) =>
         Verify(arg);
 
-    #region IgnoreParametersForVerifiedNunit
+    #region IgnoreParametersForVerifiedTunit
 
     [Test]
     [Arguments("One")]
@@ -29,7 +24,7 @@
 
     #endregion
 
-    #region IgnoreParametersForVerifiedFluentNunit
+    #region IgnoreParametersForVerifiedFluentTunit
 
     [Test]
     [Arguments("One")]
@@ -40,7 +35,7 @@
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsNunit
+    #region IgnoreParametersForVerifiedCustomParamsTunit
 
     [Test]
     [Arguments("One")]
@@ -54,7 +49,7 @@
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsFluentNunit
+    #region IgnoreParametersForVerifiedCustomParamsFluentTunit
 
     [Test]
     [Arguments("One")]
@@ -65,7 +60,7 @@
 
     #endregion
 
-    #region NUnitTestCase
+    #region TUnitTestCase
 
     [Test]
     [Arguments("Value1")]
@@ -81,7 +76,7 @@
         Verify("Foo")
             .UseParameters("notTheArg");
 
-    // #region nunitAutoFixture
+    // #region TUnitAutoFixture
     //
     // [Theory]
     // [InlineAutoData(42)]

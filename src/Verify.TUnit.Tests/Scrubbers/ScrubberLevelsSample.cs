@@ -1,4 +1,4 @@
-﻿#region ScrubberLevelsSampleNUnit
+﻿#region ScrubberLevelsSampleTUnit
 
 public class ScrubberLevelsSample
 {

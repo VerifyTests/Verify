@@ -1,4 +1,4 @@
-﻿#region SampleTestNUnit
+﻿#region SampleTestTUnit
 
 public class Sample
 {

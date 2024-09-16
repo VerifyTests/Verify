@@ -36,7 +36,7 @@ public class VerifyObjectSamples
             .AddExtraSettings(_ => _.DefaultValueHandling = DefaultValueHandling.Include);
     }
 
-    #region AnonNUnit
+    #region AnonTUnit
 
     [Test]
     public Task Anon()

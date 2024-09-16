@@ -1,4 +1,4 @@
-﻿#region UniqueForSampleNUnit
+﻿#region UniqueForSampleTUnit
 
 public class UniqueForSample
 {

@@ -5,6 +5,7 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <SignAssembly>false</SignAssembly>
+    <NoWarn>$(NoWarn);CA1822</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

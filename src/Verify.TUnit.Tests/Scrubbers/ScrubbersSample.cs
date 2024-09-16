@@ -1,4 +1,4 @@
-﻿#region ScrubbersSampleNUnit
+﻿#region ScrubbersSampleTUnit
 
 public class ScrubbersSample
 {

@@ -1,10 +1,13 @@
 ﻿// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
+
+using VerifyTUnit;
+
 public class Tests
 {
     static void DerivePathInfo() =>
-    #region DerivePathInfoNunit
+    #region DerivePathInfoTunit
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),
@@ -12,6 +15,7 @@ public class Tests
                 methodName: method.Name));
     #endregion
 
+    [Test]
     [Arguments("Value1")]
     public Task UseFileNameWithParam(string arg) =>
         Verify(arg)
@@ -27,7 +31,7 @@ public class Tests
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
 
-    #region ExplicitTargetsNunit
+    #region ExplicitTargetsTunit
 
     [Test]
     public Task WithTargets() =>
@@ -58,7 +62,7 @@ public class Tests
     static string directoryPathToVerify = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify");
     static string pathToArchive = Path.Combine(AttributeReader.GetSolutionDirectory(), "ToVerify.zip");
 
-    #region VerifyDirectoryNunit
+    #region VerifyDirectoryTunit
 
     [Test]
     public Task WithDirectory() =>
@@ -66,7 +70,7 @@ public class Tests
 
     #endregion
 
-    #region VerifyZipNunit
+    #region VerifyZipTunit
 
     [Test]
     public Task WithZip() =>
@@ -74,20 +78,25 @@ public class Tests
 
     #endregion
 
-    static List<TestAttachment> GetAttachments() =>
-        TestExecutionContext.CurrentContext.CurrentResult.TestAttachments.ToList();
+    static List<Artifact> GetAttachments()
+    {
+        var context = TestContext.Current!;
+        var field = typeof(TestContext)
+            .GetField("Artifacts", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        return (List<Artifact>)field.GetValue(context)!;
+    }
 
     [Test]
-    public void ChangeHasAttachment()
+    public async Task ChangeHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
+        await Assert.ThrowsAsync(
             () => Verify("Bar", settings));
         var list = GetAttachments();
-        AreEqual(1, list.Count);
-        var file = Path.GetFileName(list[0].FilePath);
-        AreEqual($"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
+        await Assert.That(list.Count).IsEqualTo(1);
+        var expected = $"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt";
+        await Assert.That(list[0].File.Name).IsEqualTo(expected);
     }
 
     [Test]
@@ -96,57 +105,57 @@ public class Tests
         var path = CurrentFile.Relative("Tests.AutoVerifyHasAttachment.verified.txt");
         var fullPath = Path.GetFullPath(path);
         File.Delete(fullPath);
-        File.WriteAllText(fullPath,"Foo");
+        await File.WriteAllTextAsync(fullPath,"Foo");
         var settings = new VerifySettings();
         settings.DisableDiff();
         settings.AutoVerify();
         await Verify("Bar", settings);
         var list = GetAttachments();
-        AreEqual(1, list.Count);
-        var file = Path.GetFileName(list[0].FilePath);
-        AreEqual($"Tests.AutoVerifyHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
+        await Assert.That(list.Count).IsEqualTo(1);
+        await Assert.That(list[0].File.Name)
+            .IsEqualTo($"Tests.AutoVerifyHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt");
     }
 
     [Test]
-    public void NewHasAttachment()
+    public async Task NewHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
+        await Assert.ThrowsAsync(
             () => Verify("Bar", settings));
         var list = GetAttachments();
-        AreEqual(1, list.Count);
-        var file = Path.GetFileName(list[0].FilePath);
-        AreEqual($"Tests.NewHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
+        await Assert.That(list.Count).IsEqualTo(1);
+        await Assert.That(list[0].File.Name)
+            .IsEqualTo($"Tests.NewHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt");
     }
 
     [Test]
-    public void MultipleChangedHasAttachment()
+    public async Task MultipleChangedHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
+        await Assert.ThrowsAsync(
             () => Verify("Bar", [new("txt", "Value")], settings));
         var list = GetAttachments();
-        AreEqual(2, list.Count);
-        var file0 = Path.GetFileName(list[0].FilePath);
-        var file1 = Path.GetFileName(list[1].FilePath);
-        AreEqual($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
-        AreEqual($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#01.received.txt", file1);
+        await Assert.That(list.Count).IsEqualTo(2);
+        await Assert.That(list[0].File.Name)
+            .IsEqualTo($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
+        await Assert.That(list[1].File.Name)
+            .IsEqualTo($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
     }
 
     [Test]
-    public void MultipleNewHasAttachment()
+    public async Task MultipleNewHasAttachment()
     {
         var settings = new VerifySettings();
         settings.DisableDiff();
-        ThrowsAsync<VerifyException>(
+        await Assert.ThrowsAsync(
             () => Verify("Bar", [new("txt", "Value")], settings));
         var list = GetAttachments();
-        AreEqual(2, list.Count);
-        var file0 = Path.GetFileName(list[0].FilePath);
-        var file1 = Path.GetFileName(list[1].FilePath);
-        AreEqual($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt", file0);
-        AreEqual($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#01.received.txt", file1);
+        await Assert.That(list.Count).IsEqualTo(2);
+        await Assert.That(list[0].File.Name)
+            .IsEqualTo($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
+        await Assert.That(list[0].File.Name)
+            .IsEqualTo($"Tests.MultipleNewHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
     }
 }

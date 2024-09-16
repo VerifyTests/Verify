@@ -5,9 +5,8 @@ public static class VerifyChecks
 {
     public static Task Run()
     {
-        var adapter = TestContext.CurrentContext.Test;
-        var testMethod = adapter.GetTestMethod();
-        var type = testMethod.TypeInfo.Type;
+        var details = TestContext.Current!.TestDetails;
+        var type = details.ClassType;
         VerifierSettings.AssignTargetAssembly(type.Assembly);
         return InnerVerifyChecks.Run(type.Assembly);
     }

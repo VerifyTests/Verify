@@ -1,39 +1,10 @@
 ﻿static class Extensions
 {
-    public static IMethodInfo GetTestMethod(this TestAdapter adapter)
+    public static IReadOnlyList<string>? GetParameterNames(this TestDetails details)
     {
-        var testMethod = adapter.Method;
-        if (testMethod is null)
-        {
-            throw new("TestContext.CurrentContext.Test.Method is null. Verify can only be used from within a test method.");
-        }
+        var methodParameterNames = details.MethodInfo.ParameterNames();
 
-        return testMethod;
-    }
-
-    public static bool TryGetParent(this TestAdapter adapter, [NotNullWhen(true)] out ITest? parent)
-    {
-        parent = adapter.Parent;
-        if (parent is ParameterizedMethodSuite methodSuite)
-        {
-            parent = methodSuite.Parent;
-        }
-
-        return parent != null;
-    }
-
-    public static IReadOnlyList<string>? GetParameterNames(this TestAdapter adapter)
-    {
-        var method = adapter.Method!;
-
-        var methodParameterNames = method.MethodInfo.ParameterNames();
-
-        if (!adapter.TryGetParent(out var parent))
-        {
-            return methodParameterNames;
-        }
-
-        var names = GetConstructorParameterNames(method.TypeInfo.Type, parent.Arguments.Length);
+        var names = GetConstructorParameterNames(details.ClassType, details.TestClassArguments.Length);
         if (methodParameterNames == null)
         {
             return names.ToList();

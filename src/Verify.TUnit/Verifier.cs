@@ -29,27 +29,18 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-        var adapter = TestContext.CurrentContext.Test;
 
-        var testMethod = adapter.GetTestMethod();
-
-        var method = testMethod.MethodInfo;
-        var type = testMethod.TypeInfo.Type;
-
-        IReadOnlyList<string>? parameterNames;
-        if (settings.HasParameters)
+        var details = TestContext.Current!.TestDetails;
+        var type = details.ClassType;
+        var parameterNames = details.GetParameterNames();
+        if (!settings.HasParameters)
         {
-            parameterNames = adapter.GetParameterNames();
-        }
-        else
-        {
-            var (names, values) = GetParameterInfo(adapter);
-            settings.SetParameters(values);
-            parameterNames = names;
+            settings.SetParameters([.. details.TestClassArguments, .. details.TestMethodArguments]);
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
 
+        var method = details.MethodInfo;
         var pathInfo = GetPathInfo(sourceFile, type, method);
         return new(
             sourceFile,
@@ -58,34 +49,6 @@ public static partial class Verifier
             method.Name,
             parameterNames,
             pathInfo);
-    }
-
-    static (IReadOnlyList<string>? names, object?[] values) GetParameterInfo(TestAdapter adapter)
-    {
-        var method = adapter.Method!;
-
-        var methodParameterNames = method.MethodInfo.ParameterNames();
-
-        if (!adapter.TryGetParent(out var parent))
-        {
-            return (methodParameterNames, adapter.Arguments);
-        }
-
-        var argumentsLength = parent.Arguments.Length;
-        if (argumentsLength == 0)
-        {
-            return (methodParameterNames, adapter.Arguments);
-        }
-
-        var names = method.TypeInfo.Type.GetConstructorParameterNames(argumentsLength);
-        if (methodParameterNames == null)
-        {
-            return (names.ToList(), parent.Arguments);
-        }
-
-        return (
-            [.. names, .. methodParameterNames],
-            [.. parent.Arguments, .. adapter.Arguments]);
     }
 
     static SettingsTask Verify(

@@ -5,7 +5,13 @@ public static partial class Verifier
 {
     static Task AddFile(FilePair path)
     {
-        TestContext.AddTestAttachment(path.ReceivedPath);
+        TestContext.Current!.AddArtifact(
+            new()
+            {
+                File = new(path.ReceivedPath),
+                Description = "Verify snapshot mismatch",
+                DisplayName = Path.GetFileNameWithoutExtension(path.ReceivedPath)
+            });
         return Task.CompletedTask;
     }
 

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT'">net472;net48</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+
+    <ProjectReference Include="..\Verify\Verify.csproj" PrivateAssets="None" />
+
+    <None Include="buildTransitive\Verify.NUnit.props" Pack="true" PackagePath="buildTransitive\Verify.NUnit.props" />
+    <None Include="buildTransitive\Verify.NUnit.props" Pack="true" PackagePath="build\Verify.NUnit.props" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
+</Project>

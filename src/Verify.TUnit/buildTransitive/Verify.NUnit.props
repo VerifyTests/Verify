@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="$(Language) == 'C#' and ($(ImplicitUsings) == 'enable' or $(ImplicitUsings) == 'true')">
+    <Using Include="VerifyNUnit" />
+    <Using Include="VerifyNUnit.Verifier" Static="True" />
+    <Using Include="NUnit" />
+    <Using Include="NUnit.Framework" />
+  </ItemGroup>
+</Project>

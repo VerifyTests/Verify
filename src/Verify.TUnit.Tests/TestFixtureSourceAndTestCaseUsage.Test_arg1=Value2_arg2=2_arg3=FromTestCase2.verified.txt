@@ -1,0 +1,5 @@
+﻿{
+  arg1: Value2,
+  arg2: 2,
+  arg3: FromTestCase2
+}

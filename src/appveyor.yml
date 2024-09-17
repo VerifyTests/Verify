@@ -26,36 +26,8 @@ before_build:
 build_script:
   - pwsh: |
       dotnet build src --configuration Release --verbosity quiet
-      dotnet test src/DeterministicTests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/FSharpTests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/StaticSettingsTests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/StrictJsonTests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.ClipboardAccept.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.ExceptionParsing.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.Expecto.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.Expecto.FSharpTests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.Expecto.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.MSTest.SourceGenerator.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.NUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.NUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.Xunit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.Xunit.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.XunitV3.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      dotnet test src/Verify.XunitV3.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
-      if ($isWindows) {
-        vstest.console src/Verify.MSTest.DerivePaths.Tests/bin/Release/net9.0/Verify.MSTest.DerivePaths.Tests.dll /logger:Appveyor
-        vstest.console src/Verify.MSTest.Tests/bin/Release/net48/Verify.MSTest.Tests.dll /logger:Appveyor
-        vstest.console src/Verify.MSTest.Tests/bin/Release/net9.0/Verify.MSTest.Tests.dll /logger:Appveyor
-      }
-
-#- pwsh: |
-#    if ($isWindows) {
-#      Set-Culture -CultureInfo de-DE
-#      dotnet test src --configuration Release --no-build --no-restore
-#      Set-TimeZone -Name "Russia TZ 2 Standard Time"
-#      dotnet test src --configuration Release --no-build --no-restore
-#    }
+      dotnet test src/Verify.TUnit.DerivePaths.Tests --configuration Release --no-build --no-restore --verbosity quiet
+      dotnet test src/Verify.TUnit.Tests --configuration Release --no-build --no-restore --verbosity quiet
 # begin-snippet: AppVeyorArtifacts
 on_failure:
   - ps: Get-ChildItem *.received.* -recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }

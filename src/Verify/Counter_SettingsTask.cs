@@ -19,14 +19,14 @@ public partial class SettingsTask
     }
 
     [Pure]
-    public SettingsTask ReplaceDateComparer(IEqualityComparer<Date> comparer)
+    public SettingsTask ReplaceScrubberDateComparer(IEqualityComparer<Date> comparer)
     {
         CurrentSettings.ReplaceScrubberDateComparer(comparer);
         return this;
     }
 
     [Pure]
-    public SettingsTask ReplaceTimeComparer(IEqualityComparer<Time> comparer)
+    public SettingsTask ReplaceScrubberTimeComparer(IEqualityComparer<Time> comparer)
     {
         CurrentSettings.ReplaceScrubberTimeComparer(comparer);
         return this;
@@ -56,21 +56,21 @@ public partial class SettingsTask
     }
 
     [Pure]
-    public SettingsTask ReplaceDateTimeComparer(IEqualityComparer<DateTime> comparer)
+    public SettingsTask ReplaceScrubberDateTimeComparer(IEqualityComparer<DateTime> comparer)
     {
         CurrentSettings.ReplaceScrubberDateTimeComparer(comparer);
         return this;
     }
 
     [Pure]
-    public SettingsTask ReplaceGuidComparer(IEqualityComparer<Guid> comparer)
+    public SettingsTask ReplaceScrubberGuidComparer(IEqualityComparer<Guid> comparer)
     {
         CurrentSettings.ReplaceScrubberGuidComparer(comparer);
         return this;
     }
 
     [Pure]
-    public SettingsTask ReplaceDateTimeOffsetComparer(IEqualityComparer<DateTimeOffset> comparer)
+    public SettingsTask ReplaceScrubberDateTimeOffsetComparer(IEqualityComparer<DateTimeOffset> comparer)
     {
         CurrentSettings.ReplaceScrubberDateTimeOffsetComparer(comparer);
         return this;

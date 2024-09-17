@@ -108,8 +108,10 @@ public partial class InnerVerifier :
             settings.namedDateTimes,
             settings.namedGuids,
             settings.namedDateTimeOffsets,
+#if NET6_0_OR_GREATER
             settings.dateComparer,
             settings.timeComparer,
+#endif
             settings.dateTimeComparer,
             settings.guidComparer,
             settings.dateTimeOffsetComparer

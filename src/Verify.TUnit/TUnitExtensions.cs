@@ -1,13 +1,25 @@
-﻿static class TUnitExtensions
+static class TUnitExtensions
 {
     public static IReadOnlyList<string>? GetParameterNames(this TestDetails details)
     {
         var methodParameterNames = details.MethodInfo.ParameterNames();
 
-        var names = GetConstructorParameterNames(details.ClassType, details.TestClassArguments.Length);
+        var names = GetConstructorParameterNames(details.ClassType, details.TestClassArguments.Length)
+            .ToList();
         if (methodParameterNames == null)
         {
-            return names.ToList();
+            if (names.Count == 0)
+            {
+                return null;
+            }
+
+            return names;
+        }
+
+        if (names.Count == 0 &&
+             methodParameterNames.Count == 0)
+        {
+            return null;
         }
 
         return [.. names, .. methodParameterNames];

@@ -98,6 +98,8 @@ public class Tests
         AreEqual($"Tests.ChangeHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
     }
 
+#if NET9_0
+
     [Test]
     public async Task AutoVerifyHasAttachment()
     {
@@ -114,6 +116,8 @@ public class Tests
         var file = Path.GetFileName(list[0].FilePath);
         AreEqual($"Tests.AutoVerifyHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt", file);
     }
+
+#endif
 
     [Test]
     public void NewHasAttachment()

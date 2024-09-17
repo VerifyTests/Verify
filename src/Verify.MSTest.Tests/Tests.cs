@@ -56,6 +56,8 @@ public partial class Tests
             () => Verify("Bar", settings));
     }
 
+#if NET9_0
+
     [ResultFilesCallback]
     [TestMethod]
     public async Task AutoVerifyHasAttachment()
@@ -75,6 +77,8 @@ public partial class Tests
         settings.AutoVerify();
         await Verify("Bar", settings);
     }
+
+#endif
 
     [ResultFilesCallback]
     [TestMethod]

@@ -19,4 +19,5 @@ src/Verify.Tests/Tests.TextNegative.verified.tmp
 src/Verify.Tests/NewLineTests.StringWithDifferingNewline.verified.txt
 src/Verify.MSTest.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 src/Verify.NUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt
+src/Verify.TUnit.Tests/Tests.AutoVerifyHasAttachment.verified.txt
 /src/Benchmarks/BenchmarkDotNet.Artifacts

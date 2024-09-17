@@ -13,5 +13,5 @@ public class TestFixtureSourceAndTestCaseUsage(string arg1, int arg2)
             });
 
     public static (string, int) FixtureArgs() =>
-        ("Value", 2);
+        ("Value2", 2);
 }

@@ -1,4 +1,4 @@
-﻿#pragma warning disable VerifySetParameters
+#pragma warning disable VerifySetParameters
 namespace VerifyTUnit;
 
 public static partial class Verifier
@@ -29,13 +29,15 @@ public static partial class Verifier
             settings.UseUniqueDirectory();
         }
 
-
         var details = TestContext.Current!.TestDetails;
         var type = details.ClassType;
-        var parameterNames = details.GetParameterNames();
-        if (!settings.HasParameters)
+        var classArguments = details.TestClassArguments;
+        var methodArguments = details.TestMethodArguments;
+        if (!settings.HasParameters &&
+            (classArguments.Length > 0 ||
+             methodArguments.Length > 0))
         {
-            settings.SetParameters([.. details.TestClassArguments, .. details.TestMethodArguments]);
+            settings.SetParameters([.. classArguments, .. methodArguments]);
         }
 
         VerifierSettings.AssignTargetAssembly(type.Assembly);
@@ -47,7 +49,7 @@ public static partial class Verifier
             settings,
             type.NameWithParent(),
             method.Name,
-            parameterNames,
+            details.GetParameterNames(),
             pathInfo);
     }
 

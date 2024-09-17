@@ -1,4 +1,4 @@
-﻿// ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 
@@ -145,7 +145,7 @@ public class Tests
         await Assert.That(list[0].File.Name)
             .IsEqualTo($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
         await Assert.That(list[1].File.Name)
-            .IsEqualTo($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#00.received.txt");
+            .IsEqualTo($"Tests.MultipleChangedHasAttachment.{Namer.TargetFrameworkNameAndVersion}#01.received.txt");
     }
 
     [Test]

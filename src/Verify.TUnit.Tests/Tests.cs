@@ -99,6 +99,8 @@ public class Tests
         await Assert.That(list[0].File.Name).IsEqualTo(expected);
     }
 
+#if NET9_0
+
     [Test]
     public async Task AutoVerifyHasAttachment()
     {
@@ -115,6 +117,8 @@ public class Tests
         await Assert.That(list[0].File.Name)
             .IsEqualTo($"Tests.AutoVerifyHasAttachment.{Namer.TargetFrameworkNameAndVersion}.received.txt");
     }
+
+#endif
 
     [Test]
     public async Task NewHasAttachment()

@@ -40,6 +40,7 @@ public partial class InnerVerifier :
         Guard.NotEmpty(sourceFile);
         Guard.NotEmpty(typeName);
         Guard.NotEmpty(methodName);
+        Guard.NotEmpty(methodParameters);
         verifyHasBeenRun = true;
         settings.RunBeforeCallbacks();
         this.settings = settings;

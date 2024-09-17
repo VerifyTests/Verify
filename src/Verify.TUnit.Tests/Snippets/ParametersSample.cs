@@ -1,19 +1,16 @@
 ﻿public class ParametersSample
 {
-    //TODO:
-    // [TestCase("1.1")]
-    // public Task Decimal(decimal arg) =>
-    //     Verify(arg);
-    //
-    // [TestCase((float) 1.1)]
-    // public Task Float(float arg) =>
-    //     Verify(arg);
-    //
-    // [TestCase(1.1d)]
-    // public Task Double(double arg) =>
-    //     Verify(arg);
+    [Test]
+    [Arguments(1.1F)]
+    public Task Float(float arg) =>
+        Verify(arg);
 
-    #region IgnoreParametersForVerifiedTunit
+    [Test]
+    [Arguments(1.1d)]
+    public Task Double(double arg) =>
+        Verify(arg);
+
+    #region IgnoreParametersForVerifiedTUnit
 
     [Test]
     [Arguments("One")]
@@ -27,7 +24,7 @@
 
     #endregion
 
-    #region IgnoreParametersForVerifiedFluentTunit
+    #region IgnoreParametersForVerifiedFluentTUnit
 
     [Test]
     [Arguments("One")]
@@ -38,7 +35,7 @@
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsTunit
+    #region IgnoreParametersForVerifiedCustomParamsTUnit
 
     [Test]
     [Arguments("One")]
@@ -52,7 +49,7 @@
 
     #endregion
 
-    #region IgnoreParametersForVerifiedCustomParamsFluentTunit
+    #region IgnoreParametersForVerifiedCustomParamsFluentTUnit
 
     [Test]
     [Arguments("One")]

@@ -8,6 +8,7 @@
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Fixie.svg?label=Verify.Fixie)](https://www.nuget.org/packages/Verify.Fixie/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.TUnit.svg?label=Verify.TUnit)](https://www.nuget.org/packages/Verify.TUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.ClipboardAccept.svg?label=Verify.ClipboardAccept)](https://www.nuget.org/packages/Verify.ClipboardAccept/)
 
 Verify is a snapshot tool that simplifies the assertion of complex data models and documents.
@@ -49,6 +50,7 @@ Get customized instructions for the specific combination of Operating System, ID
 * https://nuget.org/packages/Verify.Fixie/
 * https://nuget.org/packages/Verify.Expecto/
 * https://nuget.org/packages/Verify.MSTest/
+* https://nuget.org/packages/Verify.TUnit/
 
 
 ## Snapshot management
@@ -117,6 +119,13 @@ include: fixie-convention
 Support for [Expecto](https://github.com/haf/expecto)
 
 snippet: SampleTestExpecto
+
+
+### TUnit
+
+Support for [TUnit](https://github.com/thomhurst/TUnit)
+
+snippet: SampleTestTUnit
 
 
 #### Caveats
@@ -292,6 +301,11 @@ snippet: VerifyChecksXunitV3
 #### NUnit
 
 snippet: VerifyChecksNUnit
+
+
+#### TUnit
+
+snippet: VerifyChecksTUnit
 
 
 ## Static settings

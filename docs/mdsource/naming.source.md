@@ -107,6 +107,11 @@ snippet: UniqueForSampleMSTest
 snippet: UniqueForSampleExpecto
 
 
+### TUnit
+
+snippet: UniqueForSampleTUnit
+
+
 ### Result
 
 For a project executed on both x64 and x86 that targets

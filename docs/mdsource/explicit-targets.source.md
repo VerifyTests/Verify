@@ -25,6 +25,11 @@ snippet: ExplicitTargetsFixie
 snippet: ExplicitTargetsMsTest
 
 
+## TUnit
+
+snippet: ExplicitTargetsTUnit
+
+
 ## Result
 
 snippet: Verify.MSTest.Tests/Tests.WithTargets.verified.txt

@@ -26,6 +26,7 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
   * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
   * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
   * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+  * Verify.TUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
   * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
   * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
 
@@ -63,6 +64,16 @@ Produces:
 
  * `TestFixtureSourceUsage.Test_arg1=Value1_arg2=1.verified.txt`
  * `TestFixtureSourceUsage.Test_arg1=Value2_arg2=2.verified.txt`
+
+
+## TUnit
+
+`Verify.TUnit` automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+
+
+### TestCase
+
+snippet: TUnitTestCase
 
 
 ## xUnit V2
@@ -163,7 +174,7 @@ Results in:
 
 By default, Verify expects every parameterized case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
-`IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are pssed to [UseParameters](#UseParameters). This is required for MSTest, xUnit, and NUnit. Parameters should not be passed for NUnit and Fixie since they are automatically detected.
+`IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are passed to [UseParameters](#UseParameters). This is required for MSTest, and xUnit. Parameters should not be passed for NUnit, TUnit and Fixie since they are automatically detected.
 
 The below samples produce:
 
@@ -204,6 +215,19 @@ snippet: IgnoreParametersForVerifiedNunit
 #### Fluent
 
 snippet: IgnoreParametersForVerifiedFluentNunit
+
+
+### TUnit
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedTUnit
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedFluentTUnit
 
 
 ### MSTest
@@ -250,6 +274,19 @@ snippet: IgnoreParametersForVerifiedCustomParamsNunit
 snippet: IgnoreParametersForVerifiedCustomParamsFluentNunit
 
 
+### TUnit
+
+
+#### Instance
+
+snippet: IgnoreParametersForVerifiedCustomParamsTUnit
+
+
+#### Fluent
+
+snippet: IgnoreParametersForVerifiedCustomParamsFluentTUnit
+
+
 ### MSTest
 
 
@@ -284,6 +321,13 @@ snippet: UseParametersHashMsTest
 snippet: UseParametersHashNunit
 
 Note that NUnit can derive the parameters without explicitly passing them.
+
+
+### TUnit
+
+snippet: UseParametersHashTUnit
+
+Note that TUnit can derive the parameters without explicitly passing them.
 
 
 ### xUnit

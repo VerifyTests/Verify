@@ -1,5 +1,5 @@
 [MethodDataSource(nameof(FixtureArgs), UnfoldTuple = true)]
-public class TestFixtureSourceAndTestCaseUsage(string arg1, int arg2)
+public class MethodDataSourceAndTestCaseUsage(string arg1, int arg2)
 {
     [Test]
     [Arguments("FromTestCase2")]

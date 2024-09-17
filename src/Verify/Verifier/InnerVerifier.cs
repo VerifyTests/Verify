@@ -107,7 +107,12 @@ public partial class InnerVerifier :
 #endif
             settings.namedDateTimes,
             settings.namedGuids,
-            settings.namedDateTimeOffsets
+            settings.namedDateTimeOffsets,
+            settings.dateComparer,
+            settings.timeComparer,
+            settings.dateTimeComparer,
+            settings.guidComparer,
+            settings.dateTimeOffsetComparer
         );
 
     void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)

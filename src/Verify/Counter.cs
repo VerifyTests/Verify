@@ -34,7 +34,14 @@ public partial class Counter
 #endif
         Dictionary<DateTime, string> namedDateTimes,
         Dictionary<Guid, string> namedGuids,
-        Dictionary<DateTimeOffset, string> namedDateTimeOffsets)
+        Dictionary<DateTimeOffset, string> namedDateTimeOffsets,
+#if NET6_0_OR_GREATER
+        IEqualityComparer<Date> dateComparer,
+        IEqualityComparer<Time> timeComparer,
+#endif
+        IEqualityComparer<DateTime> dateTimeComparer,
+        IEqualityComparer<Guid> guidComparer,
+        IEqualityComparer<DateTimeOffset> dateTimeOffsetComparer)
     {
 #if NET6_0_OR_GREATER
         this.namedDates = namedDates;
@@ -44,6 +51,15 @@ public partial class Counter
         this.namedGuids = namedGuids;
         this.namedDateTimeOffsets = namedDateTimeOffsets;
         this.dateCounting = dateCounting;
+
+#if NET6_0_OR_GREATER
+        dateCache = new(dateComparer);
+        timeCache = new(timeComparer);
+#endif
+        Console.WriteLine("HELLO " + guidComparer);
+        dateTimeCache = new(dateTimeComparer);
+        guidCache = new(guidComparer);
+        dateTimeOffsetCache = new(dateTimeOffsetComparer);
     }
 
     internal static Counter Start(
@@ -54,7 +70,14 @@ public partial class Counter
 #endif
         Dictionary<DateTime, string>? namedDateTimes = null,
         Dictionary<Guid, string>? namedGuids = null,
-        Dictionary<DateTimeOffset, string>? namedDateTimeOffsets = null)
+        Dictionary<DateTimeOffset, string>? namedDateTimeOffsets = null,
+#if NET6_0_OR_GREATER
+        IEqualityComparer<Date>? dateComparer = null,
+        IEqualityComparer<Time>? timeComparer = null,
+#endif
+        IEqualityComparer<DateTime>? dateTimeComparer = null,
+        IEqualityComparer<Guid>? guidComparer = null,
+        IEqualityComparer<DateTimeOffset>? dateTimeOffsetComparer = null)
     {
         var context = new Counter(
             dateCounting,
@@ -64,7 +87,14 @@ public partial class Counter
 #endif
             namedDateTimes ?? [],
             namedGuids ?? [],
-            namedDateTimeOffsets ?? []);
+            namedDateTimeOffsets ?? [],
+#if NET6_0_OR_GREATER
+            dateComparer ?? new DateComparer(),
+            timeComparer ?? new TimeComparer(),
+#endif
+            dateTimeComparer ?? new DateTimeComparer(),
+            guidComparer ?? new GuidComparer(),
+            dateTimeOffsetComparer ?? new DateTimeOffsetComparer());
         local.Value = context;
         return context;
     }

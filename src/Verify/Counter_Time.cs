@@ -3,9 +3,16 @@ namespace VerifyTests;
 
 public partial class Counter
 {
-    Dictionary<Time, (int intValue, string stringValue)> timeCache = [];
+    Dictionary<Time, (int intValue, string stringValue)> timeCache;
     static Dictionary<Time, string> globalNamedTimes = [];
     int currentTime;
+
+    class TimeComparer : IEqualityComparer<Time>
+    {
+        public bool Equals(Time x, Time y) => x == y;
+
+        public int GetHashCode(Time obj) => obj.GetHashCode() ;
+    }
 
     internal static void AddNamed(Time time, string name)
     {

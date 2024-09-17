@@ -2,7 +2,7 @@
 
 public partial class Counter
 {
-    Dictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(new DateTimeComparer());
+    Dictionary<DateTime, (int intValue, string stringValue)> dateTimeCache;
     static Dictionary<DateTime, string> globalNamedDateTimes = [];
 
     class DateTimeComparer : IEqualityComparer<DateTime>
@@ -11,7 +11,7 @@ public partial class Counter
             x == y && x.Kind == y.Kind;
 
         public int GetHashCode(DateTime obj) =>
-            obj.GetHashCode() + (int) obj.Kind;
+            obj.GetHashCode() + (int)obj.Kind;
     }
 
     int currentDateTime;

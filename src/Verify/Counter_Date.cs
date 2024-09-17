@@ -3,7 +3,7 @@ namespace VerifyTests;
 
 public partial class Counter
 {
-    Dictionary<Date, (int intValue, string stringValue)> dateCache = [];
+    Dictionary<Date, (int intValue, string stringValue)> dateCache;
     static Dictionary<Date, string> globalNamedDates = [];
     int currentDate;
 
@@ -11,6 +11,13 @@ public partial class Counter
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         globalNamedDates.Add(value, name);
+    }
+
+    class DateComparer : IEqualityComparer<Date>
+    {
+        public bool Equals(Date x, Date y) => x == y;
+
+        public int GetHashCode(Date obj) => obj.GetHashCode();
     }
 
     public int Next(Date input) =>

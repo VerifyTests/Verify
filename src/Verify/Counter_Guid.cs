@@ -2,9 +2,16 @@
 
 public partial class Counter
 {
-    Dictionary<Guid, (int intValue, string stringValue)> guidCache = [];
+    Dictionary<Guid, (int intValue, string stringValue)> guidCache;
     static Dictionary<Guid, string> globalNamedGuids = [];
     int currentGuid;
+
+    class GuidComparer : IEqualityComparer<Guid>
+    {
+        public bool Equals(Guid x, Guid y) => x == y;
+
+        public int GetHashCode(Guid obj) => obj.GetHashCode() ;
+    }
 
     public int Next(Guid input) =>
         NextValue(input)

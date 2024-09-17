@@ -47,10 +47,16 @@ public partial class VerifySettings
 #if NET6_0_OR_GREATER
         namedDates = new(settings.namedDates);
         namedTimes = new(settings.namedTimes);
+        dateComparer = settings.dateComparer;
+        timeComparer = settings.timeComparer;
 #endif
         namedGuids = new(settings.namedGuids);
         namedDateTimes = new(settings.namedDateTimes);
         namedDateTimeOffsets = new(settings.namedDateTimeOffsets);
+        dateTimeComparer = settings.dateTimeComparer;
+        guidComparer = settings.guidComparer;
+        dateTimeOffsetComparer = settings.dateTimeOffsetComparer;
+
         foreach (var append in settings.Appends)
         {
             if (append.Data is ICloneable cloneable)

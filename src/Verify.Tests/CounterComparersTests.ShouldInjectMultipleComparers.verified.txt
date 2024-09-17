@@ -1,0 +1,7 @@
+﻿{
+  Item1: DateTimeOffset_1,
+  Item2: DateTimeOffset_1,
+  Item3: DateTimeOffset_1,
+  Item4: Guid_1,
+  Item5: Guid_1
+}

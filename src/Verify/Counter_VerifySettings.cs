@@ -14,6 +14,24 @@ public partial class VerifySettings
     public void AddNamedTime(Time value, string name) =>
         namedTimes.Add(value, name);
 
+    internal IEqualityComparer<Date>? dateComparer;
+
+    public void ReplaceScrubberDateComparer(IEqualityComparer<Date> comparer)
+    {
+        ArgumentNullException.ThrowIfNull(comparer);
+
+        dateComparer = comparer;
+    }
+
+    internal IEqualityComparer<Time>? timeComparer;
+
+    public void ReplaceScrubberTimeComparer(IEqualityComparer<Time> comparer)
+    {
+        ArgumentNullException.ThrowIfNull(comparer);
+
+        timeComparer = comparer;
+    }
+
 #endif
 
     internal Dictionary<DateTime, string> namedDateTimes = [];
@@ -30,4 +48,31 @@ public partial class VerifySettings
 
     public void AddNamedDateTimeOffset(DateTimeOffset value, string name) =>
         namedDateTimeOffsets.Add(value, name);
+
+    internal IEqualityComparer<DateTime>? dateTimeComparer;
+
+    public void ReplaceScrubberDateTimeComparer(IEqualityComparer<DateTime> comparer)
+    {
+        ArgumentNullException.ThrowIfNull(comparer);
+
+        dateTimeComparer = comparer;
+    }
+
+    internal IEqualityComparer<Guid>? guidComparer;
+
+    public void ReplaceScrubberGuidComparer(IEqualityComparer<Guid> comparer)
+    {
+        ArgumentNullException.ThrowIfNull(comparer);
+
+        guidComparer = comparer;
+    }
+
+    internal IEqualityComparer<DateTimeOffset>? dateTimeOffsetComparer;
+
+    public void ReplaceScrubberDateTimeOffsetComparer(IEqualityComparer<DateTimeOffset> comparer)
+    {
+        ArgumentNullException.ThrowIfNull(comparer);
+
+        dateTimeOffsetComparer = comparer;
+    }
 }

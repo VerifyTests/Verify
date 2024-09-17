@@ -1,0 +1,6 @@
+﻿{
+  Item1: DateTime_1,
+  Item2: DateTime_1,
+  Item4: Guid_1,
+  Item5: Guid_2
+}

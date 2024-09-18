@@ -12,7 +12,7 @@ void ReplaceScrubberTimeComparer(IEqualityComparer<Time> comparer)
 void ReplaceScrubberDateComparer(IEqualityComparer<Date> comparer)
 ```
 
-Example:
+Example with `Guid`:
 
 ```csharp
 private class StubGuidComparer : IEqualityComparer<Guid>
@@ -48,3 +48,36 @@ This test will create such `.verified.txt` file
 }
 ```
 
+Example with `DateTimeOffset` - comparison of Date part only:
+
+```csharp
+private class StubDateTimeOffsetComparer : IEqualityComparer<DateTimeOffset>
+{
+    public bool Equals(DateTimeOffset x, DateTimeOffset y) => x.Date == y.Date;
+
+    public int GetHashCode(DateTimeOffset obj) => 1;
+}
+
+[Fact]
+public async Task ShouldInjectCustomDateTimeOffsetComparer()
+{
+    var obj = new
+    {
+        Item1 = new DateTimeOffset(2023, 5, 1, 11, 5, 2, TimeSpan.FromHours(1)),
+        Item2 = new DateTimeOffset(2023, 5, 1, 12, 3, 1, TimeSpan.FromHours(1)),
+    };
+
+    var settings = new VerifySettings();
+    settings.ReplaceScrubberDateTimeOffsetComparer(new StubDateTimeOffsetComparer());
+    await Verify(obj, settings: settings);
+}
+```
+
+This test will create such `.verified.txt` file
+
+```text
+{
+  Item1: DateTimeOffset_1,
+  Item2: DateTimeOffset_1
+}
+```

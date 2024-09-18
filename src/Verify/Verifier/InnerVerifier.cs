@@ -196,19 +196,33 @@ public partial class InnerVerifier :
 
         getFileNames = target =>
         {
-            var suffix = target.Name is null ? "" : $"#{target.Name}";
+            if (target.Name is null)
+            {
+                return new(
+                    target.Extension,
+                    $"{pathPrefixReceived}.received.{target.Extension}",
+                    $"{pathPrefixVerified}.verified.{target.Extension}");
+            }
+
             return new(
                 target.Extension,
-                $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
-                $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
+                $"{pathPrefixReceived}#{target.Name}.received.{target.Extension}",
+                $"{pathPrefixVerified}#{target.Name}.verified.{target.Extension}");
         };
         getIndexedFileNames = (target, index) =>
         {
-            var suffix = target.Name is null ? $"#{index}" : $"#{target.Name}.{index}";
+            if (target.Name is null)
+            {
+                return new(
+                    target.Extension,
+                    $"{pathPrefixReceived}#{index}.received.{target.Extension}",
+                    $"{pathPrefixVerified}#{index}.verified.{target.Extension}");
+            }
+
             return new(
                 target.Extension,
-                $"{pathPrefixReceived}{suffix}.received.{target.Extension}",
-                $"{pathPrefixVerified}{suffix}.verified.{target.Extension}");
+                $"{pathPrefixReceived}#{target.Name}.{index}.received.{target.Extension}",
+                $"{pathPrefixVerified}#{target.Name}.{index}.verified.{target.Extension}");
         };
 
         MatchingFileFinder.DeleteReceived(receivedPrefix, directory);

@@ -33,6 +33,7 @@ Characters that cannot be used for a file name are replaced with a dash (`-`).
   * Verify.Fixie: Automatically detects the method parameters via a [custom ITestProject]( docs/parameterised.md#fixie).
   * Verify.MSTest: Does not detect the parametrised arguments, as such `UseParameters()` is required.
   * Verify.NUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+  * Verify.TUnit: Automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
   * Verify.Xunit: Does not detect the parametrised arguments, as such `UseParameters()` is required.
   * Verify.XunitV3: Automatically detect the method parameters for built in types (string, int, bool etc), but for complex parameters `UseParameters()` is required.
 
@@ -131,43 +132,32 @@ public class TestFixtureSourceUsage(string arg1, int arg2)
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/TestFixtureSourceUsage.cs#L1-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-TestFixtureSourceUsage.cs-1'></a>
-```cs
-//TODO:
-// [TestFixtureSource(nameof(FixtureArgs))]
-// public class TestFixtureSourceUsage(string arg1, int arg2)
-// {
-//     [Test]
-//     public Task Test() =>
-//         Verify(
-//             new
-//             {
-//                 arg1,
-//                 arg2
-//             });
-//
-//     static object[] FixtureArgs =
-//     [
-//         new object[]
-//         {
-//             "Value1",
-//             1
-//         },
-//         new object[]
-//         {
-//             "Value2",
-//             2
-//         }
-//     ];
-// }
-```
-<sup><a href='/src/Verify.TUnit.Tests/TestFixtureSourceUsage.cs#L1-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-TestFixtureSourceUsage.cs-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Produces:
 
  * `TestFixtureSourceUsage.Test_arg1=Value1_arg2=1.verified.txt`
  * `TestFixtureSourceUsage.Test_arg1=Value2_arg2=2.verified.txt`
+
+
+## TUnit
+
+`Verify.TUnit` automatically detects the method parameters. So `UseParameters()` is not required unless using custom parameters.
+
+
+### TestCase
+
+<!-- snippet: TUnitTestCase -->
+<a id='snippet-TUnitTestCase'></a>
+```cs
+[Test]
+[Arguments("Value1")]
+[Arguments("Value2")]
+public Task TestCaseUsage(string arg) =>
+    Verify(arg);
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L63-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-TUnitTestCase' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## xUnit V2
@@ -638,7 +628,7 @@ Results in:
 
 By default, Verify expects every parameterized case to have a unique [file name](/docs/naming.md) with the parameters appended to the file name. This behavior can be overridden by using `IgnoreParametersForVerified()`. In this case, the verified file name does not contain the parameter values, meaning it is the same for each testcase.
 
-`IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are pssed to [UseParameters](#UseParameters). This is required for MSTest, xUnit, and NUnit. Parameters should not be passed for NUnit and Fixie since they are automatically detected.
+`IgnoreParametersForVerified` accepts an array for passing through the parameters. These values are passed to [UseParameters](#UseParameters). This is required for MSTest, and xUnit. Parameters should not be passed for NUnit, TUnit and Fixie since they are automatically detected.
 
 The below samples produce:
 
@@ -726,6 +716,44 @@ public Task IgnoreParametersForVerifiedFluent(string arg) =>
         .IgnoreParametersForVerified();
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L29-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TUnit
+
+
+#### Instance
+
+<!-- snippet: IgnoreParametersForVerifiedTUnit -->
+<a id='snippet-IgnoreParametersForVerifiedTUnit'></a>
+```cs
+[Test]
+[Arguments("One")]
+[Arguments("Two")]
+public Task IgnoreParametersForVerified(string arg)
+{
+    var settings = new VerifySettings();
+    settings.IgnoreParametersForVerified();
+    return Verify("value", settings);
+}
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L13-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent
+
+<!-- snippet: IgnoreParametersForVerifiedFluentTUnit -->
+<a id='snippet-IgnoreParametersForVerifiedFluentTUnit'></a>
+```cs
+[Test]
+[Arguments("One")]
+[Arguments("Two")]
+public Task IgnoreParametersForVerifiedFluent(string arg) =>
+    Verify("value")
+        .IgnoreParametersForVerified();
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L27-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedFluentTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -843,6 +871,44 @@ public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         .IgnoreParametersForVerified($"Number{arg}");
 ```
 <sup><a href='/src/Verify.NUnit.Tests/Snippets/ParametersSample.cs#L52-L60' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentNunit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TUnit
+
+
+#### Instance
+
+<!-- snippet: IgnoreParametersForVerifiedCustomParamsTUnit -->
+<a id='snippet-IgnoreParametersForVerifiedCustomParamsTUnit'></a>
+```cs
+[Test]
+[Arguments("One")]
+[Arguments("Two")]
+public Task IgnoreParametersForVerifiedCustomParams(string arg)
+{
+    var settings = new VerifySettings();
+    settings.IgnoreParametersForVerified($"Number{arg}");
+    return Verify("value", settings);
+}
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L38-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### Fluent
+
+<!-- snippet: IgnoreParametersForVerifiedCustomParamsFluentTUnit -->
+<a id='snippet-IgnoreParametersForVerifiedCustomParamsFluentTUnit'></a>
+```cs
+[Test]
+[Arguments("One")]
+[Arguments("Two")]
+public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
+    Verify("value")
+        .IgnoreParametersForVerified($"Number{arg}");
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L52-L61' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreParametersForVerifiedCustomParamsFluentTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -1003,6 +1069,72 @@ public class ParametersHashSample
 <!-- endSnippet -->
 
 Note that NUnit can derive the parameters without explicitly passing them.
+
+
+### TUnit
+
+<!-- snippet: UseParametersHashTUnit -->
+<a id='snippet-UseParametersHashTUnit'></a>
+```cs
+public class ParametersHashSample
+{
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task UseHashedParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseHashedParameters(arg);
+        return Verify(arg, settings);
+    }
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task UseHashedParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .UseHashedParameters(arg);
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task HashParametersUsage(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task HashParametersUsageFluent(string arg) =>
+        Verify(arg)
+            .HashParameters();
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task HashParametersOmitPassingParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.HashParameters();
+        return Verify(arg, settings);
+    }
+
+    [Test]
+    [Arguments("Value1")]
+    [Arguments("Value2")]
+    public Task HashParametersOmitPassingParametersFluent(string arg) =>
+        Verify(arg)
+            .HashParameters();
+}
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersHashSample.cs#L1-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseParametersHashTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Note that TUnit can derive the parameters without explicitly passing them.
 
 
 ### xUnit

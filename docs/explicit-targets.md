@@ -104,6 +104,29 @@ public Task WithTargets() =>
 <!-- endSnippet -->
 
 
+## TUnit
+
+<!-- snippet: ExplicitTargetsTUnit -->
+<a id='snippet-ExplicitTargetsTUnit'></a>
+```cs
+[Test]
+public Task WithTargets() =>
+    Verify(
+        new
+        {
+            Property = "Value"
+        },
+        [
+            new Target(
+                extension: "txt",
+                data: "Raw target value",
+                name: "targetName")
+        ]);
+```
+<sup><a href='/src/Verify.TUnit.Tests/Tests.cs#L34-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-ExplicitTargetsTUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ## Result
 
 <!-- snippet: Verify.MSTest.Tests/Tests.WithTargets.verified.txt -->

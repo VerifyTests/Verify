@@ -1,4 +1,4 @@
-// ReSharper disable UnusedParameter.Local
+﻿// ReSharper disable UnusedParameter.Local
 
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
 
@@ -31,7 +31,7 @@ public class Tests
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
 
-    #region ExplicitTargetsTunit
+    #region ExplicitTargetsTUnit
 
     [Test]
     public Task WithTargets() =>

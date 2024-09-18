@@ -15,6 +15,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Fixie.svg?label=Verify.Fixie)](https://www.nuget.org/packages/Verify.Fixie/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.Expecto.svg?label=Verify.Expecto)](https://www.nuget.org/packages/Verify.Expecto/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.MSTest.svg?label=Verify.MSTest)](https://www.nuget.org/packages/Verify.MSTest/)
+[![NuGet Status](https://img.shields.io/nuget/v/Verify.TUnit.svg?label=Verify.TUnit)](https://www.nuget.org/packages/Verify.TUnit/)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.ClipboardAccept.svg?label=Verify.ClipboardAccept)](https://www.nuget.org/packages/Verify.ClipboardAccept/)
 
 Verify is a snapshot tool that simplifies the assertion of complex data models and documents.
@@ -56,6 +57,7 @@ Get customized instructions for the specific combination of Operating System, ID
 * https://nuget.org/packages/Verify.Fixie/
 * https://nuget.org/packages/Verify.Expecto/
 * https://nuget.org/packages/Verify.MSTest/
+* https://nuget.org/packages/Verify.TUnit/
 
 
 ## Snapshot management
@@ -283,6 +285,27 @@ let tests =
     }
 ```
 <sup><a href='/src/Verify.Expecto.FSharpTests/Tests.fs#L2-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestExpecto' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TUnit
+
+Support for [TUnit](https://github.com/thomhurst/TUnit)
+
+<!-- snippet: SampleTestTUnit -->
+<a id='snippet-SampleTestTUnit'></a>
+```cs
+public class Sample
+{
+    [Test]
+    public Task Test()
+    {
+        var person = ClassBeingTested.FindPerson();
+        return Verify(person);
+    }
+}
+```
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -723,6 +746,23 @@ public class VerifyChecksTests
 }
 ```
 <sup><a href='/src/Verify.NUnit.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksNUnit' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+#### TUnit
+
+<!-- snippet: VerifyChecksTUnit -->
+<a id='snippet-VerifyChecksTUnit'></a>
+```cs
+[TestFixture]
+public class VerifyChecksTests
+{
+    [Test]
+    public Task Run() =>
+        VerifyChecks.Run();
+}
+```
+<sup><a href='/src/Verify.TUnit.Tests/VerifyChecksTests.cs#L2-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyChecksTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

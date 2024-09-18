@@ -37,12 +37,6 @@ static class FileNameBuilder
 
         var numberOfMethodParameters = methodParameters.Count;
 
-        var ignoredParameters = settings.ignoredParameters;
-        if (ignoredParameters?.All(methodParameters.Contains) == false)
-        {
-            throw new($"Some of the ignored parameter names ({string.Join(", ", ignoredParameters)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
-        }
-
         if (settingsParameters.Length > numberOfMethodParameters)
         {
             throw new($"The number of passed in parameters ({settingsParameters.Length}) must not exceed the number of parameters for the method ({methodParameters.Count}).");
@@ -52,32 +46,41 @@ static class FileNameBuilder
             .Zip(settingsParameters, (name, value) => new KeyValuePair<string, object?>(name, value))
             .ToArray();
 
+        var ignoredParameters = settings.ignoredParameters;
+        if (ignoredParameters?.All(methodParameters.Contains) == false)
+        {
+            throw new($"Some of the ignored parameter names ({string.Join(", ", ignoredParameters)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
+        }
+
         var verifiedValues = ignoredParameters is null
             ? allValues
             : ignoredParameters.Count == 0 ? [] : allValues.Where(x => !ignoredParameters.Contains(x.Key)).ToArray();
 
-        return (BuildParameterString(allValues), BuildParameterString(verifiedValues));
+        var hashParameters = settings.hashParameters || VerifierSettings.hashParameters;
+        return (
+            BuildParameterString(allValues, hashParameters),
+            BuildParameterString(verifiedValues, hashParameters));
+    }
 
-        string BuildParameterString(KeyValuePair<string, object?>[] values)
+    static string BuildParameterString(KeyValuePair<string, object?>[] values, bool hashParameters)
+    {
+        var builder = values.Aggregate(new StringBuilder(), (acc, seed) =>
         {
-            var builder = values.Aggregate(new StringBuilder(), (acc, seed) =>
-            {
-                acc.Append('_');
-                acc.Append(seed.Key);
-                acc.Append('=');
-                VerifierSettings.AppendParameter(seed.Value, acc, true);
-                return acc;
-            });
+            acc.Append('_');
+            acc.Append(seed.Key);
+            acc.Append('=');
+            VerifierSettings.AppendParameter(seed.Value, acc, true);
+            return acc;
+        });
 
-            var parameterText = builder.ToString();
+        var parameterText = builder.ToString();
 
-            if (settings.hashParameters || VerifierSettings.hashParameters)
-            {
-                return HashString(parameterText);
-            }
-
-            return parameterText;
+        if (hashParameters)
+        {
+            return HashString(parameterText);
         }
+
+        return parameterText;
     }
 
     static string HashString(string value)

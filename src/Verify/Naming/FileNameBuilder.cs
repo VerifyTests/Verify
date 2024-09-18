@@ -46,23 +46,37 @@ static class FileNameBuilder
             .Zip(settingsParameters, (name, value) => new KeyValuePair<string, object?>(name, value))
             .ToArray();
 
-        var ignoredParameters = settings.ignoredParameters;
-        if (ignoredParameters?.All(methodParameters.Contains) == false)
+        var ignored = settings.ignoredParameters;
+        if (ignored?.All(methodParameters.Contains) == false)
         {
-            throw new($"Some of the ignored parameter names ({string.Join(", ", ignoredParameters)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
+            throw new($"Some of the ignored parameter names ({string.Join(", ", ignored)}) do not exist in the test method parameters ({string.Join(", ", methodParameters)}).");
         }
 
-        var verifiedValues = ignoredParameters is null
-            ? allValues
-            : ignoredParameters.Count == 0 ? [] : allValues.Where(x => !ignoredParameters.Contains(x.Key)).ToArray();
+        var verifiedValues = GetVerifiedValues(ignored, allValues);
 
-        var hashParameters = settings.hashParameters || VerifierSettings.hashParameters;
+        var hashParameters = settings.hashParameters ||
+                             VerifierSettings.hashParameters;
         return (
             BuildParameterString(allValues, hashParameters),
             BuildParameterString(verifiedValues, hashParameters));
     }
 
-    static string BuildParameterString(KeyValuePair<string, object?>[] values, bool hashParameters)
+    static IEnumerable<KeyValuePair<string, object?>> GetVerifiedValues(HashSet<string>? ignored, KeyValuePair<string, object?>[] allValues)
+    {
+        if (ignored is null)
+        {
+            return allValues;
+        }
+
+        if (ignored.Count == 0)
+        {
+            return [];
+        }
+
+        return allValues.Where(_ => !ignored.Contains(_.Key));
+    }
+
+    static string BuildParameterString(IEnumerable<KeyValuePair<string, object?>> values, bool hashParameters)
     {
         var builder = values.Aggregate(new StringBuilder(), (acc, seed) =>
         {

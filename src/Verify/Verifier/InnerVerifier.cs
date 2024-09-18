@@ -60,7 +60,7 @@ public partial class InnerVerifier :
 
         if (settings.useUniqueDirectory)
         {
-            InitForDirectoryConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
+            InitForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
         }
         else
         {
@@ -110,7 +110,7 @@ public partial class InnerVerifier :
             settings.namedDateTimeOffsets
         );
 
-    void InitForDirectoryConvention(Namer namer, string typeAndMethod, string receivedParameters, string verifiedParameters)
+    void InitForDirectoryConvention(Namer namer, string typeAndMethod, string verifiedParameters)
     {
         var verifiedPrefix = PrefixForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
 

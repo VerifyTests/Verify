@@ -1,4 +1,5 @@
-﻿public class Tests
+[NotInParallel("DatabaseTest")]
+public class Tests
 {
     [Test]
     public Task Test()

@@ -121,19 +121,19 @@ Support for [Expecto](https://github.com/haf/expecto)
 snippet: SampleTestExpecto
 
 
-### TUnit
-
-Support for [TUnit](https://github.com/thomhurst/TUnit)
-
-snippet: SampleTestTUnit
-
-
 #### Caveats
 
 Due to the nature of the Expecto implementation, the following APIs in Verify are not supported.
 
 * `settings.UseParameters()`
 * `settings.UseTextForParameters()`
+
+
+### TUnit
+
+Support for [TUnit](https://github.com/thomhurst/TUnit)
+
+snippet: SampleTestTUnit
 
 
 ### MSTest

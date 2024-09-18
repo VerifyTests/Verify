@@ -288,6 +288,14 @@ let tests =
 <!-- endSnippet -->
 
 
+#### Caveats
+
+Due to the nature of the Expecto implementation, the following APIs in Verify are not supported.
+
+* `settings.UseParameters()`
+* `settings.UseTextForParameters()`
+
+
 ### TUnit
 
 Support for [TUnit](https://github.com/thomhurst/TUnit)
@@ -307,14 +315,6 @@ public class Sample
 ```
 <sup><a href='/src/Verify.TUnit.Tests/Snippets/Sample.cs#L1-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-SampleTestTUnit' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
-
-
-#### Caveats
-
-Due to the nature of the Expecto implementation, the following APIs in Verify are not supported.
-
-* `settings.UseParameters()`
-* `settings.UseTextForParameters()`
 
 
 ### MSTest

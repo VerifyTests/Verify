@@ -968,6 +968,7 @@ information sources and warn about particular gotchas:
   * [Parameterised tests](/docs/parameterised.md)
   * [Named Tuples](/docs/named-tuples.md)
   * [Scrubbers](/docs/scrubbers.md)
+  * [Scrubbers custom comparers](/docs/scrubber-custom-comparers.md)
   * [Diff Engine](https://github.com/VerifyTests/DiffEngine)
   * [Diff Tools](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.md)
   * [Diff Tool Order](https://github.com/VerifyTests/DiffEngine/blob/master/docs/diff-tool.order.md)

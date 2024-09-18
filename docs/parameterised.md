@@ -156,7 +156,7 @@ Produces:
 public Task TestCaseUsage(string arg) =>
     Verify(arg);
 ```
-<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L63-L71' title='Snippet source file'>snippet source</a> | <a href='#snippet-TUnitTestCase' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.TUnit.Tests/Snippets/ParametersSample.cs#L113-L121' title='Snippet source file'>snippet source</a> | <a href='#snippet-TUnitTestCase' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

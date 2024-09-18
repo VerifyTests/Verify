@@ -60,6 +60,56 @@
 
     #endregion
 
+    #region IgnoreParametersTUnit
+
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
+    public Task IgnoreParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParameters();
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersFluentTUnit
+
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
+    public Task IgnoreParametersFluent(string arg) =>
+        Verify("value")
+            .IgnoreParameters();
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsTUnit
+
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
+    public Task IgnoreParametersCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsFluentTUnit
+
+    [Test]
+    [Arguments("One")]
+    [Arguments("Two")]
+    public Task IgnoreParametersCustomParamsFluent(string arg) =>
+        Verify("value")
+            .IgnoreParameters(nameof(arg));
+
+    #endregion
+
     #region TUnitTestCase
 
     [Test]

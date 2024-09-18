@@ -2,6 +2,18 @@
 
 In some cases you want to override default scrubber comparers.
 
+Available comparers replacements are:
+
+```csharp
+void ReplaceScrubberDateTimeOffsetComparer(IEqualityComparer<DateTimeOffset> comparer)
+void ReplaceScrubberGuidComparer(IEqualityComparer<Guid> comparer)
+void ReplaceScrubberDateTimeComparer(IEqualityComparer<DateTime> comparer)
+void ReplaceScrubberTimeComparer(IEqualityComparer<Time> comparer)
+void ReplaceScrubberDateComparer(IEqualityComparer<Date> comparer)
+```
+
+Example:
+
 ```csharp
 private class StubGuidComparer : IEqualityComparer<Guid>
 {
@@ -36,12 +48,3 @@ This test will create such `.verified.txt` file
 }
 ```
 
-Available comperers replacements are:
-
-```csharp
-void ReplaceScrubberDateTimeOffsetComparer(IEqualityComparer<DateTimeOffset> comparer)
-void ReplaceScrubberGuidComparer(IEqualityComparer<Guid> comparer)
-void ReplaceScrubberDateTimeComparer(IEqualityComparer<DateTime> comparer)
-void ReplaceScrubberTimeComparer(IEqualityComparer<Time> comparer)
-void ReplaceScrubberDateComparer(IEqualityComparer<Date> comparer)
-```

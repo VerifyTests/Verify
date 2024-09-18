@@ -33,7 +33,7 @@ public class Tests
     {
         var exception = await Assert.ThrowsAsync<Exception>(() => Verify("Value")
             .UseParameters(1, 2, 3));
-        Assert.Equal("The number of passed in parameters (3) must be fewer than the number of parameters for the method (2).", exception.Message);
+        Assert.Equal("The number of passed in parameters (3) must not exceed the number of parameters for the method (2).", exception.Message);
     }
 
     // [Theory]
@@ -266,6 +266,24 @@ public class Tests
         await Verify("value")
             .UniqueForRuntimeAndVersion()
             .IgnoreParametersForVerified(param)
+            .AutoVerify();
+        await Task.Delay(1000);
+        Assert.False(File.Exists(receivedFile));
+        Assert.False(File.Exists(verifiedFile));
+    }
+
+    [Theory]
+    [InlineData("P1", "P2")]
+    public async Task DanglingFilesIgnoreParameters(string param1, string param2)
+    {
+        var receivedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParameters_param1=P1_param2=P2.{Namer.RuntimeAndVersion}#01.received.txt");
+        var verifiedFile = CurrentFile.Relative($"Tests.DanglingFilesIgnoreParameters_param2=P2.{Namer.RuntimeAndVersion}#01.verified.txt");
+        File.WriteAllText(receivedFile, "");
+        File.WriteAllText(verifiedFile, "");
+        await Verify("value")
+            .UniqueForRuntimeAndVersion()
+            .UseParameters(param1, param2)
+            .IgnoreParameters(nameof(param1))
             .AutoVerify();
         await Task.Delay(1000);
         Assert.False(File.Exists(receivedFile));

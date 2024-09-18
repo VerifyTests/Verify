@@ -1,4 +1,4 @@
-﻿public class ParametersSample
+public class ParametersSample
 {
     public static IEnumerable<object[]> GetDecimalData()
     {
@@ -55,6 +55,60 @@
     public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
+
+    #region IgnoreParametersXunit
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters(arg);
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersFluentXunit
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersFluent(string arg) =>
+        Verify("value")
+            .UseParameters(arg)
+            .IgnoreParameters(nameof(arg));
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsXunit
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.UseParameters($"Number{arg}");
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsFluentXunit
+
+    [Theory]
+    [InlineData("One")]
+    [InlineData("Two")]
+    public Task IgnoreParametersCustomParamsFluent(string arg) =>
+        Verify("value")
+            .UseParameters(arg)
+            .IgnoreParameters(nameof(arg));
 
     #endregion
 

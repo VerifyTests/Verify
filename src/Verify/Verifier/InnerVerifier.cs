@@ -48,7 +48,7 @@ public partial class InnerVerifier :
         this.typeName = typeName;
         this.methodName = methodName;
         var typeAndMethod = FileNameBuilder.GetTypeAndMethod(methodName, typeName, settings, pathInfo);
-        var parameterText = FileNameBuilder.GetParameterText(methodParameters, settings);
+        var (receivedParameters, verifiedParameters) = FileNameBuilder.GetParameterText(methodParameters, settings);
 
         var namer = settings.Namer;
 
@@ -60,11 +60,11 @@ public partial class InnerVerifier :
 
         if (settings.useUniqueDirectory)
         {
-            InitForDirectoryConvention(namer, typeAndMethod, parameterText);
+            InitForDirectoryConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
         }
         else
         {
-            InitForFileConvention(namer, typeAndMethod, parameterText);
+            InitForFileConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
         }
     }
 
@@ -110,9 +110,9 @@ public partial class InnerVerifier :
             settings.namedDateTimeOffsets
         );
 
-    void InitForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
+    void InitForDirectoryConvention(Namer namer, string typeAndMethod, string receivedParameters, string verifiedParameters)
     {
-        var verifiedPrefix = PrefixForDirectoryConvention(namer, typeAndMethod, parameters);
+        var verifiedPrefix = PrefixForDirectoryConvention(namer, typeAndMethod, verifiedParameters);
 
         var directoryPrefix = Path.Combine(directory, verifiedPrefix);
 
@@ -162,7 +162,7 @@ public partial class InnerVerifier :
         }
     }
 
-    string PrefixForDirectoryConvention(Namer namer, string typeAndMethod, string parameters)
+    string PrefixForDirectoryConvention(Namer namer, string typeAndMethod, string verifiedParameters)
     {
         var uniquenessVerified = GetUniquenessVerified(PrefixUnique.SharedUniqueness(namer), namer);
 
@@ -176,16 +176,16 @@ public partial class InnerVerifier :
             return $"{typeAndMethod}{uniquenessVerified}";
         }
 
-        return $"{typeAndMethod}{parameters}{uniquenessVerified}";
+        return $"{typeAndMethod}{verifiedParameters}{uniquenessVerified}";
     }
 
     static bool ShouldUseUniqueDirectorySplitMode(VerifySettings settings) =>
         settings.UseUniqueDirectorySplitMode
             .GetValueOrDefault(VerifierSettings.UseUniqueDirectorySplitMode);
 
-    void InitForFileConvention(Namer namer, string typeAndMethod, string parameters)
+    void InitForFileConvention(Namer namer, string typeAndMethod, string receivedParameters, string verifiedParameters)
     {
-        var (receivedPrefix, verifiedPrefix) = PrefixForFileConvention(namer, typeAndMethod, parameters);
+        var (receivedPrefix, verifiedPrefix) = PrefixForFileConvention(namer, typeAndMethod, receivedParameters, verifiedParameters);
 
         var pathPrefixReceived = Path.Combine(directory, receivedPrefix);
         var pathPrefixVerified = Path.Combine(directory, verifiedPrefix);
@@ -214,7 +214,7 @@ public partial class InnerVerifier :
         MatchingFileFinder.DeleteReceived(receivedPrefix, directory);
     }
 
-    (string receivedPrefix, string verifiedPrefix) PrefixForFileConvention(Namer namer, string typeAndMethod, string parameters)
+    (string receivedPrefix, string verifiedPrefix) PrefixForFileConvention(Namer namer, string typeAndMethod, string receivedParameters, string verifiedParameters)
     {
         var sharedUniqueness = PrefixUnique.SharedUniqueness(namer);
         var uniquenessVerified = GetUniquenessVerified(sharedUniqueness, namer);
@@ -234,13 +234,13 @@ public partial class InnerVerifier :
         if (settings.ignoreParametersForVerified)
         {
             return (
-                $"{typeAndMethod}{parameters}{sharedUniqueness}",
+                $"{typeAndMethod}{receivedParameters}{sharedUniqueness}",
                 $"{typeAndMethod}{uniquenessVerified}");
         }
 
         return (
-            $"{typeAndMethod}{parameters}{sharedUniqueness}",
-            $"{typeAndMethod}{parameters}{uniquenessVerified}");
+            $"{typeAndMethod}{receivedParameters}{sharedUniqueness}",
+            $"{typeAndMethod}{verifiedParameters}{uniquenessVerified}");
     }
 
     static UniquenessList GetUniquenessVerified(UniquenessList sharedUniqueness, Namer namer)

@@ -37,6 +37,7 @@ public partial class VerifySettings
         stringComparer = settings.stringComparer;
         streamComparer = settings.streamComparer;
         parameters = settings.parameters;
+        ignoredParameters = settings.ignoredParameters;
         ignoreParametersForVerified = settings.ignoreParametersForVerified;
         hashParameters = settings.hashParameters;
         parametersText = settings.parametersText;

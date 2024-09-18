@@ -1,4 +1,4 @@
-﻿[TestFixture]
+[TestFixture]
 public class ParametersSample
 {
     [TestCase("1.1")]
@@ -56,6 +56,52 @@ public class ParametersSample
     public Task IgnoreParametersForVerifiedCustomParamsFluent(string arg) =>
         Verify("value")
             .IgnoreParametersForVerified($"Number{arg}");
+
+    #endregion
+
+    #region IgnoreParametersNunit
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParameters(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParameters();
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersFluentNunit
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersFluent(string arg) =>
+        Verify("value")
+            .IgnoreParameters();
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsNunit
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersCustomParams(string arg)
+    {
+        var settings = new VerifySettings();
+        settings.IgnoreParameters(nameof(arg));
+        return Verify("value", settings);
+    }
+
+    #endregion
+
+    #region IgnoreParametersCustomParamsFluentNunit
+
+    [TestCase("One")]
+    [TestCase("Two")]
+    public Task IgnoreParametersCustomParamsFluent(string arg) =>
+        Verify("value")
+            .IgnoreParameters(nameof(arg));
 
     #endregion
 

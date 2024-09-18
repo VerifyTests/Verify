@@ -28,7 +28,7 @@ public async Task ShouldInjectCustomGuidComparer()
 
 This test will create such `.verified.txt` file
 
-```json
+```text
 {
   Item1: Guid_1,
   Item2: Guid_1,

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XunitNugetUsage", "XunitNug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XunitV3NugetUsage", "XunitV3NugetUsage\XunitV3NugetUsage.csproj", "{21710BF4-6876-4449-8E59-E66F35EC1847}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUnitNugetUsage", "TUnitNugetUsage\TUnitNugetUsage.csproj", "{4EEF4715-65A9-45F6-8FDC-605A3F5FBFAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{21710BF4-6876-4449-8E59-E66F35EC1847}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21710BF4-6876-4449-8E59-E66F35EC1847}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21710BF4-6876-4449-8E59-E66F35EC1847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEF4715-65A9-45F6-8FDC-605A3F5FBFAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEF4715-65A9-45F6-8FDC-605A3F5FBFAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEF4715-65A9-45F6-8FDC-605A3F5FBFAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEF4715-65A9-45F6-8FDC-605A3F5FBFAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -435,6 +435,15 @@ public class WizardGen
                             ```
                             """);
                         break;
+                    case TestFramework.TUnit:
+                        builder.AppendLine(
+                            """
+                            ```
+                            dotnet add package TUnit
+                            dotnet add package Verify.TUnit
+                            ```
+                            """);
+                        break;
                     case TestFramework.Fixie:
                         builder.AppendLine(
                             """

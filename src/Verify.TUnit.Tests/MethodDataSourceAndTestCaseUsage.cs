@@ -1,4 +1,4 @@
-[MethodDataSource(nameof(FixtureArgs), UnfoldTuple = true)]
+[MethodDataSource(nameof(FixtureArgs))]
 public class MethodDataSourceAndTestCaseUsage(string arg1, int arg2)
 {
     [Test]

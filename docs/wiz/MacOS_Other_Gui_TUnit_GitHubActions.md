@@ -17,7 +17,7 @@ Add the following packages to the test project:
 <!-- snippet: tunit-nugets -->
 <a id='snippet-tunit-nugets'></a>
 ```csproj
-<PackageReference Include="TUnit" Version="0.1.741" />
+<PackageReference Include="TUnit" Version="0.1.752" />
 <PackageReference Include="Verify.TUnit" Version="26.5.0" />
 ```
 <sup><a href='/usages/TUnitNugetUsage/TUnitNugetUsage.csproj#L7-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-tunit-nugets' title='Start of snippet'>anchor</a></sup>

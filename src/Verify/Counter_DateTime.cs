@@ -2,7 +2,8 @@
 
 public partial class Counter
 {
-    Dictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(new DateTimeComparer());
+    static DateTimeComparer dateTimeComparer = new();
+    Dictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(dateTimeComparer);
     static Dictionary<DateTime, string> globalNamedDateTimes = [];
 
     class DateTimeComparer : IEqualityComparer<DateTime>

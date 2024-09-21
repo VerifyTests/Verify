@@ -2,7 +2,8 @@
 
 public partial class Counter
 {
-    Dictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(new DateTimeOffsetComparer());
+    static DateTimeOffsetComparer dateTimeOffsetComparer = new();
+    Dictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(dateTimeOffsetComparer);
     static Dictionary<DateTimeOffset, string> globalNamedDateTimeOffsets = [];
 
     class DateTimeOffsetComparer :

@@ -2,18 +2,27 @@
 
 public partial class Counter
 {
-    static DateTimeComparer dateTimeComparer = new();
+    public static void UseDateTimeComparer(IEqualityComparer<DateTime> comparer)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        dateTimeComparer = comparer;
+    }
+
+    static IEqualityComparer<DateTime> dateTimeComparer = new DateTimeComparer();
     Dictionary<DateTime, (int intValue, string stringValue)> dateTimeCache = new(dateTimeComparer);
     static Dictionary<DateTime, string> globalNamedDateTimes = [];
 
+    #region DateTimeComparer
     class DateTimeComparer : IEqualityComparer<DateTime>
     {
         public bool Equals(DateTime x, DateTime y) =>
-            x == y && x.Kind == y.Kind;
+            x == y &&
+            x.Kind == y.Kind;
 
         public int GetHashCode(DateTime obj) =>
             obj.GetHashCode() + (int) obj.Kind;
     }
+    #endregion
 
     int currentDateTime;
 

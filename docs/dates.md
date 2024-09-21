@@ -7,7 +7,6 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # Dates
 
-
 By default dates and times (`DateTime`, `DateTimeOffset`, `DateOnly`, and `TimeOnly`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
 <!-- snippet: Date -->
@@ -287,4 +286,137 @@ public static void NamedDatesAndTimesGlobal()
 }
 ```
 <sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1102-L1113' title='Snippet source file'>snippet source</a> | <a href='#snippet-NamedDatesAndTimesGlobal' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+## Custom Comparers
+
+The following comparers can be overridden
+
+
+### DateTime
+
+Default Comparer:
+
+<!-- snippet: DateTimeComparer -->
+<a id='snippet-DateTimeComparer'></a>
+```cs
+class DateTimeComparer : IEqualityComparer<DateTime>
+{
+    public bool Equals(DateTime x, DateTime y) =>
+        x == y &&
+        x.Kind == y.Kind;
+
+    public int GetHashCode(DateTime obj) =>
+        obj.GetHashCode() + (int) obj.Kind;
+}
+```
+<sup><a href='/src/Verify/Counter_DateTime.cs#L15-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateTimeComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Custom Comparer:
+
+<!-- snippet: CustomDateTimeComparer -->
+<a id='snippet-CustomDateTimeComparer'></a>
+```cs
+[ModuleInitializer]
+public static void UseCustomDateTimeComparer() =>
+    Counter.UseDateTimeComparer(new CustomDateTimeComparer());
+
+public class CustomDateTimeComparer :
+    IEqualityComparer<DateTime>
+{
+    public bool Equals(DateTime x, DateTime y) =>
+        new DateTime(x.Year, x.Month, x.Day) ==
+        new DateTime(y.Year, y.Month, y.Day);
+
+    public int GetHashCode(DateTime date) =>
+        new DateTime(date.Year, date.Month, date.Day).GetHashCode();
+}
+```
+<sup><a href='/src/StaticSettingsTests/CustomDateCompareTests.cs#L4-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-CustomDateTimeComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### DateTimeOffset
+
+Default Comparer:
+
+<!-- snippet: DateTimeOffsetComparer -->
+<a id='snippet-DateTimeOffsetComparer'></a>
+```cs
+class DateTimeOffsetComparer :
+    IEqualityComparer<DateTimeOffset>
+{
+    public bool Equals(DateTimeOffset x, DateTimeOffset y) =>
+        x == y && x.Offset == y.Offset;
+
+    public int GetHashCode(DateTimeOffset obj) =>
+        obj.GetHashCode() + (int) obj.Offset.TotalMinutes;
+}
+```
+<sup><a href='/src/Verify/Counter_DateTimeOffset.cs#L15-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-DateTimeOffsetComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Custom Comparer:
+
+<!-- snippet: CustomDateTimeOffsetComparer -->
+<a id='snippet-CustomDateTimeOffsetComparer'></a>
+```cs
+[ModuleInitializer]
+public static void UseCustomDateTimeOffsetComparer() =>
+    Counter.UseDateTimeOffsetComparer(new CustomDateTimeOffsetComparer());
+
+public class CustomDateTimeOffsetComparer :
+    IEqualityComparer<DateTimeOffset>
+{
+    public bool Equals(DateTimeOffset x, DateTimeOffset y) =>
+        new DateTimeOffset(new(x.Year, x.Month, x.Day)) ==
+        new DateTimeOffset(new(y.Year, y.Month, y.Day));
+
+    public int GetHashCode(DateTimeOffset date)
+    {
+        var dateTime = new DateTime(date.Year, date.Month, date.Day);
+        return new DateTimeOffset(dateTime)
+            .GetHashCode();
+    }
+}
+```
+<sup><a href='/src/StaticSettingsTests/CustomDateCompareTests.cs#L42-L63' title='Snippet source file'>snippet source</a> | <a href='#snippet-CustomDateTimeOffsetComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### TimeOnly
+
+Default Comparer:
+
+<!-- snippet: TimeComparer -->
+<a id='snippet-TimeComparer'></a>
+```cs
+EqualityComparer<Time>.Default;
+```
+<sup><a href='/src/Verify/Counter_Time.cs#L14-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-TimeComparer' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Custom Comparer:
+
+<!-- snippet: CustomTimeComparer -->
+<a id='snippet-CustomTimeComparer'></a>
+```cs
+[ModuleInitializer]
+public static void UseCustomTimeComparer() =>
+    Counter.UseTimeComparer(new CustomTimeComparer());
+
+public class CustomTimeComparer :
+    IEqualityComparer<Time>
+{
+    public bool Equals(Time x, Time y) =>
+        new Time(x.Hour, x.Minute, x.Second) ==
+        new Time(y.Hour, y.Minute, y.Second);
+
+    public int GetHashCode(Time date) =>
+        new Time(date.Hour, date.Minute, date.Second).GetHashCode();
+}
+```
+<sup><a href='/src/StaticSettingsTests/CustomDateCompareTests.cs#L23-L40' title='Snippet source file'>snippet source</a> | <a href='#snippet-CustomTimeComparer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

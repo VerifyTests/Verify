@@ -2,10 +2,17 @@
 
 public partial class Counter
 {
-    static DateTimeOffsetComparer dateTimeOffsetComparer = new();
+    public static void UseDateTimeOffsetComparer(IEqualityComparer<DateTimeOffset> comparer)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        dateTimeOffsetComparer = comparer;
+    }
+
+    static IEqualityComparer<DateTimeOffset> dateTimeOffsetComparer = new DateTimeOffsetComparer();
     Dictionary<DateTimeOffset, (int intValue, string stringValue)> dateTimeOffsetCache = new(dateTimeOffsetComparer);
     static Dictionary<DateTimeOffset, string> globalNamedDateTimeOffsets = [];
 
+    #region DateTimeOffsetComparer
     class DateTimeOffsetComparer :
         IEqualityComparer<DateTimeOffset>
     {
@@ -15,6 +22,7 @@ public partial class Counter
         public int GetHashCode(DateTimeOffset obj) =>
             obj.GetHashCode() + (int) obj.Offset.TotalMinutes;
     }
+    #endregion
 
     int currentDateTimeOffset;
 

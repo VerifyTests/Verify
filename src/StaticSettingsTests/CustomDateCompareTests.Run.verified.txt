@@ -1,0 +1,8 @@
+﻿{
+  Time1: Time_1,
+  Time2: Time_1,
+  DateTime1: DateTime_1,
+  DateTime2: DateTime_1,
+  DateTimeOffset1: DateTimeOffset_1,
+  DateTimeOffset2: DateTimeOffset_1
+}

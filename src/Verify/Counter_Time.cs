@@ -3,7 +3,21 @@ namespace VerifyTests;
 
 public partial class Counter
 {
-    Dictionary<Time, (int intValue, string stringValue)> timeCache = [];
+    public static void UseTimeComparer(IEqualityComparer<Time> comparer)
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        timeComparer = comparer;
+    }
+
+    static IEqualityComparer<Time> timeComparer =
+
+        #region TimeComparer
+
+        EqualityComparer<Time>.Default;
+
+    #endregion
+
+    Dictionary<Time, (int intValue, string stringValue)> timeCache = new(timeComparer);
     static Dictionary<Time, string> globalNamedTimes = [];
     int currentTime;
 

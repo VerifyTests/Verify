@@ -16,10 +16,8 @@ public class InnerVerifyTests
 
     public async Task VerifyExternalFile()
     {
-        var settings = new VerifySettings();
-        settings.DisableRequireUniquePrefix();
-        using var verifier = new InnerVerifier(targetDirectory, "sample", settings);
-        await verifier.VerifyFile(filePath, null, null);
+        using var verifier = new InnerVerifier(targetDirectory, name: "sample");
+        await verifier.VerifyFile(filePath);
     }
 
     #endregion
@@ -27,10 +25,8 @@ public class InnerVerifyTests
     [Fact]
     public async Task VerifyExternalFileLocked()
     {
-        var settings = new VerifySettings();
-        settings.DisableRequireUniquePrefix();
         using var locker = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        using var verifier = new InnerVerifier(targetDirectory, "sample", settings);
-        await verifier.VerifyFile(filePath, null, null);
+        using var verifier = new InnerVerifier(targetDirectory, "sample");
+        await verifier.VerifyFile(filePath);
     }
 }

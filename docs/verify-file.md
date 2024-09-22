@@ -37,26 +37,7 @@ public Task VerifyFileWithInfo() =>
 <!-- endSnippet -->
 
 
-## Verify a file without using a unit test
-
-Use the functionality of VerifyTests outside of a unit test.
-
-<!-- snippet: VerifyFileWithoutUnitTest -->
-<a id='snippet-VerifyFileWithoutUnitTest'></a>
-```cs
-public async Task VerifyExternalFile()
-{
-    var settings = new VerifySettings();
-    settings.DisableRequireUniquePrefix();
-    using var verifier = new InnerVerifier(targetDirectory, "sample", settings);
-    await verifier.VerifyFile(filePath, null, null);
-}
-```
-<sup><a href='/src/Verify.Tests/InnerVerifyTests/InnerVerifyTests.cs#L15-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
-<!-- endSnippet -->
-
-
-### Using a custom extension
+## Using a custom extension
 
 <!-- snippet: VerifyFileExtension -->
 <a id='snippet-VerifyFileExtension'></a>
@@ -67,3 +48,26 @@ public Task VerifyFilePathWithExtension() =>
 ```
 <sup><a href='/src/Verify.Tests/StreamTests.cs#L198-L204' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+## Verify a file without using a unit test
+
+Use the functionality of VerifyTests outside of a unit test.
+
+<!-- snippet: VerifyFileWithoutUnitTest -->
+<a id='snippet-VerifyFileWithoutUnitTest'></a>
+```cs
+public async Task VerifyExternalFile()
+{
+    using var verifier = new InnerVerifier(targetDirectory, "sample");
+    await verifier.VerifyFile(filePath);
+}
+```
+<sup><a href='/src/Verify.Tests/InnerVerifyTests/InnerVerifyTests.cs#L15-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Result:
+
+```
+{targetDirectory}/sample.verified.txt
+```

@@ -103,25 +103,25 @@ public partial class InnerVerifier :
     /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
-    public InnerVerifier(string directory, string name, VerifySettings settings)
+    public InnerVerifier(string directory, string name, VerifySettings? settings = null)
     {
         Guard.NotEmpty(directory);
         Guard.NotEmpty(name);
-        this.settings = settings;
+        this.settings = settings ?? new();
         verifyHasBeenRun = true;
-        if (settings.Directory != null)
+        if (this.settings.Directory != null)
         {
             throw new("VerifySettings.Directory is not allowed for this API");
         }
 
         this.directory = directory;
 
-        counter = StartCounter(settings);
+        counter = StartCounter(this.settings);
 
         IoHelpers.CreateDirectory(directory);
 
         var prefix = Path.Combine(directory, name);
-        ValidatePrefix(settings, directory);
+        ValidatePrefix(this.settings, directory);
 
         verifiedFiles = MatchingFileFinder.FindVerified(name, directory);
 

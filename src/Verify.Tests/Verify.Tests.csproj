@@ -38,6 +38,9 @@
       <ParentFile>InnerVerifyChecksTests</ParentFile>
       <DependentUpon>InnerVerifyChecksTests2.cs</DependentUpon>
     </None>
+    <None Update="InnerVerifyTests\sample.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework) != 'net8.0'">

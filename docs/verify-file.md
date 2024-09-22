@@ -46,17 +46,13 @@ Use the functionality of VerifyTests outside of a unit test.
 ```cs
 public async Task VerifyExternalFile()
 {
-    var solutionDirectory = AttributeReader.GetSolutionDirectory();
     var settings = new VerifySettings();
     settings.DisableRequireUniquePrefix();
-
-    var sourceFile = Path.Combine(solutionDirectory, "Verify.Tests", "sample.txt");
-
-    using var verifier = new InnerVerifier(sourceFile, settings);
-    await verifier.VerifyFile(sourceFile, null, null);
+    using var verifier = new InnerVerifier(targetDirectory, "sample", settings);
+    await verifier.VerifyFile(filePath, null, null);
 }
 ```
-<sup><a href='/src/Verify.Tests/InnerVerifyTests.cs#L16-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InnerVerifyTests/InnerVerifyTests.cs#L15-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

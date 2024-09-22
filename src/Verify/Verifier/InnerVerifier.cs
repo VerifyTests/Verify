@@ -72,6 +72,7 @@ public partial class InnerVerifier :
     /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
+    [Obsolete("Use InnerVerifier(string directory, string name, VerifySettings settings)")]
     public InnerVerifier(string sourceFile, VerifySettings settings)
     {
         Guard.NotEmpty(sourceFile);
@@ -93,6 +94,42 @@ public partial class InnerVerifier :
                 target.Extension,
                 sourceFile,
                 Path.Combine(directory, $"{withoutExtension}.verified.{target.Extension}")
+            );
+
+        getIndexedFileNames = (_, _) => throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
+    /// </summary>
+    /// <remarks>This constructor is used by 3rd party clients</remarks>
+    public InnerVerifier(string directory, string name, VerifySettings settings)
+    {
+        Guard.NotEmpty(directory);
+        Guard.NotEmpty(name);
+        this.settings = settings;
+        verifyHasBeenRun = true;
+        if (settings.Directory != null)
+        {
+            throw new("VerifySettings.Directory is not allowed for this API");
+        }
+
+        this.directory = directory;
+
+        counter = StartCounter(settings);
+
+        IoHelpers.CreateDirectory(directory);
+
+        var prefix = Path.Combine(directory, name);
+        ValidatePrefix(settings, directory);
+
+        verifiedFiles = MatchingFileFinder.FindVerified(name, directory);
+
+        getFileNames = target =>
+            new(
+                target.Extension,
+                $"{prefix}.received.{target.Extension}",
+                Path.Combine(directory, $"{prefix}.verified.{target.Extension}")
             );
 
         getIndexedFileNames = (_, _) => throw new NotImplementedException();

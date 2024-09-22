@@ -72,27 +72,33 @@ public partial class InnerVerifier :
     /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
-    public InnerVerifier(string sourceFile, VerifySettings settings)
+    public InnerVerifier(string directory, string name, VerifySettings settings)
     {
-        Guard.NotEmpty(sourceFile);
+        Guard.NotEmpty(directory);
+        Guard.NotEmpty(name);
         this.settings = settings;
         verifyHasBeenRun = true;
-        directory = ResolveDirectory(sourceFile, settings, new());
+        if (settings.Directory != null)
+        {
+            throw new("VerifySettings.Directory is not allowed for this API");
+        }
+
+        this.directory = directory;
 
         counter = StartCounter(settings);
 
         IoHelpers.CreateDirectory(directory);
 
+        var prefix = Path.Combine(directory, name);
         ValidatePrefix(settings, directory);
 
-        var withoutExtension = Path.GetFileNameWithoutExtension(sourceFile);
-        verifiedFiles = [Path.Combine(directory, $"{withoutExtension}.verified{Path.GetExtension(sourceFile)}")];
+        verifiedFiles = MatchingFileFinder.FindVerified(name, directory);
 
         getFileNames = target =>
             new(
                 target.Extension,
-                sourceFile,
-                Path.Combine(directory, $"{withoutExtension}.verified.{target.Extension}")
+                $"{prefix}.received.{target.Extension}",
+                Path.Combine(directory, $"{prefix}.verified.{target.Extension}")
             );
 
         getIndexedFileNames = (_, _) => throw new NotImplementedException();

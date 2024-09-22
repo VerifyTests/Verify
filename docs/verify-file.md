@@ -59,7 +59,7 @@ Use the functionality of VerifyTests outside of a unit test.
 ```cs
 public async Task VerifyExternalFile()
 {
-    using var verifier = new InnerVerifier(targetDirectory, name: "sample");
+    using var verifier = new InnerVerifier(targetDirectory, name: "sample2");
     await verifier.VerifyFile(filePath);
 }
 ```

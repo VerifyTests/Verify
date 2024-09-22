@@ -72,6 +72,37 @@ public partial class InnerVerifier :
     /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
     /// </summary>
     /// <remarks>This constructor is used by 3rd party clients</remarks>
+    [Obsolete("Use InnerVerifier(string directory, string name, VerifySettings settings)")]
+    public InnerVerifier(string sourceFile, VerifySettings settings)
+    {
+        Guard.NotEmpty(sourceFile);
+        this.settings = settings;
+        verifyHasBeenRun = true;
+        directory = ResolveDirectory(sourceFile, settings, new());
+
+        counter = StartCounter(settings);
+
+        IoHelpers.CreateDirectory(directory);
+
+        ValidatePrefix(settings, directory);
+
+        var withoutExtension = Path.GetFileNameWithoutExtension(sourceFile);
+        verifiedFiles = [Path.Combine(directory, $"{withoutExtension}.verified{Path.GetExtension(sourceFile)}")];
+
+        getFileNames = target =>
+            new(
+                target.Extension,
+                sourceFile,
+                Path.Combine(directory, $"{withoutExtension}.verified.{target.Extension}")
+            );
+
+        getIndexedFileNames = (_, _) => throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Initialize a new instance of the <see cref="InnerVerifier" /> class for verifying the entire file (not just a specific type)
+    /// </summary>
+    /// <remarks>This constructor is used by 3rd party clients</remarks>
     public InnerVerifier(string directory, string name, VerifySettings settings)
     {
         Guard.NotEmpty(directory);

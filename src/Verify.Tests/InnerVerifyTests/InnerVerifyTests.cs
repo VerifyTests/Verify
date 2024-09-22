@@ -16,7 +16,7 @@ public class InnerVerifyTests
 
     public async Task VerifyExternalFile()
     {
-        using var verifier = new InnerVerifier(targetDirectory, name: "sample2");
+        using var verifier = new InnerVerifier(targetDirectory, name: "sample");
         await verifier.VerifyFile(filePath);
     }
 
@@ -26,7 +26,7 @@ public class InnerVerifyTests
     public async Task VerifyExternalFileLocked()
     {
         using var locker = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-        using var verifier = new InnerVerifier(targetDirectory, "sample");
+        using var verifier = new InnerVerifier(targetDirectory, "sample2");
         await verifier.VerifyFile(filePath);
     }
 }

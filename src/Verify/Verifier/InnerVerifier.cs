@@ -121,7 +121,7 @@ public partial class InnerVerifier :
         IoHelpers.CreateDirectory(directory);
 
         var prefix = Path.Combine(directory, name);
-        ValidatePrefix(this.settings, directory);
+        ValidatePrefix(this.settings, prefix);
 
         verifiedFiles = MatchingFileFinder.FindVerified(name, directory);
 

@@ -1,6 +1,6 @@
 ﻿static class Extensions
 {
-    public static IXunitTestMethod GetTestMethod(this TestContext context)
+    public static IXunitTestMethod GetTestMethod(this ITestContext context)
     {
         var method = context.TestMethod;
         if (method == null)

@@ -63,7 +63,7 @@ public async Task VerifyExternalFile()
     await verifier.VerifyFile(filePath);
 }
 ```
-<sup><a href='/src/Verify.Tests/InnerVerifyTests/InnerVerifyTests.cs#L15-L23' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/InnerVerifyTests/InnerVerifyTests.cs#L17-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyFileWithoutUnitTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:

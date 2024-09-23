@@ -129,10 +129,23 @@ public partial class InnerVerifier :
             new(
                 target.Extension,
                 $"{prefix}.received.{target.Extension}",
-                Path.Combine(directory, $"{prefix}.verified.{target.Extension}")
-            );
+                $"{prefix}.verified.{target.Extension}");
 
-        getIndexedFileNames = (_, _) => throw new NotImplementedException();
+        getIndexedFileNames = (target, index) =>
+        {
+            if (target.Name is null)
+            {
+                return new(
+                    target.Extension,
+                    $"{prefix}#{index}.received.{target.Extension}",
+                    $"{prefix}#{index}.verified.{target.Extension}");
+            }
+
+            return new(
+                target.Extension,
+                $"{prefix}#{target.Name}.{index}.received.{target.Extension}",
+                $"{prefix}#{target.Name}.{index}.verified.{target.Extension}");
+        };
     }
 
     static Counter StartCounter(VerifySettings settings) =>

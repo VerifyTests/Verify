@@ -246,7 +246,7 @@ To disable this behavior globally use:
 ```cs
 VerifierSettings.DontIgnoreEmptyCollections();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1514-L1516' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontIgnoreEmptyCollections' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L1525-L1527' title='Snippet source file'>snippet source</a> | <a href='#snippet-DontIgnoreEmptyCollections' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -347,7 +347,7 @@ public Task ScopedSerializerFluent()
         .AddExtraSettings(_ => _.TypeNameHandling = TypeNameHandling.All);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3675-L3702' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3686-L3713' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScopedSerializer' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -475,7 +475,7 @@ public Task IgnoreTypeFluent()
         .IgnoreMembersWithType<ToIgnoreStruct>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2701-L2806' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreType' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2712-L2817' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreType' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -485,7 +485,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersWithType<ToIgnore>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2688-L2692' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreTypeGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2699-L2703' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreTypeGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -622,7 +622,7 @@ public Task ScrubTypeFluent()
         .ScrubMembersWithType<ToIgnoreStruct>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2809-L2914' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubType' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2820-L2925' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubType' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -632,7 +632,7 @@ Or globally:
 ```cs
 VerifierSettings.ScrubMembersWithType<ToIgnore>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2694-L2698' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubTypeGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2705-L2709' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubTypeGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -711,7 +711,7 @@ public Task AddIgnoreInstanceFluent()
         .IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2574-L2613' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2585-L2624' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -721,7 +721,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreInstance<Instance>(_ => _.Property == "Ignore");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2561-L2565' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreInstanceGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2572-L2576' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddIgnoreInstanceGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -783,7 +783,7 @@ public Task AddScrubInstanceFluent()
         .ScrubInstance<Instance>(_ => _.Property == "Ignore");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2615-L2654' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubInstance' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2626-L2665' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubInstance' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -793,7 +793,7 @@ Or globally:
 ```cs
 VerifierSettings.ScrubInstance<Instance>(_ => _.Property == "Ignore");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2567-L2571' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubInstanceGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2578-L2582' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddScrubInstanceGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -838,7 +838,7 @@ public Task WithObsoleteProp()
     return Verify(target);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3640-L3661' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoleteProp' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3651-L3672' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoleteProp' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -886,7 +886,7 @@ public Task WithObsoletePropIncludedFluent()
         .IncludeObsoletes();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3611-L3638' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncluded' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3622-L3649' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncluded' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -896,7 +896,7 @@ Or globally:
 ```cs
 VerifierSettings.IncludeObsoletes();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3607-L3609' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncludedGlobally' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3618-L3620' title='Snippet source file'>snippet source</a> | <a href='#snippet-WithObsoletePropIncludedGlobally' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -957,7 +957,7 @@ public Task IgnoreMemberByExpressionFluent()
             _ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3130-L3169' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByExpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3141-L3180' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByExpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally
@@ -972,7 +972,7 @@ VerifierSettings.IgnoreMembers<IgnoreExplicitTarget>(
     _ => _.GetOnlyProperty,
     _ => _.PropertyThatThrows);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3107-L3116' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByExpressionGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3118-L3127' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByExpressionGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1032,7 +1032,7 @@ public Task ScrubMemberByExpressionFluent()
             _ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3171-L3210' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByExpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3182-L3221' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByExpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally
@@ -1047,7 +1047,7 @@ VerifierSettings.ScrubMembers<IgnoreExplicitTarget>(
     _ => _.GetOnlyProperty,
     _ => _.PropertyThatThrows);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3118-L3127' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByExpressionGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3129-L3138' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByExpressionGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1126,7 +1126,7 @@ public Task IgnoreMemberByNameFluent()
         .IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3284-L3337' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3295-L3348' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1146,7 +1146,7 @@ VerifierSettings.IgnoreMember<IgnoreExplicitTarget>("Field");
 // For a specific type with expression
 VerifierSettings.IgnoreMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3251-L3265' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByNameGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3262-L3276' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMemberByNameGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1221,7 +1221,7 @@ public Task ScrubMemberByNameFluent()
         .ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3339-L3392' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByName' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3350-L3403' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1241,7 +1241,7 @@ VerifierSettings.ScrubMember<IgnoreExplicitTarget>("Field");
 // For a specific type with expression
 VerifierSettings.ScrubMember<IgnoreExplicitTarget>(_ => _.PropertyThatThrows);
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3267-L3281' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByNameGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3278-L3292' title='Snippet source file'>snippet source</a> | <a href='#snippet-ScrubMemberByNameGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1292,7 +1292,7 @@ public Task CustomExceptionPropFluent()
         .IgnoreMembersThatThrow<CustomException>();
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3496-L3515' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3507-L3526' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrow' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1302,7 +1302,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<CustomException>();
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3492-L3494' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3503-L3505' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1339,7 +1339,7 @@ public Task ExceptionMessagePropFluent()
         .IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2318-L2339' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpression' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2329-L2350' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpression' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Or globally:
@@ -1349,7 +1349,7 @@ Or globally:
 ```cs
 VerifierSettings.IgnoreMembersThatThrow<Exception>(_ => _.Message == "Ignore");
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2313-L2315' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpressionGlobal' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L2324-L2326' title='Snippet source file'>snippet source</a> | <a href='#snippet-IgnoreMembersThatThrowExpressionGlobal' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Result:
@@ -1507,7 +1507,7 @@ public Task MemberConverterByExpression()
     return Verify(input);
 }
 ```
-<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3212-L3240' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberConverter' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Tests/Serialization/SerializationTests.cs#L3223-L3251' title='Snippet source file'>snippet source</a> | <a href='#snippet-MemberConverter' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

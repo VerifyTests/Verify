@@ -98,23 +98,42 @@
             return true;
         }
 
-        if (type.ImplementsGenericCollection() ||
-            type
-                .GetInterfaces()
-                .Any(ImplementsGenericCollection))
+        if (type.FullName != null &&
+            type.FullName.StartsWith("System.Linq.ILookup"))
         {
-            // ReSharper disable PossibleMultipleEnumeration
             enumerable = enumerableTarget;
-            var enumerator = enumerableTarget.GetEnumerator();
-            using var disposable = enumerator as IDisposable;
-            isEmpty = !enumerator.MoveNext();
-            // ReSharper restore PossibleMultipleEnumeration
+            isEmpty = IsEmpty(enumerable);
+            return true;
+        }
+
+        var interfaces = type.GetInterfaces();
+
+        if (interfaces.Any(_ => _.FullName != null &&
+                                _.FullName.StartsWith("System.Linq.ILookup")))
+        {
+            enumerable = enumerableTarget;
+            isEmpty = IsEmpty(enumerable);
+            return true;
+        }
+
+        if (type.ImplementsGenericCollection() ||
+            interfaces.Any(ImplementsGenericCollection))
+        {
+            enumerable = enumerableTarget;
+            isEmpty = IsEmpty(enumerable);
             return true;
         }
 
         enumerable = null;
         isEmpty = null;
         return false;
+    }
+
+    static bool IsEmpty(IEnumerable enumerable)
+    {
+        var enumerator = enumerable.GetEnumerator();
+        using var disposable = enumerator as IDisposable;
+        return !enumerator.MoveNext();
     }
 
     static bool IsEnumerableEmpty(this Type type) =>

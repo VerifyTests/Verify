@@ -835,6 +835,17 @@ public class SerializationTests
         });
 
     [Fact]
+    public Task EmptyLookupProperty()
+    {
+        var lookup = new List<string>()
+            .ToLookup(_ => _, _ => _);
+        return Verify(new
+        {
+            property = lookup
+        });
+    }
+
+    [Fact]
     public Task ExampleNonDefaults()
     {
         var person = new Person

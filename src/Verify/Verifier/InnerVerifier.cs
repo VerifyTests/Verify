@@ -86,12 +86,39 @@ public partial class InnerVerifier :
     {
         Guard.NotEmpty(directory);
         Guard.NotEmpty(name);
-        this.settings = settings ?? new();
-        verifyHasBeenRun = true;
-        if (this.settings.Directory != null)
+        if (settings == null)
         {
-            throw new("VerifySettings.Directory is not allowed for this API");
+            this.settings = new();
         }
+        else
+        {
+            if (settings.Directory != null ||
+                settings.fileName != null ||
+                settings.typeName != null ||
+                settings.methodName != null ||
+                settings.hashParameters ||
+                settings.parametersText != null ||
+                settings.useUniqueDirectory ||
+                settings.UseUniqueDirectorySplitMode == true)
+            {
+                throw new(
+                    $"""
+                     The following VerifySettings are not supported by this API:
+                       * {nameof(VerifySettings.UseDirectory)}
+                       * {nameof(VerifySettings.UseFileName)}
+                       * {nameof(VerifySettings.UseTypeName)}
+                       * {nameof(VerifySettings.UseMethodName)}
+                       * {nameof(VerifySettings.HashParameters)}
+                       * {nameof(VerifySettings.UseTextForParameters)}
+                       * {nameof(VerifySettings.UseUniqueDirectory)}
+                       * {nameof(VerifySettings.UseUniqueDirectorySplitMode)}
+                     """);
+            }
+
+            this.settings = settings;
+        }
+
+        verifyHasBeenRun = true;
 
         this.directory = directory;
 

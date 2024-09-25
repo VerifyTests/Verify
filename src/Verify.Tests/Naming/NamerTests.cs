@@ -563,6 +563,6 @@ public class NamerTests
     [InlineData(false, false)]
     public Task HashParametersFluent(bool a, bool b) =>
         Verify("ContentHashParametersFluent")
-            .UseHashedParameters(a, b)
+            .UseParameters(a, b)
             .HashParameters();
 }

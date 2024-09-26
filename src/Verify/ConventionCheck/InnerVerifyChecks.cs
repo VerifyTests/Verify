@@ -1,4 +1,6 @@
-﻿#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+﻿// Async method lacks 'await' operators and will run synchronously
+#pragma warning disable CS1998
+
 namespace VerifyTests;
 
 [Experimental("InnerVerifyChecks")]
@@ -6,7 +8,12 @@ public static class InnerVerifyChecks
 {
     public static Task Run(Assembly assembly)
     {
-        var directory = AttributeReader.GetSolutionDirectory(assembly);
+        if (!AttributeReader.TryGetSolutionDirectory(assembly, out var directory))
+        {
+            var projectDirectory = AttributeReader.GetProjectDirectory(assembly);
+            directory = Directory.GetParent(projectDirectory)!.FullName;
+        }
+
         return Run(directory);
     }
 
@@ -19,6 +26,7 @@ public static class InnerVerifyChecks
         {
             return;
         }
+
         await CheckEditorConfig(directory, extensions);
         await CheckGitAttributes(directory, extensions);
     }
@@ -87,20 +95,20 @@ public static class InnerVerifyChecks
 
         throw new VerifyCheckException(
             $"""
-              Expected .editorconfig to contain settings for Verify for all text files
-              Path: {GetPath(path)}
-              Recommended settings:
+             Expected .editorconfig to contain settings for Verify for all text files
+             Path: {GetPath(path)}
+             Recommended settings:
 
-              # Verify
-              {$"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]"}
-              charset = "utf-8-bom"
-              end_of_line = lf
-              indent_size = unset
-              indent_style = unset
-              insert_final_newline = false
-              tab_width = unset
-              trim_trailing_whitespace = false
-              """);
+             # Verify
+             {$"[*.{{received,verified}}.{{{StringPolyfill.Join(',', extensions)}}}]"}
+             charset = "utf-8-bom"
+             end_of_line = lf
+             indent_size = unset
+             indent_style = unset
+             insert_final_newline = false
+             tab_width = unset
+             trim_trailing_whitespace = false
+             """);
     }
 
     static bool HasAllExtensions(List<string> extensions, string[] lines)

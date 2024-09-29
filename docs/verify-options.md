@@ -90,17 +90,19 @@ public static class ModuleInitializer
 
 Or with a delegate:
 
-<!-- snippet: StaticAutoVerify -->
-<a id='snippet-StaticAutoVerify'></a>
+<!-- snippet: StaticAutoVerifyDelegate -->
+<a id='snippet-StaticAutoVerifyDelegate'></a>
 ```cs
 public static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init() =>
-        VerifierSettings.AutoVerify();
+        VerifierSettings.AutoVerify(
+            (typeName, methodName, verifiedFile) =>
+                Path.GetExtension(verifiedFile) == "png");
 }
 ```
-<sup><a href='/src/ModuleInitDocs/AutoVerify.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticAutoVerify' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/ModuleInitDocs/AutoVerifyDelegate.cs#L4-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-StaticAutoVerifyDelegate' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

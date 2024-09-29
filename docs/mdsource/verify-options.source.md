@@ -36,7 +36,7 @@ snippet: StaticAutoVerify
 
 Or with a delegate:
 
-snippet: StaticAutoVerify
+snippet: StaticAutoVerifyDelegate
 
 
 ## OnHandlers

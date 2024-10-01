@@ -18,7 +18,12 @@ The format is
 
 ## Directory
 
-The directory that contains the test. A custom directory can be used via `UseDirectory`:
+The directory that contains the test.
+
+The path provided can be absolute or relative to the directory that contains the test.
+
+
+### Instance
 
 <!-- snippet: UseDirectory -->
 <a id='snippet-UseDirectory'></a>
@@ -29,6 +34,9 @@ await Verify("valueUseDirectory", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L196-L202' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseDirectory' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Fluent
 
 <!-- snippet: UseDirectoryFluent -->
 <a id='snippet-UseDirectoryFluent'></a>
@@ -41,12 +49,13 @@ await Verify("valueUseDirectoryFluent")
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
 
-The path provided can be absolute or relative to the directory that contains the test.
-
 
 ## TestClassName
 
 The class name that contains the test. A custom test name can be used via `UseTypeName`:
+
+
+### Instance
 
 <!-- snippet: UseTypeName -->
 <a id='snippet-UseTypeName'></a>
@@ -57,6 +66,9 @@ await Verify("valueUseTypeName", settings);
 ```
 <sup><a href='/src/Verify.Tests/Naming/NamerTests.cs#L290-L296' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseTypeName' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+### Fluent
 
 <!-- snippet: UseTypeNameFluent -->
 <a id='snippet-UseTypeNameFluent'></a>
@@ -85,6 +97,9 @@ await Verify("valueUseMethodName", settings);
 <!-- endSnippet -->
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
+
+
+### Fluent
 
 <!-- snippet: UseMethodNameFluent -->
 <a id='snippet-UseMethodNameFluent'></a>
@@ -121,6 +136,9 @@ public Task MultipleCalls() =>
 
 To fully control the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file use `UseFileName`:
 
+
+### Instance
+
 <!-- snippet: UseFileName -->
 <a id='snippet-UseFileName'></a>
 ```cs
@@ -132,6 +150,9 @@ await Verify("valueUseFileName", settings);
 <!-- endSnippet -->
 
 Will result in `CustomFileName.verified.txt`.
+
+
+### Fluent
 
 <!-- snippet: UseFileNameFluent -->
 <a id='snippet-UseFileNameFluent'></a>

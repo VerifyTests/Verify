@@ -11,22 +11,34 @@ The format is
 
 ## Directory
 
-The directory that contains the test. A custom directory can be used via `UseDirectory`:
+The directory that contains the test.
+
+The path provided can be absolute or relative to the directory that contains the test.
+
+
+### Instance
 
 snippet: UseDirectory
+
+
+### Fluent
 
 snippet: UseDirectoryFluent
 
 Will result in `CustomDirectory/TypeName.MethodName.verified.txt`.
-
-The path provided can be absolute or relative to the directory that contains the test.
 
 
 ## TestClassName
 
 The class name that contains the test. A custom test name can be used via `UseTypeName`:
 
+
+### Instance
+
 snippet: UseTypeName
+
+
+### Fluent
 
 snippet: UseTypeNameFluent
 
@@ -40,6 +52,9 @@ The test method name. A custom test name can be used via `UseMethodName`:
 snippet: UseMethodName
 
 Will result in `TestClass.CustomMethodName.verified.txt`.
+
+
+### Fluent
 
 snippet: UseMethodNameFluent
 
@@ -57,9 +72,15 @@ snippet: MultipleCalls
 
 To fully control the `{TestClassName}.{TestMethodName}_{Parameters}` parts of the file use `UseFileName`:
 
+
+### Instance
+
 snippet: UseFileName
 
 Will result in `CustomFileName.verified.txt`.
+
+
+### Fluent
 
 snippet: UseFileNameFluent
 

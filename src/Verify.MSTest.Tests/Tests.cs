@@ -1,4 +1,9 @@
 // ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
+
+#if RELEASE && NET9_0
+using System.IO.Compression;
+#endif
+
 [TestClass]
 public partial class Tests
 {
@@ -39,6 +44,33 @@ public partial class Tests
     [TestMethod]
     public Task StringTarget() =>
         Verify(new Target("txt", "Value"));
+
+#if RELEASE && NET9_0
+
+    [TestMethod]
+    public Task Nuget()
+    {
+        var nugetDirectory = Path.Combine(AttributeReader.GetSolutionDirectory(), "../nugets/");
+        var nugetPath = Directory.EnumerateFiles(nugetDirectory, "Verify.MSTest.*.nupkg")
+            .OrderBy(File.GetCreationTime)
+            .First();
+        using var stream = File.OpenRead(nugetPath);
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+
+        var paths = new List<string>();
+
+        foreach (var entry in archive.Entries)
+        {
+            if (!entry.FullName.EndsWith("psmdcp"))
+            {
+                paths.Add(entry.FullName);
+            }
+        }
+
+        return Verify(paths);
+    }
+
+#endif
 
     [ResultFilesCallback]
     [TestMethod]

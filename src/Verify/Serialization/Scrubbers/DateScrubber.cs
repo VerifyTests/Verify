@@ -121,7 +121,6 @@
         return false;
     }
 
-
     public static Action<StringBuilder, Counter> BuildDateTimeScrubber(string format, Culture? culture)
     {
         try

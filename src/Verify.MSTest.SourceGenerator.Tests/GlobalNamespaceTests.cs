@@ -52,7 +52,6 @@ public class GlobalNamespaceTests(ITestOutputHelper output) : TestBase(output)
         return VerifyGenerator(TestDriver.Run(source));
     }
 
-
     [Fact]
     public Task HasAssemblyAttributeAndCustomTestClassAttribute()
     {

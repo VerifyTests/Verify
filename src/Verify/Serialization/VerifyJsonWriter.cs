@@ -184,7 +184,6 @@ public class VerifyJsonWriter :
         WriteRawValueWithScrubbers(buffer);
     }
 
-
     /// <summary>
     /// Writes a property name and value while respecting other custom serialization settings.
     /// </summary>

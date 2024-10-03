@@ -1,7 +1,9 @@
 ﻿partial class SerializationSettings
 {
+#if NET6_0_OR_GREATER
     internal static List<string> dateFormats = ["d"];
     internal static List<string> timeFormats = ["h:mm tt"];
+#endif
     internal static List<string> dateTimeFormats = [];
     internal static List<string> dateTimeOffsetFormats = [];
 

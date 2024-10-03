@@ -22,19 +22,11 @@ public static partial class VerifierSettings
     }
 #endif
 
-    [Obsolete("Use AddExtraDateTimeFormat instead.")]
-    public static void AddExtraDatetimeFormat(string format) =>
-        AddExtraDateTimeFormat(format);
-
     public static void AddExtraDateTimeFormat([StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.dateTimeFormats.Add(format);
     }
-
-    [Obsolete("Use AddExtraDateTimeOffsetFormat instead.")]
-    public static void AddExtraDatetimeOffsetFormat(string format) =>
-        AddExtraDateTimeOffsetFormat(format);
 
     public static void AddExtraDateTimeOffsetFormat([StringSyntax(StringSyntaxAttribute.DateTimeFormat)] string format)
     {

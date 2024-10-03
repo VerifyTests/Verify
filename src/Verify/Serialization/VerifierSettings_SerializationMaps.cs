@@ -8,6 +8,7 @@ public static partial class VerifierSettings
         serialization.AddExtraSettings(action);
     }
 
+#if NET6_0_OR_GREATER
     public static void AddExtraDateFormat([StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string format)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
@@ -19,6 +20,7 @@ public static partial class VerifierSettings
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         SerializationSettings.timeFormats.Add(format);
     }
+#endif
 
     [Obsolete("Use AddExtraDateTimeFormat instead.")]
     public static void AddExtraDatetimeFormat(string format) =>

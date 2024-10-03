@@ -74,11 +74,7 @@
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
-#if NET5_0_OR_GREATER
-        if (DateTimeOffset.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
-#else
-        if (DateTimeOffset.TryParseExact(span.ToString(), format, culture, DateTimeStyles.None, out var date))
-#endif
+        if (DateTimeOffsetPolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = SerializationSettings.Convert(counter, date);
             return true;
@@ -107,11 +103,7 @@
         Culture culture,
         [NotNullWhen(true)] out string? result)
     {
-#if NET5_0_OR_GREATER
-        if (DateTime.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
-#else
-        if (DateTime.TryParseExact(span.ToString(), format, culture, DateTimeStyles.None, out var date))
-#endif
+        if (DateTimePolyfill.TryParseExact(span, format, culture, DateTimeStyles.None, out var date))
         {
             result = SerializationSettings.Convert(counter, date);
             return true;

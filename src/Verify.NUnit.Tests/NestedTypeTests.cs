@@ -1,4 +1,5 @@
-﻿public class NestedTypeTests
+﻿[TestFixture]
+public class NestedTypeTests
 {
     [Test]
     public Task ShouldPass() =>

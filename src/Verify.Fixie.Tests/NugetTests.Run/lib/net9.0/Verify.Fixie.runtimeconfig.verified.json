@@ -1,0 +1,13 @@
+﻿{
+  "runtimeOptions": {
+    "tfm": "net9.0",
+    "framework": {
+      "name": "Microsoft.NETCore.App",
+      "version": "9.0.0-rc.1.24431.7"
+    },
+    "configProperties": {
+      "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+    }
+  }
+}

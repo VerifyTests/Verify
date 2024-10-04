@@ -13,13 +13,15 @@ public partial class VerifyBase
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        bool includeStructure = false) =>
         Verifier.Verify(
             archive,
             include,
             settings ?? this.settings,
             info,
             fileScrubber,
+            includeStructure,
             sourceFile);
 
     /// <summary>
@@ -31,13 +33,15 @@ public partial class VerifyBase
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        bool includeStructure = false) =>
         Verifier.VerifyZip(
             path,
             include,
             settings ?? this.settings,
             info,
             fileScrubber,
+            includeStructure,
             sourceFile);
 
     /// <summary>
@@ -49,12 +53,14 @@ public partial class VerifyBase
         Func<ZipArchiveEntry, bool>? include = null,
         VerifySettings? settings = null,
         object? info = null,
-        FileScrubber? fileScrubber = null) =>
+        FileScrubber? fileScrubber = null,
+        bool includeStructure = false) =>
         Verifier.VerifyZip(
             stream,
             include,
             settings ?? this.settings,
             info,
             fileScrubber,
+            includeStructure,
             sourceFile);
 }

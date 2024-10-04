@@ -8,27 +8,30 @@ partial class InnerVerifier
         string path,
         Func<ZipArchiveEntry, bool>? include,
         object? info,
-        FileScrubber? scrubber)
+        FileScrubber? scrubber,
+        bool includeStructure)
     {
         using var stream = File.OpenRead(path);
-        return await VerifyZip(stream, include, info, scrubber);
+        return await VerifyZip(stream, include, info, scrubber, includeStructure);
     }
 
     public async Task<VerifyResult> VerifyZip(
         Stream stream,
         Func<ZipArchiveEntry, bool>? include,
         object? info,
-        FileScrubber? scrubber)
+        FileScrubber? scrubber,
+        bool includeStructure)
     {
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
-        return await VerifyZip(archive, include, info, scrubber);
+        return await VerifyZip(archive, include, info, scrubber, includeStructure);
     }
 
     public async Task<VerifyResult> VerifyZip(
         ZipArchive archive,
         Func<ZipArchiveEntry, bool>? include,
         object? info,
-        FileScrubber? scrubber)
+        FileScrubber? scrubber,
+        bool includeStructure)
     {
         var targets = new List<Target>();
         if (info is not null)
@@ -44,8 +47,10 @@ partial class InnerVerifier
 
         include ??= _ => true;
 
+        var paths = new List<string>();
         foreach (var entry in archive.Entries)
         {
+            paths.Add(entry.FullName);
             if (!include(entry))
             {
                 continue;
@@ -68,6 +73,11 @@ partial class InnerVerifier
             }
 
             targets.Add(await TargetFromFile(fullName, pathWithoutExtension, scrubber, () => entry.Open()));
+        }
+
+        if (includeStructure)
+        {
+            targets.Insert(0, new("txt", string.Join("\n", paths), "structure"));
         }
 
         return await VerifyInner(targets);

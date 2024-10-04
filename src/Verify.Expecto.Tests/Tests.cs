@@ -5,7 +5,6 @@ public class Tests
     // ReSharper disable once UnusedMember.Local
     static void DerivePathInfo() =>
     #region DerivePathInfoExpecto
-
         Verifier.DerivePathInfo(
             (sourceFile, projectDirectory, type, method) => new(
                 directory: Path.Combine(projectDirectory, "Snapshots"),

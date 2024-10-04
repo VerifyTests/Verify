@@ -721,7 +721,7 @@ Verifier.DerivePathInfo(
         typeName: type.Name,
         methodName: method.Name));
 ```
-<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L16-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoMSTest' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.MSTest.Tests/Tests.cs#L12-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoMSTest' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -736,7 +736,7 @@ Verifier.DerivePathInfo(
         typeName: type,
         methodName: method));
 ```
-<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L7-L14' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoExpecto' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Verify.Expecto.Tests/Tests.cs#L7-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-DerivePathInfoExpecto' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

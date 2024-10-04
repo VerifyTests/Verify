@@ -16,10 +16,11 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(archive, include, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(archive, include, info, fileScrubber, includeStructure), true);
     }
 
     /// <summary>
@@ -32,10 +33,11 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(path, include, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(path, include, info, fileScrubber, includeStructure), true);
     }
 
     /// <summary>
@@ -48,9 +50,10 @@ public static partial class Verifier
         VerifySettings? settings = null,
         object? info = null,
         FileScrubber? fileScrubber = null,
+        bool includeStructure = false,
         [CallerFilePath] string sourceFile = "")
     {
         var assembly = Assembly.GetCallingAssembly()!;
-        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(stream, include, info, fileScrubber), true);
+        return Verify(settings, assembly, sourceFile, name, _ => _.VerifyZip(stream, include, info, fileScrubber, includeStructure), true);
     }
 }
